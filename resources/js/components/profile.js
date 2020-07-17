@@ -1,0 +1,12 @@
+Vue.component('profile',require('./profile/Profile.vue').default);
+Vue.component('public',require('./profile/Public.vue').default);
+Vue.component('profile-top',require('./profile/ProfileTop.vue').default);
+Vue.component('video-player',require('./home/VideoPlayer.vue').default);
+Vue.component('code-box',require('./home/CodeBox.vue').default);
+Vue.component('image-cropper',require('./profile/ImageCropper.vue').default);
+Vue.component('image-loader',require('./profile/ImageLoader.vue').default);
+Vue.component('image-viewer',require('./profile/ImageViewer.vue').default);
+Vue.component('full-image-viewer',require('./home/FullImageViewer.vue').default);
+Vue.component('code-viewer',require('./home/CodeViewer.vue').default);
+Vue.component('library-shelves',require('./home/LibraryShelves').default);
+Vue.component('share',require('./space/Share.vue').default);

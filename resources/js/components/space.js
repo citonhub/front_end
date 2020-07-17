@@ -1,0 +1,13 @@
+Vue.component('space',require('./space/Space.vue').default);
+Vue.component('channel-top',require('./space/ChannelTop.vue').default);
+Vue.component('channel-bottom',require('./space/ChannelBottom.vue').default);
+Vue.component('image-cropper',require('./profile/ImageCropper.vue').default);
+Vue.component('audio-player',require('./space/AudioPlayer.vue').default);
+Vue.component('video-player',require('./space/VideoPlayer.vue').default);
+Vue.component('image-loader',require('./space/ImageLoader.vue').default);
+Vue.component('image-viewer',require('./space/ImageViewer.vue').default);
+Vue.component('full-image-viewer',require('./space/FullImageViewer.vue').default);
+Vue.component('code-box',require('./space/CodeBox.vue').default);
+Vue.component('share',require('./space/Share.vue').default);
+Vue.component('voice-recorder',require('./space/VoiceRecorder.vue').default);
+Vue.component('channel-code-box',require('./space/ChannelCodeBox.vue').default);

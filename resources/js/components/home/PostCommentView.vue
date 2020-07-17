@@ -1,0 +1,381 @@
+<template>
+     <div style="overflow-y:hidden;">
+
+         <div v-if="this.$root.showCodeEditor">
+            <code-viewer></code-viewer>
+      </div>
+
+      <div v-if="this.$root.fullImageViewer">
+            <full-image-viewer></full-image-viewer>
+      </div>
+
+      <library-shelves v-if="this.$root.showShelves"></library-shelves>
+
+       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+         <div class="row my-0 py-0 px-2">
+
+
+        <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
+       <div class="row py-1 my-0 px-1" >
+         <div class="col-4 py-0 my-0 text-left" style="border-bottom:2px solid #4495a2;" >
+            <v-btn icon color="#4495a2" @click="showHome"><v-icon>mdi-arrow-left</v-icon></v-btn>
+         </div>
+         <div class="col-4 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
+            <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Post Comment</span>
+         </div>
+         <div class="col-4 py-0 my-0  d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
+            
+         </div>
+       
+
+           
+      </div>
+     </div>
+
+       <div class="py-1 my-0" style="position:absolute;top:7%; height:93%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; ">
+           
+           <div v-for="(post,index) in this.$root.postArray" :key="index">
+          
+
+           <div class="col-12 py-1"  @click.stop="viewPost()">
+        <div class="row" style="background-color:white; border-bottom:1px solid #cccccc;">
+           <div class="col-12 py-0 d-flex ">
+             <div>
+                  <div :style="imageStyle(43,post.commented_post.userProfile)"   @click.stop="viewUser(post.commented_post)"
+                  class="d-inline-block" >
+
+                  </div>
+             </div>
+            
+                <div class="d-inline-block ml-2 mt-1">
+                 <span style="font-size:13px;font-family:HeaderText;" class="d-block"  @click.stop="viewUser(post.commented_post)" ><b>{{ post.commented_post.username }}</b></span>
+                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(post.commented_post.created_at)}} at {{formatTime(post.commented_post.created_at)}}</b></span>
+                   
+                </div>
+        </div>
+         <div class="py-1 px-2 col-12 my-0">
+                   <span style="font-size:13px; color: #333333;" v-html="post.commented_post.content"></span>
+                </div>
+
+                
+
+
+          <div class="py-0 pb-1 px-2 col-12 my-0" >
+
+             <div style="width:100%;" v-if="post.commented_post.attachment_type == 'image'" >
+                 <image-viewer :imageArray="post.commented_post.image"></image-viewer>
+             </div>
+
+              <div style="width:100%;" v-if="post.commented_post.attachment_type == 'video'">
+                 <video-player :videoUrl="'/videos/' + post.commented_post.video.video_name + '.' + post.commented_post.video.video_extension" :backgroundColor="post.commented_post.video.background_color"
+                  :backgroundImg="'/videos/previewImage/'+ post.commented_post.video.preview_image_url" :playerId="post.commented_post.post_id"></video-player>
+             </div>
+
+               <div style="width:100%;" v-if="post.commented_post.attachment_type == 'code'" >
+                 <code-box :codeContent="post.commented_post.code.content" :filename="post.commented_post.code.name" :codeLanguage="post.commented_post.code.language_type" :codeViewerType="viewerType"></code-box>
+             </div>
+                  
+                </div>
+            <div class="py-0 px-2 col-12 my-0">
+                   <div class="row">
+                    <div class="col-3 my-0 py-0 text-center">
+                      <v-btn class="d-inline-block" icon  @click.stop="likePost(post.commented_post)">
+                        <v-icon color="#3E8893" v-if="post.commented_post.post_liked">mdi-heart</v-icon>
+                        <v-icon color="#3E8893" v-else>mdi-heart-outline</v-icon>
+                        
+                        </v-btn>
+                         <span style="font-size:10px; color:#a6a6a6;">{{post.commented_post.likes}}</span>
+                      
+                    </div>
+                     <div class="col-3 my-0 py-0 text-center">
+
+                     <v-btn class="d-inline-block" icon>
+                        <v-icon color="#a6a6a6">mdi-comment-text-outline</v-icon>
+                        
+                        </v-btn>
+                         <span style="font-size:10px; color:#a6a6a6;">{{post.commented_post.comments}}</span>
+                    </div>
+                     <div class="col-3 my-0 py-0 text-center">
+                    <v-btn class="d-inline-block" icon @click.stop="library(post.commented_post)">
+                        <v-icon  color="#3E8893" v-if="post.commented_post.post_pulled">mdi-source-pull </v-icon>
+                        <v-icon color="#a6a6a6" v-else>mdi-source-pull </v-icon>
+                        
+                        </v-btn>
+                         <span style="font-size:10px; color:#a6a6a6;">{{post.commented_post.pulls}}</span>
+                    </div>
+                     <div class="col-3 my-0 py-0 text-center">
+                      <v-btn class="d-inline-block" icon @click.stop="share">
+                        <v-icon color="#a6a6a6">mdi-share-variant</v-icon>
+                        </v-btn>
+                    </div>
+                   </div>
+                </div>
+        </div>
+       </div>
+         <div class="px-2">
+              <div class="col-12 py-1" style="background-color:whitesmoke; border-bottom:1px solid #cccccc;">
+        <div class="row" >
+           <div class="col-12 py-0 d-flex " >
+             <div>
+                  <div :style="imageStyle(38,post.userProfile)"  @click.stop="viewUser(post)" 
+                  class="d-inline-block" >
+
+                  </div>
+             </div>
+            
+                <div class="d-inline-block ml-2 mt-1">
+                 <span style="font-size:13px;font-family:HeaderText;" class="d-block" @click.stop="viewUser(post)" ><b>{{ post.username }}</b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(post.created_at)}} at {{formatTime(post.created_at)}}</b></span>
+                   
+                </div>
+        </div>
+         <div class="py-1 px-2 col-12 my-0">
+                   <span style="font-size:12px; color: #333333;" v-html="post.content"></span>
+                </div>
+
+            
+
+
+                  <div class="py-0 pb-1 px-2 col-12 my-0" >
+
+             <div style="width:100%;" v-if="post.attachment_type == 'image'" >
+                 <image-viewer :imageArray="post.image"></image-viewer>
+             </div>
+
+              <div style="width:100%;" v-if="post.attachment_type == 'video'">
+                 <video-player :videoUrl="'/videos/' + post.video.video_name + '.' + post.video.video_extension" :backgroundColor="post.video.background_color"
+                  :backgroundImg="'/videos/previewImage/'+ post.video.preview_image_url" :playerId="post.post_id"></video-player>
+             </div>
+
+               <div style="width:100%;" v-if="post.attachment_type == 'code'" >
+                 <code-box :codeContent="post.code.content" :filename="post.code.name" :codeLanguage="post.code.language_type" :codeViewerType="viewerType"></code-box>
+             </div>
+                  
+                </div>
+
+        
+             <div class="py-0 px-2 col-12 my-0" >
+                   <div class="row">
+                    <div class="col-4 my-0 py-0 text-center">
+                     <v-btn class="d-inline-block" icon  @click.stop="likePost(post)">
+                        <v-icon color="#3E8893" v-if="post.post_liked">mdi-heart</v-icon>
+                        <v-icon color="#3E8893" v-else>mdi-heart-outline</v-icon>
+                        
+                        </v-btn>
+                         <span style="font-size:10px; color:#a6a6a6;">{{post.likes}}</span>
+                      
+                    </div>
+                     
+                     <div class="col-4 my-0 py-0 text-center">
+                     <v-btn class="d-inline-block" icon @click.stop="library(post)">
+                        <v-icon  color="#3E8893" v-if="post.post_pulled">mdi-source-pull </v-icon>
+                        <v-icon color="#a6a6a6" v-else>mdi-source-pull </v-icon>
+                        
+                        </v-btn>
+                         <span style="font-size:9px; color:#a6a6a6;">{{post.pulls}}</span>
+                    </div>
+                     <div class="col-4 my-0 py-0 text-center">
+                      <v-btn class="d-inline-block" icon @click="replyComment(post)">
+                        <v-icon color="#a6a6a6">mdi-reply</v-icon>
+                        </v-btn>
+                    </div>
+                   </div>
+                </div>
+        </div>
+     </div>
+         </div>
+        
+
+         <div class="col-12 py-5 my-5" style="padding-top:100px !important;">
+             
+         </div>
+              
+           </div>
+          
+        </div>
+
+
+
+
+
+
+       
+         </div>
+
+      
+
+       </div>
+     </div>
+</template>
+<script>
+
+
+export default {
+    data(){
+        return{
+          
+        myhtml:'<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.Veniam atque quod voluptatum dolorum dicta tempore,</p>',
+         post: [],
+         viewerType:'homeViewer',
+         postId : this.$route.params.postId,
+         username: this.$route.params.username,
+         postComments:[],
+         postArray:this.$root.postArray,
+        }
+    },
+    components: {
+   
+  },
+   mounted(){
+      this.$root.showTabs=true;
+       this.$root.showHeader = false;
+       
+      this.getPost();
+    },
+    methods:{
+      formatDate:function(date){
+       let Dateformat = moment(date);
+
+        return  Dateformat.format('MMM D,YYYY')
+    },
+    formatTime:function(date){
+       let Dateformat = moment(date);
+
+        return  Dateformat.format('H:mm a');
+    },
+        share:function(){
+      this.$root.showShare = true;
+    },
+     imageStyle:function(dimension,post){
+      
+
+      if(post.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
+         styleString += 'background-color:#ffffff; background-image:url(imgs/user.svg);';
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;";
+         let imgLink = post.image_name + '.' + post.image_extension;
+          styleString += 'background-color:'+ post.background_color + '; background-image:url(imgs/profile/'  + imgLink  +  ');';
+          return styleString;
+      }
+
+      
+
+
+  },
+   viewUser: function(postData){
+       this.$root.pageloader = true;
+        window.location = '/view-profile#/profile/activities/'+ postData.username;  
+          },
+       replyComment: function(post){
+             this.$root.checkIfUserIsLoggedIn('home');
+           this.$root.commentIsReply = true;
+           this.$root.repliedPostId = post.PostId;
+            this.$root.commentUsername = post.username;
+            this.$root.commentPostId = this.$route.params.postId;
+           this.$router.push({ path: '/post/' + this.$route.params.username + '/' +this.$route.params.postId + '/comment' }); 
+       },
+        showHome: function(){
+        this.$root.fromView = true;
+         this.$root.PostRefId = this.post.id;
+       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+   },
+          library: function(post){
+             this.$root.checkIfUserIsLoggedIn('home');
+              if(post.post_pulled){
+                 return;
+               }
+            
+            this.$root.loadShelves();
+            this.$root.pullingPostId = post.PostId;
+            this.$root.scrollHome = 'hidden';
+            this.$root.showShelves = true;
+            this.$root.postArrayType =  this.$root.postArray;
+            
+        },
+   
+    goBack() {
+         this.$root.croppedImage = this.$refs.cropper.image;
+        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+        },
+      getPost:function(){
+        if(this.$root.postData.length != 0){
+            
+            
+          var post = this.$root.postData.filter((post) => {
+             return post.PostId == this.postId;
+          });
+          this.post = post[0];
+           this.postArray = post;
+            this.$root.postArray = post;
+          
+
+        }else{
+           
+           axios.get('/fetch-post/' + this.$route.params.postId )
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+        this.post = response.data[0];
+        this.postArray = response.data;
+         this.$root.postArray = response.data;
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+        }
+      },
+
+    viewPost: function(){
+           this.$root.checkIfUserIsLoggedIn('home');
+
+           this.$root.postArray = [this.post.commented_post];
+        this.$router.push({ path: '/post/' + this.post.commented_post.username + '/' + this.post.commented_post.PostId });
+    },
+    likePost: function(postData){
+
+          this.$root.checkIfUserIsLoggedIn('home');
+        
+        if(postData.post_liked){
+          return;
+        }
+          axios.post('/save-liked-post',{
+            "post_id": postData.PostId
+          })
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+          
+        
+         this.postArray.map((post)=> {
+            if(post.PostId == postData.PostId){
+                post.post_liked = true;
+              post.likes = post.likes + 1;
+            }
+         });
+        
+        
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+       },
+    
+    },
+   
+}
+</script>
+<style>
+
+</style>

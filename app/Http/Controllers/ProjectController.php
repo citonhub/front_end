@@ -1,0 +1,281 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Panel;
+use App\Space;
+use App\ProjectStar;
+use App\ProjectComment;
+use App\Project;
+use DB;
+use App\ProjectCommentLike;
+use Illuminate\Support\Facades\Auth;
+
+
+
+class ProjectController extends Controller
+{
+
+    public static function createSlug($str, $delimiter = '-'){
+
+        $slug = strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))), $delimiter));
+        return $slug;
+    
+    } 
+
+
+    public function saveComment(Request $request){
+   
+        $Comment = ProjectComment::create([
+            "user_id"=>Auth::id(),
+            "project_slug"=> $request->get('project_slug'),
+            "content"=> $request->get('content'),
+            "is_reply"=> $request->get('is_reply'),
+            "replied_comment_id"=> $request->get('replied_comment_id'),
+            "likes"=> 0
+          ]);
+   
+          $Comment->save();
+           
+          $currentProject = Project::where('project_slug', $request->get('project_slug'))->first();
+   
+          $newcomment = $currentProject->comments + 1;
+   
+           $currentProject->update([
+            'comments'=> $newcomment
+           ]);
+   
+           return ['status','ok'];
+    }
+
+
+    public function fetchProjectComments($projectSlug){
+       
+        $projectComments = DB::table('project_comments')
+        ->join('projects','projects.project_slug','project_comments.project_slug')
+        ->join('users','users.id','project_comments.user_id')
+        ->select(
+          "project_comments.likes as likes",
+          "project_comments.id as id",
+          "project_comments.content as content",
+          "project_comments.project_slug as project_slug",
+          "users.username as username",
+          "project_comments.is_reply as is_reply",
+          "project_comments.replied_comment_id as replied_comment_id"
+        )
+        ->where('project_comments.project_slug',$projectSlug)
+        ->orderBy('project_comments.created_at', 'desc')->paginate(10);
+        
+
+ $newCommentArray = [];
+
+foreach ($projectComments as $comment) {
+  
+
+ $comment = (array) $comment;
+
+ if($comment['is_reply'] ==  true){
+
+    $thiscomment = DB::table('project_comments')
+    ->join('projects','projects.project_slug','project_comments.project_slug')
+    ->join('users','users.id','project_comments.user_id')
+    ->select(
+      "project_comments.likes as likes",
+      "project_comments.id as id",
+      "project_comments.content as content",
+      "users.username as username",
+      "project_comments.is_reply as is_reply",
+      "project_comments.replied_comment_id as replied_comment_id"
+    )
+    ->where('project_comments.id',$comment['replied_comment_id'])
+    ->first();
+    
+    $comment['replied_comment'] = $thiscomment;
+
+ }
+    $userProjectCommentLike = ProjectCommentLike::where('project_comment_id',$comment["id"])->where('user_id',Auth::id())->get();
+
+    if($userProjectCommentLike->isEmpty()){
+     $comment['liked_by_user'] = false;
+    }else{
+     $comment['liked_by_user'] = true;
+    }
+  
+ 
+
+ array_push($newCommentArray,$comment);
+ 
+}
+       
+   
+return $newCommentArray;
+    }
+
+
+
+    public function saveProjectLikes(Request $request){
+ 
+        $presenceProjectComment = projectComment::where('id',$request->get('comment_id'))->first();
+    
+        $userprojectCommentLike = projectCommentLike::where('project_comment_id',$request->get('comment_id'))->where('user_id',Auth::id())->get();
+ 
+          if($userprojectCommentLike->isEmpty()){
+ 
+             $projectCommentLikeData = projectCommentLike::create([
+                "project_comment_id" => $request->get('comment_id'),
+                "user_id" => Auth::id()
+              ]);
+        
+               $projectCommentLikeData->save();
+        
+              $projectCommentLikes = $presenceProjectComment->likes + 1;
+        
+              $presenceProjectComment->update([
+             'likes'=> $projectCommentLikes
+              ]);
+ 
+             
+ 
+          }
+ 
+    }
+
+
+    public function generateRandomNumber($length = 10,$characters) {
+        
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }   
+        return $randomString;
+         }
+
+         
+    public function createProject(Request $request){
+       
+        $characters = '1234567890';
+        $randomString = $this->generateRandomNumber(9,$characters);
+  
+        $newPanel = Panel::create([
+          "user_id"=> Auth::id(),
+          "purpose"=> 'duel',
+          "panel_id"=> $randomString,
+          "is_set"=> false
+        ]);
+  
+       $newPanel->save();
+
+        $slugCharacter = 'abcdefghijklmnopqrstuvwxyz1234567890';
+
+         $thisSpace = Space::where('space_id',$request->get('owner'))->first();
+
+        $slugRandom =  $this->generateRandomNumber(12,$slugCharacter);
+         
+        $projectSlug = 'project-' . $this->createSlug($thisSpace->name) . '-' . $slugRandom;
+         
+        $NewProject = Project::create([
+           "project_slug"=> $projectSlug,
+           "panel_id"=> $randomString,
+           "title"=>  $request->get('title'),
+           "stars"=> 0,
+           "comments"=> 0,
+           "views"=> 0,
+           "user_id"=>Auth::id(),
+           "type"=> $request->get('type'),
+           "space_id"=> $request->get('owner')
+        ]);
+
+        $NewProject->save();
+
+
+    }
+
+    public function saveProjectStar(Request $request){
+       
+        $projectStar = ProjectStar::where('id',$request->get('stars')[0]["id"])->first();
+
+        $projectStar->update([
+          "stars"=>  $request->get('stars')[0]["stars"]
+        ]);
+    }
+
+    public function fetchProject($projectSlug){
+
+        $project = Project::where('project_slug',$projectSlug)->get();
+
+        $newProject = [];
+
+        foreach ($project as $eachProject) {
+             
+            $eachProjectNew = (array) $eachProject;
+
+            $totalStars = 0;
+
+            $allStars = ProjectStar::where('project_id',$eachProject["id"])->get();
+
+            foreach ($allStars as $star) {
+              
+                 $totalStars += $star->stars;
+            }
+
+            $eachProject["total_stars"] = $totalStars;
+
+            array_push($newProject,$eachProject);
+        }
+
+       if(Auth::check()){
+           
+        $projectStar = ProjectStar::where('user_id',Auth::id())->where('project_id',$newProject[0]["id"])->get();
+         
+        if($projectStar->isEmpty() && (Auth::id() != $newProject[0]["user_id"])){
+            
+           $projectStar = ProjectStar::create([
+             "user_id"=> Auth::id(),
+             "project_id"=> $newProject[0]["id"],
+             "stars"=> 0
+           ]);
+
+            $projectStar->save();
+          
+        }
+
+        $projectStar = ProjectStar::where('user_id',Auth::id())->where('project_id',$newProject[0]["id"])->get();
+       }else{
+            $projectStar = [];
+       }
+
+        
+
+        return [$newProject[0],$projectStar];
+    }
+
+    public function fetchProjects($spaceId){
+      
+        $allProjects = Project::where('space_id',$spaceId)->orderBy('created_at','desc')->paginate(20);
+
+
+        $newProject = [];
+
+        foreach ($allProjects as $eachProject) {
+             
+            $eachProjectNew = (array) $eachProject;
+
+            $totalStars = 0;
+
+            $allStars = ProjectStar::where('project_id',$eachProject["id"])->get();
+
+            foreach ($allStars as $star) {
+              
+                 $totalStars += $star->stars;
+            }
+
+            $eachProject["total_stars"] = $totalStars;
+
+            array_push($newProject,$eachProject);
+        }
+
+        return $newProject;
+    }
+}

@@ -1,0 +1,959 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Space;
+use App\SpaceMessage;
+use App\ImageMessage;
+use App\FileMessage;
+use App\AudioMessage;
+use App\VideoMessage;
+use App\CodeMessage;
+use ColorThief\ColorThief;
+use App\traits\ManagesImages;
+use FFMpeg\FFMpeg;
+use App\Team;
+use App\SpaceMember;
+use Carbon\Carbon;
+use App\Events\SpaceChannel;
+use App\Events\UserChannel;
+use DB;
+use App\UnreadMessage;
+
+class SpaceController extends Controller
+{
+
+    use ManagesImages;
+
+    public function __construct()
+    {
+        $this->setImageDefaultsFromConfig('spaceImage');
+      
+    }
+
+    public function updateSpace(Request $request){
+          $characters = 'abcdefjhijklmnopqrstuvwxyz';
+        $randomString =  $this->generateRandomNumber(10,$characters);
+
+       $space = Space::where('space_id',$request->get('space_id'))->first();
+
+         if($request->file('image') != null){
+            $space->update([
+               "name"=> $request->get('name'),
+               "description"=> $request->get('description'),
+               "image_name"=> 'space_profile_' . $randomString,
+               "image_extension"=> $request->get('image_ext'),
+              ]);
+      
+              
+            
+              $imageFile = $request->file('image');
+      
+              list($width, $height) = getimagesize($imageFile);
+              $this->imgWidth = $width;
+              $this->imgHeight = $height;
+            $this->saveImageFiles($imageFile,$space); 
+         
+            $imagePath = '/var/www/citonhubnew/public/imgs/space/'. $space->image_name . '.' . $space->image_extension;
+                
+            $dominantColor = ColorThief::getColor($imagePath);
+              $colorToRGBA = 'rgba('. $dominantColor[0] . ',' . $dominantColor[1] . ',' . $dominantColor[2] . ',0.6)'; 
+            $space->update([
+               "background_color"=> $colorToRGBA
+            ]);
+         }else{
+
+            $space->update([
+               "name"=> $request->get('name'),
+               "description"=> $request->get('description')
+              ]);
+         }
+      
+      
+
+    }
+
+
+
+    public function generateRandomNumber($length = 10,$characters) {
+        
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }   
+        return $randomString;
+         }
+
+
+
+     public function saveMessage(Request $request){
+        $attachment_type = $request->get('attachment_type');
+
+        if($request->get('attachment_type') == 'voiceRecord'){
+           $attachment_type = 'audio';
+        }
+        
+       
+           
+        $newMessage = SpaceMessage::create([
+         "space_id"=>$request->get('space_id'),
+         "type"=>$attachment_type,
+         "is_reply"=>$request->get('is_reply'),
+         "user_id"=> Auth::id(),
+         "replied_message_id"=> $request->get('replied_message_id'),
+         "content"=> $request->get('content'),
+      ]);
+
+     
+ 
+      $newMessage->save();
+
+      
+
+      
+
+       
+
+       if($attachment_type == 'image'){
+             
+         $imageArray =[];
+
+              if($request->file('image1') != null){
+               
+               $imageArray["image1"] = [$request->file('image1'),$request->get('imageType1')];
+              }
+
+              if($request->file('image2') != null){
+               
+               $imageArray["image2"] = [$request->file('image2'),$request->get('imageType2')];
+              }
+
+              if($request->file('image3') != null){
+               
+               $imageArray["image3"] = [$request->file('image3'),$request->get('imageType3')];
+              }
+
+              if($request->file('image4') != null){
+               
+               $imageArray["image4"] = [$request->file('image4'),$request->get('imageType4')];
+              }
+   
+           $this->saveMessageImgs($imageArray,$newMessage->id);            
+       }
+
+       $randomString = $newMessage->id;
+
+       if($attachment_type == 'video'){
+        
+         $file = $request->file('video');
+         $ffmpeg = FFMpeg::create();
+        $video = $ffmpeg->open($file);
+       
+        $videoName = 'space_video_'. $randomString ;
+
+
+        $video
+        ->frame(\FFMpeg\Coordinate\TimeCode::fromSeconds(10))
+        ->save('/var/www/citonhubnew/public/videos/previewImage/'. $videoName . '.jpg');
+
+      
+
+        $videoExtension =  $request->file('video')->getClientOriginalExtension();
+      
+        $location = '/var/www/citonhubnew/public/videos/';
+              
+        $file = $request->file('video');
+        $file->move($location, $videoName . '.' . $videoExtension);
+
+       
+
+
+        $newMessageVideo = VideoMessage::create([
+          "video_extension"=> $videoExtension,
+          "video_name"=> $videoName,
+          "preview_image_url"=> $videoName . '.jpg',
+          "message_id"=> $newMessage->id,
+          "display_name"=> $request->get('display_name'),
+          "background_color"=> '#c5c5c5' 
+        ]);
+
+        $newMessageVideo->save();
+
+       $imagePath = '/var/www/citonhubnew/public/videos/previewImage/'. $videoName . '.' . 'jpg';
+
+       $dominantColor = ColorThief::getColor($imagePath);
+
+         $colorToRGBA = 'rgba('. $dominantColor[0] . ',' . $dominantColor[1] . ',' . $dominantColor[2] . ',0.6)'; 
+       $newMessageVideo->update([
+          "background_color"=> $colorToRGBA
+       ]);
+
+
+        }
+
+
+
+
+       if($request->get('attachment_type') == 'audio'){
+         $file = $request->file('audio');
+        
+      
+         $audioName = 'space_audio_'. $randomString ;
+  
+  
+        
+  
+         $audioExtension =  $request->file('audio')->getClientOriginalExtension();
+       
+         $location = '/var/www/citonhubnew/public/audio/';
+               
+         $file = $request->file('audio');
+  
+         $file->move($location, $audioName . '.' . $audioExtension);
+  
+        
+  
+  
+         $newMessageAudio = AudioMessage::create([
+           "audio_extension"=> $audioExtension,
+           "audio_name"=> $audioName,
+           "message_id"=> $newMessage->id,
+           "display_name"=> $request->get('display_name')
+         ]);
+  
+         $newMessageAudio->save();
+  
+      }
+      
+
+       if($request->get('attachment_type') == 'voiceRecord'){
+        
+         $file = $request->file('audio');
+         
+         $ffmpeg = FFMpeg::create();
+         $audio = $ffmpeg->open($file);
+
+         $format = new \FFMpeg\Format\Audio\Mp3();
+         $format->on('progress', function ($audio, $format) {
+           
+        });
+
+        $format
+          ->setAudioChannels(2)
+         ->setAudioKiloBitrate(256);
+      
+         $audioName = 'space_audio_'. $randomString ;
+      
+         
+  
+        
+  
+         $audioExtension =  'mp3';
+       
+         $location = '/var/www/citonhubnew/public/audio/';
+
+         $fullPath = $location .  $audioName . '.' . $audioExtension;
+
+         $audio->save($format, $fullPath);
+               
+         
+  
+        
+  
+  
+         $newMessageAudio = AudioMessage::create([
+           "audio_extension"=> $audioExtension,
+           "audio_name"=> $audioName,
+           "message_id"=> $newMessage->id,
+           "display_name"=> $request->get('display_name')
+         ]);
+  
+         $newMessageAudio->save();
+    
+       }
+
+
+       if($attachment_type == 'file'){
+        
+        $file = $request->file('file');
+        
+      
+       $fileName = 'space_file_'. $randomString ;
+
+
+      
+
+       $fileExtension =  $request->file('file')->getClientOriginalExtension();
+     
+       $location = '/var/www/citonhubnew/public/file/';
+             
+       $file = $request->file('file');
+
+       $file->move($location, $fileName . '.' . $fileExtension);
+
+      
+
+
+       $newMessageAudio = FileMessage::create([
+         "file_extension"=> $fileExtension,
+         "file_name"=> $fileName,
+         "file_size"=> $request->get('file_size'),
+         "message_id"=> $newMessage->id,
+         "display_name"=> $request->get('display_name')
+       ]);
+
+       $newMessageAudio->save();
+
+    
+       }
+
+
+
+        if($attachment_type == 'code'){
+        
+         $newMessageCode = CodeMessage::create([
+           "name"=> $request->get('file_name'),
+           "language_type"=> $request->get('language_type'),
+           "content"=> $request->get('code'),
+           "message_id"=> $newMessage->id
+         ]);
+
+         $newMessageCode->save();
+
+        }
+
+        $spacemessage =DB::table('space_messages')
+        ->join('users','users.id','space_messages.user_id')
+        ->select(
+            'space_messages.content as content',
+            'space_messages.type as type',
+            'users.username as username',
+            'users.id as user_id',
+            'space_messages.space_id as space_id',
+            'space_messages.created_at as created_at',
+            'space_messages.is_reply as is_reply',
+            'space_messages.replied_message_id as replied_message_id',
+            'space_messages.id as message_id'
+        )
+        ->where('space_messages.id',$newMessage->id)
+        ->get();
+
+        $timeArray = [];
+
+
+        $newMessage = $this->MessageEngine($spacemessage,$timeArray);
+         
+       
+        $activeMembers = $request->get('current_user');
+
+        if($request->get('current_user') == 'empty'){
+         $activeMembers = [];
+        }
+
+        $spaceMembers = DB::table('space_members')
+                    ->join('users','users.id','space_members.user_id')
+                    ->select(
+                       'users.username as username',
+                       'users.name as name',
+                       'users.id as id'
+                    )->where('space_members.space_id',$request->get('space_id'))
+                    ->get();
+         $disconnectedUsers = [];
+
+         foreach ($spaceMembers as $member) {
+           
+            foreach ($activeMembers as $active) {
+               
+               if($active["id"] != $member->id){
+                 array_push($disconnectedUsers,$member);
+               }
+
+            }
+            
+         }
+     
+        
+         
+         foreach ($disconnectedUsers as $user) {
+
+            $userUnread = UnreadMessage::where('space_id',$request->get('space_id'))->where('user_id',$user->id)->get();
+
+            if($userUnread->isEmpty()){
+               $userUnread = UnreadMessage::create([
+               'user_id'=> $user->id,
+               'space_id'=> $request->get('space_id'),
+               'unread'=> 0
+               ]);
+
+               $userUnread->save();
+            }
+
+            $userUnread = UnreadMessage::where('space_id',$request->get('space_id'))->where('user_id',$user->id)->first();
+
+             $userUnread->update([
+               'unread' => $userUnread->unread + 1
+             ]);
+
+            broadcast(new UserChannel('message-alert',$request->get('space_id'),$user->username));
+         }
+         
+
+     
+        broadcast(new SpaceChannel('new-message',$newMessage[0],$request->get('space_id')))->toOthers();
+        
+
+      return $newMessage;
+   }
+
+
+   public function saveMessageImgs($imageArray,$newMessageId){
+       
+        $randomString = $newMessageId;
+     
+   
+    $number = 0;
+
+foreach ($imageArray as $image) {
+         
+  $number += 1;
+  if($image != null){
+        
+     $ImageFile = $image[0];
+     $type = $image[1];
+
+     list($width, $height) = getimagesize($ImageFile);
+  
+     $imageName = 'space_image_'. $number . '_' . $randomString;
+
+       if($type == null){
+        $imageExtension = $ImageFile->getClientOriginalExtension();
+       }else{
+        $imageExtension = $type;
+       }
+    
+  
+     $newImageMessage = ImageMessage::create([
+       "message_id"=> $newMessageId,
+       "image_name"=> $imageName,
+       "image_extension"=> $imageExtension,
+       "background_color"=> "#c5c5c5"
+     ]);
+     $newImageMessage->save();
+  
+     $file = $this->getUploadedFile($ImageFile);
+     // pass in the file and the model
+       $this->imgWidth = $width;
+       $this->imgHeight = $height;
+     $this->saveImageFiles($file,$newImageMessage); 
+  
+     $imagePath = '/var/www/citonhubnew/public/imgs/space/'. $imageName . '.' . $imageExtension;
+         
+     $dominantColor = ColorThief::getColor($imagePath);
+       $colorToRGBA = 'rgba('. $dominantColor[0] . ',' . $dominantColor[1] . ',' . $dominantColor[2] . ',0.6)'; 
+     $newImageMessage->update([
+        "background_color"=> $colorToRGBA
+     ]);
+
+    }
+ }
+}
+
+ public function messageTime($messageArray){
+ 
+    $messageTimeArray = [];
+
+     foreach ($messageArray as $message) {
+       
+        $messageTimeArray[$message->message_id] =  Carbon::create($message->created_at)->toFormattedDateString();
+
+          
+     }
+ 
+      $newTimedMessage = array_unique($messageTimeArray);
+     
+
+     return $newTimedMessage;
+    
+     
+ }
+
+  public function spaceResource($spaceId){
+      
+   $spacemessages =DB::table('space_messages')
+   ->join('users','users.id','space_messages.user_id')
+   ->select(
+       'space_messages.content as content',
+       'space_messages.type as type',
+       'users.username as username',
+       'users.id as user_id',
+       'space_messages.space_id as space_id',
+       'space_messages.created_at as created_at',
+       'space_messages.is_reply as is_reply',
+       'space_messages.replied_message_id as replied_message_id',
+       'space_messages.id as message_id'
+   )
+    ->where('space_messages.type','!=',null)
+    ->where('space_messages.type','!=', 'project')
+    ->where('space_messages.type','!=', 'image')
+    ->where('space_messages.type','!=', 'code')
+   ->where('space_messages.space_id',$spaceId)
+   ->paginate(30);
+
+
+
+   $timeArray = $this->messageTime($spacemessages);
+
+   $newMessages = $this->MessageEngine($spacemessages,$timeArray);
+
+   return $newMessages;
+
+  }
+
+ 
+public function fetchMessages($spaceId){
+
+   $userUnread = UnreadMessage::where('space_id',$spaceId)->where('user_id',Auth::id())->first();
+
+     if($userUnread != null){
+      $userUnread->update([
+      "unread"=> 0
+      ]);
+     }
+    
+     $space = Space::where('space_id',$spaceId)->first();
+
+     $spaceLimit = $space->limit;
+
+     $spaceMembers = SpaceMember::where('space_id',$spaceId)->get();
+
+     $spaceMemberCount = count($spaceMembers);
+
+
+     $UserMember = SpaceMember::where('user_id',Auth::id())->where('space_id',$spaceId)->get();
+
+      if($UserMember->isEmpty() && ($spaceMemberCount < $spaceLimit)){
+        
+         $spaceMember = SpaceMember::create([
+            'user_id'=> Auth::id(),
+            "is_admin"=> false,
+            'space_id'=> $spaceId
+         ]);
+   
+         $spaceMember->save();
+          
+      }
+
+      if($UserMember->isEmpty() && ($spaceMemberCount >= $spaceLimit)){
+        
+         return 'space_filled';
+          
+      }
+
+         
+      
+   
+     $spacemessages =DB::table('space_messages')
+     ->join('users','users.id','space_messages.user_id')
+     ->select(
+         'space_messages.content as content',
+         'space_messages.type as type',
+         'users.username as username',
+         'users.id as user_id',
+         'space_messages.space_id as space_id',
+         'space_messages.created_at as created_at',
+         'space_messages.is_reply as is_reply',
+         'space_messages.replied_message_id as replied_message_id',
+         'space_messages.id as message_id'
+     )
+     ->where('space_messages.space_id',$spaceId)
+     ->paginate(5000);
+
+      $timeArray = $this->messageTime($spacemessages);
+
+       
+
+
+     $thisSpace = DB::table('space_members')
+                  ->join('spaces','spaces.space_id','space_members.space_id')
+                  ->select(
+                      'spaces.image_name as image_name',
+                      'spaces.image_extension as image_extension',
+                      'spaces.type as type',
+                      'spaces.name as name',
+                      'spaces.background_color as background_color',
+                      'spaces.description as description',
+                      'spaces.space_id as space_id'
+                  )
+                  ->where('spaces.space_id',$spaceId)
+                  ->first();
+
+      $spaceMembers = SpaceMember::where('space_id',$spaceId)->get();
+                  
+
+     $newMessages = $this->MessageEngine($spacemessages,$timeArray);
+
+     return [$newMessages,$thisSpace,$spaceMembers];
+}
+
+    
+
+public function MessageEngine($messageArray,$timeArray){
+
+     $newMessageArray = [];
+
+     foreach ($messageArray as $message) {
+        $message = (array) $message;
+
+
+           foreach ($timeArray as $key => $timer) {
+             
+             if($key == $message["message_id"]){
+               $message["showDate"] = $message["created_at"];
+             }
+           }
+
+      
+
+        if($message["type"] == 'image'){
+            
+            $ImageMessage = ImageMessage::where('message_id',$message["message_id"])->get();
+
+            $message["image"] = $ImageMessage;
+
+         }
+
+         if($message["type"] == 'video'){
+            
+            $VideoMessage = VideoMessage::where('message_id',$message["message_id"])->first();
+
+            $message["video"] = $VideoMessage;
+
+         }
+
+         if($message["type"] == 'code'){
+            
+            $CodeMessage = CodeMessage::where('message_id',$message["message_id"])->first();
+
+            $message["code"] = $CodeMessage;
+
+         }
+
+         if($message["type"] == 'file'){
+            
+            $FileMessage = FileMessage::where('message_id',$message["message_id"])->first();
+
+            $message["file"] = $FileMessage;
+
+         }
+
+         if($message["type"] == 'audio'){
+            
+            $AudioMessage = AudioMessage::where('message_id',$message["message_id"])->first();
+
+            $message["audio"] = $AudioMessage;
+
+         }
+        
+         $message["showReply"] = false;
+
+         $message["tagged"] = false;
+
+          $message["loading"] = false;
+
+         if($message["is_reply"] == '1'){
+            
+           
+             $repliedMessage = SpaceMessage::where('id',$message["replied_message_id"])->first();
+              
+             $returnedResult = $this->subMessageEngine($repliedMessage);
+            $message["replied_message"] = $returnedResult[0];
+
+         }else{
+            $message["replied_message"] = [];
+         }
+   
+         array_push($newMessageArray,$message);
+         
+     }
+   
+     return $newMessageArray;
+     
+}
+
+
+
+ public function subMessageEngine($repliedMessage){
+   
+     $spacemessages =DB::table('space_messages')
+    ->join('users','users.id','space_messages.user_id')
+    ->select(
+        'space_messages.content as content',
+        'space_messages.type as type',
+        'users.username as username',
+        'users.id as user_id',
+        'space_messages.is_reply as is_reply',
+        'space_messages.replied_message_id as replied_message_id',
+        'space_messages.id as message_id'
+    )
+    ->where('space_messages.id', $repliedMessage->id)
+    ->get();
+    $newMessageArray = [];
+
+    
+
+    foreach ($spacemessages as $message) {
+       $message = (array) $message;
+
+       if($message["type"] == 'image'){
+           
+           $ImageMessage = ImageMessage::where('message_id',$message["message_id"])->get();
+
+           $message["image"] = $ImageMessage;
+
+        }
+
+        if($message["type"] == 'video'){
+           
+           $VideoMessage = VideoMessage::where('message_id',$message["message_id"])->first();
+
+           $message["video"] = $VideoMessage;
+
+        }
+
+        if($message["type"] == 'code'){
+           
+           $CodeMessage = CodeMessage::where('message_id',$message["message_id"])->first();
+
+           $message["code"] = $CodeMessage;
+
+        }
+
+        if($message["type"] == 'file'){
+           
+           $FileMessage = FileMessage::where('message_id',$message["message_id"])->first();
+
+           $message["file"] = $FileMessage;
+
+        }
+
+        if($message["type"] == 'audio'){
+           
+           $AudioMessage = AudioMessage::where('message_id',$message["message_id"])->first();
+
+           $message["audio"] = $AudioMessage;
+
+        }
+
+
+      
+  
+        array_push($newMessageArray,$message);
+        
+    }  
+
+   
+    
+  
+    return $newMessageArray;
+ }
+
+  public function fetchSpaceMembers($spaceId){
+      
+    $spaceMembers = DB::table('space_members')
+                    ->join('users','users.id','space_members.user_id')
+                    ->select(
+                       'users.username as username',
+                       'users.name as name',
+                       'users.id as id'
+                    )->where('space_members.space_id',$spaceId)
+                    ->paginate(20);
+
+       return $spaceMembers;
+  }
+
+ public function createSpace(Request $request){
+       $characters = '123456789abcdefghijklmnopqrstuvwsyz';
+       
+       $spaceId = $this->generateRandomNumber(12,$characters);
+     $newSpace = Space::create([
+        "name"=> $request->get('name'),
+        "user_id"=> Auth::id(),
+        "type"=> $request->get('type'),
+        "space_id"=> $spaceId,
+        "limit" => $request->get('limit')
+     ]);
+     $newSpace->save();
+
+      if($request->get('type') == 'Team'){
+         $newTeam = Team::create([
+            "user_id"=> Auth::id(),
+            "name"=> $request->get('name'),
+            "space_id"=> $newSpace->space_id
+         ]);
+
+         $newTeam->save();
+      }
+
+      $spaceMember = SpaceMember::create([
+         'user_id'=> Auth::id(),
+         "is_admin"=> true,
+         'space_id'=> $spaceId
+      ]);
+
+      $spaceMember->save();
+
+ }
+
+ public function fetchUserSpaces(){
+     
+    $characters = '123456789abcdefghijklmnopqrstuvwsyz';
+       
+    $spaceId = $this->generateRandomNumber(12,$characters);
+
+     $userPersonalSpace = Space::where('user_id',Auth::id())->where('type','Personal')->get();
+    
+     if($userPersonalSpace->isEmpty()){
+       
+         $personalSpace = Space::create([
+           "name"=> 'You',
+           "user_id"=> Auth::id(),
+           "type"=> 'Personal',
+           "space_id"=> $spaceId,
+           "limit"=> 1
+         ]);
+
+         $personalSpace->save();
+
+         $spaceMember = SpaceMember::create([
+            'user_id'=> Auth::id(),
+            "is_admin"=> false,
+            'space_id'=> $spaceId
+         ]);
+   
+         $spaceMember->save();
+     }
+
+     $userPersonalSpace = DB::table('space_members')
+     ->join('spaces','spaces.space_id','space_members.space_id')
+     ->select(
+         'spaces.image_name as image_name',
+         'spaces.image_extension as image_extension',
+         'spaces.type as type',
+         'spaces.background_color as background_color',
+         'spaces.name as name',
+         'spaces.description as description',
+         'spaces.space_id as space_id'
+     )
+     ->where('space_members.user_id',Auth::id())
+     ->where('spaces.type','Personal')
+     ->first();
+
+
+     $userTeamSpaces = DB::table('space_members')
+                  ->join('spaces','spaces.space_id','space_members.space_id')
+                  ->select(
+                      'spaces.image_name as image_name',
+                      'spaces.image_extension as image_extension',
+                      'spaces.type as type',
+                      'spaces.name as name',
+                      'spaces.background_color as background_color',
+                      'spaces.description as description',
+                      'spaces.space_id as space_id'
+                  )
+                  ->where('space_members.user_id',Auth::id())
+                  ->where('spaces.type','Team')
+                  ->paginate(10);
+      $newTeamArray = [];
+
+      
+      foreach ($userTeamSpaces as $space) {
+         
+         $userSpace = (array) $space;
+
+         $userUnread = UnreadMessage::where('space_id',$userSpace["space_id"])->where('user_id',Auth::id())->get();
+
+         if($userUnread->isEmpty()){
+            $userSpace["unread"] = 0;
+            
+         }else{
+            
+            $userUnread = UnreadMessage::where('space_id',$userSpace["space_id"])->where('user_id',Auth::id())->first();
+            $userSpace["unread"] = $userUnread->unread;
+         }
+
+         
+
+         array_push($newTeamArray,$userSpace);
+
+      }
+    
+       $userChannelSpaces = DB::table('space_members')
+                  ->join('spaces','spaces.space_id','space_members.space_id')
+                  ->select(
+                      'spaces.image_name as image_name',
+                      'spaces.image_extension as image_extension',
+                      'spaces.type as type',
+                      'spaces.name as name',
+                      'spaces.background_color as background_color',
+                      'spaces.description as description',
+                      'spaces.space_id as space_id'
+                  )
+                  ->where('space_members.user_id',Auth::id())
+                  ->where('spaces.type','Channel')
+                  ->paginate(10);
+
+      $newChannelArray = [];
+
+      foreach ($userChannelSpaces as $spaceChannel) {
+         
+         $userSpaceChannel = (array) $spaceChannel;
+
+         $userUnread = UnreadMessage::where('space_id',$userSpaceChannel["space_id"])->where('user_id',Auth::id())->get();
+
+         if($userUnread->isEmpty()){
+            $userSpaceChannel["unread"] = 0;
+            
+         }else{
+            
+            $userUnread = UnreadMessage::where('space_id',$userSpaceChannel["space_id"])->where('user_id',Auth::id())->first();
+            $userSpaceChannel["unread"] = $userUnread->unread;
+         }
+
+         
+
+         array_push($newChannelArray,$userSpaceChannel);
+
+      }
+
+      
+         $fullSpaceArray = [$userPersonalSpace,$newTeamArray,$newChannelArray];
+
+        return $fullSpaceArray;
+
+ }
+
+
+  public function ownerList(){
+   $ownerListArray = DB::table('space_members')
+   ->join('spaces','spaces.space_id','space_members.space_id')
+   ->select(
+       'spaces.image_name as image_name',
+       'spaces.image_extension as image_extension',
+       'spaces.type as type',
+       'spaces.name as name',
+       'spaces.background_color as background_color',
+       'spaces.description as description',
+       'spaces.space_id as space_id'
+   )
+   ->where('space_members.user_id',Auth::id())
+   ->where('spaces.type','!=','Channel')
+   ->orderBy('spaces.created_at','asc')
+   ->get();
+
+    return $ownerListArray;
+  }
+
+}
