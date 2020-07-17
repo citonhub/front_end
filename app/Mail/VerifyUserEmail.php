@@ -30,7 +30,7 @@ class VerifyUserEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('citonhub@gmail.com')
+        return $this->from('Raymond@resqng.com')
                     ->subject('Verification Code')
                     ->markdown('emails.verify');
     }
