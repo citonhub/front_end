@@ -21,7 +21,7 @@
 
              <div class="col-12 py-2 text-center ">
               <span class="infoclass px-4">
-                Enter the 6-digit code sent to your email,<span style="color:#4494a2;"> example@myemail.com</span> 
+                Enter the 6-digit code sent to your email,<span style="color:#4494a2;"> {{this.$root.userEmail}}</span> 
              </span>
             </div>
            
