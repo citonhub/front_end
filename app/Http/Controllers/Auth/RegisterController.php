@@ -97,7 +97,7 @@ class RegisterController extends Controller
             
                $userProfile->save();
 
-        Mail::to($newUser->email)->send(new VerifyUserEmail($newUser->verification_code));
+        Mail::to($newUser->email)->send(new VerifyUserEmail($newUser));
 
         return  ["status","ok"];
     }

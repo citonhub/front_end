@@ -11,15 +11,16 @@ class VerifyUserEmail extends Mailable
 {
     use Queueable, SerializesModels;
  
-     public $verification_code;
+     
+      public $user;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($verification_code)
+    public function __construct($user)
     {
-        $this->verification_code = $verification_code;
+        $this->user = $user;
     }
 
     /**
@@ -29,7 +30,7 @@ class VerifyUserEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('example@citonhub.com')
+        return $this->from('verification@citonhub.com')
                     ->subject('Verification Code')
                     ->markdown('emails.verify');
     }
