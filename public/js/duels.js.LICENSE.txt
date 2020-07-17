@@ -1233,6 +1233,8 @@
 
 /*! exports provided: stack */
 
+/*! https://mths.be/punycode v1.4.1 by @mathias */
+
 /*! https://mths.be/utf8js v2.1.2 by @mathias */
 
 /*! no static exports found */
