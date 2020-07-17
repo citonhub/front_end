@@ -3,7 +3,7 @@
      <profile-top></profile-top>
 <v-app style="background:white; font-family:BodyText;position:absolute;left:0; width:100%; height:80%; overflow-y:auto; overflow-x:hidden; padding-top:40px;padding-bottom:120px;">
      
-      <div>
+      <div v-if="Teams.length != 0">
          <div class="col-12 py-0 my-2" v-for="(team,index) in Teams" :key="index">
             
             <v-card class="py-1 pb-0 px-2" >
@@ -39,6 +39,67 @@
 
          
      </div>  
+
+      <div v-else   >
+      <div class="col-12 py-0 my-0">
+
+         <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-1 my-0">
+       <v-card height="50">
+        <v-skeleton-loader
+      class="mx-auto "
+      
+      type="list-item-avatar"
+    ></v-skeleton-loader>
+       </v-card>
+      
+     </div>
+         </div>
+
+
+       
+         </div> 
+       
+          <div class="col-12 py-0 my-0">
+
+         <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-1 my-0">
+       <v-card height="50">
+        <v-skeleton-loader
+      class="mx-auto "
+      
+      type="list-item-avatar"
+    ></v-skeleton-loader>
+       </v-card>
+      
+     </div>
+         </div>
+
+
+       
+         </div> 
+          <div class="col-12 py-0 my-0">
+
+         <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-1 my-0">
+       <v-card height="50">
+        <v-skeleton-loader
+      class="mx-auto "
+      
+      type="list-item-avatar"
+    ></v-skeleton-loader>
+       </v-card>
+      
+     </div>
+         </div>
+
+
+       
+         </div> 
+     </div>   
       
       
        

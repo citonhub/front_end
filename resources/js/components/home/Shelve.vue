@@ -28,21 +28,117 @@
       class="py-1 my-0"
       :data-key="'id'"
       :data-sources="post_data"
+      v-if="post_data.length != 0"
       :data-component="itemComponent"
       :keeps="15"
 
       style="position:absolute;top:7%; height:93%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; ">
-   
-       
       
-     
-
-     
-   
-     
-    
-          
 </virtual-list> 
+
+<div v-else  style="position:absolute;top:7%; height:93%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; ">
+      <div class="col-12 py-0 my-0">
+
+         <div class="row py-0 my-0 px-1">
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+
+          <div class="row py-0 my-0 px-1" >
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+          <div class="row py-0 my-0 px-1" >
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+          <div class="row py-0 my-0 px-1" >
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+       
+         <div class="row py-0 my-0 px-1" >
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+
+        <div class="row py-0 my-0 px-1" >
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+
+         
+      </div>
+      
+    
+     
+</div>
 
        
          </div>

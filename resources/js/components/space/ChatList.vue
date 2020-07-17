@@ -1,7 +1,7 @@
 <template>
 
  
- <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
+ <v-app class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -25,10 +25,12 @@
      </div>
 
       <div class="col-12 py-0 my-0" >
-         <div class="row my-0 py-0 px-2 ">
+
+
+         <div class="row my-0 py-0 px-2 "  >
 
              <v-card tile flat class="col-12 py-1 px-0 my-1" @click="showSpace(personalSpace)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;">
-                <div class="row py-0 my-0 px-0">
+                <div class="row py-0 my-0 px-0"  v-if="personalSpace.length != 0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
                         <div class="py-1">
                           <v-img  :background-color="personalSpace.background_color" :src="personalSpace.image_name == null ? 'imgs/user.svg' : '/imgs/space/'+ personalSpace.image_name +'.' + personalSpace.image_extension " height="38" width="38" class="avatarImg"></v-img>
@@ -41,6 +43,30 @@
                         
                     </div>
                 </div>
+
+                     <div v-else  class="row my-0 py-0 px-2 ">
+            <div class="col-12 py-0 my-0">
+   
+            <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
+           
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
+
+          
+
+         </div>
+
+
+            </div>
+  
+              </div>
+
+
              </v-card>
             
              <div class="col-12 py-0 px-0 my-1 mb-2" @click="showChannel ? showChannel = false : showChannel = true" >
@@ -56,7 +82,8 @@
 
               
               <div class="col-12 py-1 my-0 mx-0" v-if="showChannel">
-                 <div class="row my-0 my-0 px-0">
+                 <div class="row my-0 my-0 px-0"  v-if="channelSpace.length != 0">
+
                     <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in channelSpace"
                       :key="index">
                 <div class="row py-0 my-0 px-0">
@@ -74,6 +101,47 @@
                 </div>
              </v-card>
                  </div>
+
+                 <div v-else  class="row my-0 py-0 px-1 ">
+            <div class="col-12 py-0 my-0">
+   
+           <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
+           
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
+
+          
+
+         </div>
+
+
+            </div>
+
+             <div class="col-12 py-0 my-0">
+   
+           <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
+           
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
+
+          
+
+         </div>
+
+
+            </div>
+  
+              </div>
               </div>
              </v-slide-y-transition>
 
@@ -85,8 +153,8 @@
                     </div>
              </div>
              <v-slide-y-transition>
-              <div class="col-12 py-1 my-0 mx-0"   v-if="showTeams">
-                 <div class="row my-0 my-0 px-0">
+              <div class="col-12 py-1 my-0 mx-0"  >
+                 <div class="row my-0 my-0 px-0"  v-if="teamSpace.length != 0">
                     <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in teamSpace"
                       :key="index">
                 <div class="row py-0 my-0 px-0">
@@ -104,6 +172,46 @@
                 </div>
              </v-card>
                  </div>
+                       <div v-else  class="row my-0 py-0 px-1 ">
+            <div class="col-12 py-0 my-0">
+   
+           <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
+           
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
+
+          
+
+         </div>
+
+
+            </div>
+
+             <div class="col-12 py-0 my-0">
+   
+           <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
+           
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
+
+          
+
+         </div>
+
+
+            </div>
+  
+              </div>
               </div>
               </v-slide-y-transition>
 
@@ -129,6 +237,7 @@
             
          </div>
 
+        
          
       </div>
          </div>
@@ -157,7 +266,7 @@
               </v-btn>
      </span>
          </div>
- </div>
+ </v-app>
   
 
 </template>
@@ -212,9 +321,10 @@ export default {
       
       if (response.status == 200) {
         
-        this.personalSpace = response.data[0];
-        this.teamSpace = response.data[1];
-        this.channelSpace = response.data[2];
+        
+         this.personalSpace =  response.data[0];
+        this.teamSpace =  response.data[1];
+        this.channelSpace =  response.data[2];
           
         this.$root.SpaceWithoutChannel = response.data;
          this.$root.ChatList = response.data;

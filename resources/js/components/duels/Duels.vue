@@ -14,10 +14,90 @@
       style="overflow-y:auto;position:absolute;left:0; width:100%; height:100%;z-index:1345000;padding-bottom:200px;"
       :data-key="'duel_id'"
       :data-sources="duels"
+      v-if="duels.length != 0"
       :data-component="itemComponent"
       :keeps="15">   
      
-</virtual-list>           
+</virtual-list>  
+
+<div v-else   style="overflow-y:auto;position:absolute;left:0; width:100%; height:100%;z-index:1345000;padding-bottom:200px;">
+      <div class="col-12 py-0 my-0">
+
+         <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="90px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+
+        <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="90px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+          <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="90px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+          <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="90px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+       
+       <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="90px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+
+       <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="90px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+         
+      </div>
+      
+    
+     
+</div>
             
 
          </div>

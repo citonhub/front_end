@@ -70,6 +70,7 @@ export default {
   },
     mounted(){
       this.fetchConnected();
+      this.$root.checkIfUserIsLoggedIn('profile');
     },
     methods:{
        goBack() {

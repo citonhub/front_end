@@ -260,6 +260,7 @@ export default {
       this.$root.showTabs=true;
        this.$root.showHeader = true;
        this.setValues();
+       this.$root.checkIfUserIsLoggedIn('profile');
     },
     methods:{
     setValues: function(){

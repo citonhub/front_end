@@ -7,6 +7,7 @@
       <virtual-list 
      
       :data-key="'id'"
+      v-if="post_data.length != 0"
       :data-sources="post_data"
       :data-component="itemComponent"
       :keeps="15"
@@ -15,7 +16,66 @@
       
 </virtual-list> 
 
-   
+   <div v-else   style="background:white; font-family:BodyText;position:absolute;left:0;width:100%; height:80%; overflow-y:auto; overflow-x:hidden; padding-top:40px !important;padding-bottom:140px !important;" >
+      <div class="col-12 py-0 my-0">
+
+         <div class="row py-0 my-0 px-1">
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+
+          <div class="row py-0 my-0 px-1" >
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+          <div class="row py-0 my-0 px-1" >
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+          <div class="row py-0 my-0 px-1" >
+        
+        
+          </div>
+         
+      </div>
+      
+    
+     
+</div>
+
 </div>
 
 </template>
@@ -38,6 +98,7 @@ export default {
       mounted(){
       this.fetchPosts();
        this.scrollToPost();
+       this.$root.checkIfUserIsLoggedIn('profile');
       },
       methods:{
              

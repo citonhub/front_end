@@ -3,7 +3,7 @@
      <profile-top></profile-top>
 <v-app style="background:white; font-family:BodyText;position:absolute;left:0; width:100%; height:80%; overflow-y:auto; overflow-x:hidden; padding-top:40px;">
      
-      <div>
+      <div v-if="projects.length != 0">
          <div class="col-12 py-1 my-1 text-right px-2" v-for="(project,index) in projects" :key="index" >
               <v-card  class="px-2 py-2" @click="showProject(project)" >
             <div class="py-0 my-0 row px-2">
@@ -28,10 +28,58 @@
             </div>
          </v-card>
             </div>
-     </div>  
-      
-     
+     </div> 
+
+     <div v-else   >
+      <div class="col-12 py-0 my-0">
+
+         <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+
        
+         </div> 
+          <div class="col-12 py-0 my-0">
+
+         <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+
+       
+         </div> 
+          <div class="col-12 py-0 my-0">
+
+         <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+
+       
+         </div> 
+     </div>   
 
 </v-app>    
 </div>
@@ -63,7 +111,7 @@ export default {
       
       if (response.status == 200) {
         
-       this.projects = response.data;
+      this.projects = response.data;
        
      }
        

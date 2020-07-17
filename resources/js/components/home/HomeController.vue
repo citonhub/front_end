@@ -20,24 +20,122 @@
         
     
 <virtual-list id="postContainer" 
-
+      v-if="post_data.length != 0"
       :data-key="'id'"
       :data-sources="post_data"
       :data-component="itemComponent"
       :keeps="15"
 
 :style="'background:white; font-family:BodyText;position:absolute;left:0; width:100%; height:100%; overflow-y:' + this.$root.scrollHome + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'">
-   
-       
-      
-     
-
-     
-   
-     
-    
-          
+        
 </virtual-list> 
+
+<div v-else  :style="'background:white; font-family:BodyText;position:absolute;left:0; width:100%; height:100%; overflow-y:' + this.$root.scrollHome + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'">
+      <div class="col-12 py-0 my-0">
+
+         <div class="row py-0 my-0 px-1">
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+
+          <div class="row py-0 my-0 px-1" >
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+          <div class="row py-0 my-0 px-1" >
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+          <div class="row py-0 my-0 px-1" >
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+       
+         <div class="row py-0 my-0 px-1" >
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+
+        <div class="row py-0 my-0 px-1" >
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+
+         
+      </div>
+      
+    
+     
+</div>
+
+
+
 
  <span style="position:absolute; top:2.5%; right:3%; z-index:12345665786; background:rgba(38, 82, 89,0.7); border:1px solid transparent; border-radius:7px;" class=" px-1 py-1 d-md-none d-inline-block text-center">
           <img src="imgs/coin.svg" height="22" class="d-block">

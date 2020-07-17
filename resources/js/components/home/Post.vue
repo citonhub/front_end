@@ -36,7 +36,7 @@
            
           
            <div class="col-12 py-1" >
-        <div class="row" style="background-color:white; border-bottom:1px solid #cccccc;">
+        <div class="row" style="background-color:white; border-bottom:1px solid #cccccc;" v-if="post.length != 0">
            <div class="col-12 py-0 d-flex " >
              <div>
                    <div  v-if="post.userProfile != undefined" :style="imageStyle(43,post.userProfile)"  @click.stop="viewUser(post)"
@@ -109,6 +109,21 @@
                    </div>
                 </div>
         </div>
+
+         <div class="row py-0 my-0 px-1" v-else>
+          <div  class="col-6 py-0 my-0 px-0">
+          <v-skeleton-loader
+        type="list-item-avatar-two-line"
+          ></v-skeleton-loader>
+          </div>       
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="100px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
      </div>
 
         <post-comments :CommentArray="postComments"></post-comments>

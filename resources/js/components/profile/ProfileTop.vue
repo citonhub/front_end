@@ -4,7 +4,11 @@
                <div class="row py-0 my-0">
                <div class="col-4 d-flex my-0 py-0" style="align-items:center; justify-content:center;">
               <div>
-                  <img src="imgs/coins.png" height="30"  > <span class="friendCount px-1" v-if="this.$root.profileDetails != null">{{this.$root.profileDetails.coin}}</span>
+                  <img src="imgs/coins.png" height="30"  > 
+                  <span class="friendCount px-1" v-if="this.$root.profileDetails != null">{{this.$root.profileDetails.coin}}</span>
+
+               <v-skeleton-loader v-else class="mt-2" type="text"></v-skeleton-loader>
+
               </div>
          </div>
          <div class="col-4 d-flex my-0 py-0" style="align-items:center; justify-content:center;">
@@ -12,6 +16,14 @@
                   <v-img v-if="this.$root.profileDetails != null"
                    :style="this.$root.profileDetails.background_color != null ?  'background-color:'   + this.$root.profileDetails.background_color + ';' : 'background-color:#ffffff;'" 
                    :src="this.$root.profileDetails.image_name != null ? 'imgs/profile/' + this.$root.profileDetails.image_name + '.' + this.$root.profileDetails.image_extension : 'imgs/user.svg'" height="90" width="90" class="avatarImg" style="border:3px solid #3E8893;border-radius:50%;"></v-img>
+
+                    <v-skeleton-loader
+           class="mx-auto mt-2"
+           height="90"
+           width="90"
+           v-else
+         type="image"
+          ></v-skeleton-loader>
               </div>
          </div>
          <div class="col-4 d-flex my-0 py-0" style="align-items:center; justify-content:center;">
@@ -25,23 +37,32 @@
                  <div  class="text-center">
                    <span class="friends d-block">Connections</span>
                     <span class="friendCount d-block" v-if="this.$root.profileDetails != null">{{this.$root.profileDetails.connections}}</span>
+                    <v-skeleton-loader v-else class="mt-2" type="text"></v-skeleton-loader>
                  </div>
          </div>
          <div class="col-4 d-flex my-0 py-1" style="align-items:center; justify-content:center;">
              <div class="text-center">
                  <span class="TitleName d-block " v-if="this.$root.profileDetails != null">{{this.$root.profileDetails.name}}</span>
+                  <v-skeleton-loader v-else class="mt-2 mx-auto" width="80" type="text"></v-skeleton-loader>
                     <span class="userName d-block " v-if="this.$root.profileDetails != null">@{{this.$root.profileDetails.username}}</span>
+                    <v-skeleton-loader v-else class="mt-1 mx-auto" width="60" type="text"></v-skeleton-loader>
               </div>
 
          </div>
          <div class="col-4 d-flex my-0 py-0" style="align-items:center; justify-content:center;" v-if="this.$root.profileDetails != null">
            
               <v-btn x-small v-if="this.$root.checkauthroot == 'auth' && this.$root.username == this.$root.profileDetails.username " rounded color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;" @click="editProfile">edit profile</v-btn>
+              
      <v-btn x-small :loading="loading"  v-if="!this.$root.profileDetails.connected && this.$root.username != this.$root.profileDetails.username" rounded color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;" @click="connect">Connect</v-btn>
 
       <v-btn x-small   v-if="this.$root.profileDetails.connected " rounded color="#3E8893" style="font-size:10px; color:white;text-transform:capitalize;" >Connected</v-btn>     
-            
+             
+             
+
+             
          </div>
+
+          <v-skeleton-loader v-else class="mt-1 mx-auto"  type="button"></v-skeleton-loader>
         
                </div>
           
