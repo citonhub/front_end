@@ -160,9 +160,10 @@
          </div>
          
          
-
+      
+      <div v-if="this.$root.ShowButton">
        
-       <span style="position:absolute; top:79%; left:2%; z-index:999998757;"  class="d-md-none d-inline-block">
+        <span style="position:absolute; top:79%; left:2%; z-index:999998757;"  class="d-md-none d-inline-block">
           <span
                
                 v-if="!this.$root.showRootReply"
@@ -212,6 +213,9 @@
                 <v-icon color="#ffffff">mdi-xml</v-icon>
               </v-btn>
      </span>
+      </div>
+       
+      
 
     </div>
 </template>

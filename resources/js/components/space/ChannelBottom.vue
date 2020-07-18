@@ -101,10 +101,10 @@ export default {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
         hideButtons: function(){
-          this.$root.showRootReply = true;
+          this.$root.ShowButton = false;
         },
         showButtons: function(){
-         this.$root.showRootReply = false;
+         this.$root.ShowButton = true;
         },
         shareHandler:function(){
           this.$router.push({ path: '/space/' + this.$route.params.spaceId + '/channel/share' });

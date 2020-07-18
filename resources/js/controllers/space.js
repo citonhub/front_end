@@ -237,6 +237,7 @@ const app = new Vue({
       typing:false,
       messageScroller:'',
       showCodeBox:false,
+      ShowButton:true,
     },
      mounted: function () {
       this.pageloader= false;
