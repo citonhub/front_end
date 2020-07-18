@@ -265,6 +265,7 @@ export default {
        this.$root.messageScroller = this.$refs.messageContainerRef;
        
        this.makeSpaceConnetion();
+       this.$root.forceListReload = false;
        
     },
     methods:{

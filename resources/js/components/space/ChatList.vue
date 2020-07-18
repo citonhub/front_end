@@ -331,8 +331,8 @@ export default {
     
          }else{
 
-            this.teamSpace = [];
-        this.channelSpace = [];
+            this.teamSpace = null;
+        this.channelSpace = null;
            
              axios.get('/fetch-user-spaces')
       .then(response => {
