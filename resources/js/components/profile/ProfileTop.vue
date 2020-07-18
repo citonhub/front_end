@@ -40,7 +40,7 @@
                     <v-skeleton-loader v-else class="mt-2" type="text"></v-skeleton-loader>
                  </div>
          </div>
-         <div class="col-4 d-flex my-0 py-1" style="align-items:center; justify-content:center;">
+         <div class="col-4 d-flex my-0 py-1 px-0" style="align-items:center; justify-content:center;">
              <div class="text-center">
                  <span class="TitleName d-block " v-if="this.$root.profileDetails != null">{{this.$root.profileDetails.name}}</span>
                   <v-skeleton-loader v-else class="mt-2 mx-auto" width="80" type="text"></v-skeleton-loader>
