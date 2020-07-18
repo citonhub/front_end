@@ -16,7 +16,7 @@
                <div class="col-10 px-2 py-0 my-0">
                  <div class="editor">
           
-                <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()"  />
+                <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()" :onFocus="hideButtons" :onBlur="showButtons" />
                 </div>
                </div>
                <div class="col-1 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
@@ -99,6 +99,12 @@ export default {
     methods:{
        goBack() {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+        },
+        hideButtons: function(){
+          this.$root.showRootReply = true;
+        },
+        showButtons: function(){
+         this.$root.showRootReply = false;
         },
         shareHandler:function(){
           this.$router.push({ path: '/space/' + this.$route.params.spaceId + '/channel/share' });
@@ -259,6 +265,7 @@ export default {
               }
                this.NewMsg.content = this.contentInWord;
                this.$root.Messages.push(this.NewMsg);
+               
                 if(this.$root.messageScroller != undefined){
                  this.$root.messageScroller.scrollToBottom();
                 }

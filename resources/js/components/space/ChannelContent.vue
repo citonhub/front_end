@@ -336,7 +336,7 @@ export default {
             if(e.actionType == 'new-message'){
  
                 this.$root.Messages.push(e.data); 
-                this.scrollToMessage('bottomDiv');
+                this.$refs.messageContainerRef.scrollToBottom();
 
             }
                         
