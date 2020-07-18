@@ -670,9 +670,12 @@ public function MessageEngine($messageArray,$timeArray){
             
            
              $repliedMessage = SpaceMessage::where('id',$message["replied_message_id"])->first();
-              
-             $returnedResult = $this->subMessageEngine($repliedMessage);
-            $message["replied_message"] = $returnedResult[0];
+                
+             if($repliedMessage != null){
+               $returnedResult = $this->subMessageEngine($repliedMessage);
+               $message["replied_message"] = $returnedResult[0];
+             }
+            
 
          }else{
             $message["replied_message"] = [];
@@ -689,7 +692,8 @@ public function MessageEngine($messageArray,$timeArray){
 
 
  public function subMessageEngine($repliedMessage){
-   
+     
+    
      $spacemessages =DB::table('space_messages')
     ->join('users','users.id','space_messages.user_id')
     ->select(
