@@ -302,7 +302,7 @@ export default {
       this.$root.showTabs=true;
        this.$root.showHeader = true;
        this.$root.channel = null;
-       this.$root.Messages = [];
+       this.$root.Messages = null;
        Echo.leave('space.' + this.$root.selectedSpace.space_id);
        this.fetchChatList();
     },

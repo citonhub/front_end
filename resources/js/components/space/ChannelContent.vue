@@ -366,7 +366,7 @@ export default {
         
         fetchMessages: function(){
            
-           if(this.$root.Messages  == null){
+           if(this.$root.Messages  == null ){
              
              axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
       .then(response => {
@@ -402,6 +402,16 @@ export default {
            }else{
 
 
+              setTimeout(()=>{
+          let lastMessage  = this.$root.Messages.pop();
+            if(lastMessage != undefined){
+          this.$refs.messageContainerRef.scrollToIndex(lastMessage.message_id);
+         this.$root.Messages.push(lastMessage);
+            }
+       
+           },500);
+
+              this.Messages = this.$root.Messages;
 
               this.$refs.messageContainerRef.scrollToBottom();
           
