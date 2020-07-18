@@ -229,6 +229,7 @@ const app = new Vue({
        SpaceUsers:[],
       AlertRoot:false,
        ChatList:[],
+       forceListReload:false,
       AlertMsgRoot:'',
       channel: null,
       recordedAudio:undefined,

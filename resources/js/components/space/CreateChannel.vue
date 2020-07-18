@@ -150,9 +150,11 @@ export default {
     mounted(){
       this.$root.showTabs=true;
        this.$root.showHeader = true;
+       this.$root.forceListReload = false;
     },
     methods:{
        goBack() {
+         this.$root.forceListReload = true;
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
           showAlert:function(duration,text){

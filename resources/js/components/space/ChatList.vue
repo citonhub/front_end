@@ -321,7 +321,7 @@ export default {
            this.$router.push({ path: '/space/create-project' });
        },
        fetchChatList: function(){
-         if(this.$root.ChatList.length != 0){
+         if(this.$root.ChatList.length != 0 && !this.$root.forceListReload){
 
         this.personalSpace = this.$root.ChatList[0];
         this.teamSpace = this.$root.ChatList[1];
@@ -330,6 +330,9 @@ export default {
         this.$root.SpaceWithoutChannel = this.$root.ChatList;
     
          }else{
+
+            this.teamSpace = [];
+        this.channelSpace = [];
            
              axios.get('/fetch-user-spaces')
       .then(response => {
