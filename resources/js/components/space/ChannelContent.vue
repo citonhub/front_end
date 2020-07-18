@@ -9,7 +9,7 @@
        id="messageContainer"
        ref="messageContainerRef"
        class="col-12 py-2 px-2" 
-       v-if="this.$root.Messages.length != 0"
+       v-show="this.$root.Messages.length != 0"
       :data-sources="this.$root.Messages"
       :data-component="itemComponent"
       :keeps="60">   
@@ -20,7 +20,7 @@
      
      </virtual-list>  
 
-      <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center"  style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;" >
+      <div v-show="this.$root.Messages.length == 0" class="col-12 my-2 py-0 px-0 mx-1 text-center"  style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;" >
        <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No message found</span>
               
          </div>

@@ -214,6 +214,10 @@ methods:{
               let Data = [];
               this.NewMsg = this.makeMessage('code',Data);
                this.$root.Messages.push(this.NewMsg);
+
+                if(this.$root.messageScroller != undefined){
+                 this.$root.messageScroller.scrollToBottom();
+                }
                
                 this.$root.showCodeBox = false;
        

@@ -259,7 +259,10 @@ export default {
               }
                this.NewMsg.content = this.contentInWord;
                this.$root.Messages.push(this.NewMsg);
-               this.$root.messageScroller.scrollToBottom();
+                if(this.$root.messageScroller != undefined){
+                 this.$root.messageScroller.scrollToBottom();
+                }
+               
        
             axios.post('/send-message',{
               content: this.contentInWord,
