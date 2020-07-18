@@ -16,7 +16,7 @@
                <div class="col-10 px-2 py-0 my-0">
                  <div class="editor">
           
-                <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()" :onFocus="hideButtons()" :onBlur="showButtons()" />
+                <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()" />
                 </div>
                </div>
                <div class="col-1 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
@@ -100,12 +100,7 @@ export default {
        goBack() {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
-        hideButtons: function(){
-          this.$root.ShowButton = false;
-        },
-        showButtons: function(){
-         this.$root.ShowButton = true;
-        },
+       
         shareHandler:function(){
           this.$router.push({ path: '/space/' + this.$route.params.spaceId + '/channel/share' });
         },
@@ -114,9 +109,11 @@ export default {
 
          if(this.wordCount > 7){
            this.showSend = true;
+            this.$root.ShowButton = false;
 
          }else{
             this.showSend = false;
+             this.$root.ShowButton = true;
          }
          
        
