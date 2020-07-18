@@ -293,8 +293,10 @@ export default {
     mounted(){
       this.$root.showTabs=true;
        this.$root.showHeader = true;
-       this.$root.disconnectDuel(this.$root.UserDuel);
-       this.fetchDuels();
+        if(this.$root.UserDuel != null){
+           this.$root.disconnectDuel(this.$root.UserDuel);
+        }
+       
     },
     methods:{
       
