@@ -225,7 +225,7 @@ methods:{
               content: '',
               space_id: this.$route.params.spaceId,
               is_reply: this.$root.is_reply,
-              current_user: this.$root.SpaceUsers,
+              current_user: JSON.stringify(this.$root.SpaceUsers ),
               replied_message_id: this.$root.replyMessage.message_id,
                attachment_type: 'code',
                 code: this.code,

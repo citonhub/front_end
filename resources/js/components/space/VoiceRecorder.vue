@@ -158,6 +158,15 @@ methods:{
          
           this.$root.Messages.push(this.NewMsg);
           this.goBack();
+
+           if(this.$root.SpaceUsers.length == 0){
+        
+          formData.append('current_user','empty');
+
+         }else{
+           
+           formData.append('current_user',JSON.stringify(this.$root.SpaceUsers ));
+         }
          
         formData.append('is_reply',this.$root.is_reply);
         formData.append('attachment_type',this.attachment_type);
