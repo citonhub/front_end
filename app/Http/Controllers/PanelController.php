@@ -1001,7 +1001,7 @@ public function main(){
 
   public function runPanel($panelId){
      
-    $baseUrl = 'http://php.citonhub.com';
+    $baseUrl = 'http://php.citonhub.com/';
 
    $response = Http::get($baseUrl .'/' . $panelId . '/index' );
    
