@@ -17,8 +17,8 @@
       </div>
      </div>
 
-      <div class="col-12 py-1 my-0 " >
-         <div class="row my-0 py-0 px-0 mx-1">
+      <div class="col-12 py-1 my-0 " v-if="duels != null" >
+         <div class="row my-0 py-0 px-0 mx-1" v-if="duels.length != 0">
               
                  <div class="col-12 px-0 py-2" v-for="(duel,index) in duels" :key="index">
                <v-card elevation-22 class="py-1 px-1" >
@@ -63,10 +63,62 @@
 
                  </div>
           </div>
+
+          <div v-if="duels.length == 0" class="col-12 my-2 py-0 px-0 mx-1 text-center" >
+       <span style="color:gray; font-size:12px;"  class="d-block">No Duel found</span>
+               <v-btn small @click="createDuel" rounded color="#3E8893" style="color:white; font-size:12px; text-transform:capitalize;" class="my-2">Create a duel</v-btn>
+            </div>
         </div>
-         </div>
-         </div>
+
+       
+      <div class="col-12 py-0 my-0"  v-else>
+
+         <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="90px"
+      type="image"
+    ></v-skeleton-loader>
      </div>
+         </div>
+
+
+        <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="90px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+          <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-1 my-0">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="90px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+       
+
+         
+      </div>
+      
+    
+     
+</div>
+
+         </div>
+         </div>
+  
 </template>
 <script>
 export default {
@@ -133,7 +185,7 @@ export default {
              }
         },
      fetchDuels: function(){
-        if(this.$root.UserDuel.length != 0){
+        if(this.$root.UserDuel != null){
 
 
             this.duels = this.$root.UserDuel;

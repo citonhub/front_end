@@ -2,7 +2,9 @@
 <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute;z-index:20; background:white; height:100%;">
      <profile-top></profile-top>
 <v-app style="background:white; font-family:BodyText;position:absolute;left:0; width:100%; height:80%; overflow-y:auto; overflow-x:hidden; padding-top:40px;">
-     
+      
+
+      <div v-if="projects != null">
       <div v-if="projects.length != 0">
          <div class="col-12 py-1 my-1 text-right px-2" v-for="(project,index) in projects" :key="index" >
               <v-card  class="px-2 py-2" @click="showProject(project)" >
@@ -29,6 +31,12 @@
          </v-card>
             </div>
      </div> 
+
+   <div v-if="projects.length == 0"  class="text-center col-12 ">
+       <span style="color:gray; font-size:12px;">No project found</span>
+   </div>
+
+      </div>
 
      <div v-else   >
       <div class="col-12 py-0 my-0">
@@ -90,7 +98,7 @@ export default {
      data(){
         return{
          
-         projects:[],
+         projects:null,
           
         }
     },

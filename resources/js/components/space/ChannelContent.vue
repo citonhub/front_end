@@ -1,24 +1,81 @@
 <template>
     <div style="background:#F3FFFC; position:absolute; height:100%; width:100%; overflow-y:hidden;left:0; overflow-x:hidden; " >
 
-
-       <virtual-list 
+       <div v-if="this.$root.Messages != null">
+      
+      <virtual-list 
        style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;"
        :data-key="'message_id'"
        id="messageContainer"
        ref="messageContainerRef"
        class="col-12 py-2 px-2" 
+       v-if="this.$root.Messages.length != 0"
       :data-sources="this.$root.Messages"
       :data-component="itemComponent"
       :keeps="60">   
 
 
 
-        <div class="col-12 " id="messagebottomDiv">
-
-        </div>
+      
      
      </virtual-list>  
+
+      <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center"  style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;" >
+       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No message found</span>
+              
+         </div>
+
+
+       </div>
+       
+
+     <div class="col-12 py-0 my-0"  v-else style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">
+
+         <div class="row py-0 my-0 px-1">
+            
+     <div class="col-8 py-1 my-0">
+       <v-skeleton-loader
+      class=" "
+     
+      type="sentences"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+
+        <div class="row py-0 my-0 px-1">
+            
+     <div class="col-8 offset-4 py-1 my-0">
+       <v-skeleton-loader
+      class=" "
+       
+      type="sentences"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+          <div class="row py-0 my-0 px-1">
+            
+     <div class="col-8 py-1 my-0">
+       <v-skeleton-loader
+      class=" "
+       
+      type="sentences"
+    ></v-skeleton-loader>
+     </div>
+         </div>
+
+       
+
+         
+      </div>
+      
+    
+     
+
+
+
+
   
 
          <div  style="position:absolute;z-index:20; bottom:0;z-index:6575;" class="col-12 py-0 my-0 px-0">
@@ -203,6 +260,7 @@ export default {
     mounted(){
        this.$root.showTabs=false;
        this.$root.showHeader = false;
+       this.$root.Messages = null;
        this.fetchMessages();
        this.$root.messageScroller = this.$refs.messageContainerRef;
        
@@ -304,7 +362,7 @@ export default {
         
         fetchMessages: function(){
            
-           if(this.$root.Messages.length == 0){
+           if(this.$root.Messages  == null){
              
              axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
       .then(response => {

@@ -3,7 +3,7 @@
        
      <profile-top></profile-top>
 
-
+<div v-if="post_data != null">
       <virtual-list 
      
       :data-key="'id'"
@@ -15,6 +15,12 @@
       style="background:white; font-family:BodyText;position:absolute;left:0;width:100%; height:80%; overflow-y:auto; overflow-x:hidden; padding-top:40px !important;padding-bottom:140px !important;">
       
 </virtual-list> 
+
+ <div v-if="post_data.length == 0"  style="background:white; font-family:BodyText;position:absolute;left:0;width:100%; height:80%; overflow-y:auto; overflow-x:hidden; padding-top:40px !important;padding-bottom:140px !important;" class="text-center">
+       <span style="color:gray; font-size:12px;">No post found</span>
+   </div>
+
+</div>
 
    <div v-else   style="background:white; font-family:BodyText;position:absolute;left:0;width:100%; height:80%; overflow-y:auto; overflow-x:hidden; padding-top:40px !important;padding-bottom:140px !important;" >
       <div class="col-12 py-0 my-0">

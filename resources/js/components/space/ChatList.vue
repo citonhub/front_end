@@ -82,7 +82,8 @@
 
               
               <div class="col-12 py-1 my-0 mx-0" v-if="showChannel">
-                 <div class="row my-0 my-0 px-0"  v-if="channelSpace.length != 0">
+                <div  v-if="channelSpace != null">
+                    <div class="row my-0 my-0 px-0"  v-if="channelSpace.length != 0">
 
                     <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in channelSpace"
                       :key="index">
@@ -101,6 +102,13 @@
                 </div>
              </v-card>
                  </div>
+
+                 <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
+       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No Channel found</span>
+              
+            </div>
+                </div>
+                
 
                  <div v-else  class="row my-0 py-0 px-1 ">
             <div class="col-12 py-0 my-0">
@@ -154,6 +162,7 @@
              </div>
              <v-slide-y-transition>
               <div class="col-12 py-1 my-0 mx-0"  >
+                 <div  v-if="teamSpace != null">
                  <div class="row my-0 my-0 px-0"  v-if="teamSpace.length != 0">
                     <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in teamSpace"
                       :key="index">
@@ -166,11 +175,17 @@
                      <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
                          <span class="titleText">{{space.name}}</span>
                     </div>
-                    <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
+                    <div     class="py-0 my-0 d-flex col-2" style="align-items:center;">
                          <span class="messagesBadges" v-if="space.unread != 0"><span style="padding:2px;">{{ space.unread }}</span></span>
                     </div>
                 </div>
              </v-card>
+                 </div>
+
+                 <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
+       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No Team found</span>
+              
+            </div>
                  </div>
                        <div v-else  class="row my-0 py-0 px-1 ">
             <div class="col-12 py-0 my-0">
@@ -278,8 +293,8 @@ export default {
        showTeams:true,
        showDirect:true,
        personalSpace:[],
-       teamSpace:[],
-       channelSpace:[],
+       teamSpace:null,
+       channelSpace:null,
        showChannel:true,
       }
     },

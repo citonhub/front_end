@@ -111,7 +111,7 @@ const app = new Vue({
             postArray:[],
             postArrayType:[],
             postComments:[],
-            postShelveData:[],
+            postShelveData:null,
             selectedshelveId:'',
             selectedshelvename:'',
             showShare:false,

@@ -23,8 +23,9 @@
      </div>
 
        
+<div v-if="post_data != null">
 
-        <virtual-list id="postContainerShelve" 
+   <virtual-list id="postContainerShelve" 
       class="py-1 my-0"
       :data-key="'id'"
       :data-sources="post_data"
@@ -36,6 +37,13 @@
       
 </virtual-list> 
 
+   <div v-if="post_data.length == 0" style="position:absolute;top:7%; height:93%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; " class="text-center">
+       <span style="color:gray; font-size:12px;">No post found</span>
+   </div>
+
+
+</div>
+     
 <div v-else  style="position:absolute;top:7%; height:93%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; ">
       <div class="col-12 py-0 my-0">
 

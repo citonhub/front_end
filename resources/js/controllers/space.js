@@ -222,7 +222,7 @@ const app = new Vue({
       is_reply_comment:false,
       showShare:false,
       replyCommentUsername:'',
-      Messages:[],
+      Messages:null,
       voiceRecorder:false,
       recordUrl:'',
       authProfile:[],

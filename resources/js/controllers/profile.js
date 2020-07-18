@@ -98,7 +98,7 @@ const app = new Vue({
        croppedImage:'',
        selectedUsername:document.getElementById('checkauthUsername').value,
        imagepath:'',
-       postData:[],
+       postData:null,
        fullImageViewer:false,
        showCodeEditor:false,
        PostRefId:'',

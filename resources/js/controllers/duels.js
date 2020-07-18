@@ -190,7 +190,7 @@ const app = new Vue({
       isEditDuel: false,
       editDuelArray:[],
       showShare:false,
-      UserDuel:[],
+      UserDuel:null,
       userList:[]
     },
      mounted: function () {

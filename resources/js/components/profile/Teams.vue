@@ -3,6 +3,7 @@
      <profile-top></profile-top>
 <v-app style="background:white; font-family:BodyText;position:absolute;left:0; width:100%; height:80%; overflow-y:auto; overflow-x:hidden; padding-top:40px;padding-bottom:120px;">
      
+     <div v-if="Teams != null">
       <div v-if="Teams.length != 0">
          <div class="col-12 py-0 my-2" v-for="(team,index) in Teams" :key="index">
             
@@ -38,7 +39,11 @@
          </div>
 
          
-     </div>  
+     </div>
+      <div v-if="Teams.length == 0"  class="text-center col-12 ">
+       <span style="color:gray; font-size:12px;">No Team found</span>
+   </div> 
+     </div> 
 
       <div v-else   >
       <div class="col-12 py-0 my-0">
@@ -113,7 +118,7 @@ export default {
      data(){
         return{
          
-         Teams:[]
+         Teams:null
           
         }
     },
