@@ -265,6 +265,7 @@ export default {
        this.$root.messageScroller = this.$refs.messageContainerRef;
        
        this.makeSpaceConnetion();
+       
     },
     methods:{
        showCodeBox: function(){
@@ -324,6 +325,8 @@ export default {
            return eachuser.id != user.id
        });
     this.$root.SpaceUsers = newList;
+
+    
      
     
     })
@@ -352,6 +355,7 @@ export default {
                  });
 
          }
+         
    
       },
      

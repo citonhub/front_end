@@ -345,12 +345,15 @@ class SpaceController extends Controller
 
 
         $newMessage = $this->MessageEngine($spacemessage,$timeArray);
+           
          
        
-        $activeMembers = $request->get('current_user');
+       
 
         if($request->get('current_user') == 'empty'){
          $activeMembers = [];
+        }else{
+           $activeMembers = json_decode($request->get('current_user'));
         }
 
         $spaceMembers = DB::table('space_members')
@@ -367,7 +370,7 @@ class SpaceController extends Controller
            
             foreach ($activeMembers as $active) {
                
-               if($active["id"] != $member->id){
+               if($active->id != $member->id){
                  array_push($disconnectedUsers,$member);
                }
 

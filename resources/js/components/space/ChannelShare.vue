@@ -619,6 +619,10 @@ var blob = this.b64toBlob(realData, contentType);
 
          
           this.$root.Messages.push(this.NewMsg);
+
+          if(this.$root.messageScroller != undefined){
+                 this.$root.messageScroller.scrollToBottom();
+             }
            
           this.goBack();
          
@@ -627,7 +631,8 @@ var blob = this.b64toBlob(realData, contentType);
           formData.append('current_user','empty');
 
          }else{
-           formData.append('current_user',this.$root.SpaceUsers);
+           
+           formData.append('current_user',JSON.stringify(this.$root.SpaceUsers ));
          }
       
         
