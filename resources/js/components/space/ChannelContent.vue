@@ -163,7 +163,7 @@
       
       <div v-if="this.$root.ShowButton">
        
-        <span style="position:absolute; top:79%; left:2%; z-index:999998757;"  class="d-md-none d-inline-block">
+        <span style="position:absolute; top:75%; left:2%; z-index:999998757;"  class="d-md-none d-inline-block">
           <span
                
                 v-if="!this.$root.showRootReply"
@@ -188,7 +188,7 @@
      </span>
 
       
-       <span style="position:absolute; top:79%; right:2%; z-index:999998757;"  class="d-md-none d-inline-block">
+       <span style="position:absolute; top:75%; right:2%; z-index:999998757;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#35747e"
                 small
