@@ -255,7 +255,7 @@ export default {
               
               let Data = [];
              
-              if(this.$root.is_reply){
+              if(this.$root.showRootReply){
 
                  
                  this.NewMsg = this.makeMessage(null,Data,'1',this.$root.replyMessage);
@@ -264,6 +264,7 @@ export default {
                  this.NewMsg = this.makeMessage(null,Data,null,[]);
               }
                this.NewMsg.content = this.contentInWord;
+
                this.$root.Messages.push(this.NewMsg);
 
                 if(this.$root.messageScroller != undefined){
@@ -274,7 +275,7 @@ export default {
             axios.post('/send-message',{
               content: this.contentInWord,
               space_id: this.$route.params.spaceId,
-              is_reply: this.$root.is_reply,
+              is_reply: this.$root.showRootReply,
               current_user: JSON.stringify(this.$root.SpaceUsers ),
               replied_message_id: this.$root.replyMessage.message_id,
               attachment_type: null,
