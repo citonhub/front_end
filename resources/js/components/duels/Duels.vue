@@ -296,7 +296,7 @@ export default {
         if(this.$root.UserDuel != null){
            this.$root.disconnectDuel(this.$root.UserDuel);
         }
-      this.$root.fetchDuels();
+      this.fetchDuels();
        
     },
     methods:{
