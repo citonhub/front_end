@@ -206,8 +206,10 @@ export default {
        this.fetchPosts();
        this.scrollToPost();
        
+         if(this.$root.postShelveData != null){
+     this.$root.disconnectPost(this.$root.postShelveData);
+         }
       
-       this.$root.disconnectPost(this.$root.postShelveData);
        
       
       
