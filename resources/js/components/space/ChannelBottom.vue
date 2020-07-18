@@ -16,7 +16,7 @@
                <div class="col-10 px-2 py-0 my-0">
                  <div class="editor">
           
-                <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()" :onFocus="hideButtons" :onBlur="showButtons" />
+                <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()" :onFocus="hideButtons()" :onBlur="showButtons()" />
                 </div>
                </div>
                <div class="col-1 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
@@ -265,7 +265,7 @@ export default {
               }
                this.NewMsg.content = this.contentInWord;
                this.$root.Messages.push(this.NewMsg);
-               
+
                 if(this.$root.messageScroller != undefined){
                  this.$root.messageScroller.scrollToBottom();
                 }
