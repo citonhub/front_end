@@ -75,20 +75,7 @@
 
              </div>
 
-              <div class="col-12 py-2 my-0 px-2">
-              <v-text-field
-                style="font-size:11px;"
-                 placeholder="username..."
-            label="Username"
-             dense
-             :rules="UsernameRule"
-             v-model="userName"
-             counter="15"
-             color="#4495a2"
-            
-             ></v-text-field>
-
-             </div>
+           
 
               <div class="col-12 py-2 my-0 px-2">
                   <v-combobox

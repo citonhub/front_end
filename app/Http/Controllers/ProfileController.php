@@ -219,8 +219,7 @@ class ProfileController extends Controller
          if($request->file('image') != null){
 
              $user->update([
-             "name"=> $request->get('full_name'),
-             "username"=> $request->get('username')
+             "name"=> $request->get('full_name')
              ]);
 
             $userProfile->update([

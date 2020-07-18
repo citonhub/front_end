@@ -260,7 +260,7 @@ export default {
     mounted(){
        this.$root.showTabs=false;
        this.$root.showHeader = false;
-       this.$root.Messages = null;
+       
        this.fetchMessages();
        this.$root.messageScroller = this.$refs.messageContainerRef;
        
