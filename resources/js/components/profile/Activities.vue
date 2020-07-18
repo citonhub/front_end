@@ -109,7 +109,7 @@ export default {
       methods:{
              
         fetchPosts:function(){
-            if(this.$root.postData.length != 0){
+            if(this.$root.postData != null){
                 this.post_data = this.$root.postData;
 
                this.$root.trackPostConnections(this.$root.postData);
