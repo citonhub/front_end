@@ -68,6 +68,6 @@
 
  @section('scripts')
 
- <script src="{{ asset('js/space.js?v=0.75') }}"></script>
+ <script src="{{ asset('js/space.js?v=0.76') }}"></script>
      
  @endsection
