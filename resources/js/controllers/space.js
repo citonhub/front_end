@@ -72,7 +72,7 @@ const routes = [
     },
     {
       // create-channel
-      path: 'create',
+      path: ':type/create',
       component: CreateChannel
     },
     {
@@ -238,6 +238,10 @@ const app = new Vue({
       messageScroller:'',
       showCodeBox:false,
       ShowButton:true,
+      ProjectMembers:[],
+      localChannel:[],
+      codeFiles:[],
+      frontEndFiles:[]
     },
      mounted: function () {
       this.pageloader= false;

@@ -20,6 +20,7 @@ use Carbon\Carbon;
 use App\Events\SpaceChannel;
 use App\Events\UserChannel;
 use DB;
+use App\Project;
 use App\UnreadMessage;
 
 class SpaceController extends Controller
@@ -812,6 +813,46 @@ public function MessageEngine($messageArray,$timeArray){
 
       $spaceMember->save();
 
+
+      $userSpaces = DB::table('space_members')
+      ->join('spaces','spaces.space_id','space_members.space_id')
+      ->select(
+          'spaces.image_name as image_name',
+          'spaces.image_extension as image_extension',
+          'spaces.type as type',
+          'spaces.name as name',
+          'spaces.background_color as background_color',
+          'spaces.description as description',
+          'spaces.space_id as space_id'
+      )
+      ->where('spaces.id',$newSpace->id)
+      ->paginate(10);
+$newSpaceArray = [];
+
+
+foreach ($userSpaces as $space) {
+
+$userSpace = (array) $space;
+
+$userUnread = UnreadMessage::where('space_id',$userSpace["space_id"])->where('user_id',Auth::id())->get();
+
+if($userUnread->isEmpty()){
+$userSpace["unread"] = 0;
+
+}else{
+
+$userUnread = UnreadMessage::where('space_id',$userSpace["space_id"])->where('user_id',Auth::id())->first();
+$userSpace["unread"] = $userUnread->unread;
+}
+
+
+
+array_push($newSpaceArray,$userSpace);
+
+}
+
+ return $newSpaceArray[0];
+
  }
 
  public function fetchUserSpaces(){
@@ -872,6 +913,7 @@ public function MessageEngine($messageArray,$timeArray){
                   )
                   ->where('space_members.user_id',Auth::id())
                   ->where('spaces.type','Team')
+                  ->orderBy('spaces.created_at','desc')
                   ->paginate(10);
       $newTeamArray = [];
 
@@ -909,6 +951,7 @@ public function MessageEngine($messageArray,$timeArray){
                       'spaces.space_id as space_id'
                   )
                   ->where('space_members.user_id',Auth::id())
+                  ->orderBy('spaces.created_at','desc')
                   ->where('spaces.type','Channel')
                   ->paginate(10);
 
@@ -935,8 +978,19 @@ public function MessageEngine($messageArray,$timeArray){
 
       }
 
+      $userProjects = DB::table('space_members')
+              ->join('projects','projects.space_id','space_members.space_id')
+              ->select(
+                 'projects.project_slug as project_slug',
+                 'projects.title as title'
+              )
+              ->where('space_members.user_id',Auth::id())
+              ->orderBy('projects.created_at','desc')
+              ->paginate(15);
+            
+
       
-         $fullSpaceArray = [$userPersonalSpace,$newTeamArray,$newChannelArray];
+         $fullSpaceArray = [$userPersonalSpace,$newTeamArray,$newChannelArray,$userProjects];
 
         return $fullSpaceArray;
 

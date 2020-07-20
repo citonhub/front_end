@@ -87,7 +87,7 @@
                     </div>
                      <div class="col-3 my-0 py-0 text-center">
 
-                     <v-btn class="d-inline-block" icon>
+                     <v-btn class="d-inline-block" icon   @click.stop="makeComment">
                         <v-icon color="#a6a6a6">mdi-comment-text-outline</v-icon>
                         
                         </v-btn>
@@ -139,32 +139,7 @@
 
 
 
-       <span style="position:absolute; top:83.5%; right:3%;" class="d-md-none d-inline-block">
-          <v-btn
-                color="#35747e"
-                small
-                @click="makeComment"
-                class="d-block"
-                fab
-              >
-                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
-              </v-btn>
-     </span>
-
-      <span style="position:absolute; top:90%; right:3%;"  class="d-none d-md-inline-block">
-          <v-btn
-                color="#35747e"
-                small
-                @click="makeComment"
-                class="d-block"
-                fab
-              >
-                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
-              </v-btn>
-     </span>
-
-     
-
+      
 
        </div>
 

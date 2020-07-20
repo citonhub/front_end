@@ -3,6 +3,8 @@
  
 
    <div style="width:100%; height:auto; overflow-y:hidden; overflow-x:hidden; ">
+
+      <share v-if="this.$root.showShare"></share>
       
       <router-view></router-view>
    

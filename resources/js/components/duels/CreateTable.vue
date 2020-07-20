@@ -159,9 +159,11 @@ export default {
              
             
             
-             if (response.status == 200) {
+             if (response.status == 201) {
                
-               this.$root.forcePanelReload= true;
+               this.$root.forcePanelReload= false;
+
+                this.$root.CodeFilesData[3].unshift(response.data);
               this.goBack();
             
             }

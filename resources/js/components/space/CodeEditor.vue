@@ -178,6 +178,7 @@ export default {
       mounted(){
        this.$root.showTabs=false;
        this.$root.showHeader = false;
+       this.fetchProject();
        this.detectchange(this.$root.EditorLanguage);
       },
      components: {
@@ -227,6 +228,33 @@ methods:{
          loadPage:function(){
       this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/page-loader' });
    },
+    fetchProject: function(){
+         
+         if( this.$root.projectData.length != 0){
+
+         }else{
+          
+          axios.get('/fetch-project-' + this.$route.params.projectSlug)
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+        
+       this.$root.projectData = response.data[0];
+
+       this.$root.ProjectMembers = response.data[2];
+
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+         }
+         
+
+        },
         showAlert:function(duration,text){
         this.Alert = true;
         this.alertMsg = text;
@@ -238,12 +266,17 @@ methods:{
 
       },
        checkIfOwner:function(){
-         if(this.$root.projectData.user_id == this.$root.user_temp_id){
+         var member = this.$root.ProjectMembers.filter((member)=>{
+             return member.user_id == this.$root.user_temp_id;
+         });
+
+           if(member.length == 0){
             
-            return true;
+            return false;
          }else{
-           return false;
+           return true;
          }
+        
       },
       showCode:function(codeBox){
           if(codeBox.language_type == 'HTML' || codeBox.language_type == 'CSS' || codeBox.language_type == 'JAVASCRIPT'){

@@ -3,7 +3,7 @@
        
    
 
-    <div class="col-12 py-1"  :id="'post'+ source.id">
+    <div class="col-12 py-1"  :id="'post'+ source.id" @click.stop="viewPost(source,'fromcomment')" style="cursor:pointer;" >
         <div class="row" style="background-color:white; border-bottom:1px solid #cccccc;" >
            <div class="col-12 py-0 d-flex "  >
                 <div>

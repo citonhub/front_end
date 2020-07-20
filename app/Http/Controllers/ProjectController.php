@@ -11,6 +11,8 @@ use App\Project;
 use DB;
 use App\ProjectCommentLike;
 use Illuminate\Support\Facades\Auth;
+use App\SpaceMember;
+use App\Events\PanelChannel;
 
 
 
@@ -45,10 +47,145 @@ class ProjectController extends Controller
            $currentProject->update([
             'comments'=> $newcomment
            ]);
-   
-           return ['status','ok'];
-    }
 
+
+           $projectComments = DB::table('project_comments')
+           ->join('projects','projects.project_slug','project_comments.project_slug')
+           ->join('users','users.id','project_comments.user_id')
+           ->select(
+             "project_comments.likes as likes",
+             "project_comments.id as id",
+             "project_comments.content as content",
+             "project_comments.project_slug as project_slug",
+             "users.username as username",
+             "project_comments.is_reply as is_reply",
+             "project_comments.replied_comment_id as replied_comment_id"
+           )
+           ->where('project_comments.id',$Comment->id)
+           ->orderBy('project_comments.created_at', 'desc')->paginate(2);
+           
+   
+    $newCommentArray = [];
+   
+   foreach ($projectComments as $comment) {
+     
+   
+    $comment = (array) $comment;
+   
+    if($comment['is_reply'] ==  true){
+   
+       $thiscomment = DB::table('project_comments')
+       ->join('projects','projects.project_slug','project_comments.project_slug')
+       ->join('users','users.id','project_comments.user_id')
+       ->select(
+         "project_comments.likes as likes",
+         "project_comments.id as id",
+         "project_comments.content as content",
+         "users.username as username",
+         "project_comments.is_reply as is_reply",
+         "project_comments.replied_comment_id as replied_comment_id"
+       )
+       ->where('project_comments.id',$comment['replied_comment_id'])
+       ->first();
+       
+       $comment['replied_comment'] = $thiscomment;
+   
+    }
+       $userProjectCommentLike = ProjectCommentLike::where('project_comment_id',$comment["id"])->where('user_id',Auth::id())->get();
+   
+       if($userProjectCommentLike->isEmpty()){
+        $comment['liked_by_user'] = false;
+       }else{
+        $comment['liked_by_user'] = true;
+       }
+     
+    
+   
+    array_push($newCommentArray,$comment);
+    
+   }
+      
+   broadcast(new PanelChannel('new-comment',$newCommentArray[0],$request->get('project_slug')))->toOthers();
+      
+   return $newCommentArray[0];
+   
+          
+    }
+   
+     public function saveCommentPanel(Request $request){
+      $Comment = ProjectComment::create([
+        "user_id"=>Auth::id(),
+        "project_slug"=> $request->get('project_slug'),
+        "content"=> $request->get('content'),
+        "is_reply"=> $request->get('is_reply'),
+        "replied_comment_id"=> $request->get('replied_comment_id'),
+        "likes"=> 0
+      ]);
+
+      $Comment->save();
+
+
+      $projectComments = DB::table('project_comments')
+      ->join('users','users.id','project_comments.user_id')
+      ->select(
+        "project_comments.likes as likes",
+        "project_comments.id as id",
+        "project_comments.content as content",
+        "project_comments.project_slug as project_slug",
+        "users.username as username",
+        "project_comments.is_reply as is_reply",
+        "project_comments.replied_comment_id as replied_comment_id"
+      )
+      ->where('project_comments.id',$Comment->id)
+      ->orderBy('project_comments.created_at', 'desc')->paginate(2);
+
+      $newCommentArray = [];
+
+foreach ($projectComments as $comment) {
+
+
+$commentNew = (array) $comment;
+
+if($commentNew['is_reply'] ==  true){
+
+  $thiscomment = DB::table('project_comments')
+  ->join('users','users.id','project_comments.user_id')
+  ->select(
+    "project_comments.likes as likes",
+    "project_comments.id as id",
+    "project_comments.content as content",
+    "users.username as username",
+    "project_comments.is_reply as is_reply",
+    "project_comments.replied_comment_id as replied_comment_id"
+  )
+  ->where('project_comments.id',$commentNew['replied_comment_id'])
+  ->first();
+  
+  $commentNew['replied_comment'] = $thiscomment;
+
+}
+  $userProjectCommentLike = ProjectCommentLike::where('project_comment_id',$commentNew["id"])->where('user_id',Auth::id())->get();
+
+  if($userProjectCommentLike->isEmpty()){
+   $commentNew['liked_by_user'] = false;
+  }else{
+   $commentNew['liked_by_user'] = true;
+  }
+
+
+
+array_push($newCommentArray,$commentNew);
+
+}
+
+broadcast(new PanelChannel('new-comment',$newCommentArray[0],$request->get('project_slug')))->toOthers();
+ 
+return $newCommentArray[0];
+
+
+       
+      
+     }
 
     public function fetchProjectComments($projectSlug){
        
@@ -65,7 +202,7 @@ class ProjectController extends Controller
           "project_comments.replied_comment_id as replied_comment_id"
         )
         ->where('project_comments.project_slug',$projectSlug)
-        ->orderBy('project_comments.created_at', 'desc')->paginate(10);
+        ->orderBy('project_comments.created_at', 'desc')->paginate(1000);
         
 
  $newCommentArray = [];
@@ -113,6 +250,69 @@ return $newCommentArray;
     }
 
 
+    public function TeamComment($teamCode){
+       
+
+      $projectComments = DB::table('project_comments')
+      ->join('users','users.id','project_comments.user_id')
+      ->select(
+        "project_comments.likes as likes",
+        "project_comments.id as id",
+        "project_comments.content as content",
+        "project_comments.project_slug as project_slug",
+        "users.username as username",
+        "project_comments.is_reply as is_reply",
+        "project_comments.replied_comment_id as replied_comment_id"
+      )
+      ->where('project_comments.project_slug',$teamCode)
+      ->orderBy('project_comments.created_at', 'desc')->paginate(1000);
+      
+
+$newCommentArray = [];
+
+foreach ($projectComments as $comment) {
+
+
+$comment = (array) $comment;
+
+if($comment['is_reply'] ==  true){
+
+  $thiscomment = DB::table('project_comments')
+  ->join('users','users.id','project_comments.user_id')
+  ->select(
+    "project_comments.likes as likes",
+    "project_comments.id as id",
+    "project_comments.content as content",
+    "users.username as username",
+    "project_comments.is_reply as is_reply",
+    "project_comments.replied_comment_id as replied_comment_id"
+  )
+  ->where('project_comments.id',$comment['replied_comment_id'])
+  ->first();
+  
+  $comment['replied_comment'] = $thiscomment;
+
+}
+  $userProjectCommentLike = ProjectCommentLike::where('project_comment_id',$comment["id"])->where('user_id',Auth::id())->get();
+
+  if($userProjectCommentLike->isEmpty()){
+   $comment['liked_by_user'] = false;
+  }else{
+   $comment['liked_by_user'] = true;
+  }
+
+
+
+array_push($newCommentArray,$comment);
+
+}
+     
+ 
+return $newCommentArray;
+
+    }
+
+
 
     public function saveProjectLikes(Request $request){
  
@@ -138,6 +338,8 @@ return $newCommentArray;
              
  
           }
+
+          broadcast(new PanelChannel('new-comment-like',$presenceProjectComment->id,$presenceProjectComment->project_slug))->toOthers();
  
     }
 
@@ -188,6 +390,10 @@ return $newCommentArray;
         ]);
 
         $NewProject->save();
+
+       
+
+        return $NewProject;
 
 
     }
@@ -246,9 +452,11 @@ return $newCommentArray;
             $projectStar = [];
        }
 
+       $projectOwners = SpaceMember::where('space_id',$newProject[0]["space_id"])->get();
+
         
 
-        return [$newProject[0],$projectStar];
+        return [$newProject[0],$projectStar,$projectOwners];
     }
 
     public function fetchProjects($spaceId){

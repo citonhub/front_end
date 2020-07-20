@@ -172,7 +172,7 @@ export default {
    },
     data(){
         return{
-          fileName:'',
+          fileName:'index',
           saveFile: false,
              cmOption: {
           tabSize: 4,

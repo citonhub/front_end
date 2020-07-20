@@ -1,8 +1,8 @@
 <template>
-    <v-app style="font-family:BodyText;background:transparent;">
+    <v-app style="font-family:BodyText;background:transparent;overflow-x:hidden;">
 
       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
-        <div style="overflow-y:auto;position:absolute;left:0; width:100%; height:100%;">
+        <div style="overflow-y:auto;position:absolute;left:0; width:100%; height:100%; overflow-x:hidden;">
          <div class="row my-0 py-0 px-2" >
 
          <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
@@ -19,12 +19,28 @@
       </div>
      </div>
 
-      <div  class="col-12 py-1 my-0 d-flex" style="align-items:center; justify-content:center; position:absolute; width:100%; height:90%;" v-if="this.checkDuelStatus(duel.duel_terminal_time,duel.duel_voting_time) == 'Voting'">
+      <div  class="col-12 py-1 my-0 d-flex" style="align-items:center; justify-content:center; position:absolute; width:100%; height:90%;" v-if="this.checkDuelStatus(duel) == 'Voting'">
           <v-icon color="grey">mdi-lock</v-icon>  <span style="font-size:14px; color:grey;">Voting in progress, Panel Locked</span>
       </div>
 
       <div class="col-12 py-1 my-0" v-else>
-         <div class="row my-0 py-2 px-0 mx-1">
+         <div class="row my-0 py-1 px-0 mx-1">
+
+             <div class="col-12 py-0 px-1 ">
+                <div class="row py-0 my-0">
+                   <div class="col-6 py-0 my-0 px-2 text-left">
+                      <v-btn  x-small color="#3E8893" v-if="duel.user_type == 'user'"
+              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;" @click="makeTeam = true">Make <span class="mx-1" style="text-transform:lowercase;">a</span> team</v-btn>
+                 <v-btn  x-small color="#3E8893" v-else
+              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;" @click="showShare"> Team link</v-btn>  
+                   </div>
+                    <div class="col-6 py-0 my-0 px-2 text-right">
+                      <v-btn  x-small color="#3E8893"
+              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-format-list-text mdi-18px</v-icon> How To</v-btn>  
+                   </div>
+                </div>  
+             </div>
+
               <v-expansion-panels
          v-model="panel"
           multiple
@@ -46,7 +62,7 @@
                <v-btn icon @click="addNewFile('front_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
             </div>
             <v-card tile flat class="col-12 py-1 my-0 " @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" 
-             v-for="(file,index) in frontEndFiles" :key="index">
+             v-for="(file,index) in this.$root.frontEndFiles" :key="index">
                 <div class="row my-0 py-0">
                   <div class="col-2 text-center py-0 my-0 ">
                      <v-icon color="#e34f26" v-if="file.language_type == 'HTML'">mdi-language-html5 mdi-18px</v-icon>
@@ -55,7 +71,7 @@
                       <v-icon color="#0066ff" v-if="file.language_type == 'TYPESCRIPT'">mdi-language-typescript mdi-18px</v-icon>
                 </div>
                  <div class="col-10 py-0 my-0 ">
-                    <span class="fileName">{{returnFileName(file.file_name,file.language_type)}}</span>
+                    <span class="fileName" style="font-size:12px;">{{returnFileName(file.file_name,file.language_type)}}</span>
                 </div>
                 </div>
              </v-card>
@@ -84,14 +100,14 @@
                <v-btn icon @click="addNewFile('back_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
             </div>
             <v-card tile flat class="col-12 py-1 my-0 " @click="showEditor(file,'back-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;"
-             v-for="(file,index) in backEndFiles" :key="index">
+             v-for="(file,index) in this.$root.backEndFiles" :key="index">
               <div class="row my-0 py-0">
                   <div class="col-2 text-center py-0 my-0 ">
                       <v-icon color="#0066ff" v-if="file.language_type == 'PHP'">mdi-language-php mdi-18px</v-icon>
                     <v-icon color="#e6b800" v-if="file.language_type == 'PHYTON'">mdi-language-python mdi-18px</v-icon>
                 </div>
                  <div class="col-10 py-0 my-0 ">
-                    <span class="fileName">{{returnFileName(file.file_name,file.language_type)}}</span>
+                    <span class="fileName" style="font-size:12px;">{{returnFileName(file.file_name,file.language_type)}}</span>
                 </div>
                 </div>
              </v-card>
@@ -181,7 +197,37 @@
         
       </div>
 
-        <span style="position:absolute; top:75.5%; right:3%; z-index:10;"  class="d-md-none d-inline-block">
+
+
+
+        <span style="position:absolute; top:83%; left:3%; z-index:10;"  class="d-md-none d-inline-block" v-if="duel.user_type == 'team'">
+          <v-btn
+                color="#35747e"
+                small
+                @click="showComment"
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-comment-text-outline mdi-18px</v-icon>
+              </v-btn>
+     </span>
+
+   
+
+
+      <span style="position:absolute; top:90%; left:3%;z-index:10;" class="d-none d-md-inline-block"  v-if="duel.user_type == 'team'">
+          <v-btn
+                color="#35747e"
+                small
+                 @click="showComment"
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-comment-text-outline mdi-18px</v-icon>
+              </v-btn>
+     </span>
+
+        <span style="position:absolute; top:83%; right:3%; z-index:10;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#35747e"
                 small
@@ -189,14 +235,14 @@
                 class="d-block"
                 fab
               >
-                <v-icon color="#ffffff">mdi-play</v-icon>
+                <v-icon color="#ffffff">mdi-play </v-icon>
               </v-btn>
      </span>
 
    
 
 
-      <span style="position:absolute; top:84%; right:3%;z-index:10;" class="d-none d-md-inline-block">
+      <span style="position:absolute; top:90%; right:3%;z-index:10;" class="d-none d-md-inline-block">
           <v-btn
                 color="#35747e"
                 small
@@ -204,34 +250,233 @@
                 class="d-block"
                 fab
               >
-                <v-icon color="#ffffff">mdi-play</v-icon>
+                <v-icon color="#ffffff">mdi-play mdi-18px</v-icon>
               </v-btn>
      </span>
 
+
+    
+              <div  style="position:absolute; width:100%;  background:rgba(38, 82, 89,0.6); height:100%; align-items:center;justify-content:center; top:0; z-index:53566;"  @click="makeTeam = false" class="d-flex" v-if="makeTeam">
+              <div @click.stop="stopProp">
+                     <v-card class="py-1 px-2" width="220" >
+                <v-form>
+                  <div class="col-12 px-1 py-1 my-2 text-right">
+                      
+                  </div>
+                   <div class="col-12 py-0 my-0 px-2">
+                  <v-text-field
+                style="font-size:12px;"
+                 placeholder="name..."
+            label="Team Name"
+             dense
+             v-model="teamName"
+             color="#4495a2"
+            
+             ></v-text-field>
+
+             </div>
+
+             <div class="col-12 py-2 my-0 px-2 text-center">
+                  <v-btn rounded x-small color="#3E8893" style="font-size:10px;  color:white;" @click.stop="createTeam" :loading="loadingTeamBtn" >Create</v-btn>
+             </div>
+                </v-form>
+             </v-card>
+              </div>  
+        </div>
+       
+
       </div>
+
+      <v-fade-transition>
+              <div  style="position:absolute; width:100%; height:auto: align-items:center;justify-content:center;bottom:16%; z-index:123453566;"  class="d-flex">
+             <v-alert
+      v-model="Alert"
+      dismissible
+      close-icon="mdi-delete"
+      color="#3E8893"
+       width="auto"
+       style="font-size:13px;"
+       height="auto"
+      border="left"
+      elevation="2"
+      colored-border
+     
+    >
+      {{alertMsg}}
+    </v-alert>
+        </div>
+        </v-fade-transition>
+       
     </v-app>
 </template>
 <script>
 export default {
      data(){
    return{
-     panel:[0],
+     panel:[],
      codeFiles:[],
+     Alert:false,
      backEndFiles:[],
+     alertMsg:'',
      frontEndFiles:[],
      language:'',
+     loadingTeamBtn:false,
      duel:[],
+     makeTeam:false,
+     teamName:'',
      panelData:[],
+     localChannel:[],
      lockPanel: false,
    }
  },
     mounted(){
        this.$root.showTabs=true;
-        this.$root.showHeader = true;
+        this.$root.showHeader = false;
+        this.$root.checkIfUserIsLoggedIn('duel');
+        this.trackPanel();
         this.fetchDuel();
-        this.fetchCodeFiles();
       },
  methods:{
+     trackPanel: function(){
+
+        if( this.$route.params.type != 'user' && this.$root.localChannel.length == 0){
+          
+          var channel = Echo.private('panel.' + this.$route.params.type)
+       .listen('.PanelChannel',(e) => {
+             
+    
+      if(e.actionType == 'new-file'){
+
+       
+      
+          
+
+      
+         this.$root.codeFiles.unshift(e.data);
+
+          if(e.data.type == "front_end"){
+            this.$root.frontEndFiles.unshift(e.data);
+          }
+
+          if(e.data.type == "back_end"){
+           this.$root.backEndFiles.unshift(e.data);
+          }
+         
+
+      
+         
+      }
+
+       if(e.actionType == 'new-route'){
+           
+            this.$root.panelRoutes.unshift(e.data);
+
+       }
+
+       if(e.actionType == 'new-DBtable'){
+         
+         this.$root.CodeFilesData[3].unshift(e.data);
+       }
+
+       if(e.actionType == 'new-comment'){
+
+          this.$root.projectComments.unshift(e.data);
+
+       }
+
+       if(e.actionType == 'new-comment-like'){
+          
+          this.$root.projectComments.map((comment)=>{
+         
+         if(comment.id == e.data){
+         comment.likes = comment.likes + 1;
+         }
+          });
+
+       }
+
+       if(e.actionType == 'new-file-update'){
+          
+          if(e.data.type == 'front_end'){
+         
+          this.$root.frontEndFiles.map((file)=>{
+             if(file.id == e.data.id){
+                file.content = e.data.content;
+             }
+          });
+
+          }
+
+           if(e.data.type == 'back_end'){
+         
+          this.$root.backEndFiles.map((file)=>{
+             if(file.id == e.data.id){
+                file.content = e.data.content;
+             }
+          });
+
+          }
+          
+           this.$root.codeEditorArray.map((file)=>{
+             if(file.id == e.data.id){
+                file.content = e.data.content;
+             }
+          });
+       }
+
+        })
+
+      this.$root.localChannel.push(channel);
+
+        }
+   
+       
+     },
+
+   showShare:function(){
+         this.$root.showShare = true;
+   },
+   createTeam:function(){
+      if(this.teamName == ''){
+       return;
+      }
+       this.loadingTeamBtn = true;
+      axios.post('/make-team',{
+         duel_id :   this.$route.params.duelId,
+         name : this.teamName
+      })
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+         this.loadingTeamBtn = false;
+          this.makeTeam = false;
+         this.duel.user_type = "team";
+
+     }
+       
+     
+     })
+     .catch(error => {
+       this.showAlert(5000,'Failed- ' + error);
+              this.loadingTeamBtn = false;
+     }) 
+
+
+   },
+   stopProp:function(){
+
+   },
+    showAlert:function(duration,text){
+        this.Alert = true;
+        this.alertMsg = text;
+        let _this = this;
+     
+     setTimeout(function(){
+        _this.Alert = false;
+     },duration);
+
+    },
    addDBTable: function(){
       
       this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/create-db-table' });
@@ -246,9 +491,12 @@ export default {
           
        this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/add-panel-route' });
    },
+   showComment:function(){
+     this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments' });
+   },
      PanelSettingsCheck(settingStatus){
           if(!settingStatus.is_set){
-             this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/settings' });
+             this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/new/settings' });
           }
       },
    showEditor: function(codeBox,catType){
@@ -275,18 +523,30 @@ export default {
     
    },
     goBack() {
+
          this.$root.CodeFilesData = [];
-        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+     
+      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/board' });
+
+      
         },
    addNewFile:function(codeType){
         this.$root.panelLanguage = this.panelData.panel_language;
        this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/' + codeType + '/add-new-file' });
    },
    goToSettings:function(){
-      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/settings' });
+      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/new/settings' });
    },
    fetchDuel: function(){
-     axios.get('/fetch-this-duel/' + this.$route.params.duelId)
+      if(this.$root.selectedDuel.length != 0){
+
+        this.duel = this.$root.selectedDuel;
+
+         this.fetchCodeFiles();
+
+      }else{
+       
+       axios.get('/fetch-this-duel/' + this.$route.params.duelId + '/' + this.$route.params.type)
       .then(response => {
       
       if (response.status == 200) {
@@ -295,8 +555,11 @@ export default {
        var duel = response.data[0];
 
         this.duel = duel;
+        this.$root.selectedDuel =  duel;
+
+        this.fetchCodeFiles();
       
-        let status = this.checkDuelStatus(duel.duel_terminal_time,duel.duel_voting_time);
+        let status = this.checkDuelStatus(duel);
 
         if(status == 'Voting'){
            
@@ -312,6 +575,9 @@ export default {
      .catch(error => {
     
      }) 
+
+      }
+     
    },
    fetchCodeFiles: function(){
        
@@ -320,13 +586,14 @@ export default {
       if(this.$root.CodeFilesData.length != 0 && !this.$root.forcePanelReload){
          
            this.$root.panelRoutes = this.$root.CodeFilesData[2];
+
         this.codeFiles = this.$root.CodeFilesData[0];
 
-        this.frontEndFiles = this.codeFiles.filter((file)=>{
+        this.$root.frontEndFiles = this.codeFiles.filter((file)=>{
           return file.type == "front_end"
         });
 
-        this.backEndFiles = this.codeFiles.filter((file)=>{
+        this.$root.backEndFiles = this.codeFiles.filter((file)=>{
           return file.type == "back_end"
         });
         
@@ -355,15 +622,15 @@ export default {
         this.$root.panelRoutes = response.data[2];
          
 
-        this.frontEndFiles = this.codeFiles.filter((file)=>{
+        this.$root.frontEndFiles = this.codeFiles.filter((file)=>{
           return file.type == "front_end"
         });
 
-        this.backEndFiles = this.codeFiles.filter((file)=>{
+        this.$root.backEndFiles = this.codeFiles.filter((file)=>{
           return file.type == "back_end"
         });
 
-        this.$root.backEndFiles = this.backEndFiles;
+    
         
         
 
@@ -376,26 +643,30 @@ export default {
      }) 
    },
 
-   checkDuelStatus:function(terminalDate,votingDate){
+  checkDuelStatus:function(duel){
+      
+      if(duel.started == 0){
+         return 'Pending'
+      }
+             
           let now  = moment();
-           let terminalDateToMoment = moment(terminalDate);
-           let votingDateToMoment = moment(votingDate);
+           let terminalDateToMoment = moment(duel.duel_terminal_time);
+           let votingDateToMoment = moment(duel.duel_voting_time);
           
           let differenceInSeconds = votingDateToMoment.diff(now,'seconds');
 
-          let differenceInSecondsForVoting = votingDateToMoment.diff(terminalDateToMoment,'seconds');
+          let differenceInSecondsForVoting = votingDateToMoment.diff(now,'seconds');
             
           if(differenceInSeconds <= 0){
              return 'Ended';
           }else{
-             if(differenceInSecondsForVoting > 0){
+             if(differenceInSecondsForVoting <= 3600){
                   return 'Voting'
              }
             return 'Active'
           }
           
        },
-
    loadPage:function(){
       this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/page-loader' });
    },

@@ -19,10 +19,20 @@
       </div>
      </div>
 
-      
+     
 
-      <div class="col-12 py-1 my-0" >
-         <div class="row my-0 py-2 px-0 mx-1">
+      <div class="col-12 py-0 my-0" >
+         <div class="row my-0 py-1 px-0 mx-1">
+
+            <div class="col-12 py-0 px-1 ">
+                <div class="row py-0 my-0">
+                  
+                    <div class="col-12 py-0 my-0 px-2 text-right">
+                      <v-btn  x-small color="#3E8893"
+              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-format-list-text mdi-18px</v-icon> How To</v-btn>  
+                   </div>
+                </div>  
+             </div>
               <v-expansion-panels
          v-model="panel"
           multiple
@@ -44,7 +54,7 @@
                <v-btn icon @click="addNewFile('front_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
             </div>
             <v-card tile flat class="col-12 py-1 my-0 " @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" 
-             v-for="(file,index) in frontEndFiles" :key="index">
+             v-for="(file,index) in this.$root.frontEndFiles" :key="index">
                 <div class="row my-0 py-0">
                   <div class="col-2 text-center py-0 my-0 ">
                      <v-icon color="#e34f26" v-if="file.language_type == 'HTML'">mdi-language-html5 mdi-18px</v-icon>
@@ -82,7 +92,7 @@
                <v-btn icon @click="addNewFile('back_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
             </div>
             <v-card tile flat class="col-12 py-1 my-0 " @click="showEditor(file,'back-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;"
-             v-for="(file,index) in backEndFiles" :key="index">
+             v-for="(file,index) in this.$root.backEndFiles" :key="index">
               <div class="row my-0 py-0">
                   <div class="col-2 text-center py-0 my-0 ">
                       <v-icon color="#0066ff" v-if="file.language_type == 'PHP'">mdi-language-php mdi-18px</v-icon>
@@ -180,7 +190,7 @@
       </div>
 
 
-       <span style="position:absolute; top:75.5%; left:3%; z-index:10;"  class="d-md-none d-inline-block">
+       <span style="position:absolute; top:82.5%; left:3%; z-index:10;"  class="d-md-none d-inline-block">
          <v-btn
                 color="#35747e"
                 small
@@ -209,7 +219,7 @@
      </span>
 
 
-        <span style="position:absolute; top:75.5%; right:3%; z-index:10;"  class="d-md-none d-inline-block">
+        <span style="position:absolute; top:82.5%; right:3%; z-index:10;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#35747e"
                 small
@@ -243,7 +253,7 @@
 export default {
      data(){
    return{
-     panel:[0],
+     panel:[],
      codeFiles:[],
      backEndFiles:[],
      frontEndFiles:[],
@@ -256,10 +266,10 @@ export default {
  },
     mounted(){
        this.$root.showTabs=true;
-        this.$root.showHeader = true;
+        this.$root.showHeader = false;
         this.fetchProject();
         this.fetchCodeFiles();
-       
+       this.trackPanel();
       },
  methods:{
    addDBTable: function(){
@@ -267,18 +277,116 @@ export default {
       this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/create-db-table' });
 
    },
+     trackPanel: function(){
+
+        if( this.$root.localChannel.length == 0){
+          
+          var channel = Echo.private('panel.' + this.$route.params.projectSlug)
+       .listen('.PanelChannel',(e) => {
+             
+    
+      if(e.actionType == 'new-file'){
+
+       
+      
+          
+
+      
+         this.$root.codeFiles.unshift(e.data);
+
+          if(e.data.type == "front_end"){
+            this.$root.frontEndFiles.unshift(e.data);
+          }
+
+          if(e.data.type == "back_end"){
+           this.$root.backEndFiles.unshift(e.data);
+          }
+         
+
+      
+         
+      }
+
+       if(e.actionType == 'new-route'){
+           
+            this.$root.panelRoutes.unshift(e.data);
+
+       }
+
+       if(e.actionType == 'new-DBtable'){
+         
+         this.$root.CodeFilesData[3].unshift(e.data);
+       }
+
+       if(e.actionType == 'new-comment'){
+
+          this.$root.projectComments.unshift(e.data);
+
+       }
+
+       if(e.actionType == 'new-comment-like'){
+          
+          this.$root.projectComments.map((comment)=>{
+         
+         if(comment.id == e.data){
+         comment.likes = comment.likes + 1;
+         }
+          });
+
+       }
+
+       if(e.actionType == 'new-file-update'){
+          
+          if(e.data.type == 'front_end'){
+         
+          this.$root.frontEndFiles.map((file)=>{
+             if(file.id == e.data.id){
+                file.content = e.data.content;
+             }
+          });
+
+          }
+
+           if(e.data.type == 'back_end'){
+         
+          this.$root.backEndFiles.map((file)=>{
+             if(file.id == e.data.id){
+                file.content = e.data.content;
+             }
+          });
+
+          }
+          
+           this.$root.codeEditorArray.map((file)=>{
+             if(file.id == e.data.id){
+                file.content = e.data.content;
+             }
+          });
+       }
+
+        })
+
+      this.$root.localChannel.push(channel);
+
+        }
+   
+       
+     },
    fetchProject: function(){
-        
-         axios.get('/fetch-project-' + this.$route.params.projectSlug)
+         
+         if( this.$root.projectData.length != 0){
+
+         }else{
+          
+          axios.get('/fetch-project-' + this.$route.params.projectSlug)
       .then(response => {
       
       if (response.status == 200) {
         
         
        this.$root.projectData = response.data[0];
-      
-         
-        
+
+       this.$root.ProjectMembers = response.data[2];
 
      }
        
@@ -287,6 +395,8 @@ export default {
      .catch(error => {
     
      }) 
+         }
+         
 
         },
         showShare:function(){
@@ -295,12 +405,17 @@ export default {
             this.$root.showShare = true;
         },
       checkIfOwner:function(){
-         if(this.$root.projectData.user_id == this.$root.user_temp_id){
+         var member = this.$root.ProjectMembers.filter((member)=>{
+             return member.user_id == this.$root.user_temp_id;
+         });
+
+           if(member.length == 0){
             
-            return true;
+            return false;
          }else{
-           return false;
+           return true;
          }
+        
       },
    addNewRoute: function(is_edit,route = []){
       this.$root.is_edit = is_edit;
@@ -358,13 +473,14 @@ export default {
       if(this.$root.CodeFilesData.length != 0 && !this.$root.forcePanelReload){
          
            this.$root.panelRoutes = this.$root.CodeFilesData[2];
+
         this.codeFiles = this.$root.CodeFilesData[0];
 
-        this.frontEndFiles = this.codeFiles.filter((file)=>{
+        this.$root.frontEndFiles = this.codeFiles.filter((file)=>{
           return file.type == "front_end"
         });
 
-        this.backEndFiles = this.codeFiles.filter((file)=>{
+        this.$root.backEndFiles = this.codeFiles.filter((file)=>{
           return file.type == "back_end"
         });
         
@@ -385,6 +501,7 @@ export default {
         this.$root.CodeFilesData = response.data;
 
        this.codeFiles = response.data[0];
+         this.$root.codeFiles = response.data[0];
 
         this.PanelSettingsCheck(response.data[1]);
 
@@ -393,16 +510,13 @@ export default {
         this.$root.panelRoutes = response.data[2];
          
 
-        this.frontEndFiles = this.codeFiles.filter((file)=>{
+         this.$root.frontEndFiles = this.codeFiles.filter((file)=>{
           return file.type == "front_end"
         });
 
-        this.backEndFiles = this.codeFiles.filter((file)=>{
+        this.$root.backEndFiles = this.codeFiles.filter((file)=>{
           return file.type == "back_end"
         });
-
-        this.$root.backEndFiles = this.backEndFiles;
-        
         
 
      }

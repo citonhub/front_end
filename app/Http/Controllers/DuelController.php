@@ -14,15 +14,57 @@ use App\DuelPanel;
 use DB;
 use App\DuelVote;
 use Carbon\Carbon;
+use App\DuelTeam;
+use App\DuelTeamMember;
 use App\Events\UserChannel;
 use App\Events\DuelChannel;
 
 
 class DuelController extends Controller
 {
+
+    public function MakeTeam(Request $request){
+
+      $characters = '1234567890abcdefghijklmnopqrstuvwxyz';
+      $randomString = $this->generateRandomNumber(10,$characters);
+        
+      $duelId = $request->get('duel_id');
+
+      $duelTeamMembers = DuelTeamMember::where('duel_id',$duelId)->where('user_id',Auth::id())->get();
+
+       if($duelTeamMembers->isEmpty()){
+         
+        $duelParticipant = DuelParticipant::where('user_id',Auth::id())->where('duel_id',$duelId)->first();
+
+        $duelParticipant->update([
+        'type'=>'team'
+        ]);
+
+        $duelTeam = DuelTeam::create([
+         "duel_id"=> $duelId,
+         "name"=> $request->get('name'),
+         'panel_id'=> $duelParticipant->panel_id,
+         "team_code"=> $randomString
+        ]);
+
+        $duelTeam->save();
+
+        $newMember = DuelTeamMember::create([
+          "user_id"=> Auth::id(),
+          "duel_id"=> $duelId,
+          "duel_team_id"=>$duelTeam->id,
+        ]);
+
+        $newMember->save();
+         
+       }
+
+    }
  
      public function FetchDuelResults($duelId){
-        
+      
+      
+
      } 
 
     public function DuelVotes($duelId){
@@ -452,7 +494,29 @@ class DuelController extends Controller
      }
 
  
-     public function fetchThisDuel($duelId){
+     public function fetchThisDuel($duelId,$type){
+
+
+       if($type != 'user'){
+
+        $duelTeamMembers = DuelTeamMember::where('duel_id',$duelId)->where('user_id',Auth::id())->get();
+
+        if($duelTeamMembers->isEmpty()){
+         
+          $duelTeam = DuelTeam::where('team_code',$type)->first();
+
+         
+         $newMember = DuelTeamMember::create([
+           "user_id"=> Auth::id(),
+           "duel_id"=> $duelId,
+           "duel_team_id"=>$duelTeam->id
+         ]);
+ 
+         $newMember->save();;
+          
+        }
+         
+       }
        
         $duels = DB::table('duels')
         ->join('users','users.id','duels.user_id')
@@ -475,7 +539,7 @@ class DuelController extends Controller
              'duels.created_at as created_at'
           )
         ->where('duels.duel_id',$duelId)
-        ->orderBy('duels.created_at', 'desc')->paginate(10);
+        ->orderBy('duels.created_at', 'desc')->paginate(100);
 
         $duelArray = $this->duelEngine($duels);
   
@@ -507,7 +571,7 @@ class DuelController extends Controller
            'duels.created_at as created_at'
         )
       ->where('duels.user_id',Auth::id())
-      ->orderBy('duels.created_at', 'desc')->paginate(10);
+      ->orderBy('duels.created_at', 'desc')->paginate(100);
 
       $duelArray = $this->duelEngine($duels);
 
@@ -536,7 +600,7 @@ class DuelController extends Controller
              'users.username as username',
              'duels.created_at as created_at'
           )
-        ->orderBy('duels.created_at', 'desc')->paginate(10);
+        ->orderBy('duels.created_at', 'desc')->paginate(100);
 
         $duelArray = $this->duelEngine($duels);
   
@@ -561,12 +625,42 @@ class DuelController extends Controller
             $duelParticipantUser = DuelParticipant::where('duel_id',$duel['duel_id'])->where('user_id',Auth::id())->get();
 
               if($duelParticipantUser->isEmpty()){
+
+             $duelTeamMembers = DuelTeamMember::where('duel_id',$duel['duel_id'])->where('user_id',Auth::id())->get();
+               
+             $duel["user_participating"]  = false;
+
+
+            if($duelTeamMembers->isEmpty()){
+            
+              $duel["user_participating"]  = false;
+               
+            }else{
+
+              $duel["user_participating"]  = true;
+            }
                  
-                $duel["user_participating"]  = false;
+                
 
               }else{
                 $duel["user_participating"]  = true;
               }
+
+
+              $duelTeamMembers = DuelTeamMember::where('duel_id',$duel['duel_id'])->where('user_id',Auth::id())->get();
+
+              if($duelTeamMembers->isEmpty()){
+                $duel["user_type"]  = 'user';
+              }else{
+                $duelTeamMembers = DuelTeamMember::where('duel_id',$duel['duel_id'])->where('user_id',Auth::id())->first();
+                $duel["user_type"] = 'team';
+              
+                $userTeam = DuelTeam::where('id',$duelTeamMembers->duel_team_id)->first();
+                $duel["user_team"] = $userTeam;
+              }
+
+
+
 
              if( $duel["current_participant"] >= $duel["max_participant"]){
 
@@ -585,12 +679,34 @@ class DuelController extends Controller
                 
                 'duel_participants.panel_id as panel_id',
                 'duel_participants.stars as stars',
-                'users.username as username'
+                'users.username as username',
+                'duel_participants.user_id as user_id'
              )
             ->where('duel_participants.duel_id',$duel['duel_id'])
            ->orderBy('duel_participants.created_at', 'desc')->get();
+           
+           $duelParticipantsArray = [];
+           foreach ($duelParticipants as $participant) {
+             $newParticipant = (array) $participant;
+           
+             $duelTeamUser = DuelTeamMember::where('duel_id',$duel['duel_id'])->where('user_id',$newParticipant["user_id"])->get();
+
+             if($duelTeamUser->isEmpty()){
+              $newParticipant["type"] = 'user';
+             }else{
+               $newParticipant["type"] = 'team';
+
+               $duelTeamUser = DuelTeamMember::where('duel_id',$duel['duel_id'])->where('user_id',$newParticipant["user_id"])->first();
+
+               $userTeam = DuelTeam::where('id',$duelTeamUser->duel_team_id)->first();
+               $newParticipant["team"] = $userTeam;
+             }
+
+             array_push($duelParticipantsArray,$newParticipant);
+
+           }
         
-           $duel["duel_participants_array"] =  $duelParticipants;
+           $duel["duel_participants_array"] =  $duelParticipantsArray;
 
              $userDuelLike = DuelLike::where('duel_id',$duel['duel_id'])->where('user_id',Auth::id())->get();
 

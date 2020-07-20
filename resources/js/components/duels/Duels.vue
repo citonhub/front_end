@@ -1,5 +1,7 @@
 <template>
 <div>
+
+  
      
      <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-1 my-0" style="position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-1">
@@ -152,7 +154,7 @@
          
               <span v-show="showmore">
                 <div class="my-2">
-                      <span class="px-1 morelabel">&nbsp; &nbsp; My Duels</span>
+                      <span class="px-1 morelabel"  @click.stop="myDuels" >&nbsp; &nbsp; My Duels</span>
                  <v-btn
                 color="#35747e"
                 small
@@ -164,7 +166,7 @@
               </v-btn>
                   </div>
                   <div class="my-2">
-                      <span class="px-1 morelabel">Create Duel</span>
+                      <span class="px-1 morelabel"  @click.stop="createDuel" >Create Duel</span>
                  <v-btn
                 color="#35747e"
                 small
@@ -177,7 +179,7 @@
                   </div>
 
                 <div class="my-2">
-                     <span class="px-1 morelabel"> &nbsp; Find Duels</span>
+                     <span class="px-1 morelabel" @click.stop="findDuels" > &nbsp; Find Duels</span>
                 <v-btn
                 color="#35747e"
                 small
@@ -212,7 +214,7 @@
          
               <span v-show="showmore">
                   <div class="my-2">
-                      <span class="px-1 morelabel">&nbsp; &nbsp; My Duels</span>
+                      <span class="px-1 morelabel " style="cursor:pointer;" @click.stop="myDuels">&nbsp; &nbsp; My Duels</span>
                  <v-btn
                 color="#35747e"
                 small
@@ -225,7 +227,7 @@
                   </div>
 
                    <div class="my-2">
-                      <span class="px-1 morelabel">Create Duel</span>
+                      <span class="px-1 morelabel" style="cursor:pointer;" @click.stop="createDuel" >Create Duel</span>
                  <v-btn
                 color="#35747e"
                 small
@@ -238,7 +240,7 @@
                   </div>
 
                 <div class="my-2">
-                     <span class="px-1 morelabel"> &nbsp; Find Duels</span>
+                     <span class="px-1 morelabel" style="cursor:pointer;" @click.stop="findDuels"> &nbsp; Find Duels</span>
                 <v-btn
                 color="#35747e"
                 small

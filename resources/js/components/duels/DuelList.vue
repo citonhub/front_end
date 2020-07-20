@@ -47,8 +47,13 @@
                      <div class="col-4  py-1 text-center">
                         <v-btn  color="#4495a2" icon  @click.stop="editDuel(duel)"><span><v-icon>mdi-circle-edit-outline mdi-18px</v-icon></span></v-btn>
                      </div>
-                     <div class="col-4 py-1 text-center">
-                            <span class="statusnew" >{{checkDuelStatus(duel)}}</span>
+                     <div class="col-4 py-1 text-center" >
+                            <span  v-if="checkDuelStatus(duel) == 'Pending'">
+
+                    <v-btn @click="startDuel(duel)" rounded x-small color="#3E8893"
+              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;">start</v-btn>            
+                            </span>
+                            <span class="statusnew" v-if="checkDuelStatus(duel) != 'Pending'">{{checkDuelStatus(duel)}}</span>
                      </div>
                      <div class="col-4 py-1 text-center">
                       <v-btn  color="#4495a2" icon ><span><v-icon>mdi-share-variant mdi-18px</v-icon></span></v-btn>
@@ -175,6 +180,32 @@ export default {
            
           this.$router.push({ path: '/duel/' + duel.duel_id +'/board' });
        },
+        startDuel: function(duel){
+       
+      axios.post('/start-duel',{
+                
+                duelId: duel.duel_id
+                
+                  })
+          .then(response => {
+            
+           if (response.status == 200) {
+                
+                duel.started = 1;
+              
+                
+
+            }else{
+             
+            }
+            
+            
+          })
+          .catch(error => {
+           
+          })
+
+    },
     shortenContent: function(content,limit){
              
              if(content.length > limit){

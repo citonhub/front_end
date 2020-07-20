@@ -125,7 +125,8 @@ export default {
             
             
              if (response.status == 200) {
-             
+                
+                this.$root.reloadShelves = true;
                this.$router.push({ path: '/library' });
             
             }

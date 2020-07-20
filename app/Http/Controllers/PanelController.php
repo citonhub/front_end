@@ -15,7 +15,10 @@ use App\TableEntry;
 use App\Project;
 use App\TableEntryTrack;
 use App\DuelPanel;
+use App\DuelTeamMember;
+use App\DuelTeam;
 use Carbon\Carbon;
+use App\Events\PanelChannel;
 
 class PanelController extends Controller
 {
@@ -63,12 +66,57 @@ class PanelController extends Controller
       ];
 
          $this->createTableFields($defaultFields);
+
+         broadcast(new PanelChannel('new-DBtable',$newTable,$request->get('project_slug')))->toOthers();
+
+         return $newTable;
     }
       
     
     public function CreateDB(Request $request){
 
-        $duelPanel = DuelPanel::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->first();
+      $duelId = $request->get('duel_id');
+ 
+      
+      $duelPanel = DuelPanel::where('duel_id',$duelId)->where('user_id',Auth::id())->get();
+
+    
+      if($duelPanel->isEmpty()){
+        
+       $duelTeamMembers = DuelTeamMember::where('duel_id',$duelId)->where('user_id',Auth::id())->get();
+        if($duelTeamMembers->isEmpty()){
+          
+         return;
+
+        }else{
+         $duelTeamMembers = DuelTeamMember::where('duel_id',$duelId)->where('user_id',Auth::id())->first();
+
+          $duelTeam = DuelTeam::where('id',$duelTeamMembers->duel_team_id)->first();
+
+         $duelPanel = DuelPanel::where('panel_id',$duelTeam->panel_id)->first(); 
+         
+        }
+
+      }else{
+
+        $duelTeamMembers = DuelTeamMember::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->get();
+
+        if($duelTeamMembers->isEmpty()){
+            
+            $duelPanel = null;
+
+        }else{
+         $duelTeamMembers = DuelTeamMember::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->first();
+
+          $duelTeam = DuelTeam::where('id',$duelTeamMembers->duel_team_id)->first();
+
+         $duelPanel = DuelPanel::where('panel_id',$duelTeam->panel_id)->first(); 
+         
+        }
+
+       $duelPanel = DuelPanel::where('duel_id',$duelId)->where('user_id',Auth::id())->first();
+      }
+
 
         $panel = Panel::where('panel_id',$duelPanel->panel_id)->first();
         
@@ -98,6 +146,12 @@ class PanelController extends Controller
       ];
 
          $this->createTableFields($defaultFields);
+      
+         if($duelTeam != null){
+          broadcast(new PanelChannel('new-DBtable',$newTable,$duelTeam->team_code))->toOthers();
+         }
+
+      return $newTable;
     }
 
 
@@ -207,8 +261,32 @@ class PanelController extends Controller
         
 
      public function SaveSettings(Request $request){
+
+      $duelId = $request->get('duel_id');
+ 
       
-        $duelPanel = DuelPanel::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->first();
+      $duelPanel = DuelPanel::where('duel_id',$duelId)->where('user_id',Auth::id())->get();
+
+    
+      if($duelPanel->isEmpty()){
+        
+       $duelTeamMembers = DuelTeamMember::where('duel_id',$duelId)->where('user_id',Auth::id())->get();
+        if($duelTeamMembers->isEmpty()){
+          
+         return;
+
+        }else{
+         $duelTeamMembers = DuelTeamMember::where('duel_id',$duelId)->where('user_id',Auth::id())->first();
+
+          $duelTeam = DuelTeam::where('id',$duelTeamMembers->duel_team_id)->first();
+
+         $duelPanel = DuelPanel::where('panel_id',$duelTeam->panel_id)->first(); 
+         
+        }
+
+      }else{
+       $duelPanel = DuelPanel::where('duel_id',$duelId)->where('user_id',Auth::id())->first();
+      }
 
         $panel = Panel::where('panel_id',$duelPanel->panel_id)->first();
           
@@ -258,6 +336,24 @@ class PanelController extends Controller
         $duelPanel->update([
          "panel_id"=> $randomString
         ]);
+
+         $duelId = $request->get('duel_id');
+
+        $duelTeamMembers = DuelTeamMember::where('duel_id',$duelId)->where('user_id',Auth::id())->get();
+        if(!$duelTeamMembers->isEmpty()){
+           
+
+          $duelTeamMembers = DuelTeamMember::where('duel_id',$duelId)->where('user_id',Auth::id())->first();
+
+          $duelTeam = DuelTeam::where('id',$duelTeamMembers->duel_team_id)->first();
+
+          $duelTeam->update([
+            "panel_id"=> $randomString
+          ]);
+         
+
+        }
+      
 
         $panel->update([
         "app_type" => $request->get('app_type'),
@@ -584,15 +680,56 @@ public function main(){
         ];
 
      $response = Http::get($baseUrl .'/create-route',$requestData);
-     
+      
+     broadcast(new PanelChannel('new-route',$newRoute,$request->get('project_slug')))->toOthers();
+
+     return $newRoute;
        
    }
 
 
 
      public function saveRouteFile(Request $request){
+        
+      $duelId = $request->get('duel_id');
 
-        $duelPanel = DuelPanel::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->first();
+      $duelPanel = DuelPanel::where('duel_id',$duelId)->where('user_id',Auth::id())->get();
+
+      if($duelPanel->isEmpty()){
+        
+       $duelTeamMembers = DuelTeamMember::where('duel_id',$duelId)->where('user_id',Auth::id())->get();
+        if($duelTeamMembers->isEmpty()){
+          
+         return;
+
+        }else{
+         $duelTeamMembers = DuelTeamMember::where('duel_id',$duelId)->where('user_id',Auth::id())->first();
+
+          $duelTeam = DuelTeam::where('id',$duelTeamMembers->duel_team_id)->first();
+
+         $duelPanel = DuelPanel::where('panel_id',$duelTeam->panel_id)->first(); 
+         
+        }
+
+      }else{
+
+        $duelTeamMembers = DuelTeamMember::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->get();
+
+        if($duelTeamMembers->isEmpty()){
+            
+            $duelPanel = null;
+
+        }else{
+         $duelTeamMembers = DuelTeamMember::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->first();
+
+          $duelTeam = DuelTeam::where('id',$duelTeamMembers->duel_team_id)->first();
+
+         $duelPanel = DuelPanel::where('panel_id',$duelTeam->panel_id)->first(); 
+         
+        }
+
+       $duelPanel = DuelPanel::where('duel_id',$duelId)->where('user_id',Auth::id())->first();
+      }
 
         $panel = Panel::where('panel_id',$duelPanel->panel_id)->first();
 
@@ -618,6 +755,12 @@ public function main(){
           ];
 
        $response = Http::get($baseUrl .'/create-route',$requestData);
+
+       if($duelTeam != null){
+        broadcast(new PanelChannel('new-route',$newRoute,$duelTeam->team_code))->toOthers();
+       }
+
+       return $newRoute;
        
          
      }
@@ -651,6 +794,12 @@ public function main(){
           'language_type' => $request->get('language_type')
       ];
      $response = Http::get($baseUrl .'/create-view-file',$requestData);
+
+     
+      broadcast(new PanelChannel('new-file',$newCodeBox,$request->get('project_slug')))->toOthers();
+   
+
+     return $newCodeBox;
        
       }
 
@@ -687,7 +836,49 @@ public function main(){
 
     public function SaveCodeFile(Request $request){
       
-        $duelPanel = DuelPanel::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->first();
+      $duelPanel = DuelPanel::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->get();
+          
+      $duelTeam = null;
+
+      if($duelPanel->isEmpty()){
+        
+       $duelTeamMembers = DuelTeamMember::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->get();
+        if($duelTeamMembers->isEmpty()){
+            
+         return;
+
+        }else{
+         $duelTeamMembers = DuelTeamMember::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->first();
+
+          $duelTeam = DuelTeam::where('id',$duelTeamMembers->duel_team_id)->first();
+
+         $duelPanel = DuelPanel::where('panel_id',$duelTeam->panel_id)->first(); 
+         
+        }
+
+      }else{
+        $duelTeamMembers = DuelTeamMember::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->get();
+
+        if($duelTeamMembers->isEmpty()){
+            
+            $duelPanel = null;
+
+        }else{
+         $duelTeamMembers = DuelTeamMember::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->first();
+
+          $duelTeam = DuelTeam::where('id',$duelTeamMembers->duel_team_id)->first();
+
+         $duelPanel = DuelPanel::where('panel_id',$duelTeam->panel_id)->first(); 
+         
+        }
+
+       
+
+       $duelPanel = DuelPanel::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->first();
+      }
+
+     
+
 
         if($request->get('code_category') == 'front_end'){
             
@@ -710,7 +901,13 @@ public function main(){
             'content'=> 'start coding...',
             'language_type' => $request->get('language_type')
         ];
-       $response = Http::get($baseUrl .'/create-view-file',$requestData);
+       $response = Http::get($baseUrl .'/create-view-file',$requestData);   
+       
+       if($duelTeam != null){
+        broadcast(new PanelChannel('new-file',$newCodeBox,$duelTeam->team_code))->toOthers();
+       }
+
+       return $newCodeBox;
          
         }
 
@@ -736,10 +933,16 @@ public function main(){
              ]);
  
              $newCodeBox->save();
-
+      
+             if($duelTeam != null){
+              broadcast(new PanelChannel('new-file',$newCodeBox,$duelTeam->team_code))->toOthers();
+             }
+             
+             return $newCodeBox;
           }
         }
-
+     
+       
       
     }
 
@@ -760,12 +963,53 @@ public function main(){
      
        $this->updateRealFile($CodeBox,$request);
 
+
+       broadcast(new PanelChannel('new-file-update',$CodeBox,$request->get('project_slug')))->toOthers();
+
     }
 
 
     public function saveCodeContent(Request $request){
         
-        $duelPanel = DuelPanel::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->first();
+      $duelPanel = DuelPanel::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->get();
+
+      if($duelPanel->isEmpty()){
+        
+       $duelTeamMembers = DuelTeamMember::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->get();
+        if($duelTeamMembers->isEmpty()){
+          
+         return;
+
+        }else{
+         $duelTeamMembers = DuelTeamMember::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->first();
+
+          $duelTeam = DuelTeam::where('id',$duelTeamMembers->duel_team_id)->first();
+
+         $duelPanel = DuelPanel::where('panel_id',$duelTeam->panel_id)->first(); 
+         
+        }
+
+      }else{
+
+        $duelTeamMembers = DuelTeamMember::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->get();
+
+        if($duelTeamMembers->isEmpty()){
+            
+            $duelPanel = null;
+
+        }else{
+         $duelTeamMembers = DuelTeamMember::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->first();
+
+          $duelTeam = DuelTeam::where('id',$duelTeamMembers->duel_team_id)->first();
+
+         $duelPanel = DuelPanel::where('panel_id',$duelTeam->panel_id)->first(); 
+         
+        }
+
+        
+       $duelPanel = DuelPanel::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->first();
+      }
+
 
         $CodeBox = CodeBox::where('panel_id',$duelPanel->panel_id)->where('id',$request->get('file_id'))->first();
 
@@ -777,7 +1021,10 @@ public function main(){
            
        
          $this->updateRealFile($CodeBox,$request);
-
+       
+         if($duelTeam != null){
+          broadcast(new PanelChannel('new-file-update',$CodeBox,$duelTeam->team_code))->toOthers();
+         }
     }
 
 
@@ -817,7 +1064,27 @@ public function main(){
   
     public function fetchCodeFiles($duelId){
       
-        $duelPanel = DuelPanel::where('duel_id',$duelId)->where('user_id',Auth::id())->first();
+        $duelPanel = DuelPanel::where('duel_id',$duelId)->where('user_id',Auth::id())->get();
+
+         if($duelPanel->isEmpty()){
+           
+          $duelTeamMembers = DuelTeamMember::where('duel_id',$duelId)->where('user_id',Auth::id())->get();
+           if($duelTeamMembers->isEmpty()){
+             
+            return;
+
+           }else{
+            $duelTeamMembers = DuelTeamMember::where('duel_id',$duelId)->where('user_id',Auth::id())->first();
+
+             $duelTeam = DuelTeam::where('id',$duelTeamMembers->duel_team_id)->first();
+
+            $duelPanel = DuelPanel::where('panel_id',$duelTeam->panel_id)->first(); 
+            
+           }
+
+         }else{
+          $duelPanel = DuelPanel::where('duel_id',$duelId)->where('user_id',Auth::id())->first();
+         }
 
         $panel = Panel::where('panel_id',$duelPanel->panel_id)->first();
         

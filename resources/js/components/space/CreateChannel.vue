@@ -22,21 +22,7 @@
          <v-form class="row my-2 py-2 px-2 "  ref="form" v-model="formstate">
               
 
-              <div class="col-12 py-2 my-0 px-2">
-                  <v-select
-         
-          :items="spaceType"
-          label="Type"
-          style="font-size:12px;"
-          hide-selected
-           :rules="requiredRule"
-           v-model="type"
-          placeholder="select..."
-          color="#4495a2"
-          small-chips
-        ></v-select>
-             </div>
-
+            
                    <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
@@ -124,7 +110,7 @@ export default {
           requiredRule: [
          v => !!v || 'This feild is required',
         ],
-        type:'',
+        type:this.$route.params.type,
         Alert:false,
         alertMsg:'',
         spaceType:[
@@ -154,7 +140,7 @@ export default {
     },
     methods:{
        goBack() {
-         this.$root.forceListReload = true;
+         
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
           showAlert:function(duration,text){
@@ -183,7 +169,15 @@ export default {
             
              if (response.status == 200) {
                
-            
+              this.$root.forceListReload = false;
+
+               if(response.data.type == 'Team'){
+                  this.$root.ChatList[1].unshift(response.data);
+               }
+               if(response.data.type == 'Channel'){
+            this.$root.ChatList[2].unshift(response.data);
+               }
+
               this.goBack();
             
             }

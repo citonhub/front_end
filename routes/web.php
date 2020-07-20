@@ -52,7 +52,7 @@ Route::post('/add-post-to-selve','LibraryController@addPostToShelve');
 // Duel Routes
 Route::post('/save-duel','DuelController@saveDuel');
 Route::get('/fetch-duels','DuelController@fetchDuel');
-Route::get('/fetch-this-duel/{duelId}','DuelController@fetchThisDuel');
+Route::get('/fetch-this-duel/{duelId}/{type}','DuelController@fetchThisDuel');
 Route::post('/save-duel-comment','DuelController@saveDuelComment');
 Route::get('/fetch-duel-comments/{duelId}','DuelController@fetchDuelComments');
 Route::post('/save-liked-duel','DuelController@likeDuel');
@@ -63,6 +63,7 @@ Route::post('/save-duel-votes','DuelController@saveDuelVotes');
 Route::get('/fetch-duel-results/{duelId}','DuelController@DuelResults');
 Route::get('/fetch-user-duels','DuelController@fetchUserDuel');
 Route::post('/start-duel','DuelController@startDuel');
+Route::post('/make-team','DuelController@MakeTeam');
 
 
 // Panel Routes
@@ -104,8 +105,10 @@ Route::get('/fetch-space-projects-{spaceId}','ProjectController@fetchProjects');
 Route::get('/fetch-project-{projectSlug}','ProjectController@fetchProject');
 Route::post('/save-project-stars','ProjectController@saveProjectStar');
 Route::post('/save-project-comment','ProjectController@saveComment');
+Route::post('/save-panel-comment','ProjectController@saveCommentPanel');
 Route::get('/fetch-comment-project-{projectSlug}','ProjectController@fetchProjectComments');
 Route::post('/save-liked-project-comment','ProjectController@saveProjectLikes');
+Route::get('fetch-comment-panel-{teamCode}','ProjectController@TeamComment');
 
 // Profile Routes
 Route::post('/update-profile','ProfileController@UpdateProfile');

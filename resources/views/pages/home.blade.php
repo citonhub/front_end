@@ -67,6 +67,6 @@
 
  @section('scripts')
 
- <script src="{{ asset('js/home.js?v=0.49') }}"></script>
+ <script src="{{ asset('js/home.js?v=0.51') }}"></script>
      
  @endsection

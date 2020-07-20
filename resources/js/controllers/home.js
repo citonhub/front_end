@@ -104,7 +104,7 @@ const app = new Vue({
             repliedPostId:'',
             showShelves:false,
             scrollHome:'auto',
-            userShelves:[],
+            userShelves:null,
             pullingPostId:'',
             alertMsg:'',
             Alert:false,
@@ -118,6 +118,7 @@ const app = new Vue({
             redirectRoot:'',
             authProfile:[],
             allChannel:[],
+            reloadShelves:false,
             UrlTrack:'',
             fromHome:false,
     },
@@ -403,27 +404,29 @@ const app = new Vue({
   },
 
     loadShelves: function(){
-        if(this.userShelves.length > 0){
-          return;
-        }
-      axios.get('/fetch-user-shelves')
-  .then(response => {
+      if(this.$root.userShelves != null){
+        this.userShelves = this.$root.userShelves ;
+    }else{
+         
+          axios.get('/fetch-user-shelves')
+   .then(response => {
+   
+   if (response.status == 200) {
+     
+     this.userShelves = response.data;
+     this.$root.userShelves = response.data;
+     
+    
+     
+     
+  }
+    
   
-  if (response.status == 200) {
-    
-    this.userShelves = response.data;
-    
-    
-   
-    
-    
- }
-   
+  })
+  .catch(error => {
  
- })
- .catch(error => {
-
- }) 
+  }) 
+    }
 },
 
     loader:function(){

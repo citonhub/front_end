@@ -266,6 +266,14 @@ export default {
        this.$root.showHeader = false;
        
        this.fetchMessages();
+
+       if(this.$root.projectData.length != 0){
+              
+              this.$root.localChannel = [];
+             Echo.leave('panel.' + this.$root.projectData.project_slug);
+
+          }
+          
        this.$root.messageScroller = this.$refs.messageContainerRef;
        
        this.makeSpaceConnetion();

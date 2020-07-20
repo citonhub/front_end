@@ -11,7 +11,7 @@
            <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
          <div class="col-4 py-0 my-0 text-left px-1" style="border-bottom:2px solid #3E8893;">
-           <v-btn icon color="#3E8893" @click="createChannel"><v-icon>mdi-plus-circle-outline</v-icon></v-btn>
+          
          </div>
 
           <div class="col-4 py-0 my-0 d-flex px-1" style="border-bottom:2px solid #3E8893; align-items:center;justify-content:center;">
@@ -68,15 +68,117 @@
 
 
              </v-card>
+
+
+              <div class="col-12 py-0 px-0 my-1 mb-2" @click="showProject ? showProject = false : showProject = true" >
+                 
+                 <div class="row py-0 my-0 px-2">
+                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                          
+                    </div>
+                       <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                         <span  style="font-size:12px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Projects</span>
+                    </div>
+                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                           <v-btn icon color="#3E8893" @click="createProject"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+                    </div>
+                 </div>
+
+             </div>
+
+               <v-slide-y-transition>
+
+              
+              <div class="col-12 py-1 my-0 mx-0" v-if="showProject">
+                <div  v-if="channelProject != null">
+                    <div class="row my-0 my-0 px-0"  v-if="channelProject.length != 0">
+
+                    <v-card tile flat class="col-12 py-1 px-0 my-1" @click="showProjectLink(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in channelProject"
+                      :key="index">
+                <div class="row py-0 my-0 px-0">
+                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
+                        <div class="py-1">
+                           <span style="height:38px; width:38px; " class=" py-2 px-2">
+
+                              <v-icon color="#35747e" class="">mdi-plus-network-outline</v-icon>
+                           </span>
+                        </div>    
+                    </div>
+                     <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
+                         <span class="titleText">{{space.title}}</span>
+                    </div>
+                    <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
+                          
+                    </div>
+                </div>
+             </v-card>
+                 </div>
+
+                 <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
+       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No Project found</span>
+              
+            </div>
+                </div>
+                
+
+                 <div v-else  class="row my-0 py-0 px-1 ">
+            <div class="col-12 py-0 my-0">
+   
+           <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
+           
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
+
+          
+
+         </div>
+
+
+            </div>
+
+             <div class="col-12 py-0 my-0">
+   
+           <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
+           
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
+
+          
+
+         </div>
+
+
+            </div>
+  
+              </div>
+              </div>
+             </v-slide-y-transition>
+
             
              <div class="col-12 py-0 px-0 my-1 mb-2" @click="showChannel ? showChannel = false : showChannel = true" >
                  
-                
-                     <div class="py-2 my-0 d-flex col-12" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                 <div class="row py-0 my-0 px-2">
+                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                          
+                    </div>
+                       <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
                          <span  style="font-size:12px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Channels</span>
                     </div>
-                
-            
+                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                           <v-btn icon color="#3E8893" @click="createChannel('Channel')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+                    </div>
+                 </div>
+
              </div>
               <v-slide-y-transition>
 
@@ -155,13 +257,23 @@
 
 
 
-               <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTeams ? showTeams = false : showTeams = true" >
-                  <div class="py-2 my-0 d-flex col-12" style="align-items:center;justify-content:center; background:#c9e4e8;">
+                <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTeams ? showTeams = false : showTeams = true" >
+                 
+                 <div class="row py-0 my-0 px-2">
+                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                          
+                    </div>
+                       <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
                          <span  style="font-size:12px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Teams</span>
                     </div>
+                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                           <v-btn icon color="#3E8893" @click="createChannel('Team')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+                    </div>
+                 </div>
+
              </div>
              <v-slide-y-transition>
-              <div class="col-12 py-1 my-0 mx-0"  >
+              <div class="col-12 py-1 my-0 mx-0"  v-if="showTeams">
                  <div  v-if="teamSpace != null">
                  <div class="row my-0 my-0 px-0"  v-if="teamSpace.length != 0">
                     <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in teamSpace"
@@ -183,7 +295,7 @@
                  </div>
 
                  <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
-       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No Team found</span>
+              <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No Team found</span>
               
             </div>
                  </div>
@@ -230,11 +342,20 @@
               </div>
               </v-slide-y-transition>
 
-               <div class="col-12 py-0 px-0 my-1 mb-2" @click="showDirect ? showDirect = false : showDirect = true" >
-                  <div class="py-2 my-0 d-flex col-12" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                <div class="col-12 py-0 px-0 my-1 mb-2" @click="showDirect ? showDirect = false : showDirect = true" >
+                 
+                 <div class="row py-0 my-0 px-2">
+                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                          
+                    </div>
+                       <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
                          <span  style="font-size:12px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Direct Messages</span>
                     </div>
-             </div>
+                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                           <v-btn icon color="#3E8893" @click="createChannel"><v-icon></v-icon></v-btn>
+                    </div>
+                 </div>
+                </div>
              <v-slide-y-transition>
               <div class="col-12 py-1 my-0 mx-0"   v-if="showDirect">
                  <div class="row my-0 my-0 px-0">
@@ -257,29 +378,7 @@
       </div>
          </div>
 
-       <span style="position:absolute; top:76%; right:3%;z-index:134500045;"  class="d-md-none d-inline-block">
-          <v-btn
-                color="#35747e"
-                small
-                @click="createProject"
-                class="d-block"
-                fab
-              >
-                <v-icon color="#ffffff">mdi-plus-network-outline</v-icon>
-              </v-btn>
-     </span>
-
-      <span style="position:absolute; top:84%; right:3%;z-index:134500045;"  class="d-none d-md-inline-block">
-          <v-btn
-                color="#35747e"
-                small
-                @click="createProject"
-                class="d-block"
-                fab
-              >
-                <v-icon color="#ffffff">mdi-plus-network-outline</v-icon>
-              </v-btn>
-     </span>
+     
          </div>
  </v-app>
   
@@ -290,12 +389,14 @@ export default {
      data () {
       return {
        showmore:false,
-       showTeams:true,
-       showDirect:true,
+       showTeams:false,
+       showDirect:false,
        personalSpace:[],
        teamSpace:null,
+       channelProject:null,
        channelSpace:null,
-       showChannel:true,
+       showChannel:false,
+       showProject:false,
       }
     },
     mounted(){
@@ -303,6 +404,13 @@ export default {
        this.$root.showHeader = true;
        this.$root.channel = null;
        this.$root.Messages = null;
+         if(this.$root.projectData.length != 0){
+              
+              this.$root.localChannel = [];
+             Echo.leave('panel.' + this.$root.projectData.project_slug);
+
+          }
+
        Echo.leave('space.' + this.$root.selectedSpace.space_id);
        this.fetchChatList();
     },
@@ -314,8 +422,11 @@ export default {
           
          this.$router.push({ path: '/space/'  +  space.space_id  +  '/channel' });
        },
-       createChannel:function(){
-           this.$router.push({ path: '/space/create' });
+       showProjectLink: function(project){
+           this.$router.push({ path: '/' + project.project_slug +'/panel' });
+       },
+       createChannel:function(type){
+           this.$router.push({ path: '/space/' + type + '/create' });
        },
        createProject:function(){
            this.$router.push({ path: '/space/create-project' });
@@ -326,6 +437,7 @@ export default {
         this.personalSpace = this.$root.ChatList[0];
         this.teamSpace = this.$root.ChatList[1];
         this.channelSpace = this.$root.ChatList[2];
+        this.channelProject = this.$root.ChatList[3].data;
           
         this.$root.SpaceWithoutChannel = this.$root.ChatList;
     
@@ -339,7 +451,7 @@ export default {
       
       if (response.status == 200) {
         
-        
+         this.channelProject = response.data[3].data;
          this.personalSpace =  response.data[0];
         this.teamSpace =  response.data[1];
         this.channelSpace =  response.data[2];

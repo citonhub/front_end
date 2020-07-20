@@ -17,7 +17,8 @@
       @click="showPage(participant)"
      :style=" selecetedPanelId == participant.panel_id ? 'color:white;background-color:#4ba6b4;' : 'background-color:#edf6f7;'"
       >
-      @{{participant.username}}
+     <span  v-if="participant.type == 'user'" >@{{participant.username}}</span> 
+     <span  v-if="participant.type == 'team'" >@{{participant.team.name}}</span> 
     </v-chip>  
          </div>
          <div class="py-2 my-0 text-center px-1" style=" position:absolute; left:80%; width:20%; background:#b7dbe1;border-bottom:2px solid #4495a2;" >

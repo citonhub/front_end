@@ -144,6 +144,12 @@ export default {
       this.$root.showTabs=true;
        this.$root.showHeader = true;
         this.fetchOwnerList();
+        if(this.$root.projectData.length != 0){
+              
+              this.$root.localChannel = [];
+             Echo.leave('panel.' + this.$root.projectData.project_slug);
+
+          }
     },
     methods:{
        goBack() {
@@ -173,8 +179,9 @@ export default {
              
             
             
-             if (response.status == 200) {
-               
+             if (response.status == 201) {
+                 
+                this.$root.ChatList[3].data.unshift(response.data);
             
               this.goBack();
             

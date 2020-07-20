@@ -51,7 +51,8 @@
                                 >
                                 <v-carousel-item class="text-center" v-for="(participant,index) in this.selectedDuel.duel_participants_array"
                                  :key="index">
-                                    <span class="py-1 px-1 newavatarText" @click.stop="viewUser(participant)">@{{participant.username}}</span>
+                                    <span class="py-1 px-1 newavatarText" @click.stop="viewUser(participant)" v-if="participant.type == 'user'">@{{participant.username}}</span>
+                                     <span class="py-1 px-1 newavatarText" @click.stop="viewUser(participant)" v-if="participant.type == 'team'">@{{participant.team.name}}</span>
                               
                                 </v-carousel-item>
                                 
@@ -180,7 +181,15 @@ export default {
         this.fetchDuelComments();
          this.fetchDuel();
          this.$root.duelComments = [];
-         
+          if(this.$root.selectedDuel.length != 0){
+               
+               if(this.$root.selectedDuel.user_team != undefined){
+        this.$root.localChannel = [];
+             Echo.leave('panel.' + this.$root.selectedDuel.user_team.team_code);
+
+               }
+              
+          }
          
     },
     components: { 
@@ -190,6 +199,7 @@ export default {
 
     
     methods:{
+      
       
       viewUser: function(participant){
        this.$root.pageloader = true;
@@ -281,7 +291,7 @@ export default {
 
              this.countDownDate = new Date(this.selectedDuel.duel_terminal_time).getTime();
             
-            var  status = this.checkDuelStatus(this.selectedDuel.duel_terminal_time,this.selectedDuel.duel_voting_time);
+            var  status = this.checkDuelStatus(this.selectedDuel);
 
           this.countDownDate = new Date(this.selectedDuel.duel_terminal_time).getTime();
 
@@ -293,11 +303,12 @@ export default {
            if(status == 'Voting'){
              this.countDownDate = new Date(this.selectedDuel.duel_voting_time).getTime();
            }
-
+            
+             this.countDownTimer();
 
 
           }else{
-             axios.get('/fetch-this-duel/' + this.$route.params.duelId)
+             axios.get('/fetch-this-duel/' + this.$route.params.duelId + '/user')
       .then(response => {
       
       if (response.status == 200) {
@@ -307,7 +318,7 @@ export default {
         this.$root.selectedDuel = response.data[0];
         
           
-        var  status = this.checkDuelStatus(this.selectedDuel.duel_terminal_time,this.selectedDuel.duel_voting_time);
+        var  status = this.checkDuelStatus(this.selectedDuel);
 
           this.countDownDate = new Date(response.data[0].duel_terminal_time).getTime();
 
@@ -340,7 +351,13 @@ export default {
       },
       DuelPanel: function(){
          this.$root.checkIfUserIsLoggedIn('duels');
-          this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/panel' });
+
+          if(this.selectedDuel.user_type == "user"){
+                this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/panel/user' });
+          }else{
+              this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/panel/' + this.selectedDuel.user_team.team_code });
+          }
+          
       },
      
       showDuelInfo: function(){

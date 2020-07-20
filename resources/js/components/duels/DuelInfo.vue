@@ -26,20 +26,6 @@
                 </div>
                 </v-card>
 
-                <v-card flat class="col-12 py-1 my-1" elevation-19 style="background: whitesmoke;">
-                   <span class="HeadingText">Description</span>
-                <div class="col-12 py-0 my-0 text-left">
-                   <span class="para" v-html="this.$root.selectedDuel.description"></span>
-                </div>
-                </v-card>
-
-                <v-card flat class="col-12 py-1 my-1" elevation-19 style="background: whitesmoke;">
-                   <span class="HeadingText">Participant Type</span>
-                <div class="col-12 py-0 my-0 text-left">
-                   <span class="mybadgenew mx-1" v-for="(participant, index) in  this.$root.selectedDuel.participant_type_array" :key="index">{{participant}}</span>
-                    
-                </div>
-                </v-card>
 
                 <v-card flat class="col-12 py-1 my-1" elevation-19 style="background: whitesmoke;">
                    <span class="HeadingText">Max. Number of Participants: {{ this.$root.selectedDuel.max_participant}}</span>

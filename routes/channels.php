@@ -35,3 +35,7 @@ Broadcast::channel('post.{postId}', function () {
 Broadcast::channel('duel.{duelId}', function () {
 	return Auth::check();
 });
+
+Broadcast::channel('panel.{uniqueId}', function () {
+	return Auth::check();
+});

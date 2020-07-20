@@ -150,7 +150,7 @@ export default {
        this.$root.showHeader = false;
        this.checkifReply();
         this.$root.checkIfUserIsLoggedIn('space');
-       this.fetchProject();
+      
     },
     methods:{
       checkifReply: function(){
@@ -186,33 +186,12 @@ export default {
           
           
       },
-      fetchProject: function(){
-        
-         axios.get('/fetch-project-' + this.$route.params.projectSlug)
-      .then(response => {
-      
-      if (response.status == 200) {
-        
-        
-       this.$root.projectData = response.data[0];
-      
-         
-        
-
-     }
-       
      
-     })
-     .catch(error => {
-    
-     }) 
-
-        },
        
    saveComment:function(){
        this.loading = true;
-     axios.post('/save-project-comment',{
-      'project_slug':this.$route.params.projectSlug,
+     axios.post('/save-panel-comment',{
+      'project_slug':this.$route.params.type,
        'content': this.contentInWord,
        'is_reply': this.$root.is_reply_comment,
        'replied_comment_id': this.$root.replyCommentId 

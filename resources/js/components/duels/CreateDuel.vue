@@ -62,38 +62,7 @@
              </div>
 
 
-             <div class="col-12 py-2 my-0 px-2">
-                 <div>
-                     <span style="font-size:12px;color:#666666;">Description</span>
-                 </div>
-                 
-    <v-row>
-       <v-col cols=12 >
-         
-
-            <div class="editor">
           
-             <editor-content class="editor-box" :editor="editor" :onUpdate="countCharacterDesc()" />
-            </div>
-        </v-col>
-    </v-row>
-             </div>
-
-             <div class="col-12 py-2 my-0 px-2">
-                  <v-select
-          v-model="selectedParticipant"
-          :items="participant"
-          label="Participant Type"
-          style="font-size:12px;"
-          multiple
-          :disabled="this.$root.editDuelArray.started == 1"
-          :rules="requiredRule"
-          hide-selected
-          placeholder="select participant"
-          color="#4495a2"
-          small-chips
-        ></v-select>
-             </div>
 
 
              
@@ -247,7 +216,7 @@ export default {
         ],
         
       }),
-      selectedParticipant:'',
+      selectedParticipant:['Individuals'],
        titleRule:[
              v => !!v || 'Title is required',
            v => v.length <= 50 || 'Name must be less than 50 characters'
@@ -385,7 +354,7 @@ export default {
       axios.post('/save-duel',{
                 title: this.title,
                 duel_languages: this.programmingLanguage,
-                description: this.description,
+                description: 'empty',
                 participant_type: this.selectedParticipant,
                 rules: this.rulesValue,
                 max_participant: this.max_participant,
@@ -398,8 +367,15 @@ export default {
            if (response.status == 200) {
                 
                     if(response.data != 'edit'){
-                       this.$root.duels.unshift(response.data[0]);
-                        this.$root.UserDuel.unshift(response.data[0]);
+                        if(this.$root.duels != null){
+                     this.$root.duels.unshift(response.data[0]);
+                        }
+
+                        if(this.$root.UserDuel != null){
+                          this.$root.UserDuel.unshift(response.data[0]);
+                         }
+                       
+                        
                       this.$root.thisDuelConnection(response.data[0]);
                     }
                 

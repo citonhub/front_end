@@ -30,8 +30,9 @@
                     </div>
                   
                 </div>
-                <div class="col-12 px-2 py-0">
-                       <v-card tile flat class="col-12 py-2 px-0 my-1" @click.stop="addPostToShelve(shelve)" color="#edf6f7" style="border:1px solid #5fb0b9;" v-for="(shelve,index) in this.$root.userShelves" :key="index">
+                <div class="col-12 px-2 py-0" v-if="this.$root.userShelves != null">
+                   <div v-if="this.$root.userShelves.length != 0">
+                         <v-card tile flat class="col-12 py-2 px-0 my-1" @click.stop="addPostToShelve(shelve)" color="#edf6f7" style="border:1px solid #5fb0b9;" v-for="(shelve,index) in this.$root.userShelves" :key="index">
                 <div class="row py-0 my-0 px-0">
                 
                      <div class="py-0 my-0 d-flex col-12" style="align-items:center; justify-content:center;">
@@ -40,10 +41,52 @@
                     
                 </div>
              </v-card>
+                   </div>
+                      
+                   <div v-else class="text-center col-12 py-1 my-0">
+               <span style="color:gray; font-size:12px;" class="d-block">No Shelve found</span>
 
+                <v-btn small @click="addShelve" rounded color="#3E8893" style="color:white; font-size:12px; text-transform:capitalize;" class="my-2">Add a shelve</v-btn>
+              </div>
               
 
                 </div>
+
+                         <div class="col-12 py-0 my-0"  v-else>
+
+         <div class="row py-0 my-0 px-1">
+            
+     <div class="col-12 py-2 my-1 ">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="20px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+
+       <div class="col-12 py-2 my-1 ">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="20px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+
+       <div class="col-12 py-2 my-1 ">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="20px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+
+
+       
+       
+
+         
+      </div>
+                
                  
         
 
@@ -56,6 +99,7 @@
        </div>
      </div>
       </div>
+     </div>
      </div>
 </template>
 <script>

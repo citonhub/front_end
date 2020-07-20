@@ -25,6 +25,8 @@ import CreateTableField from "../components/duels/CreateTableField.vue"
 import CreateTableEntries from "../components/duels/CreateTableEntries.vue"
 import PanelLoader from "../components/duels/PanelLoader.vue"
 import DuelList from "../components/duels/DuelList.vue"
+import ProjectComments from "../components/duels/ProjectComments.vue"
+import NewComment from "../components/duels/NewComment.vue"
 
 
 const routes = [
@@ -104,12 +106,22 @@ const routes = [
      
       {
         //match panel
-        path: ':duelId/panel',
+        path: ':duelId/panel/:type',
         component: MatchPanel
       },
       {
+        //match panel comment
+        path: ':duelId/panel/:type/comments',
+        component: ProjectComments
+      },
+      {
+        //match panel comment
+        path: ':duelId/panel/:type/comments/new',
+        component: NewComment
+      },
+      {
         //match panel
-        path: ':duelId/panel/settings',
+        path: ':duelId/panel/new/settings',
         component: PanelSettings
       },
       {
@@ -183,15 +195,23 @@ const app = new Vue({
       panelRoutes:[],
       allChannel:[],
       selectedRoute:[],
-      backEndFiles:[],
       UrlTrack:'',
       SelectedTable:[],
       authProfile:[],
       isEditDuel: false,
       editDuelArray:[],
+      localChannel:[],
       showShare:false,
+      codeFiles:[],
       UserDuel:null,
-      userList:[]
+      showShare:false,
+      userList:[],
+      frontEndFiles:[],
+      backEndFiles:[],
+      projectComments:[],
+      replyCommentUsername:'',
+      replyCommentId:0,
+      is_reply_comment:false,
     },
      mounted: function () {
       this.pageloader= false;

@@ -65,6 +65,7 @@ export default {
       this.$root.checkIfUserIsLoggedIn('space');
       this.$root.showTabs=false;
        this.$root.showHeader = false;
+       
     },
     methods:{
       

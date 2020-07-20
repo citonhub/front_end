@@ -19,9 +19,9 @@
       </div>
      </div>
 
-      <div class="col-12 py-1 my-0 " >
-            <div class="row py-0 my-0">
-                 <div class="col-lg-3 col-4 text-center py-2 my-0 " v-for="(shelve, index) in userShelves" :key="index">
+      <div class="col-12 py-1 my-0 " v-if="userShelves != null">
+            <div class="row py-0 my-0" v-if="userShelves.length != 0">
+                 <div class="col-lg-3 col-4 text-center py-2 my-1 " v-for="(shelve, index) in userShelves" :key="index">
                  <v-card height="120" class="d-flex" style="align-items:center; justify-content:center; border:2px solid #5dafbb;" color="#dbedf0" @click="showShelf(shelve)">
                       <span class="shelfText px-1">
                           {{shelve.name}}
@@ -30,9 +30,49 @@
                  </div>
                 
             </div>
+             <div v-else class="text-center col-12 py-1 my-0">
+               <span style="color:gray; font-size:12px;" class="d-block">No Shelve found</span>
+
+                <v-btn small @click="addShelve" rounded color="#3E8893" style="color:white; font-size:12px; text-transform:capitalize;" class="my-2">Add a shelve</v-btn>
+            </div>
         </div>
+
+         <div class="col-12 py-0 my-0"  v-else>
+
+         <div class="row py-0 my-0 px-1">
+            
+     <div class="col-lg-3 col-4 text-center py-2 my-1 ">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+
+      <div class="col-lg-3 col-4 text-center py-2 my-1 ">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+
+      <div class="col-lg-3 col-4 text-center py-2 my-1 ">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
          </div>
-       </div>
+
+
+       
+       
+
+         </div>     
+      </div>
+         </div>
      </v-app>
 </template>
 <script>
@@ -55,11 +95,13 @@ export default {
     },
     methods:{
     loadShelves: function(){
-       if(this.$root.userShelves.length > 0){
-           return;
-       }
-          axios.get('/fetch-user-shelves')
+       if(this.$root.userShelves != null && !this.$root.reloadShelves){
+           this.userShelves = this.$root.userShelves ;
+       }else{
+            
+             axios.get('/fetch-user-shelves')
       .then(response => {
+         this.$root.userShelves = null;
       
       if (response.status == 200) {
         
@@ -76,6 +118,8 @@ export default {
      .catch(error => {
     
      }) 
+       }
+         
     },
   showHome: function(){
       this.$router.push({ path: '/' });

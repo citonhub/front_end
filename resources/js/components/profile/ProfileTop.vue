@@ -55,7 +55,7 @@
               
      <v-btn x-small :loading="loading"  v-if="!this.$root.profileDetails.connected && this.$root.username != this.$root.profileDetails.username" rounded color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;" @click="connect">Connect</v-btn>
 
-      <v-btn x-small   v-if="this.$root.profileDetails.connected " rounded color="#3E8893" style="font-size:10px; color:white;text-transform:capitalize;" >Connected</v-btn>     
+      <v-btn x-small   v-if="this.$root.profileDetails.connected && this.$root.username != this.$root.profileDetails.username" rounded color="#3E8893" style="font-size:10px; color:white;text-transform:capitalize;" >Connected</v-btn>     
              
              
 

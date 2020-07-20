@@ -15,7 +15,7 @@
          </div>
          <div class="col-4 py-1 my-0 px-1 pr-2 text-right"  style="border-bottom:2px solid #4495a2;" >
               <v-btn rounded x-small color="#3E8893" :disabled="editFeild" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
-                   @click="savePost" :loading="loading">Post</v-btn>
+                   @click="savePost" :loading="loading">Send</v-btn>
          </div>
       </div>
      </div>

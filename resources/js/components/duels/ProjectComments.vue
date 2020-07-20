@@ -11,7 +11,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-             <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Comments</span>
+             <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;" v-if="this.$root.selectedDuel.length != 0">{{ this.$root.selectedDuel.user_team.name}}</span>
          </div>
          <div class="col-2 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
              
@@ -74,7 +74,7 @@
                 class="d-block"
                 fab
               >
-                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
+                <v-icon color="#ffffff">mdi-comment-text-outline mdi-18px</v-icon>
               </v-btn>
      </span>
 
@@ -86,7 +86,7 @@
                 class="d-block"
                 fab
               >
-                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
+                <v-icon color="#ffffff">mdi-comment-text-outline mdi-18px</v-icon>
               </v-btn>
      </span>
        </div>
@@ -100,7 +100,7 @@
 export default {
     data(){
         return{
-         
+         duel:[],
          
        
         }
@@ -111,16 +111,89 @@ export default {
    mounted(){
       this.$root.showTabs=true;
        this.$root.showHeader = false;
-       this.fetchProjectComments();
-       this.trackPanel();
+       this.fetchDuel();
+      this.trackPanel();
     },
     methods:{
        
-   trackPanel: function(){
+      fetchDuel: function(){
+      if(this.$root.selectedDuel.length != 0){
 
-        if( this.$root.localChannel.length == 0){
+        this.duel = this.$root.selectedDuel;
+
+         this.fetchPanelComments();
+
+      }else{
+       
+       axios.get('/fetch-this-duel/' + this.$route.params.duelId + '/' + this.$route.params.type)
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+         
+       var duel = response.data[0];
+
+        this.duel = duel;
+        this.$root.selectedDuel =  duel;
+
+        this.fetchPanelComments();
+      
+       
+       
+
+     }
+  
+    });
+
+      }
+
+      },
+  
+   goBack() {
           
-          var channel = Echo.private('panel.' + this.$route.params.projectSlug)
+        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+        },
+    makeComment:function(){
+        this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/new' });
+    },
+    likeComment:function(comment){
+           this.$root.checkIfUserIsLoggedIn('space');
+          if(comment.liked_by_user){
+          return;
+        }
+
+         axios.post('/save-liked-project-comment',{
+            "comment_id": comment.id
+          })
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+           
+       
+
+         this.$root.projectComments.map((eachcomment)=> {
+            if(eachcomment.id ==  comment.id){
+                eachcomment.liked_by_user = true;
+              eachcomment.likes = parseInt(eachcomment.likes)  + 1;
+            }
+         });
+        
+        
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+      },
+       trackPanel: function(){
+
+        if( this.$route.params.type != 'user' && this.$root.localChannel.length == 0){
+          
+          var channel = Echo.private('panel.' + this.$route.params.type)
        .listen('.PanelChannel',(e) => {
              
     
@@ -211,58 +284,21 @@ export default {
    
        
      },
-  
-   goBack() {
-          
-        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
-        },
-    makeComment:function(){
-        this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/make-comment' });
-    },
-    likeComment:function(comment){
-           this.$root.checkIfUserIsLoggedIn('space');
-          if(comment.liked_by_user){
-          return;
-        }
-
-         axios.post('/save-liked-project-comment',{
-            "comment_id": comment.id
-          })
-      .then(response => {
-      
-      if (response.status == 200) {
-        
-           
-       
-
-         this.$root.projectComments.map((eachcomment)=> {
-            if(eachcomment.id ==  comment.id){
-                eachcomment.liked_by_user = true;
-              eachcomment.likes = parseInt(eachcomment.likes)  + 1;
-            }
-         });
-        
-        
-     }
-       
-     
-     })
-     .catch(error => {
-    
-     }) 
-
-      },
       replyComment:function(comment){
           this.$root.checkIfUserIsLoggedIn('space');
            this.$root.is_reply_comment = true;
            this.$root.replyCommentId = comment.id;
            this.$root.replyCommentUsername = comment.username;
 
-           this.$router.push({ path: '/'+ this.$route.params.projectSlug + '/make-comment' });
+           this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/new' });
       },
-    fetchProjectComments: function(){
+    fetchPanelComments: function(){
+
+       if(this.$root.projectComments.length != 0){
+
+       }else{
         
-         axios.get('/fetch-comment-project-' + this.$route.params.projectSlug)
+          axios.get('/fetch-comment-panel-' + this.$route.params.type)
       .then(response => {
       
       if (response.status == 200) {
@@ -281,6 +317,9 @@ export default {
     
      }) 
 
+       }
+        
+       
         },
     getAvatarText: function(text){
          return text.slice(0,2);

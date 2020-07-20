@@ -169,11 +169,11 @@ export default {
                   })
           .then(response => {
              
-            
-            
-             if (response.status == 200) {
+ 
+             if (response.status == 201) {
                
-               this.$root.forcePanelReload= true;
+              this.$root.CodeFilesData[0].unshift(response.data);
+               this.$root.forcePanelReload= false;
               this.goBack();
             
             }

@@ -70,6 +70,12 @@ export default {
     mounted(){
       this.fetchMessages();
        this.fetchProjects();
+        if(this.$root.projectData.length != 0){
+              
+              this.$root.localChannel = [];
+             Echo.leave('panel.' + this.$root.projectData.project_slug);
+
+          }
     },
     methods:{
        goBack() {
