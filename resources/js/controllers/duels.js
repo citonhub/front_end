@@ -27,10 +27,11 @@ import PanelLoader from "../components/duels/PanelLoader.vue"
 import DuelList from "../components/duels/DuelList.vue"
 import ProjectComments from "../components/duels/ProjectComments.vue"
 import NewComment from "../components/duels/NewComment.vue"
-
+import HowTo from "../components/space/HowTo.vue"
 
 const routes = [
   { path: '/', redirect: '/duel'},
+  { path: '/how-to', name: 'HowTo', component: HowTo},
   { path: '/login', name: 'Login', component: Login},
   { path: '/auth/:frompage', name: 'Auth', component: Auth},
   { path: '/register', name: 'Register', component: Register},

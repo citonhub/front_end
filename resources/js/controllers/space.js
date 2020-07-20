@@ -34,11 +34,13 @@ import CreateTableField from "../components/space/CreateTableField.vue"
 import CreateTableEntries from "../components/space/CreateTableEntries.vue"
 import ProjectComments from "../components/space/ProjectComments.vue"
 import NewComment from "../components/space/NewComment.vue"
+import HowTo from "../components/space/HowTo.vue"
 
 
 const routes = [
   { path: '/', redirect: '/space'},
   { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},
+  { path: '/how-to', name: 'HowTo', component: HowTo},
   { path: '/login', name: 'Login', component: Login},
   { path: '/auth/:frompage', name: 'Auth', component: Auth},
   { path: '/:projectSlug/panel', name: 'ProjectPanel', component: ProjectPanel},

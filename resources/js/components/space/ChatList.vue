@@ -8,31 +8,17 @@
    
      
       <div style="overflow-y:auto; overflow-x:hidden;position:absolute;left:0; width:100%; height:100%;">
-           <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
-       <div class="row py-1 my-0 px-1" >
-         <div class="col-4 py-0 my-0 text-left px-1" style="border-bottom:2px solid #3E8893;">
-          
-         </div>
-
-          <div class="col-4 py-0 my-0 d-flex px-1" style="border-bottom:2px solid #3E8893; align-items:center;justify-content:center;">
-           
-         </div>
-
-         <div class="col-4 py-0 my-0 text-right px-1"  style="border-bottom:2px solid #3E8893;">
-            <v-btn icon color="#3E8893"><v-icon>mdi-card-search-outline</v-icon></v-btn>
-         </div>
-      </div>
-     </div>
+        
 
       <div class="col-12 py-0 my-0" >
 
 
          <div class="row my-0 py-0 px-2 "  >
 
-             <v-card tile flat class="col-12 py-1 px-0 my-1" @click="showSpace(personalSpace)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;">
-                <div class="row py-0 my-0 px-0"  v-if="personalSpace.length != 0">
+             <v-card tile flat class="col-12 py-0 px-0 my-1" @click="showSpace(personalSpace)" color="#ffffff" style="border-bottom:2px solid #5fb0b9;">
+                <div class="row py-1 my-0 px-0"  v-if="personalSpace.length != 0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
-                        <div class="py-1">
+                        <div class="py-0">
                           <v-img  :background-color="personalSpace.background_color" :src="personalSpace.image_name == null ? 'imgs/user.svg' : '/imgs/space/'+ personalSpace.image_name +'.' + personalSpace.image_extension " height="38" width="38" class="avatarImg"></v-img>
                         </div>    
                     </div>
@@ -380,6 +366,30 @@
 
      
          </div>
+
+    <span style="position:absolute; top:76%; right:3%;z-index:134500045;" class="d-md-none d-inline-block">
+          <v-btn
+                color="#35747e"
+                small
+               
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-comment-search mdi-18px</v-icon>
+              </v-btn>
+     </span>
+
+      <span style="position:absolute; top:84%; right:3%;z-index:134500045;" class="d-none d-md-inline-block">
+          <v-btn
+                color="#35747e"
+                small
+              
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-comment-search mdi-18px</v-icon>
+              </v-btn>
+     </span>
  </v-app>
   
 

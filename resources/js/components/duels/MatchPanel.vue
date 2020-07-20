@@ -35,7 +35,7 @@
               style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;" @click="showShare"> Team link</v-btn>  
                    </div>
                     <div class="col-6 py-0 my-0 px-2 text-right">
-                      <v-btn  x-small color="#3E8893"
+                      <v-btn  x-small color="#3E8893" @click="showHowTo"
               style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-format-list-text mdi-18px</v-icon> How To</v-btn>  
                    </div>
                 </div>  
@@ -337,6 +337,9 @@ export default {
         this.fetchDuel();
       },
  methods:{
+   showHowTo: function(){
+      this.$router.push({ path: '/how-to' });
+   },
      trackPanel: function(){
 
         if( this.$route.params.type != 'user' && this.$root.localChannel.length == 0){
