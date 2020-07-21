@@ -5,3 +5,12 @@
         <link rel="shortcut icon" href="/CitonHub.ico" type="image/x-icon">
 <link rel="icon" href="/CitonHub.ico" type="image/x-icon"> 
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-164103925-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-164103925-1');
+</script>

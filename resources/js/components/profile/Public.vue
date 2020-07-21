@@ -100,7 +100,7 @@
                          <span style="font-size:10px; color:#a6a6a6;">{{source.pulls}}</span>
                     </div>
                      <div class="col-3 my-0 py-0 text-center">
-                      <v-btn class="d-inline-block" icon @click.stop="share">
+                      <v-btn class="d-inline-block" icon @click.stop="share(source)">
                         <v-icon color="#a6a6a6">mdi-share-variant</v-icon>
                         </v-btn>
                     </div>
@@ -153,7 +153,10 @@ export default {
 
         return  Dateformat.format('H:mm a');
     },
-      share:function(){
+       share:function(post){
+
+         this.$root.shareText  = 'Checkout this post on CitonHub.';
+         this.$root.shareLink = 'https://citonhub.com/link/post/' + post.PostId;
       this.$root.showShare = true;
     },
      viewUser: function(postData){
@@ -235,7 +238,7 @@ export default {
             let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;";
 
             if(post.background_color == null){
-               styleString += 'background-color:#c5c5c5; background-image:url(imgs/user.svg);';
+               styleString += 'background-color:white; background-image:url(imgs/user.svg);';
             }else{
                let imgLink = post.image_name + '.' + post.image_extension;
                 styleString += 'background-color:'+ post.background_color + '; background-image:url(imgs/profile/'  + imgLink  +  ');';

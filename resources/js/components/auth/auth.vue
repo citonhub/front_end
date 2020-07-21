@@ -21,7 +21,7 @@
 
            <div class="col-12 py-2 text-center ">
               <span class="infoclass px-4">
-                 Citonhub is a community of developers where they interact , learn and build.
+                 Citonhub is a community of developers where they interact ,learn and build.
              </span>
             </div>
            

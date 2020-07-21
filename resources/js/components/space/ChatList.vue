@@ -15,45 +15,7 @@
 
          <div class="row my-0 py-0 px-2 "  >
 
-             <v-card tile flat class="col-12 py-0 px-0 my-1" @click="showSpace(personalSpace)" color="#ffffff" style="border-bottom:2px solid #5fb0b9;">
-                <div class="row py-1 my-0 px-0"  v-if="personalSpace.length != 0">
-                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
-                        <div class="py-0">
-                          <v-img  :background-color="personalSpace.background_color" :src="personalSpace.image_name == null ? 'imgs/user.svg' : '/imgs/space/'+ personalSpace.image_name +'.' + personalSpace.image_extension " height="38" width="38" class="avatarImg"></v-img>
-                        </div>    
-                    </div>
-                     <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
-                         <span class="titleText">{{personalSpace.name}}</span>
-                    </div>
-                    <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
-                        
-                    </div>
-                </div>
-
-                     <div v-else  class="row my-0 py-0 px-2 ">
-            <div class="col-12 py-0 my-0">
-   
-            <div class="row py-0 my-0 px-1">
             
-          <div class="col-12 py-1 my-0">
-           <v-skeleton-loader
-          class=" "
-           
-          type="list-item-avatar"
-          ></v-skeleton-loader>
-          </div>
-
-          
-
-         </div>
-
-
-            </div>
-  
-              </div>
-
-
-             </v-card>
 
 
               <div class="col-12 py-0 px-0 my-1 mb-2" @click="showProject ? showProject = false : showProject = true" >
@@ -367,29 +329,7 @@
      
          </div>
 
-    <span style="position:absolute; top:76%; right:3%;z-index:134500045;" class="d-md-none d-inline-block">
-          <v-btn
-                color="#35747e"
-                small
-               
-                class="d-block"
-                fab
-              >
-                <v-icon color="#ffffff">mdi-comment-search mdi-18px</v-icon>
-              </v-btn>
-     </span>
 
-      <span style="position:absolute; top:84%; right:3%;z-index:134500045;" class="d-none d-md-inline-block">
-          <v-btn
-                color="#35747e"
-                small
-              
-                class="d-block"
-                fab
-              >
-                <v-icon color="#ffffff">mdi-comment-search mdi-18px</v-icon>
-              </v-btn>
-     </span>
  </v-app>
   
 
@@ -399,13 +339,13 @@ export default {
      data () {
       return {
        showmore:false,
-       showTeams:false,
+       showTeams:true,
        showDirect:false,
        personalSpace:[],
        teamSpace:null,
        channelProject:null,
        channelSpace:null,
-       showChannel:false,
+       showChannel:true,
        showProject:false,
       }
     },

@@ -67,6 +67,6 @@
 
  @section('scripts')
 
- <script src="{{ asset('js/profile.js?v=0.41') }}"></script>
+ <script src="{{ asset('js/profile.js?v=0.42') }}"></script>
      
  @endsection

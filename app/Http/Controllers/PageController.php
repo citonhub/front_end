@@ -5,10 +5,124 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Mail\VerifyUserEmail;
+use App\Post;
+use App\User;
+use App\Duel;
+use DB;
+use App\Space;
+use App\Project;
+use App\Profile;
 use Illuminate\Support\Facades\Mail;
 
 class PageController extends Controller
 {
+
+
+    public function handelLink($type,$uniqueId){
+       
+
+        if($type == 'post'){
+         $thisPost = Post::where('post_id',$uniqueId)->first();
+         $thisUser= DB::table('profiles')
+              ->join('users','users.id','profiles.user_id')
+              ->select(
+                  'users.username as username',
+                  'profiles.image_name as image_name',
+                  'profiles.image_extension as image_extension'
+              )
+              ->where('users.id',$thisPost->user_id)
+              ->first();
+
+        $pageTitle = $thisUser->username . ' on CitonHub.';
+        $pageDescription = '';
+
+         if($thisPost->content != null){
+            $pageDescription = $thisPost->content;
+         }else{
+            $pageDescription = 'Check out this post.';
+         }
+
+         $imagePath = 'profile/' . $thisUser->image_name .'.' . $thisUser->image_extension;
+            
+         if($thisPost->is_comment == 'true'){
+            $pageLink = '/home#/post/comment/' . $thisUser->username .'/'. $uniqueId;
+         }else{
+            $pageLink = '/home#/post/' . $thisUser->username .'/'. $uniqueId;
+         }
+        
+
+        
+        }
+
+
+        if($type == 'duel'){
+            $thisDuel = Duel::where('duel_id',$uniqueId)->first();
+           
+   
+           $pageTitle = 'CitonHub-Duels';
+           $pageDescription = $thisDuel->title;
+   
+           
+            $imagePath = 'CitonHub.png';
+            
+               $pageLink = '/duels#/duel/' . $uniqueId .'/board';
+            
+           
+   
+           
+           }
+
+           if($type == 'space'){
+            $thisSpace = Space::where('space_id',$uniqueId)->first();
+           
+   
+           $pageTitle = 'CitonHub-Space';
+           $pageDescription = 'Join ' . $thisSpace->name . ' ' . $thisSpace->type  .' on Citonhub.';
+   
+             if($thisSpace->image_name == null){
+                $imagePath = 'CitonHub.png';
+             }else{
+                $imagePath = 'space/' . $thisSpace->image_name .'.' . $thisSpace->image_extension;
+             }
+          
+            
+               $pageLink = '/space#/space/' . $uniqueId .'/channel/content';
+              
+
+           
+   
+           
+           }
+
+
+           if($type == 'project'){
+            $thisProject = Project::where('project_slug',$uniqueId)->first();
+            
+            $thisSpace = Space('space_id',$thisProject->space_id)->first();
+   
+           $pageTitle = 'CitonHub-Project:' . $thisProject->title;
+           $pageDescription = 'Check out this project:' . $thisProject->title  .',on Citonhub.';
+   
+             if($thisSpace->image_name == null){
+                $imagePath = 'CitonHub.png';
+             }else{
+                $imagePath = 'space/' . $thisSpace->image_name .'.' . $thisSpace->image_extension;
+             }
+          
+            
+               $pageLink = '/space#\/' . $uniqueId .'/page-loader';
+              
+
+           
+   
+           
+           }
+     
+        return view('pages.link',compact('pageTitle','pageDescription','imagePath','pageLink'));
+
+    }
+
+
     public function home(){
 
         $tablabel = 'home';

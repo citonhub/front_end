@@ -5,7 +5,11 @@
 
  @endsection
  @section('meta') 
-  
+ <meta name="description" content="Citonhub is a community of developers where they interact,learn and build." />
+  <meta name="keywords" content="Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
+  <meta name="MobileOptimized" content="width" />
+  <meta name="HandheldFriendly" content="true" />
+  <meta name="og:image" content="https://citonhub.com/imgs/CitonHub.png"/>
  @endsection
  @section('css')
   
@@ -67,6 +71,6 @@
 
  @section('scripts')
 
- <script src="{{ asset('js/home.js?v=0.51') }}"></script>
+ <script src="{{ asset('js/home.js?v=0.52') }}"></script>
      
  @endsection

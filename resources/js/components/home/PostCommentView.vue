@@ -104,7 +104,7 @@
                          <span style="font-size:10px; color:#a6a6a6;">{{post.commented_post.pulls}}</span>
                     </div>
                      <div class="col-3 my-0 py-0 text-center">
-                      <v-btn class="d-inline-block" icon @click.stop="share">
+                      <v-btn class="d-inline-block" icon @click.stop="share(post.commented_post)">
                         <v-icon color="#a6a6a6">mdi-share-variant</v-icon>
                         </v-btn>
                     </div>
@@ -243,7 +243,10 @@ export default {
 
         return  Dateformat.format('H:mm a');
     },
-        share:function(){
+        share:function(post){
+
+         this.$root.shareText  = 'Checkout this post on CitonHub.';
+         this.$root.shareLink = 'https://citonhub.com/link/post/' + post.PostId;
       this.$root.showShare = true;
     },
      imageStyle:function(dimension,post){

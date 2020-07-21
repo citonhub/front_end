@@ -141,8 +141,8 @@ export default {
 
     },
     share:function(){
-       this.$root.shareText = 'Join ' + this.$root.selectedSpace.name + ' Team on Citonhub.';
-       this.$root.shareLink =   'https://www.citonhub.com/space#/space/'+ this.$route.params.spaceId + '/channel/content';
+       this.$root.shareText = 'Join ' + this.$root.selectedSpace.name +  ' ' +  this.$root.selectedSpace.type  +' on Citonhub';
+       this.$root.shareLink =   'https://citonhub.com/link/space/'+ this.$route.params.spaceId;
       this.$root.showShare = true;
     },
      viewFullImage:function(){

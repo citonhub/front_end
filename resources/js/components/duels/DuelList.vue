@@ -56,7 +56,7 @@
                             <span class="statusnew" v-if="checkDuelStatus(duel) != 'Pending'">{{checkDuelStatus(duel)}}</span>
                      </div>
                      <div class="col-4 py-1 text-center">
-                      <v-btn  color="#4495a2" icon ><span><v-icon>mdi-share-variant mdi-18px</v-icon></span></v-btn>
+                      <v-btn  color="#4495a2" icon @click="showShare(duel)" ><span><v-icon>mdi-share-variant mdi-18px</v-icon></span></v-btn>
                      </div>
 
                 </div>
@@ -141,6 +141,13 @@ export default {
        
     },
  methods:{
+    showShare:function(duel){
+
+          this.$root.shareText  = 'Checkout this duel on CitonHub.';
+         this.$root.shareLink = 'https://citonhub.com/link/duel/' + duel.duel_id;
+
+         this.$root.showShare = true;
+   },
    goBack: function(){
       this.$router.push({ path: '/duel/duels' });
    },

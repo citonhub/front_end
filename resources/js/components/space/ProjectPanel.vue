@@ -403,8 +403,8 @@ export default {
 
         },
         showShare:function(){
-           this.$root.shareText = 'Check out what I built';
-           this.$root.shareLink = 'https://citonhubnew.com/share/project/' + this.$route.params.projectSlug ; 
+           this.$root.shareText = 'Check out this project on CitonHub';
+           this.$root.shareLink = 'https://citonhub.com/link/project/' + this.$route.params.projectSlug ; 
             this.$root.showShare = true;
         },
       checkIfOwner:function(){
