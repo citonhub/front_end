@@ -1,5 +1,6 @@
 <template>
-    <div style="position:absolute; height:100%; width:100%; overflow-y:hidden;left:0;top:0%;"> 
+ <div>
+<div style="position:absolute; height:100%; width:100%; overflow-y:hidden;left:0;top:0%;" v-if="showCode"> 
 
 
         <div class="col-12 py-1 my-0 fixed-top" style="position:sticky; background:white;">
@@ -41,7 +42,8 @@
               </div>
          </div>
        </div>
-                <span style="position:absolute; top:92%; right:5%;z-index:1000;">
+
+         <span style="position:absolute; top:90%; right:5%;z-index:1000;">
            <v-btn
                 color="#35747e"
                 small
@@ -54,8 +56,72 @@
          
      </span>
 
+     <span style="position:absolute; top:90%; left:5%;z-index:1000;">
+           <v-btn
+                color="#35747e"
+                small
+                 @click="showCode = false"
+                class="d-inline-block "
+                fab
+                v-if="this.language == 'HTML'"
+              >
+                <v-icon color="#ffffff">mdi-play</v-icon>
+            </v-btn>
+         
+     </span>
+          
+
     
     </div>
+
+      <div style="position:absolute; height:100%; width:100%; overflow-y:hidden;left:0;top:0%;background:white;"  v-else>
+         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
+       <div class="row py-1 my-0 px-1" >
+         <div class="col-3 py-0 my-0 text-left px-1" style="border-bottom:2px solid #4495a2;" >
+            <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-close</v-icon></v-btn>
+         </div>
+         <div class="col-6 py-0 my-0 d-flex px-0"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
+             <span   style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Page Loader</span>
+         </div>
+         <div class="col-3 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
+            
+         </div>
+      </div>
+     </div> 
+          <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
+   :srcdoc="code" 
+    style="border: 0; height:91%; position:absolute; left:0; top:6%;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-0"  ></iframe>
+
+     <span style="position:absolute; top:90%; left:5%;z-index:1000;">
+           <v-btn
+                color="#35747e"
+                small
+
+                 @click="goBack"
+                class="d-inline-block "
+                fab
+              >
+                <v-icon color="#ffffff">mdi-close</v-icon>
+            </v-btn>
+         
+     </span>
+
+      <span style="position:absolute; top:90%; right:5%;z-index:1000;">
+           <v-btn
+                color="#35747e"
+                small
+                 @click="showCode = true"
+                class="d-inline-block "
+                fab
+              >
+                <v-icon color="#ffffff">mdi-xml</v-icon>
+            </v-btn>
+         
+     </span>
+
+        </div>
+ </div>
+    
 </template>
 <script>
 
@@ -145,6 +211,7 @@ export default {
          'FOTRAN','MARKDOWN','PERL','R','RUBY'],
         language: this.$root.fullCodeLanguage,
          code: this.$root.FullcodeContent,
+         showCode:true
     }
 },
 methods:{

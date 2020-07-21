@@ -28,7 +28,7 @@
       <img src="/imgs/CitonHub.png" height="50" width="50" >
 </div>
 
-<div class="col-lg-8 col-12 offset-lg-2 py-0" style="display:fixed; top:4%;height:auto; background:white;">
+<div class="col-lg-8 col-12 offset-lg-2 py-0" style="display:fixed; top:4%;height:auto; background:white;" v-if="showHeader">
     <div class="row">
     <div class="col-4 d-flex  py-1" style="border-bottom:1px solid #e6e6e6;  align-items:center; ">
     <div>
@@ -67,6 +67,6 @@
 
  @section('scripts')
 
- <script src="{{ asset('js/profile.js?v=0.42') }}"></script>
+ <script src="{{ asset('js/profile.js?v=0.43') }}"></script>
      
  @endsection

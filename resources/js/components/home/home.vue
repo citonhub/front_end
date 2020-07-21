@@ -2,8 +2,23 @@
 <div class="fixed-layout">
  
 
-   <div style="width:100%; height:auto; overflow-y:auto; overflow-x:hidden; ">
+   <div style="width:100%; height:auto; overflow-y:hidden; overflow-x:hidden; ">
       
+      <div v-if="this.$root.showCodeEditor">
+            <code-viewer></code-viewer>
+      </div>
+     
+     <share v-if="this.$root.showShare"></share>
+    
+           
+     
+
+       <library-shelves v-if="this.$root.showShelves"></library-shelves>
+
+       
+
+        <full-image-viewer  v-if="this.$root.fullImageViewer"></full-image-viewer>
+        
       <router-view></router-view>
    
       
@@ -32,7 +47,7 @@
     height: 100%;
     width: 100%;
     overflow-x: hidden;
-    overflow-y: auto;
+    overflow-y: hidden;
    
   }
   

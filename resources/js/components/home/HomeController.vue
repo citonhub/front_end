@@ -1,19 +1,6 @@
 <template>
 <div style="overflow-y:hidden;">
-      <div v-if="this.$root.showCodeEditor">
-            <code-viewer></code-viewer>
-      </div>
-     
-     <share v-if="this.$root.showShare"></share>
-    
-           
-     
-
-       <library-shelves v-if="this.$root.showShelves"></library-shelves>
-
-       
-
-        <full-image-viewer  v-if="this.$root.fullImageViewer"></full-image-viewer>
+      
       
      <div class=" col-md-8 offset-md-2  col-lg-4 offset-lg-4  py-0 px-0 my-0" style="position:absolute;z-index:20; background:white; height:100%;" >
 
