@@ -20,7 +20,7 @@
            </div>
 
            <div class="col-12 px-2 py-0" v-if="urlInfo.description == '' && urlInfo.response == 200">
-                <div style="font-size:12px; color:gray;" > {{ shortenContent(urlInfo.keywords,90)}}</div>
+                <div style="font-size:12px; color:gray;" > {{ shortenContent(urlInfo.keywords,70)}}</div>
            </div>
             
         </div>

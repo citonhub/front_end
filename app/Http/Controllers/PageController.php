@@ -23,7 +23,7 @@ class PageController extends Controller
   public function fetchURLMetaData(Request $request){
 
      
-     $baseUrl = 'https://www.citonhub.com/link/post/9bswar5fcv5kh50';
+     $baseUrl = $request->get('url');
        
      $response = Http::get($baseUrl);
       
@@ -32,8 +32,7 @@ class PageController extends Controller
      
       $result = $parser->getDetails();
 
-       dd($response->body());
-
+      
       $title = $result["title"];
 
       $description = $result["meta"]["description"];
@@ -66,7 +65,8 @@ class PageController extends Controller
       ];
     
       $newResultArray = (array) $newDataArray;
-      
+
+     
       return $newResultArray;
 
   }
@@ -90,10 +90,12 @@ class PageController extends Controller
         $pageTitle = $thisUser->username . ' on CitonHub.';
         $pageDescription = '';
 
-         if($thisPost->content != null){
-          
+         if($thisPost->content != ''){
+            
             $html = new \Html2Text\Html2Text($thisPost->content);
             $myText =  $html->getText();
+             
+           
 
             $pageDescription = $myText;
          }else{

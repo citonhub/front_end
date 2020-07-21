@@ -6,7 +6,7 @@
  @endsection
 
  @section('meta') 
- <meta name="description" content="{{$pageDescription}}" />
+ <meta name="description" content="{!! $pageDescription !!}" />
   <meta name="keywords" content="Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
