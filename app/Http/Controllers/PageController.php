@@ -104,7 +104,7 @@ class PageController extends Controller
            if($type == 'project'){
             $thisProject = Project::where('project_slug',$uniqueId)->first();
             
-            $thisSpace = Space('space_id',$thisProject->space_id)->first();
+            $thisSpace = Space::where('space_id',$thisProject->space_id)->first();
    
            $pageTitle = 'CitonHub-Project:' . $thisProject->title;
            $pageDescription = 'Check out this project:' . $thisProject->title  .',on Citonhub.';
