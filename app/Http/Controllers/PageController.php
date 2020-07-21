@@ -31,7 +31,8 @@ class PageController extends Controller
 
      
       $result = $parser->getDetails();
-
+       
+      dd($result);
       
       $title = $result["title"];
 

@@ -10,7 +10,7 @@
   <meta name="keywords" content="Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
-  <meta name="og:image" content="https://citonhub.com/imgs/{{$imagePath}}"/>
+  <meta name="og:image" content="https://www.citonhub.com/imgs/{{$imagePath}}"/>
   
  @endsection
 
