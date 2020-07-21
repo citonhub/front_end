@@ -142,7 +142,7 @@ export default {
     },
     share:function(){
        this.$root.shareText = 'Join ' + this.$root.selectedSpace.name +  ' ' +  this.$root.selectedSpace.type  +' on Citonhub';
-       this.$root.shareLink =   'https://citonhub.com/link/space/'+ this.$route.params.spaceId;
+       this.$root.shareLink =   'https://www.citonhub.com/link/space/'+ this.$route.params.spaceId;
       this.$root.showShare = true;
     },
      viewFullImage:function(){

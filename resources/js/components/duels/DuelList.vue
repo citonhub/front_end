@@ -144,7 +144,7 @@ export default {
     showShare:function(duel){
 
           this.$root.shareText  = 'Checkout this duel on CitonHub.';
-         this.$root.shareLink = 'https://citonhub.com/link/duel/' + duel.duel_id;
+         this.$root.shareLink = 'https://www.citonhub.com/link/duel/' + duel.duel_id;
 
          this.$root.showShare = true;
    },

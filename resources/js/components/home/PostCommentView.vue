@@ -246,7 +246,7 @@ export default {
         share:function(post){
 
          this.$root.shareText  = 'Checkout this post on CitonHub.';
-         this.$root.shareLink = 'https://citonhub.com/link/post/' + post.PostId;
+         this.$root.shareLink = 'https://www.citonhub.com/link/post/' + post.PostId;
       this.$root.showShare = true;
     },
      imageStyle:function(dimension,post){
