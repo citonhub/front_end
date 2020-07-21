@@ -83,7 +83,7 @@
                 </v-btn>
 
                 <v-btn text icon  color="#4495a2"
-                   
+                    @click="handleLink"
                 >
                     <v-icon>mdi-link-variant mdi-18px</v-icon>
                 </v-btn>
@@ -102,10 +102,37 @@
                           </v-progress-linear>
                        </div>
 
+                        <div class="col-12 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="showLinkField">
+                             <v-text-field
+                style="font-size:13px;"
+                 placeholder="url..."
+            label="Enter url"
+            @click:append="loadUrl"
+             dense
+             :loading="loadingField"
+            append-icon="mdi-link-box-outline"
+             v-model="UrlValue"
+          
+             color="#4495a2"
+            
+             ></v-text-field>
+                       </div>
+
           
              
             <div class="col-12 py-2 my-0 px-2 text-center">
                  <div class="row py-0 my-0">
+
+                    <div class="col-10 offset-1 text-center py-2 px-2"  v-if="urlMetaData.length != 0">
+                           <link-view :urlInfo="urlMetaData" ></link-view>
+                             <div style="position:absolute; height:auto; width:auto; right:10%; top:10%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;">
+                               <v-btn icon  @click.stop="urlMetaData = []"><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
+                             </div>
+                              
+                     </div> 
+                   
+
+
                        <div class="col-6 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="image1 != ''">
                             <div @click="editImage('image1')" :style="'border:2px solid #3E8893; border-radius:10px; height:120px; background-image:url('+ image1 +');width:100%; background-size:cover;'" >
                              <div style="position:absolute; height:auto; width:auto; right:10%; top:10%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;">
@@ -269,11 +296,15 @@ export default {
          is_comment: false,
          attachment_type:null,
          imageTemp1:this.$root.imageTemp1,
+         urlMetaData:[],
           imageTemp2:this.$root.imageTemp2,
+          UrlValue:'',
            imageTemp3:this.$root.imageTemp3,
             imageTemp4:this.$root.imageTemp4,
           VideoBlob:'',
-          progressvalue:0
+          progressvalue:0,
+          showLinkField:false,
+          loadingField:false,
         }
     },
      computed: {
@@ -290,6 +321,39 @@ export default {
         this.$root.checkIfUserIsLoggedIn();
     },
     methods:{
+      handleLink: function(){
+        if(this.showLinkField){
+          this.showLinkField = false;
+          this.urlMetaData = [];
+        }else{
+          this.showLinkField = true;
+        }
+      },
+      loadUrl: function(){
+         if(this.UrlValue == ''){
+         return;
+         }
+          this.loadingField = true;
+          this.urlMetaData = [];
+          axios.post('/url/metadata',{
+            url : this.UrlValue
+          })
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+       this.urlMetaData = response.data;
+        this.loadingField = false;
+
+     }
+       
+     
+     })
+     .catch(error => {
+       this.loadingField = false;
+       this.showAlert(5000,'Url not found');
+     }) 
+      },
       countCharacter:function(value){
             this.wordCount = this.editor.getHTML().length;
 
@@ -482,6 +546,15 @@ var blob = this.b64toBlob(realData, contentType);
             
         }
 
+
+        if(this.urlMetaData.length != 0 && this.urlMetaData.response == 200){
+            this.attachment_type = 'link';
+
+              let MetaData =  JSON.stringify(this.urlMetaData);
+            formData.append('urlMetaData',MetaData);
+            
+        }
+
         formData.append('content',this.contentInWord);
         formData.append('is_comment',this.is_comment);
          formData.append('commented_post_id',0);
@@ -522,7 +595,7 @@ var blob = this.b64toBlob(realData, contentType);
           })
     },
      crophandler:function(e){
-
+       this.showLinkField = false;
          this.videoUrl = '';
          this.codeContent='';
            // Reference to the DOM input element
@@ -592,6 +665,7 @@ var blob = this.b64toBlob(realData, contentType);
 			
         },
         editImage:function(imageNumber){
+           this.showLinkField = false;
            this.codeContent='';
           if(imageNumber == 'image1'){
 
@@ -640,6 +714,8 @@ var blob = this.b64toBlob(realData, contentType);
           
         },
         vidoehandler:function(e){
+
+           this.showLinkField = false;
           this.codeContent='';
             this.image1 = '';
             this.image2 = '';

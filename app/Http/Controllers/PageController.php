@@ -13,9 +13,62 @@ use App\Space;
 use App\Project;
 use App\Profile;
 use Illuminate\Support\Facades\Mail;
+use App\CustomClass\Curler;
+use App\CustomClass\MetaParser;
 
 class PageController extends Controller
 {
+
+
+  public function fetchURLMetaData(Request $request){
+
+     
+     $baseUrl = 'https://www.citonhub.com/link/post/9bswar5fcv5kh50';
+       
+     $response = Http::get($baseUrl);
+      
+     $parser = new MetaParser($response->body(), $baseUrl);
+
+     
+      $result = $parser->getDetails();
+
+       dd($response->body());
+
+      $title = $result["title"];
+
+      $description = $result["meta"]["description"];
+
+      $keywords = $result["meta"]["keywords"];
+
+
+    
+      $keywordsString = '';
+        if($keywords != false){
+            foreach ($keywords as $word) {
+                $keywordsString .= $word .',';
+            }      
+        }
+     
+       if(count($result["images"]) !=  0){
+        $image = $result["images"][0];
+       }else{
+        $image = $result["favicon"];
+       }
+      
+      $newDataArray = [
+       "title"=> $title,
+       "description"=> $description,
+       "keywords"=> $keywordsString,
+       "image"=> $image,
+        "link"=> $request->get('url'),
+        "response"=> $response->status()
+      ];
+    
+      $newResultArray = (array) $newDataArray;
+      
+      return $newResultArray;
+
+  }
 
 
     public function handelLink($type,$uniqueId){
@@ -37,7 +90,10 @@ class PageController extends Controller
         $pageDescription = '';
 
          if($thisPost->content != null){
-            $pageDescription = $thisPost->content;
+
+            $myText = htmlspecialchars($thisPost->content, ENT_QUOTES); 
+
+            $pageDescription = $myText;
          }else{
             $pageDescription = 'Check out this post.';
          }

@@ -31,17 +31,21 @@
 
           <div class="py-0 pb-1 px-2 col-12 my-0" >
 
-             <div style="width:100%;" v-if="source.attachment_type == 'image'" >
+             <div style="width:100%;" v-if="source.attachment_type == 'image'" class="px-lg-4">
                  <image-viewer :imageArray="source.image"></image-viewer>
              </div>
 
-              <div style="width:100%;" v-if="source.attachment_type == 'video'">
+              <div style="width:100%;" v-if="source.attachment_type == 'video'" class="px-lg-4">
                  <video-player :videoUrl="'/videos/' + source.video.video_name + '.' + source.video.video_extension" :backgroundColor="source.video.background_color"
                   :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="source.id"></video-player>
              </div>
 
-               <div style="width:100%;" v-if="source.attachment_type == 'code'" >
+               <div style="width:100%;" v-if="source.attachment_type == 'code'" class="px-lg-4" >
                  <code-box :codeContent="source.code.content" :filename="source.code.name" :codeLanguage="source.code.language_type" :codeViewerType="viewerType"></code-box>
+             </div>
+
+              <div style="width:100%;" v-if="source.attachment_type == 'link'"  class="px-lg-4">
+                  <link-view :urlInfo="source.link" ></link-view>
              </div>
                   
                 </div>

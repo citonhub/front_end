@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\PostImage;
 use App\PostCode;
 use App\PostVideo;
+use App\PostLink;
 use ColorThief\ColorThief;
 use App\traits\ManagesImages;
 use FFMpeg\FFMpeg;
@@ -256,6 +257,14 @@ class PostController extends Controller
 
          }
 
+         if($post["attachment_type"] == 'link'){
+            
+            $postLink = PostLink::where('post_id',$post["id"])->first();
+               if($postLink != null){
+                  $post["link"] =  unserialize($postLink->meta_data) ;
+               }
+         }
+
          if($post["is_comment"] == 'true'){
             
             $basePost = Post::where('post_id',$post["commented_post_id"])->first();
@@ -360,6 +369,14 @@ class PostController extends Controller
    
             $post["code"] = $postCode;
    
+         }
+
+         if($post["attachment_type"] == 'link'){
+            
+            $postLink = PostLink::where('post_id',$post["id"])->first();
+               if($postLink != null){
+                  $post["link"] =  unserialize($postLink->meta_data) ;
+               }
          }
 
          $userPostComment = PostLike::where('post_id',$post["PostId"])->where('user_id',Auth::id())->get();
@@ -515,7 +532,20 @@ class PostController extends Controller
          "reply_post_id"=> $request->get('reply_post_id'),
          ]);
       }
+   
 
+      if($attachment_type == 'link'){
+
+         $newMetaData =  $request->get('urlMetaData');
+         $array = json_decode($newMetaData, true);
+        $newPostLink = PostLink::create([
+           'post_id'=>$newPost->id,
+           'meta_data'=> serialize($array)
+        ]); 
+        
+        $newPostLink->save();
+        
+       }
        
 
        if($attachment_type == 'image'){

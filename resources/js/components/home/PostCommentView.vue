@@ -62,17 +62,21 @@
 
           <div class="py-0 pb-1 px-2 col-12 my-0" >
 
-             <div style="width:100%;" v-if="post.commented_post.attachment_type == 'image'" >
+             <div style="width:100%;" v-if="post.commented_post.attachment_type == 'image'" class="px-lg-4">
                  <image-viewer :imageArray="post.commented_post.image"></image-viewer>
              </div>
 
-              <div style="width:100%;" v-if="post.commented_post.attachment_type == 'video'">
+              <div style="width:100%;" v-if="post.commented_post.attachment_type == 'video'" class="px-lg-4">
                  <video-player :videoUrl="'/videos/' + post.commented_post.video.video_name + '.' + post.commented_post.video.video_extension" :backgroundColor="post.commented_post.video.background_color"
                   :backgroundImg="'/videos/previewImage/'+ post.commented_post.video.preview_image_url" :playerId="post.commented_post.post_id"></video-player>
              </div>
 
-               <div style="width:100%;" v-if="post.commented_post.attachment_type == 'code'" >
+               <div style="width:100%;" v-if="post.commented_post.attachment_type == 'code'" class="px-lg-4">
                  <code-box :codeContent="post.commented_post.code.content" :filename="post.commented_post.code.name" :codeLanguage="post.commented_post.code.language_type" :codeViewerType="viewerType"></code-box>
+             </div>
+
+              <div style="width:100%;" v-if="post.commented_post.attachment_type == 'link'"  class="px-lg-4">
+                  <link-view :urlInfo="post.commented_post.link" ></link-view>
              </div>
                   
                 </div>
@@ -138,17 +142,21 @@
 
                   <div class="py-0 pb-1 px-2 col-12 my-0" >
 
-             <div style="width:100%;" v-if="post.attachment_type == 'image'" >
+             <div style="width:100%;" v-if="post.attachment_type == 'image'" class="px-lg-4">
                  <image-viewer :imageArray="post.image"></image-viewer>
              </div>
 
-              <div style="width:100%;" v-if="post.attachment_type == 'video'">
+              <div style="width:100%;" v-if="post.attachment_type == 'video'" class="px-lg-4">
                  <video-player :videoUrl="'/videos/' + post.video.video_name + '.' + post.video.video_extension" :backgroundColor="post.video.background_color"
                   :backgroundImg="'/videos/previewImage/'+ post.video.preview_image_url" :playerId="post.post_id"></video-player>
              </div>
 
-               <div style="width:100%;" v-if="post.attachment_type == 'code'" >
+               <div style="width:100%;" v-if="post.attachment_type == 'code'"  class="px-lg-4">
                  <code-box :codeContent="post.code.content" :filename="post.code.name" :codeLanguage="post.code.language_type" :codeViewerType="viewerType"></code-box>
+             </div>
+
+             <div style="width:100%;" v-if="post.attachment_type == 'link'"  class="px-lg-4">
+                  <link-view :urlInfo="post.link" ></link-view>
              </div>
                   
                 </div>
