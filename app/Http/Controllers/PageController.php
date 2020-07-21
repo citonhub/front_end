@@ -50,7 +50,8 @@ class PageController extends Controller
         }
      
        if(count($result["images"]) !=  0){
-        $image = $result["images"][0];
+            $imageCount = count($result["images"]);
+        $image = $result["images"][$imageCount - 1];
        }else{
         $image = $result["favicon"];
        }
@@ -90,8 +91,9 @@ class PageController extends Controller
         $pageDescription = '';
 
          if($thisPost->content != null){
-
-            $myText = htmlspecialchars($thisPost->content, ENT_QUOTES); 
+          
+            $html = new \Html2Text\Html2Text($thisPost->content);
+            $myText =  $html->getText();
 
             $pageDescription = $myText;
          }else{
