@@ -12,11 +12,11 @@
     <div style="height:70px;" class="col-12 py-0">
         <div class="row py-2 my-0 text-left" style="cursor:pointer;"  @click="goToLink">
            <div class="col-12 px-2 py-0" > 
-            <div style="font-size:13px; color:#333333;font-family:HeaderText; font-weight:bolder;" >{{urlInfo.title}}</div>
+            <div style="font-size:13px; color:#333333;font-family:HeaderText; font-weight:bolder;" >{{ shortenContent(urlInfo.title,38)}}</div>
         
            </div>
            <div class="col-12 px-2 py-0" v-if="urlInfo.description != '' && urlInfo.response == 200">
-                <div style="font-size:12px; color:gray;">{{ shortenContent(urlInfo.description,90)}}</div>
+                <div style="font-size:12px; color:gray;">{{ shortenContent(urlInfo.description,80)}}</div>
            </div>
 
            <div class="col-12 px-2 py-0" v-if="urlInfo.description == '' && urlInfo.response == 200">

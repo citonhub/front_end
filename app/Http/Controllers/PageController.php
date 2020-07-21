@@ -51,7 +51,7 @@ class PageController extends Controller
      
        if(count($result["images"]) !=  0){
             $imageCount = count($result["images"]);
-        $image = $result["images"][$imageCount - 1];
+        $image = $result["images"][0];
        }else{
         $image = $result["favicon"];
        }
