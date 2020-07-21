@@ -42,7 +42,13 @@ class PageController extends Controller
             $pageDescription = 'Check out this post.';
          }
 
-         $imagePath = 'profile/' . $thisUser->image_name .'.' . $thisUser->image_extension;
+         if( $thisUser->image_name  == null){
+            $imagePath = 'CitonHub.png';
+         }else{
+            $imagePath = 'profile/' . $thisUser->image_name .'.' . $thisUser->image_extension;
+         }
+
+        
             
          if($thisPost->is_comment == 'true'){
             $pageLink = '/home#/post/comment/' . $thisUser->username .'/'. $uniqueId;
