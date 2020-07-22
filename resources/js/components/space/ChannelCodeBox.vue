@@ -12,7 +12,7 @@
                      <v-btn icon color="#4495a2" @click="goBack" style="text-align:center; justify-content:center;"  class="d-inline-block  d-flex"><v-icon>mdi-close mdi-18px</v-icon></v-btn>
                   </div>
                   <div class="col-8 py-0 my-0 px-1">
-                     <select  style="font-size:10px !important;"  @change="detectchange"   v-model="language" class="browser-default custom-select">
+                     <select  style="font-size:10px !important;"  @change="detectchange(language)"   v-model="language" class="browser-default custom-select">
                  <option v-for="(option,index)  in items" :value="option" :key="index">{{ option}}</option>
                      </select>
                    </div>
@@ -172,7 +172,8 @@ import dedent from 'dedent'
 
 export default {
       mounted(){
-     
+       
+        this.detectchange(this.language);
       },
      components: {
       codemirror,
@@ -333,29 +334,71 @@ methods:{
       onCmBlur(codemirror) {
         console.debug('onCmBlur', codemirror)
       },
-       detectchange: function(){
-         if(this.language == 'HTML'){
+       detectchange: function(language){
+         if(language == 'HTML'){
             this.cmOption.mode = 'text/html';
          }
-         if(this.language == 'CSS'){
+         if(language == 'CSS'){
          this.cmOption.mode = 'text/css';
          }
-          if(this.language == 'PYTHON'){
+          if(language == 'PYTHON'){
            this.cmOption.mode = 'text/x-python';
          }
-          if(this.language == 'PHP'){
-           this.cmOption.mode = 'application/x-httpd-php';
+          if(language == 'PHP'){
+           this.cmOption.mode = 'text/x-php';
          }
-          if(this.language == 'JAVASCRIPT'){
+          if(language == 'JAVASCRIPT'){
            this.cmOption.mode = 'text/javascript';
          }
-          if(this.language == 'VUEJS'){
+          if(language == 'VUEJS'){
            this.cmOption.mode = 'text/x-vue';
          }
-          if(this.language == 'SQL'){
+          if(language == 'SQL'){
            this.cmOption.mode = 'text/x-sql';
          }
-      }
+          if(language == 'C'){
+           this.cmOption.mode = 'text/x-csrc';
+         }
+          if(language == 'C++'){
+           this.cmOption.mode = 'text/x-c++src';
+         }
+          if(language == 'JAVA'){
+           this.cmOption.mode = 'text/x-java';
+         }
+          if(language == 'C#'){
+           this.cmOption.mode = 'text/x-csharp';
+         }
+          if(language == 'ERLANG'){
+           this.cmOption.mode = 'text/x-erlang';
+         }
+          if(language == 'COFFEESCRIPT'){
+           this.cmOption.mode = 'text/x-coffeescript';
+         }
+          if(language == 'LIVESCRIPT'){
+           this.cmOption.mode = 'text/x-livescript';
+         }
+          if(language == 'DJANGO'){
+           this.cmOption.mode = 'text/x-django';
+         }
+          if(language == 'KOTLIN'){
+           this.cmOption.mode = 'x-shader/x-fragment';
+         }
+          if(language == 'FOTRAN'){
+           this.cmOption.mode = 'text/x-fortran';
+         }
+          if(language == 'MARKDOWN'){
+           this.cmOption.mode = 'text/x-markdown';
+         }
+          if(language == 'PERL'){
+           this.cmOption.mode = 'text/x-perl';
+         }
+          if(language == 'R'){
+           this.cmOption.mode = 'text/x-rsrc';
+         }
+          if(language == 'RUBY'){
+           this.cmOption.mode = 'text/x-ruby';
+         }
+      },
 }
 }
 </script>

@@ -188,6 +188,10 @@ export default {
       this.$root.showTabs=false;
        this.$root.showHeader = false;
        this.examinCode();
+
+       
+        this.detectchange();
+       
     },
      components: {
       codemirror,
