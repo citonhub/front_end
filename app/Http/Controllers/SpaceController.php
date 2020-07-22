@@ -800,9 +800,13 @@ public function MessageEngine($messageArray,$timeArray){
       
     $spaceMembers = DB::table('space_members')
                     ->join('users','users.id','space_members.user_id')
+                    ->join('profiles','profiles.user_id','space_members.user_id')
                     ->select(
                        'users.username as username',
                        'users.name as name',
+                       'profiles.image_name as image_name',
+                       'profiles.image_extension as image_extension', 
+                       'profiles.background_color as background_color',
                        'users.id as id'
                     )->where('space_members.space_id',$spaceId)
                     ->paginate(20);

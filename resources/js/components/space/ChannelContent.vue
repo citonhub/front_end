@@ -275,6 +275,8 @@ export default {
           }
           
        this.$root.messageScroller = this.$refs.messageContainerRef;
+
+       this.scrollToBottom();
        
        this.makeSpaceConnetion();
        this.$root.forceListReload = false;
@@ -341,13 +343,6 @@ export default {
     })
     .joining((user) => {
     this.$root.SpaceUsers.push(user);
-    
-      setTimeout(()=>{
-
-     this.showAlert(4000,user.username + ' joined');
-
-      },5000);
-    
     
     })
     .leaving((user) => {

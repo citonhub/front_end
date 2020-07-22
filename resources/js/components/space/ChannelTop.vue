@@ -16,7 +16,29 @@
                <span class="typingText d-block" v-if="this.$root.typing">{{this.$root.typinguser}} is typing... </span>
          </div>
          <div class="col-3 py-0 my-0 px-0 text-right"  style="" >
-              <v-btn icon @click.stop="channelProjects"><v-icon color="white">mdi-cards-variant</v-icon></v-btn>
+              <v-menu bottom left
+                transition="slide-y-transition" dense
+               z-index="9899996969696" tile>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                dark
+                icon
+                
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon>mdi-dots-vertical</v-icon>
+              </v-btn>
+            </template>
+
+           <v-card  v-if="this.$root.selectedSpace.type ==  'Team'" tile flat class="py-2 text-center px-4" style="width:140px;  background:white;" @click="channelProjects">
+             <span style="font-size:12px;">Projects</span>
+           </v-card>
+           <v-card  tile flat class="py-2 text-center px-4" style="width:140px; background:white;" @click="channelResources">
+             <span style="font-size:12px;">Media</span>
+           </v-card>
+          </v-menu>
+              
          </div>
       </div>
 
@@ -40,12 +62,13 @@ export default {
         
         },
         channelProjects: function(){
-              if(this.$root.selectedSpace.type ==  'Channel'){
-               this.$router.push({ path: '/space/'  + this.$route.params.spaceId + '/channel/resources' });
-              }else{
+              
              this.$router.push({ path: '/space/'  + this.$route.params.spaceId + '/channel/projects' });
-              }
+
             
+        },
+        channelResources:function(){
+        this.$router.push({ path: '/space/'  + this.$route.params.spaceId + '/channel/resources' });
         },
         showSpaceInfo:function(){
         this.$router.push({ path: '/space/' + this.$route.params.spaceId +   '/channel/board' });

@@ -28,7 +28,13 @@
                <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-2" style="align-items:center;justify-content:center; ">
                         <div class="py-1">
-                          <v-img src="imgs/user.svg" height="35" width="35" class="avatarImg"></v-img>
+                          
+                  <div :style="imageStyle(35,member)"
+                  class="d-inline-block" >
+
+                  </div>
+             
+                 
                         </div>    
                     </div>
                      <div class="py-0 my-0 d-flex col-10" style="align-items:center;" v-if="checkIfUser(member.id)">
@@ -67,6 +73,23 @@ export default {
       this.fetchMembers();
     },
     methods:{
+       imageStyle:function(dimension,user){
+      
+
+      if(user.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
+         styleString += 'background-color:#ffffff; background-image:url(imgs/usernew.png);';
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;";
+         let imgLink = user.image_name + '.' + user.image_extension;
+          styleString += 'background-color:'+ user.background_color + '; background-image:url(imgs/profile/'  + imgLink  +  ');';
+          return styleString;
+      }
+
+      
+
+  },
        goBack() {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },

@@ -79,7 +79,7 @@ export default {
     },
     methods:{
        goBack() {
-        this.$router.push({ path: '/space/' + this.$route.params.spaceId +'/channel/content' });
+        this.$router.push({ path: '/space/' + this.$route.params.spaceId +'/channel/content'  + '/user'});
         },
         showProject:function(project){
       this.$router.push({ path: '/' + project.project_slug +'/panel' });

@@ -76,7 +76,7 @@ export default {
     },
     methods:{
        goBack() {
-        this.$router.push({ path: '/space/' + this.$route.params.spaceId +'/channel/content' });
+        this.$router.push({ path: '/space/' + this.$route.params.spaceId +'/channel/content' + '/user' });
         },
        fetchMessages: function(){
           
