@@ -27,11 +27,11 @@
               <v-text-field
                 style="font-size:12px;"
                  placeholder="username..."
-            label="Username"
+            label="Email or Username"
              dense
-             :rules="UsernameRule"
+            
              :error="errorState"
-             counter="15"
+             
              v-model="usernameValue"
              color="#4495a2"
              ></v-text-field>
