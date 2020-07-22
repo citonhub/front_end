@@ -25,7 +25,7 @@
                           
                     </div>
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                         <span  style="font-size:12px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Projects</span>
+                         <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Projects</span>
                     </div>
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
                            <v-btn icon color="#3E8893" @click="createProject"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
@@ -120,7 +120,7 @@
                           
                     </div>
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                         <span  style="font-size:12px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Channels</span>
+                         <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Channels</span>
                     </div>
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
                            <v-btn icon color="#3E8893" @click="createChannel('Channel')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
@@ -212,7 +212,7 @@
                           
                     </div>
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                         <span  style="font-size:12px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Teams</span>
+                         <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Teams</span>
                     </div>
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
                            <v-btn icon color="#3E8893" @click="createChannel('Team')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
@@ -297,7 +297,7 @@
                           
                     </div>
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                         <span  style="font-size:12px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Direct Messages</span>
+                         <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Direct Messages</span>
                     </div>
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
                            <v-btn icon color="#3E8893" @click="createChannel"><v-icon></v-icon></v-btn>

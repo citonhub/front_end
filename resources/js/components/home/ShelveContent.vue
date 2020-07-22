@@ -21,7 +21,7 @@
         </div>
 
                 <div class="py-1 px-2 col-12 my-0 ">
-                   <span style="font-size:12px; color: #333333;" v-html="source.content"></span>
+                   <span style="font-size:13px; color: #333333;" v-html="source.content"></span>
                 </div>
 
 
@@ -61,7 +61,7 @@
              </div>
              <div class="col-10 py-0 my-0 px-0 text-left">
                  <span style="font-size:12px; font-family:HeaderText;" class="d-block" @click.stop="viewUser(source.commented_post)" ><b>{{source.commented_post.username}}</b></span>
-              <span style="font-size:11px; color: #4d4d4d;" v-html="source.commented_post.content"></span>
+              <span style="font-size:12px; color: #4d4d4d;" v-html="source.commented_post.content"></span>
 
                
 

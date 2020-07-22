@@ -25,22 +25,22 @@
                 <div class="row px-1">
                    <div class="py-0 col-12 text-center d-md-block d-none"  @click="showboard(duel)">
                         <div style="background-color:#b9dcdf; border-radius:4px; border:1px solid transparent;">
-                           <span style="font-size:11px;color:#0f2024;">{{shortenContent(duel.title,40)}}</span>
+                           <span style="font-size:12px;color:#0f2024;">{{shortenContent(duel.title,40)}}</span>
                         </div>
                    </div>
                     <div class="py-0 col-12 text-center d-block d-md-none"  @click="showboard(duel)" >
                         <div style="background-color:#b9dcdf; border-radius:4px; border:1px solid transparent;">
-                           <span style="font-size:11px;color:#0f2024;">{{shortenContent(duel.title,35)}}</span>
+                           <span style="font-size:12px;color:#0f2024;">{{shortenContent(duel.title,35)}}</span>
                         </div>
                         
                    </div>
 
                    <div class="py-1 col-6">
-                        <span style="font-size:11px;color:#595959;">Participants: {{duel.current_participant}}</span>
+                        <span style="font-size:12px;color:#595959;">Participants: {{duel.current_participant}}</span>
                    </div>
                    
                     <div class="py-1 col-6 text-right">
-                        <span style="font-size:11px;text-transform:capitalize;" class="mybadgenew">{{duel.duel_id}}</span>
+                        <span style="font-size:12px;text-transform:capitalize;" class="mybadgenew">{{duel.duel_id}}</span>
                    </div>
 
 
@@ -51,7 +51,7 @@
                             <span  v-if="checkDuelStatus(duel) == 'Pending'">
 
                     <v-btn @click="startDuel(duel)" rounded x-small color="#3E8893"
-              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;">start</v-btn>            
+              style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;">start</v-btn>            
                             </span>
                             <span class="statusnew" v-if="checkDuelStatus(duel) != 'Pending'">{{checkDuelStatus(duel)}}</span>
                      </div>

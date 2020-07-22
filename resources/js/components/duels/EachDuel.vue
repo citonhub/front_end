@@ -4,33 +4,33 @@
                 <div class="row">
                    <div class="py-0 col-12 text-center d-md-block d-none">
                         <div style="background-color:#b9dcdf; border-radius:4px; border:1px solid transparent;">
-                           <span style="font-size:11px;color:#0f2024;">{{shortenContent(source.title,40)}}</span>
+                           <span style="font-size:12px;color:#0f2024;">{{shortenContent(source.title,40)}}</span>
                         </div>
                    </div>
                     <div class="py-0 col-12 text-center d-block d-md-none" >
                         <div style="background-color:#b9dcdf; border-radius:4px; border:1px solid transparent;">
-                           <span style="font-size:11px;color:#0f2024;">{{shortenContent(source.title,35)}}</span>
+                           <span style="font-size:12px;color:#0f2024;">{{shortenContent(source.title,35)}}</span>
                         </div>
                         
                    </div>
 
                    <div class="py-1 col-6">
-                        <span style="font-size:11px;color:#595959;">Participants: {{source.current_participant}}</span>
+                        <span style="font-size:12px;color:#595959;">Participants: {{source.current_participant}}</span>
                    </div>
                    
                     <div class="py-1 col-6 text-right">
-                        <span style="font-size:11px;text-transform:capitalize;" class="mybadgenew">{{source.duel_id}}</span>
+                        <span style="font-size:12px;text-transform:capitalize;" class="mybadgenew">{{source.duel_id}}</span>
                    </div>
                      <div class="col-4 text-center">
                         <span><v-icon class="px-0" color="#3E8893">mdi-heart mdi-18px</v-icon></span>
-                         <span style="font-size:10px; color:#595959;font-family:HeaderText;">{{source.likes}}</span>
+                         <span style="font-size:11px; color:#595959;font-family:HeaderText;">{{source.likes}}</span>
                      </div>
                      <div class="col-4 text-center">
                             <span class="statusnew" >{{checkDuelStatus(source)}}</span>
                      </div>
                      <div class="col-4 text-center">
                       <span><v-icon class="px-0" color="#3E8893">mdi-comment-text-outline mdi-18px</v-icon></span>
-                       <span style="font-size:10px; color:#595959;font-family:HeaderText;">{{source.comments}}</span>
+                       <span style="font-size:11px; color:#595959;font-family:HeaderText;">{{source.comments}}</span>
                      </div>
 
                 </div>
