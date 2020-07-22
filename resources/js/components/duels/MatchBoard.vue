@@ -353,7 +353,7 @@ export default {
          this.$root.checkIfUserIsLoggedIn('duels');
 
           if(this.selectedDuel.user_type == "user"){
-                this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/panel/user' });
+                this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/panel/user/user' });
           }else{
               this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/panel/' + this.selectedDuel.user_team.team_code + '/user'});
           }
