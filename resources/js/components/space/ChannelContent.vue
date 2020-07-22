@@ -312,7 +312,9 @@ export default {
         this.$root.is_reply = false;
         },
         scrollToBottom: function(){
+           if(this.$refs.messageContainerRef != undefined){
       this.$refs.messageContainerRef.scrollToBottom();
+           }
         },
       scrollToMessage: function(messageid){
            
