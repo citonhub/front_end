@@ -42,7 +42,7 @@
 
  <script type="text/javascript">
         function redirectPage() {
-           window.location = '{{$pageLink}}'
+           window.location = '{{$pageLink}}' + '/{{ $referral }}';
         }
         window.onload = redirectPage;
     </script>

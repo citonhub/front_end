@@ -529,7 +529,7 @@ export default {
 
          this.$root.CodeFilesData = [];
      
-      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/board' });
+      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/board' + '/user' });
 
       
         },

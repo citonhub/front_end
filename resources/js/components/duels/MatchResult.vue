@@ -148,7 +148,7 @@ methods:{
        }
     },
        goBack() {
-       this.$router.push({ path: '/duel/' + this.$route.params.duelId +'/board' });
+       this.$router.push({ path: '/duel/' + this.$route.params.duelId +'/board' + '/user'});
         },
         showPage: function(participant){
           this.pageContent = '';

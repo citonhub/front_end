@@ -106,13 +106,13 @@
       
    <span style="position:absolute; top:76%; left:3%; z-index:12345665786; background:rgba(38, 82, 89,0.7); border:1px solid transparent; border-radius:7px;" class=" px-1 py-1 d-md-none d-inline-block text-center">
           <img src="imgs/coin.svg" height="22" >
-          <span class="coin">232</span>
+          <span class="coin"  style="font-size:13px; font-family:HeaderText;">{{this.$root.authProfile.coin}}</span>
 
      </span>
 
 <span style="position:absolute; top:84%; left:5%; z-index:12345665786; background:rgba(38, 82, 89,0.7); border:1px solid transparent; border-radius:7px;" class=" px-1 py-1 d-none d-md-inline-block text-center">
           <img src="imgs/coin.svg" height="22" >
-          <span class="coin">232</span>
+          <span class="coin"  style="font-size:13px; font-family:HeaderText;">{{this.$root.authProfile.coin}}</span>
 
      </span>
 

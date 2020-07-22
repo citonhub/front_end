@@ -26,9 +26,9 @@ const routes = [
   { path: '/new-post', name: 'NewPost', component: NewPost},
   { path: '/code-editor', name: 'CodeEditor', component: CodeEditor},
   { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},
-  { path: '/post/:username/:postId', name: 'Post', component: Post},
+  { path: '/post/:username/:postId/:referral', name: 'Post', component: Post},
   { path: '/post/:username/:postId/comment', name: 'MakeComment', component: MakeComment},
-  { path: '/post/comment/:username/:postId', name: 'PostCommentView', component: PostCommentView},
+  { path: '/post/comment/:username/:postId/:referral', name: 'PostCommentView', component: PostCommentView},
   { path: '/library', name: 'Library', component: Library},
   { path: '/shelve', name: 'Shelve', component: Shelve},
   { path: '/add-shelve', name: 'AddShelve', component: AddShelve},
@@ -120,6 +120,7 @@ const app = new Vue({
             allChannel:[],
             reloadShelves:false,
             UrlTrack:'',
+            referralUser:'user',
             fromHome:false,
     },
      mounted: function () {
@@ -147,6 +148,10 @@ const app = new Vue({
             this.$root.postData.unshift(e.data);
               
             this.trackThisPost(e.data);
+        }
+
+        if(e.actionType == 'new-coin'){
+           this.authProfile.coins = this.authProfile.coins + 1;
         }
         
       
@@ -380,7 +385,7 @@ const app = new Vue({
 
       if(authProfile.background_color == null){
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
-         styleString += 'background-color:#ffffff; background-image:url(imgs/user.svg);';
+         styleString += 'background-color:#ffffff; background-image:url(imgs/usernew.svg);';
          return styleString;
       }else{
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;";
@@ -557,6 +562,9 @@ return post.PostId == this.$root.currentPostId;
      checkIfUserIsLoggedIn: function(frompage){
       if(this.checkauthroot == 'noauth'){
         this.UrlTrack = window.location.href;
+        if(this.$route.params.referral != null){
+          this.referralUser = this.$route.params.referral;
+         }
        this.$router.push({ path: '/auth/' + frompage });
         return;
       } 

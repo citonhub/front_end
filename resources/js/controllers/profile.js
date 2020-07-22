@@ -114,12 +114,13 @@ const app = new Vue({
        showShelves:false,
        allChannel:[],
         serverControlled:true,
+        referralUser:'user'
     },
     mounted: function () {
       this.pageloader= false;
        this.initialPushMangerReg();
        this.fetchUserDetails();
-      
+      this.connectToChannel();
     },
     http: {
      headers:{
@@ -127,6 +128,23 @@ const app = new Vue({
      }
   },
   methods:{
+    connectToChannel:function(){
+   
+      if(this.checkauthroot == 'auth'){
+       Echo.private('user.' + this.username)
+       .listen('.UserChannel',(e) => {
+         
+
+         if(e.actionType == 'new-coin'){
+           this.authProfile.coins = this.authProfile.coins + 1;
+        }
+       
+         
+    });
+     
+
+      }
+   },
     trackPostConnections: function(postArray){
 
      
@@ -268,7 +286,7 @@ const app = new Vue({
 
     if(authProfile.background_color == null){
       let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
-       styleString += 'background-color:#ffffff; background-image:url(imgs/user.svg);';
+       styleString += 'background-color:#ffffff; background-image:url(imgs/usernew.svg);';
        return styleString;
     }else{
       let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;";
@@ -283,6 +301,9 @@ const app = new Vue({
   checkIfUserIsLoggedIn: function(frompage){
     if(this.checkauthroot == 'noauth'){
       this.UrlTrack = window.location.href;
+       if(this.$route.params.referral != null){
+        this.referralUser = this.$route.params.referral;
+       }
      this.$router.push({ path: '/auth/' + frompage });
       return;
     } 

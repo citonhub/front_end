@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Mail\VerifyUserEmail;
 use Illuminate\Support\Facades\Mail;
+use App\Events\UserChannel;
 use App\Profile;
 
 class RegisterController extends Controller
@@ -79,6 +80,11 @@ class RegisterController extends Controller
      */
     protected function create(Request $request)
     {
+          $referralUser = User::where('username',$request->get('referral'))->first();
+            if($referralUser == null){
+             return 'userNotExist';
+            }
+
             $newUser =  User::create([
                 'name' => $request->get('name'),
                 'email' => $request->get('email'),
@@ -90,12 +96,21 @@ class RegisterController extends Controller
                 "user_id"=> $newUser->id,
                 "image_name"=> null,
                 "image_extension"=> null,
-                "coins"=> 50,
+                "coins"=> 5,
                 "interests"=> null,
                 "about"=> null
                ]);
             
                $userProfile->save();
+           
+          $referralUserProfile = Profile::where('user_id',$referralUser->id)->first();
+           
+          $referralUserProfile->update([
+           'coins'=> $referralUserProfile->coins + 1
+          ]);
+
+          broadcast(new UserChannel('new-coin',$newUser,$referralUser->username));
+
 
         Mail::to($newUser->email)->send(new VerifyUserEmail($newUser));
 

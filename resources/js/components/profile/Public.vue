@@ -159,7 +159,7 @@ export default {
        share:function(post){
 
          this.$root.shareText  = 'Checkout this post on CitonHub.';
-         this.$root.shareLink = 'https://www.citonhub.com/link/post/' + post.PostId;
+         this.$root.shareLink = 'https://www.citonhub.com/link/post/' + post.PostId + '/' + this.$root.username;
       this.$root.showShare = true;
     },
      viewUser: function(postData){
@@ -208,11 +208,11 @@ export default {
                 
               if(postData.is_comment == 'true'){
          
-          window.location = '/home' + '#/post/comment/' + postData.username + '/' + postData.PostId;
+          window.location = '/home' + '#/post/comment/' + postData.username + '/' + postData.PostId + '/user';
 
  }else{
    
-   window.location = '/home' + '#/post/' + postData.username + '/' + postData.PostId;
+   window.location = '/home' + '#/post/' + postData.username + '/' + postData.PostId + '/user';
 
  }
 
@@ -241,7 +241,7 @@ export default {
             let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;";
 
             if(post.background_color == null){
-               styleString += 'background-color:white; background-image:url(imgs/user.svg);';
+               styleString += 'background-color:white; background-image:url(imgs/usernew.svg);';
             }else{
                let imgLink = post.image_name + '.' + post.image_extension;
                 styleString += 'background-color:'+ post.background_color + '; background-image:url(imgs/profile/'  + imgLink  +  ');';

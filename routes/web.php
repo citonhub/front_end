@@ -23,7 +23,7 @@ Route::get('/profile','PageController@profile')->name('profile');
 Route::get('/profile/auth','PageController@profile');
 Route::get('/share/{type}/{uniqueId}','PageController@handleShare');
 Route::get('/view-profile','PageController@viewProfile');
-Route::get('/link/{type}/{uniqueId}','PageController@handelLink');
+Route::get('/link/{type}/{uniqueId}/{referral}','PageController@handelLink');
 Route::post('/url/metadata','PageController@fetchURLMetaData');
 
 //Users routes

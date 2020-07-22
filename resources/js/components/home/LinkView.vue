@@ -2,7 +2,7 @@
   <div>
     <div class=" codebox">
          <div class="imageBox col-12 px-0 py-0">
-       <image-loader :externalUrl="urlInfo.image" :backgroundColor="'#ffffff'" v-if="urlInfo.response == 200" ></image-loader>
+       <image-loader :externalUrl="urlInfo.image" :backgroundColor="'#ffffff'" v-if="urlInfo.response == 200" style="border:1px solid transparent;border-radius:10px;"></image-loader>
        <div style="background-color:#c5c5c5; align-items:center; justify-content:center; height:100%; width:100%;   border:1px solid #c5c5c5;
         border-radius: 10px;"  class="d-flex" v-else >
            <span style="font-family:HeaderText; font-size:14px;">Error fetching webpage</span>

@@ -26,7 +26,7 @@
             </div>
            
 
-            <div class="col-12 text-center py-1">
+            <div class="col-12 text-center py-1" v-if="this.$root.referralUser != 'user'">
               <div class="row my-2 py-0 px-2 ">
                
                <div class="col-6 px-0 d-flex" style="align-items:center;justify-content:center;">
@@ -39,6 +39,23 @@
                 
               </div>
             </div>
+
+             <div class="col-12 text-center py-1" v-else>
+              <div class="row my-2 py-0 px-2 ">
+               
+               <div class="col-12 px-0 d-flex" style="align-items:center;justify-content:center;">
+                      <v-btn rounded  small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="showLogin">Login</v-btn>
+               </div>
+
+                 <div class="col-12 px-0 d-flex" style="align-items:center;justify-content:center;">
+                     <span class="infoclass px-4">
+                     Get an invite link to Join
+                   </span>
+               </div>
+                
+              </div>
+            </div>
+
         </v-card>
      </div>
 

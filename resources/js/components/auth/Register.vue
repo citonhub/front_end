@@ -230,11 +230,18 @@ export default {
              axios.post('/register',{
                 name: this.name,
                 email: this.email,
-                password: this.password
+                password: this.password,
+                referral: this.$root.referralUser
                   })
           .then(response => {
             
-           if (response.status == 200) {
+           if (response.status == 200) { 
+                
+                if(response.data == 'userNotExist'){
+                this.showAlert(5000,'oops, referral link seems to be broken');
+
+                 return;
+                }
                this.$root.userEmail = this.email;
                 this.$root.userPassword = this.password;
               this.$router.push({ path: '/verify' });

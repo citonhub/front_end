@@ -15,7 +15,7 @@
             <div>
                   <v-img v-if="this.$root.profileDetails != null"
                    :style="this.$root.profileDetails.background_color != null ?  'background-color:'   + this.$root.profileDetails.background_color + ';' : 'background-color:#ffffff;'" 
-                   :src="this.$root.profileDetails.image_name != null ? 'imgs/profile/' + this.$root.profileDetails.image_name + '.' + this.$root.profileDetails.image_extension : 'imgs/user.svg'" height="90" width="90" class="avatarImg" style="border:3px solid #3E8893;border-radius:50%;"></v-img>
+                   :src="this.$root.profileDetails.image_name != null ? 'imgs/profile/' + this.$root.profileDetails.image_name + '.' + this.$root.profileDetails.image_extension : 'imgs/usernew.svg'" height="90" width="90" class="avatarImg" style="border:3px solid #3E8893;border-radius:50%;"></v-img>
 
                     <v-skeleton-loader
            class="mx-auto mt-2"

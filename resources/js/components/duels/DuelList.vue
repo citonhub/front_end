@@ -144,7 +144,7 @@ export default {
     showShare:function(duel){
 
           this.$root.shareText  = 'Checkout this duel on CitonHub.';
-         this.$root.shareLink = 'https://www.citonhub.com/link/duel/' + duel.duel_id;
+         this.$root.shareLink = 'https://www.citonhub.com/link/duel/' + duel.duel_id + '/' + this.$root.username;
 
          this.$root.showShare = true;
    },
@@ -185,7 +185,7 @@ export default {
        },
     showboard: function(duel){
            
-          this.$router.push({ path: '/duel/' + duel.duel_id +'/board' });
+          this.$router.push({ path: '/duel/' + duel.duel_id +'/board' + '/user' });
        },
         startDuel: function(duel){
        

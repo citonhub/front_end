@@ -404,7 +404,7 @@ export default {
         },
         showShare:function(){
            this.$root.shareText = 'Check out this project on CitonHub';
-           this.$root.shareLink = 'https://www.citonhub.com/link/project/' + this.$route.params.projectSlug ; 
+           this.$root.shareLink = 'https://www.citonhub.com/link/project/' + this.$route.params.projectSlug + '/' + this.$root.username; 
             this.$root.showShare = true;
         },
       checkIfOwner:function(){
@@ -552,7 +552,7 @@ export default {
        },
 
    loadPage:function(){
-      this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/page-loader' });
+      this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/page-loader' + '/user' });
    },
   
    returnFileName: function(fileName,fileType){

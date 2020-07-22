@@ -73,7 +73,7 @@ class PageController extends Controller
   }
 
 
-    public function handelLink($type,$uniqueId){
+    public function handelLink($type,$uniqueId,$referral){
        
 
         if($type == 'post'){
@@ -185,7 +185,7 @@ class PageController extends Controller
            
            }
      
-        return view('pages.link',compact('pageTitle','pageDescription','imagePath','pageLink'));
+        return view('pages.link',compact('pageTitle','pageDescription','imagePath','pageLink','referral'));
 
     }
 

@@ -55,7 +55,7 @@ export default {
  methods:{
           showboard: function(duel){
            
-          this.$router.push({ path: '/duel/' + duel.duel_id +'/board' });
+          this.$router.push({ path: '/duel/' + duel.duel_id +'/board' + '/user' });
        },
        shortenContent: function(content,limit){
              

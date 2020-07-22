@@ -140,7 +140,7 @@
                 <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
                         <div class="py-1">
-                          <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/channel.svg' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
+                          <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/usernew.svg' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
                         </div>    
                     </div>
                      <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
@@ -229,7 +229,7 @@
                 <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
                         <div class="py-1">
-                          <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/channel.svg' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
+                          <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/usernew.svg' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
                         </div>    
                     </div>
                      <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
@@ -328,7 +328,18 @@
 
      
          </div>
+     
+      <span style="position:absolute; top:76%; left:3%; z-index:12345665786; background:rgba(38, 82, 89,0.7); border:1px solid transparent; border-radius:7px;" class=" px-1 py-1 d-md-none d-inline-block text-center">
+          <img src="imgs/coin.svg" height="22" >
+          <span class="coin"  style="font-size:13px;">{{this.$root.authProfile.coin}}</span>
 
+     </span>
+
+<span style="position:absolute; top:84%; left:5%; z-index:12345665786; background:rgba(38, 82, 89,0.7); border:1px solid transparent; border-radius:7px;" class=" px-1 py-1 d-none d-md-inline-block text-center">
+          <img src="imgs/coin.svg" height="22" >
+          <span class="coin"  style="font-size:13px;">{{this.$root.authProfile.coin}}</span>
+
+     </span>
 
  </v-app>
   
@@ -370,7 +381,7 @@ export default {
 
           space.unread = 0;
           
-         this.$router.push({ path: '/space/'  +  space.space_id  +  '/channel' });
+         this.$router.push({ path: '/space/'  +  space.space_id  +  '/channel/content' + '/user' });
        },
        showProjectLink: function(project){
            this.$router.push({ path: '/' + project.project_slug +'/panel' });
@@ -443,5 +454,11 @@ export default {
     font-weight: bolder;
     border:2px solid #3e868e;
     border-radius:50%;
+}
+ .coin{
+  font-size: 10px;
+  font-weight: bolder;
+  font-family:HeaderText;
+  color: white;
 }
 </style>

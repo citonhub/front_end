@@ -241,7 +241,7 @@ export default {
   
        goBack() {
          this.$root.is_reply_comment = false;
-        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+        this.$router.push({ path: '/duel/' + this.$route.params.duelId +'/board' + '/user'});
         },
     },
     beforeDestroy() {

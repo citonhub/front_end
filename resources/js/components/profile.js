@@ -10,3 +10,4 @@ Vue.component('full-image-viewer',require('./home/FullImageViewer.vue').default)
 Vue.component('code-viewer',require('./home/CodeViewer.vue').default);
 Vue.component('library-shelves',require('./home/LibraryShelves').default);
 Vue.component('share',require('./space/Share.vue').default);
+Vue.component('link-view',require('./home/LinkView').default);

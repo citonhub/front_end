@@ -190,7 +190,7 @@ export default {
 
       if(post.background_color == null){
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
-         styleString += 'background-color:#ffffff; background-image:url(imgs/user.svg);';
+         styleString += 'background-color:#ffffff; background-image:url(imgs/usernew.svg);';
          return styleString;
       }else{
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;";
@@ -215,7 +215,7 @@ export default {
       share:function(post){
 
          this.$root.shareText  = 'Checkout this post on CitonHub.';
-         this.$root.shareLink = 'https://www.citonhub.com/link/post/' + post.PostId;
+         this.$root.shareLink = 'https://www.citonhub.com/link/post/' + post.PostId + '/' + this.$root.username;
       this.$root.showShare = true;
     },
     goBack() {
