@@ -241,7 +241,7 @@ export default {
             let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;";
 
             if(post.background_color == null){
-               styleString += 'background-color:white; background-image:url(imgs/usernew.svg);';
+               styleString += 'background-color:white; background-image:url(imgs/usernew.png);';
             }else{
                let imgLink = post.image_name + '.' + post.image_extension;
                 styleString += 'background-color:'+ post.background_color + '; background-image:url(imgs/profile/'  + imgLink  +  ');';

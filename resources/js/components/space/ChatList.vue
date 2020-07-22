@@ -140,7 +140,7 @@
                 <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
                         <div class="py-1">
-                          <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/usernew.svg' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
+                          <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/usernew.png' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
                         </div>    
                     </div>
                      <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
@@ -229,7 +229,7 @@
                 <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
                         <div class="py-1">
-                          <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/usernew.svg' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
+                          <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/usernew.png' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
                         </div>    
                     </div>
                      <div class="py-0 my-0 d-flex col-7" style="align-items:center;">

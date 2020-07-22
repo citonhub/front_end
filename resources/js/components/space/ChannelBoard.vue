@@ -9,7 +9,7 @@
           <div class="col-12 py-0 px-0 d-flex" style="align-items:center; justify-content:center;">
               <div>
                  
-   <v-img  @click.stop="viewFullImage()" :background-color="this.$root.selectedSpace.background_color" :src="this.$root.selectedSpace.image_name == null ? 'imgs/channel.svg' : '/imgs/space/'+ this.$root.selectedSpace.image_name +'.' + this.$root.selectedSpace.image_extension " height="130" width="130" class="avatarImg" style="border:3px solid #3E8893;"></v-img>
+   <v-img  @click.stop="viewFullImage()" :background-color="this.$root.selectedSpace.background_color" :src="this.$root.selectedSpace.image_name == null ? 'imgs/usernew.png' : '/imgs/space/'+ this.$root.selectedSpace.image_name +'.' + this.$root.selectedSpace.image_extension " height="130" width="130" class="avatarImg" style="border:3px solid #3E8893;"></v-img>
               </div>
           </div>
 
