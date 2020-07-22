@@ -320,6 +320,16 @@ export default {
    
 
       },
+       showAlert:function(duration,text){
+        this.$root.AlertRoot = true;
+        this.$root.AlertMsgRoot = text;
+        let _this = this;
+     
+     setTimeout(function(){
+        _this.$root.AlertRoot = false;
+     },duration);
+
+    },
       makeSpaceConnetion: function(){
          if(this.$root.channel == null){
            
@@ -331,6 +341,13 @@ export default {
     })
     .joining((user) => {
     this.$root.SpaceUsers.push(user);
+    
+      setTimeout(()=>{
+
+     this.showAlert(4000,user.username + ' joined');
+
+      },5000);
+    
     
     })
     .leaving((user) => {

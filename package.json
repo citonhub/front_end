@@ -46,6 +46,7 @@
     "tls": "0.0.1",
     "url-metadata": "^2.4.0",
     "v-markdown-editor": "^1.2.5",
+    "v-tooltip": "^2.0.3",
     "vue": "^2.6.11",
     "vue-advanced-cropper": "^0.16.5",
     "vue-audio": "0.0.12",

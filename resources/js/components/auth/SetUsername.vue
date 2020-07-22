@@ -95,7 +95,8 @@ export default {
         usernameExist:false,
         UsernameRule:[
            v => !!v || 'Username is required',
-           v => v.length < 16 || 'Username must be less than 16 characters'
+           v => v.length < 16 || 'Username must be less than 16 characters',
+            v => (v.split(' ').length <= 1) || 'no one space allowed'
         ]
       }
     },

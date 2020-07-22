@@ -5,6 +5,17 @@
          <div class="col-12  text-center" v-if="source.showDate != undefined">
             <span  class=" DateBadge py-1 px-2" style="font-size:11px;color:white;">{{covertDate(source.showDate)}}</span>
          </div>
+
+
+          <!-- date time -->
+        
+         <div class="col-12  text-center" v-if="source.type == 'join'">
+            <span  class=" DateBadge py-1 px-2" style="font-size:11px;color:white;" v-if="source.user.username != this.$root.username">{{source.user.username}} joined</span>
+             <span  class=" DateBadge py-1 px-2" style="font-size:11px;color:white;" v-else>You joined</span>
+         </div>
+
+
+
       
        <!-- audio -->
         <div  :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''" :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-11 col-sm-11 offset-1 offset-lg-5 offset-md-4 py-2 px-2 ' : 'col-lg-7 col-11  col-md-8 col-sm-11   py-2 px-2 '"  v-if="source.type == 'audio'">

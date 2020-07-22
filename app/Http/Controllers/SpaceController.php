@@ -17,6 +17,7 @@ use FFMpeg\FFMpeg;
 use App\Team;
 use App\SpaceMember;
 use Carbon\Carbon;
+use App\User;
 use App\Events\SpaceChannel;
 use App\Events\UserChannel;
 use DB;
@@ -547,6 +548,17 @@ public function fetchMessages($spaceId){
          ]);
    
          $spaceMember->save();
+
+         $newSpaceMessage = SpaceMessage::create([
+          "user_id"=>Auth::id(),
+          'space_id'=>$spaceId,
+          'type'=>'join',
+         'is_reply'=> false,
+         ]);
+
+         $newSpaceMessage->save();
+
+         broadcast(new SpaceChannel('new-message',$newSpaceMessage,$spaceId))->toOthers();
           
       }
 
@@ -634,6 +646,14 @@ public function MessageEngine($messageArray,$timeArray){
             $VideoMessage = VideoMessage::where('message_id',$message["message_id"])->first();
 
             $message["video"] = $VideoMessage;
+
+         }
+
+         if($message["type"] == 'join'){
+            
+            $user = User::where('username',$message["username"])->first();
+
+            $message["user"] = $user;
 
          }
 
@@ -730,6 +750,14 @@ public function MessageEngine($messageArray,$timeArray){
            $message["video"] = $VideoMessage;
 
         }
+
+        if($message["type"] == 'join'){
+            
+         $user = User::where('username',$message["username"])->first();
+
+         $message["user"] = $user;
+
+      }
 
         if($message["type"] == 'code'){
            
