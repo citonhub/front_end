@@ -437,6 +437,10 @@ export default {
      },
 
    showShare:function(){
+
+         this.$root.shareText  = 'Join ' + this.$root.selectedDuel.user_team.name + ' on CitonHub Duel';
+         this.$root.shareLink = 'https://www.citonhub.com/link/duel-team/' + this.$root.selectedDuel.user_team.team_code + '/' + this.$root.username;
+
          this.$root.showShare = true;
    },
    createTeam:function(){
@@ -450,11 +454,13 @@ export default {
       })
       .then(response => {
       
-      if (response.status == 200) {
+      if (response.status == 201) {
         
          this.loadingTeamBtn = false;
           this.makeTeam = false;
-         this.duel.user_type = "team";
+          this.$root.selectedDuel.user_type = "team";
+          this.$root.selectedDuel.user_team = response.data;
+       
 
      }
        
@@ -495,7 +501,7 @@ export default {
        this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/add-panel-route' });
    },
    showComment:function(){
-     this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments' });
+     this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/view' });
    },
      PanelSettingsCheck(settingStatus){
           if(!settingStatus.is_set){

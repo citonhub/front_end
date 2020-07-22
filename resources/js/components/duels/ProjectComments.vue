@@ -151,7 +151,7 @@ export default {
   
    goBack() {
           
-        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+        this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/panel/' + this.$root.selectedDuel.user_team.team_code + '/user'});
         },
     makeComment:function(){
         this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/new' });

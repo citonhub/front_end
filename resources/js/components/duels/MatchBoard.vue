@@ -355,7 +355,7 @@ export default {
           if(this.selectedDuel.user_type == "user"){
                 this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/panel/user' });
           }else{
-              this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/panel/' + this.selectedDuel.user_team.team_code });
+              this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/panel/' + this.selectedDuel.user_team.team_code + '/user'});
           }
           
       },

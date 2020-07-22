@@ -150,7 +150,7 @@
      <div :class=" showmore ? 'morebackground col-md-8 offset-md-2  col-lg-4 offset-lg-4' : 'hidebackground col-md-8 offset-md-2  col-lg-4 offset-lg-4'" @click="showmore = false"
          style="position:fixed; height:100%;z-index:13450003445; " >
       
-       <span style="position:absolute; top:60%; right:3%;" class="d-md-none d-inline-block">
+       <span style="position:absolute; top:65%; right:3%;" class="d-md-none d-inline-block">
          
               <span v-show="showmore">
                 <div class="my-2">
@@ -178,18 +178,7 @@
               </v-btn>
                   </div>
 
-                <div class="my-2">
-                     <span class="px-1 morelabel" @click.stop="findDuels" > &nbsp; Find Duels</span>
-                <v-btn
-                color="#35747e"
-                small
-                 @click.stop="findDuels"
-                class="d-inline-block "
-                fab
-              >
-                <v-icon color="#ffffff">mdi-layers-search</v-icon>
-            </v-btn>
-                </div>
+               
 
               <div class="my-2">
                   <span class="px-1 morelabel">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
@@ -210,7 +199,7 @@
      </span>
 
 
-      <span style="position:absolute; top:68%; right:3%;" class="d-none d-md-inline-block">
+      <span style="position:absolute; top:70%; right:3%;" class="d-none d-md-inline-block">
          
               <span v-show="showmore">
                   <div class="my-2">
@@ -239,19 +228,7 @@
               </v-btn>
                   </div>
 
-                <div class="my-2">
-                     <span class="px-1 morelabel" style="cursor:pointer;" @click.stop="findDuels"> &nbsp; Find Duels</span>
-                <v-btn
-                color="#35747e"
-                small
-                 @click.stop="findDuels"
-                class="d-inline-block "
-                fab
-              >
-                <v-icon color="#ffffff">mdi-layers-search</v-icon>
-            </v-btn>
-                </div>
-
+             
               <div class="my-2">
                   <span class="px-1 morelabel">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
               <v-btn

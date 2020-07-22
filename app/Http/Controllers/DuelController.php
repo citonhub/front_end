@@ -56,7 +56,8 @@ class DuelController extends Controller
         ]);
 
         $newMember->save();
-         
+        
+         return $duelTeam;
        }
 
     }
@@ -762,7 +763,7 @@ class DuelController extends Controller
 
         
 
-           $duelArray = $this->fetchThisDuel($newDuel->duel_id);
+           $duelArray = $this->fetchThisDuel($newDuel->duel_id,'user');
 
 
            $allConnections = $this->userAllConnected();

@@ -15,6 +15,7 @@ use App\Profile;
 use Illuminate\Support\Facades\Mail;
 use App\CustomClass\Curler;
 use App\CustomClass\MetaParser;
+use App\DuelTeam;
 
 class PageController extends Controller
 {
@@ -138,6 +139,24 @@ class PageController extends Controller
    
            
            }
+
+        if($type == 'duel-team'){
+
+            $thisDuelTeam = DuelTeam::where('team_code',$uniqueId)->first();
+            
+   
+            $pageTitle = 'CitonHub-Duels';
+            $pageDescription = 'Join ' . $thisDuelTeam->name . ' on CitonHub Duel';
+    
+            
+             $imagePath = 'CitonHub.png';
+             
+                $pageLink = '/duels#/duel/' . $thisDuelTeam->duel_id .'/panel\/' . $uniqueId; 
+             
+            
+    
+
+        }
 
            if($type == 'space'){
             $thisSpace = Space::where('space_id',$uniqueId)->first();

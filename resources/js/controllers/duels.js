@@ -107,12 +107,12 @@ const routes = [
      
       {
         //match panel
-        path: ':duelId/panel/:type',
+        path: ':duelId/panel/:type/:referral',
         component: MatchPanel
       },
       {
         //match panel comment
-        path: ':duelId/panel/:type/comments',
+        path: ':duelId/panel/:type/comments/view',
         component: ProjectComments
       },
       {
