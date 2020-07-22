@@ -276,7 +276,7 @@ export default {
           
        this.$root.messageScroller = this.$refs.messageContainerRef;
 
-     
+       this.scrollToBottom();
        
        this.makeSpaceConnetion();
        this.$root.forceListReload = false;
@@ -330,7 +330,7 @@ export default {
                 }
              });
 
-             },500)
+             },2000)
              
           
                setTimeout(() => {
