@@ -379,7 +379,7 @@ export default {
        showSpace:function(space){
           this.$root.selectedSpace = space;
 
-          space.unread = 0;
+        
           
          this.$router.push({ path: '/space/'  +  space.space_id  +  '/channel/content' + '/user' });
        },

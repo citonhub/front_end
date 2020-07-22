@@ -276,13 +276,33 @@ export default {
           
        this.$root.messageScroller = this.$refs.messageContainerRef;
 
-       this.scrollToBottom();
+     
        
        this.makeSpaceConnetion();
        this.$root.forceListReload = false;
        
     },
     methods:{
+      generateUnreadMessage: function(){
+          if(this.$root.selectedSpace.unread != 0){
+             let newUnreadMsg = {
+             content: 'You have ' + this.$root.selectedSpace.unread + ' unread messages',
+        created_at: moment().subtract(1,'hours'),
+         message_id: this.makeUUID(),
+        type:'unread', 
+             };
+          let msgCount = this.$root.Messages.length;
+
+           let msgIndex = msgCount - this.$root.selectedSpace.unread;
+
+            this.$root.Messages.splice(msgIndex,0,newUnreadMsg);
+             this.$root.selectedSpace.unread = 0;
+          }
+      },
+      makeUUID:function(){
+     var id = "id" + Math.random().toString(16).slice(2);
+     return id;
+ },
        showCodeBox: function(){
              this.$root.showCodeBox = true;
         },
@@ -310,7 +330,7 @@ export default {
                 }
              });
 
-             },2000)
+             },500)
              
           
                setTimeout(() => {
@@ -402,7 +422,7 @@ export default {
        this.$root.Messages =response.data[0];
 
        
-
+       this.generateUnreadMessage();
         
        this.$root.selectedSpace = response.data[1]
 

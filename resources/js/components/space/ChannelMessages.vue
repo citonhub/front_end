@@ -7,11 +7,19 @@
          </div>
 
 
-          <!-- date time -->
+          <!-- user joined -->
         
          <div class="col-12  text-center" v-if="source.type == 'join'">
             <span  class=" DateBadge py-1 px-2" style="font-size:11px;color:white;" v-if="source.user.username != this.$root.username">{{source.user.username}} joined</span>
              <span  class=" DateBadge py-1 px-2" style="font-size:11px;color:white;" v-else>You joined</span>
+         </div>
+
+
+          <!--unread messages -->
+        
+         <div class="col-12  text-center" v-if="source.type == 'unread'">
+            
+             <span  class=" DateBadge py-1 px-2" style="font-size:11px;color:white;">{{source.content}}</span>
          </div>
 
 
