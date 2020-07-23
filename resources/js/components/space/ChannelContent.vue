@@ -284,7 +284,7 @@ export default {
     },
     methods:{
       generateUnreadMessage: function(){
-          if(this.$root.selectedSpace.unread != 0){
+          if(this.$root.selectedSpace.unread != 0 && this.$root.selectedSpace.unread != undefined){
              let newUnreadMsg = {
              content: 'You have ' + this.$root.selectedSpace.unread + ' unread messages',
         created_at: moment().subtract(1,'hours'),

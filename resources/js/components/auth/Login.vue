@@ -154,9 +154,19 @@ export default {
                   })
           .then(response => {
              
+
+             if(response.status == 200){
+
+               this.$root.userEmail = this.usernameValue;
+                this.$root.userPassword = this.password;
+              this.$router.push({ path: '/verify' });
+
+               }
             
             
              if (response.status == 204) {
+
+              
              
             window.location =  this.$root.UrlTrack;
              location.reload();
