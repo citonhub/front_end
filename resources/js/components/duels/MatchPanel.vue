@@ -313,7 +313,7 @@
 export default {
      data(){
    return{
-     panel:[],
+      panel:[0,1],
      codeFiles:[],
      Alert:false,
      backEndFiles:[],
