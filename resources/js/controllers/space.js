@@ -54,7 +54,7 @@ const routes = [
   { path: '/:projectSlug/:language_type/add-new-file', name: 'NewCodeFile', component: NewCodeFile},
   { path: '/:projectSlug/comments', name: 'ProjectComments', component: ProjectComments},
   { path: '/:projectSlug/make-comment', name: 'NewComment', component: NewComment},
-  { path: '/:projectSlug/page-loader', name: 'PanelLoader', component: PanelLoader},
+  { path: '/:projectSlug/page-loader/:referral', name: 'PanelLoader', component: PanelLoader},
   { path: '/register', name: 'Register', component: Register},
   { path: '/verify', name: 'Verify', component: Verify},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
