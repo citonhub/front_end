@@ -1,7 +1,7 @@
 
 
  <div class=" d-none d-md-none d-lg-block mx-2 px-2 py-2" 
- style="border-radius:10px; height:auto; position:fixed; width:15%;top:7%; left:16.60%; background:white;box-shadow:0 0 10px #c5c5c5;" >
+ style="border-radius:7px; height:auto; position:fixed; width:15%;top:7%; left:16.60%; background:white;border:1px solid #b7dbe1;" >
          
        
 
@@ -135,7 +135,7 @@
 
 
 
-<div class="row fixed-bottom " style="z-index:1000;" v-show="showTabs">
+<div class="row fixed-bottom " style="z-index:1000;" v-show="showTabs == true">
    
 
            

@@ -249,6 +249,7 @@ const app = new Vue({
       boardBtnLabel:'',
       userPageTrack:[],
       selectedPage:[],
+      drawer:false,
     },
      mounted: function () {
       this.pageloader= false;
@@ -264,6 +265,35 @@ const app = new Vue({
      }
   },
   methods:{
+    logout: function(){
+      document.getElementById('logout-form').submit();
+    },
+    showNavigator:function(){
+      this.drawer = true;
+     
+      },
+    showNavLink:function(type){
+      if(type == 'library'){
+        window.location = '/#/library';
+      }
+
+      if(type == 'duel_list'){
+       window.location = '/duels#/duel/list';
+     }
+
+     if(type == 'account_settings'){
+      return;
+     }
+
+     if(type == 'privacy'){
+       return;
+     }
+
+     if(type == 'help'){
+       return;
+     }
+    
+   },
     connectToChannel:function(){
    
        if(this.checkauthroot == 'auth'){

@@ -5,7 +5,7 @@
 
         @include('shared.meta')
         @yield('meta')
-        <link rel="manifest" href="manifest.json?v=0.3" />
+        <link rel="manifest" href="manifest.json" />
         @include('shared.css')
           @yield('css')
     </head>

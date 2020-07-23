@@ -35,6 +35,7 @@ Route::post('/verify-user-email','UserController@verifyEmail');
 Route::post('/register','Auth\RegisterController@create');
 Route::post('/check-if-username-exist','UserController@checkIfUsernameExist');
 Route::post('/login','Auth\LoginController@login');
+Route::post('/logout','Auth\LoginController@logout');
 
 
 // Post Routes
