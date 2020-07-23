@@ -357,7 +357,7 @@ export default {
        channelProject:null,
        channelSpace:null,
        showChannel:true,
-       showProject:false,
+       showProject:true,
       }
     },
     mounted(){

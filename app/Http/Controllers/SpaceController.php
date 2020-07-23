@@ -1043,7 +1043,6 @@ array_push($newSpaceArray,$userSpace);
    )
    ->where('space_members.user_id',Auth::id())
    ->where('spaces.type','!=','Channel')
-   ->where('spaces.type','!=','Personal')
    ->orderBy('spaces.created_at','asc')
    ->get();
 
