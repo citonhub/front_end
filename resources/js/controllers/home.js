@@ -27,7 +27,7 @@ const routes = [
   { path: '/code-editor', name: 'CodeEditor', component: CodeEditor},
   { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},
   { path: '/post/:username/:postId/:referral', name: 'Post', component: Post},
-  { path: '/post/:username/:postId/comment', name: 'MakeComment', component: MakeComment},
+  { path: '/post/:username/:postId/comment/post', name: 'MakeComment', component: MakeComment},
   { path: '/post/comment/:username/:postId/:referral', name: 'PostCommentView', component: PostCommentView},
   { path: '/library', name: 'Library', component: Library},
   { path: '/shelve', name: 'Shelve', component: Shelve},

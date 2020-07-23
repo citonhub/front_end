@@ -314,7 +314,7 @@ export default {
             this.$root.checkIfUserIsLoggedIn('home');
            this.$root.commentUsername = this.$route.params.username;
             this.$root.commentPostId = this.$route.params.postId;
-         this.$router.push({ path: '/post/' + this.$route.params.username + '/' +this.$route.params.postId + '/comment' });
+         this.$router.push({ path: '/post/' + this.$route.params.username + '/' +this.$route.params.postId + '/comment/post' });
       },
        likePost: function(postData){
             this.$root.checkIfUserIsLoggedIn('home');
