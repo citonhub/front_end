@@ -213,7 +213,12 @@ const app = new Vue({
       replyCommentUsername:'',
       replyCommentId:0,
       is_reply_comment:false,
-      referralUser:'user'
+      referralUser:'user',
+      showBoard:false,
+      boardContent:'',
+      boardBtnLabel:'',
+      userPageTrack:[],
+      selectedPage:[]
     },
      mounted: function () {
       this.pageloader= false;

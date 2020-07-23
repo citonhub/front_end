@@ -115,6 +115,7 @@ Route::get('fetch-comment-panel-{teamCode}','ProjectController@TeamComment');
 // Profile Routes
 Route::post('/update-profile','ProfileController@UpdateProfile');
 Route::get('/fetch-profile-{username}','ProfileController@fetchProfile');
+Route::post('/save-page-tracking','ProfileController@savePageTracking');
 Route::get('/fetch-projects-{username}','ProfileController@fetchProjects');
 Route::get('/fetch-teams-{username}','ProfileController@fetchTeams');
 Route::get('/connect-user-{username}','ProfileController@connectUser');

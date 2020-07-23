@@ -374,8 +374,48 @@ export default {
 
        Echo.leave('space.' + this.$root.selectedSpace.space_id);
        this.fetchChatList();
+       this.trackUser();
     },
     methods:{
+         activateBot:function(){
+         this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
+            return page.page_name == 'chat_list';
+          });
+         
+          if(this.$root.selectedPage.length != 0){
+               
+              if(this.$root.selectedPage[0].status == 0){
+                 this.$root.showBoard = true;
+         this.$root.boardContent = 'Hey '+ this.$root.username + '😃.Create new channels to interact with your friends on CitonHub or new teams to work on projects 👩‍💻 with your friends';
+         this.$root.boardBtnLabel = 'Okay,Got It';
+
+              }
+               
+          }
+        
+         
+      },
+        trackUser: function(){
+      
+
+         axios.get('/fetch-profile-'+ this.$root.username)
+   .then(response => {
+   
+   if (response.status == 200) {
+
+        this.$root.userPageTrack = response.data[2];
+
+        this.activateBot();
+  }
+    
+  
+  })
+  .catch(error => {
+ 
+  }) 
+
+      
+   },
        showSpace:function(space){
           this.$root.selectedSpace = space;
 

@@ -9,19 +9,14 @@
              </span>
             </div>
 
-            <div class="col-6 px-0 d-flex py-1" style="align-items:center;justify-content:center;">
-             <span class="welcome px-2 py-1">
-                 Welcome!
-             </span>
+           <div class="col-12 py-0 text-center">
+          <img  width="100px" src="/imgs/bot.svg" />
             </div>
 
-            <div class="col-3 py-1 text-center">
-            
-            </div>
 
            <div class="col-12 py-2 text-center ">
               <span class="infoclass px-4">
-                 Citonhub is a community of developers where they interact ,learn and build.
+                 Welcome home, I am Citon. I am your friend 😁, and I am here to help you on CitonHub.
              </span>
             </div>
            
@@ -49,7 +44,7 @@
 
                  <div class="col-12 px-0 d-flex" style="align-items:center;justify-content:center;">
                      <span class="infoclass px-4">
-                     Get an invite link to Join
+                     Get an invite link to Join 😇
                    </span>
                </div>
                 

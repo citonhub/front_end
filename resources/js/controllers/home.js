@@ -122,6 +122,11 @@ const app = new Vue({
             UrlTrack:'',
             referralUser:'user',
             fromHome:false,
+            showBoard:false,
+            boardContent:'',
+            boardBtnLabel:'',
+            userPageTrack:[],
+            selectedPage:[],
     },
      mounted: function () {
       this.pageloader = false;
@@ -336,6 +341,25 @@ const app = new Vue({
       }
 
    },
+
+   activateBot:function(){
+    this.$root.selectedPage  = this.userPageTrack.filter((page)=>{
+       return page.page_name == 'public';
+     });
+     console.log(this.selectedPage);
+     if(this.selectedPage.length != 0){
+          
+         if(this.selectedPage[0].status == 0){
+            this.showBoard = true;
+    this.boardContent = 'Hello';
+    this.boardBtnLabel = 'Okay Got It';
+
+         }
+          
+     }
+   
+    
+ },
       
     fetchUserDetails: function(){
       
@@ -348,6 +372,8 @@ const app = new Vue({
         let userProfile = response.data[1];
         let user = response.data[0];
 
+       
+        
         
         
        let userDetails = {

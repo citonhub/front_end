@@ -334,9 +334,49 @@ export default {
         this.$root.showHeader = false;
         this.$root.checkIfUserIsLoggedIn('duel');
         this.trackPanel();
+        this.trackUser();
         this.fetchDuel();
       },
  methods:{
+    activateBot:function(){
+         this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
+            return page.page_name == 'duel_panel';
+          });
+         
+          if(this.$root.selectedPage.length != 0){
+               
+              if(this.$root.selectedPage[0].status == 0){
+                 this.$root.showBoard = true;
+         this.$root.boardContent = 'Congratulations ' + this.$root.username + ' 🥳, you joined first duel. Write and run your codes here. Have some more questions? Click on \'How To\' button to answer them.';
+         this.$root.boardBtnLabel = 'Okay,Got It';
+
+              }
+               
+          }
+        
+         
+      },
+        trackUser: function(){
+      
+
+         axios.get('/fetch-profile-'+ this.$root.username)
+   .then(response => {
+   
+   if (response.status == 200) {
+
+        this.$root.userPageTrack = response.data[2];
+
+        this.activateBot();
+  }
+    
+  
+  })
+  .catch(error => {
+ 
+  }) 
+
+      
+   },
    showHowTo: function(){
       this.$router.push({ path: '/how-to' });
    },

@@ -319,8 +319,51 @@ export default {
        this.$root.showHeader = true;
        this.setContentField();
         this.$root.checkIfUserIsLoggedIn();
+        this.trackUser();
     },
     methods:{
+      activateBot:function(){
+         this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
+            return page.page_name == 'new_post';
+          });
+         
+          if(this.$root.selectedPage.length != 0){
+               
+              if(this.$root.selectedPage[0].status == 0){
+                 this.$root.showBoard = true;
+         this.$root.boardContent = 'Hi! ' + this.$root.username + ',write your first post 🤩 and share what you love doing or what you are working on 👩‍💻.';
+         this.$root.boardBtnLabel = 'Okay';
+
+              }
+               
+          }
+        
+         
+      },
+       trackUser: function(){
+      
+      if(this.$root.userPageTrack.length == 0){
+        
+      axios.get('/fetch-profile-'+ this.$root.username)
+   .then(response => {
+   
+   if (response.status == 200) {
+
+        this.$root.userPageTrack = response.data[2];
+
+        this.activateBot();
+  }
+    
+  
+  })
+  .catch(error => {
+ 
+  }) 
+      }
+        
+
+      
+   },
       handleLink: function(){
         if(this.showLinkField){
           this.showLinkField = false;

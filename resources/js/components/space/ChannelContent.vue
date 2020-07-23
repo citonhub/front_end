@@ -280,9 +280,49 @@ export default {
        
        this.makeSpaceConnetion();
        this.$root.forceListReload = false;
+      
        
     },
     methods:{
+       activateBot:function(){
+         this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
+            return page.page_name == 'space_content';
+          });
+         
+          if(this.$root.selectedPage.length != 0){
+               
+              if(this.$root.selectedPage[0].status == 0){
+                 this.$root.showBoard = true;
+         this.$root.boardContent = 'Hello';
+         this.$root.boardBtnLabel = 'Okay Got It';
+
+              }
+               
+          }
+        
+         
+      },
+        trackUser: function(){
+      
+
+         axios.get('/fetch-profile-'+ this.$root.username)
+   .then(response => {
+   
+   if (response.status == 200) {
+
+        this.$root.userPageTrack = response.data[2];
+
+        this.activateBot();
+  }
+    
+  
+  })
+  .catch(error => {
+ 
+  }) 
+
+      
+   },
       generateUnreadMessage: function(){
           if(this.$root.selectedSpace.unread != 0 && this.$root.selectedSpace.unread != undefined){
              let newUnreadMsg = {

@@ -191,6 +191,7 @@ export default {
               
           }
          
+        this.trackUser();
     },
     components: { 
      'virtual-list': VirtualList
@@ -200,7 +201,45 @@ export default {
     
     methods:{
       
+      activateBot:function(){
+         this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
+            return page.page_name == 'duel_board';
+          });
+         
+          if(this.$root.selectedPage.length != 0){
+               
+              if(this.$root.selectedPage[0].status == 0){
+                 this.$root.showBoard = true;
+         this.$root.boardContent = 'Hey ' + this.$root.username + ',here you can join,follow up the duel and support your favourite duel participant. Also feel free to give your comments 😇';
+         this.$root.boardBtnLabel = 'Okay,Got It';
+
+              }
+               
+          }
+        
+         
+      },
+        trackUser: function(){
       
+
+         axios.get('/fetch-profile-'+ this.$root.username)
+   .then(response => {
+   
+   if (response.status == 200) {
+
+        this.$root.userPageTrack = response.data[2];
+
+        this.activateBot();
+  }
+    
+  
+  })
+  .catch(error => {
+ 
+  }) 
+
+      
+   },
       viewUser: function(participant){
        this.$root.pageloader = true;
         window.location = '/view-profile#/profile/activities/'+ participant.username;

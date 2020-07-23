@@ -107,45 +107,8 @@ class UserController extends Controller
        return $rows;
     }
 
-    public function userInterests(){
-        $rows = DB::table('user_interests')->where('user_id',Auth::id())
-       ->paginate(4);
-       return $rows;
-    }
-    public function saveTutorDetails(Request $request){
-        $tutordetails = Tutor::where('user_id',Auth::id())->first();
-        if($tutordetails == null){
-            $tutor = Tutor::create([
-                'profession'=> $request->get('profession'),
-                'about'=> $request->get('about'),
-                'user_id'=> Auth::id(),
-                'twitter_handle'=> $request->get('twitter'),
-                'git_repo'=> $request->get('gitrepo'),
-                'linkedin_link'=>$request->get('linkedlink'),
-                'ratings'=>10
-              ]);
-              $tutor->save();
-        }else{
-            $tutordetails->update([
-                'profession'=> $request->get('profession'),
-                'about'=> $request->get('about'),
-                'user_id'=> Auth::id(),
-                'twitter_handle'=> $request->get('twitter'),
-                'git_repo'=> $request->get('gitrepo'),
-                'linkedin_link'=>$request->get('linkedlink'),
-                'ratings'=>10
-              ]);
-        }
-      
-      return ['status','OK'];
-    }
-    public function tutorDetails(){
-        $rows = DB::table('tutors')->where('user_id',Auth::id())
-        ->paginate(1);
-
-        return $rows;
-    }
-
+   
+   
     public function triggerNotification(){
       
         $allNotification = PushNotification::where('user_id',Auth::id())->get();

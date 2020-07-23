@@ -243,7 +243,12 @@ const app = new Vue({
       localChannel:[],
       codeFiles:[],
       frontEndFiles:[],
-      referralUser:'user'
+      referralUser:'user',
+      showBoard:false,
+      boardContent:'',
+      boardBtnLabel:'',
+      userPageTrack:[],
+      selectedPage:[],
     },
      mounted: function () {
       this.pageloader= false;

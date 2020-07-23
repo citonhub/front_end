@@ -138,6 +138,7 @@ export default {
        this.$root.showHeader = true;
        this.$root.disconnectDuel(this.$root.duels);
      this.fetchDuels();
+     this.trackUser();
        
     },
  methods:{
@@ -153,6 +154,45 @@ export default {
    },
    createDuel: function(){
      this.$router.push({ path: '/duel/create' });
+   },
+    activateBot:function(){
+         this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
+            return page.page_name == 'my_duel';
+          });
+         
+          if(this.$root.selectedPage.length != 0){
+               
+              if(this.$root.selectedPage[0].status == 0){
+                 this.$root.showBoard = true;
+         this.$root.boardContent = 'Hurray 🥳, you created your first duel, share the duel with your friends and click on \'start\' and let the fun begin 😎';
+         this.$root.boardBtnLabel = 'Okay,Got It';
+
+              }
+               
+          }
+        
+         
+      },
+        trackUser: function(){
+      
+
+         axios.get('/fetch-profile-'+ this.$root.username)
+   .then(response => {
+   
+   if (response.status == 200) {
+
+        this.$root.userPageTrack = response.data[2];
+
+        this.activateBot();
+  }
+    
+  
+  })
+  .catch(error => {
+ 
+  }) 
+
+      
    },
    editDuel: function(duel){
       this.$root.editDuelArray = duel;

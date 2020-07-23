@@ -179,6 +179,7 @@ export default {
        this.$root.showTabs=false;
        this.$root.showHeader = false;
        this.detectchange(this.$root.EditorLanguage);
+       this.trackUser();
       },
      components: {
       codemirror,
@@ -221,6 +222,45 @@ export default {
     }
 },
 methods:{
+   activateBot:function(){
+         this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
+            return page.page_name == 'duel_code_editor';
+          });
+         
+          if(this.$root.selectedPage.length != 0){
+               
+              if(this.$root.selectedPage[0].status == 0){
+                 this.$root.showBoard = true;
+         this.$root.boardContent = 'Nice 😃, You figured it out. You can write and edit your codes here.And don\'t forget to save changes so you won\'t lose them ';
+         this.$root.boardBtnLabel = 'Okay,Got It';
+
+              }
+               
+          }
+        
+         
+      },
+        trackUser: function(){
+      
+
+         axios.get('/fetch-profile-'+ this.$root.username)
+   .then(response => {
+   
+   if (response.status == 200) {
+
+        this.$root.userPageTrack = response.data[2];
+
+        this.activateBot();
+  }
+    
+  
+  })
+  .catch(error => {
+ 
+  }) 
+
+      
+   },
      onCmCursorActivity(codemirror) {
         console.debug('onCmCursorActivity', codemirror)
       },

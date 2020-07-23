@@ -12,6 +12,7 @@ use App\Project;
 use App\Space;
 use DB;
 use App\ProjectStar;
+use App\PageTracker;
 use App\traits\ManagesImages;
 
 class ProfileController extends Controller
@@ -271,11 +272,53 @@ class ProfileController extends Controller
         return $randomString;
          }
 
+ public function savePageTracking(Request $request){
+   $pageTracker = PageTracker::where('id',$request->get('page_id'))->first();
 
+    $pageTracker->update([
+      'status'=> true
+    ]);
+ }
 
  public function fetchProfile($username){
    
      $user = User::where('username',$username)->first();
+      
+     $userPageTracker = PageTracker::where('user_id',Auth::id())->get();
+     if($userPageTracker->isEmpty()){
+       
+      $pageArray = ["public",
+                    "new_post",
+                    "duel",
+                    "my_duel",
+                    "duel_board",
+                    "duel_panel",
+                    "duel_code_editor",
+                    "duel_page_loader",
+                    "chat_list",
+                    "space_content",
+                    "project_panel",
+                    "project_code_editor",
+                    "project_page_loader"];
+          foreach ($pageArray as $page) {
+             
+            $newPageTracker = PageTracker::create([
+             "user_id"=> Auth::id(),
+             "page_name"=> $page,
+             "status"=> false,
+            ]);
+
+            $newPageTracker->save();
+          }
+
+     }
+      if(Auth::check()){
+        $allPageTracker = PageTracker::where('user_id',Auth::id())->get();
+      }else{
+        $allPageTracker = [];
+      }
+
+    
       
      $profile = Profile::where('user_id',$user->id)->get();
 
@@ -315,7 +358,7 @@ class ProfileController extends Controller
       }
 
 
-    return [$user,$newProfile[0]];
+    return [$user,$newProfile[0],$allPageTracker];
  }
 
 }

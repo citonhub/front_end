@@ -197,12 +197,54 @@ export default {
      this.$root.disconnectPost(this.$root.postShelveData);
          }
       
-       
+      
+      
+   
+      
       
       
       
     },
     methods:{
+      activateBot:function(){
+         this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
+            return page.page_name == 'public';
+          });
+         
+          if(this.$root.selectedPage.length != 0){
+               
+              if(this.$root.selectedPage[0].status == 0){
+                 this.$root.showBoard = true;
+         this.$root.boardContent = 'Hello';
+         this.$root.boardBtnLabel = 'Okay Got It';
+
+              }
+               
+          }
+        
+         
+      },
+        trackUser: function(){
+      
+
+         axios.get('/fetch-profile-'+ this.$root.username)
+   .then(response => {
+   
+   if (response.status == 200) {
+
+        this.$root.userPageTrack = response.data[2];
+
+        this.activateBot();
+  }
+    
+  
+  })
+  .catch(error => {
+ 
+  }) 
+
+      
+   },
       newPost: function(){
          this.$router.push({ path: '/new-post' });
         },

@@ -14,6 +14,8 @@
       </div>
 
        <library-shelves v-if="this.$root.showShelves"></library-shelves>
+
+        <on-boarding  :content="this.$root.boardContent"  v-if="this.$root.showBoard" :btnLabel="this.$root.boardBtnLabel"></on-boarding>
       
       <router-view></router-view>
    

@@ -9,6 +9,8 @@
       </div>
      
      <share v-if="this.$root.showShare"></share>
+
+      <on-boarding  :content="this.$root.boardContent"  v-if="this.$root.showBoard" :btnLabel="this.$root.boardBtnLabel"></on-boarding>
     
            
      

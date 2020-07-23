@@ -68,5 +68,5 @@
 
 
  @section('scripts')
-<script src="{{ asset('js/duels.js?v=1.33') }}"></script>
+<script src="{{ asset('js/duels.js?v=1.34') }}"></script>
  @endsection

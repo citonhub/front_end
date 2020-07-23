@@ -114,7 +114,12 @@ const app = new Vue({
        showShelves:false,
        allChannel:[],
         serverControlled:true,
-        referralUser:'user'
+        referralUser:'user',
+        showBoard:false,
+        boardContent:'',
+        boardBtnLabel:'',
+        userPageTrack:[],
+        selectedPage:[],
     },
     mounted: function () {
       this.pageloader= false;

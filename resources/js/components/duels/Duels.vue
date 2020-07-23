@@ -276,6 +276,7 @@ export default {
            this.$root.disconnectDuel(this.$root.UserDuel);
         }
       this.fetchDuels();
+      this.trackUser();
        
     },
     methods:{
@@ -289,6 +290,45 @@ export default {
        findDuels: function(){
            alert('I will search Duels');
        },
+       activateBot:function(){
+         this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
+            return page.page_name == 'duel';
+          });
+         
+          if(this.$root.selectedPage.length != 0){
+               
+              if(this.$root.selectedPage[0].status == 0){
+                 this.$root.showBoard = true;
+         this.$root.boardContent = 'Hello ' + this.$root.username + ' 😁,on Citon Duels,you can challenge your developer friends to code. click on the \'+\' button to create a duel';
+         this.$root.boardBtnLabel = 'Okay,Got It';
+
+              }
+               
+          }
+        
+         
+      },
+        trackUser: function(){
+      
+
+         axios.get('/fetch-profile-'+ this.$root.username)
+   .then(response => {
+   
+   if (response.status == 200) {
+
+        this.$root.userPageTrack = response.data[2];
+
+        this.activateBot();
+  }
+    
+  
+  })
+  .catch(error => {
+ 
+  }) 
+
+      
+   },
        
        fetchDuels: function(){
          if(this.$root.duels.length != 0){

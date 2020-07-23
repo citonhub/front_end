@@ -11,3 +11,4 @@ Vue.component('code-viewer',require('./home/CodeViewer.vue').default);
 Vue.component('library-shelves',require('./home/LibraryShelves').default);
 Vue.component('share',require('./space/Share.vue').default);
 Vue.component('link-view',require('./home/LinkView').default);
+Vue.component('on-boarding',require('./auth/OnBoarding.vue').default);
