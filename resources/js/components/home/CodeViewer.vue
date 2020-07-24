@@ -98,18 +98,7 @@
 
 
 
-     <span style="position:absolute; top:93%; left:5%;z-index:99999999900;">
-           <v-btn
-                color="#35747e"
-                small
-                 @click="goBack"
-                class="d-inline-block "
-                fab
-              >
-                <v-icon color="#ffffff">mdi-close</v-icon>
-            </v-btn>
-         
-     </span>
+     
 
       <span style="position:absolute; top:93%; right:5%;z-index:9999999000;">
            <v-btn
