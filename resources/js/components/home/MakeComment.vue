@@ -512,7 +512,7 @@ var blob = this.b64toBlob(realData, contentType);
                   this.$root.postArray[0].comments = this.$root.postArray[0].comments + 1;
 
                  this.ChangeDataToDefaults();
-                  this.$router.push({ path: '/post/' + this.$route.params.username + '/' +this.$route.params.postId });
+                  this.$router.push({ path: '/post/' + this.$route.params.username + '/' +this.$route.params.postId + '/user' });
             }else{
               
             }
