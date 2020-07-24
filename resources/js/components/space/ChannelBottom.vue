@@ -102,7 +102,7 @@ export default {
         },
        
         shareHandler:function(){
-          this.$router.push({ path: '/space/' + this.$route.params.spaceId + '/channel/share' });
+          this.$root.sharePage= true;
         },
          countCharacter:function(value){
             this.wordCount = this.editor.getHTML().length;
@@ -122,6 +122,9 @@ export default {
 
           this.isTyping();
           
+      },
+      reFocus:function(){
+         this.editor.focus();
       },
       showAlert:function(duration,text){
         this.$root.AlertRoot = true;
@@ -255,50 +258,28 @@ export default {
               if(this.$root.is_reply){
 
                  
-                 this.NewMsg = this.makeMessage(null,Data,'1',this.$root.replyMessage);
+                 this.$root.NewMsg = this.makeMessage(null,Data,'1',this.$root.replyMessage);
 
               }else{
-                 this.NewMsg = this.makeMessage(null,Data,null,[]);
+                 this.$root.NewMsg = this.makeMessage(null,Data,null,[]);
               }
-               this.NewMsg.content = this.contentInWord;
-               this.$root.Messages.push(this.NewMsg);
+               this.$root.NewMsg.content = this.contentInWord;
+               this.$root.Messages.push(this.$root.NewMsg);
+               this.$root.scrollToBottom();
 
-                if(this.$root.messageScroller != undefined){
-                 this.$root.messageScroller.scrollToBottom();
-                }
-               
-            
+               this.reFocus();
 
-            axios.post('/send-message',{
+              let postData = {
               content: this.contentInWord,
               space_id: this.$route.params.spaceId,
               is_reply: this.$root.is_reply,
               current_user: JSON.stringify(this.$root.SpaceUsers ),
               replied_message_id: this.$root.replyMessage.message_id,
               attachment_type: null,
-            })
-              .then(response => {
-            this.$root.is_reply = false;
-      if (response.status == 200) {
+            };
+            
 
-             let messageId = this.NewMsg.message_id;
-                let messageType = this.NewMsg.type;
-               this.$root.Messages.map((message)=>{
-                  if(messageId == message.message_id){
-                     message.loading = false;
-                     message.message_id = response.data[0].message_id; 
-                  }
-               });
-             
-        this.$root.replyMessage = [];
-        
-     }
-       
-     
-     })
-     .catch(error => {
-    
-     }) 
+          this.$root.sendTextMessage(postData);
       },
     focusEditor: function(){
      

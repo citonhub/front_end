@@ -280,16 +280,16 @@ methods:{
           
               
               let Data = [];
-              this.NewMsg = this.makeMessage('code',Data);
-               this.$root.Messages.push(this.NewMsg);
+              this.$root.NewMsg = this.makeMessage('code',Data);
+               this.$root.Messages.push( this.$root.NewMsg);
 
-                if(this.$root.messageScroller != undefined){
-                 this.$root.messageScroller.scrollToBottom();
-                }
+              
                
                 this.$root.showCodeBox = false;
-       
-            axios.post('/send-message',{
+
+                 this.$root.scrollToBottom();
+                
+                let postData = {
               content: '',
               space_id: this.$route.params.spaceId,
               is_reply: this.$root.is_reply,
@@ -299,30 +299,10 @@ methods:{
                 code: this.code,
               language_type: this.language,
               file_name:'index'
-            })
-              .then(response => {
-      
-      if (response.status == 200) {
-
-             let messageId = this.NewMsg.message_id;
-                let messageType = this.NewMsg.type;
-               this.$root.Messages.map((message)=>{
-                  if(messageId == message.message_id){
-                     message.loading = false;
-                     message.message_id = response.data[0].message_id; 
-                      message.code = response.data[0].code;
-                  }
-               });
-             
-        
-        
-     }
-       
-     
-     })
-     .catch(error => {
-    
-     }) 
+            };
+            
+       this.$root.sendCodeMessage(postData);
+         
       },
        
       onCmReady(codemirror) {

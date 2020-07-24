@@ -250,6 +250,8 @@ const app = new Vue({
       userPageTrack:[],
       selectedPage:[],
       drawer:false,
+      sharePage:false,
+      NewMsg:[],
     },
      mounted: function () {
       this.pageloader= false;
@@ -518,6 +520,131 @@ imageStyle:function(dimension,authProfile){
         return;
       } 
    },
+   scrollToBottom:function(){
+        
+         setTimeout(() => {
+         
+           var container = document.querySelector('#messageContainer');
+           
+        var element =  document.querySelector('#messagebottomDiv');
+       
+        var top = element.offsetTop - 120;
+        container.scrollTo(0 , top);
+        },500)
+      
+
+      },
+    sendTextMessage: function(postData){
+     
+      axios.post('/send-message',postData)
+        .then(response => {
+      this.$root.is_reply = false;
+if (response.status == 200) {
+
+       let messageId = this.NewMsg.message_id;
+          let messageType = this.NewMsg.type;
+         this.$root.Messages.map((message)=>{
+            if(messageId == message.message_id){
+               message.loading = false;
+               message.message_id = response.data[0].message_id; 
+            }
+         });
+       
+  this.$root.replyMessage = [];
+  
+}
+ 
+
+})
+.catch(error => {
+
+}) 
+    },
+    sendCodeMessage: function(postData){
+      
+      axios.post('/send-message',postData)
+      .then(response => {
+
+if (response.status == 200) {
+
+     let messageId = this.NewMsg.message_id;
+        let messageType = this.NewMsg.type;
+       this.$root.Messages.map((message)=>{
+          if(messageId == message.message_id){
+             message.loading = false;
+             message.message_id = response.data[0].message_id; 
+              message.code = response.data[0].code;
+          }
+       });
+     
+ this.$root.scrollToBottom();
+
+}
+
+
+})
+.catch(error => {
+
+}) 
+
+    },
+    sendShareMessage: function(formData){
+      axios.post('/send-message',formData,
+         {
+             headers:{
+              'Content-Type':'multipart/form-data'
+             },
+             onUploadProgress: function(progressEvent){
+                let messageId = this.NewMsg.message_id;
+               this.$root.Messages.map((message)=>{
+                  if(messageId == message.message_id){
+                     message.progressValue = this.progressvalue = parseInt(Math.round(
+                   (progressEvent.loaded / progressEvent.total) * 100
+                    ))
+                  }
+               });
+             
+           }.bind(this)
+           })
+          .then(response => {
+            
+           if (response.status == 200) {
+               
+                 
+                let messageId = this.NewMsg.message_id;
+                let messageType = this.NewMsg.type;
+               this.$root.Messages.map((message)=>{
+                  if(messageId == message.message_id){
+                     message.loading = false;
+                     message.message_id = response.data[0].message_id;
+                     if(messageType == 'image'){
+                       message.image = response.data[0].image;
+                     }
+                     if(messageType == 'file'){
+                       message.file = response.data[0].file;
+                     }
+                     if(messageType == 'video'){
+                       message.video = response.data[0].video;
+                     }
+                     if(messageType == 'audio'){
+                       message.audio = response.data[0].audio;
+                     }
+                     if(messageType == 'code'){
+                       message.code = response.data[0].code;
+                     }
+                  }
+               });
+            }else{
+              
+            }
+              this.$root.scrollToBottom();
+            
+          })
+          .catch(error => {
+           
+              
+          })
+    }
    
 }
 });

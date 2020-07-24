@@ -93,19 +93,7 @@
    :srcdoc="code" 
     style="border: 0; height:91%; position:fixed; left:0; top:6%;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-0"  ></iframe>
 
-     <span style="position:absolute; top:90%; left:5%;z-index:1000;">
-           <v-btn
-                color="#35747e"
-                small
-
-                 @click="goBack"
-                class="d-inline-block "
-                fab
-              >
-                <v-icon color="#ffffff">mdi-close</v-icon>
-            </v-btn>
-         
-     </span>
+  
 
       <span style="position:absolute; top:90%; right:5%;z-index:1000;">
            <v-btn

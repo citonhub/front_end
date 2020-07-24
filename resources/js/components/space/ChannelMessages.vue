@@ -1,5 +1,8 @@
 <template>
-    <div class="row py-0 my-0 px-2" >
+<div >
+
+
+    <div class="row py-0 my-0 px-2" v-for="(source, index) in sources" :key="index">
       <!-- date time -->
         
          <div class="col-12  text-center" v-if="source.showDate != undefined">
@@ -501,25 +504,17 @@
 
 
      </div>
+     </div>
 </template>
 <script>
 export default {
+  props:["sources"],
     data(){
          return{
               viewerType:'',
          }
     },
-     props: {
-      index: { // index of current item
-        type: Number
-      },
-      source: { // here is: {uid: 'unique_1', text: 'abc'}
-        type: Object,
-        default () {
-          return {}
-        }
-      },
-    },
+     
     methods:{
          closeReply:function(){
         this.$root.showRootReply = false;

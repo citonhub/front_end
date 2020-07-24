@@ -1,6 +1,8 @@
 Vue.component('space',require('./space/Space.vue').default);
 Vue.component('channel-top',require('./space/ChannelTop.vue').default);
 Vue.component('channel-bottom',require('./space/ChannelBottom.vue').default);
+Vue.component('channel-share',require('./space/ChannelShare.vue').default);
+Vue.component('channel-messages',require('./space/ChannelMessages.vue').default);
 Vue.component('image-cropper',require('./profile/ImageCropper.vue').default);
 Vue.component('audio-player',require('./space/AudioPlayer.vue').default);
 Vue.component('video-player',require('./space/VideoPlayer.vue').default);

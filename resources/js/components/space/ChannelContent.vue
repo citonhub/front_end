@@ -3,22 +3,23 @@
 
        <div v-if="this.$root.Messages != null">
       
-      <virtual-list 
+      <div 
        style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;"
-       :data-key="'message_id'"
+     
        id="messageContainer"
-       ref="messageContainerRef"
+      
        class="col-12 py-2 px-2" 
        v-show="this.$root.Messages.length != 0"
-      :data-sources="this.$root.Messages"
-      :data-component="itemComponent"
-      :keeps="60">   
+      >   
 
+      <channel-messages :sources="this.$root.Messages"></channel-messages>
+     
+      <div class="col-12 " id="messagebottomDiv">
 
-
+      </div>
       
      
-     </virtual-list>  
+     </div>  
 
       <div v-show="this.$root.Messages.length == 0" class="col-12 my-2 py-0 px-0 mx-1 text-center"  style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;" >
        <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No message found</span>
@@ -163,7 +164,7 @@
       
       <div v-if="this.$root.ShowButton">
        
-        <span style="position:absolute; top:75%; left:2%; z-index:999998757;"  class="d-md-none d-inline-block">
+        <span style="position:absolute; top:79%; left:2%; z-index:999998757;"  class="d-md-none d-inline-block">
           <span
                
                 v-if="!this.$root.showRootReply"
@@ -188,7 +189,7 @@
      </span>
 
       
-       <span style="position:absolute; top:75%; right:2%; z-index:999998757;"  class="d-md-none d-inline-block">
+       <span style="position:absolute; top:79%; right:2%; z-index:999998757;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#35747e"
                 small
@@ -221,8 +222,8 @@
 </template>
 <script>
 
-import ChannelMessages from './ChannelMessages'
-  import VirtualList from 'vue-virtual-scroll-list'
+
+
 
 export default {
     data(){
@@ -234,7 +235,7 @@ export default {
           playerId2:'playerId2',
           Filename:'Index.html',
           viewerType:'',
-           itemComponent: ChannelMessages,
+    
           playerId1:'playerId1',
           messageid:'',
           Codelanguage_type:'HTML',
@@ -274,9 +275,9 @@ export default {
 
           }
           
-       this.$root.messageScroller = this.$refs.messageContainerRef;
+       
 
-       this.scrollToBottom();
+      
        
        this.makeSpaceConnetion();
        this.$root.forceListReload = false;
@@ -351,11 +352,7 @@ export default {
         this.$root.replyMessage = [];
         this.$root.is_reply = false;
         },
-        scrollToBottom: function(){
-           if(this.$refs.messageContainerRef != undefined){
-      this.$refs.messageContainerRef.scrollToBottom();
-           }
-        },
+        
       scrollToMessage: function(messageid){
            
              this.$root.Messages.map((message)=>{
@@ -375,13 +372,31 @@ export default {
              },2000)
              
           
-               setTimeout(() => {
+         setTimeout(() => {
          
-           this.$refs.messageContainerRef.scrollToIndex(messageid);
+           var container = document.querySelector('#messageContainer');
+           
+        var element =  document.querySelector('#message' + messageid);
+       
+        var top = element.offsetTop - 120;
+        container.scrollTo(0 , top);
         },500)
-        
       
-   
+        
+
+      },
+      scrollToBottom:function(){
+        
+         setTimeout(() => {
+         
+           var container = document.querySelector('#messageContainer');
+           
+        var element =  document.querySelector('#messagebottomDiv');
+       
+        var top = element.offsetTop - 120;
+        container.scrollTo(0 , top);
+        },500)
+      
 
       },
        showAlert:function(duration,text){
@@ -468,15 +483,9 @@ export default {
         
        this.$root.selectedSpace = response.data[1]
 
-    setTimeout(()=>{
-          let lastMessage  = this.$root.Messages.pop();
-            if(lastMessage != undefined){
-          this.$refs.messageContainerRef.scrollToIndex(lastMessage.message_id);
-         this.$root.Messages.push(lastMessage);
-            }
-       
-    },500);
-       
+   
+          this.scrollToBottom(); 
+   
        
      }
        
@@ -489,18 +498,14 @@ export default {
            }else{
 
 
-              setTimeout(()=>{
-          let lastMessage  = this.$root.Messages.pop();
-            if(lastMessage != undefined){
-          this.$refs.messageContainerRef.scrollToIndex(lastMessage.message_id);
-         this.$root.Messages.push(lastMessage);
-            }
+             
+          this.scrollToBottom(); 
        
-           },500);
+         
 
               this.Messages = this.$root.Messages;
 
-              this.$refs.messageContainerRef.scrollToBottom();
+            
           
 
            }

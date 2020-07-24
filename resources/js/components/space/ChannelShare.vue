@@ -1,5 +1,5 @@
 <template>
-       <div style="position:absolute; height:92%; width:100%; overflow-y:auto;left:0;top:8%;"> 
+       <div style="position:absolute; background:white; top:0%; left:0%; height:95%; overflow-y:auto; overflow-x:hidden; z-index:987664736568; width:100%;"> 
 
          <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
@@ -278,7 +278,7 @@ export default {
     methods:{
        goBack() {
           
-        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+       this.$root.sharePage = false;
         },
         fetchMessages: function(){
           
@@ -491,7 +491,7 @@ var blob = this.b64toBlob(realData, contentType);
                 
                 let Data = null;
           
-             this.NewMsg = this.makeMessage('image',Data);
+             this.$root.NewMsg = this.makeMessage('image',Data);
 
                this.attachment_type = 'image';
 
@@ -568,7 +568,7 @@ var blob = this.b64toBlob(realData, contentType);
             
              let Data = null;
           
-          this.NewMsg = this.makeMessage('code',Data);
+          this.$root.NewMsg = this.makeMessage('code',Data);
 
             this.attachment_type = 'code';
 
@@ -582,7 +582,7 @@ var blob = this.b64toBlob(realData, contentType);
 
            let Data = null;
           
-          this.NewMsg = this.makeMessage('video',Data);
+          this.$root.NewMsg = this.makeMessage('video',Data);
             this.attachment_type = 'video';
 
             formData.append('video',this.VideoBlob);
@@ -594,7 +594,7 @@ var blob = this.b64toBlob(realData, contentType);
              
            let Data =null;
           
-          this.NewMsg = this.makeMessage('audio',Data);
+          this.$root.NewMsg = this.makeMessage('audio',Data);
            
             this.attachment_type = 'audio';
 
@@ -607,7 +607,7 @@ var blob = this.b64toBlob(realData, contentType);
            
             let Data =null;
           
-          this.NewMsg = this.makeMessage('file',Data);
+          this.$root.NewMsg = this.makeMessage('file',Data);
 
             this.attachment_type = 'file';
 
@@ -618,13 +618,14 @@ var blob = this.b64toBlob(realData, contentType);
         }
 
          
-          this.$root.Messages.push(this.NewMsg);
+          this.$root.Messages.push(this.$root.NewMsg);
 
-          if(this.$root.messageScroller != undefined){
-                 this.$root.messageScroller.scrollToBottom();
-             }
+         
            
-          this.goBack();
+         this.$root.sharePage = false;
+
+         this.$root.scrollToBottom();
+           
          
          if(this.$root.SpaceUsers.length == 0){
         
@@ -639,61 +640,8 @@ var blob = this.b64toBlob(realData, contentType);
         formData.append('is_reply',this.$root.is_reply);
         formData.append('attachment_type',this.attachment_type);
         formData.append('space_id',this.$route.params.spaceId);
-       axios.post('/send-message',formData,
-         {
-             headers:{
-              'Content-Type':'multipart/form-data'
-             },
-             onUploadProgress: function(progressEvent){
-                let messageId = this.NewMsg.message_id;
-               this.$root.Messages.map((message)=>{
-                  if(messageId == message.message_id){
-                     message.progressValue = this.progressvalue = parseInt(Math.round(
-                   (progressEvent.loaded / progressEvent.total) * 100
-                    ))
-                  }
-               });
-             
-           }.bind(this)
-           })
-          .then(response => {
-            
-           if (response.status == 200) {
-                this.loading = false;
-                 this.ChangeDataToDefaults();
-                let messageId = this.NewMsg.message_id;
-                let messageType = this.NewMsg.type;
-               this.$root.Messages.map((message)=>{
-                  if(messageId == message.message_id){
-                     message.loading = false;
-                     message.message_id = response.data[0].message_id;
-                     if(messageType == 'image'){
-                       message.image = response.data[0].image;
-                     }
-                     if(messageType == 'file'){
-                       message.file = response.data[0].file;
-                     }
-                     if(messageType == 'video'){
-                       message.video = response.data[0].video;
-                     }
-                     if(messageType == 'audio'){
-                       message.audio = response.data[0].audio;
-                     }
-                     if(messageType == 'code'){
-                       message.code = response.data[0].code;
-                     }
-                  }
-               });
-            }else{
-              
-            }
-            
-            
-          })
-          .catch(error => {
-            this.showAlert(5000,'Failed- ' + error);
-              this.loading = false;
-          })
+        this.ChangeDataToDefaults();
+       this.$root.sendShareMessage(formData);
     },
      crophandler:function(e){
 
