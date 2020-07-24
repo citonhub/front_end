@@ -363,7 +363,7 @@ const app = new Vue({
        
 
      
-   this.$root.authProfile = userDetails;
+   this.authProfile = userDetails;
    
   
    
@@ -538,19 +538,19 @@ imageStyle:function(dimension,authProfile){
      
       axios.post('/send-message',postData)
         .then(response => {
-      this.$root.is_reply = false;
+      this.is_reply = false;
 if (response.status == 200) {
 
        let messageId = this.NewMsg.message_id;
           let messageType = this.NewMsg.type;
-         this.$root.Messages.map((message)=>{
+         this.Messages.map((message)=>{
             if(messageId == message.message_id){
                message.loading = false;
                message.message_id = response.data[0].message_id; 
             }
          });
        
-  this.$root.replyMessage = [];
+  this.replyMessage = [];
   
 }
  
@@ -569,7 +569,7 @@ if (response.status == 200) {
 
      let messageId = this.NewMsg.message_id;
         let messageType = this.NewMsg.type;
-       this.$root.Messages.map((message)=>{
+       this.Messages.map((message)=>{
           if(messageId == message.message_id){
              message.loading = false;
              message.message_id = response.data[0].message_id; 
@@ -577,7 +577,7 @@ if (response.status == 200) {
           }
        });
      
- this.$root.scrollToBottom();
+ this.scrollToBottom();
 
 }
 
@@ -596,7 +596,7 @@ if (response.status == 200) {
              },
              onUploadProgress: function(progressEvent){
                 let messageId = this.NewMsg.message_id;
-               this.$root.Messages.map((message)=>{
+               this.Messages.map((message)=>{
                   if(messageId == message.message_id){
                      message.progressValue = this.progressvalue = parseInt(Math.round(
                    (progressEvent.loaded / progressEvent.total) * 100
@@ -613,7 +613,7 @@ if (response.status == 200) {
                  
                 let messageId = this.NewMsg.message_id;
                 let messageType = this.NewMsg.type;
-               this.$root.Messages.map((message)=>{
+               this.Messages.map((message)=>{
                   if(messageId == message.message_id){
                      message.loading = false;
                      message.message_id = response.data[0].message_id;
@@ -637,7 +637,7 @@ if (response.status == 200) {
             }else{
               
             }
-              this.$root.scrollToBottom();
+              this.scrollToBottom();
             
           })
           .catch(error => {
