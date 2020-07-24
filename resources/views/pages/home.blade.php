@@ -66,7 +66,7 @@
 <home></home>
 
 <div class=" d-none d-md-none d-lg-block mx-2  py-2" 
- style="border-radius:7px; height:80%; position:fixed; width:15%;top:7%; right:16.60%; background:white; border:1px solid #b7dbe1;" >
+ style="border-radius:7px; height:80%; position:fixed; width:15%;top:10%; right:16.60%; background:white; border:1px solid #b7dbe1;" >
 
   
       
