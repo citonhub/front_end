@@ -105,6 +105,7 @@ export default {
       this.fetchPosts();
        this.scrollToPost();
        this.$root.checkIfUserIsLoggedIn('profile');
+       this.$root.showHeader = true;
       },
       methods:{
              

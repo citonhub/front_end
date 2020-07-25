@@ -28,7 +28,7 @@
          </div>
          <div class="col-4 d-flex my-0 py-0" style="align-items:center; justify-content:center;">
             <div>
-              <v-btn icon><v-icon color="#3E8893">mdi-bell-outline</v-icon></v-btn>
+              <v-btn @click="showNotification" icon><v-icon color="#3E8893">mdi-bell-outline</v-icon></v-btn>
                   
               </div>
          </div>
@@ -147,6 +147,9 @@ export default {
          }else{
               return;
          }
+         },
+         showNotification:function(){
+          this.$router.push({ path: '/notifications'});
          },
          connect:function(){
               this.$root.checkIfUserIsLoggedIn('profile');

@@ -167,7 +167,7 @@ export default {
            this.$root.repliedPostId = post.PostId;
             this.$root.commentUsername = post.username;
             this.$root.commentPostId = this.$route.params.postId;
-           this.$router.push({ path: '/post/' + this.$route.params.username + '/' +this.$route.params.postId + '/comment' }); 
+           this.$router.push({ path: '/post/' + this.$route.params.username + '/' +this.$route.params.postId +  '/comment/post' }); 
        },
        library: function(post){
             

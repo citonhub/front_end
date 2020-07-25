@@ -33,7 +33,7 @@ export default {
    
   },
     mounted(){
-      
+       this.$root.showHeader = true;
     },
     methods:{
        goBack() {

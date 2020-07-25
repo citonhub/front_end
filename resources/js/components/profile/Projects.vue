@@ -106,6 +106,7 @@ export default {
    
   },
     mounted(){
+       this.$root.showHeader = true;
       this.fecthProjects();
     },
     methods:{
