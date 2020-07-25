@@ -83,7 +83,7 @@
           
              <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
    :srcdoc="code" 
-    style="border: 0; height:84%; position:fixed;left:0;  top:6%;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-0"  ></iframe>
+    style="border: 0; height:90%; position:fixed;left:0;  top:6%;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-0"  ></iframe>
 
 
 
