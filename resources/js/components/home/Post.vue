@@ -172,9 +172,10 @@ export default {
    mounted(){
       this.$root.showTabs= true;
        this.$root.showHeader = false;
+       this.$root.postComments = [];
       this.getPost();
       this.getPostComments();
-     
+      
        
     },
     methods:{
