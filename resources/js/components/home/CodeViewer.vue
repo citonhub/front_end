@@ -1,10 +1,10 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText;">
 
-       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:fixed; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div  style="position:fixed; background:transparent; height:100%; overflow-y:auto; overflow-x:hidden; width:100%;">
          <div class="row my-0 py-0 px-2">
 
-         <div style="position:absolute; height:98%; width:100%; overflow-y:hidden;left:0;top:2%;" v-if="showCode"> 
+         <div style="position:fixed; height:100%; overflow-y:hidden;left:0;top:0%;" v-if="showCode" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0"> 
 
 
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
@@ -48,18 +48,7 @@
        </div>
               
 
-     <span style="position:absolute; top:90%; left:5%;z-index:1000;">
-           <v-btn
-                color="#35747e"
-                small
-                 @click="goBack"
-                class="d-inline-block "
-                fab
-              >
-                <v-icon color="#ffffff">mdi-close</v-icon>
-            </v-btn>
-         
-     </span>
+    
 
        <span style="position:absolute; top:90%; right:5%;z-index:1000;">
            <v-btn
@@ -77,7 +66,7 @@
 
     </div>
 
-     <div  style="position:absolute; height:98%; width:100%; overflow-y:hidden;left:0;top:0%;" v-else>
+     <div  style="position:fixed; height:100%; overflow-y:hidden;left:0;top:0%; background:white;" v-else class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0">
        <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
          <div class="col-3 py-0 my-0 text-left px-1" style="border-bottom:2px solid #4495a2;" >
