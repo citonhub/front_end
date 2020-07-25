@@ -107,10 +107,10 @@
                 style="font-size:13px;"
                  placeholder="url..."
             label="Enter url"
-            @click:append="loadUrl"
+            @change="loadUrl"
              dense
              :loading="loadingField"
-            append-icon="mdi-link-box-outline"
+           
              v-model="UrlValue"
           
              color="#4495a2"
