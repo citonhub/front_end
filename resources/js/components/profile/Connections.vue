@@ -85,7 +85,7 @@ export default {
         connectToUser: function(user){
               if(this.$root.checkauthroot == 'auth'){
                  this.loading = true;
-                axios.get('/connect-user-'+ this.$route.params.username)
+                axios.get('/connect-user-'+ user.username)
       .then(response => {
       
       if (response.status == 200) {

@@ -17,6 +17,7 @@ import Auth from "../components/auth/auth.vue"
 import Register from "../components/auth/Register.vue"
 import Verify from "../components/auth/Verify.vue"
 import SetUsername from "../components/auth/SetUsername.vue"
+import Notification from "../components/profile/Notification.vue"
 
 const routes = [
   { path: '/', redirect: '/profile/'},
@@ -25,6 +26,7 @@ const routes = [
   { path: '/verify', name: 'Verify', component: Verify},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
   { path: '/login', name: 'Login', component: Login},
+  { path: '/notifications', name: 'Notification', component: Notification},
   { path: '/profile/', 
   name: 'Profile', 
   component: Profile,
