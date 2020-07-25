@@ -51,7 +51,8 @@ export default {
 },
 methods:{
     goToLink:function(){
-         window.location = this.urlInfo.link; 
+      window.open(this.urlInfo.link, '_blank');
+       
     },
      shortenContent: function(content,limit){
              

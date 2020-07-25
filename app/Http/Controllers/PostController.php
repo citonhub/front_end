@@ -544,6 +544,25 @@ class PostController extends Controller
         ]); 
         
         $newPostLink->save();
+       
+         $metaData = unserialize($newPostLink->meta_data);
+
+           dd($metaData);
+
+        $file = $this->getUploadedFile($ImageFile);
+        // pass in the file and the model
+          $this->imgWidth = $width;
+          $this->imgHeight = $height;
+        $this->saveImageFiles($file,$newPostImage); 
+     
+        $imagePath = '/var/www/citonhubnew/public/imgs/posts/'. $imageName . '.' . $imageExtension;
+            
+        $dominantColor = ColorThief::getColor($imagePath);
+          $colorToRGBA = 'rgba('. $dominantColor[0] . ',' . $dominantColor[1] . ',' . $dominantColor[2] . ',0.6)'; 
+        $newPostImage->update([
+           "background_color"=> $colorToRGBA
+        ]);
+
         
        }
        
