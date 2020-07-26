@@ -356,6 +356,14 @@ export default {
         if(postData.post_liked){
           return;
         }
+
+          this.postArray.map((post)=> {
+            if(post.PostId == postData.PostId){
+                post.post_liked = true;
+              post.likes = post.likes + 1;
+            }
+         });
+         
           axios.post('/save-liked-post',{
             "post_id": postData.PostId
           })
@@ -365,12 +373,7 @@ export default {
         
           
         
-         this.postArray.map((post)=> {
-            if(post.PostId == postData.PostId){
-                post.post_liked = true;
-              post.likes = post.likes + 1;
-            }
-         });
+       
         
         
      }

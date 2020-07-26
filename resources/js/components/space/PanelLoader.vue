@@ -78,7 +78,7 @@
 
          </div>
 
-          <span style="position:absolute; top:85.5%; right:3%; z-index:10;"  class="d-md-none d-inline-block">
+          <span style="position:absolute; top:81.5%; right:3%; z-index:10;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#35747e"
                 small

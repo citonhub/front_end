@@ -11,7 +11,7 @@
       :data-key="'id'"
       :data-sources="post_data"
       :data-component="itemComponent"
-      :keeps="30"
+      :keeps="15"
 
 :style="'background:white; font-family:BodyText;position:absolute;left:0; width:100%; height:100%; overflow-y:' + this.$root.scrollHome + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'">
         
