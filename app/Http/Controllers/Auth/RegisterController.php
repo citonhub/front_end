@@ -81,8 +81,14 @@ class RegisterController extends Controller
     protected function create(Request $request)
     {
           $referralUser = User::where('username',$request->get('referral'))->first();
-            if($referralUser == null){
-             return 'userNotExist';
+            if($referralUser != null){
+          $referralUserProfile = Profile::where('user_id',$referralUser->id)->first();
+           
+                $referralUserProfile->update([
+                 'coins'=> $referralUserProfile->coins + 1
+                ]);
+      
+                broadcast(new UserChannel('new-coin',$newUser,$referralUser->username));
             }
 
             $newUser =  User::create([
@@ -103,13 +109,7 @@ class RegisterController extends Controller
             
                $userProfile->save();
            
-          $referralUserProfile = Profile::where('user_id',$referralUser->id)->first();
-           
-          $referralUserProfile->update([
-           'coins'=> $referralUserProfile->coins + 1
-          ]);
-
-          broadcast(new UserChannel('new-coin',$newUser,$referralUser->username));
+         
 
 
         Mail::to($newUser->email)->send(new VerifyUserEmail($newUser));
