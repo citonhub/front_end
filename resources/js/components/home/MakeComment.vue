@@ -81,7 +81,7 @@
         <div class="col-12 py-0">
           <div class="row py-0 my-0">
                 <div class="col-8 py-0 my-0">
-                    <span style="font-size:12px;" class="text-danger" v-show="editFeild">Characters cannot exceed {{wordLimit }}</span>
+                 
                 </div>
                  <div class="col-4 py-0 my-0  text-right">
                    <span class="counter">{{wordCount}}/{{ wordLimit }}</span>
@@ -291,7 +291,7 @@ export default {
       countCharacter:function(value){
             this.wordCount = this.editor.getHTML().length;
 
-         if(this.wordCount > this.wordLimit){
+         if(this.wordCount > this.wordLimit || this.wordCount == 7){
            this.editFeild = true;
 
          }else{

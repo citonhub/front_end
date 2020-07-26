@@ -38,7 +38,7 @@
          
           <div class="row py-0 my-0">
                 <div class="col-8 py-0 my-0">
-                    <span style="font-size:12px;" class="text-danger" v-show="editFeild">Characters cannot exceed {{wordLimit }}</span>
+                   
                 </div>
                  <div class="col-4 py-0 my-0  text-right">
                    <span class="counter">{{wordCount}}/{{ wordLimit }}</span>
@@ -53,7 +53,7 @@
         
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn rounded small color="#3E8893" @click="saveComment" :loading="loading"  style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;">Send</v-btn>
+                  <v-btn rounded small color="#3E8893" @click="saveComment" :disabled="editFeild" :loading="loading"  style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;">Send</v-btn>
              </div>
 
              <div class="my-5 py-3">
@@ -172,7 +172,7 @@ export default {
      countCharacter:function(value){
             this.wordCount = this.editor.getHTML().length;
 
-         if(this.wordCount > this.wordLimit){
+         if(this.wordCount > this.wordLimit || this.wordCount == 7){
            this.editFeild = true;
 
          }else{

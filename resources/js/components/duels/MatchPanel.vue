@@ -545,7 +545,7 @@ export default {
    },
      PanelSettingsCheck(settingStatus){
           if(!settingStatus.is_set){
-             this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/new/settings' });
+             this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/new/settings' + '/duel' });
           }
       },
    showEditor: function(codeBox,catType){
@@ -584,7 +584,7 @@ export default {
        this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/' + codeType + '/add-new-file' });
    },
    goToSettings:function(){
-      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/new/settings' });
+      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/new/settings' + '/duel' });
    },
    fetchDuel: function(){
       if(this.$root.selectedDuel.length != 0){

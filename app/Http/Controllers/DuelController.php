@@ -16,6 +16,7 @@ use App\DuelVote;
 use Carbon\Carbon;
 use App\DuelTeam;
 use App\DuelTeamMember;
+use App\Notification;
 use App\Events\UserChannel;
 use App\Events\DuelChannel;
 
@@ -152,7 +153,7 @@ class DuelController extends Controller
 
        broadcast(new DuelChannel('new-participant',$duelParticipant,$request->get('duel_id')));
 
-       
+       $this->duelNotification($request->get('duel_id'),'duel_join');
       
        return 'joined';
     }else{
@@ -256,7 +257,8 @@ class DuelController extends Controller
           ->join('users','users.id','user_connections.connected_user_id')
           ->join('profiles','profiles.user_id','user_connections.connected_user_id')
           ->select(
-            'users.username as username'
+            'users.username as username',
+            'users.id as user_id'
           )
           ->where('user_connections.user_id',Auth::id())
           ->get();
@@ -295,7 +297,7 @@ class DuelController extends Controller
 
              broadcast(new DuelChannel('duel-like',$presentDuel->duel_id,$presentDuel->duel_id))->toOthers();
              
-            
+            $this->duelNotification($presentDuel->duel_id,'duel_like');
 
             
     
@@ -484,7 +486,7 @@ class DuelController extends Controller
         broadcast(new DuelChannel('duel-comment',$commentData[0],$duelComment->duel_id))->toOthers();
 
        
-
+        $this->duelNotification($duelComment->duel_id,'duel_comment');
        
 
         return $commentData;
@@ -770,6 +772,26 @@ class DuelController extends Controller
 
         foreach($allConnections as $user){
 
+          $DataArray = [];
+     
+        $duel = Duel::where('id',$newDuel->id)->get()[0];
+
+        $newArrayduel = (array) $duel;
+
+          array_push($DataArray,$newArrayduel);
+           
+          $DataArray = serialize($DataArray);
+
+          $newNotification = Notification::create([
+            'user_id'=> $user->user_id,
+            'type'=> 'new_duel',
+            'data_array' => $DataArray,
+            'type_id'=> Auth::id(),
+            'status'=> 'unread'
+          ]);
+        
+          $newNotification->save();
+
          broadcast(new UserChannel('new-duel',$duelArray[0],$user->username));
         }
 
@@ -793,12 +815,77 @@ class DuelController extends Controller
 
            return 'edit';
          }
-      
-      
-        
-
-
-        
 
     }
+
+
+    public function duelNotification($baseDuelId,$type){
+       
+      $presentDuel  = Duel::where('duel_id', $baseDuelId)->first();
+            
+      $userData = DB::table('profiles')
+               ->join('users','users.id','profiles.user_id')
+               ->select(
+                   'users.username as username',
+                   'profiles.image_name as image_name',
+                   'profiles.user_id as id',
+                   'profiles.image_extension as image_extension' ,
+                   'profiles.background_color as background_color'
+               )
+               ->where('user_id',Auth::id())
+               ->first();
+        
+        $userDataArray = [];
+     
+
+        array_push($userDataArray,$userData);
+         
+        $userDataArray = serialize($userDataArray);
+
+     $checkDuelNotification = Notification::where('user_id',$presentDuel->user_id)
+     ->where('type',$type)->where('type_id',$baseDuelId)
+     ->where('status','unread')->get();
+
+     if($checkDuelNotification->isEmpty()){
+         
+        if($presentDuel->user_id != Auth::id()){
+
+           $newNotification = Notification::create([
+             'user_id'=> $presentDuel->user_id,
+             'type'=> $type,
+             'data_array' => $userDataArray,
+             'type_id'=> $baseDuelId,
+             'status'=> 'unread'
+           ]);
+         
+           $newNotification->save();
+
+
+         }
+
+     }else{
+        
+        $userArray = unserialize($checkDuelNotification[0]->data_array);
+
+         $userPresent = [];
+
+        
+         foreach ($userArray as $user) {
+           if($user->id  == Auth::id()){
+              array_push($userPresent,$user);
+           }
+         }
+
+         if(count($userPresent) == 0){
+            array_push($userArray,$userData);
+
+            $checkDuelNotification[0]->update([
+             'data_array'=> serialize($userArray)
+            ]);
+         }
+
+       
+
+     }
+   }
 }

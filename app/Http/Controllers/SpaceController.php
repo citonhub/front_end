@@ -21,6 +21,7 @@ use App\User;
 use App\Events\SpaceChannel;
 use App\Events\UserChannel;
 use DB;
+use App\Notification;
 use App\Project;
 use App\UnreadMessage;
 
@@ -379,6 +380,9 @@ class SpaceController extends Controller
             }
             
          }
+
+
+         $this->spaceNotification($request->get('space_id'),'new_message',$disconnectedUsers);
      
         
          
@@ -402,12 +406,17 @@ class SpaceController extends Controller
                'unread' => $userUnread->unread + 1
              ]);
 
+          
+
             broadcast(new UserChannel('message-alert',$request->get('space_id'),$user->username));
          }
          
-
+          
      
         broadcast(new SpaceChannel('new-message',$newMessage[0],$request->get('space_id')))->toOthers();
+
+
+        
         
 
       return $newMessage;
@@ -1048,5 +1057,75 @@ array_push($newSpaceArray,$userSpace);
 
     return $ownerListArray;
   }
+
+
+
+
+  public function spaceNotification($baseSpaceId,$type,$userArrayBase){
+       
+   $presentSpace  = Space::where('space_id', $baseSpaceId)->first();
+         
+   $userData = DB::table('profiles')
+            ->join('users','users.id','profiles.user_id')
+            ->select(
+                'users.username as username',
+                'profiles.image_name as image_name',
+                'profiles.user_id as id',
+                'profiles.image_extension as image_extension' ,
+                'profiles.background_color as background_color'
+            )
+            ->where('user_id',Auth::id())
+            ->first();
+     
+     $userDataArray = [];
+  
+
+     array_push($userDataArray,$userData);
+      
+     $userDataArray = serialize($userDataArray);
+
+     foreach ($userArrayBase as $user) {
+      
+      $checkSpaceNotification = Notification::where('user_id',$user->id)
+     ->where('type',$type)->where('type_id',$baseSpaceId)
+     ->where('status','unread')->get();
+
+  if($checkSpaceNotification->isEmpty()){
+      
+  
+
+        $newNotification = Notification::create([
+          'user_id'=> $user->id,
+          'type'=> $type,
+          'data_array' => $userDataArray,
+          'type_id'=> $baseSpaceId,
+          'status'=> 'unread'
+        ]);
+      
+        $newNotification->save();
+
+
+     
+
+  }else{
+     
+        $userArray = unserialize($checkSpaceNotification[0]->data_array);
+
+       
+         array_push($userArray,$userData);
+
+         $checkSpaceNotification[0]->update([
+          'data_array'=> serialize($userArray)
+         ]);
+      
+
+    
+
+  }
+
+     }
+
+  
+}
 
 }

@@ -10,7 +10,12 @@ use App\PushNotification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\traits\PushNotificationTrait;
+use App\Notification;
+use App\Duel;
+use App\Post;
 use Carbon\Carbon;
+use App\Project;
+use App\Space;
 use DB;
 
 class UserController extends Controller
@@ -101,10 +106,99 @@ class UserController extends Controller
          
        return ['status','OK'];
     }
-    public function userDetails(){
-        $rows = DB::table('users')->where('id',Auth::id())
-       ->paginate(1);
-       return $rows;
+   
+
+
+    public function fetchUserNotifications(){
+
+        $allNotifications = Notification::where('user_id',Auth::id())->orderBy('updated_at','desc')->get();
+
+        $notificationArray = [];
+
+        foreach ($allNotifications as $notification) {
+            $newNotify = (array) $notification;
+
+             $newNotify["dataArray"] = unserialize($newNotify["data_array"]);
+
+            if($newNotify["type"] == 'post_comment_like'){
+              
+                $post = Post::where('post_id',$newNotify["type_id"])->first();
+                 
+             $newNotify["basePost"] = $post;
+            }
+
+
+            if($newNotify["type"] == 'post_reply_like'){
+              
+                $post = Post::where('post_id',$newNotify["type_id"])->first();
+                 
+             $newNotify["basePost"] = $post;
+            }
+
+
+            if($newNotify["type"] == 'post_replied'){
+              
+                $post = Post::where('post_id',$newNotify["type_id"])->first();
+                 
+             $newNotify["basePost"] = $post;
+            }
+
+            if($newNotify["type"] == 'post_pulled'){
+              
+                $post = Post::where('post_id',$newNotify["type_id"])->first();
+                 
+             $newNotify["basePost"] = $post;
+            }
+
+            if($newNotify["type"] == 'post_comment_pulled'){
+              
+                $post = Post::where('post_id',$newNotify["type_id"])->first();
+                 
+             $newNotify["basePost"] = $post;
+            }
+
+            if($newNotify["type"] == 'post_like'){
+              
+                $post = Post::where('post_id',$newNotify["type_id"])->first();
+                 
+             $newNotify["basePost"] = $post;
+            }
+
+            if($newNotify["type"] == 'new_duel'){
+              
+                $user = User::where('id',$newNotify["type_id"])->first();
+            }
+
+            if($newNotify["type"] == 'duel_like'){
+              
+                $duel = Duel::where('duel_id',$newNotify["type_id"])->first();
+            }
+
+            if($newNotify["type"] == 'duel_comment'){
+              
+                $duel = Duel::where('duel_id',$newNotify["type_id"])->first();
+            }
+
+            if($newNotify["type"] == 'duel_join'){
+              
+                $duel = Duel::where('duel_id',$newNotify["type_id"])->first();
+            }
+
+            if($newNotify["type"] == 'new_project-comment'){
+              
+                $project = Project::where('project_slug',$newNotify["type_id"])->first();
+            }
+
+            if($newNotify["type"] == 'new_message'){
+              
+                $space = Space::where('space_id',$newNotify["type_id"])->first();
+            }
+            
+            array_push($notificationArray,$newNotify);
+        }
+
+    return $notificationArray;
+
     }
 
    

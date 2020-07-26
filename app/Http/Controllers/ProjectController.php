@@ -8,6 +8,7 @@ use App\Space;
 use App\ProjectStar;
 use App\ProjectComment;
 use App\Project;
+use App\Notification;
 use DB;
 use App\ProjectCommentLike;
 use Illuminate\Support\Facades\Auth;
@@ -91,6 +92,7 @@ class ProjectController extends Controller
        $comment['replied_comment'] = $thiscomment;
    
     }
+    
        $userProjectCommentLike = ProjectCommentLike::where('project_comment_id',$comment["id"])->where('user_id',Auth::id())->get();
    
        if($userProjectCommentLike->isEmpty()){
@@ -104,6 +106,18 @@ class ProjectController extends Controller
     array_push($newCommentArray,$comment);
     
    }
+
+
+   $spaceMembers = DB::table('space_members')
+   ->join('users','users.id','space_members.user_id')
+   ->select(
+      'users.username as username',
+      'users.name as name',
+      'users.id as id'
+   )->where('space_members.space_id',$currentProject->space_id)
+   ->get();
+
+   $this->spaceNotification($request->get('project_slug'),'new_project-comment',$spaceMembers);
       
    broadcast(new PanelChannel('new-comment',$newCommentArray[0],$request->get('project_slug')))->toOthers();
       
@@ -486,4 +500,76 @@ return $newCommentArray;
 
         return $newProject;
     }
+
+    public function spaceNotification($baseSpaceId,$type,$userArrayBase){
+       
+      $presentSpace  = Space::where('space_id', $baseSpaceId)->first();
+            
+      $userData = DB::table('profiles')
+               ->join('users','users.id','profiles.user_id')
+               ->select(
+                   'users.username as username',
+                   'profiles.image_name as image_name',
+                   'profiles.user_id as id',
+                   'profiles.image_extension as image_extension' ,
+                   'profiles.background_color as background_color'
+               )
+               ->where('user_id',Auth::id())
+               ->first();
+        
+        $userDataArray = [];
+     
+   
+        array_push($userDataArray,$userData);
+         
+        $userDataArray = serialize($userDataArray);
+   
+        foreach ($userArrayBase as $user) {
+         
+         $checkSpaceNotification = Notification::where('user_id',$user->id)
+        ->where('type',$type)->where('type_id',$baseSpaceId)
+        ->where('status','unread')->get();
+   
+     if($checkSpaceNotification->isEmpty()){
+         
+     
+      if($user->id != Auth::id()){
+        
+        $newNotification = Notification::create([
+          'user_id'=> $user->id,
+          'type'=> $type,
+          'data_array' => $userDataArray,
+          'type_id'=> $baseSpaceId,
+          'status'=> 'unread'
+        ]);
+      
+        $newNotification->save();
+
+      }
+   
+          
+   
+   
+        
+   
+     }else{
+        
+           $userArray = unserialize($checkSpaceNotification[0]->data_array);
+   
+          
+            array_push($userArray,$userData);
+   
+            $checkSpaceNotification[0]->update([
+             'data_array'=> serialize($userArray)
+            ]);
+         
+   
+       
+   
+     }
+   
+        }
+   
+     
+   }
 }

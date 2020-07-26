@@ -122,7 +122,7 @@ const routes = [
       },
       {
         //match panel
-        path: ':duelId/panel/new/settings',
+        path: ':duelId/panel/new/settings/duel',
         component: PanelSettings
       },
       {

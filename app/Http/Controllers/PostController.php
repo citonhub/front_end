@@ -20,6 +20,7 @@ use DB;
 use App\Profile;
 use App\Events\UserChannel;
 use App\Events\PostChannel;
+use App\Notification;
 use App\User;
 
 class PostController extends Controller
@@ -70,9 +71,27 @@ class PostController extends Controller
             
 
          }
+
+         if($presentPost->is_comment == 'true' && $presentPost->is_reply == null){
+           
+            $this->postNotification($request->get('post_id'),'post_comment_like');
+
+         }
+
+         if($presentPost->is_comment == 'true' && $presentPost->is_reply == 'true'){
+           
+            $this->postNotification($request->get('post_id'),'post_reply_like');
+
+         }
+
+         if($presentPost->is_comment != 'true'){
+           
+            $this->postNotification($request->get('post_id'),'post_like');
+
+         }
          
          
-      
+        
 
         broadcast(new PostChannel('post-like',$request->get('post_id'),$request->get('post_id')))->toOthers();
 
@@ -648,6 +667,24 @@ class PostController extends Controller
 
          broadcast(new PostChannel('post-comment',$request->get('commented_post_id'),$request->get('commented_post_id')))->toOthers();
          
+
+         if($request->get('is_reply') == null){
+
+            
+         $this->postNotification($request->get('commented_post_id'),'post_comment');
+           
+            $allConnections = $this->userAllConnected();
+
+           foreach($allConnections as $user){
+
+            broadcast(new UserChannel('new-post',$newPostData[0],$user->username));
+
+           }
+
+         }else{
+            $this->postNotification($request->get('reply_post_id'),'post_replied');
+         }
+         
         
            
         }else{
@@ -664,6 +701,77 @@ class PostController extends Controller
 
 
       return $newPostData;
+   }
+
+
+   public function postNotification($basePostId,$type){
+       
+      $commentedPost  = Post::where('post_id', $basePostId)->first();
+            
+      $userData = DB::table('profiles')
+               ->join('users','users.id','profiles.user_id')
+               ->select(
+                   'users.username as username',
+                   'profiles.image_name as image_name',
+                   'profiles.user_id as id',
+                   'profiles.image_extension as image_extension',
+                   'profiles.background_color as background_color'
+               )
+               ->where('user_id',Auth::id())
+               ->first();
+        
+        $userDataArray = [];
+     
+
+        array_push($userDataArray,$userData);
+         
+        $userDataArray = serialize($userDataArray);
+
+     $checkPostNotification = Notification::where('user_id',$commentedPost->user_id)
+     ->where('type',$type)->where('type_id',$basePostId)
+     ->where('status','unread')->get();
+
+     if($checkPostNotification->isEmpty()){
+         
+        if($commentedPost->user_id != Auth::id()){
+
+           $newNotification = Notification::create([
+             'user_id'=> $commentedPost->user_id,
+             'type'=> $type,
+             'data_array' => $userDataArray,
+             'type_id'=> $basePostId,
+             'status'=> 'unread'
+           ]);
+         
+           $newNotification->save();
+
+
+         }
+
+     }else{
+        
+        $userArray = unserialize($checkPostNotification[0]->data_array);
+
+         $userPresent = [];
+
+        
+         foreach ($userArray as $user) {
+           if($user->id  == Auth::id()){
+              array_push($userPresent,$user);
+           }
+         }
+
+         if(count($userPresent) == 0){
+            array_push($userArray,$userData);
+
+            $checkPostNotification[0]->update([
+             'data_array'=> serialize($userArray)
+            ]);
+         }
+
+       
+
+     }
    }
 
 }

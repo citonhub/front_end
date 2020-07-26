@@ -9,6 +9,7 @@ use App\Post;
 use App\Events\UserChannel;
 use DB;
 use App\Events\PostChannel;
+use App\Notification;
 use Illuminate\Support\Facades\Auth;
 
 class LibraryController extends Controller
@@ -70,7 +71,28 @@ class LibraryController extends Controller
                $post->update([
                    "pulls"=> $postPulls
                ]);
+
+               if($post->is_comment == 'true' && $post->is_reply == null){
+           
+                $this->postNotification($request->get('post_id'),'post_comment_pulled');
+    
+             }
+    
+             if($post->is_comment == 'true' && $post->is_reply == 'true'){
+               
+                $this->postNotification($request->get('post_id'),'post_reply_pulled');
+    
+             }
+    
+             if($post->is_comment != 'true'){
+               
+                $this->postNotification($request->get('post_id'),'post_pulled');
+    
+             }
           } 
+
+
+         
 
         
         
@@ -80,6 +102,77 @@ class LibraryController extends Controller
 
         return ['status','ok'];
     }
+
+
+
+    public function postNotification($basePostId,$type){
+       
+      $commentedPost  = Post::where('post_id', $basePostId)->first();
+            
+      $userData = DB::table('profiles')
+               ->join('users','users.id','profiles.user_id')
+               ->select(
+                   'users.username as username',
+                   'profiles.image_name as image_name',
+                   'profiles.user_id as id',
+                   'profiles.image_extension as image_extension' 
+               )
+               ->where('user_id',Auth::id())
+               ->first();
+        
+        $userDataArray = [];
+     
+
+        array_push($userDataArray,$userData);
+         
+        $userDataArray = serialize($userDataArray);
+
+     $checkPostNotification = Notification::where('user_id',$commentedPost->user_id)
+     ->where('type',$type)->where('type_id',$basePostId)
+     ->where('status','unread')->get();
+
+     if($checkPostNotification->isEmpty()){
+         
+        if($commentedPost->user_id != Auth::id()){
+
+           $newNotification = Notification::create([
+             'user_id'=> $commentedPost->user_id,
+             'type'=> $type,
+             'data_array' => $userDataArray,
+             'type_id'=> $basePostId,
+             'status'=> 'unread'
+           ]);
+         
+           $newNotification->save();
+
+
+         }
+
+     }else{
+        
+        $userArray = unserialize($checkPostNotification[0]->data_array);
+
+         $userPresent = [];
+
+        
+         foreach ($userArray as $user) {
+           if($user->id  == Auth::id()){
+              array_push($userPresent,$user);
+           }
+         }
+
+         if(count($userPresent) == 0){
+            array_push($userArray,$userData);
+
+            $checkPostNotification[0]->update([
+             'data_array'=> serialize($userArray)
+            ]);
+         }
+
+       
+
+     }
+   }
 
 
    public function generateRandomNumber($length = 10) {
