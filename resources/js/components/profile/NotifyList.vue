@@ -35,6 +35,184 @@
                    
                 </div>
              </v-card>
+
+
+              <!-- duel_like -->
+               <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
+                   v-if="notification.type == 'duel_like'"  
+                      >
+                <div class="row py-0 my-0 px-2">
+                    <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">
+                 <div>
+                  <div :style="imageStyle(34,notification.dataArray[0])" 
+                  class="d-inline-block" >
+
+                  </div>
+
+               </div>
+               
+            
+                <div class="d-inline-block ml-2 mt-1">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}} liked your duel</b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+
+                   <div class="col-12 py-0  px-0"  v-else>
+                     
+                           
+                           <div class="col-12 py-0 px-2">
+                                <div v-for="(user,index) in notification.dataArray" :key="index" class="d-inline-block mx-1">
+                  <div :style="imageStyle(25,user)" 
+                   >
+
+                    </div>
+
+                     </div>
+                           </div>
+                      
+                
+               
+            
+                <div class="ml-2 mt-1 col-12 px-2 py-0">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}}  and {{ notification.dataArray.length - 1 }} others liked your duel</b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+                   
+                    <div class="py-0 my-0 d-flex col-12 " style="align-items:center;">
+                        <div class="row py-0 px-0">
+                         <div style="font-size:12px; color:#595959;" class="col-12 py-1">Title: {{notification.duel_data.title}} </div>
+                         <div style="font-size:12px; color:#595959;" class="col-12 py-0">Current_Participants: {{notification.duel_data.current_participant}} </div>
+                        </div>
+                         
+                    </div>
+                   
+                </div>
+             </v-card>
+
+
+               <!-- duel comment -->
+               <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
+                   v-if="notification.type == 'duel_comment'"  
+                      >
+                <div class="row py-0 my-0 px-2">
+                    <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">
+                 <div>
+                  <div :style="imageStyle(34,notification.dataArray[0])" 
+                  class="d-inline-block" >
+
+                  </div>
+
+               </div>
+               
+            
+                <div class="d-inline-block ml-2 mt-1">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}} commented on your duel</b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+
+                   <div class="col-12 py-0  px-0"  v-else>
+                     
+                           
+                           <div class="col-12 py-0 px-2">
+                                <div v-for="(user,index) in notification.dataArray" :key="index" class="d-inline-block mx-1">
+                  <div :style="imageStyle(25,user)" 
+                   >
+
+                    </div>
+
+                     </div>
+                           </div>
+                      
+                
+               
+            
+                <div class="ml-2 mt-1 col-12 px-2 py-0">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}}  and {{ notification.dataArray.length - 1 }} others commented on your duel</b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+                   
+                    <div class="py-0 my-0 d-flex col-12 " style="align-items:center;">
+                        <div class="row py-0 px-0">
+                         <div style="font-size:12px; color:#595959;" class="col-12 py-1">Title: {{notification.duel_data.title}} </div>
+                         <div style="font-size:12px; color:#595959;" class="col-12 py-0">Current_Participants: {{notification.duel_data.current_participant}} </div>
+                        </div>
+                         
+                    </div>
+                   
+                </div>
+             </v-card>
+
+
+
+              <!-- duel join -->
+               <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
+                   v-if="notification.type == 'duel_join'"  
+                      >
+                <div class="row py-0 my-0 px-2">
+                    <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">
+                 <div>
+                  <div :style="imageStyle(34,notification.dataArray[0])" 
+                  class="d-inline-block" >
+
+                  </div>
+
+               </div>
+               
+            
+                <div class="d-inline-block ml-2 mt-1">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}} joined your duel</b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+
+                   <div class="col-12 py-0  px-0"  v-else>
+                     
+                           
+                           <div class="col-12 py-0 px-2">
+                                <div v-for="(user,index) in notification.dataArray" :key="index" class="d-inline-block mx-1">
+                  <div :style="imageStyle(25,user)" 
+                   >
+
+                    </div>
+
+                     </div>
+                           </div>
+                      
+                
+               
+            
+                <div class="ml-2 mt-1 col-12 px-2 py-0">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}}  and {{ notification.dataArray.length - 1 }} others joined your duel</b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+                   
+                    <div class="py-0 my-0 d-flex col-12 " style="align-items:center;">
+                        <div class="row py-0 px-0">
+                         <div style="font-size:12px; color:#595959;" class="col-12 py-1">Title: {{notification.duel_data.title}} </div>
+                         <div style="font-size:12px; color:#595959;" class="col-12 py-0">Current_Participants: {{notification.duel_data.current_participant}} </div>
+                        </div>
+                         
+                    </div>
+                   
+                </div>
+             </v-card>
               
                 <!-- new post like -->
 
@@ -759,6 +937,23 @@ export default {
          if(notification.type == 'new_message'){
         
         window.location = '/space#/space/' + notification.space.space_id + '/channel/content/user';
+
+       }
+
+       if(notification.type == 'duel_like'){
+
+         window.location = '/duels#/' + 'duel/' + notification.duel_data.duel_id +'/board' + '/user';
+
+       }
+        if(notification.type == 'duel_comment'){
+
+         window.location = '/duels#/' + 'duel/' + notification.duel_data.duel_id +'/board' + '/user';
+
+       }
+
+        if(notification.type == 'duel_join'){
+
+         window.location = '/duels#/' + 'duel/' + notification.duel_data.duel_id +'/board' + '/user';
 
        }
 

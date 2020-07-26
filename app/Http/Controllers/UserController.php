@@ -232,16 +232,19 @@ class UserController extends Controller
             if($newNotify["type"] == 'duel_like'){
               
                 $duel = Duel::where('duel_id',$newNotify["type_id"])->first();
+                $newNotify["duel_data"] = $duel;
             }
 
             if($newNotify["type"] == 'duel_comment'){
               
                 $duel = Duel::where('duel_id',$newNotify["type_id"])->first();
+                $newNotify["duel_data"] = $duel;
             }
 
             if($newNotify["type"] == 'duel_join'){
               
                 $duel = Duel::where('duel_id',$newNotify["type_id"])->first();
+                $newNotify["duel_data"] = $duel;
             }
 
             if($newNotify["type"] == 'new_project_comment'){
