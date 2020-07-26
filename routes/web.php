@@ -28,6 +28,8 @@ Route::post('/url/metadata','PageController@fetchURLMetaData');
 
 //Users routes
 Route::post('/save-notification','UserController@SaveNotification');
+Route::get('/user-notification','UserController@fetchUserNotifications');
+Route::post('/mark-as-read','UserController@MarkAsRead');
 
 // Auth Routes
 Route::post('/check-if-email-exist','UserController@checkIfMailExist');

@@ -12,6 +12,7 @@ use App\Project;
 use App\Space;
 use DB;
 use App\ProjectStar;
+use App\Notification;
 use App\PageTracker;
 use App\traits\ManagesImages;
 
@@ -113,7 +114,82 @@ class ProfileController extends Controller
         ]);
   
         $newConnect->save();
+
+        $this->connectionNotification($user->id,'new_connection');
       }
+
+
+      }
+
+
+      public function connectionNotification($baseUserId,$type){
+       
+        $userDataBase  = User::where('id', $baseUserId)->first();
+              
+        $userData = DB::table('profiles')
+                 ->join('users','users.id','profiles.user_id')
+                 ->select(
+                     'users.username as username',
+                     'profiles.image_name as image_name',
+                     'profiles.user_id as id',
+                     'profiles.image_extension as image_extension' ,
+                     'profiles.background_color as background_color'
+                 )
+                 ->where('user_id',Auth::id())
+                 ->first();
+          
+          $userDataArray = [];
+       
+  
+          array_push($userDataArray,$userData);
+           
+          $userDataArray = serialize($userDataArray);
+  
+       $checkDuelNotification = Notification::where('user_id',$userDataBase->id)
+       ->where('type',$type)->where('type_id',$baseUserId)
+       ->where('status','unread')->get();
+  
+       if($checkDuelNotification->isEmpty()){
+           
+          if($userDataBase->id != Auth::id()){
+  
+             $newNotification = Notification::create([
+               'user_id'=> $userDataBase->id,
+               'type'=> $type,
+               'data_array' => $userDataArray,
+               'type_id'=> $baseUserId,
+               'status'=> 'unread'
+             ]);
+           
+             $newNotification->save();
+  
+  
+           }
+  
+       }else{
+          
+          $userArray = unserialize($checkDuelNotification[0]->data_array);
+  
+           $userPresent = [];
+  
+          
+           foreach ($userArray as $user) {
+             if($user->id  == Auth::id()){
+                array_push($userPresent,$user);
+             }
+           }
+  
+           if(count($userPresent) == 0){
+              array_push($userArray,$userData);
+  
+              $checkDuelNotification[0]->update([
+               'data_array'=> serialize($userArray)
+              ]);
+           }
+  
+         
+  
+       }
       }
 
      
@@ -357,8 +433,17 @@ class ProfileController extends Controller
         $newProfile = $newProfile;
       }
 
+      if($user->id == Auth::id()){
+        $UnreadNotifications = Notification::where('user_id',Auth::id())->where('status','unread')->get();
+         $notificationCount = count($UnreadNotifications);
+      }else{
+        $notificationCount  = 0;
+      }
 
-    return [$user,$newProfile[0],$allPageTracker];
+      
+
+
+    return [$user,$newProfile[0],$allPageTracker,$notificationCount];
  }
 
 }

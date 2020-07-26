@@ -373,6 +373,11 @@ export default {
           }
 
        Echo.leave('space.' + this.$root.selectedSpace.space_id);
+
+        this.$root.selectedSpace.unread = 0;
+
+       
+        
        this.fetchChatList();
        this.trackUser();
     },

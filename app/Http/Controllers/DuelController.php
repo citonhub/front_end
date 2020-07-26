@@ -774,8 +774,9 @@ class DuelController extends Controller
 
           $DataArray = [];
      
-        $duel = Duel::where('id',$newDuel->id)->get()[0];
-
+        $duel = DB::table('duels')->where('id',$newDuel->id)->first();
+        
+       
         $newArrayduel = (array) $duel;
 
           array_push($DataArray,$newArrayduel);

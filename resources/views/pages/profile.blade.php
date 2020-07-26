@@ -32,7 +32,7 @@
     <div class="row">
     <div class="col-4 d-flex  py-1" style="border-bottom:1px solid #e6e6e6;  align-items:center; ">
     <div>
-    <div  v-if="authProfile != undefined" :style="imageStyle(46,authProfile)"  
+    <div  v-if="authProfile != undefined" :style="imageStyle(46,authProfile)"   @click="showNavigator"
                 class="pl-3 d-none d-md-block">
 
                   </div>

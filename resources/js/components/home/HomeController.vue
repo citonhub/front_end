@@ -150,7 +150,7 @@
               </v-btn>
      </span>
 
-      <span style="position:absolute; top:86%; right:5%; z-index:12345665786;"  class="d-none d-md-inline-block">
+      <span style="position:absolute; top:83%; right:5%; z-index:12345665786;"  class="d-none d-md-inline-block">
           <v-btn
                 color="#35747e"
                 small

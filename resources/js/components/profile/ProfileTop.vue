@@ -27,9 +27,29 @@
               </div>
          </div>
          <div class="col-4 d-flex my-0 py-0" style="align-items:center; justify-content:center;">
-            <div>
-              <v-btn @click="showNotification" icon><v-icon color="#3E8893">mdi-bell-outline</v-icon></v-btn>
-                  
+            <div v-if="this.$root.profileDetails != null">
+                  <img src="imgs/unverified.svg" height="30" v-if="this.$root.profileDetails.username != this.$root.username" >
+                   <div v-else>
+                    
+        <v-btn @click="showNotification" icon >
+             <v-badge
+          color="#36848C"
+          v-if="this.$root.notificationCount != 0"
+          :content="this.$root.notificationCount"
+        >
+         <v-icon color="#3E8893">mdi-bell-outline</v-icon>
+     
+         </v-badge>
+            <v-icon color="#3E8893" v-else>mdi-bell-outline</v-icon>
+          
+          </v-btn>
+        
+      
+          
+                   </div>
+              
+                   
+
               </div>
          </div>
 

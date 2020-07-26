@@ -117,9 +117,20 @@
               Profile
              </span>
              @else
-             <span class="iconname">
+             <v-badge
+          color="#36848C"
+          v-if="notificationCount != 0"
+          :content="notificationCount"
+        >
+        <span class="iconname">
                Profile
              </span>
+        </v-badge>
+
+        <span class="iconname" v-else>
+               Profile
+             </span>
+             
              @endif
             </div>
             </div>
@@ -205,7 +216,19 @@
              Profile
              </span>
             @else
-            <img src="{{ asset('imgs/profile.png') }}" class="iconstylemd"/><br>
+            <v-badge
+          color="#36848C"
+          v-if="notificationCount != 0"
+          :content="notificationCount"
+        >
+      
+        <img src="{{ asset('imgs/profile.png') }}" class="iconstylemd"/>
+            
+        </v-badge>
+
+        <img src="{{ asset('imgs/profile.png') }}" class="iconstylemd" v-else/>
+        <br>
+           
             <span class="iconnamemd py-1">
              Profile
              </span>
@@ -279,7 +302,17 @@
              Profile
              </div>
             @else
-            <img src="{{ asset('imgs/profile.png') }}" class="iconstylesm"/>
+            <v-badge
+          color="#36848C"
+            v-if="notificationCount != 0"
+          :content="notificationCount"
+        >
+      
+        <img src="{{ asset('imgs/profile.png') }}" class="iconstylesm"/>
+            
+        </v-badge>
+        <img src="{{ asset('imgs/profile.png') }}" class="iconstylesm" v-else/>
+        <br>
             <div class="iconnamesm">
              Profile
              </div>

@@ -128,6 +128,7 @@ const app = new Vue({
             userPageTrack:[],
             selectedPage:[],
             drawer:false,
+            notificationCount:0,
     },
      mounted: function () {
       this.pageloader = false;
@@ -401,7 +402,7 @@ const app = new Vue({
         let userProfile = response.data[1];
         let user = response.data[0];
 
-       
+        this.notificationCount = response.data[3];
         
         
         

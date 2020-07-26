@@ -115,7 +115,8 @@ class LibraryController extends Controller
                    'users.username as username',
                    'profiles.image_name as image_name',
                    'profiles.user_id as id',
-                   'profiles.image_extension as image_extension' 
+                   'profiles.image_extension as image_extension' ,
+                   'profiles.background_color as background_color'
                )
                ->where('user_id',Auth::id())
                ->first();
