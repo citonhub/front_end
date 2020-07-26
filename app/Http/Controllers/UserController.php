@@ -280,14 +280,14 @@ class UserController extends Controller
             "title"=> "New Message!",
             "body"=> "Thanks for using CitonHub",
             "icon" => "/imgs/citon.jpg",
-            "vibrate"=> "[100,50,100]",
+            "vibrate"=> "[1000,500,10000]",
             "data"=> "{ primaryKey: 1 }" 
         ];
     
         $defaultOption = [
             'TTL' => 2000, // defaults to 4 weeks
             'urgency' => 'high', // protocol defaults to "normal"
-            'topic' => 'Thanks for using CitonHub', // not defined by default,
+            'topic' => 'CitonHub Notification', // not defined by default,
             'batchSize' => 200, // defaults to 1000
         ];
          

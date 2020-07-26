@@ -88,7 +88,7 @@ class RegisterController extends Controller
                  'coins'=> $referralUserProfile->coins + 1
                 ]);
       
-                broadcast(new UserChannel('new-coin',$newUser,$referralUser->username));
+              
             }
 
             $newUser =  User::create([

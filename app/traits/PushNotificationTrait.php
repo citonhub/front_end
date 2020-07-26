@@ -33,7 +33,7 @@ trait PushNotificationTrait
     public function sendNotification($defaultOptions){
         $auth = [
             'VAPID' => [
-                'subject' => 'mailto:admin@citonhub.com', // can be a mailto: or your website address
+                'subject' => 'mailto:citonhub@gmail.com', // can be a mailto: or your website address
                 'publicKey' => 'BA5RO17EugggZ7VQBGMf6_dQat4fLr5qwmS1Q8FUl8Wg0Pm7vOtX_Thws0OdafoWg1tdF-A0mDK-JcZJ09VoEq8', // (recommended) uncompressed public key P-256 encoded in Base64-URL
                 'privateKey' => 'HtJvbInyi54NZbIQrgeA9ZxbXw1W_X6jFghdfhoYtMw', // (recommended) in fact the secret multiplier of the private key encoded in Base64-URL
             ],
