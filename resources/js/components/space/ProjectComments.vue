@@ -260,9 +260,11 @@ export default {
 
            this.$router.push({ path: '/'+ this.$route.params.projectSlug + '/make-comment' });
       },
-    fetchProjectComments: function(){
-        
-         axios.get('/fetch-comment-project-' + this.$route.params.projectSlug)
+    fetchProjectComments: function(){ 
+
+       if(this.$root.projectComments.length == 0){
+         
+           axios.get('/fetch-comment-project-' + this.$route.params.projectSlug)
       .then(response => {
       
       if (response.status == 200) {
@@ -281,9 +283,15 @@ export default {
     
      }) 
 
+       }
+        
+       
         },
     getAvatarText: function(text){
-         return text.slice(0,2);
+           if(text != undefined){
+          return text.slice(0,2);
+           }
+         
       },
    
    

@@ -129,6 +129,7 @@ const app = new Vue({
             selectedPage:[],
             drawer:false,
             notificationCount:0,
+            notificationCountSpace:0,
     },
      mounted: function () {
       this.pageloader = false;
@@ -403,7 +404,8 @@ const app = new Vue({
         let user = response.data[0];
 
         this.notificationCount = response.data[3];
-        
+
+        this.notificationCountSpace = response.data[4];
         
         
        let userDetails = {

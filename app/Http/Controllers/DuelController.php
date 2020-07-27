@@ -19,10 +19,16 @@ use App\DuelTeamMember;
 use App\Notification;
 use App\Events\UserChannel;
 use App\Events\DuelChannel;
+use App\CustomClass\Curler;
+use App\PushNotification;
+use App\CustomClass\MetaParser;
+use App\Profile;
+use App\traits\PushNotificationTrait;
 
 
 class DuelController extends Controller
-{
+{   
+  use PushNotificationTrait;
 
     public function MakeTeam(Request $request){
 
@@ -793,6 +799,33 @@ class DuelController extends Controller
         
           $newNotification->save();
 
+          // trigger push notification
+
+        $userProfile = Profile::where('user_id',Auth::id())->first();
+          if($userProfile->background_color == null){
+            $imagePath = '/imgs/usernew.png';
+         }else{
+           $imagePath = '/imgs/profile/' . $userProfile->image_name . '.' . $userProfile->image_extension;
+         }
+  
+         $duelData = DB::table('duels')->where('duel_id',$newDuel->duel_id)->first();
+        
+         $baseUrl = '/duels#/duel/' . $newDuel->duel_id . '/board/user';
+
+         $notificationPayload = [
+            "owner_id" => $user->user_id,
+            "name"=> Auth::user()->username,
+            "body"=> '',
+            "tag"=> 'new_duel' . $newDuel->duel_id,
+            "type"=> 'new_duel',
+            "image"=> $imagePath,
+            "duel"=> $duelData,
+            "url"=> $baseUrl
+          ];
+      
+          $this->triggerNotification($notificationPayload);
+          // broadcast to users
+
          broadcast(new UserChannel('new-duel',$duelArray[0],$user->username));
         }
 
@@ -837,6 +870,37 @@ class DuelController extends Controller
                ->first();
         
         $userDataArray = [];
+      
+        if($userData->background_color == null){
+          $imagePath = '/imgs/usernew.png';
+       }else{
+         $imagePath = '/imgs/profile/' . $userData->image_name . '.' . $userData->image_extension;
+       }
+
+       $duelData = DB::table('duels')->where('duel_id',$baseDuelId)->first();
+
+      
+
+       
+          $baseUrl = '/duels#/duel/' . $baseDuelId . '/board/user';
+      
+
+       $notificationPayload = [
+          "owner_id" => $presentDuel->user_id,
+          "name"=> $userData->username,
+          "body"=> '',
+          "tag"=> $baseDuelId . $type,
+          "type"=> $type,
+          "image"=> $imagePath,
+          "duel"=> $duelData,
+          "url"=> $baseUrl
+        ];
+    
+        if($presentDuel->user_id != Auth::id()){
+           
+          $this->triggerNotification($notificationPayload);
+          
+         }
      
 
         array_push($userDataArray,$userData);
@@ -889,4 +953,43 @@ class DuelController extends Controller
 
      }
    }
+
+   public function triggerNotification($notificationPayload){
+      
+    $allNotification = PushNotification::where('user_id',$notificationPayload["owner_id"])->get();
+
+  
+   
+    $payload = [
+        "title"=> '',
+        "body"=> $notificationPayload["body"],
+        "badge" => "/imgs/CitonHub.svg",
+        "vibrate"=> [1000,500,1000],
+        "tag" => $notificationPayload["tag"],
+        "icon" => $notificationPayload["image"],
+        "image"=> $notificationPayload["image"],
+        "requireInteraction"=> true,
+        "data"=> [
+           "type"=>$notificationPayload["type"],
+           "name"=>$notificationPayload["name"],
+           "duel"=>$notificationPayload["duel"],
+           "url"=> $notificationPayload["url"]
+        ]
+    ];
+
+    $defaultOption = [
+        'TTL' => 2000000, // defaults to 4 weeks
+        'urgency' => 'high', // protocol defaults to "normal"
+        'topic' => 'CitonHub Notification', // not defined by default,
+        'batchSize' => 10000, // defaults to 1000
+    ];
+     
+    $this->generateNotification($allNotification,json_encode($payload));
+     
+    $this->sendNotification($defaultOption);
+
+    $this->notificationReport();
+
+}
+
 }

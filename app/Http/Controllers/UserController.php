@@ -120,7 +120,7 @@ class UserController extends Controller
 
     public function fetchUserNotifications(){
 
-        $allNotifications = DB::table('notifications')->where('user_id',Auth::id())->orderBy('updated_at','desc')->paginate(2000);
+        $allNotifications = DB::table('notifications')->where('user_id',Auth::id())->where('type','!=','new_message')->orderBy('updated_at','desc')->paginate(2000);
                    
 
        
@@ -272,32 +272,7 @@ class UserController extends Controller
 
    
    
-    public function triggerNotification(){
-      
-        $allNotification = PushNotification::where('user_id',Auth::id())->get();
-       
-        $payload = [
-            "title"=> "New Message!",
-            "body"=> "Thanks for using CitonHub",
-            "icon" => "/imgs/citon.jpg",
-            "vibrate"=> "[1000,500,10000]",
-            "data"=> "{ primaryKey: 1 }" 
-        ];
     
-        $defaultOption = [
-            'TTL' => 2000, // defaults to 4 weeks
-            'urgency' => 'high', // protocol defaults to "normal"
-            'topic' => 'CitonHub Notification', // not defined by default,
-            'batchSize' => 200, // defaults to 1000
-        ];
-         
-        $this->generateNotification($allNotification,json_encode($payload));
-         
-        $this->sendNotification($defaultOption);
- 
-        $this->notificationReport();
-
-    }
 
     public function SaveNotification(Request $request){
        $newnotification = PushNotification::create([
@@ -309,8 +284,7 @@ class UserController extends Controller
 
        $newnotification->save();
 
-       $this->triggerNotification();
-
+      
        return ['status','OK'];
     }
 }

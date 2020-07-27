@@ -3,6 +3,8 @@
  
      <share v-if="this.$root.showShare"></share>
 
+     <enable-notify v-if="this.$root.shownotificationboard"></enable-notify>
+
       <on-boarding  :content="this.$root.boardContent"  v-if="this.$root.showBoard" :btnLabel="this.$root.boardBtnLabel"></on-boarding>
 
    <div style="width:100%; height:auto; overflow-y:hidden; overflow-x:hidden; ">

@@ -15,11 +15,15 @@ use App\ProjectStar;
 use App\Notification;
 use App\PageTracker;
 use App\traits\ManagesImages;
+use App\CustomClass\Curler;
+use App\PushNotification;
+use App\CustomClass\MetaParser;
+use App\traits\PushNotificationTrait;
 
 class ProfileController extends Controller
 {
 
-    use ManagesImages;
+    use ManagesImages,PushNotificationTrait;
 
     public function __construct()
     {
@@ -137,6 +141,30 @@ class ProfileController extends Controller
                  )
                  ->where('user_id',Auth::id())
                  ->first();
+
+
+                
+       
+                 if($userData->background_color == null){
+                    $imagePath = '/imgs/usernew.png';
+                 }else{
+                   $imagePath = '/imgs/profile/' . $userData->image_name . '.' . $userData->image_extension;
+                 }
+
+                 $baseUrl = '/profile#/profile/connections/' . $userDataBase->username;
+       
+                 $notificationPayload = [
+                    "owner_id" => $userDataBase->id,
+                    "name"=> $userData->username,
+                    "body"=> 'New Connections',
+                    "tag"=> $baseUserId,
+                    "type"=> $type,
+                    "image"=> $imagePath,
+                    "url"=> $baseUrl
+       
+                  ];
+              
+                 $this->triggerNotification($notificationPayload);
           
           $userDataArray = [];
        
@@ -191,6 +219,44 @@ class ProfileController extends Controller
   
        }
       }
+
+
+      public function triggerNotification($notificationPayload){
+      
+        $allNotification = PushNotification::where('user_id',$notificationPayload["owner_id"])->get();
+  
+      
+       
+        $payload = [
+            "title"=> '',
+            "body"=> $notificationPayload["body"],
+            "badge" => "/imgs/CitonHub.svg",
+            "vibrate"=> [1000,500,1000],
+            "tag" => $notificationPayload["tag"],
+            "icon" => $notificationPayload["image"],
+            "image"=> $notificationPayload["image"],
+            "requireInteraction"=> true,
+            "data"=> [
+               "type"=>$notificationPayload["type"],
+               "name"=>$notificationPayload["name"],
+               "url"=> $notificationPayload["url"]
+            ]
+        ];
+    
+        $defaultOption = [
+            'TTL' => 2000000, // defaults to 4 weeks
+            'urgency' => 'high', // protocol defaults to "normal"
+            'topic' => 'CitonHub Notification', // not defined by default,
+            'batchSize' => 10000, // defaults to 1000
+        ];
+         
+        $this->generateNotification($allNotification,json_encode($payload));
+         
+        $this->sendNotification($defaultOption);
+  
+        $this->notificationReport();
+  
+    }
 
      
 
@@ -434,16 +500,19 @@ class ProfileController extends Controller
       }
 
       if($user->id == Auth::id()){
-        $UnreadNotifications = Notification::where('user_id',Auth::id())->where('status','unread')->get();
+        $UnreadNotifications = Notification::where('user_id',Auth::id())->where('status','unread')->where('type','!=','new_message')->get();
+        $UnreadNotificationsSpace = Notification::where('user_id',Auth::id())->where('status','unread')->where('type','new_message')->get();
          $notificationCount = count($UnreadNotifications);
+         $notificationCountSpace = count($UnreadNotificationsSpace);
       }else{
         $notificationCount  = 0;
+        $notificationCountSpace = 0;
       }
 
       
 
 
-    return [$user,$newProfile[0],$allPageTracker,$notificationCount];
+    return [$user,$newProfile[0],$allPageTracker,$notificationCount,$notificationCountSpace];
  }
 
 }

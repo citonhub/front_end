@@ -84,8 +84,18 @@
               Space
              </span>
              @else
-             <span class="iconname">
-               Space
+             <v-badge
+          color="#36848C"
+          v-if="notificationCountSpace != 0"
+          :content="notificationCountSpace"
+        >
+        <span class="iconname">
+               space
+             </span>
+        </v-badge>
+
+        <span class="iconname" v-else>
+               space
              </span>
              @endif
             </div>
@@ -198,7 +208,18 @@
              Space
              </span>
             @else
-            <img src="{{ asset('imgs/space.png') }}" class="iconstylemd"/><br>
+            <v-badge
+          color="#36848C"
+          v-if="notificationCountSpace != 0"
+          :content="notificationCountSpace"
+        >
+      
+        <img src="{{ asset('imgs/space.png') }}" class="iconstylemd"/>
+            
+        </v-badge>
+
+         <img src="{{ asset('imgs/space.png') }}" class="iconstylemd" v-else/>
+         <br>
             <span class="iconnamemd py-1">
              Space
              </span>
@@ -283,7 +304,17 @@
              Space
              </div>
             @else
-            <img src="{{ asset('imgs/space.png') }}" class="iconstylesm"/>
+            <v-badge
+          color="#36848C"
+            v-if="notificationCountSpace != 0"
+          :content="notificationCountSpace"
+        >
+      
+        <img src="{{ asset('imgs/space.png') }}" class="iconstylesm"/>
+            
+        </v-badge>
+        <img src="{{ asset('imgs/space.png') }}" class="iconstylesm" v-else/>
+        <br>
             <div class="iconnamesm ">
              Space
              </div>

@@ -24,11 +24,15 @@ use DB;
 use App\Notification;
 use App\Project;
 use App\UnreadMessage;
+use App\PushNotification;
+use App\CustomClass\Curler;
+use App\CustomClass\MetaParser;
+use App\traits\PushNotificationTrait;
 
 class SpaceController extends Controller
 {
 
-    use ManagesImages;
+    use ManagesImages,PushNotificationTrait;
 
     public function __construct()
     {
@@ -359,6 +363,18 @@ class SpaceController extends Controller
            $activeMembers = json_decode($request->get('current_user'));
         }
 
+         foreach ($activeMembers as $members) {
+
+            $spaceMember = SpaceMember::where('space_id',$request->get('space_id'))->where('user_id',$members->id)->first();
+
+            $spaceMember->update([
+               'status'=> true
+            ]);
+         }
+
+        
+        
+
         $spaceMembers = DB::table('space_members')
                     ->join('users','users.id','space_members.user_id')
                     ->select(
@@ -366,23 +382,24 @@ class SpaceController extends Controller
                        'users.name as name',
                        'users.id as id'
                     )->where('space_members.space_id',$request->get('space_id'))
+                     ->where('space_members.status',false)
                     ->get();
-         $disconnectedUsers = [];
 
-         foreach ($spaceMembers as $member) {
-           
-            foreach ($activeMembers as $active) {
-               
-               if($active->id != $member->id){
-                 array_push($disconnectedUsers,$member);
-               }
-
-            }
             
+         $disconnectedUsers = $spaceMembers;
+     
+         dd($disconnectedUsers);
+
+         foreach ($activeMembers as $members) {
+
+            $spaceMember = SpaceMember::where('space_id',$request->get('space_id'))->where('user_id',$members->id)->first();
+            $spaceMember->update([
+               'status'=> false
+            ]);
          }
 
 
-         $this->spaceNotification($request->get('space_id'),'new_message',$disconnectedUsers);
+         $this->spaceNotification($request->get('space_id'),'new_message',$disconnectedUsers,$newMessage);
      
         
          
@@ -536,7 +553,17 @@ public function fetchMessages($spaceId){
       "unread"=> 0
       ]);
      }
-    
+   
+     // mark notifications  as read
+     $allNotifications = Notification::where('user_id',Auth::id())->where('type','new_message')->where('type_id',$spaceId)->get();
+
+     foreach ($allNotifications as $notification) {
+         
+         $notification->update([
+        'status'=> 'read'
+         ]);
+     }
+   
      $space = Space::where('space_id',$spaceId)->first();
 
      $spaceLimit = $space->limit;
@@ -1061,7 +1088,7 @@ array_push($newSpaceArray,$userSpace);
 
 
 
-  public function spaceNotification($baseSpaceId,$type,$userArrayBase){
+  public function spaceNotification($baseSpaceId,$type,$userArrayBase,$newMessage){
        
    $presentSpace  = Space::where('space_id', $baseSpaceId)->first();
          
@@ -1078,6 +1105,9 @@ array_push($newSpaceArray,$userSpace);
             ->first();
      
      $userDataArray = [];
+
+       
+     
   
 
      array_push($userDataArray,$userData);
@@ -1086,6 +1116,49 @@ array_push($newSpaceArray,$userSpace);
 
      foreach ($userArrayBase as $user) {
       
+    // trigger push notification
+      $messageContent = '';
+
+     if($newMessage[0]["type"] != null){
+          if($newMessage[0]["type"] == 'image' || $newMessage[0]["type"] == 'audio'){
+
+            $messageContent = 'shared an '+ $newMessage[0]["type"];
+          }else{
+             
+            $messageContent = 'shared a '+ $newMessage[0]["type"];
+          }
+      
+     }else{
+       
+       $html = new \Html2Text\Html2Text($newMessage[0]["content"]);
+       $messageContent =  $html->getText();
+     }
+
+     if($userData->background_color == null){
+        $imagePathPost = '/imgs/usernew.png';
+     }else{
+       $imagePathPost = '/imgs/profile/' . $userData->image_name . '.' . $userData->image_extension;
+     }
+
+    $spaceData = DB::table('spaces')->where('space_id',$baseSpaceId)->first();
+    
+    $baseUrl = 'space#/space/' . $baseSpaceId . '/channel/content/user';
+
+     $notificationPayload = [
+        "owner_id" => $user->id,
+        "name"=> $userData->username,
+        "body"=> $messageContent,
+        "tag"=> $baseSpaceId,
+        "type"=> $type,
+        "image"=> $imagePathPost,
+        "space"=> $spaceData,
+        "url"=> $baseUrl
+      ];
+  
+      $this->triggerNotification($notificationPayload);
+
+     // trigger internal notification
+
       $checkSpaceNotification = Notification::where('user_id',$user->id)
      ->where('type',$type)->where('type_id',$baseSpaceId)
      ->where('status','unread')->get();
@@ -1126,6 +1199,45 @@ array_push($newSpaceArray,$userSpace);
      }
 
   
+}
+
+
+public function triggerNotification($notificationPayload){
+      
+   $allNotification = PushNotification::where('user_id',$notificationPayload["owner_id"])->get();
+
+ 
+  
+   $payload = [
+       "title"=> '',
+       "body"=> $notificationPayload["body"],
+       "badge" => "/imgs/CitonHub.svg",
+       "vibrate"=> [1000,500,1000],
+       "tag" => $notificationPayload["tag"],
+       "icon" => $notificationPayload["image"],
+       "image"=> $notificationPayload["image"],
+       "requireInteraction"=> true,
+       "data"=> [
+          "type"=>$notificationPayload["type"],
+          "name"=>$notificationPayload["name"],
+          "space"=>$notificationPayload["space"],
+          "url"=> $notificationPayload["url"]
+       ]
+   ];
+
+   $defaultOption = [
+       'TTL' => 2000000, // defaults to 4 weeks
+       'urgency' => 'high', // protocol defaults to "normal"
+       'topic' => 'CitonHub Notification', // not defined by default,
+       'batchSize' => 10000, // defaults to 1000
+   ];
+    
+   $this->generateNotification($allNotification,json_encode($payload));
+    
+   $this->sendNotification($defaultOption);
+
+   
+
 }
 
 }

@@ -19,13 +19,17 @@ use App\ShelvePost;
 use DB;
 use App\Profile;
 use App\Events\UserChannel;
+use App\traits\PushNotificationTrait;
 use App\Events\PostChannel;
+use App\PushNotification;
 use App\Notification;
+use App\CustomClass\Curler;
+use App\CustomClass\MetaParser;
 use App\User;
 
 class PostController extends Controller
 {
-   use ManagesImages;
+   use ManagesImages,PushNotificationTrait;
 
    public function __construct()
    {
@@ -707,6 +711,9 @@ class PostController extends Controller
    public function postNotification($basePostId,$type){
        
       $commentedPost  = Post::where('post_id', $basePostId)->first();
+
+
+      
             
       $userData = DB::table('profiles')
                ->join('users','users.id','profiles.user_id')
@@ -719,6 +726,52 @@ class PostController extends Controller
                )
                ->where('user_id',Auth::id())
                ->first();
+
+          $postContent = '';
+
+          if($commentedPost->content == '<p></p>'){
+            $postContent = 'A post with '+ $commentedPost->attachment_type + ' attached';
+          }else{
+            
+            $html = new \Html2Text\Html2Text($commentedPost->content);
+            $postContent =  $html->getText();
+          }
+
+          if($userData->background_color == null){
+             $imagePathPost = '/imgs/usernew.png';
+          }else{
+            $imagePathPost = '/imgs/profile/' . $userData->image_name . '.' . $userData->image_extension;
+          }
+
+          $baseUrl = '';
+        
+          $postOwner = User::where('id',$commentedPost->user_id)->first();
+
+          if($type == 'post_like' || $type == 'post_comment' || $type == 'post_pulled'){
+            $baseUrl = '/home#/post/' . $postOwner->username . '/'.  $commentedPost->post_id . '/user';
+          }else{
+            $baseUrl = '/home#/post/comment/' . $postOwner->username . '/'.  $commentedPost->post_id . '/user';
+          }
+
+        
+
+          $notificationPayload = [
+             "owner_id" => $commentedPost->user_id,
+             "name"=> $userData->username,
+             "body"=> $postContent,
+             "tag"=> $basePostId . $type,
+             "type"=> $type,
+             "image"=> $imagePathPost,
+             "url"=> $baseUrl
+
+           ];
+       
+           if($commentedPost->user_id != Auth::id()){
+           
+            $this->triggerNotification($notificationPayload);
+
+           }
+           
         
         $userDataArray = [];
      
@@ -773,5 +826,44 @@ class PostController extends Controller
 
      }
    }
+
+
+   public function triggerNotification($notificationPayload){
+      
+      $allNotification = PushNotification::where('user_id',$notificationPayload["owner_id"])->get();
+
+    
+     
+      $payload = [
+          "title"=> '',
+          "body"=> $notificationPayload["body"],
+          "badge" => "/imgs/CitonHub.svg",
+          "vibrate"=> [1000,500,1000],
+          "tag" => $notificationPayload["tag"],
+          "icon" => $notificationPayload["image"],
+          "image"=> $notificationPayload["image"],
+          "requireInteraction"=> true,
+          "data"=> [
+             "type"=>$notificationPayload["type"],
+             "name"=>$notificationPayload["name"],
+             "url"=> $notificationPayload["url"],
+          ]
+      ];
+  
+      $defaultOption = [
+          'TTL' => 2000000, // defaults to 4 weeks
+          'urgency' => 'high', // protocol defaults to "normal"
+          'topic' => 'CitonHub Notification', // not defined by default,
+          'batchSize' => 10000, // defaults to 1000
+      ];
+       
+      $this->generateNotification($allNotification,json_encode($payload));
+       
+      $this->sendNotification($defaultOption);
+
+      $this->notificationReport();
+
+  }
+
 
 }

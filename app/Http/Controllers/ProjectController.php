@@ -14,11 +14,16 @@ use App\ProjectCommentLike;
 use Illuminate\Support\Facades\Auth;
 use App\SpaceMember;
 use App\Events\PanelChannel;
+use App\traits\PushNotificationTrait;
+use App\PushNotification;
+use App\CustomClass\Curler;
+use App\CustomClass\MetaParser;
 
 
 
 class ProjectController extends Controller
 {
+     use PushNotificationTrait;
 
     public static function createSlug($str, $delimiter = '-'){
 
@@ -117,7 +122,7 @@ class ProjectController extends Controller
    )->where('space_members.space_id',$currentProject->space_id)
    ->get();
 
-   $this->spaceNotification($request->get('project_slug'),'new_project-comment',$spaceMembers);
+   $this->spaceNotification($request->get('project_slug'),'new_project_comment',$spaceMembers);
       
    broadcast(new PanelChannel('new-comment',$newCommentArray[0],$request->get('project_slug')))->toOthers();
       
@@ -516,6 +521,14 @@ return $newCommentArray;
                )
                ->where('user_id',Auth::id())
                ->first();
+
+              
+      
+               
+      
+               
+               
+              
         
         $userDataArray = [];
      
@@ -523,8 +536,37 @@ return $newCommentArray;
         array_push($userDataArray,$userData);
          
         $userDataArray = serialize($userDataArray);
-   
+
+
+   // trigger notifications
         foreach ($userArrayBase as $user) {
+
+          if($userData->background_color == null){
+            $imagePath = '/imgs/usernew.png';
+         }else{
+           $imagePath = '/imgs/profile/' . $userData->image_name . '.' . $userData->image_extension;
+         }
+
+
+        $project = DB::table('projects')->where('project_slug',$baseSpaceId)->first();
+       
+        $baseUrl = '/space#\/' . $baseSpaceId . '/comments';
+
+
+         $notificationPayload = [
+            "owner_id" => $user->id,
+            "name"=> $userData->username,
+            "body"=> '',
+            "tag"=> $baseSpaceId,
+            "type"=> $type,
+            "image"=> $imagePath,
+            "project"=> $project,
+            "url"=> $baseUrl
+          ];
+      
+          $this->triggerNotification($notificationPayload);
+
+
          
          $checkSpaceNotification = Notification::where('user_id',$user->id)
         ->where('type',$type)->where('type_id',$baseSpaceId)
@@ -569,7 +611,43 @@ return $newCommentArray;
      }
    
         }
-   
      
    }
+
+   public function triggerNotification($notificationPayload){
+      
+    $allNotification = PushNotification::where('user_id',$notificationPayload["owner_id"])->get();
+   
+    $payload = [
+        "title"=> '',
+        "body"=> $notificationPayload["body"],
+        "badge" => "/imgs/CitonHub.svg",
+        "vibrate"=> [1000,500,1000],
+        "tag" => $notificationPayload["tag"],
+        "icon" => $notificationPayload["image"],
+        "image"=> $notificationPayload["image"],
+        "requireInteraction"=> true,
+        "data"=> [
+           "type"=>$notificationPayload["type"],
+           "name"=>$notificationPayload["name"],
+           "project"=>$notificationPayload["project"],
+           "url"=> $notificationPayload["url"]
+        ]
+    ];
+
+    $defaultOption = [
+        'TTL' => 2000000, // defaults to 4 weeks
+        'urgency' => 'high', // protocol defaults to "normal"
+        'topic' => 'CitonHub Notification', // not defined by default,
+        'batchSize' => 10000, // defaults to 1000
+    ];
+     
+    $this->generateNotification($allNotification,json_encode($payload));
+     
+    $this->sendNotification($defaultOption);
+
+    $this->notificationReport();
+
+}
+
 }

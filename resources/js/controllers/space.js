@@ -253,10 +253,11 @@ const app = new Vue({
       sharePage:false,
       NewMsg:[],
       notificationCount:0,
+      notificationCountSpace:0,
     },
      mounted: function () {
       this.pageloader= false;
-      this.initialPushMangerReg();
+     
      
      
       this.fetchUserDetails();
@@ -349,6 +350,8 @@ const app = new Vue({
       let user = response.data[0];
 
       this.notificationCount = response.data[3];
+
+      this.notificationCountSpace = response.data[4];
       
      let userDetails = {
      'username':user.username,
@@ -419,7 +422,7 @@ imageStyle:function(dimension,authProfile){
          if("PushManager" in window){
            registration.pushManager.getSubscription().then(sub => {
              if(sub == undefined){
-              this.askforpermission();
+              this.shownotificationboard = true;
              }else{
               // update data in database;
             }
@@ -429,9 +432,7 @@ imageStyle:function(dimension,authProfile){
        })
       }
      },
-     askforpermission: function(){
-      this.shownotificationboard = true;
-   }, 
+     
     askPermission: function() {
     return new Promise(function(resolve, reject) {
       const permissionResult = Notification.requestPermission(function(result) {

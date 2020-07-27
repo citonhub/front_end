@@ -265,6 +265,7 @@ export default {
     mounted(){
        this.$root.showTabs=false;
        this.$root.showHeader = false;
+        this.$root.initialPushMangerReg();
        
        this.fetchMessages();
 
