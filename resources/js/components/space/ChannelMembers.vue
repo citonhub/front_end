@@ -143,7 +143,7 @@ export default {
                this.$root.Messages = null;
         this.$root.selectedSpace = [];
        
-       this.$root.ChatList = [];
+          this.$root.ChatList[4].unshift(response.data);
         this.$root.forceListReload = true;
 
                this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });

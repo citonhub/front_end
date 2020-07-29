@@ -326,6 +326,20 @@ const app = new Vue({
               }
 
             });
+
+
+            this.ChatList[4].map((space)=>{
+             
+              if(space.space_id == e.data){
+                space.unread = space.unread + 1;
+              }
+
+            });
+          }
+
+          if(e.actionType == 'new-direct-space'){
+             
+            this.ChatList[4].unshift(e.data);
           }
           
      });

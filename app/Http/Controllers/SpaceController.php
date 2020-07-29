@@ -1031,6 +1031,8 @@ public function MessageEngine($messageArray,$timeArray){
          ]);
          
          $dmList2->save();
+
+        
           
          
 
@@ -1070,6 +1072,46 @@ $newSpaceArray = [];
 foreach ($userSpaces as $space) {
 
 $userSpace = (array) $space;
+  if($userSpace["type"] == 'Direct'){
+   if($userSpace["user_1"] != Auth::id()){
+           
+      $user1Info =  DB::table('profiles')
+      ->join('users','users.id','profiles.user_id')
+      ->select(
+          'users.username as username',
+          'profiles.image_name as image_name',
+          'profiles.user_id as id',
+          'users.name as name',
+          'profiles.image_extension as image_extension' ,
+          'profiles.background_color as background_color'
+      )
+      ->where('user_id',$userSpace["user_1"])
+      ->first();
+     
+      $userSpace["userInfo"] = $user1Info;
+   
+   }
+   
+   if($userSpace["user_2"] != Auth::id()){
+     
+      $user2Info =  DB::table('profiles')
+      ->join('users','users.id','profiles.user_id')
+      ->select(
+          'users.username as username',
+          'users.name as name',
+          'profiles.image_name as image_name',
+          'profiles.user_id as id',
+          'profiles.image_extension as image_extension' ,
+          'profiles.background_color as background_color'
+      )
+      ->where('user_id',$userSpace["user_2"])
+      ->first();
+   
+      $userSpace["userInfo"] = $user2Info;
+   
+   }
+  }
+
 
 $userUnread = UnreadMessage::where('space_id',$userSpace["space_id"])->where('user_id',Auth::id())->get();
 
@@ -1087,6 +1129,11 @@ $userSpace["unread"] = $userUnread->unread;
 array_push($newSpaceArray,$userSpace);
 
 }
+
+ if($newSpaceArray[0]["type"] == 'Direct'){
+    
+   broadcast(new UserChannel('new-direct-space',$newSpaceArray[0],$userInfo->username));
+ }
 
  return $newSpaceArray[0];
 
