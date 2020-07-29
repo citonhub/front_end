@@ -112,7 +112,9 @@ export default {
         }
 
         if(member.direct_present){
-      
+         
+         this.$root.Messages = null;
+        this.$root.selectedSpace = [];
 
           this.$router.push({ path: '/space/'  +  member.space_id  +  '/channel/content' + '/user' });
       
