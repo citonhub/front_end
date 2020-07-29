@@ -117,8 +117,11 @@ export default {
         this.$root.selectedSpace = [];
 
         this.$root.forceListReload = true;
-
+      
+      this.$root.ChatList = [];
           this.$router.push({ path: '/space/'  +  member.space_id  +  '/channel/content' + '/user' });
+
+          return;
       
         }
         if(this.loading){
@@ -139,7 +142,8 @@ export default {
 
                this.$root.Messages = null;
         this.$root.selectedSpace = [];
-
+       
+       this.$root.ChatList = [];
         this.$root.forceListReload = true;
 
                this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });
