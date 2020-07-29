@@ -116,6 +116,8 @@ export default {
          this.$root.Messages = null;
         this.$root.selectedSpace = [];
 
+        this.$root.forceListReload = true;
+
           this.$router.push({ path: '/space/'  +  member.space_id  +  '/channel/content' + '/user' });
       
         }
