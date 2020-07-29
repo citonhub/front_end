@@ -27,6 +27,7 @@ use App\UnreadMessage;
 use App\PushNotification;
 use App\CustomClass\Curler;
 use App\CustomClass\MetaParser;
+use App\DMList;
 use App\traits\PushNotificationTrait;
 
 class SpaceController extends Controller
@@ -641,6 +642,90 @@ public function fetchMessages($spaceId){
                   )
                   ->where('spaces.space_id',$spaceId)
                   ->first();
+         
+         if($thisSpace->type == 'Direct'){
+
+
+
+            $userDirectSpaces = DB::table('space_members')
+            ->join('spaces','spaces.space_id','space_members.space_id')
+            ->select(
+                'spaces.image_name as image_name',
+                'spaces.image_extension as image_extension',
+                'spaces.type as type',
+                'spaces.name as name',
+                'spaces.background_color as background_color',
+                'spaces.description as description',
+                'spaces.space_id as space_id',
+                'user_1 as user_1',
+                'user_2 as user_2'
+            )
+            ->where('spaces.space_id',$spaceId)
+            ->paginate(2);
+
+$newDirectArray = [];
+
+foreach ($userDirectSpaces as $spaceDirect) {
+   
+   $userSpaceDirect = (array) $spaceDirect;
+
+     
+   if($userSpaceDirect["user_1"] != Auth::id()){
+     
+      $user1Info =  DB::table('profiles')
+      ->join('users','users.id','profiles.user_id')
+      ->select(
+          'users.username as username',
+          'profiles.image_name as image_name',
+          'profiles.user_id as id',
+          'profiles.image_extension as image_extension' ,
+          'profiles.background_color as background_color'
+      )
+      ->where('user_id',$userSpaceDirect["user_1"])
+      ->first();
+     
+      $userSpaceDirect["userInfo"] = $user1Info;
+
+   }
+
+   if($userSpaceDirect["user_2"] != Auth::id()){
+     
+      $user2Info =  DB::table('profiles')
+      ->join('users','users.id','profiles.user_id')
+      ->select(
+          'users.username as username',
+          'users.name as name',
+          'profiles.image_name as image_name',
+          'profiles.user_id as id',
+          'profiles.image_extension as image_extension' ,
+          'profiles.background_color as background_color'
+      )
+      ->where('user_id',$userSpaceDirect["user_2"])
+      ->first();
+
+      $userSpaceDirect["userInfo"] = $user2Info;
+
+   }
+
+  
+   $userUnread = UnreadMessage::where('space_id',$userSpaceDirect["space_id"])->where('user_id',Auth::id())->get();
+
+   if($userUnread->isEmpty()){
+      $userSpaceDirect["unread"] = 0;
+      
+   }else{
+      
+      $userUnread = UnreadMessage::where('space_id',$userSpaceDirect["space_id"])->where('user_id',Auth::id())->first();
+      $userSpaceDirect["unread"] = $userUnread->unread;
+   }
+
+   array_push($newDirectArray,$userSpaceDirect);
+
+}
+      
+$thisSpace = $newDirectArray[0];
+
+         }
 
       $spaceMembers = SpaceMember::where('space_id',$spaceId)->get();
                   
@@ -846,11 +931,45 @@ public function MessageEngine($messageArray,$timeArray){
                        'users.id as id'
                     )->where('space_members.space_id',$spaceId)
                     ->paginate(20);
+         
+                    $newSpaceMembersArray = [];
+               
+                  
+            
+               foreach ($spaceMembers as $member) {
+                  $memberArray = (array) $member;
+                   
+                      
+                     $dmList = DMList::where('user_id',Auth::id())->where('other_user_id',$memberArray["id"])->get();
+                       
+                     if($dmList->isEmpty()){
+                       
+                        $memberArray["direct_present"] = false;
 
-       return $spaceMembers;
+                     
+                     }else{
+                     
+                        $memberArray["space_id"] = $dmList[0]->space_id;
+                        $memberArray["direct_present"] = true;
+
+                     }
+
+                     
+                      
+                
+
+                  
+                 
+                array_push($newSpaceMembersArray,$memberArray);
+
+               }
+
+       return $newSpaceMembersArray;
   }
 
  public function createSpace(Request $request){
+
+    
        $characters = '123456789abcdefghijklmnopqrstuvwsyz';
        
        $spaceId = $this->generateRandomNumber(12,$characters);
@@ -873,13 +992,60 @@ public function MessageEngine($messageArray,$timeArray){
          $newTeam->save();
       }
 
-      $spaceMember = SpaceMember::create([
-         'user_id'=> Auth::id(),
-         "is_admin"=> true,
-         'space_id'=> $spaceId
-      ]);
+      if($request->get('type') == 'Direct'){
+         $userInfo = User::where('id',$request->get('memberId'))->first();
+         $newSpace->update([
+          'user_1'=> Auth::id(),
+          'user_2'=> $userInfo->id
+         ]);
 
-      $spaceMember->save();
+         $spaceMember1 = SpaceMember::create([
+            'user_id'=> Auth::id(),
+            "is_admin"=> true,
+            'space_id'=> $spaceId
+         ]);
+   
+         $spaceMember1->save();
+
+         $spaceMember2 = SpaceMember::create([
+            'user_id'=> $userInfo->id,
+            "is_admin"=> true,
+            'space_id'=> $spaceId
+         ]);
+   
+         $spaceMember2->save();
+
+         $dmList1 = DMList::create([
+            'user_id'=> Auth::id(),
+            'other_user_id'=> $userInfo->id,
+            'space_id' => $spaceId
+         ]);
+
+         $dmList1->save();
+
+         $dmList2 = DMList::create([
+            'user_id'=> $userInfo->id,
+            'other_user_id'=> Auth::id(),
+            'space_id' => $spaceId
+         ]);
+         
+         $dmList2->save();
+          
+         
+
+      }else{
+        
+         $spaceMember = SpaceMember::create([
+            'user_id'=> Auth::id(),
+            "is_admin"=> true,
+            'space_id'=> $spaceId
+         ]);
+   
+         $spaceMember->save();
+
+      }
+
+      
 
 
       $userSpaces = DB::table('space_members')
@@ -891,7 +1057,9 @@ public function MessageEngine($messageArray,$timeArray){
           'spaces.name as name',
           'spaces.background_color as background_color',
           'spaces.description as description',
-          'spaces.space_id as space_id'
+          'spaces.space_id as space_id',
+          'user_1 as user_1',
+          'user_2 as user_2'
       )
       ->where('spaces.id',$newSpace->id)
       ->paginate(10);
@@ -982,7 +1150,7 @@ array_push($newSpaceArray,$userSpace);
                   ->where('space_members.user_id',Auth::id())
                   ->where('spaces.type','Team')
                   ->orderBy('spaces.created_at','desc')
-                  ->paginate(10);
+                  ->paginate(40);
       $newTeamArray = [];
 
       
@@ -1021,7 +1189,7 @@ array_push($newSpaceArray,$userSpace);
                   ->where('space_members.user_id',Auth::id())
                   ->orderBy('spaces.created_at','desc')
                   ->where('spaces.type','Channel')
-                  ->paginate(10);
+                  ->paginate(40);
 
       $newChannelArray = [];
 
@@ -1046,6 +1214,86 @@ array_push($newSpaceArray,$userSpace);
 
       }
 
+
+
+      $userDirectSpaces = DB::table('space_members')
+                  ->join('spaces','spaces.space_id','space_members.space_id')
+                  ->select(
+                      'spaces.image_name as image_name',
+                      'spaces.image_extension as image_extension',
+                      'spaces.type as type',
+                      'spaces.name as name',
+                      'spaces.background_color as background_color',
+                      'spaces.description as description',
+                      'spaces.space_id as space_id',
+                      'user_1 as user_1',
+                      'user_2 as user_2'
+                  )
+                  ->orderBy('spaces.created_at','desc')
+                  ->where('space_members.user_id',Auth::id())
+                  ->where('spaces.type','Direct')
+                  ->paginate(40);
+
+      $newDirectArray = [];
+
+      foreach ($userDirectSpaces as $spaceDirect) {
+         
+         $userSpaceDirect = (array) $spaceDirect;
+
+           
+         if($userSpaceDirect["user_1"] != Auth::id()){
+           
+            $user1Info =  DB::table('profiles')
+            ->join('users','users.id','profiles.user_id')
+            ->select(
+                'users.username as username',
+                'profiles.image_name as image_name',
+                'profiles.user_id as id',
+                'profiles.image_extension as image_extension' ,
+                'profiles.background_color as background_color'
+            )
+            ->where('user_id',$userSpaceDirect["user_1"])
+            ->first();
+           
+            $userSpaceDirect["userInfo"] = $user1Info;
+   
+         }
+
+         if($userSpaceDirect["user_2"] != Auth::id()){
+           
+            $user2Info =  DB::table('profiles')
+            ->join('users','users.id','profiles.user_id')
+            ->select(
+                'users.username as username',
+                'users.name as name',
+                'profiles.image_name as image_name',
+                'profiles.user_id as id',
+                'profiles.image_extension as image_extension' ,
+                'profiles.background_color as background_color'
+            )
+            ->where('user_id',$userSpaceDirect["user_2"])
+            ->first();
+
+            $userSpaceDirect["userInfo"] = $user2Info;
+   
+         }
+      
+        
+         $userUnread = UnreadMessage::where('space_id',$userSpaceDirect["space_id"])->where('user_id',Auth::id())->get();
+
+         if($userUnread->isEmpty()){
+            $userSpaceDirect["unread"] = 0;
+            
+         }else{
+            
+            $userUnread = UnreadMessage::where('space_id',$userSpaceDirect["space_id"])->where('user_id',Auth::id())->first();
+            $userSpaceDirect["unread"] = $userUnread->unread;
+         }
+
+         array_push($newDirectArray,$userSpaceDirect);
+
+      }
+
       $userProjects = DB::table('space_members')
               ->join('projects','projects.space_id','space_members.space_id')
               ->select(
@@ -1058,7 +1306,7 @@ array_push($newSpaceArray,$userSpace);
             
 
       
-         $fullSpaceArray = [$userPersonalSpace,$newTeamArray,$newChannelArray,$userProjects];
+         $fullSpaceArray = [$userPersonalSpace,$newTeamArray,$newChannelArray,$userProjects,$newDirectArray];
 
         return $fullSpaceArray;
 

@@ -22,9 +22,9 @@
          </div>
 
          <div class="col-12 py-0 my-0">
-         <div class="row my-0 py-0 px-2">
+         <div class="row my-0 py-0 pb-5 px-2">
 
-              <v-card tile flat class="col-12 py-2 px-2" color="#edf6f7"  @click="memberHandler"  style="border-bottom:1px solid #5fb0b9;" v-for="(member, index) in Members" :key="index">
+              <v-card tile flat class="col-12 py-2 px-2" color="#edf6f7"  @click="createSpace(member)"  style="border-bottom:1px solid #5fb0b9;" v-for="(member, index) in Members" :key="index">
                <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-2" style="align-items:center;justify-content:center; ">
                         <div class="py-1">
@@ -53,7 +53,27 @@
 
             </div>
          </div>
-         
+
+          <v-fade-transition>
+              <div  style="position:absolute; width:100%; height:auto: align-items:center;justify-content:center;bottom:16%; z-index:123453566;"  class="d-flex">
+             <v-alert
+      v-model="Alert"
+      dismissible
+      close-icon="mdi-delete"
+      color="#3E8893"
+       width="auto"
+       style="font-size:13px;"
+       height="auto"
+      border="left"
+     
+      elevation="2"
+      colored-border
+     
+    >
+      {{alertMsg}}
+    </v-alert>
+        </div>
+        </v-fade-transition>
 
        </div>
 </template>
@@ -61,7 +81,9 @@
 export default {
      data(){
         return{
-        
+           Alert:false,
+           alertMsg:'',
+           loading:false,
           Members:[],
         }
     },
@@ -73,6 +95,55 @@ export default {
       this.fetchMembers();
     },
     methods:{
+       showAlert:function(duration,text){
+        this.Alert = true;
+        this.alertMsg = text;
+        let _this = this;
+     
+     setTimeout(function(){
+        _this.Alert = false;
+     },duration);
+
+    },
+      createSpace: function(member){
+
+        if(member.username == this.$root.username){
+          return;
+        }
+
+        if(member.direct_present){
+      
+
+          this.$router.push({ path: '/space/'  +  member.space_id  +  '/channel/content' + '/user' });
+      
+        }
+        if(this.loading){
+            return;
+        }
+
+        this.loading = true;
+           this.showAlert(5000,'Setting up space...')
+          axios.post('/create-space',{
+                name: '',
+                limit: 2,
+                memberId: member.id,
+                type: 'Direct'
+                  })
+          .then(response => {
+             
+             if (response.status == 200) {
+
+               this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });
+                         
+            }
+
+          })
+          .catch(error => {
+              this.showAlert(5000,'Failed- ' + error);
+              this.loading = false;
+          })
+
+      },
        imageStyle:function(dimension,user){
       
 
@@ -89,7 +160,7 @@ export default {
 
       
 
-  },
+     },
        goBack() {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
@@ -140,7 +211,7 @@ export default {
       if (response.status == 200) {
         
      
-       this.Members = response.data.data;
+       this.Members = response.data;
        
      }
        

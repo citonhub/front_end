@@ -306,10 +306,73 @@
                 </div>
              <v-slide-y-transition>
               <div class="col-12 py-1 my-0 mx-0"   v-if="showDirect">
-                 <div class="row my-0 my-0 px-0">
-                    
-              
+                  <div  v-if="channelDirect != null">
+                    <div class="row my-0 my-0 px-0"  v-if="channelDirect.length != 0">
+
+                    <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in channelDirect"
+                      :key="index">
+                <div class="row py-0 my-0 px-0">
+                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
+                        <div class="py-1">
+                          <v-img  :background-color="space.userInfo.background_color" :src="space.userInfo.image_name == null ? 'imgs/usernew.png' : '/imgs/profile/'+ space.userInfo.image_name +'.' + space.userInfo.image_extension " height="38" width="38" class="avatarImg"></v-img>
+                        </div>    
+                    </div>
+                     <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
+                         <span class="titleText">{{space.userInfo.name}}</span>
+                    </div>
+                    <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
+                          <span class="messagesBadges" v-if="space.unread != 0"><span style="padding:2px;">{{ space.unread }}</span></span>
+                    </div>
+                </div>
+             </v-card>
                  </div>
+
+                 <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
+       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No Direct Messages</span>
+              
+            </div>
+                </div>
+
+                <div v-else  class="row my-0 py-0 px-1 ">
+            <div class="col-12 py-0 my-0">
+   
+           <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
+           
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
+
+          
+
+         </div>
+
+
+            </div>
+
+             <div class="col-12 py-0 my-0">
+   
+           <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
+           
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
+
+          
+
+         </div>
+
+
+            </div>
+  
+              </div>
               </div>
               </v-slide-y-transition>
               
@@ -351,12 +414,13 @@ export default {
       return {
        showmore:false,
        showTeams:true,
-       showDirect:false,
+       showDirect:true,
        personalSpace:[],
        teamSpace:null,
        channelProject:null,
        channelSpace:null,
        showChannel:true,
+       channelDirect: null,
        showProject:true,
       }
     },
@@ -444,6 +508,7 @@ export default {
         this.teamSpace = this.$root.ChatList[1];
         this.channelSpace = this.$root.ChatList[2];
         this.channelProject = this.$root.ChatList[3].data;
+        this.channelDirect = this.$root.ChatList[4];
           
         this.$root.SpaceWithoutChannel = this.$root.ChatList;
     
@@ -461,6 +526,7 @@ export default {
          this.personalSpace =  response.data[0];
         this.teamSpace =  response.data[1];
         this.channelSpace =  response.data[2];
+        this.channelDirect = response.data[4];
           
         this.$root.SpaceWithoutChannel = response.data;
          this.$root.ChatList = response.data;

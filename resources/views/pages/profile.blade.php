@@ -18,17 +18,18 @@
  @endsection
 
  @section('content')
-<div id="profile">
+<div id="profile" style="height:100%; width:100%;position:fixed;">
 <div  style="z-index:1000000; position:fixed; width:100%; height:auto; top:0;" v-if="pageloader">
   <div class="line"></div>
   <div class="subline inc"></div>
   <div class="subline dec"></div>
 </div>
-<div style="position:fixed;height:100%; width:100%; align-items:center; justify-content:center;z-index:100000;background:white;"  class="sliderfull d-flex " v-if="pageloader"> 
-      <img src="/imgs/CitonHub.png" height="50" width="50" >
+<div style="position:absolute;height:100%; width:100%; align-items:center; top:0; left:0; justify-content:center;z-index:100000;background:white;"  class=" d-flex " v-if="pageloader"> 
+      <img src="/imgs/CitonHub.png" height="40" width="40" class="sliderfull">
 </div>
 
-<div class="col-lg-8 col-12 offset-lg-2 py-0" style="display:fixed; top:4%;height:auto; background:white;" v-if="showHeader">
+
+<div class="col-lg-8 col-12 offset-lg-2 py-0" style="display:fixed; top:0%;height:auto; background:white;" v-if="showHeader">
     <div class="row">
     <div class="col-4 d-flex  py-1" style="border-bottom:1px solid #e6e6e6;  align-items:center; ">
     <div>
@@ -294,6 +295,6 @@
 
  @section('scripts')
 
- <script src="{{ asset('js/profile.js?v=0.49') }}"></script>
+ <script src="{{ asset('js/profile.js?v=0.48') }}"></script>
      
  @endsection
