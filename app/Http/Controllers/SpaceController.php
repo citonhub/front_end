@@ -678,6 +678,7 @@ foreach ($userDirectSpaces as $spaceDirect) {
           'users.username as username',
           'profiles.image_name as image_name',
           'profiles.user_id as id',
+          'users.name as name',
           'profiles.image_extension as image_extension' ,
           'profiles.background_color as background_color'
       )
@@ -1249,6 +1250,7 @@ array_push($newSpaceArray,$userSpace);
                 'users.username as username',
                 'profiles.image_name as image_name',
                 'profiles.user_id as id',
+                'users.name as name',
                 'profiles.image_extension as image_extension' ,
                 'profiles.background_color as background_color'
             )
