@@ -531,7 +531,7 @@ export default {
         
        
         
-        if(scrollPosition == 0 && !this.messageFinished){
+        if(scrollPosition < 220 && !this.messageFinished){
 
           if(this.startPosition < this.messagePerLoad){
 
