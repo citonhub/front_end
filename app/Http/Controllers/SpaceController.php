@@ -622,7 +622,10 @@ public function fetchMessages($spaceId){
          'space_messages.id as message_id'
      )
      ->where('space_messages.space_id',$spaceId)
+
      ->paginate(5000);
+     
+    
 
       $timeArray = $this->messageTime($spacemessages);
 
@@ -732,6 +735,8 @@ $thisSpace = $newDirectArray[0];
                   
 
      $newMessages = $this->MessageEngine($spacemessages,$timeArray);
+
+      
 
      return [$newMessages,$thisSpace,$spaceMembers];
 }

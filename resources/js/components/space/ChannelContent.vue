@@ -5,9 +5,9 @@
       
       <div 
        style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;"
-     
+       
        id="messageContainer"
-      
+       v-on:scroll="handlePushMessage()"
        class="col-12 py-2 px-2" 
        v-show="this.$root.Messages.length != 0"
       >   
@@ -235,13 +235,22 @@ export default {
           playerId2:'playerId2',
           Filename:'Index.html',
           viewerType:'',
-       
+          messageInitialLimit:30,
+          messagePerLoad:10,
+          newMessagesLoading:false,
           playerId1:'playerId1',
           messageid:'',
+          messageFinished:false,
+          returnedMessages:[],
           Codelanguage_type:'HTML',
           Messages:this.$root.Messages,
           Codecontent:'<p>Hello HTML</p>',
+          oldLoading:false,
           typinguser:'',
+          startPosition:0,
+          messageStore: [],
+          endPosition:0,
+           containerScrollPosition:0,
           typing:false,
           channel:null,
           imageArray:[
@@ -387,6 +396,20 @@ export default {
 
       },
       scrollToBottom:function(){
+
+         if(this.$root.messageStore.length != 0){
+               
+               for (let index = 0; index < this.$root.messageStore.length; index++) {
+                
+                 let arrayPopped =  this.$root.Messages.push(this.$root.messageStore[index]);
+                  
+                 
+             }
+
+             this.$root.messageStore = [];
+
+              
+              }
         
          setTimeout(() => {
          
@@ -467,9 +490,166 @@ export default {
        goBack() {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
+
+      handleResults(messageArray){
+
+        
+
+         this.returnedMessages = messageArray;
+          
+          let MsgLenght = messageArray.length;
+
+         
+             let startCount = MsgLenght - this.messageInitialLimit;
+
+          
+
+          this.endPosition = startCount - 1;
+
+          this.startPosition = this.endPosition - this.messagePerLoad;
+  
+          let sliedMsg = messageArray.slice(startCount,MsgLenght);
+
+
+
+        var finalMessage = sliedMsg;
+
+         
+         
+         return finalMessage;
+          
+      },
+
+      handlePushMessage: function(){
+
+       
+           
+        var container = document.querySelector('#messageContainer');
+
+         let scrollPosition = container.scrollTop;
+
+        
        
         
-        fetchMessages: function(){
+        if(scrollPosition == 0 && !this.messageFinished){
+
+          if(this.startPosition < this.messagePerLoad){
+
+            this.endPosition = this.startPosition -1 ;
+             this.startPosition = 0;
+
+             this.messageFinished = true;
+
+          }
+             
+               this.newMessagesLoading = true;
+
+
+
+           let newMessageArray = this.returnedMessages.slice(this.startPosition,this.endPosition);
+
+
+
+                  
+            newMessageArray = newMessageArray.reverse();
+          
+             for (let index = 0; index < newMessageArray.length; index++) {
+ 
+               
+               
+                 this.$root.Messages.unshift(newMessageArray[index]);
+                  
+                 
+             }
+
+            
+
+             
+
+            
+
+           
+               if(this.$root.Messages[21] != undefined){
+                      var elementId = this.$root.Messages[21].message_id;
+                  
+                    var element =  document.querySelector('#message' + elementId);
+            
+             
+              var top = element.offsetTop - 200;
+
+               let NumberToRemove = 0;
+
+              if(this.$root.Messages.length < this.messageInitialLimit){
+                  NumberToRemove = 10; 
+              }
+              if(this.$root.Messages.length > this.messageInitialLimit){
+                 NumberToRemove = this.$root.Messages.length - this.messageInitialLimit;
+              }
+
+            
+             let NumberArray =  new Array(NumberToRemove);
+
+             for (let index = 0; index < NumberArray.length; index++) {
+               
+                 let arrayPopped =  this.$root.Messages.pop();
+                  
+                  this.$root.messageStore.unshift(arrayPopped);
+             }
+
+             container.scrollTop = top;
+
+               this.endPosition = this.startPosition - 1;
+
+          this.startPosition = this.endPosition - this.messagePerLoad;
+
+          
+          
+         
+                    
+               }
+
+            
+          
+         
+        
+
+         
+          
+
+        
+        
+        }
+
+     let containerScrollHeigth = container.scrollHeight;
+         
+      
+           
+        if(scrollPosition > (containerScrollHeigth - 1000)){
+             
+              if(this.$root.messageStore.length != 0){
+               
+               for (let index = 0; index < this.$root.messageStore.length; index++) {
+                
+                 let arrayPopped =  this.$root.Messages.push(this.$root.messageStore[index]);
+                  
+                 
+             }
+
+             this.$root.messageStore = [];
+
+              
+              }
+        
+        }
+
+          
+         
+         
+
+
+
+      },  
+    fetchMessages: function(){
            
            if(this.$root.Messages  == null ){
              
@@ -477,10 +657,15 @@ export default {
       .then(response => {
       
       if (response.status == 200) {
-        
-       this.Messages = response.data[0];
-       this.$root.Messages =response.data[0];
 
+
+
+        let  SlicedResult = this.handleResults(response.data[0]);
+        
+       this.Messages = SlicedResult;
+       this.$root.Messages = SlicedResult;
+
+       
        
        this.generateUnreadMessage();
         
@@ -672,6 +857,7 @@ export default {
   font-size: 11px;
   color: #4d4d4d;
 }
+
 .imgLabel{
   font-size: 11px;
   color: #4d4d4d;

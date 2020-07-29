@@ -616,6 +616,19 @@ var blob = this.b64toBlob(realData, contentType);
              formData.append('file_size',this.documentSize);
             
         }
+  
+         
+           if(this.$root.messageStore.length != 0){
+               
+               for (let index = 0; index < this.$root.messageStore.length; index++) {
+                
+                 let arrayPopped =  this.$root.Messages.push(this.$root.messageStore[index]);
+                  
+                 
+             }
+
+             this.$root.messageStore = [];
+              }
 
          
           this.$root.Messages.push(this.$root.NewMsg);

@@ -264,6 +264,19 @@ export default {
                  this.$root.NewMsg = this.makeMessage(null,Data,null,[]);
               }
                this.$root.NewMsg.content = this.contentInWord;
+
+                if(this.$root.messageStore.length != 0){
+               
+               for (let index = 0; index < this.$root.messageStore.length; index++) {
+                
+                 let arrayPopped =  this.$root.Messages.push(this.$root.messageStore[index]);
+                  
+                 
+             }
+
+             this.$root.messageStore = [];
+              }
+
                this.$root.Messages.push(this.$root.NewMsg);
                this.$root.scrollToBottom();
 

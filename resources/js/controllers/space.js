@@ -254,6 +254,7 @@ const app = new Vue({
       NewMsg:[],
       notificationCount:0,
       notificationCountSpace:0,
+      messageStore:[],
     },
      mounted: function () {
       this.pageloader= false;
@@ -420,6 +421,9 @@ imageStyle:function(dimension,authProfile){
 
 },
   scrollToBottom: function(){
+
+   
+
     setTimeout(() => {
          
       var container = document.querySelector('#messageContainer');
