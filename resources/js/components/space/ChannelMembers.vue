@@ -137,6 +137,11 @@ export default {
              
              if (response.status == 200) {
 
+               this.$root.Messages = null;
+        this.$root.selectedSpace = [];
+
+        this.$root.forceListReload = true;
+
                this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });
                          
             }
