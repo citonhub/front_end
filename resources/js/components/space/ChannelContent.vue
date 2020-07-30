@@ -506,12 +506,8 @@ export default {
              let startCount = MsgLenght - this.$root.messageInitialLimit;
 
           
-
-          this.endPosition = startCount - 1;
-
-          this.startPosition = this.endPosition - this.messagePerLoad;
   
-          let sliedMsg = messageArray.slice(startCount,MsgLenght);
+          let sliedMsg = this.$root.returnedMessages.slice(startCount,MsgLenght);
 
          
          this.$root.messageStoreTop = this.$root.returnedMessages.slice(0,startCount);
@@ -693,8 +689,18 @@ export default {
         
        this.$root.selectedSpace = response.data[1]
 
+       setTimeout(() => {
+         
+           var container = document.querySelector('#messageContainer');
+           
+        var element =  document.querySelector('#messagebottomDiv');
+       
+        var top = element.offsetTop - 120;
+        container.scrollTo(0 , top);
+        },500)
+
    
-          this.scrollToBottom(); 
+          
    
        
      }
