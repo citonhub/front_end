@@ -536,7 +536,7 @@ export default {
         
        
         
-        if(scrollPosition <= 10 && this.$root.messageStoreTop.length != 0){
+        if(scrollPosition <= 5 && this.$root.messageStoreTop.length != 0){
 
           
           if(scrollPosition == 0){
@@ -622,9 +622,9 @@ export default {
         
          
            
-        if((scrollPosition > (containerScrollHeigth - 1300)) && this.$root.messageStore.length != 0 ){
+        if((scrollPosition > (containerScrollHeigth - 1000)) && this.$root.messageStore.length != 0 ){
          
-         container.scrollTop = containerScrollHeigth - 2000;
+         container.scrollTop = containerScrollHeigth - 1300;
 
            this.showAlert(10000,'loading messages...')
 
