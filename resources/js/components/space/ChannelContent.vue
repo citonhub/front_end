@@ -536,9 +536,12 @@ export default {
         
        
         
-        if(scrollPosition <= 200 && this.$root.messageStoreTop.length != 0){
+        if(scrollPosition <= 10 && this.$root.messageStoreTop.length != 0){
 
-        
+          
+          if(scrollPosition == 0){
+           container.scrollTop = 100;
+         }
             
 
            
@@ -619,7 +622,7 @@ export default {
         
          
            
-        if((scrollPosition > (containerScrollHeigth - 1300)) && this.$root.messageStore.length != 0 ){
+        if((scrollPosition > (containerScrollHeigth - 500)) && this.$root.messageStore.length != 0 ){
          
          container.scrollTop = containerScrollHeigth - 2000;
 
