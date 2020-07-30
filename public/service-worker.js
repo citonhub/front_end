@@ -306,7 +306,8 @@ workbox.routing.registerRoute(matcher, handler);
 
  self.addEventListener('push',event => {
      const notificationData = event.data.json();
-
+        
+         console.log(notificationData);
       var  notificationTag = notificationData.tag;
 
       var notificationFilter = {
