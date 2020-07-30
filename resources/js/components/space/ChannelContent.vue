@@ -619,6 +619,9 @@ export default {
 
      let containerScrollHeigth = container.scrollHeight;
          
+         if(scrollPosition == 0){
+           container.scrollTop = 130;
+         }
          
            
         if((scrollPosition > (containerScrollHeigth - 800)) && this.$root.messageStore.length != 0 ){
