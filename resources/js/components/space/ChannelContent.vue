@@ -543,13 +543,6 @@ export default {
         if(scrollPosition <= 200 && this.$root.messageStoreTop.length != 0){
 
           
-          if(scrollPosition == 0){
-           container.scrollTop = 100;
-         }
-            
-
-           
-             
                this.newMessagesLoading = true;
          
           
