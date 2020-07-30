@@ -13,8 +13,9 @@
  .body{
     background:#edf6f7;
   }
-  body{
-  overscroll-behavior-y: none;
+  html,
+body {
+    overscroll-behavior-y: contain;
 }
  </style>
   
