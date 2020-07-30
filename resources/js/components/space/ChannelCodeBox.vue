@@ -282,9 +282,11 @@ methods:{
               let Data = [];
               this.$root.NewMsg = this.makeMessage('code',Data);
               
-               this.$root.scrollerControlHandler();
+             
 
-               this.$root.Messages.push( this.$root.NewMsg);
+               this.$root.returnedMessages.push(this.$root.NewMsg);
+
+                 this.$root.scrollerControlHandler();
 
               
                

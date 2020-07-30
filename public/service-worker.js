@@ -73,7 +73,7 @@ workbox.routing.registerRoute(matcher, handler);
          
         }else{
 
-          notificationOptions.title = notificationOptions.data.name + ' and ' + notificationCount +' others liked your post';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' others liked your post';
         }
       
        }
@@ -87,7 +87,7 @@ workbox.routing.registerRoute(matcher, handler);
          
         }else{
 
-          notificationOptions.title = notificationOptions.data.name + ' and ' + notificationCount +' others liked your reply';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' others liked your reply';
         }
       
        }
@@ -100,7 +100,7 @@ workbox.routing.registerRoute(matcher, handler);
          
         }else{
 
-          notificationOptions.title = notificationOptions.data.name + ' and ' + notificationCount +' others liked your comment';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' others liked your comment';
         }
       
        }
@@ -113,7 +113,7 @@ workbox.routing.registerRoute(matcher, handler);
          
         }else{
 
-          notificationOptions.title = notificationOptions.data.name + ' and ' + notificationCount +' others commented on your post';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' others commented on your post';
         }
       
        }
@@ -127,7 +127,7 @@ workbox.routing.registerRoute(matcher, handler);
          
         }else{
 
-          notificationOptions.title = notificationOptions.data.name + ' and ' + notificationCount +' others pulled your post';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' others pulled your post';
         }
       
        }
@@ -140,7 +140,7 @@ workbox.routing.registerRoute(matcher, handler);
          
         }else{
 
-          notificationOptions.title = notificationOptions.data.name + ' and ' + notificationCount +' others pulled your reply';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' others pulled your reply';
         }
       
        }
@@ -153,7 +153,7 @@ workbox.routing.registerRoute(matcher, handler);
          
         }else{
 
-          notificationOptions.title = notificationOptions.data.name + ' and ' + notificationCount +' others pulled your comment';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' others pulled your comment';
         }
       
        }
@@ -168,7 +168,7 @@ workbox.routing.registerRoute(matcher, handler);
          
         }else{
 
-          notificationOptions.title = notificationOptions.data.name + ' and ' + notificationCount +' others replied your comment';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' others replied your comment';
         }
       
        }
@@ -182,7 +182,7 @@ workbox.routing.registerRoute(matcher, handler);
          
         }else{
 
-          notificationOptions.title = notificationOptions.data.name + ' and ' + notificationCount +' others connected to you';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' others connected to you';
         }
       
        }
@@ -198,7 +198,7 @@ workbox.routing.registerRoute(matcher, handler);
          
         }else{
 
-          notificationOptions.title = notificationOptions.data.name + ' and ' + notificationCount +' others commented on your project';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' others commented on your project';
 
 
           notificationOptions.body =  'Title: ' + notificationOptions.data.project.title + '\n' + ' stars: ' + notificationOptions.data.project.stars ;
@@ -233,7 +233,7 @@ workbox.routing.registerRoute(matcher, handler);
          
         }else{
           
-          notificationOptions.title = notificationOptions.data.name + ' and ' + notificationCount +' others commented on your duel';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others commented on your duel';
 
 
           notificationOptions.body =   notificationOptions.data.duel.title ;
@@ -253,7 +253,7 @@ workbox.routing.registerRoute(matcher, handler);
          
         }else{
           
-          notificationOptions.title = notificationOptions.data.name + ' and ' + notificationCount +' others liked your duel';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' others liked your duel';
 
 
           notificationOptions.body =   notificationOptions.data.duel.title ;
@@ -273,7 +273,7 @@ workbox.routing.registerRoute(matcher, handler);
          
         }else{
           
-          notificationOptions.title = notificationOptions.data.name + ' and ' + notificationCount +' others joined your duel';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others joined your duel';
 
 
           notificationOptions.body =   notificationOptions.data.duel.title +  '\n' + 'participants:' + notificationOptions.data.duel.current_participant;
@@ -307,7 +307,9 @@ workbox.routing.registerRoute(matcher, handler);
  self.addEventListener('push',event => {
      const notificationData = event.data.json();
         
-         console.log(notificationData);
+     
+        
+
       var  notificationTag = notificationData.tag;
 
       var notificationFilter = {
@@ -316,14 +318,17 @@ workbox.routing.registerRoute(matcher, handler);
 
       return self.registration.getNotifications(notificationFilter)
           .then(function(notifications) {
+            
             if (notifications && notifications.length > 0) {
              
 
-              var notificationCount = 0;
+              var notificationCount = 1;
               for (var i = 0; i < notifications.length; i++) {
                 var existingNotification = notifications[i];
-                if (existingNotification.data &&
-                  existingNotification.data.notificationCount) {
+
+               
+                 
+                if (existingNotification.data.notificationCount > 1) {
                   notificationCount +=
                   existingNotification.data.notificationCount;
                 } else {
@@ -332,8 +337,10 @@ workbox.routing.registerRoute(matcher, handler);
                 existingNotification.close();
               }
              
-              notificationData.notificationCount = notificationCount;
+              notificationData.data.notificationCount = notificationCount;
             }
+
+            
 
             return showNotification(notificationCount,notificationData);
           });

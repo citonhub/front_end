@@ -458,8 +458,10 @@ export default {
     .listen('.SpaceChannel',(e) => {
              
             if(e.actionType == 'new-message'){
+
+              
  
-                this.$root.Messages.push(e.data); 
+                this.$root.returnedMessages.push(e.data); 
 
                   this.scrollToBottom(); 
                

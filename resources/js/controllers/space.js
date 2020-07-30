@@ -278,6 +278,11 @@ const app = new Vue({
 
          
       let startCount = MsgLenght - this.$root.messageInitialLimit;
+
+       if(startCount >= 0){
+        
+        startCount = 0;
+       }
      
  
 

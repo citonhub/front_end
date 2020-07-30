@@ -1629,7 +1629,8 @@ public function triggerNotification($notificationPayload){
     
    $this->sendNotification($defaultOption);
 
-   
+   $this->notificationReport();
+
 
 }
 

@@ -265,9 +265,12 @@ export default {
               }
                this.$root.NewMsg.content = this.contentInWord;
 
+               
+
+               this.$root.returnedMessages.push(this.$root.NewMsg);
+               
                 this.$root.scrollerControlHandler();
 
-               this.$root.Messages.push(this.$root.NewMsg);
                this.$root.scrollToBottom();
 
                this.reFocus();
