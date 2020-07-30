@@ -1543,6 +1543,8 @@ array_push($newSpaceArray,$userSpace);
         "space"=> $spaceData,
         "url"=> $baseUrl
       ];
+
+      dd($notificationPayload);
   
       $this->triggerNotification($notificationPayload);
 
