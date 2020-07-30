@@ -1544,7 +1544,7 @@ array_push($newSpaceArray,$userSpace);
         "url"=> $baseUrl
       ];
 
-      dd($notificationPayload);
+      
   
       $this->triggerNotification($notificationPayload);
 
@@ -1596,6 +1596,8 @@ array_push($newSpaceArray,$userSpace);
 public function triggerNotification($notificationPayload){
       
    $allNotification = PushNotification::where('user_id',$notificationPayload["owner_id"])->get();
+
+    dd($allNotification);
 
  
   
