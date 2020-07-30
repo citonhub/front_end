@@ -582,8 +582,15 @@ export default {
                   
                     var element =  document.querySelector('#message' + elementId);
             
+             if(this.$root.messageStoreTop.length < this.messagePerLoad){
+
+             }else{
+
+                 var top = element.offsetTop - 200;
+
+             }
              
-              var top = element.offsetTop - 200;
+            
 
                let NumberToRemove = 0;
 
