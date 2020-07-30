@@ -13,6 +13,9 @@
  .body{
     background:#edf6f7;
   }
+  body{
+  overscroll-behavior-y: none;
+}
  </style>
   
  @endsection
