@@ -45,7 +45,7 @@
  @endsection
 
  @section('content')
-<div id="space" style="height:100%; width:100%;position:fixed; " class="wrapper">
+<div id="space"  class="wrapper">
 <div  style="z-index:1000000; position:fixed; width:100%; height:auto; top:0;" v-if="pageloader">
   <div class="line"></div>
   <div class="subline inc"></div>
