@@ -14,38 +14,16 @@
     background:#edf6f7;
   }
 
-.body,
-.wrapper {
-  /* Break the flow */
-  position: absolute;
-  top: 0px;
-
-  /* Give them all the available space */
-  width: 100%;
-  height: 100%;
-
-  /* Remove the margins if any */
-  margin: 0;
-
-  /* Allow them to scroll down the document */
-  overflow-y: hidden;
-}
-
-.body {
-  /* Sending body at the bottom of the stack */
-  z-index: 1;
-}
-
-.wrapper {
-  /* Making the wrapper stack above the body */
-  z-index: 2;
+html,
+body {
+    overscroll-behavior-y: contain;
 }
  </style>
   
  @endsection
 
  @section('content')
-<div id="space"  class="wrapper">
+<div id="space" style="height:100%; width:100%;position:fixed;">
 <div  style="z-index:1000000; position:fixed; width:100%; height:auto; top:0;" v-if="pageloader">
   <div class="line"></div>
   <div class="subline inc"></div>
