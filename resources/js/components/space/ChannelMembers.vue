@@ -274,4 +274,8 @@ export default {
     border:2px solid #3e868e;
     border-radius:50%;
 }
+
+body{
+  overscroll-behavior-y: none;
+}
 </style>

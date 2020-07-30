@@ -10,7 +10,7 @@
       v-on:scroll="handlePushMessage()"
        class="col-12 py-2 px-2" 
      
-        style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">  
+        style="position:absolute; width:100%; height:100%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">  
 
         <channel-messages :sources="this.$root.Messages"  :username="this.$root.username"></channel-messages>
 
@@ -886,5 +886,8 @@ export default {
   background-color: #3E8893;
   border:1px solid transparent;
   border-radius:10px;
+}
+body{
+  overscroll-behavior-y: none;
 }
 </style>

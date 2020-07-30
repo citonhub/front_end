@@ -134,4 +134,7 @@ export default {
   font-size: 10px;
   color: #a6a6a6;
 }
+body{
+  overscroll-behavior-y: none;
+}
 </style>
