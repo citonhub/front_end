@@ -3,23 +3,21 @@
 
        <div v-if="this.$root.Messages != null">
       
-      <div 
-       style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;"
-       
-       id="messageContainer"
-       v-on:scroll="handlePushMessage()"
+     
+
+     <div id="messageContainer" 
+      v-if="this.$root.Messages.length != 0"
+      v-on:scroll="handlePushMessage()"
        class="col-12 py-2 px-2" 
-       v-show="this.$root.Messages.length != 0"
-      >   
-
-        <channel-messages :sources="this.$root.Messages" :username="this.$root.username"></channel-messages>
      
-      <div class="col-12 " id="messagebottomDiv">
+        style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">  
 
-      </div>
-      
-     
-     </div>  
+        <channel-messages :sources="this.$root.Messages"  :username="this.$root.username"></channel-messages>
+
+        <div class="col-12 py-4" id="messagebottomDiv">
+          </div>      
+    </div> 
+
 
       <div v-show="this.$root.Messages.length == 0" class="col-12 my-2 py-0 px-0 mx-1 text-center"  style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;" >
        <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No message found</span>
@@ -164,7 +162,7 @@
       
       <div v-if="this.$root.ShowButton">
        
-        <span style="position:absolute; top:76%; left:2%; z-index:999998757;"  class="d-md-none d-inline-block">
+        <span style="position:absolute; top:76%; left:2%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="scrollPosition >= 1500">
           <span
                
                 v-if="!this.$root.showRootReply"
@@ -176,7 +174,7 @@
               </span>
      </span>
 
-      <span style="position:absolute; top:85%; left:2%;  z-index:999998757;" class="d-none d-md-inline-block">
+      <span style="position:absolute; top:85%; left:2%;  z-index:999998757;" class="d-none d-md-inline-block" v-if="scrollPosition >= 1500">
           <span
               
                @click="scrollToBottom"
@@ -247,8 +245,11 @@ export default {
           Codecontent:'<p>Hello HTML</p>',
           oldLoading:false,
           typinguser:'',
+          scrollHeightContainer:[],
+          scrollPosition:0,
           startPosition:0,
           messageStore: [],
+          messageStoreTop:[],
           endPosition:0,
            containerScrollPosition:0,
           typing:false,
@@ -295,6 +296,16 @@ export default {
        
     },
     methods:{
+       showAlert:function(duration,text){
+        this.$root.AlertRoot = true;
+        this.$root.AlertMsgRoot = text;
+        let _this = this;
+     
+     setTimeout(function(){
+        _this.$root.AlertRoot = false;
+     },duration);
+
+    },
        activateBot:function(){
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
             return page.page_name == 'space_content';
@@ -397,19 +408,7 @@ export default {
       },
       scrollToBottom:function(){
 
-         if(this.$root.messageStore.length != 0){
-               
-               for (let index = 0; index < this.$root.messageStore.length; index++) {
-                
-                 let arrayPopped =  this.$root.Messages.push(this.$root.messageStore[index]);
-                  
-                 
-             }
-
-             this.$root.messageStore = [];
-
-              
-              }
+         this.$root.scrollerControlHandler();
         
          setTimeout(() => {
          
@@ -494,13 +493,15 @@ export default {
       handleResults(messageArray){
 
         
+          
 
-         this.returnedMessages = messageArray;
+
+          this.$root.returnedMessages = messageArray;
           
           let MsgLenght = messageArray.length;
 
          
-             let startCount = MsgLenght - this.messageInitialLimit;
+             let startCount = MsgLenght - this.$root.messageInitialLimit;
 
           
 
@@ -510,9 +511,10 @@ export default {
   
           let sliedMsg = messageArray.slice(startCount,MsgLenght);
 
+         
+         this.$root.messageStoreTop = this.$root.returnedMessages.slice(0,startCount);
 
-
-        var finalMessage = sliedMsg;
+         var finalMessage = sliedMsg;
 
          
          
@@ -524,49 +526,55 @@ export default {
 
        
            
+
         var container = document.querySelector('#messageContainer');
 
          let scrollPosition = container.scrollTop;
 
+          let containerScrollHeigthFixed = container.scrollHeight;
+
+         this.scrollPosition = containerScrollHeigthFixed - scrollPosition;
+
         
        
         
-        if(scrollPosition < 500 && !this.messageFinished){
+        if(scrollPosition <= 200 && this.$root.messageStoreTop.length != 0){
 
-          if(this.startPosition < this.messagePerLoad){
+          
+       
+            
 
-            this.endPosition = this.startPosition -1 ;
-             this.startPosition = 0;
-
-             this.messageFinished = true;
-
-          }
+           
              
                this.newMessagesLoading = true;
-
-
-
-           let newMessageArray = this.returnedMessages.slice(this.startPosition,this.endPosition);
-
-
-
-                  
-            newMessageArray = newMessageArray.reverse();
+         
           
-             for (let index = 0; index < newMessageArray.length; index++) {
- 
-               
-               
-                 this.$root.Messages.unshift(newMessageArray[index]);
-                  
-                 
-             }
+          this.showAlert(5000,'loading messages...')
 
-            
+           let loadingArray = [];
 
+
+           if(this.$root.messageStoreTop.length < this.messagePerLoad){
              
+              loadingArray = new Array(this.$root.messageStoreTop.length);
 
+
+
+           }else{
+             
+               loadingArray = new Array(this.messagePerLoad);
+
+           }
             
+          
+             
+             for (let index = 0; index < loadingArray.length; index++) {
+               
+                 let arrayPoppedLoader =  this.$root.messageStoreTop.pop();
+                  
+                  this.$root.Messages.unshift(arrayPoppedLoader);
+             }
+             
 
            
                if(this.$root.Messages[21] != undefined){
@@ -579,11 +587,11 @@ export default {
 
                let NumberToRemove = 0;
 
-              if(this.$root.Messages.length < this.messageInitialLimit){
+              if(this.$root.Messages.length < this.$root.messageInitialLimit){
                   NumberToRemove = 10; 
               }
-              if(this.$root.Messages.length > this.messageInitialLimit){
-                 NumberToRemove = this.$root.Messages.length - this.messageInitialLimit;
+              if(this.$root.Messages.length > this.$root.messageInitialLimit){
+                 NumberToRemove = this.$root.Messages.length - this.$root.messageInitialLimit;
               }
 
             
@@ -598,9 +606,7 @@ export default {
 
              container.scrollTop = top;
 
-               this.endPosition = this.startPosition - 1;
-
-          this.startPosition = this.endPosition - this.messagePerLoad;
+            
 
           
           
@@ -608,47 +614,58 @@ export default {
                     
                }
 
-            
-          
-         
-        
-
-         
-          
-
-        
-        
+ 
         }
 
      let containerScrollHeigth = container.scrollHeight;
          
-      
+         
            
-        if(scrollPosition > (containerScrollHeigth - 1000)){
+        if((scrollPosition > (containerScrollHeigth - 800)) && this.$root.messageStore.length != 0 ){
+         
+         container.scrollTop = containerScrollHeigth - 2000;
+
+           this.showAlert(10000,'loading messages...')
+
+             let NumberArrayBottom = [];
+
+
+           if( this.$root.messageStore.length < this.messagePerLoad){
              
-              if(this.$root.messageStore.length != 0){
+              NumberArrayBottom = new Array( this.$root.messageStore.length);
+
+
+
+           }else{
+             
+               NumberArrayBottom = new Array(this.messagePerLoad);
+
+           }
+
+             for (let index = 0; index < NumberArrayBottom.length; index++) {
                
-               for (let index = 0; index < this.$root.messageStore.length; index++) {
-                
-                 let arrayPopped =  this.$root.Messages.push(this.$root.messageStore[index]);
+                 let arrayPopped =  this.$root.messageStore.shift();
                   
-                 
+                  this.$root.Messages.push(arrayPopped);
              }
 
-             this.$root.messageStore = [];
+
+              
+
+             for (let index = 0; index < NumberArrayBottom.length; index++) {
+               
+                 let arrayPoppedTop =  this.$root.Messages.shift();
+                  
+                  this.$root.messageStoreTop.push(arrayPoppedTop);
+             }
+             
+             
 
               
               }
         
-        }
+        },
 
-          
-         
-         
-
-
-
-      },  
     fetchMessages: function(){
            
            if(this.$root.Messages  == null ){
@@ -660,10 +677,10 @@ export default {
 
 
 
-        let  SlicedResult = this.handleResults(response.data[0]);
+       let returnedData = this.handleResults(response.data[0]);
         
-       this.Messages = SlicedResult;
-       this.$root.Messages = SlicedResult;
+       this.Messages = returnedData;
+       this.$root.Messages = returnedData;
 
        
        

@@ -389,8 +389,7 @@ class SpaceController extends Controller
             
          $disconnectedUsers = $spaceMembers;
      
-         dd($disconnectedUsers);
-
+        
          foreach ($activeMembers as $members) {
 
             $spaceMember = SpaceMember::where('space_id',$request->get('space_id'))->where('user_id',$members->id)->first();
@@ -1421,13 +1420,15 @@ array_push($newSpaceArray,$userSpace);
     // trigger push notification
       $messageContent = '';
 
+      
+
      if($newMessage[0]["type"] != null){
           if($newMessage[0]["type"] == 'image' || $newMessage[0]["type"] == 'audio'){
 
-            $messageContent = 'shared an '+ $newMessage[0]["type"];
+            $messageContent = 'shared an ' . $newMessage[0]["type"];
           }else{
              
-            $messageContent = 'shared a '+ $newMessage[0]["type"];
+            $messageContent = 'shared a ' . $newMessage[0]["type"];
           }
       
      }else{

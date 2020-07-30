@@ -252,6 +252,9 @@ const app = new Vue({
       drawer:false,
       sharePage:false,
       NewMsg:[],
+      messageStoreTop:[],
+      returnedMessages:[],
+      messageInitialLimit:30,
       notificationCount:0,
       notificationCountSpace:0,
       messageStore:[],
@@ -270,6 +273,23 @@ const app = new Vue({
      }
   },
   methods:{
+    scrollerControlHandler: function(){
+      let MsgLenght = this.$root.returnedMessages.length;
+
+         
+      let startCount = MsgLenght - this.$root.messageInitialLimit;
+     
+ 
+
+   let sliedMsg = this.$root.returnedMessages.slice(startCount,MsgLenght);
+
+    this.$root.Messages = sliedMsg;
+
+  
+  this.$root.messageStoreTop = this.$root.returnedMessages.slice(0,startCount);
+
+   this.$root.messageStore = [];
+    },
     logout: function(){
       document.getElementById('logout-form').submit();
     },

@@ -428,6 +428,9 @@ export default {
       this.$root.showTabs=true;
        this.$root.showHeader = true;
        this.$root.channel = null;
+       this.$root.returnedMessages = [];
+       this.$root.messageStoreTop = [];
+       this.$root.messageStore = [];
        this.$root.Messages = null;
          if(this.$root.projectData.length != 0){
               
