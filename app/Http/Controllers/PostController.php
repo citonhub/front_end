@@ -841,7 +841,6 @@ class PostController extends Controller
           "vibrate"=> [1000,500,1000],
           "tag" => $notificationPayload["tag"],
           "icon" => $notificationPayload["image"],
-          "image"=> $notificationPayload["image"],
           "requireInteraction"=> true,
           "data"=> [
              "type"=>$notificationPayload["type"],
