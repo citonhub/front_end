@@ -8,6 +8,7 @@ use App\Mail\VerifyUserEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Notification;
 use App\User;
 use DB;
 
@@ -72,10 +73,41 @@ class LoginController extends Controller
         return $this->username;
     }
 
+
+    public function createNotification($request){
+        $user = User::where('email',$request->get('username'))->first();
+
+        if($user == null){
+            $user = User::where('username',$request->get('username'))->first();
+        }
+
+        $defaultNotification = Notification::where('user_id',$user->id)->where('type_id','empty_alert')->get();
+
+        if($defaultNotification->isEmpty()){
+           
+            $newNotification = Notification::create([
+                'user_id'=> $user->id,
+                'type'=> 'new_message',
+                'data_array' => '[]',
+                'type_id'=> 'empty_alert',
+                'status'=> 'unread'
+              ]);
+            
+             $newNotification->save();
+
+        }
+           
+    }
+
     public function checkIfUserIsVerified($request){
      
         $user = User::where('email',$request->get('username'))->first();
+
+        
+        
          if($user != null){
+  
+       
               if($user->email_verified_at == null){
        
 
@@ -94,6 +126,9 @@ class LoginController extends Controller
         $this->validateLogin($request);
 
         $this->checkIfUserIsVerified($request);
+
+        $this->createNotification($request);
+
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and

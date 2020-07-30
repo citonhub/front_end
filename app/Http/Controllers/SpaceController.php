@@ -1150,6 +1150,92 @@ array_push($newSpaceArray,$userSpace);
     $spaceId = $this->generateRandomNumber(12,$characters);
 
      $userPersonalSpace = Space::where('user_id',Auth::id())->where('type','Personal')->get();
+
+     $userAssitanceAccount = Space::where('user_2',93)->where('user_1',Auth::id())->where('type','Direct')->get();
+
+      if($userAssitanceAccount->isEmpty() && Auth::id() != 93){
+
+      
+       $newSpace = Space::create([
+          "name"=> null,
+          "user_id"=> Auth::id(),
+          "type"=> 'Direct',
+          "space_id"=> $spaceId,
+          "limit" => 2,
+          "user_1"=>Auth::id(),
+          "user_2"=> 93,
+       ]);
+
+
+       $spaceMember1 = SpaceMember::create([
+         'user_id'=> Auth::id(),
+         "is_admin"=> true,
+         'space_id'=> $spaceId
+      ]);
+
+      $spaceMember1->save();
+
+      $spaceMember2 = SpaceMember::create([
+         'user_id'=> 93,
+         "is_admin"=> true,
+         'space_id'=> $spaceId
+      ]);
+
+      $spaceMember2->save();
+
+      $dmList1 = DMList::create([
+         'user_id'=> Auth::id(),
+         'other_user_id'=> 93,
+         'space_id' => $spaceId
+      ]);
+
+      $dmList1->save();
+
+      $dmList2 = DMList::create([
+         'user_id'=> 93,
+         'other_user_id'=> Auth::id(),
+         'space_id' => $spaceId
+      ]);
+      
+      $dmList2->save();
+
+      $userUnread = UnreadMessage::create([
+         'user_id'=> Auth::id(),
+         'space_id'=> $spaceId,
+         'unread'=> 1
+         ]);
+
+      $userUnread->save();
+
+
+      $defaultNotification = Notification::where('user_id',Auth::id())->where('type_id','empty_alert')->get();
+
+      if(!$defaultNotification->isEmpty()){
+      
+         $defaultNotification = Notification::where('user_id',Auth::id())->where('type_id','empty_alert')->first();
+
+         $defaultNotification->update([
+        "status"=> 'read'
+         ]);
+
+      }
+
+
+
+      $MessageContent = 'Hi <strong>' . Auth::user()->name . '</strong>, I\'m Papilo(a human)😃. I\'m here to help with any problem you have in navigating this site. And with a 
+      promise(crossing my heart 🤞🏻) that any feedback from you will be worked on within 2 days 😎'; 
+  
+      $newMessage = SpaceMessage::create([
+         "space_id"=>$spaceId,
+         "type"=>null,
+         "is_reply"=>false,
+         "user_id"=> 93,
+         "replied_message_id"=> null,
+         "content"=> $MessageContent
+      ]);
+   
+
+      }
     
      if($userPersonalSpace->isEmpty()){
        

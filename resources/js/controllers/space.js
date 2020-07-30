@@ -458,11 +458,35 @@ imageStyle:function(dimension,authProfile){
       if('serviceWorker' in navigator){
        navigator.serviceWorker.ready.then(registration => {
          if("PushManager" in window){
+            
            registration.pushManager.getSubscription().then(sub => {
+             
              if(sub == undefined){
               this.shownotificationboard = true;
              }else{
-              // update data in database;
+
+              let subObj = sub.toJSON();
+              axios.post('/save-notification',{
+                endpoint: subObj.endpoint,
+                public_key: subObj.keys.p256dh,
+                auth_token: subObj.keys.auth
+                  })
+          .then(response => {
+            
+           if (response.status == 200) {
+              
+        
+            
+            }else{
+              console.log(response.status);
+            }
+            
+            
+          })
+          .catch(error => {
+            console.log(error);
+          })
+          
             }
            })
           

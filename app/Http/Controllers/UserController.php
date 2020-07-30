@@ -275,16 +275,39 @@ class UserController extends Controller
     
 
     public function SaveNotification(Request $request){
-       $newnotification = PushNotification::create([
-         'user_id'=> Auth::id(),
-         'endpoint'=> $request->get('endpoint'),
-         'public_key'=> $request->get('public_key'),
-         'auth_token'=> $request->get('auth_token')
-       ]);
+          
+    $notificationUser = PushNotification::where('user_id',Auth::id())->first();
 
-       $newnotification->save();
+       if($notificationUser != null){
 
-      
+        $notificationUser = PushNotification::where('user_id',Auth::id())->where('public_key',$request->get('public_key'))->first();
+
+         if($notificationUser == null){
+
+
+            $newnotification = PushNotification::create([
+                'user_id'=> Auth::id(),
+                'endpoint'=> $request->get('endpoint'),
+                'public_key'=> $request->get('public_key'),
+                'auth_token'=> $request->get('auth_token')
+              ]);
+       
+              $newnotification->save();
+           }
+
+         
+       }else{
+           
+        $newnotification = PushNotification::create([
+            'user_id'=> Auth::id(),
+            'endpoint'=> $request->get('endpoint'),
+            'public_key'=> $request->get('public_key'),
+            'auth_token'=> $request->get('auth_token')
+          ]);
+   
+          $newnotification->save();
+       }
+
        return ['status','OK'];
     }
 }
