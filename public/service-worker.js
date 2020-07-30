@@ -285,14 +285,22 @@ workbox.routing.registerRoute(matcher, handler);
        
 
          if(notificationOptions.data.type == 'new_message'){
-             
+
+          let UserName = '';
+              
+          if(notificationOptions.data.space.type == 'Direct'){
+            UserName = notificationOptions.data.name;
+          }else{
+            UserName = notificationOptions.data.space.name;
+          }
+
           if(notificationCount == undefined){
 
-            notificationOptions.title = 'New message from ' +  notificationOptions.data.space.name;
+            notificationOptions.title = 'New message from ' + UserName;
            
           }else{
             
-            notificationOptions.title =  notificationCount + ' unread messages from ' + notificationOptions.data.space.name;
+            notificationOptions.title =  notificationCount + ' unread messages from ' + UserName;
   
             
           }
