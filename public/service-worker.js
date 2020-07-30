@@ -285,8 +285,6 @@ workbox.routing.registerRoute(matcher, handler);
        
 
          if(notificationOptions.data.type == 'new_message'){
-
-          console.log(notificationOptions);
              
           if(notificationCount == undefined){
 
@@ -309,7 +307,7 @@ workbox.routing.registerRoute(matcher, handler);
  self.addEventListener('push',event => {
      const notificationData = event.data.json();
         
-        
+         console.log(notificationData);
       var  notificationTag = notificationData.tag;
 
       var notificationFilter = {
