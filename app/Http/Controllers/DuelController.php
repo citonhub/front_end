@@ -963,7 +963,7 @@ class DuelController extends Controller
     $payload = [
         "title"=> '',
         "body"=> $notificationPayload["body"],
-        "badge" => "/imgs/notification.png",
+        "badge" => "/imagesNew/icons/icon-72x72.png",
         "vibrate"=> [1000,500,1000],
         "tag" => $notificationPayload["tag"],
         "icon" => $notificationPayload["image"],
