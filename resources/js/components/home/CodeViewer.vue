@@ -164,7 +164,7 @@ import dedent from 'dedent'
 export default {
        mounted(){
       this.$root.showTabs=false;
-       this.$root.showHeader = false;
+     
        this.examinCode();
 
        
@@ -225,7 +225,7 @@ methods:{
        goBack() {
         this.$root.showCodeEditor = false;
          this.$root.showTabs=true;
-       this.$root.showHeader = true;
+      
         },
       onCmReady(codemirror) {
         console.debug('onCmReady', codemirror)

@@ -34,22 +34,6 @@
                  <span style="font-size:12px;font-family:HeaderText; " class="d-block" @click.stop="viewUser(post.replied_post)" ><b>{{ post.replied_post.username }}</b></span>
               <span style="font-size:11px; color: #4d4d4d;" v-html="post.replied_post.content"></span>
 
-                <div class="py-0 pb-1 px-2 col-12 my-0" >
-
-             <div style="width:100%;" v-if="post.replied_post.attachment_type == 'image'" >
-                 <image-viewer :imageArray="post.replied_post.image"></image-viewer>
-             </div>
-
-              <div style="width:100%;" v-if="post.replied_post.attachment_type == 'video'">
-                 <video-player :videoUrl="'/videos/' + post.replied_post.video.video_name + '.' + post.replied_post.video.video_extension" :backgroundColor="post.replied_post.video.background_color"
-                  :backgroundImg="'/videos/previewImage/'+ post.replied_post.video.preview_image_url" :playerId="post.replied_post.post_id"></video-player>
-             </div>
-
-               <div style="width:100%;" v-if="post.replied_post.attachment_type == 'code'" >
-                 <code-box :codeContent="post.replied_post.code.content" :filename="post.replied_post.code.name" :codeLanguage="post.replied_post.code.language_type" :codeViewerType="viewerType"></code-box>
-             </div>
-                  
-                </div>
 
              </div>
              </div>

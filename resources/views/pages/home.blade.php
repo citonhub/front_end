@@ -305,6 +305,6 @@ body {
 
  @section('scripts')
 
- <script src="{{ asset('js/home.js?v=0.76') }}"></script>
+ <script src="{{ asset('js/home.js?v=0.71') }}"></script>
      
  @endsection
