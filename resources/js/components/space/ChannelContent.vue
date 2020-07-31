@@ -505,6 +505,10 @@ export default {
          
              let startCount = MsgLenght - this.$root.messageInitialLimit;
 
+             if(startCount <= 0){
+               startCount = 0;
+             }
+
           
   
           let sliedMsg = this.$root.returnedMessages.slice(startCount,MsgLenght);
