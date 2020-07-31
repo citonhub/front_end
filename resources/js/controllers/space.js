@@ -307,6 +307,11 @@ const app = new Vue({
         window.location = '/#/library';
       }
 
+      if(type == 'profile'){
+        this.pageloader= true;
+        window.location = '/profile';
+      }
+
       if(type == 'duel_list'){
        window.location = '/duels#/duel/list';
      }
@@ -316,8 +321,8 @@ const app = new Vue({
      }
 
      if(type == 'privacy'){
-       return;
-     }
+      window.location = '/home#/privacy-policy';
+    }
 
      if(type == 'help'){
        return;

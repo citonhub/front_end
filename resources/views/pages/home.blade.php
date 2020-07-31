@@ -135,7 +135,7 @@ body {
 
          @if(Auth::check())
       <v-card tile flat  @click="logout"  class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
-           <div class="row py-0">
+           <div class="row py-0" >
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon color="#3E8893">mdi-logout-variant</v-icon>
             </div>
@@ -184,7 +184,7 @@ body {
 
           <div class="col-9 py-0 d-flex px-1" style="align-items:center;" >
           @if(Auth::check())
-          <div class="row py-0">
+          <div class="row py-0" @click="showNavLink('profile')">
            <div class="col-12 py-0 my-0">
            <div style="font-size:13px; font-family:HeaderText;" >@{{ authProfile.name }}</div>
            <div style="font-size:11px; color:#4d4d4d;" >@{{  '@' + authProfile.username }}</div>
@@ -305,6 +305,6 @@ body {
 
  @section('scripts')
 
- <script src="{{ asset('js/home.js?v=0.71') }}"></script>
+ <script src="{{ asset('js/home.js?v=0.72') }}"></script>
      
  @endsection

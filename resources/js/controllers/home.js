@@ -18,11 +18,13 @@ import Verify from "../components/auth/Verify.vue"
 import SetUsername from "../components/auth/SetUsername.vue"
 import MakeComment from "../components/home/MakeComment.vue"
 import PostCommentView from "../components/home/PostCommentView.vue"
+import Privacy from "../components/home/Privacy.vue"
 
 
 const routes = [
   { path: '/', redirect: '/home'},
   { path: '/home', name: 'HomeController', component: HomeController},
+  { path: '/privacy-policy', name: 'Privacy', component: Privacy},
   { path: '/new-post', name: 'NewPost', component: NewPost},
   { path: '/code-editor', name: 'CodeEditor', component: CodeEditor},
   { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},
@@ -164,7 +166,12 @@ const app = new Vue({
       }
 
       if(type == 'privacy'){
-        return;
+        window.location = '/home#/privacy-policy';
+      }
+
+      if(type == 'profile'){
+        this.pageloader= true;
+        window.location = '/profile';
       }
 
       if(type == 'help'){

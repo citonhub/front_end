@@ -158,7 +158,7 @@ body {
       temporary
     >
       <div class="col-12 py-2 px-2" style="border-bottom:1px solid #c5c5c5;">
-           <div class="row py-0 my-0">
+           <div class="row py-0 my-0" >
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
             <div>
     <div  v-if="authProfile != undefined" :style="imageStyle(46,authProfile)"  
@@ -175,7 +175,7 @@ body {
          
           <div class="col-9 py-0 d-flex px-1" style="align-items:center;" >
            @if(Auth::check())
-          <div class="row py-0">
+          <div class="row py-0" @click="showNavLink('profile')">
            <div class="col-12 py-0 my-0">
            <div style="font-size:13px; font-family:HeaderText;" >@{{ authProfile.name }}</div>
            <div style="font-size:11px; color:#4d4d4d;" >@{{  '@' + authProfile.username }}</div>
@@ -299,5 +299,5 @@ body {
 
 
  @section('scripts')
-<script src="{{ asset('js/duels.js?v=1.41') }}"></script>
+<script src="{{ asset('js/duels.js?v=1.42') }}"></script>
  @endsection

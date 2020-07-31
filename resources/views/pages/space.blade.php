@@ -178,12 +178,21 @@ body {
             </div>
 
           <div class="col-9 py-0 d-flex px-1" style="align-items:center;" >
-          <div class="row py-0">
+          @if(Auth::check())
+          <div class="row py-0" @click="showNavLink('profile')">
            <div class="col-12 py-0 my-0">
            <div style="font-size:13px; font-family:HeaderText;" >@{{ authProfile.name }}</div>
            <div style="font-size:11px; color:#4d4d4d;" >@{{  '@' + authProfile.username }}</div>
            </div>
           </div>
+          @else
+          <div class="row py-0">
+           <div class="col-12 py-0 my-0">
+           <div style="font-size:13px; font-family:HeaderText;" >Name</div>
+           <div style="font-size:11px; color:#4d4d4d;" >@username</div>
+           </div>
+          </div>
+          @endif
            
           </div>
           
@@ -291,6 +300,6 @@ body {
 
  @section('scripts')
 
- <script src="{{ asset('js/space.js?v=1.10') }}"></script>
+ <script src="{{ asset('js/space.js?v=1.11') }}"></script>
      
  @endsection

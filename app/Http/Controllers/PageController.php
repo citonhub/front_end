@@ -216,6 +216,7 @@ class PageController extends Controller
         $tablabel = 'home';
         return view('pages.home',compact('tablabel'));
     }
+    
 
      
     public function handleShare($type,$uniqueId){

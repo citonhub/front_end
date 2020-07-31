@@ -300,7 +300,7 @@
                          <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Direct Messages</span>
                     </div>
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                           <v-btn icon color="#3E8893" @click="createChannel"><v-icon></v-icon></v-btn>
+                           <v-btn icon color="#3E8893"><v-icon></v-icon></v-btn>
                     </div>
                  </div>
                 </div>

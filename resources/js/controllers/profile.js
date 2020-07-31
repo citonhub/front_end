@@ -157,9 +157,14 @@ const app = new Vue({
       return;
      }
 
+     if(type == 'profile'){
+      this.pageloader= true;
+      window.location = '/profile';
+    }
+
      if(type == 'privacy'){
-       return;
-     }
+      window.location = '/home#/privacy-policy';
+    }
 
      if(type == 'help'){
        return;

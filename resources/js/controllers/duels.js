@@ -257,8 +257,13 @@ const app = new Vue({
      }
 
      if(type == 'privacy'){
-       return;
-     }
+      window.location = '/home#/privacy-policy';
+    }
+
+    if(type == 'profile'){
+      this.pageloader= true;
+      window.location = '/profile';
+    }
 
      if(type == 'help'){
        return;

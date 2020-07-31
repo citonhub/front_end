@@ -963,11 +963,10 @@ class DuelController extends Controller
     $payload = [
         "title"=> '',
         "body"=> $notificationPayload["body"],
-        "badge" => "/imgs/CitonHub.svg",
+        "badge" => "/imgs/notification.png",
         "vibrate"=> [1000,500,1000],
         "tag" => $notificationPayload["tag"],
         "icon" => $notificationPayload["image"],
-        "image"=> $notificationPayload["image"],
         "requireInteraction"=> true,
         "data"=> [
            "type"=>$notificationPayload["type"],

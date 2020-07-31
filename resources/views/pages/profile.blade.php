@@ -177,7 +177,7 @@ body {
 
           <div class="col-9 py-0 d-flex px-1" style="align-items:center;" >
           @if(Auth::check())
-          <div class="row py-0">
+          <div class="row py-0" @click="showNavLink('profile')">
            <div class="col-12 py-0 my-0">
            <div style="font-size:13px; font-family:HeaderText;" >@{{ authProfile.name }}</div>
            <div style="font-size:11px; color:#4d4d4d;" >@{{  '@' + authProfile.username }}</div>
@@ -299,6 +299,6 @@ body {
 
  @section('scripts')
 
- <script src="{{ asset('js/profile.js?v=0.49') }}"></script>
+ <script src="{{ asset('js/profile.js?v=0.50') }}"></script>
      
  @endsection
