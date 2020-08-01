@@ -75,6 +75,8 @@ export default {
               this.$root.localChannel = [];
              Echo.leave('panel.' + this.$root.projectData.project_slug);
 
+            this.$root.projectData = [];
+
           }
     },
     methods:{

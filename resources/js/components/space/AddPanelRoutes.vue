@@ -230,8 +230,8 @@ export default {
       
      if( this.$refs.form.validate()){
           this.loading = true;
-         axios.post('/save-route',{
-                duel_id: this.$route.params.duelId,
+         axios.post('/save-route-project',{
+                project_slug: this.$route.params.projectSlug,
                 path: this.path,
                 route_type: this.RouteType,
                 function_name: this.functionName,

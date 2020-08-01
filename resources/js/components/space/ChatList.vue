@@ -15,9 +15,6 @@
 
          <div class="row my-0 py-0 px-2 "  >
 
-            
-
-
               <div class="col-12 py-0 px-0 my-1 mb-2" @click="showProject ? showProject = false : showProject = true" >
                  
                  <div class="row py-0 my-0 px-2">
@@ -434,10 +431,12 @@ export default {
        this.$root.messageStoreTop = [];
        this.$root.messageStore = [];
        this.$root.Messages = null;
+       
          if(this.$root.projectData.length != 0){
               
               this.$root.localChannel = [];
              Echo.leave('panel.' + this.$root.projectData.project_slug);
+             this.$root.projectData = [];
 
           }
 

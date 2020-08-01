@@ -1,8 +1,8 @@
 <template>
-    <v-app style="font-family:BodyText;background:transparent;">
+    <v-app style="font-family:BodyText;background:transparent;overflow-x:hidden;">
 
       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
-        <div style="overflow-y:auto;position:absolute;left:0; width:100%; height:100%;">
+        <div style="overflow-y:auto;position:absolute;left:0; width:100%; overflow-x:hidden; height:100%;">
          <div class="row my-0 py-0 px-2" >
 
          <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
@@ -41,7 +41,7 @@
           class="my-2"
          >
       <v-expansion-panel>
-        <v-expansion-panel-header class="header">Front-end
+        <v-expansion-panel-header class="header">Files
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-iframe-outline</v-icon>
@@ -53,20 +53,82 @@
             <div class="col-12 py-0 my-0 mx-0 px-0 text-right" v-if="checkIfOwner()">
                <v-btn icon @click="addNewFile('front_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
             </div>
-            <v-card tile flat class="col-12 py-1 my-0 " @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" 
-             v-for="(file,index) in this.$root.frontEndFiles" :key="index">
+            <div class="py-0 my-0 col-12 px-0"   v-for="(file,index) in this.$root.frontEndFiles" :key="index">
+
+               <v-card tile flat class="col-12 py-1 my-0 "  v-if="file.language_type == 'HTML'" @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" 
+           >
                 <div class="row my-0 py-0">
                   <div class="col-2 text-center py-0 my-0 ">
-                     <v-icon color="#e34f26" v-if="file.language_type == 'HTML'">mdi-language-html5 mdi-18px</v-icon>
-                     <v-icon color="#0066ff"  v-if="file.language_type == 'CSS'">mdi-language-css3 mdi-18px</v-icon>
-                     <v-icon color="#e6b800"  v-if="file.language_type == 'JAVASCRIPT'">mdi-language-javascript mdi-18px</v-icon>
-                      <v-icon color="#0066ff" v-if="file.language_type == 'TYPESCRIPT'">mdi-language-typescript mdi-18px</v-icon>
+                     <v-icon color="#e34f26">mdi-language-html5 mdi-18px</v-icon>
                 </div>
                  <div class="col-10 py-0 my-0 ">
                     <span class="fileName">{{returnFileName(file.file_name,file.language_type)}}</span>
                 </div>
                 </div>
              </v-card>
+            </div>
+
+             <div  class="col-12 py-1 my-0 mt-2" @click="stylesShow ? stylesShow = false : stylesShow = true" style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
+                <div class="row my-0 py-0">
+                  <div class="col-2 text-center py-0 my-0 ">
+                      <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
+                </div>
+                 <div class="col-10 py-0 my-0 ">
+                    <span class="fileName">Styles</span>
+                </div>
+                </div>
+             </div>
+              <div class="py-0 my-0 col-12"   v-for="(file,index) in this.$root.frontEndFiles" :key="'style'+ index">
+             <v-slide-y-transition>
+                  <div class="col-12 py-0 my-0 px-0" v-show="stylesShow" >
+                     <div class="row py-0 my-0 px-0" v-if="file.language_type == 'CSS'">
+                         <v-card tile flat class="col-11 offset-1 py-1 my-0 "  @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" >
+                <div class="row my-0 py-0">
+                  <div class="col-2 text-center py-0 my-0 ">
+                      <v-icon color="#0066ff"  >mdi-language-css3 mdi-18px</v-icon>
+                </div>
+                 <div class="col-10 py-0 my-0 ">
+                   <span class="fileName">{{returnFileName(file.file_name,file.language_type)}}</span>
+                </div>
+                </div>
+             </v-card>
+                     </div>
+                  </div>
+             </v-slide-y-transition>
+              </div>
+
+              <div  class="col-12 py-1 my-0 mt-2 "  @click="scriptsShow ? scriptsShow = false : scriptsShow = true" style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
+                <div class="row my-0 py-0"> 
+                  <div class="col-2 text-center py-0 my-0 ">
+                      <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
+                </div>
+                 <div class="col-10 py-0 my-0 ">
+                    <span class="fileName">Scripts</span>
+                </div>
+                </div>
+             </div>
+              <div class="py-0 my-0 col-12"   v-for="(file,index) in this.$root.frontEndFiles" :key="'script' + index">
+             <v-slide-y-transition>
+                  <div class="col-12 py-0 my-0 px-0" v-show="scriptsShow">
+                     <div class="row py-0 my-0 px-0" v-if="file.language_type != 'CSS' && file.language_type != 'HTML'">
+                         <v-card tile flat class="col-11 offset-1 py-1 my-0 "  @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" >
+                <div class="row my-0 py-0"> 
+                  <div class="col-2 text-center py-0 my-0 ">
+                       <v-icon color="#e6b800"  v-if="file.language_type == 'JAVASCRIPT'">mdi-language-javascript mdi-18px</v-icon>
+                      <v-icon color="#0066ff" v-if="file.language_type == 'TYPESCRIPT'">mdi-language-typescript mdi-18px</v-icon>
+                </div>
+                 <div class="col-10 py-0 my-0 ">
+                  <span class="fileName">{{returnFileName(file.file_name,file.language_type)}}</span>
+                </div>
+                </div>
+             </v-card>
+                     </div>
+                  </div>
+             </v-slide-y-transition>
+              </div>
+
+           
+               
 
            
 
@@ -79,7 +141,7 @@
 
 
        <v-expansion-panel v-if="panelData.app_type == 'Multiple-pages' || panelData.panel_language != 'not-set'">
-        <v-expansion-panel-header class="header">Back-end
+        <v-expansion-panel-header class="header">Controllers
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-iframe-braces-outline</v-icon>
@@ -111,7 +173,7 @@
 
 
        <v-expansion-panel v-if="panelData.panel_language != 'not-set'"> 
-        <v-expansion-panel-header class="header">Router
+        <v-expansion-panel-header class="header">Web Routes
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-router</v-icon>
@@ -260,6 +322,8 @@ export default {
      language:'',
      duel:[],
      panelData:[],
+     scriptsShow:true,
+     stylesShow:true,
      
      
    }

@@ -267,7 +267,7 @@ methods:{
         console.debug('onCmCursorActivity', codemirror)
       },
          loadPage:function(){
-      this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/page-loader' });
+      this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/page-loader/user' });
    },
     fetchProject: function(){
          
