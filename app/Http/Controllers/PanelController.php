@@ -556,6 +556,8 @@ $JavascriptCodeBox->save();
           ];
          $response = Http::post($baseUrl .'/create-view-file',$requestData);
 
+          dd($response->body());
+
          $baseUrl = 'https://php.citonhub.com';
          $requestData = [
              'panel_id' =>  $newpanelId,
