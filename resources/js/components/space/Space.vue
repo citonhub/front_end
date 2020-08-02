@@ -3,6 +3,8 @@
  
      <share v-if="this.$root.showShare"></share>
 
+     <file-upload  :UploadType="this.$root.UploadType"  :UploadMessage="this.$root.UploadMessage" v-if="this.$root.UploadResources"></file-upload>
+
      <enable-notify v-if="this.$root.shownotificationboard"></enable-notify>
 
       <on-boarding  :content="this.$root.boardContent"  v-if="this.$root.showBoard" :btnLabel="this.$root.boardBtnLabel"></on-boarding>

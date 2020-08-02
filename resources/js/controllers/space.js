@@ -258,6 +258,10 @@ const app = new Vue({
       notificationCount:0,
       notificationCountSpace:0,
       messageStore:[],
+      UploadResources:false,
+      UploadType:'',
+      UploadMessage:'',
+      panelResources:[],
     },
      mounted: function () {
       this.pageloader= false;

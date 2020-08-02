@@ -105,7 +105,8 @@ export default {
         programmingLanguage:'',
          Rule:[
              v => !!v || 'File Name is required',
-           v => v.length < 30 || 'File Name must be less than 30 characters'
+           v => v.length < 30 || 'File Name must be less than 30 characters',
+            v => (v.split(' ').length <= 1) || 'no one space allowed'
          ],
           requiredRule: [
          v => !!v || 'This feild is required',

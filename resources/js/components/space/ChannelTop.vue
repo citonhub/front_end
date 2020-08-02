@@ -18,8 +18,8 @@
             </div>  
          </div>
          <div class="col-6 py-0 my-0 pt-1 text-center"  @click="showSpaceInfo">
-              <span class="TitleText d-block" v-if="this.$root.selectedSpace.type != 'Direct'">{{this.$root.selectedSpace.name}}</span>
-              <span class="TitleText d-block" v-else>{{this.$root.selectedSpace.userInfo.name}}</span>
+              <span class="TitleText d-block" v-if="this.$root.selectedSpace.type != 'Direct'"> {{shortenContent(this.$root.selectedSpace.name,22)}}</span>
+              <span class="TitleText d-block" v-else>{{shortenContent(this.$root.selectedSpace.userInfo.name,22)}}</span>
                <span class="typingText d-block" v-if="this.$root.typing">{{this.$root.typinguser}} is typing... </span>
          </div>
          <div class="col-3 py-0 my-0 px-0 text-right"  style="" >
@@ -83,6 +83,15 @@ export default {
            };
         this.$router.push({ path: '/space/' + this.$route.params.spaceId +   '/channel/board' });
        },
+        shortenContent: function(content,limit){
+             
+             if(content.length > limit){
+                let shortcontent = content.slice(0,limit);
+                 return shortcontent + '...';
+             }else{
+               return content;
+             }
+        },
   
   },
 }

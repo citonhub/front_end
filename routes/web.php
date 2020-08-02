@@ -89,6 +89,7 @@ Route::post('/save-db-table-entry','PanelController@CreateDBTableEntry');
 Route::get('/fetch-table-entries/{tableId}','PanelController@fetchDatabaseContent');
 Route::get('/run-panel/{panelId}','PanelController@runPanel');
 Route::get('/page-loader/{panelId}/{pageName}','PanelController@pageLoader');
+Route::post('/upload-panel-file','PanelController@uploadPanelFiles');
 
 
 

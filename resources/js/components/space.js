@@ -15,5 +15,5 @@ Vue.component('voice-recorder',require('./space/VoiceRecorder.vue').default);
 Vue.component('channel-code-box',require('./space/ChannelCodeBox.vue').default);
 Vue.component('code-view',require('./space/CodeView.vue').default);
 Vue.component('on-boarding',require('./auth/OnBoarding.vue').default);
-Vue.component('tool-tip',require('./auth/ToolTip.vue').default);
+Vue.component('file-upload',require('./auth/FileUpload.vue').default);
 Vue.component('enable-notify',require('./space/EnableNotify.vue').default);

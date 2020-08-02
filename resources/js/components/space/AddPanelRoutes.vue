@@ -48,7 +48,7 @@
                  placeholder="path e.g /index..."
                  hint="must begin with '/'"
                   :disabled="disableForm"
-                 :rules="requiredRule"
+                 :rules="Rule"
                  v-model="path"
                  counter="20"
             label="Path"
@@ -156,10 +156,13 @@ export default {
         programmingLanguage:'',
          Rule:[
              v => !!v || 'File Name is required',
-           v => v.length < 30 || 'File Name must be less than 30 characters'
+           v => v.length < 30 || 'File Name must be less than 30 characters',
+             v => (v.split(' ').length <= 1) || 'no one space allowed'
+           
          ],
           requiredRule: [
          v => !!v || 'This field is required',
+         
         ],
          loading:false,
          formstate:false,
