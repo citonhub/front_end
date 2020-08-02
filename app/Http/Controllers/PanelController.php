@@ -556,7 +556,7 @@ $JavascriptCodeBox->save();
           ];
          $response = Http::post($baseUrl .'/create-view-file',$requestData);
 
-          dd($response->body());
+         
 
          $baseUrl = 'https://php.citonhub.com';
          $requestData = [
@@ -648,7 +648,8 @@ public function main(){
 
          $response = Http::post($baseUrl .'/create-route',$requestData);
 
-       
+        
+         dd($response->body());
          
         
          
