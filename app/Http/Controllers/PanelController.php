@@ -401,7 +401,7 @@ class PanelController extends Controller
 
         foreach ($backEndFilesArray as $backEndFile) {
            
-            $baseUrl = 'http://php.citonhubnew.com';
+            $baseUrl = 'https://php.citonhub.com';
             $requestData = [
                 'panel_id' =>  $backEndFile['panel_id'],
                 'file_name' =>  $backEndFile['file_name']
@@ -414,7 +414,7 @@ class PanelController extends Controller
 
      public function deleteFilesFolder($oldPanelId){
 
-        $baseUrl = 'http://php.citonhubnew.com';
+        $baseUrl = 'https://php.citonhub.com';
         $requestData = [
             'panel_id' => $oldPanelId,
         ];
@@ -425,7 +425,7 @@ class PanelController extends Controller
      public function recreateFileFolder($newpanelId){
         
        
-        $baseUrl = 'http://php.citonhubnew.com';
+        $baseUrl = 'https://php.citonhub.com';
         $requestData = [
             'panel_id' =>  $newpanelId,
             'username' =>  Auth::user()->username
@@ -438,7 +438,7 @@ class PanelController extends Controller
         
         foreach ($backEndFilesArray as $file) {
             
-            $baseUrl = 'http://php.citonhubnew.com';
+            $baseUrl = 'https://php.citonhub.com';
             $requestData = [
                 'panel_id' =>  $newpanelId,
                 'file_name'=> $file['file_name'],
@@ -456,7 +456,7 @@ class PanelController extends Controller
       
             foreach ($frontEndfilesArray as $file) {
               
-                $baseUrl = 'http://php.citonhubnew.com';
+                $baseUrl = 'https://php.citonhub.com';
                 $requestData = [
                     'panel_id' =>  $newpanelId,
                     'file_name'=> $file['file_name'],
@@ -547,7 +547,7 @@ $JavascriptCodeBox->save();
 
   
 
-          $baseUrl = 'http://php.citonhubnew.com';
+          $baseUrl = 'https://php.citonhub.com';
           $requestData = [
               'panel_id' =>  $newpanelId,
               'file_name'=> 'index',
@@ -556,7 +556,7 @@ $JavascriptCodeBox->save();
           ];
          $response = Http::post($baseUrl .'/create-view-file',$requestData);
 
-         $baseUrl = 'http://php.citonhubnew.com';
+         $baseUrl = 'https://php.citonhub.com';
          $requestData = [
              'panel_id' =>  $newpanelId,
              'file_name'=> 'index',
@@ -566,7 +566,7 @@ $JavascriptCodeBox->save();
         $response = Http::post($baseUrl .'/create-view-file',$requestData);
 
 
-        $baseUrl = 'http://php.citonhubnew.com';
+        $baseUrl = 'https://php.citonhub.com';
         $requestData = [
             'panel_id' =>  $newpanelId,
             'file_name'=> 'index',
@@ -594,7 +594,7 @@ public function main(){
     "panel_id"=> $newpanelId
   ]);
 
-  $baseUrl = 'http://php.citonhubnew.com';
+  $baseUrl = 'https://php.citonhub.com';
   $requestData = [
       'panel_id' =>  $newpanelId,
       'file_name'=> 'index',
@@ -635,7 +635,7 @@ public function main(){
 
             $newRoute->save();
 
-            $baseUrl = 'http://php.citonhubnew.com';
+            $baseUrl = 'https://php.citonhub.com';
             $requestData = [
                 "panel_id"=> $panelId,
               "path"=> $route['path'],
@@ -672,7 +672,7 @@ public function main(){
 
         $newRoute->save();
 
-        $baseUrl = 'http://php.citonhubnew.com';
+        $baseUrl = 'https://php.citonhub.com';
         $requestData = [
           "panel_id"=> $projectPanel->panel_id,
           "path"=> $request->get('path'),
@@ -747,7 +747,7 @@ public function main(){
 
           $newRoute->save();
 
-          $baseUrl = 'http://php.citonhubnew.com';
+          $baseUrl = 'https://php.citonhub.com';
           $requestData = [
             "panel_id"=> $duelPanel->panel_id,
             "path"=> $request->get('path'),
@@ -788,7 +788,7 @@ public function main(){
           $newCodeBox->save();
 
       
-          $baseUrl = 'http://php.citonhubnew.com';
+          $baseUrl = 'https://php.citonhub.com';
       $requestData = [
           'panel_id' =>  $projectPanel->panel_id,
           'file_name' =>  $request->get('file_name'),
@@ -807,7 +807,7 @@ public function main(){
 
       if($request->get('code_category') == 'back_end' && $request->get('language_type') == 'PHP'){
         
-          $baseUrl = 'http://php.citonhubnew.com';
+          $baseUrl = 'https://php.citonhub.com';
           $requestData = [
               'panel_id' =>  $projectPanel->panel_id,
               'file_name'=> $request->get('file_name'),
@@ -896,7 +896,7 @@ public function main(){
             $newCodeBox->save();
 
         
-            $baseUrl = 'http://php.citonhubnew.com';
+            $baseUrl = 'https://php.citonhub.com';
         $requestData = [
             'panel_id' =>  $duelPanel->panel_id,
             'file_name' =>  $request->get('file_name'),
@@ -915,7 +915,7 @@ public function main(){
 
         if($request->get('code_category') == 'back_end' && $request->get('language_type') == 'PHP'){
           
-            $baseUrl = 'http://php.citonhubnew.com';
+            $baseUrl = 'https://php.citonhub.com';
             $requestData = [
                 'panel_id' =>  $duelPanel->panel_id,
                 'file_name'=> $request->get('file_name'),
@@ -1036,7 +1036,7 @@ public function main(){
 
           if($request->get('code_category') == 'front-end'){
             
-            $baseUrl = 'http://php.citonhubnew.com';
+            $baseUrl = 'https://php.citonhub.com';
             $requestData = [
                 'panel_id' =>  $codeBox->panel_id,
                 'file_name' =>  $codeBox->file_name,
@@ -1053,7 +1053,7 @@ public function main(){
 
           if($request->get('code_category') == 'back-end'){
             
-            $baseUrl = 'http://php.citonhubnew.com';
+            $baseUrl = 'https://php.citonhub.com';
             $requestData = [
                 'panel_id' =>  $codeBox->panel_id,
                 'file_name'=> $codeBox->file_name,
@@ -1304,7 +1304,7 @@ public function main(){
 
   public function runPanel($panelId){
      
-    $baseUrl = 'http://php.citonhubnew.com';
+    $baseUrl = 'https://php.citonhub.com';
 
    $response = Http::get($baseUrl . '/' . $panelId . '/index' );
    
@@ -1313,7 +1313,7 @@ public function main(){
 
   public function pageLoader($panelId,$pageName){
 
-    $baseUrl = 'http://php.citonhubnew.com';
+    $baseUrl = 'https://php.citonhub.com';
 
     $response = Http::get($baseUrl .'/' . $panelId . '/' . $pageName );
     
