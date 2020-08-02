@@ -284,6 +284,14 @@ export default {
         this.$root.checkIfUserIsLoggedIn();
     },
     methods:{
+       urlify:function(text) {
+      var urlRegex =  /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+     return text.replace(urlRegex, function(url) {
+     return '<a href="' + url + '" target="_blank">' + url + '</a>';
+  })
+   // or alternatively
+    // return text.replace(urlRegex, '<a href="$1">$1</a>')
+     },
       goBack() {
            this.$root.fromHome = true;
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
@@ -299,9 +307,11 @@ export default {
          }
          
        
-         this.contentInWord = this.editor.getHTML();
-         this.$root.postContent = this.editor.getHTML();
+           this.contentInWord = this.urlify(this.editor.getHTML());
 
+          
+           
+         this.$root.postContent = this.urlify(this.editor.getHTML());
           
           
       },

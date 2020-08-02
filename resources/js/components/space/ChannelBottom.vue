@@ -46,11 +46,9 @@
 </template>
 <script>
 
-import { Editor, EditorContent, EditorMenuBar  } from 'tiptap';
+import { Editor, EditorContent, EditorMenuBubble  } from 'tiptap';
 import {
-        Bold, 
-        Underline,
-        Image,BulletList,ListItem,Placeholder} from 'tiptap-extensions';
+        Placeholder} from 'tiptap-extensions';
 
 export default {
       data(){
@@ -60,9 +58,7 @@ export default {
         content: this.$root.postContent,
         extensions:[
         
-            new Bold(),
-            new Underline(),
-            new Image(),
+             
              new Placeholder({
             emptyEditorClass: 'is-editor-empty',
             emptyNodeClass: 'is-empty',
@@ -91,12 +87,20 @@ export default {
     },
     components: {
     EditorContent,
-    EditorMenuBar,
+    EditorMenuBubble,
   },
     mounted(){
      
     },
     methods:{
+       urlify:function(text) {
+      var urlRegex =  /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+     return text.replace(urlRegex, function(url) {
+     return '<a href="' + url + '" target="_blank">' + url + '</a>';
+  })
+   // or alternatively
+    // return text.replace(urlRegex, '<a href="$1">$1</a>')
+     },
        goBack() {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
@@ -117,7 +121,7 @@ export default {
          }
          
        
-         this.contentInWord = this.editor.getHTML();
+          this.contentInWord = this.urlify(this.editor.getHTML());
       
 
           this.isTyping();

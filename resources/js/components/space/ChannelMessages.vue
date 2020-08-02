@@ -713,5 +713,7 @@ export default {
 }
 </script>
 <style>
-
+.msgText a{
+   color: #3E8893;
+}
 </style>

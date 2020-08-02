@@ -90,11 +90,9 @@
      </v-app>
 </template>
 <script>
-import { Editor, EditorContent, EditorMenuBar  } from 'tiptap';
+import { Editor, EditorContent  } from 'tiptap';
 import {
-        Bold, 
-        Underline,
-        Image,BulletList,ListItem,Placeholder} from 'tiptap-extensions';
+        Placeholder} from 'tiptap-extensions';
 
 export default {
     data(){
@@ -103,9 +101,6 @@ export default {
         content: '',
         extensions:[
         
-            new Bold(),
-            new Underline(),
-            new Image(),
             new Placeholder({
             emptyEditorClass: 'is-editor-empty',
             emptyNodeClass: 'is-empty',
@@ -142,7 +137,7 @@ export default {
     components: {
     EditorContent,
      
-    EditorMenuBar,
+    
     
   },
    mounted(){
@@ -153,6 +148,14 @@ export default {
        this.fetchProject();
     },
     methods:{
+       urlify:function(text) {
+      var urlRegex =  /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+     return text.replace(urlRegex, function(url) {
+     return '<a href="' + url + '" target="_blank">' + url + '</a>';
+  })
+   // or alternatively
+    // return text.replace(urlRegex, '<a href="$1">$1</a>')
+     },
       checkifReply: function(){
             if(this.$root.is_reply_comment){
                this.labelText = 'replying ' + this.$root.replyCommentUsername;
@@ -180,8 +183,7 @@ export default {
          }
          
        
-         this.contentInWord = this.editor.getHTML();
-        
+         this.contentInWord = this.urlify(this.editor.getHTML());
 
           
           

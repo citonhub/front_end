@@ -50,7 +50,7 @@
                 </div>
         </div>
          <div class="py-1 px-2 col-12 my-0">
-                   <span style="font-size:13px; color: #333333;" v-html="post.content"></span>
+                   <span style="font-size:13px; color: #333333;" class="detectLink" v-html="post.content"></span>
                 </div>
 
                 
@@ -277,5 +277,7 @@ export default {
 }
 </script>
 <style>
-
+.detectLink a{
+   color: #3E8893;
+}
 </style>
