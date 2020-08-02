@@ -471,7 +471,7 @@ class PanelController extends Controller
 
   public function recreateDefaultFiles($newpanelId){
      
-    $panelId = "$panelId";
+    $panelId = '$panelId';
     
 // index html file
 $htmlContent = "<!DOCTYPE html>
