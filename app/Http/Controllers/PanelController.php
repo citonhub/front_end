@@ -583,9 +583,10 @@ $JavascriptCodeBox->save();
 
 public function createDefaultController($newpanelId){
     $thisVar = '$this';
+    $panelId = '$panelId';
 $phpContent ="
 public function main(){
-  return $thisVar" . '' . "->showView('index');
+  return $thisVar" . '' . "->showView('index',$thisVar" .''. "->panelId);
 }  ";
   $PHPCodeBox = CodeBox::create([
     "content"=> $phpContent,
