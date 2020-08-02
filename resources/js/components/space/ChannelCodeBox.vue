@@ -90,7 +90,7 @@
      </div> 
           <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
    :srcdoc="code" 
-    style="border: 0; height:91%; position:absolute; left:0; top:6%;" ></iframe>
+    style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%;" ></iframe>
 
      <span style="position:absolute; top:90%; left:5%;z-index:1000;">
            <v-btn
