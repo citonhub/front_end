@@ -10,7 +10,7 @@
       
 
        <div class="col-12 py-0 my-0 px-0 d-flex" style="position:absolute; height:80%; top:10%; width:100%; overflow-y:auto; overflow-x:hidden; align-items:center; justify-content:center;">
-          <v-btn icon color="#ffffff" @click="goBack" style="position:fixed;background:#3E8893;top:10%; left:3%; z-index:990679797879;" 
+          <v-btn icon color="#ffffff" @click="goBack" style="position:absolute;background:#3E8893;top:3%; left:3%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
 
            <v-img :src="this.$root.imageViewPath"></v-img>
