@@ -431,6 +431,7 @@ export default {
        this.$root.messageStoreTop = [];
        this.$root.messageStore = [];
        this.$root.Messages = null;
+       this.$root.codeEditorArray = [];
        
          if(this.$root.projectData.length != 0){
               

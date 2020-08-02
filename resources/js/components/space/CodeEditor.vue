@@ -362,6 +362,16 @@ methods:{
             
             
              if (response.status == 200) {
+
+                this.$root.codeEditorArray.map((codeFile)=>{
+          
+          if(codeFile.id == this.selectedFileId){
+           
+            codeFile.content = this.code;
+            
+           }
+
+       });
                
               this.showAlert(5000,'saved');
               this.loading = false;

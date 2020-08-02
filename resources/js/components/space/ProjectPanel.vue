@@ -757,6 +757,16 @@ export default {
          return code.id == codeBox.id;
        });
 
+       this.$root.codeEditorArray.map((codeFile)=>{
+          
+          if(codeFile.id == codeBox.id){
+           
+            codeFile.content = codeBox.content;
+            
+           }
+
+       });
+
        if(thiscodebox.length == 0){
            this.$root.codeEditorArray.unshift(codeBox);
        }

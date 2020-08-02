@@ -471,7 +471,7 @@ class PanelController extends Controller
 
   public function recreateDefaultFiles($newpanelId){
      
-    $panelId = '$panelId';
+    $panelId = '$panel';
     
 // index html file
 $htmlContent = "<!DOCTYPE html>
@@ -586,7 +586,7 @@ public function createDefaultController($newpanelId){
     $panelId = '$panelId';
 $phpContent ="
 public function main(){
-  return $thisVar" . '' . "->showView('index',$thisVar" .''. "->panelId);
+  return $thisVar" . '' . "->showView('index');
 }  ";
   $PHPCodeBox = CodeBox::create([
     "content"=> $phpContent,
