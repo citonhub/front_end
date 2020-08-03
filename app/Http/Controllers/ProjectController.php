@@ -649,4 +649,19 @@ return $newCommentArray;
 
 }
 
+public function fetchAllProjects(){
+  $allProjects = DB::table('space_members')
+  ->join('projects','projects.space_id','space_members.space_id')
+  ->select(
+     'projects.project_slug as project_slug',
+     'projects.title as title'
+  )
+  ->where('space_members.user_id',Auth::id())
+  ->orderBy('projects.created_at','desc')
+  ->get();
+
+
+  return $allProjects;
+}
+
 }

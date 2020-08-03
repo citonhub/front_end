@@ -15,7 +15,7 @@
 
          <div class="row my-0 py-0 px-2 "  >
 
-              <div class="col-12 py-0 px-0 my-1 mb-2" @click="showProject ? showProject = false : showProject = true" >
+              <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('project')" >
                  
                  <div class="row py-0 my-0 px-2">
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
@@ -34,7 +34,7 @@
                <v-slide-y-transition>
 
               
-              <div class="col-12 py-1 my-0 mx-0" v-if="showProject">
+              <div class="col-12 py-1 my-0 mx-0" v-if="this.$root.showProject">
                 <div  v-if="channelProject != null">
                     <div class="row my-0 my-0 px-0"  v-if="channelProject.length != 0">
 
@@ -110,7 +110,7 @@
              </v-slide-y-transition>
 
             
-             <div class="col-12 py-0 px-0 my-1 mb-2" @click="showChannel ? showChannel = false : showChannel = true" >
+             <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('channel')" >
                  
                  <div class="row py-0 my-0 px-2">
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
@@ -128,7 +128,7 @@
               <v-slide-y-transition>
 
               
-              <div class="col-12 py-1 my-0 mx-0" v-if="showChannel">
+              <div class="col-12 py-1 my-0 mx-0" v-if="this.$root.showChannel">
                 <div  v-if="channelSpace != null">
                     <div class="row my-0 my-0 px-0"  v-if="channelSpace.length != 0">
 
@@ -202,7 +202,7 @@
 
 
 
-                <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTeams ? showTeams = false : showTeams = true" >
+                <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('team')" >
                  
                  <div class="row py-0 my-0 px-2">
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
@@ -218,7 +218,7 @@
 
              </div>
              <v-slide-y-transition>
-              <div class="col-12 py-1 my-0 mx-0"  v-if="showTeams">
+              <div class="col-12 py-1 my-0 mx-0"  v-if="this.$root.showTeams">
                  <div  v-if="teamSpace != null">
                  <div class="row my-0 my-0 px-0"  v-if="teamSpace.length != 0">
                     <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in teamSpace"
@@ -287,7 +287,7 @@
               </div>
               </v-slide-y-transition>
 
-                <div class="col-12 py-0 px-0 my-1 mb-2" @click="showDirect ? showDirect = false : showDirect = true" >
+                <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('direct')" >
                  
                  <div class="row py-0 my-0 px-2">
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
@@ -302,7 +302,7 @@
                  </div>
                 </div>
              <v-slide-y-transition>
-              <div class="col-12 py-1 my-0 mx-0"   v-if="showDirect">
+              <div class="col-12 py-1 my-0 mx-0"   v-if="this.$root.showDirect">
                   <div  v-if="channelDirect != null">
                     <div class="row my-0 my-0 px-0"  v-if="channelDirect.length != 0">
 
@@ -451,6 +451,20 @@ export default {
        this.trackUser();
     },
     methods:{
+      showTab: function(type){
+         if(type == 'project'){
+              this.$root.showProject ? this.$root.showProject = false : this.$root.showProject = true
+         }
+         if(type == 'direct'){
+              this.$root.showDirect ? this.$root.showDirect = false : this.$root.showDirect = true
+         }
+         if(type == 'team'){
+              this.$root.showTeams ? this.$root.showTeams = false : this.$root.showTeams = true
+         }
+         if(type == 'channel'){
+              this.$root.showChannel ? this.$root.showChannel = false : this.$root.showChannel = true
+         }
+      },
          activateBot:function(){
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
             return page.page_name == 'chat_list';

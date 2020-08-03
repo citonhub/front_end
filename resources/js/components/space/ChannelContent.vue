@@ -102,6 +102,20 @@
                   </div>
 
 
+                   <div class="row py-0 my-0" v-if="this.$root.replyMessage.type == 'project'">
+                     <div class="col-3 py-0 my-0">
+                <span style="background:whitesmoke; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#3E8893">mdi-plus-network-outline mdi-18px</v-icon></span>
+                
+                     </div>
+                     <div class="col-6 py-1 my-0 text-center px-0">
+                 <span class="msgTextReply" style="color:white;">{{shortenContent(this.$root.replyMessage.project.title ,30)}}</span>
+                     </div>
+                     <div class="col-3 py-0 my-0 text-center px-0">
+                 
+                     </div>
+                  </div>
+
+
                    <div class="row py-0 my-0" v-if="this.$root.replyMessage.type == 'video'">
                      <div class="col-3 py-0 my-0 text-center">
                     <span style="background:whitesmoke; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#3E8893">mdi-video mdi-18px</v-icon></span>

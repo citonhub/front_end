@@ -122,6 +122,14 @@ class SpaceController extends Controller
       
 
       
+      if($attachment_type == 'project'){
+       
+         $newMessage->update([
+            'content' => $request->get('project_data')
+         ]);
+            
+         
+      }
 
        
 
@@ -726,7 +734,7 @@ foreach ($userDirectSpaces as $spaceDirect) {
 
 }
       
-$thisSpace = $newDirectArray[0];
+  $thisSpace = $newDirectArray[0];
 
          }
 
@@ -758,12 +766,24 @@ public function MessageEngine($messageArray,$timeArray){
            }
 
       
+        $messageMember = $this->checkDirectMessage($message["space_id"],$message["user_id"]);
+         
+        $message["member"] = $messageMember[0];
+         
 
         if($message["type"] == 'image'){
             
             $ImageMessage = ImageMessage::where('message_id',$message["message_id"])->get();
 
             $message["image"] = $ImageMessage;
+
+         }
+
+         if($message["type"] == 'project'){
+            
+            $project = Project::where('project_slug',$message["content"])->first();
+
+            $message["project"] = $project;
 
          }
 
@@ -885,6 +905,14 @@ public function MessageEngine($messageArray,$timeArray){
 
       }
 
+      if($message["type"] == 'project'){
+            
+         $project = Project::where('project_slug',$message["content"])->first();
+
+         $message["project"] = $project;
+
+      }
+
         if($message["type"] == 'code'){
            
            $CodeMessage = CodeMessage::where('message_id',$message["message_id"])->first();
@@ -920,6 +948,58 @@ public function MessageEngine($messageArray,$timeArray){
     
   
     return $newMessageArray;
+ }
+
+
+ public function checkDirectMessage($spaceId,$member_user_id){
+
+   $spaceMembers = DB::table('space_members')
+   ->join('users','users.id','space_members.user_id')
+   ->join('profiles','profiles.user_id','space_members.user_id')
+   ->select(
+      'users.username as username',
+      'users.name as name',
+      'profiles.image_name as image_name',
+      'profiles.image_extension as image_extension', 
+      'profiles.background_color as background_color',
+      'users.id as id'
+   )->where('space_members.space_id',$spaceId)
+   ->where('space_members.user_id',$member_user_id)
+   ->paginate(20);
+
+   $newSpaceMembersArray = [];
+
+ 
+
+foreach ($spaceMembers as $member) {
+ $memberArray = (array) $member;
+  
+     
+    $dmList = DMList::where('user_id',Auth::id())->where('other_user_id',$memberArray["id"])->get();
+      
+    if($dmList->isEmpty()){
+      
+       $memberArray["direct_present"] = false;
+
+    
+    }else{
+    
+       $memberArray["space_id"] = $dmList[0]->space_id;
+       $memberArray["direct_present"] = true;
+
+    }
+
+    
+     
+
+
+ 
+
+array_push($newSpaceMembersArray,$memberArray);
+
+}
+
+return $newSpaceMembersArray;
  }
 
   public function fetchSpaceMembers($spaceId){
@@ -1513,10 +1593,10 @@ array_push($newSpaceArray,$userSpace);
      if($newMessage[0]["type"] != null){
           if($newMessage[0]["type"] == 'image' || $newMessage[0]["type"] == 'audio'){
 
-            $messageContent = 'shared an ' . $newMessage[0]["type"];
+            $messageContent = "shared an " . $newMessage[0]["type"] . "\n";
           }else{
              
-            $messageContent = 'shared a ' . $newMessage[0]["type"];
+            $messageContent = 'shared a ' . $newMessage[0]["type"] . "\n";
           }
 
          

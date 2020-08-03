@@ -262,6 +262,10 @@ const app = new Vue({
       UploadType:'',
       UploadMessage:'',
       panelResources:[],
+      showTeams:false,
+      showDirect:false,
+      showChannel:false,
+      showProject:false,
     },
      mounted: function () {
       this.pageloader= false;

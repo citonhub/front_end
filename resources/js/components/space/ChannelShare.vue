@@ -43,15 +43,29 @@
              accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
               text/plain, application/pdf"/>
                 </v-btn>
-                 <v-btn icon color="#3E8893" style="background:#edf6f7;border:1px solid #3E8893;" class="mx-1"><v-icon>mdi-google-drive</v-icon></v-btn>
+                 <v-btn icon color="#3E8893" @click="showShareProject ? showShareProject = false : showShareProject = true" style="background:#edf6f7;border:1px solid #3E8893;" class="mx-1"><v-icon>mdi-plus-network-outline</v-icon></v-btn>
               </div>
 
 
-              <div class="col-12 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="progressvalue > 0">
-                             <v-progress-linear color="#3E8893" height="10px"  class="" striped :value="progressvalue" rounded>
+             <div class="col-12 py-2 my-0 px-2" v-if="showShareProject">
+                  <v-select
+         
+          :items="projectArray"
+          label="Select Project"
+          style="font-size:12px;"
+          hide-selected
+          :loading="loadingProjects"
+           item-text="title"
+           item-value="project_slug"
+           v-model="selectedProject"
+          placeholder="select..."
+          color="#4495a2"
+          small-chips
+          ></v-select>
+             </div>
 
-                          </v-progress-linear>
-                       </div>
+
+                
 
           
              
@@ -261,11 +275,16 @@ export default {
           audioUrl:'',
           progressvalue:0,
           fileUrl:'',
+          projectArray:[],
           documentSize:'',
           VideoName:'',
           documentName:'',
           audioName:'',
           audioSize:'',
+          loadingProjects:false,
+          showShareProject:false,
+          selectedProject:'',
+          
         }
     },
      components: {
@@ -273,22 +292,23 @@ export default {
   },
     mounted(){
       this.$root.is_reply = false;
-      this.fetchMessages();
+     
+      this.getAllProjects();
     },
     methods:{
-       goBack() {
-          
-       this.$root.sharePage = false;
-        },
-        fetchMessages: function(){
-          
-           axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
+      getAllProjects:function(){
+          if(this.$root.ChatList.length != 0){
+            this.projectArray = this.$root.ChatList[3].data;
+          }else{
+            this.loadingProjects = true;
+             axios.get('/fetch-user-projects')
       .then(response => {
       
       if (response.status == 200) {
         
+        this.loadingProjects = false;
      
-       this.$root.selectedSpace = response.data[1]
+       this.projectArray = response.data
        
      }
        
@@ -297,8 +317,13 @@ export default {
      .catch(error => {
     
      }) 
-
+          }
+      },
+       goBack() {
+          
+       this.$root.sharePage = false;
         },
+      
         memberHandler: function(){
 
         },
@@ -311,6 +336,7 @@ export default {
            this.audioUrl = '';
             this.fileUrl = '';
             this.codeContent = '';
+            this.showShareProject = false;
 
         },
          codeEditor: function(){
@@ -616,6 +642,27 @@ var blob = this.b64toBlob(realData, contentType);
              formData.append('file_size',this.documentSize);
             
         }
+
+        if(this.showShareProject == true){
+
+           let Data =null;
+          
+          this.$root.NewMsg = this.makeMessage('project',Data);
+
+           let projectData = this.projectArray.filter((project)=>{
+              return project.project_slug == this.selectedProject;
+              
+           });
+
+           this.$root.NewMsg.project = projectData[0];
+
+            formData.append('project_data',this.selectedProject);
+
+            this.attachment_type = 'project';
+
+            
+        }
+
   
          
          

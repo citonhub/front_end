@@ -50,8 +50,46 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0">
+               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
                          <span class="label">{{source.username}}</span>
+               </div>
+           </div>
+          </div>
+           </v-card>
+            <div  @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
+                               <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
+                             </div>
+        </div>
+
+
+
+          <!-- project -->
+        <div  :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''" :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-11 col-sm-11 offset-1 offset-lg-5 offset-md-4 py-2 px-2 ' : 'col-lg-7 col-11  col-md-8 col-sm-11   py-2 px-2 '"  v-if="source.type == 'project'">
+           <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'">
+          
+           <div class="col-12 py-2 px-0">
+                  <div class="row py-0 my-0">
+                     <div class="col-3 py-0 my-0 text-center">
+                     <span class="px-1 py-1" style="background-color:#c9e4e8;border:1px solid transparent;border-radius:50%;" ><v-icon color="#1f4247">mdi-plus-network-outline mdi-18px</v-icon></span>
+              
+                     </div>
+                     <div class="col-6 py-0 my-0 text-left px-0" >
+                        <span style="font-size:12px;" class="msgText">{{shortenContent(source.project.title,25) }}</span>
+                     </div>
+                     <div class="col-3 py-0 my-0 text-center">
+                          <v-btn icon @click.stop="showProject(source.project.project_slug)"><v-icon>mdi-arrow-right-bold-circle-outline</v-icon></v-btn>
+                     </div>
+                  </div>
+              </div>
+            
+           <div class="col-12 py-0 my-0">
+           <div class="row py-0 my-0">
+               <div class="col-4 text-left py-0 my-0">
+                      <span class="label">{{checkDatereal(source.created_at)}}</span>
+               </div>
+               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
+                       <span class="label" v-if="source.loading == false">{{source.username}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
            </div>
           </div>
@@ -103,7 +141,7 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0">
+               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
                       <span class="label">{{source.username}}</span>
                </div>
            </div>
@@ -145,7 +183,7 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0">
+               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
                       <span class="label">{{source.username}}</span>
                </div>
            </div>
@@ -169,7 +207,7 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0">
+               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
                       <span class="label" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
@@ -209,7 +247,7 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0">
+               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
                       <span class="label">{{source.username}}</span>
                </div>
            </div>
@@ -248,7 +286,7 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0">
+               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
                       <span class="label">{{source.username}}</span>
                </div>
            </div>
@@ -277,7 +315,7 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0">
+               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
                       <span class="label" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
@@ -325,7 +363,7 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0">
+               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
                       <span class="label" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
@@ -370,7 +408,7 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-              <div class="col-8 text-right py-0 my-0">
+              <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
                       <span class="label" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
@@ -415,7 +453,7 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0">
+               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
                       <span class="label" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
@@ -460,7 +498,49 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0">
+               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
+                      <span class="label" v-if="source.loading == false">{{source.username}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+           </div>
+          </div>
+           </v-card>
+       
+          <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
+                               <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
+                             </div>
+        </div>
+     
+        </div>
+
+
+
+           <!-- project reply -->
+  
+
+    <div  v-if="source.replied_message != undefined && source.is_reply == '1'" class="col-12 py-0 my-0 px-0"  >
+        <div v-if="source.is_reply == '1' && source.replied_message.type == 'project'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" >
+        <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
+              <div   @click.stop="scrollToMessage(source.replied_message.message_id)" :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' " >
+                 <div class="row py-0 my-0">
+                     <div class="col-3 py-0 my-0 text-center">
+                    <span style="background:whitesmoke; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#3E8893">mdi-plus-network-outline mdi-18px</v-icon></span>
+                 
+                     </div>
+                     <div class="col-9 py-0 my-0 text-left px-0">
+                 <span class="msgTextReply">{{shortenContent(source.replied_message.project.title ,25)}}</span>
+                     </div>
+                     
+                  </div>
+              <span class="text-right label d-block">{{source.replied_message.username}}</span>
+              </div>
+            <span  class="msgText" v-html="source.content"></span>
+            <div class="col-12 py-0 my-0">
+           <div class="row py-0 my-0">
+               <div class="col-4 text-left py-0 my-0">
+                      <span class="label">{{checkDatereal(source.created_at)}}</span>
+               </div>
+               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
                       <span class="label" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
@@ -505,7 +585,7 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0">
+               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
                       <span class="label" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
@@ -536,9 +616,180 @@ export default {
     data(){
         return{
          viewerType:'',
+         loading:false,
         }
     },
     methods:{
+       showAlert:function(duration,text){
+        this.$root.AlertRoot = true;
+        this.$root.AlertMsgRoot = text;
+        let _this = this;
+     
+     setTimeout(function(){
+        _this.$root.AlertRoot = false;
+     },duration);
+
+    },
+       createSpace: function(member){
+
+        if(member.username == this.$root.username){
+          return;
+        }
+
+        if(member.direct_present){
+         
+         this.$root.Messages = null;
+        this.$root.selectedSpace = [];
+
+        this.$root.forceListReload = true;
+      
+      this.$root.ChatList = [];
+          this.$router.push({ path: '/space/'  +  member.space_id  +  '/channel/content' + '/user' });
+
+           this.fetchMessages();
+
+
+          return;
+      
+        }
+        if(this.loading){
+            return;
+        }
+
+        this.loading = true;
+           this.showAlert(5000,'Setting up space...')
+          axios.post('/create-space',{
+                name: '',
+                limit: 2,
+                memberId: member.id,
+                type: 'Direct'
+                  })
+          .then(response => {
+             
+             if (response.status == 200) {
+
+               this.$root.Messages = null;
+        this.$root.selectedSpace = [];
+
+         if(this.$root.ChatList.length != 0){
+           this.$root.ChatList[4].unshift(response.data);
+        this.$root.forceListReload = true;
+         }
+       
+         
+
+               this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });
+
+               this.fetchMessages();
+                         
+            }
+
+          })
+          .catch(error => {
+              this.showAlert(5000,'Failed- ' + error);
+             
+          })
+
+      },
+       handleResults(messageArray){
+
+        
+          
+
+
+          this.$root.returnedMessages = messageArray;
+          
+          let MsgLenght = messageArray.length;
+
+         
+             let startCount = MsgLenght - this.$root.messageInitialLimit;
+
+             if(startCount <= 0){
+               startCount = 0;
+             }
+
+          
+  
+          let sliedMsg = this.$root.returnedMessages.slice(startCount,MsgLenght);
+
+         
+         this.$root.messageStoreTop = this.$root.returnedMessages.slice(0,startCount);
+
+         var finalMessage = sliedMsg;
+
+         
+         
+         return finalMessage;
+          
+      },
+       generateUnreadMessage: function(){
+          if(this.$root.selectedSpace.unread != 0 && this.$root.selectedSpace.unread != undefined){
+             let newUnreadMsg = {
+             content: 'You have ' + this.$root.selectedSpace.unread + ' unread messages',
+        created_at: moment().subtract(1,'hours'),
+         message_id: this.makeUUID(),
+        type:'unread', 
+             };
+          let msgCount = this.$root.Messages.length;
+
+           let msgIndex = msgCount - this.$root.selectedSpace.unread;
+
+            this.$root.Messages.splice(msgIndex,0,newUnreadMsg);
+             this.$root.selectedSpace.unread = 0;
+          }
+      },
+        fetchMessages: function(){
+           
+           
+             
+             axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
+      .then(response => {
+      
+      if (response.status == 200) {
+
+
+
+       let returnedData = this.handleResults(response.data[0]);
+        
+     
+       this.$root.Messages = returnedData;
+
+       
+       
+       this.generateUnreadMessage();
+        
+       this.$root.selectedSpace = response.data[1]
+
+       setTimeout(() => {
+         
+           var container = document.querySelector('#messageContainer');
+           
+        var element =  document.querySelector('#messagebottomDiv');
+       
+        var top = element.offsetTop - 120;
+        container.scrollTo(0 , top);
+        },500)
+
+   
+          
+   
+       
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+           
+           
+
+        },
+
+      showProject:function(projectSlug){
+        this.$router.push({ path: '/' + projectSlug +'/panel' });
+      },
         scrollToMessage: function(messageid){
            
              this.$root.Messages.map((message)=>{
