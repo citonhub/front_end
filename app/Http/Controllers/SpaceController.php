@@ -1511,16 +1511,16 @@ array_push($newSpaceArray,$userSpace);
      if($newMessage[0]["type"] != null){
           if($newMessage[0]["type"] == 'image' || $newMessage[0]["type"] == 'audio'){
 
-            $messageContent = 'shared an ' . $newMessage[0]["type"] . "\r\n" . Auth::user()->username;
+            $messageContent = 'shared an ' . $newMessage[0]["type"] . "\r\n" . 'from ' . Auth::user()->username;
           }else{
              
-            $messageContent = 'shared a ' . $newMessage[0]["type"] . "\r\n" . Auth::user()->username;
+            $messageContent = 'shared a ' . $newMessage[0]["type"] . "\r\n" .  'from ' . Auth::user()->username;
           }
       
      }else{
        
        $html = new \Html2Text\Html2Text($newMessage[0]["content"]);
-       $messageContent =  $html->getText() . "\r\n" . Auth::user()->username;
+       $messageContent =  $html->getText() . "\r\n" .  'from ' . Auth::user()->username;
      }
 
      if($userData->background_color == null){
