@@ -617,6 +617,7 @@ public function fetchMessages($spaceId){
    
      $spacemessages =DB::table('space_messages')
      ->join('users','users.id','space_messages.user_id')
+     ->join('space_members','space_members.user_id','users.id')
      ->select(
          'space_messages.content as content',
          'space_messages.type as type',
