@@ -1506,22 +1506,30 @@ array_push($newSpaceArray,$userSpace);
     // trigger push notification
       $messageContent = '';
 
+
+      $spaceData = DB::table('spaces')->where('space_id',$baseSpaceId)->first();
       
 
      if($newMessage[0]["type"] != null){
           if($newMessage[0]["type"] == 'image' || $newMessage[0]["type"] == 'audio'){
 
-            $messageContent = 'shared an ' . $newMessage[0]["type"] . "\r\n"  . Auth::user()->username;
+            $messageContent = 'shared an ' . $newMessage[0]["type"];
           }else{
              
-            $messageContent = 'shared a ' . $newMessage[0]["type"] . "\r\n"  . Auth::user()->username;
+            $messageContent = 'shared a ' . $newMessage[0]["type"];
           }
+
+         
       
      }else{
        
        $html = new \Html2Text\Html2Text($newMessage[0]["content"]);
-       $messageContent =  $html->getText() . "\r\n" . Auth::user()->username;
+       $messageContent =  $html->getText();
      }
+
+    if($spaceData->type != 'Direct'){
+      $messageContent .= "\r\n"  . Auth::user()->username;
+    }
 
      if($userData->background_color == null){
         $imagePathPost = '/imgs/usernew.png';
