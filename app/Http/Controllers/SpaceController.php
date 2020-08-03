@@ -768,8 +768,14 @@ public function MessageEngine($messageArray,$timeArray){
 
       
         $messageMember = $this->checkDirectMessage($message["space_id"],$message["user_id"]);
+
+         if(count($messageMember) != 0){
+            $message["member"] = $messageMember[0];
+         }else{
+            $message["member"] = [];
+         }
          
-        $message["member"] = $messageMember[0];
+      
          
 
         if($message["type"] == 'image'){
