@@ -24,6 +24,10 @@
          
         }
 
+        .addBorder{
+           border:1px solid #c5c5c5;
+        }
+
         .notActiveTab:hover{
          background:white; 
          border-bottom:1px solid #c5c5c5;
