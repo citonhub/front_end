@@ -84,6 +84,7 @@ export default {
         this.$router.push({ path: '/space/' + this.$route.params.spaceId +   '/channel/board' });
        },
         shortenContent: function(content,limit){
+             if(content != undefined){
              
              if(content.length > limit){
                 let shortcontent = content.slice(0,limit);
@@ -91,6 +92,9 @@ export default {
              }else{
                return content;
              }
+             
+             }
+             
         },
   
   },
