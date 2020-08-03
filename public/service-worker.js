@@ -373,4 +373,6 @@ event.notification.tag).then(function(url) {
       return clients.openWindow(redirectUrl);
     }));
   }
+
+  event.notification.close();
 });
