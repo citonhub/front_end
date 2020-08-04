@@ -66,7 +66,7 @@
                          </div>
                          <div class="col-12">
                       
-                         <video width="100%" height="240" controls>
+                         <video width="100%" height="240" controls  preload="none">
                         <source src="{{$home}}/{{$panel}}/Videos/video.mp4" >
                           
                         Your browser does not support the video tag.
