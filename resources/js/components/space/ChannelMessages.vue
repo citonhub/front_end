@@ -50,8 +50,8 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
-                         <span class="label">{{source.username}}</span>
+               <div class="col-8 text-right py-0 my-0" >
+                         <span class="label" @click.stop="createSpace(source.member)">{{source.username}}</span>
                </div>
            </div>
           </div>
@@ -87,8 +87,8 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
-                       <span class="label" v-if="source.loading == false">{{source.username}}</span>
+               <div class="col-8 text-right py-0 my-0" >
+                       <span class="label" @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
            </div>
@@ -141,8 +141,8 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
-                      <span class="label">{{source.username}}</span>
+               <div class="col-8 text-right py-0 my-0" >
+                      <span class="label" @click.stop="createSpace(source.member)">{{source.username}}</span>
                </div>
            </div>
           </div>
@@ -183,8 +183,8 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
-                      <span class="label">{{source.username}}</span>
+               <div class="col-8 text-right py-0 my-0" >
+                      <span class="label" @click.stop="createSpace(source.member)" >{{source.username}}</span>
                </div>
            </div>
           </div>
@@ -207,8 +207,8 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
-                      <span class="label" v-if="source.loading == false">{{source.username}}</span>
+               <div class="col-8 text-right py-0 my-0" >
+                      <span class="label" @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
            </div>
@@ -247,8 +247,8 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
-                      <span class="label">{{source.username}}</span>
+               <div class="col-8 text-right py-0 my-0" >
+                      <span class="label" @click.stop="createSpace(source.member)">{{source.username}}</span>
                </div>
            </div>
           </div>
@@ -286,8 +286,8 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
-                      <span class="label">{{source.username}}</span>
+               <div class="col-8 text-right py-0 my-0" >
+                      <span class="label" @click.stop="createSpace(source.member)">{{source.username}}</span>
                </div>
            </div>
           </div>
@@ -315,8 +315,8 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
-                      <span class="label" v-if="source.loading == false">{{source.username}}</span>
+               <div class="col-8 text-right py-0 my-0">
+                      <span class="label"  @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
            </div>
@@ -363,8 +363,8 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
-                      <span class="label" v-if="source.loading == false">{{source.username}}</span>
+               <div class="col-8 text-right py-0 my-0" >
+                      <span class="label" @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
            </div>
@@ -408,8 +408,8 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-              <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
-                      <span class="label" v-if="source.loading == false">{{source.username}}</span>
+              <div class="col-8 text-right py-0 my-0" >
+                      <span class="label" @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
            </div>
@@ -453,8 +453,8 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
-                      <span class="label" v-if="source.loading == false">{{source.username}}</span>
+               <div class="col-8 text-right py-0 my-0" >
+                      <span class="label"  @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
            </div>
@@ -498,8 +498,8 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
-                      <span class="label" v-if="source.loading == false">{{source.username}}</span>
+               <div class="col-8 text-right py-0 my-0" >
+                      <span class="label" @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
            </div>
@@ -540,8 +540,8 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
-                      <span class="label" v-if="source.loading == false">{{source.username}}</span>
+               <div class="col-8 text-right py-0 my-0" >
+                      <span class="label"  @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
            </div>
@@ -585,8 +585,8 @@
                <div class="col-4 text-left py-0 my-0">
                       <span class="label">{{checkDatereal(source.created_at)}}</span>
                </div>
-               <div class="col-8 text-right py-0 my-0" @click.stop="createSpace(source.member)">
-                      <span class="label" v-if="source.loading == false">{{source.username}}</span>
+               <div class="col-8 text-right py-0 my-0" >
+                      <span class="label" @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
            </div>
