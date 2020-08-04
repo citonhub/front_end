@@ -315,7 +315,7 @@
                         </div>    
                     </div>
                      <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
-                         <span class="titleText">{{space.userInfo.name}}</span>
+                         <span class="titleText">{{space.userInfo.username}}</span>
                     </div>
                     <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
                           <span class="messagesBadges" v-if="space.unread != 0"><span style="padding:2px;">{{ space.unread }}</span></span>

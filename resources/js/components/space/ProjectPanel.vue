@@ -447,33 +447,6 @@
       </div>
 
 
-       <span style="position:absolute; top:82.5%; left:3%; z-index:10;"  class="d-md-none d-inline-block">
-         <v-btn
-                color="#35747e"
-                small
-                
-                 @click="showShare"
-                class="d-block"
-                fab
-              >
-                <v-icon color="#ffffff">mdi-share-variant mdi-18px</v-icon>
-              </v-btn>
-     </span>
-
-   
-
-
-      <span style="position:absolute; top:84%; left:3%;z-index:10;" class="d-none d-md-inline-block">
-          <v-btn
-                color="#35747e"
-                small
-                 @click="showShare"
-                class="d-block"
-                fab
-              >
-                <v-icon color="#ffffff">mdi-share-variant mdi-18px</v-icon>
-              </v-btn>
-     </span>
 
 
         <span style="position:absolute; top:82.5%; right:3%; z-index:10;"  class="d-md-none d-inline-block">

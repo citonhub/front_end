@@ -17,8 +17,8 @@
         
          <div class="col-4 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
              <v-btn icon @click="showFullPage"><v-icon color="#3E8893">mdi-launch mdi-18px</v-icon></v-btn> 
-             <v-btn icon @click="showComments"><v-icon color="#3E8893">mdi-comment-text-outline mdi-18px</v-icon></v-btn> 
-                     <span style="font-size:9px; color:#a6a6a6;">{{projectData.comments}}</span>   
+             <v-btn icon @click="showShare"><v-icon color="#3E8893">mdi-share-variant mdi-18px</v-icon></v-btn> 
+                     
          </div>
       </div>
      </div>
@@ -107,6 +107,36 @@
                 <v-icon color="#ffffff">mdi-xml</v-icon>
               </v-btn>
      </span>
+
+
+
+      <span style="position:absolute; top:81.5%; left:3%; z-index:10;"  class="d-md-none d-inline-block">
+          <v-btn
+                color="#35747e"
+                small
+                 @click="showComments"
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
+              </v-btn>
+     </span>
+
+   
+
+
+      <span style="position:absolute; top:86%; left:3%;z-index:9000000000099;" class="d-none d-md-inline-block">
+          <v-btn
+                color="#35747e"
+                small
+                 @click="showComments"
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
+              </v-btn>
+     </span>
+
        </div>
 
         <v-fade-transition>
@@ -160,6 +190,11 @@ export default {
        this.trackUser();
     },
     methods:{
+       showShare:function(){
+           this.$root.shareText = 'Check out this project on CitonHub';
+           this.$root.shareLink = 'https://www.citonhub.com/link/project/' + this.$route.params.projectSlug + '/user' ; 
+            this.$root.showShare = true;
+        },
       showFullPage:function(){
 
           window.open('/run-panel/' + this.projectData.panel_id, '_blank');

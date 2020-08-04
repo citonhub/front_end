@@ -147,6 +147,7 @@ const app = new Vue({
   
   methods:{
     logout: function(){
+      this.$root.pageloader = true;
       document.getElementById('logout-form').submit();
     },
     showNavigator:function(){

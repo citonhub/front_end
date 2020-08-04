@@ -322,6 +322,7 @@ const app = new Vue({
    this.$root.messageStore = [];
     },
     logout: function(){
+      this.$root.pageloader = true;
       document.getElementById('logout-form').submit();
     },
     showNavigator:function(){
