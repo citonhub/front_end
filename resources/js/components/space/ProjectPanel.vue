@@ -449,7 +449,7 @@
 
 
 
-        <span style="position:absolute; top:82.5%; right:3%; z-index:10;"  class="d-md-none d-inline-block">
+        <span style="position:absolute; top:82.5%; right:3%; z-index:10; "  class="d-md-none d-inline-block sliderfullBtn">
           <v-btn
                 color="#35747e"
                 small
@@ -464,7 +464,7 @@
    
 
 
-      <span style="position:absolute; top:84%; right:3%;z-index:10;" class="d-none d-md-inline-block">
+      <span style="position:absolute; top:84%; right:3%;z-index:10;" class="d-none d-md-inline-block sliderfullBtn">
           <v-btn
                 color="#35747e"
                 small

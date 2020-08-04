@@ -16,7 +16,7 @@
 
         
          <div class="col-4 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
-             <v-btn icon @click="showFullPage"><v-icon color="#3E8893">mdi-launch mdi-18px</v-icon></v-btn> 
+             <v-btn icon @click="showFullPage" class="sliderfullBtn"><v-icon color="#3E8893">mdi-launch mdi-18px</v-icon></v-btn> 
              <v-btn icon @click="showShare"><v-icon color="#3E8893">mdi-share-variant mdi-18px</v-icon></v-btn> 
                      
          </div>

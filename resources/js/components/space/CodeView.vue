@@ -21,7 +21,7 @@ import dedent from 'dedent'
   import 'codemirror/lib/codemirror.css'
 
   // theme css
-  import 'codemirror/theme/base16-dark.css'
+  import 'codemirror/theme/base16-light.css'
 
   // language
   import 'codemirror/mode/vue/vue.js'
@@ -72,7 +72,7 @@ export default {
     }
    },
    mounted(){
-     this.detectchange(this.$root.codeLanguage);
+     this.detectchange(this.codeLanguage);
    },
     data(){
         return{
@@ -85,7 +85,7 @@ export default {
           line: true,
           keyMap: "sublime",
           mode: 'text/html',
-          theme: 'base16-dark',
+          theme: 'base16-light',
           readOnly: 'nocursor',
           extraKeys: {
              "F11": function(cm) {
@@ -201,7 +201,7 @@ methods:{
       margin: 0;
       height: 100%;
        display: block;
-      font-size: 11px;
+      font-size: 12px;
       
       line-height: 1.6;
       word-break: break-all;
