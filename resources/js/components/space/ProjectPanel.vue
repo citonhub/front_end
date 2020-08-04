@@ -483,7 +483,7 @@
 export default {
      data(){
    return{
-     panel:[],
+     panel:this.$root.panel,
      codeFiles:[],
      backEndFiles:[],
      frontEndFiles:[],
@@ -563,9 +563,11 @@ export default {
       
    },
     showHowTo: function(){
+       this.$root.panel = this.panel;
       this.$router.push({ path: '/how-to' });
    },
    addDBTable: function(){
+     this.$root.panel = this.panel;
       
       this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/create-db-table' });
 
@@ -711,6 +713,7 @@ export default {
         
       },
    addNewRoute: function(is_edit,route = []){
+     this.$root.panel = this.panel;
       this.$root.is_edit = is_edit;
 
          if(is_edit == 'true'){
@@ -720,11 +723,13 @@ export default {
        this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/add-panel-route' });
    },
      PanelSettingsCheck(settingStatus){
+       this.$root.panel = this.panel;
           if(!settingStatus.is_set){
              this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/panel/settings' });
           }
       },
    showEditor: function(codeBox,catType){
+     this.$root.panel = this.panel;
        this.$root.forcePanelReload = false;
        var thiscodebox = this.$root.codeEditorArray.filter((code)=>{
          return code.id == codeBox.id;
@@ -751,6 +756,7 @@ export default {
     this.$router.push({ path: '/' +  this.$route.params.projectSlug  +'/code-editor' });
    },
    databaseTable: function(database){
+     this.$root.panel = this.panel;
       this.$root.SelectedTable = database;
      
        this.$router.push({ path: '/' +  this.$route.params.projectSlug  +'/db-table' });
@@ -762,10 +768,12 @@ export default {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
    addNewFile:function(codeType){
+     this.$root.panel = this.panel;
         this.$root.panelLanguage = this.panelData.panel_language;
        this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/' + codeType + '/add-new-file' });
    },
    goToSettings:function(){
+     this.$root.panel = this.panel;
       this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/panel/settings' });
    },
    
@@ -855,6 +863,7 @@ export default {
        },
 
    loadPage:function(){
+     this.$root.panel = this.panel;
       this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/page-loader' + '/user' });
    },
   

@@ -266,6 +266,7 @@ const app = new Vue({
       showDirect:false,
       showChannel:false,
       showProject:false,
+      panel:[],
     },
      mounted: function () {
       this.pageloader= false;
