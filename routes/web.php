@@ -25,6 +25,7 @@ Route::get('/share/{type}/{uniqueId}','PageController@handleShare');
 Route::get('/view-profile','PageController@viewProfile');
 Route::get('/link/{type}/{uniqueId}/{referral}','PageController@handelLink');
 Route::post('/url/metadata','PageController@fetchURLMetaData');
+Route::get('/sample','PageController@sample');
 
 //Users routes
 Route::post('/save-notification','UserController@SaveNotification');

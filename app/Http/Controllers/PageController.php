@@ -224,6 +224,10 @@ class PageController extends Controller
         
     }
 
+    public function sample(){
+        return view('pages.codebox');
+    }
+
     public function testMail(){
         Mail::to('sample@myemail.com')->send(new VerifyUserEmail());
 

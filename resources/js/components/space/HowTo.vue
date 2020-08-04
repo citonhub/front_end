@@ -46,14 +46,14 @@
                  </ul>
 
                   <span>To include a new HTML file with name about.html, <b class="headingTextBolder">fileId</b> = '983456792'</span>
-                  <code-view :codeLanguage="'HTML'" :codeContent="'@include(\'983456792.about\')'"></code-view>  <br> <br>
+                  <code-view :codeLanguage="'HTML'" :codeContent="'@include($panel . \'.about\')'"></code-view>  <br> <br>
 
 
                   <span>To include a new CSS file with name about.css, <b class="headingTextBolder">fileId</b> = '983456792'</span>
-                  <code-view :codeLanguage="'HTML'" :codeContent="'@include(\'983456792.styles.about\')'"></code-view> <br> <br>
+                  <code-view :codeLanguage="'HTML'" :codeContent="'@include( $panel . \'.Styles.about\')'"></code-view> <br> <br>
 
                    <span>To include a new JS/TS file with name about.js, <b class="headingTextBolder">fileId</b> = '983456792'</span>
-                  <code-view :codeLanguage="'HTML'" :codeContent="'@include(\'983456792.scripts.about\')'"></code-view> <br> <br>
+                  <code-view :codeLanguage="'HTML'" :codeContent="'@include( $panel . \'.Scripts.about\')'"></code-view> <br> <br>
 
                </span>
              </div>
@@ -98,7 +98,7 @@
                  Routes can be POST or GET. <br>You need to add a new route in your panel to make it work.<br>
                 
                   <span>To call a GET route with name '/index', calling the a function in the index.php file, <b class="headingTextBolder">fileId</b> = '983456792'</span>
-                  <code-view :codeLanguage="'HTML'" :codeContent="'/983456792/index'"></code-view>  <br> <br>
+                  <code-view :codeLanguage="'HTML'" :codeContent="'/{{ $panel }}/index'"></code-view>  <br> <br>
                 
 
                </span>

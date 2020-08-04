@@ -693,6 +693,8 @@ export default {
         },
 
     fetchMessages: function(){
+
+      
            
            if(this.$root.Messages  == null ){
              
@@ -700,7 +702,6 @@ export default {
       .then(response => {
       
       if (response.status == 200) {
-
 
 
        let returnedData = this.handleResults(response.data[0]);

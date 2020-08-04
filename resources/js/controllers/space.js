@@ -281,6 +281,24 @@ const app = new Vue({
      }
   },
   methods:{
+    LocalStore:function(key,data){
+     
+      localforage.setItem(key,data).then(function (value) {
+       
+        console.log(value);
+    }).catch(function(err) {
+        // This code runs if there were any errors
+        console.log(err);
+    });
+
+    },
+    getLocalStore:function(key){
+      localforage.getItem(key, function(err, value) {
+        // Run this code once the value has been
+        // loaded from the offline store.
+        console.log(value);
+    });
+    },
     scrollerControlHandler: function(){
       let MsgLenght = this.$root.returnedMessages.length;
 
