@@ -188,7 +188,7 @@
                       <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
                 </div>
                  <div class="col-8 py-0 my-0 ">
-                    <span class="fileNamenew">Frameworks</span>
+                    <span class="fileNamenew">Framework</span>
                 </div>
                 <div class="col-2 py-0 my-0 text-center " @click.stop="showUpload('Framework','Code file')">
                    <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
@@ -367,7 +367,7 @@
       </v-expansion-panel>
 
 
-       <v-expansion-panel v-if="panelData.panel_language != 'not-set'"> 
+       <v-expansion-panel > 
         <v-expansion-panel-header class="header">Web Routes
 
           <template v-slot:actions>
@@ -402,7 +402,7 @@
 
      
 
-       <v-expansion-panel v-if="panelData.panel_language != 'not-set'">
+       <v-expansion-panel>
        <v-expansion-panel-header class="header">Database Tables
 
           <template v-slot:actions>

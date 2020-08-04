@@ -38,21 +38,21 @@
               <div class="col-12 py-0 my-1 text-left">
                <span class="headingText">
                  To include new files in your HTML use @include(fileType.fileName)...<br>
-
+                    
                  <ul>
                     
                       <li> <b class="headingTextBolder">fileType</b> can be 'styles' for css files, 'scripts' for Javascript or Typescript or empty for HTML files</li>
                      <li><b class="headingTextBolder">fileName</b> is the name of the file as shown in the panel</li>
                  </ul>
 
-                  <span>To include a new HTML file with name about.html,
+                  <span>To include a new HTML file with name about.html,</span>
                   <code-view :codeLanguage="'HTML'" :codeContent="'@include($panel . \'.about\')'"></code-view>  <br> <br>
 
 
-                  <span>To include a new CSS file with name about.css,
+                  <span>To include a new CSS file with name about.css,</span>
                   <code-view :codeLanguage="'HTML'" :codeContent="'@include( $panel . \'.Styles.about\')'"></code-view> <br> <br>
 
-                   <span>To include a new JS/TS file with name about.js,
+                   <span>To include a new JS/TS file with name about.js,</span>
                   <code-view :codeLanguage="'HTML'" :codeContent="'@include( $panel . \'.Scripts.about\')'"></code-view> <br> <br>
 
                </span>
@@ -97,7 +97,7 @@
                <span class="headingText">
                  Routes can be POST or GET. <br>You need to add a new route in your panel to make it work.<br>
                 
-                  <span>To call a GET route with name '/index', calling the a function in the index.php file,
+                  <span>To call a GET route with name '/index', calling the a function in the index.php file,</span>
                   <code-view :codeLanguage="'HTML'" :codeContent="'/{{ $panel }}/index'"></code-view>  <br> <br>
                 
 

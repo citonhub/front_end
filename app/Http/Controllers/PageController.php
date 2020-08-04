@@ -14,6 +14,7 @@ use App\Project;
 use App\Profile;
 use Illuminate\Support\Facades\Mail;
 use App\CustomClass\Curler;
+use Illuminate\Support\Facades\Storage;
 use App\CustomClass\MetaParser;
 use App\DuelTeam;
 
@@ -224,9 +225,7 @@ class PageController extends Controller
         
     }
 
-    public function sample(){
-        return view('pages.codebox');
-    }
+  
 
     public function testMail(){
         Mail::to('sample@myemail.com')->send(new VerifyUserEmail());

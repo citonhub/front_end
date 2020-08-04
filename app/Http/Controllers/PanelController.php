@@ -18,6 +18,7 @@ use App\DuelPanel;
 use App\DuelTeamMember;
 use App\PanelResource;
 use App\DuelTeam;
+use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use App\Events\PanelChannel;
 
@@ -219,6 +220,10 @@ class PanelController extends Controller
 
           $this->deleteFilesFromServer($panel->id);
 
+          $this->deleteDefaultResources($panel->id);
+
+          $this->recreateDefaultResources($randomString);
+
          
 
            
@@ -252,6 +257,12 @@ class PanelController extends Controller
          [
           "path"=> '/index',
           "function_name"=>'main',
+          "file_name"=>'index',
+          "route_type"=> 'get'
+         ],
+         [
+          "path"=> '/new-page',
+          "function_name"=>'anotherPage',
           "file_name"=>'index',
           "route_type"=> 'get'
          ]
@@ -319,6 +330,10 @@ class PanelController extends Controller
 
           $this->deleteFilesFromServer($panel->id);
 
+          $this->deleteDefaultResources($panel->id);
+
+          $this->recreateDefaultResources($randomString);
+
          
 
            
@@ -381,12 +396,93 @@ class PanelController extends Controller
           "function_name"=>'main',
           "file_name"=>'index',
           "route_type"=> 'get'
+         ],
+         [
+          "path"=> '/new-page',
+          "function_name"=>'anotherPage',
+          "file_name"=>'index',
+          "route_type"=> 'get'
          ]
        ];
 
       $this->createRoute($routeArray,$randomString);
         
      }
+
+
+    public function deleteDefaultResources($panelId){
+
+      $allResources = PanelResource::where('panel_id',$panelId)->get();
+
+       foreach ($allResources as $resource) {
+         $resource->delete();  
+       }
+
+       Storage::disk('resources')->deleteDirectory($panelId);
+
+    }
+
+    public function recreateDefaultResources($panelId){
+
+      $fileArray = [
+        0=>  ["jquery.js","Framework"],
+        1=>  ["vue.js","Framework"],
+        2=>  ["angular.js","Framework"],
+        3 =>  ["bootstrap.min.js","Framework"],
+        4=>  ["bootstrap.min.css","Framework"],
+        5=> [ "mdb.min.css","Framework"],
+        6 => ["build.jpg","Images"],
+        7 => ["team.jpg","Images"],
+        8 => ["homeimg1.jpg","Images"],
+        9 => ["image.jpg","Images"],
+        10=> ["video.mp4","Videos"],
+        11 => ["newpage.jpg",'Images']
+      ];
+
+      foreach ($fileArray as $key => $value) {
+       
+       
+        $newPanelResource = PanelResource::create([
+          "user_id"=>Auth::id(),
+          "panel_id"=> $panelId,
+          "type"=> $value[1],
+          "file_full_name"=>  $value[0]
+        ]);
+      
+      
+        $newPanelResource->save();
+
+         
+      }
+     
+     
+
+       $filePathArray = [
+        "jquery.js" => "Framework/jquery.js",
+         "vue.js" =>"Framework/vue.js",
+         "angular.js" => "Framework/angular.js",
+         "bootstrap.min.js"=>"Framework/bootstrap.min.js",
+         "bootstrap.min.css" => "Framework/bootstrap.min.css",
+          "mdb.min.css"=>"Framework/mdb.min.css",
+          "build.jpg" => "Images/build.jpg",
+          "team.jpg" => "Images/team.jpg",
+          "image.jpg" => "Images/image.jpg",
+          "homeimg1.jpg" => "Images/homeimg1.jpg",
+          "video.mp4" => "Videos/video.mp4",
+          "newpage.jpg"=> "Images/newpage.jpg"
+       ];
+
+       foreach ($filePathArray as $key => $value) {
+          
+        $filePath = '/var/www/citonhubnew/public/default/' . $key; 
+
+        $fileContent = file_get_contents($filePath);
+
+        Storage::disk('resources')->put( $panelId . '/' . $value , $fileContent);
+
+       }
+
+    }
 
     public function deleteFilesFromServer($panelId){
         $allCodeFiles = CodeBox::where('panel_id',$panelId)->get();
@@ -473,29 +569,14 @@ class PanelController extends Controller
      
     $panelId = '$panel';
     
-// index html file
-$htmlContent = "<!DOCTYPE html>
-<html>
-<head>
-<title>Let's Build it!</title>
-<!-- include style file -->
- 
+    $filePath = '/var/www/citonhubnew/resources/views/pages/codebox.blade.php'; 
 
-@include($panelId  . '.Styles.index')
+    $htmlContent = file_get_contents($filePath);
 
 
-</head>
-<body>
-        
-<h1>Your First Page on CitonHub</h1>
+    $filePath2 = '/var/www/citonhubnew/resources/views/pages/codeboxnew.blade.php'; 
 
-<!-- include script file -->
-
-@include($panelId  . '.Scripts.index')
-
-
-</body>
-</html>";
+    $htmlContent2 = file_get_contents($filePath2);
 
 $cssContent = "<style>
 body{
@@ -517,7 +598,16 @@ $HtmlCodeBox = CodeBox::create([
   "panel_id"=> $newpanelId
 ]);
 
-$HtmlCodeBox->save();
+$HtmlCodeBox2 = CodeBox::create([
+  "content"=> $htmlContent2,
+  "language_type"=> "HTML",
+  "file_name"=> "NewPage",
+  "type"=> "front_end",
+  "user_id"=> Auth::id(),
+  "panel_id"=> $newpanelId
+]);
+
+$HtmlCodeBox2->save();
 
 $CssCodeBox = CodeBox::create([
   "content"=> $cssContent,
@@ -556,6 +646,16 @@ $JavascriptCodeBox->save();
           ];
          $response = Http::post($baseUrl .'/create-view-file',$requestData);
 
+
+         $baseUrl = 'https://php.citonhub.com';
+         $requestData = [
+             'panel_id' =>  $newpanelId,
+             'file_name'=> 'NewPage',
+             'content'=> $htmlContent2,
+             'language_type'=> 'HTML'
+         ];
+        $response = Http::post($baseUrl .'/create-view-file',$requestData);
+
          
 
          $baseUrl = 'https://php.citonhub.com';
@@ -587,7 +687,11 @@ public function createDefaultController($newpanelId){
 $phpContent ="
 public function main(){
   return $thisVar" . '' . "->showView('index');
-}  ";
+} 
+
+public function anotherPage(){
+  return $thisVar" . '' . "->showView('NewPage');
+} ";
   $PHPCodeBox = CodeBox::create([
     "content"=> $phpContent,
     "language_type"=> "PHP",
@@ -650,8 +754,7 @@ public function main(){
          $response = Http::post($baseUrl .'/create-route',$requestData);
 
         
-         dd($response->body());
-         
+        
         
          
         }
@@ -1067,6 +1170,8 @@ public function main(){
             ];
            $response = Http::post($baseUrl .'/create-controller',$requestData);
 
+          
+          
          
            
           }

@@ -26,7 +26,7 @@
                  style="opacity:0;width:100%; height:100%; overflow:hidden; position:absolute; z-index:10;"
                 accept="audio/*"/>
 
-                 <input type="file"  v-if="UploadType == 'Aideos'"
+                 <input type="file"  v-if="UploadType == 'Videos'"
                  @change="fileHandler"
                  style="opacity:0;width:100%; height:100%; overflow:hidden; position:absolute; z-index:10;"
                   accept="video/mp4,video/x-m4v,video/*"/>
@@ -176,7 +176,7 @@ export default {
              
              this.fileSize =  this.bytesToSize(files[0].size);
              this.fileName = files[0].name;
-           if(fileSize <= 1000000){
+           if(fileSize <= 10000000){
               fr.addEventListener('load', () => {
           this.fileUrl = fr.result;
           

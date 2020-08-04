@@ -538,7 +538,7 @@ methods:{
     .pre {
       width: 100%;
       margin: 0;
-     
+        padding-top:12px;
        display: block;
       font-size: 12px;
       line-height: 1.6;

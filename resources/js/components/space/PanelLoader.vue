@@ -10,10 +10,13 @@
          <div class="col-2 py-0 my-0 text-left px-1" style="border-bottom:2px solid #4495a2;" >
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
-         <div class="col-7 py-0 my-0 d-flex px-0 text-left"  style="border-bottom:2px solid #4495a2; align-items:center;" >
-             <span  v-if="projectData.length != 0" style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">{{shortenContent(projectData.title,35)}}</span>
+         <div class="col-6 py-0 my-0 d-flex px-0 text-left"  style="border-bottom:2px solid #4495a2; align-items:center;" >
+             <span  v-if="projectData.length != 0" style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">{{shortenContent(projectData.title,30)}}</span>
          </div>
-         <div class="col-3 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
+
+        
+         <div class="col-4 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
+             <v-btn icon @click="showFullPage"><v-icon color="#3E8893">mdi-launch mdi-18px</v-icon></v-btn> 
              <v-btn icon @click="showComments"><v-icon color="#3E8893">mdi-comment-text-outline mdi-18px</v-icon></v-btn> 
                      <span style="font-size:9px; color:#a6a6a6;">{{projectData.comments}}</span>   
          </div>
@@ -157,6 +160,10 @@ export default {
        this.trackUser();
     },
     methods:{
+      showFullPage:function(){
+
+          window.open('/run-panel/' + this.projectData.panel_id, '_blank');
+      },
        activateBot:function(){
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
             return page.page_name == 'project_page_loader';
