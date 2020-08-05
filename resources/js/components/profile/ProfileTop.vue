@@ -13,7 +13,7 @@
          </div>
          <div class="col-4 d-flex my-0 py-0" style="align-items:center; justify-content:center;">
             <div>
-                  <v-img v-if="this.$root.profileDetails != null"
+                  <v-img v-if="this.$root.profileDetails != null" @click="viewFullImage()"
                    :style="this.$root.profileDetails.background_color != null ?  'background-color:'   + this.$root.profileDetails.background_color + ';' : 'background-color:#ffffff;'" 
                    :src="this.$root.profileDetails.image_name != null ? 'imgs/profile/' + this.$root.profileDetails.image_name + '.' + this.$root.profileDetails.image_extension : 'imgs/usernew.png'" height="90" width="90" class="avatarImg" style="border:3px solid #3E8893;border-radius:50%;"></v-img>
 
@@ -161,6 +161,11 @@ export default {
          editProfile:function(){
                this.$router.push({ path: '/edit' });
          },
+         viewFullImage:function(imageData){
+            this.$root.fullImageViewer = true;
+            this.$root.fullImageColor = this.$root.profileDetails.background_color;
+            this.$root.imageViewPath = 'imgs/profile/' + this.$root.profileDetails.image_name + '.' + this.$root.profileDetails.image_extension;
+        },
          showConnections:function(){
          if(this.$root.checkauthroot == 'auth' && this.$root.username == this.$root.profileDetails.username){
             this.$router.push({ path: '/profile/connections/' + this.$route.params.username  });
