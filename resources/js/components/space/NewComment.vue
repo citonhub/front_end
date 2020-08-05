@@ -29,7 +29,7 @@
         <v-col cols=12 >
          
 
-            <div class="editor2">
+            <div class="editor">
           
              <editor-content class="editor-box2" :editor="editor" :onUpdate="countCharacter()"   />
             </div>
@@ -111,28 +111,8 @@ export default {
            
         ],
         
-      }),
-       editorRules: new Editor({
-        content: '',
-        extensions:[
-        
-           
-            new ListItem(),
-            new BulletList()
-           
-        ],
-        
-      }),
-     
-        Alert:false,
-        alertMsg:'',
-        wordLimit:200,
-     wordCount:0,
-     contentInWord:'',
-    editFeild:false,
-     loading:false,
-     labelText: '',
-        }
+      })
+    }
     },
     components: {
     EditorContent,
