@@ -29,6 +29,7 @@
                  placeholder="username..."
             label="Username"
              dense
+             persistent-hint
              hint="Just something cool"
              :error="usernameExist"
              v-model="usernameValue"

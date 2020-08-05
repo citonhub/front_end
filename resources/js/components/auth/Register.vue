@@ -31,6 +31,7 @@
             counter="20"
             hint="What your parents called you"
             v-model="name"
+            persistent-hint
             :rules="nameRule"
              dense
              color="#4495a2"
@@ -45,7 +46,7 @@
                  placeholder="email..."
             label="Email"
              v-model="email"
-            
+            persistent-hint
             :rules="emailRule"
              :error="emailExist"
              dense
@@ -63,6 +64,7 @@
              dense
              hint="Don't tell anyone, not even your mum."
               v-model="password"
+              persistent-hint
               counter="20"
             :rules="passwordRule"
              type="password"

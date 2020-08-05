@@ -29,9 +29,11 @@
           v-model="backEndLang"
           :items="back_languages"
           label="Back-end Language"
+          persistent-hint
           style="font-size:12px;"
           :rules="requiredRule"
           hide-selected
+          hint="For front-end application,click continue"
           placeholder="select..."
           color="#4495a2"
           small-chips
@@ -42,7 +44,7 @@
 
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="savePanelSettings">Save</v-btn>
+                  <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="savePanelSettings">Continue</v-btn>
              </div>
               
           </v-form>
@@ -92,7 +94,7 @@ export default {
            'Yes','No' 
         ],
         appType:'',
-        backEndLang:'not-set',
+        backEndLang:'PHP',
          Rule:[
              v => !!v || 'File Name is required',
            v => v.length < 30 || 'File Name must be less than 30 characters'
