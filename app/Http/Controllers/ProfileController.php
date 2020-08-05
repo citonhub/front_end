@@ -377,8 +377,8 @@ class ProfileController extends Controller
               $imageFile = $request->file('image');
       
               list($width, $height) = getimagesize($imageFile);
-              $this->imgWidth = $width/2;
-              $this->imgHeight = $height/2;
+              $this->imgWidth = $width;
+              $this->imgHeight = $height;
             $this->saveImageFiles($imageFile,$userProfile); 
          
             $imagePath = '/var/www/citonhubnew/public/imgs/profile/'. $userProfile->image_name . '.' . $userProfile->image_extension;
