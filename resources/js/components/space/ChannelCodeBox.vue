@@ -8,16 +8,16 @@
          
          <div class="col-12 py-0 my-0 px-0" >
              <div class="row py-0 my-0">
-                  <div class="col-2 py-0 my-0 px-0 d-flex" style="text-align:center; justify-content:center;">
-                     <v-btn icon color="#4495a2" @click="goBack" style="text-align:center; justify-content:center;"  class="d-inline-block  d-flex"><v-icon>mdi-close mdi-18px</v-icon></v-btn>
+                  <div class="col-2 py-0 my-0 px-2 d-flex" style="text-align:center; justify-content:center;">
+                     <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-close mdi-18px</v-icon></v-btn>
                   </div>
                   <div class="col-8 py-0 my-0 px-1">
                      <select  style="font-size:10px !important;"  @change="detectchange(language)"   v-model="language" class="browser-default custom-select">
                  <option v-for="(option,index)  in items" :value="option" :key="index">{{ option}}</option>
                      </select>
                    </div>
-                   <div class="col-2 py-0 my-0 px-1">
-                     
+                   <div class="col-2 py-0 my-0 px-2 text-right">
+                    <v-btn icon color="#4495a2" @click="sendMessage"><v-icon>mdi-send mdi-18px</v-icon></v-btn>
                    </div>
              </div>
                
@@ -47,11 +47,11 @@
            <v-btn
                 color="#35747e"
                 small
-                  @click="sendMessage"
+                  @click="goBack"
                 class="d-inline-block "
                 fab
               >
-                <v-icon color="#ffffff">mdi-send mdi-18px</v-icon>
+                <v-icon color="#ffffff">mdi-close mdi-18px</v-icon>
             </v-btn>
          
      </span>

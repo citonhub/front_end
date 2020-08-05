@@ -257,11 +257,11 @@
  }
 
  .sliderfullBtn{
-   -webkit-animation: beatBtn .80s infinite alternate;
-	-moz-animation: beatBtn .80s infinite alternate;
-	-ms-animation: beatBtn .80s infinite alternate;
-	-o-animation: beatBtn .80s infinite alternate;
-	animation: beatBtn .80s infinite alternate;
+   -webkit-animation: beatBtn .50s infinite alternate;
+	-moz-animation: beatBtn .50s infinite alternate;
+	-ms-animation: beatBtn .50s infinite alternate;
+	-o-animation: beatBtn .50s infinite alternate;
+	animation: beatBtn .50s infinite alternate;
 
 	-webkit-transform-origin: center;
 	-moz-transform-origin: center;
