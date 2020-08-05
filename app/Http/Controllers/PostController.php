@@ -238,7 +238,7 @@ class PostController extends Controller
              'posts.created_at as created_at'
            )
          ->where('posts.is_reply',null)
-         ->orderBy('created_at', 'desc')->paginate(50);
+         ->orderBy('created_at', 'desc')->paginate(20);
         
 
         $postArray = $this->postEngine($posts);
