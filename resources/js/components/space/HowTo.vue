@@ -27,7 +27,7 @@
               
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                        To attach an image, video, or use a CSS or JS in code is very easy.
+                        To attach an image, video, or use a CSS or JS file in code is very easy.
                  </span> <br>
 
                   
@@ -44,13 +44,13 @@
                       <b style="color:#173136;">Step 2 -</b> To use the file in your codes call.
                  </span><br><br>
 
-                 <code-view :codeLanguage="'PHP'" :codeContent="resourcesCode"></code-view> <br> <br>
+                 <code-view :codeLanguage="'HTML'" :codeContent="resourcesCode"></code-view> <br> <br>
              </div>
 
 
              <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                        To link in new HTML, CSS and Javascript files created in your panel
+                        To link a new HTML, CSS or Javascript file you created in your panel
                  </span> <br>
 
              </div>
@@ -66,7 +66,7 @@
                       <b style="color:#173136;">Step 2 -</b> Use this code to link in the new HTML,CSS or JS file.
                  </span><br><br>
 
-                 <code-view :codeLanguage="'PHP'" :codeContent="ViewCode"></code-view> <br> <br>
+                 <code-view :codeLanguage="'HTML'" :codeContent="ViewCode"></code-view> <br> <br>
              </div>
 
 

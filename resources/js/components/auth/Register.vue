@@ -29,6 +29,7 @@
                  placeholder="name..."
             label="Name"
             counter="20"
+            hint="What your parents called you"
             v-model="name"
             :rules="nameRule"
              dense
@@ -40,6 +41,7 @@
               <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
+                hint="Just let it be valid"
                  placeholder="email..."
             label="Email"
              v-model="email"
@@ -59,6 +61,7 @@
                  placeholder="password..."
             label="Password"
              dense
+             hint="Don't tell anyone, not even your mum."
               v-model="password"
               counter="20"
             :rules="passwordRule"

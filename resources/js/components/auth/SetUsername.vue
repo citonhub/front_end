@@ -29,6 +29,7 @@
                  placeholder="username..."
             label="Username"
              dense
+             hint="Just something cool"
              :error="usernameExist"
              v-model="usernameValue"
              :rules="UsernameRule"
@@ -126,7 +127,7 @@ export default {
 
     },
     showVerifiedAlert:function (){
-     this.showAlert(5000,'Email verified! set your username to continue')
+     this.showAlert(5000,'Wheew! Valid afterall.')
     },
     setUsername: function(){
        this.usernameExist= false;

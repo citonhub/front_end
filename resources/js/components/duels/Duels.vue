@@ -299,7 +299,7 @@ export default {
                
               if(this.$root.selectedPage[0].status == 0){
                  this.$root.showBoard = true;
-         this.$root.boardContent = 'Hello ' + this.$root.username + ' 😁,on Citon Duels,you can challenge your developer friends to code. click on the \'+\' button to create a duel';
+         this.$root.boardContent = 'Challenge your friends to duels and support your favourite prticipants';
          this.$root.boardBtnLabel = 'Okay,Got It';
 
               }

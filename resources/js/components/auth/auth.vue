@@ -16,7 +16,7 @@
 
            <div class="col-12 py-2 text-center ">
               <span class="infoclass px-4">
-                 Welcome home, I am Citon. I am your friend 😁, and I am here to help you on CitonHub.
+                 Share codes and build projects on CitonHub.
              </span>
             </div>
            

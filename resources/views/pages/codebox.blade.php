@@ -155,7 +155,7 @@
                          
                       
                          <div class="col-12 text-center">
-                           <p>Now get, reviews , comments, likes and stars on  those projects sitting ideal on your local-host on CitonHub</p>
+                           <p>Now upload those projects sitting on your local-host to get comments and reviews</p>
                          </div>
 
                          <div class="col-12 text-center">

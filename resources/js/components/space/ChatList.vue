@@ -474,7 +474,7 @@ export default {
                
               if(this.$root.selectedPage[0].status == 0){
                  this.$root.showBoard = true;
-         this.$root.boardContent = 'Hey '+ this.$root.username + '😃.Create new channels to interact with your friends on CitonHub or new teams to work on projects 👩‍💻 with your friends';
+         this.$root.boardContent = 'Hey '+ this.$root.username + '😃.Grow your community in channels, collaborate on projects in teams.';
          this.$root.boardBtnLabel = 'Okay,Got It';
 
               }
