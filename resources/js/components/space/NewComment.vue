@@ -12,7 +12,9 @@
          <div class="col-4 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
            <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Make a comment</span>
          </div>
-         <div class="col-4 py-0 my-0  d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
+         <div class="col-4 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2;" >
+
+          <v-btn rounded small color="#3E8893" @click="saveComment" :disabled="editFeild" :loading="loading"  style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;">Send</v-btn>
             
          </div>
       </div>
@@ -52,9 +54,6 @@
 
         
 
-             <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn rounded small color="#3E8893" @click="saveComment" :disabled="editFeild" :loading="loading"  style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;">Send</v-btn>
-             </div>
 
              <div class="my-5 py-3">
 
@@ -111,7 +110,13 @@ export default {
            
         ],
         
-      })
+      }),
+       wordLimit:300,
+         wordCount:0,
+         editFeild:true,
+        contentInWord:'',
+        loading:false,
+
     }
     },
     components: {
