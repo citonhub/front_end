@@ -24,6 +24,7 @@ use DB;
 use App\Notification;
 use App\Project;
 use App\UnreadMessage;
+use App\Panel;
 use App\PushNotification;
 use App\CustomClass\Curler;
 use App\CustomClass\MetaParser;
@@ -1229,6 +1230,51 @@ array_push($newSpaceArray,$userSpace);
 
  }
 
+ public static function createSlug($str, $delimiter = '-'){
+
+   $slug = strtolower(trim(preg_replace('/[\s-]+/', $delimiter, preg_replace('/[^A-Za-z0-9-]+/', $delimiter, preg_replace('/[&]/', 'and', preg_replace('/[\']/', '', iconv('UTF-8', 'ASCII//TRANSLIT', $str))))), $delimiter));
+   return $slug;
+
+} 
+
+
+
+ public function createDefaultProject($spaceId){
+   $characters = '1234567890';
+   $randomString = $this->generateRandomNumber(9,$characters);
+
+   $newPanel = Panel::create([
+      "user_id"=> Auth::id(),
+      "purpose"=> 'space',
+      "panel_id"=> $randomString,
+      "is_set"=> false
+    ]);
+
+   $newPanel->save();
+
+   $slugCharacter = 'abcdefghijklmnopqrstuvwxyz1234567890';
+
+   $thisSpace = Space::where('space_id',$spaceId)->first();
+
+  $slugRandom =  $this->generateRandomNumber(12,$slugCharacter);
+   
+  $projectSlug = 'project-' . $this->createSlug($thisSpace->name) . '-' . $slugRandom;
+   
+  $NewProject = Project::create([
+     "project_slug"=> $projectSlug,
+     "panel_id"=> $randomString,
+     "title"=>  'Citonhub Project',
+     "stars"=> 0,
+     "comments"=> 0,
+     "views"=> 0,
+     "user_id"=>Auth::id(),
+     "type"=> 'Public',
+     "space_id"=> $spaceId
+  ]);
+
+  $NewProject->save();
+ }
+
  public function fetchUserSpaces(){
      
     $characters = '123456789abcdefghijklmnopqrstuvwsyz';
@@ -1358,6 +1404,13 @@ array_push($newSpaceArray,$userSpace);
      ->where('space_members.user_id',Auth::id())
      ->where('spaces.type','Personal')
      ->first();
+
+
+     $allPersonalProjects = Project::where('space_id',$userPersonalSpace->space_id)->where('title','Citonhub Project')->get();
+
+     if($allPersonalProjects->isEmpty()){
+       $this->createDefaultProject($userPersonalSpace->space_id);
+     }
 
 
      $userTeamSpaces = DB::table('space_members')

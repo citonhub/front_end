@@ -212,7 +212,10 @@ class PanelController extends Controller
 
 
          
-        
+          $projectPanel->update([
+            "panel_id"=> $randomString
+           ]);
+
           $this->deleteControllerFiles($backEndFilesArray);
 
           $this->recreateController($backEndFilesArray,$randomString);
@@ -220,9 +223,15 @@ class PanelController extends Controller
 
           $this->deleteFilesFromServer($panel->id);
 
-          $this->deleteDefaultResources($panel->id);
+          if($projectPanel->title == 'Citonhub Project'){
+
+            $this->deleteDefaultResources($panel->id);
 
           $this->recreateDefaultResources($randomString);
+
+          }
+
+          
 
          
 
@@ -239,9 +248,7 @@ class PanelController extends Controller
 
         
 
-        $projectPanel->update([
-         "panel_id"=> $randomString
-        ]);
+        
 
         $panel->update([
         "app_type" => $request->get('app_type'),
@@ -259,14 +266,27 @@ class PanelController extends Controller
           "function_name"=>'main',
           "file_name"=>'index',
           "route_type"=> 'get'
-         ],
-         [
-          "path"=> '/new-page',
-          "function_name"=>'anotherPage',
-          "file_name"=>'index',
-          "route_type"=> 'get'
          ]
        ];
+
+       if($projectPanel->title == 'Citonhub Project'){
+
+        [
+          [
+           "path"=> '/index',
+           "function_name"=>'main',
+           "file_name"=>'index',
+           "route_type"=> 'get'
+          ],
+          [
+           "path"=> '/new-page',
+           "function_name"=>'anotherPage',
+           "file_name"=>'index',
+           "route_type"=> 'get'
+          ]
+          ];
+
+      }
 
       $this->createRoute($routeArray,$randomString);
      }
@@ -330,9 +350,7 @@ class PanelController extends Controller
 
           $this->deleteFilesFromServer($panel->id);
 
-          $this->deleteDefaultResources($panel->id);
-
-          $this->recreateDefaultResources($randomString);
+         
 
          
 
@@ -396,14 +414,10 @@ class PanelController extends Controller
           "function_name"=>'main',
           "file_name"=>'index',
           "route_type"=> 'get'
-         ],
-         [
-          "path"=> '/new-page',
-          "function_name"=>'anotherPage',
-          "file_name"=>'index',
-          "route_type"=> 'get'
          ]
        ];
+
+       
 
       $this->createRoute($routeArray,$randomString);
         
@@ -566,17 +580,31 @@ class PanelController extends Controller
 
 
   public function recreateDefaultFiles($newpanelId){
+
+    $projectPanel = Project::where('panel_id',$newpanelId)->first();
      
     $panelId = '$panel';
-    
-    $filePath = '/var/www/citonhubnew/resources/views/pages/codebox.blade.php'; 
+
+    $filePath = '/var/www/citonhubnew/resources/views/pages/default.blade.php'; 
 
     $htmlContent = file_get_contents($filePath);
 
+    if($projectPanel->title == 'Citonhub Project'){
 
-    $filePath2 = '/var/www/citonhubnew/resources/views/pages/codeboxnew.blade.php'; 
+      $filePath = '/var/www/citonhubnew/resources/views/pages/codebox.blade.php'; 
 
-    $htmlContent2 = file_get_contents($filePath2);
+      $htmlContent = file_get_contents($filePath);
+  
+  
+      $filePath2 = '/var/www/citonhubnew/resources/views/pages/codeboxnew.blade.php'; 
+  
+      $htmlContent2 = file_get_contents($filePath2);
+
+    }
+    
+    
+
+
 
 $cssContent = "<style>
 body{
@@ -598,16 +626,19 @@ $HtmlCodeBox = CodeBox::create([
   "panel_id"=> $newpanelId
 ]);
 
-$HtmlCodeBox2 = CodeBox::create([
-  "content"=> $htmlContent2,
-  "language_type"=> "HTML",
-  "file_name"=> "NewPage",
-  "type"=> "front_end",
-  "user_id"=> Auth::id(),
-  "panel_id"=> $newpanelId
-]);
+if($projectPanel->title == 'Citonhub Project'){
+  $HtmlCodeBox2 = CodeBox::create([
+    "content"=> $htmlContent2,
+    "language_type"=> "HTML",
+    "file_name"=> "NewPage",
+    "type"=> "front_end",
+    "user_id"=> Auth::id(),
+    "panel_id"=> $newpanelId
+  ]);
+  
+  $HtmlCodeBox2->save();
+}
 
-$HtmlCodeBox2->save();
 
 $CssCodeBox = CodeBox::create([
   "content"=> $cssContent,
@@ -646,16 +677,18 @@ $JavascriptCodeBox->save();
           ];
          $response = Http::post($baseUrl .'/create-view-file',$requestData);
 
+         if($projectPanel->title == 'Citonhub Project'){
+            
+          $baseUrl = 'https://php.citonhub.com';
+          $requestData = [
+              'panel_id' =>  $newpanelId,
+              'file_name'=> 'NewPage',
+              'content'=> $htmlContent2,
+              'language_type'=> 'HTML'
+          ];
+         $response = Http::post($baseUrl .'/create-view-file',$requestData);
 
-         $baseUrl = 'https://php.citonhub.com';
-         $requestData = [
-             'panel_id' =>  $newpanelId,
-             'file_name'=> 'NewPage',
-             'content'=> $htmlContent2,
-             'language_type'=> 'HTML'
-         ];
-        $response = Http::post($baseUrl .'/create-view-file',$requestData);
-
+         }
          
 
          $baseUrl = 'https://php.citonhub.com';
@@ -682,9 +715,21 @@ $JavascriptCodeBox->save();
 }
 
 public function createDefaultController($newpanelId){
+
+  $projectPanel = Project::where('panel_id',$newpanelId)->first();
     $thisVar = '$this';
     $panelId = '$panelId';
+     
+
 $phpContent ="
+public function main(){
+  return $thisVar" . '' . "->showView('index');
+} 
+";
+
+
+if($projectPanel->title == 'Citonhub Project'){
+  $phpContent ="
 public function main(){
   return $thisVar" . '' . "->showView('index');
 } 
@@ -692,6 +737,7 @@ public function main(){
 public function anotherPage(){
   return $thisVar" . '' . "->showView('NewPage');
 } ";
+}
   $PHPCodeBox = CodeBox::create([
     "content"=> $phpContent,
     "language_type"=> "PHP",

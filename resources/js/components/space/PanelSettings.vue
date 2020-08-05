@@ -135,8 +135,14 @@ export default {
     this.$router.push({ path: '/shelve' });
    },
    goBack() {
-          
+
+     if(this.$root.fromChatList){
+         this.$router.push({ path: '/space/chat-list' });
+     }else{
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+     }
+          
+       
         },
     savePanelSettings:function(){
        

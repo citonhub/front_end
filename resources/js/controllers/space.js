@@ -267,6 +267,7 @@ const app = new Vue({
       showChannel:false,
       showProject:false,
       panel:[],
+      fromChatList:false,
     },
      mounted: function () {
       this.pageloader= false;

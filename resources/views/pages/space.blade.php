@@ -300,6 +300,6 @@ body {
 
  @section('scripts')
 
- <script src="{{ asset('js/space.js?v=1.28') }}"></script>
+ <script src="{{ asset('js/space.js?v=1.29') }}"></script>
      
  @endsection

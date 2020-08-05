@@ -512,6 +512,7 @@ export default {
          this.$router.push({ path: '/space/'  +  space.space_id  +  '/channel/content' + '/user' });
        },
        showProjectLink: function(project){
+         this.$root.fromChatList = true;
            this.$router.push({ path: '/' + project.project_slug +'/panel' });
        },
        createChannel:function(type){

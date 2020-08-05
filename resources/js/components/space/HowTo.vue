@@ -149,14 +149,12 @@ export default {
     },
     methods:{
       loadDefaultCode(){
-      this.resourcesCode = "<?php \n\
-      {{$home}}/{{$panel}}/FolderName/FileName \n\
+      this.resourcesCode = "{{$home}}/{{$panel}}/FolderName/FileName \n\
 // FolderName is the name of the folder your resoures, e.g  Images, Videos, Audios, Framework \n\
 // FileName is the name of the file e.g video.mp4 \n\
 // e.g {{$home}}/{{$panel}}/Videos/video.mp4";
 
-this.ViewCode = "<?php \n\
-@include($panel  . '.FolderName.FileName') \n\
+this.ViewCode = "@include($panel  . '.FolderName.FileName') \n\
 // FolderName is the name of the folder, which can be Styles-> .css, Scripts-> .js , empty for .html \n\
 // FileName is the name of the file e.g index.html, main.css \n\
 // e.g @include($panel  . '.Styles.index') to include index.css file \n\

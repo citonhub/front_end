@@ -159,7 +159,7 @@
                          </div>
 
                          <div class="col-12 text-center">
-                         <button type="submit" class="btn btn-sm btn-round btn-success">Get Started</button>
+                         <a type="submit" class="btn btn-sm btn-round btn-success" href="/space#/how-to" >Get Started</a>
                          </div>
                       </div>
                       
