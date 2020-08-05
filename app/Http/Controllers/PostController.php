@@ -485,8 +485,8 @@ class PostController extends Controller
       
          $file = $this->getUploadedFile($ImageFile);
          // pass in the file and the model
-           $this->imgWidth = $width;
-           $this->imgHeight = $height;
+           $this->imgWidth = $width/2;
+           $this->imgHeight = $height/2;
          $this->saveImageFiles($file,$newPostImage); 
       
          $imagePath = '/var/www/citonhubnew/public/imgs/posts/'. $imageName . '.' . $imageExtension;
