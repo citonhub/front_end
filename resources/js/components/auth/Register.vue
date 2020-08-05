@@ -29,7 +29,7 @@
                  placeholder="name..."
             label="Name"
             counter="20"
-            hint="What your parents called you"
+            hint="Your real name"
             v-model="name"
             persistent-hint
             :rules="nameRule"
@@ -42,7 +42,7 @@
               <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                hint="Just let it be valid"
+                hint="Please,let it be valid"
                  placeholder="email..."
             label="Email"
              v-model="email"
