@@ -161,6 +161,7 @@ export default {
              if (response.status == 200) {
               
               this.$root.forcePanelReload = true;
+              this.$root.fromChatList = false;
               this.goBack();
             
             }
