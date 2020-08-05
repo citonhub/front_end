@@ -271,7 +271,7 @@ class PanelController extends Controller
 
        if($projectPanel->title == 'Citonhub Project'){
 
-        [
+        $routeArray =    [
           [
            "path"=> '/index',
            "function_name"=>'main',
