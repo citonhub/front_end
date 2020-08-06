@@ -426,7 +426,7 @@ export default {
        this.$root.showHeader = true;
        this.$root.channel = null;
 
-       this.$root.checkIfUserIsLoggedIn('space');
+      
        this.$root.returnedMessages = [];
        this.$root.messageStoreTop = [];
        this.$root.messageStore = [];

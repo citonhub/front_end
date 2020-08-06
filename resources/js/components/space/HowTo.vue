@@ -26,7 +26,7 @@
 
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                        Navigate to a new page
+                    <b style="color:#173136;"> 1</b> Navigate to a new page
                  </span> <br>
 
              </div>
@@ -64,7 +64,7 @@
 
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                        To link a new HTML, CSS or Javascript file you created in your panel
+                     <b style="color:#173136;"> 2</b>   To link a new HTML, CSS or Javascript file you created in your panel
                  </span> <br><br>
 
                 
@@ -92,7 +92,7 @@
                  </span><br><br>
 
                  <span style="color:#2e626b; font-size:13px;">
-                       FolderName is the name of the folder, which can be Styles-> .css, Scripts-> .js , empty for .html 
+                       FolderName is the name of the folder, which can be Styles-> .css, Scripts-> .js , empty for .html <br>
                        FileName is the name of the file e.g index.html, main.css 
                  </span><br><br>
 
@@ -127,7 +127,7 @@
               
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                        To attach an image, video, or use a CSS or JS file in code is very easy.
+                     <b style="color:#173136;"> 2</b>   To attach an image, video, or use a CSS or JS file in code is very easy.
                  </span> <br><br>
 
                   
@@ -147,8 +147,8 @@
                   
                  <code-view :codeLanguage="'HTML'" :codeContent="resourcesCode"></code-view> <br>
                  <span style="color:#2e626b; font-size:13px;">
-                      FolderName is the name of the folder your resoures, e.g  Images, Videos, Audios, Framework 
-                     FileName is the name of the file e.g video.mp4 
+                      FolderName is the name of the folder in your resoures, e.g  Images, Videos, Audios, Framework. <br>
+                     FileName is the name of the file e.g video.mp4
                  </span><br>
 
                 
