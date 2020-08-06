@@ -1,24 +1,20 @@
-@extends('layouts.space')
+@extends('layouts.main')
 @section('title')
 
-    <title>CitonHub</title>
+    <title>CitonHub:Trends</title>
 
  @endsection
  @section('meta') 
- <meta name="description" content="Citonhub is a community of developers where they interact,learn and build." />
-  <meta name="keywords" content="Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
-  <meta name="MobileOptimized" content="width" />
-  <meta name="HandheldFriendly" content="true" />
-  <meta name="og:image" content="https://citonhub.com/imgs/CitonHub.png"/>
+  
  @endsection
+ 
  @section('css')
   
 <style>
-.body{
+   .body{
     background:#edf6f7;
   }
-
-html,
+  html,
 body {
     overscroll-behavior-y: contain;
 }
@@ -27,7 +23,7 @@ body {
  @endsection
 
  @section('content')
-<div id="space" style="height:100%; width:100%;position:fixed;">
+<div id="trends" style="height:100%; width:100%;position:fixed;">
 <div  style="z-index:1000000; position:fixed; width:100%; height:auto; top:0;" v-if="pageloader">
   <div class="line"></div>
   <div class="subline inc"></div>
@@ -38,8 +34,7 @@ body {
 </div>
 
 
-            
-<div class="col-lg-8 col-12 offset-lg-2 py-0" style="display:fixed; top:0%;height:auto; background:white;" v-show="showHeader"> 
+<div class="col-lg-8 col-12 offset-lg-2 py-0" style="display:fixed; top:0%;height:auto; background:white;" v-show="showHeader">
     <div class="row">
     <div class="col-4 d-flex  py-1" style="border-bottom:1px solid #e6e6e6;  align-items:center; ">
     <div>
@@ -59,17 +54,15 @@ body {
             <a href="/"  class="d-block d-md-none"><img src="{{asset('imgs/CitonHub.png')}}" height="25" width="auto"/></a>
         </div>
         
-        <div style="text-align:right; border-bottom:1px solid #e6e6e6; align-items:center; " class="col-4 px-1 text-right py-1">
-           
+        <div style="text-align:right; border-bottom:1px solid #e6e6e6; align-items:center; " class="col-4 px-1  text-right py-1">
+       
             
         </div>
         
     </div>
 </div>
- 
 
-<space></space>
-
+<trends></trends>
 
 <div class=" d-none d-md-none d-lg-block mx-2  py-2" 
  style="border-radius:7px; height:80%; position:fixed; width:15%;top:10%; right:16.60%; background:white; border:1px solid #b7dbe1;" >
@@ -130,8 +123,7 @@ body {
       
 
       
-
-         @if(Auth::check())
+    @if(Auth::check())
       <v-card tile flat  @click="logout"  class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
@@ -143,7 +135,7 @@ body {
            </div>
       </v-card>
     @else
-    <v-card tile flat  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
+    <v-card tile flat  @click="checkIfUserIsLoggedIn('duel')"  class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon color="#3E8893">mdi-login-variant</v-icon>
@@ -158,15 +150,14 @@ body {
 </div>
 
 
-<div class="col-12 px-0 py-0 d-lg-none d-block" style="background:transparent; z-index:1999; font-family:BodyText; bottom:0;" v-if="drawer">
- <v-navigation-drawer
+<v-app class="col-12 px-0 py-0 d-lg-none d-block" style="background:transparent; z-index:10999; font-family:BodyText; position:absolute;" v-if="drawer">
+<v-navigation-drawer
       v-model="drawer"
       fixed
       temporary
-      
     >
       <div class="col-12 py-2 px-2" style="border-bottom:1px solid #c5c5c5;">
-           <div class="row py-0 my-0">
+           <div class="row py-0 my-0" >
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
             <div>
     <div  v-if="authProfile != undefined" :style="imageStyle(46,authProfile)"  
@@ -180,9 +171,9 @@ body {
                   </div>
     </div>
             </div>
-
+         
           <div class="col-9 py-0 d-flex px-1" style="align-items:center;" >
-          @if(Auth::check())
+           @if(Auth::check())
           <div class="row py-0" @click="showNavLink('profile')">
            <div class="col-12 py-0 my-0">
            <div style="font-size:13px; font-family:HeaderText;" >@{{ authProfile.name }}</div>
@@ -197,6 +188,7 @@ body {
            </div>
           </div>
           @endif
+
            
           </div>
           
@@ -260,7 +252,8 @@ body {
 
       </div>
 
-      @if(Auth::check())
+
+    @if(Auth::check())
       <v-card tile flat  class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; position:absolute;bottom:0%;" @click="logout">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
@@ -272,7 +265,7 @@ body {
            </div>
       </v-card>
     @else
-    <v-card tile flat  class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; position:absolute;bottom:0%;" @click="checkIfUserIsLoggedIn('space')">
+    <v-card tile flat  class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; position:absolute;bottom:0%;" @click="checkIfUserIsLoggedIn('duel')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon color="#3E8893">mdi-login-variant</v-icon>
@@ -286,24 +279,24 @@ body {
 
      
 
-     
+      <v-list dense>
+
+       
+      </v-list>
     </v-navigation-drawer>
-</div>
+</v-app>
 
 <form id="logout-form" action="/logout" method="POST" style="display: none;">
 @csrf
                                               </form>
 
- <div v-if="!drawer">
+<div v-if="!drawer">
  @include('shared.tabs')
  </div>
-
-
 </div>
  @endsection
 
- @section('scripts')
 
- <script src="{{ asset('js/space.js?v=1.32') }}"></script>
-     
+ @section('scripts')
+<script src="{{ asset('js/trends.js?v=1.42') }}"></script>
  @endsection

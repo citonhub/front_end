@@ -22,13 +22,113 @@
         <div class="col-12 py-0 my-0">
           
           <div class="row my-0 py-0">
+
+
+              <div class="col-12 py-0 my-1 text-left">
+                 <span style="color:#2e626b; font-size:13px;">
+                        Navigate to a new page
+                 </span> <br>
+
+             </div>
+
+             <div class="col-12 py-0 text-left">
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 1 -</b>  Create the new HTML file
+                 </span>
+
+                 <div style="color:#2e626b; font-size:13px;" class="text-center">
+                     <img src="/imgs/howto6.png" height="50" width="100%" />
+                 </div>
+             </div>
+
+             <div class="col-12 py-0 text-left" style="border-bottom:1px solid #c5c5c5;">
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step -2</b> Navigate the new page using this url
+                 </span><br><br>
+                  
+                  
+
+                 <code-view :codeLanguage="'HTML'" :codeContent="RouteCode1"></code-view> <br> 
+
+                 <span style="color:#2e626b; font-size:13px;">
+                     if your HTMLFileName is <b style="color:#173136;"> newPage</b><br>
+                    
+                 </span><br>
+
+                  <code-view :codeLanguage="'HTML'" :codeContent="RouteCode2"></code-view> <br> 
+
+
+                
+             </div>
+
+
+              <div class="col-12 py-0 my-1 text-left">
+                 <span style="color:#2e626b; font-size:13px;">
+                        To link a new HTML, CSS or Javascript file you created in your panel
+                 </span> <br><br>
+
+                
+             </div>
+
+              <div class="col-12 py-0 text-left">
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 1 -</b>  Make sure you created the new file in your 'View Files'
+                 </span>
+
+                  <div style="color:#2e626b; font-size:13px;" class="text-center">
+                     <img src="/imgs/howto8.png" height="130" width="100%" />
+                 </div>
+
+             </div>
+
+
+              <div class="col-12 py-0 text-left" style="border-bottom:1px solid #c5c5c5;"> 
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 2 -</b>Use this code to link in the new HTML,CSS or JS file.
+                 </span><br><br>
+
+                  <span style="color:#2e626b; font-size:13px;">
+                        @include($panel  . '.<b style="color:#173136;">FolderName</b>.<b style="color:#173136;">FileName</b>')
+                 </span><br><br>
+
+                 <span style="color:#2e626b; font-size:13px;">
+                       FolderName is the name of the folder, which can be Styles-> .css, Scripts-> .js , empty for .html 
+                       FileName is the name of the file e.g index.html, main.css 
+                 </span><br><br>
+
+                   <span style="color:#2e626b; font-size:13px;">
+                       For HTML
+                 </span> <br><br>
+
+                
+
+                 <code-view :codeLanguage="'HTML'" :codeContent="ViewCode1"></code-view> <br>
+
+                  <span style="color:#2e626b; font-size:13px;">
+                       For CSS
+                 </span> <br><br>
+
+                
+
+                 <code-view :codeLanguage="'HTML'" :codeContent="ViewCode2"></code-view> <br>
+
+                  <span style="color:#2e626b; font-size:13px;">
+                       For JavaScript
+                 </span> <br><br>
+
+                
+
+                 <code-view :codeLanguage="'HTML'" :codeContent="ViewCode3"></code-view> <br>
+             </div>
+
+
              
 
               
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
                         To attach an image, video, or use a CSS or JS file in code is very easy.
-                 </span> <br>
+                 </span> <br><br>
 
                   
              </div>
@@ -44,60 +144,21 @@
                       <b style="color:#173136;">Step 2 -</b> To use the file in your codes call.
                  </span><br><br>
 
-                 <code-view :codeLanguage="'HTML'" :codeContent="resourcesCode"></code-view> <br> <br>
-             </div>
-
-
-             <div class="col-12 py-0 my-1 text-left">
+                  
+                 <code-view :codeLanguage="'HTML'" :codeContent="resourcesCode"></code-view> <br>
                  <span style="color:#2e626b; font-size:13px;">
-                        To link a new HTML, CSS or Javascript file you created in your panel
-                 </span> <br>
+                      FolderName is the name of the folder your resoures, e.g  Images, Videos, Audios, Framework 
+                     FileName is the name of the file e.g video.mp4 
+                 </span><br>
 
-             </div>
+                
 
-              <div class="col-12 py-0 text-left">
-                <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 1 -</b>  Make sure you created the new file in your 'View Files'
-                 </span>
-             </div>
-
-             <div class="col-12 py-0 text-left"> 
-                <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 2 -</b> Use this code to link in the new HTML,CSS or JS file.
-                 </span><br><br>
-
-                 <code-view :codeLanguage="'HTML'" :codeContent="ViewCode"></code-view> <br> <br>
+               
              </div>
 
 
-               <div class="col-12 py-0 my-1 text-left">
-                 <span style="color:#2e626b; font-size:13px;">
-                        To create multiple pages
-                 </span> <br>
-
-             </div>
-
-             <div class="col-12 py-0 text-left">
-                <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 1 -</b>  Create a new route e.g '/about' in the 'Web Routes panel'
-                 </span>
-             </div>
-
-             <div class="col-12 py-0 text-left">
-                <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 2 -</b>  Add this line of code to your controller file
-                 </span><br><br>
-
-                 <code-view :codeLanguage="'PHP'" :codeContent="ControllerCode"></code-view> <br> <br>
-             </div>
-
-             <div class="col-12 py-0 text-left">
-                <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 3-</b> The URL of your new route is
-                 </span><br><br>
-
-                 <code-view :codeLanguage="'HTML'" :codeContent="RouteCode"></code-view> <br> <br>
-             </div>
+            
+             
 
 
              
@@ -133,9 +194,13 @@ export default {
     data(){
         return{
           resourcesCode:'',
-          ViewCode:'',
+          ViewCode1:'',
+          ViewCode2:'',
+          ViewCode3:'',
           ControllerCode:'',
-          RouteCode:'',
+          RouteCode1:'',
+            RouteCode2:'',
+         
         }
     },
      components: {
@@ -150,31 +215,19 @@ export default {
     methods:{
       loadDefaultCode(){
       this.resourcesCode = "{{$home}}/{{$panel}}/FolderName/FileName \n\
-// FolderName is the name of the folder your resoures, e.g  Images, Videos, Audios, Framework \n\
-// FileName is the name of the file e.g video.mp4 \n\
 // e.g {{$home}}/{{$panel}}/Videos/video.mp4";
 
-this.ViewCode = "@include($panel  . '.FolderName.FileName') \n\
-// FolderName is the name of the folder, which can be Styles-> .css, Scripts-> .js , empty for .html \n\
-// FileName is the name of the file e.g index.html, main.css \n\
-// e.g @include($panel  . '.Styles.index') to include index.css file \n\
-// @include($panel  . '.Scripts.index') to include index.js file\n\
-// @include($panel  . '.index') to include index.html file" ;
+this.ViewCode1 = "@include($panel  . '.index') to include index.html file" ;
 
-this.ControllerCode = "<?php \n\
-public function FileName(){ \n\
-  return $this->showView('FileName'); \n\
-} \n\
-// FileName is the name of the file e.g about.html \n\
-// Note: only .html files can be called in the web routes \n\
-// e.g to call the about.html page\n\
-/**public function about(){ \n\
-  return $this->showView('about'); \n\
-}*/" ;
-this.RouteCode = " /page-loader/{{ $panel }}/routeName \n\
-// routeName is the name of the route e.g /about \n\
-// e.g  \n\
- <a href=\"/page-loader/{{$panel }}/about\"></a> ";
+this.ViewCode2 = "@include($panel  . '.Styles.index') to include index.css file " ;
+
+
+this.ViewCode3 = "@include($panel  . '.Scripts.index') to include index.js file" ;
+
+this.RouteCode1 = " /page-loader/{{ $panel }}/HTMLFileName";
+
+ this.RouteCode2 = " e.g  \n\
+ <a href=\"/page-loader/{{$panel}}/newPage\"></a> ";
       },
        goBack() {
 

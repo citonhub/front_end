@@ -128,7 +128,8 @@ export default {
         formstate:false,
         Rule:[
              v => !!v || 'Name is required',
-           v => v.length < 80 || 'Name must be less than 80 characters'
+           v => v.length < 80 || 'Name must be less than 80 characters',
+            v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
          ],
          limit:'',
           limitRule:[
@@ -142,7 +143,7 @@ export default {
   },
     mounted(){
       this.$root.showTabs=true;
-       this.$root.showHeader = true;
+        this.$root.showHeader = false;
         this.fetchOwnerList();
         if(this.$root.projectData.length != 0){
               

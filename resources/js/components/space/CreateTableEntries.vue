@@ -107,7 +107,8 @@ export default {
         programmingLanguage:'',
          Rule:[
              v => !!v || 'Table Name is required',
-           v => v.length < 30 || 'Table Name must be less than 30 characters'
+           v => v.length < 30 || 'Table Name must be less than 30 characters',
+            v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
          ],
           requiredRule: [
          v => !!v || 'This feild is required',
@@ -122,7 +123,7 @@ export default {
   },
    mounted(){
       this.$root.showTabs=true;
-       this.$root.showHeader = true;
+        this.$root.showHeader = false;
        this.setLanguageType();
        this.setFields();
     },

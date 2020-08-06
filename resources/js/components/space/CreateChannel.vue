@@ -121,7 +121,8 @@ export default {
         formstate:false,
         Rule:[
              v => !!v || 'Name is required',
-           v => v.length < 30 || 'Name must be less than 20 characters'
+           v => v.length < 30 || 'Name must be less than 20 characters',
+             v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
          ],
          limit:'',
           limitRule:[
@@ -135,7 +136,7 @@ export default {
   },
     mounted(){
       this.$root.showTabs=true;
-       this.$root.showHeader = true;
+       this.$root.showHeader = false;
        this.$root.forceListReload = false;
     },
     methods:{

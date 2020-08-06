@@ -942,6 +942,74 @@ public function anotherPage(){
 
           $newCodeBox->save();
 
+
+        if($request->get('language_type') == 'HTML'){
+
+          $htmlFiles = CodeBox::where('panel_id',$projectPanel->panel_id)->where('file_name','!=','index')->where('language_type','HTML')->get();
+          
+          $phpContent = '';
+          foreach ($htmlFiles as $files) {
+
+            $thisVar = '$this';
+           $panelId = '$panelId';
+           
+            $phpContent .="
+            public function ". $files->file_name ."(){
+              return $thisVar" . '' . "->showView('" .  $files->file_name . "');
+            }
+            
+            ";
+            }
+             
+          }
+
+           $panelRouteController = CodeBox::where('panel_id',$projectPanel->panel_id)->where('file_name','routes')->get();
+
+           if($panelRouteController->isEmpty()){
+
+            $PHPCodeBox = CodeBox::create([
+              "content"=> $phpContent,
+              "language_type"=> "PHP",
+              "file_name"=> "routes",
+              "type"=> "back_end",
+              "user_id"=> Auth::id(),
+              "panel_id"=> $projectPanel->panel_id
+            ]);
+             
+           }else{
+
+            $PHPCodeBox = CodeBox::where('panel_id',$projectPanel->panel_id)->where('file_name','routes')->first();
+
+            $PHPCodeBox->update([
+           "content"=> $phpContent
+            ]);
+
+           }
+
+         
+        
+          $baseUrl = 'https://php.citonhub.com';
+          $requestData = [
+              'panel_id' =>  $projectPanel->panel_id,
+              'file_name'=> 'routes',
+              'content'=> $phpContent
+          ];
+          
+         $response = Http::post($baseUrl .'/create-controller',$requestData);
+
+         
+
+          $routeArray =    [
+            [
+             "path"=> '/'. $request->get('file_name'),
+             "function_name"=>$request->get('file_name'),
+             "file_name"=>'routes',
+             "route_type"=> 'get'
+            ]
+            ];
+
+          $this->createRoute($routeArray,$projectPanel->panel_id);  
+
       
           $baseUrl = 'https://php.citonhub.com';
       $requestData = [
@@ -957,8 +1025,10 @@ public function anotherPage(){
    
 
      return $newCodeBox;
-       
       }
+       
+      
+
 
       if($request->get('code_category') == 'back_end' && $request->get('language_type') == 'PHP'){
         

@@ -217,7 +217,12 @@ class PageController extends Controller
         $tablabel = 'home';
         return view('pages.home',compact('tablabel'));
     }
-    
+
+    public function trends(){
+
+        $tablabel = 'trends';
+        return view('pages.trends',compact('tablabel'));
+    }
 
      
     public function handleShare($type,$uniqueId){

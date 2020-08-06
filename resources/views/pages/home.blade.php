@@ -61,8 +61,7 @@ body {
         </div>
         
         <div style="text-align:right; border-bottom:1px solid #e6e6e6; align-items:center; " class="col-4 px-1 text-right py-1">
-           <v-btn icon class="d-none d-md-inline-block" @click="showLibrary"><v-icon color="#3E8893">mdi-inbox-full-outline</v-icon></v-btn>
-            <v-btn icon class="d-inline-block d-md-none" @click="showLibrary"><v-icon color="#3E8893">mdi-inbox-full-outline</v-icon></v-btn>
+        
             
         </div>
         

@@ -106,10 +106,12 @@ export default {
          Rule:[
              v => !!v || 'File Name is required',
            v => v.length < 30 || 'File Name must be less than 30 characters',
-            v => (v.split(' ').length <= 1) || 'no one space allowed'
+            v => (v.split(' ').length <= 1) || 'no one space allowed',
+             v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
          ],
           requiredRule: [
          v => !!v || 'This feild is required',
+        
         ],
          loading:false,
          formstate:false,
@@ -120,7 +122,7 @@ export default {
   },
    mounted(){
       this.$root.showTabs=true;
-       this.$root.showHeader = true;
+       this.$root.showHeader = false;
        this.setLanguageType();
     },
     methods:{
