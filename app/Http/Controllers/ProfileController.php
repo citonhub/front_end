@@ -105,6 +105,37 @@ class ProfileController extends Controller
         return $newConnections;    
     }
 
+    public function fetchTrendConnections(){
+   
+    
+      $latestUsers = DB::table('users')
+                     ->join('profiles','profiles.user_id','users.id')
+                     ->select(
+                      'users.username as username',
+                      'users.name as name',
+                      'profiles.image_name as image_name',
+                      'profiles.image_extension as image_extension',
+                      'profiles.background_color as background_color',
+                      'profiles.about as about',
+                      'users.id as tempId'
+                     )
+                     ->paginate('50');
+      
+      $filteredUsers = [];
+
+      foreach ($latestUsers as $user) {
+        $arrayUser = (array) $user;
+
+        $userConnection = UserConnection::where('user_id',Auth::id())->where('connected_user_id',$arrayUser["tempId"])->get();
+        if($userConnection->isEmpty() && $arrayUser["tempId"] != Auth::id()){
+          array_push($filteredUsers,$arrayUser);
+        }
+      }
+
+      return $filteredUsers;
+       
+    }
+
     public function connectUser($username){
 
       $user =  User::where('username',$username)->first();

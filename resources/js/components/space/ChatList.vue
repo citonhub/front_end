@@ -22,7 +22,12 @@
                           
                     </div>
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                         <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Projects</span>
+                         
+      
+      <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Projects</span>
+            
+       
+                         
                     </div>
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
                            <v-btn icon color="#3E8893" @click="createProject"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
@@ -117,7 +122,19 @@
                           
                     </div>
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                         <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Channels</span>
+                          <v-badge
+          color="#36848C"
+            v-if="this.$root.channelUnread > 0"
+          :content="this.$root.channelUnread"
+        >
+      
+      <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Channels</span>
+            
+        </v-badge>
+
+        <span  v-else style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Channels</span>
+                         
+                        
                     </div>
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
                            <v-btn icon color="#3E8893" @click="createChannel('Channel')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
@@ -209,7 +226,18 @@
                           
                     </div>
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                         <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Teams</span>
+                          <v-badge
+          color="#36848C"
+            v-if="this.$root.teamUnread > 0"
+          :content="this.$root.teamUnread"
+        >
+      
+      <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Teams</span>
+            
+        </v-badge>
+
+         <span  v-else style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Teams</span>
+                         
                     </div>
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
                            <v-btn icon color="#3E8893" @click="createChannel('Team')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
@@ -294,7 +322,18 @@
                           
                     </div>
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                         <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Direct Messages</span>
+                          <v-badge
+          color="#36848C"
+            v-if="this.$root.directUnread > 0"
+          :content="this.$root.directUnread"
+        >
+      
+       <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Direct Messages</span>
+            
+        </v-badge>
+
+         <span  v-else style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Direct Messages</span>
+                        
                     </div>
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
                            <v-btn icon color="#3E8893"><v-icon></v-icon></v-btn>
@@ -372,6 +411,109 @@
               </div>
               </div>
               </v-slide-y-transition>
+
+              <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('suggestions')"  v-if="false" >
+                 
+                 <div class="row py-0 my-0 px-2">
+                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                          
+                    </div>
+                       <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                         <v-badge
+          color="#36848C"
+            v-if="channelSuggestions != null"
+          :content="channelSuggestions.length"
+        >
+      
+       <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Suggestions</span>
+            
+        </v-badge>
+                         
+           <span  v-else style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Suggestions</span>
+                    </div>
+                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                           <v-btn icon color="#3E8893"><v-icon></v-icon></v-btn>
+                    </div>
+                 </div>
+                </div>
+                 <v-slide-y-transition>
+
+              
+              <div class="col-12 py-1 my-0 mx-0" v-if="this.$root.showSuggetions">
+                <div  v-if="channelSuggestions != null">
+                    <div class="row my-0 my-0 px-0"  v-if="channelSuggestions.length != 0">
+
+                    <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in channelSuggestions"
+                      :key="index">
+                <div class="row py-0 my-0 px-0">
+                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
+                        <div class="py-1">
+                          <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
+                        </div>    
+                    </div>
+                     <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
+                       <div>
+                      <span class="titleText d-block">{{space.name}}</span>
+                         <span class=" d-block" style="font-size:11px;">{{ space.members }} Members</span>
+                       </div>
+                        
+                    </div>
+                    <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
+                          
+                    </div>
+                </div>
+             </v-card>
+                 </div>
+
+                 <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
+       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No Suggestion found</span>
+              
+            </div>
+                </div>
+                
+
+                 <div v-else  class="row my-0 py-0 px-1 ">
+            <div class="col-12 py-0 my-0">
+   
+           <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
+           
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
+
+          
+
+         </div>
+
+
+            </div>
+
+             <div class="col-12 py-0 my-0">
+   
+           <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
+           
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
+
+          
+
+         </div>
+
+
+            </div>
+  
+              </div>
+              </div>
+             </v-slide-y-transition>
               
                
               
@@ -417,6 +559,7 @@ export default {
        channelProject:null,
        channelSpace:null,
        showChannel:true,
+       channelSuggestions:null,
        channelDirect: null,
        showProject:true,
       }
@@ -430,8 +573,10 @@ export default {
        this.$root.returnedMessages = [];
        this.$root.messageStoreTop = [];
        this.$root.messageStore = [];
+       this.$root.selectedSpaceMembers = [];
        this.$root.Messages = null;
        this.$root.codeEditorArray = [];
+       this.$root.showRootReply = false;
        
          if(this.$root.projectData.length != 0){
               
@@ -452,6 +597,8 @@ export default {
     },
     methods:{
       showTab: function(type){
+        this.$root.checkIfUserIsLoggedIn('space');
+        
          if(type == 'project'){
               this.$root.showProject ? this.$root.showProject = false : this.$root.showProject = true
          }
@@ -464,6 +611,9 @@ export default {
          if(type == 'channel'){
               this.$root.showChannel ? this.$root.showChannel = false : this.$root.showChannel = true
          }
+         if(type == 'suggestions'){
+             this.$root.showSuggetions ? this.$root.showSuggetions = false : this.$root.showSuggetions = true
+         }
       },
          activateBot:function(){
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
@@ -472,13 +622,10 @@ export default {
          
           if(this.$root.selectedPage.length != 0){
                
-              if(this.$root.selectedPage[0].status == 0){
-                 this.$root.showBoard = true;
-         this.$root.boardContent = 'Hey '+ this.$root.username + '😃.Grow your community in channels, collaborate on projects in teams.';
-         this.$root.boardBtnLabel = 'Okay,Got It';
-
-              }
+              
                
+          }else{
+             
           }
         
          
@@ -494,11 +641,17 @@ export default {
         this.$root.userPageTrack = response.data[2];
 
         this.activateBot();
+
   }
     
   
   })
   .catch(error => {
+
+     this.$root.showBoard = true;
+         this.$root.boardContent = "Welcome home developer 👨‍💻. " + "\n\
+          Grow your communities in channels, collaborate and build projects in teams and challenge friends to duels.";
+         this.$root.boardBtnLabel = 'Got It';
  
   }) 
 
@@ -529,6 +682,9 @@ export default {
         this.channelSpace = this.$root.ChatList[2];
         this.channelProject = this.$root.ChatList[3].data;
         this.channelDirect = this.$root.ChatList[4];
+         this.channelSuggestions = this.$root.ChatList[5];
+
+         this.checkUnread();
           
         this.$root.SpaceWithoutChannel = this.$root.ChatList;
     
@@ -547,6 +703,9 @@ export default {
         this.teamSpace =  response.data[1];
         this.channelSpace =  response.data[2];
         this.channelDirect = response.data[4];
+        this.channelSuggestions = response.data[5];
+
+         this.checkUnread();
           
         this.$root.SpaceWithoutChannel = response.data;
          this.$root.ChatList = response.data;
@@ -562,7 +721,28 @@ export default {
      }) 
          }
          
-       }
+       },
+      checkUnread: function(){
+         for (let index = 0; index < this.teamSpace.length; index++) {
+        
+         this.$root.teamUnread += this.teamSpace[index].unread;
+          
+        }
+
+
+         for (let index = 0; index < this.channelSpace.length; index++) {
+        
+         this.$root.channelUnread += this.channelSpace[index].unread;
+          
+        }
+
+
+         for (let index = 0; index < this.channelDirect.length; index++) {
+        
+         this.$root.directUnread += this.channelDirect[index].unread;
+          
+        }
+      }
     }
 }
 </script>

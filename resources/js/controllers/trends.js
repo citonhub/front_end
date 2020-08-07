@@ -9,7 +9,10 @@ import Auth from "../components/auth/auth.vue"
 import Register from "../components/auth/Register.vue"
 import Verify from "../components/auth/Verify.vue"
 import SetUsername from "../components/auth/SetUsername.vue"
-import List from "../components/trends/List.vue"
+import Connect from "../components/trends/Connect.vue"
+import Channel from "../components/trends/Channel.vue"
+import Duel from "../components/trends/Duel.vue"
+import Project from "../components/trends/Project.vue"
 
 
 
@@ -23,12 +26,27 @@ const routes = [
   { path: '/trends',
      name: 'Trends', 
      component: Trends,
-     redirect: '/trends/list',
+     redirect: '/trends/connect',
     children: [
       {
-        // list
-        path: 'list',
-        component: List
+        // connect
+        path: 'connect',
+        component: Connect
+      },
+      {
+        // channel
+        path: 'channels',
+        component: Channel
+      },
+      {
+        // teams
+        path: 'duels',
+        component: Duel
+      },
+      {
+        // project
+        path: 'projects',
+        component: Project
       },
       
     ]

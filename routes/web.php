@@ -129,3 +129,4 @@ Route::get('/connect-user-{username}','ProfileController@connectUser');
 Route::get('/fetch-connections','ProfileController@userConnections');
 Route::get('/fetch-connected','ProfileController@userConnected');
 Route::get('/fetch-all-connected','ProfileController@userAllConnected');
+Route::get('/fetch-trend-connections','ProfileController@fetchTrendConnections');

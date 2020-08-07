@@ -68,17 +68,7 @@ body {
  style="border-radius:7px; height:80%; position:fixed; width:15%;top:10%; right:16.60%; background:white; border:1px solid #b7dbe1;" >
 
   
-      
-         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;" @click="showNavLink('library')">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-inbox-full-outline</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">My Library</span>
-            </div>
-           </div>
-         </v-card>
+
          <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;"  @click="showNavLink('duel_list')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
@@ -197,16 +187,7 @@ body {
 
       <div class="col-12 py-3 px-0">
        <div class="row py-0 my-0" >
-         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;" @click="showNavLink('library')">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-inbox-full-outline</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">My Library</span>
-            </div>
-           </div>
-         </v-card>
+        
          <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;" @click="showNavLink('duel_list')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">

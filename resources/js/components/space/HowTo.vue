@@ -26,7 +26,7 @@
 
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                    <b style="color:#173136;"> 1</b> Navigate to a new page
+                    <b style="color:#173136;"> 1</b>How to navigate to a new page
                  </span> <br>
 
              </div>
@@ -64,7 +64,7 @@
 
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                     <b style="color:#173136;"> 2</b>   To link a new HTML, CSS or Javascript file you created in your panel
+                     <b style="color:#173136;"> 2</b>  How to link a new HTML, CSS or Javascript file you created in your panel
                  </span> <br><br>
 
                 
@@ -127,7 +127,7 @@
               
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                     <b style="color:#173136;"> 2</b>   To attach an image, video, or use a CSS or JS file in code is very easy.
+                     <b style="color:#173136;"> 3</b> How to attach an image, video, or use a CSS or JS file in code is very easy.
                  </span> <br><br>
 
                   
@@ -154,6 +154,20 @@
                 
 
                
+             </div>
+
+              <div class="col-12 py-0 my-1 text-left" style="border-bottom:1px solid #c5c5c5;">
+                 <span style="color:#2e626b; font-size:13px;">
+                     <b style="color:#173136;"> 4</b> My API call is not working.
+                 </span> <br><br>
+
+                  
+             </div>
+
+             <div class="col-12 py-0 text-left">
+                <span style="color:#2e626b; font-size:13px;">
+                      Make sure the API URL is server through HTTPS
+                 </span>
              </div>
 
 

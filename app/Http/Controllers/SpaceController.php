@@ -29,6 +29,8 @@ use App\PushNotification;
 use App\CustomClass\Curler;
 use App\CustomClass\MetaParser;
 use App\DMList;
+use App\Profile;
+use App\ActionMessage;
 use App\traits\PushNotificationTrait;
 
 class SpaceController extends Controller
@@ -744,6 +746,7 @@ foreach ($userDirectSpaces as $spaceDirect) {
 
      $newMessages = $this->MessageEngine($spacemessages,$timeArray);
 
+
       
 
      return [$newMessages,$thisSpace,$spaceMembers];
@@ -785,6 +788,14 @@ public function MessageEngine($messageArray,$timeArray){
             $message["image"] = $ImageMessage;
 
          }
+
+         if($message["type"] == 'action'){
+           
+            $ActionMessage = ActionMessage::where('message_id',$message["message_id"])->first();
+   
+            $message["action"] = $ActionMessage;
+         }
+
 
          if($message["type"] == 'project'){
             
@@ -903,6 +914,13 @@ public function MessageEngine($messageArray,$timeArray){
            $message["video"] = $VideoMessage;
 
         }
+
+        if($message["type"] == 'action'){
+           
+         $ActionMessage = ActionMessage::where('message_id',$message["message_id"])->first();
+
+         $message["action"] = $ActionMessage;
+      }
 
         if($message["type"] == 'join'){
             
@@ -1275,6 +1293,203 @@ array_push($newSpaceArray,$userSpace);
   $NewProject->save();
  }
 
+
+ public function createDefaultSpaces(){
+
+
+   $characters = '123456789abcdefghijklmnopqrstuvwsyz';
+       
+   $spaceId = $this->generateRandomNumber(12,$characters);
+
+   $spaceIdChannel = 'channel' . $spaceId;
+
+   $spaceIdTeam = 'team'. $spaceId;
+
+
+   $spaceCreated = Profile::where('user_id',Auth::id())->first()->initial_space_created;
+
+
+      if($spaceCreated == false){
+
+      // create channel
+
+         $newSpace = Space::create([
+            "name"=> 'My Channel',
+            "user_id"=> Auth::id(),
+            "type"=> 'Channel',
+            "space_id"=>  $spaceIdChannel,
+            "limit" => 500
+         ]);
+         $newSpace->save();
+
+
+
+        $spaceMember = SpaceMember::create([
+         'user_id'=> Auth::id(),
+         "is_admin"=> true,
+         'space_id'=> $spaceIdChannel
+        ]);
+
+         $spaceMember->save();
+
+
+
+    // create channel new action messages
+
+   
+
+    $MessageContent1 = ' <p>Grow your coding community 👫 in channels.
+    Invite more people to share codes with you 👩🏾‍💻.
+   The more people in your channels, the more
+ coins you get to host projects and initiate duels 😃</p>'; 
+
+    $newMessage1 = SpaceMessage::create([
+       "space_id"=>$spaceIdChannel,
+       "type"=>'action',
+       "is_reply"=>false,
+       "user_id"=> 93,
+       "replied_message_id"=> null,
+       "content"=> $MessageContent1
+    ]);
+
+    $newMessage1->save();
+
+    $messageURL1 = 'showShare';
+    $messageLabel1 = 'Invite now.';
+
+    $actionMessage1 = ActionMessage::create([
+    "message_id"=> $newMessage1->id,
+    "url"=> $messageURL1,
+    "type"=>'custom',
+    "label"=> $messageLabel1
+    ]);
+    
+    $actionMessage1->save();
+
+
+
+    $MessageContent2 = 'Connect with other developers 👩‍💻 on CitonHub.'; 
+
+    $newMessage2 = SpaceMessage::create([
+       "space_id"=>$spaceIdChannel,
+       "type"=>'action',
+       "is_reply"=>false,
+       "user_id"=> 93,
+       "replied_message_id"=> null,
+       "content"=> $MessageContent2
+    ]);
+
+    $newMessage2->save();
+
+    $messageURL2 = '/trends#/connect';
+    $messageLabel2 = 'Connect';
+
+    $actionMessage2 = ActionMessage::create([
+    "message_id"=> $newMessage2->id,
+    "url"=> $messageURL2,
+    "type"=>'inner',
+    "label"=> $messageLabel2
+    ]);
+    
+    $actionMessage2->save();
+
+    // unread channel message
+
+    $userUnread = UnreadMessage::create([
+      'user_id'=> Auth::id(),
+      'space_id'=> $spaceIdChannel,
+      'unread'=> 2
+      ]);
+
+    $userUnread->save();
+
+
+
+    // create team channel 
+   
+
+         $newSpace2 = Space::create([
+            "name"=> 'My Team',
+            "user_id"=> Auth::id(),
+            "type"=> 'Team',
+            "space_id"=>  $spaceIdTeam,
+            "limit" => 500
+         ]);
+         $newSpace2->save();
+
+
+
+        $spaceMember2 = SpaceMember::create([
+         'user_id'=> Auth::id(),
+         "is_admin"=> true,
+         'space_id'=> $spaceIdTeam
+        ]);
+
+         $spaceMember2->save();
+
+
+
+    // create team new action messages
+
+   
+
+    $MessageContentTeam1 = '<p>Collaborate with a small number of developers 👨‍💻,
+
+    to work on projects. Assign projects to teams,
+   
+    and everyone has access to the same panel 🗄.</p> '; 
+
+    $newMessage3 = SpaceMessage::create([
+       "space_id"=>$spaceIdTeam,
+       "type"=>'action',
+       "is_reply"=>false,
+       "user_id"=> 93,
+       "replied_message_id"=> null,
+       "content"=> $MessageContentTeam1
+    ]);
+
+    $newMessage3->save();
+
+    $messageURL3 = 'showShare';
+    $messageLabel3 = 'Invite Team Members';
+
+    $actionMessage3 = ActionMessage::create([
+    "message_id"=> $newMessage3->id,
+    "url"=> $messageURL3,
+    "type"=>'custom',
+    "label"=> $messageLabel3
+    ]);
+    
+    $actionMessage3->save();
+
+
+    // unread channel message
+
+    $userUnread2 = UnreadMessage::create([
+      'user_id'=> Auth::id(),
+      'space_id'=> $spaceIdTeam,
+      'unread'=> 1
+      ]);
+
+    $userUnread2->save();
+
+
+
+      // update space creation status
+
+      $profileUser = Profile::where('user_id',Auth::id())->first();
+     
+      $profileUser->update([
+       'initial_space_created'=> true
+      ]);
+
+
+      }
+
+
+
+ }
+
  public function fetchUserSpaces(){
      
     $characters = '123456789abcdefghijklmnopqrstuvwsyz';
@@ -1354,8 +1569,7 @@ array_push($newSpaceArray,$userSpace);
 
 
 
-      $MessageContent = 'Hi <strong>' . Auth::user()->name . '</strong>, I\'m Papilo(a human)😃. I\'m here to help with any problem you have in navigating this site. And with a 
-      promise(crossing my heart 🤞🏻) that any feedback from you will be worked on within 2 days 😎'; 
+      $MessageContent = 'Hi <strong>' . Auth::user()->name . '</strong>, I\'m Olutola(a human)😃. I\'m here to help with any problem you have using CitonHub.'; 
   
       $newMessage = SpaceMessage::create([
          "space_id"=>$spaceId,
@@ -1368,6 +1582,9 @@ array_push($newSpaceArray,$userSpace);
    
 
       }
+
+      
+     $this->createDefaultSpaces();
     
      if($userPersonalSpace->isEmpty()){
        
@@ -1489,6 +1706,33 @@ array_push($newSpaceArray,$userSpace);
 
          array_push($newChannelArray,$userSpaceChannel);
 
+      }
+
+
+       $userSuggestedSpaces = DB::table('spaces')->where('user_id',94)->where('type','Channel')->orderBy('created_at','desc')->paginate(10);
+
+      $newSuggestedArray = [];
+     
+      
+
+      foreach ($userSuggestedSpaces as $spaceChannel) {
+         
+         $userSpaceChannel = (array) $spaceChannel;
+
+
+         $spaceMembers = SpaceMember::where('space_id',$userSpaceChannel["space_id"])->get();
+
+         
+            $userSpaceChannel["members"] = count($spaceMembers);
+
+         
+            $userIsMember =  SpaceMember::where('space_id',$userSpaceChannel["space_id"])->where('user_id',Auth::id())->get();
+        
+           
+            if($userIsMember->isEmpty()){
+               array_push($newSuggestedArray,$userSpaceChannel);
+            }
+         
       }
 
 

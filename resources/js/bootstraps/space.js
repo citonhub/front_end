@@ -34,7 +34,7 @@ const vuetify = new Vuetify({
         iconfont: 'mdi'
     }
 });
-import moment from 'moment'
+
 
 window.moment = require('moment');
 

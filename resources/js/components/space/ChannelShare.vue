@@ -20,6 +20,8 @@
            <div class="row my-0 py-0 px-2">
 
               <div class="col-12 py-1 my-0 text-center">
+                 <v-btn icon color="#3E8893" @click="showShareProject ? showShareProject = false : showShareProject = true" style="background:#edf6f7;border:1px solid #3E8893;" class="mx-1"><v-icon>mdi-plus-network-outline</v-icon></v-btn>
+                 
                 <v-btn icon color="#3E8893" style="background:#edf6f7;border:1px solid #3E8893;" class="mx-1"><v-icon>mdi-image</v-icon>
                  <input type="file" multiple
                 @change="crophandler" style="opacity:0;width:100%; height:100%; overflow:hidden; position:absolute; z-index:10;"
@@ -43,7 +45,7 @@
              accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
               text/plain, application/pdf"/>
                 </v-btn>
-                 <v-btn icon color="#3E8893" @click="showShareProject ? showShareProject = false : showShareProject = true" style="background:#edf6f7;border:1px solid #3E8893;" class="mx-1"><v-icon>mdi-plus-network-outline</v-icon></v-btn>
+                
               </div>
 
 

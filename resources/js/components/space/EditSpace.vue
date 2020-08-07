@@ -77,32 +77,19 @@
              
 
              <div class="col-12 py-2 my-0 px-2">
-                 <div>
-                     <span style="font-size:12px;color:#666666;">Description</span>
-                 </div>
-             
-              <v-row>
-              <v-col cols=12 >
-         
-
-            <div class="editor">
-          
-             <editor-content class="editor-boxSpace" :editor="editor" :onUpdate="countCharacter()" :onFocus="focusedText"  />
-            </div>
-           </v-col>
-
-             <div class="col-12 py-0">
-          <div class="row py-0 my-0">
-                <div class="col-8 py-0 my-0">
-                    <span style="font-size:12px;" class="text-danger" v-show="editFeild">Characters cannot exceed {{wordLimit }}</span>
-                </div>
-                 <div class="col-4 py-0 my-0  text-right">
-                   <span class="counter">{{wordCount}}/{{ wordLimit }}</span>
-                </div>
-          </div>
-          
-        </div>
-             </v-row>
+                   <v-textarea
+                style="font-size:11px;"
+                 
+            label="Description"
+             dense
+            
+             placeholder="description..."
+             :rules="DescriptionRule"
+             v-model="contentInWord"
+             counter="300"
+             color="#4495a2"
+            
+             ></v-textarea>
              </div> 
 
 
@@ -149,11 +136,7 @@
 </template>
 <script>
 
-import { Editor, EditorContent, EditorMenuBar  } from 'tiptap';
-import {
-        Bold, 
-        Underline,
-        Image,BulletList,ListItem,Placeholder} from 'tiptap-extensions';
+
 
 export default {
     data(){
@@ -168,64 +151,34 @@ export default {
              v => !!v || 'Name is required',
            v => v.length < 30 || 'Name must be less than 20 characters'
          ],
+         DescriptionRule:[
+              v => !!v || 'Description is required',
+           v => v.length < 300 || 'Description must be less than 300 characters'
+         ],
          wordCount:0,
          mycontent:'',
          editFeild:false,
          progressvalue:0,
          contentInWord:'',
-          editor: new Editor({
-        content: this.$root.postContent,
-        extensions:[
-        
-            new Bold(),
-            new Underline(),
-            new Image(),
-             new Placeholder({
-            emptyEditorClass: 'is-editor-empty',
-            emptyNodeClass: 'is-empty',
-            emptyNodeText: 'Describe the purpose of this space...',
-            showOnlyWhenEditable: true,
-            showOnlyCurrent: true,
-          }),
-       
-           
-        ],
-        
-      }),
+          
         }
     },
      components: {
-    EditorContent,
-    EditorMenuBar,
+    
   },
     mounted(){
       this.$root.showTabs=false;
        this.$root.showHeader = false;
        this.fetchMessages();
-       this.editor.setContent(this.$root.selectedSpace.description);
+       this.contentInWord = this.$root.selectedSpace.description;
+      
        
     },
     methods:{
        goBack() {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
-         countCharacter:function(value){
-            this.wordCount = this.editor.getHTML().length;
-
-         if(this.wordCount > this.wordLimit){
-           this.editFeild = true;
-
-         }else{
-            this.editFeild = false;
-         }
-         
-       
-         this.contentInWord = this.editor.getHTML();
         
-
-          
-          
-      },
       fetchMessages: function(){
           
            axios.get('/fetch-space-messages-' + this.$route.params.spaceId )

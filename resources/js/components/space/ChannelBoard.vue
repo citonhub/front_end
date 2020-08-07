@@ -45,7 +45,7 @@
                 </div>
                 <div class="py-0 my-0 col-2 text-right" >
                        <span class="messagesBadges">
-                             <span class="">{{SpaceMembers.length}}</span>
+                             <span class="">{{this.$root.selectedSpaceMembers.length}}</span>
                           </span>
                     </div>
               </div>
@@ -175,25 +175,7 @@ export default {
           spacelink.setAttribute('type', 'hidden')
           window.getSelection().removeAllRanges()
         },
-        fetchMessages: function(){
-          
-           axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
-      .then(response => {
-      
-      if (response.status == 200) {
-        
-        this.SpaceMembers = response.data[2];
-       this.$root.selectedSpace = response.data[1];
        
-     }
-       
-     
-     })
-     .catch(error => {
-    
-     }) 
-
-        },
   
   },
 }

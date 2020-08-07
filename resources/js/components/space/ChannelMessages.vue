@@ -219,6 +219,33 @@
                              </div>
         </div>
 
+
+         <!-- action messages --> 
+
+
+       <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" v-if="source.type == 'action'  && source.is_reply != '1' ">
+           <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="auto">
+            <span  class="msgText" v-html="source.content"></span>
+            <div class="col-12 py-1 my-2 text-center " style="">
+              <v-btn x-small rounded color="#3E8893" @click.stop="handleAction(source)"><span style="color:white; font-size:11px; text-transform:capitalize;">{{ source.action.label }}</span></v-btn>
+            </div>
+            <div class="col-12 py-0 my-0" >
+           <div class="row py-0 my-0">
+               <div class="col-4 text-left py-0 my-0">
+                      <span class="label">{{checkDatereal(source.created_at)}}</span>
+               </div>
+               <div class="col-8 text-right py-0 my-0" >
+                      <span class="label" @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+           </div>
+          </div>
+           </v-card>
+           <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
+                               <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
+                             </div>
+        </div>
+
        
 
      <!-- code boxes -->
@@ -304,6 +331,37 @@
 
         <div   v-if="source.replied_message != undefined && source.is_reply == '1'"  class="col-12 py-0 my-0 px-0" >
              <div   v-if="source.is_reply == '1' && source.replied_message.type == null" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '">
+           <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
+              <div :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-right' : 'col-12 py-1 px-1 my-1 taggedOthers text-right' " @click.stop="scrollToMessage(source.replied_message.message_id)" >
+                  <span class="msgTextReply text-left d-block" v-html=" shortenContent(source.replied_message.content ,80)" ></span>
+                  <span class="text-right label">{{source.replied_message.username}}</span>
+              </div>
+            <span  class="msgText" v-html="source.content"></span>
+            <div class="col-12 py-0 my-0">
+           <div class="row py-0 my-0">
+               <div class="col-4 text-left py-0 my-0">
+                      <span class="label">{{checkDatereal(source.created_at)}}</span>
+               </div>
+               <div class="col-8 text-right py-0 my-0">
+                      <span class="label"  @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+           </div>
+          </div>
+           </v-card>
+           
+           
+          <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
+                               <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
+                             </div>
+             </div>
+             
+        </div>
+
+         <!-- action reply -->
+
+        <div   v-if="source.replied_message != undefined && source.is_reply == '1'"  class="col-12 py-0 my-0 px-0" >
+             <div   v-if="source.is_reply == '1' && source.replied_message.type == 'action'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
               <div :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-right' : 'col-12 py-1 px-1 my-1 taggedOthers text-right' " @click.stop="scrollToMessage(source.replied_message.message_id)" >
                   <span class="msgTextReply text-left d-block" v-html=" shortenContent(source.replied_message.content ,80)" ></span>
@@ -620,6 +678,19 @@ export default {
         }
     },
     methods:{
+      handleAction:function(message){
+         
+         if(message.action.type == 'custom'){
+          
+           this.$root.shareText = 'Join ' + this.$root.selectedSpace.name +  ' ' +  this.$root.selectedSpace.type  +' on Citonhub';
+          this.$root.shareLink =   'https://www.citonhub.com/link/space/'+ this.$route.params.spaceId + '/' + this.$root.username;
+         this.$root.showShare = true;
+
+         }
+         if(message.action.type == 'inner'){
+         window.location = '/trends#/trends/connect';
+         } 
+      },
        showAlert:function(duration,text){
         this.$root.AlertRoot = true;
         this.$root.AlertMsgRoot = text;

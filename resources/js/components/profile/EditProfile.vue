@@ -94,32 +94,19 @@
              </div>
 
               <div class="col-12 py-2 my-0 px-2">
-                 <div>
-                     <span style="font-size:12px;color:#666666;">About</span>
-                 </div>
-             
-              <v-row>
-              <v-col cols=12 >
-         
-
-            <div class="editor">
-          
-             <editor-content class="editor-boxSpace" :editor="editor" :onUpdate="countCharacter()"   />
-            </div>
-           </v-col>
-
-             <div class="col-12 py-0">
-          <div class="row py-0 my-0">
-                <div class="col-8 py-0 my-0">
-                    <span style="font-size:12px;" class="text-danger" v-show="editFeild">Characters cannot exceed {{wordLimit }}</span>
-                </div>
-                 <div class="col-4 py-0 my-0  text-right">
-                   <span class="counter">{{wordCount}}/{{ wordLimit }}</span>
-                </div>
-          </div>
-          
-        </div>
-             </v-row>
+                  <v-textarea
+                style="font-size:11px;"
+                 
+            label="About"
+             dense
+            
+             placeholder="about..."
+             :rules="aboutRule"
+             v-model="contentInWord"
+             counter="300"
+             color="#4495a2"
+            
+             ></v-textarea>
              </div> 
 
 
@@ -166,11 +153,7 @@
 </template>
 <script>
 
-import { Editor, EditorContent, EditorMenuBar  } from 'tiptap';
-import {
-        Bold, 
-        Underline,
-        Image,BulletList,ListItem,Placeholder} from 'tiptap-extensions';
+
 
 export default {
     data(){
@@ -191,6 +174,10 @@ export default {
          UsernameRule:[
            v => !!v || 'Username is required',
            v => v.length < 16 || 'Username must be less than 16 characters'
+        ],
+        aboutRule:[
+          v => !!v || 'About is required',
+           v => v.length < 300 || 'About must be less than 300 characters'
         ],
         alertMsg:'',
           wordLimit:400,
@@ -218,30 +205,11 @@ export default {
          progressvalue:0,
         
          contentInWord:'',
-          editor: new Editor({
-        content: this.$root.postContent,
-        extensions:[
-        
-            new Bold(),
-            new Underline(),
-            new Image(),
-             new Placeholder({
-            emptyEditorClass: 'is-editor-empty',
-            emptyNodeClass: 'is-empty',
-            emptyNodeText: 'About yourself...',
-            showOnlyWhenEditable: true,
-            showOnlyCurrent: true,
-          }),
-       
-           
-        ],
-        
-      }),
+         
         }
     },
      components: {
-    EditorContent,
-    EditorMenuBar,
+   
   },
     mounted(){
       this.$root.showTabs=true;
@@ -257,7 +225,7 @@ export default {
       
         
        this.fullName = this.$root.profileDetails.name;
-      this.editor.setContent(this.$root.profileDetails.about);
+     this.contentInWord = this.$root.profileDetails.about;
 
        if(this.$root.profileDetails.image_name){
           if(this.$root.imageExist){
@@ -317,23 +285,6 @@ var blob = this.b64toBlob(realData, contentType);
   return [blob,imgType];
  },
 
-      countCharacter:function(value){
-            this.wordCount = this.editor.getHTML().length;
-
-         if(this.wordCount > this.wordLimit){
-           this.editFeild = true;
-
-         }else{
-            this.editFeild = false;
-         }
-         
-       
-         this.contentInWord = this.editor.getHTML();
-        
-
-          
-          
-      },
       fetchUserDetails: function(){
          if(this.$root.profileDetails == null){
 

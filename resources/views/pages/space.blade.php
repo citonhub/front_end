@@ -34,7 +34,12 @@ body {
   <div class="subline dec"></div>
 </div>
 <div style="position:absolute;height:100%; width:100%; align-items:center; top:0; left:0; justify-content:center;z-index:100000;background:white;"  class=" d-flex " v-if="pageloader"> 
-      <img src="/imgs/CitonHub.png" height="40" width="40" class="sliderfull">
+      <div class="text-center">
+      <img src="/imgs/CitonHub.png" height="40" width="40" class="sliderfull d-block">
+     
+      </div>
+
+     
 </div>
 
 
@@ -76,16 +81,6 @@ body {
 
   
       
-         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;" @click="showNavLink('library')">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-inbox-full-outline</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">My Library</span>
-            </div>
-           </div>
-         </v-card>
          <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;"  @click="showNavLink('duel_list')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
@@ -205,16 +200,7 @@ body {
 
       <div class="col-12 py-3 px-0">
        <div class="row py-0 my-0" >
-         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;" @click="showNavLink('library')">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-inbox-full-outline</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">My Library</span>
-            </div>
-           </div>
-         </v-card>
+        
          <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;" @click="showNavLink('duel_list')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
@@ -304,6 +290,6 @@ body {
 
  @section('scripts')
 
- <script src="{{ asset('js/space.js?v=1.32') }}"></script>
+ <script src="{{ asset('js/space.js?v=1.38') }}"></script>
      
  @endsection

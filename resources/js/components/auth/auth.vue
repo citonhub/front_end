@@ -10,13 +10,13 @@
             </div>
 
            <div class="col-12 py-0 text-center">
-          <img  width="100px" src="/imgs/bot.svg" />
+             <span style="font-family:HeaderText; font-size:14px;"> Welcome home developer 👨‍💻.</span>
             </div>
 
 
            <div class="col-12 py-2 text-center ">
               <span class="infoclass px-4">
-                 Share codes and build projects on CitonHub.
+                 Grow your favourite communities in channels, collaborate and build projects in teams and challenge friends to duels.
              </span>
             </div>
            

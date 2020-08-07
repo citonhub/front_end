@@ -177,7 +177,7 @@ export default {
             
             
              if (response.status == 204) {
-              
+              this.pageloader= true;
              window.location =  this.$root.UrlTrack;
              location.reload();
               

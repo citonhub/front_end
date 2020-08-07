@@ -18,9 +18,15 @@
             </div>  
          </div>
          <div class="col-6 py-0 my-0 pt-1 text-center"  @click="showSpaceInfo">
-              <span class="TitleText d-block" v-if="this.$root.selectedSpace.type != 'Direct'"> {{shortenContent(this.$root.selectedSpace.name,22)}}</span>
+           <div>
+              
+               <span class="TitleText d-block" v-if="this.$root.selectedSpace.type != 'Direct'"> {{shortenContent(this.$root.selectedSpace.name,22)}}</span>
               <span class="TitleText d-block" v-else @click.stop="viewUser()">{{shortenContent(this.$root.selectedSpace.userInfo.username,22)}}</span>
                <span class="typingText d-block" v-if="this.$root.typing">{{this.$root.typinguser}} is typing... </span>
+                <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}} Members</span>
+
+           </div>
+             
          </div>
          <div class="col-3 py-0 my-0 px-0 text-right"  style="" >
               <v-menu bottom left

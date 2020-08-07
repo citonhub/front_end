@@ -86,6 +86,11 @@
                   <span class="msgTextReply text-left d-block" style="color:white;" v-html="shortenContent(this.$root.replyMessage.content ,50)" ></span>
                  
               </div>
+
+               <div class="col-12 py-1 px-1  text-right" v-if="this.$root.replyMessage.type == 'action'">
+                  <span class="msgTextReply text-left d-block" style="color:white;" v-html="shortenContent(this.$root.replyMessage.content ,50)" ></span>
+                 
+              </div>
               
                  <div class="row py-0 my-0" v-if="this.$root.replyMessage.type == 'image'">
                      <div class="col-3 py-0 my-0">
@@ -714,7 +719,9 @@ export default {
        
        this.generateUnreadMessage();
         
-       this.$root.selectedSpace = response.data[1]
+       this.$root.selectedSpace = response.data[1];
+
+       this.$root.selectedSpaceMembers = response.data[2];
 
        setTimeout(() => {
          
