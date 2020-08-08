@@ -26,12 +26,12 @@
              <div class="col-12 px-4 py-2" v-for="(duel,index) in allDuels" :key="index">
                <v-card elevation-22 class="py-1 px-1" >
                 <div class="row px-1">
-                   <div class="py-0 col-12 text-left d-md-block d-none"  @click="showboard(duel)">
+                   <div class="py-0 col-12 text-left d-md-block d-none"  >
                         <div style="background-color:; border-radius:4px; border:1px solid transparent;">
                            <span style="font-size:13px;color:#26535a;">{{shortenContent(duel.title,40)}}</span>
                         </div>
                    </div>
-                    <div class="py-0 col-12 text-left d-block d-md-none"  @click="showboard(duel)" >
+                    <div class="py-0 col-12 text-left d-block d-md-none"  >
                         <div style="background-color:; border-radius:4px; border:1px solid transparent;">
                            <span style="font-size:13px;color:#26535a;">{{shortenContent(duel.title,35)}}</span>
                         </div>
