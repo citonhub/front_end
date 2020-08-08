@@ -723,6 +723,13 @@ export default {
          
        },
       checkUnread: function(){
+
+        this.$root.teamUnread = 0;
+
+        this.$root.channelUnread = 0;
+
+        this.$root.directUnread = 0;
+
          for (let index = 0; index < this.teamSpace.length; index++) {
         
          this.$root.teamUnread += this.teamSpace[index].unread;

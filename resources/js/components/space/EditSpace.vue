@@ -170,7 +170,12 @@ export default {
       this.$root.showTabs=false;
        this.$root.showHeader = false;
        this.fetchMessages();
+        if(this.$root.selectedSpace.description == null){
+           this.contentInWord = 'Describes what this space is about';
+        }else{
        this.contentInWord = this.$root.selectedSpace.description;
+        }
+
       
        
     },
@@ -291,7 +296,7 @@ var blob = this.b64toBlob(realData, contentType);
                        formData.append('image_ext',data1[1]);
                       
               
-
+        }
              
 
         formData.append('name',this.spaceName);
@@ -324,7 +329,7 @@ var blob = this.b64toBlob(realData, contentType);
             this.showAlert(5000,'Failed- ' + error);
               this.loading = false;
           })
-        }
+        
        
   },
 }
