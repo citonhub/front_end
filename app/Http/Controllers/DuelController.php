@@ -611,8 +611,7 @@ class DuelController extends Controller
            'users.username as username',
            'duels.created_at as created_at'
         )
-      ->where('duels.user_id','!=',Auth::id())
-      ->orderBy('duels.created_at', 'desc')->paginate(100);
+      ->orderBy('duels.likes', 'desc')->paginate(50);
 
       $duelArray = $this->duelEngine($duels);
 

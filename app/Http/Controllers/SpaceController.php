@@ -1521,15 +1521,9 @@ array_push($newSpaceArray,$userSpace);
 
          
             $userSpaceChannel["members"] = count($spaceMembers);
-
-         
-            $userIsMember =  SpaceMember::where('space_id',$userSpaceChannel["space_id"])->where('user_id',Auth::id())->get();
-         
-
-            if($userIsMember->isEmpty()){
+            
                array_push($newChannelArray,$userSpaceChannel);
-            } 
-
+          
       }
 
       return $newChannelArray;
