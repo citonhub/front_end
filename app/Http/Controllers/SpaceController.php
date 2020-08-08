@@ -1493,8 +1493,7 @@ array_push($newSpaceArray,$userSpace);
 
  public function fetchTrendChannels(){
 
-          $userChannelSpaces = DB::table('space_members')
-                  ->join('spaces','spaces.space_id','space_members.space_id')
+          $userChannelSpaces = DB::table('spaces')
                   ->join('users','users.id','spaces.user_id')
                   ->select(
                       'spaces.image_name as image_name',
@@ -1521,9 +1520,15 @@ array_push($newSpaceArray,$userSpace);
 
          
             $userSpaceChannel["members"] = count($spaceMembers);
-            
+
+         
+           
+         
+
+           
                array_push($newChannelArray,$userSpaceChannel);
-          
+            
+
       }
 
       return $newChannelArray;
