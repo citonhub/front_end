@@ -543,9 +543,9 @@ return $newCommentArray;
 
           $eachProject["total_stars"] = $totalStars;
 
-          $userIsMember =  SpaceMember::where('space_id',$eachProject["space_id"])->where('user_id',Auth::id())->get();
+          $space = Space::where('space_id',$eachProject["space_id"])->first();
 
-          if($userIsMember->isEmpty()){
+          if($space->type != 'Team'){
             array_push($newProject,$eachProject);
           }
           
