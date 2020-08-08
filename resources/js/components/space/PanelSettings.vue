@@ -165,6 +165,7 @@ export default {
               this.$root.forcePanelReload = true;
               this.$root.fromChatList = false;
               this.goBack();
+              
             
             }
               

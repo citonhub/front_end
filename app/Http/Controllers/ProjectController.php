@@ -16,6 +16,7 @@ use App\SpaceMember;
 use App\Events\PanelChannel;
 use App\traits\PushNotificationTrait;
 use App\PushNotification;
+use App\User;
 use App\CustomClass\Curler;
 use App\CustomClass\MetaParser;
 
@@ -505,6 +506,54 @@ return $newCommentArray;
 
         return $newProject;
     }
+
+
+    public function fetchTrendProject(){
+       
+      $allProjects = Project::where('title','!=','Citonhub Project')->orderBy('created_at','desc')->paginate(50);
+
+
+      $newProject = [];
+
+      foreach ($allProjects as $eachProject) {
+           
+          $eachProjectNew = (array) $eachProject;
+
+
+          $spaceOwner = Space::where('space_id',$eachProject["space_id"])->first();
+
+            if($spaceOwner->type == 'Personal'){
+
+               $userOwner = User::where('id',$eachProject["user_id"])->first();
+
+               $eachProject["owner"] = $userOwner->username;
+
+            }else{
+              $eachProject["owner"] = $spaceOwner->name;
+            }
+
+          $totalStars = 0;
+
+          $allStars = ProjectStar::where('project_id',$eachProject["id"])->get();
+
+          foreach ($allStars as $star) {
+            
+               $totalStars += $star->stars;
+          }
+
+          $eachProject["total_stars"] = $totalStars;
+
+          $userIsMember =  SpaceMember::where('space_id',$eachProject["space_id"])->where('user_id',Auth::id())->get();
+
+          if($userIsMember->isEmpty()){
+            array_push($newProject,$eachProject);
+          }
+          
+      }
+
+      return $newProject;
+
+    } 
 
     public function spaceNotification($baseSpaceId,$type,$userArrayBase){
        

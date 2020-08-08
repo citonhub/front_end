@@ -1490,6 +1490,55 @@ array_push($newSpaceArray,$userSpace);
 
  }
 
+
+ public function fetchTrendChannels(){
+
+          $userChannelSpaces = DB::table('space_members')
+                  ->join('spaces','spaces.space_id','space_members.space_id')
+                  ->join('users','users.id','spaces.user_id')
+                  ->select(
+                      'spaces.image_name as image_name',
+                      'spaces.image_extension as image_extension',
+                      'spaces.type as type',
+                      'spaces.name as name',
+                      'users.username as username',
+                      'spaces.background_color as background_color',
+                      'spaces.description as description',
+                      'spaces.space_id as space_id'
+                  )
+                  ->orderBy('spaces.created_at','desc')
+                  ->where('spaces.type','Channel')
+                  ->where('spaces.name','!=','My Channel')
+                  ->paginate(40);
+
+      $newChannelArray = [];
+
+      foreach ($userChannelSpaces as $spaceChannel) {
+         
+         $userSpaceChannel = (array) $spaceChannel;
+
+         $spaceMembers = SpaceMember::where('space_id',$userSpaceChannel["space_id"])->get();
+
+         
+            $userSpaceChannel["members"] = count($spaceMembers);
+
+         
+            $userIsMember =  SpaceMember::where('space_id',$userSpaceChannel["space_id"])->where('user_id',Auth::id())->get();
+         
+
+            if($userIsMember->isEmpty()){
+               array_push($newChannelArray,$userSpaceChannel);
+            } 
+
+      }
+
+      return $newChannelArray;
+   
+ }
+
+
+
+
  public function fetchUserSpaces(){
      
     $characters = '123456789abcdefghijklmnopqrstuvwsyz';

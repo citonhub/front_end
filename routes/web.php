@@ -71,7 +71,7 @@ Route::get('/fetch-duel-results/{duelId}','DuelController@DuelResults');
 Route::get('/fetch-user-duels','DuelController@fetchUserDuel');
 Route::post('/start-duel','DuelController@startDuel');
 Route::post('/make-team','DuelController@MakeTeam');
-
+Route::get('/fetch-trend-duels','DuelController@fetchTrendDuels');
 
 // Panel Routes
 Route::post('/save-code-file','PanelController@SaveCodeFile');
@@ -105,6 +105,7 @@ Route::post('/update-space','SpaceController@updateSpace');
 Route::get('/fetch-owner-list','SpaceController@ownerList');
 Route::get('/fetch-space-resources-{spaceId}','SpaceController@spaceResource');
 Route::get('/fetch-space-members-{spaceId}','SpaceController@fetchSpaceMembers');
+Route::get('/fetch-trend-channels','SpaceController@fetchTrendChannels');
 
 
 //Project Routes
@@ -118,6 +119,7 @@ Route::get('/fetch-comment-project-{projectSlug}','ProjectController@fetchProjec
 Route::post('/save-liked-project-comment','ProjectController@saveProjectLikes');
 Route::get('fetch-comment-panel-{teamCode}','ProjectController@TeamComment');
 Route::get('fetch-user-projects','ProjectController@fetchAllProjects');
+Route::get('/fetch-trend-projects','ProjectController@fetchTrendProject');
 
 // Profile Routes
 Route::post('/update-profile','ProfileController@UpdateProfile');

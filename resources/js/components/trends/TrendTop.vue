@@ -1,7 +1,7 @@
 <template>
 
          <div class="col-12 my-0 px-0 py-0">
-              <div class="row py-0 my-0">
+              <div class="row py-0 my-0 px-1">
               
         <router-link  :to="'/trends/connect'" class="col-3 py-0 my-0 text-center">
             <v-chip

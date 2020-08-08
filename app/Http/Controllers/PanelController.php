@@ -191,9 +191,26 @@ class PanelController extends Controller
       $projectPanel = Project::where('project_slug',$request->get('project_slug'))->first();
 
         $panel = Panel::where('panel_id',$projectPanel->panel_id)->first();
-          
+
         $characters = '1234567890';
         $randomString = $this->generateRandomNumber(9,$characters);
+
+
+        if($request->get('panel_language') == 'NodeJs'){
+
+          $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+
+          $requestData = [
+              'panel_id' => $randomString,
+          ];
+
+          $response = Http::get($baseUrl .'/create-panel',$requestData);
+      
+          dd($response->body());
+
+        }
+          
+        
           
          $this->deleteFilesFolder($projectPanel->panel_id);
          
@@ -524,12 +541,14 @@ class PanelController extends Controller
 
      public function deleteFilesFolder($oldPanelId){
 
+
         $baseUrl = 'https://php.citonhub.com';
         $requestData = [
             'panel_id' => $oldPanelId,
         ];
        $response = Http::post($baseUrl .'/delete-view-folder',$requestData);
 
+       dd($response);
      }
 
      public function recreateFileFolder($newpanelId){

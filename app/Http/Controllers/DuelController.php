@@ -588,6 +588,37 @@ class DuelController extends Controller
 
     }
 
+    public function fetchTrendDuels(){
+       
+      $duels = DB::table('duels')
+      ->join('users','users.id','duels.user_id')
+      ->select(
+           'duels.title as title',
+           'duels.duel_language as languages',
+           'duels.description as description',
+           'duels.participant_type as participant_type',
+           'duels.rules as rules',
+           'duels.duration as duration',
+           'duels.user_id as tempId',
+           'duels.started as started',
+           'duels.start_date as start_date',
+           'duels.likes as likes',
+           'duels.comments as comments',
+           'duels.judges as judges',
+           'duels.duel_id as duel_id',
+           'duels.current_participant as current_participant',
+           'duels.max_participant as max_participant',
+           'users.username as username',
+           'duels.created_at as created_at'
+        )
+      ->where('duels.user_id','!=',Auth::id())
+      ->orderBy('duels.created_at', 'desc')->paginate(100);
+
+      $duelArray = $this->duelEngine($duels);
+
+      return $duelArray;
+    }
+
     public function fetchDuel(){  
         $duels = DB::table('duels')
         ->join('users','users.id','duels.user_id')

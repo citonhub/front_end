@@ -23,7 +23,37 @@
           
           <div class="row my-0 py-0">
 
+            <div class="col-12 py-1 my-1 text-right px-3" v-for="(project,index) in allProject" :key="index" >
+              <v-card  class="px-2 py-1" >
+            <div class="py-0 my-0 row px-2">
+               <div class="col-2 py-1 d-flex" style="align-items:center;justify-content:center;">
+                    <span class="documentIcon"><v-icon class="px-1 py-1" color="#3E8893" >mdi-plus-network-outline </v-icon></span>
+                </div>
+                <div class="col-10 py-1 text-left px-2">
+                  
+                     <div class="row py-0 my-0">
+                         <div class="col-6 py-0 text-left ">
+                     <span class="documentTitle" style="color:#2d646c;">{{shortenContent(project.title,35)}}</span>
+                    </div>
+                <div class="col-6 py-0 text-right">
+                       <span class="mybadgenew">@{{project.owner}}</span>
+                </div>
 
+                   <div class="col-6 py-1 text-left ">
+                    <v-icon color="#3E8893">mdi-star  mdi-18px</v-icon>
+                     <span style="font-size:9px; color:#a6a6a6;">{{project.total_stars}}</span>        
+                </div>
+                <div class="col-6 py-1 text-right">
+                     <v-icon color="#3E8893">mdi-comment-text-outline mdi-18px</v-icon>
+                     <span style="font-size:9px; color:#a6a6a6;">{{project.comments}}</span>   
+                </div>
+                     </div>
+                </div>
+               
+              
+            </div>
+         </v-card>
+            </div>
              <div class="col-12 py-5 my-5">
 
              </div>
@@ -49,7 +79,7 @@ export default {
     data(){
         return{
          
-         
+         allProject: null,
         }
     },
      components: {
@@ -58,11 +88,37 @@ export default {
     mounted(){
       this.$root.showTabs=true;
        this.$root.showHeader = false;
-       
+       this.fetchProject();
        
     },
     methods:{
+      fetchProject: function(){
+          
+      axios.get('/fetch-trend-projects' )
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+       this.allProject = response.data;
+       
+      }
+       
      
+     })
+     .catch(error => {
+    
+     }) 
+
+        },
+        shortenContent: function(content,limit){
+             
+             if(content.length > limit){
+                let shortcontent = content.slice(0,limit);
+                 return shortcontent + '...';
+             }else{
+               return content;
+             }
+        },
        goBack() {
 
           
@@ -75,5 +131,28 @@ export default {
 }
 </script>
 <style>
+.documentIcon{
+    background: #dbedf0;
+    border:1px solid #dbedf0;
+    border-radius:50%;
+}
+.documentTitle{
+  font-size: 12px;
+  color: #2d646c;
+}
 
+.documentSize{
+  font-size: 10px;
+  color: #a6a6a6;
+}
+.mybadgenew{
+     font-size:10px;
+     color:#2d646c;
+     font-family:HeaderText; 
+     border:1px solid #2d646c; 
+     border-radius:10px; 
+     padding: 2px 4px;
+     background:#ffffff;
+     font-weight: bolder;
+ } 
 </style>
