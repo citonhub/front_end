@@ -119,6 +119,7 @@ class ProfileController extends Controller
                       'profiles.about as about',
                       'users.id as tempId'
                      )
+                     ->where('users.email_verified_at','!=',null)
                      ->paginate('50');
       
       $filteredUsers = [];
