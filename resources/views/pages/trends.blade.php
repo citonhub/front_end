@@ -279,5 +279,5 @@ body {
 
 
  @section('scripts')
-<script src="{{ asset('js/trends.js?v=1.44') }}"></script>
+<script src="{{ asset('js/trends.js?v=1.45') }}"></script>
  @endsection
