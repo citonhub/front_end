@@ -43,6 +43,7 @@ class MessageSent implements ShouldBroadcast
     {
          return new PresenceChannel('class.'. $this->message->class_code);
     }
+    
 
     public function broadcastAs()
     {

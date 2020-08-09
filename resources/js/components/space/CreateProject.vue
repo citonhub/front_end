@@ -181,10 +181,29 @@ export default {
             
             
              if (response.status == 201) {
+
+               if(response.data == 'NotEnoughCoin'){
+              
+                this.$root.showBoard = true;
+               this.$root.boardContent = "Hey " + this.$root.username + ",\n\
+              you have exhausted your coins. But no worries, invite your friends to your teams and channels or share your projects to get more coins .";
+              this.$root.boardBtnLabel = 'Got It';
+
+              this.loading = false;
+
+               }else{
+
+               this.$root.ChatList[3].data.unshift(response.data);
                  
-                this.$root.ChatList[3].data.unshift(response.data);
+               this.$root.fromChatList = true;
+           this.$router.push({ path: '/' + response.data.project_slug +'/panel' });
+
+               }
+                 
+               
+
             
-              this.goBack();
+             
             
             }
               

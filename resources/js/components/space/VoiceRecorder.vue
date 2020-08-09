@@ -145,7 +145,7 @@ methods:{
              
            let Data =null;
           
-          this.NewMsg = this.makeMessage('audio',Data);
+          this.$root.NewMsg = this.makeMessage('audio',Data);
            
             this.attachment_type = 'voiceRecord';
 
@@ -156,7 +156,16 @@ methods:{
 
        
          
-          this.$root.Messages.push(this.NewMsg);
+           this.$root.returnedMessages.push(this.$root.NewMsg);
+           
+             this.$root.scrollerControlHandler();
+
+         
+          
+
+         this.$root.scrollToBottom();
+
+
           this.goBack();
 
            if(this.$root.SpaceUsers.length == 0){
@@ -171,51 +180,9 @@ methods:{
         formData.append('is_reply',this.$root.is_reply);
         formData.append('attachment_type',this.attachment_type);
         formData.append('space_id',this.$route.params.spaceId);
-       axios.post('/send-message',formData,
-         {
-             headers:{
-              'Content-Type':'multipart/form-data'
-             },
-             onUploadProgress: function(progressEvent){
-                let messageId = this.NewMsg.message_id;
-               this.$root.Messages.map((message)=>{
-                  if(messageId == message.message_id){
-                     message.progressValue = this.progressvalue = parseInt(Math.round(
-                   (progressEvent.loaded / progressEvent.total) * 100
-                    ))
-                  }
-               });
-             
-           }.bind(this)
-           })
-          .then(response => {
-            
-           if (response.status == 200) {
-                this.loading = false;
-               
-                let messageId = this.NewMsg.message_id;
-                let messageType = this.NewMsg.type;
-               this.$root.Messages.map((message)=>{
-                  if(messageId == message.message_id){
-                     message.loading = false;
-                     message.message_id = response.data[0].message_id;
-                     
-                     if(messageType == 'audio'){
-                       message.audio = response.data[0].audio;
-                     }
-                     
-                  }
-               });
-            }else{
-              
-            }
-            
-            
-          })
-          .catch(error => {
-            this.showAlert(5000,'Failed- ' + error);
-              this.loading = false;
-          })
+        formData.append('temp_id', this.$root.NewMsg.message_id);
+        
+        this.$root.sendShareMessage(formData);
     },
       
       

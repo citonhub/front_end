@@ -483,6 +483,8 @@ export default {
  
                 this.$root.returnedMessages.push(e.data); 
 
+                this.$root.pushDataToLocal(e.data);
+
                   this.scrollToBottom(); 
                
 
@@ -529,7 +531,7 @@ export default {
                startCount = 0;
              }
 
-          
+             
   
           let sliedMsg = this.$root.returnedMessages.slice(startCount,MsgLenght);
 
@@ -698,17 +700,113 @@ export default {
         
         },
 
-    fetchMessages: function(){
+      fetchUnreadMessages: function(result){
 
-      
-           
-           if(this.$root.Messages  == null ){
+           axios.post('/check-for-unread-messages',{
+                spaceId: this.$route.params.spaceId,
+                existingMsg: result
+                  })
+          .then(response => {
              
-             axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
+            
+            
+             if (response.status == 200) {
+
+               
+               
+                for (let index = 0; index < response.data.length; index++) {
+               
+            
+                  
+                  this.$root.returnedMessages.push(response.data[index]);
+                  this.$root.pushDataToLocal(response.data[index]);
+
+                  this.scrollToBottom();
+             }
+            
+            }
+
+
+              
+            
+           
+            
+          })
+          .catch(error => {
+            
+          })
+
+      },
+      fetchMessages: function(){
+
+          let storedMsg = this.$root.getLocalStore(this.$route.params.spaceId);
+           let unreadStoredMsg = this.$root.getLocalStore('unread' + this.$route.params.spaceId);
+
+           unreadStoredMsg.then((result)=>{
+
+              let finalResultUnread = JSON.parse(result);
+               
+               this.fetchUnreadMessages(finalResultUnread);
+
+           });
+           
+                
+            storedMsg.then((result)=>{
+               
+                
+               if(result != null ){
+                
+               let finalResult = JSON.parse(result);
+
+            this.$root.spaceFullData = finalResult;
+
+           
+
+               let returnedData = this.handleResults(finalResult[0]);
+        
+       this.Messages = returnedData;
+       this.$root.Messages = returnedData;
+
+       
+       
+       this.generateUnreadMessage();
+        
+       this.$root.selectedSpace = finalResult[1];
+
+       this.$root.selectedSpaceMembers = finalResult[2];
+
+       setTimeout(() => {
+         
+           var container = document.querySelector('#messageContainer');
+           
+        var element =  document.querySelector('#messagebottomDiv');
+       
+        var top = element.offsetTop - 120;
+        container.scrollTo(0 , top);
+        },500)
+
+   
+            
+              
+                
+               }else{
+                  
+                    axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
       .then(response => {
       
       if (response.status == 200) {
+          
 
+         
+         this.$root.spaceFullData = response.data;
+         
+       
+         
+      
+
+      this.$root.LocalStore(this.$route.params.spaceId,response.data);
+
+      this.$root.LocalStore('unread' + this.$route.params.spaceId,[]);
 
        let returnedData = this.handleResults(response.data[0]);
         
@@ -745,20 +843,10 @@ export default {
     
      }) 
 
-           }else{
-
-
-             
-          this.scrollToBottom(); 
-       
-         
-
-              this.Messages = this.$root.Messages;
-
-            
+               }
+                });
+           
           
-
-           }
            
 
         },

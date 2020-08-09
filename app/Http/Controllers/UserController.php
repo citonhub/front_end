@@ -138,77 +138,7 @@ class UserController extends Controller
 
              $newNotify["dataArray"] = unserialize($newNotify["data_array"]);
 
-            if($newNotify["type"] == 'post_comment_like'){
-              
-                $post = Post::where('post_id',$newNotify["type_id"])->first();
-                 
-             $newNotify["basePost"] = $post;
-            }
-
-            if($newNotify["type"] == 'post_comment_pulled'){
-              
-                $post = Post::where('post_id',$newNotify["type_id"])->first();
-                 
-             $newNotify["basePost"] = $post;
-            }
-
-            if($newNotify["type"] == 'post_reply_pulled'){
-              
-                $post = Post::where('post_id',$newNotify["type_id"])->first();
-                 
-             $newNotify["basePost"] = $post;
-            }
-
-            if($newNotify["type"] == 'post_pulled'){
-              
-                $post = Post::where('post_id',$newNotify["type_id"])->first();
-                 
-             $newNotify["basePost"] = $post;
-            }
-
-
-            if($newNotify["type"] == 'post_reply_like'){
-              
-                $post = Post::where('post_id',$newNotify["type_id"])->first();
-                 
-             $newNotify["basePost"] = $post;
-            }
-
-
-            if($newNotify["type"] == 'post_replied'){
-              
-                $post = Post::where('post_id',$newNotify["type_id"])->first();
-                 
-             $newNotify["basePost"] = $post;
-            }
-
-            if($newNotify["type"] == 'post_pulled'){
-              
-                $post = Post::where('post_id',$newNotify["type_id"])->first();
-                 
-             $newNotify["basePost"] = $post;
-            }
-
-            if($newNotify["type"] == 'post_comment_pulled'){
-              
-                $post = Post::where('post_id',$newNotify["type_id"])->first();
-                 
-             $newNotify["basePost"] = $post;
-            }
-
-            if($newNotify["type"] == 'post_like'){
-              
-                $post = Post::where('post_id',$newNotify["type_id"])->first();
-                 
-             $newNotify["basePost"] = $post;
-            }
-
-            if($newNotify["type"] == 'post_comment'){
-              
-                $post = Post::where('post_id',$newNotify["type_id"])->first();
-                 
-             $newNotify["basePost"] = $post;
-            }
+         
 
             if($newNotify["type"] == 'new_duel'){
               
@@ -252,6 +182,14 @@ class UserController extends Controller
                 $project = Project::where('project_slug',$newNotify["type_id"])->first();
 
                 $newNotify["project_data"] = $project;
+            }
+
+            if($newNotify["type"] == 'new_project'){
+
+                $project = Project::where('project_slug',$newNotify["type_id"])->first();
+
+                $newNotify["project_data"] = $project;
+
             }
 
             if($newNotify["type"] == 'new_message'){

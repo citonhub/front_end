@@ -271,6 +271,7 @@ const app = new Vue({
       selectedSpaceMembers:[],
       directUnread:0,
       channelUnread:0,
+      spaceFullData:[],
       teamUnread:0,
       fromChatList:false,
     },
@@ -289,21 +290,37 @@ const app = new Vue({
   },
   methods:{
     LocalStore:function(key,data){
+    
+      
      
-      localforage.setItem(key,data).then(function (value) {
-       
-        console.log(value);
-    }).catch(function(err) {
-        // This code runs if there were any errors
-        console.log(err);
+    localforage.setItem(key,JSON.stringify(data)).then(function () {
+      return localforage.getItem(key);
+    }).then(function (value) {
+      // we got our value
+     
+    }).catch(function (err) {
+      console.log(err)
+      // we got an error
     });
 
     },
     getLocalStore:function(key){
-      localforage.getItem(key, function(err, value) {
-        // Run this code once the value has been
-        // loaded from the offline store.
-        console.log(value);
+      let result = localforage.getItem(key);
+        
+      return result;
+      
+    
+    },
+    removeLocalStorage: function(key,data){
+      localforage.removeItem(key).then(()=> {
+        // Run this code once the key has been removed.
+        
+        console.log('item is cleared!');
+        this.LocalStore(key,data);
+       
+    }).catch(function(err) {
+        // This code runs if there were any errors
+        console.log(err);
     });
     },
     scrollerControlHandler: function(){
@@ -378,7 +395,7 @@ const app = new Vue({
             
             this.ChatList[1].map((space)=>{
              
-              if(space.space_id == e.data){
+              if(space.space_id == e.data.space_id){
                 space.unread = space.unread + 1;
               }
 
@@ -386,7 +403,7 @@ const app = new Vue({
 
             this.ChatList[2].map((space)=>{
              
-              if(space.space_id == e.data){
+              if(space.space_id == e.data.space_id){
                 space.unread = space.unread + 1;
               }
 
@@ -395,16 +412,24 @@ const app = new Vue({
 
             this.ChatList[4].map((space)=>{
              
-              if(space.space_id == e.data){
+              if(space.space_id == e.data.space_id){
                 space.unread = space.unread + 1;
               }
 
             });
+
+          
+            this.pushDataToLocal(e.data);
+            this.updateUnreadMsg(e.data);
           }
 
           if(e.actionType == 'new-direct-space'){
              
             this.ChatList[4].unshift(e.data);
+          }
+
+          if(e.actionType == 'coin-removed'){
+            this.authProfile.coins = this.authProfile.coins - e.data;
           }
           
      });
@@ -628,6 +653,52 @@ imageStyle:function(dimension,authProfile){
         return;
       } 
    },
+   pushDataToLocal:function(data){
+
+    localforage.getItem(data.space_id).then((result)=> {
+
+     if(result != null){
+      let finalResult = JSON.parse(result);
+          finalResult[0].push(data);
+        
+          this.LocalStore(data.space_id,finalResult);
+        
+     }
+
+    });
+     
+   },
+   updateUnreadMsg: function(data){
+     
+    localforage.getItem('unread' + data.space_id).then((result)=> {
+
+      if(result != null){
+       let finalResult = JSON.parse(result);
+           finalResult[0].push(data.message_id);
+         
+           this.LocalStore('unread' + data.space_id,finalResult);
+         
+      }
+ 
+     });
+
+   },
+   updateSpaceData:function(spaceId){
+    let fullData = [];
+    fullData.push(this.$root.spaceFullData[0]);
+fullData.push(this.$root.spaceFullData[1]);
+
+ let thirdData = [];
+    
+    thirdData.push(this.$root.spaceFullData[2][0])
+
+fullData.push(thirdData);
+
+
+
+
+this.$root.LocalStore(spaceId,fullData);
+   },
    scrollToBottom:function(){
         
          setTimeout(() => {
@@ -649,7 +720,7 @@ imageStyle:function(dimension,authProfile){
       this.is_reply = false;
 if (response.status == 200) {
 
-       let messageId = this.NewMsg.message_id;
+       let messageId = response.data[0].temp_id;
           let messageType = this.NewMsg.type;
          this.Messages.map((message)=>{
             if(messageId == message.message_id){
@@ -657,6 +728,7 @@ if (response.status == 200) {
                message.message_id = response.data[0].message_id; 
             }
          });
+    this.updateSpaceData(response.data[0].space_id);
        
   this.replyMessage = [];
   
@@ -675,7 +747,7 @@ if (response.status == 200) {
 
 if (response.status == 200) {
 
-     let messageId = this.NewMsg.message_id;
+     let messageId = response.data[0].temp_id;
         let messageType = this.NewMsg.type;
        this.Messages.map((message)=>{
           if(messageId == message.message_id){
@@ -685,6 +757,7 @@ if (response.status == 200) {
           }
        });
      
+       this.updateSpaceData(response.data[0].space_id);
  this.scrollToBottom();
 
 }
@@ -719,7 +792,7 @@ if (response.status == 200) {
            if (response.status == 200) {
                
                  
-                let messageId = this.NewMsg.message_id;
+                let messageId = response.data[0].temp_id;
                 let messageType = this.NewMsg.type;
                this.Messages.map((message)=>{
                   if(messageId == message.message_id){
@@ -745,6 +818,8 @@ if (response.status == 200) {
             }else{
               
             }
+
+            this.updateSpaceData(response.data[0].space_id);
               this.scrollToBottom();
             
           })

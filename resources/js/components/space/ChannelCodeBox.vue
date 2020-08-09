@@ -286,6 +286,23 @@ methods:{
 
                this.$root.returnedMessages.push(this.$root.NewMsg);
 
+              this.$root.spaceFullData[0] = this.$root.returnedMessages;
+         
+           let fullData = [];
+                    fullData.push(this.$root.spaceFullData[0]);
+                fullData.push(this.$root.spaceFullData[1]);
+
+                 let thirdData = [];
+                    
+                    thirdData.push(this.$root.spaceFullData[2][0])
+
+                fullData.push(thirdData);
+
+               
+
+
+             this.$root.LocalStore(this.$route.params.spaceId,fullData);
+
                  this.$root.scrollerControlHandler();
 
               
@@ -303,7 +320,8 @@ methods:{
                attachment_type: 'code',
                 code: this.code,
               language_type: this.language,
-              file_name:'index'
+              file_name:'index',
+              temp_id:  this.$root.NewMsg.message_id
             };
             
        this.$root.sendCodeMessage(postData);

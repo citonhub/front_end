@@ -269,9 +269,31 @@ export default {
               }
                this.$root.NewMsg.content = this.contentInWord;
 
+                this.$root.returnedMessages.push(this.$root.NewMsg);
+
+               this.$root.spaceFullData[0] = this.$root.returnedMessages;
+
+
                
 
-               this.$root.returnedMessages.push(this.$root.NewMsg);
+                 let fullData = [];
+                    fullData.push(this.$root.spaceFullData[0]);
+                fullData.push(this.$root.spaceFullData[1]);
+
+                 let thirdData = [];
+                    
+                    thirdData.push(this.$root.spaceFullData[2][0])
+
+                fullData.push(thirdData);
+
+               
+
+
+             this.$root.LocalStore(this.$route.params.spaceId,fullData);
+
+            
+
+               
                
                 this.$root.scrollerControlHandler();
 
@@ -286,6 +308,7 @@ export default {
               current_user: JSON.stringify(this.$root.SpaceUsers ),
               replied_message_id: this.$root.replyMessage.message_id,
               attachment_type: null,
+              temp_id:  this.$root.NewMsg.message_id
             };
             
 

@@ -507,6 +507,7 @@ var blob = this.b64toBlob(realData, contentType);
       this.$root.codeContent = '';
       this.contentInWord = '';
       this.$root.postContent = '';
+      this.showShareProject =  false;
  },
     sendMessage: function(){
         this.loading = true;
@@ -665,12 +666,24 @@ var blob = this.b64toBlob(realData, contentType);
             
         }
 
-  
-         
-         
 
-         
           this.$root.returnedMessages.push(this.$root.NewMsg);
+           this.$root.spaceFullData[0] = this.$root.returnedMessages;
+         
+           let fullData = [];
+                    fullData.push(this.$root.spaceFullData[0]);
+                fullData.push(this.$root.spaceFullData[1]);
+
+                 let thirdData = [];
+                    
+                    thirdData.push(this.$root.spaceFullData[2][0])
+
+                fullData.push(thirdData);
+
+               
+
+
+             this.$root.LocalStore(this.$route.params.spaceId,fullData);
 
             this.$root.scrollerControlHandler();
 
@@ -694,10 +707,13 @@ var blob = this.b64toBlob(realData, contentType);
         formData.append('is_reply',this.$root.is_reply);
         formData.append('attachment_type',this.attachment_type);
         formData.append('space_id',this.$route.params.spaceId);
+        formData.append('temp_id', this.$root.NewMsg.message_id)
         this.ChangeDataToDefaults();
        this.$root.sendShareMessage(formData);
     },
      crophandler:function(e){
+
+       this.clearData();
 
          this.videoUrl = '';
          this.codeContent='';

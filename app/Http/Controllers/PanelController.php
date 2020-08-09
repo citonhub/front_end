@@ -201,10 +201,14 @@ class PanelController extends Controller
           $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
 
           $requestData = [
-              'panel_id' => $randomString,
-          ];
+          "panel_id"=> $projectPanel->panel_id,
+          "path"=>'/index',
+          "function_name"=> 'sample',
+          "file_name"=> 'sample',
+          "route_type"=> 'GET'
+        ];
 
-          $response = Http::get($baseUrl .'/create-panel',$requestData);
+          $response = Http::post($baseUrl .'/create-route',$requestData);
       
           dd($response->body());
 

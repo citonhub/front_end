@@ -14,9 +14,11 @@ use App\ProjectCommentLike;
 use Illuminate\Support\Facades\Auth;
 use App\SpaceMember;
 use App\Events\PanelChannel;
+use App\Events\UserChannel;
 use App\traits\PushNotificationTrait;
 use App\PushNotification;
 use App\User;
+use App\Profile;
 use App\CustomClass\Curler;
 use App\CustomClass\MetaParser;
 
@@ -25,6 +27,8 @@ use App\CustomClass\MetaParser;
 class ProjectController extends Controller
 {
      use PushNotificationTrait;
+
+     public $coinState;
 
     public static function createSlug($str, $delimiter = '-'){
 
@@ -374,8 +378,33 @@ return $newCommentArray;
         return $randomString;
          }
 
+  
+         public function checkUsersCoin($amount){
+          $userProfile = Profile::where('user_id',Auth::id())->first();
+     
+          $userCoin = $userProfile->coins;
+     
+          if($userCoin >= $amount){
+            $userProfile->update([
+           'coins'=> $userCoin - $amount
+            ]);
+     
+            broadcast(new UserChannel('coin-removed',$amount,Auth::user()->username));
+          }else{
+            $this->coinState = 'NotEnoughCoin';
+          }
+     
+       }
          
     public function createProject(Request $request){
+
+        $this->checkUsersCoin(2);
+
+        if($this->coinState == 'NotEnoughCoin'){
+        
+          return 'NotEnoughCoin';
+    
+        }
        
         $characters = '1234567890';
         $randomString = $this->generateRandomNumber(9,$characters);
@@ -412,9 +441,27 @@ return $newCommentArray;
         $NewProject->save();
 
        
+        $allConnections = $this->userAllConnected();
+
+        $this->spaceNotification($NewProject->project_slug,'new_project',$allConnections);
 
         return $NewProject;
 
+
+    }
+
+    public function userAllConnected(){
+      
+      $userConnections = DB::table('user_connections')
+      ->join('users','users.id','user_connections.connected_user_id')
+      ->join('profiles','profiles.user_id','user_connections.connected_user_id')
+      ->select(
+        'users.username as username'
+      )
+      ->where('user_connections.user_id',Auth::id())
+      ->get();
+
+     return $userConnections;  
 
     }
 
@@ -587,7 +634,9 @@ return $newCommentArray;
         $userDataArray = serialize($userDataArray);
 
 
-   // trigger notifications
+       
+         
+            // trigger notifications
         foreach ($userArrayBase as $user) {
 
           if($userData->background_color == null){
@@ -659,7 +708,11 @@ return $newCommentArray;
    
      }
    
+        
         }
+
+
+ 
      
    }
 

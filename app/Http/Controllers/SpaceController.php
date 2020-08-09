@@ -38,6 +38,9 @@ class SpaceController extends Controller
 
     use ManagesImages,PushNotificationTrait;
 
+
+    public $coinState;
+
     public function __construct()
     {
         $this->setImageDefaultsFromConfig('spaceImage');
@@ -116,6 +119,7 @@ class SpaceController extends Controller
          "user_id"=> Auth::id(),
          "replied_message_id"=> $request->get('replied_message_id'),
          "content"=> $request->get('content'),
+         "temp_id"=> $request->get('temp_id'),
       ]);
 
      
@@ -350,6 +354,7 @@ class SpaceController extends Controller
             'space_messages.content as content',
             'space_messages.type as type',
             'users.username as username',
+            'space_messages.temp_id as temp_id',
             'users.id as user_id',
             'space_messages.space_id as space_id',
             'space_messages.created_at as created_at',
@@ -416,27 +421,22 @@ class SpaceController extends Controller
          
          foreach ($disconnectedUsers as $user) {
 
-            $userUnread = UnreadMessage::where('space_id',$request->get('space_id'))->where('user_id',$user->id)->get();
+            
 
-            if($userUnread->isEmpty()){
+            
                $userUnread = UnreadMessage::create([
                'user_id'=> $user->id,
                'space_id'=> $request->get('space_id'),
-               'unread'=> 0
+               'msg_read'=> false,
+               'message_id'=> $newMessage[0]["message_id"]
                ]);
 
                $userUnread->save();
-            }
-
-            $userUnread = UnreadMessage::where('space_id',$request->get('space_id'))->where('user_id',$user->id)->first();
-
-             $userUnread->update([
-               'unread' => $userUnread->unread + 1
-             ]);
+          
 
           
 
-            broadcast(new UserChannel('message-alert',$request->get('space_id'),$user->username));
+            broadcast(new UserChannel('message-alert',$newMessage[0],$user->username));
          }
          
           
@@ -554,16 +554,70 @@ foreach ($imageArray as $image) {
 
   }
 
+
+  public function checkUnreadMessages(Request $request){
+
+    $existingMessages = $request->get('existingMsg');
+
+    if($existingMessages != null){
+     
+       foreach ($existingMessages as $messageId) {
+        
+        $unreadMessage = UnreadMessage::where('space_id',$request->get('spaceId'))->where('user_id',Auth::id())->where('message_id',$messageId)->first();
+
+        $unreadMessage->delete();
+        
+     }
+   }
+
+   $allUnread = UnreadMessage::where('space_id',$request->get('spaceId'))->where('user_id',Auth::id())->get();
+
+    $unreadMsgArray =  [];
+
+   foreach ($allUnread as $message) {
+
+      $spacemessages =DB::table('space_messages')
+      ->join('users','users.id','space_messages.user_id')
+      ->select(
+          'space_messages.content as content',
+          'space_messages.type as type',
+          'users.username as username',
+          'users.id as user_id',
+          'space_messages.space_id as space_id',
+          'space_messages.created_at as created_at',
+          'space_messages.is_reply as is_reply',
+          'space_messages.replied_message_id as replied_message_id',
+          'space_messages.id as message_id'
+      )
+      ->where('space_messages.id',$message->message_id)
+   
+      ->first();
+      
+      array_push($unreadMsgArray,$spacemessages);
+      $message->delete();
+   }
+
+
+   $timeArray = $this->messageTime($unreadMsgArray);
+
+   $newMessages = $this->MessageEngine($unreadMsgArray,$timeArray);
+    
+   return  $newMessages;
+   
+    
+
+    
+
+  }
+
  
 public function fetchMessages($spaceId){
 
-   $userUnread = UnreadMessage::where('space_id',$spaceId)->where('user_id',Auth::id())->first();
+   $userUnread = UnreadMessage::where('space_id',$spaceId)->where('user_id',Auth::id())->get();
 
-     if($userUnread != null){
-      $userUnread->update([
-      "unread"=> 0
-      ]);
-     }
+      foreach ($userUnread as $messageLog) {
+         $messageLog->delete();
+      }
    
      // mark notifications  as read
      $allNotifications = Notification::where('user_id',Auth::id())->where('type','new_message')->where('type_id',$spaceId)->get();
@@ -1077,12 +1131,51 @@ return $newSpaceMembersArray;
        return $newSpaceMembersArray;
   }
 
+
+  public function checkUsersCoin($amount){
+     $userProfile = Profile::where('user_id',Auth::id())->first();
+
+     $userCoin = $userProfile->coins;
+
+     
+
+     if($userCoin >= $amount){
+       $userProfile->update([
+      'coins'=> $userCoin - $amount
+       ]);
+
+       broadcast(new UserChannel('coin-removed',$amount,Auth::user()->username));
+     }else{
+        
+      $this->coinState = 'NotEnoughCoin';
+     }
+
+  }
+
+
+
  public function createSpace(Request $request){
 
+
+
+    if($request->get('type') != 'Direct'){
+
+      $this->checkUsersCoin(2);
+   
+    }
+
+    if($this->coinState == 'NotEnoughCoin'){
+        
+      return 'NotEnoughCoin';
+
+    }
     
        $characters = '123456789abcdefghijklmnopqrstuvwsyz';
        
        $spaceId = $this->generateRandomNumber(12,$characters);
+
+
+
      $newSpace = Space::create([
         "name"=> $request->get('name'),
         "user_id"=> Auth::id(),
@@ -1224,15 +1317,8 @@ $userSpace = (array) $space;
 
 $userUnread = UnreadMessage::where('space_id',$userSpace["space_id"])->where('user_id',Auth::id())->get();
 
-if($userUnread->isEmpty()){
-$userSpace["unread"] = 0;
 
-}else{
-
-$userUnread = UnreadMessage::where('space_id',$userSpace["space_id"])->where('user_id',Auth::id())->first();
-$userSpace["unread"] = $userUnread->unread;
-}
-
+$userSpace["unread"] = count($userUnread);
 
 
 array_push($newSpaceArray,$userSpace);
@@ -1243,6 +1329,9 @@ array_push($newSpaceArray,$userSpace);
     
    broadcast(new UserChannel('new-direct-space',$newSpaceArray[0],$userInfo->username));
  }
+
+
+
 
  return $newSpaceArray[0];
 
@@ -1368,37 +1457,13 @@ array_push($newSpaceArray,$userSpace);
 
 
 
-    $MessageContent2 = 'Connect with other developers 👩‍💻 on CitonHub.'; 
-
-    $newMessage2 = SpaceMessage::create([
-       "space_id"=>$spaceIdChannel,
-       "type"=>'action',
-       "is_reply"=>false,
-       "user_id"=> 93,
-       "replied_message_id"=> null,
-       "content"=> $MessageContent2
-    ]);
-
-    $newMessage2->save();
-
-    $messageURL2 = '/trends#/connect';
-    $messageLabel2 = 'Connect';
-
-    $actionMessage2 = ActionMessage::create([
-    "message_id"=> $newMessage2->id,
-    "url"=> $messageURL2,
-    "type"=>'inner',
-    "label"=> $messageLabel2
-    ]);
-    
-    $actionMessage2->save();
-
     // unread channel message
 
     $userUnread = UnreadMessage::create([
       'user_id'=> Auth::id(),
       'space_id'=> $spaceIdChannel,
-      'unread'=> 2
+      'msg_read'=> 0,
+      'message_id'=> $newMessage2->id
       ]);
 
     $userUnread->save();
@@ -1468,7 +1533,8 @@ array_push($newSpaceArray,$userSpace);
     $userUnread2 = UnreadMessage::create([
       'user_id'=> Auth::id(),
       'space_id'=> $spaceIdTeam,
-      'unread'=> 1
+      'msg_read'=> 0,
+      'message_id'=> $actionMessage3->id
       ]);
 
     $userUnread2->save();
@@ -1597,7 +1663,7 @@ array_push($newSpaceArray,$userSpace);
       $userUnread = UnreadMessage::create([
          'user_id'=> Auth::id(),
          'space_id'=> $spaceId,
-         'unread'=> 1
+         'msg_read'=> 0
          ]);
 
       $userUnread->save();
@@ -1702,14 +1768,10 @@ array_push($newSpaceArray,$userSpace);
 
          $userUnread = UnreadMessage::where('space_id',$userSpace["space_id"])->where('user_id',Auth::id())->get();
 
-         if($userUnread->isEmpty()){
-            $userSpace["unread"] = 0;
+       
+            $userSpace["unread"] = count($userUnread);
             
-         }else{
-            
-            $userUnread = UnreadMessage::where('space_id',$userSpace["space_id"])->where('user_id',Auth::id())->first();
-            $userSpace["unread"] = $userUnread->unread;
-         }
+        
 
          
 
@@ -1741,14 +1803,7 @@ array_push($newSpaceArray,$userSpace);
 
          $userUnread = UnreadMessage::where('space_id',$userSpaceChannel["space_id"])->where('user_id',Auth::id())->get();
 
-         if($userUnread->isEmpty()){
-            $userSpaceChannel["unread"] = 0;
-            
-         }else{
-            
-            $userUnread = UnreadMessage::where('space_id',$userSpaceChannel["space_id"])->where('user_id',Auth::id())->first();
-            $userSpaceChannel["unread"] = $userUnread->unread;
-         }
+         $userSpaceChannel["unread"] = count($userUnread);
 
          
 
@@ -1851,14 +1906,10 @@ array_push($newSpaceArray,$userSpace);
         
          $userUnread = UnreadMessage::where('space_id',$userSpaceDirect["space_id"])->where('user_id',Auth::id())->get();
 
-         if($userUnread->isEmpty()){
-            $userSpaceDirect["unread"] = 0;
-            
-         }else{
-            
-            $userUnread = UnreadMessage::where('space_id',$userSpaceDirect["space_id"])->where('user_id',Auth::id())->first();
-            $userSpaceDirect["unread"] = $userUnread->unread;
-         }
+
+         $userSpaceDirect["unread"] = count($userUnread);
+
+
 
          array_push($newDirectArray,$userSpaceDirect);
 

@@ -172,6 +172,17 @@ export default {
                
               this.$root.forceListReload = false;
 
+               if(response.data == 'NotEnoughCoin'){
+
+                  this.$root.showBoard = true;
+               this.$root.boardContent = "Hey " + this.$root.username + ",\n\
+              you have exhausted your coins. But no worries, invite your friends to your teams and channels or share your projects to get more coins .";
+              this.$root.boardBtnLabel = 'Got It';
+
+               this.loading = false;
+
+               }else{
+             
                if(response.data.type == 'Team'){
                   this.$root.ChatList[1].unshift(response.data);
                }
@@ -179,7 +190,14 @@ export default {
             this.$root.ChatList[2].unshift(response.data);
                }
 
-              this.goBack();
+
+
+             
+              this.$root.selectedSpace = response.data
+          
+         this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });
+               }
+
             
             }
               
