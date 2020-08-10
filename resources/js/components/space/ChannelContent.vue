@@ -482,6 +482,7 @@ export default {
               
  
                 this.$root.returnedMessages.push(e.data); 
+                 this.$root.Messages.push(e.data);
 
                 this.$root.pushDataToLocal(e.data);
 
