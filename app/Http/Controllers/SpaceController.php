@@ -655,8 +655,13 @@ foreach ($imageArray as $image) {
       $msgComplete = false;
     }
 
+
+    $spaceMembers = SpaceMember::where('space_id',$request->get('spaceId'))->get();
+
+     $space = Space::where('space_id',$request->get('spaceId'))->first();
+
     
-   return [$newMessages,$msgComplete];
+   return [$newMessages,$msgComplete,$spaceMembers,$space];
    
     
 

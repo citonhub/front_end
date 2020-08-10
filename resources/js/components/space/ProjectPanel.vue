@@ -157,7 +157,7 @@
               <div class="row my-0 py-0">
                   <div class="col-2 text-center py-0 my-0 ">
                       <v-icon color="#0066ff" v-if="file.language_type == 'PHP'">mdi-language-php mdi-18px</v-icon>
-                    <v-icon color="#e6b800" v-if="file.language_type == 'PHYTON'">mdi-language-python mdi-18px</v-icon>
+                    <v-icon color="#e6b800" v-if="file.language_type == 'JAVASCRIPT'">mdi-language-javascript mdi-18px</v-icon>
                 </div>
                  <div class="col-10 py-0 my-0 ">
                     <span class="fileNamenewFile">{{returnFileNamenew(file.file_name,file.language_type)}}</span>
@@ -764,7 +764,7 @@ export default {
    },
     goBack() {
          this.$root.CodeFilesData = [];
-        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+         this.$router.push({ path: '/space/chat-list' });
         },
    addNewFile:function(codeType){
      this.$root.panel = this.panel;

@@ -757,9 +757,10 @@ export default {
             
              if (response.status == 200) {
 
-               
-               
-                for (let index = 0; index < response.data[0].length; index++) {
+                
+                if(response.data[0].length > 0){
+           
+            for (let index = 0; index < response.data[0].length; index++) {
                
             
                   
@@ -767,11 +768,42 @@ export default {
                   this.$root.pushDataToLocal(response.data[0][index]);
 
                   this.scrollToBottom();
+              
+                }
+               
+               
 
-              if(response.data[1] == false){
+              
+             }
+
+             if(response.data[1] == false){
                  this.updateLocalStorage();
               }
-             }
+
+               this.$root.selectedSpace = response.data[3];
+
+               this.$root.selectedSpaceMembers = response.data[2];
+
+             this.$root.spaceFullData[0] = this.$root.returnedMessages;
+             this.$root.spaceFullData[1] = response.data[3];
+             this.$root.spaceFullData[2] = response.data[2];
+
+              let fullData = [];
+                    fullData.push(this.$root.spaceFullData[0]);
+                fullData.push(this.$root.spaceFullData[1]);
+
+                 let thirdData = [];
+                    
+                    thirdData.push(this.$root.spaceFullData[2][0])
+
+                fullData.push(thirdData);
+
+               
+
+
+             this.$root.LocalStore(this.$route.params.spaceId,fullData);
+            
+
 
 
 
@@ -793,6 +825,7 @@ export default {
       fetchMessages: function(){
 
           let storedMsg = this.$root.getLocalStore(this.$route.params.spaceId);
+
            let unreadStoredMsg = this.$root.getLocalStore('unread' + this.$route.params.spaceId);
 
            unreadStoredMsg.then((result)=>{

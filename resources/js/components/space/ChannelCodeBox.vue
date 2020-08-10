@@ -285,6 +285,7 @@ methods:{
              
 
                this.$root.returnedMessages.push(this.$root.NewMsg);
+               this.$root.Messages.push(this.$root.NewMsg);
 
               this.$root.spaceFullData[0] = this.$root.returnedMessages;
          

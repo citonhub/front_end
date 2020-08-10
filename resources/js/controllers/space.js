@@ -324,7 +324,12 @@ const app = new Vue({
     });
     },
     scrollerControlHandler: function(){
-      let MsgLenght = this.$root.returnedMessages.length;
+
+    
+
+      if(this.$root.messageStore.lenght > 0){
+       
+        let MsgLenght = this.$root.returnedMessages.length;
 
          
       let startCount = MsgLenght - this.$root.messageInitialLimit;
@@ -344,6 +349,9 @@ const app = new Vue({
   this.$root.messageStoreTop = this.$root.returnedMessages.slice(0,startCount);
 
    this.$root.messageStore = [];
+
+      }
+      
     },
     logout: function(){
       this.$root.pageloader = true;

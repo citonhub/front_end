@@ -190,33 +190,41 @@ class PanelController extends Controller
 
       $projectPanel = Project::where('project_slug',$request->get('project_slug'))->first();
 
-        $panel = Panel::where('panel_id',$projectPanel->panel_id)->first();
+  
 
         $characters = '1234567890';
         $randomString = $this->generateRandomNumber(9,$characters);
 
 
         if($request->get('panel_language') == 'NodeJs'){
+        
+          $newPanel = Panel::create([
+            "user_id"=> Auth::id(),
+            "purpose"=> 'duel',
+            "panel_id"=> $randomString,
+            "app_type" => $request->get('app_type'),
+            "is_set"=> true,
+            "panel_language"=>$request->get('panel_language')
+          ]);
+    
+         $newPanel->save();
+         
 
-          $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+            $projectPanel->update([
+            "panel_id"=> $randomString
+           ]);
 
-          $requestData = [
-          "panel_id"=> $projectPanel->panel_id,
-          "path"=>'/index',
-          "function_name"=> 'sample',
-          "file_name"=> 'sample',
-          "route_type"=> 'GET'
-        ];
+            
 
-          $response = Http::post($baseUrl .'/create-route',$requestData);
-      
-          dd($response->body());
+           $this->NodeJsProject($randomString);
 
         }
-          
-        
-          
-         $this->deleteFilesFolder($projectPanel->panel_id);
+
+         if($request->get('panel_language') == 'PHP'){
+
+          $panel = Panel::where('panel_id',$projectPanel->panel_id)->first();
+              
+          $this->deleteFilesFolder($projectPanel->panel_id);
          
            $backEndFilesArray = [];
             $frontEndfilesArray = [];
@@ -266,50 +274,51 @@ class PanelController extends Controller
 
           $this->createDefaultController($randomString);
 
+          $panel->update([
+            "app_type" => $request->get('app_type'),
+            "is_set"=> true,
+            "panel_id"=> $randomString,
+            "panel_language"=>$request->get('panel_language')
+            ]);
 
-        
+          $routeArray = [
+            [
+             "path"=> '/index',
+             "function_name"=>'main',
+             "file_name"=>'index',
+             "route_type"=> 'get'
+            ]
+          ];
+   
+          if($projectPanel->title == 'Citonhub Project'){
+   
+           $routeArray =    [
+             [
+              "path"=> '/index',
+              "function_name"=>'main',
+              "file_name"=>'index',
+              "route_type"=> 'get'
+             ],
+             [
+              "path"=> '/new-page',
+              "function_name"=>'anotherPage',
+              "file_name"=>'index',
+              "route_type"=> 'get'
+             ]
+             ];
+   
+         }
+   
+         $this->createRoute($routeArray,$randomString);
 
-        
+         }
 
-        $panel->update([
-        "app_type" => $request->get('app_type'),
-        "is_set"=> true,
-        "panel_id"=> $randomString,
-        "panel_language"=>$request->get('panel_language')
-        ]);
+       
 
          
        
 
-       $routeArray = [
-         [
-          "path"=> '/index',
-          "function_name"=>'main',
-          "file_name"=>'index',
-          "route_type"=> 'get'
-         ]
-       ];
-
-       if($projectPanel->title == 'Citonhub Project'){
-
-        $routeArray =    [
-          [
-           "path"=> '/index',
-           "function_name"=>'main',
-           "file_name"=>'index',
-           "route_type"=> 'get'
-          ],
-          [
-           "path"=> '/new-page',
-           "function_name"=>'anotherPage',
-           "file_name"=>'index',
-           "route_type"=> 'get'
-          ]
-          ];
-
-      }
-
-      $this->createRoute($routeArray,$randomString);
+     
      }
         
 
@@ -443,7 +452,196 @@ class PanelController extends Controller
       $this->createRoute($routeArray,$randomString);
         
      }
+    
+     public function NodeJsProject($panelId){
 
+      $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+
+      // create project panel
+
+      $requestData = [
+      "panel_id" => $panelId,
+      ];
+
+      $response = Http::post($baseUrl .'/create-panel',$requestData);
+     
+      // create index html, css and Js view
+
+      $cssContent = "<style>
+body{
+  background: #c5c5c5;
+}
+</style>";
+
+$javaScriptContent = "<script>
+var start_building = \"Let's build it!\";
+</script>";
+
+      $filePath = '/var/www/citonhubnew/resources/views/pages/NodeIndex.html'; 
+
+       $htmlContent = file_get_contents($filePath);
+
+
+    
+
+      // send data to NodeJs server
+
+     
+      // send HTML
+
+      $requestData = [
+          'panel_id' =>  $panelId,
+          'file_name' =>  'index',
+          'content'=> $htmlContent,
+          'language_type' => 'HTML'
+      ];
+
+     $response = Http::post($baseUrl .'/create-view-file',$requestData);
+
+      if($response->body() == 'done'){
+       
+          // save contents to database
+
+      $HtmlCodeBox = CodeBox::create([
+        "content"=> $htmlContent,
+        "language_type"=> "HTML",
+        "file_name"=> "index",
+        "type"=> "front_end",
+        "user_id"=> Auth::id(),
+        "panel_id"=> $panelId
+      ]);
+
+      $HtmlCodeBox->save();
+
+      }
+
+     // send CSS
+
+   
+
+     $requestData = [
+      'panel_id' =>  $panelId,
+      'file_name' =>  'index',
+      'content'=> $cssContent,
+      'language_type' => 'CSS'
+      ];
+
+      $response = Http::post($baseUrl .'/create-view-file',$requestData);
+
+
+      if($response->body() == 'done'){
+      
+        $CssCodeBox = CodeBox::create([
+          "content"=> $cssContent,
+          "language_type"=> "CSS",
+          "file_name"=> "index",
+          "type"=> "front_end",
+          "user_id"=> Auth::id(),
+          "panel_id"=> $panelId
+        ]);
+        
+        $CssCodeBox->save();
+       }
+
+       // send JAVASCRIPT
+
+     $requestData = [
+      'panel_id' =>  $panelId,
+      'file_name' =>  'index',
+      'content'=> $javaScriptContent,
+      'language_type' => 'JAVASCRIPT'
+      ];
+
+    $response = Http::post($baseUrl .'/create-view-file',$requestData);
+
+    if($response->body() == 'done'){
+      $JavascriptCodeBox = CodeBox::create([
+        "content"=> $javaScriptContent,
+        "language_type"=> "JAVASCRIPT",
+        "file_name"=> "index",
+        "type"=> "front_end",
+        "user_id"=> Auth::id(),
+        "panel_id"=> $panelId
+      ]);
+      
+      $JavascriptCodeBox->save();
+    }
+
+     // create controller
+
+     // save data to database 
+
+    
+
+  
+
+      $jsContent = "const main=(req,res)=>{
+res.sendFile(\"" ."/" . $panelId . "/views/index.html" . "\")
+        
+}";
+
+     
+
+    // send request to NodeJs Server
+
+    $requestData = [
+      'panel_id' =>  $panelId,
+      'file_name'=> 'index',
+      'content'=> $jsContent
+     ];
+
+    $response = Http::post($baseUrl .'/create-controller',$requestData);
+
+    
+
+     if($response->body() == 'done'){
+     
+      $JSCodeBox = CodeBox::create([
+        "content"=> $jsContent,
+        "language_type"=> "JAVASCRIPT",
+        "file_name"=> "index",
+        "type"=> "back_end",
+        "user_id"=> Auth::id(),
+        "panel_id"=> $panelId
+      ]);
+  
+      $JSCodeBox->save();
+      
+     }
+
+    // create route 
+
+  // send to NodeJs server
+
+    $requestData = [
+      "panel_id"=> $panelId,
+      "path"=>   $panelId .  '/index',
+      "function_name"=> 'main',
+      "file_name"=> 'index',
+      "route_type"=> 'get'
+  ];
+
+   $response = Http::post($baseUrl .'/create-route',$requestData);
+
+   if($response->body() == 'done'){
+   // save route to database
+
+   $newRoute = PanelRoute::create([
+    "panel_id"=> $panelId,
+    "path"=>'/index',
+    "function_name"=> 'main',
+    "file_name"=> 'index',
+    "route_type"=> 'get'
+  ]);
+
+  $newRoute->save();
+   }
+
+
+
+     
+
+     }
 
     public function deleteDefaultResources($panelId){
 
@@ -552,7 +750,7 @@ class PanelController extends Controller
         ];
        $response = Http::post($baseUrl .'/delete-view-folder',$requestData);
 
-       dd($response);
+      
      }
 
      public function recreateFileFolder($newpanelId){
@@ -1377,7 +1575,10 @@ public function anotherPage(){
        
       $projectPanel = Project::where('project_slug',$projectSlug)->first();
 
+
       $panel = Panel::where('panel_id',$projectPanel->panel_id)->first();
+
+      
       
       $panelDTables = DBTable::where('panel_id',$panel->id)->get();
 
@@ -1552,17 +1753,41 @@ public function anotherPage(){
 
   }
 
-  public function runPanel($panelId){
-     
-    $baseUrl = 'https://php.citonhub.com';
 
-   $response = Http::get($baseUrl . '/' . $panelId . '/index' );
+  public function runPanel($panelId){
+
+     $projectPanel = Panel::where('panel_id',$panelId)->first();
+
+    
+
+      if( $projectPanel != null){
+
+         if($projectPanel->panel_language == 'PHP') {
+
+          $baseUrl = 'https://php.citonhub.com';
+
+         }
+
+         if($projectPanel->panel_language == 'NodeJs') {
+
+          $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+
+         }
+
+        
+
+        $response = Http::get($baseUrl . '/' . $panelId . '/index' );
    
       return $response->body();
+
+      }
+     
+    
   }
 
   public function pageLoader($panelId,$pageName){
 
+    
     $baseUrl = 'https://php.citonhub.com';
 
     $response = Http::get($baseUrl .'/' . $panelId . '/' . $pageName );

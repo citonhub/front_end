@@ -157,6 +157,8 @@ methods:{
        
          
            this.$root.returnedMessages.push(this.$root.NewMsg);
+
+           this.$root.Messages.push(this.$root.NewMsg);
            
              this.$root.scrollerControlHandler();
 

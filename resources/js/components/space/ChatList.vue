@@ -573,6 +573,7 @@ export default {
        this.$root.returnedMessages = [];
        this.$root.messageStoreTop = [];
        this.$root.messageStore = [];
+       this.$root.sharePage = false;
        this.$root.selectedSpaceMembers = [];
        this.$root.Messages = null;
        this.$root.codeEditorArray = [];

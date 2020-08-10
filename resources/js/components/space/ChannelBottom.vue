@@ -40,7 +40,7 @@
                 </v-btn>
                 
 
-                 <v-btn  style="box-shadow:none;" fab color="#3E8893" class="d-md-none d-inline-block" x-small
+                 <v-btn  style="box-shadow:none;" fab color="#3E8893" class="d-md-none d-inline-block" x-small v-if="!showSend"
                   @click="toggleRecording"
                >
                    <v-icon  color="#ffffff" v-if="!recording">mdi-microphone</v-icon>
@@ -48,7 +48,7 @@
                 </v-btn>
 
 
-                <v-btn  style="box-shadow:none;" fab color="#3E8893" class="d-md-inline-block d-none" small
+                <v-btn  style="box-shadow:none;" fab color="#3E8893" class="d-md-inline-block d-none" small v-if="!showSend"
                   @click="toggleRecording"
                >
                    <v-icon  color="#ffffff" v-if="!recording">mdi-microphone</v-icon>
@@ -295,6 +295,8 @@ export default {
                this.$root.NewMsg.content = this.contentInWord;
 
                 this.$root.returnedMessages.push(this.$root.NewMsg);
+
+                this.$root.Messages.push(this.$root.NewMsg);
 
                this.$root.spaceFullData[0] = this.$root.returnedMessages;
 

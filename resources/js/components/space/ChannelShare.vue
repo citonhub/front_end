@@ -668,6 +668,9 @@ var blob = this.b64toBlob(realData, contentType);
 
 
           this.$root.returnedMessages.push(this.$root.NewMsg);
+
+          this.$root.Messages.push(this.$root.NewMsg);
+          
            this.$root.spaceFullData[0] = this.$root.returnedMessages;
          
            let fullData = [];
