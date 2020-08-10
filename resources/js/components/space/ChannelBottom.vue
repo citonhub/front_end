@@ -5,10 +5,10 @@
 
             <div class="row py-0 my-0">
                
-               <v-card  flat  color="#f2f2f2" style="border-radius: 10px;" class="col-9 px-2 py-0 my-0">
+               <v-card  flat  color="#ffffff" style="border-radius: 10px;" class="col-9 px-2 py-0 my-0">
                  <div class="editor">
           
-                <editor-content class="editor-boxnew" :editor="editor"   :onUpdate="countCharacter()" />
+                <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()" />
                 </div>
                </v-card>
                <div class="col-3 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
@@ -351,9 +351,9 @@ export default {
 <style>
 
 
-.editor-boxnew> * {
+.editor-box> * {
     font-size:12px; 
-    background:transparent;
+    background:#f2f2f2;
     width:100%; 
     height: auto;
     max-height: 70px;
