@@ -151,7 +151,7 @@
                                <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
                              </div>
                 <div   v-if="source.showReply" style="position:absolute; height:auto; width:auto; left:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
-                               <v-btn icon ><v-icon color="#ffffff">mdi-cloud-download mdi-18px</v-icon></v-btn>
+                               <v-btn icon tag="a" :href="'/download-file-' + source.message_id" ><v-icon color="#ffffff">mdi-cloud-download mdi-18px</v-icon></v-btn>
                              </div>
         </div>
 
@@ -860,6 +860,9 @@ export default {
 
       showProject:function(projectSlug){
         this.$router.push({ path: '/' + projectSlug +'/panel' });
+      },
+      downloader:function(message){
+          window.url = '/download-file-' + message.message_id;
       },
         scrollToMessage: function(messageid){
            

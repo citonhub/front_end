@@ -164,7 +164,9 @@ export default {
               
               this.$root.forcePanelReload = true;
               this.$root.fromChatList = false;
-              this.goBack();
+
+               this.$router.push({ path: '/' + this.$route.params.projectSlug +'/panel' });
+            
               
             
             }

@@ -699,12 +699,57 @@ export default {
               }
         
         },
+     updateLocalStorage: function(){
 
+          axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
+      .then(response => {
+      
+      if (response.status == 200) {
+          
+
+         
+         this.$root.spaceFullData = response.data;
+         
+       
+         
+      
+
+      this.$root.LocalStore(this.$route.params.spaceId,response.data);
+
+      this.$root.LocalStore('unread' + this.$route.params.spaceId,[]);
+
+       let returnedData = this.handleResults(response.data[0]);
+        
+       this.Messages = returnedData;
+       this.$root.Messages = returnedData;
+
+       
+       
+       this.generateUnreadMessage();
+        
+       this.$root.selectedSpace = response.data[1];
+
+       this.$root.selectedSpaceMembers = response.data[2];
+
+          
+   
+       
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+
+     },
       fetchUnreadMessages: function(result){
 
            axios.post('/check-for-unread-messages',{
                 spaceId: this.$route.params.spaceId,
-                existingMsg: result
+                existingMsg: result,
+                localMessageCount:  this.$root.returnedMessages.length
                   })
           .then(response => {
              
@@ -714,15 +759,23 @@ export default {
 
                
                
-                for (let index = 0; index < response.data.length; index++) {
+                for (let index = 0; index < response.data[0].length; index++) {
                
             
                   
                   this.$root.returnedMessages.push(response.data[index]);
-                  this.$root.pushDataToLocal(response.data[index]);
+                  this.$root.pushDataToLocal(response.data[0][index]);
 
                   this.scrollToBottom();
+
+              if(response.data[1] == false){
+                 this.updateLocalStorage();
+              }
              }
+
+
+
+
             
             }
 
