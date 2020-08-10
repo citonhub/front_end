@@ -456,7 +456,8 @@ return $newCommentArray;
       ->join('users','users.id','user_connections.connected_user_id')
       ->join('profiles','profiles.user_id','user_connections.connected_user_id')
       ->select(
-        'users.username as username'
+        'users.username as username',
+        'users.id as id'
       )
       ->where('user_connections.user_id',Auth::id())
       ->get();
