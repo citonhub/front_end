@@ -172,9 +172,9 @@
                 </div>
 
            
-            <v-card tile elevation-1  color="#ffffff" class="px-3">
+            <div  style="background:#ffffff;" class="px-2 py-1">
           <channel-bottom ref="channelBottom"></channel-bottom>
-        </v-card>
+        </div>
          </div>
          
          
@@ -206,7 +206,7 @@
      </span>
 
       
-       <span style="position:absolute; top:76%; right:2%; z-index:999998757;"  class="d-md-none d-inline-block">
+       <span style="position:absolute; top:76%; right:3%; z-index:999998757;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#35747e"
                 small
@@ -219,7 +219,7 @@
               </v-btn>
      </span>
 
-      <span style="position:absolute; top:85%; right:2%;  z-index:999998757;" class="d-none d-md-inline-block">
+      <span style="position:absolute; top:85%; right:3%;  z-index:999998757;" class="d-none d-md-inline-block">
           <v-btn
                 color="#35747e"
                 small

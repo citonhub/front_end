@@ -2,36 +2,38 @@
     <div class="row py-1 my-0 px-0" >
        
          <div class="col-12 py-0 my-0 d-flex px-5 flex-row" style="align-items:center; justify-content:center;">
+
             <div class="row py-0 my-0">
-               <div class="col-1 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
-                <v-btn icon
-                  @click="toggleRecording"
-               >
-                   <v-icon  v-if="!recording">mdi-microphone</v-icon>
-                   <v-progress-circular indeterminate color="#3E8893" v-else><v-icon>mdi-microphone</v-icon></v-progress-circular>
-                </v-btn>
-                
-                
-               </div>
-               <div class="col-10 px-2 py-0 my-0">
+               
+               <v-card  flat  color="#f2f2f2" style="border-radius: 10px;" class="col-9 px-0 py-0 my-0">
                  <div class="editor">
           
-                <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()" />
+                <editor-content class="editor-boxnew" :editor="editor"   :onUpdate="countCharacter()" />
                 </div>
-               </div>
-               <div class="col-1 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
-                 <v-btn icon v-if="!showSend"
+               </v-card>
+               <div class="col-3 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
+                 <v-btn  style="box-shadow:none;"
+                  fab color="#3E8893" class="mr-1" small  v-if="!showSend"
                @click="shareHandler"
                >
-                   <v-icon>mdi-attachment</v-icon>
+                   <v-icon color="#ffffff">mdi-attachment</v-icon>
                 </v-btn>
 
-                <v-btn icon v-else
+                <v-btn   style="box-shadow:none;" fab color="#3E8893" class="mr-1"  small  v-else
                @click="sendMessage"
                >
-                   <v-icon>mdi-send</v-icon>
+                   <v-icon color="#ffffff" >mdi-send</v-icon>
+                </v-btn>
+
+                 <v-btn  style="box-shadow:none;" fab color="#3E8893"  small
+                  @click="toggleRecording"
+               >
+                   <v-icon  color="#ffffff" v-if="!recording">mdi-microphone</v-icon>
+                   <v-progress-circular indeterminate color="#ffffff" v-else><v-icon>mdi-microphone</v-icon></v-progress-circular>
                 </v-btn>
                </div>
+
+              
             </div>
               
 
@@ -326,16 +328,17 @@ export default {
 <style>
 
 
-.editor-box> * {
+.editor-boxnew> * {
     font-size:12px; 
-    background:whitesmoke;
+    background:transparent;
     width:100%; 
-    height: 70px;
+    height: auto;
+    max-height: 70px;
     padding: 4px 4px;
     resize:none; 
     overflow-x: hidden;
      overflow-y: auto;
-    border:1px solid whitesmoke; 
+    border:1px solid transparent; 
     border-radius:10px;
 }
 
