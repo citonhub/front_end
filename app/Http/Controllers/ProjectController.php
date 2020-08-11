@@ -649,7 +649,11 @@ return $newCommentArray;
 
         $project = DB::table('projects')->where('project_slug',$baseSpaceId)->first();
        
-        $baseUrl = '/space#\/' . $baseSpaceId . '/comments';
+        $baseUrl = '/space#' . '/' . $baseSpaceId . '/comments';
+
+         if($type == 'new_project'){
+          $baseUrl = '/space#' . '/' . $baseSpaceId . '/panel';
+         }
 
 
          $notificationPayload = [
