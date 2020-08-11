@@ -100,7 +100,7 @@ export default {
          'HTML', 'CSS', 'JAVASCRIPT'
         ],
         back_languages:[
-           'PHP','PYTHON' 
+           'PHP','JAVASCRIPT' 
         ],
         programmingLanguage:'',
          Rule:[

@@ -14,7 +14,8 @@
              <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Panel Settings</span>
          </div>
          <div class="col-2 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
-             
+               <v-btn v-if="!loadingDelete" icon color="#4495a2" @click="deleteProject"><v-icon>mdi-delete</v-icon></v-btn>
+               <v-progress-circular v-else indeterminate color="#4495a2"><v-icon color="#4495a2">mdi-delete</v-icon></v-progress-circular>
          </div>
       </div>
      </div>
@@ -104,6 +105,7 @@ export default {
         ],
          loading:false,
          formstate:false,
+         loadingDelete:false,
         }
     },
     components: {
@@ -145,6 +147,49 @@ export default {
      }
           
        
+        },
+        deleteProject:function(){
+
+           this.loadingDelete = true;
+
+          axios.post('/delete-project',{
+                project_slug: this.$route.params.projectSlug,
+                panel_code_files : this.$root.CodeFilesData[0]
+                  })
+             .then(response => {
+             
+            
+            
+             if (response.status == 200) {
+
+                if(this.$root.ChatList[3].data.length != 0){
+
+                   
+                 
+                 let remainingProject = this.$root.ChatList[3].data.filter((project)=>{
+                   return    project.project_slug != this.$route.params.projectSlug
+                 });
+
+                 this.$root.ChatList[3].data = remainingProject;
+              }
+              
+              this.$router.push({ path: '/space/chat-list' });
+
+             
+            
+              
+            
+            }
+              
+            
+           
+            
+          })
+          .catch(error => {
+              this.showAlert(5000,'Failed- ' + error);
+              this.loadingDelete = false;
+          })
+
         },
     savePanelSettings:function(){
        

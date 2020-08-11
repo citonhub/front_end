@@ -92,6 +92,7 @@ Route::get('/fetch-table-entries/{tableId}','PanelController@fetchDatabaseConten
 Route::get('/run-panel/{panelId}','PanelController@runPanel');
 Route::get('/page-loader/{panelId}/{pageName}','PanelController@pageLoader');
 Route::post('/upload-panel-file','PanelController@uploadPanelFiles');
+Route::post('/delete-project','PanelController@deleteProjectPanel');
 
 
 
@@ -121,6 +122,7 @@ Route::post('/save-liked-project-comment','ProjectController@saveProjectLikes');
 Route::get('fetch-comment-panel-{teamCode}','ProjectController@TeamComment');
 Route::get('fetch-user-projects','ProjectController@fetchAllProjects');
 Route::get('/fetch-trend-projects','ProjectController@fetchTrendProject');
+
 
 // Profile Routes
 Route::post('/update-profile','ProfileController@UpdateProfile');

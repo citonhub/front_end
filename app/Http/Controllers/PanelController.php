@@ -37,6 +37,55 @@ class PanelController extends Controller
          }
 
 
+
+      public function deleteProjectPanel(Request $request){
+    
+        $project = Project::where('project_slug',$request->get('project_slug'))->first();
+
+         if($project != null){
+           
+          $this->deleteFilesFolder($project->panel_id);
+
+
+          $backEndFilesArray = [];
+          $frontEndfilesArray = [];
+
+          if($request->panel_code_files != null){
+            foreach ($request->panel_code_files as $file) {
+           
+              if($file['type'] == 'back_end'){
+                    array_push($backEndFilesArray, $file);
+              }else{
+                  array_push($frontEndfilesArray,$file);
+              }
+          }
+          }
+      
+       
+
+
+
+       
+      
+        $this->deleteControllerFiles($backEndFilesArray);
+
+        $this->deleteFilesFromServer($project->panel_id);
+
+        $panel = Panel::where('panel_id',$project->panel_id)->first();
+
+        if($panel != null){
+          $panel->delete();
+        }
+
+        $project->delete();
+
+
+
+         }
+
+      }
+
+
     public function CreateDBProject(Request $request){
       $projectPanel = Project::where('project_slug',$request->get('project_slug'))->first();
 
@@ -994,7 +1043,8 @@ public function anotherPage(){
 
 
      public function createRoute($routeArray,$panelId){
-         
+          
+      $panel= Panel::where('panel_id',$panelId)->first();
             
         foreach ($routeArray as $route) {
            
@@ -1009,7 +1059,14 @@ public function anotherPage(){
 
             $newRoute->save();
 
-            $baseUrl = 'https://php.citonhub.com';
+            if($panel->panel_language == 'PHP') {
+              $baseUrl = 'https://php.citonhub.com';
+             }
+  
+             if($panel->panel_language == 'NodeJs') {
+              $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+             }
+
             $requestData = [
                 "panel_id"=> $panelId,
               "path"=> $route['path'],
@@ -1048,7 +1105,14 @@ public function anotherPage(){
 
         $newRoute->save();
 
-        $baseUrl = 'https://php.citonhub.com';
+         if($panel->panel_language == 'PHP') {
+          $baseUrl = 'https://php.citonhub.com';
+         }
+
+         if($panel->panel_language == 'NodeJs') {
+          $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+         }
+
         $requestData = [
           "panel_id"=> $projectPanel->panel_id,
           "path"=> $request->get('path'),
@@ -1149,6 +1213,11 @@ public function anotherPage(){
     public function SaveCodeFileProject(Request $request){
 
       $projectPanel = Project::where('project_slug',$request->get('project_slug'))->first();
+      
+
+      $panel = Panel::where('panel_id',$projectPanel->panel_id)->first();
+
+
 
       if($request->get('code_category') == 'front_end'){
           
@@ -1169,11 +1238,14 @@ public function anotherPage(){
           $htmlFiles = CodeBox::where('panel_id',$projectPanel->panel_id)->where('file_name','!=','index')->where('language_type','HTML')->get();
           
           $phpContent = '';
+          $JsContent = '';
           foreach ($htmlFiles as $files) {
 
             $thisVar = '$this';
            $panelId = '$panelId';
-           
+
+           if($panel->panel_language == 'PHP') {
+
             $phpContent .="
             public function ". $files->file_name ."(){
               return $thisVar" . '' . "->showView('" .  $files->file_name . "');
@@ -1181,6 +1253,19 @@ public function anotherPage(){
             
             ";
             }
+
+
+             if($panel->panel_language == 'NodeJs') {
+
+              $JsContent .="const " .  $files->file_name .  "=(req,res)=>{
+                res.sendFile(__dirname+\"" ."/public" . '/' . $projectPanel->panel_id . "/views" . '/' .  $files->file_name  . ".html" . "\")
+                        
+                }";
+              }
+    
+           }
+           
+            
              
           }
 
@@ -1188,28 +1273,67 @@ public function anotherPage(){
 
            if($panelRouteController->isEmpty()){
 
-            $PHPCodeBox = CodeBox::create([
-              "content"=> $phpContent,
-              "language_type"=> "PHP",
-              "file_name"=> "routes",
-              "type"=> "back_end",
-              "user_id"=> Auth::id(),
-              "panel_id"=> $projectPanel->panel_id
-            ]);
+            if($panel->panel_language == 'PHP') {
+              $PHPCodeBox = CodeBox::create([
+                "content"=> $phpContent,
+                "language_type"=> "PHP",
+                "file_name"=> "routes",
+                "type"=> "back_end",
+                "user_id"=> Auth::id(),
+                "panel_id"=> $projectPanel->panel_id
+              ]);
+
+              $PHPCodeBox->save();
+
+            }
+
+            if($panel->panel_language == 'NodeJs') {
+
+              $JsCodeBox = CodeBox::create([
+                "content"=> $JsContent,
+                "language_type"=> "JAVASCRIPT",
+                "file_name"=> "routes",
+                "type"=> "back_end",
+                "user_id"=> Auth::id(),
+                "panel_id"=> $projectPanel->panel_id
+              ]);
+
+              $JsCodeBox->save();
+            }
+
+            
              
            }else{
 
-            $PHPCodeBox = CodeBox::where('panel_id',$projectPanel->panel_id)->where('file_name','routes')->first();
+            $backCodeBox = CodeBox::where('panel_id',$projectPanel->panel_id)->where('file_name','routes')->first();
 
-            $PHPCodeBox->update([
+            if($panel->panel_language == 'PHP') {
+
+            $backCodeBox->update([
            "content"=> $phpContent
             ]);
 
+            }
+
+           if($panel->panel_language == 'NodeJs') {
+            $backCodeBox->update([
+              "content"=> $JsContent
+               ]);
+   
            }
 
-         
+           }
+
+
+           if($panel->panel_language == 'PHP') {
+            $baseUrl = 'https://php.citonhub.com';
+           }
+
+           if($panel->panel_language == 'NodeJs') {
+            $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+           }
         
-          $baseUrl = 'https://php.citonhub.com';
+          
           $requestData = [
               'panel_id' =>  $projectPanel->panel_id,
               'file_name'=> 'routes',
@@ -1232,7 +1356,16 @@ public function anotherPage(){
           $this->createRoute($routeArray,$projectPanel->panel_id);  
 
       
-          $baseUrl = 'https://php.citonhub.com';
+          if($panel->panel_language == 'PHP') {
+            $baseUrl = 'https://php.citonhub.com';
+           }
+
+           if($panel->panel_language == 'NodeJs') {
+            $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+           }
+        
+
+
       $requestData = [
           'panel_id' =>  $projectPanel->panel_id,
           'file_name' =>  $request->get('file_name'),
@@ -1253,7 +1386,14 @@ public function anotherPage(){
 
       if($request->get('code_category') == 'back_end' && $request->get('language_type') == 'PHP'){
         
+        if($panel->panel_language == 'PHP') {
           $baseUrl = 'https://php.citonhub.com';
+         }
+
+         if($panel->panel_language == 'NodeJs') {
+          $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+         }
+
           $requestData = [
               'panel_id' =>  $projectPanel->panel_id,
               'file_name'=> $request->get('file_name'),
@@ -1409,7 +1549,7 @@ public function anotherPage(){
        ]);
          
      
-       $this->updateRealFile($CodeBox,$request);
+       $this->updateRealFile($CodeBox,$request,$projectPanel->panel_id);
 
 
        broadcast(new PanelChannel('new-file-update',$CodeBox,$request->get('project_slug')))->toOthers();
@@ -1468,7 +1608,7 @@ public function anotherPage(){
          ]);
            
        
-         $this->updateRealFile($CodeBox,$request);
+         $this->updateRealFile($CodeBox,$request,$duelPanel->panel_id);
        
          if($duelTeam != null){
           broadcast(new PanelChannel('new-file-update',$CodeBox,$duelTeam->team_code))->toOthers();
@@ -1478,11 +1618,21 @@ public function anotherPage(){
 
 
 
-     public function updateRealFile($codeBox,$request){
+     public function updateRealFile($codeBox,$request,$panelId){
+
+        $panel = Panel::where('panel_id',$panelId)->first();
 
           if($request->get('code_category') == 'front-end'){
             
-            $baseUrl = 'https://php.citonhub.com';
+           
+            if($panel->panel_language == 'PHP') {
+              $baseUrl = 'https://php.citonhub.com';
+             }
+  
+             if($panel->panel_language == 'NodeJs') {
+              $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+             }
+
             $requestData = [
                 'panel_id' =>  $codeBox->panel_id,
                 'file_name' =>  $codeBox->file_name,
@@ -1499,7 +1649,14 @@ public function anotherPage(){
 
           if($request->get('code_category') == 'back-end'){
             
+            if($panel->panel_language == 'PHP') {
             $baseUrl = 'https://php.citonhub.com';
+           }
+
+           if($panel->panel_language == 'NodeJs') {
+            $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+           }
+
             $requestData = [
                 'panel_id' =>  $codeBox->panel_id,
                 'file_name'=> $codeBox->file_name,
