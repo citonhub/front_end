@@ -89,7 +89,7 @@ export default {
         alertMsg:'',
         AppTypes:['Single-page','Multiple-pages'],
         back_languages:[
-         'PHP','NodeJs'
+         'PHP'
         ],
         server_side:[
            'Yes','No' 
