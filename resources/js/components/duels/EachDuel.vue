@@ -14,23 +14,17 @@
                         
                    </div>
 
-                   <div class="py-1 col-6">
+                   <div class="py-1 col-4">
                         <span style="font-size:12px;color:#595959;">Participants: {{source.current_participant}}</span>
                    </div>
-                   
-                    <div class="py-1 col-6 text-right">
-                        <span style="font-size:12px;text-transform:capitalize;" class="mybadgenew">{{source.duel_id}}</span>
-                   </div>
-                     <div class="col-4 text-center">
-                        <span><v-icon class="px-0" color="#3E8893">mdi-heart mdi-18px</v-icon></span>
-                         <span style="font-size:11px; color:#595959;font-family:HeaderText;">{{source.likes}}</span>
-                     </div>
-                     <div class="col-4 text-center">
+
+                   <div class="col-4 text-center">
                             <span class="statusnew" >{{checkDuelStatus(source)}}</span>
                      </div>
-                     <div class="col-4 text-center">
-                      <span><v-icon class="px-0" color="#3E8893">mdi-comment-text-outline mdi-18px</v-icon></span>
-                       <span style="font-size:11px; color:#595959;font-family:HeaderText;">{{source.comments}}</span>
+                   
+                    <div class="col-4 text-right">
+                        <span><v-icon class="px-0" color="#3E8893">mdi-heart mdi-18px</v-icon></span>
+                         <span style="font-size:11px; color:#595959;font-family:HeaderText;">{{source.likes}}</span>
                      </div>
 
                 </div>
