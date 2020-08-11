@@ -51,9 +51,9 @@
           <div class="row py-0 my-0">
             <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
               @if($tablabel == 'duels')
-              <img src="{{ asset('imgs/duel_active.png') }}" class="iconstyle"/>
+              <img src="{{ asset('imgs/duels_active.png') }}" class="iconstyle"/>
               @else
-              <img src="{{ asset('imgs/duel.png') }}" class="iconstyle"/>
+              <img src="{{ asset('imgs/duels.png') }}" class="iconstyle"/>
               @endif
             </div>
             <div class="col-4 d-flex py-0 "  style="align-items:center; justify-content:center;">
@@ -204,12 +204,12 @@
             <div class="text-center iconcontainer" > 
             <a href="/duels">
             @if($tablabel == 'duels')
-            <img src="{{ asset('imgs/duel_active.png') }}" class="iconstylemd"/><br>
+            <img src="{{ asset('imgs/duels_active.png') }}" class="iconstylemd"/><br>
             <span class="iconnamemd py-1" style="color:#36848C;">
              Duels 
              </span>
             @else
-            <img src="{{ asset('imgs/duel.png') }}" class="iconstylemd"/><br>
+            <img src="{{ asset('imgs/duels.png') }}" class="iconstylemd"/><br>
             <span class="iconnamemd py-1">
              Duels 
              </span>
@@ -300,12 +300,12 @@
             <div class="text-center iconcontainer" > 
             <a href="/duels" @click="loader">
             @if($tablabel == 'duels')
-            <img src="{{ asset('imgs/duel_active.png') }}" class="iconstylesm"/>
+            <img src="{{ asset('imgs/duels_active.png') }}" class="iconstylesm"/>
             <div class="iconnamesm " style="color:#36848C;">
              Duels 
              </div>
             @else
-            <img src="{{ asset('imgs/duel.png') }}" class="iconstylesm"/>
+            <img src="{{ asset('imgs/duels.png') }}" class="iconstylesm"/>
             <div class="iconnamesm ">
              Duels 
              </div>
