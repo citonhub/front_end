@@ -110,6 +110,7 @@ Route::get('/fetch-trend-channels','SpaceController@fetchTrendChannels');
 Route::post('/check-for-unread-messages','SpaceController@checkUnreadMessages');
 Route::get('/download-file-{messageId}','SpaceController@downloadFile');
 Route::post('/leave-space','SpaceController@leaveSpace');
+Route::post('/delete-message','SpaceController@deleteMessage');
 
 
 

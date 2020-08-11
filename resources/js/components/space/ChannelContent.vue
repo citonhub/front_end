@@ -181,25 +181,25 @@
       
       <div v-if="this.$root.ShowButton">
        
-        <span style="position:absolute; top:76%; left:2%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="scrollPosition >= 1500">
+        <span style="position:absolute; top:76%; left:2%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="scrollPosition >= 1500 && !this.$root.showMsgDelete">
           <span
                
                 v-if="!this.$root.showRootReply"
                  @click="scrollToBottom"
                 class="d-block"
-                style="background:#35747e; padding:3px; border:1px solid transparent; border-radius:50%; color:white;"
+                style="background:#3E8893; padding:3px; border:1px solid transparent; border-radius:50%; color:white;"
               >
                 <v-icon color="#ffffff"> mdi-chevron-double-down</v-icon>
               </span>
      </span>
 
-      <span style="position:absolute; top:85%; left:2%;  z-index:999998757;" class="d-none d-md-inline-block" v-if="scrollPosition >= 1500">
+      <span style="position:absolute; top:85%; left:2%;  z-index:999998757;" class="d-none d-md-inline-block" v-if="scrollPosition >= 1500 && !this.$root.showMsgDelete">
           <span
               
                @click="scrollToBottom"
                 class="d-block"
                  v-if="!this.$root.showRootReply"
-                 style="background:#35747e; padding:3px; border:1px solid transparent; border-radius:50%; color:white;"
+                 style="background:#3E8893; padding:3px; border:1px solid transparent; border-radius:50%; color:white;"
               >
                 <v-icon color="#ffffff">mdi-chevron-double-down</v-icon>
               </span>
@@ -208,7 +208,7 @@
       
        <span style="position:absolute; top:76%; right:3%; z-index:999998757;"  class="d-md-none d-inline-block">
           <v-btn
-                color="#35747e"
+                color="#3E8893"
                 small
                 v-if="!this.$root.showRootReply"
                  @click="showCodeBox"
@@ -221,7 +221,7 @@
 
       <span style="position:absolute; top:85%; right:3%;  z-index:999998757;" class="d-none d-md-inline-block">
           <v-btn
-                color="#35747e"
+                color="#3E8893"
                 small
                @click="showCodeBox"
                 class="d-block"
@@ -231,6 +231,35 @@
                 <v-icon color="#ffffff">mdi-xml</v-icon>
               </v-btn>
      </span>
+
+
+ <span style="position:absolute; top:76%; left:3%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="this.$root.showMsgDelete">
+          <v-btn
+                color="#3E8893"
+                x-small
+               
+                 @click="deleteMessage"
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-delete mdi-18px</v-icon>
+              </v-btn>
+     </span>
+
+      <span style="position:absolute; top:85%; left:3%;  z-index:999998757;" class="d-none d-md-inline-block" v-if="this.$root.showMsgDelete">
+          <v-btn
+                color="#3E8893"
+                x-small
+              @click="deleteMessage"
+                class="d-block"
+                
+                fab
+              >
+                <v-icon color="#ffffff">mdi-delete mdi-18px</v-icon>
+              </v-btn>
+     </span>
+
+
       </div>
        
       
@@ -297,8 +326,8 @@ export default {
         this.$root.checkIfUserIsLoggedIn('space');
         this.$root.initialPushMangerReg();
 
-        
-       
+         this.updateLocalStorage();
+         this.$root.closeNotification(this.$route.params.spaceId);
        this.fetchMessages();
 
        if(this.$root.projectData.length != 0){
@@ -318,6 +347,9 @@ export default {
        
     },
     methods:{
+      deleteMessage:function(){
+       this.$root.deleteMessage(this.$root.messageIdToDelete)
+      },
        showAlert:function(duration,text){
         this.$root.AlertRoot = true;
         this.$root.AlertMsgRoot = text;
@@ -488,6 +520,10 @@ export default {
 
                 this.$root.pushDataToLocal(e.data);
 
+                this.$root.updateSpaceTracker(e.data.space_id);
+
+                this.$root.sortChatList();
+
                   this.scrollToBottom(); 
                
 
@@ -499,13 +535,14 @@ export default {
                 
               this.$root.typinguser = e.user;
                this.$root.typing = e.typing;
+               this.$root.typingSpace = e.spaceId;
                 
               
               setTimeout(() => {
                  
                  this.$root.typing = false;
                  
-                 }, 5000);
+                 }, 10000);
                  });
 
          }

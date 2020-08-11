@@ -325,6 +325,7 @@ methods:{
               temp_id:  this.$root.NewMsg.message_id
             };
             
+         this.$root.updateSpaceTracker(this.$route.params.spaceId);
        this.$root.sendCodeMessage(postData);
          
       },

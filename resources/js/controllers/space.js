@@ -274,6 +274,9 @@ const app = new Vue({
       spaceFullData:[],
       teamUnread:0,
       fromChatList:false,
+      typingSpace:'',
+      showMsgDelete:false,
+      messageIdToDelete:'',
     },
      mounted: function () {
       this.pageloader= false;
@@ -289,6 +292,74 @@ const app = new Vue({
      }
   },
   methods:{
+    closeNotification(spaceId){
+       
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(registration => { 
+          var  notificationTag = spaceId;
+
+          var notificationFilter = {
+            tag: notificationTag
+          };
+
+          registration.getNotifications(notificationFilter)
+          .then(function(notifications) {
+               
+            if(notifications[0] != undefined){
+              notifications[0].close()
+            }
+           
+            
+          });
+          });
+      } 
+
+    },
+    sortArray: function(arrayValue){
+      arrayValue.sort(function(a, b){ 
+      
+        return new Date(b.message_track) - new Date(a.message_track); 
+    }); 
+
+    },
+    sortChatList: function(){
+
+        this.sortArray(this.ChatList[1]);
+        this.sortArray(this.ChatList[2]);
+        this.sortArray(this.ChatList[4]);
+    },
+    updateSpaceTracker: function(spaceId){
+     
+
+      this.ChatList[1].map((space)=>{
+             
+        if(space.space_id == spaceId){
+          space.message_track = new Date();
+        }
+
+      });
+
+      this.ChatList[2].map((space)=>{
+       
+        if(space.space_id == spaceId){
+          space.message_track = new Date();
+        }
+
+      });
+
+
+      this.ChatList[4].map((space)=>{
+       
+        if(space.space_id == spaceId){
+          space.message_track = new Date();
+        }
+
+      });
+
+      this.sortChatList();
+
+
+    },
     LocalStore:function(key,data){
     
       
@@ -311,12 +382,11 @@ const app = new Vue({
       
     
     },
-    removeLocalStorage: function(key,data){
+    removeLocalStorage: function(key){
       localforage.removeItem(key).then(()=> {
         // Run this code once the key has been removed.
-        
-        console.log('item is cleared!');
-        this.LocalStore(key,data);
+      
+       
        
     }).catch(function(err) {
         // This code runs if there were any errors
@@ -388,6 +458,60 @@ const app = new Vue({
      }
     
    },
+   deleteMessage: function(messageId){
+
+      this.showMsgDelete = false;
+ 
+       let remainingMsg =  this.Messages.filter((message)=>{
+        return message.message_id != messageId;
+       });
+
+       this.Messages = remainingMsg;
+
+       let remainingMsgFull =  this.returnedMessages.filter((message)=>{
+        return message.message_id != messageId;
+       });
+
+       this.returnedMessages = remainingMsgFull;
+
+       // update to localStorage
+       
+       this.$root.spaceFullData[0] = this.$root.returnedMessages;
+
+
+               
+
+       let fullData = [];
+          fullData.push(this.$root.spaceFullData[0]);
+      fullData.push(this.$root.spaceFullData[1]);
+
+       let thirdData = [];
+          
+          thirdData.push(this.$root.spaceFullData[2][0])
+
+      fullData.push(thirdData);
+
+   this.$root.LocalStore(this.$route.params.spaceId,fullData);
+
+   axios.post('/delete-message',{
+    'message_id':messageId
+ } )
+.then(response => {
+
+if (response.status == 200) {
+ 
+
+
+
+}
+
+
+})
+.catch(error => {  
+  
+}) 
+    
+   },
     connectToChannel:function(){
    
        if(this.checkauthroot == 'auth'){
@@ -405,6 +529,11 @@ const app = new Vue({
              
               if(space.space_id == e.data.space_id){
                 space.unread = space.unread + 1;
+                space.message_track = new Date();
+                
+
+                this.teamUnread = this.teamUnread + 1;
+               
               }
 
             });
@@ -413,6 +542,8 @@ const app = new Vue({
              
               if(space.space_id == e.data.space_id){
                 space.unread = space.unread + 1;
+                space.message_track = new Date();
+                this.channelUnread = this.channelUnread + 1;
               }
 
             });
@@ -422,6 +553,8 @@ const app = new Vue({
              
               if(space.space_id == e.data.space_id){
                 space.unread = space.unread + 1;
+                space.message_track = new Date();
+                this.directUnread = this.directUnread + 1;
               }
 
             });
@@ -681,6 +814,8 @@ imageStyle:function(dimension,authProfile){
     localforage.getItem(data.space_id).then((result)=> {
 
      if(result != null){
+
+      
       let finalResult = JSON.parse(result);
           finalResult[0].push(data);
         
@@ -695,8 +830,9 @@ imageStyle:function(dimension,authProfile){
      
     localforage.getItem('unread' + data.space_id).then((result)=> {
 
-      if(result != null){
+      if(result != null && result != "[]"){
        let finalResult = JSON.parse(result);
+         
            finalResult[0].push(data.message_id);
          
            this.LocalStore('unread' + data.space_id,finalResult);

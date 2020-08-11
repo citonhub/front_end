@@ -216,7 +216,10 @@
            </v-card>
            <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
                                <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
+                              
                              </div>
+          
+
         </div>
 
 
@@ -675,10 +678,17 @@ export default {
         return{
          viewerType:'',
          loading:false,
+         clicks: 0,
+         delay:400,
+         timer:'',
         }
     },
     methods:{
+
+
+      
       handleAction:function(message){
+           
          
          if(message.action.type == 'custom'){
           
@@ -907,15 +917,56 @@ export default {
 
     },
       showMoreHandler(message){
-           if(message.showReply){
+            
+            this.clicks++ 
+          if(this.clicks === 1) {
+             
+            var self = this
+            this.timer = setTimeout(function() {
+              if(message.tagged == false){
+                 if(message.showReply){
+                
               message.showReply = false;
-           }else{
-              this.$root.Messages.map((message)=>{
+              }else{
+              self.$root.Messages.map((message)=>{
+               
                  message.showReply = false;
+                 
               });
                
              message.showReply = true;
            }
+              }
+             message.tagged = false;
+             
+               
+              self.clicks = 0
+            }, this.delay);
+         
+         this.$root.showMsgDelete = false;
+              
+          } else{
+             clearTimeout(this.timer); 
+
+             if(this.checkOwner(message.user_id)){
+
+                message.showReply = false;
+
+              message.tagged = true;
+             
+             this.$root.messageIdToDelete = message.message_id;
+          
+            this.$root.showMsgDelete = true;
+
+             } 
+
+            
+           
+            
+             this.clicks = 0;
+          }   
+
+          
         },
       replyMsg: function(message){
           this.$root.replyMessage = message;

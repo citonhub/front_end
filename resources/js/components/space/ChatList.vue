@@ -568,7 +568,8 @@ export default {
       this.$root.showTabs=true;
        this.$root.showHeader = true;
        this.$root.channel = null;
-
+        
+       
       
        this.$root.returnedMessages = [];
        this.$root.messageStoreTop = [];
@@ -702,6 +703,8 @@ export default {
        fetchChatList: function(){
          if(this.$root.ChatList.length != 0 && !this.$root.forceListReload){
 
+            this.$root.sortChatList();
+
         this.personalSpace = this.$root.ChatList[0];
         this.teamSpace = this.$root.ChatList[1];
         this.channelSpace = this.$root.ChatList[2];
@@ -722,18 +725,24 @@ export default {
       .then(response => {
       
       if (response.status == 200) {
+
+        this.$root.ChatList = response.data;
+
+         this.$root.sortChatList();
         
-         this.channelProject = response.data[3].data;
-         this.personalSpace =  response.data[0];
-        this.teamSpace =  response.data[1];
-        this.channelSpace =  response.data[2];
-        this.channelDirect = response.data[4];
-        this.channelSuggestions = response.data[5];
+         this.personalSpace = this.$root.ChatList[0];
+        this.teamSpace = this.$root.ChatList[1];
+        this.channelSpace = this.$root.ChatList[2];
+        this.channelProject = this.$root.ChatList[3].data;
+        this.channelDirect = this.$root.ChatList[4];
+         this.channelSuggestions = this.$root.ChatList[5];
+
+        
 
          this.checkUnread();
           
         this.$root.SpaceWithoutChannel = response.data;
-         this.$root.ChatList = response.data;
+         
          
        
 

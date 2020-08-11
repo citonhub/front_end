@@ -104,7 +104,7 @@ class SpaceController extends Controller
 
 
 
-     public function saveMessage(Request $request){
+   public function saveMessage(Request $request){
         $attachment_type = $request->get('attachment_type');
 
         if($request->get('attachment_type') == 'voiceRecord'){
@@ -126,6 +126,14 @@ class SpaceController extends Controller
      
  
       $newMessage->save();
+
+       $messageSpace = Space::where('space_id',$request->get('space_id'))->first();
+
+        if($messageSpace != null){
+         $messageSpace->update([
+            "message_track"=> Carbon::now()
+         ]);
+        }
 
       
 
@@ -989,6 +997,7 @@ public function MessageEngine($messageArray,$timeArray){
 
           $message["loading"] = false;
 
+          
          if($message["is_reply"] == '1'){
             
            
@@ -1113,6 +1122,16 @@ public function MessageEngine($messageArray,$timeArray){
     return $newMessageArray;
  }
 
+  public function deleteMessage(Request $request){
+
+     $message = SpaceMessage::where('id',$request->get('message_id'))->first();
+
+      if($message != null){
+       
+         $message->delete();
+      }
+      
+  }
 
  public function checkDirectMessage($spaceId,$member_user_id){
 
@@ -1344,6 +1363,7 @@ return $newSpaceMembersArray;
           'spaces.image_extension as image_extension',
           'spaces.type as type',
           'spaces.name as name',
+          'spaces.message_track as message_track',
           'spaces.background_color as background_color',
           'spaces.description as description',
           'spaces.space_id as space_id',
@@ -1651,6 +1671,7 @@ array_push($newSpaceArray,$userSpace);
                       'spaces.type as type',
                       'spaces.name as name',
                       'users.username as username',
+                      'spaces.message_track as message_track',
                       'spaces.background_color as background_color',
                       'spaces.description as description',
                       'spaces.space_id as space_id'
@@ -1813,6 +1834,7 @@ array_push($newSpaceArray,$userSpace);
          'spaces.type as type',
          'spaces.background_color as background_color',
          'spaces.name as name',
+         'spaces.message_track as message_track',
          'spaces.description as description',
          'spaces.space_id as space_id'
      )
@@ -1834,6 +1856,7 @@ array_push($newSpaceArray,$userSpace);
                       'spaces.image_name as image_name',
                       'spaces.image_extension as image_extension',
                       'spaces.type as type',
+                      'spaces.message_track as message_track',
                       'spaces.name as name',
                       'spaces.background_color as background_color',
                       'spaces.description as description',
@@ -1870,6 +1893,7 @@ array_push($newSpaceArray,$userSpace);
                       'spaces.image_extension as image_extension',
                       'spaces.type as type',
                       'spaces.name as name',
+                      'spaces.message_track as message_track',
                       'spaces.background_color as background_color',
                       'spaces.description as description',
                       'spaces.space_id as space_id'
@@ -1932,6 +1956,7 @@ array_push($newSpaceArray,$userSpace);
                       'spaces.type as type',
                       'spaces.name as name',
                       'spaces.background_color as background_color',
+                      'spaces.message_track as message_track',
                       'spaces.description as description',
                       'spaces.space_id as space_id',
                       'user_1 as user_1',

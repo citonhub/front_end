@@ -712,6 +712,8 @@ var blob = this.b64toBlob(realData, contentType);
         formData.append('space_id',this.$route.params.spaceId);
         formData.append('temp_id', this.$root.NewMsg.message_id)
         this.ChangeDataToDefaults();
+
+         this.$root.updateSpaceTracker(this.$route.params.spaceId);
        this.$root.sendShareMessage(formData);
     },
      crophandler:function(e){

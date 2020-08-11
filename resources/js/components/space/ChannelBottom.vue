@@ -267,12 +267,13 @@ export default {
       
       let channel =  window.Echo.join('space.' + this.$route.params.spaceId);
    
-      setTimeout(function() {
+      setTimeout(() => {
         channel.whisper('typing', {
           user: Laravel.user.username,
-            typing: true
+            typing: true,
+            spaceId: this.$route.params.spaceId
         });
-      }, 6000);
+      }, 10000);
    
    
           
@@ -338,6 +339,7 @@ export default {
               temp_id:  this.$root.NewMsg.message_id
             };
             
+             this.$root.updateSpaceTracker(this.$route.params.spaceId);
 
           this.$root.sendTextMessage(postData);
       },

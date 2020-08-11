@@ -183,6 +183,8 @@ methods:{
         formData.append('attachment_type',this.attachment_type);
         formData.append('space_id',this.$route.params.spaceId);
         formData.append('temp_id', this.$root.NewMsg.message_id);
+
+         this.$root.updateSpaceTracker(this.$route.params.spaceId);
         
         this.$root.sendShareMessage(formData);
     },

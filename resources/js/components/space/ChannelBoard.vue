@@ -59,7 +59,7 @@
                <v-card tile flat class=" py-2 px-2 " color="#edf6f7" style="border-bottom:1px solid #3E8893; border-top:1px solid #3E8893;">
               <div class="row py-0 my-0">
                 <div class="col-4 py-0 my-0 text-left">
-                   <v-btn rounded x-small color="#3E8893" @click="leaveSpace" style="font-size:10px; color:white; text-transform:capitalize;">Leave</v-btn>
+                   <v-btn rounded x-small color="#3E8893" :loading="loadingLeave" @click="leaveSpace" style="font-size:10px; color:white; text-transform:capitalize;">Leave</v-btn>
                 </div>
                 <div class="col-4 py-0 my-0 px-0 text-center">
                   
@@ -111,6 +111,7 @@ export default {
            Alert:false,
         alertMsg:'',
         SpaceMembers:[],
+        loadingLeave: false,
         }
     },
      components: {
@@ -122,7 +123,7 @@ export default {
     methods:{
 
        leaveSpace: function(){
-       
+         this.loadingLeave = true;
         axios.post('/leave-space',{
            'space_id':this.$route.params.spaceId
         } )
@@ -132,6 +133,8 @@ export default {
         
          
          if(this.$root.selectedSpace.type == 'Channel'){
+
+             this.$root.removeLocalStorage(this.$route.params.spaceId);
 
            if(this.$root.ChatList[2].length != 0){
 
@@ -171,8 +174,9 @@ export default {
        
      
      })
-     .catch(error => {
-    
+     .catch(error => {  
+          this.loadingLeave = false;
+       this.showAlert(5000,'Oops!, An error occured')
      }) 
        },
        fetchMessages: function(){
