@@ -7,7 +7,7 @@
 
    
      
-      <div style="overflow-y:auto; overflow-x:hidden;position:absolute;left:0; width:100%; height:100%;">
+      <div style="overflow-y:hidden; overflow-x:hidden;position:absolute;left:0; width:100%; height:100%;">
         
 
       <div class="col-12 py-0 my-0" >
@@ -36,10 +36,10 @@
 
              </div>
 
-               <v-slide-y-transition>
+              
 
               
-              <div class="col-12 py-1 my-0 mx-0" v-if="this.$root.showProject">
+              <div class="col-12 py-1 my-0 mx-0" v-if="this.$root.showProject" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;" >
                 <div  v-if="channelProject != null">
                     <div class="row my-0 my-0 px-0"  v-if="channelProject.length != 0">
 
@@ -61,7 +61,7 @@
                           
                     </div>
                 </div>
-             </v-card>
+                </v-card>
                  </div>
 
                  <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
@@ -112,7 +112,7 @@
   
               </div>
               </div>
-             </v-slide-y-transition>
+             
 
             
              <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('channel')" >
@@ -142,10 +142,10 @@
                  </div>
 
              </div>
-              <v-slide-y-transition>
+             
 
               
-              <div class="col-12 py-1 my-0 mx-0" v-if="this.$root.showChannel">
+              <div class="col-12 py-1 my-0 mx-0" v-if="this.$root.showChannel" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;" >
                 <div  v-if="channelSpace != null">
                     <div class="row my-0 my-0 px-0"  v-if="channelSpace.length != 0">
 
@@ -215,7 +215,7 @@
   
               </div>
               </div>
-             </v-slide-y-transition>
+             
 
 
 
@@ -245,8 +245,8 @@
                  </div>
 
              </div>
-             <v-slide-y-transition>
-              <div class="col-12 py-1 my-0 mx-0"  v-if="this.$root.showTeams">
+            
+              <div class="col-12 py-1 my-0 mx-0"  v-if="this.$root.showTeams" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;"  >
                  <div  v-if="teamSpace != null">
                  <div class="row my-0 my-0 px-0"  v-if="teamSpace.length != 0">
                     <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in teamSpace"
@@ -313,7 +313,7 @@
   
               </div>
               </div>
-              </v-slide-y-transition>
+              
 
                 <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('direct')" >
                  
@@ -340,8 +340,8 @@
                     </div>
                  </div>
                 </div>
-             <v-slide-y-transition>
-              <div class="col-12 py-1 my-0 mx-0"   v-if="this.$root.showDirect">
+            
+              <div class="col-12 py-1 my-0 mx-0"   v-if="this.$root.showDirect" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;" >
                   <div  v-if="channelDirect != null">
                     <div class="row my-0 my-0 px-0"  v-if="channelDirect.length != 0">
 
@@ -410,7 +410,7 @@
   
               </div>
               </div>
-              </v-slide-y-transition>
+              
 
               <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('suggestions')"  v-if="false" >
                  
@@ -436,7 +436,7 @@
                     </div>
                  </div>
                 </div>
-                 <v-slide-y-transition>
+                
 
               
               <div class="col-12 py-1 my-0 mx-0" v-if="this.$root.showSuggetions">
@@ -513,7 +513,7 @@
   
               </div>
               </div>
-             </v-slide-y-transition>
+             
               
                
               
@@ -601,19 +601,46 @@ export default {
         this.$root.checkIfUserIsLoggedIn('space');
         
          if(type == 'project'){
-              this.$root.showProject ? this.$root.showProject = false : this.$root.showProject = true
+           
+              this.$root.showProject ? this.$root.showProject = false : this.$root.showProject = true;
+              this.$root.showDirect = false;
+              this.$root.showTeams = false;
+              this.$root.showChannel = false;
+              this.$root.showSuggetions = false;
+
          }
          if(type == 'direct'){
-              this.$root.showDirect ? this.$root.showDirect = false : this.$root.showDirect = true
+              this.$root.showDirect ? this.$root.showDirect = false : this.$root.showDirect = true;
+
+              this.$root.showProject = false;
+              this.$root.showTeams = false;
+              this.$root.showChannel = false;
+              this.$root.showSuggetions = false;
          }
          if(type == 'team'){
-              this.$root.showTeams ? this.$root.showTeams = false : this.$root.showTeams = true
+              this.$root.showTeams ? this.$root.showTeams = false : this.$root.showTeams = true;
+
+               this.$root.showProject = false;
+              this.$root.showDirect = false;
+              this.$root.showChannel = false;
+              this.$root.showSuggetions = false;
          }
          if(type == 'channel'){
+
               this.$root.showChannel ? this.$root.showChannel = false : this.$root.showChannel = true
+
+               this.$root.showProject = false;
+              this.$root.showDirect = false;
+              this.$root.showTeams = false;
+              this.$root.showSuggetions = false;
          }
          if(type == 'suggestions'){
              this.$root.showSuggetions ? this.$root.showSuggetions = false : this.$root.showSuggetions = true
+
+               this.$root.showProject = false;
+              this.$root.showDirect = false;
+              this.$root.showTeams = false;
+              this.$root.showChannel = false;
          }
       },
          activateBot:function(){
