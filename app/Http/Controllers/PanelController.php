@@ -576,7 +576,7 @@ var start_building = \"Let's build it!\";
   
 
       $jsContent = "const main=(req,res)=>{
-res.sendFile(\"" ."/" . $panelId . "/views/index.html" . "\")
+res.sendFile(__dirname+\"" ."/public" . '/' . $panelId . "/views/index.html" . "\")
         
 }";
 

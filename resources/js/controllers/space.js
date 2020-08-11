@@ -450,6 +450,21 @@ const app = new Vue({
       this.pageloader = true;
   
   },
+  closeSpaceNotification: function(spaceId){
+    var  notificationTag = spaceId;
+
+    var notificationFilter = {
+      tag: notificationTag
+    };
+
+    return navigator.serviceWorker.getNotifications(notificationFilter)
+        .then(function(notifications) {
+          
+
+          notifications.close();
+          
+        });
+  },
   fetchUserDetails: function(){
    
 

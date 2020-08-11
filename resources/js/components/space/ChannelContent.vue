@@ -296,6 +296,8 @@ export default {
        this.$root.showHeader = false;
         this.$root.checkIfUserIsLoggedIn('space');
         this.$root.initialPushMangerReg();
+
+        
        
        this.fetchMessages();
 
