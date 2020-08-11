@@ -542,7 +542,7 @@ var start_building = \"Let's build it!\";
           'panel_id' =>  $panelId,
           'file_name' =>  'index',
           'content'=> $htmlContent,
-          'language_type' => 'HTML'
+          'language_type' => 'html'
       ];
 
      $response = Http::post($baseUrl .'/create-view-file',$requestData);
@@ -572,7 +572,7 @@ var start_building = \"Let's build it!\";
       'panel_id' =>  $panelId,
       'file_name' =>  'index',
       'content'=> $cssContent,
-      'language_type' => 'CSS'
+      'language_type' => 'css'
       ];
 
       $response = Http::post($baseUrl .'/create-view-file',$requestData);
@@ -598,7 +598,7 @@ var start_building = \"Let's build it!\";
       'panel_id' =>  $panelId,
       'file_name' =>  'index',
       'content'=> $javaScriptContent,
-      'language_type' => 'JAVASCRIPT'
+      'language_type' => 'js'
       ];
 
     $response = Http::post($baseUrl .'/create-view-file',$requestData);
@@ -625,7 +625,7 @@ var start_building = \"Let's build it!\";
   
 
       $jsContent = "const main=(req,res)=>{
-res.sendFile(__dirname+\"" ."/public" . '/' . $panelId . "/views/index.html" . "\")
+res.sendFile(dirname+\"" ."/public" . '/' . $panelId . "/views/index.html" . "\")
         
 }";
 
@@ -1258,7 +1258,7 @@ public function anotherPage(){
              if($panel->panel_language == 'NodeJs') {
 
               $JsContent .="const " .  $files->file_name .  "=(req,res)=>{
-                res.sendFile(__dirname+\"" ."/public" . '/' . $projectPanel->panel_id . "/views" . '/' .  $files->file_name  . ".html" . "\")
+                res.sendFile(dirname+\"" ."/public" . '/' . $projectPanel->panel_id . "/views" . '/' .  $files->file_name  . ".html" . "\")
                         
                 }";
               }
@@ -1291,7 +1291,7 @@ public function anotherPage(){
 
               $JsCodeBox = CodeBox::create([
                 "content"=> $JsContent,
-                "language_type"=> "JAVASCRIPT",
+                "language_type"=> "js",
                 "file_name"=> "routes",
                 "type"=> "back_end",
                 "user_id"=> Auth::id(),
@@ -1388,33 +1388,57 @@ public function anotherPage(){
         
         if($panel->panel_language == 'PHP') {
           $baseUrl = 'https://php.citonhub.com';
+
+          $requestData = [
+            'panel_id' =>  $projectPanel->panel_id,
+            'file_name'=> $request->get('file_name'),
+            'content'=> ''
+        ];
+    $response = Http::post($baseUrl .'/create-controller',$requestData);
+       
+      if($response->status() == 200){
+         
+        $newCodeBox = CodeBox::create([
+            "content"=> 'start coding...',
+            "language_type"=> $request->get('language_type'),
+            "file_name"=> $request->get('file_name'),
+            "type"=> $request->get('code_category'),
+            "user_id"=> Auth::id(),
+            "panel_id"=> $projectPanel->panel_id
+         ]);
+
+         $newCodeBox->save();
+
+      }
          }
 
          if($panel->panel_language == 'NodeJs') {
           $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
-         }
 
           $requestData = [
-              'panel_id' =>  $projectPanel->panel_id,
-              'file_name'=> $request->get('file_name'),
-              'content'=> ''
-          ];
-      $response = Http::post($baseUrl .'/create-controller',$requestData);
+            'panel_id' =>  $projectPanel->panel_id,
+            'file_name'=> $request->get('file_name'),
+            'content'=> ''
+        ];
+       $response = Http::post($baseUrl .'/create-controller',$requestData);
+       
+      if($response->status() == 200){
          
-        if($response->status() == 200){
-           
-          $newCodeBox = CodeBox::create([
-              "content"=> 'start coding...',
-              "language_type"=> $request->get('language_type'),
-              "file_name"=> $request->get('file_name'),
-              "type"=> $request->get('code_category'),
-              "user_id"=> Auth::id(),
-              "panel_id"=> $projectPanel->panel_id
-           ]);
+        $newCodeBox = CodeBox::create([
+            "content"=> 'start coding...',
+            "language_type"=> 'js',
+            "file_name"=> $request->get('file_name'),
+            "type"=> $request->get('code_category'),
+            "user_id"=> Auth::id(),
+            "panel_id"=> $projectPanel->panel_id
+         ]);
 
-           $newCodeBox->save();
+         $newCodeBox->save();
 
-        }
+      }
+         }
+
+         
       }
 
     }
@@ -1627,13 +1651,8 @@ public function anotherPage(){
            
             if($panel->panel_language == 'PHP') {
               $baseUrl = 'https://php.citonhub.com';
-             }
-  
-             if($panel->panel_language == 'NodeJs') {
-              $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
-             }
 
-            $requestData = [
+              $requestData = [
                 'panel_id' =>  $codeBox->panel_id,
                 'file_name' =>  $codeBox->file_name,
                 'content'=> $codeBox->content,
@@ -1642,6 +1661,51 @@ public function anotherPage(){
 
            
            $response = Http::post($baseUrl .'/create-view-file',$requestData);
+             }
+  
+             if($panel->panel_language == 'NodeJs') {
+              $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+
+               if($codeBox->language_type == 'CSS'){
+
+                $requestData = [
+                  'panel_id' =>  $codeBox->panel_id,
+                  'file_name' =>  $codeBox->file_name,
+                  'content'=> $codeBox->content,
+                  'language_type'=> 'css'
+              ];
+
+               }
+
+               if($codeBox->language_type == 'HTML'){
+
+                $requestData = [
+                  'panel_id' =>  $codeBox->panel_id,
+                  'file_name' =>  $codeBox->file_name,
+                  'content'=> $codeBox->content,
+                  'language_type'=> 'html'
+              ];
+
+               }
+
+               if($codeBox->language_type == 'JAVASCRIPT'){
+
+                $requestData = [
+                  'panel_id' =>  $codeBox->panel_id,
+                  'file_name' =>  $codeBox->file_name,
+                  'content'=> $codeBox->content,
+                  'language_type'=> 'js'
+              ];
+
+               }
+              
+
+           
+           $response = Http::post($baseUrl .'/create-view-file',$requestData);
+
+             }
+
+           
           
          
 

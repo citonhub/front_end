@@ -59,10 +59,10 @@
                <v-card tile flat class=" py-2 px-2 " color="#edf6f7" style="border-bottom:1px solid #3E8893; border-top:1px solid #3E8893;">
               <div class="row py-0 my-0">
                 <div class="col-4 py-0 my-0 text-left">
-                   <v-btn rounded x-small color="#3E8893" style="font-size:10px; color:white; text-transform:capitalize;">Leave</v-btn>
+                   <v-btn rounded x-small color="#3E8893" @click="leaveSpace" style="font-size:10px; color:white; text-transform:capitalize;">Leave</v-btn>
                 </div>
                 <div class="col-4 py-0 my-0 px-0 text-center">
-                   <v-btn rounded x-small color="#3E8893" style="font-size:10px; color:white;text-transform:capitalize;">Invite Friends</v-btn>
+                  
                 </div>
                 <div class="py-0 my-0 col-4 text-right" >
                   <v-btn rounded x-small color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;" @click="share">Share</v-btn>
@@ -120,6 +120,61 @@ export default {
       this.fetchMessages();
     },
     methods:{
+
+       leaveSpace: function(){
+       
+        axios.post('/leave-space',{
+           'space_id':this.$route.params.spaceId
+        } )
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+         
+         if(this.$root.selectedSpace.type == 'Channel'){
+
+           if(this.$root.ChatList[2].length != 0){
+
+                   
+                 
+                 let remainingSpace = this.$root.ChatList[2].filter((space)=>{
+                   return    space.space_id != this.$route.params.spaceId
+                 });
+
+                 this.$root.ChatList[2] = remainingSpace;
+              }
+
+         }
+
+         if(this.$root.selectedSpace.type == 'Team'){
+          
+           if(this.$root.ChatList[1].length != 0){
+
+                   
+                 
+                 let remainingSpace = this.$root.ChatList[1].filter((space)=>{
+                   return    space.space_id != this.$route.params.spaceId
+                 });
+
+                 this.$root.ChatList[1] = remainingSpace;
+              }
+
+         }
+
+
+             
+              
+              this.$router.push({ path: '/space/chat-list' });
+
+       
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+       },
        fetchMessages: function(){
           
            axios.get('/fetch-space-messages-' + this.$route.params.spaceId )

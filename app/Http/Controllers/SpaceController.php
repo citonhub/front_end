@@ -669,8 +669,33 @@ foreach ($imageArray as $image) {
 
   }
 
- 
-public function fetchMessages($spaceId){
+  public function leaveSpace(Request $request){
+   
+     $spaceMember = SpaceMember::where('space_id',$request->get('space_id'))->where('user_id',Auth::id())->first();
+
+     if($spaceMember != null){
+       
+      $spaceMember->delete();
+     }
+
+     $AllSpaceMember = SpaceMember::where('space_id',$request->get('space_id'))->get();
+
+      if(count($AllSpaceMember) == 0){
+
+      $space = Space::where('space_id',$request->get('space_id'))->first();
+
+      $space->delete();
+
+      }
+
+
+
+  }
+
+
+
+  
+ public function fetchMessages($spaceId){
 
    $userUnread = UnreadMessage::where('space_id',$spaceId)->where('user_id',Auth::id())->get();
 

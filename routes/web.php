@@ -109,6 +109,9 @@ Route::get('/fetch-space-members-{spaceId}','SpaceController@fetchSpaceMembers')
 Route::get('/fetch-trend-channels','SpaceController@fetchTrendChannels');
 Route::post('/check-for-unread-messages','SpaceController@checkUnreadMessages');
 Route::get('/download-file-{messageId}','SpaceController@downloadFile');
+Route::post('/leave-space','SpaceController@leaveSpace');
+
+
 
 //Project Routes
 Route::post('/create-project','ProjectController@createProject');
