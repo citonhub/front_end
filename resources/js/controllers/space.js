@@ -280,6 +280,7 @@ const app = new Vue({
       panelBack:[],
       SelectedCodeBox:[],
       showFront:true,
+      projectSpace:[],
      showBack:false,
     },
      mounted: function () {

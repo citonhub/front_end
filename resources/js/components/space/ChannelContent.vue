@@ -360,6 +360,9 @@ export default {
      },duration);
 
     },
+    hideAlert:function(){
+      this.$root.AlertRoot = false;
+    },
        activateBot:function(){
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
             return page.page_name == 'space_content';
@@ -791,6 +794,8 @@ export default {
 
      },
       fetchUnreadMessages: function(result){
+           
+            this.showAlert(10000000000,'Loading new messages...');
 
            axios.post('/check-for-unread-messages',{
                 spaceId: this.$route.params.spaceId,
@@ -859,12 +864,12 @@ export default {
 
 
               
-            
+            this.hideAlert();
            
             
           })
           .catch(error => {
-            
+             this.hideAlert();
           })
 
       },

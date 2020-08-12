@@ -556,6 +556,7 @@ export default {
      audioShow:false,
      videoShow:false,
      fileShow:false,
+     projectSpace:[],
      
    }
  },
@@ -755,9 +756,13 @@ export default {
 
         })
 
-        this.$root.codeFilesData[0]= this.$root.codeFiles
+        if( this.$root.CodeFilesData[0] != undefined){
+        this.$root.CodeFilesData[0]= this.$root.codeFiles
 
       this.$root.LocalStore(this.$route.params.projectSlug,this.$root.CodeFilesData);
+        }
+
+       
 
       this.$root.localChannel.push(channel);
 
@@ -781,6 +786,8 @@ export default {
 
        this.$root.ProjectMembers = response.data[2];
 
+        this.$root.projectSpace = response.data[3];
+
        this.fetchUpdatedContent();
 
      }
@@ -800,6 +807,33 @@ export default {
             this.$root.showShare = true;
         },
       checkIfOwner:function(){
+
+        if(this.$root.projectSpace.type == 'Personal'){
+         
+         var member = this.$root.ProjectMembers.filter((member)=>{
+             return member.user_id == this.$root.user_temp_id && member.project_slug == this.$route.params.projectSlug;
+         });
+
+
+          if(member.length == 0){
+
+             if(this.$root.projectData.user_id == this.$root.user_temp_id ){
+
+                  return true;
+
+             }else{
+
+                 return false;
+             }
+            
+            
+         }else{
+           return true;
+         }
+          
+
+        }else{
+         
          var member = this.$root.ProjectMembers.filter((member)=>{
              return member.user_id == this.$root.user_temp_id;
          });
@@ -810,6 +844,9 @@ export default {
          }else{
            return true;
          }
+
+        }
+         
         
       },
    addNewRoute: function(is_edit,route = []){

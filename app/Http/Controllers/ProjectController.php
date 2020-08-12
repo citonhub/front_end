@@ -522,9 +522,44 @@ return $newCommentArray;
 
        $projectOwners = SpaceMember::where('space_id',$newProject[0]["space_id"])->get();
 
+       $projectSpace = Space::where('space_id',$newProject[0]["space_id"])->first();
+
         
 
-        return [$newProject[0],$projectStar,$projectOwners];
+        return [$newProject[0],$projectStar,$projectOwners,$projectSpace];
+    }
+
+    public function addContributors(Request $request){
+       $project = Project::where('project_slug',$request->get('project_slug'))->first();
+
+        if($project != null){
+        
+          $projectOwners = SpaceMember::where('space_id',$project->space_id)->where('project_slug',$request->get('project_slug'))->get();
+
+           foreach ($projectOwners as $owner) {
+            $owner->delete();
+           }
+
+            $Contributors = $request->get('contributors');
+
+           foreach ($Contributors as $username) {
+
+             $user = User::where('username', $username)->first();
+             
+             $spaceMember  = SpaceMember::create([
+              'user_id'=> $user->id,
+              "is_admin"=> false,
+              'space_id'=> $project->space_id,
+              'project_slug'=> $request->get('project_slug')
+             ]);
+             
+             $spaceMember->save();
+           }
+
+        }
+
+     
+
     }
 
     public function fetchProjects($spaceId){

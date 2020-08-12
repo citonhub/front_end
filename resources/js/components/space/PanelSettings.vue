@@ -13,9 +13,12 @@
          <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
              <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Panel Settings</span>
          </div>
-         <div class="col-2 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
+         <div class="col-2 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; "  v-if="this.$root.projectData.user_id == this.$root.user_temp_id">
                <v-btn v-if="!loadingDelete" icon color="#4495a2" @click="deleteProject"><v-icon>mdi-delete</v-icon></v-btn>
                <v-progress-circular v-else indeterminate color="#4495a2"><v-icon color="#4495a2">mdi-delete</v-icon></v-progress-circular>
+         </div>
+         <div class="col-2 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; "  v-else>
+               
          </div>
       </div>
      </div>
@@ -33,6 +36,7 @@
           persistent-hint
           style="font-size:12px;"
           :rules="requiredRule"
+          
           hide-selected
           hint="For front-end application,click continue"
           placeholder="select..."
@@ -44,11 +48,40 @@
          
 
 
-             <div class="col-12 py-2 my-0 px-2 text-center">
+             <div class="col-12 py-2 my-0 px-2 text-center" v-if="this.$root.projectData.user_id == this.$root.user_temp_id">
                   <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="savePanelSettings">Continue</v-btn>
              </div>
+
               
           </v-form>
+
+
+          <div class="col-12 py-2 my-0 px-2" v-if="this.$root.projectData.user_id == this.$root.user_temp_id">
+        <v-select
+          v-model="Contributors"
+          :items="Connections"
+          label="Add Contributors"
+          persistent-hint
+          style="font-size:12px;"
+          item-text="username"
+          item-value="username"
+          multiple
+          :loading="loadingConnection"
+          hide-selected
+          hint="Note: Contributors have full access to your project"
+          placeholder="select..."
+          color="#4495a2"
+          small-chips
+        ></v-select>
+             </div>
+
+        
+          <div class="col-12 py-2 my-0 px-2 text-center" v-if="this.$root.projectData.user_id == this.$root.user_temp_id">
+              <v-btn rounded small :loading="loadingContribute" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="addContributors">Add</v-btn>
+           </div>
+
+
+
         </div>
          </div>
        </div>
@@ -86,6 +119,7 @@ export default {
           Alert:false,
           serverRequired:'',
           FileName:'',
+          Contributors:[],
         alertMsg:'',
         AppTypes:['Single-page','Multiple-pages'],
         back_languages:[
@@ -95,6 +129,7 @@ export default {
            'Yes','No' 
         ],
         appType:'',
+        Connections:[],
         backEndLang:'PHP',
          Rule:[
              v => !!v || 'File Name is required',
@@ -105,6 +140,8 @@ export default {
         ],
          loading:false,
          formstate:false,
+         loadingConnection:false,
+         loadingContribute:false,
          loadingDelete:false,
         }
     },
@@ -115,10 +152,35 @@ export default {
       this.$root.showTabs=true;
        this.$root.showHeader = false;
        this.setLanguageType();
+       this.fetchConnected();
     },
     methods:{
+         addContributors: function(){
+           this.loadingContribute = true;
+               axios.post('/add-contributors',{
+                 'contributors': this.Contributors,
+                 'project_slug': this.$route.params.projectSlug
+               })
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+       this.Connections = response.data.data;
+        this.loadingContribute = false;
+         this.showAlert(5000,'Contributors Added');
+
+          this.$router.push({ path: '/' +this.$route.params.projectSlug +'/panel' });
+     }
        
-    showAlert:function(duration,text){
+     
+     })
+     .catch(error => {
+       this.loadingContribute = false;
+       this.showAlert(5000,'Failed- ' + error);
+     }) 
+
+         },
+      showAlert:function(duration,text){
         this.Alert = true;
         this.alertMsg = text;
         let _this = this;
@@ -138,6 +200,26 @@ export default {
    showShelf: function(){
     this.$router.push({ path: '/shelve' });
    },
+   fetchConnected: function(){
+
+      this.loadingConnection = true;
+          
+           axios.get('/fetch-connected' )
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+       this.Connections = response.data.data;
+        this.loadingConnection = false;
+     }
+       
+     
+     })
+     .catch(error => {
+       this.loadingConnection = false;
+     }) 
+
+        },
    goBack() {
 
      if(this.$root.fromChatList){

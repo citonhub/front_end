@@ -126,6 +126,7 @@ Route::post('/save-liked-project-comment','ProjectController@saveProjectLikes');
 Route::get('fetch-comment-panel-{teamCode}','ProjectController@TeamComment');
 Route::get('fetch-user-projects','ProjectController@fetchAllProjects');
 Route::get('/fetch-trend-projects','ProjectController@fetchTrendProject');
+Route::post('/add-contributors','ProjectController@addContributors');
 
 
 // Profile Routes
