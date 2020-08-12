@@ -277,6 +277,10 @@ const app = new Vue({
       typingSpace:'',
       showMsgDelete:false,
       messageIdToDelete:'',
+      panelBack:[],
+      SelectedCodeBox:[],
+      showFront:true,
+     showBack:false,
     },
      mounted: function () {
       this.pageloader= false;
@@ -292,11 +296,11 @@ const app = new Vue({
      }
   },
   methods:{
-    closeNotification(spaceId){
+    closeNotification(uniqueId){
        
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.ready.then(registration => { 
-          var  notificationTag = spaceId;
+          var  notificationTag = uniqueId;
 
           var notificationFilter = {
             tag: notificationTag
@@ -306,7 +310,12 @@ const app = new Vue({
           .then(function(notifications) {
                
             if(notifications[0] != undefined){
-              notifications[0].close()
+              
+               for (let index = 0; index < notifications.length; index++) {
+               
+                notifications[index].close();
+                 
+               }
             }
            
             

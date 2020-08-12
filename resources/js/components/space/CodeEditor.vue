@@ -38,6 +38,7 @@
         @ready="onCmReady"
         @focus="onCmFocus"
         @blur="onCmBlur"
+         @input="onCmCodeChange"
         />
               </div>
          </div>
@@ -320,18 +321,40 @@ methods:{
         
       },
       showCode:function(codeBox){
-          if(codeBox.language_type == 'HTML' || codeBox.language_type == 'CSS' || codeBox.language_type == 'JAVASCRIPT'){
+
+         this.$root.selectedFileId = codeBox.id;
+        this.selectedFileId = codeBox.id;
+
+         this.$root.SelectedCodeBox = codeBox;
+        
+          if(this.$root.SelectedCodeBox.type == 'front_end'){
               
               this.$root.selectedFileCatType = 'front-end';
 
+              let codeData = this.$root.frontEndFiles.filter((file)=>{
+               return   file.id == this.$root.selectedFileId;
+
+              })
+              codeData = codeData[0];
+               this.language = codeData.language_type;
+              this.detectchange(this.language);
+             this.code = codeData.content;
+
           }else{
+
             this.$root.selectedFileCatType = 'back-end';
+
+             let codeData = this.$root.backEndFiles.filter((file)=>{
+           return   file.id == this.$root.selectedFileId;
+
+           })
+              codeData = codeData[0];
+               this.language = codeData.language_type;
+              this.detectchange(this.language);
+             this.code = codeData.content;
           }
-        
-         this.language = codeBox.language_type;
-           this.detectchange(this.language);
-       this.code = codeBox.content;
-       this.selectedFileId = codeBox.id;
+         
+       
       
       },
       removeCode:function(codeBox){
@@ -353,7 +376,7 @@ methods:{
           this.loading = true;
       axios.post('/save-code-content-project',{
                 project_slug: this.$route.params.projectSlug,
-                file_id: this.selectedFileId,
+                file_id: this.$root.selectedFileId,
                 content: this.code,
                 code_category: this.$root.selectedFileCatType
                   })
@@ -395,6 +418,29 @@ methods:{
       },
       onCmBlur(codemirror) {
         console.debug('onCmBlur', codemirror)
+      },
+      onCmCodeChange:function(code){
+        
+       this.$root.frontEndFiles.map((file)=>{
+          if(file.id == this.$root.selectedFileId){
+
+             file.content = code;
+
+          }
+       })
+
+        this.$root.backEndFiles.map((file)=>{
+          if(file.id == this.$root.selectedFileId){
+
+             file.content = code;
+
+          }
+       })
+
+       setTimeout(()=>{
+           this.$root.LocalStore(this.$route.params.projectSlug,this.$root.CodeFilesData);
+       },2000)
+        
       },
          detectchange: function(language){
          if(language == 'HTML'){

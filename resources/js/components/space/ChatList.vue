@@ -570,7 +570,7 @@ export default {
        this.$root.channel = null;
         
        
-      
+       this.$root.codeEditorArray = [];
        this.$root.returnedMessages = [];
        this.$root.messageStoreTop = [];
        this.$root.messageStore = [];

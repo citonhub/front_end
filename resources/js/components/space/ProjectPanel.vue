@@ -33,10 +33,28 @@
                    </div>
                 </div>  
              </div>
+
+          
+           <div class="col-12 py-0 px-1 my-1 " @click="handleCatFolder('front-end')" style="background:#c9e4e8; border:1px solid transparent; border-radius:12px; cursor:pointer;">
+             <div class="row px-2 py-0">
+                   <div class="col-3 py-0 px-0">
+
+                   </div>
+                   <div class="col-6 py-0 px-0 text-center">
+                <span style="font-family:HeaderText; font-size:13px;color:#1e4148;">Front-end</span> 
+                   </div>
+                   <div class="col-3 py-0 text-right">
+                    <v-icon color="#35757e" v-if="showFront">mdi-chevron-up mdi-18px</v-icon>
+                    <v-icon color="#35757e" v-else>mdi-chevron-down mdi-18px</v-icon>
+                   </div>
+             </div>
+               
+             </div>
+
               <v-expansion-panels
          v-model="panel"
-          multiple
           dense
+          v-if="showFront"
           class="my-2"
          >
       <v-expansion-panel>
@@ -139,36 +157,7 @@
       </v-expansion-panel>
 
 
-       <v-expansion-panel v-if="panelData.app_type == 'Multiple-pages' || panelData.panel_language != 'not-set'">
-        <v-expansion-panel-header class="header">Controllers
-
-          <template v-slot:actions>
-            <v-icon color="#3E8893">mdi-iframe-braces-outline</v-icon>
-          </template>
-          
-        </v-expansion-panel-header>
-       <v-expansion-panel-content class="px-0">       
-        
-            <div class="col-12 py-0 my-0 mx-0 px-0 text-right" v-if="checkIfOwner()">
-               <v-btn icon @click="addNewFile('back_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
-            </div>
-            <v-card tile flat class="col-12 py-1 my-0 " @click="showEditor(file,'back-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;"
-             v-for="(file,index) in this.$root.backEndFiles" :key="index">
-              <div class="row my-0 py-0">
-                  <div class="col-2 text-center py-0 my-0 ">
-                      <v-icon color="#0066ff" v-if="file.language_type == 'PHP'">mdi-language-php mdi-18px</v-icon>
-                    <v-icon color="#e6b800" v-if="file.language_type == 'JAVASCRIPT'">mdi-language-javascript mdi-18px</v-icon>
-                </div>
-                 <div class="col-10 py-0 my-0 ">
-                    <span class="fileNamenewFile">{{returnFileNamenew(file.file_name,file.language_type)}}</span>
-                </div>
-                </div>
-             </v-card>
-
-            
-      
-        </v-expansion-panel-content>
-      </v-expansion-panel>
+     
 
 
         <v-expansion-panel >
@@ -366,7 +355,65 @@
       </v-expansion-panel>
 
 
-       <v-expansion-panel > 
+
+    </v-expansion-panels>
+
+          <div class="col-12 py-0 px-1 my-1 " @click="handleCatFolder('back-end')" style="background:#c9e4e8; border:1px solid transparent; border-radius:12px; cursor:pointer;">
+             <div class="row px-2 py-0">
+                   <div class="col-3 py-0 px-0">
+
+                   </div>
+                   <div class="col-6 py-0 px-0 text-center">
+                <span style="font-family:HeaderText; font-size:13px;color:#1e4148;">Back-end</span> 
+                   </div>
+                   <div class="col-3 py-0 text-right">
+                    <v-icon color="#35757e" v-if="showBack">mdi-chevron-up mdi-18px</v-icon>
+                    <v-icon color="#35757e" v-else>mdi-chevron-down mdi-18px</v-icon>
+                   </div>
+             </div>
+               
+             </div>
+
+     <v-expansion-panels
+      v-model="panelBack"
+           v-if="showBack"
+          dense
+          class="my-2">
+        
+          <v-expansion-panel v-if="panelData.app_type == 'Multiple-pages' || panelData.panel_language != 'not-set'">
+        <v-expansion-panel-header class="header">Controllers
+
+          <template v-slot:actions>
+            <v-icon color="#3E8893">mdi-iframe-braces-outline</v-icon>
+          </template>
+          
+        </v-expansion-panel-header>
+       <v-expansion-panel-content class="px-0">       
+        
+            <div class="col-12 py-0 my-0 mx-0 px-0 text-right" v-if="checkIfOwner()">
+               <v-btn icon @click="addNewFile('back_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+            </div>
+            <v-card tile flat class="col-12 py-1 my-0 " @click="showEditor(file,'back-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;"
+             v-for="(file,index) in this.$root.backEndFiles" :key="index">
+              <div class="row my-0 py-0">
+                  <div class="col-2 text-center py-0 my-0 ">
+                      <v-icon color="#0066ff" v-if="file.language_type == 'PHP'">mdi-language-php mdi-18px</v-icon>
+                    <v-icon color="#e6b800" v-if="file.language_type == 'JAVASCRIPT'">mdi-language-javascript mdi-18px</v-icon>
+                </div>
+                 <div class="col-10 py-0 my-0 ">
+                    <span class="fileNamenewFile">{{returnFileNamenew(file.file_name,file.language_type)}}</span>
+                </div>
+                </div>
+             </v-card>
+
+
+
+            
+      
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+           <v-expansion-panel > 
         <v-expansion-panel-header class="header">Web Routes
 
           <template v-slot:actions>
@@ -399,6 +446,9 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
 
+
+
+
      
 
        <v-expansion-panel>
@@ -428,7 +478,14 @@
       
         </v-expansion-panel-content>
       </v-expansion-panel>
-    </v-expansion-panels>
+
+
+
+     </v-expansion-panels>
+
+
+
+     
          </div>
          <div class="my-5 py-3 "   style="padding-top:120px !important;">
 
@@ -483,6 +540,9 @@ export default {
      data(){
    return{
      panel:this.$root.panel,
+     panelBack:this.$root.panelBack,
+     showFront:this.$root.showFront,
+     showBack: this.$root.showBack,
      codeFiles:[],
      backEndFiles:[],
      frontEndFiles:[],
@@ -502,7 +562,7 @@ export default {
     mounted(){
        this.$root.showTabs=true;
         this.$root.showHeader = false;
-        this.fetchProject();
+        this.$root.closeNotification(this.$route.params.projectSlug);
         this.fetchCodeFiles();
        this.trackPanel();
        this.trackUser();
@@ -513,6 +573,32 @@ export default {
      this.$root.UploadMessage = message;
      this.$root.UploadResources = true;
    },
+   handleCatFolder: function(type){
+       if(type == 'front-end'){
+
+        if(this.showFront){
+          this.showFront = false;
+          this.$root.showFront = false;
+        }else{
+           this.showFront = true;
+          this.$root.showFront = true;
+        }
+     
+
+       }
+       if(type == 'back-end'){
+
+        if(this.showBack){
+          this.showBack = false;
+          this.$root.showBack = false;
+        }else{
+           this.showBack = true;
+          this.$root.showBack = true;
+        }
+     
+
+       }
+   },   
    shortenContent: function(content,limit){
              
              if(content.length > limit){
@@ -563,10 +649,12 @@ export default {
    },
     showHowTo: function(){
        this.$root.panel = this.panel;
+       this.$root.panelBack = this.panelBack;
       this.$router.push({ path: '/how-to' });
    },
    addDBTable: function(){
      this.$root.panel = this.panel;
+     this.$root.panelBack = this.panelBack;
       
       this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/create-db-table' });
 
@@ -650,6 +738,13 @@ export default {
           });
 
           }
+
+
+           this.$root.codeFiles.map((file)=>{
+             if(file.id == e.data.id){
+                file.content = e.data.content;
+             }
+          });
           
            this.$root.codeEditorArray.map((file)=>{
              if(file.id == e.data.id){
@@ -659,6 +754,10 @@ export default {
        }
 
         })
+
+        this.$root.codeFilesData[0]= this.$root.codeFiles
+
+      this.$root.LocalStore(this.$route.params.projectSlug,this.$root.CodeFilesData);
 
       this.$root.localChannel.push(channel);
 
@@ -681,6 +780,8 @@ export default {
        this.$root.projectData = response.data[0];
 
        this.$root.ProjectMembers = response.data[2];
+
+       this.fetchUpdatedContent();
 
      }
        
@@ -713,6 +814,7 @@ export default {
       },
    addNewRoute: function(is_edit,route = []){
      this.$root.panel = this.panel;
+     this.$root.panelBack = this.panelBack;
       this.$root.is_edit = is_edit;
 
          if(is_edit == 'true'){
@@ -723,13 +825,16 @@ export default {
    },
      PanelSettingsCheck(settingStatus){
        this.$root.panel = this.panel;
+       this.$root.panelBack = this.panelBack;
           if(!settingStatus.is_set){
              this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/panel/settings' });
           }
       },
    showEditor: function(codeBox,catType){
      this.$root.panel = this.panel;
+     this.$root.panelBack = this.panelBack;
        this.$root.forcePanelReload = false;
+       this.$root.SelectedCodeBox = codeBox;
        var thiscodebox = this.$root.codeEditorArray.filter((code)=>{
          return code.id == codeBox.id;
        });
@@ -756,6 +861,7 @@ export default {
    },
    databaseTable: function(database){
      this.$root.panel = this.panel;
+     this.$root.panelBack = this.panelBack;
       this.$root.SelectedTable = database;
      
        this.$router.push({ path: '/' +  this.$route.params.projectSlug  +'/db-table' });
@@ -768,23 +874,36 @@ export default {
         },
    addNewFile:function(codeType){
      this.$root.panel = this.panel;
+     this.$root.panelBack = this.panelBack;
         this.$root.panelLanguage = this.panelData.panel_language;
        this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/' + codeType + '/add-new-file' });
    },
    goToSettings:function(){
      this.$root.panel = this.panel;
+     this.$root.panelBack = this.panelBack;
       this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/panel/settings' });
    },
    
    fetchCodeFiles: function(){
        
+       let storedProject = this.$root.getLocalStore(this.$route.params.projectSlug);
 
 
-      if(this.$root.CodeFilesData.length != 0 && !this.$root.forcePanelReload){
          
-           this.$root.panelRoutes = this.$root.CodeFilesData[2];
+         storedProject.then((result)=>{
+
+           if(result != null){
+
+              let finalResult = JSON.parse(result);
+
+              this.$root.CodeFilesData = finalResult;
+             
+
+               this.$root.panelRoutes = this.$root.CodeFilesData[2];
 
         this.codeFiles = this.$root.CodeFilesData[0];
+
+        this.$root.codeFiles = this.$root.CodeFilesData[0];
 
         this.$root.panelResources = this.$root.CodeFilesData[4];
 
@@ -801,16 +920,33 @@ export default {
 
          this.panelData = this.$root.CodeFilesData[1];
 
-         return;
-      }
+          this.fetchProject();
+           }else{
+            
+            this.fetchProject();
+           }
+
+         })
+
+
+
+  
       
+      
+   },
+
+   fetchUpdatedContent: function(){
        axios.get('/fetch-code-files-project/' + this.$route.params.projectSlug)
       .then(response => {
       
       if (response.status == 200) {
-        
-        
-        this.$root.CodeFilesData = response.data;
+         
+         if(this.$route.params.projectSlug ==  this.$root.projectData.project_slug){
+
+
+             this.$root.CodeFilesData = response.data;
+
+        this.$root.LocalStore(this.$route.params.projectSlug,response.data);
 
        this.codeFiles = response.data[0];
          this.$root.codeFiles = response.data[0];
@@ -830,6 +966,10 @@ export default {
         this.$root.backEndFiles = this.codeFiles.filter((file)=>{
           return file.type == "back_end"
         });
+
+         }
+        
+        
         
 
      }
@@ -840,7 +980,6 @@ export default {
     
      }) 
    },
-
    checkDuelStatus:function(terminalDate,votingDate){
           let now  = moment();
            let terminalDateToMoment = moment(terminalDate);
@@ -863,6 +1002,7 @@ export default {
 
    loadPage:function(){
      this.$root.panel = this.panel;
+     this.$root.panelBack = this.panelBack;
       this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/page-loader' + '/user' });
    },
   

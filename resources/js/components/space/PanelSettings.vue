@@ -172,6 +172,8 @@ export default {
 
                  this.$root.ChatList[3].data = remainingProject;
               }
+
+               this.$root.removeLocalStorage(this.$route.params.projectSlug);
               
               this.$router.push({ path: '/space/chat-list' });
 
