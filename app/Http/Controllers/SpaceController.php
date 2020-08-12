@@ -668,6 +668,88 @@ foreach ($imageArray as $image) {
 
      $space = Space::where('space_id',$request->get('spaceId'))->first();
 
+
+      if($space->type == 'Direct'){
+
+
+
+            $userDirectSpaces = DB::table('space_members')
+            ->join('spaces','spaces.space_id','space_members.space_id')
+            ->select(
+                'spaces.image_name as image_name',
+                'spaces.image_extension as image_extension',
+                'spaces.type as type',
+                'spaces.name as name',
+                'spaces.background_color as background_color',
+                'spaces.description as description',
+                'spaces.space_id as space_id',
+                'user_1 as user_1',
+                'user_2 as user_2'
+            )
+            ->where('spaces.space_id',$request->get('spaceId'))
+            ->paginate(2);
+
+$newDirectArray = [];
+
+foreach ($userDirectSpaces as $spaceDirect) {
+   
+   $userSpaceDirect = (array) $spaceDirect;
+
+     
+   if($userSpaceDirect["user_1"] != Auth::id()){
+     
+      $user1Info =  DB::table('profiles')
+      ->join('users','users.id','profiles.user_id')
+      ->select(
+          'users.username as username',
+          'profiles.image_name as image_name',
+          'profiles.user_id as id',
+          'users.name as name',
+          'profiles.image_extension as image_extension' ,
+          'profiles.background_color as background_color'
+      )
+      ->where('user_id',$userSpaceDirect["user_1"])
+      ->first();
+     
+      $userSpaceDirect["userInfo"] = $user1Info;
+
+   }
+
+   if($userSpaceDirect["user_2"] != Auth::id()){
+     
+      $user2Info =  DB::table('profiles')
+      ->join('users','users.id','profiles.user_id')
+      ->select(
+          'users.username as username',
+          'users.name as name',
+          'profiles.image_name as image_name',
+          'profiles.user_id as id',
+          'profiles.image_extension as image_extension' ,
+          'profiles.background_color as background_color'
+      )
+      ->where('user_id',$userSpaceDirect["user_2"])
+      ->first();
+
+      $userSpaceDirect["userInfo"] = $user2Info;
+
+   }
+
+  
+   $userUnread = UnreadMessage::where('space_id',$userSpaceDirect["space_id"])->where('user_id',Auth::id())->get();
+
+   
+      $userSpaceDirect["unread"] = count($userUnread);
+      
+   
+
+   array_push($newDirectArray,$userSpaceDirect);
+
+}
+      
+  $space = $newDirectArray[0];
+
+         }
+
     
    return [$newMessages,$msgComplete,$spaceMembers,$space];
    
@@ -868,16 +950,13 @@ foreach ($userDirectSpaces as $spaceDirect) {
    }
 
   
-   $userUnread = UnreadMessage::where('space_id',$userSpaceDirect["space_id"])->where('user_id',Auth::id())->get();
+   
 
-   if($userUnread->isEmpty()){
-      $userSpaceDirect["unread"] = 0;
-      
-   }else{
-      
-      $userUnread = UnreadMessage::where('space_id',$userSpaceDirect["space_id"])->where('user_id',Auth::id())->first();
-      $userSpaceDirect["unread"] = $userUnread->unread;
-   }
+    $userUnread = UnreadMessage::where('space_id',$userSpaceDirect["space_id"])->where('user_id',Auth::id())->get();
+
+   
+   $userSpaceDirect["unread"] = count($userUnread);
+
 
    array_push($newDirectArray,$userSpaceDirect);
 

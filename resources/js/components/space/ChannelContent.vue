@@ -326,7 +326,7 @@ export default {
         this.$root.checkIfUserIsLoggedIn('space');
         this.$root.initialPushMangerReg();
 
-        this.updateLocalStorage();
+       
          this.$root.closeNotification(this.$route.params.spaceId);
        this.fetchMessages();
 
