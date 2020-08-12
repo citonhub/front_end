@@ -326,7 +326,7 @@ export default {
         this.$root.checkIfUserIsLoggedIn('space');
         this.$root.initialPushMangerReg();
 
-        
+        this.updateLocalStorage();
          this.$root.closeNotification(this.$route.params.spaceId);
        this.fetchMessages();
 
@@ -747,8 +747,10 @@ export default {
       if (response.status == 200) {
           
 
-         
-         this.$root.spaceFullData = response.data;
+           
+      if( response.data[1].space_id == this.$route.params.spaceId ){
+        
+          this.$root.spaceFullData = response.data;
          
        
          
@@ -771,6 +773,10 @@ export default {
 
        this.$root.selectedSpaceMembers = response.data[2];
 
+
+      }
+         
+       
           
    
        
@@ -923,8 +929,10 @@ export default {
       if (response.status == 200) {
           
 
-         
-         this.$root.spaceFullData = response.data;
+
+     if( response.data[1].space_id == this.$route.params.spaceId ){
+     
+       this.$root.spaceFullData = response.data;
          
        
          
@@ -957,6 +965,10 @@ export default {
         container.scrollTo(0 , top);
         },500)
 
+
+     }
+         
+       
    
           
    
