@@ -65,7 +65,7 @@
 
           <!-- project -->
         <div  :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''" :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-11 col-sm-11 offset-1 offset-lg-5 offset-md-4 py-2 px-2 ' : 'col-lg-7 col-11  col-md-8 col-sm-11   py-2 px-2 '"  v-if="source.type == 'project'">
-           <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'">
+           <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" v-if="source.project != null">
           
            <div class="col-12 py-2 px-0">
                   <div class="row py-0 my-0">
@@ -589,7 +589,8 @@
                  
                      </div>
                      <div class="col-9 py-0 my-0 text-left px-0">
-                 <span class="msgTextReply">{{shortenContent(source.replied_message.project.title ,25)}}</span>
+                 <span class="msgTextReply" v-if="source.replied_message.project !=  null">{{shortenContent(source.replied_message.project.title ,25)}}</span>
+                  <span class="msgTextReply" v-else>project not found</span>
                      </div>
                      
                   </div>
