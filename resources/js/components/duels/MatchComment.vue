@@ -134,7 +134,7 @@ export default {
   },
    mounted(){
       this.$root.showTabs=true;
-       this.$root.showHeader = true;
+       this.$root.showHeader = false;
        this.checkifReply();
         this.$root.checkIfUserIsLoggedIn('duels');
        this.fetchDuel();

@@ -221,7 +221,7 @@
               <!-- project comment -->
 
          <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"  @click="handleNotify(notification)" 
-                    v-if="notification.type == 'new_project_comment'"   >
+                    v-if="notification.type == 'new_project_comment' && notification.project_data != null"   >
                 <div class="row py-0 my-0 px-2">
 
                  <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">
@@ -270,8 +270,8 @@
 
    <!-- project created -->
 
-         <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"  @click="handleNotify(notification)" 
-                    v-if="notification.type == 'new_project'"   >
+         <v-card    tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"  @click="handleNotify(notification)" 
+                    v-if="notification.type == 'new_project' && notification.project_data != null"   >
                 <div class="row py-0 my-0 px-2">
 
                  <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">

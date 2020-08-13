@@ -34,6 +34,8 @@
           label="Back-end Language"
           style="font-size:12px;"
           :rules="requiredRule"
+          persistent-hint
+           hint="For front-end application,click continue"
           hide-selected
           placeholder="select..."
           color="#4495a2"
@@ -45,7 +47,7 @@
 
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="savePanelSettings">Save</v-btn>
+                  <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="savePanelSettings">Continue</v-btn>
              </div>
               
           </v-form>
@@ -89,7 +91,7 @@ export default {
         alertMsg:'',
         AppTypes:['Single-page','Multiple-pages'],
         back_languages:[
-         'PHP', 'PHYTON'
+         'PHP',
         ],
         server_side:[
            'Yes','No' 
@@ -112,7 +114,7 @@ export default {
   },
    mounted(){
       this.$root.showTabs=true;
-       this.$root.showHeader = true;
+       this.$root.showHeader = false;
        this.setLanguageType();
     },
     methods:{
@@ -138,8 +140,16 @@ export default {
     this.$router.push({ path: '/shelve' });
    },
    goBack() {
-          
+         
+            if(this.$root.fromDuelBoard){
+
+                this.$router.push({ path: '/duel/' + this.$route.params.duelId +'/board' + '/user' });
+              
+            
+        }else{
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+        }
+      
         },
     savePanelSettings:function(){
        
@@ -159,6 +169,7 @@ export default {
              if (response.status == 200) {
               
               this.$root.forcePanelReload = true;
+              this.$root.fromDuelBoard = false;
               this.goBack();
             
             }

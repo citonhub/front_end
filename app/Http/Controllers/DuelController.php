@@ -588,7 +588,7 @@ class DuelController extends Controller
 
     }
 
-    public function fetchTrendDuels(){
+    public function fetchTrendDuels($query = ''){
        
       $duels = DB::table('duels')
       ->join('users','users.id','duels.user_id')
@@ -611,7 +611,9 @@ class DuelController extends Controller
            'users.username as username',
            'duels.created_at as created_at'
         )
-      ->orderBy('duels.likes', 'desc')->paginate(50);
+      ->orderBy('duels.likes', 'desc')
+      ->where('duels.title','like', '%' . $query . '%')
+      ->paginate(10);
 
       $duelArray = $this->duelEngine($duels);
 

@@ -35,12 +35,6 @@
  * Released under the MIT License.
  */
 
-/*!
- * vue-virtual-scroll-list v2.3.0
- * open source under the MIT license
- * https://github.com/tangbc/vue-virtual-scroll-list#readme
- */
-
 /*! ../../../directives/resize */
 
 /*! ../../../directives/ripple */

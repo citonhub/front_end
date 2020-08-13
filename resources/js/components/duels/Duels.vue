@@ -30,7 +30,7 @@
      <div class="col-12 py-1 my-0">
        <v-skeleton-loader
       class="mx-auto "
-        height="90px"
+        height="70px"
       type="image"
     ></v-skeleton-loader>
      </div>
@@ -42,7 +42,7 @@
      <div class="col-12 py-1 my-0">
        <v-skeleton-loader
       class="mx-auto "
-        height="90px"
+        height="70px"
       type="image"
     ></v-skeleton-loader>
      </div>
@@ -53,49 +53,13 @@
      <div class="col-12 py-1 my-0">
        <v-skeleton-loader
       class="mx-auto "
-        height="90px"
+        height="70px"
       type="image"
     ></v-skeleton-loader>
      </div>
          </div>
-
-          <div class="row py-0 my-0 px-1">
-            
-     <div class="col-12 py-1 my-0">
-       <v-skeleton-loader
-      class="mx-auto "
-        height="90px"
-      type="image"
-    ></v-skeleton-loader>
-     </div>
-         </div>
-
-       
-       <div class="row py-0 my-0 px-1">
-            
-     <div class="col-12 py-1 my-0">
-       <v-skeleton-loader
-      class="mx-auto "
-        height="90px"
-      type="image"
-    ></v-skeleton-loader>
-     </div>
-         </div>
-
-
-       <div class="row py-0 my-0 px-1">
-            
-     <div class="col-12 py-1 my-0">
-       <v-skeleton-loader
-      class="mx-auto "
-        height="90px"
-      type="image"
-    ></v-skeleton-loader>
-     </div>
-         </div>
-
-         
-      </div>
+  </div>
+          
       
     
      

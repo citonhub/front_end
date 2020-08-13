@@ -14,7 +14,7 @@
              <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Page Loader</span>
          </div>
          <div class="col-2 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
-             
+               <v-btn icon @click="showFullPage" class="sliderfullBtn"><v-icon color="#3E8893">mdi-launch mdi-18px</v-icon></v-btn> 
          </div>
       </div>
      </div>
@@ -64,6 +64,10 @@ export default {
     },
     methods:{
 
+   showFullPage:function(){
+
+          window.open('/run-panel/' + this.$root.CodeFilesData[1].panel_id, '_blank');
+      },
        activateBot:function(){
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
             return page.page_name == 'duel_page_loader';

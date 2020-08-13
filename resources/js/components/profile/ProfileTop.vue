@@ -91,16 +91,16 @@
            <div class="col-12 my-0 px-0 py-0">
               <div class="row py-0 my-0">
               
-        <router-link  :to="'/profile/activities/' + this.$route.params.username" class="col-3 py-0 my-0 text-center">
+        <router-link  :to="'/profile/channels/' + this.$route.params.username" class="col-3 py-0 my-0 text-center">
             <v-chip
       class="ma-1 ml-0 px-2 d-inline-block"
          
       small
       label
      
-     :style="$router.currentRoute.path.indexOf('activities') >= 0 ? 'color:#ffffff;background:#3E8893; font-size:11px;' : 'color:#204346;background:#ffffff; font-size:11px;' "
+     :style="$router.currentRoute.path.indexOf('channels') >= 0 ? 'color:#ffffff;background:#3E8893; font-size:11px;' : 'color:#204346;background:#ffffff; font-size:11px;' "
       >
-      Activities
+      Channels
       </v-chip>  
         </router-link>
          

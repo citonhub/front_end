@@ -59,6 +59,47 @@ export default {
         getAvatarText: function(text){
          return text.slice(0,2);
       },
+       likeDuelComment:function(comment){
+           this.$root.checkIfUserIsLoggedIn('duels');
+          if(comment.liked_by_user){
+          return;
+        }
+
+         axios.post('/save-liked-duel-comment',{
+            "comment_id": comment.id
+          })
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+           
+       
+
+         this.$root.duelComments.map((eachcomment)=> {
+            if(eachcomment.id ==  comment.id){
+                eachcomment.liked_by_user = true;
+              eachcomment.likes = parseInt(eachcomment.likes)  + 1;
+            }
+         });
+        
+        
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+      },
+      replyComment: function(comment){
+           this.$root.checkIfUserIsLoggedIn('duels');
+           this.$root.is_reply_comment = true;
+           this.$root.replyCommentId = comment.id;
+           this.$root.replyCommentUsername = comment.username;
+
+           this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/comment' });
+       },
     }
 }
 </script>

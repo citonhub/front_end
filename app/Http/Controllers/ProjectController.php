@@ -591,9 +591,11 @@ return $newCommentArray;
     }
 
 
-    public function fetchTrendProject(){
+    public function fetchTrendProject($query = ''){
        
-      $allProjects = Project::where('title','!=','Citonhub Project')->orderBy('created_at','desc')->paginate(50);
+      $allProjects = Project::where('title','!=','Citonhub Project')
+      ->where('title','like', '%' . $query . '%')
+      ->orderBy('created_at','desc')->paginate(10);
 
 
       $newProject = [];

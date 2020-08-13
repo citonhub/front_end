@@ -269,7 +269,7 @@ export default {
   },
    mounted(){
       this.$root.showTabs=true;
-       this.$root.showHeader = true;
+       this.$root.showHeader = false;
        this.$root.checkIfUserIsLoggedIn();
        this.setEditValues();
     },

@@ -222,6 +222,16 @@ const app = new Vue({
       drawer:false,
       notificationCount:0,
       notificationCountSpace:0,
+      panel:[],
+      panelBack:[],
+      showFront:true,
+      showBack: false,
+      fromDuelBoard: true,
+      UploadType:'',
+      UploadMessage:'',
+      SelectedCodeBox:[],
+      panelResources:[],
+      UploadResources:false,
     },
      mounted: function () {
       this.pageloader= false;
@@ -237,6 +247,67 @@ const app = new Vue({
      }
   },
   methods:{
+    closeNotification(uniqueId){
+       
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.ready.then(registration => { 
+          var  notificationTag = uniqueId;
+
+          var notificationFilter = {
+            tag: notificationTag
+          };
+
+          registration.getNotifications(notificationFilter)
+          .then(function(notifications) {
+               
+            if(notifications[0] != undefined){
+              
+               for (let index = 0; index < notifications.length; index++) {
+               
+                notifications[index].close();
+                 
+               }
+            }
+           
+            
+          });
+          });
+      } 
+
+    },
+    LocalStore:function(key,data){
+    
+      
+     
+      localforage.setItem(key,JSON.stringify(data)).then(function () {
+        return localforage.getItem(key);
+      }).then(function (value) {
+        // we got our value
+       
+      }).catch(function (err) {
+        console.log(err)
+        // we got an error
+      });
+  
+      },
+      getLocalStore:function(key){
+        let result = localforage.getItem(key);
+          
+        return result;
+        
+      
+      },
+      removeLocalStorage: function(key){
+        localforage.removeItem(key).then(()=> {
+          // Run this code once the key has been removed.
+        
+         
+         
+      }).catch(function(err) {
+          // This code runs if there were any errors
+          console.log(err);
+      });
+      },
     logout: function(){
       this.$root.pageloader = true;
       document.getElementById('logout-form').submit();

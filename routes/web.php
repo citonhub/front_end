@@ -71,7 +71,7 @@ Route::get('/fetch-duel-results/{duelId}','DuelController@DuelResults');
 Route::get('/fetch-user-duels','DuelController@fetchUserDuel');
 Route::post('/start-duel','DuelController@startDuel');
 Route::post('/make-team','DuelController@MakeTeam');
-Route::get('/fetch-trend-duels','DuelController@fetchTrendDuels');
+Route::get('/fetch-trend-duels/{query?}','DuelController@fetchTrendDuels');
 
 // Panel Routes
 Route::post('/save-code-file','PanelController@SaveCodeFile');
@@ -100,13 +100,14 @@ Route::post('/delete-project','PanelController@deleteProjectPanel');
 //Space Routes
 Route::post('/create-space','SpaceController@createSpace');
 Route::get('/fetch-user-spaces','SpaceController@fetchUserSpaces');
+Route::get('/fetch-user-channels-{username}','SpaceController@fetchChannelsProfile');
 Route::post('/send-message','SpaceController@saveMessage');
 Route::get('/fetch-space-messages-{spaceId}','SpaceController@fetchMessages');
 Route::post('/update-space','SpaceController@updateSpace');
 Route::get('/fetch-owner-list','SpaceController@ownerList');
 Route::get('/fetch-space-resources-{spaceId}','SpaceController@spaceResource');
 Route::get('/fetch-space-members-{spaceId}','SpaceController@fetchSpaceMembers');
-Route::get('/fetch-trend-channels','SpaceController@fetchTrendChannels');
+Route::get('/fetch-trend-channels/{query?}','SpaceController@fetchTrendChannels');
 Route::post('/check-for-unread-messages','SpaceController@checkUnreadMessages');
 Route::get('/download-file-{messageId}','SpaceController@downloadFile');
 Route::post('/leave-space','SpaceController@leaveSpace');
@@ -125,7 +126,7 @@ Route::get('/fetch-comment-project-{projectSlug}','ProjectController@fetchProjec
 Route::post('/save-liked-project-comment','ProjectController@saveProjectLikes');
 Route::get('fetch-comment-panel-{teamCode}','ProjectController@TeamComment');
 Route::get('fetch-user-projects','ProjectController@fetchAllProjects');
-Route::get('/fetch-trend-projects','ProjectController@fetchTrendProject');
+Route::get('/fetch-trend-projects/{query?}','ProjectController@fetchTrendProject');
 Route::post('/add-contributors','ProjectController@addContributors');
 
 
@@ -139,4 +140,4 @@ Route::get('/connect-user-{username}','ProfileController@connectUser');
 Route::get('/fetch-connections','ProfileController@userConnections');
 Route::get('/fetch-connected','ProfileController@userConnected');
 Route::get('/fetch-all-connected','ProfileController@userAllConnected');
-Route::get('/fetch-trend-connections','ProfileController@fetchTrendConnections');
+Route::get('/fetch-trend-connections/{query?}','ProfileController@fetchTrendConnections');

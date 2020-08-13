@@ -1,6 +1,6 @@
 <template>
            <div class="col-12 px-2 py-2">
-               <v-card elevation-22 class="py-1 px-2"  @click="showboard(source)">
+               <v-card elevation-22 class="py-2 px-2"  @click="showboard(source)">
                 <div class="row">
                    <div class="py-0 col-12 text-center d-md-block d-none">
                         <div style="background-color:#b9dcdf; border-radius:4px; border:1px solid transparent;">

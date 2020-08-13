@@ -26,7 +26,7 @@ const routes = [
   { path: '/trends',
      name: 'Trends', 
      component: Trends,
-     redirect: '/trends/connect',
+     redirect: '/trends/channels',
     children: [
       {
         // connect

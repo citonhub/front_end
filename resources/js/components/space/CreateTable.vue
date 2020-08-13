@@ -164,6 +164,9 @@ export default {
                this.$root.forcePanelReload= false;
 
                 this.$root.CodeFilesData[3].unshift(response.data);
+
+                 this.$root.LocalStore(this.$route.params.projectSlug,this.$root.CodeFilesData);
+                 
               this.goBack();
             
             }

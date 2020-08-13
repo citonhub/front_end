@@ -1,30 +1,13 @@
 <template>
-     <v-app style="background:transparent; font-family:BodyText;">
-        <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
-         <div class="row my-0 py-0 px-2">
+<div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute;z-index:20; background:white; height:100%;">
+       
+     <profile-top></profile-top>
 
-        <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
-       <div class="row py-1 my-0 px-1" style="background:#a5d2d9;">
-          <trend-top></trend-top> 
-      </div>
-      <div class="col-12 my-1 px-1 text-center py-0">
-           <v-text-field
-              style="font-size:13px;"
-             placeholder="Find channels" 
-             @keydown="queryChannel"
-             dense
-             :loading="loading"
-             v-model="query"
-             color="#2d646c"
-             ></v-text-field>
-       </div>
-      </div>
+<div v-if="allChannels != null">
 
-      
-        
-        <div class="col-12 py-0 my-0">
-          
-          <div class="row my-0 py-0 px-2" v-if="allChannels != null">
+
+    
+       <div   style="background:white; font-family:BodyText;position:absolute;left:0;width:100%; height:80%; overflow-y:auto; overflow-x:hidden; padding-top:40px !important;padding-bottom:140px !important;" v-if="allChannels != null">
           
            <v-card @click="showChannel(space)" tile flat class="col-12 py-1 px-0 my-0"  color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in allChannels"
                       :key="index">
@@ -42,9 +25,7 @@
                         
                     </div>
                     <div class="py-0 my-0 d-flex col-4" style="align-items:center; justify-content:center;">
-                          <span class="mybadgenew">
-                               @{{ space.username }}
-                          </span>
+                          
                     </div>
                 </div>
              </v-card>
@@ -59,28 +40,17 @@
              </div>
 
           </div>
+        
 
-           <div class="row my-0 py-0 px-0" v-else>
+ <div v-if="allChannels.length == 0"  style="background:white; font-family:BodyText;position:absolute;left:0;width:100%; height:80%; overflow-y:auto; overflow-x:hidden; padding-top:40px !important;padding-bottom:140px !important;" class="text-center">
+       <span style="color:gray; font-size:12px;">No Channel found</span>
+   </div>
 
-               <div class="col-12 py-0 my-0 px-1">
-   
-           <div class="row py-0 my-0 px-1">
-            
-          <div class="col-12 py-1 my-0">
-           <v-skeleton-loader
-          class=" "
-           
-          type="list-item-avatar"
-          ></v-skeleton-loader>
-          </div>
+</div>
 
-          
+   <v-app v-else   style="background:white; font-family:BodyText;position:absolute;left:0;width:100%; height:80%; overflow-y:auto; overflow-x:hidden; padding-top:40px !important;padding-bottom:140px !important;" >
+      <div class="col-12 py-0 px-1 my-0">
 
-         </div>
-
-
-            </div>
-  
           <div class="col-12 py-0 my-0 px-1">
    
            <div class="row py-0 my-0 px-1">
@@ -99,8 +69,8 @@
 
 
             </div>
-  
-       <div class="col-12 py-0 my-0 px-1">
+
+              <div class="col-12 py-0 my-0 px-1">
    
            <div class="row py-0 my-0 px-1">
             
@@ -118,98 +88,93 @@
 
 
             </div>
-  
 
-           </div>
+              <div class="col-12 py-0 my-0 px-1">
+   
+           <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
            
-        </div>
-        
-              
-  
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
 
+          
 
-      
          </div>
-        </div>
-     </v-app>
+
+
+            </div>
+
+          <div class="row py-0 my-0 px-1" >
+        
+        
+          </div>
+         
+      </div>
+      
+    
+     
+</v-app>
+
+</div>
+
 </template>
 <script>
 
 
-
 export default {
     data(){
-        return{
-         
-         allChannels:null,
-         query:'',
-         loading:false
-         
-        }
-    },
-     components: {
-   
-  },
-    mounted(){
-
-      this.$root.showTabs=true;
-       this.$root.showHeader = false;
-
-       this.fetchChannel();
-       
-       
-    },
-    methods:{
-      showChannel:function(space){
-         this.$root.pageloader = true;
-        window.location = '/#/space/' + space.space_id + '/channel/content/user';
+          return{
+           
+           allChannels:null
+          }
       },
-       sortArray: function(arrayValue){
+       components: { 
+     
+      },
+      mounted(){
+      this.fetchUserChannel();
+        this.$root.showHeader = true;
+      
+      },
+      methods:{
+          sortArray: function(arrayValue){
       arrayValue.sort(function(a, b){ 
       
         return new Date(b.members) - new Date(a.members); 
     }); 
 
     },
-    queryChannel:function(){
-     
-       setTimeout(()=>{
-         
-         this.fetchChannel();
-       },500);
-    },
-      fetchChannel: function(){
-           this.loading = true;
-           axios.get('/fetch-trend-channels/' + this.query  )
+         showChannel:function(space){
+         this.$root.pageloader = true;
+        window.location = '/#/space/' + space.space_id + '/channel/content/user';
+      },
+        fetchUserChannel:function(){
+           
+                axios.get('/fetch-user-channels-'+ this.$route.params.username)
       .then(response => {
       
       if (response.status == 200) {
         
-       this.allChannels = response.data;
-
-      
-       
+      this.allChannels= response.data;
+        this.sortArray(this.allChannels);
         
-      this.loading = false;
-       
-      }
+        
+     }
        
      
      })
      .catch(error => {
     
      }) 
-
-        },
-       goBack() {
-
+            
           
-        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
-       
-    
-      
-  },
+  
+      }
 }
 </script>
 <style>

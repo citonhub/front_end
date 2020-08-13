@@ -4,21 +4,35 @@
     <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
-        <div class="col-12 py-1 my-0">
+        <div class="col-12 py-0 my-0">
           
-               <div style="height:auto; width:100%; " class="topboard">
-                  
-               <div class="col-12 py-0 my-0">
+               <div style="height:auto; width:100%; ">
+                   <div class="col-12 py-0 my-0 px-0" >
+           <div class="row py-1 my-0 px-0" >
+         <div class="col-2 py-0 my-0 text-left" style="border-bottom:2px solid #4495a2;" >
+             <v-btn icon left @click="goToDuels"><v-icon color="#4495a2">mdi-arrow-left</v-icon></v-btn>
+         </div>
+         <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
+           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">{{this.shortenContent(this.selectedDuel.title,40)}}</span>
+         </div>
+         <div class="col-2 py-0 my-0  d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
+                
+         </div>
+               </div>
+              </div> 
+               <div class="col-12 py-0 my-0 topboard"  >
                  <div class="row py-0 my-0">
                     <div class="col-4 text-left my-0 py-0">
-                       <v-btn icon left @click="goToDuels"><v-icon color="#ffffff">mdi-arrow-left</v-icon></v-btn>
+                         <v-btn x-small color="#ffffff " v-if="checkDuelStatus(this.selectedDuel) == 'Voting'"><span style="color:rgba(38, 82, 89,0.8); font-weight:bolder;" @click="result('vote')">Vote</span></v-btn>
+                        <v-btn x-small color="#ffffff " v-if="checkDuelStatus(this.selectedDuel) == 'Ended'"><span style="color:rgba(38, 82, 89,0.8); font-weight:bolder;" @click="result('result')">Results</span></v-btn>
                     </div>
-                    <div class="col-4 text-center py-0">
-                       <span class="matchTitle" style="text-transform:capitalize;">{{this.selectedDuel.duel_id}}</span>
+                    <div class="col-4 text-center py-1">
+
+                       <v-btn x-small  text color="#ffffff " @click="showDuelInfo"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Duel Info</span></v-btn>
+                      
                     </div>
                     <div class="col-4 text-right py-0">
-                      <v-btn x-small color="#ffffff " v-if="checkDuelStatus(this.selectedDuel) == 'Voting'"><span style="color:rgba(38, 82, 89,0.8); font-weight:bolder;" @click="result('vote')">Vote</span></v-btn>
-                        <v-btn x-small color="#ffffff " v-if="checkDuelStatus(this.selectedDuel) == 'Ended'"><span style="color:rgba(38, 82, 89,0.8); font-weight:bolder;" @click="result('result')">Results</span></v-btn>
+                       <v-btn icon left @click="showShare()"><v-icon color="#ffffff">mdi-share-variant mdi-18px</v-icon></v-btn>
                     </div>
                     <div class="col-12 d-flex mt-0 pb-0 pt-0" style="align-items:center; justify-content:center;">
                       <h1 class="timer">{{ TimerValue }}</h1>
@@ -82,8 +96,11 @@
                         </v-btn>
                       <span style="font-size:9px; color:#a6a6a6;">{{this.selectedDuel.likes}}</span>
                      </div>
-                      <div class="col-4 d-flex my-0 pb-0" style="align-items:center; justify-content:center;">
-                        <v-btn x-small color="#3E8893 " @click="showDuelInfo"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Duel Info</span></v-btn>
+                      <div class="col-4 d-flex my-0 pb-0" style="align-items:center; justify-content:center;">     
+
+                     <v-btn  v-if="this.selectedDuel.user_participating" x-small color="#3E8893 " @click="DuelPanel" ><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Panel</span></v-btn>
+                     <v-btn  v-if="!this.selectedDuel.user_participating && !this.selectedDuel.participant_reached && knowDuelStatus(this.selectedDuel)"
+                     x-small color="#3E8893 " @click="joinDuel" :loading="loading" style="color:white;"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Join</span></v-btn>
                      </div>
                       <div class="col-4 text-right my-0 pb-0" style="align-items:center; justify-content:center;">
                         <v-btn class="d-inline-block" icon @click="comment">
@@ -113,31 +130,7 @@
               <div class="row my-0 py-0">
 
 
-                     <span v-if="this.selectedDuel.user_participating" style="z-index:23456765;">
-                        <div class="d-none d-md-flex" style="position:fixed;left:0; bottom:7%;width:100%;height:auto;align-items:center;justify-content:center; z-index:23456765;">
-                  
-                      <v-btn x-small color="#3E8893 " @click="DuelPanel" ><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Panel</span></v-btn>
-                    </div>
-
-                    <div class="d-md-none d-flex" style="position:fixed;left:0; bottom:10%;width:100%;height:auto;align-items:center;justify-content:center;">
                    
-                      <v-btn x-small color="#3E8893 " @click="DuelPanel" ><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Panel</span></v-btn>
-                    </div>
-                    </span>
-
-
-                     <span v-if="!this.selectedDuel.user_participating && !this.selectedDuel.participant_reached && knowDuelStatus(this.selectedDuel)" style="z-index:23456765;">
-                        <div class="d-none d-md-flex" style="position:fixed;left:0; bottom:7%;width:100%;height:auto;align-items:center;justify-content:center;">
-                   
-                     <v-btn x-small color="#3E8893 " @click="joinDuel" :loading="loading" style="color:white;"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Join</span></v-btn>
-                   </div>
-
-                   <div class="d-md-none d-flex" style="position:fixed;left:0; bottom:10%;width:100%;height:auto;align-items:center;justify-content:center;">
-                   
-                     
-                       <v-btn x-small color="#3E8893 " @click="joinDuel" :loading="loading"  style="color:white;"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Join</span></v-btn>
-                   </div>
-                    </span>
                   
 
                    <div style="padding-top:450px; !important" class="col-12">
@@ -177,7 +170,7 @@ export default {
        
        this.countDownTimer();
        this.$root.showTabs=true;
-        this.$root.showHeader = true;
+        this.$root.showHeader = false;
         this.fetchDuelComments();
          this.fetchDuel();
          this.$root.duelComments = [];
@@ -200,6 +193,13 @@ export default {
 
     
     methods:{
+       showShare:function(){
+            let duel = this.selectedDuel;
+          this.$root.shareText  = 'Checkout this duel on CitonHub.';
+         this.$root.shareLink = 'https://www.citonhub.com/link/duel/' + duel.duel_id + '/' + this.$root.username;
+
+         this.$root.showShare = true;
+   },
       
       activateBot:function(){
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
@@ -251,39 +251,7 @@ export default {
          
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
    },
-      likeDuelComment:function(comment){
-           this.$root.checkIfUserIsLoggedIn('duels');
-          if(comment.liked_by_user){
-          return;
-        }
-
-         axios.post('/save-liked-duel-comment',{
-            "comment_id": comment.id
-          })
-      .then(response => {
-      
-      if (response.status == 200) {
-        
-           
-       
-
-         this.$root.duelComments.map((eachcomment)=> {
-            if(eachcomment.id ==  comment.id){
-                eachcomment.liked_by_user = true;
-              eachcomment.likes = parseInt(eachcomment.likes)  + 1;
-            }
-         });
-        
-        
-     }
-       
      
-     })
-     .catch(error => {
-    
-     }) 
-
-      },
       likeDuel:function(){
         this.$root.checkIfUserIsLoggedIn('duels');
         if(this.selectedDuel.liked_by_user){
@@ -402,14 +370,7 @@ export default {
       showDuelInfo: function(){
             this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/info' });
        },
-       replyComment: function(comment){
-           this.$root.checkIfUserIsLoggedIn('duels');
-           this.$root.is_reply_comment = true;
-           this.$root.replyCommentId = comment.id;
-           this.$root.replyCommentUsername = comment.username;
-
-           this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/comment' });
-       },
+       
       comment:function(){
 
             this.$root.checkIfUserIsLoggedIn('duels');
@@ -471,6 +432,17 @@ export default {
 
           
       },
+      shortenContent: function(content,limit){
+              if(content != null){
+                  if(content.length > limit){
+                let shortcontent = content.slice(0,limit);
+                 return shortcontent + '...';
+             }else{
+               return content;
+             }
+              }
+             
+        },
       
       knowDuelStatus: function(duel){
            
@@ -560,7 +532,7 @@ export default {
 </script>
 <style>
 .topboard{
-   background:rgba(38, 82, 89,0.8);
+   background:#36737d;
    border: 2px solid rgba(38, 82, 89,0.6);
    border-radius: 10px;
 }

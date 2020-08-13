@@ -7,11 +7,14 @@
        <div class="row py-1 my-0 px-1" style="background:#a5d2d9;">
           <trend-top></trend-top> 
       </div>
-      <div class="col-12 my-1 mb-0 px-2 text-center py-0">
+      <div class="col-12 my-1 mb-0 px-1 text-center py-0">
            <v-text-field
               style="font-size:13px;"
              placeholder="Find duels" 
              dense
+              @keydown="queryChannel"
+             v-model="query"
+             :loading="loading"
              color="#4495a2"
              ></v-text-field>
        </div>
@@ -21,10 +24,10 @@
         
         <div class="col-12 py-0 my-0">
           
-          <div class="row my-0 py-0">
+          <div class="row my-0 py-0" v-if="allDuels != null">
 
              <div class="col-12 px-4 py-2" v-for="(duel,index) in allDuels" :key="index">
-               <v-card elevation-22 class="py-1 px-1" >
+               <v-card elevation-22 class="py-1 px-1"  @click="showDuel(duel)">
                 <div class="row px-1">
                    <div class="py-0 col-12 text-left d-md-block d-none"  >
                         <div style="background-color:; border-radius:4px; border:1px solid transparent;">
@@ -49,7 +52,11 @@
                 </div>
                </v-card>
             </div>
+        
 
+         <div v-if="allDuels.length == 0" class="text-center col-12">
+           <span style="color:gray; font-size:12px;">No Duel found</span>
+                </div>  
 
 
              <div class="col-12 py-5 my-5">
@@ -57,6 +64,37 @@
              </div>
 
           </div>
+
+           <div class="row my-0 py-0" v-else>
+               
+                
+            
+     <div class="col-12 py-1 my-1">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+
+       <div class="col-12 py-1 my-1">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+
+       <div class="col-12 py-1 my-1">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+         
+
+           </div>
            
         </div>
         
@@ -77,7 +115,8 @@ export default {
     data(){
         return{
           allDuels: null,
-         
+          query:'',
+         loading:false
         }
     },
      components: {
@@ -91,6 +130,17 @@ export default {
        
     },
     methods:{
+      queryChannel:function(){
+     
+       setTimeout(()=>{
+         
+         this.fetchDuels();
+       },500);
+    },
+      showDuel:function(duel){
+         this.$root.pageloader = true;
+        window.location = '/duels#/duel/' + duel.duel_id + '/board' + '/user';
+      },
      
        goBack() {
 
@@ -98,15 +148,15 @@ export default {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
        fetchDuels: function(){
-          
-           axios.get('/fetch-trend-duels' )
+              this.loading = true;
+           axios.get('/fetch-trend-duels/'  + this.query )
       .then(response => {
       
       if (response.status == 200) {
         
        this.allDuels = response.data;
 
-       
+         this.loading = false;
        
       }
        

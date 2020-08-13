@@ -36,20 +36,36 @@
                    </div>
                     <div class="col-6 py-0 my-0 px-2 text-right">
                       <v-btn  x-small color="#3E8893" @click="showHowTo"
-              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-format-list-text mdi-18px</v-icon> How To</v-btn>  
+              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-format-list-text mdi-18px</v-icon>FAQs</v-btn>  
                    </div>
                 </div>  
              </div>
 
-              <v-expansion-panels
+
+              <div class="col-12 py-0 px-1 my-1 " @click="handleCatFolder('front-end')" style="background:#c9e4e8; border:1px solid transparent; border-radius:12px; cursor:pointer;">
+             <div class="row px-2 py-0">
+                   <div class="col-3 py-0 px-0">
+
+                   </div>
+                   <div class="col-6 py-0 px-0 text-center">
+                <span style="font-family:HeaderText; font-size:13px;color:#1e4148;">Front-end</span> 
+                   </div>
+                   <div class="col-3 py-0 text-right">
+                    <v-icon color="#35757e" v-if="showFront">mdi-chevron-up mdi-18px</v-icon>
+                    <v-icon color="#35757e" v-else>mdi-chevron-down mdi-18px</v-icon>
+                   </div>
+             </div>
+               
+             </div>
+
+             <v-expansion-panels
          v-model="panel"
-          multiple
           dense
-         
+          v-if="showFront"
           class="my-2"
          >
       <v-expansion-panel>
-        <v-expansion-panel-header class="header">Front-end
+        <v-expansion-panel-header class="header">View Files
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-iframe-outline</v-icon>
@@ -61,33 +77,309 @@
             <div class="col-12 py-0 my-0 mx-0 px-0 text-right">
                <v-btn icon @click="addNewFile('front_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
             </div>
-            <v-card tile flat class="col-12 py-1 my-0 " @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" 
-             v-for="(file,index) in this.$root.frontEndFiles" :key="index">
+            <div class="py-0 my-0 col-12 px-0"   v-for="(file,index) in this.$root.frontEndFiles" :key="index">
+
+               <v-card tile flat class="col-12 py-1 my-0 "  v-if="file.language_type == 'HTML'" @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" 
+           >
                 <div class="row my-0 py-0">
                   <div class="col-2 text-center py-0 my-0 ">
-                     <v-icon color="#e34f26" v-if="file.language_type == 'HTML'">mdi-language-html5 mdi-18px</v-icon>
-                     <v-icon color="#0066ff"  v-if="file.language_type == 'CSS'">mdi-language-css3 mdi-18px</v-icon>
-                     <v-icon color="#e6b800"  v-if="file.language_type == 'JAVASCRIPT'">mdi-language-javascript mdi-18px</v-icon>
-                      <v-icon color="#0066ff" v-if="file.language_type == 'TYPESCRIPT'">mdi-language-typescript mdi-18px</v-icon>
+                     <v-icon color="#e34f26">mdi-language-html5 mdi-18px</v-icon>
                 </div>
                  <div class="col-10 py-0 my-0 ">
-                    <span class="fileName" style="font-size:12px;">{{returnFileName(file.file_name,file.language_type)}}</span>
+                    <span class="fileNamenewFile">{{returnFileNamenew(file.file_name,file.language_type)}}</span>
                 </div>
                 </div>
              </v-card>
+            </div>
 
-           
+             <div  class="col-12 py-1 my-0 mt-2" @click="stylesShow ? stylesShow = false : stylesShow = true" style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
+                <div class="row my-0 py-0">
+                  <div class="col-2 text-center py-0 my-0 ">
+                      <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
+                </div>
+                 <div class="col-10 py-0 my-0 ">
+                    <span class="fileNamenew">Styles</span>
+                </div>
+                </div>
+             </div>
+              <div class="py-0 my-0 col-12"   v-for="(file,index) in this.$root.frontEndFiles" :key="'style'+ index">
+             <v-slide-y-transition>
+                  <div class="col-12 py-0 my-0 px-0" v-show="stylesShow" >
+                     <div class="row py-0 my-0 px-0" v-if="file.language_type == 'CSS'">
+                         <v-card tile flat class="col-11 offset-1 py-1 my-0 "  @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" >
+                <div class="row my-0 py-0">
+                  <div class="col-2 text-center py-0 my-0 ">
+                      <v-icon color="#0066ff"  >mdi-language-css3 mdi-18px</v-icon>
+                </div>
+                 <div class="col-10 py-0 my-0 ">
+                   <span class="fileNamenewFile">{{returnFileNamenew(file.file_name,file.language_type)}}</span>
+                </div>
+                </div>
+             </v-card>
+                     </div>
+                  </div>
+             </v-slide-y-transition>
+              </div>
 
-              
+              <div  class="col-12 py-1 my-0 mt-2 "  @click="scriptsShow ? scriptsShow = false : scriptsShow = true" style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
+                <div class="row my-0 py-0"> 
+                  <div class="col-2 text-center py-0 my-0 ">
+                      <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
+                </div>
+                 <div class="col-10 py-0 my-0 ">
+                    <span class="fileNamenew">Scripts</span>
+                </div>
+                </div>
+             </div>
+              <div class="py-0 my-0 col-12"   v-for="(file,index) in this.$root.frontEndFiles" :key="'script' + index">
+             <v-slide-y-transition>
+                  <div class="col-12 py-0 my-0 px-0" v-show="scriptsShow">
+                     <div class="row py-0 my-0 px-0" v-if="file.language_type != 'CSS' && file.language_type != 'HTML'">
+                         <v-card tile flat class="col-11 offset-1 py-1 my-0 "  @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" >
+                <div class="row my-0 py-0"> 
+                  <div class="col-2 text-center py-0 my-0 ">
+                       <v-icon color="#e6b800"  v-if="file.language_type == 'JAVASCRIPT'">mdi-language-javascript mdi-18px</v-icon>
+                      <v-icon color="#0066ff" v-if="file.language_type == 'TYPESCRIPT'">mdi-language-typescript mdi-18px</v-icon>
+                </div>
+                 <div class="col-10 py-0 my-0 ">
+                  <span class="fileNamenewFile">{{returnFileNamenew(file.file_name,file.language_type)}}</span>
+                </div>
+                </div>
+             </v-card>
+                     </div>
+                  </div>
+             </v-slide-y-transition>
+              </div>
+
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+
+     
+
+
+        <v-expansion-panel >
+        <v-expansion-panel-header class="header">Resources
+
+          <template v-slot:actions>
+            <v-icon color="#3E8893">mdi-folder-open-outline</v-icon>
+          </template>
           
-       
+        </v-expansion-panel-header>
+       <v-expansion-panel-content class="px-0">      
+
+         <div  class="col-12 py-1 my-0 mt-2 " @click="frameworkShow ? frameworkShow = false : frameworkShow = true"  style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
+                <div class="row my-0 py-0"> 
+                  <div class="col-2 text-center py-0 my-0 ">
+                      <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
+                </div>
+                 <div class="col-8 py-0 my-0 ">
+                    <span class="fileNamenew">Framework</span>
+                </div>
+                <div class="col-2 py-0 my-0 text-center " @click.stop="showUpload('Framework','Code file')">
+                   <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
+                </div>
+                </div>
+             </div> 
+
+
+              <div class="py-0 my-0 col-12"   v-for="(file,index) in this.$root.panelResources" :key="'framework' + index">
+             <v-slide-y-transition>
+                  <div class="col-12 py-0 my-0 px-0" v-show="frameworkShow">
+                     <div class="row py-0 my-0 px-0" v-if="file.type == 'Framework'">
+                         <v-card tile flat class="col-11 offset-1 py-1 my-0 "   style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" >
+                <div class="row my-0 py-0"> 
+                  <div class="col-2 text-center py-0 my-0 ">
+                       <v-icon color="#4495a2" >mdi-file-code-outline mdi-18px</v-icon>
+                </div>
+                 <div class="col-10 py-0 my-0 ">
+                  <span class="fileNamenewFile">{{shortenContent(file.file_full_name,25)}}</span>
+                </div>
+                </div>
+             </v-card>
+                     </div>
+                  </div>
+             </v-slide-y-transition>
+              </div>
+
+
+        
+            <div  class="col-12 py-1 my-0 mt-2 "  @click="imagesShow ? imagesShow = false : imagesShow = true" style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
+                <div class="row my-0 py-0"> 
+                  <div class="col-2 text-center py-0 my-0 ">
+                      <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
+                </div>
+                 <div class="col-8 py-0 my-0 ">
+                    <span class="fileNamenew">Images</span>
+                </div>
+                 <div class="col-2 py-0 my-0 text-center"  @click.stop="showUpload('Images','Image file')">
+                   <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
+                </div>
+                </div>
+             </div>
+
+              <div class="py-0 my-0 col-12"   v-for="(file,index) in this.$root.panelResources" :key="'images' + index">
+             <v-slide-y-transition>
+                  <div class="col-12 py-0 my-0 px-0" v-show="imagesShow">
+                     <div class="row py-0 my-0 px-0" v-if="file.type == 'Images'">
+                         <v-card tile flat class="col-11 offset-1 py-1 my-0 "   style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" >
+                <div class="row my-0 py-0"> 
+                  <div class="col-2 text-center py-0 my-0 ">
+                       <v-icon color="#4495a2" >mdi-file-image-outline mdi-18px</v-icon>
+                </div>
+                 <div class="col-10 py-0 my-0 ">
+                  <span class="fileNamenewFile">{{shortenContent(file.file_full_name,25)}}</span>
+                </div>
+                </div>
+             </v-card>
+                     </div>
+                  </div>
+             </v-slide-y-transition>
+              </div>
+
+
+          
+           <div  class="col-12 py-1 my-0 mt-2 " @click="audioShow ? audioShow = false : audioShow = true" style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
+                <div class="row my-0 py-0"> 
+                  <div class="col-2 text-center py-0 my-0 ">
+                      <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
+                </div>
+                 <div class="col-8 py-0 my-0 ">
+                    <span class="fileNamenew">Audios</span>
+                </div>
+                 <div class="col-2 py-0 my-0 text-center"  @click.stop="showUpload('Audios','Audio file')">
+                   <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
+                </div>
+                </div>
+             </div>
+
+
+               <div class="py-0 my-0 col-12"   v-for="(file,index) in this.$root.panelResources" :key="'audios' + index">
+             <v-slide-y-transition>
+                  <div class="col-12 py-0 my-0 px-0" v-show="audioShow">
+                     <div class="row py-0 my-0 px-0" v-if="file.type == 'Audios'">
+                         <v-card tile flat class="col-11 offset-1 py-1 my-0 "   style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" >
+                <div class="row my-0 py-0"> 
+                  <div class="col-2 text-center py-0 my-0 ">
+                       <v-icon color="#4495a2" >mdi-file-music-outline mdi-18px</v-icon>
+                </div>
+                 <div class="col-10 py-0 my-0 ">
+                  <span class="fileNamenewFile">{{shortenContent(file.file_full_name,25)}}</span>
+                </div>
+                </div>
+             </v-card>
+                     </div>
+                  </div>
+             </v-slide-y-transition>
+              </div>
+
+
+
+           <div  class="col-12 py-1 my-0 mt-2 " @click="videoShow ? videoShow = false : videoShow = true" style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
+                <div class="row my-0 py-0"> 
+                  <div class="col-2 text-center py-0 my-0 ">
+                      <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
+                </div>
+                 <div class="col-8 py-0 my-0 ">
+                    <span class="fileNamenew">Videos</span>
+                </div>
+                 <div class="col-2 py-0 my-0 text-center" @click.stop="showUpload('Videos','Video file')">
+                   <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
+                </div>
+                </div>
+             </div>
+
+
+              <div class="py-0 my-0 col-12"   v-for="(file,index) in this.$root.panelResources" :key="'videos' + index">
+             <v-slide-y-transition>
+                  <div class="col-12 py-0 my-0 px-0" v-show="videoShow">
+                     <div class="row py-0 my-0 px-0" v-if="file.type == 'Videos'">
+                         <v-card tile flat class="col-11 offset-1 py-1 my-0 "   style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" >
+                <div class="row my-0 py-0"> 
+                  <div class="col-2 text-center py-0 my-0 ">
+                       <v-icon color="#4495a2" >mdi-file-video-outline mdi-18px</v-icon>
+                </div>
+                 <div class="col-10 py-0 my-0 ">
+                  <span class="fileNamenewFile">{{shortenContent(file.file_full_name,25)}}</span>
+                </div>
+                </div>
+             </v-card>
+                     </div>
+                  </div>
+             </v-slide-y-transition>
+              </div>
+
+
+          
+           <div  class="col-12 py-1 my-0 mt-2 " @click="fileShow ? fileShow = false : fileShow = true" style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
+                <div class="row my-0 py-0"> 
+                  <div class="col-2 text-center py-0 my-0 ">
+                      <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
+                </div>
+                 <div class="col-8 py-0 my-0 ">
+                    <span class="fileNamenew">Files</span>
+                </div>
+                 <div class="col-2 py-0 my-0 text-center" @click.stop="showUpload('Files','Document file')"> 
+                   <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
+                </div>
+                </div>
+             </div>
+
+
+              <div class="py-0 my-0 col-12"   v-for="(file,index) in this.$root.panelResources" :key="'files' + index">
+             <v-slide-y-transition>
+                  <div class="col-12 py-0 my-0 px-0" v-show="fileShow">
+                     <div class="row py-0 my-0 px-0" v-if="file.type == 'Files'">
+                         <v-card tile flat class="col-11 offset-1 py-1 my-0 "   style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" >
+                <div class="row my-0 py-0"> 
+                  <div class="col-2 text-center py-0 my-0 ">
+                       <v-icon color="#4495a2" >mdi-file-outline mdi-18px</v-icon>
+                </div>
+                 <div class="col-10 py-0 my-0 ">
+                  <span class="fileNamenewFile">{{shortenContent(file.file_full_name,25)}}</span>
+                </div>
+                </div>
+             </v-card>
+                     </div>
+                  </div>
+             </v-slide-y-transition>
+              </div>
+
+            
+
+            
       
         </v-expansion-panel-content>
       </v-expansion-panel>
 
 
-       <v-expansion-panel v-if="panelData.app_type == 'Multiple-pages' || panelData.panel_language != 'not-set'">
-        <v-expansion-panel-header class="header">Back-end
+
+    </v-expansion-panels>
+
+          <div class="col-12 py-0 px-1 my-1 " @click="handleCatFolder('back-end')" style="background:#c9e4e8; border:1px solid transparent; border-radius:12px; cursor:pointer;">
+             <div class="row px-2 py-0">
+                   <div class="col-3 py-0 px-0">
+
+                   </div>
+                   <div class="col-6 py-0 px-0 text-center">
+                <span style="font-family:HeaderText; font-size:13px;color:#1e4148;">Back-end</span> 
+                   </div>
+                   <div class="col-3 py-0 text-right">
+                    <v-icon color="#35757e" v-if="showBack">mdi-chevron-up mdi-18px</v-icon>
+                    <v-icon color="#35757e" v-else>mdi-chevron-down mdi-18px</v-icon>
+                   </div>
+             </div>
+               
+             </div>
+
+     <v-expansion-panels
+      v-model="panelBack"
+           v-if="showBack"
+          dense
+          class="my-2">
+        
+          <v-expansion-panel v-if="panelData.app_type == 'Multiple-pages' || panelData.panel_language != 'not-set'">
+        <v-expansion-panel-header class="header">Controllers
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-iframe-braces-outline</v-icon>
@@ -104,22 +396,23 @@
               <div class="row my-0 py-0">
                   <div class="col-2 text-center py-0 my-0 ">
                       <v-icon color="#0066ff" v-if="file.language_type == 'PHP'">mdi-language-php mdi-18px</v-icon>
-                    <v-icon color="#e6b800" v-if="file.language_type == 'PHYTON'">mdi-language-python mdi-18px</v-icon>
+                    <v-icon color="#e6b800" v-if="file.language_type == 'JAVASCRIPT'">mdi-language-javascript mdi-18px</v-icon>
                 </div>
                  <div class="col-10 py-0 my-0 ">
-                    <span class="fileName" style="font-size:12px;">{{returnFileName(file.file_name,file.language_type)}}</span>
+                    <span class="fileNamenewFile">{{returnFileNamenew(file.file_name,file.language_type)}}</span>
                 </div>
                 </div>
              </v-card>
+
+
 
             
       
         </v-expansion-panel-content>
       </v-expansion-panel>
 
-
-       <v-expansion-panel v-if="panelData.panel_language != 'not-set'"> 
-        <v-expansion-panel-header class="header">Router
+           <v-expansion-panel > 
+        <v-expansion-panel-header class="header">Web Routes
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-router</v-icon>
@@ -138,7 +431,7 @@
                      <v-icon color="#2d646c">mdi-routes mdi-18px</v-icon>
                 </div>
                  <div class="col-7 py-0 my-0 ">
-                    <span class="fileName">{{ route.path }}</span>
+                    <span class="fileNamenewFile">{{ route.path }}</span>
                 </div>
                  <div class="col-3 py-0 my-0 ">
                     <span class="route">{{route.route_type}}</span>
@@ -151,9 +444,12 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
 
+
+
+
      
 
-       <v-expansion-panel v-if="panelData.panel_language != 'not-set'">
+       <v-expansion-panel>
        <v-expansion-panel-header class="header">Database Tables
 
           <template v-slot:actions>
@@ -173,14 +469,17 @@
                      <v-icon color="#2d646c">mdi-table mdi-18px</v-icon>
                 </div>
                  <div class="col-10 py-0 my-0 ">
-                    <span class="fileName">{{table.name}}.tb</span>
+                    <span class="fileNamenewFile">{{table.name}}.tb</span>
                 </div>
                 </div>
              </v-card>
       
         </v-expansion-panel-content>
       </v-expansion-panel>
-    </v-expansion-panels>
+
+
+
+     </v-expansion-panels>
          </div>
          <div class="my-5 py-3 "   style="padding-top:120px !important;">
 
@@ -227,7 +526,7 @@
               </v-btn>
      </span>
 
-        <span style="position:absolute; top:83%; right:3%; z-index:10;"  class="d-md-none d-inline-block">
+        <span style="position:absolute; top:83%; right:3%; z-index:10;"  class="d-md-none d-inline-block sliderfullBtn">
           <v-btn
                 color="#35747e"
                 small
@@ -235,14 +534,14 @@
                 class="d-block"
                 fab
               >
-                <v-icon color="#ffffff">mdi-play </v-icon>
+                <v-icon color="#ffffff">mdi-play mdi-18px</v-icon>
               </v-btn>
      </span>
 
    
 
 
-      <span style="position:absolute; top:90%; right:3%;z-index:10;" class="d-none d-md-inline-block">
+      <span style="position:absolute; top:90%; right:3%;z-index:10;" class="d-none d-md-inline-block sliderfullBtn">
           <v-btn
                 color="#35747e"
                 small
@@ -313,7 +612,10 @@
 export default {
      data(){
    return{
-      panel:[0,1],
+      panel:this.$root.panel,
+     panelBack:this.$root.panelBack,
+     showFront:this.$root.showFront,
+     showBack: this.$root.showBack,
      codeFiles:[],
      Alert:false,
      backEndFiles:[],
@@ -324,6 +626,13 @@ export default {
      duel:[],
      makeTeam:false,
      teamName:'',
+     scriptsShow:true,
+     stylesShow:true,
+     frameworkShow:false,
+     imagesShow:false,
+     audioShow:false,
+     videoShow:false,
+     fileShow:false,
      panelData:[],
      localChannel:[],
      lockPanel: false,
@@ -338,6 +647,11 @@ export default {
         this.fetchDuel();
       },
  methods:{
+    showUpload:function(type,message){
+     this.$root.UploadType = type;
+     this.$root.UploadMessage = message;
+     this.$root.UploadResources = true;
+   },
     activateBot:function(){
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
             return page.page_name == 'duel_panel';
@@ -356,6 +670,32 @@ export default {
         
          
       },
+       handleCatFolder: function(type){
+       if(type == 'front-end'){
+
+        if(this.showFront){
+          this.showFront = false;
+          this.$root.showFront = false;
+        }else{
+           this.showFront = true;
+          this.$root.showFront = true;
+        }
+     
+
+       }
+       if(type == 'back-end'){
+
+        if(this.showBack){
+          this.showBack = false;
+          this.$root.showBack = false;
+        }else{
+           this.showBack = true;
+          this.$root.showBack = true;
+        }
+     
+
+       }
+      }, 
         trackUser: function(){
       
 
@@ -377,7 +717,18 @@ export default {
 
       
    },
+    shortenContent: function(content,limit){
+             
+             if(content.length > limit){
+                let shortcontent = content.slice(0,limit);
+                 return shortcontent + '...';
+             }else{
+               return content;
+             }
+        },
    showHowTo: function(){
+     this.$root.panel = this.panel;
+       this.$root.panelBack = this.panelBack;
       this.$router.push({ path: '/how-to' });
    },
      trackPanel: function(){
@@ -469,6 +820,13 @@ export default {
 
         })
 
+
+         if( this.$root.CodeFilesData[0] != undefined){
+        this.$root.CodeFilesData[0]= this.$root.codeFiles
+
+      this.$root.LocalStore('panel'+ this.$route.params.duelId,this.$root.CodeFilesData);
+        }
+
       this.$root.localChannel.push(channel);
 
         }
@@ -527,11 +885,16 @@ export default {
 
     },
    addDBTable: function(){
-      
+       this.$root.panel = this.panel;
+       this.$root.panelBack = this.panelBack;
       this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/create-db-table' });
 
    },
    addNewRoute: function(is_edit,route = []){
+
+     this.$root.panel = this.panel;
+       this.$root.panelBack = this.panelBack;
+
       this.$root.is_edit = is_edit;
 
          if(is_edit == 'true'){
@@ -541,17 +904,33 @@ export default {
        this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/add-panel-route' });
    },
    showComment:function(){
+     this.$root.panel = this.panel;
+       this.$root.panelBack = this.panelBack;
+
      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/view' });
    },
      PanelSettingsCheck(settingStatus){
-          if(!settingStatus.is_set){
-             this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/new/settings' + '/duel' });
+           if(!settingStatus.is_set){
+            this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/new/settings' + '/duel' });
           }
       },
    showEditor: function(codeBox,catType){
+     this.$root.panel = this.panel;
+     this.$root.panelBack = this.panelBack;
        this.$root.forcePanelReload = false;
+       this.$root.SelectedCodeBox = codeBox;
        var thiscodebox = this.$root.codeEditorArray.filter((code)=>{
          return code.id == codeBox.id;
+       });
+
+       this.$root.codeEditorArray.map((codeFile)=>{
+          
+          if(codeFile.id == codeBox.id){
+           
+            codeFile.content = codeBox.content;
+            
+           }
+
        });
 
        if(thiscodebox.length == 0){
@@ -561,10 +940,13 @@ export default {
        this.$root.EditorLanguage = codeBox.language_type;
        this.$root.codeEditorContent = codeBox.content;
        this.$root.selectedFileId = codeBox.id;
+       
     
     this.$router.push({ path: '/duel/' +  this.$route.params.duelId  +'/code-editor' });
    },
    databaseTable: function(database){
+     this.$root.panel = this.panel;
+       this.$root.panelBack = this.panelBack;
       this.$root.SelectedTable = database;
      
        this.$router.push({ path: '/duel/' +  this.$route.params.duelId  +'/db-table' });
@@ -580,10 +962,15 @@ export default {
       
         },
    addNewFile:function(codeType){
+     this.$root.panel = this.panel;
+       this.$root.panelBack = this.panelBack;
         this.$root.panelLanguage = this.panelData.panel_language;
        this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/' + codeType + '/add-new-file' });
    },
    goToSettings:function(){
+     this.$root.panel = this.panel;
+       this.$root.panelBack = this.panelBack;
+       this.$root.fromDuelBoard = false;
       this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/new/settings' + '/duel' });
    },
    fetchDuel: function(){
@@ -606,6 +993,8 @@ export default {
         this.duel = duel;
         this.$root.selectedDuel =  duel;
 
+      
+
         this.fetchCodeFiles();
       
         let status = this.checkDuelStatus(duel);
@@ -614,6 +1003,9 @@ export default {
            
           this.lockPanel = true;
            
+        }else{
+          
+          this.fetchUpdatedContent();
         }
        
 
@@ -628,15 +1020,28 @@ export default {
       }
      
    },
-   fetchCodeFiles: function(){
+  fetchCodeFiles: function(){
        
+       let storedProject = this.$root.getLocalStore('panel' + this.$route.params.duelId);
 
 
-      if(this.$root.CodeFilesData.length != 0 && !this.$root.forcePanelReload){
          
-           this.$root.panelRoutes = this.$root.CodeFilesData[2];
+         storedProject.then((result)=>{
+
+           if(result != null){
+
+              let finalResult = JSON.parse(result);
+
+              this.$root.CodeFilesData = finalResult;
+             
+
+               this.$root.panelRoutes = this.$root.CodeFilesData[2];
 
         this.codeFiles = this.$root.CodeFilesData[0];
+
+        this.$root.codeFiles = this.$root.CodeFilesData[0];
+
+        this.$root.panelResources = this.$root.CodeFilesData[4];
 
         this.$root.frontEndFiles = this.codeFiles.filter((file)=>{
           return file.type == "front_end"
@@ -651,18 +1056,37 @@ export default {
 
          this.panelData = this.$root.CodeFilesData[1];
 
-         return;
-      }
+          this.fetchDuel();
+           }else{
+            
+            this.fetchDuel();
+           }
+
+         })
+
+
+
+  
       
+      
+   },
+
+   fetchUpdatedContent: function(){
        axios.get('/fetch-code-files/' + this.$route.params.duelId)
       .then(response => {
       
       if (response.status == 200) {
-        
-        
-        this.$root.CodeFilesData = response.data;
+         
+         if(this.$route.params.duelId ==  this.$root.selectedDuel.duel_id){
+
+
+             this.$root.CodeFilesData = response.data;
+
+        this.$root.LocalStore('panel'+this.$route.params.duelId,response.data);
 
        this.codeFiles = response.data[0];
+         this.$root.codeFiles = response.data[0];
+         this.$root.panelResources = response.data[4];
 
         this.PanelSettingsCheck(response.data[1]);
 
@@ -671,7 +1095,7 @@ export default {
         this.$root.panelRoutes = response.data[2];
          
 
-        this.$root.frontEndFiles = this.codeFiles.filter((file)=>{
+         this.$root.frontEndFiles = this.codeFiles.filter((file)=>{
           return file.type == "front_end"
         });
 
@@ -679,7 +1103,8 @@ export default {
           return file.type == "back_end"
         });
 
-    
+         }
+        
         
         
 
@@ -717,13 +1142,15 @@ export default {
           
        },
    loadPage:function(){
+     this.$root.panel = this.panel;
+       this.$root.panelBack = this.panelBack;
       this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/page-loader' });
    },
   
-   returnFileName: function(fileName,fileType){
+   returnFileNamenew: function(fileNamenew,fileType){
        var file_extension = this.languageExtensions(fileType);
 
-       return fileName + '.' + file_extension;
+       return fileNamenew + '.' + file_extension;
    },
    languageExtensions: function(language){
         if(language == 'HTML'){
@@ -798,10 +1225,14 @@ export default {
     font-size: 12px;
     color: #4d4d4d;
 }
-.fileName{
-    font-size: 13px;
+.fileNamenew{
+    font-size: 12px;
     color: #173236;
     font-family: OtherText;
+}
+.fileNamenewFile{
+  font-size: 12px;
+    color: #173236;
 }
 .route{
   font-size: 12px;

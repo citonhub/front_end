@@ -7,11 +7,14 @@
        <div class="row py-1 my-0 px-1" style="background:#a5d2d9;">
           <trend-top></trend-top> 
       </div>
-      <div class="col-12 my-1 px-2 text-center py-0">
+      <div class="col-12 my-1 px-1 text-center py-0">
            <v-text-field
               style="font-size:13px;"
              placeholder="Find projects" 
              dense
+             v-model="query"
+              @keydown="queryChannel"
+             :loading="loading"
              color="#4495a2"
              ></v-text-field>
        </div>
@@ -21,10 +24,10 @@
         
         <div class="col-12 py-0 my-0">
           
-          <div class="row my-0 py-0">
+          <div class="row my-0 py-0" v-if="allProject != null">
 
             <div class="col-12 py-1 my-1 text-right px-3" v-for="(project,index) in allProject" :key="index" >
-              <v-card  class="px-2 py-1" >
+              <v-card  class="px-2 py-1"  @click="showProject(project)">
             <div class="py-0 my-0 row px-2">
                <div class="col-2 py-1 d-flex" style="align-items:center;justify-content:center;">
                     <span class="documentIcon"><v-icon class="px-1 py-1" color="#3E8893" >mdi-plus-network-outline </v-icon></span>
@@ -52,11 +55,41 @@
                
               
             </div>
-         </v-card>
+           </v-card>
             </div>
+
+             <div v-if="allProject.length == 0" class="text-center col-12">
+           <span style="color:gray; font-size:12px;">No Poject found</span>
+                </div>  
              <div class="col-12 py-5 my-5">
 
              </div>
+
+          </div>
+
+          <div class="row my-0 py-0" v-else>
+
+             <div class="col-12 py-1 my-1">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+      <div class="col-12 py-1 my-1">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
+      <div class="col-12 py-1 my-1">
+       <v-skeleton-loader
+      class="mx-auto "
+        height="60px"
+      type="image"
+    ></v-skeleton-loader>
+     </div>
 
           </div>
            
@@ -80,6 +113,8 @@ export default {
         return{
          
          allProject: null,
+           query:'',
+         loading:false
         }
     },
      components: {
@@ -92,14 +127,36 @@ export default {
        
     },
     methods:{
+      queryChannel:function(){
+     
+       setTimeout(()=>{
+         
+         this.fetchProject();
+       },500);
+    },
+       sortArray: function(arrayValue){
+      arrayValue.sort(function(a, b){ 
+      
+        return new Date(b.total_stars) - new Date(a.total_stars); 
+    }); 
+
+    },
+     showProject:function(project){
+         this.$root.pageloader = true;
+        window.location = '/#/' + project.project_slug + '/page-loader/user';
+      },
       fetchProject: function(){
-          
-      axios.get('/fetch-trend-projects' )
+           this.loading = true;
+      axios.get('/fetch-trend-projects/'  + this.query )
       .then(response => {
       
       if (response.status == 200) {
         
        this.allProject = response.data;
+
+       this.sortArray(this.allProject);
+
+         this.loading = false;
        
       }
        

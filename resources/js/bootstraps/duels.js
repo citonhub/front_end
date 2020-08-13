@@ -10,6 +10,8 @@ window._ = require('lodash');
 
 window.axios = require('axios');
 
+window.localforage = require('localforage');
+
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.Vuetify = require('vuetify');

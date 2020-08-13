@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import Profile from "../components/profile/Profile.vue"
-import Activities from  "../components/profile/Activities.vue"
+import Channels from  "../components/profile/Channels.vue"
 import About from  "../components/profile/About.vue"
 import Projects from  "../components/profile/Projects.vue"
 import Teams from  "../components/profile/Teams.vue"
@@ -30,12 +30,12 @@ const routes = [
   { path: '/profile/', 
   name: 'Profile', 
   component: Profile,
-  redirect:'/profile/activities/' + document.getElementById('checkauthUsername').value,
+  redirect:'/profile/channels/' + document.getElementById('checkauthUsername').value,
   children:[
     {
       // activities
-      path: 'activities/:username',
-      component: Activities
+      path: 'channels/:username',
+      component: Channels
     },
     {
      

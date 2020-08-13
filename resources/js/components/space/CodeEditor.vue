@@ -437,9 +437,20 @@ methods:{
           }
        })
 
-       setTimeout(()=>{
+
+        this.$root.CodeFilesData[0].map((file)=>{
+          if(file.id == this.$root.selectedFileId){
+
+             file.content = code;
+
+          }
+       })
+
+       this.$root.codeEditorContent = code;
+
+       
            this.$root.LocalStore(this.$route.params.projectSlug,this.$root.CodeFilesData);
-       },2000)
+     
         
       },
          detectchange: function(language){

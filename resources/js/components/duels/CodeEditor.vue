@@ -6,7 +6,7 @@
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
       
          <div class="py-1 my-0 text-left px-1" style=" position:absolute; left:0; width:10%; background:white;" >
-            <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
+            <v-btn icon color="#4495a2" @click.stop="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          
          <div class=" py-1 my-0 px-0 "  style=" background:white; overflow-x:auto; white-space:nowrap; position:absolute; left:10%; width:90%; " >
@@ -38,6 +38,7 @@
         @ready="onCmReady"
         @focus="onCmFocus"
         @blur="onCmBlur"
+        @input="onCmCodeChange"
         />
               </div>
          </div>
@@ -278,18 +279,40 @@ methods:{
 
       },
       showCode:function(codeBox){
-          if(codeBox.language_type == 'HTML' || codeBox.language_type == 'CSS' || codeBox.language_type == 'JAVASCRIPT'){
+
+         this.$root.selectedFileId = codeBox.id;
+        this.selectedFileId = codeBox.id;
+
+         this.$root.SelectedCodeBox = codeBox;
+        
+          if(this.$root.SelectedCodeBox.type == 'front_end'){
               
               this.$root.selectedFileCatType = 'front-end';
 
+              let codeData = this.$root.frontEndFiles.filter((file)=>{
+               return   file.id == this.$root.selectedFileId;
+
+              })
+              codeData = codeData[0];
+               this.language = codeData.language_type;
+              this.detectchange(this.language);
+             this.code = codeData.content;
+
           }else{
+
             this.$root.selectedFileCatType = 'back-end';
+
+             let codeData = this.$root.backEndFiles.filter((file)=>{
+           return   file.id == this.$root.selectedFileId;
+
+           })
+              codeData = codeData[0];
+               this.language = codeData.language_type;
+              this.detectchange(this.language);
+             this.code = codeData.content;
           }
-        
-         this.language = codeBox.language_type;
-           this.detectchange(this.language);
-       this.code = codeBox.content;
-       this.selectedFileId = codeBox.id;
+         
+       
       
       },
       removeCode:function(codeBox){
@@ -304,7 +327,7 @@ methods:{
          }
       },
        goBack() {
-           this.$root.forcePanelReload= true;
+           
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
        saveFileContent: function(){
@@ -343,6 +366,41 @@ methods:{
       },
       onCmBlur(codemirror) {
         console.debug('onCmBlur', codemirror)
+      },
+      onCmCodeChange:function(code){
+        
+       this.$root.frontEndFiles.map((file)=>{
+          if(file.id == this.$root.selectedFileId){
+
+             file.content = code;
+
+          }
+       })
+
+        this.$root.backEndFiles.map((file)=>{
+          if(file.id == this.$root.selectedFileId){
+
+             file.content = code;
+
+          }
+       })
+
+        this.$root.CodeFilesData[0].map((file)=>{
+          if(file.id == this.$root.selectedFileId){
+
+             file.content = code;
+
+          }
+       })
+
+       this.$root.codeEditorContent = code;
+
+     
+
+       
+           this.$root.LocalStore('panel'+ this.$route.params.duelId,this.$root.CodeFilesData);
+     
+        
       },
          detectchange: function(language){
          if(language == 'HTML'){

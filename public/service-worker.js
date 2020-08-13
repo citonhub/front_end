@@ -62,6 +62,54 @@ workbox.routing.registerRoute(matcher, handler);
     );
 
 
+    // reactiong to background sync
+
+    self.addEventListener('sync', event => {
+     
+        event.waitUntil(
+          console.log('shouldWork')
+        );
+     
+    });
+
+   
+
+
+ // background sync
+   const {registerRoute} = workbox.routing;
+const {NetworkOnly} = workbox.strategies;
+
+
+
+   const bgSyncPlugin = new workbox.backgroundSync.Plugin('post-queue', {
+    maxRetentionTime: 24 * 60 // Retry for max of 24 Hours (specified in minutes)
+  });
+  
+  registerRoute(
+    '/send-message',
+    new NetworkOnly({
+      plugins: [bgSyncPlugin]
+    }),
+    'POST'
+  );
+
+  registerRoute(
+    '/save-code-content-project',
+    new NetworkOnly({
+      plugins: [bgSyncPlugin]
+    }),
+    'POST'
+  );
+
+  registerRoute(
+    '/save-code-content',
+    new NetworkOnly({
+      plugins: [bgSyncPlugin]
+    }),
+    'POST'
+  );
+
+  
 
     function showNotification(notificationCount,notificationOptions) {
 

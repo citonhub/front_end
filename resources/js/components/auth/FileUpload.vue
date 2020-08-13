@@ -212,6 +212,7 @@ export default {
         formData.append('type',this.UploadType);
         formData.append('file_name',this.fileName);
         formData.append('project_slug',this.$route.params.projectSlug);
+        formData.append('duel_id',this.$route.params.duelId);
        axios.post('/upload-panel-file',formData,
          {
              headers:{
@@ -228,7 +229,21 @@ export default {
            if (response.status == 201) {
                 this.loading = false;
                    
-                   this.$root.panelResources.push(response.data);
+                  
+
+                    this.$root.CodeFilesData[4].push(response.data)
+
+                  if(this.$route.params.projectSlug != undefined){
+
+                  this.$root.LocalStore(this.$route.params.projectSlug,this.$root.CodeFilesData);
+                  }
+
+                   if(this.$route.params.duelId != undefined){
+
+                 this.$root.LocalStore('panel'+ this.$route.params.duelId,this.$root.CodeFilesData);
+                 
+                  }
+
                this.closeBackground();
             }else{
               

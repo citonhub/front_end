@@ -403,52 +403,110 @@ class PanelController extends Controller
           
         $characters = '1234567890';
         $randomString = $this->generateRandomNumber(9,$characters);
+
+
+
+
+        if($request->get('panel_language') == 'NodeJs'){
+        
+          $newPanel = Panel::create([
+            "user_id"=> Auth::id(),
+            "purpose"=> 'duel',
+            "panel_id"=> $randomString,
+            "app_type" => $request->get('app_type'),
+            "is_set"=> true,
+            "panel_language"=>$request->get('panel_language')
+          ]);
+    
+         $newPanel->save();
+         
+
+            $duelPanel->update([
+            "panel_id"=> $randomString
+           ]);
+
+            
+
+           $this->NodeJsProject($randomString);
+
+        }
+
+        if($request->get('panel_language') == 'PHP'){
+         
+
+          $this->deleteFilesFolder($duelPanel->panel_id);
+         
+          $backEndFilesArray = [];
+           $frontEndfilesArray = [];
+       
+         foreach ($request->panel_code_files as $file) {
+            
+             if($file['type'] == 'back_end'){
+                   array_push($backEndFilesArray, $file);
+             }else{
+                 array_push($frontEndfilesArray,$file);
+             }
+         }
+
+
+
+        
+       
+         $this->deleteControllerFiles($backEndFilesArray);
+
+         $this->recreateController($backEndFilesArray,$randomString);
+
+
+         $this->deleteFilesFromServer($panel->id);
+
+        
+
+        
+
           
-         $this->deleteFilesFolder($duelPanel->panel_id);
-         
-           $backEndFilesArray = [];
-            $frontEndfilesArray = [];
+         $this->recreateFileFolder($randomString);
+
+          $this->recreateDefaultFiles($randomString);
+
+
+         $this->recreateFiles($frontEndfilesArray,$randomString);
+
+         $this->createDefaultController($randomString);
+
+
+       
+
+       $duelPanel->update([
+        "panel_id"=> $randomString
+       ]);
+       
+
+        $panel->update([
+       "app_type" => $request->get('app_type'),
+       "is_set"=> true,
+       "panel_id"=> $randomString,
+       "panel_language"=>$request->get('panel_language')
+       ]);
+       
+
+       $routeArray = [
+         [
+          "path"=> '/index',
+          "function_name"=>'main',
+          "file_name"=>'index',
+          "route_type"=> 'get'
+         ]
+       ];
+
+       
+
+      $this->createRoute($routeArray,$randomString);
+
+        }
+
+          
         
-          foreach ($request->panel_code_files as $file) {
-             
-              if($file['type'] == 'back_end'){
-                    array_push($backEndFilesArray, $file);
-              }else{
-                  array_push($frontEndfilesArray,$file);
-              }
-          }
 
-
-
-         
-        
-          $this->deleteControllerFiles($backEndFilesArray);
-
-          $this->recreateController($backEndFilesArray,$randomString);
-
-
-          $this->deleteFilesFromServer($panel->id);
-
-         
-
-         
-
-           
-          $this->recreateFileFolder($randomString);
-
-           $this->recreateDefaultFiles($randomString);
-
-
-          $this->recreateFiles($frontEndfilesArray,$randomString);
-
-          $this->createDefaultController($randomString);
-
-
-        
-
-        $duelPanel->update([
-         "panel_id"=> $randomString
-        ]);
 
          $duelId = $request->get('duel_id');
 
@@ -468,13 +526,7 @@ class PanelController extends Controller
         }
       
 
-        $panel->update([
-        "app_type" => $request->get('app_type'),
-        "is_set"=> true,
-        "panel_id"=> $randomString,
-        "panel_language"=>$request->get('panel_language')
-        ]);
-
+       
          
         $duelParticipant = DuelParticipant::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->first();
 
@@ -482,24 +534,6 @@ class PanelController extends Controller
           "panel_id"=> $randomString,
         ]);
 
-
-
-
-       
-
-       $routeArray = [
-         [
-          "path"=> '/index',
-          "function_name"=>'main',
-          "file_name"=>'index',
-          "route_type"=> 'get'
-         ]
-       ];
-
-       
-
-      $this->createRoute($routeArray,$randomString);
-        
      }
     
      public function NodeJsProject($panelId){
@@ -859,18 +893,26 @@ res.sendFile(dirname+\"" ."/public" . '/' . $panelId . "/views/index.html" . "\"
 
     $htmlContent = file_get_contents($filePath);
 
-    if($projectPanel->title == 'Citonhub Project'){
+    
+     if($projectPanel != null){
 
-      $filePath = '/var/www/citonhubnew/resources/views/pages/codebox.blade.php'; 
 
-      $htmlContent = file_get_contents($filePath);
-  
-  
-      $filePath2 = '/var/www/citonhubnew/resources/views/pages/codeboxnew.blade.php'; 
-  
-      $htmlContent2 = file_get_contents($filePath2);
+      if($projectPanel->title == 'Citonhub Project'){
 
-    }
+        $filePath = '/var/www/citonhubnew/resources/views/pages/codebox.blade.php'; 
+  
+        $htmlContent = file_get_contents($filePath);
+    
+    
+        $filePath2 = '/var/www/citonhubnew/resources/views/pages/codeboxnew.blade.php'; 
+    
+        $htmlContent2 = file_get_contents($filePath2);
+  
+      }
+
+     }
+
+   
     
     
 
@@ -896,18 +938,21 @@ $HtmlCodeBox = CodeBox::create([
   "panel_id"=> $newpanelId
 ]);
 
-if($projectPanel->title == 'Citonhub Project'){
-  $HtmlCodeBox2 = CodeBox::create([
-    "content"=> $htmlContent2,
-    "language_type"=> "HTML",
-    "file_name"=> "NewPage",
-    "type"=> "front_end",
-    "user_id"=> Auth::id(),
-    "panel_id"=> $newpanelId
-  ]);
-  
-  $HtmlCodeBox2->save();
-}
+  if($projectPanel != null){
+    if($projectPanel->title == 'Citonhub Project'){
+      $HtmlCodeBox2 = CodeBox::create([
+        "content"=> $htmlContent2,
+        "language_type"=> "HTML",
+        "file_name"=> "NewPage",
+        "type"=> "front_end",
+        "user_id"=> Auth::id(),
+        "panel_id"=> $newpanelId
+      ]);
+      
+      $HtmlCodeBox2->save();
+    }
+  }
+
 
 
 $CssCodeBox = CodeBox::create([
@@ -947,18 +992,22 @@ $JavascriptCodeBox->save();
           ];
          $response = Http::post($baseUrl .'/create-view-file',$requestData);
 
-         if($projectPanel->title == 'Citonhub Project'){
+          if($projectPanel != null){
+            if($projectPanel->title == 'Citonhub Project'){
             
-          $baseUrl = 'https://php.citonhub.com';
-          $requestData = [
-              'panel_id' =>  $newpanelId,
-              'file_name'=> 'NewPage',
-              'content'=> $htmlContent2,
-              'language_type'=> 'HTML'
-          ];
-         $response = Http::post($baseUrl .'/create-view-file',$requestData);
+              $baseUrl = 'https://php.citonhub.com';
+              $requestData = [
+                  'panel_id' =>  $newpanelId,
+                  'file_name'=> 'NewPage',
+                  'content'=> $htmlContent2,
+                  'language_type'=> 'HTML'
+              ];
+             $response = Http::post($baseUrl .'/create-view-file',$requestData);
+    
+             }
+          }
 
-         }
+        
          
 
          $baseUrl = 'https://php.citonhub.com';
@@ -997,17 +1046,19 @@ public function main(){
 } 
 ";
 
+   if($projectPanel != null){
+    if($projectPanel->title == 'Citonhub Project'){
+      $phpContent ="
+    public function main(){
+      return $thisVar" . '' . "->showView('index');
+    } 
+    
+    public function anotherPage(){
+      return $thisVar" . '' . "->showView('NewPage');
+    } ";
+    }
+   }
 
-if($projectPanel->title == 'Citonhub Project'){
-  $phpContent ="
-public function main(){
-  return $thisVar" . '' . "->showView('index');
-} 
-
-public function anotherPage(){
-  return $thisVar" . '' . "->showView('NewPage');
-} ";
-}
   $PHPCodeBox = CodeBox::create([
     "content"=> $phpContent,
     "language_type"=> "PHP",
@@ -1187,7 +1238,15 @@ public function anotherPage(){
 
           $newRoute->save();
 
-          $baseUrl = 'https://php.citonhub.com';
+          if($panel->panel_language == 'PHP') {
+            $baseUrl = 'https://php.citonhub.com';
+           }
+  
+           if($panel->panel_language == 'NodeJs') {
+            $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+           }
+
+           
           $requestData = [
             "panel_id"=> $duelPanel->panel_id,
             "path"=> $request->get('path'),
@@ -1206,6 +1265,9 @@ public function anotherPage(){
        
          
      }
+
+
+    
 
      
 
@@ -1384,7 +1446,7 @@ public function anotherPage(){
       
 
 
-      if($request->get('code_category') == 'back_end' && $request->get('language_type') == 'PHP'){
+      if($request->get('code_category') == 'back_end'){
         
         if($panel->panel_language == 'PHP') {
           $baseUrl = 'https://php.citonhub.com';
@@ -1438,6 +1500,10 @@ public function anotherPage(){
       }
          }
 
+         broadcast(new PanelChannel('new-file',$newCodeBox,$request->get('project_slug')))->toOthers();
+
+         return $newCodeBox;
+
          
       }
 
@@ -1449,6 +1515,8 @@ public function anotherPage(){
     public function SaveCodeFile(Request $request){
       
       $duelPanel = DuelPanel::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->get();
+
+     
           
       $duelTeam = null;
 
@@ -1489,71 +1557,242 @@ public function anotherPage(){
        $duelPanel = DuelPanel::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->first();
       }
 
+      $panel = Panel::where('panel_id',$duelPanel->panel_id)->first();
+
      
+      if($request->get('code_category') == 'front_end'){
+          
+        $newCodeBox = CodeBox::create([
+           "content"=> 'start coding...',
+           "language_type"=> $request->get('language_type'),
+           "file_name"=> $request->get('file_name'),
+           "type"=> $request->get('code_category'),
+           "user_id"=> Auth::id(),
+           "panel_id"=> $duelPanel->panel_id
+        ]);
+
+        $newCodeBox->save();
 
 
-        if($request->get('code_category') == 'front_end'){
-            
-            $newCodeBox = CodeBox::create([
-               "content"=> 'start coding...',
-               "language_type"=> $request->get('language_type'),
-               "file_name"=> $request->get('file_name'),
-               "type"=> $request->get('code_category'),
-               "user_id"=> Auth::id(),
-               "panel_id"=> $duelPanel->panel_id
+      if($request->get('language_type') == 'HTML'){
+
+        $htmlFiles = CodeBox::where('panel_id',$duelPanel->panel_id)->where('file_name','!=','index')->where('language_type','HTML')->get();
+        
+        $phpContent = '';
+        $JsContent = '';
+        foreach ($htmlFiles as $files) {
+
+          $thisVar = '$this';
+         $panelId = '$panelId';
+
+         if($panel->panel_language == 'PHP') {
+
+          $phpContent .="
+          public function ". $files->file_name ."(){
+            return $thisVar" . '' . "->showView('" .  $files->file_name . "');
+          }
+          
+          ";
+          }
+
+
+           if($panel->panel_language == 'NodeJs') {
+
+            $JsContent .="const " .  $files->file_name .  "=(req,res)=>{
+              res.sendFile(dirname+\"" ."/public" . '/' . $duelPanel->panel_id . "/views" . '/' .  $files->file_name  . ".html" . "\")
+                      
+              }";
+            }
+  
+         }
+         
+          
+           
+        }
+
+         $panelRouteController = CodeBox::where('panel_id',$duelPanel->panel_id)->where('file_name','routes')->get();
+
+         if($panelRouteController->isEmpty()){
+
+          if($panel->panel_language == 'PHP') {
+            $PHPCodeBox = CodeBox::create([
+              "content"=> $phpContent,
+              "language_type"=> "PHP",
+              "file_name"=> "routes",
+              "type"=> "back_end",
+              "user_id"=> Auth::id(),
+              "panel_id"=> $duelPanel->panel_id
             ]);
 
-            $newCodeBox->save();
+            $PHPCodeBox->save();
 
-        
-            $baseUrl = 'https://php.citonhub.com';
-        $requestData = [
-            'panel_id' =>  $duelPanel->panel_id,
-            'file_name' =>  $request->get('file_name'),
-            'content'=> 'start coding...',
-            'language_type' => $request->get('language_type')
-        ];
-       $response = Http::post($baseUrl .'/create-view-file',$requestData);   
-       
-       if($duelTeam != null){
-        broadcast(new PanelChannel('new-file',$newCodeBox,$duelTeam->team_code))->toOthers();
-       }
+          }
 
-       return $newCodeBox;
-         
-        }
+          if($panel->panel_language == 'NodeJs') {
 
-        if($request->get('code_category') == 'back_end' && $request->get('language_type') == 'PHP'){
+            $JsCodeBox = CodeBox::create([
+              "content"=> $JsContent,
+              "language_type"=> "js",
+              "file_name"=> "routes",
+              "type"=> "back_end",
+              "user_id"=> Auth::id(),
+              "panel_id"=> $duelPanel->panel_id
+            ]);
+
+            $JsCodeBox->save();
+          }
+
           
-            $baseUrl = 'https://php.citonhub.com';
-            $requestData = [
-                'panel_id' =>  $duelPanel->panel_id,
-                'file_name'=> $request->get('file_name'),
-                'content'=> ''
-            ];
-        $response = Http::post($baseUrl .'/create-controller',$requestData);
            
-          if($response->status() == 200){
-             
-            $newCodeBox = CodeBox::create([
-                "content"=> 'start coding...',
-                "language_type"=> $request->get('language_type'),
-                "file_name"=> $request->get('file_name'),
-                "type"=> $request->get('code_category'),
-                "user_id"=> Auth::id(),
-                "panel_id"=> $duelPanel->panel_id
+         }else{
+
+          $backCodeBox = CodeBox::where('panel_id',$duelPanel->panel_id)->where('file_name','routes')->first();
+
+          if($panel->panel_language == 'PHP') {
+
+          $backCodeBox->update([
+         "content"=> $phpContent
+          ]);
+
+          }
+
+         if($panel->panel_language == 'NodeJs') {
+          $backCodeBox->update([
+            "content"=> $JsContent
              ]);
  
-             $newCodeBox->save();
+         }
+
+         }
+
+
+         if($panel->panel_language == 'PHP') {
+          $baseUrl = 'https://php.citonhub.com';
+         }
+
+         if($panel->panel_language == 'NodeJs') {
+          $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+         }
       
-             if($duelTeam != null){
-              broadcast(new PanelChannel('new-file',$newCodeBox,$duelTeam->team_code))->toOthers();
-             }
-             
-             return $newCodeBox;
-          }
-        }
-     
+        
+        $requestData = [
+            'panel_id' =>  $duelPanel->panel_id,
+            'file_name'=> 'routes',
+            'content'=> $phpContent
+        ];
+        
+       $response = Http::post($baseUrl .'/create-controller',$requestData);
+
+       
+
+        $routeArray =    [
+          [
+           "path"=> '/'. $request->get('file_name'),
+           "function_name"=>$request->get('file_name'),
+           "file_name"=>'routes',
+           "route_type"=> 'get'
+          ]
+          ];
+
+        $this->createRoute($routeArray,$duelPanel->panel_id);  
+
+    
+        if($panel->panel_language == 'PHP') {
+          $baseUrl = 'https://php.citonhub.com';
+         }
+
+         if($panel->panel_language == 'NodeJs') {
+          $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+         }
+      
+
+
+    $requestData = [
+        'panel_id' =>  $duelPanel->panel_id,
+        'file_name' =>  $request->get('file_name'),
+        'content'=> 'start coding...',
+        'language_type' => $request->get('language_type')
+    ];
+   $response = Http::post($baseUrl .'/create-view-file',$requestData);
+
+   
+   if($duelTeam != null){
+    broadcast(new PanelChannel('new-file',$newCodeBox,$duelTeam->team_code))->toOthers();
+   }
+ 
+
+   return $newCodeBox;
+    }
+
+
+
+     if($request->get('code_category') == 'back_end'){
+        
+        if($panel->panel_language == 'PHP') {
+          $baseUrl = 'https://php.citonhub.com';
+
+          $requestData = [
+            'panel_id' =>  $duelPanel->panel_id,
+            'file_name'=> $request->get('file_name'),
+            'content'=> ''
+        ];
+    $response = Http::post($baseUrl .'/create-controller',$requestData);
+       
+      if($response->status() == 200){
+         
+        $newCodeBox = CodeBox::create([
+            "content"=> 'start coding...',
+            "language_type"=> $request->get('language_type'),
+            "file_name"=> $request->get('file_name'),
+            "type"=> $request->get('code_category'),
+            "user_id"=> Auth::id(),
+            "panel_id"=> $duelPanel->panel_id
+         ]);
+
+         $newCodeBox->save();
+
+      }
+         }
+
+         if($panel->panel_language == 'NodeJs') {
+          $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+
+          $requestData = [
+            'panel_id' =>  $duelPanel->panel_id,
+            'file_name'=> $request->get('file_name'),
+            'content'=> ''
+        ];
+       $response = Http::post($baseUrl .'/create-controller',$requestData);
+       
+      if($response->status() == 200){
+         
+        $newCodeBox = CodeBox::create([
+            "content"=> 'start coding...',
+            "language_type"=> 'js',
+            "file_name"=> $request->get('file_name'),
+            "type"=> $request->get('code_category'),
+            "user_id"=> Auth::id(),
+            "panel_id"=> $duelPanel->panel_id
+         ]);
+
+         $newCodeBox->save();
+
+      }
+         }
+
+         if($duelTeam != null){
+          broadcast(new PanelChannel('new-file',$newCodeBox,$duelTeam->team_code))->toOthers();
+         }
+
+         return $newCodeBox;
+
+         
+      }
+
+
+       
+
+      
        
       
     }
@@ -1787,7 +2026,9 @@ public function anotherPage(){
          $allRouteConfig = PanelRoute::where('panel_id',$duelPanel->panel_id)->get();
         $allCodeBoxes = CodeBox::where('panel_id',$duelPanel->panel_id)->orderBy('code_boxes.created_at', 'desc')->get();
 
-      return [$allCodeBoxes,$panel,$allRouteConfig,$newDbTable];
+        $panelResources = PanelResource::where('panel_id',$duelPanel->panel_id)->get();
+
+      return [$allCodeBoxes,$panel,$allRouteConfig,$newDbTable,$panelResources];
 
     }
 
@@ -1950,10 +2191,52 @@ public function anotherPage(){
 
   public function uploadPanelFiles(Request $request){
 
-    $projectPanel = Project::where('project_slug',$request->get('project_slug'))->first();
+      if($request->get('project_slug') != 'undefined'){
+
+        $projectPanel = Project::where('project_slug',$request->get('project_slug'))->first();
+
+        $panel = Panel::where('panel_id',$projectPanel->panel_id)->first();
+        
+      }
+
+      if($request->get('duel_id') != 'undefined'){
+
+        $duelId = $request->get('duel_id');
+ 
+      
+        $duelPanel = DuelPanel::where('duel_id',$duelId)->where('user_id',Auth::id())->get();
+  
+      
+        if($duelPanel->isEmpty()){
+          
+         $duelTeamMembers = DuelTeamMember::where('duel_id',$duelId)->where('user_id',Auth::id())->get();
+          if($duelTeamMembers->isEmpty()){
+            
+           return;
+  
+          }else{
+           $duelTeamMembers = DuelTeamMember::where('duel_id',$duelId)->where('user_id',Auth::id())->first();
+  
+            $duelTeam = DuelTeam::where('id',$duelTeamMembers->duel_team_id)->first();
+  
+           $duelPanel = DuelPanel::where('panel_id',$duelTeam->panel_id)->first(); 
+           
+          }
+  
+        }else{
+         $duelPanel = DuelPanel::where('duel_id',$duelId)->where('user_id',Auth::id())->first();
+        }
+  
+          $panel = Panel::where('panel_id',$duelPanel->panel_id)->first();
+
+      }
+
    
 
-  $location = '/var/www/php/public/'.  $projectPanel->panel_id . '/' .  $request->get('type');
+     
+   
+
+  $location = '/var/www/php/public/'.  $panel->panel_id . '/' .  $request->get('type');
                
   $file = $request->file('file');
 
@@ -1961,7 +2244,7 @@ public function anotherPage(){
 
   $newPanelResource = PanelResource::create([
     "user_id"=>Auth::id(),
-    "panel_id"=> $projectPanel->panel_id,
+    "panel_id"=> $panel->panel_id,
     "type"=> $request->get('type'),
     "file_full_name"=>  $request->get('file_name')
   ]);

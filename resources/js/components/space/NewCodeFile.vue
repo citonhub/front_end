@@ -176,6 +176,9 @@ export default {
              if (response.status == 201) {
                
               this.$root.CodeFilesData[0].unshift(response.data);
+
+                this.$root.LocalStore(this.$route.params.projectSlug,this.$root.CodeFilesData);
+                
                this.$root.forcePanelReload= false;
               this.goBack();
             

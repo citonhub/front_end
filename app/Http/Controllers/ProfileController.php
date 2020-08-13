@@ -105,7 +105,7 @@ class ProfileController extends Controller
         return $newConnections;    
     }
 
-    public function fetchTrendConnections(){
+    public function fetchTrendConnections($query = ''){
    
     
       $latestUsers = DB::table('users')
@@ -120,7 +120,10 @@ class ProfileController extends Controller
                       'users.id as tempId'
                      )
                      ->where('users.email_verified_at','!=',null)
-                     ->paginate('50');
+                     ->where('users.name','like', '%' . $query . '%')
+                     ->orWhere('users.username','like', '%' . $query . '%')
+                     ->orderBy('profiles.created_at','desc')
+                     ->paginate('10');
       
       $filteredUsers = [];
 
@@ -128,6 +131,15 @@ class ProfileController extends Controller
         $arrayUser = (array) $user;
 
         $userConnection = UserConnection::where('user_id',Auth::id())->where('connected_user_id',$arrayUser["tempId"])->get();
+
+      
+
+        if($userConnection->isEmpty()){
+            $arrayUser["user_connected"] = false;
+        }else{
+         $arrayUser["user_connected"] = true;
+        }
+
         if($userConnection->isEmpty() && $arrayUser["tempId"] != Auth::id()){
           array_push($filteredUsers,$arrayUser);
         }

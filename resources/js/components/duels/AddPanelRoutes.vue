@@ -48,7 +48,7 @@
                  placeholder="path e.g /index..."
                  hint="must begin with '/'"
                   :disabled="disableForm"
-                 :rules="requiredRule"
+                 :rules="Rule"
                  v-model="path"
                  counter="20"
             label="Path"
@@ -156,10 +156,16 @@ export default {
         programmingLanguage:'',
          Rule:[
              v => !!v || 'File Name is required',
-           v => v.length < 30 || 'File Name must be less than 30 characters'
+           v => v.length < 30 || 'File Name must be less than 30 characters',
+             v => (v.split(' ').length <= 1) || 'no one space allowed',
+              v => /^\//.test(v) || 'Must start with \'/\''
+           
          ],
           requiredRule: [
          v => !!v || 'This field is required',
+          v => (v.split(' ').length <= 1) || 'no one space allowed',
+           v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
+         
         ],
          loading:false,
          formstate:false,
@@ -171,7 +177,7 @@ export default {
   },
    mounted(){
       this.$root.showTabs=true;
-       this.$root.showHeader = true;
+        this.$root.showHeader = false;
        this.setLanguageType();
        this.Controllers = this.$root.backEndFiles;
        this.setState();
@@ -246,6 +252,10 @@ export default {
                this.$root.forcePanelReload= false;
 
                this.$root.panelRoutes.unshift(response.data)
+
+               this.$root.CodeFilesData[2].unshift(response.data) 
+
+                this.$root.LocalStore('panel'+ this.$route.params.duelId,this.$root.CodeFilesData);
 
               this.goBack();
             

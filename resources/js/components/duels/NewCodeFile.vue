@@ -100,12 +100,14 @@ export default {
          'HTML', 'CSS', 'JAVASCRIPT'
         ],
         back_languages:[
-           'PHP','PYTHON' 
+           'PHP','NodeJs' 
         ],
         programmingLanguage:'',
-         Rule:[
+        Rule:[
              v => !!v || 'File Name is required',
-           v => v.length < 30 || 'File Name must be less than 30 characters'
+           v => v.length < 30 || 'File Name must be less than 30 characters',
+            v => (v.split(' ').length <= 1) || 'no one space allowed',
+             v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
          ],
           requiredRule: [
          v => !!v || 'This feild is required',
@@ -119,7 +121,7 @@ export default {
   },
    mounted(){
       this.$root.showTabs=true;
-       this.$root.showHeader = true;
+       this.$root.showHeader = false;
        this.setLanguageType();
     },
     methods:{
@@ -176,6 +178,9 @@ export default {
              if (response.status == 201) {
                 
                 this.$root.CodeFilesData[0].unshift(response.data);
+
+                 this.$root.LocalStore('panel'+ this.$route.params.duelId,this.$root.CodeFilesData);
+
                this.$root.forcePanelReload= false;
               this.goBack();
             
