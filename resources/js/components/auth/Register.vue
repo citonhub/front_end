@@ -26,12 +26,10 @@
                   <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                 placeholder="name..."
+                 placeholder="Your name"
             label="Name"
             counter="20"
-            hint="Your real name"
             v-model="name"
-            persistent-hint
             :rules="nameRule"
              dense
              color="#4495a2"
@@ -42,11 +40,11 @@
               <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                hint="Please,let it be valid"
-                 placeholder="email..."
+                
+                 placeholder="Please,let it be valid"
             label="Email"
              v-model="email"
-            persistent-hint
+          
             :rules="emailRule"
              :error="emailExist"
              dense
@@ -59,12 +57,12 @@
               <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                 placeholder="password..."
+                 placeholder="Don't tell anyone, not even your mum"
             label="Password"
              dense
-             hint="Don't tell anyone, not even your mum."
+             
               v-model="password"
-              persistent-hint
+             
               counter="20"
             :rules="passwordRule"
              type="password"
@@ -76,7 +74,7 @@
               <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                 placeholder="confirm password..."
+                 placeholder="confirm password"
             label="Confirm Password"
              dense
              counter="20"
