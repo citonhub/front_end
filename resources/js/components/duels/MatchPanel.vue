@@ -378,7 +378,7 @@
           dense
           class="my-2">
         
-          <v-expansion-panel v-if="panelData.app_type == 'Multiple-pages' || panelData.panel_language != 'not-set'">
+          <v-expansion-panel>
         <v-expansion-panel-header class="header">Controllers
 
           <template v-slot:actions>

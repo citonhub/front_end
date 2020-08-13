@@ -287,5 +287,5 @@ body {
 
 
  @section('scripts')
-<script src="{{ asset('js/duels.js?v=1.46') }}"></script>
+<script src="{{ asset('js/duels.js?v=1.47') }}"></script>
  @endsection

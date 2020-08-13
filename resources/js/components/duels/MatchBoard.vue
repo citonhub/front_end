@@ -532,7 +532,7 @@ export default {
 </script>
 <style>
 .topboard{
-   background:#36737d;
+   background: rgb(39, 82, 89,0.8);
    border: 2px solid rgba(38, 82, 89,0.6);
    border-radius: 10px;
 }
