@@ -792,10 +792,7 @@ export default {
      })
      .catch(error => {
        
-       this.$root.showBoard = true;
-         this.$root.boardContent = "Welcome home developer 👨‍💻. " + "\n\
-          Grow your communities in channels, collaborate and build projects in teams and challenge friends to duels.";
-         this.$root.boardBtnLabel = 'Got It';
+      
      }) 
          }
          

@@ -26,7 +26,7 @@
                   <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                 placeholder="Your name"
+                 placeholder="John Snow"
             label="Name"
             counter="20"
             v-model="name"
@@ -41,7 +41,7 @@
               <v-text-field
                 style="font-size:12px;"
                 
-                 placeholder="Please,let it be valid"
+                 placeholder="Lordofthesevenkingdoms@email.com"
             label="Email"
              v-model="email"
           
@@ -57,7 +57,7 @@
               <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                 placeholder="Don't tell anyone, not even your mum"
+                 placeholder="Dragonglass"
             label="Password"
              dense
              
@@ -241,7 +241,7 @@ export default {
            if (response.status == 200) { 
                 
                 if(response.data == 'userNotExist'){
-                this.showAlert(5000,'oops, referral link seems to be broken');
+                this.showAlert(5000,'Oops!, referral link seems to be broken');
 
                  return;
                 }

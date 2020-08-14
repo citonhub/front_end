@@ -26,11 +26,9 @@
                   <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                 placeholder="username..."
+                 placeholder="Lord_Snow"
             label="Username"
              dense
-             persistent-hint
-             hint="Just something cool"
              :error="usernameExist"
              v-model="usernameValue"
              :rules="UsernameRule"
@@ -128,7 +126,7 @@ export default {
 
     },
     showVerifiedAlert:function (){
-     this.showAlert(5000,'Wheew! Valid afterall.')
+     this.showAlert(5000,'Welcome your highness, my kingdoom awaits your humble codes.')
     },
     setUsername: function(){
        this.usernameExist= false;
