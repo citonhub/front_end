@@ -126,7 +126,7 @@ export default {
 
     },
     showVerifiedAlert:function (){
-     this.showAlert(5000,'Welcome your highness, my kingdoom awaits your humble codes.')
+     this.showAlert(5000,'Welcome your highness, my kingdoom awaits your awesome codes.')
     },
     setUsername: function(){
        this.usernameExist= false;

@@ -644,7 +644,7 @@ export default {
         this.$root.checkIfUserIsLoggedIn('duel');
         this.trackPanel();
         this.trackUser();
-        this.fetchDuel();
+        this.fetchCodeFiles();
       },
  methods:{
     showUpload:function(type,message){
@@ -978,7 +978,7 @@ export default {
 
         this.duel = this.$root.selectedDuel;
 
-         this.fetchCodeFiles();
+          this.fetchUpdatedContent();
 
       }else{
        
@@ -995,7 +995,7 @@ export default {
 
       
 
-        this.fetchCodeFiles();
+        
       
         let status = this.checkDuelStatus(duel);
 
@@ -1005,9 +1005,10 @@ export default {
            
         }else{
           
-          this.fetchUpdatedContent();
+          
         }
-       
+        
+        this.fetchUpdatedContent();
 
      }
        
