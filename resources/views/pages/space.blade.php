@@ -5,8 +5,8 @@
 
  @endsection
  @section('meta') 
- <meta name="description" content="Citonhub is a community of developers where they interact,learn and build." />
-  <meta name="keywords" content="Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
+ <meta name="description" content="Grow your coding communities in channels, collaborate and build projects in teams, and challenge friends to duels." />
+  <meta name="keywords" content="Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
   <meta name="og:image" content="https://citonhub.com/imgs/CitonHub.png"/>
@@ -298,6 +298,6 @@ body {
 
  @section('scripts')
 
- <script src="{{ asset('js/space.js?v=1.74') }}"></script>
+ <script src="{{ asset('js/space.js?v=1.75') }}"></script>
      
  @endsection

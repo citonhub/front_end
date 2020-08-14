@@ -830,9 +830,9 @@ export default {
               
              }
 
-             if(response.data[1] == false){
+            
                  this.updateLocalStorage();
-              }
+              
 
                this.$root.selectedSpace = response.data[3];
 

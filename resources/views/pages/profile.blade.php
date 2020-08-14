@@ -5,6 +5,11 @@
 
  @endsection
  @section('meta') 
+ <meta name="description" content="Show your projects to developers that connect with you." />
+  <meta name="keywords" content="Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
+  <meta name="MobileOptimized" content="width" />
+  <meta name="HandheldFriendly" content="true" />
+  <meta name="og:image" content="https://citonhub.com/imgs/CitonHub.png"/>
    <!--Metadata for Apple-->
    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="white">
