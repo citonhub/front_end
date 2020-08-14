@@ -157,11 +157,11 @@ export default {
          
       },
       shareToWhatsapp:function(){
-        let link = 'whatsapp://send?text=' + this.$root.shareText + ',' + this.$root.shareLink + '. Sent from CitonHub, share codes on CitonHub.';
+        let link = 'whatsapp://send?text=' + this.$root.shareLink + '. Sent from CitonHub, share codes on CitonHub.';
          window.location =  link;
       },
       shareToTwitter: function(){
-         let link = 'https://twitter.com/intent/tweet?text=' + this.$root.shareText + ',&url=' + this.$root.shareLink + '. Sent from CitonHub, share codes on CitonHub.';
+         let link = 'https://twitter.com/intent/tweet?text=' + ',&url=' + this.$root.shareLink + '. Sent from CitonHub, share codes on CitonHub.';
          window.location =  link;
       },
       shareToFacebook:function(){

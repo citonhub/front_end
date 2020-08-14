@@ -1,5 +1,9 @@
 <template>
     <div class="text-left">
+       <div class="text-right py-1" >
+        <v-btn x-small text  @click="copyText" v-if="!copied"> <span style="font-size:12px;background:whitesmoke; color:black;" class="py-1 px-1">Copy</span></v-btn>
+         <v-btn x-small text  v-else> <span style="font-size:12px;background:whitesmoke; color:black;" class="py-1 px-1">Copied</span></v-btn>
+      </div>
         <div class=" codebox">
          <codemirror
         v-model="codeContent"
@@ -10,7 +14,9 @@
         @focus="onCmFocus"
         @blur="onCmBlur"
       />
+     
     </div>
+    <input type="hidden" id="spacelink" :value="codeContent">
     </div>
 </template>
 <script>
@@ -102,6 +108,7 @@ export default {
          'FOTRAN','MARKDOWN','PERL','R','RUBY'],
         language: this.codeLanguage,
          code:this.codeContent,
+         copied: false,
     }
 },
 methods:{
@@ -117,6 +124,29 @@ methods:{
       onCmBlur(codemirror) {
         console.debug('onCmBlur', codemirror)
       },
+        copyText () {
+          let spacelink = document.querySelector('#spacelink')
+          spacelink.setAttribute('type', 'text')  
+          spacelink.select()
+
+          try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+              if(msg == 'successful'){
+                this.copied = true
+              }else{
+                 this.copied = false
+              }
+          } catch (err) {
+           
+          }
+
+          /* unselect the range */
+          spacelink.setAttribute('type', 'hidden')
+          window.getSelection().removeAllRanges()
+        },
+
+
       showEditor: function(codeViewerType){
             
             this.$root.fullCodeLanguage = this.language;

@@ -770,7 +770,7 @@ export default {
 
        
        
-       this.generateUnreadMessage();
+      
         
        this.$root.selectedSpace = response.data[1];
 
@@ -821,6 +821,9 @@ export default {
                   this.scrollToBottom();
               
                 }
+
+
+                  this.generateUnreadMessage();
                
                
 
@@ -855,7 +858,7 @@ export default {
              this.$root.LocalStore(this.$route.params.spaceId,fullData);
             
 
-
+       
 
 
 
@@ -882,8 +885,14 @@ export default {
            unreadStoredMsg.then((result)=>{
 
               let finalResultUnread = JSON.parse(result);
+
+              if(this.$root.sendingMessage == false){
+
+                this.fetchUnreadMessages(finalResultUnread);
+
+              }
                
-               this.fetchUnreadMessages(finalResultUnread);
+             
 
            });
            
@@ -906,7 +915,7 @@ export default {
 
        
        
-       this.generateUnreadMessage();
+     
         
        this.$root.selectedSpace = finalResult[1];
 

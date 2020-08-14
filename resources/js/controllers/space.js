@@ -282,6 +282,7 @@ const app = new Vue({
       showFront:true,
       projectSpace:[],
      showBack:false,
+     sendingMessage:false,
     },
      mounted: function () {
       this.pageloader= false;
@@ -340,33 +341,36 @@ const app = new Vue({
     },
     updateSpaceTracker: function(spaceId){
      
-
-      this.ChatList[1].map((space)=>{
+      if(this.ChatList[1] != undefined){
+       
+        this.ChatList[1].map((space)=>{
              
-        if(space.space_id == spaceId){
-          space.message_track = new Date();
-        }
-
-      });
-
-      this.ChatList[2].map((space)=>{
-       
-        if(space.space_id == spaceId){
-          space.message_track = new Date();
-        }
-
-      });
-
-
-      this.ChatList[4].map((space)=>{
-       
-        if(space.space_id == spaceId){
-          space.message_track = new Date();
-        }
-
-      });
-
-      this.sortChatList();
+          if(space.space_id == spaceId){
+            space.message_track = new Date();
+          }
+  
+        });
+  
+        this.ChatList[2].map((space)=>{
+         
+          if(space.space_id == spaceId){
+            space.message_track = new Date();
+          }
+  
+        });
+  
+  
+        this.ChatList[4].map((space)=>{
+         
+          if(space.space_id == spaceId){
+            space.message_track = new Date();
+          }
+  
+        });
+  
+        this.sortChatList();
+      }
+      
 
 
     },
@@ -883,7 +887,7 @@ this.$root.LocalStore(spaceId,fullData);
 
       },
     sendTextMessage: function(postData){
-     
+         this.sendingMessage = true;
       axios.post('/send-message',postData)
         .then(response => {
       this.is_reply = false;
@@ -900,17 +904,19 @@ if (response.status == 200) {
     this.updateSpaceData(response.data[0].space_id);
        
   this.replyMessage = [];
+
+  this.sendingMessage = false;
   
 }
  
 
 })
 .catch(error => {
-
+  this.sendingMessage = false;
 }) 
     },
     sendCodeMessage: function(postData){
-      
+      this.sendingMessage = true;
       axios.post('/send-message',postData)
       .then(response => {
 
@@ -929,22 +935,25 @@ if (response.status == 200) {
        this.updateSpaceData(response.data[0].space_id);
  this.scrollToBottom();
 
+ this.sendingMessage = false;
+
 }
 
 
 })
 .catch(error => {
-
+  this.sendingMessage = false;
 }) 
 
     },
     sendShareMessage: function(formData){
+      this.sendingMessage = true;
       axios.post('/send-message',formData,
          {
              headers:{
               'Content-Type':'multipart/form-data'
              },
-             onUploadProgress: function(progressEvent){
+             onUploadProgress: (progressEvent)=>{
                 let messageId = this.NewMsg.message_id;
                this.Messages.map((message)=>{
                   if(messageId == message.message_id){
@@ -954,7 +963,7 @@ if (response.status == 200) {
                   }
                });
              
-           }.bind(this)
+           }
            })
           .then(response => {
             
@@ -984,6 +993,8 @@ if (response.status == 200) {
                      }
                   }
                });
+
+               this.sendingMessage = false;
             }else{
               
             }
@@ -994,7 +1005,7 @@ if (response.status == 200) {
           })
           .catch(error => {
            
-              
+            this.sendingMessage = false;
           })
     }
    
