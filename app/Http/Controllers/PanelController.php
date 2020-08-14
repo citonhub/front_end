@@ -438,20 +438,15 @@ class PanelController extends Controller
          
           $backEndFilesArray = [];
            $frontEndfilesArray = [];
-         
-           if($request->panel_code_files != null){
-
-            foreach ($request->panel_code_files as $file) {
-            
-              if($file['type'] == 'back_end'){
-                    array_push($backEndFilesArray, $file);
-              }else{
-                  array_push($frontEndfilesArray,$file);
-              }
-          }
-
-           }
        
+         foreach ($request->panel_code_files as $file) {
+            
+             if($file['type'] == 'back_end'){
+                   array_push($backEndFilesArray, $file);
+             }else{
+                 array_push($frontEndfilesArray,$file);
+             }
+         }
 
 
 

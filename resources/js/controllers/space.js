@@ -282,7 +282,6 @@ const app = new Vue({
       showFront:true,
       projectSpace:[],
      showBack:false,
-     sendingMessage:false,
     },
      mounted: function () {
       this.pageloader= false;
@@ -341,36 +340,33 @@ const app = new Vue({
     },
     updateSpaceTracker: function(spaceId){
      
-       if(ChatList[1] != undefined){
-        
-        this.ChatList[1].map((space)=>{
+
+      this.ChatList[1].map((space)=>{
              
-          if(space.space_id == spaceId){
-            space.message_track = new Date();
-          }
-  
-        });
-  
-        this.ChatList[2].map((space)=>{
-         
-          if(space.space_id == spaceId){
-            space.message_track = new Date();
-          }
-  
-        });
-  
-  
-        this.ChatList[4].map((space)=>{
-         
-          if(space.space_id == spaceId){
-            space.message_track = new Date();
-          }
-  
-        });
-  
-        this.sortChatList();
-       }
-     
+        if(space.space_id == spaceId){
+          space.message_track = new Date();
+        }
+
+      });
+
+      this.ChatList[2].map((space)=>{
+       
+        if(space.space_id == spaceId){
+          space.message_track = new Date();
+        }
+
+      });
+
+
+      this.ChatList[4].map((space)=>{
+       
+        if(space.space_id == spaceId){
+          space.message_track = new Date();
+        }
+
+      });
+
+      this.sortChatList();
 
 
     },
@@ -887,8 +883,6 @@ this.$root.LocalStore(spaceId,fullData);
 
       },
     sendTextMessage: function(postData){
-
-      this.sendingMessage = true;
      
       axios.post('/send-message',postData)
         .then(response => {
@@ -896,9 +890,7 @@ this.$root.LocalStore(spaceId,fullData);
 if (response.status == 200) {
 
        let messageId = response.data[0].temp_id;
-
-        
-         
+          let messageType = this.NewMsg.type;
          this.Messages.map((message)=>{
             if(messageId == message.message_id){
                message.loading = false;
@@ -908,8 +900,6 @@ if (response.status == 200) {
     this.updateSpaceData(response.data[0].space_id);
        
   this.replyMessage = [];
-
-  this.sendingMessage = false;
   
 }
  
@@ -920,7 +910,7 @@ if (response.status == 200) {
 }) 
     },
     sendCodeMessage: function(postData){
-      this.sendingMessage = true;
+      
       axios.post('/send-message',postData)
       .then(response => {
 
@@ -938,7 +928,7 @@ if (response.status == 200) {
      
        this.updateSpaceData(response.data[0].space_id);
  this.scrollToBottom();
- this.sendingMessage = false;
+
 }
 
 
@@ -954,19 +944,17 @@ if (response.status == 200) {
              headers:{
               'Content-Type':'multipart/form-data'
              },
-             onUploadProgress: (progressEvent)=>{
-                if(this.Messages != null){
-                  let messageId = this.NewMsg.message_id;
-                  this.sendingMessage = true;
-                this.Messages.map((message)=>{
-                   if(messageId == message.message_id){
-                      message.progressValue = this.progressvalue = parseInt(Math.round(
-                    (progressEvent.loaded / progressEvent.total) * 100
-                     ))
-                   }
-                });
-                }
-           }
+             onUploadProgress: function(progressEvent){
+                let messageId = this.NewMsg.message_id;
+               this.Messages.map((message)=>{
+                  if(messageId == message.message_id){
+                     message.progressValue = this.progressvalue = parseInt(Math.round(
+                   (progressEvent.loaded / progressEvent.total) * 100
+                    ))
+                  }
+               });
+             
+           }.bind(this)
            })
           .then(response => {
             
@@ -994,11 +982,8 @@ if (response.status == 200) {
                      if(messageType == 'code'){
                        message.code = response.data[0].code;
                      }
-                     
                   }
                });
-
-                this.sendingMessage = false;
             }else{
               
             }

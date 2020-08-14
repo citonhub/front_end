@@ -9,7 +9,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Frequently Asked Questions</span>
+           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">How To</span>
          </div>
          <div class="col-2 py-0 my-0  d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
             
@@ -24,12 +24,47 @@
           <div class="row my-0 py-0">
 
 
-             
+              <div class="col-12 py-0 my-1 text-left">
+                 <span style="color:#2e626b; font-size:13px;">
+                    <b style="color:#173136;"> 1</b>How to navigate to a new page
+                 </span> <br>
+
+             </div>
+
+             <div class="col-12 py-0 text-left">
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 1 -</b>  Create the new HTML file
+                 </span>
+
+                 <div style="color:#2e626b; font-size:13px;" class="text-center">
+                     <img src="/imgs/howto6.png" height="50" width="100%" />
+                 </div>
+             </div>
+
+             <div class="col-12 py-0 text-left" style="border-bottom:1px solid #c5c5c5;">
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step -2</b> Navigate the new page using this url
+                 </span><br><br>
+                  
+                  
+
+                 <code-view :codeLanguage="'HTML'" :codeContent="RouteCode1"></code-view> <br> 
+
+                 <span style="color:#2e626b; font-size:13px;">
+                     if your HTMLFileName is <b style="color:#173136;"> newPage</b><br>
+                    
+                 </span><br>
+
+                  <code-view :codeLanguage="'HTML'" :codeContent="RouteCode2"></code-view> <br> 
+
+
+                
+             </div>
 
 
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                     <b style="color:#173136;"> 1.</b>  How do I link a new HTML, CSS or JavaScript file to my code Editor?
+                     <b style="color:#173136;"> 2</b>  How to link a new HTML, CSS or Javascript file you created in your panel
                  </span> <br><br>
 
                 
@@ -37,7 +72,7 @@
 
               <div class="col-12 py-0 text-left">
                 <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 1-</b>  Click on the + icon in view files and add a new file.
+                      <b style="color:#173136;">Step 1 -</b>  Make sure you created the new file in your 'View Files'
                  </span>
 
                   <div style="color:#2e626b; font-size:13px;" class="text-center">
@@ -46,23 +81,20 @@
 
              </div>
 
-              <div class="col-12 py-0 text-left">
-                <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 2-</b>  Click on the new file and type/paste your code. Save it.
-                 </span>
-             </div>
-
 
               <div class="col-12 py-0 text-left" style="border-bottom:1px solid #c5c5c5;"> 
                 <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 3-</b> Go back to your Index code editor.  Copy and paste this URL to your code editor.
+                      <b style="color:#173136;">Step 2 -</b>Use this code to link in the new HTML,CSS or JS file.
                  </span><br><br>
 
                   <span style="color:#2e626b; font-size:13px;">
                         @include($panel  . '.<b style="color:#173136;">FolderName</b>.<b style="color:#173136;">FileName</b>')
                  </span><br><br>
 
-                
+                 <span style="color:#2e626b; font-size:13px;">
+                       FolderName is the name of the folder, which can be Styles-> .css, Scripts-> .js , empty for .html <br>
+                       FileName is the name of the file e.g index.html, main.css 
+                 </span><br><br>
 
                    <span style="color:#2e626b; font-size:13px;">
                        For HTML
@@ -87,84 +119,7 @@
                 
 
                  <code-view :codeLanguage="'HTML'" :codeContent="ViewCode3"></code-view> <br>
-
-                  <span style="color:#2e626b; font-size:13px;">
-                       FOLDERNAME is the name of the folder, which can be Styles for .css, Scripts for .js , empty for .html <br>
-                       FILENAME is the name of the file e.g index.html, main.css 
-                 </span><br><br>
              </div>
-
-
-               <div class="col-12 py-0 my-1 text-left">
-                 <span style="color:#2e626b; font-size:13px;">
-                    <b style="color:#173136;"> 2.</b> I have my code files on my computer/phone how do I link it in my code?
-                 </span> <br><br>
-
-             </div>
-
-             <div class="col-12 py-0 text-left">
-                <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 1 -</b>  Upload your code to files in resources(Framework).
-                 </span>
-
-                
-             </div>
-
-             <div class="col-12 py-0 text-left" >
-                <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step -2</b> Copy this URL and paste it where you need it in your code.
-                 </span><br><br>
-                  
-                  
-
-                 <code-view :codeLanguage="'HTML'" :codeContent="resourcesCodeNew"></code-view> <br>
-
-                
-             </div>
-
-              <div class="col-12 py-0 text-left" style="border-bottom:1px solid #c5c5c5;">
-                <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 3 -</b>  Change FILENAME to what you named your codefile.
-                 </span>
-
-                
-             </div>
-
-
-
-
-              <div class="col-12 py-0 my-1 text-left">
-                 <span style="color:#2e626b; font-size:13px;">
-                    <b style="color:#173136;"> 3.</b> How do I navigate to a new page?
-                 </span> <br> <br>
-
-             </div>
-
-             <div class="col-12 py-0 text-left">
-                <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 1-</b>  First, you must created a new HTML file in view files.
-                 </span>
-
-                 <div style="color:#2e626b; font-size:13px;" class="text-center">
-                     <img src="/imgs/howto6.png" height="50" width="100%" />
-                 </div>
-             </div>
-
-             <div class="col-12 py-0 text-left" >
-                <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 2-</b> Copy and paste this URL where you need it in the code editor.
-                 </span><br>
-
-                 <code-view :codeLanguage="'HTML'" :codeContent="RouteCode1"></code-view> <br>  
-             </div>
-              <div class="col-12 py-0 text-left" style="border-bottom:1px solid #c5c5c5;">
-                <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 3-</b> Change HtmlFileName to the name of the file you uploaded. Easy right?
-                 </span>
-
-                 
-             </div>
-
 
 
              
@@ -172,7 +127,7 @@
               
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                     <b style="color:#173136;"> 4.</b> How do I include videos/images/audios to my code?    
+                     <b style="color:#173136;"> 3</b> How to attach an image, video, or use a CSS or JS file in code is very easy.
                  </span> <br><br>
 
                   
@@ -180,66 +135,30 @@
 
              <div class="col-12 py-0 text-left">
                 <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 1-</b>  Upload your file to resources.
+                      <b style="color:#173136;">Step 1 -</b>  Upload your file to resources.
                  </span>
              </div>
 
               <div class="col-12 py-0 text-left"> 
                 <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 2-</b> Copy this URL and paste it where you need it.
+                      <b style="color:#173136;">Step 2 -</b> To use the file in your codes call.
                  </span><br><br>
 
-                   
-                    <span style="color:#2e626b; font-size:13px;">
-                      For Videos
-                 </span><br>
-                 <code-view :codeLanguage="'HTML'" :codeContent="resourcesCodeVideos"></code-view> <br>
-
+                  
+                 <code-view :codeLanguage="'HTML'" :codeContent="resourcesCode"></code-view> <br>
                  <span style="color:#2e626b; font-size:13px;">
-                      For Audios
+                      FolderName is the name of the folder in your resoures, e.g  Images, Videos, Audios, Framework. <br>
+                     FileName is the name of the file e.g video.mp4
                  </span><br>
-                 <code-view :codeLanguage="'HTML'" :codeContent="resourcesCodeAudios"></code-view> <br>
 
-                 <span style="color:#2e626b; font-size:13px;">
-                      For Images
-                 </span><br>
-                 <code-view :codeLanguage="'HTML'" :codeContent="resourcesCodeImages"></code-view> <br>
-
-                 <span style="color:#2e626b; font-size:13px;">
-                      For Documents
-                 </span><br>
-                 <code-view :codeLanguage="'HTML'" :codeContent="resourcesCodeFiles"></code-view> <br>
                 
 
-                
-      
                
              </div>
 
-              <div class="col-12 py-0 text-left"  style="border-bottom:1px solid #c5c5c5;">
-                <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 3-</b>  Change FILENAME to the name of your file.
-                 </span>
-             </div>
-
-              <div class="col-12 py-0 my-1 text-left" >
+              <div class="col-12 py-0 my-1 text-left" style="border-bottom:1px solid #c5c5c5;">
                  <span style="color:#2e626b; font-size:13px;">
-                     <b style="color:#173136;"> 5.</b> Why is the API in my code not working?
-                 </span> <br><br>
-
-                  
-             </div>
-
-             <div class="col-12 py-0 text-left" style="border-bottom:1px solid #c5c5c5;">
-                <span style="color:#2e626b; font-size:13px;">
-                      Make sure the API URL is servered through HTTPS
-                 </span>
-             </div>
-
-
-              <div class="col-12 py-0 my-1 text-left" >
-                 <span style="color:#2e626b; font-size:13px;">
-                     <b style="color:#173136;"> 6.</b> How can I get the full URL of my project
+                     <b style="color:#173136;"> 4</b> My API call is not working.
                  </span> <br><br>
 
                   
@@ -247,7 +166,7 @@
 
              <div class="col-12 py-0 text-left">
                 <span style="color:#2e626b; font-size:13px;">
-                     Click on this beeping icon <v-icon color="#3E8893">mdi-launch mdi-18px</v-icon> in the page loader
+                      Make sure the API URL is server through HTTPS
                  </span>
              </div>
 
@@ -295,11 +214,7 @@ export default {
           ControllerCode:'',
           RouteCode1:'',
             RouteCode2:'',
-            resourcesCodeNew:'',
-        resourcesCodeVideos:'',
-        resourcesCodeAudios:'',
-         resourcesCodeImages:'',
-         resourcesCodeFiles:''
+         
         }
     },
      components: {
@@ -313,20 +228,8 @@ export default {
     },
     methods:{
       loadDefaultCode(){
-      this.resourcesCodeVideos = "{{$home}}/{{$panel}}/Videos/FILENAME \n\
-// e.g {{$home}}/{{$panel}}/Videos/video_sample.mp4";
-
- this.resourcesCodeAudios = "{{$home}}/{{$panel}}/Audios/FILENAME \n\
-// e.g {{$home}}/{{$panel}}/Audios/audio_sample.mp3";
-
- this.resourcesCodeImages = "{{$home}}/{{$panel}}/Images/FILENAME \n\
-// e.g {{$home}}/{{$panel}}/Images/image_sample.png";
-
- this.resourcesCodeFiles = "{{$home}}/{{$panel}}/Files/FILENAME \n\
-// e.g {{$home}}/{{$panel}}/Files/file_sample.pdf";
-
-      this.resourcesCodeNew = "{{$home}}/{{$panel}}/Framework/FILENAME \n\
-// e.g {{$home}}/{{$panel}}/Framework/main.js";
+      this.resourcesCode = "{{$home}}/{{$panel}}/FolderName/FileName \n\
+// e.g {{$home}}/{{$panel}}/Videos/video.mp4";
 
 this.ViewCode1 = "@include($panel  . '.index') to include index.html file" ;
 

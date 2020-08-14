@@ -32,14 +32,14 @@
          <div class="col-8 text-left py-0 my-0">
        <span style="font-size:12px;color:#ffffff;"> {{ currentTime }} / {{ durationTime }}</span>
          </div>
-         <div class="col-4 text-right py-0 my-0"  :id="'mute'+playerId">
+         <div class="col-4 text-right py-0 my-0" id="mute">
             
          <span id="mute">
         <v-icon color="#c9e4e8" v-if="muted"> mdi-volume-mute  mdi-18px</v-icon>
         <v-icon color="#c9e4e8" v-else> mdi-volume-high  mdi-18px</v-icon>
       </span>
   
-     <span class="d-inline-block px-2" :id="'fullscreen'+ playerId"> 
+     <span class="d-inline-block px-2" id="fullscreen"> 
        
        <v-icon color="#c9e4e8" v-if="fullscreen">mdi-fullscreen-exit mdi-18px</v-icon> 
 
@@ -215,8 +215,8 @@ this.progress = player.querySelector('.progress');
 this.progressFilled = player.querySelector('.filled-progress');
 const skippers = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player-slider');
-const fullscreenCtrl = document.getElementById('fullscreen' + this.playerId);
-const muteCtrl = document.getElementById('mute' + this.playerId);
+const fullscreenCtrl = document.getElementById('fullscreen');
+const muteCtrl = document.getElementById('mute');
 
 
 

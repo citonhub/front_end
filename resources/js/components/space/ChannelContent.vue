@@ -77,7 +77,7 @@
 
   
 
-         <div  style="position:absolute; bottom:0;z-index:6575;" class="col-12 py-0 my-0 px-0">
+         <div  style="position:absolute;z-index:20; bottom:0;z-index:6575;" class="col-12 py-0 my-0 px-0">
                 <div class="px-2" v-if="this.$root.showRootReply">
 
                   <div class=" py-2 px-2  text-left mb-1"  style="background:#3E8893; border:1px solid transparent; border-radius:8px;" >
@@ -175,7 +175,6 @@
             <div  style="background:#ffffff;" class="px-2 py-1">
           <channel-bottom ref="channelBottom"></channel-bottom>
         </div>
-        
          </div>
          
          
@@ -770,8 +769,8 @@ export default {
        this.$root.Messages = returnedData;
 
        
-         this.generateUnreadMessage();
-      
+       
+       this.generateUnreadMessage();
         
        this.$root.selectedSpace = response.data[1];
 
@@ -818,8 +817,6 @@ export default {
                   
                   this.$root.returnedMessages.push(response.data[index]);
                   this.$root.pushDataToLocal(response.data[0][index]);
-
-                   this.generateUnreadMessage();
 
                   this.scrollToBottom();
               
@@ -885,11 +882,8 @@ export default {
            unreadStoredMsg.then((result)=>{
 
               let finalResultUnread = JSON.parse(result);
-
-               if(this.$root.sendingMessage == false){
-                      this.fetchUnreadMessages(finalResultUnread);
-               }
                
+               this.fetchUnreadMessages(finalResultUnread);
 
            });
            
@@ -912,7 +906,7 @@ export default {
 
        
        
-      
+       this.generateUnreadMessage();
         
        this.$root.selectedSpace = finalResult[1];
 
@@ -960,7 +954,7 @@ export default {
 
        
        
-     
+       this.generateUnreadMessage();
         
        this.$root.selectedSpace = response.data[1];
 
