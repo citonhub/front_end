@@ -124,7 +124,7 @@
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
                           <v-badge
           color="#36848C"
-            v-if="this.$root.channelUnread > 0"
+            v-if="this.$root.channelUnread > 0 && this.$root.checkauthroot == 'auth'"
           :content="this.$root.channelUnread"
         >
       
@@ -132,7 +132,18 @@
             
         </v-badge>
 
-        <span  v-else style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Channels</span>
+        <span   v-if="this.$root.channelUnread <= 0 && this.$root.checkauthroot == 'auth'" style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Channels</span>
+
+         <v-badge
+          color="#36848C"
+
+            v-if="this.$root.checkauthroot == 'noauth'"
+          content="1"
+        >
+      
+      <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Channels</span>
+            
+        </v-badge>
                          
                         
                     </div>
