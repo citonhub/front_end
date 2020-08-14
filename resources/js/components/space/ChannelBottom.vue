@@ -341,7 +341,7 @@ export default {
             
              this.$root.updateSpaceTracker(this.$route.params.spaceId);
 
-               
+                
 
           this.$root.sendTextMessage(postData);
       },

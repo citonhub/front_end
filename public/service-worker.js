@@ -85,13 +85,7 @@ const {NetworkOnly} = workbox.strategies;
     maxRetentionTime: 24 * 60 // Retry for max of 24 Hours (specified in minutes)
   });
   
-  registerRoute(
-    '/send-message',
-    new NetworkOnly({
-      plugins: [bgSyncPlugin]
-    }),
-    'POST'
-  );
+
 
   registerRoute(
     '/save-code-content-project',
