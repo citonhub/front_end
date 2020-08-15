@@ -1809,9 +1809,11 @@ public function main(){
         
       $projectPanel = Project::where('project_slug',$request->get('project_slug'))->first();
 
+       
+
       $CodeBox = CodeBox::where('panel_id',$projectPanel->panel_id)->where('id',$request->get('file_id'))->first();
 
-      
+       
 
        $CodeBox->update([
           'content'=> $request->get('content')

@@ -772,10 +772,7 @@ export default {
      },
    fetchProject: function(){
          
-         if( this.$root.projectData.length != 0){
-
-         }else{
-          
+        
           axios.get('/fetch-project-' + this.$route.params.projectSlug)
       .then(response => {
       
@@ -785,6 +782,8 @@ export default {
        this.$root.projectData = response.data[0];
 
        this.$root.ProjectMembers = response.data[2];
+
+         this.PanelSettingsCheck(response.data[4]);
 
         this.$root.projectSpace = response.data[3];
 
@@ -797,7 +796,7 @@ export default {
      .catch(error => {
     
      }) 
-         }
+         
          
 
         },
@@ -953,7 +952,7 @@ export default {
         });
         
 
-        this.PanelSettingsCheck(this.$root.CodeFilesData[1]);
+       
 
          this.panelData = this.$root.CodeFilesData[1];
 
@@ -968,7 +967,7 @@ export default {
 
 
   
-      
+     
       
    },
 
@@ -989,7 +988,7 @@ export default {
          this.$root.codeFiles = response.data[0];
          this.$root.panelResources = response.data[4];
 
-        this.PanelSettingsCheck(response.data[1]);
+      
 
          this.panelData = response.data[1];
         

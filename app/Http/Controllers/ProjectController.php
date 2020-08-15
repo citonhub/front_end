@@ -524,9 +524,11 @@ return $newCommentArray;
 
        $projectSpace = Space::where('space_id',$newProject[0]["space_id"])->first();
 
+        $projectPanel = Panel::where('panel_id',$newProject[0]["panel_id"])->first();
+
         
 
-        return [$newProject[0],$projectStar,$projectOwners,$projectSpace];
+        return [$newProject[0],$projectStar,$projectOwners,$projectSpace,$projectPanel];
     }
 
     public function addContributors(Request $request){
