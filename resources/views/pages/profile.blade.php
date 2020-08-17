@@ -291,6 +291,6 @@ body {
 
  @section('scripts')
 
- <script src="{{ asset('js/profile.js?v=0.54') }}"></script>
+ <script src="{{ asset('js/profile.js?v=0.55') }}"></script>
      
  @endsection
