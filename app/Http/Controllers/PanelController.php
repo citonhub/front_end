@@ -2270,7 +2270,7 @@ public function main(){
 
      $projectPanel = Panel::where('panel_id',$panelId)->first();
 
-    
+     $baseUrl = 'https://php.citonhub.com';
 
       if( $projectPanel != null){
 
@@ -2299,8 +2299,29 @@ public function main(){
 
   public function pageLoader($panelId,$pageName){
 
-    
+  
+
+
+    $projectPanel = Panel::where('panel_id',$panelId)->first();
+
     $baseUrl = 'https://php.citonhub.com';
+
+     if( $projectPanel != null){
+
+        if($projectPanel->panel_language == 'PHP') {
+
+         $baseUrl = 'https://php.citonhub.com';
+
+        }
+
+        if($projectPanel->panel_language == 'NodeJs') {
+
+         $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+
+        }
+
+
+    
 
     $response = Http::get($baseUrl .'/' . $panelId . '/' . $pageName );
     
