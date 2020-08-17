@@ -499,7 +499,7 @@
 
 
 
-        <span style="position:absolute; top:72%; left:3%; z-index:10;"  class="d-md-none d-inline-block" v-if="duel.user_type == 'team'">
+        <span style="position:absolute; top:76%; left:3%; z-index:10;"  class="d-md-none d-inline-block" v-if="duel.user_type == 'team'">
           <v-btn
                 color="#35747e"
                 small
@@ -526,7 +526,7 @@
               </v-btn>
      </span>
 
-        <span style="position:absolute; top:72%; right:3%; z-index:10;"  class="d-md-none d-inline-block sliderfullBtn">
+        <span style="position:absolute; top:76%; right:3%; z-index:10;"  class="d-md-none d-inline-block sliderfullBtn">
           <v-btn
                 color="#35747e"
                 small

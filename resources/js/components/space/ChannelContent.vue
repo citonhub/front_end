@@ -174,7 +174,7 @@
       
       <div v-if="this.$root.ShowButton">
        
-        <span style="position:absolute; top:76%; left:2%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="scrollPosition >= 1500 && !this.$root.showMsgDelete">
+        <span style="position:absolute; top:74%; left:2%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="scrollPosition >= 1500 && !this.$root.showMsgDelete">
           <span
                
                 v-if="!this.$root.showRootReply"
@@ -199,7 +199,7 @@
      </span>
 
       
-       <span style="position:absolute; top:72%; right:3%; z-index:999998757;"  class="d-md-none d-inline-block">
+       <span style="position:absolute; top:74%; right:3%; z-index:999998757;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#3E8893"
                 small
@@ -226,7 +226,7 @@
      </span>
 
 
- <span style="position:absolute; top:76%; left:3%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="this.$root.showMsgDelete">
+ <span style="position:absolute; top:74%; left:3%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="this.$root.showMsgDelete">
           <v-btn
                 color="#3E8893"
                 x-small
@@ -789,7 +789,8 @@ export default {
      },
       fetchUnreadMessages: function(result){
            
-            this.showAlert(10000000000,'Loading new messages...');
+            this.$root.AlertRoot = true;
+        this.$root.AlertMsgRoot = 'loading new messages...';
 
            axios.post('/check-for-unread-messages',{
                 spaceId: this.$route.params.spaceId,
@@ -861,12 +862,12 @@ export default {
 
 
               
-            this.hideAlert();
+           this.$root.AlertRoot = true;
            
             
           })
           .catch(error => {
-             this.hideAlert();
+              this.$root.AlertRoot = true;
           })
 
       },

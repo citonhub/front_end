@@ -24,10 +24,36 @@
           <div class="row my-0 py-0">
 
 
+             <div class="col-12 py-0 my-1 text-left">
+                 <span style="color:#2e626b; font-size:13px;">
+                    <b style="color:#173136;"> 1.</b> How do I create a new HTML, CSS or JavaScript file to my Code Editor?
+                 </span> <br><br>
+
+             </div>
+
+             <div class="col-12 py-0 text-left">
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 1-</b>  Click on the + icon in view files and add a new file.
+                 </span>
+
+                 <div style="color:#2e626b; font-size:13px;" class="text-center">
+                     <img src="/imgs/howto6.png" height="50" width="100%" />
+                 </div>
+             </div>
+
+
+              <div class="col-12 py-0 text-left" style="border-bottom:1px solid #c5c5c5;" >
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 2-</b> Click on the new file and type/paste your code. Save it.
+                 </span>
+
+             </div>
+
+
 
                <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                    <b style="color:#173136;"> 1.</b> How do I link a new HTML, CSS or JavaScript file to my code Editor?
+                    <b style="color:#173136;"> 2.</b> How do I link a new HTML, CSS or JavaScript  file into an HTML file in my Code Editor?
                  </span> <br><br>
 
              </div>
@@ -55,14 +81,8 @@
                       <b style="color:#173136;">Step 3-</b> Go back to your Index code editor.  Copy and paste this URL to your code editor.
                  </span><br><br>
 
-                  <span style="color:#2e626b; font-size:13px;">
-                        @include($panel  . '.<b style="color:#173136;">FOLDERNAME</b>.<b style="color:#173136;">FILENAME</b>')
-                 </span><br><br>
-
-                 <span style="color:#2e626b; font-size:13px;" >
-                       FOLDERNAME is the name of the folder, which can be Styles for .css, Scripts for .js , empty for .html <br>
-                       FILENAME is the name of the file e.g index.html, main.css 
-                 </span><br><br>
+                 
+                 
 
                    <span style="color:#2e626b; font-size:13px;">
                        For HTML
@@ -87,13 +107,18 @@
                 
 
                  <code-view :codeLanguage="'HTML'" :codeContent="ViewCode3"></code-view> <br>
+
+                 <span style="color:#2e626b; font-size:13px;" >
+                    
+                       FILENAME is the name of the file e.g index.html, main.css 
+                 </span><br>
              </div>
 
               
 
                <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                    <b style="color:#173136;"> 2.</b> I have my code files on my computer/phone how do I link it in my code?
+                    <b style="color:#173136;"> 3.</b> I have my code files on my computer/phone how do I link it in my code?
                  </span> <br><br>
 
              </div>
@@ -134,7 +159,7 @@
 
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                    <b style="color:#173136;">3.</b> How do I navigate to a new page?
+                    <b style="color:#173136;">4.</b> How do I navigate to a new page?
                  </span> <br>
 
              </div>
@@ -176,7 +201,7 @@
 
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                     <b style="color:#173136;"> 4.</b>  How do I include videos/images/audios/documents to my code?    
+                     <b style="color:#173136;"> 5.</b>  How do I include videos/images/audios/documents to my code?    
                  </span> <br><br>
 
                 
@@ -240,7 +265,7 @@
              
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                     <b style="color:#173136;"> 5.</b> Why is the API in my code not working?
+                     <b style="color:#173136;"> 6.</b> Why is the API in my code not working?
                  </span> <br><br>
 
                   
@@ -256,7 +281,7 @@
 
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                     <b style="color:#173136;"> 6.</b> How can I get my Project URL?
+                     <b style="color:#173136;"> 7.</b> How can I get my Project URL?
                  </span> <br><br>
 
                   
@@ -331,30 +356,24 @@ export default {
     },
     methods:{
       loadDefaultCode(){
-      this.resourcesCode = "{{$home}}/{{$panel}}/FOLDERNAME/FILENAME \n\
-<!-- e.g {{$home}}/{{$panel}}/Videos/video.mp4 -->";
+      this.resourcesCode = "{{$home}}/{{$panel}}/FOLDERNAME/FILENAME";
 
-this.resourcesCodeNew = "{{$home}}/{{$panel}}/Framework/FILENAME \n\
-<!-- e.g {{$home}}/{{$panel}}/Framework/main.js -->";
+this.resourcesCodeNew = "{{$home}}/{{$panel}}/Framework/FILENAME";
 
-this.resourcesVideos = "{{$home}}/{{$panel}}/Videos/FILENAME \n\
-<!-- e.g {{$home}}/{{$panel}}/Videos/sample_video.mp4 -->";
+this.resourcesVideos = "{{$home}}/{{$panel}}/Videos/FILENAME ";
 
-this.resourcesAudios = "{{$home}}/{{$panel}}/Audio/FILENAME \n\
-<!-- e.g {{$home}}/{{$panel}}/Audios/sample_audio.mp3 -->";
+this.resourcesAudios = "{{$home}}/{{$panel}}/Audio/FILENAME";
 
-this.resourcesFiles = "{{$home}}/{{$panel}}/Files/FILENAME \n\
-<!-- e.g {{$home}}/{{$panel}}/Files/sample_file.pdf -->";
+this.resourcesFiles = "{{$home}}/{{$panel}}/Files/FILENAME";
 
-this.resourcesImages = "{{$home}}/{{$panel}}/Images/FILENAME \n\
-<!-- e.g {{$home}}/{{$panel}}/Images/sample_image.png -->";
+this.resourcesImages = "{{$home}}/{{$panel}}/Images/FILENAME";
 
-this.ViewCode1 = "@include($panel  . '.index') <!-- to include index.html file -->" ;
+this.ViewCode1 = "@include($panel  . '.FILENAME')" ;
 
-this.ViewCode2 = "@include($panel  . '.Styles.index') <!-- to include index.css file --> " ;
+this.ViewCode2 = "@include($panel  . '.Styles.FILENAME')" ;
 
 
-this.ViewCode3 = "@include($panel  . '.Scripts.index') <!-- to include index.js file -->" ;
+this.ViewCode3 = "@include($panel  . '.Scripts.FILENAME')" ;
 
 this.RouteCode1 = " /page-loader/{{ $panel }}/HTMLFILENAME";
 

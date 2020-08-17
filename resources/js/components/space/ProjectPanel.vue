@@ -505,7 +505,7 @@
 
 
 
-        <span style="position:absolute; top:72%; right:3%; z-index:10; "  class="d-md-none d-inline-block sliderfullBtn">
+        <span style="position:absolute; top:76%; right:3%; z-index:10; "  class="d-md-none d-inline-block sliderfullBtn">
           <v-btn
                 color="#35747e"
                 small
