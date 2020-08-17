@@ -221,7 +221,7 @@ export default {
     setValues: function(){
      this.userName = this.$root.profileDetails.username;
 
-      if(this.$root.profileDetails.Interests != null){
+      if(this.$root.profileDetails.Interests != false){
       this.Interests =   this.$root.profileDetails.Interests.split(",");
       }
       
