@@ -213,14 +213,18 @@ export default {
   },
     mounted(){
       this.$root.showTabs=true;
-       this.$root.showHeader = true;
+       this.$root.showHeader = false;
        this.setValues();
        this.$root.checkIfUserIsLoggedIn('profile');
     },
     methods:{
     setValues: function(){
      this.userName = this.$root.profileDetails.username;
+
+      if(this.$root.profileDetails.Interests != null){
       this.Interests =   this.$root.profileDetails.Interests.split(",");
+      }
+      
          
       
         
@@ -324,6 +328,44 @@ var blob = this.b64toBlob(realData, contentType);
 
          }
       },
+
+      reloadProfile: function(){
+         
+            axios.get('/fetch-profile-'+ this.$root.username)
+      .then(response => {
+      
+      if (response.status == 200) {
+           
+           let userProfile = response.data[1];
+           let user = response.data[0];
+          let userDetails = {
+          'username':user.username,
+          'name': user.name,
+          'coin': userProfile.coins,
+          'image_name': userProfile.image_name,
+          'image_extension': userProfile.image_extension,
+           'connected': userProfile.connected,
+          'about': userProfile.about,
+          'Interests': userProfile.interestsArray,
+          'connections': userProfile.connections,
+          };
+            
+
+          
+        this.$root.profileDetails = userDetails;
+        
+       
+        
+        
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+      },  
        goBack() {
           this.fetchUserDetails();
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
@@ -393,6 +435,7 @@ var blob = this.b64toBlob(realData, contentType);
             
            if (response.status == 200) {
                 this.loading = false;
+                this.reloadProfile();
                  this.goBack();
             }else{
               

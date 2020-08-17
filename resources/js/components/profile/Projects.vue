@@ -127,7 +127,7 @@ export default {
      
      })
      .catch(error => {
-    
+       this.projects = [];
      }) 
       },
        shortenContent: function(content,limit){
