@@ -224,7 +224,7 @@ export default {
             
           })
           .catch(error => {
-             this.showAlert(5000,'Failed- ' + error);
+             this.showAlert(5000, '😬 ' + 'Failed- ' + error);
               this.loading = false;
           })
        }
@@ -256,7 +256,7 @@ export default {
             
           })
           .catch(error => {
-            this.showAlert(5000,'Failed- ' + error);
+            this.showAlert(5000,  '😬 ' +'Failed- ' + error);
               this.loading = false;
           })
 

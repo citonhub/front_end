@@ -126,7 +126,7 @@ export default {
 
     },
     showVerifiedAlert:function (){
-     this.showAlert(5000,'Welcome your highness, my kingdoom awaits your awesome codes.')
+     this.showAlert(5000,'Welcome your highness 🤴 👸 , my kingdoom awaits your awesome codes 🥰.')
     },
     setUsername: function(){
        this.usernameExist= false;
@@ -147,7 +147,7 @@ export default {
                this.loading = false;
               
                  this.usernameExist = true;
-                 this.showAlert(5000,'Username exists,change username and try again');
+                 this.showAlert(5000,'Username exists 😫,change username and try again');
             }else{   
                 
                
@@ -160,7 +160,7 @@ export default {
             
           })
           .catch(error => {
-             this.showAlert(5000,'Failed- ' + error);
+             this.showAlert(5000,'Failed- ' + '😬 ' + error );
               this.loading = false;
           })
        }

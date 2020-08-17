@@ -179,7 +179,7 @@ export default {
           })
           .catch(error => {
              this.errorState = true;
-           this.showAlert(5000,'Unable to login, please check your login details');
+           this.showAlert(5000, + '😬 ' + 'Unable to login, please check your login details');
               this.loading = false;
           })
       }

@@ -862,12 +862,12 @@ export default {
 
 
               
-           this.$root.AlertRoot = true;
+           this.$root.AlertRoot = false;
            
             
           })
           .catch(error => {
-              this.$root.AlertRoot = true;
+              this.$root.AlertRoot = false;
           })
 
       },

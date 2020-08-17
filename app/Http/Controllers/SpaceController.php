@@ -1629,9 +1629,9 @@ array_push($newSpaceArray,$userSpace);
 
     // add to home screen message
 
-    $MessageContent12 = "<p>Add to homescreen.
-      Let's be honest with you. We haven't  yet figured out how to make the typing experience really awesome on your browser. While we work on that, we'll really love you to 
-      add CitonHub to your homescreen for a better experience</p>"; 
+    $MessageContent12 =  "<p>Add to homescreen 📱.
+    Let's be honest with you 😊. We haven't yet figured out how to make the typing experience really awesome on your browser. While we work on that, we'll really love you to 
+    add CitonHub to your homescreen for a better experience 😃</p>"; 
 
     $newMessage12 = SpaceMessage::create([
        "space_id"=>$spaceIdChannel,
@@ -1719,9 +1719,9 @@ array_push($newSpaceArray,$userSpace);
 
     // add to home screen
 
-    $MessageContent22 = "<p>Add to homescreen.
-    Let's be honest with you. We haven't  yet figured out how to make the typing experience really awesome on your browser. While we work on that, we'll really love you to 
-    add CitonHub to your homescreen for a better experience</p>"; 
+    $MessageContent22 = "<p>Add to homescreen 📱.
+    Let's be honest with you 😊. We haven't yet figured out how to make the typing experience really awesome on your browser. While we work on that, we'll really love you to 
+    add CitonHub to your homescreen for a better experience 😃</p>"; 
 
     $newMessage22 = SpaceMessage::create([
        "space_id"=>$spaceIdTeam,
@@ -1958,7 +1958,7 @@ return  $newChannelArray;
 
 
 
-      $MessageContent = 'Hi <strong>' . Auth::user()->name . '</strong>, I\'m Olutola(a human)😃. I\'m here to help with any problem you have using CitonHub.'; 
+      $MessageContent = 'Hi <strong>' . Auth::user()->name . '</strong>, I\'m Olutola 😃. I\'m here to help with any problem you have using CitonHub.'; 
   
       $newMessage = SpaceMessage::create([
          "space_id"=>$spaceId,
