@@ -74,7 +74,7 @@
               <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                 placeholder="Just to be sure"
+                 placeholder="Dragonglass"
             label="Confirm Password"
              dense
              counter="20"

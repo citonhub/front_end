@@ -223,6 +223,7 @@ methods:{
           this.$root.fullCodeLanguage = 'HTML';
           this.$root.FullcodeContent = "<p>Hello CitonHub</p>";
        this.$root.showCodeBox = false;
+        this.$root.showChatBottom = true;
         },
         makeUUID:function(){
      var id = "id" + Math.random().toString(16).slice(2);
@@ -277,7 +278,9 @@ methods:{
 
  },
            sendMessage: function(){
-          
+              
+               this.$root.showChatBottom = true;
+             
               
               let Data = [];
               this.$root.NewMsg = this.makeMessage('code',Data);

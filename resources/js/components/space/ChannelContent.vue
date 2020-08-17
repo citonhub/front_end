@@ -69,15 +69,8 @@
          
       </div>
       
-    
-     
 
-
-
-
-  
-
-         <div  style="position:absolute;z-index:20; bottom:0;z-index:6575;" class="col-12 py-0 my-0 px-0">
+         <div   class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0 fixed-bottom " style="z-index:34545676566;" v-if="this.$root.showChatBottom">
                 <div class="px-2" v-if="this.$root.showRootReply">
 
                   <div class=" py-2 px-2  text-left mb-1"  style="background:#3E8893; border:1px solid transparent; border-radius:8px;" >
@@ -423,6 +416,7 @@ export default {
      return id;
  },
        showCodeBox: function(){
+           this.$root.showChatBottom = false;
              this.$root.showCodeBox = true;
         },
          closeReply:function(){

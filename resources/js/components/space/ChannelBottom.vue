@@ -132,6 +132,7 @@ export default {
        
         shareHandler:function(){
           this.$root.sharePage= true;
+           this.$root.showChatBottom = false;
         },
          countCharacter:function(value){
             this.wordCount = this.editor.getHTML().length;
@@ -208,6 +209,8 @@ export default {
        
         this.mediaRecorder.stop();
          this.$root.voiceRecorder = true;
+
+         this.$root.showChatBottom = false;
        
     },
     makeUUID:function(){

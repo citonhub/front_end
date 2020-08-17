@@ -30,9 +30,11 @@ export default {
     },
     methods:{
         viewFullImage:function(imageData){
+            
             this.$root.fullImageViewer = true;
             this.$root.fullImageColor = imageData.background_color;
             this.$root.imageViewPath = 'imgs/space/' + imageData.image_name + '.' + imageData.image_extension;
+             this.$root.showChatBottom = false;
         }
     }  
 }

@@ -283,6 +283,7 @@ const app = new Vue({
       projectSpace:[],
      showBack:false,
      sendingMessage:false,
+     showChatBottom:true,
     },
      mounted: function () {
       this.pageloader= false;

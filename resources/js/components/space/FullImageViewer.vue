@@ -61,6 +61,8 @@ methods:{
         console.debug('onCmCursorActivity', codemirror)
       },
        goBack() {
+
+           this.$root.showChatBottom = true;
         this.$root.fullImageViewer = false;
         
         },

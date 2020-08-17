@@ -322,6 +322,8 @@ export default {
           }
       },
        goBack() {
+
+           this.$root.showChatBottom = true;
           
        this.$root.sharePage = false;
         },
@@ -511,6 +513,8 @@ var blob = this.b64toBlob(realData, contentType);
  },
     sendMessage: function(){
         this.loading = true;
+
+          this.$root.showChatBottom = true;
           
           let formData = new FormData();
          

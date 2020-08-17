@@ -71,7 +71,7 @@ methods:{
       },
        goBack() {
         this.$root.voiceRecorder = false;
-         
+          this.$root.showChatBottom = true;
         },
         showAlert:function(duration,text){
         this.$root.AlertRoot = true;

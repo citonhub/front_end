@@ -182,7 +182,19 @@ export default {
             
              if (response.status == 201) {
 
-               if(response.data == 'NotEnoughCoin'){
+              
+               this.$root.ChatList[3].data.unshift(response.data);
+                 
+               this.$root.fromChatList = true;
+           this.$router.push({ path: '/' + response.data.project_slug +'/panel' });
+
+ 
+            
+            }
+
+            if(response.status == 200){
+               
+                if(response.data == 'NotEnoughCoin'){
               
                 this.$root.showBoard = true;
                this.$root.boardContent = "Hey " + this.$root.username + ",\n\
@@ -191,20 +203,7 @@ export default {
 
               this.loading = false;
 
-               }else{
-
-               this.$root.ChatList[3].data.unshift(response.data);
-                 
-               this.$root.fromChatList = true;
-           this.$router.push({ path: '/' + response.data.project_slug +'/panel' });
-
                }
-                 
-               
-
-            
-             
-            
             }
               
             

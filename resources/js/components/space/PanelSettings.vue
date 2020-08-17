@@ -25,6 +25,9 @@
 
       <div class="col-12 py-1 my-0 " >
             <v-form class="row my-2 py-2 px-2 " ref="form" v-model="formstate">
+
+
+            
   
         
         <v-fade-transition>
@@ -56,7 +59,28 @@
           </v-form>
 
 
+             <div class="col-12 py-2 my-0 px-2" v-if="this.$root.projectData.user_id == this.$root.user_temp_id">
+              <v-text-field
+                style="font-size:12px;"
+                 placeholder="project title..."
+            label="Project Title"
+             dense
+             :rules="Rule"
+              :loading="loadingTitle"
+              @click:append-outer="changeTitle"
+             v-model="name"
+             append-outer-icon="mdi-content-save-outline"
+              counter="80"
+             color="#4495a2"
+            
+             ></v-text-field>
+
+             </div>
+
+
           <div class="col-12 py-2 my-0 px-2" v-if="this.$root.projectData.user_id == this.$root.user_temp_id">
+
+            
         <v-select
           v-model="Contributors"
           :items="Connections"
@@ -65,6 +89,8 @@
           style="font-size:12px;"
           item-text="username"
           item-value="username"
+          @click:append-outer="addContributors"
+           append-outer-icon="mdi-content-save-outline"
           multiple
           :loading="loadingConnection"
           hide-selected
@@ -76,10 +102,7 @@
              </div>
 
         
-          <div class="col-12 py-2 my-0 px-2 text-center" v-if="this.$root.projectData.user_id == this.$root.user_temp_id">
-              <v-btn rounded small :loading="loadingContribute" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="addContributors">Add</v-btn>
-           </div>
-
+          
 
 
         </div>
@@ -117,6 +140,7 @@ export default {
         return{
          shelveName:'',
           Alert:false,
+          name:'',
           serverRequired:'',
           FileName:'',
           Contributors:[],
@@ -131,9 +155,11 @@ export default {
         appType:'',
         Connections:[],
         backEndLang:'PHP',
+        loadingTitle:false,
          Rule:[
-             v => !!v || 'File Name is required',
-           v => v.length < 30 || 'File Name must be less than 30 characters'
+             v => !!v || 'Name is required',
+           v => v.length < 80 || 'Name must be less than 80 characters',
+            v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
          ],
           requiredRule: [
          v => !!v || 'This feild is required',
@@ -149,6 +175,10 @@ export default {
    
   },
    mounted(){
+
+      if(this.$root.projectData.length != 0){
+        this.name = this.$root.projectData.title;
+      }
       this.$root.showTabs=true;
        this.$root.showHeader = false;
        this.setLanguageType();
@@ -156,7 +186,7 @@ export default {
     },
     methods:{
          addContributors: function(){
-           this.loadingContribute = true;
+           this.loadingConnection = true;
                axios.post('/add-contributors',{
                  'contributors': this.Contributors,
                  'project_slug': this.$route.params.projectSlug
@@ -166,7 +196,7 @@ export default {
       if (response.status == 200) {
         
        this.Connections = response.data.data;
-        this.loadingContribute = false;
+        this.loadingConnection = false;
          this.showAlert(5000,'Contributors Added');
 
           this.$router.push({ path: '/' +this.$route.params.projectSlug +'/panel' });
@@ -175,7 +205,32 @@ export default {
      
      })
      .catch(error => {
-       this.loadingContribute = false;
+       this.loadingConnection = false;
+       this.showAlert(5000,'Failed- ' + error);
+     }) 
+
+         },
+          changeTitle: function(){
+           this.loadingTitle = true;
+               axios.post('/save-project-title',{
+                 'title': this.name,
+                 'project_slug': this.$route.params.projectSlug
+               })
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+     
+        this.loadingTitle = false;
+         this.showAlert(5000,'Saved');
+
+         
+     }
+       
+     
+     })
+     .catch(error => {
+       this.loadingTitle = false;
        this.showAlert(5000,'Failed- ' + error);
      }) 
 

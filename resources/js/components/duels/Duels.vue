@@ -282,7 +282,7 @@ export default {
 
         this.$root.userPageTrack = response.data[2];
 
-        this.activateBot();
+       
   }
     
   

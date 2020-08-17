@@ -395,10 +395,25 @@ return $newCommentArray;
           }
      
        }
+
+      public function saveProjectTitle(Request $request){
+
+
+         $project = Project::where('project_slug',$request->get('project_slug'))->first();
+
+          if($project != null){
+            
+            $project->update([
+           "title"=> $request->get('title')
+            ]);
+
+          }
+
+      }
          
     public function createProject(Request $request){
 
-        $this->checkUsersCoin(2);
+        $this->checkUsersCoin(1);
 
         if($this->coinState == 'NotEnoughCoin'){
         
