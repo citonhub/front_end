@@ -618,7 +618,7 @@ export default {
                
               if(this.$root.selectedPage[0].status == 0){
                  this.$root.showBoard = true;
-         this.$root.boardContent = 'Congratulations ' + this.$root.username + ' 🥳, you created your first project. Write and run your codes here. Have some more questions? Click on \'How To\' button to answer them.';
+         this.$root.boardContent = 'Congratulations ' + this.$root.username + ' 🥳, you created your first project. Write and run your codes here. Have some more questions? Click on \'FAQs\' button to answer them.';
          this.$root.boardBtnLabel = 'Okay,Got It';
 
               }
