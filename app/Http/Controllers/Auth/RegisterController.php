@@ -102,7 +102,7 @@ class RegisterController extends Controller
                 "user_id"=> $newUser->id,
                 "image_name"=> null,
                 "image_extension"=> null,
-                "coins"=> 5,
+                "coins"=> 10,
                 "interests"=> null,
                 "about"=> null
                ]);

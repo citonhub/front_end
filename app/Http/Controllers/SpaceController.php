@@ -1626,6 +1626,25 @@ array_push($newSpaceArray,$userSpace);
 
     $newMessage1->save();
 
+
+    // add to home screen message
+
+    $MessageContent12 = "<p>Add to homescreen.
+      Let's be honest with you. We haven't  yet figured out how to make the typing experience really awesome on your browser. While we work on that, we'll really love you to 
+      add citonhub to your homescreen for a better experience</p>"; 
+
+    $newMessage12 = SpaceMessage::create([
+       "space_id"=>$spaceIdChannel,
+       "type"=> null,
+       "is_reply"=>false,
+       "user_id"=> 93,
+       "replied_message_id"=> null,
+       "content"=> $MessageContent12
+    ]);
+
+    $newMessage12->save();
+
+
     $messageURL1 = 'showShare';
     $messageLabel1 = 'Invite now.';
 
@@ -1697,6 +1716,24 @@ array_push($newSpaceArray,$userSpace);
     ]);
 
     $newMessage3->save();
+
+    // add to home screen
+
+    $MessageContent22 = "<p>Add to homescreen.
+    Let's be honest with you. We haven't  yet figured out how to make the typing experience really awesome on your browser. While we work on that, we'll really love you to 
+    add citonhub to your homescreen for a better experience</p>"; 
+
+    $newMessage22 = SpaceMessage::create([
+       "space_id"=>$spaceIdTeam,
+       "type"=> null,
+       "is_reply"=>false,
+       "user_id"=> 93,
+       "replied_message_id"=> null,
+       "content"=> $MessageContent22
+    ]);
+
+    $newMessage22->save();
+
 
     $messageURL3 = 'showShare';
     $messageLabel3 = 'Invite Team Members';

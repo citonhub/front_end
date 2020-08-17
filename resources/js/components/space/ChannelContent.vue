@@ -199,7 +199,7 @@
      </span>
 
       
-       <span style="position:absolute; top:76%; right:3%; z-index:999998757;"  class="d-md-none d-inline-block">
+       <span style="position:absolute; top:72%; right:3%; z-index:999998757;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#3E8893"
                 small

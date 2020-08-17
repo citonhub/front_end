@@ -11,7 +11,7 @@
 
             <div class="col-6 px-0 d-flex" style="align-items:center;justify-content:center;">
              <span class="login">
-                 Sign into your account
+                 Sign In into your account
              </span>
             </div>
 
@@ -26,7 +26,7 @@
                   <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                 placeholder="username..."
+                 placeholder="Lordofthesevenkingdoms@email.com"
             label="Email or Username"
              dense
             
@@ -41,7 +41,7 @@
               <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                 placeholder="password..."
+                  placeholder="Dragonglass"
             label="Password"
              dense
              :error="errorState"
