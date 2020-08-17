@@ -2165,7 +2165,7 @@ return  $newChannelArray;
               )
               ->where('space_members.user_id',Auth::id())
               ->orderBy('projects.created_at','desc')
-              ->paginate(15);
+              ->paginate(50);
             
 
       
