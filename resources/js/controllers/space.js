@@ -283,6 +283,7 @@ const app = new Vue({
       projectSpace:[],
      showBack:false,
      sendingMessage:false,
+     panelDataFull:[],
      showChatBottom:true,
     },
      mounted: function () {

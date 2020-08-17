@@ -785,6 +785,8 @@ export default {
 
          this.PanelSettingsCheck(response.data[4]);
 
+        this.$root.panelDataFull = response.data[4];
+
         this.$root.projectSpace = response.data[3];
 
        this.fetchUpdatedContent();
