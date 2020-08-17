@@ -1665,7 +1665,7 @@ array_push($newSpaceArray,$userSpace);
       'user_id'=> Auth::id(),
       'space_id'=> $spaceIdChannel,
       'msg_read'=> 0,
-      'message_id'=> $newMessage2->id
+      'message_id'=> $newMessage1->id
       ]);
 
     $userUnread->save();
