@@ -1631,7 +1631,7 @@ array_push($newSpaceArray,$userSpace);
 
     $MessageContent12 = "<p>Add to homescreen.
       Let's be honest with you. We haven't  yet figured out how to make the typing experience really awesome on your browser. While we work on that, we'll really love you to 
-      add citonhub to your homescreen for a better experience</p>"; 
+      add CitonHub to your homescreen for a better experience</p>"; 
 
     $newMessage12 = SpaceMessage::create([
        "space_id"=>$spaceIdChannel,
@@ -1721,7 +1721,7 @@ array_push($newSpaceArray,$userSpace);
 
     $MessageContent22 = "<p>Add to homescreen.
     Let's be honest with you. We haven't  yet figured out how to make the typing experience really awesome on your browser. While we work on that, we'll really love you to 
-    add citonhub to your homescreen for a better experience</p>"; 
+    add CitonHub to your homescreen for a better experience</p>"; 
 
     $newMessage22 = SpaceMessage::create([
        "space_id"=>$spaceIdTeam,
