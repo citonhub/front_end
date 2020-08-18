@@ -544,7 +544,7 @@ class PanelController extends Controller
     
      public function NodeJsProject($panelId){
 
-      $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+      $baseUrl = 'https://nodejs.citonhub.com/node';
 
       // create project panel
 
@@ -587,6 +587,8 @@ var start_building = \"Let's build it!\";
 
      $response = Http::post($baseUrl .'/create-view-file',$requestData);
 
+   
+
       if($response->body() == 'done'){
        
           // save contents to database
@@ -617,7 +619,7 @@ var start_building = \"Let's build it!\";
 
       $response = Http::post($baseUrl .'/create-view-file',$requestData);
 
-
+       dd($response->body());
       if($response->body() == 'done'){
       
         $CssCodeBox = CodeBox::create([
@@ -1121,7 +1123,7 @@ public function main(){
              }
   
              if($panel->panel_language == 'NodeJs') {
-              $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+              $baseUrl = 'https://nodejs.citonhub.com/node';
              }
 
             $requestData = [
@@ -1167,7 +1169,7 @@ public function main(){
          }
 
          if($panel->panel_language == 'NodeJs') {
-          $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+          $baseUrl = 'https://nodejs.citonhub.com/node';
          }
 
         $requestData = [
@@ -1249,7 +1251,7 @@ public function main(){
            }
   
            if($panel->panel_language == 'NodeJs') {
-            $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+            $baseUrl = 'https://nodejs.citonhub.com/node';
            }
 
            
@@ -1398,7 +1400,7 @@ public function main(){
            }
 
            if($panel->panel_language == 'NodeJs') {
-            $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+            $baseUrl = 'https://nodejs.citonhub.com/node';
            }
         
           
@@ -1429,7 +1431,7 @@ public function main(){
            }
 
            if($panel->panel_language == 'NodeJs') {
-            $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+            $baseUrl = 'https://nodejs.citonhub.com/node';
            }
         
 
@@ -1481,7 +1483,7 @@ public function main(){
          }
 
          if($panel->panel_language == 'NodeJs') {
-          $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+          $baseUrl = 'https://nodejs.citonhub.com/node';
 
           $requestData = [
             'panel_id' =>  $projectPanel->panel_id,
@@ -1677,7 +1679,7 @@ public function main(){
          }
 
          if($panel->panel_language == 'NodeJs') {
-          $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+          $baseUrl = 'https://nodejs.citonhub.com/node';
          }
       
         
@@ -1708,7 +1710,7 @@ public function main(){
          }
 
          if($panel->panel_language == 'NodeJs') {
-          $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+          $baseUrl = 'https://nodejs.citonhub.com/node';
          }
       
 
@@ -1761,7 +1763,7 @@ public function main(){
          }
 
          if($panel->panel_language == 'NodeJs') {
-          $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+          $baseUrl = 'https://nodejs.citonhub.com/node';
 
           $requestData = [
             'panel_id' =>  $duelPanel->panel_id,
@@ -1911,7 +1913,7 @@ public function main(){
              }
   
              if($panel->panel_language == 'NodeJs') {
-              $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+              $baseUrl = 'https://nodejs.citonhub.com/node';
 
                if($codeBox->language_type == 'CSS'){
 
@@ -1965,7 +1967,7 @@ public function main(){
            }
 
            if($panel->panel_language == 'NodeJs') {
-            $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+            $baseUrl = 'https://nodejs.citonhub.com/node';
            }
 
             $requestData = [
@@ -2282,7 +2284,7 @@ public function main(){
 
          if($projectPanel->panel_language == 'NodeJs') {
 
-          $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+          $baseUrl = 'https://nodejs.citonhub.com/node';
 
          }
 
@@ -2316,7 +2318,7 @@ public function main(){
 
         if($projectPanel->panel_language == 'NodeJs') {
 
-         $baseUrl = 'https://quiet-escarpment-73992.herokuapp.com';
+         $baseUrl = 'https://nodejs.citonhub.com/node';
 
         }
 

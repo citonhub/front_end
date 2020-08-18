@@ -358,7 +358,7 @@
 
                     <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in channelDirect"
                       :key="index">
-                <div class="row py-0 my-0 px-0">
+                <div class="row py-0 my-0 px-0" v-if="space.userInfo != null">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
                         <div class="py-1">
                           <v-img  :background-color="space.userInfo.background_color" :src="space.userInfo.image_name == null ? 'imgs/usernew.png' : '/imgs/profile/'+ space.userInfo.image_name +'.' + space.userInfo.image_extension " height="38" width="38" class="avatarImg"></v-img>
@@ -371,7 +371,7 @@
                           <span class="messagesBadges" v-if="space.unread != 0"><span style="padding:2px;">{{ space.unread }}</span></span>
                     </div>
                 </div>
-             </v-card>
+                </v-card>
                  </div>
 
                  <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
