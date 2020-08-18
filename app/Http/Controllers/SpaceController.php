@@ -1630,7 +1630,7 @@ array_push($newSpaceArray,$userSpace);
     // add to home screen message
 
     $MessageContent12 =  "<p>Add to homescreen 📱.
-    Let's be honest with you 😊. We haven't yet figured out how to make the typing experience really awesome on your browser. While we work on that, we'll really love you to 
+    Let's be honest with you 😊. We haven't yet figured out how to make the chatting experience really awesome on your browser. While we work on that, we'll really love you to 
     add CitonHub to your homescreen for a better experience 😃</p>"; 
 
     $newMessage12 = SpaceMessage::create([
@@ -1704,7 +1704,7 @@ array_push($newSpaceArray,$userSpace);
 
     to work on projects. Assign projects to teams,
    
-    and everyone has access to the same panel 🗄.</p> '; 
+    and everyone has access to the same panel.</p> '; 
 
     $newMessage3 = SpaceMessage::create([
        "space_id"=>$spaceIdTeam,
@@ -1720,7 +1720,7 @@ array_push($newSpaceArray,$userSpace);
     // add to home screen
 
     $MessageContent22 = "<p>Add to homescreen 📱.
-    Let's be honest with you 😊. We haven't yet figured out how to make the typing experience really awesome on your browser. While we work on that, we'll really love you to 
+    Let's be honest with you 😊. We haven't yet figured out how to make the chatting experience really awesome on your browser. While we work on that, we'll really love you to 
     add CitonHub to your homescreen for a better experience 😃</p>"; 
 
     $newMessage22 = SpaceMessage::create([

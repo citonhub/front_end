@@ -136,6 +136,8 @@ methods:{
             this.$root.FullcodeContent = this.code;
            
              this.$root.showCodeBox = true;
+
+             this.$root.showChatBottom = false;
             
             
       },

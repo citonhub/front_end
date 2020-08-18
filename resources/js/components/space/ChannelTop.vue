@@ -104,7 +104,7 @@ export default {
         },
         viewUser: function(){
         this.$root.pageloader = true;
-        window.location = '/view-profile#/profile/activities/'+ this.$root.selectedSpace.userInfo.username;
+        window.location = '/view-profile#/profile/channels/'+ this.$root.selectedSpace.userInfo.username;
     },
   
   },
