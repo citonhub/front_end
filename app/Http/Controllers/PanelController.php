@@ -619,7 +619,7 @@ var start_building = \"Let's build it!\";
 
       $response = Http::post($baseUrl .'/create-view-file',$requestData);
 
-       dd($response->body());
+      
       if($response->body() == 'done'){
       
         $CssCodeBox = CodeBox::create([
