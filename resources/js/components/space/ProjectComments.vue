@@ -19,7 +19,7 @@
       </div>
      </div>
 
-      <div class="col-12 py-1 my-0 " style="position:absolute; height:90%; width:100%;overflow-y:auto; padding-top:35px !important;">
+      <div class="col-12 py-1 my-0 scrollerStyle" style="position:absolute; height:90%; width:100%;overflow-y:auto; padding-top:35px !important;">
             <div class="row my-2 py-2 "  >
            
            <div  class="col-12 my-0 py-0 "  v-for="(comment,index) in this.$root.projectComments" :key="index">

@@ -7,7 +7,7 @@
 
 
     
-       <div   style="background:white; font-family:BodyText;position:absolute;left:0;width:100%; height:80%; overflow-y:auto; overflow-x:hidden; padding-top:40px !important;padding-bottom:140px !important;" v-if="allChannels != null">
+       <div  class="scrollerStyle"  style="background:white; font-family:BodyText;position:absolute;left:0;width:100%; height:80%; overflow-y:auto; overflow-x:hidden; padding-top:40px !important;padding-bottom:140px !important;" v-if="allChannels != null">
           
            <v-card @click="showChannel(space)" tile flat class="col-12 py-1 px-0 my-0"  color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in allChannels"
                       :key="index">

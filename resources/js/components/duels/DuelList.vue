@@ -1,9 +1,9 @@
 <template>
      <div >
-         <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+         <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0 scrollerStyle" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
-        <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
+        <div class="col-12 py-0 my-0 fixed-top " style="position:sticky; background:white;">
        <div class="row py-1 my-0 " >
          <div class="col-4 py-0 my-0 text-left" style="border-bottom:2px solid #4495a2;" >
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
@@ -319,4 +319,5 @@ export default {
      background:#4495a2;
      font-weight: bolder;
  } 
+
 </style>

@@ -17,7 +17,7 @@
       </div>
      </div>
 
-      <div class="py-1 my-0" style="position:absolute; top:5%; height:95%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; padding-bottom:100px !important;">
+      <div class="py-1 my-0 scrollerStyle" style="position:absolute; top:5%; height:95%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; padding-bottom:100px !important;">
         
        <div class="col-12 py-2 my-0 " v-if="Notifications != null" >
             <notify-list :Notifications="Notifications" v-if="Notifications.length != 0"></notify-list>

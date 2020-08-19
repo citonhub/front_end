@@ -1,8 +1,8 @@
 <template>
     <v-app style="font-family:BodyText;background:transparent;overflow-x:hidden;">
 
-      <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
-        <div style="overflow-y:auto;position:absolute;left:0; width:100%; height:100%; overflow-x:hidden;">
+      <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0 scrollerStyle" style="position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
+        <div style="overflow-y:auto;position:absolute;left:0; width:100%; height:100%; overflow-x:hidden;" class="scrollerStyle">
          <div class="row my-0 py-0 px-2" >
 
          <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">

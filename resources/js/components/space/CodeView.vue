@@ -4,7 +4,7 @@
         <v-btn x-small text  @click="copyText" v-if="!copied"> <span style="font-size:12px;background:whitesmoke; color:black;" class="py-1 px-1">Copy</span></v-btn>
          <v-btn x-small text  v-else> <span style="font-size:12px;background:whitesmoke; color:black;" class="py-1 px-1">Copied</span></v-btn>
       </div>
-        <div class=" codebox">
+        <div class=" codebox ">
          <codemirror
         v-model="codeContent"
         :options="cmOption"

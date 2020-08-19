@@ -39,7 +39,7 @@
               
 
               
-              <div class="col-12 py-1 my-0 mx-0" v-if="this.$root.showProject" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;" >
+              <div class="col-12 py-1 my-0 mx-0 project" v-if="this.$root.showProject" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;" >
                 <div  v-if="channelProject != null">
                     <div class="row my-0 my-0 px-0"  v-if="channelProject.length != 0">
 
@@ -156,7 +156,7 @@
              
 
               
-              <div class="col-12 py-1 my-0 mx-0" v-if="this.$root.showChannel" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;" >
+              <div class="col-12 py-1 my-0 mx-0 channelSpace" v-if="this.$root.showChannel" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;" >
                 <div  v-if="channelSpace != null">
                     <div class="row my-0 my-0 px-0"  v-if="channelSpace.length != 0">
 
@@ -257,7 +257,7 @@
 
              </div>
             
-              <div class="col-12 py-1 my-0 mx-0"  v-if="this.$root.showTeams" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;"  >
+              <div class="col-12 py-1 my-0 mx-0 teamSpace"  v-if="this.$root.showTeams" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;"  >
                  <div  v-if="teamSpace != null">
                  <div class="row my-0 my-0 px-0"  v-if="teamSpace.length != 0">
                     <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in teamSpace"
@@ -352,7 +352,7 @@
                  </div>
                 </div>
             
-              <div class="col-12 py-1 my-0 mx-0"   v-if="this.$root.showDirect" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;" >
+              <div class="col-12 py-1 my-0 mx-0 directSpace"   v-if="this.$root.showDirect" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;" >
                   <div  v-if="channelDirect != null">
                     <div class="row my-0 my-0 px-0"  v-if="channelDirect.length != 0">
 
@@ -865,4 +865,24 @@ export default {
   font-family:HeaderText;
   color: white;
 }
+
+
+  .teamSpace::-webkit-scrollbar, .directSpace::-webkit-scrollbar, .channelSpace::-webkit-scrollbar, .project::-webkit-scrollbar {
+  width: 7px;
+}
+ 
+.teamSpace::-webkit-scrollbar-track,.directSpace::-webkit-scrollbar-track,.channelSpace::-webkit-scrollbar-track,.project::-webkit-scrollbar-track {
+ box-shadow: inset 0 0 6px rgba(111, 181, 195, 0.9);
+  border:1px solid transparent;
+  border-radius:6px;
+}
+ 
+.teamSpace::-webkit-scrollbar-thumb, .directSpace::-webkit-scrollbar-thumb, .channelSpace::-webkit-scrollbar-thumb, .project::-webkit-scrollbar-thumb {
+   background-color: #4ba6b4;
+  outline: 1px solid #4ba6b4;
+  border:1px solid transparent;
+   border-radius:6px;
+}
+
+
 </style>

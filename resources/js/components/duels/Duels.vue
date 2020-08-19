@@ -16,6 +16,7 @@
       style="overflow-y:auto;position:absolute;left:0; width:100%; height:100%;z-index:1345000;padding-bottom:200px;"
       :data-key="'duel_id'"
       :data-sources="duels"
+      class="scrollerStyle"
       v-if="duels.length != 0"
       :data-component="itemComponent"
       :keeps="15">   

@@ -2,7 +2,7 @@
     <v-app style="font-family:BodyText;background:transparent;overflow-x:hidden;">
 
       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
-        <div style="overflow-y:auto;position:absolute;left:0; width:100%; overflow-x:hidden; height:100%;">
+        <div style="overflow-y:auto;position:absolute;left:0; width:100%; overflow-x:hidden; height:100%;" class="scrollerStyleNew">
          <div class="row my-0 py-0 px-2" >
 
          <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
@@ -1135,5 +1135,21 @@ export default {
   font-size: 12px;
     color: #173236;
     text-transform: uppercase;
+}
+ .scrollerStyleNew::-webkit-scrollbar {
+  width: 6px;
+}
+ 
+.scrollerStyleNew::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(111, 181, 195, 0.9);
+  border:1px solid transparent;
+  border-radius:6px;
+}
+ 
+.scrollerStyleNew::-webkit-scrollbar-thumb {
+  background-color: #4ba6b4;
+  outline: 1px solid #4ba6b4;
+  border:1px solid transparent;
+   border-radius:6px;
 }
 </style>

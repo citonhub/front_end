@@ -1,5 +1,5 @@
 <template>
-      <div style="position:absolute; height:92%; width:100%; overflow-y:auto;left:0;top:8%;"> 
+      <div class="scrollerStyle" style="position:absolute; height:92%; width:100%; overflow-y:auto;left:0;top:8%;"> 
 
          <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-0" >

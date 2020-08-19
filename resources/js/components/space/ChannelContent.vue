@@ -1165,4 +1165,21 @@ export default {
   border-radius:10px;
 }
 
+  #messageContainer::-webkit-scrollbar {
+  width: 7px;
+}
+ 
+#messageContainer::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(111, 181, 195, 0.9);
+  border:1px solid transparent;
+  border-radius:6px;
+}
+ 
+#messageContainer::-webkit-scrollbar-thumb {
+  background-color: #4ba6b4;
+  outline: 1px solid #4ba6b4;
+  border:1px solid transparent;
+   border-radius:6px;
+}
+
 </style>

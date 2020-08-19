@@ -9,7 +9,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          
-         <div class=" py-1 my-0 px-0 "  style=" background:white; overflow-x:auto; white-space:nowrap; position:absolute; left:10%; width:90%; " >
+         <div class=" py-1 my-0 px-0 scrollerStyle"  style=" background:white; overflow-x:auto; white-space:nowrap; position:absolute; left:10%; width:90%; " >
               <v-chip v-for="(file,index) in this.$root.codeEditorArray" :key="index"
       class="ma-1 ml-0 fileText d-inline-block"
       close
@@ -27,12 +27,13 @@
         
       </div>
 
-       <div class="col-12 py-0 my-0" style="position:absolute; top:6%; height:95%; overflow-y:hidden; left:0; overflow-x:hidden;">
+       <div class="col-12 py-0 my-0" style="position:absolute; top:5%; height:95%; overflow-y:hidden; left:0; overflow-x:hidden;">
          <div class="row my-0 py-0 px-0 ">
-              <div class="codebox">
+              <div class="codebox scrollerStyle">
          <codemirror
         v-model="code"
         :options="cmOption"
+        class="scrollerStyle"
         style="height:100%;"
         @cursorActivity="onCmCursorActivity"
         @ready="onCmReady"
@@ -597,7 +598,6 @@ methods:{
     .pre {
       width: 100%;
       margin: 0;
-        padding-top:12px;
        display: block;
       font-size: 12px;
       line-height: 1.6;
@@ -616,4 +616,6 @@ methods:{
         overflow-x: hidden;
         overflow-y:hidden;
     }
+
+    
 </style>

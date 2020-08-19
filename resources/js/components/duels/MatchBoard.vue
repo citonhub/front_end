@@ -118,7 +118,7 @@
 
              <virtual-list 
 
-             class="py-1 px-0"
+             class="py-1 px-0 scrollerStyle"
       style="height:700px; background:whitesmoke;overflow-y:auto;width:100%; overflow-x:hidden; padding-bottom:450px !important;" 
       :data-key="'id'"
       :data-sources="this.$root.duelComments"
