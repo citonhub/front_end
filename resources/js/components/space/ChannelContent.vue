@@ -759,9 +759,7 @@ export default {
 
        let returnedData = this.handleResults(response.data[0]);
         
-       this.Messages = returnedData;
-       this.$root.Messages = returnedData;
-
+       
        
        
       
@@ -811,6 +809,7 @@ export default {
             
                   
                   this.$root.returnedMessages.push(response.data[index]);
+                   this.$root.Messages.push(response.data[index]);
                   this.$root.pushDataToLocal(response.data[0][index]);
 
                   this.scrollToBottom();
