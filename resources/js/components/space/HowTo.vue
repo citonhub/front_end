@@ -1,6 +1,6 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText;">
-        <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+        <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0 scrollerStyleNew" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
@@ -8,8 +8,15 @@
          <div class="col-2 py-0 my-0 text-left px-1" style="border-bottom:2px solid #4495a2;" >
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
-         <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Frequently Asked Questions</span>
+         <div class="col-4 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
+           <span @click="showTab('front-end')"  :style="docType == 'front-end'  ? 'color:#ffffff;background:#4495a2; border-radius:10px; font-size:11px; cursor:pointer;' : 'color:#1f4047; cursor:pointer; background:#b8d8e0;  border-radius:10px;  font-size:11px;' "
+              class="px-2 py-1"
+            >Front-end</span>
+         </div>
+         <div class="col-4 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
+           <span  @click="showTab('back-end')" :style="docType == 'back-end'  ? 'color:#ffffff;background:#4495a2; border-radius:10px; font-size:11px; cursor:pointer;' : ' color:#1f4047; background:#b8d8e0; cursor:pointer; border-radius:10px;  font-size:11px;' "
+              class="px-2 py-1"
+            >Back-end</span>
          </div>
          <div class="col-2 py-0 my-0  d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
             
@@ -21,12 +28,12 @@
         
         <div class="col-12 py-0 my-0">
           
-          <div class="row my-0 py-0">
+          <div class="row my-0 py-0" v-if="docType == 'front-end'">
 
 
              <div class="col-12 py-0 my-1 text-left">
-                 <span style="color:#2e626b; font-size:13px;">
-                    <b style="color:#173136;"> 1.</b> How do I create a new HTML, CSS or JavaScript file to my Code Editor?
+                 <span style=" font-size:13px;">
+                    <b style="color:#173236; font-family:HeaderText; font-weight:bolder;">1. How do I create a new HTML, CSS or JavaScript file to my Code Editor? </b> 
                  </span> <br><br>
 
              </div>
@@ -53,7 +60,7 @@
 
                <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                    <b style="color:#173136;"> 2.</b> How do I link a new HTML, CSS or JavaScript  file into an HTML file in my Code Editor?
+                    <b style="color:#173236; font-family:HeaderText; font-weight:bolder;" > 2. How do I link a new HTML, CSS or JavaScript  file into an HTML file in my Code Editor?</b> 
                  </span> <br><br>
 
              </div>
@@ -118,7 +125,7 @@
 
                <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                    <b style="color:#173136;"> 3.</b> I have my code files on my computer/phone how do I link it in my code?
+                    <b style="color:#173236; font-family:HeaderText; font-weight:bolder;"> 3. I have my code files on my computer/phone how do I link it in my code?</b> 
                  </span> <br><br>
 
              </div>
@@ -159,7 +166,7 @@
 
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                    <b style="color:#173136;">4.</b> How do I navigate to a new page?
+                    <b style="color:#173236; font-family:HeaderText; font-weight:bolder;">4. How do I navigate to a new page? </b> 
                  </span> <br>
 
              </div>
@@ -201,7 +208,7 @@
 
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                     <b style="color:#173136;"> 5.</b>  How do I include videos/images/audios/documents to my code?    
+                     <b style="color:#173236; font-family:HeaderText; font-weight:bolder;"> 5. How do I include videos/images/audios/documents to my code? </b>  
                  </span> <br><br>
 
                 
@@ -265,7 +272,7 @@
              
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                     <b style="color:#173136;"> 6.</b> Why is the API in my code not working?
+                     <b style="color:#173236; font-family:HeaderText; font-weight:bolder;"> 6. Why is the API in my code not working? </b>
                  </span> <br><br>
 
                   
@@ -281,7 +288,7 @@
 
               <div class="col-12 py-0 my-1 text-left">
                  <span style="color:#2e626b; font-size:13px;">
-                     <b style="color:#173136;"> 7.</b> How can I get my Project URL?
+                     <b style="color:#173236; font-family:HeaderText; font-weight:bolder;" > 7. How can I get my Project URL? </b>
                  </span> <br><br>
 
                   
@@ -309,6 +316,165 @@
              <div class="col-12 py-5 my-5">
 
              </div>
+
+          </div>
+
+          <div class="row my-0 py-0" v-if="docType == 'back-end'">
+
+
+             <div class="col-12 py-0 my-1 text-left">
+                 <span style=" font-size:13px;">
+                    <b style="color:#173236; font-family:HeaderText; font-weight:bolder;">1. How do I return a View file in my controller file? </b> 
+                 </span> <br><br>
+
+             </div>
+
+             <div class="col-12 py-0 text-left">
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 1-</b> Copy and paste the code below
+                 </span>
+
+              <code-view :codeLanguage="'PHP'" :codeContent="showViewPHP"></code-view> <br>
+   
+             </div>
+
+
+              <div class="col-12 py-0 text-left" style="border-bottom:1px solid #c5c5c5;" >
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 2-</b> Change FILENAME to the view file name .
+                 </span>
+
+             </div>
+
+
+          <div class="col-12 py-0 my-1 text-left">
+                 <span style=" font-size:13px;">
+                    <b style="color:#173236; font-family:HeaderText; font-weight:bolder;">2. How do I return a View file with data attached ? </b> 
+                 </span> <br><br>
+
+             </div>
+
+             <div class="col-12 py-0 text-left">
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 1-</b> Copy and paste the code below
+                 </span>
+
+              <code-view :codeLanguage="'PHP'" :codeContent="showViewDataPHP"></code-view> <br>
+   
+             </div>
+
+
+              <div class="col-12 py-0 text-left" >
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 2-</b> Change FILENAME to the view file name, and $data to the your data variable name .
+                 </span>
+
+             </div>
+
+              <div class="col-12 py-0 text-left" style="border-bottom:1px solid #c5c5c5;" >
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 3-</b> Use attached data in your view file using a curly bracket.
+                 </span><br>
+
+                  <code-view :codeLanguage="'PHP'" :codeContent="accessData"></code-view> <br>
+
+
+             </div>
+
+
+
+             <div class="col-12 py-0 my-1 text-left">
+                 <span style=" font-size:13px;">
+                    <b style="color:#173236; font-family:HeaderText; font-weight:bolder;">3. How do I save data in my database? </b> 
+                 </span> <br><br>
+
+             </div>
+
+             <div class="col-12 py-0 text-left">
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 1-</b> Create a new Database Table in your panel
+                 </span>
+
+              <div style="color:#2e626b; font-size:13px;" class="text-center">
+                     <img src="/imgs/database1.png" height="120" width="100%" />
+                 </div>
+   
+             </div>
+
+
+              <div class="col-12 py-0 text-left" >
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 2-</b> Click on the new Table and add a new table field by clicking   <v-btn icon><v-icon color="#3E8893">mdi-table-column-plus-before mdi-18px</v-icon></v-btn>.
+                 </span>
+
+                 <div style="color:#2e626b; font-size:13px;">
+                     Note: the <b>ID</b> field and the <b>create_date</b> field has been generated on table creation
+                 </div>
+
+             </div>
+
+
+              <div class="col-12 py-0 text-left" >
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 3-</b> Add a new POST route to send request data to your controller file.
+                 </span>
+
+                    <div style="color:#2e626b; font-size:13px;" class="text-center">
+                     <img src="/imgs/post_data.png" height="140" width="100%" />
+                 </div>
+
+             </div>
+
+
+              <div class="col-12 py-0 text-left" >
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 4-</b> Use this code to save the data to your database
+                 </span><br>
+
+                  <code-view :codeLanguage="'PHP'" :codeContent="saveDataCodePHP"></code-view> <br>
+
+
+             </div>
+             
+              <div class="col-12 py-0 text-left" style="border-bottom:1px solid #c5c5c5;" >
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 5-</b> Change METHOD_NAME to the method/function name that handle the request.<br>
+                      TABLE_NAME to the name of your database table
+                 </span>
+
+             </div>
+
+             <div class="col-12 py-0 my-1 text-left">
+                 <span style=" font-size:13px;">
+                    <b style="color:#173236; font-family:HeaderText; font-weight:bolder;">3. How do I get data from my database? </b> 
+                 </span> <br><br>
+
+             </div>
+
+             <div class="col-12 py-0 text-left">
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 1-</b> Use the code below
+                 </span>
+
+               <code-view :codeLanguage="'PHP'" :codeContent="getDataCodePHP"></code-view> <br>
+   
+             </div>
+
+             <div class="col-12 py-0 text-left" style="border-bottom:1px solid #c5c5c5;" >
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 5-</b> Change METHOD_NAME to the method/function name that handle the request.<br>
+                      TABLE_NAME to the name of your database table
+                 </span>
+
+             </div>
+
+            
+
+               <div class="col-12 py-5 my-5">
+
+             </div>
+
+
 
           </div>
            
@@ -341,8 +507,13 @@ export default {
          resourcesVideos:'',
          resourcesAudios:'',
          resourcesFiles:'',
+         docType:'front-end',
          resourcesImages:'',
-
+         showViewDataPHP:'',
+      showViewPHP:'',
+      accessData:'',
+      saveDataCodePHP:'',
+      getDataCodePHP:'',
         }
     },
      components: {
@@ -355,8 +526,28 @@ export default {
        
     },
     methods:{
+      showTab:function(type){
+      this.docType = type;
+      },
       loadDefaultCode(){
+        this.accessData = "{{$data}}";
       this.resourcesCode = "{{$home}}/{{$panel}}/FOLDERNAME/FILENAME";
+
+      this.showViewPHP = " public function FILENAME(){ \n " +
+"return $this->showView('FILENAME'); \n " +
+ "}";
+
+ this.showViewDataPHP = " public function FILENAME(){ \n " +
+"return $this->showViewWithData('FILENAME','data'); \n " +
+ "}";
+
+  this.saveDataCodePHP = " public function METHOD_NAME(Request $request){ \n " +
+"  $this->SaveData('TABLE_NAME',$request); \n " +
+ "}";
+
+ this.getDataCodePHP = " public function METHOD_NAME(){ \n " +
+"  $this->getAllData('TABLE_NAME'); \n " +
+ "}";
 
 this.resourcesCodeNew = "{{$home}}/{{$panel}}/Framework/FILENAME";
 

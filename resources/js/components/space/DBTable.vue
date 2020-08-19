@@ -107,15 +107,49 @@ export default {
     goBack() {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
-         checkIfOwner:function(){
-         if(this.$root.projectData.user_id == this.$root.user_temp_id){
-            
-            return true;
-         }else{
-           return false;
-         }
-      },
+          checkIfOwner:function(){
 
+        if(this.$root.projectSpace.type == 'Personal'){
+         
+         var member = this.$root.ProjectMembers.filter((member)=>{
+             return member.user_id == this.$root.user_temp_id && member.project_slug == this.$route.params.projectSlug;
+         });
+
+
+          if(member.length == 0){
+
+             if(this.$root.projectData.user_id == this.$root.user_temp_id ){
+
+                  return true;
+
+             }else{
+
+                 return false;
+             }
+            
+            
+         }else{
+           return true;
+         }
+          
+
+        }else{
+         
+         var member = this.$root.ProjectMembers.filter((member)=>{
+             return member.user_id == this.$root.user_temp_id;
+         });
+
+           if(member.length == 0){
+            
+            return false;
+         }else{
+           return true;
+         }
+
+        }
+         
+        
+      },
       addField: function(){
          this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/create-db-table-field' });
       },
