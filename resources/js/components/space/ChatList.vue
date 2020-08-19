@@ -868,18 +868,18 @@ export default {
 
 
   .teamSpace::-webkit-scrollbar, .directSpace::-webkit-scrollbar, .channelSpace::-webkit-scrollbar, .project::-webkit-scrollbar {
-  width: 7px;
+  width: 5px;
 }
  
 .teamSpace::-webkit-scrollbar-track,.directSpace::-webkit-scrollbar-track,.channelSpace::-webkit-scrollbar-track,.project::-webkit-scrollbar-track {
- box-shadow: inset 0 0 6px rgba(111, 181, 195, 0.9);
+ box-shadow: inset 0 0 6px rgba(111, 181, 195, 0.8);
   border:1px solid transparent;
   border-radius:6px;
 }
  
 .teamSpace::-webkit-scrollbar-thumb, .directSpace::-webkit-scrollbar-thumb, .channelSpace::-webkit-scrollbar-thumb, .project::-webkit-scrollbar-thumb {
-   background-color: #4ba6b4;
-  outline: 1px solid #4ba6b4;
+   background-color: #6fb8c3;
+  outline: 1px solid #6fb8c3;
   border:1px solid transparent;
    border-radius:6px;
 }

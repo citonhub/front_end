@@ -1136,19 +1136,20 @@ export default {
     color: #173236;
     text-transform: uppercase;
 }
- .scrollerStyleNew::-webkit-scrollbar {
-  width: 6px;
+
+.scrollerStyleNew::-webkit-scrollbar {
+  width: 5px;
 }
  
 .scrollerStyleNew::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(111, 181, 195, 0.9);
+  box-shadow: inset 0 0 6px rgba(111, 181, 195, 0.8);
   border:1px solid transparent;
   border-radius:6px;
 }
  
 .scrollerStyleNew::-webkit-scrollbar-thumb {
-  background-color: #4ba6b4;
-  outline: 1px solid #4ba6b4;
+  background-color: #6fb8c3;
+  outline: 1px solid #6fb8c3;
   border:1px solid transparent;
    border-radius:6px;
 }
