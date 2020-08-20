@@ -877,6 +877,9 @@ export default {
       },
       fetchMessages: function(){
 
+         if(this.$root.checkauthroot == 'auth'){
+
+
           let storedMsg = this.$root.getLocalStore(this.$route.params.spaceId);
 
            let unreadStoredMsg = this.$root.getLocalStore('unread' + this.$route.params.spaceId);
@@ -999,6 +1002,9 @@ export default {
            
           
            
+
+
+         }
 
         },
        

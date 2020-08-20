@@ -633,7 +633,8 @@ export default {
        },
        fetchChatList: function(){
 
-          let storedChat = this.$root.getLocalStore('ChatList'+ this.$root.username);
+          if(this.$root.checkauthroot == 'auth'){
+             let storedChat = this.$root.getLocalStore('ChatList'+ this.$root.username);
 
             storedChat.then((result)=>{
                 
@@ -703,6 +704,9 @@ export default {
             })
         
          
+          }
+
+        
        },
       checkUnread: function(){
 
