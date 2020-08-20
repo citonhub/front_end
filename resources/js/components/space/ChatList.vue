@@ -421,112 +421,7 @@
   
               </div>
               </div>
-              
-
-              <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('suggestions')"  v-if="false" >
-                 
-                 <div class="row py-0 my-0 px-2">
-                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                          
-                    </div>
-                       <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                         <v-badge
-          color="#36848C"
-            v-if="channelSuggestions != null"
-          :content="channelSuggestions.length"
-        >
-      
-       <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Suggestions</span>
-            
-        </v-badge>
-                         
-           <span  v-else style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Suggestions</span>
-                    </div>
-                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                           <v-btn icon color="#3E8893"><v-icon></v-icon></v-btn>
-                    </div>
-                 </div>
-                </div>
-                
-
-              
-              <div class="col-12 py-1 my-0 mx-0" v-if="this.$root.showSuggetions">
-                <div  v-if="channelSuggestions != null">
-                    <div class="row my-0 my-0 px-0"  v-if="channelSuggestions.length != 0">
-
-                    <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in channelSuggestions"
-                      :key="index">
-                <div class="row py-0 my-0 px-0">
-                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
-                        <div class="py-1">
-                          <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
-                        </div>    
-                    </div>
-                     <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
-                       <div>
-                      <span class="titleText d-block">{{space.name}}</span>
-                         <span class=" d-block" style="font-size:11px;">{{ space.members }} Members</span>
-                       </div>
-                        
-                    </div>
-                    <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
-                          
-                    </div>
-                </div>
-             </v-card>
-                 </div>
-
-                 <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
-       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No Suggestion found</span>
-              
-            </div>
-                </div>
-                
-
-                 <div v-else  class="row my-0 py-0 px-1 ">
-            <div class="col-12 py-0 my-0">
-   
-           <div class="row py-0 my-0 px-1">
-            
-          <div class="col-12 py-1 my-0">
-           <v-skeleton-loader
-          class=" "
-           
-          type="list-item-avatar"
-          ></v-skeleton-loader>
-          </div>
-
-          
-
-         </div>
-
-
-            </div>
-
-             <div class="col-12 py-0 my-0">
-   
-           <div class="row py-0 my-0 px-1">
-            
-          <div class="col-12 py-1 my-0">
-           <v-skeleton-loader
-          class=" "
-           
-          type="list-item-avatar"
-          ></v-skeleton-loader>
-          </div>
-
-          
-
-         </div>
-
-
-            </div>
-  
-              </div>
-              </div>
              
-              
-               
               
              <div class="my-5 py-5 col-12" style="padding-top:120px !important;">
 
@@ -702,22 +597,9 @@ export default {
       
       if (response.status == 200) {
 
-        this.$root.ChatList = response.data;
-
-         this.$root.sortChatList();
-        
-         this.personalSpace = this.$root.ChatList[0];
-        this.teamSpace = this.$root.ChatList[1];
-        this.channelSpace = this.$root.ChatList[2];
-        this.channelProject = this.$root.ChatList[3].data;
-        this.channelDirect = this.$root.ChatList[4];
-         this.channelSuggestions = this.$root.ChatList[5];
-
         
 
-         this.checkUnread();
-          
-        this.$root.SpaceWithoutChannel = response.data;
+        this.$root.LocalStore('ChatList' + this.$root.username,response.data);
          
          
        
@@ -750,13 +632,22 @@ export default {
            this.$router.push({ path: '/space/create-project' });
        },
        fetchChatList: function(){
-         if(this.$root.ChatList.length != 0 && !this.$root.forceListReload){
 
-            this.$root.sortChatList();
+          let storedChat = this.$root.getLocalStore('ChatList'+ this.$root.username);
 
-        this.personalSpace = this.$root.ChatList[0];
-        this.teamSpace = this.$root.ChatList[1];
-        this.channelSpace = this.$root.ChatList[2];
+            storedChat.then((result)=>{
+                
+                 if(result != null ){
+
+                    let finalResult = JSON.parse(result);
+
+                   this.$root.ChatList = finalResult;
+                  
+                      this.$root.sortChatList();
+
+             this.personalSpace = this.$root.ChatList[0];
+           this.teamSpace = this.$root.ChatList[1];
+          this.channelSpace = this.$root.ChatList[2];
         this.channelProject = this.$root.ChatList[3].data;
         this.channelDirect = this.$root.ChatList[4];
          this.channelSuggestions = this.$root.ChatList[5];
@@ -766,10 +657,10 @@ export default {
         this.$root.SpaceWithoutChannel = this.$root.ChatList;
 
          this.updateSpace();
-    
-         }else{
 
-            this.teamSpace = null;
+                 }else{
+            
+             this.teamSpace = null;
         this.channelSpace = null;
            
              axios.get('/fetch-user-spaces')
@@ -778,6 +669,8 @@ export default {
       if (response.status == 200) {
 
         this.$root.ChatList = response.data;
+
+           this.$root.LocalStore('ChatList' + this.$root.username,response.data);
 
          this.$root.sortChatList();
         
@@ -805,7 +698,10 @@ export default {
        
       
      }) 
-         }
+
+                 }
+            })
+        
          
        },
       checkUnread: function(){

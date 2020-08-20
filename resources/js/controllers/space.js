@@ -376,6 +376,38 @@ const app = new Vue({
 
 
     },
+    markSpaceRead:function(spaceId){
+
+      if(this.ChatList[1] != undefined){
+       
+        this.ChatList[1].map((space)=>{
+             
+          if(space.space_id == spaceId){
+            space.unread = 0;
+          }
+  
+        });
+  
+        this.ChatList[2].map((space)=>{
+         
+          if(space.space_id == spaceId){
+            space.unread = 0;
+          }
+  
+        });
+  
+  
+        this.ChatList[4].map((space)=>{
+         
+          if(space.space_id == spaceId){
+            space.unread = 0;
+          }
+  
+        });
+  
+      
+      }
+    },
     LocalStore:function(key,data){
     
       

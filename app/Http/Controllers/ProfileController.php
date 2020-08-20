@@ -195,7 +195,7 @@ class ProfileController extends Controller
                    $imagePath = '/imgs/profile/' . $userData->image_name . '.' . $userData->image_extension;
                  }
 
-                 $baseUrl = '/profile#/profile/connections/' . $userDataBase->username;
+                 $baseUrl = 'profile#/profile/channels/' . $userDataBase->username;
        
                  $notificationPayload = [
                     "owner_id" => $userDataBase->id,
@@ -274,7 +274,7 @@ class ProfileController extends Controller
         $payload = [
             "title"=> '',
             "body"=> $notificationPayload["body"],
-            "badge" => "/imgs/CitonHub.svg",
+            "badge" => "/imagesNew/icons/icon-72x72.png",
             "vibrate"=> [1000,500,1000],
             "tag" => $notificationPayload["tag"],
             "icon" => $notificationPayload["image"],

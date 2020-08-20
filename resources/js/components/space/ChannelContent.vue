@@ -408,9 +408,12 @@ export default {
            let msgIndex = msgCount - this.$root.selectedSpace.unread;
 
             this.$root.Messages.splice(msgIndex,0,newUnreadMsg);
-             this.$root.selectedSpace.unread = 0;
+
+             this.$root.markSpaceRead(this.$route.params.spaceId);
+
           }
       },
+    
       makeUUID:function(){
      var id = "id" + Math.random().toString(16).slice(2);
      return id;
@@ -803,13 +806,15 @@ export default {
 
                 
                 if(response.data[0].length > 0){
+
+                 
            
-            for (let index = 0; index < response.data[0].length; index++) {
+             for (let index = 0; index < response.data[0].length; index++) {
                
             
                   
-                  this.$root.returnedMessages.push(response.data[index]);
-                   this.$root.Messages.push(response.data[index]);
+                  this.$root.returnedMessages.push(response.data[0][index]);
+                   this.$root.Messages.push(response.data[0][index]);
                   this.$root.pushDataToLocal(response.data[0][index]);
 
                   this.scrollToBottom();

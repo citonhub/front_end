@@ -2,13 +2,13 @@
 <link rel="stylesheet" href="{{ asset('css/mdb.min.css') }}">
 <style>
     @font-face {font-family:BodyText;
-                   src:url( {{asset('fonts/vendor/BalsamiqSans-Regular.ttf')}} );}
+                   src:url( {{asset('fonts/vendor/Roboto-Regular.ttf')}} );}
 
                    @font-face {font-family:HeaderText;
-                   src:url( {{asset('fonts/vendor/BalsamiqSans-Bold.ttf')}} );}
+                   src:url( {{asset('fonts/vendor/Roboto-Bold.ttf')}} );}
 
                    @font-face {font-family:OtherText;
-                   src:url( {{asset('fonts/vendor/BalsamiqSans-Bold.ttf')}} );}
+                   src:url( {{asset('fonts/vendor/Roboto-Medium.ttf')}} );}
         
 
         .activeTab{

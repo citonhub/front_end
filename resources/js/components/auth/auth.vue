@@ -25,11 +25,11 @@
               <div class="row my-2 py-0 px-2 ">
                
                <div class="col-6 px-0 d-flex" style="align-items:center;justify-content:center;">
-                      <v-btn rounded  small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="showLogin">Sign In</v-btn>
+                      <v-btn rounded  small color="#3E8893" style="font-size:11px; font-weight:bolder; text-transform:capitalize; color:white;font-family: Headertext;" @click="showLogin">Sign In</v-btn>
                </div>
 
                  <div class="col-6 px-0 d-flex" style="align-items:center;justify-content:center;">
-                      <v-btn rounded  small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="showRegister">Sign Up</v-btn>
+                      <v-btn rounded  small color="#3E8893" style="font-size:11px; font-weight:bolder; text-transform:capitalize; color:white;font-family: Headertext;" @click="showRegister">Sign Up</v-btn>
                </div>
                 
               </div>
