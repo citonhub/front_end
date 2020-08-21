@@ -43,20 +43,7 @@
 
 
 
-           <div class="col-12 py-2 my-0 px-2">
-              <v-text-field
-                style="font-size:12px;"
-                 placeholder="set limit..."
-            label="Members Limit"
-             dense
-             v-model="limit"
-             :rules="limitRule"
-             type="tel"
-             color="#4495a2"
-             hint="Maximum is 5000 members"
-             ></v-text-field>
-
-             </div>
+          
 
              
         
@@ -124,7 +111,7 @@ export default {
            v => v.length < 30 || 'Name must be less than 20 characters',
              v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
          ],
-         limit:'',
+         limit:'10000',
           limitRule:[
              v => !!v || 'Limit is required',
              v => !isNaN(parseFloat(v)) && v >= 2 && v <= 500 || 'Members Limit has to be between 2 and 5000'
