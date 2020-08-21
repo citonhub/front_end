@@ -1530,39 +1530,47 @@ array_push($newSpaceArray,$userSpace);
 
 
  public function createDefaultProject($spaceId){
-   $characters = '1234567890';
-   $randomString = $this->generateRandomNumber(9,$characters);
 
-   $newPanel = Panel::create([
-      "user_id"=> Auth::id(),
-      "purpose"=> 'space',
-      "panel_id"=> $randomString,
-      "is_set"=> false
-    ]);
+    $NewProject= Project::where('user_id',Auth::id())->where('title','Citonhub Project')->get();
 
-   $newPanel->save();
+     if($NewProject->isEmpty()){
 
-   $slugCharacter = 'abcdefghijklmnopqrstuvwxyz1234567890';
-
-   $thisSpace = Space::where('space_id',$spaceId)->first();
-
-  $slugRandom =  $this->generateRandomNumber(12,$slugCharacter);
+      $characters = '1234567890';
+      $randomString = $this->generateRandomNumber(9,$characters);
    
-  $projectSlug = 'project-' . $this->createSlug($thisSpace->name) . '-' . $slugRandom;
+      $newPanel = Panel::create([
+         "user_id"=> Auth::id(),
+         "purpose"=> 'space',
+         "panel_id"=> $randomString,
+         "is_set"=> false
+       ]);
    
-  $NewProject = Project::create([
-     "project_slug"=> $projectSlug,
-     "panel_id"=> $randomString,
-     "title"=>  'Citonhub Project',
-     "stars"=> 0,
-     "comments"=> 0,
-     "views"=> 0,
-     "user_id"=>Auth::id(),
-     "type"=> 'Public',
-     "space_id"=> $spaceId
-  ]);
+      $newPanel->save();
+   
+      $slugCharacter = 'abcdefghijklmnopqrstuvwxyz1234567890';
+   
+      $thisSpace = Space::where('space_id',$spaceId)->first();
+   
+     $slugRandom =  $this->generateRandomNumber(12,$slugCharacter);
+      
+     $projectSlug = 'project-' . $this->createSlug($thisSpace->name) . '-' . $slugRandom;
+      
+     $NewProject = Project::create([
+        "project_slug"=> $projectSlug,
+        "panel_id"=> $randomString,
+        "title"=>  'Citonhub Project',
+        "stars"=> 0,
+        "comments"=> 0,
+        "views"=> 0,
+        "user_id"=>Auth::id(),
+        "type"=> 'Public',
+        "space_id"=> $spaceId
+     ]);
+   
+     $NewProject->save();
 
-  $NewProject->save();
+     }
+  
  }
 
 
@@ -1890,7 +1898,7 @@ return  $newChannelArray;
      $spaceCreated = Profile::where('user_id',Auth::id())->first()->initial_space_created;
 
 
-      if($spaceCreated == false){
+      if($spaceCreated == false && $userAssitanceAccount->isEmpty()){
 
       
        $newSpace = Space::create([
