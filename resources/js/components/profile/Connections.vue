@@ -79,7 +79,7 @@ export default {
     },
     methods:{
        goBack() {
-        this.$router.push({ path: '/profile/activities/' + this.$route.params.username });
+        this.$router.push({ path: '/profile/channels/' + this.$route.params.username });
         
         },
         connectToUser: function(user){

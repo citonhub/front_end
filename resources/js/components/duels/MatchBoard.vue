@@ -174,7 +174,15 @@ export default {
         this.fetchDuelComments();
          this.fetchDuel();
          this.$root.duelComments = [];
+
+          this.$root.closeNotification(this.$route.params.duelId +'duel_join');
+          this.$root.closeNotification(this.$route.params.duelId +'duel_comment');
+          this.$root.closeNotification(this.$route.params.duelId +'duel_like');
+
+          this.$root.closeNotification('new_duel'+ this.$route.params.duelId);
+          
           if(this.$root.selectedDuel.length != 0){
+            
                
                if(this.$root.selectedDuel.user_team != undefined){
         this.$root.localChannel = [];

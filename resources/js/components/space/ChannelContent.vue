@@ -28,7 +28,7 @@
        </div>
        
 
-     <div class="col-12 py-0 my-0"  v-else style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">
+     <div class="col-12 py-0 my-0"  v-if="this.$root.Messages == null && this.errorLoadingMessage == false" style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">
 
          <div class="row py-0 my-0 px-1">
             
@@ -68,6 +68,16 @@
 
          
       </div>
+
+
+        <div class="col-12 py-0 my-0 text-center"  v-if="this.$root.Messages == null && this.errorLoadingMessage == true" style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">
+
+           <div style="color:gray; font-size:12px;" class="mb-2">Unable to load messages</div>
+
+           <v-btn fab color="#3E8893" small @click="fetchMessages"> <v-icon color="#ffffff">mdi-reload</v-icon> </v-btn>
+       
+         
+       </div>
       
 
          <div   class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0 fixed-bottom " style="z-index:34545676566;" v-if="this.$root.showChatBottom">
@@ -295,6 +305,7 @@ export default {
            containerScrollPosition:0,
           typing:false,
           channel:null,
+          errorLoadingMessage:false,
           imageArray:[
             {
               image_name: 'imgproj',
@@ -882,28 +893,19 @@ export default {
 
           let storedMsg = this.$root.getLocalStore(this.$route.params.spaceId);
 
-           let unreadStoredMsg = this.$root.getLocalStore('unread' + this.$route.params.spaceId);
-
-           unreadStoredMsg.then((result)=>{
-
-              let finalResultUnread = JSON.parse(result);
-
-              if(this.$root.sendingMessage == false){
-
-                this.fetchUnreadMessages(finalResultUnread);
-
-              }
-               
-             
-
-           });
+          
            
                 
             storedMsg.then((result)=>{
+
+              
                
                 
                if(result != null ){
                 
+
+
+               
                let finalResult = JSON.parse(result);
 
             this.$root.spaceFullData = finalResult;
@@ -933,7 +935,22 @@ export default {
         container.scrollTo(0 , top);
         },500)
 
-   
+         let unreadStoredMsg = this.$root.getLocalStore('unread' + this.$route.params.spaceId);
+
+           unreadStoredMsg.then((result)=>{
+
+              let finalResultUnread = JSON.parse(result);
+
+              if(this.$root.sendingMessage == false){
+
+                this.fetchUnreadMessages(finalResultUnread);
+
+              }
+               
+             
+
+           });
+           
             
               
                 
@@ -943,7 +960,10 @@ export default {
       .then(response => {
       
       if (response.status == 200) {
-          
+           
+
+            this.$root.AlertRoot = true;
+        this.$root.AlertMsgRoot = 'loading messages...';
 
 
      if( response.data[1].space_id == this.$route.params.spaceId ){
@@ -963,9 +983,7 @@ export default {
        this.Messages = returnedData;
        this.$root.Messages = returnedData;
 
-       
-       
-       this.generateUnreadMessage();
+      
         
        this.$root.selectedSpace = response.data[1];
 
@@ -985,7 +1003,7 @@ export default {
      }
          
        
-   
+      this.$root.AlertRoot = false;
           
    
        
@@ -994,6 +1012,8 @@ export default {
      
      })
      .catch(error => {
+
+       this.errorLoadingMessage = true;
     
      }) 
 

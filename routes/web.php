@@ -142,3 +142,7 @@ Route::get('/fetch-connections','ProfileController@userConnections');
 Route::get('/fetch-connected','ProfileController@userConnected');
 Route::get('/fetch-all-connected','ProfileController@userAllConnected');
 Route::get('/fetch-trend-connections/{query?}','ProfileController@fetchTrendConnections');
+
+
+// will be deleted
+Route::get('/testing-mail','UserController@TestingMail');

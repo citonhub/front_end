@@ -81,7 +81,7 @@ export default {
         showProfile:function(user){
             
             this.$root.pageloader = true;
-          window.location = '/view-profile#/profile/activities/'+ user.username;
+          window.location = '/view-profile#/profile/channels/'+ user.username;
            
         },
        

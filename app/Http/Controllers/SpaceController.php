@@ -1700,10 +1700,8 @@ array_push($newSpaceArray,$userSpace);
 
    
 
-    $MessageContentTeam1 = '<p>Collaborate with a small number of developers 👨‍💻,
-
-    to work on projects. Assign projects to teams,
-   
+    $MessageContentTeam1 = '<p>While anyone can join your channels,teams are private, and for a small number of developers 👨‍💻 you want to collaborate with.
+    Assign projects to teams,
     and everyone has access to the same panel.</p> '; 
 
     $newMessage3 = SpaceMessage::create([

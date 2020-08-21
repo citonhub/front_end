@@ -12,7 +12,9 @@ use Illuminate\Support\Str;
 use App\traits\PushNotificationTrait;
 use App\Notification;
 use App\Duel;
+use App\Mail\VerifyUserEmail;
 use App\Post;
+use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use App\Project;
 use App\Space;
@@ -22,7 +24,15 @@ class UserController extends Controller
 {
     use ManagesImages,PushNotificationTrait;
 
-    public function __construct()
+     public function TestingMail(){
+      
+        Mail::to('drayfocus@gmail.com')->send(new VerifyUserEmail(Auth::user()));
+
+        dd('done');
+
+     }
+
+  public function __construct()
    {
        $this->setImageDefaultsFromConfig('profileImage');
      
