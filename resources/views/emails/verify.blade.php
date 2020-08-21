@@ -1,7 +1,7 @@
 @component('mail::message')
-<p style="text-align: center;">
-# Hi! {{$user->name}} 😃
-</p>
+<h1 style="text-align: center;">
+ Hi! {{$user->name}} 😃
+</h1>
 
 
 <p style="text-align: center;">
