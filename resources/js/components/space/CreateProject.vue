@@ -184,6 +184,8 @@ export default {
 
               
                this.$root.ChatList[3].data.unshift(response.data);
+
+                this.$root.LocalStore('ChatList' + this.$root.username,this.$root.ChatList);
                  
                this.$root.fromChatList = true;
            this.$router.push({ path: '/' + response.data.project_slug +'/panel' });

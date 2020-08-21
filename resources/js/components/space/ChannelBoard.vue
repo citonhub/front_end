@@ -145,6 +145,9 @@ export default {
                  });
 
                  this.$root.ChatList[2] = remainingSpace;
+
+
+                  this.$root.LocalStore('ChatList' + this.$root.username,this.$root.ChatList);
               }
 
          }
@@ -160,6 +163,8 @@ export default {
                  });
 
                  this.$root.ChatList[1] = remainingSpace;
+
+                  this.$root.LocalStore('ChatList' + this.$root.username,this.$root.ChatList);
               }
 
          }
