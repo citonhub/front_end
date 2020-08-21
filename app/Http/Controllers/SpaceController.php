@@ -1887,7 +1887,10 @@ return  $newChannelArray;
 
      $userAssitanceAccount = Space::where('user_2',93)->where('user_1',Auth::id())->where('type','Direct')->get();
 
-      if($userAssitanceAccount->isEmpty() && Auth::id() != 93){
+     $spaceCreated = Profile::where('user_id',Auth::id())->first()->initial_space_created;
+
+
+      if($spaceCreated == false){
 
       
        $newSpace = Space::create([
@@ -1970,8 +1973,14 @@ return  $newChannelArray;
 
       }
 
-      
-     $this->createDefaultSpaces();
+
+      if($spaceCreated == false){
+         $this->createDefaultProject($userPersonalSpace->space_id);
+       }
+   
+      $this->createDefaultSpaces();
+
+
     
      if($userPersonalSpace->isEmpty()){
        
@@ -2013,9 +2022,7 @@ return  $newChannelArray;
 
      $allPersonalProjects = Project::where('space_id',$userPersonalSpace->space_id)->where('title','Citonhub Project')->get();
 
-     if($allPersonalProjects->isEmpty()){
-       $this->createDefaultProject($userPersonalSpace->space_id);
-     }
+     
 
 
      $userTeamSpaces = DB::table('space_members')
