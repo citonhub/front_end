@@ -80,7 +80,7 @@
        </div>
       
 
-         <div   class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0 fixed-bottom " style="z-index:34545676566;" v-if="this.$root.showChatBottom">
+         <div   class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0 fixed-bottom " style="z-index:66;" >
                 <div class="px-2" v-if="this.$root.showRootReply">
 
                   <div class=" py-2 px-2  text-left mb-1"  style="background:#3E8893; border:1px solid transparent; border-radius:8px;" >
