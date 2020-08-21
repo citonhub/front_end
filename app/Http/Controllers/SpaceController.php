@@ -1591,6 +1591,139 @@ array_push($newSpaceArray,$userSpace);
 
       if($spaceCreated == false){
 
+
+         // create assistance
+
+         if($spaceCreated == false){
+
+      
+            $newSpace = Space::create([
+               "name"=> null,
+               "user_id"=> Auth::id(),
+               "type"=> 'Direct',
+               "space_id"=>  'assistant' .$spaceId,
+               "limit" => 2,
+               "user_1"=>Auth::id(),
+               "user_2"=> 93,
+            ]);
+     
+     
+            $spaceMember1 = SpaceMember::create([
+              'user_id'=> Auth::id(),
+              "is_admin"=> true,
+              'space_id'=>   'assistant' .$spaceId
+           ]);
+     
+           $spaceMember1->save();
+     
+           $spaceMember2 = SpaceMember::create([
+              'user_id'=> 93,
+              "is_admin"=> true,
+              'space_id'=>  'assistant' . $spaceId
+           ]);
+     
+           $spaceMember2->save();
+     
+           $dmList1 = DMList::create([
+              'user_id'=> Auth::id(),
+              'other_user_id'=> 93,
+              'space_id' => $spaceId
+           ]);
+     
+           $dmList1->save();
+     
+           $dmList2 = DMList::create([
+              'user_id'=> 93,
+              'other_user_id'=> Auth::id(),
+              'space_id' => $spaceId
+           ]);
+           
+           $dmList2->save();
+     
+           $userUnread = UnreadMessage::create([
+              'user_id'=> Auth::id(),
+              'space_id'=> $spaceId,
+              'msg_read'=> 0
+              ]);
+     
+           $userUnread->save();
+     
+     
+           $defaultNotification = Notification::where('user_id',Auth::id())->where('type_id','empty_alert')->get();
+     
+           if(!$defaultNotification->isEmpty()){
+           
+              $defaultNotification = Notification::where('user_id',Auth::id())->where('type_id','empty_alert')->first();
+     
+              $defaultNotification->update([
+             "status"=> 'read'
+              ]);
+     
+           }
+     
+     
+     
+           $MessageContent = 'Hi <strong>' . Auth::user()->name . '</strong>, I\'m Olutola 😃. I\'m here to help with any problem you have using CitonHub.'; 
+       
+           $newMessage = SpaceMessage::create([
+              "space_id"=>$spaceId,
+              "type"=>null,
+              "is_reply"=>false,
+              "user_id"=> 93,
+              "replied_message_id"=> null,
+              "content"=> $MessageContent
+           ]);
+        
+     
+           }
+     
+          // create project 
+
+          $userPersonalSpace = Space::where('user_id',Auth::id())->where('type','Personal')->get();
+     
+          if($userPersonalSpace->isEmpty()){
+            
+           $personalSpace = Space::create([
+             "name"=> 'You',
+             "user_id"=> Auth::id(),
+             "type"=> 'Personal',
+             "space_id"=> 'Personal' . $spaceId,
+             "limit"=> 1
+           ]);
+     
+           $personalSpace->save();
+     
+           $spaceMember = SpaceMember::create([
+              'user_id'=> Auth::id(),
+              "is_admin"=> false,
+              'space_id'=> 'Personal' . $spaceId
+           ]);
+     
+           $spaceMember->save();
+       }
+
+       $userPersonalSpace = DB::table('space_members')
+       ->join('spaces','spaces.space_id','space_members.space_id')
+       ->select(
+           'spaces.image_name as image_name',
+           'spaces.image_extension as image_extension',
+           'spaces.type as type',
+           'spaces.background_color as background_color',
+           'spaces.name as name',
+           'spaces.message_track as message_track',
+           'spaces.description as description',
+           'spaces.space_id as space_id'
+       )
+       ->where('space_members.user_id',Auth::id())
+       ->where('spaces.type','Personal')
+       ->first();
+       
+
+
+      
+
+       $this->createDefaultProject($userPersonalSpace->space_id);
+
       // create channel
 
          $newSpace = Space::create([
@@ -1883,6 +2016,9 @@ return  $newChannelArray;
  }
 
 
+  
+
+
 
 
  public function fetchUserSpaces(){
@@ -1895,139 +2031,26 @@ return  $newChannelArray;
 
      $userAssitanceAccount = Space::where('user_2',93)->where('user_1',Auth::id())->where('type','Direct')->get();
 
-     $spaceCreated = Profile::where('user_id',Auth::id())->first()->initial_space_created;
-
-
-      if($spaceCreated == false && $userAssitanceAccount->isEmpty()){
-
-      
-       $newSpace = Space::create([
-          "name"=> null,
-          "user_id"=> Auth::id(),
-          "type"=> 'Direct',
-          "space_id"=> $spaceId,
-          "limit" => 2,
-          "user_1"=>Auth::id(),
-          "user_2"=> 93,
-       ]);
-
-
-       $spaceMember1 = SpaceMember::create([
-         'user_id'=> Auth::id(),
-         "is_admin"=> true,
-         'space_id'=> $spaceId
-      ]);
-
-      $spaceMember1->save();
-
-      $spaceMember2 = SpaceMember::create([
-         'user_id'=> 93,
-         "is_admin"=> true,
-         'space_id'=> $spaceId
-      ]);
-
-      $spaceMember2->save();
-
-      $dmList1 = DMList::create([
-         'user_id'=> Auth::id(),
-         'other_user_id'=> 93,
-         'space_id' => $spaceId
-      ]);
-
-      $dmList1->save();
-
-      $dmList2 = DMList::create([
-         'user_id'=> 93,
-         'other_user_id'=> Auth::id(),
-         'space_id' => $spaceId
-      ]);
-      
-      $dmList2->save();
-
-      $userUnread = UnreadMessage::create([
-         'user_id'=> Auth::id(),
-         'space_id'=> $spaceId,
-         'msg_read'=> 0
-         ]);
-
-      $userUnread->save();
-
-
-      $defaultNotification = Notification::where('user_id',Auth::id())->where('type_id','empty_alert')->get();
-
-      if(!$defaultNotification->isEmpty()){
-      
-         $defaultNotification = Notification::where('user_id',Auth::id())->where('type_id','empty_alert')->first();
-
-         $defaultNotification->update([
-        "status"=> 'read'
-         ]);
-
-      }
-
-
-
-      $MessageContent = 'Hi <strong>' . Auth::user()->name . '</strong>, I\'m Olutola 😃. I\'m here to help with any problem you have using CitonHub.'; 
+    
   
-      $newMessage = SpaceMessage::create([
-         "space_id"=>$spaceId,
-         "type"=>null,
-         "is_reply"=>false,
-         "user_id"=> 93,
-         "replied_message_id"=> null,
-         "content"=> $MessageContent
-      ]);
-   
-
-      }
-
-        
-
-     if($userPersonalSpace->isEmpty()){
-       
-      $personalSpace = Space::create([
-        "name"=> 'You',
-        "user_id"=> Auth::id(),
-        "type"=> 'Personal',
-        "space_id"=> $spaceId,
-        "limit"=> 1
-      ]);
-
-      $personalSpace->save();
-
-      $spaceMember = SpaceMember::create([
-         'user_id'=> Auth::id(),
-         "is_admin"=> false,
-         'space_id'=> $spaceId
-      ]);
-
-      $spaceMember->save();
-  }
-
-  $userPersonalSpace = DB::table('space_members')
-  ->join('spaces','spaces.space_id','space_members.space_id')
-  ->select(
-      'spaces.image_name as image_name',
-      'spaces.image_extension as image_extension',
-      'spaces.type as type',
-      'spaces.background_color as background_color',
-      'spaces.name as name',
-      'spaces.message_track as message_track',
-      'spaces.description as description',
-      'spaces.space_id as space_id'
-  )
-  ->where('space_members.user_id',Auth::id())
-  ->where('spaces.type','Personal')
-  ->first();
-  
-
-
-       if($spaceCreated == false){
-
-         $this->createDefaultProject($userPersonalSpace->space_id);
-       }
-   
       $this->createDefaultSpaces();
+
+
+      $userPersonalSpace = DB::table('space_members')
+      ->join('spaces','spaces.space_id','space_members.space_id')
+      ->select(
+          'spaces.image_name as image_name',
+          'spaces.image_extension as image_extension',
+          'spaces.type as type',
+          'spaces.background_color as background_color',
+          'spaces.name as name',
+          'spaces.message_track as message_track',
+          'spaces.description as description',
+          'spaces.space_id as space_id'
+      )
+      ->where('space_members.user_id',Auth::id())
+      ->where('spaces.type','Personal')
+      ->first();
 
       
 
