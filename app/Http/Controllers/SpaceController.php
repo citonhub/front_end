@@ -1627,7 +1627,7 @@ array_push($newSpaceArray,$userSpace);
            $dmList1 = DMList::create([
               'user_id'=> Auth::id(),
               'other_user_id'=> 93,
-              'space_id' => $spaceId
+              'space_id' =>  'assistant' . $spaceId
            ]);
      
            $dmList1->save();
@@ -1635,14 +1635,14 @@ array_push($newSpaceArray,$userSpace);
            $dmList2 = DMList::create([
               'user_id'=> 93,
               'other_user_id'=> Auth::id(),
-              'space_id' => $spaceId
+              'space_id' =>  'assistant' . $spaceId
            ]);
            
            $dmList2->save();
      
            $userUnread = UnreadMessage::create([
               'user_id'=> Auth::id(),
-              'space_id'=> $spaceId,
+              'space_id'=>  'assistant' . $spaceId,
               'msg_read'=> 0
               ]);
      
@@ -1666,13 +1666,28 @@ array_push($newSpaceArray,$userSpace);
            $MessageContent = 'Hi <strong>' . Auth::user()->name . '</strong>, I\'m Olutola 😃. I\'m here to help with any problem you have using CitonHub.'; 
        
            $newMessage = SpaceMessage::create([
-              "space_id"=>$spaceId,
+              "space_id"=> 'assistant' . $spaceId,
               "type"=>null,
               "is_reply"=>false,
               "user_id"=> 93,
               "replied_message_id"=> null,
               "content"=> $MessageContent
            ]);
+
+           $MessageContent12 =  "<h6>Add to your homescreen 📱</h6>
+           <p> Let's be honest with you 😊. We haven't yet figured out how to make the chatting experience really awesome on your browser. While we work on that, we'll really love you to 
+           add CitonHub to your homescreen for a better experience 😃</p>"; 
+       
+           $newMessage12 = SpaceMessage::create([
+              "space_id"=> 'assistant' . $spaceId,
+              "type"=> null,
+              "is_reply"=>false,
+              "user_id"=> 93,
+              "replied_message_id"=> null,
+              "content"=> $MessageContent12
+           ]);
+       
+           $newMessage12->save();
         
      
            }
@@ -1768,22 +1783,8 @@ array_push($newSpaceArray,$userSpace);
     $newMessage1->save();
 
 
-    // add to home screen message
-
-    $MessageContent12 =  "<p>Add to homescreen 📱.
-    Let's be honest with you 😊. We haven't yet figured out how to make the chatting experience really awesome on your browser. While we work on that, we'll really love you to 
-    add CitonHub to your homescreen for a better experience 😃</p>"; 
-
-    $newMessage12 = SpaceMessage::create([
-       "space_id"=>$spaceIdChannel,
-       "type"=> null,
-       "is_reply"=>false,
-       "user_id"=> 93,
-       "replied_message_id"=> null,
-       "content"=> $MessageContent12
-    ]);
-
-    $newMessage12->save();
+   
+   
 
 
     $messageURL1 = 'showShare';
@@ -1855,23 +1856,6 @@ array_push($newSpaceArray,$userSpace);
     ]);
 
     $newMessage3->save();
-
-    // add to home screen
-
-    $MessageContent22 = "<p>Add to homescreen 📱.
-    Let's be honest with you 😊. We haven't yet figured out how to make the chatting experience really awesome on your browser. While we work on that, we'll really love you to 
-    add CitonHub to your homescreen for a better experience 😃</p>"; 
-
-    $newMessage22 = SpaceMessage::create([
-       "space_id"=>$spaceIdTeam,
-       "type"=> null,
-       "is_reply"=>false,
-       "user_id"=> 93,
-       "replied_message_id"=> null,
-       "content"=> $MessageContent22
-    ]);
-
-    $newMessage22->save();
 
 
     $messageURL3 = 'showShare';
