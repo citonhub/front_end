@@ -3,9 +3,9 @@
 
 Your Verification Code is
 
-<p style="text-align: center;">
-   <b style="font-size:20px;color:#173136;">{{$user->verification_code}}</b>
-</p>
+
+{{$user->verification_code}}
+
 
 
 Thanks,<br>
