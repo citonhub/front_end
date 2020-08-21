@@ -189,6 +189,7 @@ export default {
               this.pageloader= true;
              
             window.location =  this.$root.UrlTrack;
+            
              location.reload();
             
             }
