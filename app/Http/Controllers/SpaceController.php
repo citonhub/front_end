@@ -1766,7 +1766,7 @@ array_push($newSpaceArray,$userSpace);
 
    
 
-    $MessageContent1 = ' <p>Grow your coding community 👫 in channels.
+    $MessageContent1 = ' <p>Grow your coding community in channels.
     Invite more people to share codes with you 👩🏾‍💻.
    The more people in your channels, the more
  coins you get to host projects and initiate duels 😃</p>'; 
@@ -2217,13 +2217,16 @@ return  $newChannelArray;
 
       }
 
-      $userProjects = DB::table('space_members')
-              ->join('projects','projects.space_id','space_members.space_id')
+      $userProjects = DB::table('projects')
+              ->join('space_members','space_members.space_id','projects.space_id')
+              ->join('spaces','spaces.space_id','projects.space_id')
               ->select(
                  'projects.project_slug as project_slug',
                  'projects.title as title'
               )
               ->where('space_members.user_id',Auth::id())
+              ->where('spaces.type','!=','Channel')
+              ->where('spaces.type','!=','Direct')
               ->orderBy('projects.created_at','desc')
               ->paginate(50);
             

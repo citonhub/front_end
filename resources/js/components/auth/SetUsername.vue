@@ -104,8 +104,28 @@ export default {
       this.$root.showTabs=false;
        this.$root.showHeader = true;
        this.showVerifiedAlert()
+       this.checkIfLogin();
     },
     methods:{
+       checkIfLogin:function(){
+
+          if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'space'){
+             this.$router.push({ path: '/space' });
+          } 
+
+           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'trends'){
+             this.$router.push({ path: '/trends' });
+          } 
+
+           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'profile'){
+             this.$router.push({ path: '/profile' });
+          } 
+
+           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'duels'){
+             this.$router.push({ path: '/duel' });
+          } 
+
+       },
        viewPost: function(){
             this.$router.push({ path: '/post' });
         },
@@ -147,7 +167,7 @@ export default {
                this.loading = false;
               
                  this.usernameExist = true;
-                 this.showAlert(5000,'Username exists 😫,change username and try again');
+                 this.showAlert(5000,'Username exists. please, change username and try again');
             }else{   
                 
                

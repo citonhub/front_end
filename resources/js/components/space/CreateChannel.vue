@@ -53,7 +53,7 @@
              :rules="limitRule"
              type="tel"
              color="#4495a2"
-             hint="Maximum is 500 members"
+             hint="Maximum is 5000 members"
              ></v-text-field>
 
              </div>
@@ -127,7 +127,7 @@ export default {
          limit:'',
           limitRule:[
              v => !!v || 'Limit is required',
-             v => !isNaN(parseFloat(v)) && v >= 2 && v <= 500 || 'Members Limit has to be between 2 and 500'
+             v => !isNaN(parseFloat(v)) && v >= 2 && v <= 500 || 'Members Limit has to be between 2 and 5000'
         ],
         }
     },

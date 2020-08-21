@@ -16,7 +16,7 @@
 
            <div class="col-12 py-2 text-center ">
               <span class="infoclass px-4">
-                 Grow your favourite communities in channels, collaborate and build projects in teams and challenge friends to duels.
+                 Grow your communities in channels, collaborate and build projects in teams, and challenge friends in duels.
              </span>
             </div>
            
@@ -56,8 +56,28 @@ export default {
       this.$root.showTabs=false;
        this.$root.showHeader = true;
         this.$root.redirectRoot = this.$route.params.frompage; 
+        this.checkIfLogin();
     },
     methods:{
+       checkIfLogin:function(){
+
+          if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'space'){
+             this.$router.push({ path: '/space' });
+          } 
+
+           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'trends'){
+             this.$router.push({ path: '/trends' });
+          } 
+
+           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'profile'){
+             this.$router.push({ path: '/profile' });
+          } 
+
+           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'duels'){
+             this.$router.push({ path: '/duel' });
+          } 
+
+       },
        showLogin: function(){
             this.$router.push({ path: '/login' });
         },

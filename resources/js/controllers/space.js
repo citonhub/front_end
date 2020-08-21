@@ -285,6 +285,7 @@ const app = new Vue({
      sendingMessage:false,
      panelDataFull:[],
      showChatBottom:true,
+     frompage:'space',
     },
      mounted: function () {
       this.pageloader= false;
@@ -407,6 +408,8 @@ const app = new Vue({
   
       
       }
+
+      this.$root.LocalStore('ChatList' + this.username,this.ChatList);
     },
     LocalStore:function(key,data){
     

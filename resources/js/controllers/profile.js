@@ -125,6 +125,7 @@ const app = new Vue({
         drawer:false,
         notificationCount:0,
         notificationCountSpace:0,
+        frompage:'profile',
     },
     mounted: function () {
       this.pageloader= false;

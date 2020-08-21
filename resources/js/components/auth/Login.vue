@@ -123,8 +123,28 @@ export default {
      mounted(){
       this.$root.showTabs=false;
        this.$root.showHeader = true;
+       this.checkIfLogin();
     },
     methods:{
+      checkIfLogin:function(){
+
+          if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'space'){
+             this.$router.push({ path: '/space' });
+          } 
+
+           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'trends'){
+             this.$router.push({ path: '/trends' });
+          } 
+
+           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'profile'){
+             this.$router.push({ path: '/profile' });
+          } 
+
+           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'duels'){
+             this.$router.push({ path: '/duel' });
+          } 
+
+       },
        viewPost: function(){
             this.$router.push({ path: '/post' });
         },

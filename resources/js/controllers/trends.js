@@ -101,6 +101,7 @@ const app = new Vue({
             drawer:false,
             notificationCount:0,
             notificationCountSpace:0,
+             frompage:'trends',
     },
      mounted: function () {
       this.pageloader = false;

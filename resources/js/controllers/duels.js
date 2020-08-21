@@ -232,6 +232,7 @@ const app = new Vue({
       SelectedCodeBox:[],
       panelResources:[],
       UploadResources:false,
+      frompage:'duels',
     },
      mounted: function () {
       this.pageloader= false;
