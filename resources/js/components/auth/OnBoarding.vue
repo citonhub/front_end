@@ -16,9 +16,6 @@
         <div class="row py-0" >
 
         
-            <div class="col-12 py-0 text-center">
-          <img  width="100px" src="/imgs/bot.svg" />
-            </div>
 
              <div class="col-lg-8 offset-lg-2 text-center px-3">
           <span style="font-size:13px; color:white; font-family:HeaderText;">{{content}}</span>
