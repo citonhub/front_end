@@ -4,7 +4,7 @@
 Your Verification Code is
 
 
-{{$user->verification_code}}
+{{$user->verification_code}}</b>
 
 
 
