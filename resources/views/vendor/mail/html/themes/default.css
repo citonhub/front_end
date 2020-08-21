@@ -102,6 +102,7 @@ img {
 .header {
     padding: 25px 0;
     text-align: center;
+    color:#ffffff;
 }
 
 .header a {
@@ -124,11 +125,14 @@ img {
     -premailer-cellpadding: 0;
     -premailer-cellspacing: 0;
     -premailer-width: 100%;
-    background-color: #edf2f7;
+    background-color: #6fb8c3;
     border-bottom: 1px solid #edf2f7;
     border-top: 1px solid #edf2f7;
     margin: 0;
+     margin-left: auto;
+     margin-right: auto;
     padding: 0;
+    position: absolute;
     width: 100%;
 }
 
@@ -171,7 +175,7 @@ img {
 }
 
 .footer p {
-    color: #b0adc5;
+    color: #ffffff;
     font-size: 12px;
     text-align: center;
 }
