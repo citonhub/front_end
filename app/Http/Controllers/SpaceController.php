@@ -1973,12 +1973,55 @@ return  $newChannelArray;
 
       }
 
+        
 
-      if($spaceCreated == false){
+     if($userPersonalSpace->isEmpty()){
+       
+      $personalSpace = Space::create([
+        "name"=> 'You',
+        "user_id"=> Auth::id(),
+        "type"=> 'Personal',
+        "space_id"=> $spaceId,
+        "limit"=> 1
+      ]);
+
+      $personalSpace->save();
+
+      $spaceMember = SpaceMember::create([
+         'user_id'=> Auth::id(),
+         "is_admin"=> false,
+         'space_id'=> $spaceId
+      ]);
+
+      $spaceMember->save();
+  }
+
+  $userPersonalSpace = DB::table('space_members')
+  ->join('spaces','spaces.space_id','space_members.space_id')
+  ->select(
+      'spaces.image_name as image_name',
+      'spaces.image_extension as image_extension',
+      'spaces.type as type',
+      'spaces.background_color as background_color',
+      'spaces.name as name',
+      'spaces.message_track as message_track',
+      'spaces.description as description',
+      'spaces.space_id as space_id'
+  )
+  ->where('space_members.user_id',Auth::id())
+  ->where('spaces.type','Personal')
+  ->first();
+  
+
+
+       if($spaceCreated == false){
+
          $this->createDefaultProject($userPersonalSpace->space_id);
        }
    
       $this->createDefaultSpaces();
+
+      
 
 
     
