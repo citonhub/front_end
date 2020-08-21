@@ -2031,7 +2031,7 @@ return  $newChannelArray;
 
       
 
-     $allPersonalProjects = Project::where('space_id',$userPersonalSpace->space_id)->where('title','Citonhub Project')->get();
+     $allPersonalProjects = Project::where('space_id',$userPersonalSpace->space_id)->where('user_id',Auth::id())->where('title','Citonhub Project')->get();
 
      
 
