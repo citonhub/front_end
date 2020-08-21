@@ -10,7 +10,7 @@
             </div>
 
            <div class="col-12 py-0 text-center">
-             <span style="font-family:HeaderText; font-size:14px;"> Welcome back home developer 👨‍💻.</span>
+             <span style="font-family:HeaderText; font-size:14px;"> Welcome home developer 👨‍💻.</span>
             </div>
 
 
