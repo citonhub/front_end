@@ -85,7 +85,7 @@ class RegisterController extends Controller
           $referralUserProfile = Profile::where('user_id',$referralUser->id)->first();
            
                 $referralUserProfile->update([
-                 'coins'=> $referralUserProfile->coins + 3
+                 'coins'=> $referralUserProfile->coins + 5
                 ]);
       
               

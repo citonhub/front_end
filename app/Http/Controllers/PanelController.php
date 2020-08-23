@@ -1120,19 +1120,29 @@ public function main(){
 
             if($panel->panel_language == 'PHP') {
               $baseUrl = 'https://php.citonhub.com';
+
+              $requestData = [
+                "panel_id"=> $panelId,
+               "path"=> $route['path'],
+               "function_name"=> $route['function_name'],
+               "file_name"=> $route['file_name'],
+               "route_type"=> $route['route_type']
+             ];
+
              }
   
              if($panel->panel_language == 'NodeJs') {
               $baseUrl = 'https://nodejs.citonhub.com/node';
+              $requestData = [
+                "panel_id"=> $panelId,
+               "path"=>  $panelId .  $route['path'],
+               "function_name"=> $route['function_name'],
+               "file_name"=> $route['file_name'],
+               "route_type"=> $route['route_type']
+             ];
              }
 
-            $requestData = [
-                "panel_id"=> $panelId,
-              "path"=> $route['path'],
-              "function_name"=> $route['function_name'],
-              "file_name"=> $route['file_name'],
-              "route_type"=> $route['route_type']
-            ];
+           
 
          $response = Http::post($baseUrl .'/create-route',$requestData);
 
@@ -1330,7 +1340,9 @@ public function main(){
               $JsContent .="const " .  $files->file_name .  "=(req,res)=>{
                 res.sendFile(dirname+\"" ."/public" . '/' . $projectPanel->panel_id . "/views" . '/' .  $files->file_name  . ".html" . "\")
                         
-                }";
+                }
+                
+                ";
               }
     
            }
@@ -1361,7 +1373,7 @@ public function main(){
 
               $JsCodeBox = CodeBox::create([
                 "content"=> $JsContent,
-                "language_type"=> "js",
+                "language_type"=> "JAVASCRIPT",
                 "file_name"=> "routes",
                 "type"=> "back_end",
                 "user_id"=> Auth::id(),
@@ -1397,18 +1409,27 @@ public function main(){
 
            if($panel->panel_language == 'PHP') {
             $baseUrl = 'https://php.citonhub.com';
-           }
 
-           if($panel->panel_language == 'NodeJs') {
-            $baseUrl = 'https://nodejs.citonhub.com/node';
-           }
-        
-          
-          $requestData = [
+            $requestData = [
               'panel_id' =>  $projectPanel->panel_id,
               'file_name'=> 'routes',
               'content'=> $phpContent
           ];
+
+           }
+
+           if($panel->panel_language == 'NodeJs') {
+            $baseUrl = 'https://nodejs.citonhub.com/node';
+
+            $requestData = [
+              'panel_id' =>  $projectPanel->panel_id,
+              'file_name'=> 'routes',
+              'content'=> $JsContent
+          ];
+           }
+        
+          
+         
           
          $response = Http::post($baseUrl .'/create-controller',$requestData);
 
@@ -1609,7 +1630,9 @@ public function main(){
             $JsContent .="const " .  $files->file_name .  "=(req,res)=>{
               res.sendFile(dirname+\"" ."/public" . '/' . $duelPanel->panel_id . "/views" . '/' .  $files->file_name  . ".html" . "\")
                       
-              }";
+              }
+              
+              ";
             }
   
          }
@@ -1640,7 +1663,7 @@ public function main(){
 
             $JsCodeBox = CodeBox::create([
               "content"=> $JsContent,
-              "language_type"=> "js",
+              "language_type"=> "JAVASCRIPT",
               "file_name"=> "routes",
               "type"=> "back_end",
               "user_id"=> Auth::id(),
@@ -1676,18 +1699,26 @@ public function main(){
 
          if($panel->panel_language == 'PHP') {
           $baseUrl = 'https://php.citonhub.com';
-         }
 
-         if($panel->panel_language == 'NodeJs') {
-          $baseUrl = 'https://nodejs.citonhub.com/node';
-         }
-      
-        
-        $requestData = [
+          $requestData = [
             'panel_id' =>  $duelPanel->panel_id,
             'file_name'=> 'routes',
             'content'=> $phpContent
         ];
+         }
+
+         if($panel->panel_language == 'NodeJs') {
+          $baseUrl = 'https://nodejs.citonhub.com/node';
+
+          $requestData = [
+            'panel_id' =>  $duelPanel->panel_id,
+            'file_name'=> 'routes',
+            'content'=> $JsContent
+        ];
+         }
+      
+        
+       
         
        $response = Http::post($baseUrl .'/create-controller',$requestData);
 
@@ -2299,6 +2330,8 @@ public function main(){
     
   }
 
+
+
   public function pageLoader($panelId,$pageName){
 
   
@@ -2321,9 +2354,6 @@ public function main(){
          $baseUrl = 'https://nodejs.citonhub.com/node';
 
         }
-
-
-    
 
     $response = Http::get($baseUrl .'/' . $panelId . '/' . $pageName );
     
