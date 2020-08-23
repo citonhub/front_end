@@ -597,9 +597,18 @@ export default {
       
       if (response.status == 200) {
 
-        
+           this.$root.ChatList = response.data;
 
         this.$root.LocalStore('ChatList' + this.$root.username,response.data);
+
+          this.$root.sortChatList();
+        
+         this.personalSpace = this.$root.ChatList[0];
+        this.teamSpace = this.$root.ChatList[1];
+        this.channelSpace = this.$root.ChatList[2];
+        this.channelProject = this.$root.ChatList[3].data;
+        this.channelDirect = this.$root.ChatList[4];
+         this.channelSuggestions = this.$root.ChatList[5];
          
          
        

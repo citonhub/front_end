@@ -410,6 +410,7 @@ const app = new Vue({
       }
 
       this.$root.LocalStore('ChatList' + this.username,this.ChatList);
+      this.$root.LocalStore('unread' + spaceId,[]);
     },
     LocalStore:function(key,data){
     
