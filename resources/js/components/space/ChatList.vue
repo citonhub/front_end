@@ -610,7 +610,7 @@ export default {
         this.channelDirect = this.$root.ChatList[4];
          this.channelSuggestions = this.$root.ChatList[5];
          
-         
+         this.$root.checkUnread();
        
 
      }
@@ -662,7 +662,7 @@ export default {
         this.channelDirect = this.$root.ChatList[4];
          this.channelSuggestions = this.$root.ChatList[5];
 
-         this.checkUnread();
+         this.$root.checkUnread();
           
         this.$root.SpaceWithoutChannel = this.$root.ChatList;
 
@@ -693,7 +693,7 @@ export default {
 
         
 
-         this.checkUnread();
+         this.$root.checkUnread();
           
         this.$root.SpaceWithoutChannel = response.data;
          
@@ -717,34 +717,7 @@ export default {
 
         
        },
-      checkUnread: function(){
-
-        this.$root.teamUnread = 0;
-
-        this.$root.channelUnread = 0;
-
-        this.$root.directUnread = 0;
-
-         for (let index = 0; index < this.teamSpace.length; index++) {
-        
-         this.$root.teamUnread += this.teamSpace[index].unread;
-          
-        }
-
-
-         for (let index = 0; index < this.channelSpace.length; index++) {
-        
-         this.$root.channelUnread += this.channelSpace[index].unread;
-          
-        }
-
-
-         for (let index = 0; index < this.channelDirect.length; index++) {
-        
-         this.$root.directUnread += this.channelDirect[index].unread;
-          
-        }
-      }
+     
     }
 }
 </script>

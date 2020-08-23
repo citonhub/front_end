@@ -410,7 +410,38 @@ const app = new Vue({
       }
 
       this.$root.LocalStore('ChatList' + this.username,this.ChatList);
+      this.checkUnread();
       this.$root.LocalStore('unread' + spaceId,[]);
+    },
+    checkUnread: function(){
+
+      this.$root.teamUnread = 0;
+
+      this.$root.channelUnread = 0;
+
+      this.$root.directUnread = 0;
+
+      
+
+       for (let index = 0; index < this.$root.ChatList[1].length; index++) {
+      
+       this.$root.teamUnread += this.$root.ChatList[1][index].unread;
+        
+      }
+
+
+       for (let index = 0; index < this.$root.ChatList[2].length; index++) {
+      
+       this.$root.channelUnread += this.$root.ChatList[2][index].unread;
+        
+      }
+
+
+       for (let index = 0; index < this.$root.ChatList[4].length; index++) {
+      
+       this.$root.directUnread += this.$root.ChatList[4][index].unread;
+        
+      }
     },
     LocalStore:function(key,data){
     
