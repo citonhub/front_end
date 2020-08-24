@@ -64,9 +64,7 @@ class UserController extends Controller
         $user = User::where('email',$request->get('email'))->first();
 
          if($user->verification_code == $request->get('code')){
-            $user->update([
-                'email_verified_at'=> Carbon::now()
-            ]);
+           
            return 'verified';
          }else{
              return 'notVerified';
@@ -81,6 +79,10 @@ class UserController extends Controller
             $currentUser = User::where('email',$request->get('email'))->first();
             $currentUser->update([
                 'username'=> $request->get('username')
+            ]);
+
+            $currentUser->update([
+                'email_verified_at'=> Carbon::now()
             ]);
 
             return 'notExist';

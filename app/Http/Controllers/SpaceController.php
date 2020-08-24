@@ -759,6 +759,12 @@ foreach ($userDirectSpaces as $spaceDirect) {
 
   }
 
+
+
+  public function checkUnreadMessagesClean(Request $request){
+
+  }
+
   public function leaveSpace(Request $request){
    
      $spaceMember = SpaceMember::where('space_id',$request->get('space_id'))->where('user_id',Auth::id())->first();

@@ -110,6 +110,7 @@ Route::get('/fetch-space-members-{spaceId}','SpaceController@fetchSpaceMembers')
 Route::get('/fetch-trend-channels/{query?}','SpaceController@fetchTrendChannels');
 Route::get('/fetch-suggested-channels','SpaceController@fetchSuggestedChannels');
 Route::post('/check-for-unread-messages','SpaceController@checkUnreadMessages');
+Route::post('/check-for-unread-messages-clean','SpaceController@checkUnreadMessagesClean');
 Route::get('/download-file-{messageId}','SpaceController@downloadFile');
 Route::post('/leave-space','SpaceController@leaveSpace');
 Route::post('/delete-message','SpaceController@deleteMessage');

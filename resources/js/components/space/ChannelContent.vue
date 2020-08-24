@@ -638,7 +638,7 @@ export default {
       },
       periodicUpdate: function(result){
            
-          axios.post('/check-for-unread-messages',{
+          axios.post('/check-for-unread-messages-clean',{
                 spaceId: this.$route.params.spaceId,
                 existingMsg: result,
                 localMessageCount:  this.$root.returnedMessages.length
