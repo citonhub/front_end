@@ -329,7 +329,8 @@ export default {
        this.$root.showHeader = false;
         this.$root.checkIfUserIsLoggedIn('space');
         this.$root.initialPushMangerReg();
-
+       
+       this.$root.chatisOpen = true;
        
          this.$root.closeNotification(this.$route.params.spaceId);
        this.fetchMessages();
@@ -560,7 +561,86 @@ export default {
          
    
       },
-     
+      checkForUnreadMessagesDisconnected:function(){
+        
+         let userInfo = this.$root.SpaceUsers.filter((user)=>{
+          return user.username == this.$root.username;
+         });
+
+          let _this = this;
+
+        let interval = setInterval(check,5000);
+
+        
+        function check() {
+
+            if(userInfo.length == 0 && _this.$root.chatisOpen){
+
+              }else{
+                clearInterval(interval);
+
+                return;
+              }
+
+       let unreadStoredMsg = _this.$root.getLocalStore('unread' + _this.$route.params.spaceId);
+
+           unreadStoredMsg.then((result)=>{
+
+              let finalResultUnread = JSON.parse(result);
+
+              if(_this.$root.sendingMessage == false){
+
+                 _this.periodicUpdate(finalResultUnread);
+
+              }
+           });
+        }
+
+        
+
+      },
+      periodicUpdate: function(result){
+           
+          axios.post('/check-for-unread-messages',{
+                spaceId: this.$route.params.spaceId,
+                existingMsg: result,
+                localMessageCount:  this.$root.returnedMessages.length
+                  })
+          .then(response => {
+             
+            
+            
+             if (response.status == 200) {
+
+                
+                if(response.data[0].length > 0){
+
+                 
+           
+             for (let index = 0; index < response.data[0].length; index++) {
+               
+            
+                  
+                  this.$root.returnedMessages.push(response.data[0][index]);
+                   this.$root.Messages.push(response.data[0][index]);
+                  this.$root.pushDataToLocal(response.data[0][index]);
+
+                  this.scrollToBottom();
+              
+                }
+
+
+             }
+
+            
+            }
+
+          })
+          .catch(error => {
+             
+          })
+
+      },
        goBack() {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
@@ -1026,6 +1106,9 @@ export default {
 
          }
 
+        
+      this.checkForUnreadMessagesDisconnected();
+       
         },
        
          showMoreHandler(message){

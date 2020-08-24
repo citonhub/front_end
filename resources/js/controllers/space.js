@@ -286,6 +286,7 @@ const app = new Vue({
      panelDataFull:[],
      showChatBottom:true,
      frompage:'space',
+     chatisOpen:false
     },
      mounted: function () {
       this.pageloader= false;

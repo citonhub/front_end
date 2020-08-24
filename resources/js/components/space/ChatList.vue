@@ -501,6 +501,8 @@ export default {
        
         
        this.fetchChatList();
+        this.$root.chatisOpen = false;
+       this.$root.SpaceUsers = [];
        this.trackUser();
     },
     methods:{
