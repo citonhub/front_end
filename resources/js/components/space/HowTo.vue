@@ -97,7 +97,7 @@
 
                 
 
-                 <code-view :codeLanguage="'HTML'" :codeContent="ViewCode1"></code-view> <br>
+                 <code-view :codeLanguage="'PHP'" :codeContent="ViewCode1"></code-view> <br>
 
                   <span style="color:#2e626b; font-size:13px;">
                        For CSS
@@ -105,7 +105,7 @@
 
                 
 
-                 <code-view :codeLanguage="'HTML'" :codeContent="ViewCode2"></code-view> <br>
+                 <code-view :codeLanguage="'PHP'" :codeContent="ViewCode2"></code-view> <br>
 
                   <span style="color:#2e626b; font-size:13px;">
                        For JavaScript
@@ -113,7 +113,7 @@
 
                 
 
-                 <code-view :codeLanguage="'HTML'" :codeContent="ViewCode3"></code-view> <br>
+                 <code-view :codeLanguage="'PHP'" :codeContent="ViewCode3"></code-view> <br>
 
                  <span style="color:#2e626b; font-size:13px;" >
                     
@@ -144,7 +144,7 @@
                   
                   
 
-                 <code-view :codeLanguage="'HTML'" :codeContent="resourcesCodeNew"></code-view> <br> 
+                 <code-view :codeLanguage="'PHP'" :codeContent="resourcesCodeNew"></code-view> <br> 
 
         
 
@@ -188,7 +188,7 @@
                   
                   
 
-                 <code-view :codeLanguage="'HTML'" :codeContent="RouteCode1"></code-view> <br> <br>
+                 <code-view :codeLanguage="'PHP'" :codeContent="RouteCode1"></code-view> <br> <br>
 
                   <code-view :codeLanguage="'HTML'" :codeContent="RouteCode2"></code-view> <br> 
 
@@ -231,25 +231,25 @@
                        For Videos
                  </span> <br>
 
-             <code-view :codeLanguage="'HTML'" :codeContent="resourcesVideos"></code-view> <br>
+             <code-view :codeLanguage="'PHP'" :codeContent="resourcesVideos"></code-view> <br>
 
                <span style="color:#2e626b; font-size:13px;">
                        For Images
                  </span> <br>
 
-             <code-view :codeLanguage="'HTML'" :codeContent="resourcesImages"></code-view> <br>
+             <code-view :codeLanguage="'PHP'" :codeContent="resourcesImages"></code-view> <br>
 
                <span style="color:#2e626b; font-size:13px;">
                        For Audios
                  </span> <br>
 
-             <code-view :codeLanguage="'HTML'" :codeContent="resourcesAudios"></code-view> <br>
+             <code-view :codeLanguage="'PHP'" :codeContent="resourcesAudios"></code-view> <br>
 
                <span style="color:#2e626b; font-size:13px;">
                        For Files/Documents
                  </span> <br>
 
-             <code-view :codeLanguage="'HTML'" :codeContent="resourcesFiles"></code-view> <br>
+             <code-view :codeLanguage="'PHP'" :codeContent="resourcesFiles"></code-view> <br>
 
              </div>
 
@@ -376,7 +376,41 @@
                       <b style="color:#173136;">Step 3-</b> Use attached data in your view file using a curly bracket.
                  </span><br>
 
-                  <code-view :codeLanguage="'PHP'" :codeContent="accessData"></code-view> <br>
+                  <code-view :codeLanguage="'PHP'" :codeContent="accessData"></code-view> <br><br>
+
+                 <span style="color:#2e626b; font-size:13px;">
+                    To know more on how to use attached data in your view read <a href="https://laravel.com/docs/7.x/blade" target="_blank">Laravel Blade Template Documentation</a>
+                 </span><br>
+                   
+
+
+
+             </div>
+
+             <div class="col-12 py-0 my-1 text-left">
+                 <span style=" font-size:13px;">
+                    <b style="color:#173236; font-family:HeaderText; font-weight:bolder;">3. How do I create a new Database table? </b> 
+                 </span> <br><br>
+
+             </div>
+
+              <div class="col-12 py-0 text-left">
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 1-</b> Use the code below to create a new database
+                 </span>
+
+               <code-view :codeLanguage="'PHP'" :codeContent="createDB"></code-view> <br>
+   
+             </div>
+
+           <div class="col-12 py-0 text-left" style="border-bottom:1px solid #c5c5c5;">
+                <span style="color:#2e626b; font-size:13px;">
+                      <b style="color:#173136;">Step 2-</b> Change TABLE_NAME to the name of your new table e.g users<br>
+                      Define your table fields and datatype of the fields in  <b style="color:#173136; font-weight:bold;">$tableFields</b> which takes in the table field name and the corresponding 
+                      data type.                         
+                 </span><br>
+
+             
 
 
              </div>
@@ -385,38 +419,17 @@
 
              <div class="col-12 py-0 my-1 text-left">
                  <span style=" font-size:13px;">
-                    <b style="color:#173236; font-family:HeaderText; font-weight:bolder;">3. How do I save data in my database? </b> 
+                    <b style="color:#173236; font-family:HeaderText; font-weight:bolder;">4. How do I save data in my database? </b> 
                  </span> <br><br>
 
              </div>
 
-             <div class="col-12 py-0 text-left">
-                <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 1-</b> Create a new Database Table in your panel
-                 </span>
-
-              <div style="color:#2e626b; font-size:13px;" class="text-center">
-                     <img src="/imgs/database1.png" height="120" width="100%" />
-                 </div>
-   
-             </div>
+            
 
 
               <div class="col-12 py-0 text-left" >
                 <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 2-</b> Click on the new Table and add a new table field by clicking   <v-btn icon><v-icon color="#3E8893">mdi-table-column-plus-before mdi-18px</v-icon></v-btn>.
-                 </span>
-
-                 <div style="color:#2e626b; font-size:13px;">
-                     Note: the <b>ID</b> field and the <b>create_date</b> field has been generated on table creation
-                 </div>
-
-             </div>
-
-
-              <div class="col-12 py-0 text-left" >
-                <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 3-</b> Add a new POST route to send request data to your controller file.
+                      <b style="color:#173136;">Step 1-</b> Add a new POST route to send request data to your controller file.
                  </span>
 
                     <div style="color:#2e626b; font-size:13px;" class="text-center">
@@ -428,10 +441,12 @@
 
               <div class="col-12 py-0 text-left" >
                 <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 4-</b> Use this code to save the data to your database
+                      <b style="color:#173136;">Step 2-</b> Use this code to save the data to your database
                  </span><br>
 
                   <code-view :codeLanguage="'PHP'" :codeContent="saveDataCodePHP"></code-view> <br>
+
+              
 
 
              </div>
@@ -439,14 +454,23 @@
               <div class="col-12 py-0 text-left" style="border-bottom:1px solid #c5c5c5;" >
                 <span style="color:#2e626b; font-size:13px;">
                       <b style="color:#173136;">Step 5-</b> Change METHOD_NAME to the method/function name that handle the request.<br>
-                      TABLE_NAME to the name of your database table
-                 </span>
+                       Change TABLE_NAME to the name of your database table<br>
+                       Change <b style="color:#173136; font-weight:bold;">field_name</b> to the name of your database field e.g phone, email<br>
+                       And <b style="color:#173136; font-weight:bold;">data_name</b> to the name of request data returned <br><br>
+
+
+
+                 </span><br>
+
+                   <span style="color:#2e626b; font-size:13px;">
+                    To know more on how to work with data requests read <a href="https://laravel.com/docs/7.x/requests" target="_blank">Laravel Requests Documentation</a>
+                 </span><br>
 
              </div>
 
              <div class="col-12 py-0 my-1 text-left">
                  <span style=" font-size:13px;">
-                    <b style="color:#173236; font-family:HeaderText; font-weight:bolder;">3. How do I get data from my database? </b> 
+                    <b style="color:#173236; font-family:HeaderText; font-weight:bolder;">5. How do I get data from my database? </b> 
                  </span> <br><br>
 
              </div>
@@ -514,6 +538,7 @@ export default {
       accessData:'',
       saveDataCodePHP:'',
       getDataCodePHP:'',
+      createDB:''
         }
     },
      components: {
@@ -542,12 +567,28 @@ export default {
  "}";
 
   this.saveDataCodePHP = " public function METHOD_NAME(Request $request){ \n " +
-"  $this->SaveData('TABLE_NAME',$request); \n " +
+  "  $requestData = [   \n " +
+ " \"field_name\"=> '$request->input('data_name')',  \n " +
+" \"field_name\"=> '$request->input('data_name')'  \n " +
+  " ...  \n " +
+  " ];  \n " +
+"  $this->SaveData('TABLE_NAME',$requestData); \n " +
  "}";
 
  this.getDataCodePHP = " public function METHOD_NAME(){ \n " +
 "  $this->getAllData('TABLE_NAME'); \n " +
  "}";
+
+  this.createDB =
+  " $tableFields = [ \n " +
+  " [                                 \n " +
+  "  \"name\" => 'name' e.g phone_number,              \n " +
+  "  \"data_type\"=> 'data_type' e.g int, boolean, char  ,            \n " +
+  " ],                     \n " +
+"...." +
+ "  ] ; \n " +
+    
+  " $this->CreateDB('TABLE_NAME',$tableFields); \n "
 
 this.resourcesCodeNew = "{{$home}}/{{$panel}}/Framework/FILENAME";
 

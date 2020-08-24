@@ -34,18 +34,14 @@
                           <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
                         </div>    
                     </div>
-                     <div class="py-0 my-0 d-flex col-5" style="align-items:center;">
+                     <div class="py-0 my-0 d-flex col-9" style="align-items:center;">
                        <div>
                       <span class="titleText d-block">{{space.name}}</span>
                          <span class=" d-block" style="font-size:11px;">{{ space.members }} Members</span>
                        </div>
                         
                     </div>
-                    <div class="py-0 my-0 d-flex col-4" style="align-items:center; justify-content:center;">
-                          <span class="mybadgenew">
-                               @{{ space.username }}
-                          </span>
-                    </div>
+                   
                 </div>
              </v-card>
 

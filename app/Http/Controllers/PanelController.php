@@ -298,8 +298,9 @@ class PanelController extends Controller
 
           $this->recreateController($backEndFilesArray,$randomString);
 
-
-          $this->deleteFilesFromServer($panel->id);
+           if($panel != null){
+            $this->deleteFilesFromServer($panel->id);
+           }
 
           if($projectPanel->title == 'Citonhub Project'){
 
@@ -323,13 +324,17 @@ class PanelController extends Controller
 
           $this->createDefaultController($randomString);
 
-          $panel->update([
-            "app_type" => $request->get('app_type'),
-            "is_set"=> true,
-            "panel_id"=> $randomString,
-            "panel_language"=>$request->get('panel_language')
-            ]);
+          if($panel != null){
+            $panel->update([
+              "app_type" => $request->get('app_type'),
+              "is_set"=> true,
+              "panel_id"=> $randomString,
+              "panel_language"=>$request->get('panel_language')
+              ]);
+  
+           }
 
+         
           $routeArray = [
             [
              "path"=> '/index',
@@ -1046,12 +1051,47 @@ public function createDefaultController($newpanelId){
   $projectPanel = Project::where('panel_id',$newpanelId)->first();
     $thisVar = '$this';
     $panelId = '$panelId';
+    $tableFields = '$tableFields';
+    $requestData = '$requestData';
      
 
 $phpContent ="
 public function main(){
   return $thisVar" . '' . "->showView('index');
 } 
+
+// create user data
+public function myUserDataBase(){
+ $tableFields = [
+   [
+    \"name\" => 'phone',
+     \"data_type\"=> 'int',
+   ],
+    [
+    \"name\" => 'email',
+     \"data_type\"=> 'char',
+   ],
+    [
+    \"name\" => 'name',
+     \"data_type\"=> 'char',
+   ]
+  ];
+    
+    $thisVar" . '' . "->CreateDB('usersData',$tableFields);
+}
+
+// save data into your table
+public function saveMyData(){
+  $requestData = [
+   \"phone\"=> '08023417382',
+    \"email\"=> 'example@gmail.com',
+    \"name\"=> 'James'
+  ];
+  
+  $thisVar" . '' . "->saveData('usersData',$requestData);
+  
+}
+
 ";
 
    if($projectPanel != null){
@@ -2359,6 +2399,8 @@ public function main(){
     
        return $response->body();
   }
+
+  
 
 }
 

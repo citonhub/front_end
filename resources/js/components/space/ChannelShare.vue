@@ -200,7 +200,7 @@
            
          </div>
 
-           <div class="text-right px-3" style="position:absolute;left:0; bottom:6%;width:100%;height:auto;align-items:center;justify-content:center; z-index:123453566;" >
+           <div class="text-right px-3" style="position:absolute;left:0; bottom:10%;width:100%;height:auto;align-items:center;justify-content:center; z-index:123453566;" >
                    
                   <v-btn fab small color="#3E8893" :disabled="editFeild" style="color:white;"
                    @click="sendMessage" :loading="loading"><v-icon color="#ffffff">mdi-send</v-icon></v-btn>

@@ -27,7 +27,7 @@ import dedent from 'dedent'
   import 'codemirror/lib/codemirror.css'
 
   // theme css
-  import 'codemirror/theme/base16-light.css'
+  import 'codemirror/theme/base16-dark.css'
 
   // language
   import 'codemirror/mode/vue/vue.js'
@@ -91,7 +91,7 @@ export default {
           line: true,
           keyMap: "sublime",
           mode: 'text/html',
-          theme: 'base16-light',
+          theme: 'base16-dark',
           readOnly: 'nocursor',
           extraKeys: {
              "F11": function(cm) {
@@ -167,7 +167,7 @@ methods:{
            this.cmOption.mode = 'text/x-python';
          }
           if(this.language == 'PHP'){
-           this.cmOption.mode = 'application/x-httpd-php';
+           this.cmOption.mode = 'text/x-php';
          }
           if(this.language == 'JAVASCRIPT'){
            this.cmOption.mode = 'text/javascript';

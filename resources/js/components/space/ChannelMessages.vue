@@ -693,9 +693,7 @@ export default {
          
          if(message.action.type == 'custom'){
           
-           this.$root.shareText = 'Join ' + this.$root.selectedSpace.name +  ' ' +  this.$root.selectedSpace.type  +' on Citonhub';
-          this.$root.shareLink =   'https://www.citonhub.com/link/space/'+ this.$route.params.spaceId + '/' + this.$root.username;
-         this.$root.showShare = true;
+           this.$router.push({ path: '/space/'  + this.$route.params.spaceId  +  '/channel/board' });
 
          }
          if(message.action.type == 'inner'){

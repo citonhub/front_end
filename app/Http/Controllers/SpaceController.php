@@ -1788,7 +1788,7 @@ array_push($newSpaceArray,$userSpace);
 
 
     $messageURL1 = 'showShare';
-    $messageLabel1 = 'Invite now.';
+    $messageLabel1 = 'Personalize your channel.';
 
     $actionMessage1 = ActionMessage::create([
     "message_id"=> $newMessage1->id,
@@ -1842,7 +1842,7 @@ array_push($newSpaceArray,$userSpace);
 
    
 
-    $MessageContentTeam1 = '<p>While anyone can join your channels,teams are private, and for a small number of developers 👨‍💻 you want to collaborate with.
+    $MessageContentTeam1 = '<p>While anyone can join your channels,teams are private, and for of developers 👨‍💻 you want to collaborate with.
     Assign projects to teams,
     and everyone has access to the same panel.</p> '; 
 
