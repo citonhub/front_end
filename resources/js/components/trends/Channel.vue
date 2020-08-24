@@ -37,7 +37,7 @@
                      <div class="py-0 my-0 d-flex col-9" style="align-items:center;">
                        <div>
                       <span class="titleText d-block">{{space.name}}</span>
-                         <span class=" d-block" style="font-size:11px;">{{ space.members }} Members</span>
+                         <span class=" d-block" style="font-size:11px;" v-html="space.description"></span>
                        </div>
                         
                     </div>

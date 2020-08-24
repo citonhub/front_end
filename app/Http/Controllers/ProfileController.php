@@ -553,10 +553,10 @@ class ProfileController extends Controller
         $notificationCountSpace = 0;
       }
 
-      
+      $spaceSelected = Profile::where('user_id',Auth::id())->first()->selected_spaces;
 
 
-    return [$user,$newProfile[0],$allPageTracker,$notificationCount,$notificationCountSpace];
+    return [$user,$newProfile[0],$allPageTracker,$notificationCount,$notificationCountSpace,$spaceSelected];
  }
 
 }

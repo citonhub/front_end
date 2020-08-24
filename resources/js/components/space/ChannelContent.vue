@@ -303,6 +303,7 @@ export default {
           messageStoreTop:[],
           endPosition:0,
            containerScrollPosition:0,
+           isConnected:false,
           typing:false,
           channel:null,
           errorLoadingMessage:false,
@@ -499,7 +500,12 @@ export default {
 
     },
       makeSpaceConnetion: function(){
+        
+
          if(this.$root.channel == null){
+
+      
+             
            
              this.$root.channel =   Echo.join('space.' + this.$route.params.spaceId)
       .here((users) => {
@@ -563,10 +569,9 @@ export default {
       },
       checkForUnreadMessagesDisconnected:function(){
         
-         let userInfo = this.$root.SpaceUsers.filter((user)=>{
-          return user.username == this.$root.username;
-         });
+        
 
+       
           let _this = this;
 
         let interval = setInterval(check,5000);
@@ -574,11 +579,41 @@ export default {
         
         function check() {
 
-            if(userInfo.length == 0 && _this.$root.chatisOpen){
+
+            Echo.connector.socket.on('connect', ()=>{
+                    _this.isConnected = true
+                })
+
+            Echo.connector.socket.on('disconnect', ()=> {
+                    _this.isConnected = false
+                })
+
+            Echo.connector.socket.on('reconnecting', function(attemptNumber){
+                 _this.isConnected = false
+              });
+            
+
+          
+     
+         
+
+          if(_this.isConnected == false && _this.$root.chatisOpen){
+
+                if(_this.$root.chatisOpen){
+
+            
+                 
+               
+                   
+                   
+                 }else{
+                  clearInterval(interval);
+                 }
+               
 
               }else{
-                clearInterval(interval);
-
+                 
+                
                 return;
               }
 
@@ -594,6 +629,8 @@ export default {
 
               }
            });
+           
+          
         }
 
         

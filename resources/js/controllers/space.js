@@ -35,6 +35,7 @@ import CreateTableEntries from "../components/space/CreateTableEntries.vue"
 import ProjectComments from "../components/space/ProjectComments.vue"
 import NewComment from "../components/space/NewComment.vue"
 import HowTo from "../components/space/HowTo.vue"
+import Suggestions from "../components/space/Suggestions.vue"
 
 
 const routes = [
@@ -71,6 +72,11 @@ const routes = [
       // chat-list
       path: 'chat-list',
       component: ChatList
+    },
+    {
+      // suggestions
+      path: 'suggestions',
+      component: Suggestions
     },
     {
       // create-channel
@@ -286,7 +292,7 @@ const app = new Vue({
      panelDataFull:[],
      showChatBottom:true,
      frompage:'space',
-     chatisOpen:false
+     chatisOpen:false,
     },
      mounted: function () {
       this.pageloader= false;

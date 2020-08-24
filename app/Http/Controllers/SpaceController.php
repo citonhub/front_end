@@ -1947,6 +1947,114 @@ array_push($newSpaceArray,$userSpace);
  }
 
 
+ public function fetchSuggestedChannels(){
+
+   $userChannelSpaces = DB::table('spaces')
+   ->join('users','users.id','spaces.user_id')
+   ->select(
+       'spaces.image_name as image_name',
+       'spaces.image_extension as image_extension',
+       'spaces.type as type',
+       'spaces.name as name',
+       'users.username as username',
+       'spaces.message_track as message_track',
+       'spaces.background_color as background_color',
+       'spaces.description as description',
+       'spaces.space_id as space_id'
+   )
+   ->orderBy('spaces.message_track','desc')
+   ->where('spaces.type','Channel')
+   ->where('spaces.name','!=','My Channel')
+   ->where('users.username','docraymond')
+   ->paginate(35);
+
+$newChannelArray = [];
+
+foreach ($userChannelSpaces as $spaceChannel) {
+
+$userSpaceChannel = (array) $spaceChannel;
+
+$spaceMembers = SpaceMember::where('space_id',$userSpaceChannel["space_id"])->get();
+
+
+$userSpaceChannel["members"] = count($spaceMembers);
+
+$userSpaceChannel["selected"] = false;
+
+
+
+
+
+
+array_push($newChannelArray,$userSpaceChannel);
+
+
+}
+
+return $newChannelArray;
+
+ }
+
+
+  public function saveSelectedChannels(Request $request){
+
+
+     $selectedSpaces = $request->get('selectedChannels');
+
+
+       foreach ($selectedSpaces as $space) {
+
+          $spaceId = $space["space_id"];
+        
+         $space = Space::where('space_id',$spaceId)->first();
+
+         $spaceLimit = $space->limit;
+    
+         $spaceMembers = SpaceMember::where('space_id',$spaceId)->get();
+    
+         $spaceMemberCount = count($spaceMembers);
+    
+    
+         $UserMember = SpaceMember::where('user_id',Auth::id())->where('space_id',$spaceId)->get();
+    
+          if($UserMember->isEmpty() && ($spaceMemberCount < $spaceLimit)){
+            
+             $spaceMember = SpaceMember::create([
+                'user_id'=> Auth::id(),
+                "is_admin"=> false,
+                'space_id'=> $spaceId
+             ]);
+       
+             $spaceMember->save();
+    
+             $newSpaceMessage = SpaceMessage::create([
+              "user_id"=>Auth::id(),
+              'space_id'=>$spaceId,
+              'type'=>'join',
+             'is_reply'=> false,
+             ]);
+    
+             $newSpaceMessage->save();
+    
+             broadcast(new SpaceChannel('new-message',$newSpaceMessage,$spaceId))->toOthers();
+              
+          }
+    
+       }
+
+       $profile = Profile::where('user_id',Auth::id())->first();
+
+        if($profile != null){
+
+           $profile->update([
+              "selected_spaces"=> true
+           ]);
+        }
+    
+
+  }
+
+
  public function fetchChannelsProfile($username){
 
     $user = User::where('username',$username)->first();
@@ -2229,6 +2337,9 @@ return  $newChannelArray;
               ->where('spaces.type','!=','Direct')
               ->orderBy('projects.created_at','desc')
               ->paginate(50);
+
+
+     
             
 
       

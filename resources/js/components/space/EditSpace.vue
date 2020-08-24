@@ -318,6 +318,7 @@ var blob = this.b64toBlob(realData, contentType);
             
            if (response.status == 200) {
                 this.loading = false;
+                this.$root.croppedImage= '';
                  this.goBack();
             }else{
               

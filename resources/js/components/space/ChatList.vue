@@ -577,6 +577,15 @@ export default {
 
         this.$root.userPageTrack = response.data[2];
 
+
+         if(response.data[5] == 0){
+
+          this.$router.push({ path: '/space/suggestions' });
+            
+         }
+
+         
+
         this.activateBot();
 
   }

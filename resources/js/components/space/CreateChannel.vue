@@ -31,7 +31,7 @@
              dense
              :rules="Rule"
              v-model="name"
-              counter="20"
+              counter="50"
              color="#4495a2"
             
              ></v-text-field>
@@ -108,7 +108,7 @@ export default {
         formstate:false,
         Rule:[
              v => !!v || 'Name is required',
-           v => v.length < 30 || 'Name must be less than 20 characters',
+           v => v.length < 50 || 'Name must be less than 50 characters',
              v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
          ],
          limit:'10000',
