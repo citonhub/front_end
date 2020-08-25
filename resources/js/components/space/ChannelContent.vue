@@ -303,7 +303,7 @@ export default {
           messageStoreTop:[],
           endPosition:0,
            containerScrollPosition:0,
-           isConnected:false,
+           isConnected:true,
           typing:false,
           channel:null,
           errorLoadingMessage:false,

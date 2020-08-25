@@ -78,12 +78,10 @@ class UserController extends Controller
 
             $currentUser = User::where('email',$request->get('email'))->first();
             $currentUser->update([
-                'username'=> $request->get('username')
+                'username'=> $request->get('username'),
+                 'email_verified_at'=> Carbon::now()
             ]);
 
-            $currentUser->update([
-                'email_verified_at'=> Carbon::now()
-            ]);
 
             return 'notExist';
         }else{

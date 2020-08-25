@@ -763,6 +763,95 @@ foreach ($userDirectSpaces as $spaceDirect) {
 
   public function checkUnreadMessagesClean(Request $request){
 
+
+
+   $existingMessages = $request->get('existingMsg');
+
+   if($existingMessages != null){
+    
+      foreach ($existingMessages as $messageId) {
+       
+       $unreadMessage = UnreadMessage::where('space_id',$request->get('spaceId'))->where('user_id',Auth::id())->where('message_id',$messageId)->first();
+
+       $unreadMessage->delete();
+       
+    }
+  }
+
+  $allUnread = UnreadMessage::where('space_id',$request->get('spaceId'))->where('user_id',Auth::id())->get();
+
+   $unreadMsgArray =  [];
+
+  foreach ($allUnread as $message) {
+
+     $spacemessages =DB::table('space_messages')
+     ->join('users','users.id','space_messages.user_id')
+     ->select(
+         'space_messages.content as content',
+         'space_messages.type as type',
+         'users.username as username',
+         'users.id as user_id',
+         'space_messages.space_id as space_id',
+         'space_messages.created_at as created_at',
+         'space_messages.is_reply as is_reply',
+         'space_messages.replied_message_id as replied_message_id',
+         'space_messages.id as message_id'
+     )
+     ->where('space_messages.id',$message->message_id)
+  
+     ->first();
+     
+     array_push($unreadMsgArray,$spacemessages);
+     $message->delete();
+  }
+
+
+  $timeArray = $this->messageTime($unreadMsgArray);
+
+  $newMessages = $this->MessageEngine($unreadMsgArray,$timeArray);
+
+
+   $localMessageCount = $request->get('localMessageCount');
+   $unreadCount = count($newMessages);
+
+    $totalMessagesFromLocal = $localMessageCount + $unreadCount;
+
+    $allSpaceMessages =  $spacemessages = DB::table('space_messages')
+    ->join('users','users.id','space_messages.user_id')
+    ->select(
+        'space_messages.content as content',
+        'space_messages.type as type',
+        'users.username as username',
+        'users.id as user_id',
+        'space_messages.space_id as space_id',
+        'space_messages.created_at as created_at',
+        'space_messages.is_reply as is_reply',
+        'space_messages.replied_message_id as replied_message_id',
+        'space_messages.id as message_id'
+    )
+    ->where('space_messages.space_id',$request->get('spaceId'))
+ 
+    ->get();
+
+  $realMessageCount = count($allSpaceMessages);
+
+  $msgComplete = true;
+
+   if($totalMessagesFromLocal != $realMessageCount){
+     $msgComplete = false;
+   }
+
+
+  
+
+   
+  return [$newMessages,$msgComplete];
+  
+   
+
+   
+
+
   }
 
   public function leaveSpace(Request $request){
