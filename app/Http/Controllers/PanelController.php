@@ -2362,6 +2362,29 @@ public function saveMyData(){
         
 
         $response = Http::get($baseUrl . '/' . $panelId . '/index' );
+
+
+         if($response->status() == '404'){
+         
+          $routeArray =    [
+            [
+             "path"=> '/index',
+             "function_name"=>'main',
+             "file_name"=>'index',
+             "route_type"=> 'get'
+            ]
+            ];
+     
+            $this->createRoute($routeArray,$panelId);
+
+
+           $response = Http::get($baseUrl . '/' . $panelId . '/index' );
+
+           return $response->body();
+  
+        
+         
+         }
    
       return $response->body();
 
@@ -2396,6 +2419,29 @@ public function saveMyData(){
         }
 
     $response = Http::get($baseUrl .'/' . $panelId . '/' . $pageName );
+
+
+    if($response->status() == '404'){
+         
+      $routeArray =    [
+        [
+         "path"=> '/' . $pageName ,
+         "function_name"=> $pageName,
+         "file_name"=>'routes',
+         "route_type"=> 'get'
+        ]
+        ];
+ 
+        $this->createRoute($routeArray,$panelId);
+
+
+       $response = Http::get($baseUrl . '/' . $panelId . '/index' );
+
+       return $response->body();
+
+    
+     
+     }
     
        return $response->body();
   }

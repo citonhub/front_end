@@ -43,7 +43,7 @@
          </div>
        </div>
 
-         <span style="position:absolute; top:90%; right:5%;z-index:1000;">
+         <span style="position:absolute; top:85%; right:5%;z-index:1000;">
            <v-btn
                 color="#35747e"
                 small
@@ -56,7 +56,7 @@
          
      </span>
 
-     <span style="position:absolute; top:90%; left:5%;z-index:1000;">
+     <span style="position:absolute; top:85%; left:5%;z-index:1000;">
            <v-btn
                 color="#35747e"
                 small
