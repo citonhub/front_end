@@ -413,7 +413,7 @@ return $newCommentArray;
          
     public function createProject(Request $request){
 
-        $this->checkUsersCoin(1);
+        $this->checkUsersCoin(2);
 
         if($this->coinState == 'NotEnoughCoin'){
         

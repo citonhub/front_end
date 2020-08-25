@@ -1437,7 +1437,7 @@ return $newSpaceMembersArray;
 
     if($request->get('type') != 'Direct'){
 
-      $this->checkUsersCoin(1);
+      $this->checkUsersCoin(3);
    
     }
 

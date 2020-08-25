@@ -33,7 +33,7 @@
           </div>
 
 
-          <div class="col-12 py-2 my-0 px-0 text-center">
+          <div class="col-12 py-2 my-0 px-0 text-center" v-if="checkIfisOwner()">
                    <v-btn @click="editSpace" rounded small color="#3E8893" style="font-size:10px; color:white;text-transform:capitalize;">Edit</v-btn>
                 </div>
 
@@ -121,7 +121,22 @@ export default {
       this.fetchMessages();
     },
     methods:{
+       checkIfisOwner: function(){
 
+           let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
+   
+             return members.user_id == this.$root.user_temp_id;
+           });
+
+           if(userMemberData.length != 0){
+
+             return userMemberData[0].is_admin;
+
+           }else{
+              return false
+           }
+         
+       },
        leaveSpace: function(){
          this.loadingLeave = true;
         axios.post('/leave-space',{
