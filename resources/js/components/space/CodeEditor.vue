@@ -176,6 +176,16 @@ import dedent from 'dedent'
   import 'codemirror/addon/fold/markdown-fold.js'
   import 'codemirror/addon/fold/xml-fold.js'
 
+   // codehinting
+  import 'codemirror/addon/hint/show-hint.css'
+  import 'codemirror/addon/hint/show-hint.js'
+  import 'codemirror/addon/hint/sql-hint.js'
+  import 'codemirror/addon/hint/xml-hint.js'
+  import 'codemirror/addon/hint/html-hint.js'
+  import 'codemirror/addon/hint/anyword-hint.js'
+  import 'codemirror/addon/hint/javascript-hint.js' 
+  import 'codemirror/addon/hint/css-hint.js'
+
 export default {
       mounted(){
        this.$root.showTabs=false;
@@ -199,9 +209,11 @@ export default {
           tabSize: 4,
           foldGutter: true,
           filepath:'',
+          NewMsg:'',
           styleActiveLine: true,
           lineNumbers: true,
           line: true,
+          autocorrect: true,
           keyMap: "sublime",
           mode: 'text/html',
           theme: 'base16-dark',
@@ -414,6 +426,11 @@ methods:{
           })
    },
       onCmReady(codemirror) {
+
+         codemirror.on('keypress', () => {
+    codemirror.showHint()
+  })
+
         console.debug('onCmReady', codemirror)
       },
       onCmFocus(codemirror) {

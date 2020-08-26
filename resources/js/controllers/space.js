@@ -650,8 +650,7 @@ if (response.status == 200) {
             });
 
           
-            this.pushDataToLocal(e.data);
-            this.updateUnreadMsg(e.data);
+            
           }
 
           if(e.actionType == 'new-direct-space'){
