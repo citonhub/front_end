@@ -1984,14 +1984,31 @@ public function saveMyData(){
              }
   
              if($panel->panel_language == 'NodeJs') {
+                $home = '$home';
+                $panel = '$panel';
               $baseUrl = 'https://nodejs.citonhub.com/node';
+               
+                                // Input string 
+                 $str  = $codeBox->content;
+  
+                 // Array containing search string  
+                $searchVal = array("$home", "$panel"); 
+  
+                  // Array containing replace string from  search string 
+                $replaceVal = array("https://nodejs.citonhub.com/node", $panelId); 
+  
+                // Function to replace string 
+                $resultFull = str_replace($searchVal, $replaceVal, $str); 
+
 
                if($codeBox->language_type == 'CSS'){
+
+
 
                 $requestData = [
                   'panel_id' =>  $codeBox->panel_id,
                   'file_name' =>  $codeBox->file_name,
-                  'content'=> $codeBox->content,
+                  'content'=> $resultFull,
                   'language_type'=> 'css'
               ];
 
@@ -2002,7 +2019,7 @@ public function saveMyData(){
                 $requestData = [
                   'panel_id' =>  $codeBox->panel_id,
                   'file_name' =>  $codeBox->file_name,
-                  'content'=> $codeBox->content,
+                  'content'=> $resultFull,
                   'language_type'=> 'html'
               ];
 
@@ -2013,7 +2030,7 @@ public function saveMyData(){
                 $requestData = [
                   'panel_id' =>  $codeBox->panel_id,
                   'file_name' =>  $codeBox->file_name,
-                  'content'=> $codeBox->content,
+                  'content'=> $resultFull,
                   'language_type'=> 'js'
               ];
 
@@ -2035,26 +2052,49 @@ public function saveMyData(){
             
             if($panel->panel_language == 'PHP') {
             $baseUrl = 'https://php.citonhub.com';
+
+            $requestData = [
+              'panel_id' =>  $codeBox->panel_id,
+              'file_name'=> $codeBox->file_name,
+              'content'=> $codeBox->content
+          ];
            }
 
            if($panel->panel_language == 'NodeJs') {
-            $baseUrl = 'https://nodejs.citonhub.com/node';
-           }
 
-            $requestData = [
+            $baseUrl = 'https://nodejs.citonhub.com/node';
+
+               $home = '$home';
+                $panel = '$panel';
+                $root = '$root';
+
+               // Input string 
+               $str  = $codeBox->content;
+  
+               // Array containing search string  
+              $searchVal = array("$home", "$panel","$root"); 
+
+                // Array containing replace string from  search string 
+              $replaceVal = array("https://nodejs.citonhub.com/node", $panelId, "/public" . '/' . $panelId); 
+
+              // Function to replace string 
+              $resultFull = str_replace($searchVal, $replaceVal, $str); 
+
+              
+
+              $requestData = [
                 'panel_id' =>  $codeBox->panel_id,
                 'file_name'=> $codeBox->file_name,
-                'content'=> $codeBox->content
+                'content'=> $resultFull
             ];
-           $response = Http::post($baseUrl .'/create-controller',$requestData);
 
-          
-          
-         
+           }
+
            
+           $response = Http::post($baseUrl .'/create-controller',$requestData);
+   
           }
-          
-       
+        
 
      }
 
@@ -2316,8 +2356,21 @@ public function saveMyData(){
 
      
    
+      if($panel->panel_language == 'PHP') {
 
-  $location = '/var/www/php/public/'.  $panel->panel_id . '/' .  $request->get('type');
+        $location = '/var/www/php/public/'.  $panel->panel_id . '/' .  $request->get('type');
+
+       }
+
+
+       if($panel->panel_language == 'NodeJs') {
+
+       
+        $location = '/var/www/nodejs/public/'.  $panel->panel_id . '/' .  $request->get('type');
+
+       }
+
+  
                
   $file = $request->file('file');
 
