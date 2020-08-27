@@ -481,7 +481,7 @@ methods:{
 
            this.showCode = false;
 
-            if(this.selectedLangId == 0){
+            if(this.selectedLangId == 0 || this.language == 'HTML'){
 
               this.ResultCode = this.code; 
 
