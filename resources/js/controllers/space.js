@@ -293,6 +293,8 @@ const app = new Vue({
      showChatBottom:true,
      frompage:'space',
      chatisOpen:false,
+     codeMessageId:0,
+     codeBoxOpened: false,
     },
      mounted: function () {
       this.pageloader= false;

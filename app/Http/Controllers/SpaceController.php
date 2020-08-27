@@ -431,21 +431,25 @@ class SpaceController extends Controller
          foreach ($disconnectedUsers as $user) {
 
             
+            if($user->id != Auth::id()){
 
-            
                $userUnread = UnreadMessage::create([
-               'user_id'=> $user->id,
-               'space_id'=> $request->get('space_id'),
-               'msg_read'=> false,
-               'message_id'=> $newMessage[0]["message_id"]
-               ]);
+                  'user_id'=> $user->id,
+                  'space_id'=> $request->get('space_id'),
+                  'msg_read'=> false,
+                  'message_id'=> $newMessage[0]["message_id"]
+                  ]);
+   
+                  $userUnread->save();
+             
+   
+             
+   
+               broadcast(new UserChannel('message-alert',$newMessage[0],$user->username));
 
-               $userUnread->save();
-          
-
-          
-
-            broadcast(new UserChannel('message-alert',$newMessage[0],$user->username));
+            }
+            
+              
          }
          
           

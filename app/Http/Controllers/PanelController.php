@@ -669,10 +669,10 @@ var start_building = \"Let's build it!\";
 
     
 
-  
+     $root = '$root';
 
       $jsContent = "const main=(req,res)=>{
-res.sendFile(dirname+\"" ."/public" . '/' . $panelId . "/views/index.html" . "\")
+res.sendFile(dirname+\"" ."$root". "/views/index.html" . "\")
         
 }";
 

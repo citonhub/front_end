@@ -12,8 +12,8 @@
                      <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-close mdi-18px</v-icon></v-btn>
                   </div>
                   <div class="col-8 py-0 my-0 px-1">
-                     <select  style="font-size:10px !important;"  @change="detectchange(language)"   v-model="language" class="browser-default custom-select">
-                 <option v-for="(option,index)  in items" :value="option" :key="index">{{ option}}</option>
+                     <select  style="font-size:13px !important; " placeholder="select language"  @change="detectchange(language)"   v-model="language" class="browser-default custom-select">
+                 <option v-for="(option,index)  in items" :value="option.name" :key="index">{{ option.name}}</option>
                      </select>
                    </div>
                    <div class="col-2 py-0 my-0 px-2 text-right">
@@ -60,10 +60,10 @@
            <v-btn
                 color="#35747e"
                 small
-                 @click="showCode = false"
+                 @click="runCode"
                 class="d-inline-block "
                 fab
-                v-if="this.language == 'HTML'"
+                v-if="this.selectedLangId != null"
               >
                 <v-icon color="#ffffff">mdi-play</v-icon>
             </v-btn>
@@ -89,7 +89,7 @@
       </div>
      </div> 
           <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
-   :srcdoc="code" 
+   :srcdoc="ResultCode" 
     style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%;" ></iframe>
 
      <span style="position:absolute; top:90%; left:5%;z-index:1000;">
@@ -135,7 +135,27 @@ import dedent from 'dedent'
   import 'codemirror/theme/base16-dark.css'
 
   // language
-  import 'codemirror/mode/vue/vue.js'
+  import 'codemirror/mode/python/python.js'
+  import 'codemirror/mode/clike/clike.js'
+  import 'codemirror/mode/cobol/cobol.js'
+  import 'codemirror/mode/css/css.js'
+  import 'codemirror/mode/erlang/erlang.js'
+  import 'codemirror/mode/fortran/fortran.js'
+  import 'codemirror/mode/go/go.js'
+  import 'codemirror/mode/javascript/javascript.js'
+  import 'codemirror/mode/lua/lua.js'
+  import 'codemirror/mode/pascal/pascal.js'
+  import 'codemirror/mode/perl/perl.js'
+  import 'codemirror/mode/php/php.js'
+  import 'codemirror/mode/r/r.js'
+  import 'codemirror/mode/ruby/ruby.js'
+  import 'codemirror/mode/rust/rust.js'
+  import 'codemirror/mode/sql/sql.js'
+  import 'codemirror/mode/haskell/haskell.js'
+
+
+  
+
 
   // active-line.js
   import 'codemirror/addon/selection/active-line.js'
@@ -151,7 +171,7 @@ import dedent from 'dedent'
   import 'codemirror/addon/search/match-highlighter.js'
 
   // keyMap
-  import 'codemirror/mode/clike/clike.js'
+
   import 'codemirror/addon/edit/matchbrackets.js'
   import 'codemirror/addon/comment/comment.js'
   import 'codemirror/addon/dialog/dialog.js'
@@ -170,21 +190,14 @@ import dedent from 'dedent'
   import 'codemirror/addon/fold/markdown-fold.js'
   import 'codemirror/addon/fold/xml-fold.js'
 
-  // codehinting
-  import 'codemirror/addon/hint/show-hint.css'
-  import 'codemirror/addon/hint/show-hint.js'
-  import 'codemirror/addon/hint/sql-hint.js'
-  import 'codemirror/addon/hint/xml-hint.js'
-  import 'codemirror/addon/hint/html-hint.js'
-  import 'codemirror/addon/hint/anyword-hint.js'
-  import 'codemirror/addon/hint/javascript-hint.js' 
-  import 'codemirror/addon/hint/css-hint.js'
+
 
 
 export default {
       mounted(){
        
         this.detectchange(this.language);
+        this.$root.codeBoxOpened = true;
       },
      components: {
       codemirror,
@@ -219,13 +232,120 @@ export default {
           },
           
         },
-         items: ['HTML', 'CSS', 'JAVASCRIPT', 'PHP','PYTHON','SQL','VUEJS','C',
-         'C++','JAVA','C#','ERLANG','COFFEESCRIPT','LIVESCRIPT','DJANGO','KOTLIN',
-         'FOTRAN','MARKDOWN','PERL','R','RUBY'],
+         selectedLangId:0,
+        items: [
+          {
+            "id": 0,
+            "name": 'HTML' 
+          },
+          {
+            "id": null,
+            "name": 'CSS' 
+          },
+          {
+            "id": 26,
+            "name": 'JAVASCRIPT(Node)' 
+          },
+          {
+            "id": 35,
+            "name": 'PHP' 
+          },
+          {
+            "id": 39,
+            "name": 'PYTHON(3.8.1)' 
+          },
+          {
+            "id": 38,
+            "name": 'PYTHON(2.7.17)' 
+          },
+          {
+            "id": 44,
+            "name": 'SQL' 
+          },
+          {
+            "id": 4,
+            "name": 'C' 
+          },
+          {
+            "id": 11,
+            "name": 'C++' 
+          },
+          {
+            "id": 25,
+            "name": 'JAVA' 
+          },
+          {
+            "id": 13,
+            "name": 'C#' 
+          },
+          {
+            "id": 18,
+            "name": 'ERLANG' 
+          },
+          {
+            "id": 14,
+            "name": 'COBOL' 
+          },
+          {
+            "id": 27,
+            "name": 'KOTLIN' 
+          },
+          {
+            "id": 21,
+            "name": 'FOTRAN' 
+          },
+          {
+            "id": 34,
+            "name": 'PERL' 
+          },
+          {
+            "id": 40,
+            "name": 'R' 
+          },
+          {
+            "id": 41,
+            "name": 'RUBY' 
+          },
+          {
+            "id": 22,
+            "name": 'GO' 
+          },
+          {
+            "id": 24,
+            "name": 'HASKELL' 
+          },
+          {
+            "id": 28,
+            "name": 'LUA' 
+          },
+          {
+            "id": 33,
+            "name": 'PASCAL' 
+          },
+          {
+            "id": 42,
+            "name": 'RUST' 
+          },
+          {
+            "id": 43,
+            "name": 'SCALA' 
+          },
+          {
+            "id": 45,
+            "name": 'SWIFT' 
+          },
+          {
+            "id": 46,
+            "name": 'TYPESCRIPT' 
+          }
+        ],
         language: this.$root.fullCodeLanguage,
          code: this.$root.FullcodeContent,
-         showCode:true
+         showCode:true,
+         ResultCode:''
+         
     }
+   
 },
 methods:{
      onCmCursorActivity(codemirror) {
@@ -233,9 +353,10 @@ methods:{
       },
        goBack() {
           this.$root.fullCodeLanguage = 'HTML';
-          this.$root.FullcodeContent = "<p>Hello CitonHub</p>";
+          this.$root.FullcodeContent = "<p>Share your code!</p>";
        this.$root.showCodeBox = false;
         this.$root.showChatBottom = true;
+        this.$root.codeBoxOpened = false;
         },
         makeUUID:function(){
      var id = "id" + Math.random().toString(16).slice(2);
@@ -317,13 +438,12 @@ methods:{
                
 
 
-             this.$root.LocalStore(this.$route.params.spaceId,fullData);
+              this.$root.LocalStore(this.$route.params.spaceId,fullData);
 
                  this.$root.scrollerControlHandler();
 
               
-               
-                this.$root.showCodeBox = false;
+               this.goBack();
 
                  this.$root.scrollToBottom();
                 
@@ -347,10 +467,6 @@ methods:{
        
       onCmReady(codemirror) {
 
-      codemirror.on('keypress', () => {
-    codemirror.showHint()
-  })
-
         console.debug('onCmReady', codemirror)
       },
       onCmFocus(codemirror) {
@@ -359,24 +475,164 @@ methods:{
       onCmBlur(codemirror) {
         console.debug('onCmBlur', codemirror)
       },
-       detectchange: function(language){
+      runCode:function(){
+        
+       
+
+           this.showCode = false;
+
+            if(this.selectedLangId == 0){
+
+              this.ResultCode = this.code; 
+
+            }else{
+
+              this.ResultCode = 'loading...';
+
+              this.runCodeOnSandbox();
+
+
+            }
+
+          
+
+       
+      },
+      checkResponse:function(token){
+
+         let _this = this;
+
+        let interval = setInterval(check,1000);
+
+
+        function check(){
+
+
+           axios.post('/check-for-submission',{
+               token: token
+                  })
+          .then(response => {
+             
+          
+          if(response.status == 200){
+
+            
+
+            
+
+              if(response.data[0].status.description == 'Accepted'){
+
+                 _this.ResultCode = response.data[0].stdout;
+                
+                 clearInterval(interval);
+
+
+              }else if(response.data[0].status.description == 'In Queue'){
+
+                 _this.ResultCode = 'In Queue...';
+
+              }else if(response.data[0].status.description == 'Processing'){
+
+                 _this.ResultCode = 'Processing...';
+
+              }else{
+
+                 _this.ResultCode = '<span style="color:red;">'+ response.data[0].status.description +'</span> <br> <span>'+  response.data[0].compile_output +'</span>' ;
+
+                 clearInterval(interval);
+
+              }
+
+
+              if(_this.$root.codeBoxOpened == false){
+                  clearInterval(interval);
+              }
+
+              
+
+
+              
+
+          }
+            
+          })
+          .catch(error => {
+             
+               _this.ResultCode = 'An issue occured,unable to run on sandbox...';
+               clearInterval(interval);
+          })
+
+        }
+
+        
+
+      },
+      runCodeOnSandbox: function(){
+
+          axios.post('/run-code-on-sandbox',{
+                langId: this.selectedLangId,
+                code: this.code,
+                messageId: this.$root.codeMessageId
+                  })
+          .then(response => {
+             
+          
+          if(response.status == 200){
+
+            
+
+             let token = response.data[0].token;
+
+             this.checkResponse(token);
+
+          }
+            
+          })
+          .catch(error => {
+             
+               this.ResultCode = 'An issue occured,unable to run on sandbox...';
+          })
+
+      },
+       detectchange:  function(languageFull){
+          
+          let language = '';
+         if(typeof languageFull == 'object' ){
+            language = languageFull.name
+             this.selectedLangId =  languageFull.id
+         }else{
+           language = languageFull
+
+           
+
+            let languageArray = this.items.filter((item)=>{
+      return   item.name == languageFull;
+           });
+       if(languageArray[0].length != 0){
+
+          this.selectedLangId = languageArray[0].id;
+       }
+            
+         }
+
+  
          if(language == 'HTML'){
             this.cmOption.mode = 'text/html';
          }
          if(language == 'CSS'){
          this.cmOption.mode = 'text/css';
          }
-          if(language == 'PYTHON'){
+          if(language == 'PYTHON(3.8.1)'){
+           this.cmOption.mode = 'text/x-python';
+         }
+         if(language == 'PYTHON(2.7.17)'){
            this.cmOption.mode = 'text/x-python';
          }
           if(language == 'PHP'){
            this.cmOption.mode = 'text/x-php';
          }
-          if(language == 'JAVASCRIPT'){
+          if(language == 'JAVASCRIPT(Node)'){
            this.cmOption.mode = 'text/javascript';
-         }
-          if(language == 'VUEJS'){
-           this.cmOption.mode = 'text/x-vue';
          }
           if(language == 'SQL'){
            this.cmOption.mode = 'text/x-sql';
@@ -396,23 +652,11 @@ methods:{
           if(language == 'ERLANG'){
            this.cmOption.mode = 'text/x-erlang';
          }
-          if(language == 'COFFEESCRIPT'){
-           this.cmOption.mode = 'text/x-coffeescript';
-         }
-          if(language == 'LIVESCRIPT'){
-           this.cmOption.mode = 'text/x-livescript';
-         }
-          if(language == 'DJANGO'){
-           this.cmOption.mode = 'text/x-django';
-         }
           if(language == 'KOTLIN'){
            this.cmOption.mode = 'x-shader/x-fragment';
          }
           if(language == 'FOTRAN'){
            this.cmOption.mode = 'text/x-fortran';
-         }
-          if(language == 'MARKDOWN'){
-           this.cmOption.mode = 'text/x-markdown';
          }
           if(language == 'PERL'){
            this.cmOption.mode = 'text/x-perl';
@@ -420,9 +664,44 @@ methods:{
           if(language == 'R'){
            this.cmOption.mode = 'text/x-rsrc';
          }
+         if(language == 'GO'){
+           this.cmOption.mode = 'text/x-go';
+         }
+         if(language == 'HASKELL'){
+           this.cmOption.mode = 'text/x-haskell';
+         }
           if(language == 'RUBY'){
            this.cmOption.mode = 'text/x-ruby';
          }
+         if(language == 'LUA'){
+           
+            this.cmOption.mode = 'text/x-lua';
+
+         }
+         if(language == 'PASCAL'){
+
+            this.cmOption.mode = 'text/x-pascal';
+         }
+         if(language == 'RUST'){
+
+            this.cmOption.mode = 'text/x-rustsrc';
+         }
+         if(language == 'SCALA'){
+           
+             this.cmOption.mode = 'text/x-scala';
+
+         }
+         if(language == 'SWIFT'){
+
+              this.cmOption.mode = 'text/x-swift';
+
+         }
+         if(language  == 'TYPESCRIPT'){
+
+             this.cmOption.mode = 'text/javascript';
+
+         }
+         
       },
 }
 }

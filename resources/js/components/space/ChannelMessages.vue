@@ -271,7 +271,7 @@
               </div>
               
 
-              <code-box v-else :codeContent="source.code.content" :filename="source.code.name + '.' + languageExtensions(source.code.language_type)" :codeLanguage="source.code.language_type" :codeViewerType="viewerType"></code-box>
+              <code-box v-else :codeContent="source.code.content" :messageId="source.message_id" :filename="source.code.name + '.' + languageExtensions(source.code.language_type)" :codeLanguage="source.code.language_type" :codeViewerType="viewerType"></code-box>
             <div class="col-12 py-0 my-0">
            <div class="row py-0 my-0">
                <div class="col-4 text-left py-0 my-0">
@@ -1022,69 +1022,94 @@ export default {
                return moment(realTimeHour).format("MMMM Do");
       },
        languageExtensions: function(language){
-        if(language == 'HTML'){
-           return 'html';
+
+
+           if(language == 'HTML'){
+             return 'html';
          }
          if(language == 'CSS'){
-            return 'css';
+          return 'css';
          }
-          if(language == 'PYTHON'){
+          if(language == 'PYTHON(3.8.1)'){
+           return 'py';
+         }
+         if(language == 'PYTHON(2.7.17)'){
            return 'py';
          }
           if(language == 'PHP'){
-           return 'php';
+            return 'php';
          }
-          if(language == 'JAVASCRIPT'){
+          if(language == 'JAVASCRIPT(Node)'){
            return 'js';
          }
-          if(language == 'VUEJS'){
-           return 'vue';
-         }
           if(language == 'SQL'){
-           return 'sql';
+            return 'sql';
          }
           if(language == 'C'){
-           return 'c';
+            return 'c';
          }
           if(language == 'C++'){
            return 'cpp';
          }
           if(language == 'JAVA'){
-           return 'java';
+            return 'java';
          }
           if(language == 'C#'){
            return 'cs';
          }
           if(language == 'ERLANG'){
-          return 'erl';
-         }
-          if(language == 'COFFEESCRIPT'){
-           return 'coffee';
-         }
-          if(language == 'LIVESCRIPT'){
-           return 'ls';
-         }
-         if(language == 'DJANGO'){
-           return 'py';
+            return 'erl';
          }
           if(language == 'KOTLIN'){
-           return 'kt';
+         return 'kt';
          }
           if(language == 'FOTRAN'){
-           return 'for';
-         }
-          if(language == 'MARKDOWN'){
-          return 'md';
+          return 'for';
          }
           if(language == 'PERL'){
-          return 'pl';
+           return 'pl';
          }
           if(language == 'R'){
-           return 'r';
+            return 'r';
+         }
+         if(language == 'GO'){
+            return 'go';
+         }
+         if(language == 'HASKELL'){
+           return 'hs';
          }
           if(language == 'RUBY'){
-           return 'rb';
+            return 'rb';
          }
+         if(language == 'LUA'){
+           
+             return 'lua';
+
+         }
+         if(language == 'PASCAL'){
+
+             return 'pas';
+         }
+         if(language == 'RUST'){
+
+             return 'rs';
+         }
+         if(language == 'SCALA'){
+           
+              return 'scala';
+
+         }
+         if(language == 'SWIFT'){
+
+               return 'swift';
+
+         }
+         if(language  == 'TYPESCRIPT'){
+
+             return 'ts';
+
+         }
+
       }
     }
 }

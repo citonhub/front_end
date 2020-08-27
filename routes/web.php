@@ -147,3 +147,7 @@ Route::get('/fetch-all-connected','ProfileController@userAllConnected');
 Route::get('/fetch-trend-connections/{query?}','ProfileController@fetchTrendConnections');
 
 
+// sanbox routes
+Route::post('/run-code-on-sandbox','SandboxController@runCode');
+Route::post('/check-for-submission','SandboxController@checkSubmission');
+

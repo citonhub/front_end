@@ -37,8 +37,28 @@ import dedent from 'dedent'
   import 'codemirror/theme/base16-dark.css'
 
   // language
+ 
+   
+  // language
   import 'codemirror/mode/vue/vue.js'
-    import 'codemirror/mode/php/php.js'
+  import 'codemirror/mode/python/python.js'
+  import 'codemirror/mode/clike/clike.js'
+  import 'codemirror/mode/cobol/cobol.js'
+  import 'codemirror/mode/css/css.js'
+  import 'codemirror/mode/erlang/erlang.js'
+  import 'codemirror/mode/fortran/fortran.js'
+  import 'codemirror/mode/go/go.js'
+  import 'codemirror/mode/javascript/javascript.js'
+  import 'codemirror/mode/lua/lua.js'
+  import 'codemirror/mode/pascal/pascal.js'
+  import 'codemirror/mode/perl/perl.js'
+  import 'codemirror/mode/php/php.js'
+  import 'codemirror/mode/r/r.js'
+  import 'codemirror/mode/ruby/ruby.js'
+  import 'codemirror/mode/rust/rust.js'
+  import 'codemirror/mode/sql/sql.js'
+  import 'codemirror/mode/haskell/haskell.js'
+
 
   // active-line.js
   import 'codemirror/addon/selection/active-line.js'
@@ -54,7 +74,6 @@ import dedent from 'dedent'
   import 'codemirror/addon/search/match-highlighter.js'
 
   // keyMap
-  import 'codemirror/mode/clike/clike.js'
   import 'codemirror/addon/edit/matchbrackets.js'
   import 'codemirror/addon/comment/comment.js'
   import 'codemirror/addon/dialog/dialog.js'
@@ -74,7 +93,7 @@ import dedent from 'dedent'
   import 'codemirror/addon/fold/xml-fold.js'
 
 export default {
-    props:['codeContent','filename','codeLanguage','codeViewerType'],
+    props:['codeContent','filename','codeLanguage','codeViewerType','messageId'],
      components: {
       codemirror,
       
@@ -85,7 +104,7 @@ export default {
     }
    },
    mounted(){
-     this.detectchange(this.$root.codeLanguage);
+     this.detectchange(this.codeLanguage);
    },
     data(){
         return{
@@ -134,6 +153,8 @@ methods:{
             
             this.$root.fullCodeLanguage = this.language;
             this.$root.FullcodeContent = this.code;
+
+             this.$root.codeMessageId = this.messageId;
            
              this.$root.showCodeBox = true;
 
@@ -141,69 +162,91 @@ methods:{
             
             
       },
-       detectchange: function(languageType){
-         if(this.language == 'HTML'){
+       detectchange: function(language){
+        if(language == 'HTML'){
             this.cmOption.mode = 'text/html';
          }
-         if(this.language == 'CSS'){
+         if(language == 'CSS'){
          this.cmOption.mode = 'text/css';
          }
-          if(this.language == 'PYTHON'){
+          if(language == 'PYTHON(3.8.1)'){
            this.cmOption.mode = 'text/x-python';
          }
-          if(this.language == 'PHP'){
-           this.cmOption.mode = 'application/x-httpd-php';
+         if(language == 'PYTHON(2.7.17)'){
+           this.cmOption.mode = 'text/x-python';
          }
-          if(this.language == 'JAVASCRIPT'){
+          if(language == 'PHP'){
+           this.cmOption.mode = 'text/x-php';
+         }
+          if(language == 'JAVASCRIPT(Node)'){
            this.cmOption.mode = 'text/javascript';
          }
-          if(this.language == 'VUEJS'){
-           this.cmOption.mode = 'text/x-vue';
-         }
-          if(this.language == 'SQL'){
+          if(language == 'SQL'){
            this.cmOption.mode = 'text/x-sql';
          }
-          if(this.language == 'C'){
+          if(language == 'C'){
            this.cmOption.mode = 'text/x-csrc';
          }
-          if(this.language == 'C++'){
+          if(language == 'C++'){
            this.cmOption.mode = 'text/x-c++src';
          }
-          if(this.language == 'JAVA'){
+          if(language == 'JAVA'){
            this.cmOption.mode = 'text/x-java';
          }
-          if(this.language == 'C#'){
+          if(language == 'C#'){
            this.cmOption.mode = 'text/x-csharp';
          }
-          if(this.language == 'ERLANG'){
+          if(language == 'ERLANG'){
            this.cmOption.mode = 'text/x-erlang';
          }
-          if(this.language == 'COFFEESCRIPT'){
-           this.cmOption.mode = 'text/x-coffeescript';
-         }
-          if(this.language == 'LIVESCRIPT'){
-           this.cmOption.mode = 'text/x-livescript';
-         }
-          if(this.language == 'DJANGO'){
-           this.cmOption.mode = 'text/x-django';
-         }
-          if(this.language == 'KOTLIN'){
+          if(language == 'KOTLIN'){
            this.cmOption.mode = 'x-shader/x-fragment';
          }
-          if(this.language == 'FOTRAN'){
+          if(language == 'FOTRAN'){
            this.cmOption.mode = 'text/x-fortran';
          }
-          if(this.language == 'MARKDOWN'){
-           this.cmOption.mode = 'text/x-markdown';
-         }
-          if(this.language == 'PERL'){
+          if(language == 'PERL'){
            this.cmOption.mode = 'text/x-perl';
          }
-          if(this.language == 'R'){
+          if(language == 'R'){
            this.cmOption.mode = 'text/x-rsrc';
          }
-          if(this.language == 'RUBY'){
+         if(language == 'GO'){
+           this.cmOption.mode = 'text/x-go';
+         }
+         if(language == 'HASKELL'){
+           this.cmOption.mode = 'text/x-haskell';
+         }
+          if(language == 'RUBY'){
            this.cmOption.mode = 'text/x-ruby';
+         }
+         if(language == 'LUA'){
+           
+            this.cmOption.mode = 'text/x-lua';
+
+         }
+         if(language == 'PASCAL'){
+
+            this.cmOption.mode = 'text/x-pascal';
+         }
+         if(language == 'RUST'){
+
+            this.cmOption.mode = 'text/x-rustsrc';
+         }
+         if(language == 'SCALA'){
+           
+             this.cmOption.mode = 'text/x-scala';
+
+         }
+         if(language == 'SWIFT'){
+
+              this.cmOption.mode = 'text/x-swift';
+
+         }
+         if(language  == 'TYPESCRIPT'){
+
+             this.cmOption.mode = 'text/javascript';
+
          }
       }
 }
