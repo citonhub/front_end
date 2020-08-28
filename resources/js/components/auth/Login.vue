@@ -1,7 +1,7 @@
 <template>
    <v-app  class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0" style="position:absolute; font-family:BodyText; background:transparent; height:100%; overflow-y:auto; overflow-x:hidden; ">
         <div class="row my-0 py-0 px-0">
-       <div class="col-12 py-0 morebackground d-flex">
+       <div class="col-12 py-0 morebackground2 d-flex">
         <v-card class="py-1 px-2 row">
              <div class="col-3 px-1">
              <span>
@@ -210,7 +210,7 @@ export default {
 }
 </script>
 <style>
-.morebackground{
+.morebackground2{
      position: absolute;
      width:100%; 
      top: 0;
@@ -218,7 +218,7 @@ export default {
      height:94%; 
      align-items: center;
      justify-content: center;
-     background:rgba(38, 82, 89,0.6);
+     background:#81c1ca;
      z-index:100000;
  }
  .login{

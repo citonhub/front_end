@@ -2,41 +2,43 @@
    <v-app  class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0" style="position:absolute; font-family:BodyText; background:transparent; height:100%; overflow-y:auto; overflow-x:hidden; ">
         <div class="row my-0 py-0 px-0">
        <div class="col-12 py-3 morebackground2">
-        <v-card class="py-3 px-2 row mx-auto d-flex" color="#81c1ca" style="height:98%;align-items:center;justify-content:center;">
+        <v-card class="py-3 px-2 row mx-auto d-flex" color="#81c1ca" flat style="height:98%;align-items:center;justify-content:center;">
          
-           <div >
+           
 
                <div class="col-12 py-0 text-center mb-4">
-             <span style="font-family:HeaderText; font-size:15px; color:#173236;"> Welcome home developer 👨‍💻.</span>
+             <span style="font-family:HeaderText; font-size:14px; color:#173236; background:#ffffff; border-left:4px solid #3E8893;border-right:4px solid #3E8893;
+            "
+              class="py-2 px-1"> Welcome home developer 👨‍💻</span>
             </div>
      
         
             
-           <v-alert class="col-12 py-2 text-left mb-2 "   color="#3E8893" colored-border  border="left">
-              <span class="infoclass " style="font-weight:bolder; ">
+           <v-card class="col-12 py-2  px-2 text-center mb-2 " flat  color="#ffffff"  style="border-left:4px solid #3E8893;border-right:4px solid #3E8893;">
+              <span class="infoclass " style="font-family:HeaderText;font-weight:bolder;">
                 Chat, share, and run codes in your Space.
              </span>
-            </v-alert>
+            </v-card>
 
 
-             <v-alert class="col-12 py-2 text-left mb-2" color="#3E8893" colored-border  border="left">
-              <span class="infoclass " style="font-weight:bolder;">
+             <v-card class="col-12 py-2 text-center mb-2" flat color="#ffffff"  style="border-left:4px solid #3E8893;border-right:4px solid #3E8893;">
+              <span class="infoclass " style="font-family:HeaderText;font-weight:bolder;">
                Set up simple and advanced projects without setting up a server.
              </span>
-            </v-alert>
+            </v-card>
 
-             <v-alert class="col-12 py-2 text-left mb-2" color="#3E8893" colored-border  border="left">
-              <span class="infoclass " style="font-weight:bolder;">
-               Build your own coding community in channels.
+             <v-card class="col-12 py-2 text-center mb-2" flat color="#ffffff"  style="border-left:4px solid #3E8893;border-right:4px solid #3E8893;">
+              <span class="infoclass " style="font-family:HeaderText;font-weight:bolder; ">
+               Build your coding community in channels.
              </span>
-            </v-alert>
+            </v-card>
 
 
-            <v-alert class="col-12 py-2 text-left mb-2" color="#3E8893" colored-border  border="left">
-              <span class="infoclass " style="font-weight:bolder;">
-              Challenge friends to duels.
+            <v-card class="col-12 py-2 text-center mb-2 "  flat color="#ffffff"  style="border-left:4px solid #3E8893;border-right:4px solid #3E8893;">
+              <span class="infoclass " style="font-family:HeaderText;font-weight:bolder; ">
+              Challenge your friends to duels.
              </span>
-            </v-alert>
+            </v-card>
            
 
             <div class="col-12 text-center py-1" >
@@ -54,7 +56,7 @@
             </div>
 
 
-           </div>
+        
           
             
         </v-card>
