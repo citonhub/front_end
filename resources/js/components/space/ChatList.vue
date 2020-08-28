@@ -474,6 +474,8 @@ export default {
       this.$root.showTabs=true;
        this.$root.showHeader = true;
        this.$root.channel = null;
+
+        this.$root.checkIfUserIsLoggedIn('space');
         
        
        this.$root.codeEditorArray = [];
@@ -504,6 +506,7 @@ export default {
         this.$root.chatisOpen = false;
        this.$root.SpaceUsers = [];
        this.trackUser();
+       
     },
     methods:{
       showTab: function(type){

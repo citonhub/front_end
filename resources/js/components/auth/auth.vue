@@ -1,24 +1,42 @@
 <template>
    <v-app  class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0" style="position:absolute; font-family:BodyText; background:transparent; height:100%; overflow-y:auto; overflow-x:hidden; ">
         <div class="row my-0 py-0 px-0">
-       <div class="col-12 py-0 morebackground d-flex">
-        <v-card class="py-1 px-2 row">
-             <div class="col-3 px-1 py-1">
-             <span>
-                <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-close mdi-18px</v-icon></v-btn>
+       <div class="col-12 py-3 morebackground2">
+        <v-card class="py-3 px-2 row mx-auto d-flex" color="#81c1ca" style="height:98%;align-items:center;justify-content:center;">
+         
+           <div >
+
+               <div class="col-12 py-0 text-center mb-4">
+             <span style="font-family:HeaderText; font-size:15px; color:#173236;"> Welcome home developer 👨‍💻.</span>
+            </div>
+     
+        
+            
+           <v-alert class="col-12 py-2 text-left mb-2 "   color="#3E8893" colored-border  border="left">
+              <span class="infoclass " style="font-weight:bolder; ">
+                Chat, share, and run codes in your Space.
              </span>
-            </div>
-
-           <div class="col-12 py-0 text-center">
-             <span style="font-family:HeaderText; font-size:14px;"> Welcome home developer 👨‍💻.</span>
-            </div>
+            </v-alert>
 
 
-           <div class="col-12 py-2 text-center ">
-              <span class="infoclass px-4">
-                 Grow your communities in channels, collaborate and build projects in teams, and challenge friends in duels.
+             <v-alert class="col-12 py-2 text-left mb-2" color="#3E8893" colored-border  border="left">
+              <span class="infoclass " style="font-weight:bolder;">
+               Set up simple and advanced projects without setting up a server.
              </span>
-            </div>
+            </v-alert>
+
+             <v-alert class="col-12 py-2 text-left mb-2" color="#3E8893" colored-border  border="left">
+              <span class="infoclass " style="font-weight:bolder;">
+               Build your own coding community in channels.
+             </span>
+            </v-alert>
+
+
+            <v-alert class="col-12 py-2 text-left mb-2" color="#3E8893" colored-border  border="left">
+              <span class="infoclass " style="font-weight:bolder;">
+              Challenge friends to duels.
+             </span>
+            </v-alert>
            
 
             <div class="col-12 text-center py-1" >
@@ -35,6 +53,9 @@
               </div>
             </div>
 
+
+           </div>
+          
             
         </v-card>
      </div>
@@ -91,7 +112,7 @@ export default {
 }
 </script>
 <style>
-.morebackground{
+.morebackground2{
      position: absolute;
      width:100%; 
      top: 0;
@@ -99,7 +120,7 @@ export default {
      height:94%; 
      align-items: center;
      justify-content: center;
-     background:rgba(38, 82, 89,0.6);
+     background:#ffffff;
      z-index:100000;
  }
  .login{
