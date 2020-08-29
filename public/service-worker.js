@@ -309,23 +309,23 @@ const {NetworkOnly} = workbox.strategies;
    
  });
 
- self.addEventListener('notificationclick', function(event) {
-  console.log('On notification click: ', event);
 
-  if (Notification.prototype.hasOwnProperty('data')) {
-    console.log('Using Data');
-    var url = event.notification.data.url;
-    event.waitUntil(clients.openWindow('https://www.citonhub.com/' + url));
-  } else {
-    event.waitUntil(getIdb().get(KEY_VALUE_STORE_NAME,
-event.notification.tag).then(function(url) {
-      // At the moment you cannot open third party URL's, a simple trick
-      // is to redirect to the desired URL from a URL on your domain
-      var redirectUrl = 'https://www.citonhub.com/' +
-        url;
-      return clients.openWindow(redirectUrl);
-    }));
-  }
+self.addEventListener('notificationclick', function (event)
+{
+    const rootUrl = new URL('/', event.notification.data.url).href; 
+    event.notification.close();
+    event.waitUntil(
+        clients.matchAll().then(matchedClients =>
+        {
+            for (let client of matchedClients)
+            {
+                if (client.url.indexOf(rootUrl) >= 0)
+                {
+                    return client.focus();
+                }
+            }
 
-  event.notification.close();
+            return clients.openWindow(rootUrl).then(function (client) { client.focus(); });
+        })
+    );
 });
