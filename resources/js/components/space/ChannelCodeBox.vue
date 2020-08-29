@@ -29,7 +29,9 @@
 
        <div class="col-12 py-0 my-0" style="position:absolute; height:95.5%;width:100%; overflow-y:hidden; overflow-x:hidden;">
          <div class="row my-0 py-0 px-0 ">
+             
               <div class="codebox">
+              
          <codemirror
         v-model="code"
         :options="cmOption"
@@ -173,9 +175,6 @@ import dedent from 'dedent'
   // keyMap
 
   import 'codemirror/addon/edit/matchbrackets.js'
-  import 'codemirror/addon/comment/comment.js'
-  import 'codemirror/addon/dialog/dialog.js'
-  import 'codemirror/addon/dialog/dialog.css'
   import 'codemirror/addon/search/searchcursor.js'
   import 'codemirror/addon/search/search.js'
   import 'codemirror/keymap/sublime.js'
@@ -183,12 +182,10 @@ import dedent from 'dedent'
   // foldGutter
   import 'codemirror/addon/fold/foldgutter.css'
   import 'codemirror/addon/fold/brace-fold.js'
-  import 'codemirror/addon/fold/comment-fold.js'
   import 'codemirror/addon/fold/foldcode.js'
   import 'codemirror/addon/fold/foldgutter.js'
   import 'codemirror/addon/fold/indent-fold.js'
-  import 'codemirror/addon/fold/markdown-fold.js'
-  import 'codemirror/addon/fold/xml-fold.js'
+
 
 
 
@@ -352,8 +349,7 @@ methods:{
         console.debug('onCmCursorActivity', codemirror)
       },
        goBack() {
-          this.$root.fullCodeLanguage = 'HTML';
-          this.$root.FullcodeContent = "<p>Share your code!</p>";
+          
        this.$root.showCodeBox = false;
         this.$root.showChatBottom = true;
         this.$root.codeBoxOpened = false;
@@ -487,7 +483,7 @@ methods:{
 
             }else{
 
-              this.ResultCode = 'loading...';
+              this.ResultCode = 'sending to sandbox...';
 
               this.runCodeOnSandbox();
 
@@ -502,7 +498,7 @@ methods:{
 
          let _this = this;
 
-        let interval = setInterval(check,1000);
+        let interval = setInterval(check,3000);
 
 
         function check(){
@@ -522,7 +518,15 @@ methods:{
 
               if(response.data[0].status.description == 'Accepted'){
 
-                 _this.ResultCode = response.data[0].stdout;
+                 
+
+                  _this.ResultCode = '<span >'+ response.data[0].stdout +'</span> <br> Error: <span style="color:red;">'+ response.data[0].stderr +'</span>' ;
+
+                  if(response.data[0].stderr == null){
+
+                     _this.ResultCode = '<span >'+ response.data[0].stdout +'</span>' ;
+
+                 }
                 
                  clearInterval(interval);
 
@@ -537,7 +541,7 @@ methods:{
 
               }else{
 
-                 _this.ResultCode = '<span style="color:red;">'+ response.data[0].status.description +'</span> <br> <span>'+  response.data[0].compile_output +'</span>' ;
+                 _this.ResultCode = '<span style="color:red;">'+ response.data[0].status.description +'</span> <br>Info: <span>'+  response.data[0].compile_output +'</span>' ;
 
                  clearInterval(interval);
 
@@ -583,7 +587,44 @@ methods:{
 
              let token = response.data[0].token;
 
-             this.checkResponse(token);
+        
+              if(response.data[0].status.description == 'Accepted'){
+
+                  this.ResultCode = '<span >'+ response.data[0].stdout +'</span> <br> Error: <span style="color:red;">'+ response.data[0].stderr +'</span>' ;
+
+                  if(response.data[0].stderr == null){
+
+                     this.ResultCode = '<span >'+ response.data[0].stdout +'</span>' ;
+
+                 }
+                
+                
+
+              }else if(response.data[0].status.description == 'In Queue'){
+
+                 this.ResultCode = 'In Queue...';
+                 this.checkResponse(token);
+
+              }else if(response.data[0].status.description == 'Processing'){
+
+                 this.ResultCode = 'Processing...';
+
+                 this.checkResponse(token);
+
+              }else{
+
+                 this.ResultCode = '<span style="color:red;">'+ response.data[0].status.description +'</span> <br> Info: <span>'+  response.data[0].compile_output +'</span>' ;
+
+                
+
+              }
+             
+
+                
+
+              
+
+             
 
           }
             
@@ -614,6 +655,9 @@ methods:{
        }
             
          }
+
+          this.$root.fullCodeLanguage = language;
+          this.$root.FullcodeContent = " ";
 
   
          if(language == 'HTML'){

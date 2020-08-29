@@ -60,7 +60,7 @@ import dedent from 'dedent'
   import 'codemirror/mode/haskell/haskell.js'
 
 
-  // active-line.js
+ // active-line.js
   import 'codemirror/addon/selection/active-line.js'
 
   // styleSelectedText
@@ -74,10 +74,8 @@ import dedent from 'dedent'
   import 'codemirror/addon/search/match-highlighter.js'
 
   // keyMap
+
   import 'codemirror/addon/edit/matchbrackets.js'
-  import 'codemirror/addon/comment/comment.js'
-  import 'codemirror/addon/dialog/dialog.js'
-  import 'codemirror/addon/dialog/dialog.css'
   import 'codemirror/addon/search/searchcursor.js'
   import 'codemirror/addon/search/search.js'
   import 'codemirror/keymap/sublime.js'
@@ -85,13 +83,11 @@ import dedent from 'dedent'
   // foldGutter
   import 'codemirror/addon/fold/foldgutter.css'
   import 'codemirror/addon/fold/brace-fold.js'
-  import 'codemirror/addon/fold/comment-fold.js'
   import 'codemirror/addon/fold/foldcode.js'
   import 'codemirror/addon/fold/foldgutter.js'
   import 'codemirror/addon/fold/indent-fold.js'
-  import 'codemirror/addon/fold/markdown-fold.js'
-  import 'codemirror/addon/fold/xml-fold.js'
 
+  
 export default {
     props:['codeContent','filename','codeLanguage','codeViewerType','messageId'],
      components: {

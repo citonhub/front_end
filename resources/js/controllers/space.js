@@ -613,7 +613,7 @@ if (response.status == 200) {
 
           if(e.actionType == 'new-coin'){
             this.authProfile.coins = this.authProfile.coins + 1;
-         }
+           }
          
           if(e.actionType == 'message-alert'){
             
@@ -648,6 +648,9 @@ if (response.status == 200) {
                 space.message_track = new Date();
                 this.directUnread = this.directUnread + 1;
               }
+
+
+              this.sortChatList();
 
             });
 
