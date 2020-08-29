@@ -42,13 +42,9 @@
 
  <script type="text/javascript">
         function redirectPage() {
-            let location = 'https://www.citonhub.com/' + '{{$pageLink}}' + '/{{ $referral }}';
-
-           window.open(location, '_blank');
+           window.location =  '{{$pageLink}}' + '/{{ $referral }}';
         }
         window.onload = redirectPage;
-
-
     </script>
 
  
