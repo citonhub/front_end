@@ -11,10 +11,13 @@
                   <div class="col-2 py-0 my-0 px-2 d-flex" style="text-align:center; justify-content:center;">
                      <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-close mdi-18px</v-icon></v-btn>
                   </div>
-                  <div class="col-8 py-0 my-0 px-1">
+                  <div class="col-7 py-0 my-0 px-1">
                      <select  style="font-size:13px !important; " placeholder="select language"  @change="detectchange(language)"   v-model="language" class="browser-default custom-select">
                  <option v-for="(option,index)  in items" :value="option.name" :key="index">{{ option.name}}</option>
                      </select>
+                   </div>
+                    <div class="col-1 py-0 my-0 px-2 text-right">
+                    <v-btn icon color="#4495a2" @click="copyText"><v-icon>mdi-content-copy mdi-18px</v-icon></v-btn>
                    </div>
                    <div class="col-2 py-0 my-0 px-2 text-right">
                     <v-btn icon color="#4495a2" @click="sendMessage"><v-icon>mdi-send mdi-18px</v-icon></v-btn>
@@ -42,6 +45,7 @@
         @blur="onCmBlur"
         />
               </div>
+          <input type="hidden" id="codeBoxContent" :value="code">
          </div>
        </div>
 
@@ -348,6 +352,43 @@ methods:{
      onCmCursorActivity(codemirror) {
         console.debug('onCmCursorActivity', codemirror)
       },
+      copyText () {
+          let spacelink = document.querySelector('#codeBoxContent')
+          spacelink.setAttribute('type', 'text')  
+          spacelink.select()
+
+          try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+              if(msg == 'successful'){
+
+                this.showAlert(5000,'Copied!')
+                
+              }else{
+
+                 this.showAlert(5000,'Oops! unable to copy')
+                
+              }
+          } catch (err) {
+           
+          }
+
+          /* unselect the range */
+          spacelink.setAttribute('type', 'hidden')
+          window.getSelection().removeAllRanges()
+        },
+
+        showAlert:function(duration,text){
+        this.$root.AlertRoot = true;
+        this.$root.AlertMsgRoot = text;
+        let _this = this;
+     
+     setTimeout(function(){
+        _this.$root.AlertRoot = false;
+     },duration);
+
+    },
+
        goBack() {
           
        this.$root.showCodeBox = false;

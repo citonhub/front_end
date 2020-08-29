@@ -28,8 +28,19 @@
                 <div class="row py-0 my-0">
                   
                     <div class="col-12 py-0 my-0 px-2 text-right">
-                      <v-btn  x-small color="#3E8893" @click="showHowTo"
+                       <div class="row py-0 my-0">
+                        
+                            <div class="col-6 text-left py-0" >
+                               <input type="hidden" v-if="this.$root.projectData.length != 0" id="codeBoxContent" :value="'https://www.citonhub.com/run-panel/' + this.$root.projectData.panel_id">
+ <v-btn  x-small color="#3E8893" @click="copyText"
+              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-content-copy mdi-18px</v-icon> {{btnText}}</v-btn>  
+                            </div>
+                            <div class="col-6 text-right py-0">
+                            <v-btn  x-small color="#3E8893" @click="showHowTo"
               style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-format-list-text mdi-18px</v-icon> FAQs</v-btn>  
+                            </div>
+                       </div>
+                     
                    </div>
                 </div>  
              </div>
@@ -549,6 +560,7 @@ export default {
      language:'',
      duel:[],
      panelData:[],
+     btnText:'Project URL',
      scriptsShow:true,
      stylesShow:true,
      frameworkShow:false,
@@ -599,7 +611,42 @@ export default {
      
 
        }
-   },   
+   }, 
+     copyText () {
+          let spacelink = document.querySelector('#codeBoxContent')
+          spacelink.setAttribute('type', 'text')  
+          spacelink.select()
+
+          try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+              if(msg == 'successful'){
+
+                this.showAlert(5000,'Copied!')
+                
+              }else{
+
+                 this.showAlert(5000,'Oops! unable to copy')
+                
+              }
+          } catch (err) {
+           
+          }
+
+          /* unselect the range */
+          spacelink.setAttribute('type', 'hidden')
+          window.getSelection().removeAllRanges()
+        },
+
+        showAlert:function(duration,text){
+           this.btnText = 'Copied!';
+        let _this = this;
+     
+     setTimeout(function(){
+        _this.btnText = 'Project URL';
+     },duration);
+
+    },  
    shortenContent: function(content,limit){
              
              if(content.length > limit){

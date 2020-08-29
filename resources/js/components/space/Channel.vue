@@ -38,7 +38,7 @@
       </div>
 
        <v-fade-transition>
-              <div  style="position:fixed; height:auto: align-items:center;justify-content:center;bottom:15%; z-index:123453566;"  class="d-flex col-md-8 offset-md-2  col-lg-4 offset-lg-4">
+              <div  style="position:fixed; height:auto: align-items:center;justify-content:center;bottom:15%; z-index:9999999123453566;"  class="d-flex col-md-8 offset-md-2  col-lg-4 offset-lg-4">
              <v-alert
       v-model="this.$root.AlertRoot"
   

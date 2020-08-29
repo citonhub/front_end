@@ -9,7 +9,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          
-         <div class=" py-1 my-0 px-0 scrollerStyleNew"  style=" background:white; overflow-x:auto; white-space:nowrap; position:absolute; left:10%; width:90%; " >
+         <div class=" py-1 my-0 px-0 scrollerStyleNew"  style=" background:white; overflow-x:auto; white-space:nowrap; position:absolute; left:10%; width:85%; " >
               <v-chip v-for="(file,index) in this.$root.codeEditorArray" :key="index"
       class="ma-1 ml-0 fileText d-inline-block"
       close
@@ -23,6 +23,10 @@
 
    
 
+         </div>
+
+          <div class="py-1 my-0 text-left px-1" style=" position:absolute; right:0; width:14%; background:white;" >
+            <v-btn icon color="#4495a2" @click="copyText"><v-icon>mdi-content-copy mdi-18px</v-icon></v-btn>
          </div>
         
       </div>
@@ -42,6 +46,7 @@
          @input="onCmCodeChange"
         />
               </div>
+              <input type="hidden" id="codeBoxContent" :value="code">
          </div>
        </div>
 
@@ -222,6 +227,33 @@ export default {
     }
 },
 methods:{
+   copyText () {
+          let spacelink = document.querySelector('#codeBoxContent')
+          spacelink.setAttribute('type', 'text')  
+          spacelink.select()
+
+          try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+              if(msg == 'successful'){
+
+                this.showAlert(5000,'Copied!')
+                
+              }else{
+
+                 this.showAlert(5000,'Oops! unable to copy')
+                
+              }
+          } catch (err) {
+           
+          }
+
+          /* unselect the range */
+          spacelink.setAttribute('type', 'hidden')
+          window.getSelection().removeAllRanges()
+        },
+
+      
    activateBot:function(){
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
             return page.page_name == 'project_code_editor';
