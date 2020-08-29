@@ -2416,6 +2416,8 @@ public function saveMyData(){
 
         $response = Http::get($baseUrl . '/' . $panelId . '/index' );
 
+        dd($response->body());
+
 
          if($response->status() == '404'){
          

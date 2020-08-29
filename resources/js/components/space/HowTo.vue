@@ -85,7 +85,7 @@
 
                <div class="col-12 py-0 text-left" style="border-bottom:1px solid #c5c5c5;"> 
                 <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 3-</b> Go back to your Index code editor.  Copy and paste this URL to your code editor.
+                      <b style="color:#173136;">Step 3-</b> Copy and paste the code below in your HTML , to use the file.
                  </span><br><br>
 
                  
@@ -117,7 +117,7 @@
 
                  <span style="color:#2e626b; font-size:13px;" >
                     
-                       FILENAME is the name of the file e.g index.html, main.css 
+                       FILENAME is the name of the file e.g index for index.html
                  </span><br>
              </div>
 
@@ -132,7 +132,7 @@
 
              <div class="col-12 py-0 text-left">
                 <span style="color:#2e626b; font-size:13px;">
-                      <b style="color:#173136;">Step 1-</b>  Upload your code to files in resources(Framework).
+                      <b style="color:#173136;">Step 1-</b>  Upload your files into Framework in your panel resources.
                  </span>
 
              </div>
