@@ -2398,7 +2398,7 @@ public function saveMyData(){
 
      $baseUrl = 'https://php.citonhub.com';
 
-     dd($projectPanel);
+     
 
       if( $projectPanel != null){
 
@@ -2418,7 +2418,7 @@ public function saveMyData(){
 
         $response = Http::get($baseUrl . '/' . $panelId . '/index' );
 
-       
+        dd($response);
 
 
          if($response->status() == '404'){
