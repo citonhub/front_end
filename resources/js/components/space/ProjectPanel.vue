@@ -33,7 +33,7 @@
                             <div class="col-6 text-left py-0" >
                                <input type="hidden" v-if="this.$root.projectData.length != 0" id="codeBoxContent" :value="'https://www.citonhub.com/run-panel/' + this.$root.projectData.panel_id">
  <v-btn  x-small color="#3E8893" @click="copyText"
-              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-content-copy mdi-18px</v-icon> {{btnText}}</v-btn>  
+              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-link mdi-18px</v-icon> {{btnText}}</v-btn>  
                             </div>
                             <div class="col-6 text-right py-0">
                             <v-btn  x-small color="#3E8893" @click="showHowTo"

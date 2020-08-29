@@ -42,7 +42,9 @@
         @cursorActivity="onCmCursorActivity"
         @ready="onCmReady"
         @focus="onCmFocus"
+        @scroll="saveFileHeight"
         @blur="onCmBlur"
+        @update="setEditorPosition"
          @input="onCmCodeChange"
         />
               </div>
@@ -223,10 +225,43 @@ export default {
          Alert: false,
          alertMsg:'',
          loading: false,
+         canChange: true,
 
     }
 },
 methods:{
+  setEditorPosition: function(codemirror){
+
+        
+        if(this.canChange){
+
+           let storedCodePosition = this.$root.getLocalStore('CodeFile'+ this.$root.selectedFileId + this.$root.username);
+          
+          storedCodePosition.then((result)=>{
+
+             if(result != null){
+
+                  let finalResult = JSON.parse(result);
+
+                   codemirror.scrollTo(finalResult.left,finalResult.top);
+
+             }else{
+
+                 codemirror.scrollTo(0,0);
+
+             }
+         
+           
+     
+          });
+
+        }
+
+        this.canChange = false;
+     
+      
+
+  },
    copyText () {
           let spacelink = document.querySelector('#codeBoxContent')
           spacelink.setAttribute('type', 'text')  
@@ -383,6 +418,7 @@ methods:{
              this.code = codeData.content;
           }
          
+         this.canChange = true;
        
       
       },
@@ -485,6 +521,16 @@ methods:{
            this.$root.LocalStore(this.$route.params.projectSlug,this.$root.CodeFilesData);
      
         
+      },
+      saveFileHeight:function(codemirror){
+
+       
+         
+           this.$root.LocalStore('CodeFile'+ this.$root.selectedFileId + this.$root.username,codemirror.getScrollInfo());
+           
+        
+
+
       },
          detectchange: function(language){
          if(language == 'HTML'){
