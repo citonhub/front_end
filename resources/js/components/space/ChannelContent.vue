@@ -637,6 +637,8 @@ export default {
 
       },
       periodicUpdate: function(result){
+
+         this.$root.sendingMessage = true;
            
           axios.post('/check-for-unread-messages-clean',{
                 spaceId: this.$route.params.spaceId,
@@ -663,6 +665,8 @@ export default {
                   this.$root.pushDataToLocal(response.data[0][index]);
 
                   this.scrollToBottom();
+
+                  this.$root.sendingMessage = false;
               
                 }
 
