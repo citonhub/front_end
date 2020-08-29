@@ -2536,7 +2536,7 @@ return  $newChannelArray;
 
     $spaceData = DB::table('spaces')->where('space_id',$baseSpaceId)->first();
     
-    $baseUrl = 'link/space/' . $baseSpaceId . '/user';
+    $baseUrl = 'space#/space/' . $baseSpaceId . '/channel/content/user';
 
      $notificationPayload = [
         "owner_id" => $user->id,

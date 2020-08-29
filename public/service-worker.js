@@ -310,22 +310,26 @@ const {NetworkOnly} = workbox.strategies;
  });
 
 
-self.addEventListener('notificationclick', function (event)
-{
-    const rootUrl = new URL('/', event.notification.data.url).href; 
-    event.notification.close();
-    event.waitUntil(
-        clients.matchAll().then(matchedClients =>
-        {
-            for (let client of matchedClients)
-            {
-                if (client.url.indexOf(rootUrl) >= 0)
-                {
-                    return client.focus();
-                }
-            }
 
-            return clients.openWindow(rootUrl).then(function (client) { client.focus(); });
-        })
-    );
+self.addEventListener('notificationclick', function(event) {
+  
+ let urlFull = '/' +  event.notification.data.url;
+
+   event.notification.close();
+
+  event.waitUntil(
+    clients.matchAll({
+      type: "window"
+    })
+    .then(function(clientList) {
+      for (var i = 0; i < clientList.length; i++) {
+        var client = clientList[i];
+        if (client.url == urlFull && 'focus' in client)
+          return client.focus();
+      }
+      if (clients.openWindow) {
+        return clients.openWindow(urlFull);
+      }
+    })
+  );
 });
