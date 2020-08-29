@@ -42,7 +42,7 @@
 
  <script type="text/javascript">
         function redirectPage() {
-           window.location = '{{$pageLink}}' + '/{{ $referral }}';
+           window.location = 'https://www.citonhub.com/' + '{{$pageLink}}' + '/{{ $referral }}';
         }
         window.onload = redirectPage;
     </script>
