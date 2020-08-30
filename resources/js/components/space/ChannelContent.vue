@@ -573,7 +573,7 @@ export default {
                  
                  this.$root.typing = false;
                  
-                 }, 10000);
+                 }, 1500);
                  });
 
          }

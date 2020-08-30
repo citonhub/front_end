@@ -8,7 +8,7 @@
                <v-card  flat  color="#ffffff" style="border-radius: 10px;" class="col-9 px-2 py-0 my-0">
                  <div class="editor">
           
-                <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()" />
+                <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()"  />
                 </div>
                </v-card>
                <div class="col-3 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
@@ -144,13 +144,14 @@ export default {
          }else{
             this.showSend = false;
              this.$root.ShowButton = true;
+              this.isTyping();
          }
          
        
           this.contentInWord = this.urlify(this.editor.getHTML());
       
 
-          this.isTyping();
+         
           
       },
       reFocus:function(){
@@ -270,13 +271,13 @@ export default {
       
       let channel =  window.Echo.join('space.' + this.$route.params.spaceId);
    
-      setTimeout(() => {
+     
         channel.whisper('typing', {
           user: Laravel.user.username,
             typing: true,
             spaceId: this.$route.params.spaceId
         });
-      }, 10000);
+     
    
    
           
