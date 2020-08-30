@@ -501,20 +501,30 @@ export default {
     },
       makeSpaceConnetion: function(){
         
-
+     
          if(this.$root.channel == null){
 
       
-             
+            
            
              this.$root.channel =   Echo.join('space.' + this.$route.params.spaceId)
       .here((users) => {
+
+         
         
       this.$root.SpaceUsers = users;
 
+       
+
     })
     .joining((user) => {
+
+       
+    
+
     this.$root.SpaceUsers.push(user);
+
+   
     
     })
     .leaving((user) => {
@@ -531,6 +541,8 @@ export default {
              
             if(e.actionType == 'new-message'){
 
+               
+
               
  
                 this.$root.returnedMessages.push(e.data); 
@@ -543,6 +555,7 @@ export default {
                 this.$root.sortChatList();
 
                   this.scrollToBottom(); 
+               
                
 
             }
@@ -666,18 +679,22 @@ export default {
 
                   this.scrollToBottom();
 
-                  this.$root.sendingMessage = false;
+                  
               
                 }
 
 
              }
+          
 
+          this.$root.sendingMessage = false;
             
             }
 
           })
           .catch(error => {
+
+            this.$root.sendingMessage = false;
              
           })
 

@@ -932,7 +932,32 @@ foreach ($userDirectSpaces as $spaceDirect) {
 
          $newSpaceMessage->save();
 
-         broadcast(new SpaceChannel('new-message',$newSpaceMessage,$spaceId))->toOthers();
+        
+          
+         $newMessageArray =DB::table('space_messages')
+         ->join('users','users.id','space_messages.user_id')
+         ->select(
+             'space_messages.content as content',
+             'space_messages.type as type',
+             'users.username as username',
+             'users.id as user_id',
+             'space_messages.space_id as space_id',
+             'space_messages.created_at as created_at',
+             'space_messages.is_reply as is_reply',
+             'space_messages.replied_message_id as replied_message_id',
+             'space_messages.id as message_id'
+         )
+         ->where('space_messages.id',$newSpaceMessage->id)
+    
+         ->get();
+
+        
+
+          $returnNewMessageFirst = $newMessageArray[0];
+
+
+
+         broadcast(new SpaceChannel('new-message',$returnNewMessageFirst,$spaceId))->toOthers();
           
       }
 

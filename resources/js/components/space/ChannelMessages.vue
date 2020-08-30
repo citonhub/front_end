@@ -11,7 +11,7 @@
           <!-- user joined -->
         
          <div class="col-12  text-center" v-if="source.type == 'join'">
-            <span  class=" DateBadge py-1 px-2" style="font-size:11px;color:white;" v-if="source.user.username != username">{{source.user.username}} joined</span>
+            <span  class=" DateBadge py-1 px-2" style="font-size:11px;color:white;" v-if="source.username != username">{{source.username}} joined</span>
              <span  class=" DateBadge py-1 px-2" style="font-size:11px;color:white;" v-else>You joined</span>
          </div>
 
