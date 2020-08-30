@@ -141,10 +141,12 @@ export default {
            this.showSend = true;
             this.$root.ShowButton = false;
 
+             this.isTyping();
+
          }else{
             this.showSend = false;
              this.$root.ShowButton = true;
-              this.isTyping();
+             
          }
          
        
