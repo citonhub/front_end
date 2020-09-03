@@ -20,7 +20,12 @@
     <meta name="msapplication-TileColor" content="#4495a2">
  @endsection
  @section('css')
-  
+  <!-- Shaka Player ui compiled library default CSS: -->
+
+  <link rel="stylesheet" type="text/css" href="/css/getHTMLMediaElement.css?v=0.8">
+    <link rel="stylesheet" type="text/css" href="/css/controls.css">
+
+
 <style>
 .body{
     background:#edf6f7;
@@ -298,6 +303,25 @@ body {
 
  @section('scripts')
 
- <script src="{{ asset('js/space.js?v=2.04') }}"></script>
+ 
+ <script src="{{ asset('js/RTCMultiConnection.min.js') }}"></script>
+
+
+
+ <script src="{{ asset('js/getHTMLMediaElement.js?v=0.5') }}"></script>
+
+ 
+ <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  
+  <script src="{{ asset('js/shaka-player.compiled.js') }}"></script>
+
+   <!-- Shaka Player ui compiled library: -->
+   <script src="{{ asset('js/shaka-player.ui.js') }}"></script>
+
+   <!-- Chromecast SDK (if you want Chromecast support for your app): -->
+   <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
+
+ <script src="{{ asset('js/space.js?v=2.31') }}"></script>
+ 
      
  @endsection

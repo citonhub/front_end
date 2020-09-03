@@ -13,7 +13,7 @@ use App\VideoMessage;
 use App\CodeMessage;
 use ColorThief\ColorThief;
 use App\traits\ManagesImages;
-use FFMpeg\FFMpeg;
+use Streaming\FFMpeg;
 use App\Team;
 use App\SpaceMember;
 use Carbon\Carbon;
@@ -32,7 +32,11 @@ use App\DMList;
 use App\Profile;
 use App\ActionMessage;
 use App\traits\PushNotificationTrait;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Response;
+use Streaming\Representation;
+
 
 class SpaceController extends Controller
 {
@@ -46,6 +50,41 @@ class SpaceController extends Controller
     {
         $this->setImageDefaultsFromConfig('spaceImage');
       
+    }
+
+
+    public function createVideoDash($videoFile,$videoName){
+
+      $config = [
+         'ffmpeg.binaries'  => '/usr/bin/ffmpeg',
+         'ffprobe.binaries' => '/usr/bin/ffprobe',
+         'timeout'          => 3600, // The timeout for the underlying process
+         'ffmpeg.threads'   => 12,   // The number of threads that FFmpeg should use
+     ];
+     
+     $log = new Logger('FFmpeg_Streaming');
+     $log->pushHandler(new StreamHandler('/var/www/Videos/ffmpeg-streaming.log')); // path to log file
+
+     $ffmpeg = FFMpeg::create($config, $log);
+   
+      $video = $ffmpeg->open($videoFile);
+
+      $r_240p  = (new Representation)->setKiloBitrate(150)->setResize(426, 240);
+      $r_360p  = (new Representation)->setKiloBitrate(276)->setResize(640, 360);
+      $r_480p  = (new Representation)->setKiloBitrate(750)->setResize(854, 480);
+      $r_720p  = (new Representation)->setKiloBitrate(2048)->setResize(1280, 720);
+      $r_1080p = (new Representation)->setKiloBitrate(4096)->setResize(1920, 1080);
+    
+   
+       $video->dash()
+      ->setSegDuration(10) // Default value is 10 
+      ->setAdaption('id=0,streams=v id=1,streams=a')
+      ->x264()
+      ->addRepresentations([$r_240p, $r_360p, $r_480p, $r_720p, $r_1080p])
+      ->save('/var/www/citonhubnew/public/videos/'.  $videoName .'.mpd');
+
+
+
     }
 
     public function updateSpace(Request $request){
@@ -198,13 +237,16 @@ class SpaceController extends Controller
         $location = '/var/www/citonhubnew/public/videos/';
               
         $file = $request->file('video');
-        $file->move($location, $videoName . '.' . $videoExtension);
+
+          $this->createVideoDash($file,$videoName);
+        
+
 
        
 
 
         $newMessageVideo = VideoMessage::create([
-          "video_extension"=> $videoExtension,
+          "video_extension"=> 'mpd',
           "video_name"=> $videoName,
           "preview_image_url"=> $videoName . '.jpg',
           "message_id"=> $newMessage->id,
@@ -1787,7 +1829,8 @@ array_push($newSpaceArray,$userSpace);
      
      
      
-           $MessageContent = 'Hi <strong>' . Auth::user()->name . '</strong>, I\'m Olutola 😃. I\'m here to help with any problem you have using CitonHub.'; 
+           $MessageContent = 'Hi <strong>' . Auth::user()->name . '</strong>, I\'m glad you\'re here. I\'m Olutola 😃.
+            I\'m here to help with any problem you have using CitonHub. Please, direct your concerns to me if you face any problem. Have a nice time 😊'; 
        
            $newMessage = SpaceMessage::create([
               "space_id"=> 'assistant' . $spaceId,

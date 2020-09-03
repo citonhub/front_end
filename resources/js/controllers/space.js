@@ -38,6 +38,7 @@ import HowTo from "../components/space/HowTo.vue"
 import Suggestions from "../components/space/Suggestions.vue"
 
 
+
 const routes = [
   { path: '/', redirect: '/space'},
   { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},
@@ -295,7 +296,18 @@ const app = new Vue({
      chatisOpen:false,
      codeMessageId:0,
      codeBoxOpened: false,
-    },
+     codeIsLive: false,
+     liveShowCode: true,
+     CodeResult:'',
+     screenSharingOn: false,
+     connection:undefined,
+     audioconnection:undefined,
+     allAudioParticipant: [],
+     showUserBoard:false,
+     showVideoScreen:false,
+     connectingToSocket: true,
+     localAudioMuted:false,
+        },
      mounted: function () {
       this.pageloader= false;
      

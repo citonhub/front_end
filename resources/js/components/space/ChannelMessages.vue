@@ -308,9 +308,11 @@
                      </div>
                   </div>
               </div>
+
+              <main-video v-else :videoUrl="'/videos/' + source.video.video_name + '.mpd'" :backgroundColor="source.video.background_color" style="height:100%; width:100%;"
+               :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.message_id" > </main-video>
               
-          <video-player v-else :videoUrl="'/videos/' + source.video.video_name + '.' + source.video.video_extension" :backgroundColor="source.video.background_color" style="height:100%; width:100%;"
-                  :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.message_id"></video-player>
+
                   <div class="col-12 py-0 my-0">
            <div class="row py-0 my-0">
                <div class="col-4 text-left py-0 my-0">

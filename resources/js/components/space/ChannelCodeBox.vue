@@ -43,13 +43,14 @@
         @ready="onCmReady"
         @focus="onCmFocus"
         @blur="onCmBlur"
+        @input="onCmCodeChange"
         />
               </div>
           <input type="hidden" id="codeBoxContent" :value="code">
          </div>
        </div>
 
-         <span style="position:absolute; top:85%; right:5%;z-index:1000;">
+         <span style="position:absolute; top:85%; right:5%;z-index:1000;"  v-if="!this.$root.codeIsLive">
            <v-btn
                 color="#35747e"
                 small
@@ -62,7 +63,32 @@
          
      </span>
 
-     <span style="position:absolute; top:85%; left:5%;z-index:1000;">
+      <span style="position:absolute; top:85%; right:5%;z-index:1000;"  v-else>
+           <v-btn
+                color="#35747e"
+                small
+                @click="muteAudio"
+                v-if="!this.$root.localAudioMuted"
+                class="d-inline-block sliderfullBtn"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-microphone mdi-18px</v-icon>
+            </v-btn>
+
+             <v-btn
+               
+                small
+                @click="unmuteAudio"
+                v-else
+                class="d-inline-block "
+                fab
+              >
+                <v-icon >mdi-microphone mdi-18px</v-icon>
+            </v-btn>
+         
+     </span>
+
+     <span style="position:absolute; top:85%; left:5%;z-index:1000;" >
            <v-btn
                 color="#35747e"
                 small
@@ -96,27 +122,19 @@
      </div> 
           <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
    :srcdoc="ResultCode" 
-    style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%;" ></iframe>
+    style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%;" v-if="selectedLangId == 0"></iframe>
 
-     <span style="position:absolute; top:90%; left:5%;z-index:1000;">
-           <v-btn
-                color="#35747e"
-                small
+    <div v-else  style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%; font-size:13px;" class="px-2 py-2">
+         {{ ResultCode }}
+    </div>
 
-                 @click="goBack"
-                class="d-inline-block "
-                fab
-              >
-                <v-icon color="#ffffff">mdi-close</v-icon>
-            </v-btn>
-         
-     </span>
 
+   
       <span style="position:absolute; top:90%; right:5%;z-index:1000;">
            <v-btn
                 color="#35747e"
                 small
-                 @click="showCode = true"
+                 @click="returnToCode"
                 class="d-inline-block "
                 fab
               >
@@ -199,6 +217,8 @@ export default {
        
         this.detectchange(this.language);
         this.$root.codeBoxOpened = true;
+        this.setCodeContent();
+       
       },
      components: {
       codemirror,
@@ -221,6 +241,7 @@ export default {
           line: true,
           autocorrect: true,
           keyMap: "sublime",
+          readOnly:'',
           mode: 'text/html',
           theme: 'base16-dark',
           extraKeys: {
@@ -349,9 +370,102 @@ export default {
    
 },
 methods:{
+  muteAudio:function(){
+
+         
+         var localStream = this.$root.audioconnection.attachStreams[0];
+           localStream.mute('audio');
+
+           this.$root.localAudioMuted = true;
+
+
+      },
+      unmuteAudio: function(){
+
+          var localStream = this.$root.audioconnection.attachStreams[0];
+           localStream.unmute('audio');
+
+           this.$root.localAudioMuted = false;
+
+      },
      onCmCursorActivity(codemirror) {
         console.debug('onCmCursorActivity', codemirror)
       },
+      setCodeContent:function(){
+
+
+    let userState = this.checkIfisOwner();
+        
+
+          if(this.$root.codeIsLive && !userState){
+
+             
+             this.cmOption.readOnly = 'nocursor';
+
+           let interval = setInterval(setCode,1000);
+
+      let _this = this;
+
+        function setCode(){
+
+           _this.code = _this.$root.FullcodeContent;
+           _this.language = _this.$root.fullCodeLanguage;
+           _this.detectchange(_this.$root.fullCodeLanguage);
+
+           if(_this.$root.liveShowCode){
+               _this.showCode = true;
+           }else{
+
+           _this.showCode = false;
+           _this.ResultCode = _this.$root.CodeResult;
+           
+           }
+              
+          if(_this.$root.codeIsLive == false){
+            
+            clearInterval(interval);
+
+          }
+         
+        }
+
+         }
+          
+        
+      
+      },
+      checkIfisOwner: function(){
+
+           let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
+   
+             return members.user_id == this.$root.user_temp_id;
+           });
+
+           if(userMemberData.length != 0){
+
+             return userMemberData[0].is_admin;
+
+           }else{
+              return false
+           }
+         
+       },
+       returnToCode:function(){
+
+          this.showCode = true;
+
+           let userState = this.checkIfisOwner();
+
+           if(this.$root.codeIsLive && userState){
+
+              
+              this.liveChanges(true,'returnToCode');
+            
+
+          }
+
+
+       },
       copyText () {
           let spacelink = document.querySelector('#codeBoxContent')
           spacelink.setAttribute('type', 'text')  
@@ -394,6 +508,9 @@ methods:{
        this.$root.showCodeBox = false;
         this.$root.showChatBottom = true;
         this.$root.codeBoxOpened = false;
+
+        this.$root.codeIsLive = false;
+
         },
         makeUUID:function(){
      var id = "id" + Math.random().toString(16).slice(2);
@@ -512,6 +629,35 @@ methods:{
       onCmBlur(codemirror) {
         console.debug('onCmBlur', codemirror)
       },
+      onCmCodeChange:function(codemirror){
+       
+       
+
+            this.liveChanges(codemirror,'typing');
+
+        
+
+      },
+       liveChanges:function(data,action) {
+
+      
+      let channel =  window.Echo.join('space.' + this.$route.params.spaceId);
+   
+       if(this.$root.codeIsLive){
+
+         channel.whisper('liveCoding', {
+          data:data,
+            action: action,
+            spaceId: this.$route.params.spaceId
+        });
+
+
+       }
+
+         
+     
+          
+        },
       runCode:function(){
         
        
@@ -521,19 +667,36 @@ methods:{
             if(this.selectedLangId == 0 || this.language == 'HTML'){
 
               this.ResultCode = this.code; 
+              this.sendCodeRunning();
 
             }else{
 
               this.ResultCode = 'sending to sandbox...';
 
               this.runCodeOnSandbox();
+              this.sendCodeRunning();
 
 
             }
 
+            
+
+
           
 
        
+      },
+      sendCodeRunning:function(){
+   
+        let userState = this.checkIfisOwner();
+
+           if(this.$root.codeIsLive && userState){
+
+              
+              this.liveChanges(this.ResultCode,'codeRun');
+            
+
+          }
       },
       checkResponse:function(token){
 
@@ -561,14 +724,9 @@ methods:{
 
                  
 
-                  _this.ResultCode = '<span >'+ response.data[0].stdout +'</span> <br> Error: <span style="color:red;">'+ response.data[0].stderr +'</span>' ;
+                  _this.ResultCode =  response.data[0].stdout;
 
-                  if(response.data[0].stderr == null){
-
-                     _this.ResultCode = '<span >'+ response.data[0].stdout +'</span>' ;
-
-                 }
-                
+                  
                  clearInterval(interval);
 
 
@@ -582,7 +740,7 @@ methods:{
 
               }else{
 
-                 _this.ResultCode = '<span style="color:red;">'+ response.data[0].status.description +'</span> <br>Info: <span>'+  response.data[0].compile_output +'</span>' ;
+                 _this.ResultCode =  response.data[0].status.description;
 
                  clearInterval(interval);
 
@@ -595,16 +753,21 @@ methods:{
 
               
 
-
+         _this.sendCodeRunning();
               
 
           }
             
           })
           .catch(error => {
+
+           
              
                _this.ResultCode = 'An issue occured,unable to run on sandbox...';
+
+                 _this.sendCodeRunning();
                clearInterval(interval);
+              
           })
 
         }
@@ -631,13 +794,8 @@ methods:{
         
               if(response.data[0].status.description == 'Accepted'){
 
-                  this.ResultCode = '<span >'+ response.data[0].stdout +'</span> <br> Error: <span style="color:red;">'+ response.data[0].stderr +'</span>' ;
+                  this.ResultCode =  response.data[0].stdout ;
 
-                  if(response.data[0].stderr == null){
-
-                     this.ResultCode = '<span >'+ response.data[0].stdout +'</span>' ;
-
-                 }
                 
                 
 
@@ -654,11 +812,15 @@ methods:{
 
               }else{
 
-                 this.ResultCode = '<span style="color:red;">'+ response.data[0].status.description +'</span> <br> Info: <span>'+  response.data[0].compile_output +'</span>' ;
+                 this.ResultCode = response.data[0].status.description  ;
 
                 
 
               }
+
+              this.sendCodeRunning();
+
+           
              
 
                 
@@ -671,12 +833,21 @@ methods:{
             
           })
           .catch(error => {
+
+            
              
                this.ResultCode = 'An issue occured,unable to run on sandbox...';
+
+                this.sendCodeRunning();
+              
           })
 
+          
       },
        detectchange:  function(languageFull){
+
+         
+         
           
           let language = '';
          if(typeof languageFull == 'object' ){
@@ -697,8 +868,22 @@ methods:{
             
          }
 
+          let userState = this.checkIfisOwner();
+
+           if(this.$root.codeIsLive && userState){
+
+              
+              this.liveChanges(language,'codeChange');
+            
+
+          }
+
+
+
+          
+
           this.$root.fullCodeLanguage = language;
-          this.$root.FullcodeContent = " ";
+          
 
   
          if(language == 'HTML'){

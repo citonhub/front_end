@@ -17,3 +17,4 @@ Vue.component('code-view',require('./space/CodeView.vue').default);
 Vue.component('on-boarding',require('./auth/OnBoarding.vue').default);
 Vue.component('file-upload',require('./auth/FileUpload.vue').default);
 Vue.component('enable-notify',require('./space/EnableNotify.vue').default);
+Vue.component('main-video',require('./space/MainVideo.vue').default);

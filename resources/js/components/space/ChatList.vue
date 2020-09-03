@@ -475,6 +475,7 @@ export default {
        this.$root.showHeader = true;
        this.$root.channel = null;
 
+      this.closeConnections();
         this.$root.checkIfUserIsLoggedIn('space');
         
        
@@ -509,6 +510,26 @@ export default {
        
     },
     methods:{
+       closeConnections:function(){
+          if(this.$root.audioconnection != undefined){
+
+            
+        this.$root.audioconnection.closeSocket();
+            
+          }
+
+          if(this.$root.connection != undefined){
+          this.$root.connection.closeSocket();
+          }
+       
+
+        this.$root.connection = undefined;
+        this.$root.audioconnection = undefined;
+
+        this.$root.screenSharingOn = false;
+        this.$root.showUserBoard = false;
+        this.$root.showVideoScreen = false;
+      },
       showTab: function(type){
         this.$root.checkIfUserIsLoggedIn('space');
         

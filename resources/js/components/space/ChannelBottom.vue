@@ -8,10 +8,10 @@
                <v-card  flat  color="#ffffff" style="border-radius: 10px;" class="col-9 px-2 py-0 my-0">
                  <div class="editor">
           
-                <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()"  />
+                <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()" :onFocus="reactToFocus()" />
                 </div>
                </v-card>
-               <div class="col-3 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
+               <div class="col-3 d-flex py-0 my-0" style="align-items:center;justify-content:center;" v-if="!this.$root.screenSharingOn">
                  <v-btn  style="box-shadow:none;"
                   fab color="#3E8893" class="mr-1 d-md-none d-inline-block" x-small  v-if="!showSend"
                @click="shareHandler"
@@ -24,9 +24,10 @@
                >
                    <v-icon color="#ffffff" >mdi-send</v-icon>
                 </v-btn>
+                
+               
 
-
-                  <v-btn  style="box-shadow:none;"
+                    <v-btn  style="box-shadow:none;"
                   fab color="#3E8893" class="mr-1 d-md-inline-block d-none" small  v-if="!showSend"
                @click="shareHandler"
                >
@@ -53,6 +54,15 @@
                >
                    <v-icon  color="#ffffff" v-if="!recording">mdi-microphone</v-icon>
                    <v-progress-circular indeterminate color="#ffffff" v-else><v-icon>mdi-microphone</v-icon></v-progress-circular>
+                </v-btn>
+
+               </div>
+               <div v-else class="col-3 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
+                  <v-btn   color="#3E8893" small 
+                  @click="toggleUserList()"
+               > 
+                  <span style="color:#ffffff; font-size:12px; text-transform:capitalize;">Live</span> 
+                   <v-progress-circular indeterminate color="#ffffff"><v-icon>mdi-microphone</v-icon></v-progress-circular>
                 </v-btn>
                </div>
 
@@ -156,8 +166,27 @@ export default {
          
           
       },
+      reactToFocus:function(){
+
+          this.$root.showUserBoard = false;
+
+      },
       reFocus:function(){
          this.editor.focus();
+      },
+      toggleUserList:function(){
+
+        
+      if(this.$root.showUserBoard){
+          
+          this.$root.showUserBoard = false;
+      }else{
+
+         this.$root.showUserBoard = true;
+      }
+       
+       
+
       },
       showAlert:function(duration,text){
         this.$root.AlertRoot = true;

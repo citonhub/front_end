@@ -69,6 +69,113 @@
          
       </div>
 
+      <div v-if="this.$root.showUserBoard"  style="position:fixed;  height:400px; overflow-y:hidden; left:0%; top:35%; align-items:center; justify-content:center; z-index:8999999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+    
+
+         <v-card style="position:absolute; height:auto; width:90%; left:5%; overflow-y:hidden; " 
+    class="mx-auto pb-2"
+  >
+    <v-card
+      color="#3E8893"
+      
+      class="px-1 py-2"
+    >
+
+    <div class="col-12 py-0 my-0">
+
+      <div class="row py-0 my-0">
+
+        <div style="color:white; font-size:13px; font-family:HeaderText;" class="col-8 py-0 my-1">Active Members <span class="ml-1 py-1 px-1" 
+        style="color:#ffffff; ">({{ this.$root.allAudioParticipant.length + 1 }})</span></div>
+
+      <div class="col-4 py-0 my-0 text-right">
+         <v-btn x-small color="#ffffff" @click="closeConnections" v-if="!this.$root.connectingToSocket">
+        <span style="color:#265259; font-size:10px;font-family:HeaderText; ">Leave</span>
+      </v-btn>
+
+      <span style="font-size:12px; color:white;" v-else>
+        Connecting...
+      </span>
+      </div>
+
+      </div>
+
+      
+
+    </div>
+
+      
+
+     
+
+     
+    
+     
+    </v-card>
+    <v-list  class="pb-3 scrollerStyle" style=" height:250px;width:100%; overflow-y:auto;">
+
+      <v-list-item
+       style="border-bottom:1px solid #c5c5c5;"
+      >
+        <v-list-item-avatar>
+          <v-img :src="this.$root.authProfile.image_name == null ? '/imgs/usernew.png' : '/imgs/profile/' + this.$root.authProfile.image_name + '.' + this.$root.authProfile.image_extension"></v-img>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title  style="font-size:12px;">{{ this.$root.authProfile.username }}</v-list-item-title>
+        </v-list-item-content>
+
+        <v-list-item-icon >
+           <v-btn icon @click="muteAudio" v-if="!this.$root.localAudioMuted">
+
+              <v-icon color="#3E8893">mdi-microphone</v-icon>
+
+           </v-btn>
+            <v-btn icon @click="unmuteAudio" v-else>
+
+              <v-icon>mdi-microphone </v-icon>
+
+           </v-btn>
+         
+        </v-list-item-icon>
+      </v-list-item>
+
+       <v-list-item v-for="(user,index) in this.$root.allAudioParticipant" :key="index"
+       style="border-bottom:1px solid #c5c5c5;"
+      >
+        <v-list-item-avatar>
+          <v-img :src="user[0].profile.image_name == null ? '/imgs/usernew.png' : '/imgs/profile/' + user[0].profile.image_name + '.' + user[0].profile.image_extension"></v-img>
+        </v-list-item-avatar>
+
+        <v-list-item-content>
+          <v-list-item-title  style="font-size:12px;">{{ user[0].profile.username }} </v-list-item-title>
+        </v-list-item-content>
+
+        <v-list-item-icon >
+         <v-btn icon @click="muteUserAudio(user[1])" v-if="!user[0].muted">
+
+              <v-icon color="#3E8893">mdi-microphone</v-icon>
+
+           </v-btn>
+            <v-btn icon @click="unMuteUserAudio(user[1])" v-else>
+
+              <v-icon>mdi-microphone </v-icon>
+
+           </v-btn>
+         
+        </v-list-item-icon>
+      </v-list-item>
+     
+       
+
+
+      
+    </v-list>
+  </v-card>
+
+
+      </div>
+
 
         <div class="col-12 py-0 my-0 text-center"  v-if="this.$root.Messages == null && this.errorLoadingMessage == true" style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">
 
@@ -209,7 +316,7 @@
      </span>
 
       
-       <span style="position:absolute; top:74%; right:3%; z-index:999998757;"  class="d-md-none d-inline-block">
+       <span style="position:absolute; top:74%; right:3%; z-index:98757;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#3E8893"
                 small
@@ -222,7 +329,7 @@
               </v-btn>
      </span>
 
-      <span style="position:absolute; top:85%; right:3%;  z-index:999998757;" class="d-none d-md-inline-block">
+      <span style="position:absolute; top:85%; right:3%;  z-index:98757;" class="d-none d-md-inline-block">
           <v-btn
                 color="#3E8893"
                 small
@@ -306,6 +413,7 @@ export default {
            isConnected:true,
           typing:false,
           channel:null,
+          audioMuted: false,
           errorLoadingMessage:false,
           imageArray:[
             {
@@ -366,6 +474,57 @@ export default {
      },duration);
 
     },
+    muteAudio:function(){
+
+         
+         var localStream = this.$root.audioconnection.attachStreams[0];
+           localStream.mute('audio');
+
+           this.audioMuted = true;
+
+
+      },
+      unmuteAudio: function(){
+
+          var localStream = this.$root.audioconnection.attachStreams[0];
+           localStream.unmute('audio');
+
+           this.audioMuted = false;
+
+      },
+      muteUserAudio:function(userId){
+        var streamByUserId = this.$root.audioconnection.streamEvents.selectFirst({ userid: userId }).stream;
+       streamByUserId.mute('audio');
+
+       
+      },
+      unMuteUserAudio:function(userId){
+        var streamByUserId = this.$root.audioconnection.streamEvents.selectFirst({ userid: userId }).stream;
+       streamByUserId.unmute('audio');
+
+       
+      },
+      closeConnections:function(){
+         if(this.$root.audioconnection != undefined){
+
+          
+        this.$root.audioconnection.closeSocket();
+           
+         }
+
+          if(this.$root.connection != undefined){
+          this.$root.connection.closeSocket();
+          }
+       
+        
+
+        this.$root.connection = undefined;
+        this.$root.audioconnection = undefined;
+
+        this.$root.screenSharingOn = false;
+        this.$root.showUserBoard = false;
+        this.$root.showVideoScreen = false;
+      },
     hideAlert:function(){
       this.$root.AlertRoot = false;
     },
@@ -574,6 +733,38 @@ export default {
                  this.$root.typing = false;
                  
                  }, 1500);
+                 })
+              .listenForWhisper('liveCoding', (e) => {
+              
+                 if(e.action == 'typing'){
+
+                    this.$root.FullcodeContent = e.data;
+
+                 }
+
+                  if(e.action == 'codeChange'){
+
+                    this.$root.fullCodeLanguage = e.data;
+
+                 }
+                 
+                 if(e.action == 'codeRun'){
+
+                   this.$root.liveShowCode = false;
+
+                   this.$root.CodeResult = e.data;
+
+                 }
+
+                 if(e.action == 'returnToCode'){
+                  
+                  this.$root.liveShowCode = true;
+
+                 }
+               
+                
+              
+             
                  });
 
          }

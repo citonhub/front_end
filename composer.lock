@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e7b19ecc2f6abfed4709cc154510f980",
+    "content-hash": "278c59b43c71251dddcdd3dfd4c9f781",
     "packages": [
         {
             "name": "alchemy/binary-driver",
@@ -67,6 +67,88 @@
                 "driver"
             ],
             "time": "2020-02-12T19:35:11+00:00"
+        },
+        {
+            "name": "aminyazdanpanah/php-ffmpeg-video-streaming",
+            "version": "v1.2.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aminyazdanpanah/PHP-FFmpeg-video-streaming.git",
+                "reference": "83334486e1c198b3972ae520b10cbb63b86abff3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aminyazdanpanah/PHP-FFmpeg-video-streaming/zipball/83334486e1c198b3972ae520b10cbb63b86abff3",
+                "reference": "83334486e1c198b3972ae520b10cbb63b86abff3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2",
+                "php-ffmpeg/php-ffmpeg": "^0.15 || 0.16",
+                "symfony/filesystem": "^4.0 || ^5.0"
+            },
+            "require-dev": {
+                "aws/aws-sdk-php": "^3.0@dev",
+                "google/cloud-storage": "dev-master",
+                "microsoft/azure-storage-blob": "dev-master",
+                "phpunit/phpunit": "^8.4"
+            },
+            "suggest": {
+                "aminyazdanpanah/handling-file-uploads": "aminyazdanpanah/handling-file-uploads is suggested for uploading and validating a new video.",
+                "aminyazdanpanah/php-shaka": "aminyazdanpanah/php-shaka is suggested for using DRM and encryption",
+                "aws/aws-sdk-php": "Allow sending stream content to AWS services like S3",
+                "google/cloud-storage": "Allow sending stream content to Google services like Google Storage",
+                "microsoft/azure-storage-blob": "Allow sending stream content to Google services like Google Storage"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Streaming\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Amin Yazdanpanah",
+                    "email": "contact@aminyazdanpanah.com",
+                    "homepage": "https://www.aminyazdanpanah.com"
+                }
+            ],
+            "description": "📼 PHP FFMpeg - Video Streaming - DASH, HLS http://video.aminyazdanpanah.com",
+            "homepage": "https://github.com/aminyazdanpanah/PHP-FFmpeg-video-streaming",
+            "keywords": [
+                "DRM",
+                "MPD",
+                "adaptive-http-streaming",
+                "amazons3",
+                "clearkey",
+                "cloud",
+                "clouds",
+                "dash",
+                "dynamic-adaptive-streaming-over-http",
+                "encoding",
+                "encryption",
+                "google-cloud-storage",
+                "hls",
+                "http-liv-streaming",
+                "key-rotation",
+                "live-streaming",
+                "m3u8",
+                "microsoft-azure",
+                "mp4",
+                "mpeg-dash",
+                "s3",
+                "streaming",
+                "video",
+                "video-streaming"
+            ],
+            "time": "2020-08-10T10:57:11+00:00"
         },
         {
             "name": "asm89/stack-cors",
@@ -2382,12 +2464,12 @@
             "version": "v1.1.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/nrk/predis.git",
+                "url": "https://github.com/predis/predis.git",
                 "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nrk/predis/zipball/f0210e38881631afeafb56ab43405a92cafd9fd1",
+                "url": "https://api.github.com/repos/predis/predis/zipball/f0210e38881631afeafb56ab43405a92cafd9fd1",
                 "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1",
                 "shasum": ""
             },

@@ -244,6 +244,15 @@ class PageController extends Controller
         $tablabel = 'space';
         return view('pages.space',compact('tablabel'));
     }
+
+    public function testingPage(){
+
+        $tablabel = 'test';
+        return view('pages.test',compact('tablabel'));
+
+    }
+
+
     public function duels(){
 
         $tablabel = 'duels';
