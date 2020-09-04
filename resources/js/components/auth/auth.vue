@@ -97,7 +97,7 @@
 
      <div class="text-center fixed-bottom col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0" style=" z-index:10000000; bottom:2%;" >
 
-           <a style="font-size:11px; color:white; font-family:HeaderText;" href="http://www.freepik.com" target="_blank"> Images by Freepik</a>
+           <a style="font-size:11px; color:white; font-family:HeaderText;" href="http://www.freepik.com" target="_blank"><i>Images by Freepik</i></a>
 
         </div>
          

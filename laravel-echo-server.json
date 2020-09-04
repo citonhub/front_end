@@ -1,5 +1,5 @@
 {
-	"authHost": "http://www.citonhubnew.com",
+	"authHost": "https://www.citonhub.com",
 	"authEndpoint": "/broadcasting/auth",
 	"clients": [
 					{
@@ -15,10 +15,10 @@
 					  },
 					"publishPresence": true
 	},
-	"devMode": true,
+	"devMode": false,
 	"host": null,
 	"port": "6001",
-	"protocol": "http",
+	"protocol": "https",
 	"socketio": {},
 	"secureOptions": 67108864,
 	"sslCertPath": "/etc/letsencrypt/live/citonhub.com/fullchain.pem",

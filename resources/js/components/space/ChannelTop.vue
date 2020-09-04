@@ -174,6 +174,10 @@ export default {
 
             this.$root.screenSharingOn = true;
           
+    }else{
+
+        this.$root.checkAudioRoomState();
+        
     }
 
         

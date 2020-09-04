@@ -1373,6 +1373,8 @@ this.$root.audioconnection.onunmute = function(e) {
          }
  
          if(isRoomExist) {
+
+       
             
             _this.$root.connectingToSocket = false;
             

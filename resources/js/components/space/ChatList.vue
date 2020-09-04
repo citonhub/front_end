@@ -513,8 +513,10 @@ export default {
        closeConnections:function(){
           if(this.$root.audioconnection != undefined){
 
-            
+          
+           
         this.$root.audioconnection.closeSocket();
+         
             
           }
 

@@ -492,6 +492,8 @@ export default {
 
             this.$root.screenSharingOn = true;
           
+    }else{
+        this.$root.checkAudioRoomState();
     }
 
         
@@ -533,22 +535,21 @@ export default {
 
       },
       muteUserAudio:function(userId){
-        var streamByUserId = this.$root.audioconnection.streamEvents.selectFirst({ userid: userId }).stream;
-       streamByUserId.mute('audio');
-
+      
        
       },
       unMuteUserAudio:function(userId){
-        var streamByUserId = this.$root.audioconnection.streamEvents.selectFirst({ userid: userId }).stream;
-       streamByUserId.unmute('audio');
+     
 
        
       },
       closeConnections:function(){
          if(this.$root.audioconnection != undefined){
 
+         
           
         this.$root.audioconnection.closeSocket();
+
            
          }
 
