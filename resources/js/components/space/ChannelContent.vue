@@ -69,7 +69,7 @@
          
       </div>
 
-      <div v-if="this.$root.showUserBoard"  style="position:fixed;  height:400px; overflow-y:hidden; left:0%; top:35%; align-items:center; justify-content:center; z-index:8999999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+      <div v-if="this.$root.liveIsOn"  style="position:fixed;  height:400px; overflow-y:hidden; left:0%; top:35%; align-items:center; justify-content:center; z-index:8999999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
     
 
          <v-card style="position:absolute; height:auto; width:90%; left:5%; overflow-y:hidden; " 
@@ -85,17 +85,34 @@
 
       <div class="row py-0 my-0">
 
-        <div style="color:white; font-size:13px; font-family:HeaderText;" class="col-8 py-0 my-1">Active Members <span class="ml-1 py-1 px-1" 
+         
+
+        <div style="color:white; font-size:13px; font-family:HeaderText;" class="col-8 py-0 my-1 px-1"> 
+         
+             <v-icon color="#ffffff"  @click="closeboard">mdi-close mdi-18px</v-icon>
+     
+      Active Members <span class="ml-1 py-1 px-1" 
         style="color:#ffffff; ">({{ this.$root.allAudioParticipant.length + 1 }})</span></div>
 
       <div class="col-4 py-0 my-0 text-right">
-         <v-btn x-small color="#ffffff" @click="closeConnections" v-if="!this.$root.connectingToSocket">
+        <div v-if="this.$root.remoteLiveHappening && this.$root.connectingToSocket">
+
+            <v-btn x-small color="#ffffff" @click="initaiteAudioConf" >
+        <span style="color:#265259; font-size:10px;font-family:HeaderText; ">Join</span>
+      </v-btn>
+            
+        </div>
+        <div v-else>
+           <v-btn x-small color="#ffffff" @click="closeConnections" v-if="!this.$root.connectingToSocket">
         <span style="color:#265259; font-size:10px;font-family:HeaderText; ">Leave</span>
       </v-btn>
+
 
       <span style="font-size:12px; color:white;" v-else>
         Connecting...
       </span>
+        </div>
+        
       </div>
 
       </div>
@@ -461,6 +478,29 @@ export default {
        
     },
     methods:{
+       initaiteAudioConf: function(){
+
+            this.$root.liveIsOn = true;
+
+    if(this.$root.audioconnection == undefined){
+
+        this.$root.setAudioConnection();
+
+         this.$root.checkAudioRoomState();
+
+          this.$root.sendLiveSignal();
+
+            this.$root.screenSharingOn = true;
+          
+    }
+
+        
+        },
+      closeboard:function(){
+
+        this.$root.liveIsOn = false;
+
+      },
       deleteMessage:function(){
        this.$root.deleteMessage(this.$root.messageIdToDelete)
       },
@@ -522,8 +562,9 @@ export default {
         this.$root.audioconnection = undefined;
 
         this.$root.screenSharingOn = false;
-        this.$root.showUserBoard = false;
+        this.$root.liveIsOn = false;
         this.$root.showVideoScreen = false;
+        this.$root.liveInitiated = false;
       },
     hideAlert:function(){
       this.$root.AlertRoot = false;
@@ -761,6 +802,18 @@ export default {
                   this.$root.liveShowCode = true;
 
                  }
+
+                  if(e.action == 'liveIsOn'){
+
+                     this.$root.remoteLiveHappening = true;
+
+                  }
+
+                  if(e.action == 'liveIsOff'){
+
+                    this.$root.remoteLiveHappening = false;
+
+                  }
                
                 
               

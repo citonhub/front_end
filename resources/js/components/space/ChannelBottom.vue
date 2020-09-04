@@ -8,7 +8,7 @@
                <v-card  flat  color="#ffffff" style="border-radius: 10px;" class="col-9 px-2 py-0 my-0">
                  <div class="editor">
           
-                <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()" :onFocus="reactToFocus()" />
+                <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()"  />
                 </div>
                </v-card>
                <div class="col-3 d-flex py-0 my-0" style="align-items:center;justify-content:center;" v-if="!this.$root.screenSharingOn">
@@ -125,9 +125,36 @@ export default {
     EditorMenuBubble,
   },
     mounted(){
-     
+        this.checkIfRemoteLive();
     },
     methods:{
+        checkIfRemoteLive: function(){
+
+           let interval = setInterval(checkSignal,2000);
+
+      let _this = this;
+
+        function checkSignal(){
+
+          
+
+           if(_this.$root.remoteLiveHappening){
+
+               _this.$root.screenSharingOn = true;
+
+             clearInterval(interval);
+
+           }else{
+             
+
+            
+           }
+              
+         
+         
+        }
+
+        },
        urlify:function(text) {
       var urlRegex =  /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
      return text.replace(urlRegex, function(url) {
@@ -146,6 +173,7 @@ export default {
         },
          countCharacter:function(value){
             this.wordCount = this.editor.getHTML().length;
+            
 
          if(this.wordCount > 7){
            this.showSend = true;
@@ -168,7 +196,7 @@ export default {
       },
       reactToFocus:function(){
 
-          this.$root.showUserBoard = false;
+          
 
       },
       reFocus:function(){
@@ -177,12 +205,12 @@ export default {
       toggleUserList:function(){
 
         
-      if(this.$root.showUserBoard){
+      if(this.$root.liveIsOn){
           
-          this.$root.showUserBoard = false;
+          this.$root.liveIsOn = false;
       }else{
 
-         this.$root.showUserBoard = true;
+         this.$root.liveIsOn = true;
       }
        
        

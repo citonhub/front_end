@@ -33,8 +33,42 @@ Documentation - github.com/muaz-khan/WebRTC-Experiment/tree/master/getMediaEleme
 }
 
 .media-box {
-    background:#3E8893;
-    border:1px solid transparent;
+    background: black;
+    border: 1px solid rgb(107, 107, 107);
+    margin: 1px;
+}
+
+.media-controls, .volume-control {
+    margin-top: 2px;
+    position: absolute;
+    margin-left: 5px;
+    z-index: 100;
+    opacity: 0;
+}
+
+.media-controls .control, .volume-control .control {
+    width: 35px;
+    height: 35px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    float: left;
+    background-color: rgba(255, 255, 255, 0.84);
+}
+
+.media-controls .control:first-child {
+    border-bottom-left-radius: 5px;
+}
+
+.volume-control .control:first-child {
+    border-top-left-radius: 5px;
+}
+
+.media-controls .control:hover, .media-controls .selected, .volume-control .control:hover {
+    background-color: rgba(255, 255, 255, 0.74);
+}
+
+.media-controls .control:active, .media-container .selected, .volume-control .control:active {
+    background-color: rgba(255, 255, 255, 0.44)!important;
 }
 
 

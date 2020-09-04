@@ -1,8 +1,19 @@
 <template>
-   <v-app  class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0" style="position:absolute; font-family:BodyText; background:transparent; height:100%; overflow-y:auto; overflow-x:hidden; ">
+
+<v-app  class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0" style="position:absolute; font-family:BodyText; background:transparent; height:100%; overflow-y:auto; overflow-x:hidden; ">
         <div class="row my-0 py-0 px-0">
-       <div class="col-12 py-0 morebackground2 d-flex">
-        <v-card class="py-1 px-2 row">
+
+           <div  style=" top:5%; z-index:1000000;"  class="text-center fixed-top col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0"> 
+            
+        <h4 style="color:#26535a;">Login to CitonHub</h4>
+            
+                
+     </div>
+
+         
+       <div class="col-12 py-3 morebackground4 d-flex" >
+          
+           <v-card class="py-1 px-2 row">
              <div class="col-3 px-1">
              <span>
                 <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-close mdi-18px</v-icon></v-btn>
@@ -10,9 +21,9 @@
             </div>
 
             <div class="col-6 px-0 d-flex" style="align-items:center;justify-content:center;">
-             <span class="login">
-                 Sign In into your account
-             </span>
+             <h5 style="color:#26535a;">
+                Sign In
+             </h5>
             </div>
 
             <div class="col-3 text-center">
@@ -26,7 +37,7 @@
                   <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                 placeholder="JonhSnow"
+                 placeholder="JsRoland"
             label="Email or Username"
              dense
             
@@ -41,7 +52,7 @@
               <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                  placeholder="Dragonglass"
+                  placeholder="Javascript"
             label="Password"
              dense
              :error="errorState"
@@ -61,9 +72,25 @@
 
 
            <div class="col-12 px-0 py-0 pt-2 d-flex" style="align-items:center;justify-content:center;">
-             <span class="forgot">
+              <div class="row py-0 my-0">
+
+                 <div class="col-6 text-center py-0 my-0" @click="showRegister">
+                   <span class="forgot" style="cursor:pointer;" >
+                  Create an account
+               </span>
+                 </div>
+                 
+                <div class="col-6 text-center py-0 my-0">
+                  
+                   <span class="forgot"  style="cursor:pointer;">
                Forgot password
              </span>
+                </div>
+
+                
+
+              </div>
+            
             </div>
              
 
@@ -75,29 +102,16 @@
         </v-card>
      </div>
 
+     <div  style=" height:50%; bottom:-35%;  z-index:1000000;"  class=" fixed-bottom col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0"> 
+  
+       <img src="/imgs/CitonHub.png"  width="100%" height="100%">
+     </div>
+         
+
         </div>
-    <v-fade-transition>
-              <div  style="position:absolute; width:100%; height:auto: align-items:center;justify-content:center;top:4%; z-index:123453566;"  class="d-flex">
-             <v-alert
-      v-model="Alert"
-      dismissible
-      close-icon="mdi-delete"
-      color="#3E8893"
-       width="auto"
-       style="font-size:13px;"
-       height="auto"
-      border="left"
-     
-      elevation="2"
-      colored-border
-     
-    >
-      {{alertMsg}}
-    </v-alert>
-        </div>
-        </v-fade-transition>
 
      </v-app>
+
 </template>
 <script>
 export default {
@@ -122,10 +136,13 @@ export default {
     },
      mounted(){
       this.$root.showTabs=false;
-       this.$root.showHeader = true;
+       this.$root.showHeader = false;
        this.checkIfLogin();
     },
     methods:{
+       showRegister: function(){
+            this.$router.push({ path: '/register' });
+        },
       checkIfLogin:function(){
 
           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'space'){
@@ -210,15 +227,15 @@ export default {
 }
 </script>
 <style>
-.morebackground2{
+.morebackground4{
      position: absolute;
      width:100%; 
      top: 0;
      left: 0;
-     height:94%; 
+     height:100%; 
      align-items: center;
      justify-content: center;
-     background:#81c1ca;
+     background:#ffffff;
      z-index:100000;
  }
  .login{

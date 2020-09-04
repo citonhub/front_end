@@ -527,8 +527,10 @@ export default {
         this.$root.audioconnection = undefined;
 
         this.$root.screenSharingOn = false;
-        this.$root.showUserBoard = false;
+        this.$root.liveIsOn = false;
         this.$root.showVideoScreen = false;
+        this.$root.liveInitiated = false;
+        this.$root.remoteLiveHappening = false;
       },
       showTab: function(type){
         this.$root.checkIfUserIsLoggedIn('space');

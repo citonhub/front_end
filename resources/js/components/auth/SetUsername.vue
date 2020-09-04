@@ -1,8 +1,18 @@
 <template>
-   <v-app  class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0" style="position:absolute; font-family:BodyText; background:transparent; height:100%; overflow-y:auto; overflow-x:hidden; ">
+<v-app  class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0" style="position:absolute; font-family:BodyText; background:transparent; height:100%; overflow-y:auto; overflow-x:hidden; ">
         <div class="row my-0 py-0 px-0">
-       <div class="col-12 py-0 morebackground d-flex">
-        <v-card class="py-1 px-2 row">
+
+           <div  style=" top:5%; z-index:1000000;"  class="text-center fixed-top col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0"> 
+            
+        <h4 style="color:#26535a;"> Set Your Username</h4>
+            
+                
+     </div>
+
+         
+       <div class="col-12 py-3 morebackground4 d-flex" >
+          
+          <v-card class="py-1 px-2 row">
              <div class="col-3 px-1">
              <span>
                 
@@ -10,9 +20,10 @@
             </div>
 
             <div class="col-6 px-0 d-flex" style="align-items:center;justify-content:center;">
-             <span class="login">
-                 Set Your Username
-             </span>
+            
+              <h5  style="color:#26535a;">
+                Set Username
+             </h5>
             </div>
 
             <div class="col-3 text-center">
@@ -58,30 +69,16 @@
         </v-card>
      </div>
 
-        </div>
+     <div  style=" height:50%; bottom:-35%;  z-index:1000000;"  class=" fixed-bottom col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0"> 
+  
+       <img src="/imgs/CitonHub.png"  width="100%" height="100%">
+     </div>
+         
 
-        <v-fade-transition>
-              <div  style="position:absolute; width:100%; height:auto: align-items:center;justify-content:center;top:4%; z-index:123453566;"  class="d-flex">
-             <v-alert
-      v-model="Alert"
-      dismissible
-      close-icon="mdi-delete"
-      color="#3E8893"
-       width="auto"
-       style="font-size:13px;"
-       height="auto"
-      border="left"
-     
-      elevation="2"
-      colored-border
-     
-    >
-      {{alertMsg}}
-    </v-alert>
         </div>
-        </v-fade-transition>
 
      </v-app>
+  
 </template>
 <script>
 export default {
@@ -102,7 +99,7 @@ export default {
     },
      mounted(){
       this.$root.showTabs=false;
-       this.$root.showHeader = true;
+       this.$root.showHeader = false;
        this.showVerifiedAlert()
        this.checkIfLogin();
     },
@@ -213,15 +210,15 @@ export default {
 }
 </script>
 <style>
-.morebackground{
+.morebackground4{
      position: absolute;
      width:100%; 
      top: 0;
      left: 0;
-     height:94%; 
+     height:100%; 
      align-items: center;
      justify-content: center;
-     background:rgba(38, 82, 89,0.6);
+     background:#ffffff;
      z-index:100000;
  }
  .login{

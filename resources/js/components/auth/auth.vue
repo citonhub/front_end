@@ -1,66 +1,106 @@
 <template>
    <v-app  class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0" style="position:absolute; font-family:BodyText; background:transparent; height:100%; overflow-y:auto; overflow-x:hidden; ">
         <div class="row my-0 py-0 px-0">
-       <div class="col-12 py-3 morebackground2">
-        <v-card class="py-3 px-2 row mx-auto d-flex" color="#81c1ca" flat style="height:98%;align-items:center;justify-content:center;">
-         
-           
 
-               <div class="col-12 py-0 text-center mb-4">
-             <span style="font-family:HeaderText; font-size:14px; color:#173236; background:#ffffff; border-left:4px solid #3E8893;border-right:4px solid #3E8893;
-            "
-              class="py-2 px-1"> Welcome home developer 👨‍💻</span>
-            </div>
-     
-        
+           <div  style=" top:5%; z-index:1000000;"  class="text-center fixed-top col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0"> 
             
-           <v-card class="col-12 py-2  px-2 text-center mb-2 " flat  color="#ffffff"  style="border-left:4px solid #3E8893;border-right:4px solid #3E8893;">
-              <span class="infoclass " style="font-family:HeaderText;font-weight:bolder;">
-                Chat, share, and run codes in your Space.
-             </span>
-            </v-card>
-
-
-             <v-card class="col-12 py-2 text-center mb-2" flat color="#ffffff"  style="border-left:4px solid #3E8893;border-right:4px solid #3E8893;">
-              <span class="infoclass " style="font-family:HeaderText;font-weight:bolder;">
-               Set up simple and advanced projects without setting up a server.
-             </span>
-            </v-card>
-
-             <v-card class="col-12 py-2 text-center mb-2" flat color="#ffffff"  style="border-left:4px solid #3E8893;border-right:4px solid #3E8893;">
-              <span class="infoclass " style="font-family:HeaderText;font-weight:bolder; ">
-               Build your coding community in channels.
-             </span>
-            </v-card>
-
-
-            <v-card class="col-12 py-2 text-center mb-2 "  flat color="#ffffff"  style="border-left:4px solid #3E8893;border-right:4px solid #3E8893;">
-              <span class="infoclass " style="font-family:HeaderText;font-weight:bolder; ">
-              Challenge your friends to duels.
-             </span>
-            </v-card>
-           
-
-            <div class="col-12 text-center py-1" >
-              <div class="row my-2 py-0 px-2 ">
-               
-               <div class="col-6 px-0 d-flex" style="align-items:center;justify-content:center;">
-                      <v-btn rounded  small color="#3E8893" style="font-size:11px; font-weight:bolder; text-transform:capitalize; color:white;font-family: Headertext;" @click="showLogin">Sign In</v-btn>
-               </div>
-
-                 <div class="col-6 px-0 d-flex" style="align-items:center;justify-content:center;">
-                      <v-btn rounded  small color="#3E8893" style="font-size:11px; font-weight:bolder; text-transform:capitalize; color:white;font-family: Headertext;" @click="showRegister">Sign Up</v-btn>
-               </div>
+        <h4 style="color:#26535a;">Welcome to CitonHub</h4>
+            
                 
-              </div>
-            </div>
-
-
-        
-          
-            
-        </v-card>
      </div>
+
+         
+       <div class="col-12 py-3 morebackground4 d-flex" >
+          
+           <div>
+
+              <v-carousel
+    cycle
+      class="col-12"
+    hide-delimiter-background
+    show-arrows-on-hover
+  >
+    <v-carousel-item
+     
+    >
+        <div class="col-12 text-center">
+
+          <img src="/imgs/chat_share_run.svg"  width="100%" height="300px">
+             
+        </div>
+         <div class="col-12 text-center">
+
+          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">Chat, share and run your codes on CitonHub Space</span>
+             
+        </div>
+        <div class="col-12 text-center mt-2">
+
+          <v-btn rounded color="#3E8893" @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">Get Started</span></v-btn>
+             
+        </div>
+        
+    </v-carousel-item>
+     <v-carousel-item
+     
+    >
+        <div class="col-12 text-center">
+
+          <img src="/imgs/build_projects.svg"  width="100%" height="300px">
+             
+        </div>
+
+        <div class="col-12 text-center">
+
+          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">Build awesome projects without setting up a server</span>
+             
+        </div>
+
+         <div class="col-12 text-center mt-2">
+
+          <v-btn rounded color="#3E8893" @click="showLogin" ><span style="color:white;font-size:13px;font-family:HeaderText;">Build Projects</span></v-btn>
+             
+        </div>
+        
+    </v-carousel-item>
+     <v-carousel-item
+     
+    >
+        <div class="col-12 text-center">
+
+          <img src="/imgs/duel_challenge.svg"  width="100%" height="300px">
+             
+        </div>
+
+         <div class="col-12 text-center">
+
+          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">Challenge your friends to coding duels</span>
+             
+        </div>
+
+        <div class="col-12 text-center mt-2">
+
+          <v-btn rounded color="#3E8893"  @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">Start a duel</span></v-btn>
+             
+        </div>
+        
+    </v-carousel-item>
+  </v-carousel>
+
+           </div>
+     </div>
+
+     <div  style=" height:50%; bottom:-35%;  z-index:1000000;"  class=" fixed-bottom col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0"> 
+        
+              
+       <img src="/imgs/CitonHub.png"  width="100%" height="100%">
+     </div>
+
+     <div class="text-center fixed-bottom col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0" style=" z-index:10000000; bottom:2%;" >
+
+           <a style="font-size:11px; color:white; font-family:HeaderText;" href="http://www.freepik.com" target="_blank"> Images by Freepik</a>
+
+        </div>
+         
 
         </div>
 
@@ -77,7 +117,7 @@ export default {
     },
      mounted(){
       this.$root.showTabs=false;
-       this.$root.showHeader = true;
+       this.$root.showHeader = false;
         this.$root.redirectRoot = this.$route.params.frompage; 
         this.checkIfLogin();
     },
@@ -114,12 +154,12 @@ export default {
 }
 </script>
 <style>
-.morebackground2{
+.morebackground4{
      position: absolute;
      width:100%; 
      top: 0;
      left: 0;
-     height:94%; 
+     height:100%; 
      align-items: center;
      justify-content: center;
      background:#ffffff;
