@@ -154,6 +154,9 @@ export default {
               this.$root.checkAudioRoomState();
            }
 
+           }else{
+
+             this.$root.checkScreenRoomState();
            }
 
           
