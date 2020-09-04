@@ -52,7 +52,7 @@
              <v-icon>mdi-monitor-cellphone mdi-18px</v-icon> <span style="font-size:12px;">Share Your Screen</span>
            </v-card>
             <v-card  tile flat class="py-2 text-left px-4" style="width:auto; background:white;" @click="initaiteAudioConf">
-             <v-icon>mdi-microphone mdi-18px</v-icon> <span style="font-size:12px;">Audio Conference</span>
+             <v-icon>mdi-microphone mdi-18px</v-icon> <span style="font-size:12px;">Live Audio</span>
            </v-card>
            
           </v-menu>

@@ -30,7 +30,7 @@
         <div  :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''" :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-11 col-sm-11 offset-1 offset-lg-5 offset-md-4 py-2 px-2 ' : 'col-lg-7 col-11  col-md-8 col-sm-11   py-2 px-2 '"  v-if="source.type == 'audio'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'">
           
-           <div class="col-12 py-1 px-1"  v-if="source.loading" style="border:1px solid #3E8893; border-radius:10px;">
+           <div class="col-12 py-1 px-1"  v-if="source.loading && source.audio == null" style="border:1px solid #3E8893; border-radius:10px;">
                   <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
                          <v-icon color="#3E8893">mdi-music mdi-18px</v-icon>
@@ -107,7 +107,7 @@
          <!-- files -->
           <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)"  :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-11 col-sm-11 offset-1 offset-lg-5 offset-md-4 py-2 px-2 ' : 'col-lg-7 col-11  col-md-8 col-sm-11   py-2 px-2 '" v-if="source.type == 'file'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'">
-             <div class="col-12 py-1 px-1"  v-if="source.loading" style="border:1px solid #3E8893; border-radius:10px;">
+             <div class="col-12 py-1 px-1"  v-if="source.loading && source.file == null" style="border:1px solid #3E8893; border-radius:10px;">
                   <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
                          <v-icon color="#3E8893">mdi-file mdi-18px</v-icon>
@@ -163,7 +163,7 @@
 
       <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)"   :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-10 col-sm-10 offset-2 offset-lg-5 offset-md-4 py-3 px-2 ' : 'col-lg-7 col-md-8 col-10 col-sm-10  py-2 px-2 '" v-if="source.type == 'image'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'">
-              <div class="col-12 py-1 px-1"  v-if="source.loading" style="border:1px solid #3E8893; border-radius:10px;">
+              <div class="col-12 py-1 px-1"  v-if="source.loading && source.image == null" style="border:1px solid #3E8893; border-radius:10px;">
                   <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
                          <v-icon color="#3E8893">mdi-image mdi-18px</v-icon>
@@ -295,7 +295,7 @@
          
          <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-11 col-sm-11 offset-1 offset-lg-5 offset-md-4 py-2 px-2 ' : 'col-lg-7 col-md-8 col-11 col-sm-11  py-2 px-2 '"  v-if="source.type == 'video'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'">
-             <div class="col-12 py-1 px-1"  v-if="source.loading" style="border:1px solid #3E8893; border-radius:10px;">
+             <div class="col-12 py-1 px-1"  v-if="source.loading && source.video == null" style="border:1px solid #3E8893; border-radius:10px;">
                   <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
                          <v-icon color="#3E8893">mdi-video mdi-18px</v-icon>
