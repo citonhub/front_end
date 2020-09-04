@@ -178,8 +178,12 @@ export default {
          if(this.wordCount > 7){
            this.showSend = true;
             this.$root.ShowButton = false;
-
+                 
              this.isTyping();
+
+              this.$root.liveIsOn = false;
+
+            this.$root.screenSharingOn = false;
 
          }else{
             this.showSend = false;

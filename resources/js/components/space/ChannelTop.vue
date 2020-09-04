@@ -155,7 +155,8 @@ export default {
            }
 
            }else{
-
+             
+             this.$root.screenSharingOn = true; 
              this.$root.checkScreenRoomState();
            }
 
@@ -178,6 +179,8 @@ export default {
             this.$root.screenSharingOn = true;
           
     }else{
+
+       this.$root.screenSharingOn = true; 
 
         this.$root.checkAudioRoomState();
         
