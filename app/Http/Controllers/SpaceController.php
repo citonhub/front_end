@@ -73,14 +73,14 @@ class SpaceController extends Controller
       $r_360p  = (new Representation)->setKiloBitrate(276)->setResize(640, 360);
       $r_480p  = (new Representation)->setKiloBitrate(750)->setResize(854, 480);
       $r_720p  = (new Representation)->setKiloBitrate(2048)->setResize(1280, 720);
-      $r_1080p = (new Representation)->setKiloBitrate(4096)->setResize(1920, 1080);
+     
     
    
        $video->dash()
       ->setSegDuration(10) // Default value is 10 
       ->setAdaption('id=0,streams=v id=1,streams=a')
       ->x264()
-      ->addRepresentations([$r_240p, $r_360p, $r_480p, $r_720p, $r_1080p])
+      ->addRepresentations([$r_240p, $r_360p, $r_480p, $r_720p])
       ->save('/var/www/citonhubnew/public/videos/'.  $videoName .'.mpd');
 
 
