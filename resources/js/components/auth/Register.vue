@@ -39,7 +39,7 @@
                 style="font-size:12px;"
                  placeholder="James Roland"
             label="Name"
-            counter="20"
+            counter="80"
             v-model="name"
             :rules="nameRule"
              dense
@@ -139,7 +139,7 @@ export default {
         emailExist: false,
           nameRule:[
              v => !!v || 'Name is required',
-           v => v.length <= 20 || 'Name must be less than 20 characters'
+           v => v.length <= 80 || 'Name must be less than 80 characters'
             ],
             name:'',
             passwordConfirm:'',
