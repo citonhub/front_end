@@ -63,7 +63,7 @@ class SpaceController extends Controller
      ];
      
      $log = new Logger('FFmpeg_Streaming');
-     $log->pushHandler(new StreamHandler('/var/www/Videos/ffmpeg-streaming.log')); // path to log file
+     $log->pushHandler(new StreamHandler('/var/www/citonhubnew/ffmpeg-streaming.log')); // path to log file
 
      $ffmpeg = FFMpeg::create($config, $log);
    
