@@ -127,6 +127,7 @@ export default {
            this.$root.codeIsLive = true;
             this.$root.showChatBottom = false;
              this.$root.showCodeBox = true;
+             
              this.initaiteAudioConf();
         },
         screenSharing: function(){

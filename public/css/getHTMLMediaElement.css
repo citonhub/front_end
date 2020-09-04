@@ -37,38 +37,6 @@ Documentation - github.com/muaz-khan/WebRTC-Experiment/tree/master/getMediaEleme
     border:1px solid transparent;
 }
 
-.media-controls, .volume-control {
-    margin-top: 2px;
-    position: absolute;
-    margin-left: 5px;
-    z-index: 100;
-    opacity: 0;
-}
-
-.media-controls .control, .volume-control .control {
-    width: 35px;
-    height: 35px;
-    background-position: center center;
-    background-repeat: no-repeat;
-    float: left;
-    background-color: rgba(255, 255, 255, 0.84);
-}
-
-.media-controls .control:first-child {
-    border-bottom-left-radius: 5px;
-}
-
-.volume-control .control:first-child {
-    border-top-left-radius: 5px;
-}
-
-.media-controls .control:hover, .media-controls .selected, .volume-control .control:hover {
-    background-color: rgba(255, 255, 255, 0.74);
-}
-
-.media-controls .control:active, .media-container .selected, .volume-control .control:active {
-    background-color: rgba(255, 255, 255, 0.44)!important;
-}
 
 .mute-audio {
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTFH80I3AAACsUlEQVRYR92Xu2siURTGp0hnJRgVGVNtEcHOiI2taWIa3Vgpgu4qiKBoCpOgxgdofD8QTFYUXMRSRLstt9xyy/0Tttxyi9kz17mXq7majFED+8EH+p2Zub+5j4NygiC8q/8PDQaDn9LHw6rf739Sq9UCthQfRk9PT2Rg7Ha7/U0q71erA2OXy+X9AgQ/B3KsgbFZADc3N25clyL5SiaTKnqgdW40Gs8A4vE4ARD9+Pj4XSq9Ts1m8xf9gE0uFosIYDwezyaTCXnjVqvVpq+T4oWur6/5UChEiuFweOkinL/GeAnoDD0ENJ1Of7ByTqFQ8HQB+/7+vi3WWbV1fnh4eAYgWsxEQb8gWSQS+YjCk5MTJkA2m5UNUK1WyR4olUq/cW6z2cJidn5+foSz09PTBYBer2cCpNNp2QC1Wm1pE9I1WIIz8BGAoe+xWEwYjUY8p9PpmAB3d3dbLwEWvOUHXHO73WdiZjAYrDiDE8JzWq2WCZBKpWQDwNstAXg8HgJgtVoRgN1uJwAul2v9DGwDsDoD0D8IALw5AnA6nQTg8vKS5zQazc72QKVSWQIIBAIEwGw2IwCHw0EALi4ueE6lUjEB8vn8m2fAYrEQgKurKwRgMpkIgN/v58UBmAC5XE42wOopgGeQGswOAlAqlQggGAwKnU6H546Pj5kA8DZvApjP56QPGI1G1Aeg65I+AHtv0QfWnQLo67IBYNkQQK/Xm9H5bDZDANBzCACs/wIApoIJgIogVm2dWa0Yms1X9CAQnUvRy6JvesmFQoEsgfhd+ohEXxeNRstS/DrRN29yt9td2oRY9DVer1fe7wEsn89npx/Ecr1e3wiQSCT+StH2ogdcdSaTYQLsXMPh8A8LgPWTbG+CM29cBZBKh9Xt7e0XOPfvM/hOxPrHekgzw8NZ4P4BtGizy4jmqy8AAAAASUVORK5CYII=');
@@ -124,40 +92,4 @@ Documentation - github.com/muaz-khan/WebRTC-Experiment/tree/master/getMediaEleme
     object-fit: fill;
 }
 
-.media-box audio {
-    height: 5em;
-}
 
-.volume-control .volume-slider, .media-controls .volume-slider {
-    width: auto;
-    background: rgba(255, 255, 255, 0.09)!important;
-    border: 1px solid white;
-    height: 33px;
-}
-
-.volume-control .volume-slider input[type=range] , .media-controls .volume-slider  input[type=range] {
-    margin-top: 9px;
-    height: 15px;
-    outline: none;
-}
-
-input[type=range] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
-    appearance: none;
-    background-color: rgb(83, 77, 77);
-    width: 200px;
-    height: 20px;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
-    appearance: none;
-    background-color: black;
-    opacity: 0.5;
-    width: 10px;
-    height: 26px;
-}
