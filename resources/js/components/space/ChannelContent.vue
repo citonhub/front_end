@@ -104,7 +104,7 @@
       <div class="col-4 d-flex py-0 my-0" style="align-items:center; justify-content:center;">
 
         <div>
-           <v-img  @click="viewFullImage(this.$root.userBasicInfo)"
+           <v-img  @click="viewFullImage()"
                    :style="this.$root.userBasicInfo.background_color != null ?  'background-color:'   + this.$root.userBasicInfo.background_color + ';' : 'background-color:#ffffff;'" 
                    :src="this.$root.userBasicInfo.image_name != null ? 'imgs/profile/' + this.$root.userBasicInfo.image_name + '.' + this.$root.userBasicInfo.image_extension : 'imgs/usernew.png'" height="90" width="90" class="avatarImg" style="border:3px solid #3E8893;border-radius:50%;"></v-img>
 
@@ -680,16 +680,18 @@ export default {
        
     },
     methods:{
-       viewFullImage:function(imageData){
-            
+       viewFullImage:function(){
+              let imageData = this.$root.userBasicInfo;
             this.$root.fullImageViewer = true;
             this.$root.fullImageColor = imageData.background_color;
-            this.$root.imageViewPath = 'imgs/space/' + imageData.image_name + '.' + imageData.image_extension;
+            this.$root.imageViewPath = 'imgs/profile/' + imageData.image_name + '.' + imageData.image_extension;
              this.$root.showChatBottom = false;
         },
       closeUserInfoBoard: function(){
 
           this.$root.showUserInfo = false;
+
+          this.$root.userBasicInfo = [];
         
       },
       viewProfile: function(){
