@@ -104,7 +104,7 @@
       <div class="col-4 d-flex py-0 my-0" style="align-items:center; justify-content:center;">
 
         <div>
-           <v-img  
+           <v-img  @click="viewFullImage(this.$root.userBasicInfo)"
                    :style="this.$root.userBasicInfo.background_color != null ?  'background-color:'   + this.$root.userBasicInfo.background_color + ';' : 'background-color:#ffffff;'" 
                    :src="this.$root.userBasicInfo.image_name != null ? 'imgs/profile/' + this.$root.userBasicInfo.image_name + '.' + this.$root.userBasicInfo.image_extension : 'imgs/usernew.png'" height="90" width="90" class="avatarImg" style="border:3px solid #3E8893;border-radius:50%;"></v-img>
 
@@ -209,11 +209,11 @@
               <div class="row py-0 my-0">
                 
                   <div class="col-6 text-center py-0 px-0">
-                    <v-btn  rounded color="#ffffff" small :loading="loadingMessage" @click.stop="messageSpace" ><span style="font-size:12px; color:#1e4348; text-transform:capitalize;">Message</span></v-btn>
+                    <v-btn  rounded color="#ffffff" small :loading="loadingMessage" @click.stop="messageSpace" ><span style="font-size:12px; font-family:HeaderText; color:#1e4348; text-transform:capitalize;">Message</span></v-btn>
                   </div>
 
                    <div class="col-6 text-center py-0 px-0">
-                    <v-btn  rounded color="#ffffff" small @click.stop="viewProfile"><span style="font-size:12px; color:#1e4348; text-transform:capitalize;">Profile</span></v-btn>
+                    <v-btn  rounded color="#ffffff" small @click.stop="viewProfile"><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">Profile</span></v-btn>
                   </div>
                  
 
@@ -680,6 +680,13 @@ export default {
        
     },
     methods:{
+       viewFullImage:function(imageData){
+            
+            this.$root.fullImageViewer = true;
+            this.$root.fullImageColor = imageData.background_color;
+            this.$root.imageViewPath = 'imgs/space/' + imageData.image_name + '.' + imageData.image_extension;
+             this.$root.showChatBottom = false;
+        },
       closeUserInfoBoard: function(){
 
           this.$root.showUserInfo = false;
