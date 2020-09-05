@@ -1,7 +1,7 @@
 <template>
     <div>
         
-          <div class="col-12 py-0 my-0">
+          <div class="col-12 py-0 my-1" style="border:1px solid #2f606a; border-radius:10px;" >
            <div class="row py-0 my-0">
                 <div class="col-2 d-flex py-1" style="align-items:center;justify-content:center;">
                    <span class="px-1 py-1" style="background-color:#c9e4e8;border:1px solid transparent;border-radius:50%;" ><v-icon color="#1f4247">mdi-music mdi-18px</v-icon></span>

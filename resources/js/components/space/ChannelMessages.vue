@@ -29,6 +29,22 @@
        <!-- audio -->
         <div  :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''" :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-11 col-sm-11 offset-1 offset-lg-5 offset-md-4 py-2 px-2 ' : 'col-lg-7 col-11  col-md-8 col-sm-11   py-2 px-2 '"  v-if="source.type == 'audio'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'">
+               <div class="row py-0 my-0">
+              
+
+               <div class="col-8  py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
+               </div>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+               
+           </div>
           
            <div class="col-12 py-1 px-1"  v-if="source.loading || source.audio == null" style="border:1px solid #3E8893; border-radius:10px;">
                   <div class="row py-0 my-0">
@@ -45,16 +61,7 @@
               </div>
               
          <audio-player v-else :file="'/audio/' + source.audio.audio_name + '.' + source.audio.audio_extension" :playerId="source.message_id"></audio-player>
-           <div class="col-12 py-0 my-0">
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
-               </div>
-               <div class="col-8 text-right py-0 my-0" >
-                         <span class="label" @click.stop="createSpace(source.member)">{{source.username}}</span>
-               </div>
-           </div>
-          </div>
+           
            </v-card>
             <div  @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
                                <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
@@ -66,6 +73,22 @@
           <!-- project -->
         <div  :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''" :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-11 col-sm-11 offset-1 offset-lg-5 offset-md-4 py-2 px-2 ' : 'col-lg-7 col-11  col-md-8 col-sm-11   py-2 px-2 '"  v-if="source.type == 'project'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" v-if="source.project != null">
+                <div class="row py-0 my-0">
+              
+
+               <div class="col-8   py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
+               </div>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+               
+           </div>
           
            <div class="col-12 py-2 px-0">
                   <div class="row py-0 my-0">
@@ -82,17 +105,7 @@
                   </div>
               </div>
             
-           <div class="col-12 py-0 my-0">
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
-               </div>
-               <div class="col-8 text-right py-0 my-0" >
-                       <span class="label" @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
-                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
-               </div>
-           </div>
-          </div>
+          
            </v-card>
             <div  @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
                                <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
@@ -107,6 +120,23 @@
          <!-- files -->
           <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)"  :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-11 col-sm-11 offset-1 offset-lg-5 offset-md-4 py-2 px-2 ' : 'col-lg-7 col-11  col-md-8 col-sm-11   py-2 px-2 '" v-if="source.type == 'file'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'">
+
+               <div class="row py-0 my-0">
+              
+
+               <div class="col-8   py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
+               </div>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+               
+           </div>
              <div class="col-12 py-1 px-1"  v-if="source.loading || source.file == null" style="border:1px solid #3E8893; border-radius:10px;">
                   <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
@@ -121,7 +151,7 @@
                   </div>
               </div>
               
-             <div class="col-12 py-1 px-0" v-else>
+             <div class="col-12 py-1 px-0 my-1" v-else style="border:1px solid #2f606a; border-radius:10px;">
                  <div class="row py-0 my-0">
                      <div class="col-3 py-1 my-0 text-center">
                     <span style="background:#c9e4e8; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#1f4247">mdi-file mdi-18px</v-icon></span>
@@ -136,16 +166,7 @@
                      
                   </div>
              </div>
-           <div class="col-12 py-0 my-0">
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
-               </div>
-               <div class="col-8 text-right py-0 my-0" >
-                      <span class="label" @click.stop="createSpace(source.member)">{{source.username}}</span>
-               </div>
-           </div>
-          </div>
+          
            </v-card>
            <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
                                <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
@@ -163,6 +184,23 @@
 
       <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)"   :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-10 col-sm-10 offset-2 offset-lg-5 offset-md-4 py-3 px-2 ' : 'col-lg-7 col-md-8 col-10 col-sm-10  py-2 px-2 '" v-if="source.type == 'image'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'">
+               <div class="row py-0 my-0">
+              
+
+               <div class="col-8   py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
+               </div>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+               
+           </div>
+
               <div class="col-12 py-1 px-1"  v-if="source.loading || source.image == null" style="border:1px solid #3E8893; border-radius:10px;">
                   <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
@@ -178,16 +216,7 @@
               </div>
             
             <image-viewer :imageArray="source.image" v-else></image-viewer>
-             <div class="col-12 py-0 my-0">
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
-               </div>
-               <div class="col-8 text-right py-0 my-0" >
-                      <span class="label" @click.stop="createSpace(source.member)" >{{source.username}}</span>
-               </div>
-           </div>
-          </div>
+            
            </v-card>
            <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; z-index:99; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;">
                                <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
@@ -201,18 +230,27 @@
 
        <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" v-if="source.type == null  && source.is_reply != '1' ">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="auto">
-            <span  class="msgText" v-html="source.content"></span>
-            <div class="col-12 py-0 my-0">
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
+            
+              <div class="row py-0 my-0">
+              
+
+               <div class="col-8   py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
                </div>
-               <div class="col-8 text-right py-0 my-0" >
-                      <span class="label" @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
                       <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
                </div>
+               
            </div>
-          </div>
+              
+
+            <span  class="msgText" v-html="source.content"></span>
+            
            </v-card>
            <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
                                <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
@@ -228,21 +266,28 @@
 
        <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" v-if="source.type == 'action'  && source.is_reply != '1' ">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="auto">
+              <div class="row py-0 my-0">
+              
+
+               <div class="col-8   py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
+               </div>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+               
+           </div>
+
             <span  class="msgText" v-html="source.content"></span>
             <div class="col-12 py-1 my-2 text-center " style="">
               <v-btn x-small rounded color="#3E8893" @click.stop="handleAction(source)"><span style="color:white; font-size:11px; text-transform:capitalize;">{{ source.action.label }}</span></v-btn>
             </div>
-            <div class="col-12 py-0 my-0" >
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
-               </div>
-               <div class="col-8 text-right py-0 my-0" >
-                      <span class="label" @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
-                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
-               </div>
-           </div>
-          </div>
+           
            </v-card>
            <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
                                <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
@@ -255,6 +300,23 @@
 
         <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" v-if="source.type == 'code'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
+
+              <div class="row py-0 my-0">
+              
+
+               <div class="col-8   py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
+               </div>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+               
+           </div>
 
              <div class="col-12 py-1 px-1"  v-if="source.loading" style="border:1px solid #3E8893; border-radius:10px;">
                   <div class="row py-0 my-0">
@@ -272,16 +334,7 @@
               
 
               <code-box v-else :codeContent="source.code.content" :messageId="source.message_id" :filename="source.code.name + '.' + languageExtensions(source.code.language_type)" :codeLanguage="source.code.language_type" :codeViewerType="viewerType"></code-box>
-            <div class="col-12 py-0 my-0">
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
-               </div>
-               <div class="col-8 text-right py-0 my-0" >
-                      <span class="label" @click.stop="createSpace(source.member)">{{source.username}}</span>
-               </div>
-           </div>
-          </div>
+          
            </v-card>
            <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
                                <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
@@ -295,6 +348,23 @@
          
          <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-11 col-sm-11 offset-1 offset-lg-5 offset-md-4 py-2 px-2 ' : 'col-lg-7 col-md-8 col-11 col-sm-11  py-2 px-2 '"  v-if="source.type == 'video'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'">
+              <div class="row py-0 my-0">
+              
+
+               <div class="col-8   py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
+               </div>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+               
+           </div>
+
              <div class="col-12 py-1 px-1"  v-if="source.loading || source.video == null" style="border:1px solid #3E8893; border-radius:10px;">
                   <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
@@ -313,16 +383,6 @@
                :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.message_id" > </main-video>
               
 
-                  <div class="col-12 py-0 my-0">
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
-               </div>
-               <div class="col-8 text-right py-0 my-0" >
-                      <span class="label" @click.stop="createSpace(source.member)">{{source.username}}</span>
-               </div>
-           </div>
-          </div>
            </v-card>
            <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
                                <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
@@ -337,22 +397,29 @@
         <div   v-if="source.replied_message != undefined && source.is_reply == '1'"  class="col-12 py-0 my-0 px-0" >
              <div   v-if="source.is_reply == '1' && source.replied_message.type == null" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
+              <div class="row py-0 my-0">
+              
+
+               <div class="col-8   py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
+               </div>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+               
+           </div>
+
               <div :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-right' : 'col-12 py-1 px-1 my-1 taggedOthers text-right' " @click.stop="scrollToMessage(source.replied_message.message_id)" >
                   <span class="msgTextReply text-left d-block" v-html=" shortenContent(source.replied_message.content ,80)" ></span>
                   <span class="text-right label">{{source.replied_message.username}}</span>
               </div>
             <span  class="msgText" v-html="source.content"></span>
-            <div class="col-12 py-0 my-0">
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
-               </div>
-               <div class="col-8 text-right py-0 my-0">
-                      <span class="label"  @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
-                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
-               </div>
-           </div>
-          </div>
+           
            </v-card>
            
            
@@ -368,22 +435,29 @@
         <div   v-if="source.replied_message != undefined && source.is_reply == '1'"  class="col-12 py-0 my-0 px-0" >
              <div   v-if="source.is_reply == '1' && source.replied_message.type == 'action'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
+              <div class="row py-0 my-0">
+              
+
+               <div class="col-8   py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
+               </div>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+               
+           </div>
+
               <div :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-right' : 'col-12 py-1 px-1 my-1 taggedOthers text-right' " @click.stop="scrollToMessage(source.replied_message.message_id)" >
                   <span class="msgTextReply text-left d-block" v-html=" shortenContent(source.replied_message.content ,80)" ></span>
                   <span class="text-right label">{{source.replied_message.username}}</span>
               </div>
             <span  class="msgText" v-html="source.content"></span>
-            <div class="col-12 py-0 my-0">
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
-               </div>
-               <div class="col-8 text-right py-0 my-0">
-                      <span class="label"  @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
-                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
-               </div>
-           </div>
-          </div>
+            
            </v-card>
            
            
@@ -404,6 +478,23 @@
            <div   v-if="source.replied_message != undefined && source.is_reply == '1'" class="col-12 py-0 my-0 px-0" >
                <div  v-if="source.is_reply == '1' && source.replied_message.type == 'image'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '">
           <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
+             <div class="row py-0 my-0">
+              
+
+               <div class="col-8   py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
+               </div>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+               
+           </div>
+
               <div :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' "   @click.stop="scrollToMessage(source.replied_message.message_id)">
                  <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0">
@@ -421,17 +512,7 @@
               <span class="text-right label">{{source.replied_message.username}}</span>
               </div>
              <span  class="msgText" v-html="source.content"></span>
-            <div class="col-12 py-0 my-0">
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
-               </div>
-               <div class="col-8 text-right py-0 my-0" >
-                      <span class="label" @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
-                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
-               </div>
-           </div>
-          </div>
+           
            </v-card>
               
            <div @click="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
@@ -452,6 +533,25 @@
           <div  v-if="source.replied_message != undefined && source.is_reply == '1'"  class="col-12 py-0 my-0 px-0"  >
              <div v-if="source.is_reply == '1' && source.replied_message.type == 'video'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" >
               <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
+
+                 <div class="row py-0 my-0">
+              
+
+               <div class="col-8   py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
+               </div>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+               
+           </div>
+
+
               <div   @click.stop="scrollToMessage(source.replied_message.message_id)" :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' " >
                  <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
@@ -466,17 +566,7 @@
               <span class="text-right label d-block">{{source.replied_message.username}}</span>
               </div>
             <span  class="msgText" v-html="source.content"></span>
-            <div class="col-12 py-0 my-0">
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
-               </div>
-              <div class="col-8 text-right py-0 my-0" >
-                      <span class="label" @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
-                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
-               </div>
-           </div>
-          </div>
+           
            </v-card>
              
            <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
@@ -497,6 +587,24 @@
         <div  v-if="source.replied_message != undefined && source.is_reply == '1'" class="col-12 py-0 my-0 px-0" >
            <div v-if="source.is_reply == '1' && source.replied_message.type == 'audio'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" >
    <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
+
+      <div class="row py-0 my-0">
+              
+
+               <div class="col-8   py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
+               </div>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+               
+           </div>
+
               <div   @click.stop="scrollToMessage(source.replied_message.message_id)" :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' " >
                  <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
@@ -511,17 +619,8 @@
               <span class="text-right label d-block">{{source.replied_message.username}}</span>
               </div>
             <span  class="msgText" v-html="source.content"></span>
-            <div class="col-12 py-0 my-0">
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
-               </div>
-               <div class="col-8 text-right py-0 my-0" >
-                      <span class="label"  @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
-                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
-               </div>
-           </div>
-          </div>
+            
+
            </v-card>
            
           <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
@@ -542,6 +641,24 @@
     <div  v-if="source.replied_message != undefined && source.is_reply == '1'" class="col-12 py-0 my-0 px-0"  >
         <div v-if="source.is_reply == '1' && source.replied_message.type == 'file'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" >
         <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
+
+           <div class="row py-0 my-0">
+              
+
+               <div class="col-8   py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
+               </div>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+               
+           </div>
+
               <div   @click.stop="scrollToMessage(source.replied_message.message_id)" :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' " >
                  <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
@@ -556,17 +673,8 @@
               <span class="text-right label d-block">{{source.replied_message.username}}</span>
               </div>
             <span  class="msgText" v-html="source.content"></span>
-            <div class="col-12 py-0 my-0">
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
-               </div>
-               <div class="col-8 text-right py-0 my-0" >
-                      <span class="label" @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
-                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
-               </div>
-           </div>
-          </div>
+            
+
            </v-card>
        
           <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
@@ -584,6 +692,25 @@
     <div  v-if="source.replied_message != undefined && source.is_reply == '1'" class="col-12 py-0 my-0 px-0"  >
         <div v-if="source.is_reply == '1' && source.replied_message.type == 'project'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" >
         <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
+
+           <div class="row py-0 my-0">
+              
+
+               <div class="col-8   py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
+               </div>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+               
+           </div>
+
+
               <div   @click.stop="scrollToMessage(source.replied_message.message_id)" :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' " >
                  <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
@@ -599,17 +726,7 @@
               <span class="text-right label d-block">{{source.replied_message.username}}</span>
               </div>
             <span  class="msgText" v-html="source.content"></span>
-            <div class="col-12 py-0 my-0">
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
-               </div>
-               <div class="col-8 text-right py-0 my-0" >
-                      <span class="label"  @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
-                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
-               </div>
-           </div>
-          </div>
+           
            </v-card>
        
           <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
@@ -630,6 +747,25 @@
         <div  v-if="source.replied_message != undefined && source.is_reply == '1'"  class="col-12 py-0 my-0 px-0" >
              <div v-if="source.is_reply == '1' && source.replied_message.type == 'code'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '">
              <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
+
+                <div class="row py-0 my-0">
+              
+
+               <div class="col-8   py-0 my-0" >
+                      <span class="label" style="font-size:12px; font-family:HeaderText; cursor:pointer; color:#2d626c;" @click.stop="createSpace(source.member)"  v-if="source.username != username">{{source.username}}</span>
+                       <span class="label" style="font-size:12px; font-family:HeaderText; color:#2d626c;"   v-else>You</span>
+                      
+               </div>
+
+
+                <div class="col-4 text-right py-0 my-0">
+                      <span class="label" v-if="source.loading == false">{{checkDatereal(source.created_at)}}</span>
+                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
+               </div>
+               
+           </div>
+
+
               <div  @click.stop="scrollToMessage(source.replied_message.message_id)" :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' " >
                  <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
@@ -644,17 +780,7 @@
               <span class="text-right label d-block">{{source.replied_message.username}}</span>
               </div>
              <span  class="msgText" v-html="source.content"></span>
-            <div class="col-12 py-0 my-0">
-           <div class="row py-0 my-0">
-               <div class="col-4 text-left py-0 my-0">
-                      <span class="label">{{checkDatereal(source.created_at)}}</span>
-               </div>
-               <div class="col-8 text-right py-0 my-0" >
-                      <span class="label" @click.stop="createSpace(source.member)" v-if="source.loading == false">{{source.username}}</span>
-                      <span class="label" v-else><v-icon>mdi-clock-outline mdi-18px</v-icon></span>
-               </div>
-           </div>
-          </div>
+           
            </v-card>
             
           

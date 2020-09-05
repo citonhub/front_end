@@ -1,5 +1,5 @@
 <template>
-     <div class="row py-1 my-0 px-1" >
+     <div class="row py-1 my-0 px-1" style="cursor:pointer;" >
          <div class="col-1 py-0 my-0 d-flex" style="align-items:center; justify-content:center;">
                <v-btn icon @click.stop="goBack"><v-icon color="white">mdi-arrow-left</v-icon></v-btn>
          </div>
