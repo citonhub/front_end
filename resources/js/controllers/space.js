@@ -310,6 +310,9 @@ const app = new Vue({
      liveIsOn: false,
      liveInitiated:false,
      remoteLiveHappening:false,
+     remoteScreen: false,
+     remoteCode:false,
+     remoteAudio:false,
         },
      mounted: function () {
       this.pageloader= false;
@@ -1516,7 +1519,7 @@ this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
 
       },
 
-      sendLiveSignal:function(){
+      sendLiveSignal:function(type){
 
         
 
@@ -1529,12 +1532,12 @@ this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
           interval = setInterval(()=>{
             if(_this.$root.liveInitiated){
 
-           _this.liveChanges(true,'liveIsOn')
+           _this.liveChanges(type,'liveIsOn')
    
            
         }else{
 
-           _this.liveChanges(true,'liveIsOff')
+           _this.liveChanges(type,'liveIsOff')
 
          clearInterval(interval);
         }

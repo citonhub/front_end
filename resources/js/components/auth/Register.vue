@@ -206,11 +206,15 @@ export default {
         _this.emailAlert = false;
      },duration);
 
-    }, checkemail: function(){
+    },
+    checkemail: function(){
             this.emailExist= false;
            this.$refs.register.validate();
            
            if(this.formstate){
+
+            
+              
               this.loading = true;
              axios.post('/check-if-email-exist',{
                 email: this.email,
@@ -243,6 +247,9 @@ export default {
        }
         },
       register: function(){
+
+         this.$root.LocalStore('user_temp_email',[this.email,this.password]);
+
              axios.post('/register',{
                 name: this.name,
                 email: this.email,

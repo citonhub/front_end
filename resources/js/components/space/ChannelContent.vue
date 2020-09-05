@@ -567,6 +567,12 @@ export default {
         this.$root.liveIsOn = false;
         this.$root.showVideoScreen = false;
         this.$root.liveInitiated = false;
+
+
+        this.$root.remoteLiveHappening = false;
+        this.$root.remoteCode = false;
+         this.$root.remoteScreen = false;
+          this.$root.remoteAudio= false;
       },
     hideAlert:function(){
       this.$root.AlertRoot = false;
@@ -778,8 +784,11 @@ export default {
                  }, 1500);
                  })
               .listenForWhisper('liveCoding', (e) => {
-              
-                 if(e.action == 'typing'){
+
+                if(e.spaceId == this.$route.params.spaceId){
+
+
+                   if(e.action == 'typing'){
 
                     this.$root.FullcodeContent = e.data;
 
@@ -809,6 +818,21 @@ export default {
 
                      this.$root.remoteLiveHappening = true;
 
+                      if(e.data == 'audio'){
+
+                     this.$root.remoteAudio = true;
+
+                      }
+                      if(e.data == 'screen'){
+
+                         this.$root.remoteScreen = true;
+
+                      }
+                      if(e.data == 'code'){
+    
+                        this.$root.remoteCode  = true;
+                      }
+
                   }
 
                   if(e.action == 'liveIsOff'){
@@ -816,6 +840,10 @@ export default {
                     this.$root.remoteLiveHappening = false;
 
                   }
+
+                }
+              
+                
                
                 
               

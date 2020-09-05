@@ -150,7 +150,28 @@ const app = new Vue({
       }
      
     },
+    getLocalStore:function(key){
+      let result = localforage.getItem(key);
+        
+      return result;
+      
+    
+    },
+    LocalStore:function(key,data){
+    
+      
+     
+      localforage.setItem(key,JSON.stringify(data)).then(function () {
+        return localforage.getItem(key);
+      }).then(function (value) {
+        // we got our value
+       
+      }).catch(function (err) {
+        console.log(err)
+        // we got an error
+      });
   
+      },
   
     imageStyle:function(dimension,authProfile){
       

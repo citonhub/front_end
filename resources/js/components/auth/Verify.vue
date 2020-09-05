@@ -1,8 +1,19 @@
 <template>
-   <v-app  class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0" style="position:absolute; font-family:BodyText; background:transparent; height:100%; overflow-y:auto; overflow-x:hidden; ">
+
+<v-app  class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0" style="position:absolute; font-family:BodyText; background:transparent; height:100%; overflow-y:auto; overflow-x:hidden; ">
         <div class="row my-0 py-0 px-0">
-       <div class="col-12 py-0 morebackground d-flex">
-        <v-card class="py-1 px-2 row">
+
+           <div  style=" top:5%; z-index:1000000;"  class="text-center fixed-top col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0"> 
+            
+        <h4 style="color:#26535a;">Verify Your Email</h4>
+            
+                
+     </div>
+
+         
+       <div class="col-12 py-3 morebackground4 d-flex" >
+          
+           <v-card class="py-1 px-2 row">
              <div class="col-3 px-1">
              <span>
                 
@@ -10,9 +21,9 @@
             </div>
 
             <div class="col-6 px-0 d-flex" style="align-items:center;justify-content:center;">
-             <span class="login">
-                 Verify Your Email
-             </span>
+              <h5 style="color:#26535a;">
+               Verify Email
+             </h5>
             </div>
 
             <div class="col-3 text-center">
@@ -52,6 +63,14 @@
              </div>
 
 
+              <div class="col-12 py-1 my-0 px-2 text-center">
+
+                <span class="forgot1" >Haven't received a mail yet? check your spam or <v-btn color="#3E8893" x-small  
+                style="text-decoration:underline; font-family:HeaderText; color:#ffffff; text-transform:lowercase;" @click="resendMail" :disabled="!showResend" :loading="loadingResend">re-send</v-btn> <span v-if="timer > 0">  {{timer}} sec</span></span>
+                
+            </div>
+
+
            
              
 
@@ -63,9 +82,14 @@
         </v-card>
      </div>
 
-        </div>
+     <div  style=" height:50%; bottom:-35%;  z-index:1000000;"  class=" fixed-bottom col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0"> 
+  
+       <img src="/imgs/CitonHub.png"  width="100%" height="100%">
+     </div>
+         
 
-  <v-fade-transition>
+        </div>
+         <v-fade-transition>
               <div  style="position:absolute; width:100%; height:auto: align-items:center;justify-content:center;top:4%; z-index:123453566;"  class="d-flex">
              <v-alert
       v-model="Alert"
@@ -85,8 +109,9 @@
     </v-alert>
         </div>
         </v-fade-transition>
-
      </v-app>
+
+  
 </template>
 <script>
 export default {
@@ -96,13 +121,55 @@ export default {
         loading: false,
         Alert:false,
         alertMsg:'',
+        loadingResend:false,
+        timer:30,
+        showResend:false,
       }
     },
      mounted(){
       this.$root.showTabs=false;
-       this.$root.showHeader = true;
+       this.$root.showHeader = false;
+       this.setEmail();
     },
     methods:{
+      setEmail: function(){
+        
+         let storedEmail = this.$root.getLocalStore('user_temp_email');
+              
+              storedEmail.then((result)=>{
+
+                 if(result != null){
+                   
+                    let finalResult = JSON.parse(result);
+
+                    this.$root.userEmail = finalResult[0];
+
+                 }
+
+
+
+              });
+
+          let interval = null;
+          
+         interval = setInterval(()=>{
+            
+             
+             if(this.timer == 0){
+                this.showResend = true;
+               clearInterval(interval);
+
+             }else{
+               this.timer--
+             }
+
+             
+              
+          },1000)
+
+          
+          
+      },
        viewPost: function(){
             this.$router.push({ path: '/post' });
         },
@@ -118,9 +185,35 @@ export default {
         let _this = this;
      
      setTimeout(function(){
-        _this.emailAlert = false;
+        _this.Alert = false;
      },duration);
 
+    },
+    resendMail: function(){
+    
+     this.loadingResend = true;
+     axios.post('/resend-email',{
+                email: this.$root.userEmail
+                  })
+          .then(response => {
+            
+           if (response.status == 200) {
+               
+              this.loadingResend = false;
+              this.showResend = false;
+              this.timer = 30;
+              this.setEmail();
+              this.showAlert(5000,'Mail Sent');
+
+
+            
+            }
+            
+          })
+          .catch(error => {
+            this.showAlert(5000,'Failed- ' + error);
+              this.loading = false;
+          })
     },
    verify:function(){
        this.loading = true;
@@ -154,15 +247,15 @@ export default {
 }
 </script>
 <style>
-.morebackground{
+.morebackground4{
      position: absolute;
      width:100%; 
      top: 0;
      left: 0;
-     height:94%; 
+     height:100%; 
      align-items: center;
      justify-content: center;
-     background:rgba(38, 82, 89,0.6);
+     background:#ffffff;
      z-index:100000;
  }
  .login{
@@ -170,10 +263,11 @@ export default {
      font-size:13px;
  }
 
- .forgot{
+ .forgot1{
      cursor: pointer;
-     text-decoration: underline;
+    
      color: #4494a2;
      font-size:12px;
  }
+
 </style>

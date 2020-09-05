@@ -90,6 +90,15 @@ class UserController extends Controller
         }
     }
 
+    public function resendEmail(Request $request){
+
+        $newUser =  User::where('email',$request->get('email'))->first();
+
+        Mail::to($request->get('email'))->send(new VerifyUserEmail($newUser));
+
+         return 'done';
+    }
+
     public function saveSettings(Request $request){
          
         $user= Auth::user();

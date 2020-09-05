@@ -40,6 +40,7 @@ Route::post('/register','Auth\RegisterController@create');
 Route::post('/check-if-username-exist','UserController@checkIfUsernameExist');
 Route::post('/login','Auth\LoginController@login');
 Route::post('/logout','Auth\LoginController@logout');
+Route::post('/resend-email','UserController@resendEmail');
 
 
 // Post Routes

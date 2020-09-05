@@ -41,18 +41,64 @@
                 v-bind="attrs"
                 v-on="on"
               >
-                <v-icon>mdi-monitor-screenshot</v-icon>
+              <v-badge
+               dot
+               v-if="remoteLiveHappening"
+                color="red">
+               <v-icon>mdi-monitor-screenshot</v-icon>
+              </v-badge>
+
+              <v-icon v-else >mdi-monitor-screenshot</v-icon>
+                
               </v-btn>
             </template>
 
            <v-card tile flat class="py-2 text-left px-4" style="width:auto;  background:white;" @click.stop="liveCoding()">
-              <v-icon>mdi-monitor-dashboard mdi-18px</v-icon> <span style="font-size:12px;">Live Coding</span>
+              
+              <v-badge
+               dot
+               v-if="remoteLiveHappening && remoteCode"
+                color="red">
+               <v-icon>mdi-monitor-dashboard mdi-18px</v-icon>
+              </v-badge>
+              
+              <v-icon v-else>mdi-monitor-dashboard mdi-18px</v-icon>
+              
+               <span style="font-size:12px;">Live Coding</span>
+
+
            </v-card>
            <v-card  tile flat class="py-2 text-left px-4" style="width:auto; background:white;" @click.stop="screenSharing()">
-             <v-icon>mdi-monitor-cellphone mdi-18px</v-icon> <span style="font-size:12px;">Share Your Screen</span>
+             
+
+
+              <v-badge
+               dot
+               v-if="remoteLiveHappening && remoteScreen"
+                color="red">
+               <v-icon>mdi-monitor-cellphone mdi-18px</v-icon>
+              </v-badge>
+              
+              <v-icon v-else>mdi-monitor-cellphone mdi-18px</v-icon>
+
+
+             <span style="font-size:12px;">Share Your Screen</span>
            </v-card>
             <v-card  tile flat class="py-2 text-left px-4" style="width:auto; background:white;" @click.stop="initaiteAudioConf()">
-             <v-icon>mdi-microphone mdi-18px</v-icon> <span style="font-size:12px;">Live Audio</span>
+                 
+
+                   <v-badge
+               dot
+               v-if="remoteLiveHappening && remoteAudio"
+                color="red">
+               <v-icon>mdi-microphone mdi-18px</v-icon>
+              </v-badge>
+              
+              <v-icon v-else>mdi-microphone mdi-18px</v-icon>
+            
+             
+             
+              <span style="font-size:12px;">Live Audio</span>
            </v-card>
            
           </v-menu>
@@ -109,15 +155,42 @@ export default {
           connection: undefined,
           audioconnection:undefined,
           showScreen:false,
+          remoteLiveHappening: this.$root.remoteLiveHappening,
+          remoteCode: this.$root.remoteCode,
+          remoteScreen: this.$root.remoteScreen,
+          remoteAudio: this.$root.remoteAudio,
+
         }
     },
      components: {
    
   },
     mounted(){
-     
+             this.checkIfRemoteLive();
     },
     methods:{
+      checkIfRemoteLive: function(){
+
+           let interval = setInterval(checkSignal,2000);
+
+      let _this = this;
+
+        function checkSignal(){
+
+          
+
+              _this.remoteLiveHappening = _this.$root.remoteLiveHappening;
+            _this.remoteCode = _this.$root.remoteCode;
+          _this.remoteScreen= _this.$root.remoteScreen;
+          _this.remoteAudio= _this.$root.remoteAudio;
+            
+           
+              
+         
+         
+        }
+
+        },
        goBack() {
             this.$router.push({ path: '/space/chat-list'});
         
@@ -128,6 +201,12 @@ export default {
            this.$root.codeIsLive = true;
             this.$root.showChatBottom = false;
              this.$root.showCodeBox = true;
+
+              this.$root.remoteLiveHappening = true;
+        this.$root.remoteCode = true;
+       
+            
+             this.$root.sendLiveSignal('code');
 
               this.$root.liveIsOn = true;
              
@@ -140,10 +219,16 @@ export default {
 
              this.$root.setSreenShareConnection();
 
+             this.$root.remoteLiveHappening = true;
+
+             this.$root.remoteScreen = true;
+
           
           this.$root.checkScreenRoomState();
 
           this.$root.showVideoScreen = true;
+
+           this.$root.sendLiveSignal('screen');
 
           this.$root.screenSharingOn = true;
           
@@ -166,6 +251,10 @@ export default {
         },
         initaiteAudioConf: function(){
 
+            this.$root.remoteLiveHappening = true;
+
+            this.$root.remoteAudio = true;
+
             this.$root.liveIsOn = true;
 
     if(this.$root.audioconnection == undefined){
@@ -174,7 +263,7 @@ export default {
 
          this.$root.checkAudioRoomState();
 
-          this.$root.sendLiveSignal();
+          this.$root.sendLiveSignal('audio');
 
             this.$root.screenSharingOn = true;
           

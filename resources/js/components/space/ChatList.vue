@@ -533,6 +533,11 @@ export default {
         this.$root.showVideoScreen = false;
         this.$root.liveInitiated = false;
         this.$root.remoteLiveHappening = false;
+
+         this.$root.remoteLiveHappening = false;
+        this.$root.remoteCode = false;
+         this.$root.remoteScreen = false;
+          this.$root.remoteAudio= false;
       },
       showTab: function(type){
         this.$root.checkIfUserIsLoggedIn('space');

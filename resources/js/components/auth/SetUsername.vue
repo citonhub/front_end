@@ -100,10 +100,31 @@ export default {
      mounted(){
       this.$root.showTabs=false;
        this.$root.showHeader = false;
+       this.setEmail();
        this.showVerifiedAlert()
        this.checkIfLogin();
     },
     methods:{
+        setEmail: function(){
+        
+         let storedEmail = this.$root.getLocalStore('user_temp_email');
+              
+              storedEmail.then((result)=>{
+
+                 if(result != null){
+                   
+                    let finalResult = JSON.parse(result);
+
+                    this.$root.userEmail = finalResult[0];
+                    this.$root.userPassword = finalResult[1];
+
+                 }
+
+
+
+              });
+          
+      },
        checkIfLogin:function(){
 
           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'space'){
@@ -192,7 +213,11 @@ export default {
             
             
              if (response.status == 204) {
+
+                  this.$root.LocalStore('user_temp_email',[]);
+                  
               this.$root.pageloader = true;
+              
              window.location =  this.$root.UrlTrack;
              location.reload();
               

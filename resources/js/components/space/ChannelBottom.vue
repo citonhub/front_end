@@ -125,36 +125,10 @@ export default {
     EditorMenuBubble,
   },
     mounted(){
-        this.checkIfRemoteLive();
+
     },
     methods:{
-        checkIfRemoteLive: function(){
-
-           let interval = setInterval(checkSignal,2000);
-
-      let _this = this;
-
-        function checkSignal(){
-
-          
-
-           if(_this.$root.remoteLiveHappening){
-
-               _this.$root.screenSharingOn = true;
-
-             clearInterval(interval);
-
-           }else{
-             
-
-            
-           }
-              
-         
-         
-        }
-
-        },
+        
        urlify:function(text) {
       var urlRegex =  /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
      return text.replace(urlRegex, function(url) {
@@ -163,6 +137,7 @@ export default {
    // or alternatively
     // return text.replace(urlRegex, '<a href="$1">$1</a>')
      },
+     
        goBack() {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
