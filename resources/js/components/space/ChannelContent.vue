@@ -69,11 +69,207 @@
          
       </div>
 
-      <div v-if="this.$root.liveIsOn"  style="position:fixed;  height:400px; overflow-y:hidden; left:0%; top:35%; align-items:center; justify-content:center; z-index:8999999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+
+
+ <div  @click="closeUserInfoBoard"   v-if="this.$root.showUserInfo" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+    
+       <div @click.stop="preventCloseBoard" style="position:absolute; height:auto; width:90%; top:10%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
+  
+
+          <v-card  
+      style="border-radius:10px;"
+       height="auto"
+      
+       class="pt-2 px-1"
+  >
+   <div class="row py-0 my-0"  v-if="this.$root.userBasicInfo.length != 0" >
+
+     <div class="col-4 d-flex py-0 my-0" style="align-items:center; justify-content:center;">
+
+         <div class="text-center">
+
+
+                    <span class=" px-1 d-block" style="color: #2d626c; font-size:12px;">Connections</span>
+
+
+                  <span class=" px-1 d-block" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.connections}}</span>
+
+             
+
+              </div>
+
+             
+     </div>
+
+      <div class="col-4 d-flex py-0 my-0" style="align-items:center; justify-content:center;">
+
+        <div>
+           <v-img  
+                   :style="this.$root.userBasicInfo.background_color != null ?  'background-color:'   + this.$root.userBasicInfo.background_color + ';' : 'background-color:#ffffff;'" 
+                   :src="this.$root.userBasicInfo.image_name != null ? 'imgs/profile/' + this.$root.userBasicInfo.image_name + '.' + this.$root.userBasicInfo.image_extension : 'imgs/usernew.png'" height="90" width="90" class="avatarImg" style="border:3px solid #3E8893;border-radius:50%;"></v-img>
+
+                   
+
+     </div>
+
+    </div>
+
+
+      <div class="col-4 d-flex py-0 my-0" style="align-items:center; justify-content:center;">
+              <div class="text-center">
+                  <img src="imgs/coins.png" height="30"  class="d-block" > 
+                  <span class=" px-1 d-block" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.coins}}</span>
+
+              
+
+              </div>
+
+     </div>
+
+      <div class="col-12 d-flex py-0 my-1" style="align-items:center; justify-content:center;">
+              <div class="text-center">
+                
+                  <span class=" px-1 d-block" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.userData.name}}</span>
+
+                   <span class=" px-1 d-block" style="color: #2d626c; font-size:12px; ">@{{this.$root.userBasicInfo.userData.username}}</span>
+
+              
+
+              </div>
+          </div>
+
+      
+       <div class="col-12 py-0 my-0" >
+              <div class="row my-0 py-0">
+                
+                  <div class="col-4 text-center d-flex py-0 my-1" style="align-items:center; justify-content:center;">
+
+                     <div>
+               <v-chip
+      small
+      label
+       class="d-block"
+     style="color:#ffffff;background:#3E8893; font-size:11px;"
+      >
+      Channels
+      </v-chip>  
+
+       <span class=" px-1 d-block py-1" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.channels}}</span>
+                     </div>
+                      
+                  
+
+                  </div>
+                  
+                   <div class="col-4 text-center d-flex py-0 my-1" style="align-items:center; justify-content:center;">
+               
+
+               <div>
+         <v-chip
+      small
+       class="d-block"
+      label
+     style="color:#ffffff;background:#3E8893; font-size:11px;"
+      >
+      Projects
+      </v-chip>  
+
+      <span class=" px-1 d-block py-1" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.projects}}</span>
+               </div>
+                      
+
+                  </div>
+
+                   <div class="col-4 text-center d-flex py-0 my-1" style="align-items:center; justify-content:center;">
+
+                      <div>
+                        
+                          <v-chip
+      small
+      class="d-block"
+      label
+     style="color:#ffffff;background:#3E8893; font-size:11px;"
+      >
+      Teams
+      </v-chip>  
+
+      <span class=" px-1 d-block py-1" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.teams}}</span>
+                      </div>
+
+                     
+
+                  </div>
+
+              </div>
+
+     </div>
+
+
+      <div class="col-12  py-2 my-1 mb-0 pb-2"  style="background:#4497a2; border:1px solid #4497a2; border-radius:18px ;" >
+              <div class="row py-0 my-0">
+                
+                  <div class="col-6 text-center py-0 px-0">
+                    <v-btn  rounded color="#ffffff" small :loading="loadingMessage" @click.stop="messageSpace" ><span style="font-size:12px; color:#1e4348; text-transform:capitalize;">Message</span></v-btn>
+                  </div>
+
+                   <div class="col-6 text-center py-0 px-0">
+                    <v-btn  rounded color="#ffffff" small @click.stop="viewProfile"><span style="font-size:12px; color:#1e4348; text-transform:capitalize;">Profile</span></v-btn>
+                  </div>
+                 
+
+              </div>
+          </div>
+
     
 
-         <v-card style="position:absolute; height:auto; width:90%; left:5%; overflow-y:hidden; " 
-    class="mx-auto pb-2"
+      
+
+   </div>
+
+
+
+
+   <div class="row py-0 my-0" v-else >
+       
+        <v-skeleton-loader
+           class="mx-auto my-2 col-12"
+           height="90"
+           width="100%"
+          
+         type="image"
+          ></v-skeleton-loader>
+
+          <div class="col-12 text-center">
+              <span class=" px-1 d-block" style="color: #2d626c; font-size:12px;">{{ this.$root.infoLoaderText}}</span>
+          </div>
+        </div>
+
+
+  
+
+    
+
+    
+    
+    
+
+  </v-card>
+
+
+       </div>
+        
+
+      </div>
+
+     
+
+      <div v-if="this.$root.liveIsOn" @click="closeLiveBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; left:0%; top:%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+    
+       <div  @click.stop="preventCloseBoard" style="position:absolute; height:auto; width:90%; top:42%; left:5%; overflow-y:hidden; " class="mx-auto pb-2">
+  
+
+          <v-card  
+    
   >
     <v-card
       color="#3E8893"
@@ -135,11 +331,11 @@
        style="border-bottom:1px solid #c5c5c5;"
       >
         <v-list-item-avatar>
-          <v-img :src="this.$root.authProfile.image_name == null ? '/imgs/usernew.png' : '/imgs/profile/' + this.$root.authProfile.image_name + '.' + this.$root.authProfile.image_extension"></v-img>
+          <v-img :src="this.$root.userBasicInfo.image_name == null ? '/imgs/usernew.png' : '/imgs/profile/' + this.$root.userBasicInfo.image_name + '.' + this.$root.userBasicInfo.image_extension"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title  style="font-size:12px;">{{ this.$root.authProfile.username }}</v-list-item-title>
+          <v-list-item-title  style="font-size:12px;">{{ this.$root.userBasicInfo.username }}</v-list-item-title>
         </v-list-item-content>
 
         <v-list-item-icon >
@@ -190,6 +386,9 @@
     </v-list>
   </v-card>
 
+
+       </div>
+        
 
       </div>
 
@@ -424,10 +623,13 @@ export default {
           scrollPosition:0,
           startPosition:0,
           messageStore: [],
+         
           messageStoreTop:[],
           endPosition:0,
            containerScrollPosition:0,
            isConnected:true,
+           loadingMessage: false,
+           showUserInfo:false,
           typing:false,
           channel:null,
           audioMuted: false,
@@ -478,6 +680,101 @@ export default {
        
     },
     methods:{
+      closeUserInfoBoard: function(){
+
+          this.$root.showUserInfo = false;
+        
+      },
+      viewProfile: function(){
+        
+
+        this.$root.pageloader = true;
+        window.location = '/view-profile#/profile/channels/'+ this.$root.selectedMember.username;
+         
+      },
+       messageSpace: function(){
+
+
+          this.loadingMessage = true;
+
+          let member = this.$root.selectedMember;
+
+        if(member.username == this.$root.username){
+          return;
+        }
+
+        if(member.direct_present){
+         
+         this.$root.Messages = null;
+        this.$root.selectedSpace = [];
+
+        this.$root.forceListReload = true;
+      
+      this.$root.ChatList = [];
+          this.$router.push({ path: '/space/'  +  member.space_id  +  '/channel/content' + '/user' });
+
+          this.$root.showUserInfo = false;
+
+           this.fetchMessages();
+
+
+          return;
+      
+        }
+        if(this.loading){
+            return;
+        }
+
+        this.loading = true;
+           
+          axios.post('/create-space',{
+                name: '',
+                limit: 2,
+                memberId: member.id,
+                type: 'Direct'
+                  })
+          .then(response => {
+             
+             if (response.status == 200) {
+
+               this.$root.Messages = null;
+        this.$root.selectedSpace = [];
+
+
+         this.$root.showUserInfo = false;
+
+         if(this.$root.ChatList.length != 0){
+           this.$root.ChatList[4].unshift(response.data);
+           
+            this.$root.LocalStore('ChatList' + this.$root.username,this.$root.ChatList);
+        this.$root.forceListReload = true;
+         }
+       
+         
+
+               this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });
+
+               this.fetchMessages();
+                         
+            }
+
+          })
+          .catch(error => {
+              this.showAlert(5000,'Failed- ' + error);
+
+               this.loadingMessage = false;
+
+             
+          })
+
+      },
+      closeLiveBoard: function(){
+      this.$root.liveIsOn = false;
+      },
+      preventCloseBoard: function(){
+
+      },
+      
        initaiteAudioConf: function(){
 
             this.$root.liveIsOn = true;

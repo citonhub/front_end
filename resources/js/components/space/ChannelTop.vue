@@ -131,7 +131,7 @@
               
          </div>
  
-         <div  class="col-12 " style=" position:absolute;top:100%; " v-show="this.$root.showVideoScreen">
+         <div  class="col-12 " style=" position:absolute;top:100%; z-index:99899898999988;" v-show="this.$root.showVideoScreen">
 
                <div style="height:auto; width:100%;align-items:center;justify-content:center; " class="d-flex" >
 

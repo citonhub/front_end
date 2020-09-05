@@ -813,7 +813,35 @@ export default {
         }
     },
     methods:{
+    
+    createSpace:function(member){
+           
+           this.$root.showUserInfo = true;
+          
+            this.$root.selectedMember = member;
+            
+      axios.get('/fetch-user-info/'  + member.username )
+      .then(response => {
+      
+      if (response.status == 200) {
 
+         
+         this.$root.userBasicInfo = response.data[0];
+
+         
+       
+      }
+       
+     
+     })
+     .catch(error => {
+
+        this.$root.infoLoaderText = 'unable to load user info'
+    
+     }) 
+
+
+      },
 
       
       handleAction:function(message){
@@ -838,69 +866,7 @@ export default {
      },duration);
 
     },
-       createSpace: function(member){
-
-        if(member.username == this.$root.username){
-          return;
-        }
-
-        if(member.direct_present){
-         
-         this.$root.Messages = null;
-        this.$root.selectedSpace = [];
-
-        this.$root.forceListReload = true;
-      
-      this.$root.ChatList = [];
-          this.$router.push({ path: '/space/'  +  member.space_id  +  '/channel/content' + '/user' });
-
-           this.fetchMessages();
-
-
-          return;
-      
-        }
-        if(this.loading){
-            return;
-        }
-
-        this.loading = true;
-           this.showAlert(5000,'Setting up space...')
-          axios.post('/create-space',{
-                name: '',
-                limit: 2,
-                memberId: member.id,
-                type: 'Direct'
-                  })
-          .then(response => {
-             
-             if (response.status == 200) {
-
-               this.$root.Messages = null;
-        this.$root.selectedSpace = [];
-
-         if(this.$root.ChatList.length != 0){
-           this.$root.ChatList[4].unshift(response.data);
-           
-            this.$root.LocalStore('ChatList' + this.$root.username,this.$root.ChatList);
-        this.$root.forceListReload = true;
-         }
        
-         
-
-               this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });
-
-               this.fetchMessages();
-                         
-            }
-
-          })
-          .catch(error => {
-              this.showAlert(5000,'Failed- ' + error);
-             
-          })
-
-      },
        handleResults(messageArray){
 
         

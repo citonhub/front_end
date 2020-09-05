@@ -313,6 +313,10 @@ const app = new Vue({
      remoteScreen: false,
      remoteCode:false,
      remoteAudio:false,
+     showUserInfo:false,
+     userBasicInfo:[],
+     infoLoaderText:'loading user info...',
+     selectedMember:[],
         },
      mounted: function () {
       this.pageloader= false;

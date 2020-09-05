@@ -20,6 +20,8 @@ use App\PushNotification;
 use App\CustomClass\MetaParser;
 use App\traits\PushNotificationTrait;
 
+
+
 class ProfileController extends Controller
 {
 
@@ -557,6 +559,86 @@ class ProfileController extends Controller
 
 
     return [$user,$newProfile[0],$allPageTracker,$notificationCount,$notificationCountSpace,$spaceSelected];
+ }
+
+ public function userInfo($username){
+   
+  $user = User::where('username',$username)->first();
+     
+  
+
+  $profile = DB::table('profiles')
+  ->where('user_id',$user->id)
+  ->get();
+
+  $newProfile = [];
+
+  foreach ($profile as $eachProfile) {
+         
+    $thisprofile = (array) $eachProfile;
+
+     
+
+    
+    $allUserConnections = UserConnection::where('connected_user_id',$user->id)->get();
+     $connectionCount = count($allUserConnections);
+
+     $thisprofile["connections"] = $connectionCount;
+
+     $userData = User::where('id',$thisprofile["user_id"])->first();
+     
+     $thisprofile["userData"] = $userData;
+
+
+     $userProjects = DB::table('projects')
+              ->join('space_members','space_members.space_id','projects.space_id')
+              ->join('spaces','spaces.space_id','projects.space_id')
+              ->select(
+                 'projects.project_slug as project_slug',
+                 'projects.title as title'
+              )
+              ->where('space_members.user_id',$thisprofile["user_id"])
+              ->where('spaces.type','!=','Channel')
+              ->where('spaces.type','!=','Direct')
+              ->where('space_members.project_slug',null)
+              ->get();
+
+
+      $thisprofile["projects"] = count($userProjects);
+
+      $userChannelSpaces = DB::table('space_members')
+      ->join('spaces','spaces.space_id','space_members.space_id')
+      ->select(
+          'spaces.image_name as image_name'
+      )
+      ->where('space_members.user_id',$thisprofile["user_id"])
+      ->orderBy('spaces.created_at','desc')
+      ->where('spaces.type','Channel')
+      ->get();
+
+      $thisprofile["channels"] = count($userChannelSpaces);
+
+
+      $userTeamSpaces = DB::table('space_members')
+      ->join('spaces','spaces.space_id','space_members.space_id')
+      ->select(
+          'spaces.image_name as image_name'
+      )
+      ->where('space_members.user_id',$thisprofile["user_id"])
+      ->orderBy('spaces.created_at','desc')
+      ->where('spaces.type','Team')
+      ->get();
+
+      $thisprofile["teams"] = count($userTeamSpaces);
+ 
+ 
+     array_push($newProfile,$thisprofile);
+  }
+
+   return $newProfile;
+
+
+
  }
 
 }

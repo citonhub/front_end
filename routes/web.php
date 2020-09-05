@@ -138,6 +138,7 @@ Route::post('/save-project-title','ProjectController@saveProjectTitle');
 // Profile Routes
 Route::post('/update-profile','ProfileController@UpdateProfile');
 Route::get('/fetch-profile-{username}','ProfileController@fetchProfile');
+Route::get('/fetch-user-info/{username}','ProfileController@userInfo');
 Route::post('/save-page-tracking','ProfileController@savePageTracking');
 Route::get('/fetch-projects-{username}','ProfileController@fetchProjects');
 Route::get('/fetch-teams-{username}','ProfileController@fetchTeams');
