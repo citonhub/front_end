@@ -15,7 +15,7 @@
 
          <div class="row my-0 py-0 px-2 "  >
 
-              <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('project')" >
+              <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('project')"  style="cursor:pointer;">
                  
                  <div class="row py-0 my-0 px-2">
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
@@ -115,7 +115,7 @@
              
 
             
-             <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('channel')" >
+             <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('channel')" style="cursor:pointer;" >
                  
                  <div class="row py-0 my-0 px-2">
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
@@ -230,7 +230,7 @@
 
 
 
-                <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('team')" >
+                <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('team')" style="cursor:pointer;">
                  
                  <div class="row py-0 my-0 px-2">
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
@@ -326,7 +326,7 @@
               </div>
               
 
-                <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('direct')" >
+                <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('direct')" style="cursor:pointer;">
                  
                  <div class="row py-0 my-0 px-2">
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">

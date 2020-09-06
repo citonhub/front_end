@@ -16,9 +16,10 @@
 
               <v-carousel
     cycle
-      class="col-12"
-    hide-delimiter-background
-    show-arrows-on-hover
+      class="col-12 px-1"
+      
+    hide-delimiters
+   
   >
     <v-carousel-item
      
