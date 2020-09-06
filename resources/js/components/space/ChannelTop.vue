@@ -53,7 +53,7 @@
               </v-btn>
             </template>
 
-           <v-card tile flat class="py-2 text-left px-4" style="width:auto;  background:white;" @click.stop="liveCoding()">
+           <v-card tile flat class="py-2 text-left px-4" style="width:auto;  background:white;" @click="liveCoding()">
               
               <v-badge
                dot
@@ -68,7 +68,7 @@
 
 
            </v-card>
-           <v-card  tile flat class="py-2 text-left px-4" style="width:auto; background:white;" @click.stop="screenSharing()">
+           <v-card  tile flat class="py-2 text-left px-4" style="width:auto; background:white;" @click="screenSharing()">
              
 
 
@@ -84,7 +84,7 @@
 
              <span style="font-size:12px;">Share Your Screen</span>
            </v-card>
-            <v-card  tile flat class="py-2 text-left px-4" style="width:auto; background:white;" @click.stop="initaiteAudioConf()">
+            <v-card  tile flat class="py-2 text-left px-4" style="width:auto; background:white;" @click="initaiteAudioConf()">
                  
 
                    <v-badge
