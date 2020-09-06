@@ -331,11 +331,11 @@
        style="border-bottom:1px solid #c5c5c5;"
       >
         <v-list-item-avatar>
-          <v-img :src="this.$root.userBasicInfo.image_name == null ? '/imgs/usernew.png' : '/imgs/profile/' + this.$root.userBasicInfo.image_name + '.' + this.$root.userBasicInfo.image_extension"></v-img>
+          <v-img :src="this.$root.authProfile.image_name == null ? '/imgs/usernew.png' : '/imgs/profile/' + this.$root.authProfile.image_name + '.' + this.$root.authProfile.image_extension"></v-img>
         </v-list-item-avatar>
 
         <v-list-item-content>
-          <v-list-item-title  style="font-size:12px;">{{ this.$root.userBasicInfo.username }}</v-list-item-title>
+          <v-list-item-title  style="font-size:12px;">{{ this.$root.authProfile.username }}</v-list-item-title>
         </v-list-item-content>
 
         <v-list-item-icon >
