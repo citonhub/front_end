@@ -532,6 +532,24 @@ class SpaceController extends Controller
             ]);
 
             $newMessage->save();
+
+            if($message->type == 'video'){
+
+                $videoMessage = VideoMessage::where('message_id',$messageId)->first();
+
+
+               $newMessageVideo = VideoMessage::create([
+                  "video_extension"=> 'mpd',
+                  "video_name"=> $videoMessage->video_name,
+                  "preview_image_url"=> $videoMessage->preview_image_url,
+                  "message_id"=> $newMessage->id,
+                  "display_name"=> $videoMessage->display_name,
+                  "background_color"=> $videoMessage->background_color
+                ]);
+            
+                $newMessageVideo->save();
+
+            }
            
    
             $userUnread = UnreadMessage::create([
