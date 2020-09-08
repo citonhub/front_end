@@ -212,7 +212,7 @@
                     <v-btn  rounded color="#ffffff" small :loading="loadingMessage" @click.stop="messageSpace" ><span style="font-size:12px; font-family:HeaderText; color:#1e4348; text-transform:capitalize;">Message</span></v-btn>
                   </div>
 
-                   <div class="col-6 text-center py-0 px-0" v-if="this.$root.userBasicInfo.user_connected">
+                   <div class="col-6 text-center py-0 px-0" v-if="this.$root.userBasicInfo.user_connected == true">
                     <v-btn  rounded color="#ffffff" small @click.stop="viewProfile"><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">Profile</span></v-btn>
                   </div>
 
