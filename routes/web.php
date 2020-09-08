@@ -116,6 +116,10 @@ Route::get('/download-file-{messageId}','SpaceController@downloadFile');
 Route::post('/leave-space','SpaceController@leaveSpace');
 Route::post('/delete-message','SpaceController@deleteMessage');
 Route::post('/save-selected-channels','SpaceController@saveSelectedChannels');
+Route::get('/check-for-new-space-messages','SpaceController@CheckForUpdatesSpace');
+
+// should be deleted
+Route::get('/assistant-messager/{messageId}','SpaceController@createMessageAssistant');
 
 
 
@@ -152,6 +156,8 @@ Route::get('/fetch-trend-connections/{query?}','ProfileController@fetchTrendConn
 // sanbox routes
 Route::post('/run-code-on-sandbox','SandboxController@runCode');
 Route::post('/check-for-submission','SandboxController@checkSubmission');
+
+
 
 
 

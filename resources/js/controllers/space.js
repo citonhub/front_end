@@ -317,6 +317,7 @@ const app = new Vue({
      userBasicInfo:[],
      infoLoaderText:'loading user info...',
      selectedMember:[],
+     makeRecallSpace: true,
         },
      mounted: function () {
       this.pageloader= false;
@@ -415,6 +416,9 @@ const app = new Vue({
         this.ChatList[1].map((space)=>{
              
           if(space.space_id == spaceId){
+
+            this.teamUnread -= space.unread;
+            
             space.unread = 0;
           }
   
@@ -423,6 +427,7 @@ const app = new Vue({
         this.ChatList[2].map((space)=>{
          
           if(space.space_id == spaceId){
+            this.channelUnread -= space.unread;
             space.unread = 0;
           }
   
@@ -432,6 +437,9 @@ const app = new Vue({
         this.ChatList[4].map((space)=>{
          
           if(space.space_id == spaceId){
+
+            this.directUnread -= space.unread;
+
             space.unread = 0;
           }
   
@@ -446,33 +454,100 @@ const app = new Vue({
     },
     checkUnread: function(){
 
-      this.$root.teamUnread = 0;
+      this.teamUnread = 0;
+      this.channelUnread = 0;
+      this.directUnread = 0;
 
-      this.$root.channelUnread = 0;
 
-      this.$root.directUnread = 0;
 
-      
+       if(this.ChatList[1] != undefined){
 
-       for (let index = 0; index < this.$root.ChatList[1].length; index++) {
-      
-       this.$root.teamUnread += this.$root.ChatList[1][index].unread;
+        for (let index = 0; index < this.$root.ChatList[1].length; index++) {
+           
+          let unreadStoredMsg = this.$root.getLocalStore('unread' + this.$root.ChatList[1][index].space_id);
+  
+          unreadStoredMsg.then((result)=>{
+  
+             if(result != null){
+  
+              let finalResultUnread = JSON.parse(result);
+  
+              
+              this.$root.teamUnread += finalResultUnread.length ;
+  
+              this.$root.ChatList[1][index].unread = finalResultUnread.length;
+  
+             }
+  
+            
+              
+            
+  
+          });
         
-      }
-
-
-       for (let index = 0; index < this.$root.ChatList[2].length; index++) {
-      
-       this.$root.channelUnread += this.$root.ChatList[2][index].unread;
+          
+        }
+  
+  
+         for (let index = 0; index < this.$root.ChatList[2].length; index++) {
+  
+          let unreadStoredMsg2 = this.$root.getLocalStore('unread' + this.$root.ChatList[2][index].space_id);
+  
+          unreadStoredMsg2.then((result)=>{
+  
+            if(result != null){
+  
+              let finalResultUnread2 = JSON.parse(result);
+  
+              
+              this.$root.channelUnread += finalResultUnread2.length  ;
+  
+  
+               this.$root.ChatList[2][index].unread = finalResultUnread2.length;
+  
+            }
+  
+           
+            
+  
+          });
         
-      }
-
-
-       for (let index = 0; index < this.$root.ChatList[4].length; index++) {
-      
-       this.$root.directUnread += this.$root.ChatList[4][index].unread;
+         
+          
+        }
+  
+  
+         for (let index = 0; index < this.$root.ChatList[4].length; index++) {
+  
+          let unreadStoredMsg3 = this.$root.getLocalStore('unread' + this.$root.ChatList[4][index].space_id);
+  
+          unreadStoredMsg3.then((result)=>{
+  
+            if(result != null){
+  
+              let finalResultUnread3 = JSON.parse(result);
+  
+              this.$root.directUnread += finalResultUnread3.length ;
+  
+              this.$root.ChatList[4][index].unread = finalResultUnread3.length;
+              
+  
+            }
+  
+            
+              
+            
+  
+          });
         
-      }
+       
+          
+        }
+
+       }
+      
+
+       
     },
     LocalStore:function(key,data){
     
@@ -642,11 +717,11 @@ if (response.status == 200) {
             this.ChatList[1].map((space)=>{
              
               if(space.space_id == e.data.space_id){
-                space.unread = space.unread + 1;
+               
                 space.message_track = new Date();
                 
 
-                this.teamUnread = this.teamUnread + 1;
+              
                
               }
 
@@ -655,9 +730,9 @@ if (response.status == 200) {
             this.ChatList[2].map((space)=>{
              
               if(space.space_id == e.data.space_id){
-                space.unread = space.unread + 1;
+               
                 space.message_track = new Date();
-                this.channelUnread = this.channelUnread + 1;
+               
               }
 
             });
@@ -666,17 +741,18 @@ if (response.status == 200) {
             this.ChatList[4].map((space)=>{
              
               if(space.space_id == e.data.space_id){
-                space.unread = space.unread + 1;
+              
                 space.message_track = new Date();
-                this.directUnread = this.directUnread + 1;
+               
+                
               }
 
 
-              this.sortChatList();
+             
 
             });
 
-          
+            this.sortChatList();
             
           }
 

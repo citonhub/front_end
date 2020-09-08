@@ -505,6 +505,55 @@ class SpaceController extends Controller
    }
 
 
+   public function createMessageAssistant($messageId){
+
+       $message = SpaceMessage::where('id',$messageId)->first();
+
+      
+
+        if($message != null){
+
+          $assistantDMs = Space::where('user_2',93)
+          ->where('spaces.type','Direct')
+          ->get();
+
+           
+
+           foreach ($assistantDMs as $space) {
+
+            $newMessage = SpaceMessage::create([
+               "space_id"=>$space->space_id,
+               "type"=>$message->type,
+               "is_reply"=>$message->is_reply,
+               "user_id"=> 93,
+               "replied_message_id"=> $message->replied_message_id,
+               "content"=> $message->content,
+               "temp_id"=> $message->temp_id,
+            ]);
+
+            $newMessage->save();
+           
+   
+            $userUnread = UnreadMessage::create([
+               'user_id'=> $space->user_1,
+               'space_id'=> $space->space_id,
+               'msg_read'=> false,
+               'message_id'=> $newMessage->id
+               ]);
+
+               $userUnread->save();
+           }
+
+          
+
+        }
+      
+    dd('done');
+
+
+   }
+
+
    public function downloadFile($messageId){
      
       $fileMessage = FileMessage::where('message_id',$messageId)->first();
@@ -851,9 +900,9 @@ foreach ($userDirectSpaces as $spaceDirect) {
   }
 
 
-  $timeArray = $this->messageTime($unreadMsgArray);
+ 
 
-  $newMessages = $this->MessageEngine($unreadMsgArray,$timeArray);
+  $newMessages = $this->spaceMessageEngine($unreadMsgArray);
 
 
    $localMessageCount = $request->get('localMessageCount');
@@ -1366,6 +1415,123 @@ public function MessageEngine($messageArray,$timeArray){
     return $newMessageArray;
  }
 
+
+  public function spaceMessageEngine($messageArray){
+
+
+   $newMessageArray = [];
+
+   foreach ($messageArray as $message) {
+      $message = (array) $message;
+
+
+    
+      $messageMember = $this->checkDirectMessage($message["space_id"],$message["user_id"]);
+
+       if(count($messageMember) != 0){
+          $message["member"] = $messageMember[0];
+       }else{
+          $message["member"] = [];
+       }
+       
+    
+       
+
+      if($message["type"] == 'image'){
+          
+          $ImageMessage = ImageMessage::where('message_id',$message["message_id"])->get();
+
+          $message["image"] = $ImageMessage;
+
+       }
+
+       if($message["type"] == 'action'){
+         
+          $ActionMessage = ActionMessage::where('message_id',$message["message_id"])->first();
+ 
+          $message["action"] = $ActionMessage;
+       }
+
+
+       if($message["type"] == 'project'){
+          
+          $project = Project::where('project_slug',$message["content"])->first();
+
+          $message["project"] = $project;
+
+       }
+
+       if($message["type"] == 'video'){
+          
+          $VideoMessage = VideoMessage::where('message_id',$message["message_id"])->first();
+
+          $message["video"] = $VideoMessage;
+
+       }
+
+       if($message["type"] == 'join'){
+          
+          $user = User::where('username',$message["username"])->first();
+
+          $message["user"] = $user;
+
+       }
+
+       if($message["type"] == 'code'){
+          
+          $CodeMessage = CodeMessage::where('message_id',$message["message_id"])->first();
+
+          $message["code"] = $CodeMessage;
+
+       }
+
+       if($message["type"] == 'file'){
+          
+          $FileMessage = FileMessage::where('message_id',$message["message_id"])->first();
+
+          $message["file"] = $FileMessage;
+
+       }
+
+       if($message["type"] == 'audio'){
+          
+          $AudioMessage = AudioMessage::where('message_id',$message["message_id"])->first();
+
+          $message["audio"] = $AudioMessage;
+
+       }
+      
+       $message["showReply"] = false;
+
+       $message["tagged"] = false;
+
+        $message["loading"] = false;
+
+        
+       if($message["is_reply"] == '1'){
+          
+         
+           $repliedMessage = SpaceMessage::where('id',$message["replied_message_id"])->first();
+              
+           if($repliedMessage != null){
+             $returnedResult = $this->subMessageEngine($repliedMessage);
+             $message["replied_message"] = $returnedResult[0];
+           }
+          
+
+       }else{
+          $message["replied_message"] = [];
+       }
+ 
+       array_push($newMessageArray,$message);
+       
+   }
+ 
+   return $newMessageArray;
+
+
+  }
+
   public function deleteMessage(Request $request){
 
      $message = SpaceMessage::where('id',$request->get('message_id'))->first();
@@ -1441,7 +1607,7 @@ return $newSpaceMembersArray;
                        'profiles.background_color as background_color',
                        'users.id as id'
                     )->where('space_members.space_id',$spaceId)
-                    ->paginate(20);
+                    ->paginate(1000);
          
                     $newSpaceMembersArray = [];
                
@@ -2110,6 +2276,70 @@ array_push($newSpaceArray,$userSpace);
 
       return $newChannelArray;
    
+ }
+
+ public function CheckForUpdatesSpace(){
+
+    
+   $userSpaces = DB::table('space_members')
+   ->join('spaces','spaces.space_id','space_members.space_id')
+   ->select(
+       'spaces.space_id as space_id'
+   )
+   ->orderBy('spaces.created_at','desc')
+   ->where('space_members.user_id',Auth::id())
+   ->get();
+
+   $finalSpaceArray = [];
+
+    foreach ($userSpaces as $space) {
+      
+      $spaceArray = (array) $space;
+
+      $allUnread = UnreadMessage::where('space_id',$spaceArray["space_id"])->where('user_id',Auth::id())->get();
+
+      $unreadMsgArray =  [];
+  
+     foreach ($allUnread as $message) {
+  
+        $spacemessages =DB::table('space_messages')
+        ->join('users','users.id','space_messages.user_id')
+        ->select(
+            'space_messages.content as content',
+            'space_messages.type as type',
+            'users.username as username',
+            'users.id as user_id',
+            'space_messages.space_id as space_id',
+            'space_messages.created_at as created_at',
+            'space_messages.is_reply as is_reply',
+            'space_messages.replied_message_id as replied_message_id',
+            'space_messages.id as message_id',
+            'space_messages.id as message_id'
+
+        )
+        ->where('space_messages.id',$message->message_id)
+     
+        ->first();
+        
+        array_push($unreadMsgArray,$spacemessages);
+        $message->delete();
+     }
+  
+  
+     
+  
+     $newMessages = $this->spaceMessageEngine($unreadMsgArray);
+
+      $spaceArray["new_messages"] = $newMessages;
+
+      
+      array_push($finalSpaceArray,$spaceArray);
+    }
+
+     return $finalSpaceArray;
+
+    
+
  }
 
 

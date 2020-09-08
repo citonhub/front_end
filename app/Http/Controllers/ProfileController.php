@@ -630,6 +630,14 @@ class ProfileController extends Controller
       ->get();
 
       $thisprofile["teams"] = count($userTeamSpaces);
+
+      $Checkconnection = UserConnection::where('user_id',Auth::id())->where('connected_user_id',$user->id)->get();
+
+      if($Checkconnection->isEmpty()){
+          $thisprofile["user_connected"] = false;
+      }else{
+       $thisprofile["user_connected"] = true;
+      }
  
  
      array_push($newProfile,$thisprofile);

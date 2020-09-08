@@ -468,6 +468,7 @@ export default {
        channelSuggestions:null,
        channelDirect: null,
        showProject:true,
+       fetchSpaceUpdate: true,
       }
     },
     mounted(){
@@ -486,6 +487,7 @@ export default {
        this.$root.sharePage = false;
        this.$root.showUserInfo = false;
        this.$root.selectedSpaceMembers = [];
+       this.$root.selectedSpace = [];
        this.$root.Messages = null;
        this.$root.codeEditorArray = [];
        this.$root.showRootReply = false;
@@ -500,7 +502,7 @@ export default {
 
        Echo.leave('space.' + this.$root.selectedSpace.space_id);
 
-        this.$root.selectedSpace.unread = 0;
+     
 
        
         
@@ -508,9 +510,117 @@ export default {
         this.$root.chatisOpen = false;
        this.$root.SpaceUsers = [];
        this.trackUser();
+      this.$root.checkUnread();
+       this.updateSpaceMessages();
        
     },
     methods:{
+        updateSpaceMessages: function(){
+
+           let interval = null;
+
+           interval = setInterval(()=>{
+               
+               if(this.$root.makeRecallSpace){
+
+                  this.$root.makeRecallSpace = false;
+
+     axios.get('/check-for-new-space-messages')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         let returnData = response.data;
+
+         returnData.forEach(space => {
+
+             if( this.$root.selectedSpace.space_id != space.space_id){
+
+
+                  let storedMsg = this.$root.getLocalStore(space.space_id);
+            
+             storedMsg.then((result)=>{
+
+              
+                   
+               if(result != null){
+                
+                let parsedResult = JSON.parse(result);
+
+                let MessagesFull = parsedResult;
+
+                let newMessages = space.new_messages;
+                     
+                    
+                 
+
+                 newMessages.forEach((messages)=>{
+
+                   MessagesFull[0].push(messages);
+
+                     this.$root.LocalStore(space.space_id,MessagesFull);
+
+                    let unreadStoredMsg = this.$root.getLocalStore('unread' + space.space_id);
+
+            unreadStoredMsg.then((result)=>{
+
+              let finalResultUnread = JSON.parse(result);
+
+               finalResultUnread.push(messages)
+
+              
+               
+              this.$root.LocalStore('unread' + space.space_id,finalResultUnread);
+               
+                 
+               
+
+               });
+
+                 });
+
+               
+
+                 
+
+               }
+             });
+
+             }
+            
+
+          
+           
+         });
+
+     if(this.fetchSpaceUpdate){
+      this.updateSpace();
+          }
+           
+        this.$root.makeRecallSpace = true;
+
+        this.$root.checkUnread();
+           this.$root.sortChatList();
+ 
+       
+
+     }
+       
+     
+     })
+     .catch(error => {
+       
+        this.$root.makeRecallSpace = true;
+     })
+
+               }
+
+         
+
+           },3000);
+
+        },
+       
        closeConnections:function(){
           if(this.$root.audioconnection != undefined){
 
@@ -642,20 +752,15 @@ export default {
       
       if (response.status == 200) {
 
-           this.$root.ChatList = response.data;
+          
 
         this.$root.LocalStore('ChatList' + this.$root.username,response.data);
 
-          this.$root.sortChatList();
+         this.fetchSpaceUpdate = false;
         
-         this.personalSpace = this.$root.ChatList[0];
-        this.teamSpace = this.$root.ChatList[1];
-        this.channelSpace = this.$root.ChatList[2];
-        this.channelProject = this.$root.ChatList[3].data;
-        this.channelDirect = this.$root.ChatList[4];
-         this.channelSuggestions = this.$root.ChatList[5];
+        
          
-         this.$root.checkUnread();
+         
        
 
      }
@@ -711,7 +816,7 @@ export default {
           
         this.$root.SpaceWithoutChannel = this.$root.ChatList;
 
-         this.updateSpace();
+        
 
                  }else{
             

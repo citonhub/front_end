@@ -212,8 +212,12 @@
                     <v-btn  rounded color="#ffffff" small :loading="loadingMessage" @click.stop="messageSpace" ><span style="font-size:12px; font-family:HeaderText; color:#1e4348; text-transform:capitalize;">Message</span></v-btn>
                   </div>
 
-                   <div class="col-6 text-center py-0 px-0">
+                   <div class="col-6 text-center py-0 px-0" v-if="this.$root.userBasicInfo.user_connected">
                     <v-btn  rounded color="#ffffff" small @click.stop="viewProfile"><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">Profile</span></v-btn>
+                  </div>
+
+                  <div class="col-6 text-center py-0 px-0" v-else>
+                    <v-btn  rounded color="#ffffff" :loading="connectionLoading" small @click.stop="connectToUser"><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">Connect</span></v-btn>
                   </div>
                  
 
@@ -354,7 +358,7 @@
       </v-list-item>
 
        <v-list-item v-for="(user,index) in this.$root.allAudioParticipant" :key="index"
-       style="border-bottom:1px solid #c5c5c5;"
+       style="border-bottom:1px solid #c5c5c5;" 
       >
         <v-list-item-avatar>
           <v-img :src="user[0].profile.image_name == null ? '/imgs/usernew.png' : '/imgs/profile/' + user[0].profile.image_name + '.' + user[0].profile.image_extension"></v-img>
@@ -378,6 +382,10 @@
          
         </v-list-item-icon>
       </v-list-item>
+
+      <div class="col-12 py-1 my-0 text-center" v-if="this.$root.allAudioParticipant.length == 0">
+      <span style="font-size:12px; color:gray;">Waiting for others to join...</span>
+      </div>
      
        
 
@@ -507,7 +515,7 @@
       
       <div v-if="this.$root.ShowButton">
        
-        <span style="position:absolute; top:74%; left:2%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="scrollPosition >= 1500 && !this.$root.showMsgDelete">
+        <span style="position:absolute; top:74%; left:2%; z-index:98757;"  class="d-md-none d-inline-block" v-if="scrollPosition >= 1500 && !this.$root.showMsgDelete">
           <span
                
                 v-if="!this.$root.showRootReply"
@@ -519,7 +527,7 @@
               </span>
      </span>
 
-      <span style="position:absolute; top:85%; left:2%;  z-index:999998757;" class="d-none d-md-inline-block" v-if="scrollPosition >= 1500 && !this.$root.showMsgDelete">
+      <span style="position:absolute; top:85%; left:2%;  z-index:98757;" class="d-none d-md-inline-block" v-if="scrollPosition >= 1500 && !this.$root.showMsgDelete">
           <span
               
                @click="scrollToBottom"
@@ -631,6 +639,7 @@ export default {
            loadingMessage: false,
            showUserInfo:false,
           typing:false,
+          connectionLoading:false,
           channel:null,
           audioMuted: false,
           errorLoadingMessage:false,
@@ -680,6 +689,25 @@ export default {
        
     },
     methods:{
+      connectToUser:function(){
+           this.connectionLoading = true;
+         axios.get('/connect-user-'+ this.$root.userBasicInfo.userData.username)
+      .then(response => {
+      
+      if (response.status == 200) {
+          
+          this.$root.userBasicInfo.user_connected = true;
+          
+          
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+      },
        viewFullImage:function(){
               let imageData = this.$root.userBasicInfo;
             this.$root.fullImageViewer = true;
@@ -1517,93 +1545,7 @@ export default {
 
 
      },
-      fetchUnreadMessages: function(result){
-           
-            this.$root.AlertRoot = true;
-        this.$root.AlertMsgRoot = 'loading new messages...';
-
-           axios.post('/check-for-unread-messages',{
-                spaceId: this.$route.params.spaceId,
-                existingMsg: result,
-                localMessageCount:  this.$root.returnedMessages.length
-                  })
-          .then(response => {
-             
-            
-            
-             if (response.status == 200) {
-
-                
-                if(response.data[0].length > 0){
-
-                 
-           
-             for (let index = 0; index < response.data[0].length; index++) {
-               
-            
-                  
-                  this.$root.returnedMessages.push(response.data[0][index]);
-                   this.$root.Messages.push(response.data[0][index]);
-                  this.$root.pushDataToLocal(response.data[0][index]);
-
-                  this.scrollToBottom();
-              
-                }
-
-
-                  this.generateUnreadMessage();
-               
-               
-
-              
-             }
-
-            
-                 this.updateLocalStorage();
-              
-
-               this.$root.selectedSpace = response.data[3];
-
-               this.$root.selectedSpaceMembers = response.data[2];
-
-             this.$root.spaceFullData[0] = this.$root.returnedMessages;
-             this.$root.spaceFullData[1] = response.data[3];
-             this.$root.spaceFullData[2] = response.data[2];
-
-              let fullData = [];
-                    fullData.push(this.$root.spaceFullData[0]);
-                fullData.push(this.$root.spaceFullData[1]);
-
-                 let thirdData = [];
-                    
-                    thirdData.push(this.$root.spaceFullData[2][0])
-
-                fullData.push(thirdData);
-
-               
-
-
-             this.$root.LocalStore(this.$route.params.spaceId,fullData);
-            
-
-       
-
-
-
-            
-            }
-
-
-              
-           this.$root.AlertRoot = false;
-           
-            
-          })
-          .catch(error => {
-              this.$root.AlertRoot = false;
-          })
-
-      },
+     
       fetchMessages: function(){
 
          if(this.$root.checkauthroot == 'auth'){
@@ -1636,7 +1578,7 @@ export default {
        this.$root.Messages = returnedData;
 
        
-       
+        this.generateUnreadMessage();
      
         
        this.$root.selectedSpace = finalResult[1];
@@ -1653,21 +1595,7 @@ export default {
         container.scrollTo(0 , top);
         },500)
 
-         let unreadStoredMsg = this.$root.getLocalStore('unread' + this.$route.params.spaceId);
-
-           unreadStoredMsg.then((result)=>{
-
-              let finalResultUnread = JSON.parse(result);
-
-              if(this.$root.sendingMessage == false){
-
-                this.fetchUnreadMessages(finalResultUnread);
-
-              }
-               
-             
-
-           });
+        
            
             
               
