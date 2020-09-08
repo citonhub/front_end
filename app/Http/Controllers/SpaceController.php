@@ -2332,8 +2332,14 @@ array_push($newSpaceArray,$userSpace);
 
       $spaceArray["new_messages"] = $newMessages;
 
+       if(count($newMessages) > 0){
+
+         array_push($finalSpaceArray,$spaceArray);
+
+       }
+
       
-      array_push($finalSpaceArray,$spaceArray);
+     
     }
 
      return $finalSpaceArray;
