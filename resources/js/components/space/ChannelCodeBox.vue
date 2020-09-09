@@ -124,9 +124,9 @@
    :srcdoc="ResultCode" 
     style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%;" v-if="selectedLangId == 0"></iframe>
 
-    <div v-else  style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%; font-size:13px;" class="px-2 py-2">
-         {{ ResultCode }}
-    </div>
+    <textarea v-else v-model="ResultCode"  style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%; font-size:13px;" class="px-2 py-2">
+       
+    </textarea>
 
 
    
@@ -740,7 +740,7 @@ methods:{
 
               }else{
 
-                 _this.ResultCode =  response.data[0].status.description;
+                 _this.ResultCode =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr ;
 
                  clearInterval(interval);
 
@@ -812,9 +812,9 @@ methods:{
 
               }else{
 
-                 this.ResultCode = response.data[0].status.description  ;
-
                 
+
+                this.ResultCode =  response.data[0].stdout + '\n Error: \n' + response.data[0].stderr ;
 
               }
 
