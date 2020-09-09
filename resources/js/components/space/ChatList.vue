@@ -487,7 +487,7 @@ export default {
        this.$root.sharePage = false;
        this.$root.showUserInfo = false;
        this.$root.selectedSpaceMembers = [];
-       this.$root.selectedSpace = [];
+     
        this.$root.Messages = null;
        this.$root.codeEditorArray = [];
        this.$root.showRootReply = false;
@@ -509,6 +509,7 @@ export default {
        this.fetchChatList();
         this.$root.chatisOpen = false;
        this.$root.SpaceUsers = [];
+         this.$root.selectedSpace = [];
        this.trackUser();
       this.$root.checkUnread();
        this.updateSpaceMessages();
