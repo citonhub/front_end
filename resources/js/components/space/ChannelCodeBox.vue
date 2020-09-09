@@ -50,7 +50,7 @@
          </div>
        </div>
 
-         <span style="position:absolute; top:85%; right:5%;z-index:1000;"  v-if="!this.$root.codeIsLive">
+         <span style="position:absolute; top:80%; right:5%;z-index:1000;"  v-if="!this.$root.codeIsLive">
            <v-btn
                 color="#35747e"
                 small
@@ -63,7 +63,7 @@
          
      </span>
 
-      <span style="position:absolute; top:85%; right:5%;z-index:1000;"  v-else>
+      <span style="position:absolute; top:80%; right:5%;z-index:1000;"  v-else>
            <v-btn
                 color="#35747e"
                 small
@@ -88,7 +88,7 @@
          
      </span>
 
-     <span style="position:absolute; top:85%; left:5%;z-index:1000;" >
+     <span style="position:absolute; top:80%; left:5%;z-index:1000;" >
            <v-btn
                 color="#35747e"
                 small
@@ -130,7 +130,7 @@
 
 
    
-      <span style="position:absolute; top:90%; right:5%;z-index:1000;">
+      <span style="position:absolute; top:80%; right:5%;z-index:1000;">
            <v-btn
                 color="#35747e"
                 small
@@ -702,7 +702,7 @@ methods:{
 
          let _this = this;
 
-        let interval = setInterval(check,3000);
+        let interval = setInterval(check,1000);
 
 
         function check(){
