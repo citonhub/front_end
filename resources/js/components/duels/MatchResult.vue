@@ -10,7 +10,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
             
          </div>
-         <div class=" py-1 my-0 px-2 "  style=" background:#b7dbe1;border-bottom:2px solid #4495a2; overflow-x:auto; white-space:nowrap; position:absolute; left:10%; width:70%; " >
+         <div class=" py-1 my-0 px-2 "  style=" background:#b7dbe1;border-bottom:2px solid #4495a2; overflow-x:auto; white-space:nowrap; position:absolute; left:10%; width:90%; " >
              <v-chip v-for="(participant,index) in participants" :key="index"
       class="ma-1 ml-0 fileText d-inline-block"
       small
@@ -21,10 +21,7 @@
      <span  v-if="participant.type == 'team'" >@{{participant.team.name}}</span> 
     </v-chip>  
          </div>
-         <div class="py-2 my-0 text-center px-1" style=" position:absolute; left:80%; width:20%; background:#b7dbe1;border-bottom:2px solid #4495a2;" >
-            
-            <v-btn x-small color="#3E8893 "  @click="SaveVotes" :loading="saveLoading" style="color:white;"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Save</span></v-btn>
-         </div>
+        
         
       </div>
 
@@ -64,7 +61,7 @@
                      <div class="col-8 py-0 my-0 text-center">
                        
                    <div v-for="(vote,index) in votes" :key="index">
-                      <v-rating v-model="vote.stars" background-color="#edf6f7" color="#edf6f7"  v-if="vote.participant_id == selectedParticipantId"></v-rating>
+                      <v-rating v-model="vote.stars" @input="SaveVotes()" background-color="#edf6f7" color="#edf6f7"  v-if="vote.participant_id == selectedParticipantId"></v-rating>
                    </div>
                      </div>
                      <div class="col-4 py-2 my-0 text-center">
@@ -283,7 +280,9 @@ methods:{
        },
       SaveVotes:function(){
 
-         if(this.votes.length == 0){
+         setTimeout(()=>{
+
+            if(this.votes.length == 0){
            return;
          }
           this.saveLoading = true;
@@ -307,6 +306,10 @@ methods:{
        this.showAlert(5000,'Error-' + error);
      }) 
 
+
+         },1000)
+
+        
 
       }
      
