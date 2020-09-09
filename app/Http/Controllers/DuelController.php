@@ -213,6 +213,7 @@ class DuelController extends Controller
         'duel_participants.id as id',
         'duel_participants.panel_id as panel_id',
         'duel_participants.stars as stars',
+        'duel_participants.type as type',
         'users.username as username'
      )
     ->where('duel_participants.duel_id',$duelId)
@@ -231,12 +232,22 @@ class DuelController extends Controller
          foreach ($allVotes as $vote) {
            $voteCount += $vote->stars;
          }
+
+         if($participant["type"] == 'team'){
+
+          $duelTeam = DuelTeam::where('panel_id',$participant["panel_id"])->first();
+
+          $participant["team"] = $duelTeam;
+
+         }
         $participant["votes"] = $voteCount;
+
+
       
         array_push($duelFullResult,$participant);
      }
 
-     $duel = $this->fetchThisDuel($duelId);
+     $duel = $this->fetchThisDuel($duelId,'user');
 
     
      return [$duelFullResult,$duel];
