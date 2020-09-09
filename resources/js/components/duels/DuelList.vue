@@ -50,10 +50,10 @@
                      <div class="col-4 py-1 text-center" >
                             <span  v-if="checkDuelStatus(duel) == 'Pending'">
 
-                    <v-btn @click="startDuel(duel)" rounded x-small color="#3E8893"
+                    <v-btn @click="startDuel(duel)" rounded x-small color="#3E8893" v-if="duel.started == 0"
               style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;">start</v-btn>            
                             </span>
-                            <span class="statusnew" v-if="checkDuelStatus(duel) != 'Pending'">{{checkDuelStatus(duel)}}</span>
+                            <span class="statusnew" v-else>Active</span>
                      </div>
                      <div class="col-4 py-1 text-center">
                       <v-btn  color="#4495a2" icon @click="showShare(duel)" ><span><v-icon>mdi-share-variant mdi-18px</v-icon></span></v-btn>
@@ -224,6 +224,8 @@ export default {
           
        },
     showboard: function(duel){
+
+        this.$root.reloadDuelBoard = true;
            
           this.$router.push({ path: '/duel/' + duel.duel_id +'/board' + '/user' });
        },
@@ -239,6 +241,8 @@ export default {
            if (response.status == 200) {
                 
                 duel.started = 1;
+
+
               
                 
 

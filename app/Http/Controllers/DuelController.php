@@ -198,7 +198,7 @@ class DuelController extends Controller
       ->where('duel_participants.duel_id',$duelId)
      ->orderBy('duel_participants.created_at', 'desc')->get();
 
-     $duel = $this->fetchThisDuel($duelId);
+     $duel = $this->fetchThisDuel($duelId,'user');
 
      $duelVotes = $this->DuelVotes($duelId);
 

@@ -24,7 +24,7 @@
                  <div class="row py-0 my-0">
                     <div class="col-4 text-left my-0 py-0">
                          <v-btn x-small color="#ffffff " v-if="checkDuelStatus(this.selectedDuel) == 'Voting'"><span style="color:rgba(38, 82, 89,0.8); font-weight:bolder;" @click="result('vote')">Vote</span></v-btn>
-                        <v-btn x-small color="#ffffff " v-if="checkDuelStatus(this.selectedDuel) == 'Ended'"><span style="color:rgba(38, 82, 89,0.8); font-weight:bolder;" @click="result('result')">Results</span></v-btn>
+                        <v-btn x-small color="#ffffff " v-if="checkDuelStatus(this.selectedDuel) == 'Ended'"><span style="color:rgba(38, 82, 89,0.8); font-weight:bolder;" @click="result('vote')">Results</span></v-btn>
                     </div>
                     <div class="col-4 text-center py-1">
 
@@ -295,7 +295,7 @@ export default {
 
       },
       fetchDuel: function(){
-          if(this.$root.duels.length != 0){
+          if(this.$root.duels.length != 0 && !this.$root.reloadDuelBoard){
               var thisDuel = this.$root.duels.filter((eachduel)=>{
              return eachduel.duel_id == this.$route.params.duelId;
            })
@@ -349,7 +349,7 @@ export default {
          
           this.countDownTimer();
         
-        
+        this.$root.reloadDuelBoard = false;
 
      }
        

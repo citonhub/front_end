@@ -57,10 +57,23 @@
        
                 <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
                  class="d-flex col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2" v-if="votes.length != 0">
-                  <v-rating v-model="rating" background-color="#edf6f7" color="#edf6f7"  v-if="selectedParticipantId == ''"></v-rating>
+                  
+                  <span  v-if="selectedParticipantId == ''"><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:12px; color:white;" class="px-1">Votes</span> </span>
+                  
+                   <div class="row py-0 my-0" v-else>
+                     <div class="col-8 py-0 my-0 text-center">
+                       
                    <div v-for="(vote,index) in votes" :key="index">
                       <v-rating v-model="vote.stars" background-color="#edf6f7" color="#edf6f7"  v-if="vote.participant_id == selectedParticipantId"></v-rating>
                    </div>
+                     </div>
+                     <div class="col-4 py-2 my-0 text-center">
+             <span><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:13px; color:white;" class="px-1">{{participantSelected.votes}} Votes</span> </span>
+                     </div>
+                   </div>
+
+                  
+                 
                    
                 </div>
 
@@ -193,12 +206,12 @@ methods:{
       
         let status = this.checkDuelStatus(duel.duel_terminal_time,duel.duel_voting_time);
 
-        if(status == 'Ended'){
-            this.votes = [];
+      
+            
             this.fetchResults()
-           this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/participant/result' });
+
+            this.selectedParticipantId = '';
            
-        }
          
        
 
