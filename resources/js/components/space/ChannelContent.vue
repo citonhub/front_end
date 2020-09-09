@@ -1605,7 +1605,7 @@ export default {
 
         
            
-            
+            this.updateLocalStorage();
               
                 
                }else{

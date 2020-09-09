@@ -520,6 +520,9 @@ export default {
            let interval = null;
 
            interval = setInterval(()=>{
+
+             this.$root.checkUnread();
+            this.$root.sortChatList();
                
                if(this.$root.makeRecallSpace){
 
@@ -581,6 +584,8 @@ export default {
 
                
 
+               
+
                  
 
                }
@@ -599,8 +604,7 @@ export default {
            
         this.$root.makeRecallSpace = true;
 
-        this.$root.checkUnread();
-           this.$root.sortChatList();
+            
  
        
 

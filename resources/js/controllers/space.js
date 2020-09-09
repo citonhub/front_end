@@ -369,10 +369,14 @@ const app = new Vue({
 
     },
     sortChatList: function(){
+        if(this.ChatList[1] != undefined){
 
         this.sortArray(this.ChatList[1]);
         this.sortArray(this.ChatList[2]);
         this.sortArray(this.ChatList[4]);
+
+        }
+       
     },
     updateSpaceTracker: function(spaceId){
      
@@ -449,18 +453,17 @@ const app = new Vue({
       }
 
       this.$root.LocalStore('ChatList' + this.username,this.ChatList);
-      this.checkUnread();
       this.$root.LocalStore('unread' + spaceId,[]);
     },
     checkUnread: function(){
 
-      this.teamUnread = 0;
-      this.channelUnread = 0;
-      this.directUnread = 0;
+      
 
 
 
        if(this.ChatList[1] != undefined){
+
+         let unreadLength1 = 0;
 
         for (let index = 0; index < this.$root.ChatList[1].length; index++) {
            
@@ -472,8 +475,10 @@ const app = new Vue({
   
               let finalResultUnread = JSON.parse(result);
   
-              
-              this.$root.teamUnread += finalResultUnread.length ;
+              unreadLength1 += finalResultUnread.length ;
+
+              this.$root.teamUnread = unreadLength1;
+            
   
               this.$root.ChatList[1][index].unread = finalResultUnread.length;
   
@@ -487,8 +492,11 @@ const app = new Vue({
         
           
         }
+
+       
   
-  
+        
+        let unreadLenght2 = 0;
          for (let index = 0; index < this.$root.ChatList[2].length; index++) {
   
           let unreadStoredMsg2 = this.$root.getLocalStore('unread' + this.$root.ChatList[2][index].space_id);
@@ -500,9 +508,13 @@ const app = new Vue({
               let finalResultUnread2 = JSON.parse(result);
   
               
-              this.$root.channelUnread += finalResultUnread2.length  ;
+              
+              unreadLenght2 += finalResultUnread2.length ;
+
+            
   
-  
+               this.$root.channelUnread = unreadLenght2;
+
                this.$root.ChatList[2][index].unread = finalResultUnread2.length;
   
             }
@@ -515,7 +527,10 @@ const app = new Vue({
          
           
         }
-  
+
+       
+      
+        let UnreadLength3 = 0;
   
          for (let index = 0; index < this.$root.ChatList[4].length; index++) {
   
@@ -527,7 +542,10 @@ const app = new Vue({
   
               let finalResultUnread3 = JSON.parse(result);
   
-              this.$root.directUnread += finalResultUnread3.length ;
+              
+              UnreadLength3 += finalResultUnread3.length ;
+
+              this.$root.directUnread  = UnreadLength3;
   
               this.$root.ChatList[4][index].unread = finalResultUnread3.length;
               
@@ -543,6 +561,8 @@ const app = new Vue({
        
           
         }
+
+       
 
        }
       
