@@ -373,8 +373,7 @@ methods:{
   muteAudio:function(){
 
          
-         var localStream = this.$root.audioconnection.attachStreams[0];
-           localStream.mute('audio');
+         
 
            this.$root.localAudioMuted = true;
 
@@ -382,8 +381,7 @@ methods:{
       },
       unmuteAudio: function(){
 
-          var localStream = this.$root.audioconnection.attachStreams[0];
-           localStream.unmute('audio');
+        
 
            this.$root.localAudioMuted = false;
 
