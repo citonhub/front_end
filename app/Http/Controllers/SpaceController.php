@@ -1623,7 +1623,8 @@ return $newSpaceMembersArray;
                        'profiles.image_name as image_name',
                        'profiles.image_extension as image_extension', 
                        'profiles.background_color as background_color',
-                       'users.id as id'
+                       'users.id as id',
+                       'is_admin as is_admin'
                     )->where('space_members.space_id',$spaceId)
                     ->paginate(1000);
          
@@ -2060,7 +2061,7 @@ array_push($newSpaceArray,$userSpace);
      
            $spaceMember = SpaceMember::create([
               'user_id'=> Auth::id(),
-              "is_admin"=> false,
+              "is_admin"=> true,
               'space_id'=> 'Personal' . $spaceId
            ]);
      

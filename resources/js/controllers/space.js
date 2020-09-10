@@ -1247,14 +1247,24 @@ if (response.status == 200) {
    OfferToReceiveVideo: false
             };
 
-         this.$root.connection.iceServers = [{
-       'urls': [
-       'stun:stun.l.google.com:19302',
-       'stun:stun1.l.google.com:19302',
-       'stun:stun2.l.google.com:19302',
-       'stun:stun.l.google.com:19302?transport=udp',
-   ]
-     }];
+
+      // first step, ignore default STUN+TURN servers
+      this.$root.connection.iceServers = [];
+
+// second step, set STUN url
+  this.$root.connection.iceServers.push({
+    urls: 'stun:165.22.77.63:3478'  
+   });
+
+// last step, set TURN url (recommended)
+
+        
+     this.$root.connection.iceServers.push({
+      urls: 'turn:165.22.77.63:3478',
+      credential: '#5Raymond',
+      username: 'ILoveCitonHubPort'
+     });
+
 
      this.$root.connection.videosContainer = document.getElementById('videos-container');
 
@@ -1378,22 +1388,21 @@ this.$root.audioconnection.sdpConstraints.mandatory = {
     OfferToReceiveVideo: false
 };
 
+ // first step, ignore default STUN+TURN servers
+ this.$root.audioconnection.iceServers = [];
 
+ // second step, set STUN url
+   this.$root.audioconnection.iceServers.push({
+     urls: 'stun:165.22.77.63:3478'  
+    });
+ 
+ // last step, set TURN url (recommended)
 
-
-
-
-// https://www.rtcmulticonnection.org/docs/iceServers/
-// use your own TURN-server here!
-
-this.$root.audioconnection.iceServers = [{
-    'urls': [
-        'stun:stun.l.google.com:19302',
-        'stun:stun1.l.google.com:19302',
-        'stun:stun2.l.google.com:19302',
-        'stun:stun.l.google.com:19302?transport=udp',
-    ]
-}];
+this.$root.audioconnection.iceServers.push({
+  urls: 'turn:165.22.77.63:3478',
+  credential: '#5Raymond',
+  username: 'ILoveCitonHubPort'
+ });
 
 this.$root.audioconnection.audiosContainer = document.getElementById('audios-container');
 this.$root.audioconnection.onstream = function(event) {
