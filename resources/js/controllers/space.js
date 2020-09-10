@@ -370,10 +370,21 @@ const app = new Vue({
     },
     sortChatList: function(){
         if(this.ChatList[1] != undefined){
+  
+          let array1 = this.ChatList[1];
+          let array2 = this.ChatList[2];
+          let array3 =  this.ChatList[4];
+        
+        
+         this.sortArray(array1);
+         this.sortArray(array2);
+          this.sortArray(array3);
+      
+          this.ChatList[1] = array1;
+          
+          this.ChatList[2] = array2;
 
-        this.sortArray(this.ChatList[1]);
-        this.sortArray(this.ChatList[2]);
-        this.sortArray(this.ChatList[4]);
+          this.ChatList[4] = array3;
 
         }
        
@@ -1353,12 +1364,12 @@ this.$root.audioconnection.socketMessageEvent = 'audio-conference';
          this.$root.audioconnection.socketCustomParameters = '&extra=' + JSON.stringify(this.$root.audioconnection.extra);
 
 this.$root.audioconnection.session = {
-    audio: true,
+    audio: false,
     video: false
 };
 
 this.$root.audioconnection.mediaConstraints = {
-    audio: true,
+    audio: false,
     video: false
 };
 
@@ -1366,6 +1377,11 @@ this.$root.audioconnection.sdpConstraints.mandatory = {
     OfferToReceiveAudio: true,
     OfferToReceiveVideo: false
 };
+
+
+
+
+
 
 // https://www.rtcmulticonnection.org/docs/iceServers/
 // use your own TURN-server here!
@@ -1465,29 +1481,64 @@ this.$root.audioconnection.onunmute = function(e) {
       },
       checkAudioRoomState: function(){
       
-        let _this = this;
- 
+      
+        if(this.$root.audioconnection != undefined){
+
+          this.$root.connectingToSocket = true;
+
+          this.$root.audioconnection.DetectRTC.load(()=> {
+
+         
+            if (this.$root.audioconnection.DetectRTC.hasMicrophone === true) {
+                // enable microphone
+                this.$root.audioconnection.mediaConstraints.audio = true;
+                this.$root.audioconnection.session.audio = true;
+            }
           
- 
-              this.$root.audioconnection.openOrJoin('audio' + this.$route.params.spaceId, function(isRoomExist, roomid) {
-         if (isRoomExist === false && _this.$root.audioconnection.isInitiator === true) {
-             // if room doesn't exist, it means that current user will create the room
-             _this.openAudioRoom();
-         }
- 
-         if(isRoomExist) {
+            if (this.$root.audioconnection.DetectRTC.hasMicrophone === false ) {
+          
+              alert('Please attach a microphone device.');
+          
+                this.$root.audioconnection.dontCaptureUserMedia = true;
+            }
+          
+            if (this.$root.audioconnection.DetectRTC.hasSpeakers === false) { // checking for "false"
+                alert('Please attach a speaker device. You will unable to hear the incoming audios.');
+  
+            }
+          
+          
+            let _this = this;
+   
+            this.$root.audioconnection.openOrJoin('audio' + this.$route.params.spaceId, function(isRoomExist, roomid) {
+       if (isRoomExist === false && _this.$root.audioconnection.isInitiator === true) {
+           // if room doesn't exist, it means that current user will create the room
+           _this.openAudioRoom();
+       }
+  
+       if(isRoomExist) {
+  
+     
+          
+         
+          
+          
+       }
+  
+      _this.getAllConnectedUsers();
+      });
+
+      this.$root.connectingToSocket = false;
+  
+          });
+   
+         
+   
+  
+          
+        }       
 
        
-            
-            _this.$root.connectingToSocket = false;
-            
-            
-         }
- 
-        _this.getAllConnectedUsers();
-     });
- 
-  
  
  
            

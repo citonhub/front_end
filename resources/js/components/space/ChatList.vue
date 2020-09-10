@@ -487,6 +487,8 @@ export default {
        this.$root.sharePage = false;
        this.$root.showUserInfo = false;
        this.$root.selectedSpaceMembers = [];
+
+
      
        this.$root.Messages = null;
        this.$root.codeEditorArray = [];
@@ -538,6 +540,8 @@ export default {
 
          returnData.forEach(space => {
 
+          
+
              if( this.$root.selectedSpace.space_id != space.space_id){
 
 
@@ -556,7 +560,7 @@ export default {
                 let newMessages = space.new_messages;
                      
                     
-                 
+                  
 
                  newMessages.forEach((messages)=>{
 
@@ -594,7 +598,8 @@ export default {
 
              }
             
-
+        
+            this.$root.updateSpaceTracker(space.space_id);
           
            
          });
@@ -622,7 +627,7 @@ export default {
 
          
 
-           },5000);
+           },3000);
 
         },
        
@@ -654,6 +659,7 @@ export default {
         this.$root.remoteCode = false;
          this.$root.remoteScreen = false;
           this.$root.remoteAudio= false;
+            this.$root.allAudioParticipant = [];
       },
       showTab: function(type){
         this.$root.checkIfUserIsLoggedIn('space');

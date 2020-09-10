@@ -299,14 +299,8 @@
         style="color:#ffffff; ">({{ this.$root.allAudioParticipant.length + 1 }})</span></div>
 
       <div class="col-4 py-0 my-0 text-right">
-        <div v-if="this.$root.remoteLiveHappening && this.$root.connectingToSocket">
-
-            <v-btn x-small color="#ffffff" @click="initaiteAudioConf" >
-        <span style="color:#265259; font-size:10px;font-family:HeaderText; ">Join</span>
-      </v-btn>
-            
-        </div>
-        <div v-else>
+       
+        <div>
            <v-btn x-small color="#ffffff" @click="closeConnections" v-if="!this.$root.connectingToSocket">
         <span style="color:#265259; font-size:10px;font-family:HeaderText; ">Leave</span>
       </v-btn>
@@ -647,6 +641,7 @@ export default {
           channel:null,
           audioMuted: false,
           errorLoadingMessage:false,
+          loadingJoin:false,
           imageArray:[
             {
               image_name: 'imgproj',
@@ -862,19 +857,13 @@ export default {
     muteAudio:function(){
 
          
-         var localStream = this.$root.audioconnection.attachStreams[0];
-           localStream.mute('audio');
-
-           this.audioMuted = true;
+         
 
 
       },
       unmuteAudio: function(){
 
-          var localStream = this.$root.audioconnection.attachStreams[0];
-           localStream.unmute('audio');
-
-           this.audioMuted = false;
+         
 
       },
       muteUserAudio:function(userId){
@@ -915,6 +904,7 @@ export default {
         this.$root.remoteCode = false;
          this.$root.remoteScreen = false;
           this.$root.remoteAudio= false;
+          this.$root.allAudioParticipant = [];
       },
     hideAlert:function(){
       this.$root.AlertRoot = false;
