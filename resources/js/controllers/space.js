@@ -1512,7 +1512,7 @@ this.$root.audioconnection.onunmute = function(e) {
             }
           
             if (this.$root.audioconnection.DetectRTC.hasSpeakers === false) { // checking for "false"
-                alert('Please attach a speaker device. You will unable to hear the incoming audios.');
+                alert('Please attach a speaker device. You will be unable to hear incoming audios.');
   
             }
           
