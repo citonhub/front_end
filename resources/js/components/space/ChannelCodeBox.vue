@@ -17,7 +17,10 @@
                      </select>
                    </div>
                     <div class="col-1 py-0 my-0 px-2 text-right">
-                    <v-btn icon color="#4495a2" @click="copyText"><v-icon>mdi-content-copy mdi-18px</v-icon></v-btn>
+                    <v-btn icon color="#4495a2" @click="copyText" v-if="!this.$root.codeIsLive"><v-icon>mdi-content-copy mdi-18px</v-icon></v-btn>
+
+                    
+                    <v-btn icon color="#4495a2" @click="showAdminUsers()" v-else><v-icon>mdi-account-cog mdi-18px</v-icon></v-btn>
                    </div>
                    <div class="col-2 py-0 my-0 px-2 text-right">
                     <v-btn icon color="#4495a2" @click="sendMessage"><v-icon>mdi-send mdi-18px</v-icon></v-btn>
@@ -144,6 +147,31 @@
      </span>
 
         </div>
+
+          <div    v-if="showAdminOptions" @click="showAdminOptions = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+           <div  @click.stop="showAdminOptions = true" style="position:absolute; height:auto; width:90%; top:30%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
+
+             <v-card style="border-radius:10px;"
+       height="auto"
+      
+       class="py-2 px-1" >
+
+             <div class="text-center">
+               <h6>Tutors</h6>
+             </div>
+           
+             <v-card tile flat  @click.stop="makeUserMaster(admin)" :color="admin.master_user ? '#b7dbe1': '#ffffff'" class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" v-for="(admin, index) in adminMembers" 
+             :key="index">
+        <span style="font-size:13px;" v-if="!checkIfUser(admin.user_id)">{{admin.username}}</span>
+         <span style="font-size:13px;" v-else>You</span>
+            </v-card>
+            
+           
+
+             </v-card>
+
+           </div>
+         </div>
  </div>
     
 </template>
@@ -218,6 +246,7 @@ export default {
         this.detectchange(this.language);
         this.$root.codeBoxOpened = true;
         this.setCodeContent();
+        this.updateCodeMaster();
        
       },
      components: {
@@ -364,7 +393,9 @@ export default {
         language: this.$root.fullCodeLanguage,
          code: this.$root.FullcodeContent,
          showCode:true,
-         ResultCode:''
+         ResultCode:'',
+         showAdminOptions:false,
+         adminMembers:[],
          
     }
    
@@ -389,26 +420,170 @@ methods:{
      onCmCursorActivity(codemirror) {
         console.debug('onCmCursorActivity', codemirror)
       },
+      makeUserMaster: function(member){
+
+         if(!this.checkIfisOwner()){
+            return;
+         }
+
+        axios.post('/make-user-master',{
+           memberId: member.memberId,
+           space_id: this.$route.params.spaceId
+         })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+          this.adminMembers.forEach((member)=>{
+            
+             member.master_user = false;
+
+          });
+        
+         this.adminMembers.map((member)=>{
+           if(member.memberId == response.data){
+
+             member.master_user = true;
+
+           }
+         })
+
+          this.$root.selectedSpaceMembers.forEach((member)=>{
+            
+             member.master_user = false;
+
+          });
+
+          this.$root.selectedSpaceMembers.map((member)=>{
+           if(member.memberId == response.data){
+
+             member.master_user = true;
+
+           }
+         })
+
+         
+        this.setCodeContent();
+
+        this.liveChanges(response.data,'new_master');
+      }
+       
+     
+     })
+     .catch(error => {
+
+       
+    
+     }) 
+
+      },
+      setNewUser: function(memberId){
+       
+       this.adminMembers.forEach((member)=>{
+            
+             member.master_user = false;
+
+          });
+        
+         this.adminMembers.map((member)=>{
+           if(member.memberId == memberId){
+
+             member.master_user = true;
+
+           }
+         })
+
+          this.$root.selectedSpaceMembers.forEach((member)=>{
+            
+             member.master_user = false;
+
+          });
+
+          this.$root.selectedSpaceMembers.map((member)=>{
+           if(member.memberId == memberId){
+
+             member.master_user = true;
+
+           }
+         })
+
+         
+        this.setCodeContent();
+
+        this.$root.newMasterId = null;
+
+      },
+      updateCodeMaster: function(){
+         
+         let interval = null;
+
+          interval = setInterval(()=>{
+
+             
+             if(this.$root.codeIsLive == false){
+            
+            clearInterval(interval);
+
+          }
+
+          if(this.$root.newMasterId != null){
+
+              this.setNewUser(this.$root.newMasterId);
+
+               
+
+          }
+
+          },1000)
+      },
+      showAdminUsers:function(){
+         
+         this.showAdminOptions = true;
+         this.adminMembers = this.$root.selectedSpaceMembers.filter((member)=>{
+           return member.is_admin == true;
+         });
+         
+
+      },
+      checkIfMaster: function(){
+     
+      let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
+   
+             return members.user_id == this.$root.user_temp_id;
+           });
+
+           if(userMemberData.length != 0){
+
+             return userMemberData[0].master_user;
+
+           }else{
+              return false
+           }
+
+
+      },
+      checkIfUser:function(userId){
+            if(userId == this.$root.user_temp_id){
+                return true;
+            }else{
+              return false;
+            }
+            
+         },
       setCodeContent:function(){
 
 
-    let userState = this.checkIfisOwner();
-        
+    let userState = this.checkIfMaster();
+       
 
-          if(this.$root.codeIsLive && !userState){
-
-             
-             this.cmOption.readOnly = 'nocursor';
-
-           let interval = setInterval(setCode,1000);
-
-      let _this = this;
-
+         let _this = this;
+        let  interval = setInterval(setCode,1000);
         function setCode(){
 
            _this.code = _this.$root.FullcodeContent;
            _this.language = _this.$root.fullCodeLanguage;
            _this.detectchange(_this.$root.fullCodeLanguage);
+           
 
            if(_this.$root.liveShowCode){
                _this.showCode = true;
@@ -424,8 +599,34 @@ methods:{
             clearInterval(interval);
 
           }
+
+          if(_this.$root.selfStopTrigger){
+
+         clearInterval(interval);
+          }
          
         }
+    
+
+        
+
+          if(this.$root.codeIsLive && !userState){
+
+             
+             this.cmOption.readOnly = 'nocursor';
+
+             this.$root.selfStopTrigger = false;
+          
+
+    
+
+         }else{
+
+
+           this.$root.selfStopTrigger = true;
+            
+        
+           this.cmOption.readOnly = undefined;
 
          }
           
@@ -590,7 +791,7 @@ methods:{
                
 
 
-              this.$root.LocalStore(this.$route.params.spaceId,fullData);
+              this.$root.LocalStore(this.$route.params.spaceId  + this.$root.username,fullData);
 
                  this.$root.scrollerControlHandler();
 

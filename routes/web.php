@@ -117,6 +117,8 @@ Route::post('/leave-space','SpaceController@leaveSpace');
 Route::post('/delete-message','SpaceController@deleteMessage');
 Route::post('/save-selected-channels','SpaceController@saveSelectedChannels');
 Route::get('/check-for-new-space-messages','SpaceController@CheckForUpdatesSpace');
+Route::post('/make-user-admin','SpaceController@makeUserAdmin');
+Route::post('/make-user-master','SpaceController@makeUserMaster');
 
 // should be deleted
 Route::get('/assistant-messager/{messageId}','SpaceController@createMessageAssistant');

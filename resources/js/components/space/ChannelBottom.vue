@@ -362,7 +362,7 @@ export default {
                
 
 
-             this.$root.LocalStore(this.$route.params.spaceId,fullData);
+             this.$root.LocalStore(this.$route.params.spaceId  + this.$root.username,fullData);
 
             
 

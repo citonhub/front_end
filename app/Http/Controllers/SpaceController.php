@@ -571,6 +571,46 @@ class SpaceController extends Controller
 
    }
 
+    public function makeUserAdmin(Request $request){
+
+       $spaceMember = SpaceMember::where('id',$request->get('memberId'))->first();
+
+        if($spaceMember != null){
+
+            $spaceMember->update([
+             'is_admin'=> true
+            ]);
+
+        }
+
+        return $request->get('memberId');
+        
+    }
+
+    public function makeUserMaster(Request $request){
+
+       $allSpaceMember = SpaceMember::where('space_id',$request->get('space_id'))->get();
+
+        foreach ($allSpaceMember as $member) {
+          
+          $member->update([
+            'master_user'=> false
+          ]);
+        }
+
+      $spaceMember = SpaceMember::where('id',$request->get('memberId'))->first();
+
+      if($spaceMember != null){
+
+          $spaceMember->update([
+           'master_user'=> true
+          ]);
+
+      }
+
+      return $request->get('memberId');
+
+    }
 
    public function downloadFile($messageId){
      
@@ -1198,7 +1238,7 @@ foreach ($userDirectSpaces as $spaceDirect) {
 
          }
 
-      $spaceMembers = SpaceMember::where('space_id',$spaceId)->get();
+      $spaceMembers = $this->fetchSpaceMembers($spaceId);
                   
 
      $newMessages = $this->MessageEngine($spacemessages,$timeArray);
@@ -1623,8 +1663,10 @@ return $newSpaceMembersArray;
                        'profiles.image_name as image_name',
                        'profiles.image_extension as image_extension', 
                        'profiles.background_color as background_color',
-                       'users.id as id',
-                       'is_admin as is_admin'
+                       'users.id as user_id',
+                       'space_members.id as memberId',
+                       'is_admin as is_admin',
+                       'master_user as master_user'
                     )->where('space_members.space_id',$spaceId)
                     ->paginate(1000);
          
@@ -1636,7 +1678,7 @@ return $newSpaceMembersArray;
                   $memberArray = (array) $member;
                    
                       
-                     $dmList = DMList::where('user_id',Auth::id())->where('other_user_id',$memberArray["id"])->get();
+                     $dmList = DMList::where('user_id',Auth::id())->where('other_user_id',$memberArray["user_id"])->get();
                        
                      if($dmList->isEmpty()){
                        

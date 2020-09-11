@@ -519,7 +519,7 @@ methods:{
        this.$root.codeEditorContent = code;
 
        
-           this.$root.LocalStore(this.$route.params.projectSlug,this.$root.CodeFilesData);
+           this.$root.LocalStore(this.$route.params.projectSlug ,this.$root.CodeFilesData);
      
         
       },

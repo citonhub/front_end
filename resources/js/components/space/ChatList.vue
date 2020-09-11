@@ -545,7 +545,7 @@ export default {
              if( this.$root.selectedSpace.space_id != space.space_id){
 
 
-                  let storedMsg = this.$root.getLocalStore(space.space_id);
+                  let storedMsg = this.$root.getLocalStore(space.space_id  + this.$root.username);
             
              storedMsg.then((result)=>{
 
@@ -566,9 +566,9 @@ export default {
 
                    MessagesFull[0].push(messages);
 
-                     this.$root.LocalStore(space.space_id,MessagesFull);
+                     this.$root.LocalStore(space.space_id  + this.$root.username,MessagesFull);
 
-                    let unreadStoredMsg = this.$root.getLocalStore('unread' + space.space_id);
+                    let unreadStoredMsg = this.$root.getLocalStore('unread' + space.space_id + this.$root.username);
 
             unreadStoredMsg.then((result)=>{
 
@@ -578,7 +578,7 @@ export default {
 
               
                
-              this.$root.LocalStore('unread' + space.space_id,finalResultUnread);
+              this.$root.LocalStore('unread' + space.space_id + this.$root.username,finalResultUnread);
                
                  
                

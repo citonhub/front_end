@@ -690,7 +690,7 @@ var blob = this.b64toBlob(realData, contentType);
                
 
 
-             this.$root.LocalStore(this.$route.params.spaceId,fullData);
+             this.$root.LocalStore(this.$route.params.spaceId  + this.$root.username,fullData);
 
             this.$root.scrollerControlHandler();
 

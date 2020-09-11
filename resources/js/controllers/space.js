@@ -318,6 +318,8 @@ const app = new Vue({
      infoLoaderText:'loading user info...',
      selectedMember:[],
      makeRecallSpace: true,
+     selfStopTrigger: false,
+     newMasterId:null,
         },
      mounted: function () {
       this.pageloader= false;
@@ -464,7 +466,7 @@ const app = new Vue({
       }
 
       this.$root.LocalStore('ChatList' + this.username,this.ChatList);
-      this.$root.LocalStore('unread' + spaceId,[]);
+      this.$root.LocalStore('unread' + spaceId  + this.$root.username,[]);
     },
     checkUnread: function(){
 
@@ -478,7 +480,7 @@ const app = new Vue({
 
         for (let index = 0; index < this.$root.ChatList[1].length; index++) {
            
-          let unreadStoredMsg = this.$root.getLocalStore('unread' + this.$root.ChatList[1][index].space_id);
+          let unreadStoredMsg = this.$root.getLocalStore('unread' + this.$root.ChatList[1][index].space_id + this.$root.username) ;
   
           unreadStoredMsg.then((result)=>{
   
@@ -510,7 +512,7 @@ const app = new Vue({
         let unreadLenght2 = 0;
          for (let index = 0; index < this.$root.ChatList[2].length; index++) {
   
-          let unreadStoredMsg2 = this.$root.getLocalStore('unread' + this.$root.ChatList[2][index].space_id);
+          let unreadStoredMsg2 = this.$root.getLocalStore('unread' + this.$root.ChatList[2][index].space_id + this.$root.username);
   
           unreadStoredMsg2.then((result)=>{
   
@@ -545,7 +547,7 @@ const app = new Vue({
   
          for (let index = 0; index < this.$root.ChatList[4].length; index++) {
   
-          let unreadStoredMsg3 = this.$root.getLocalStore('unread' + this.$root.ChatList[4][index].space_id);
+          let unreadStoredMsg3 = this.$root.getLocalStore('unread' + this.$root.ChatList[4][index].space_id + this.$root.username);
   
           unreadStoredMsg3.then((result)=>{
   
@@ -711,7 +713,7 @@ const app = new Vue({
 
       fullData.push(thirdData);
 
-   this.$root.LocalStore(this.$route.params.spaceId,fullData);
+   this.$root.LocalStore(this.$route.params.spaceId  + this.$root.username,fullData);
 
    axios.post('/delete-message',{
     'message_id':messageId
@@ -1042,7 +1044,7 @@ imageStyle:function(dimension,authProfile){
       let finalResult = JSON.parse(result);
           finalResult[0].push(data);
         
-          this.LocalStore(data.space_id,finalResult);
+          this.LocalStore(data.space_id  + this.$root.username,finalResult);
         
      }
 
@@ -1051,20 +1053,21 @@ imageStyle:function(dimension,authProfile){
    },
    updateUnreadMsg: function(data){
      
-    localforage.getItem('unread' + data.space_id).then((result)=> {
+    localforage.getItem('unread' + data.space_id  + this.$root.username).then((result)=> {
 
       if(result != null && result != "[]"){
        let finalResult = JSON.parse(result);
          
            finalResult[0].push(data.message_id);
          
-           this.LocalStore('unread' + data.space_id,finalResult);
+           this.LocalStore('unread' + data.space_id  + this.$root.username,finalResult);
          
       }
  
      });
 
    },
+
    updateSpaceData:function(spaceId){
     let fullData = [];
     fullData.push(this.$root.spaceFullData[0]);
@@ -1079,7 +1082,7 @@ fullData.push(thirdData);
 
 
 
-this.$root.LocalStore(spaceId,fullData);
+this.$root.LocalStore(spaceId + this.$root.username,fullData);
    },
    scrollToBottom:function(){
         
@@ -1095,12 +1098,90 @@ this.$root.LocalStore(spaceId,fullData);
       
 
       },
+      updateSentMessage:function(postData){
+      
+        let unsentMsg = this.$root.getLocalStore('unsent' + postData.space_id  + this.$root.username);
+
+        unsentMsg.then((result)=>{
+
+          if(result != null){
+
+           let finalResult = JSON.parse(result);
+             
+             
+
+           let remainingMsg = finalResult.filter((message)=>{
+             return message.temp_id != postData.temp_id;
+          });
+
+
+          this.LocalStore('unsent' + postData.space_id  + this.$root.username,[]);
+
+              
+          this.sendingMessage = false;
+
+          }else{
+            this.sendingMessage = false;
+          }
+
+          
+
+         
+       
+        });
+
+
+      },
+      storeUnsentMessages:function(postData){
+
+        let unsentMsg = this.$root.getLocalStore('unsent' + postData.space_id  + this.$root.username);
+
+         unsentMsg.then((result)=>{
+
+           if(result != null){
+
+            let finalResult = JSON.parse(result);
+              
+              
+
+            let messageData = finalResult.filter((message)=>{
+              return message.temp_id == postData.temp_id;
+           });
+
+
+                
+               if(messageData.length == 0){
+
+                finalResult.push(postData);
+                this.LocalStore('unsent' + postData.space_id  + this.$root.username,finalResult);
+
+               }
+
+               
+               
+
+           }else{
+
+            
+              this.LocalStore('unsent' + postData.space_id  + this.$root.username,[postData]);
+
+           }
+
+          
+        
+         });
+        
+       
+
+      },
     sendTextMessage: function(postData){
          this.sendingMessage = true;
       axios.post('/send-message',postData)
         .then(response => {
       this.is_reply = false;
 if (response.status == 200) {
+
+  
 
        let messageId = response.data[0].temp_id;
           let messageType = this.NewMsg.type;
@@ -1114,7 +1195,9 @@ if (response.status == 200) {
        
   this.replyMessage = [];
 
-  this.sendingMessage = false;
+  
+  this.updateSentMessage(postData);
+   
   
 }
  
@@ -1122,6 +1205,9 @@ if (response.status == 200) {
 })
 .catch(error => {
   this.sendingMessage = false;
+  
+  this.storeUnsentMessages(postData);
+   
 }) 
     },
     sendCodeMessage: function(postData){
@@ -1130,6 +1216,8 @@ if (response.status == 200) {
       .then(response => {
 
 if (response.status == 200) {
+
+  
 
      let messageId = response.data[0].temp_id;
         let messageType = this.NewMsg.type;
@@ -1144,18 +1232,23 @@ if (response.status == 200) {
        this.updateSpaceData(response.data[0].space_id);
  this.scrollToBottom();
 
- this.sendingMessage = false;
+ this.updateSentMessage(postData);
 
+
+ 
 }
 
 
 })
 .catch(error => {
   this.sendingMessage = false;
+  this.storeUnsentMessages(postData);
 }) 
 
     },
     sendShareMessage: function(formData){
+
+       
       this.sendingMessage = true;
       axios.post('/send-message',formData,
          {
@@ -1175,10 +1268,12 @@ if (response.status == 200) {
            }
            })
           .then(response => {
+
+             
             
            if (response.status == 200) {
                
-                 
+           
                 let messageId = response.data[0].temp_id;
                 let messageType = this.NewMsg.type;
                this.Messages.map((message)=>{
@@ -1204,6 +1299,8 @@ if (response.status == 200) {
                });
 
                this.sendingMessage = false;
+
+               
             }else{
               
             }
@@ -1215,6 +1312,7 @@ if (response.status == 200) {
           .catch(error => {
            
             this.sendingMessage = false;
+           
           })
     },
     setSreenShareConnection:function(){
@@ -1535,9 +1633,11 @@ this.$root.audioconnection.onunmute = function(e) {
        }
   
       _this.getAllConnectedUsers();
+
+      _this.$root.connectingToSocket = false;
       });
 
-      this.$root.connectingToSocket = false;
+     
   
           });
    
@@ -1649,15 +1749,15 @@ this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
            
         let _this = this;
       
-        this.$root.audioconnection.open('audio' + this.$route.params.spaceId, function() {
+        this.$root.audioconnection.open('audio' + this.$route.params.spaceId, () =>{
 
             
-        
+          _this.$root.connectingToSocket = false; 
     });
 
      
 
-    this.$root.connectingToSocket = false;
+   
 
   
     

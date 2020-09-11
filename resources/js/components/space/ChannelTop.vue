@@ -209,8 +209,15 @@ export default {
              this.$root.sendLiveSignal('code');
 
               this.$root.liveIsOn = true;
+
+               this.$root.remoteAudio = true;
+
+               if(this.$root.audioconnection == undefined){
+             this.$root.setAudioConnection();
+              this.$root.checkAudioRoomState();
+           }
              
-             this.initaiteAudioConf();
+            
         },
         screenSharing: function(){
 

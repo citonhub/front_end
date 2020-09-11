@@ -24,7 +24,7 @@
          <div class="col-12 py-0 my-0">
          <div class="row my-0 py-0 pb-5 px-2 scrollerStyle">
 
-              <v-card tile flat class="col-12 py-1 px-2" color="#edf6f7"  @click="createSpace(member)"  style="border-bottom:1px solid #5fb0b9;" v-for="(member, index) in Members" :key="index">
+              <v-card tile flat class="col-12 py-1 px-2" color="#edf6f7"  @click="createSpace(member,false)"  style="border-bottom:1px solid #5fb0b9;" v-for="(member, index) in Members" :key="index">
                <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-2" style="align-items:center;justify-content:center; ">
                         <div class="py-0">
@@ -37,12 +37,12 @@
                  
                         </div>    
                     </div>
-                     <div class="py-0 my-0 d-flex col-7" style="align-items:center;" v-if="checkIfUser(member.id)">
+                     <div class="py-0 my-0 d-flex col-7" style="align-items:center;" v-if="checkIfUser(member.user_id)">
                          <span class="titleText">You</span>
                     </div>
 
                     <div class="py-0 my-0 d-flex col-7" style="align-items:center;" v-else>
-                         <span class="titleText">{{ shortenContent(member.name,30)}} </span><span class="newbadge mx-2"> @{{member.username}}</span>
+                         <span class="titleText">{{ shortenContent(member.name,22)}} </span><span class="newbadge mx-2"> @{{member.username}}</span>
                     </div>
 
                     <div class="py-0 my-0 text-right col-3" style="align-items:center;" v-if="member.is_admin">
@@ -59,16 +59,20 @@
          </div>
 
 
-         <div style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
-           <div style="position:absolute; height:auto; width:90%; bottom:30%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
+         <div   v-if="showAdminOptions" @click="showAdminOptions = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+           <div  @click.stop="showAdminOptions = true" style="position:absolute; height:auto; width:90%; bottom:30%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
              <v-card style="border-radius:10px;"
        height="auto"
       
        class="py-2 px-1" >
 
-            <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click="makeAdmin">
+            <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click="makeAdmin"
+             v-if="selectedSpaceMembers.is_admin == false">
         <span style="font-size:13px;">Make an Admin</span>
+            </v-card>
+             <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" v-else>
+        <span style="font-size:13px;">Remove as Admin</span>
             </v-card>
              <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click="muteUser">
         <span style="font-size:13px;">Mute</span>
@@ -79,7 +83,7 @@
              <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click="removeUser">
         <span style="font-size:13px;">Remove</span>
             </v-card>
-         <v-card tile flat class="text-center py-2"  @click="createSpace">
+         <v-card tile flat class="text-center py-2"  @click.stop="createSpace(selectedSpaceMembers,true)">
         <span style="font-size:13px;">View Profile</span>
             </v-card>
 
@@ -321,6 +325,8 @@ export default {
           Members:[],
           connectionLoading:false,
           loadingMessage:false,
+          showAdminOptions:false,
+        selectedSpaceMembers: [],
         }
     },
      components: {
@@ -346,6 +352,35 @@ export default {
       },
       makeAdmin:function(){
 
+         axios.post('/make-user-admin',{
+           memberId: this.selectedSpaceMembers.memberId
+         })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         
+        
+         this.Members.map((member)=>{
+           if(member.memberId == response.data){
+
+             member.is_admin = true;
+
+           }
+         })
+
+         
+       
+      }
+       
+     
+     })
+     .catch(error => {
+
+       
+    
+     }) 
+
       },
       muteUser:function(){
         
@@ -354,6 +389,8 @@ export default {
 
       },
       removeUser:function(){
+
+
 
       },
       checkIfisOwner: function(){
@@ -372,11 +409,27 @@ export default {
            }
          
        },
-      createSpace: function(member){
+       
+      createSpace: function(member,frompanel){
+
+         
+
+           this.selectedSpaceMembers = member;
 
          if(member.username == this.$root.username){
-      return;
+          return;
          }
+
+          if(this.checkIfisOwner() && frompanel == false){
+             
+             this.showAdminOptions = true;
+
+             return;
+          }else{
+            this.showAdminOptions = false;
+          }
+
+
 
          this.$root.showUserInfo = true;
           

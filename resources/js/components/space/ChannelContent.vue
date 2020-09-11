@@ -640,6 +640,7 @@ export default {
           connectionLoading:false,
           channel:null,
           audioMuted: false,
+          unsentMessagesPresent: false,
           errorLoadingMessage:false,
           loadingJoin:false,
           imageArray:[
@@ -684,10 +685,79 @@ export default {
        
        this.makeSpaceConnetion();
        this.$root.forceListReload = false;
+
+       this.resendMessages();
       
        
     },
     methods:{
+      resendMessages:function(){
+        
+       
+          
+          let resendInterval = null;
+
+          resendInterval = setInterval(() => {
+             
+             
+
+              let unsentMsg = this.$root.getLocalStore('unsent' + this.$route.params.spaceId  + this.$root.username );
+
+         unsentMsg.then((result)=>{
+
+           if(result != null){
+
+            let finalResult = JSON.parse(result);
+              
+                
+
+                if(finalResult.length == 0){
+
+                  this.unsentMessagesPresent = false;
+
+                }else{
+                  
+                this.unsentMessagesPresent = true;
+
+                 if(!this.$root.sendingMessage){
+
+                    for (let index = 0; index < finalResult.length; index++) {
+               
+                this.$root.sendTextMessage(finalResult[index]);
+
+                    this.$root.sendingMessage = false;
+                
+                        }
+
+              
+
+                 }
+                 
+                 
+                }
+
+              
+               
+
+           }else{
+
+             this.unsentMessagesPresent = false;
+           }
+
+
+          
+        
+         });
+
+        if(!this.$root.chatisOpen){
+
+          clearInterval(resendInterval);
+
+         }
+
+         }, 3000);
+
+      },
       connectToUser:function(){
            this.connectionLoading = true;
          axios.get('/connect-user-'+ this.$root.userBasicInfo.userData.username)
@@ -1084,8 +1154,15 @@ export default {
                
 
               
- 
-                this.$root.returnedMessages.push(e.data); 
+                let messageData = this.$root.Messages.filter((message)=>{
+                   return message.message_id == e.data.message_id ||  message.temp_id == e.data.temp_id;
+                });
+
+                
+
+                 if(messageData.length == 0){
+
+                     this.$root.returnedMessages.push(e.data); 
                  this.$root.Messages.push(e.data);
 
                 this.$root.pushDataToLocal(e.data);
@@ -1095,6 +1172,9 @@ export default {
                 this.$root.sortChatList();
 
                   this.scrollToBottom(); 
+
+                 }
+              
                
                
 
@@ -1143,6 +1223,12 @@ export default {
                  if(e.action == 'returnToCode'){
                   
                   this.$root.liveShowCode = true;
+
+                 }
+
+                 if(e.action == 'new_master'){
+
+                   this.$root.newMasterId = e.data;
 
                  }
 
@@ -1236,7 +1322,7 @@ export default {
                 return;
               }
 
-       let unreadStoredMsg = _this.$root.getLocalStore('unread' + _this.$route.params.spaceId);
+       let unreadStoredMsg = _this.$root.getLocalStore('unread' + _this.$route.params.spaceId  + _this.$root.username);
 
            unreadStoredMsg.then((result)=>{
 
@@ -1507,15 +1593,21 @@ export default {
         
           this.$root.spaceFullData = response.data;
          
+
+
        
          
-      
+        if(!this.unsentMessagesPresent){
 
-      this.$root.LocalStore(this.$route.params.spaceId,response.data);
+            this.$root.LocalStore(this.$route.params.spaceId + this.$root.username,response.data);
 
-      this.$root.LocalStore('unread' + this.$route.params.spaceId,[]);
+      this.$root.LocalStore('unread' + this.$route.params.spaceId + this.$root.username,[]);
 
        let returnedData = this.handleResults(response.data[0]);
+
+        }
+
+     
         
        
        
@@ -1549,7 +1641,7 @@ export default {
          if(this.$root.checkauthroot == 'auth'){
 
 
-          let storedMsg = this.$root.getLocalStore(this.$route.params.spaceId);
+          let storedMsg = this.$root.getLocalStore(this.$route.params.spaceId + this.$root.username);
 
           
            
@@ -1618,9 +1710,9 @@ export default {
          
       
 
-      this.$root.LocalStore(this.$route.params.spaceId,response.data);
+      this.$root.LocalStore(this.$route.params.spaceId  + this.$root.username,response.data);
 
-      this.$root.LocalStore('unread' + this.$route.params.spaceId,[]);
+      this.$root.LocalStore('unread' + this.$route.params.spaceId  + this.$root.username,[]);
 
        let returnedData = this.handleResults(response.data[0]);
         
