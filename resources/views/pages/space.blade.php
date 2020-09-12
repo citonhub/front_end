@@ -5,7 +5,7 @@
 
  @endsection
  @section('meta') 
- <meta name="description" content="Grow your coding communities in channels, collaborate and build projects in teams, and challenge friends to duels." />
+ <meta name="description" content="A platform for actively growing developer communities. Chat, share codes, live code and build projects in your Space. Create an account or log in to get started." />
   <meta name="keywords" content="Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
@@ -321,7 +321,7 @@ body {
    <!-- Chromecast SDK (if you want Chromecast support for your app): -->
    <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
 
- <script src="{{ asset('js/space.js?v=2.95') }}"></script>
+ <script src="{{ asset('js/space.js?v=2.97') }}"></script>
  
      
  @endsection

@@ -157,7 +157,7 @@
        class="py-2 px-1" >
 
              <div class="text-center">
-               <h6>Tutors</h6>
+               <h6>Admin</h6>
              </div>
            
              <v-card tile flat  @click.stop="makeUserMaster(admin)" :color="admin.master_user ? '#b7dbe1': '#ffffff'" class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" v-for="(admin, index) in adminMembers" 
@@ -408,6 +408,9 @@ methods:{
 
            this.$root.localAudioMuted = true;
 
+           var localStream = this.$root.audioconnection.attachStreams[0];
+            localStream.mute('audio');
+
 
       },
       unmuteAudio: function(){
@@ -415,6 +418,9 @@ methods:{
         
 
            this.$root.localAudioMuted = false;
+
+             var localStream = this.$root.audioconnection.attachStreams[0];
+            localStream.unmute('audio');
 
       },
      onCmCursorActivity(codemirror) {
@@ -577,7 +583,7 @@ methods:{
        
 
          let _this = this;
-        let  interval = setInterval(setCode,1000);
+        let  interval = setInterval(setCode,200);
         function setCode(){
 
            _this.code = _this.$root.FullcodeContent;

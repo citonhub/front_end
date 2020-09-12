@@ -5,7 +5,7 @@
 
  @endsection
  @section('meta') 
- <meta name="description" content="See the most popular spaces,duels, projects, and developers in trends" />
+ <meta name="description" content="See most popular Channels,duels, projects, and developers in trends" />
   <meta name="keywords" content="Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />

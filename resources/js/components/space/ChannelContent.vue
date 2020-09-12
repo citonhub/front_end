@@ -927,14 +927,17 @@ export default {
     muteAudio:function(){
 
          
-         
-
+           var localStream = this.$root.audioconnection.attachStreams[0];
+            localStream.mute('audio');
+         this.$root.localAudioMuted = true;
 
       },
       unmuteAudio: function(){
 
+   var localStream = this.$root.audioconnection.attachStreams[0];
+            localStream.unmute('audio');
          
-
+    this.$root.localAudioMuted = false;
       },
       muteUserAudio:function(userId){
       
@@ -1587,11 +1590,13 @@ export default {
       
       if (response.status == 200) {
           
-
+    
            
       if( response.data[1].space_id == this.$route.params.spaceId ){
+
+
         
-          this.$root.spaceFullData = response.data;
+         
          
 
 
@@ -1614,9 +1619,7 @@ export default {
        
       
         
-       this.$root.selectedSpace = response.data[1];
-
-       this.$root.selectedSpaceMembers = response.data[2];
+      
 
 
       }

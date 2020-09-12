@@ -16,11 +16,33 @@
 
               <v-carousel
     cycle
-      class="col-12 px-1"
+      class=" px-1"
       
     hide-delimiters
    
   >
+
+  <v-carousel-item
+     
+    >
+        <div class="col-12 text-center">
+
+          <img src="/imgs/dev_community_back.svg"  width="100%" height="300px">
+             
+        </div>
+         <div class="col-12 text-center">
+
+          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">A platform for actively growing developer communities</span>
+             
+        </div>
+        <div class="col-12 text-center mt-2">
+
+          <v-btn rounded color="#3E8893" @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">Get Started</span></v-btn>
+             
+        </div>
+        
+    </v-carousel-item>
+
     <v-carousel-item
      
     >
@@ -31,12 +53,12 @@
         </div>
          <div class="col-12 text-center">
 
-          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">Chat, share and run your codes on CitonHub Space</span>
+          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">Chat, share and run codes, live code in your Space</span>
              
         </div>
         <div class="col-12 text-center mt-2">
 
-          <v-btn rounded color="#3E8893" @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">Get Started</span></v-btn>
+          <v-btn rounded color="#3E8893" @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">Set up Your Space</span></v-btn>
              
         </div>
         

@@ -37,15 +37,15 @@
                  
                         </div>    
                     </div>
-                     <div class="py-0 my-0 d-flex col-7" style="align-items:center;" v-if="checkIfUser(member.user_id)">
+                     <div class="py-0 my-0 d-flex col-10" style="align-items:center;" v-if="checkIfUser(member.user_id)">
                          <span class="titleText">You</span>
                     </div>
 
-                    <div class="py-0 my-0 d-flex col-7" style="align-items:center;" v-else>
+                    <div class="py-0 my-0 d-flex col-10" style="align-items:center;" v-else>
                          <span class="titleText">{{ shortenContent(member.name,22)}} </span><span class="newbadge mx-2"> @{{member.username}}</span>
                     </div>
 
-                    <div class="py-0 my-0 text-right col-3" style="align-items:center;" v-if="member.is_admin">
+                    <div class="py-0 my-0 " style="align-items:center; position:absolute; top:5%; right:5%;" v-if="member.is_admin">
                          <span style="font-size:10px; color:#4d4d4d;">Admin </span>
                     </div>
 
