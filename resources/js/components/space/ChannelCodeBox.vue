@@ -1103,30 +1103,44 @@ methods:{
 
            this.cmOption.mode = 'text/x-python';
 
-           this.code = "print(\"hello, world\")";
+       if(!this.$root.codeIsLive){
+       this.code = "print(\"hello, world\")";
+       }
+         
 
          }
          if(language == 'PYTHON(2.7.17)'){
            this.cmOption.mode = 'text/x-python';
 
-            this.code = "print(\"hello, world\")";
+            if(!this.$root.codeIsLive){
+       this.code = "print(\"hello, world\")";
+       }
+
          }
           if(language == 'PHP'){
            this.cmOption.mode = 'text/x-php';
 
-           this.code = "<?php \n " +
+          
+     if(!this.$root.codeIsLive){
+       this.code = "<?php \n " +
 "print(\"hello, world\n\"); \n " +
 "?>";
+       }
          }
           if(language == 'JAVASCRIPT(Node)'){
            this.cmOption.mode = 'text/javascript';
 
-             this.code = "console.log(\"hello, world\");";
+
+        if(!this.$root.codeIsLive){
+       this.code = "console.log(\"hello, world\");";
+       }
+            
          }
           if(language == 'SQL'){
            this.cmOption.mode = 'text/x-sql';
 
-             this.code =" SELECT \n " +
+ if(!this.$root.codeIsLive){
+      this.code =" SELECT \n " +
   "  Name, COUNT(*) AS num_albums \n " +
 "FROM artists JOIN albums \n " +
 "ON albums.ArtistID = artists.ArtistID \n " +
@@ -1134,137 +1148,209 @@ methods:{
 "ORDER BY num_albums DESC \n " +
 "LIMIT 4; ";
 
+       }
+             
          }
           if(language == 'C'){
            this.cmOption.mode = 'text/x-csrc';
 
-            this.code ="#include <stdio.h> \n " +
+            if(!this.$root.codeIsLive){
+       this.code ="#include <stdio.h> \n " +
 "                                        \n " +
 "int main(void) { \n " +
 "    printf(\"hello, world\n\"); \n " +
 "    return 0; \n " +
 "}";
+       }
+
+          
          }
           if(language == 'C++'){
            this.cmOption.mode = 'text/x-c++src';
-            this.code = "#include <iostream>  \n " +
+
+            if(!this.$root.codeIsLive){
+       this.code = "#include <iostream>  \n " +
 "                                           \n " +
 "int main() {    \n " +
 "    std::cout << \"hello, world\" << std::endl;  \n " +
 "    return 0;  \n " +
 "}";
+       }
+           
          }
           if(language == 'JAVA'){
            this.cmOption.mode = 'text/x-java';
-           this.code = "public class Main { \n " +
+
+            if(!this.$root.codeIsLive){
+        this.code = "public class Main { \n " +
  "   public static void main(String[] args) { \n " +
 "      System.out.println(\"hello, world\"); \n " +
  "   } \n " +
 "}";
+       }
+
+          
          }
           if(language == 'C#'){
            this.cmOption.mode = 'text/x-csharp';
 
-           this.code = "public class Hello { \n " +
+            if(!this.$root.codeIsLive){
+      this.code = "public class Hello { \n " +
 "    public static void Main() { \n " +
 "       System.Console.WriteLine(\"hello, world\"); \n " +
 "   } \n " +
 "}";
+       }
+
+           
          }
           if(language == 'ERLANG'){
            this.cmOption.mode = 'text/x-erlang';
 
-           this.code = "main(_) -> \n " +
+            if(!this.$root.codeIsLive){
+        this.code = "main(_) -> \n " +
  "   io:fwrite(\"hello, world\n\").";
+       }
+
+          
          }
           if(language == 'KOTLIN'){
            this.cmOption.mode = 'x-shader/x-fragment';
-           this.code = "fun main() { \n " +
+
+            if(!this.$root.codeIsLive){
+        this.code = "fun main() { \n " +
  "   println(\"hello, world\") \n " +
 "}";
+       }
+          
          }
           if(language == 'FOTRAN'){
            this.cmOption.mode = 'text/x-fortran';
 
-           this.code = "program main \n " +
+         if(!this.$root.codeIsLive){
+      this.code = "program main \n " +
  "   print *, \"hello, world\" \n " +
 "end";
+       }
+
+           
          }
           if(language == 'PERL'){
            this.cmOption.mode = 'text/x-perl';
 
-           this.code = "my $name = <STDIN>; \n " +
+            if(!this.$root.codeIsLive){
+        this.code = "my $name = <STDIN>; \n " +
 "print \"hello, $name\"";
+       }
+
+         
          }
           if(language == 'R'){
            this.cmOption.mode = 'text/x-rsrc';
 
-           this.code = "cat(\"hello, world\n\")";
+            if(!this.$root.codeIsLive){
+      this.code = "cat(\"hello, world\n\")";
+       }
+
+           
          }
          if(language == 'GO'){
            this.cmOption.mode = 'text/x-go';
 
-           this.code = "package main \n " +
+            if(!this.$root.codeIsLive){
+       this.code = "package main \n " +
 "                           \n " +
 "import \"fmt\" \n " +
 "                        \n " +
 "func main() { \n " +
  "   fmt.Println(\"hello, world\") \n " +
 "}";
+       }
+
+           
          }
          if(language == 'HASKELL'){
            this.cmOption.mode = 'text/x-haskell';
 
-           this.code ="main = putStrLn \"hello, world\"";
+            if(!this.$root.codeIsLive){
+       this.code ="main = putStrLn \"hello, world\"";
+       }
+
+          
          }
           if(language == 'RUBY'){
            this.cmOption.mode = 'text/x-ruby';
 
-           this.code = "puts \"hello, world\"";
+            if(!this.$root.codeIsLive){
+        this.code = "puts \"hello, world\"";
+       }
+
+          
          }
          if(language == 'LUA'){
            
             this.cmOption.mode = 'text/x-lua';
 
-             this.code = "print(\"hello, world\")";
+             if(!this.$root.codeIsLive){
+       this.code = "print(\"hello, world\")";
+       }
+
+            
 
          }
          if(language == 'PASCAL'){
 
             this.cmOption.mode = 'text/x-pascal';
-            this.code = "program Hello; \n " +
+
+             if(!this.$root.codeIsLive){
+      this.code = "program Hello; \n " +
 "begin  \n " +
  "   writeln ('hello, world') \n " +
 "end. \n ";
+       }
+            
 
          }
          if(language == 'RUST'){
 
             this.cmOption.mode = 'text/x-rustsrc';
 
-            this.code ="fn main() { \n " +
+             if(!this.$root.codeIsLive){
+      this.code ="fn main() { \n " +
 "    println!(\"hello, world\"); \n " +
 "}";
+       }
+
+            
          }
          if(language == 'SCALA'){
            
              this.cmOption.mode = 'text/x-scala';
 
-            this.code ="object Main {  \n " +
+              if(!this.$root.codeIsLive){
+      this.code ="object Main {  \n " +
  "   def main(args: Array[String]) = {  \n " +
  "      val name = scala.io.StdIn.readLine()  \n " +
   "     println(\"hello, \"+ name)  \n " +
  "   } \n " +
 "}";
 
+       }
+
+            
+
          }
          if(language == 'SWIFT'){
 
               this.cmOption.mode = 'text/x-swift';
 
-            this.code = "import Foundation \n " +
+               if(!this.$root.codeIsLive){
+        this.code = "import Foundation \n " +
 "let name = readLine() \n " +
 "print(\"hello, \(name!)\")";
+       }
+
+          
 
          }
          if(language  == 'TYPESCRIPT'){
@@ -1272,7 +1358,11 @@ methods:{
 
              this.cmOption.mode = 'text/javascript';
 
-             this.code ="console.log(\"hello, world\");";
+              if(!this.$root.codeIsLive){
+       this.code = "console.log(\"hello, world\");";
+       }
+
+           
 
          }
          
