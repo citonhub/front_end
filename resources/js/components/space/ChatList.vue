@@ -587,6 +587,45 @@ export default {
                });
 
                  });
+               }else{
+       
+            this.$root.LocalStore('unread' + space.space_id + this.$root.username,[]);
+
+                  let parsedResult = JSON.parse(result);
+
+                let MessagesFull = parsedResult;
+
+                let newMessages = space.new_messages;
+                     
+                    
+                  
+
+                 newMessages.forEach((messages)=>{
+
+                  
+
+                   
+
+                    let unreadStoredMsg = this.$root.getLocalStore('unread' + space.space_id + this.$root.username);
+
+            unreadStoredMsg.then((result)=>{
+
+              let finalResultUnread = JSON.parse(result);
+
+               finalResultUnread.push(messages)
+
+              
+               
+              this.$root.LocalStore('unread' + space.space_id + this.$root.username,finalResultUnread);
+               
+                 
+               
+
+               });
+
+                 });
+
+
                }
              });
 
