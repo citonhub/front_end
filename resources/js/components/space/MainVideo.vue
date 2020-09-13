@@ -2,14 +2,21 @@
    
 
    <div>
-       <div data-shaka-player-container style="max-width:40em"
+     <div  class="d-flex alignContent col-12 py-0 my-0"  v-if="!playVideoValue"
+   :style="'border:1px solid transparent;width:100%;height:200px; background-color:'+ backgroundColor+ ';background-image:url('+ backgroundImg+ '); border-radius: 10px;'" :id="'playerContainer'+playerId">
+         
+       <div>
+         <span style="color:#c9e4e8; background:#3E8893; border:1px solid #3E8893; border-radius:50%;" class="px-2 py-2"  @click.stop="playVideo" ><v-icon color="#ffffff">mdi-play</v-icon></span>
+     </div>
+     </div>
+       <div data-shaka-player-container style="max-width:40em" v-show="playVideoValue"
          data-shaka-player-cast-receiver-id="7B25EC44" :id="'videocontainner' + playerId">
       <!-- The manifest url in the src attribute will be automatically loaded -->
       <video  data-shaka-player   :id="'video'+playerId"
        :poster="backgroundImg" 
         style="width:100%;height:100%"
        :src="videoUrl"></video>
-    </div>
+      </div>
     </div>
     
 
@@ -20,19 +27,27 @@ export default {
      props:['videoUrl','backgroundColor','backgroundImg','playerId'],
     data () {
       return {
-         manifestUri:''
+         manifestUri:'',
+         playVideoValue: false,
       }
     },
     mounted(){
 
          this.manifestUri = this.videoUrl;
      
-     this.initApp();
+     
     },
     computed: {
 	
 	},
   methods:{
+    playVideo:function(){
+
+      this.initApp();
+
+      this.playVideoValue = true;
+
+    },
     initApp:function() {
   // Install built-in polyfills to patch browser incompatibilities.
   shaka.polyfill.installAll();
@@ -128,3 +143,9 @@ document.addEventListener('shaka-ui-load-failed', this.initFailed);
     }
 }
 </script>
+<style scoped>
+.alignContent{
+  align-items: center;
+  justify-content: center;
+}
+</style>
