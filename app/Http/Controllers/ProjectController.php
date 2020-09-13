@@ -612,7 +612,7 @@ return $newCommentArray;
        
       $allProjects = Project::where('title','!=','Citonhub Project')
       ->where('title','like', '%' . $query . '%')
-      ->orderBy('created_at','desc')->paginate(10);
+      ->orderBy('created_at','desc')->paginate(50);
 
 
       $newProject = [];

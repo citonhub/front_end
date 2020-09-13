@@ -125,7 +125,7 @@ class ProfileController extends Controller
                      ->where('users.name','like', '%' . $query . '%')
                      ->orWhere('users.username','like', '%' . $query . '%')
                      ->orderBy('profiles.created_at','desc')
-                     ->paginate('10');
+                     ->paginate(50);
       
       $filteredUsers = [];
 

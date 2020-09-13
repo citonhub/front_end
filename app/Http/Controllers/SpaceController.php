@@ -2312,7 +2312,7 @@ array_push($newSpaceArray,$userSpace);
                   ->where('spaces.type','Channel')
                   ->where('spaces.name','like', '%' . $query . '%')
                   ->where('spaces.name','!=','My Channel')
-                  ->paginate(10);
+                  ->paginate(50);
 
       $newChannelArray = [];
 
