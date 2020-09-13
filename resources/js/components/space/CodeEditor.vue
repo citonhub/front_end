@@ -48,7 +48,9 @@
          @input="onCmCodeChange"
         />
               </div>
-              <input type="hidden" id="codeBoxContent" :value="code">
+            
+
+               <textarea type="hidden" id="codeBoxContent" :value="code"></textarea>
          </div>
        </div>
 

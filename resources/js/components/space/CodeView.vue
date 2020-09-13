@@ -16,7 +16,8 @@
       />
      
     </div>
-    <input type="hidden" id="spacelink" :value="codeContent">
+
+     <textarea type="hidden" id="spacelink" :value="codeContent"></textarea>
     </div>
 </template>
 <script>
