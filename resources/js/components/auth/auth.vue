@@ -32,7 +32,7 @@
         </div>
          <div class="col-12 text-center">
 
-          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">A platform for actively growing developer communities</span>
+          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">A platform for growing developer communities</span>
              
         </div>
         <div class="col-12 text-center mt-2">

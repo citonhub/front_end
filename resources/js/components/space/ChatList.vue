@@ -510,6 +510,7 @@ export default {
         
        this.fetchChatList();
         this.$root.chatisOpen = false;
+         this.$root.codeBoxOpened = false;
        this.$root.SpaceUsers = [];
          this.$root.selectedSpace = [];
        this.trackUser();

@@ -320,6 +320,7 @@ const app = new Vue({
      makeRecallSpace: true,
      selfStopTrigger: false,
      newMasterId:null,
+     codeFromChat:false,
         },
      mounted: function () {
       this.pageloader= false;

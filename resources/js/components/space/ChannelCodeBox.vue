@@ -716,6 +716,8 @@ methods:{
 
         this.$root.codeIsLive = false;
 
+        this.$root.codeFromChat= false;
+
         },
         makeUUID:function(){
      var id = "id" + Math.random().toString(16).slice(2);
@@ -1103,7 +1105,7 @@ methods:{
 
            this.cmOption.mode = 'text/x-python';
 
-       if(!this.$root.codeIsLive){
+       if(!this.$root.codeIsLive && !this.$root.codeFromChat){
        this.code = "print(\"hello, world\")";
        }
          
@@ -1112,7 +1114,7 @@ methods:{
          if(language == 'PYTHON(2.7.17)'){
            this.cmOption.mode = 'text/x-python';
 
-            if(!this.$root.codeIsLive){
+            if(!this.$root.codeIsLive && !this.$root.codeFromChat){
        this.code = "print(\"hello, world\")";
        }
 
@@ -1121,7 +1123,7 @@ methods:{
            this.cmOption.mode = 'text/x-php';
 
           
-     if(!this.$root.codeIsLive){
+     if(!this.$root.codeIsLive && !this.$root.codeFromChat){
        this.code = "<?php \n " +
 "print(\"hello, world\n\"); \n " +
 "?>";
@@ -1131,7 +1133,7 @@ methods:{
            this.cmOption.mode = 'text/javascript';
 
 
-        if(!this.$root.codeIsLive){
+        if(!this.$root.codeIsLive && !this.$root.codeFromChat){
        this.code = "console.log(\"hello, world\");";
        }
             
@@ -1139,7 +1141,7 @@ methods:{
           if(language == 'SQL'){
            this.cmOption.mode = 'text/x-sql';
 
- if(!this.$root.codeIsLive){
+ if(!this.$root.codeIsLive && !this.$root.codeFromChat){
       this.code =" SELECT \n " +
   "  Name, COUNT(*) AS num_albums \n " +
 "FROM artists JOIN albums \n " +
@@ -1154,7 +1156,7 @@ methods:{
           if(language == 'C'){
            this.cmOption.mode = 'text/x-csrc';
 
-            if(!this.$root.codeIsLive){
+            if(!this.$root.codeIsLive && !this.$root.codeFromChat){
        this.code ="#include <stdio.h> \n " +
 "                                        \n " +
 "int main(void) { \n " +
@@ -1168,7 +1170,7 @@ methods:{
           if(language == 'C++'){
            this.cmOption.mode = 'text/x-c++src';
 
-            if(!this.$root.codeIsLive){
+            if(!this.$root.codeIsLive && !this.$root.codeFromChat){
        this.code = "#include <iostream>  \n " +
 "                                           \n " +
 "int main() {    \n " +
@@ -1181,7 +1183,7 @@ methods:{
           if(language == 'JAVA'){
            this.cmOption.mode = 'text/x-java';
 
-            if(!this.$root.codeIsLive){
+            if(!this.$root.codeIsLive && !this.$root.codeFromChat){
         this.code = "public class Main { \n " +
  "   public static void main(String[] args) { \n " +
 "      System.out.println(\"hello, world\"); \n " +
@@ -1194,7 +1196,7 @@ methods:{
           if(language == 'C#'){
            this.cmOption.mode = 'text/x-csharp';
 
-            if(!this.$root.codeIsLive){
+            if(!this.$root.codeIsLive && !this.$root.codeFromChat){
       this.code = "public class Hello { \n " +
 "    public static void Main() { \n " +
 "       System.Console.WriteLine(\"hello, world\"); \n " +
@@ -1207,7 +1209,7 @@ methods:{
           if(language == 'ERLANG'){
            this.cmOption.mode = 'text/x-erlang';
 
-            if(!this.$root.codeIsLive){
+            if(!this.$root.codeIsLive && !this.$root.codeFromChat){
         this.code = "main(_) -> \n " +
  "   io:fwrite(\"hello, world\n\").";
        }
@@ -1217,7 +1219,7 @@ methods:{
           if(language == 'KOTLIN'){
            this.cmOption.mode = 'x-shader/x-fragment';
 
-            if(!this.$root.codeIsLive){
+            if(!this.$root.codeIsLive && !this.$root.codeFromChat){
         this.code = "fun main() { \n " +
  "   println(\"hello, world\") \n " +
 "}";
@@ -1227,7 +1229,7 @@ methods:{
           if(language == 'FOTRAN'){
            this.cmOption.mode = 'text/x-fortran';
 
-         if(!this.$root.codeIsLive){
+         if(!this.$root.codeIsLive && !this.$root.codeFromChat){
       this.code = "program main \n " +
  "   print *, \"hello, world\" \n " +
 "end";
@@ -1238,7 +1240,7 @@ methods:{
           if(language == 'PERL'){
            this.cmOption.mode = 'text/x-perl';
 
-            if(!this.$root.codeIsLive){
+            if(!this.$root.codeIsLive && !this.$root.codeFromChat){
         this.code = "my $name = <STDIN>; \n " +
 "print \"hello, $name\"";
        }
@@ -1248,7 +1250,7 @@ methods:{
           if(language == 'R'){
            this.cmOption.mode = 'text/x-rsrc';
 
-            if(!this.$root.codeIsLive){
+            if(!this.$root.codeIsLive && !this.$root.codeFromChat){
       this.code = "cat(\"hello, world\n\")";
        }
 
@@ -1257,7 +1259,7 @@ methods:{
          if(language == 'GO'){
            this.cmOption.mode = 'text/x-go';
 
-            if(!this.$root.codeIsLive){
+            if(!this.$root.codeIsLive && !this.$root.codeFromChat){
        this.code = "package main \n " +
 "                           \n " +
 "import \"fmt\" \n " +
@@ -1272,7 +1274,7 @@ methods:{
          if(language == 'HASKELL'){
            this.cmOption.mode = 'text/x-haskell';
 
-            if(!this.$root.codeIsLive){
+            if(!this.$root.codeIsLive && !this.$root.codeFromChat){
        this.code ="main = putStrLn \"hello, world\"";
        }
 
@@ -1281,7 +1283,7 @@ methods:{
           if(language == 'RUBY'){
            this.cmOption.mode = 'text/x-ruby';
 
-            if(!this.$root.codeIsLive){
+            if(!this.$root.codeIsLive && !this.$root.codeFromChat){
         this.code = "puts \"hello, world\"";
        }
 
@@ -1291,7 +1293,7 @@ methods:{
            
             this.cmOption.mode = 'text/x-lua';
 
-             if(!this.$root.codeIsLive){
+             if(!this.$root.codeIsLive && !this.$root.codeFromChat){
        this.code = "print(\"hello, world\")";
        }
 
@@ -1302,7 +1304,7 @@ methods:{
 
             this.cmOption.mode = 'text/x-pascal';
 
-             if(!this.$root.codeIsLive){
+             if(!this.$root.codeIsLive  && !this.$root.codeFromChat){
       this.code = "program Hello; \n " +
 "begin  \n " +
  "   writeln ('hello, world') \n " +
@@ -1315,7 +1317,7 @@ methods:{
 
             this.cmOption.mode = 'text/x-rustsrc';
 
-             if(!this.$root.codeIsLive){
+             if(!this.$root.codeIsLive && !this.$root.codeFromChat){
       this.code ="fn main() { \n " +
 "    println!(\"hello, world\"); \n " +
 "}";
@@ -1327,7 +1329,7 @@ methods:{
            
              this.cmOption.mode = 'text/x-scala';
 
-              if(!this.$root.codeIsLive){
+              if(!this.$root.codeIsLive && !this.$root.codeFromChat){
       this.code ="object Main {  \n " +
  "   def main(args: Array[String]) = {  \n " +
  "      val name = scala.io.StdIn.readLine()  \n " +
@@ -1344,7 +1346,7 @@ methods:{
 
               this.cmOption.mode = 'text/x-swift';
 
-               if(!this.$root.codeIsLive){
+               if(!this.$root.codeIsLive && !this.$root.codeFromChat){
         this.code = "import Foundation \n " +
 "let name = readLine() \n " +
 "print(\"hello, \(name!)\")";
@@ -1358,7 +1360,7 @@ methods:{
 
              this.cmOption.mode = 'text/javascript';
 
-              if(!this.$root.codeIsLive){
+              if(!this.$root.codeIsLive && !this.$root.codeFromChat){
        this.code = "console.log(\"hello, world\");";
        }
 

@@ -154,6 +154,8 @@ methods:{
            
              this.$root.showCodeBox = true;
 
+             this.$root.codeFromChat = true;
+
              this.$root.showChatBottom = false;
             
             
