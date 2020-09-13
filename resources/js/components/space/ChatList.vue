@@ -587,9 +587,15 @@ export default {
                });
 
                  });
+
+                  
                }else{
+
+
        
-            this.$root.LocalStore('unread' + space.space_id + this.$root.username,[]);
+                
+               this.$root.LocalStore('unread' + space.space_id + this.$root.username,returnData);
+
 
                   let parsedResult = JSON.parse(result);
 
@@ -598,7 +604,8 @@ export default {
                 let newMessages = space.new_messages;
                      
                     
-                  
+                    
+
 
                  newMessages.forEach((messages)=>{
 
@@ -610,6 +617,9 @@ export default {
 
             unreadStoredMsg.then((result)=>{
 
+               if(result != null){
+
+                  
               let finalResultUnread = JSON.parse(result);
 
                finalResultUnread.push(messages)
@@ -618,6 +628,9 @@ export default {
                
               this.$root.LocalStore('unread' + space.space_id + this.$root.username,finalResultUnread);
                
+
+               }
+
                  
                
 
