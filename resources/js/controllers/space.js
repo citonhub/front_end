@@ -1709,11 +1709,13 @@ this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
               clearInterval(sessionInterval);
              }else{
 
+               let _this = this;
+
               this.$root.audioconnection.checkPresence(sessionId, function(isRoomExists, roomid) {
   
                 if(!isRoomExists){
   
-                   this.checkAudioRoomState();
+                   _this.checkAudioRoomState();
                    
                 }
   
