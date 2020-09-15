@@ -301,13 +301,16 @@
       <div class="col-5 py-0 my-0 text-right">
        
         <div>
-           <v-btn x-small color="#ffffff" @click="closeConnections" v-if="!this.$root.connectingToSocket">
+           <v-btn x-small color="#ffffff" @click="closeConnections" v-if="!this.$root.connectingToSocket && !this.$root.userIsReconnecting">
         <span style="color:#265259; font-size:10px;font-family:HeaderText; ">Leave</span>
       </v-btn>
 
 
-      <span style="font-size:12px; color:white;" v-else>
+      <span style="font-size:12px; color:white;" v-if="this.$root.connectingToSocket && !this.$root.userIsReconnecting">
         Connecting...
+      </span>
+      <span v-if="this.$root.userIsReconnecting" style="font-size:12px; color:white;"  >
+        Reconnecting...
       </span>
         </div>
         

@@ -320,7 +320,8 @@ const app = new Vue({
      makeRecallSpace: true,
      selfStopTrigger: false,
      newMasterId:null,
-     codeFromChat:false
+     codeFromChat:false,
+     userIsReconnecting:false,
         },
      mounted: function () {
       this.pageloader= false;
@@ -1635,8 +1636,10 @@ this.$root.audioconnection.onunmute = function(e) {
   
       _this.getAllConnectedUsers();
       _this.checkUserPresence(roomid);
+      _this.checkIfUserIsReconnecting();
 
       _this.$root.connectingToSocket = false;
+      _this.userIsReconnecting = false;
       });
 
      
@@ -1700,28 +1703,43 @@ this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
 
         checkUserPresence: function(sessionId){
 
+          
+
            let sessionInterval = null;
 
            sessionInterval = setInterval(()=>{
+
+              
 
              if(this.$root.audioconnection == undefined){
                  
               clearInterval(sessionInterval);
              }else{
 
+            
+              
                let _this = this;
 
+              
+
               this.$root.audioconnection.checkPresence(sessionId, function(isRoomExists, roomid) {
+                    
+              
   
                 if(!isRoomExists){
 
-                 _this.$root.audioconnection.closeSocket();
+                 _this.audioconnection.closeSocket();
   
                    _this.checkAudioRoomState();
                    
+                }else{
+                 
                 }
   
               });
+
+             
+
 
              }
 
@@ -1731,6 +1749,61 @@ this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
            },2000)
 
          
+         },
+
+         checkIfUserIsReconnecting: function(){
+
+           let reconnectInterval = null;
+
+           reconnectInterval = setInterval(()=>{
+                 
+            if(this.$root.audioconnection == undefined){
+                 
+              clearInterval(reconnectInterval);
+             }else{
+              var socket = this.$root.audioconnection.socket;
+         
+             
+              
+            socket.on('connect', ()=>{
+              this.userIsReconnecting = false;
+
+             
+          })
+
+         socket.on('disconnect', ()=> {
+          this.userIsReconnecting = true;
+         
+          })
+
+        socket.on('reconnecting', function(attemptNumber){
+          this.userIsReconnecting = true;
+
+          
+         
+        });
+      
+
+              if(this.userIsReconnecting){
+
+                 this.connectingToSocket = true;
+
+                 this.checkAudioRoomState();
+               
+                 
+
+              }else{
+                this.connectingToSocket = false;
+               
+              }
+
+              
+
+             
+
+             }
+           },5000)
+
          },
 
          openScreenRoom: function(){    

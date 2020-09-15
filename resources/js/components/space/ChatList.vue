@@ -15,7 +15,104 @@
 
          <div class="row my-0 py-0 px-2 "  >
 
+               
+                <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('project')"  style="cursor:pointer;">
+                 
+                 <div class="row py-0 my-0 px-2">
+                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                          
+                    </div>
+                       <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                         
+      
+      <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Projects</span>
+            
+       
+                         
+                    </div>
+                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                           <v-btn icon color="#3E8893" @click="createProject"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+                    </div>
+                 </div>
+
+             </div>
+
               
+
+              
+              <div class="col-12 py-1 my-0 mx-0 project" v-if="this.$root.showProject" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;" >
+                <div  v-if="channelProject != null">
+                    <div class="row my-0 my-0 px-0"  v-if="channelProject.length != 0">
+
+                    <v-card tile flat class="col-12 py-1 px-0 my-1" @click="showProjectLink(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in channelProject"
+                      :key="index">
+                <div class="row py-0 my-0 px-0">
+                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
+                        <div class="py-1">
+                           <span style="height:38px; width:38px; " class=" py-2 px-2">
+
+                              <v-icon color="#35747e" class="">mdi-plus-network-outline</v-icon>
+                           </span>
+                        </div>    
+                    </div>
+                     <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
+                         <span class="titleText">{{space.title}}</span>
+                    </div>
+                    <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
+                          
+                    </div>
+                </div>
+                </v-card>
+                 </div>
+
+                 <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
+       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No Project found</span>
+              
+            </div>
+                </div>
+                
+
+                 <div v-else  class="row my-0 py-0 px-1 ">
+            <div class="col-12 py-0 my-0">
+   
+           <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
+           
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
+
+          
+
+         </div>
+
+
+            </div>
+
+             <div class="col-12 py-0 my-0">
+   
+           <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
+           
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
+
+          
+
+         </div>
+
+
+            </div>
+  
+              </div>
+              </div>
              
 
             
@@ -326,103 +423,7 @@
               </div>
               </div>
 
-              <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('project')"  style="cursor:pointer;">
-                 
-                 <div class="row py-0 my-0 px-2">
-                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                          
-                    </div>
-                       <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                         
-      
-      <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Projects</span>
-            
-       
-                         
-                    </div>
-                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                           <v-btn icon color="#3E8893" @click="createProject"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
-                    </div>
-                 </div>
-
-             </div>
-
-              
-
-              
-              <div class="col-12 py-1 my-0 mx-0 project" v-if="this.$root.showProject" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;" >
-                <div  v-if="channelProject != null">
-                    <div class="row my-0 my-0 px-0"  v-if="channelProject.length != 0">
-
-                    <v-card tile flat class="col-12 py-1 px-0 my-1" @click="showProjectLink(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in channelProject"
-                      :key="index">
-                <div class="row py-0 my-0 px-0">
-                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
-                        <div class="py-1">
-                           <span style="height:38px; width:38px; " class=" py-2 px-2">
-
-                              <v-icon color="#35747e" class="">mdi-plus-network-outline</v-icon>
-                           </span>
-                        </div>    
-                    </div>
-                     <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
-                         <span class="titleText">{{space.title}}</span>
-                    </div>
-                    <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
-                          
-                    </div>
-                </div>
-                </v-card>
-                 </div>
-
-                 <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
-       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No Project found</span>
-              
-            </div>
-                </div>
-                
-
-                 <div v-else  class="row my-0 py-0 px-1 ">
-            <div class="col-12 py-0 my-0">
-   
-           <div class="row py-0 my-0 px-1">
-            
-          <div class="col-12 py-1 my-0">
-           <v-skeleton-loader
-          class=" "
-           
-          type="list-item-avatar"
-          ></v-skeleton-loader>
-          </div>
-
-          
-
-         </div>
-
-
-            </div>
-
-             <div class="col-12 py-0 my-0">
-   
-           <div class="row py-0 my-0 px-1">
-            
-          <div class="col-12 py-1 my-0">
-           <v-skeleton-loader
-          class=" "
-           
-          type="list-item-avatar"
-          ></v-skeleton-loader>
-          </div>
-
-          
-
-         </div>
-
-
-            </div>
-  
-              </div>
-              </div>
+             
              
               
              <div class="my-5 py-5 col-12" style="padding-top:120px !important;">
