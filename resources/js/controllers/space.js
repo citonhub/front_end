@@ -1714,6 +1714,8 @@ this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
               this.$root.audioconnection.checkPresence(sessionId, function(isRoomExists, roomid) {
   
                 if(!isRoomExists){
+
+                 _this.$root.audioconnection.closeSocket();
   
                    _this.checkAudioRoomState();
                    
