@@ -98,7 +98,7 @@
             
              
              
-              <span style="font-size:12px;">Live Audio</span>
+              <span style="font-size:12px;">Audio Conference</span>
            </v-card>
            
           </v-menu>

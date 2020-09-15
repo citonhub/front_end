@@ -38,7 +38,6 @@ import moment from 'moment'
 window.moment = require('moment');
 
 
-
 import Echo from 'laravel-echo';
 window.Echo = require('laravel-echo');
 

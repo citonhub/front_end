@@ -291,14 +291,14 @@
 
          
 
-        <div style="color:white; font-size:13px; font-family:HeaderText;" class="col-8 py-0 my-1 px-1"> 
+        <div style="color:white; font-size:13px; font-family:HeaderText;" class="col-7 py-0 my-1 px-1"> 
          
              <v-icon color="#ffffff"  @click="closeboard">mdi-close mdi-18px</v-icon>
      
       Active Members <span class="ml-1 py-1 px-1" 
         style="color:#ffffff; ">({{ this.$root.allAudioParticipant.length + 1 }})</span></div>
 
-      <div class="col-4 py-0 my-0 text-right">
+      <div class="col-5 py-0 my-0 text-right">
        
         <div>
            <v-btn x-small color="#ffffff" @click="closeConnections" v-if="!this.$root.connectingToSocket">
@@ -381,7 +381,7 @@
         </v-list-item-icon>
       </v-list-item>
 
-      <div class="col-12 py-1 my-0 text-center" v-if="this.$root.allAudioParticipant.length == 0">
+      <div class="col-12 py-1 my-0 text-center" v-if="this.$root.allAudioParticipant.length == 0 && !this.$root.connectingToSocket">
       <span style="font-size:12px; color:gray;">Waiting for others to join...</span>
       </div>
      
@@ -687,8 +687,8 @@ export default {
        this.$root.forceListReload = false;
 
        this.resendMessages();
-      
        
+      
     },
     methods:{
       resendMessages:function(){
@@ -755,9 +755,10 @@ export default {
 
          }
 
-         }, 3000);
+         }, 5000);
 
       },
+     
       connectToUser:function(){
            this.connectionLoading = true;
          axios.get('/connect-user-'+ this.$root.userBasicInfo.userData.username)
@@ -977,6 +978,7 @@ export default {
         this.$root.remoteCode = false;
          this.$root.remoteScreen = false;
           this.$root.remoteAudio= false;
+          this.$root.connectingToSocket = false;
           this.$root.allAudioParticipant = [];
       },
     hideAlert:function(){

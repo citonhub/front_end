@@ -38,6 +38,8 @@ const vuetify = new Vuetify({
     }
 });
 
+
+
 import Echo from 'laravel-echo';
 window.Echo = require('laravel-echo');
 

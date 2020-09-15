@@ -10,6 +10,8 @@
 <input type="hidden" value="none" id="checkauthUsername">
 @endif
 
+<input type="hidden" value="{{ Config::get('app.locale') }}" id="appLocale">
+
 <script>
     window.Laravel = {!! json_encode(['csrfToken' => csrf_token(),
       'user'=> Auth::user()]) !!};

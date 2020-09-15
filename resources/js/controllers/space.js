@@ -320,7 +320,7 @@ const app = new Vue({
      makeRecallSpace: true,
      selfStopTrigger: false,
      newMasterId:null,
-     codeFromChat:false,
+     codeFromChat:false
         },
      mounted: function () {
       this.pageloader= false;
@@ -1634,6 +1634,7 @@ this.$root.audioconnection.onunmute = function(e) {
        }
   
       _this.getAllConnectedUsers();
+      _this.checkUserPresence(roomid);
 
       _this.$root.connectingToSocket = false;
       });
@@ -1666,6 +1667,7 @@ this.$root.audioconnection.onunmute = function(e) {
        
        clearInterval(checkUserInterval);
       }else{
+        
 
           let fullUsers = [];
 
@@ -1674,9 +1676,11 @@ this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
 	   
       fullUsers.push([user.extra,user.userid]);
 
+
 });  
    this.$root.allAudioParticipant = fullUsers;
 
+    
      
      this.$root.allAudioParticipant.forEach((user)=>{
         user[0].muted = false;
@@ -1687,12 +1691,44 @@ this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
       
          
 
-          }, 2000);
+          }, 200);
 
          
 
 
-        },
+        }, 
+
+        checkUserPresence: function(sessionId){
+
+           let sessionInterval = null;
+
+           sessionInterval = setInterval(()=>{
+
+             if(this.$root.audioconnection == undefined){
+                 
+              clearInterval(sessionInterval);
+             }else{
+
+              this.$root.audioconnection.checkPresence(sessionId, function(isRoomExists, roomid) {
+  
+                if(!isRoomExists){
+  
+                   this.checkAudioRoomState();
+                   
+                }
+  
+              });
+
+             }
+
+              
+            
+
+           },2000)
+
+         
+         },
+
          openScreenRoom: function(){    
          
            
