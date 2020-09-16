@@ -1607,11 +1607,7 @@ this.$root.audioconnection.onstreamended = function(event) {
         mediaElement.parentNode.removeChild(mediaElement);
     }
 
-    _this.$root.audioconnection.onUserStatusChanged({
-        userid: event.userid,
-        extra: event.extra,
-        status: 'online'
-    });
+  
 };
 
   this.$root.audioconnection.onopen  = function(event) {
@@ -1622,10 +1618,11 @@ this.$root.audioconnection.onstreamended = function(event) {
         status: 'online'
     });
 
-
+      let that = _this;
+     
     _this.$root.audioconnection.onleave = _this.$root.audioconnection.onclose = function(event) {
 
-     _this.$root.audioconnection.onUserStatusChanged({
+      that.$root.audioconnection.onUserStatusChanged({
         userid: event.userid,
         extra: event.extra,
         status: 'offline'
@@ -1679,14 +1676,14 @@ this.$root.audioconnection.onstreamended = function(event) {
            // if room doesn't exist, it means that current user will create the room
            _this.openAudioRoom();
 
-           _this.getAllConnectedUsers();
+         
        }
   
        if(isRoomExist) {
   
      
           
-        _this.getAllConnectedUsers();
+       
           
           
        }
@@ -1746,13 +1743,6 @@ this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
 });  
    this.$root.allAudioParticipant = fullUsers;
 
-  
-     
-     this.$root.allAudioParticipant.forEach((user)=>{
-        user[0].muted = false;
-
-        
-     });
 
 
       }
