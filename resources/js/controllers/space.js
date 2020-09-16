@@ -1528,6 +1528,9 @@ this.$root.audioconnection.onstream = function(event) {
 };
 
 
+
+
+
 // voice detection
 
 
@@ -1717,41 +1720,30 @@ this.$root.audioconnection.onstreamended = function(event) {
         getAllConnectedUsers(){
 
           
+        let  connectedInterval = null;
 
-           let checkUserIntervalNew = null;
-
-           checkUserIntervalNew = setInterval(()=>{
-    
-           
-            
-      if(this.$root.audioconnection == undefined){
-
-       
-       
-       clearInterval(checkUserIntervalNew);
-      }else{
         
+        connectedInterval = setInterval(()=>{
 
-          let fullUsers = [];
+           if(this.$root.audioconnection == undefined){
+           clearInterval(connectedInterval);
+           }else{
 
-this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
-	var user = this.$root.audioconnection.peers[remoteUserId];
-	   
-      fullUsers.push([user.extra,user.userid]);
+            let fullUsers = [];
 
+            this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
+              var user = this.$root.audioconnection.peers[remoteUserId];
+                 
+                  fullUsers.push([user.extra,user.userid]);
+            
+            
+            });  
+               this.$root.allAudioParticipant = fullUsers;
+            
+            
+                    }
 
-});  
-   this.$root.allAudioParticipant = fullUsers;
-
-
-
-      }
-      
-         
-
-          }, 500);
-
-         
+           },500);
 
 
         }, 
