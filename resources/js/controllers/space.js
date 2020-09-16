@@ -1468,14 +1468,17 @@ this.$root.audioconnection.socketMessageEvent = 'audio-conference';
 
   this.$root.audioconnection.extra = {
        profile: this.$root.authProfile,
-      joinedAt: (new Date).toISOString()
+      joinedAt: (new Date).toISOString(),
+      volume: 80.00,
+      speaking: true
          };
 
          this.$root.audioconnection.socketCustomParameters = '&extra=' + JSON.stringify(this.$root.audioconnection.extra);
 
 this.$root.audioconnection.session = {
     audio: false,
-    video: false
+    video: false,
+    
 };
 
 this.$root.audioconnection.mediaConstraints = {
@@ -1517,10 +1520,86 @@ this.$root.audioconnection.onstream = function(event) {
 
     setTimeout(function() {
         mediaElement.media.play();
-    }, 5000);
+    }, 1000);
 
     mediaElement.id = event.streamid;
+
+  
 };
+
+
+// voice detection
+
+
+
+this.$root.audioconnection.onmute = function(event) {
+
+  if (event.stream.pause) {
+      // for audio-streams
+      // ask hark.js to resume looping and checking for voice activity
+      event.stream.pause();
+  }
+};
+
+this.$root.audioconnection.onunmute = function(event) {
+ 
+  if (event.stream.resume) {
+      // for audio-streams
+      // ask hark.js to stop looping and checking for voice activity
+      event.stream.resume();
+  }
+};
+
+
+this.$root.audioconnection.onmessage = function(event) {
+   
+  if(event.data.is_volume){
+
+     let scaleH = 90;
+
+      let scaleL = 30;
+
+    let rscaleH = 120;
+
+
+    let apm = event.data.volume * -1;
+
+    let topFraction = apm * (scaleH - scaleL);
+
+     let value1 = topFraction / rscaleH;
+
+    let finalValue = value1 + scaleL;
+
+     
+
+     
+    _this.$root.allAudioParticipant.map((user)=>{
+
+      if( user[1] == event.userid){
+
+         
+      
+        user[0].volume = finalValue.toFixed(2);
+         
+      }
+      
+
+      
+   });
+     
+    
+  }
+
+  if(event.data.silence){
+
+     console.log('silence');
+
+  }
+   
+ 
+};
+
+
 
 this.$root.audioconnection.onstreamended = function(event) {
     var mediaElement = document.getElementById(event.streamid);
@@ -1544,7 +1623,7 @@ this.$root.audioconnection.onstreamended = function(event) {
     });
 
 
-    this.$root.audioconnection.onleave = connection.streamended = connection.onclose = function(event) {
+    _this.$root.audioconnection.onleave = _this.$root.audioconnection.onclose = function(event) {
 
      _this.$root.audioconnection.onUserStatusChanged({
         userid: event.userid,
@@ -1555,33 +1634,7 @@ this.$root.audioconnection.onstreamended = function(event) {
 };
 
 
-this.$root.audioconnection.onmute = function(e) {
-    if (!e.mediaElement) {
-        return;
-    }
 
-    if (e.muteType === 'both' || e.muteType === 'video') {
-        e.mediaElement.src = null;
-        e.mediaElement.pause();
-        e.mediaElement.poster = e.snapshot || 'https://cdn.webrtc-experiment.com/images/muted.png';
-    } else if (e.muteType === 'audio') {
-        e.mediaElement.muted = true;
-    }
-};
-
-this.$root.audioconnection.onunmute = function(e) {
-    if (!e.mediaElement) {
-        return;
-    }
-
-    if (e.unmuteType === 'both' || e.unmuteType === 'video') {
-        e.mediaElement.poster = null;
-        e.mediaElement.src = URL.createObjectURL(e.stream);
-        e.mediaElement.play();
-    } else if (e.unmuteType === 'audio') {
-        e.mediaElement.muted = false;
-    }
-};
 
 
 
@@ -1602,6 +1655,8 @@ this.$root.audioconnection.onunmute = function(e) {
                 // enable microphone
                 this.$root.audioconnection.mediaConstraints.audio = true;
                 this.$root.audioconnection.session.audio = true;
+                this.$root.audioconnection.session.data = true;
+
             }
           
             if (this.$root.audioconnection.DetectRTC.hasMicrophone === false ) {
@@ -1623,19 +1678,22 @@ this.$root.audioconnection.onunmute = function(e) {
        if (isRoomExist === false && _this.$root.audioconnection.isInitiator === true) {
            // if room doesn't exist, it means that current user will create the room
            _this.openAudioRoom();
+
+           _this.getAllConnectedUsers();
        }
   
        if(isRoomExist) {
   
      
           
-         
+        _this.getAllConnectedUsers();
           
           
        }
   
       _this.getAllConnectedUsers();
       _this.checkUserPresence(roomid);
+      _this.setUserSpeaker();
       _this.checkIfUserIsReconnecting();
 
       _this.$root.connectingToSocket = false;
@@ -1661,14 +1719,19 @@ this.$root.audioconnection.onunmute = function(e) {
 
         getAllConnectedUsers(){
 
-           let checkUserInterval = null;
+          
 
-           checkUserInterval = setInterval(()=>{
+           let checkUserIntervalNew = null;
 
+           checkUserIntervalNew = setInterval(()=>{
+    
+           
             
       if(this.$root.audioconnection == undefined){
+
        
-       clearInterval(checkUserInterval);
+       
+       clearInterval(checkUserIntervalNew);
       }else{
         
 
@@ -1683,10 +1746,12 @@ this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
 });  
    this.$root.allAudioParticipant = fullUsers;
 
-    
+  
      
      this.$root.allAudioParticipant.forEach((user)=>{
         user[0].muted = false;
+
+        
      });
 
 
@@ -1694,33 +1759,156 @@ this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
       
          
 
-          }, 200);
+          }, 500);
 
          
 
 
         }, 
 
+        setUserSpeaker: function(){
+
+
+          let speakerInterval = null;
+
+          speakerInterval = setInterval(()=>{
+
+           let _this = this;
+
+            if(this.$root.audioconnection == undefined){
+                
+             clearInterval(speakerInterval);
+            }else{
+            
+                
+             if(this.$root.allAudioParticipant.length > 0){
+                // work on local streams
+             var localStream = this.$root.audioconnection.attachStreams[0];
+
+             var options = {};
+           var speechEvents = hark(localStream, options);
+         
+      speechEvents.on('speaking', function() {
+
+         
+
+    
+         _this.$root.audioconnection.send({
+             userid: _this.$root.audioconnection.userid,
+             speaking: true
+         });
+    
+     
+        
+   });
+
+   speechEvents.on('stopped_speaking', function() {
+
+   
+       _this.$root.audioconnection.send({
+         userid: _this.$root.audioconnection.userid,
+           silence: true
+       });
+  
+ 
+ 
+
+   });
+
+   speechEvents.on('volume_change', function(volume, threshold) {
+
+    
+       _this.$root.audioconnection.send({
+         userid: _this.$root.audioconnection.userid,
+         volume: volume,
+         threshold: threshold,
+         is_volume: true
+     });
+  
+
+     
+   });
+             }
+
+            
+
+            
+
+
+            }
+
+             
+           
+
+          },500)
+
+
+        },
+
         checkUserPresence: function(sessionId){
 
           
-
+         
            let sessionInterval = null;
 
            sessionInterval = setInterval(()=>{
 
-              
+            let _this = this;
 
              if(this.$root.audioconnection == undefined){
                  
               clearInterval(sessionInterval);
              }else{
+             
+                 
+              if(this.$root.allAudioParticipant.length > 0){
+                 // work on local streams
+              var localStream = this.$root.audioconnection.attachStreams[0];
 
-            
-              
-               let _this = this;
+              var options = {};
+            var speechEvents = hark(localStream, options);
+          
+       speechEvents.on('speaking', function() {
 
-              
+          
+
+     
+          _this.$root.audioconnection.send({
+              userid: _this.$root.audioconnection.userid,
+              speaking: true
+          });
+     
+      
+         
+    });
+
+    speechEvents.on('stopped_speaking', function() {
+
+    
+        _this.$root.audioconnection.send({
+          userid: _this.$root.audioconnection.userid,
+            silence: true
+        });
+   
+  
+  
+
+    });
+
+    speechEvents.on('volume_change', function(volume, threshold) {
+
+     
+        _this.$root.audioconnection.send({
+          userid: _this.$root.audioconnection.userid,
+          volume: volume,
+          threshold: threshold,
+          is_volume: true
+      });
+   
+
+      
+    });
+              }
 
               this.$root.audioconnection.checkPresence(sessionId, function(isRoomExists, roomid) {
                     
@@ -1746,7 +1934,7 @@ this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
               
             
 
-           },2000)
+           },5000)
 
          
          },
@@ -1787,6 +1975,8 @@ this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
               if(this.userIsReconnecting){
 
                  this.connectingToSocket = true;
+
+                 
 
                  this.checkAudioRoomState();
                

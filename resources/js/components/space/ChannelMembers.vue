@@ -531,7 +531,7 @@ export default {
           axios.post('/create-space',{
                 name: '',
                 limit: 2,
-                memberId: member.id,
+                memberId: member.user_id,
                 type: 'Direct'
                   })
           .then(response => {

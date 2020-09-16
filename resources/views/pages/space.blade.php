@@ -310,7 +310,10 @@ body {
 
  <script src="{{ asset('js/getHTMLMediaElement.js?v=0.5') }}"></script>
 
+
+
  
+
  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
   
   <script src="{{ asset('js/shaka-player.compiled.js') }}"></script>
@@ -321,7 +324,9 @@ body {
    <!-- Chromecast SDK (if you want Chromecast support for your app): -->
    <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
 
- <script src="{{ asset('js/space.js?v=3.10') }}"></script>
+   <script src="https://cdn.webrtc-experiment.com/hark.js"></script>
+
+ <script src="{{ asset('js/space.js?v=3.21') }}"></script>
  
      
  @endsection

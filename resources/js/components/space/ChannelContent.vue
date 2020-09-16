@@ -344,6 +344,7 @@
         </v-list-item-content>
 
         <v-list-item-icon >
+          
            <v-btn icon @click="muteAudio" v-if="!this.$root.localAudioMuted">
 
               <v-icon color="#3E8893">mdi-microphone</v-icon>
@@ -370,16 +371,15 @@
         </v-list-item-content>
 
         <v-list-item-icon >
-         <v-btn icon @click="muteUserAudio(user[1])" v-if="!user[0].muted">
-
-              <v-icon color="#3E8893">mdi-microphone</v-icon>
-
-           </v-btn>
-            <v-btn icon @click="unMuteUserAudio(user[1])" v-else>
-
-              <v-icon>mdi-microphone </v-icon>
-
-           </v-btn>
+          
+          <div style="position:relative; height:40px; width:40px; background:#35747e;
+               border:1px solid transparent; border-radius:50%;"
+        class="outerbox d-flex">     
+   <div :style="'width:' + user[0].volume + '%; height:' + user[0].volume  +'%;'"
+     class="innerBoxnew">
+  
+     </div>
+     </div>
          
         </v-list-item-icon>
       </v-list-item>
@@ -639,6 +639,7 @@ export default {
            isConnected:true,
            loadingMessage: false,
            showUserInfo:false,
+           flexSize:80,
           typing:false,
           connectionLoading:false,
           channel:null,
@@ -1957,6 +1958,23 @@ export default {
   outline: 1px solid #6fb8c3;
   border:1px solid transparent;
    border-radius:6px;
+}
+
+.innerBoxnew{
+ border:1px solid transparent;
+  border-radius:50%;
+  background: #6fb8c3;
+  position: absolute;
+
+  
+  
+  
+}
+.outerbox{
+ 
+  display:-webkit-flex;
+  align-items:center;
+  justify-content:center;
 }
 
 </style>
