@@ -13,6 +13,7 @@ use App\Mail\VerifyUserEmail;
 use Illuminate\Support\Facades\Mail;
 use App\Events\UserChannel;
 use App\Profile;
+use App\Jobs\HandleMail;
 
 class RegisterController extends Controller
 {
@@ -111,8 +112,8 @@ class RegisterController extends Controller
            
          
 
-
-        Mail::to($newUser->email)->send(new VerifyUserEmail($newUser));
+               dispatch(new HandleMail($newUser));
+       
 
         return  ["status","ok"];
     }

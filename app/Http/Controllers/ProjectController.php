@@ -21,6 +21,7 @@ use App\User;
 use App\Profile;
 use App\CustomClass\Curler;
 use App\CustomClass\MetaParser;
+use App\Jobs\HandleNotification;
 
 
 
@@ -721,7 +722,9 @@ return $newCommentArray;
             "url"=> $baseUrl
           ];
       
-          $this->triggerNotification($notificationPayload);
+        
+
+          dispatch(new HandleNotification($notificationPayload));
 
 
          
@@ -775,40 +778,7 @@ return $newCommentArray;
      
    }
 
-   public function triggerNotification($notificationPayload){
-      
-    $allNotification = PushNotification::where('user_id',$notificationPayload["owner_id"])->get();
    
-    $payload = [
-        "title"=> '',
-        "body"=> $notificationPayload["body"],
-        "badge" => "/imagesNew/icons/icon-72x72.png",
-        "vibrate"=> [1000,500,1000],
-        "tag" => $notificationPayload["tag"],
-        "icon" => $notificationPayload["image"],
-        "requireInteraction"=> true,
-        "data"=> [
-           "type"=>$notificationPayload["type"],
-           "name"=>$notificationPayload["name"],
-           "project"=>$notificationPayload["project"],
-           "url"=> $notificationPayload["url"]
-        ]
-    ];
-
-    $defaultOption = [
-        'TTL' => 2000000, // defaults to 4 weeks
-        'urgency' => 'high', // protocol defaults to "normal"
-        'topic' => 'CitonHub Notification', // not defined by default,
-        'batchSize' => 10000, // defaults to 1000
-    ];
-     
-    $this->generateNotification($allNotification,json_encode($payload));
-     
-    $this->sendNotification($defaultOption);
-
-    $this->notificationReport();
-
-}
 
 public function fetchAllProjects(){
   $allProjects = DB::table('space_members')

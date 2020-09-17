@@ -12,9 +12,8 @@ use Illuminate\Support\Str;
 use App\traits\PushNotificationTrait;
 use App\Notification;
 use App\Duel;
-use App\Mail\VerifyUserEmail;
+use App\Jobs\HandleMail;
 use App\Post;
-use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 use App\Project;
 use App\Space;
@@ -94,7 +93,7 @@ class UserController extends Controller
 
         $newUser =  User::where('email',$request->get('email'))->first();
 
-        Mail::to($request->get('email'))->send(new VerifyUserEmail($newUser));
+        dispatch(new HandleMail($newUser));
 
          return 'done';
     }

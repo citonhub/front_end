@@ -36,8 +36,9 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Response;
 use Streaming\Representation;
-use App\Mail\SpaceInviteMail;
-use Illuminate\Support\Facades\Mail;
+use App\Jobs\HandleSpaceMail;
+use App\Jobs\HandleNotification;
+
 
 
 class SpaceController extends Controller
@@ -97,9 +98,10 @@ class SpaceController extends Controller
 
        $thisUser = Auth::user();
 
-       foreach ($requestMails as $mails) {
+       foreach ($requestMails as $mail) {
 
-         Mail::to($mails)->send(new SpaceInviteMail($thisUser,$space));
+          dispatch(new HandleSpaceMail($thisUser,$space,$mail));
+
        };
 
        return 'done';
@@ -2939,7 +2941,9 @@ return  $newChannelArray;
 
       
   
-      $this->triggerNotification($notificationPayload);
+     
+
+      dispatch(new HandleNotification($notificationPayload));
 
      // trigger internal notification
 
@@ -2986,44 +2990,6 @@ return  $newChannelArray;
 }
 
 
-public function triggerNotification($notificationPayload){
-      
-   $allNotification = PushNotification::where('user_id',$notificationPayload["owner_id"])->get();
 
-   
-
- 
-  
-   $payload = [
-       "title"=> '',
-       "body"=> $notificationPayload["body"],
-       "badge" => "/imagesNew/icons/icon-72x72.png",
-       "vibrate"=> [1000,500,1000],
-       "tag" => $notificationPayload["tag"],
-       "icon" => $notificationPayload["image"],
-       "requireInteraction"=> true,
-       "data"=> [
-          "type"=>$notificationPayload["type"],
-          "name"=>$notificationPayload["name"],
-          "space"=>$notificationPayload["space"],
-          "url"=> $notificationPayload["url"]
-       ]
-   ];
-
-   $defaultOption = [
-       'TTL' => 2000000, // defaults to 4 weeks
-       'urgency' => 'high', // protocol defaults to "normal"
-       'topic' => 'CitonHub Notification', // not defined by default,
-       'batchSize' => 10000, // defaults to 1000
-   ];
-    
-   $this->generateNotification($allNotification,json_encode($payload));
-    
-   $this->sendNotification($defaultOption);
-
-   $this->notificationReport();
-
-
-}
 
 }
