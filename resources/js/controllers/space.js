@@ -322,6 +322,7 @@ const app = new Vue({
      newMasterId:null,
      codeFromChat:false,
      userIsReconnecting:false,
+     fromSpaceShare:false,
         },
      mounted: function () {
       this.pageloader= false;
@@ -470,7 +471,7 @@ const app = new Vue({
       this.$root.LocalStore('ChatList' + this.username,this.ChatList);
       this.$root.LocalStore('unread' + spaceId  + this.$root.username,[]);
     },
-    checkUnread: function(){
+    checkUnread: function(fromChatList){
 
       
 
@@ -489,7 +490,11 @@ const app = new Vue({
              if(result != null){
   
               let finalResultUnread = JSON.parse(result);
-  
+                  
+                  if(finalResultUnread.length != 0 && fromChatList){
+                    this.updateSpaceTracker(this.$root.ChatList[1][index].space_id);
+                  }
+                  
               unreadLength1 += finalResultUnread.length ;
 
               this.$root.teamUnread = unreadLength1;
@@ -522,7 +527,9 @@ const app = new Vue({
   
               let finalResultUnread2 = JSON.parse(result);
   
-              
+              if(finalResultUnread2.length != 0 && fromChatList){
+                this.updateSpaceTracker(this.$root.ChatList[2][index].space_id);
+              }
               
               unreadLenght2 += finalResultUnread2.length ;
 
@@ -556,9 +563,15 @@ const app = new Vue({
             if(result != null){
   
               let finalResultUnread3 = JSON.parse(result);
+
+              if(finalResultUnread3.length != 0 && fromChatList){
+                this.updateSpaceTracker(this.$root.ChatList[4][index].space_id);
+              }
   
               
               UnreadLength3 += finalResultUnread3.length ;
+
+
 
               this.$root.directUnread  = UnreadLength3;
   

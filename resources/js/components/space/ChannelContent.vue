@@ -1971,7 +1971,6 @@ export default {
   
 }
 .outerbox{
- 
   display:-webkit-flex;
   align-items:center;
   justify-content:center;

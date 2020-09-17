@@ -119,6 +119,7 @@ Route::post('/save-selected-channels','SpaceController@saveSelectedChannels');
 Route::get('/check-for-new-space-messages','SpaceController@CheckForUpdatesSpace');
 Route::post('/make-user-admin','SpaceController@makeUserAdmin');
 Route::post('/make-user-master','SpaceController@makeUserMaster');
+Route::post('/send-space-invite-mail','SpaceController@sendInviteMail');
 
 // should be deleted
 Route::get('/assistant-messager/{messageId}','SpaceController@createMessageAssistant');
@@ -153,6 +154,7 @@ Route::get('/fetch-connections','ProfileController@userConnections');
 Route::get('/fetch-connected','ProfileController@userConnected');
 Route::get('/fetch-all-connected','ProfileController@userAllConnected');
 Route::get('/fetch-trend-connections/{query?}','ProfileController@fetchTrendConnections');
+Route::post('/send-to-connections','ProfileController@sendToConnections');
 
 
 // sanbox routes

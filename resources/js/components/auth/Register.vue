@@ -102,8 +102,8 @@
   
          
                <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn rounded :loading="loading" small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
-                  @click="checkemail">
+                  <v-btn rounded :loading="loading" type="submit" small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
+                  @click.prevent="checkemail">
                   Sign up
                   </v-btn>
              </div>

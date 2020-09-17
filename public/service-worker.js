@@ -123,6 +123,21 @@ const {NetworkOnly} = workbox.strategies;
        }
 
 
+       if(notificationOptions.data.type == 'space_invitation'){
+               
+        
+        if(notificationCount == undefined){
+
+          notificationOptions.title = 'Invitation to a new space';
+         
+        }else{
+
+          notificationOptions.title = 'Invitation to a new space';
+        }
+      
+       }
+
+
        if(notificationOptions.data.type == 'new_project'){
 
         if(notificationCount == undefined){

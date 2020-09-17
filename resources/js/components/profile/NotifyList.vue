@@ -257,7 +257,7 @@
                
             
                 <div class="ml-2 mt-1 col-12 px-2 py-0">
-                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}}  and {{ notification.dataArray.length - 1 }} others commented on your project:{{ notification.project_data.title }}</b></span>
+                  <span  class="d-block titleText px-1"><b>{{notification.dataArray[0].username}}  and {{ notification.dataArray.length - 1 }} others commented on your project:{{ notification.project_data.title }}</b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -358,7 +358,7 @@
                
             
                 <div class="ml-2 mt-1 col-12 px-2 py-0">
-                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}}  and {{ notification.dataArray.length - 1 }} others connected to you:{{ notification.project_data.title }}</b></span>
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}}  and {{ notification.dataArray.length - 1 }} others connected to you</b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -368,6 +368,66 @@
 
                 </div>
              </v-card>
+
+
+         <!-- new space invitation -->
+
+             <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"
+               
+                    v-if="notification.type == 'space_invitation' && notification.space != null"   >
+                <div class="row py-0 my-0 px-2">
+
+                 <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">
+                 <div>
+                  <div :style="imageStyle(34,notification.dataArray[0])" 
+                  class="d-inline-block" >
+
+                  </div>
+
+               </div>
+                <div class="d-inline-block ml-2 mt-1">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}} Invites you to {{notification.space.name}} {{notification.space.type}} </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+
+                 <div class="col-12 py-0  px-0"  v-else>
+                     
+                           
+                           <div class="col-12 py-0 px-2">
+                                <div v-for="(user,index) in notification.dataArray" :key="index" class="d-inline-block mx-1">
+                  <div :style="imageStyle(25,user)" 
+                   >
+
+                    </div>
+
+                     </div>
+                           </div>
+                      
+                
+               
+            
+                <div class="ml-2 mt-1 col-12 px-2 py-0">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}}  and {{ notification.dataArray.length - 1 }} others Invites you to {{notification.space.name}} {{notification.space.type}}</b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+
+                 <div class="ml-2 mt-1 col-12 px-2 py-0 text-center">
+                   
+                   <v-btn rounded  x-small  type="submit" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
+                   @click="handleNotify(notification)"  >Join</v-btn>
+                   
+                </div>
+
+
+                </div>
+             </v-card>
+
  
 
            <!-- new message -->
@@ -477,6 +537,12 @@ export default {
        }
 
          if(notification.type == 'new_message'){
+        
+        window.location = '/space#/space/' + notification.space.space_id + '/channel/content/user';
+
+       }
+
+        if(notification.type == 'space_invitation'){
         
         window.location = '/space#/space/' + notification.space.space_id + '/channel/content/user';
 

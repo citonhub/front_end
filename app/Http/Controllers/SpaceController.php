@@ -36,6 +36,8 @@ use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Response;
 use Streaming\Representation;
+use App\Mail\SpaceInviteMail;
+use Illuminate\Support\Facades\Mail;
 
 
 class SpaceController extends Controller
@@ -85,6 +87,27 @@ class SpaceController extends Controller
 
 
     }
+
+
+    public function sendInviteMail(Request $request){
+     
+      $space = Space::where('space_id',$request->get('space_id'))->first();
+
+      $requestMails = $request->get('mails');
+
+       $thisUser = Auth::user();
+
+       foreach ($requestMails as $mails) {
+
+         Mail::to($mails)->send(new SpaceInviteMail($thisUser,$space));
+       };
+
+       return 'done';
+
+
+    }
+
+  
 
     public function updateSpace(Request $request){
           $characters = 'abcdefjhijklmnopqrstuvwxyz';

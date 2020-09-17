@@ -46,7 +46,11 @@
                     </div>
 
                     <div class="py-0 my-0 " style="align-items:center; position:absolute; top:5%; right:5%;" v-if="member.is_admin">
-                         <span style="font-size:10px; color:#4d4d4d;">Admin </span>
+                         <span style="font-size:10px; color:#4d4d4d;">Admin <v-icon color="green" v-if="checkIfOnline(member)" style="font-size:14px;">mdi-circle </v-icon></span>
+                    </div>
+
+                    <div class="py-0 my-0 " style="align-items:center; position:absolute; top:5%; right:5%;" v-else>
+                         <span style="font-size:10px; color:#4d4d4d;"> <v-icon color="green" v-if="checkIfOnline(member)" style="font-size:14px;">mdi-circle </v-icon></span>
                     </div>
 
                    
@@ -619,6 +623,32 @@ export default {
      }) 
 
         },
+
+       checkIfOnline: function(member){
+
+        let userData = this.$root.SpaceUsers.filter((user)=>{
+         return user.id == member.user_id;
+        });
+
+         if(userData.length == 0){
+
+         
+
+            
+
+            return false
+
+
+         }else{
+
+         
+           
+
+           return true
+         }
+
+      },
+       
       shortenContent: function(content,limit){
              
              if(content.length > limit){
@@ -627,8 +657,8 @@ export default {
              }else{
                return content;
              }
-        },
-         fetchMembers: function(){
+       },
+        fetchMembers: function(){
           
            axios.get('/fetch-space-members-' + this.$route.params.spaceId )
       .then(response => {
@@ -637,7 +667,8 @@ export default {
         
      
        this.Members = response.data;
-       
+
+        
      }
        
      

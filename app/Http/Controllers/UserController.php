@@ -218,6 +218,14 @@ class UserController extends Controller
                 $newNotify["space"] = $space;
             }
 
+            if($newNotify["type"] == 'space_invitation'){
+
+                $space = Space::where('space_id',$newNotify["type_id"])->first();
+
+                $newNotify["space"] = $space;
+
+            }
+
             
             
             array_push($notificationArray,$newNotify);

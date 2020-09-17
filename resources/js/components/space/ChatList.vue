@@ -517,8 +517,9 @@ export default {
        this.$root.SpaceUsers = [];
          this.$root.selectedSpace = [];
        this.trackUser();
-      this.$root.checkUnread();
+      this.$root.checkUnread(true);
        this.updateSpaceMessages();
+     
        
     },
     methods:{
@@ -528,8 +529,8 @@ export default {
 
            interval = setInterval(()=>{
 
-             this.$root.checkUnread();
-            this.$root.sortChatList();
+             this.$root.checkUnread(false);
+          
                
                if(this.$root.makeRecallSpace){
 
@@ -644,6 +645,49 @@ export default {
 
                }
              });
+
+             }else{
+
+
+                let storedMsg = this.$root.getLocalStore(space.space_id  + this.$root.username);
+            
+             storedMsg.then((result)=>{
+
+              
+                   
+               if(result != null){
+                
+                let parsedResult = JSON.parse(result);
+
+                let MessagesFull = parsedResult;
+
+                let newMessages = space.new_messages;
+                     
+                    
+                  
+
+                 newMessages.forEach((messages)=>{
+
+                   MessagesFull[0].push(messages);
+
+                     this.$root.LocalStore(space.space_id  + this.$root.username,MessagesFull);
+
+                     this.$root.Messages.push(messages);
+
+                      this.$root.sortChatList();
+
+                  this.$root.scrollToBottom(); 
+
+                  this.$root.updateSpaceTracker(space.space_id);
+
+                  
+
+                 });
+
+                  
+               }
+             });
+               
 
              }
             

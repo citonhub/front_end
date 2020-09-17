@@ -67,7 +67,8 @@
 
          
                <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn rounded  small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" :loading="loading" @click="loginuser">Login</v-btn>
+                  <v-btn rounded  small  type="submit" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" :loading="loading" 
+                  @click.prevent="loginuser">Login</v-btn>
              </div>
 
 

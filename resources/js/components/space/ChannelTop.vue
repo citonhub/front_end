@@ -24,7 +24,8 @@
               <span class="TitleText d-block" v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'" @click.stop="viewUser()">{{shortenContent(this.$root.selectedSpace.userInfo.username,22)}}</span>
                <span class="typingText d-block" v-if="this.$root.typing && (this.$root.typingSpace == this.$root.selectedSpace.space_id)">{{this.$root.typinguser}} is typing... </span>
                 <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}} Members</span>
-
+                 <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'Direct' && checkIfOnline(this.$root.selectedSpace.userInfo.id)">Online</span>
+                 
            </div>
              
          </div>
@@ -169,6 +170,22 @@ export default {
              this.checkIfRemoteLive();
     },
     methods:{
+      checkIfOnline: function(user_id){
+
+        let userData = this.$root.SpaceUsers.filter((user)=>{
+         return user.id == user_id;
+        });
+
+         if(userData.length == 0){
+
+            return false
+
+         }else{
+
+           return true
+         }
+
+      },
       checkIfRemoteLive: function(){
 
            let interval = setInterval(checkSignal,2000);

@@ -165,14 +165,44 @@ class ProfileController extends Controller
   
         $newConnect->save();
 
-        $this->connectionNotification($user->id,'new_connection');
+        $this->connectionNotification($user->id,'new_connection',false);
       }
 
 
       }
 
 
-      public function connectionNotification($baseUserId,$type){
+      public function sendToConnections(Request $request){
+     
+        $space = Space::where('space_id',$request->get('space_id'))->first();
+  
+        $connections = $request->get('connections');
+
+        
+  
+         $thisUser = Auth::user();
+  
+         foreach ($connections as $username) {
+  
+            $user = User::where('username',$username)->first();
+
+            if($user != null){
+               
+              $this->connectionNotification($user->id,'space_invitation',$space);
+
+            }
+         };
+  
+         return 'done';
+  
+  
+      }
+
+
+      
+
+
+      public function connectionNotification($baseUserId,$type,$space){
        
         $userDataBase  = User::where('id', $baseUserId)->first();
               
@@ -197,13 +227,35 @@ class ProfileController extends Controller
                    $imagePath = '/imgs/profile/' . $userData->image_name . '.' . $userData->image_extension;
                  }
 
-                 $baseUrl = 'profile#/profile/channels/' . $userDataBase->username;
+                   $bodyText = '';
+                   $tagId = '';
+                  if($type == 'new_connection'){
+                    $baseUrl = 'profile#/profile/channels/' . $userDataBase->username;
+
+                    $bodyText = 'New Connections';
+
+                    $tagId = $baseUserId;
+
+                  }
+
+                  if($type == 'space_invitation'){
+                    $baseUrl = 'profile#/profile/channels/' . $userDataBase->username;
+
+                    $bodyText = Auth::user()->name . ' invites you to ' . $space->name  . ' ' . $space->type;
+
+                    $tagId = $space->space_id;
+
+                  }
+
+
+
+                
        
                  $notificationPayload = [
                     "owner_id" => $userDataBase->id,
                     "name"=> $userData->username,
-                    "body"=> 'New Connections',
-                    "tag"=> $baseUserId,
+                    "body"=> $bodyText,
+                    "tag"=> $tagId,
                     "type"=> $type,
                     "image"=> $imagePath,
                     "url"=> $baseUrl
@@ -231,7 +283,7 @@ class ProfileController extends Controller
                'user_id'=> $userDataBase->id,
                'type'=> $type,
                'data_array' => $userDataArray,
-               'type_id'=> $baseUserId,
+               'type_id'=> $tagId,
                'status'=> 'unread'
              ]);
            
