@@ -39,7 +39,7 @@
 
               <!-- duel_like -->
                <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
-                   v-if="notification.type == 'duel_like'  && notification.dataArray != null"  
+                   v-if="notification.type == 'duel_like'  && notification.duel_data != null"  
                       >
                 <div class="row py-0 my-0 px-2">
                     <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">
@@ -98,7 +98,7 @@
 
                <!-- duel comment -->
                <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
-                   v-if="notification.type == 'duel_comment' && notification.dataArray != null"  
+                   v-if="notification.type == 'duel_comment' && notification.duel_data != null"  
                       >
                 <div class="row py-0 my-0 px-2">
                     <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">
@@ -158,7 +158,7 @@
 
               <!-- duel join -->
                <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
-                   v-if="notification.type == 'duel_join' && notification.dataArray != null"  
+                   v-if="notification.type == 'duel_join' && notification.duel_data != null"  
                       >
                 <div class="row py-0 my-0 px-2">
                     <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">

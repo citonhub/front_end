@@ -168,6 +168,18 @@ class SpaceController extends Controller
 
 
    public function saveMessage(Request $request){
+
+
+       $MessageTemp = SpaceMessage::where('temp_id',$request->get('temp_id'))->first();
+
+        if($MessageTemp != null){
+
+           dd('existing');
+
+          return;
+
+        }
+
         $attachment_type = $request->get('attachment_type');
 
         if($request->get('attachment_type') == 'voiceRecord'){
