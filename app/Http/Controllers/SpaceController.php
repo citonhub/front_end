@@ -2943,7 +2943,7 @@ return  $newChannelArray;
   
      
 
-      dispatch(new HandleNotification($notificationPayload));
+      dispatch(new HandleNotification($notificationPayload,'space'));
 
      // trigger internal notification
 

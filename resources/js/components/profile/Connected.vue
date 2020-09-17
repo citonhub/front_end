@@ -73,9 +73,9 @@ export default {
       this.$root.checkIfUserIsLoggedIn('profile');
     },
     methods:{
-       goBack() {
+       goBack(){
        
-        this.$router.push({ path: '/profile/activities/' + this.$route.params.username });
+        this.$router.push({ path: '/profile/channels/' + this.$route.params.username });
         
         },
         showProfile:function(user){

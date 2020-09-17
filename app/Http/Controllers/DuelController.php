@@ -867,7 +867,7 @@ class DuelController extends Controller
             "url"=> $baseUrl
           ];
       
-          dispatch(new HandleNotification($notificationPayload));
+          dispatch(new HandleNotification($notificationPayload,'duel'));
           // broadcast to users
 
          broadcast(new UserChannel('new-duel',$duelArray[0],$user->username));
@@ -944,7 +944,9 @@ class DuelController extends Controller
            
          
 
-          dispatch(new HandleNotification($notificationPayload));
+          dispatch(new HandleNotification($notificationPayload,'duel'));
+
+
           
          }
      

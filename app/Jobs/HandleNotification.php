@@ -21,10 +21,13 @@ class HandleNotification implements ShouldQueue
      */
 
     public $payload;
+    public $type;
 
-    public function __construct($payload)
+    public function __construct($payload,$type)
     {
         $this->payload = $payload;
+
+        $this->type = $type;
     }
 
     /**
@@ -43,25 +46,71 @@ class HandleNotification implements ShouldQueue
 
         $allNotification = PushNotification::where('user_id',$notificationPayload["owner_id"])->get();
 
-   
+       
 
+        if($this->type == 'space'){
+
+            $payload = [
+                "title"=> '',
+                "body"=> $notificationPayload["body"],
+                "badge" => "/imagesNew/icons/icon-72x72.png",
+                "vibrate"=> [1000,500,1000],
+                "tag" => $notificationPayload["tag"],
+                "icon" => $notificationPayload["image"],
+                "requireInteraction"=> true,
+                "data"=> [
+                   "type"=>$notificationPayload["type"],
+                   "name"=>$notificationPayload["name"],
+                   "space"=>$notificationPayload["space"],
+                   "url"=> $notificationPayload["url"],
+                ]
+            ];
+
+
+        }
+
+        if($this->type == 'duel'){
+           
+
+            $payload = [
+                "title"=> '',
+                "body"=> $notificationPayload["body"],
+                "badge" => "/imagesNew/icons/icon-72x72.png",
+                "vibrate"=> [1000,500,1000],
+                "tag" => $notificationPayload["tag"],
+                "icon" => $notificationPayload["image"],
+                "requireInteraction"=> true,
+                "data"=> [
+                   "type"=>$notificationPayload["type"],
+                   "name"=>$notificationPayload["name"],
+                   "duel"=>$notificationPayload["duel"],
+                   "url"=> $notificationPayload["url"],
+                ]
+            ];
+        }
+
+        if($this->type == 'project'){
+         
+
+            $payload = [
+                "title"=> '',
+                "body"=> $notificationPayload["body"],
+                "badge" => "/imagesNew/icons/icon-72x72.png",
+                "vibrate"=> [1000,500,1000],
+                "tag" => $notificationPayload["tag"],
+                "icon" => $notificationPayload["image"],
+                "requireInteraction"=> true,
+                "data"=> [
+                   "type"=>$notificationPayload["type"],
+                   "name"=>$notificationPayload["name"],
+                   "project"=>$notificationPayload["project"],
+                   "url"=> $notificationPayload["url"],
+                ]
+            ];
+
+
+        }
  
-  
-        $payload = [
-            "title"=> '',
-            "body"=> $notificationPayload["body"],
-            "badge" => "/imagesNew/icons/icon-72x72.png",
-            "vibrate"=> [1000,500,1000],
-            "tag" => $notificationPayload["tag"],
-            "icon" => $notificationPayload["image"],
-            "requireInteraction"=> true,
-            "data"=> [
-               "type"=>$notificationPayload["type"],
-               "name"=>$notificationPayload["name"],
-               "space"=>$notificationPayload["space"],
-               "url"=> $notificationPayload["url"]
-            ]
-        ];
      
         $defaultOption = [
             'TTL' => 2000000, // defaults to 4 weeks

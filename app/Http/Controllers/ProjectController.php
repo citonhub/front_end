@@ -724,7 +724,7 @@ return $newCommentArray;
       
         
 
-          dispatch(new HandleNotification($notificationPayload));
+          dispatch(new HandleNotification($notificationPayload,'project'));
 
 
          
