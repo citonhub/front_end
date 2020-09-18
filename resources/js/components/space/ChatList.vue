@@ -723,16 +723,45 @@ export default {
         },
        
        closeConnections:function(){
-          if(this.$root.audioconnection != undefined){
+          let _this = this;
 
-          
-           
-        this.$root.audioconnection.closeSocket();
+         if(this.$root.audioconnection != undefined){
+
          
-            
-          }
+          
+        
+
+        // disconnect with all users
+    this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
+        _this.$root.audioconnection.disconnectWith(pid);
+    });
+
+    // stop all local cameras
+    this.$root.audioconnection.attachStreams.forEach(function(localStream) {
+        localStream.stop();
+    });
+
+    // close socket.io connection
+   this.$root.audioconnection.closeSocket();
+
+
+           
+         }
 
           if(this.$root.connection != undefined){
+
+
+             // disconnect with all users
+    this.$root.connection.getAllParticipants().forEach(function(pid) {
+        _this.$root.connection.disconnectWith(pid);
+    });
+
+    // stop all local cameras
+    this.$root.connection.attachStreams.forEach(function(localStream) {
+        localStream.stop();
+    });
+
+
           this.$root.connection.closeSocket();
           }
        
