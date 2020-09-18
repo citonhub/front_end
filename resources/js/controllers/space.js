@@ -1523,7 +1523,7 @@ this.$root.audioconnection.iceServers.push({
 
 this.$root.audioconnection.audiosContainer = document.getElementById('audios-container');
 this.$root.audioconnection.onstream = function(event) {
-    var width = parseInt(this.$root.audioconnection.audiosContainer.clientWidth / 2) - 20;
+    var width = parseInt(_this.$root.audioconnection.audiosContainer.clientWidth / 2) - 20;
     var mediaElement = getHTMLMediaElement(event.mediaElement, {
         title: event.userid,
         width: width,
