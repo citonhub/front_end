@@ -1693,6 +1693,8 @@ this.$root.audioconnection.onstreamended = function(event) {
 
 
                   this.checkUserPresence(sessionId);
+
+                  this.checkIfUserIsReconnecting();
                
                
                        }
@@ -1736,20 +1738,24 @@ this.$root.audioconnection.onstreamended = function(event) {
    speechEvents.on('volume_change', function(volume, threshold) {
         
      
+    if(_this.$root.audioconnection != undefined){
 
-    let channel =  window.Echo.join('space.' + _this.$route.params.spaceId);
+      let channel =  window.Echo.join('space.' + _this.$route.params.spaceId);
     
-        let data = {
-          userid: _this.$root.audioconnection.userid,
-          volume: volume,
-          threshold: threshold,
-      };
+      let data = {
+        userid: _this.$root.audioconnection.userid,
+        volume: volume,
+        threshold: threshold,
+    };
 
-      channel.whisper('audioSpeaker', {
-         data:data,
-         spaceId: _this.$route.params.spaceId
-     });
+    channel.whisper('audioSpeaker', {
+       data:data,
+       spaceId: _this.$route.params.spaceId
+   });
 
+
+    }
+    
      
 
      
@@ -1826,16 +1832,13 @@ this.$root.audioconnection.onstreamended = function(event) {
 
          checkIfUserIsReconnecting: function(){
 
-           let reconnectInterval = null;
+          
 
-           reconnectInterval = setInterval(()=>{
+        
                  
-            if(this.$root.audioconnection == undefined){
-                 
-              clearInterval(reconnectInterval);
-             }else{
+            
               var socket = this.$root.audioconnection.socket;
-         
+             
              
               
             socket.on('connect', ()=>{
@@ -1846,31 +1849,50 @@ this.$root.audioconnection.onstreamended = function(event) {
 
          socket.on('disconnect', ()=> {
           this.userIsReconnecting = true;
+            
+          let _this = this; 
+          
+           this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
+                  _this.$root.audioconnection.disconnectWith(pid);
+              });
+          
+              // stop all local cameras
+              this.$root.audioconnection.attachStreams.forEach(function(localStream) {
+                  localStream.stop();
+              });
+        
          
           })
 
         socket.on('reconnecting', (attemptNumber)=>{
-          this.userIsReconnecting = true;
+         
 
           this.$root.audioconnection.renegotiate();
          
         });
-      
+        
+       
 
               if(this.userIsReconnecting){
 
-                 this.connectingToSocket = true;
+                
 
-                 
+                
 
-                 this.checkAudioRoomState();
+                
+
+              this.connectingToSocket = true;
+
+              this.checkAudioRoomState();
+
+             
                
                  
 
               }else{
-                this.connectingToSocket = false;
-                this.getAllConnectedUsers();
-                
+
+               
+               
                
               }
 
@@ -1878,8 +1900,8 @@ this.$root.audioconnection.onstreamended = function(event) {
 
              
 
-             }
-           },2000)
+             
+         
 
          },
 

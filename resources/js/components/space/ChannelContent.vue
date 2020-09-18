@@ -1326,8 +1326,7 @@ export default {
     let finalValue = value1 + scaleL;
 
       
-
-     
+   if(this.$root.allAudioParticipant.length != 0){
     this.$root.allAudioParticipant.map((user)=>{
 
       if(user[1] == e.data.userid){
@@ -1337,10 +1336,15 @@ export default {
         user[0].volume = finalValue.toFixed(2);
          
       }
+
+       });
+   }
+     
+    
       
 
       
-   });
+  
                        
                    
 
