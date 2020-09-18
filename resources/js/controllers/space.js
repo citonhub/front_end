@@ -1891,6 +1891,15 @@ this.$root.audioconnection.onstreamended = function(event) {
 
               }else{
 
+
+                if(this.$root.allAudioParticipant.length == 0){
+
+                  this.$root.audioconnection.renegotiate();
+
+                  
+
+                }
+
                
                
                
