@@ -1936,7 +1936,7 @@ this.$root.audioconnection.onstreamended = function(event) {
 
                 if(this.$root.allAudioParticipant.length == 0){
 
-                  
+                   this.$root.audioconnection.renegotiate();
 
                   
 
