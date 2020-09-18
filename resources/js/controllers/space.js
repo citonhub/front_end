@@ -1490,13 +1490,13 @@ this.$root.audioconnection.socketMessageEvent = 'audio-conference';
          this.$root.audioconnection.socketCustomParameters = '&extra=' + JSON.stringify(this.$root.audioconnection.extra);
 
 this.$root.audioconnection.session = {
-    audio: false,
+    audio: true,
     video: false,
     
 };
 
 this.$root.audioconnection.mediaConstraints = {
-    audio: false,
+    audio: true,
     video: false
 };
 
@@ -1524,18 +1524,27 @@ this.$root.audioconnection.iceServers.push({
 this.$root.audioconnection.audiosContainer = document.getElementById('audios-container');
 
 this.$root.audioconnection.onstream = function(event) {
+
+   
+
+  var width = parseInt(_this.$root.audioconnection.audiosContainer.clientWidth / 2) - 20;
+  var mediaElement = getHTMLMediaElement(event.mediaElement, {
+      title: event.userid,
+      buttons: ['full-screen'],
+      width: width,
+      showOnMouseEnter: false
+  });
+
+  _this.$root.audioconnection.audiosContainer.appendChild(mediaElement);
+
+  setTimeout(function() {
+      mediaElement.media.play();
+  }, 5000);
+
+  mediaElement.id = event.streamid;
+
     
-    var mediaElement = getHTMLMediaElement(event.mediaElement, {
-        title: event.userid,
-    });
-
-    _this.$root.audioconnection.audiosContainer.appendChild(mediaElement);
-
-    setTimeout(function() {
-        mediaElement.media.play();
-    }, 5000);
-
-    mediaElement.id = event.streamid;
+   
 
   
 };
@@ -1611,7 +1620,7 @@ this.$root.audioconnection.onstreamended = function(event) {
           
               alert('Please attach a microphone device.');
           
-                this.$root.audioconnection.dontCaptureUserMedia = true;
+              
             }
           
             if (this.$root.audioconnection.DetectRTC.hasSpeakers === false) { // checking for "false"
@@ -1893,9 +1902,9 @@ this.$root.audioconnection.onstreamended = function(event) {
   
           socket.on('reconnecting', (attemptNumber)=>{
            
-            this.$root.audioconnection.renegotiate();
+            
 
-           
+            this.userIsReconnecting = false;
             
            
           });

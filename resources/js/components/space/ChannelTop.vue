@@ -137,6 +137,9 @@
                <div style="height:auto; width:100%;align-items:center;justify-content:center; " class="d-flex" >
 
                   <div  id="videos-container" class="mb-3"></div>
+
+
+                     <div  id="audios-container" class="mb-3" v-show="false"></div>
                  
                  
 
