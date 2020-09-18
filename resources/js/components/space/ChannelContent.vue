@@ -1305,6 +1305,45 @@ export default {
                 
               
              
+                 })
+                 .listenForWhisper('audioSpeaker',(e)=>{
+
+                    
+                       
+                        let scaleH = 90;
+
+                      let scaleL = 70;
+
+    let rscaleH = 120;
+
+
+    let apm = e.data.volume * -1;
+
+    let topFraction = apm * (scaleH - scaleL);
+
+     let value1 = topFraction / rscaleH;
+
+    let finalValue = value1 + scaleL;
+
+      
+
+     
+    this.$root.allAudioParticipant.map((user)=>{
+
+      if(user[1] == e.data.userid){
+
+          
+      
+        user[0].volume = finalValue.toFixed(2);
+         
+      }
+      
+
+      
+   });
+                       
+                   
+
                  });
 
          }

@@ -1567,53 +1567,7 @@ this.$root.audioconnection.onunmute = function(event) {
 };
 
 
-this.$root.audioconnection.onmessage = function(event) {
-   
-  if(event.data.is_volume){
 
-     let scaleH = 90;
-
-      let scaleL = 30;
-
-    let rscaleH = 120;
-
-
-    let apm = event.data.volume * -1;
-
-    let topFraction = apm * (scaleH - scaleL);
-
-     let value1 = topFraction / rscaleH;
-
-    let finalValue = value1 + scaleL;
-
-     
-
-     
-    _this.$root.allAudioParticipant.map((user)=>{
-
-      if( user[1] == event.userid){
-
-         
-      
-        user[0].volume = finalValue.toFixed(2);
-         
-      }
-      
-
-      
-   });
-     
-    
-  }
-
-  if(event.data.silence){
-
-     console.log('silence');
-
-  }
-   
- 
-};
 
 
 
@@ -1692,6 +1646,8 @@ this.$root.audioconnection.onstreamended = function(event) {
 
       _this.getAllConnectedUsers(roomid);
 
+      _this.setUserSpeaker();
+
       _this.$root.connectingToSocket = false;
       _this.userIsReconnecting = false;
       });
@@ -1754,10 +1710,13 @@ this.$root.audioconnection.onstreamended = function(event) {
 
         setUserSpeaker: function(){
 
+         
+           let speakerInterval = null;
 
-        
+           speakerInterval = setInterval(()=>{
 
-           let _this = this;
+
+            let _this = this;
 
             if(this.$root.audioconnection == undefined){
                 
@@ -1772,43 +1731,26 @@ this.$root.audioconnection.onstreamended = function(event) {
              var options = {};
            var speechEvents = hark(localStream, options);
          
-      speechEvents.on('speaking', function() {
-
-         
-
     
-         _this.$root.audioconnection.send({
-             userid: _this.$root.audioconnection.userid,
-             speaking: true
-         });
-    
-     
-        
-   });
-
-   speechEvents.on('stopped_speaking', function() {
-
-   
-       _this.$root.audioconnection.send({
-         userid: _this.$root.audioconnection.userid,
-           silence: true
-       });
-  
- 
- 
-
-   });
 
    speechEvents.on('volume_change', function(volume, threshold) {
+        
+     
 
+    let channel =  window.Echo.join('space.' + _this.$route.params.spaceId);
     
-       _this.$root.audioconnection.send({
-         userid: _this.$root.audioconnection.userid,
-         volume: volume,
-         threshold: threshold,
-         is_volume: true
+        let data = {
+          userid: _this.$root.audioconnection.userid,
+          volume: volume,
+          threshold: threshold,
+      };
+
+      channel.whisper('audioSpeaker', {
+         data:data,
+         spaceId: _this.$route.params.spaceId
      });
-  
+
+     
 
      
    });
@@ -1820,6 +1762,12 @@ this.$root.audioconnection.onstreamended = function(event) {
 
 
             }
+
+
+           },500)
+        
+
+         
 
              
            
