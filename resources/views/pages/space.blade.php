@@ -5,7 +5,7 @@
 
  @endsection
  @section('meta') 
- <meta name="description" content="A platform for growing developer communities. Chat, share codes, live code and build projects in your Space. Create an account or log in to get started." />
+ <meta name="description" content="A messaging platform for growing developer communities. Chat, share codes, live code and build projects in your Space. Create an account or log in to get started." />
   <meta name="keywords" content="Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
@@ -326,7 +326,7 @@ body {
 
    <script src="https://cdn.webrtc-experiment.com/hark.js"></script>
 
- <script src="{{ asset('js/space.js?v=3.40') }}"></script>
+ <script src="{{ asset('js/space.js?v=3.41') }}"></script>
  
      
  @endsection

@@ -1867,7 +1867,7 @@ this.$root.audioconnection.onstreamended = function(event) {
         socket.on('reconnecting', (attemptNumber)=>{
          
 
-          this.$root.audioconnection.renegotiate();
+          
          
         });
         
@@ -1894,7 +1894,7 @@ this.$root.audioconnection.onstreamended = function(event) {
 
                 if(this.$root.allAudioParticipant.length == 0){
 
-                  this.$root.audioconnection.renegotiate();
+                  
 
                   
 
