@@ -691,6 +691,8 @@ export default {
        this.$root.forceListReload = false;
 
        this.resendMessages();
+
+       this.$root.getAllConnectedUsers();
        
       
     },
@@ -983,10 +985,12 @@ export default {
           if(this.$root.connection != undefined){
 
 
-             // disconnect with all users
+              // disconnect with all users
     this.$root.connection.getAllParticipants().forEach(function(pid) {
         _this.$root.connection.disconnectWith(pid);
     });
+
+
 
     // stop all local cameras
     this.$root.connection.attachStreams.forEach(function(localStream) {
@@ -1006,7 +1010,7 @@ export default {
         this.$root.liveIsOn = false;
         this.$root.showVideoScreen = false;
         this.$root.liveInitiated = false;
-
+          this.$root.presentRoomId = null;
 
         this.$root.remoteLiveHappening = false;
         this.$root.remoteCode = false;

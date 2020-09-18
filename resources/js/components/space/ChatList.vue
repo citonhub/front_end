@@ -729,10 +729,7 @@ export default {
 
          
           
-        
-
-        // disconnect with all users
-    this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
+     this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
         _this.$root.audioconnection.disconnectWith(pid);
     });
 
@@ -773,6 +770,7 @@ export default {
         this.$root.liveIsOn = false;
         this.$root.showVideoScreen = false;
         this.$root.liveInitiated = false;
+        this.$root.presentRoomId = null;
         this.$root.remoteLiveHappening = false;
 
          this.$root.remoteLiveHappening = false;

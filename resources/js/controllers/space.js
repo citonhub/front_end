@@ -323,6 +323,7 @@ const app = new Vue({
      codeFromChat:false,
      userIsReconnecting:false,
      fromSpaceShare:false,
+     presentRoomId: null,
         },
      mounted: function () {
       this.pageloader= false;
@@ -1592,6 +1593,8 @@ this.$root.audioconnection.onstreamended = function(event) {
       
         if(this.$root.audioconnection != undefined){
 
+         
+
           this.$root.connectingToSocket = true;
 
           this.$root.audioconnection.DetectRTC.load(()=> {
@@ -1619,6 +1622,16 @@ this.$root.audioconnection.onstreamended = function(event) {
           
           
             let _this = this;
+
+            
+          
+
+
+              
+
+            
+
+            
    
             this.$root.audioconnection.openOrJoin('audio' + this.$route.params.spaceId, function(isRoomExist, roomid) {
        if (isRoomExist === false && _this.$root.audioconnection.isInitiator === true) {
@@ -1640,11 +1653,13 @@ this.$root.audioconnection.onstreamended = function(event) {
       /** 
        * 
        *  
-      _this.checkUserPresence(roomid);
+      ;
       _this.setUserSpeaker();
       _this.checkIfUserIsReconnecting();*/ 
 
-      _this.getAllConnectedUsers(roomid);
+      _this.checkUserPresence(roomid)
+
+   
 
       _this.setUserSpeaker();
 
@@ -1669,38 +1684,51 @@ this.$root.audioconnection.onstreamended = function(event) {
        
        },
 
-        getAllConnectedUsers(sessionId){
+        getAllConnectedUsers(){
 
              let connectionInterval = null;
 
+            
+
              connectionInterval = setInterval(()=>{
+           
+               
+               if(!this.$root.chatisOpen){
 
+                    clearInterval(connectionInterval);
 
-               if(this.$root.audioconnection == undefined){
-                           clearInterval(connectionInterval)
               }else{
+
+                if(this.$root.audioconnection != undefined){
+
+
+
+                  let fullUsers = [];
    
-               let fullUsers = [];
+                  this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
+                    var user = this.$root.audioconnection.peers[remoteUserId];
+                       
+                        fullUsers.push([user.extra,user.userid]);
+                  
+                  
+                  });  
+                     this.$root.allAudioParticipant = fullUsers;
+                  
    
-               this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
-                 var user = this.$root.audioconnection.peers[remoteUserId];
+   
                     
-                     fullUsers.push([user.extra,user.userid]);
-               
-               
-               });  
-                  this.$root.allAudioParticipant = fullUsers;
+   
+                     this.checkIfUserIsReconnecting();
 
-
-                  this.checkUserPresence(sessionId);
-
-                  this.checkIfUserIsReconnecting();
+                }
+   
+              
                
                
                        }
 
 
-             },5000)
+             },2000)
 
            
           
@@ -1787,12 +1815,16 @@ this.$root.audioconnection.onstreamended = function(event) {
 
           
          
-         
+            let presenceInterval = null;
 
-            let _this = this;
+            presenceInterval = setInterval(()=>{
+
+
+              let _this = this;
 
              if(this.$root.audioconnection == undefined){
-                 
+                   
+              clearInterval(presenceInterval);
               
              }else{
              
@@ -1807,7 +1839,7 @@ this.$root.audioconnection.onstreamended = function(event) {
   
                 if(!isRoomExists){
 
-                 _this.audioconnection.closeSocket();
+                
   
                    _this.checkAudioRoomState();
                    
@@ -1822,6 +1854,10 @@ this.$root.audioconnection.onstreamended = function(event) {
 
              }
 
+
+            },5000)
+
+            
               
             
 
@@ -1839,37 +1875,33 @@ this.$root.audioconnection.onstreamended = function(event) {
             
               var socket = this.$root.audioconnection.socket;
              
-             
+             if(socket != undefined){
+
+
+              socket.on('connect', ()=>{
+                this.userIsReconnecting = false;
+  
+               
+            })
+  
+           socket.on('disconnect', ()=> {
+            this.userIsReconnecting = true;
               
-            socket.on('connect', ()=>{
-              this.userIsReconnecting = false;
-
-             
-          })
-
-         socket.on('disconnect', ()=> {
-          this.userIsReconnecting = true;
+           
+          
+           
+            })
+  
+          socket.on('reconnecting', (attemptNumber)=>{
+           
+  
             
-          let _this = this; 
-          
-           this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
-                  _this.$root.audioconnection.disconnectWith(pid);
-              });
-          
-              // stop all local cameras
-              this.$root.audioconnection.attachStreams.forEach(function(localStream) {
-                  localStream.stop();
-              });
-        
-         
-          })
+           
+          });
 
-        socket.on('reconnecting', (attemptNumber)=>{
-         
-
+             }
+              
           
-         
-        });
         
        
 
