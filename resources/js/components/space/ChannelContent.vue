@@ -385,7 +385,7 @@
       </v-list-item>
 
       <div class="col-12 py-1 my-0 text-center" v-if="this.$root.allAudioParticipant.length == 0 && !this.$root.connectingToSocket">
-      <span style="font-size:12px; color:gray;">Waiting for others to join...</span>
+      <span style="font-size:12px; color:gray;">Checking for members...</span>
       </div>
 
 
