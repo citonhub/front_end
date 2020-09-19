@@ -1853,7 +1853,35 @@ this.$root.audioconnection.onstreamended = function(event) {
   
            socket.on('disconnect', ()=> {
             this.userIsReconnecting = true;
+
+
+                // disconnect with all users
+    this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
+      _this.$root.audioconnection.disconnectWith(pid);
+  });
+
+  // stop all local cameras
+  this.$root.audioconnection.attachStreams.forEach(function(localStream) {
+      localStream.stop();
+  });
+          
+  
+
+      let _this = this;
+    
               
+            this.$root.audioconnection.checkPresence('audio' + this.$route.params.spaceId, function(isRoomExist, roomid) {
+
+
+              if (isRoomExist === true) {
+               _this.joinAudioRoom();
+            } else {
+              _this.openAudioRoom();
+            }
+
+      _this.$root.connectingToSocket = false;
+      _this.userIsReconnecting = false;
+      });
            
           
            
