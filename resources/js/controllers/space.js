@@ -1551,35 +1551,6 @@ this.$root.audioconnection.onstream = function(event) {
 
 
 
-
-
-// voice detection
-
-
-
-this.$root.audioconnection.onmute = function(event) {
-
-  if (event.stream.pause) {
-      // for audio-streams
-      // ask hark.js to resume looping and checking for voice activity
-      event.stream.pause();
-  }
-};
-
-this.$root.audioconnection.onunmute = function(event) {
- 
-  if (event.stream.resume) {
-      // for audio-streams
-      // ask hark.js to stop looping and checking for voice activity
-      event.stream.resume();
-  }
-};
-
-
-
-
-
-
 this.$root.audioconnection.onstreamended = function(event) {
     var mediaElement = document.getElementById(event.streamid);
     if (mediaElement) {
@@ -1736,7 +1707,7 @@ this.$root.audioconnection.onstreamended = function(event) {
                        }
 
 
-             },3000)
+             },5000)
 
            
           
@@ -1806,7 +1777,7 @@ this.$root.audioconnection.onstreamended = function(event) {
             }
 
 
-           },500)
+           },1000)
         
 
          
