@@ -1847,12 +1847,15 @@ this.$root.audioconnection.onstreamended = function(event) {
 
               socket.on('connect', ()=>{
                 this.userIsReconnecting = false;
+
+                this.$root.connectingToSocket = false;
   
                
             })
   
            socket.on('disconnect', ()=> {
-            this.userIsReconnecting = true;
+             
+            this.connectingToSocket = true;
 
             let _this = this;
 
@@ -1877,12 +1880,15 @@ this.$root.audioconnection.onstreamended = function(event) {
 
               if (isRoomExist === true) {
                _this.joinAudioRoom();
+               _this.$root.connectingToSocket = false;
+               _this.userIsReconnecting = false;
             } else {
               _this.openAudioRoom();
+              _this.$root.connectingToSocket = false;
+              _this.userIsReconnecting = false;
             }
 
-      _this.$root.connectingToSocket = false;
-      _this.userIsReconnecting = false;
+     
       });
            
           
@@ -1893,7 +1899,7 @@ this.$root.audioconnection.onstreamended = function(event) {
            
             
 
-            this.userIsReconnecting = false;
+          
 
            
             
@@ -1933,6 +1939,7 @@ this.$root.audioconnection.onstreamended = function(event) {
 
                 }
 
+                this.connectingToSocket = false;
                
                
                
@@ -2007,12 +2014,12 @@ this.$root.audioconnection.onstreamended = function(event) {
         this.$root.audioconnection.open('audio' + this.$route.params.spaceId, () =>{
 
             
-          _this.$root.connectingToSocket = false; 
+          _this.$root.connectingToSocket = false;
+          _this.userIsReconnecting = false;
     });
 
 
-    _this.$root.connectingToSocket = false;
-    _this.userIsReconnecting = false;
+   
 
      
 
