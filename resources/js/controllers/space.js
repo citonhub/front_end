@@ -1854,6 +1854,8 @@ this.$root.audioconnection.onstreamended = function(event) {
            socket.on('disconnect', ()=> {
             this.userIsReconnecting = true;
 
+            let _this = this;
+
 
                 // disconnect with all users
     this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
@@ -1867,7 +1869,7 @@ this.$root.audioconnection.onstreamended = function(event) {
           
   
 
-      let _this = this;
+    
     
               
             this.$root.audioconnection.checkPresence('audio' + this.$route.params.spaceId, function(isRoomExist, roomid) {
@@ -2008,6 +2010,10 @@ this.$root.audioconnection.onstreamended = function(event) {
           _this.$root.connectingToSocket = false; 
     });
 
+
+    _this.$root.connectingToSocket = false;
+    _this.userIsReconnecting = false;
+
      
 
    
@@ -2023,7 +2029,8 @@ this.$root.audioconnection.onstreamended = function(event) {
         
          this.$root.audioconnection.join('audio' + this.$route.params.spaceId);
 
-       
+         _this.$root.connectingToSocket = false;
+         _this.userIsReconnecting = false;
 
         
 
