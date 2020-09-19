@@ -1583,7 +1583,7 @@ this.$root.audioconnection.onstreamended = function(event) {
                 // enable microphone
                 this.$root.audioconnection.mediaConstraints.audio = true;
                 this.$root.audioconnection.session.audio = true;
-                this.$root.audioconnection.session.data = true;
+               
 
             }
           
@@ -1612,22 +1612,16 @@ this.$root.audioconnection.onstreamended = function(event) {
 
             
    
-            this.$root.audioconnection.openOrJoin('audio' + this.$route.params.spaceId, function(isRoomExist, roomid) {
-       if (isRoomExist === false && _this.$root.audioconnection.isInitiator === true) {
-           // if room doesn't exist, it means that current user will create the room
-           _this.openAudioRoom();
+            this.$root.audioconnection.checkPresence('audio' + this.$route.params.spaceId, function(isRoomExist, roomid) {
 
-         
-       }
-  
-       if(isRoomExist) {
-  
-     
-          
-       
-          
-          
-       }
+
+              if (isRoomExist === true) {
+               _this.joinAudioRoom();
+            } else {
+              _this.openAudioRoom();
+            }
+
+      
   
       /** 
        * 
@@ -1638,9 +1632,7 @@ this.$root.audioconnection.onstreamended = function(event) {
 
       _this.checkUserPresence(roomid)
 
-   
-
-      _this.setUserSpeaker();
+  
 
       _this.$root.connectingToSocket = false;
       _this.userIsReconnecting = false;
@@ -1707,7 +1699,7 @@ this.$root.audioconnection.onstreamended = function(event) {
                        }
 
 
-             },5000)
+             },3000)
 
            
           
@@ -1812,19 +1804,15 @@ this.$root.audioconnection.onstreamended = function(event) {
             
               }
 
-              this.$root.audioconnection.checkPresence(sessionId, function(isRoomExists, roomid) {
+              this.$root.audioconnection.checkPresence(sessionId, function(isRoomExist, roomid) {
                     
               
   
-                if(!isRoomExists){
+                if (isRoomExist === true) {
 
-                
-  
-                   _this.checkAudioRoomState();
-                   
-                }else{
                  
-                }
+                  return;
+              }
   
               });
 
