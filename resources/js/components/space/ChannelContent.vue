@@ -273,7 +273,7 @@
 
       <div v-if="this.$root.liveIsOn" @click="closeLiveBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; left:0%; top:%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
     
-       <div  @click.stop="preventCloseBoard" style="position:absolute; height:auto; width:90%; top:42%; left:5%; overflow-y:hidden; " class="mx-auto pb-2">
+       <div  @click.stop="preventCloseBoard" style="position:absolute; height:auto; width:90%; top:45%; left:5%; overflow-y:hidden; " class="mx-auto pb-2">
   
 
           <v-card  
@@ -387,12 +387,23 @@
       <div class="col-12 py-1 my-0 text-center" v-if="this.$root.allAudioParticipant.length == 0 && !this.$root.connectingToSocket">
       <span style="font-size:12px; color:gray;">Waiting for others to join...</span>
       </div>
+
+
+
+      
      
        
 
 
       
     </v-list>
+
+     <div class="col-12 py-2  my-0 text-center" v-if="this.$root.allAudioParticipant.length != 0" style="position:sticky; bottom:0%; left:0%;" >
+      <span style="font-size:12px; color:gray;">Can't here anything? 
+       <v-btn rounded  x-small  type="submit" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
+                  @click.prevent="rejoinAudio()">Re-Join</v-btn>
+      </span>
+      </div>
   </v-card>
 
 
@@ -697,6 +708,12 @@ export default {
       
     },
     methods:{
+
+      rejoinAudio: function(){
+
+         this.$root.checkAudioRoomState();
+
+      },
       resendMessages:function(){
         
        

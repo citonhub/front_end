@@ -1539,7 +1539,7 @@ this.$root.audioconnection.onstream = function(event) {
 
   setTimeout(function() {
       mediaElement.media.play();
-  }, 5000);
+  }, 2000);
 
   mediaElement.id = event.streamid;
 
@@ -1655,7 +1655,7 @@ this.$root.audioconnection.onstreamended = function(event) {
        
        },
 
-        getAllConnectedUsers(){
+       getAllConnectedUsers(){
 
              let connectionInterval = null;
 
@@ -1841,6 +1841,8 @@ this.$root.audioconnection.onstreamended = function(event) {
                  
             
               var socket = this.$root.audioconnection.socket;
+
+              this.userIsReconnecting = false;
              
              if(socket != undefined){
 
@@ -1848,14 +1850,14 @@ this.$root.audioconnection.onstreamended = function(event) {
               socket.on('connect', ()=>{
                 this.userIsReconnecting = false;
 
-                this.$root.connectingToSocket = false;
+              
   
                
             })
   
            socket.on('disconnect', ()=> {
              
-            this.connectingToSocket = true;
+            this.userIsReconnecting = true;
 
             let _this = this;
 
@@ -1899,7 +1901,7 @@ this.$root.audioconnection.onstreamended = function(event) {
            
             
 
-          
+            this.userIsReconnecting = true;
 
            
             
@@ -1933,13 +1935,15 @@ this.$root.audioconnection.onstreamended = function(event) {
 
                 if(this.$root.allAudioParticipant.length == 0){
 
-                   this.$root.audioconnection.renegotiate();
+                 
 
                   
 
                 }
 
                 this.connectingToSocket = false;
+
+                this.userIsReconnecting = false;
                
                
                
