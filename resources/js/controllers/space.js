@@ -1865,7 +1865,7 @@ this.$root.audioconnection.onstreamended = function(event) {
 
             this.userIsReconnecting = false;
 
-            this.checkAudioRoomState();
+           
             
            
           });
@@ -1886,7 +1886,7 @@ this.$root.audioconnection.onstreamended = function(event) {
 
               this.connectingToSocket = true;
 
-              this.checkAudioRoomState();
+            
 
              
                
