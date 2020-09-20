@@ -321,12 +321,12 @@ body {
    <!-- Shaka Player ui compiled library: -->
    <script src="{{ asset('js/shaka-player.ui.js') }}"></script>
 
-   <!-- Chromecast SDK (if you want Chromecast support for your app): -->
+   <!-- Chromecast SDK  -->
    <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
 
    <script src="https://cdn.webrtc-experiment.com/hark.js"></script>
 
- <script src="{{ asset('js/space.js?v=3.65') }}"></script>
+ <script src="{{ asset('js/space.js?v=3.67') }}"></script>
  
      
  @endsection

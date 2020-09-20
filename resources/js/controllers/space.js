@@ -1484,7 +1484,7 @@ this.$root.audioconnection.socketMessageEvent = 'audio-conference';
        profile: this.$root.authProfile,
       joinedAt: (new Date).toISOString(),
       volume: 80.00,
-      speaking: true
+      speaking: false
          };
 
          this.$root.audioconnection.socketCustomParameters = '&extra=' + JSON.stringify(this.$root.audioconnection.extra);
@@ -1712,16 +1712,14 @@ this.$root.audioconnection.onstreamended = function(event) {
         setUserSpeaker: function(){
 
          
-           let speakerInterval = null;
-
-           speakerInterval = setInterval(()=>{
+          
 
 
             let _this = this;
 
             if(this.$root.audioconnection == undefined){
                 
-             clearInterval(speakerInterval);
+             
             }else{
             
                 
@@ -1731,34 +1729,55 @@ this.$root.audioconnection.onstreamended = function(event) {
 
              var options = {};
            var speechEvents = hark(localStream, options);
+
+
+         speechEvents.on('speaking', function() {
+
+          if(_this.$root.audioconnection != undefined){
+
+            let channel =  window.Echo.join('space.' + _this.$route.params.spaceId);
+          
+            let data = {
+              userid: _this.$root.audioconnection.userid,
+              speaking: true
+          };
+      
+          channel.whisper('audioSpeaker', {
+             data:data,
+             spaceId: _this.$route.params.spaceId
+         });
+      
+      
+          }
+           
+            
+        });
+    
+        speechEvents.on('stopped_speaking', function() {
+
+          
+
+            if(_this.$root.audioconnection != undefined){
+
+              let channel =  window.Echo.join('space.' + _this.$route.params.spaceId);
+            
+              let data = {
+                userid: _this.$root.audioconnection.userid,
+                speaking: false
+            };
+        
+            channel.whisper('audioSpeaker', {
+               data:data,
+               spaceId: _this.$route.params.spaceId
+           });
+        
+        
+            }
+        });
          
     
 
-   speechEvents.on('volume_change', function(volume, threshold) {
-        
-     
-    if(_this.$root.audioconnection != undefined){
-
-      let channel =  window.Echo.join('space.' + _this.$route.params.spaceId);
-    
-      let data = {
-        userid: _this.$root.audioconnection.userid,
-        volume: volume,
-        threshold: threshold,
-    };
-
-    channel.whisper('audioSpeaker', {
-       data:data,
-       spaceId: _this.$route.params.spaceId
-   });
-
-
-    }
-    
-     
-
-     
-   });
+   
              }
 
             
@@ -1769,7 +1788,7 @@ this.$root.audioconnection.onstreamended = function(event) {
             }
 
 
-           },1000)
+        
         
 
          
@@ -1817,12 +1836,12 @@ this.$root.audioconnection.onstreamended = function(event) {
               });
 
              
-
+                 this.setUserSpeaker();
 
              }
 
 
-            },5000)
+            },3000)
 
             
               

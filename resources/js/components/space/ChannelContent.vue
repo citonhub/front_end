@@ -347,12 +347,14 @@
           
            <v-btn icon @click="muteAudio" v-if="!this.$root.localAudioMuted">
 
-              <v-icon color="#3E8893">mdi-microphone</v-icon>
+             <v-icon color="#3E8893">mdi-microphone </v-icon>
+
+             
 
            </v-btn>
             <v-btn icon @click="unmuteAudio" v-else>
 
-              <v-icon>mdi-microphone </v-icon>
+              
 
            </v-btn>
          
@@ -372,10 +374,19 @@
 
         <v-list-item-icon >
           
-          <div style="position:relative; height:40px; width:40px; background:#35747e;
-               border:1px solid transparent; border-radius:50%;"
+          <div style="position:relative; height:40px; width:40px; background:#35747e; 
+               border:1px solid transparent; border-radius:50%;" v-if="user[0].speaking == false"
         class="outerbox d-flex">     
    <div :style="'width:' + user[0].volume + '%; height:' + user[0].volume  +'%;'"
+     class="innerBoxnew">
+  
+     </div>
+     </div>
+
+     <div style="position:relative; height:40px; width:40px; background:#35747e; 
+               border:1px solid transparent; border-radius:50%;" v-else
+        class="outerbox d-flex">     
+   <div :style="'width:' + animateVolume + '%; height:' + animateVolume  +'%;'"
      class="innerBoxnew">
   
      </div>
@@ -651,6 +662,7 @@ export default {
            loadingMessage: false,
            showUserInfo:false,
            flexSize:80,
+           animateVolume:30,
           typing:false,
           connectionLoading:false,
           channel:null,
@@ -704,11 +716,36 @@ export default {
        this.resendMessages();
 
        this.$root.getAllConnectedUsers();
+
+       this.animateVolumeControl();
        
       
     },
     methods:{
+      animateVolumeControl: function(){
+         
+         let volumeInterval = null;
 
+         volumeInterval = setInterval(() => {
+            
+
+            if(!this.$root.chatisOpen){
+                clearInterval(volumeInterval);
+            }else{
+
+               if(this.$root.audioconnection != null){
+                  
+                  if(this.animateVolume == 90){
+                      this.animateVolume = 30;
+                  }else{
+                    this.animateVolume += 15;
+                  }
+               }
+            }
+
+           
+         }, 300);
+      },
       rejoinAudio: function(){
 
          this.$root.checkAudioRoomState();
@@ -1331,20 +1368,7 @@ export default {
 
                     
                        
-                        let scaleH = 90;
-
-                      let scaleL = 70;
-
-    let rscaleH = 120;
-
-
-    let apm = e.data.volume * -1;
-
-    let topFraction = apm * (scaleH - scaleL);
-
-     let value1 = topFraction / rscaleH;
-
-    let finalValue = value1 + scaleL;
+                      
 
       
    if(this.$root.allAudioParticipant.length != 0){
@@ -1354,7 +1378,7 @@ export default {
 
           
       
-        user[0].volume = finalValue.toFixed(2);
+        user[0].speaking = e.data.speaking;
          
       }
 
