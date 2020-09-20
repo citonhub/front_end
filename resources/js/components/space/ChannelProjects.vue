@@ -1,26 +1,24 @@
 <template>
-       <div style="position:absolute; height:92%; width:100%; overflow-y:auto;left:0;top:8%;" class="scrollerStyle"> 
+       <div style="position:absolute; height:100%; width:100%; overflow-y:auto;left:0;top:0%;" class="scrollerStyle"> 
 
-         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
+         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white; padding-top:45px !important;">
        <div class="row py-1 my-0 px-1" >
-         <div class="col-1 py-0 my-0 text-left px-1" >
+         <div class="col-1 py-0 my-0 text-left px-1" style="border-bottom:2px solid #3E8893;" >
            <v-btn icon color="#3E8893" @click="goBack"><v-icon>mdi-close mdi-18px</v-icon></v-btn>
          </div>
          
-         <router-link :to="'/space/' + this.$route.params.spaceId + '/channel/projects'" class="col-5 py-0 my-0 d-flex" style="border-bottom:2px solid #3E8893; align-items:center;justify-content:center;">
+         <div class="col-10 py-0 my-0 d-flex" style="border-bottom:2px solid #3E8893; align-items:center;justify-content:center;">
           <span  style="font-size:12px; color:#3E8893; font-weight:bolder;font-family:HeaderText;">Projects</span>
-         </router-link>
-         <router-link :to="'/space/' + this.$route.params.spaceId + '/channel/resources'" class="col-5 py-0 my-0 d-flex" style="border-bottom:2px solid #c9e4e8; align-items:center;justify-content:center;">
-          <span  style="font-size:12px; color:#3E8893; font-weight:bolder;font-family:HeaderText;">Media</span>
-         </router-link>
-         <div class="col-1 py-0 my-0 text-right px-1"  >
+         </div>
+        
+         <div class="col-1 py-0 my-0 text-right px-1"  style="border-bottom:2px solid #3E8893;" >
           
          </div>
          </div>
          </div>
 
          <div class="col-12 py-0 my-0" >
-         <div class="row my-0 py-0">
+         <div class="row my-0 py-0" v-if="projects.length != 0">
          
 
             <div class="col-12 py-1 my-1 text-right px-2" v-for="(project,index) in projects" :key="index" >
@@ -50,6 +48,15 @@
 
            
         
+         </div>
+
+         <div class="row my-0 py-0 text-center" v-else>
+            <div class="col-12 text-center">
+
+              <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No projects yet</span>
+
+            </div>
+                   
          </div>
          </div>
 

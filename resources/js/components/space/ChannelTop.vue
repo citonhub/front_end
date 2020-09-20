@@ -23,12 +23,34 @@
                <span class="TitleText d-block" v-if="this.$root.selectedSpace.type != 'Direct'"> {{shortenContent(this.$root.selectedSpace.name,22)}}</span>
               <span class="TitleText d-block" v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'" @click.stop="viewUser()">{{shortenContent(this.$root.selectedSpace.userInfo.username,22)}}</span>
                <span class="typingText d-block" v-if="this.$root.typing && (this.$root.typingSpace == this.$root.selectedSpace.space_id)">{{this.$root.typinguser}} is typing... </span>
-                <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}} Members</span>
+                <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}} Members</span>
+
+          <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' ">
+            
+            <v-icon v-if="this.$root.selectedSubSpaceType == 'Public'" color="#ffffff"   class="d-inline-block" style="font-size:12px;">mdi-pound </v-icon>
+            <v-icon v-if="this.$root.selectedSubSpaceType == 'Private'" color="#ffffff"  class="d-inline-block" style="font-size:12px;"> mdi-lock </v-icon>
+            <span class="px-1">{{this.$root.selectedSubSpaceName}}</span>
+          </span>
+
                  <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'Direct' && checkIfOnline(this.$root.selectedSpace.userInfo.id)">Online</span>
                  
            </div>
              
          </div>
+
+          <div class="col-1 py-0 my-0 px-0 text-right"  style="" v-if="this.$root.selectedSpace.type != 'Direct'">
+               
+               <v-btn icon @click="subSpaceBoard"><v-icon color="#ffffff">mdi-dns-outline</v-icon></v-btn>
+              
+         </div>
+
+          <div class="col-1 py-0 my-0 px-0 text-right"  v-else>
+               
+               
+              
+         </div>
+
+         
           <div class="col-2 py-0 my-0 px-0 text-right"  style="" >
               <v-menu bottom left
                 transition="slide-y-transition" dense
@@ -46,10 +68,10 @@
                dot
                v-if="remoteLiveHappening"
                 color="red">
-               <v-icon>mdi-monitor-screenshot</v-icon>
+               <v-icon>mdi-television-play</v-icon>
               </v-badge>
 
-              <v-icon v-else >mdi-monitor-screenshot</v-icon>
+              <v-icon v-else >mdi-television-play</v-icon>
                 
               </v-btn>
             </template>
@@ -106,31 +128,7 @@
               
          </div>
         
-         <div class="col-1 py-0 my-0 px-0 text-right"  style="" >
-              <v-menu bottom left
-                transition="slide-y-transition" dense
-               z-index="9899996969696" tile>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                dark
-                icon
-                
-                v-bind="attrs"
-                v-on="on"
-              >
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
-            </template>
-
-           <v-card  v-if="this.$root.selectedSpace.type ==  'Team'" tile flat class="py-2 text-center px-4" style="width:140px;  background:white;" @click="channelProjects">
-             <span style="font-size:12px;">Projects</span>
-           </v-card>
-           <v-card  tile flat class="py-2 text-center px-4" style="width:140px; background:white;" @click="channelResources">
-             <span style="font-size:12px;">Media</span>
-           </v-card>
-          </v-menu>
-              
-         </div>
+        
  
          <div  class="col-12 " style=" position:absolute;top:100%; z-index:99899898999988;" v-show="this.$root.showVideoScreen">
 
@@ -305,17 +303,14 @@ export default {
         
         },
        
-      
-        
-        channelProjects: function(){
-              
-             this.$router.push({ path: '/space/'  + this.$route.params.spaceId + '/channel/projects' });
+        subSpaceBoard: function(){
+     
 
-            
+          this.$router.push({ path: '/space/' + this.$route.params.spaceId +   '/channel/sub/' + this.$root.selectedSpace.type });
+          
+
         },
-        channelResources:function(){
-        this.$router.push({ path: '/space/'  + this.$route.params.spaceId + '/channel/resources' });
-        },
+      
         showSpaceInfo:function(){
            if(this.$root.selectedSpace.type == 'Direct'){
               return;

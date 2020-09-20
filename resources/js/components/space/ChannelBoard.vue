@@ -73,6 +73,12 @@
               
           </v-card>
           </div>
+ 
+             <div class="col-12 py-2 my-0 px-0 text-center" v-if="this.$root.selectedSpace.type == 'Team'">
+                   <v-btn @click="channelProjects" rounded x-small color="#3E8893" style="font-size:10px; color:white;text-transform:capitalize;">Teams Projects</v-btn>
+                </div>
+
+          
 
           
 
@@ -121,6 +127,12 @@ export default {
       this.fetchMessages();
     },
     methods:{
+      channelProjects: function(){
+              
+             this.$router.push({ path: '/space/'  + this.$route.params.spaceId + '/channel/projects' });
+
+            
+        },
        checkIfisOwner: function(){
 
            let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{

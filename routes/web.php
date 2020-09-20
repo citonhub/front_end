@@ -120,6 +120,7 @@ Route::get('/check-for-new-space-messages','SpaceController@CheckForUpdatesSpace
 Route::post('/make-user-admin','SpaceController@makeUserAdmin');
 Route::post('/make-user-master','SpaceController@makeUserMaster');
 Route::post('/send-space-invite-mail','SpaceController@sendInviteMail');
+Route::post('/create-sub-space','SpaceController@createSubSpace');
 
 // should be deleted
 Route::get('/assistant-messager/{messageId}','SpaceController@createMessageAssistant');

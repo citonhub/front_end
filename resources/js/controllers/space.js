@@ -7,7 +7,7 @@ import ChatList from "../components/space/ChatList.vue"
 import CreateChannel from "../components/space/CreateChannel.vue"
 import Channel from "../components/space/Channel.vue"
 import ChannelContent from "../components/space/ChannelContent.vue"
-import ChannelResources from "../components/space/ChannelResources.vue"
+import SubSpace from "../components/space/SubSpace.vue"
 import ChannelProjects from "../components/space/ChannelProjects.vue"
 import ChannelBoard from "../components/space/ChannelBoard.vue"
 import ImageEditor from "../components/home/ImageEditor.vue"
@@ -101,8 +101,8 @@ const routes = [
      },
      {
       // resources 
-      path: 'resources',
-       component: ChannelResources
+      path: 'sub/:channelType',
+       component: SubSpace
      },
      {
       // projects 
@@ -324,6 +324,9 @@ const app = new Vue({
      userIsReconnecting:false,
      fromSpaceShare:false,
      presentRoomId: null,
+     selectedSubSpaceName:'',
+     selectedGenSpaceType:'',
+     TrackLastSubSpace:[],
         },
      mounted: function () {
       this.pageloader= false;

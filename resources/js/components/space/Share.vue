@@ -152,8 +152,8 @@
        
 
         <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn rounded :loading="loadingEmail" type="submit" small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
-                    @click.prevent="sendInviteMail">
+                  <v-btn rounded :loading="loadingEmail"  small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
+                    @click.stop="sendInviteMail">
                   Invite
                   </v-btn>
              </div>
@@ -192,8 +192,8 @@
        
 
         <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn rounded :loading="loadingEmail" type="submit" small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
-                 @click.prevent="sendToConnection" >
+                  <v-btn rounded :loading="loadingEmail" small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
+                 @click.stop="sendToConnection" >
                   Send
                   </v-btn>
              </div>

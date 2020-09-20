@@ -899,11 +899,27 @@ export default {
 
     },
        showSpace:function(space){
-          this.$root.selectedSpace = space;
+
+             if(this.$root.TrackLastSubSpace.length != 0 && space.space_id == this.$root.TrackLastSubSpace[0]){
+                 
+                  this.$router.push({ path: '/space/'  +  this.$root.TrackLastSubSpace[1]  +  '/channel/content' + '/user' });
+
+                     return;
+
+             }else{
+
+               
+
+                this.$root.selectedSpace = space;
+
+                this.$router.push({ path: '/space/'  +  space.space_id  +  '/channel/content' + '/user' });
+
+             }
+         
 
         
           
-         this.$router.push({ path: '/space/'  +  space.space_id  +  '/channel/content' + '/user' });
+         
        },
        showProjectLink: function(project){
          this.$root.fromChatList = true;

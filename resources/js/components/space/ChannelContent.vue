@@ -355,7 +355,7 @@
             <v-btn icon @click="unmuteAudio" v-else>
 
               
-        <v-icon >mdi-microphone </v-icon>
+        <v-icon >mdi-microphone-off </v-icon>
            </v-btn>
          
         </v-list-item-icon>
@@ -1764,8 +1764,10 @@ export default {
      },
      
       fetchMessages: function(){
-
+        
          if(this.$root.checkauthroot == 'auth'){
+
+            this.$root.TrackLastSubSpace = [];
 
 
           let storedMsg = this.$root.getLocalStore(this.$route.params.spaceId + this.$root.username);
@@ -1794,11 +1796,67 @@ export default {
        this.Messages = returnedData;
        this.$root.Messages = returnedData;
 
+        this.$root.selectedSpace  = [];
+
        
         this.generateUnreadMessage();
-     
         
-       this.$root.selectedSpace = finalResult[1];
+           this.$root.selectedSpace = finalResult[1];
+
+              if(finalResult[1].type == 'SubSpace'){
+
+                 
+                 let generalSpace = finalResult[1].gen_space;
+                 
+                  
+                    this.$root.selectedGenSpaceType = finalResult[1].gen_space.type;
+
+                  generalSpace.space_id =  finalResult[1].space_id;
+
+                  generalSpace.type = finalResult[1].type;
+
+
+
+                generalSpace.general_spaceId = finalResult[1].general_spaceId;
+
+
+
+
+              let subSpaceData = finalResult[1].sub_space_data;
+                 
+
+                  
+
+             this.$root.selectedSubSpaceName = finalResult[1].name;
+
+             this.$root.selectedSubSpaceType = subSpaceData.type;
+
+             
+
+               generalSpace.sub_spaces = finalResult[1].sub_spaces;
+
+              
+
+               this.$root.selectedSpace = generalSpace;
+
+
+               
+
+               
+
+
+
+              }
+
+           this.$root.TrackLastSubSpace.push(  this.$root.selectedSpace.general_spaceId, this.$route.params.spaceId);
+
+              
+        
+        
+               
+               
+           
+      
 
        this.$root.selectedSpaceMembers = finalResult[2];
 
@@ -1825,8 +1883,7 @@ export default {
       if (response.status == 200) {
            
 
-            this.$root.AlertRoot = true;
-        this.$root.AlertMsgRoot = 'loading messages...';
+           
 
 
      if( response.data[1].space_id == this.$route.params.spaceId ){
@@ -1848,7 +1905,54 @@ export default {
 
       
         
-       this.$root.selectedSpace = response.data[1];
+     
+
+
+               this.$root.selectedSpace = response.data[1];
+
+              if(response.data[1].type == 'SubSpace'){
+
+                 
+                 let generalSpace = response.data[1].gen_space;
+                 
+                  
+                    this.$root.selectedGenSpaceType = response.data[1].gen_space.type;
+
+                  generalSpace.space_id =  response.data[1].space_id;
+
+                  generalSpace.type = response.data[1].type;
+
+                  generalSpace.general_spaceId = response.data[1].general_spaceId;
+
+
+
+               
+
+              let subSpaceData = response.data[1].sub_space_data;
+                 
+
+                  
+
+             this.$root.selectedSubSpaceName = response.data[1].name;
+
+             this.$root.selectedSubSpaceType = subSpaceData.type;
+
+             
+
+               generalSpace.sub_spaces = response.data[1].sub_spaces;
+
+              
+
+               this.$root.selectedSpace = generalSpace;
+
+
+               
+
+
+
+              }
+
+      this.$root.TrackLastSubSpace.push(  this.$root.selectedSpace.general_spaceId, this.$route.params.spaceId);
 
        this.$root.selectedSpaceMembers = response.data[2];
 
@@ -1891,6 +1995,9 @@ export default {
 
         
       this.checkForUnreadMessagesDisconnected();
+
+       
+
        
         },
        
