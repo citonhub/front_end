@@ -2666,7 +2666,7 @@ return  $newChannelArray;
                   ->where('space_members.user_id',Auth::id())
                   ->where('spaces.type','Team')
                   ->orderBy('spaces.created_at','desc')
-                  ->paginate(40);
+                  ->paginate(100);
       $newTeamArray = [];
 
       
@@ -2702,7 +2702,7 @@ return  $newChannelArray;
                   ->where('space_members.user_id',Auth::id())
                   ->orderBy('spaces.created_at','desc')
                   ->where('spaces.type','Channel')
-                  ->paginate(40);
+                  ->paginate(100);
 
       $newChannelArray = [];
 
@@ -2766,7 +2766,7 @@ return  $newChannelArray;
                   ->orderBy('spaces.created_at','desc')
                   ->where('space_members.user_id',Auth::id())
                   ->where('spaces.type','Direct')
-                  ->paginate(40);
+                  ->paginate(100);
 
       $newDirectArray = [];
 
