@@ -355,7 +355,7 @@
             <v-btn icon @click="unmuteAudio" v-else>
 
               
-
+        <v-icon >mdi-microphone </v-icon>
            </v-btn>
          
         </v-list-item-icon>
