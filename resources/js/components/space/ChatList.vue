@@ -470,7 +470,7 @@ export default {
        showChannel:true,
        channelSuggestions:null,
        channelDirect: null,
-       showProject:true,
+       showProject:true, 
        fetchSpaceUpdate: true,
       }
     },

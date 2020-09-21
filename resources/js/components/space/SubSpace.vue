@@ -253,6 +253,19 @@ export default {
         gotoGeneral: function(){
 
             this.$root.Messages = null;
+
+            this.$root.channel = null;
+
+             this.closeConnections();
+
+              this.$root.codeEditorArray = [];
+       this.$root.returnedMessages = [];
+       this.$root.messageStoreTop = [];
+       this.$root.messageStore = [];
+       this.$root.sharePage = false;
+       this.$root.showUserInfo = false;
+
+          Echo.leave('space.' + this.$root.selectedSpace.space_id);
         
         this.$root.forceListReload = true;
         this.$root.showUserInfo = false;
@@ -274,6 +287,20 @@ export default {
            
 
             this.$root.Messages = null;
+
+              this.$root.channel = null
+
+               this.closeConnections();
+
+                this.$root.codeEditorArray = [];
+       this.$root.returnedMessages = [];
+       this.$root.messageStoreTop = [];
+       this.$root.messageStore = [];
+       this.$root.sharePage = false;
+       this.$root.showUserInfo = false;
+       
+
+          Echo.leave('space.' + this.$root.selectedSpace.space_id);
         
         this.$root.forceListReload = true;
         this.$root.showUserInfo = false;
@@ -286,6 +313,63 @@ export default {
              this.$router.push({ path: '/space/'  +   subSpace.space_id  +  '/channel/content' + '/user' });
 
         },
+          closeConnections:function(){
+          let _this = this;
+
+         if(this.$root.audioconnection != undefined){
+
+         
+          
+     this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
+        _this.$root.audioconnection.disconnectWith(pid);
+    });
+
+    // stop all local cameras
+    this.$root.audioconnection.attachStreams.forEach(function(localStream) {
+        localStream.stop();
+    });
+
+    // close socket.io connection
+   this.$root.audioconnection.closeSocket();
+
+
+           
+         }
+
+          if(this.$root.connection != undefined){
+
+
+             // disconnect with all users
+    this.$root.connection.getAllParticipants().forEach(function(pid) {
+        _this.$root.connection.disconnectWith(pid);
+    });
+
+    // stop all local cameras
+    this.$root.connection.attachStreams.forEach(function(localStream) {
+        localStream.stop();
+    });
+
+
+          this.$root.connection.closeSocket();
+          }
+       
+
+        this.$root.connection = undefined;
+        this.$root.audioconnection = undefined;
+
+        this.$root.screenSharingOn = false;
+        this.$root.liveIsOn = false;
+        this.$root.showVideoScreen = false;
+        this.$root.liveInitiated = false;
+        this.$root.presentRoomId = null;
+        this.$root.remoteLiveHappening = false;
+
+         this.$root.remoteLiveHappening = false;
+        this.$root.remoteCode = false;
+         this.$root.remoteScreen = false;
+          this.$root.remoteAudio= false;
+            this.$root.allAudioParticipant = [];
+      },
         setSubSpaces: function(){
 
              this.subSpaces = this.$root.selectedSpace.sub_spaces;
