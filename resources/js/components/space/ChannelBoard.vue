@@ -124,7 +124,7 @@ export default {
    
   },
     mounted(){
-      this.fetchMessages();
+     
     },
     methods:{
       channelProjects: function(){
@@ -211,26 +211,7 @@ export default {
        this.showAlert(5000,'Oops!, An error occured')
      }) 
        },
-       fetchMessages: function(){
-          
-           axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
-      .then(response => {
       
-      if (response.status == 200) {
-        
-     
-       this.$root.selectedSpace = response.data[1];
-        this.$root.selectedSpaceMembers = response.data[2];
-       
-     }
-       
-     
-     })
-     .catch(error => {
-    
-     }) 
-
-        },
        goBack() {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },

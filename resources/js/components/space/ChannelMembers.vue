@@ -337,7 +337,7 @@ export default {
    
   },
     mounted(){
-      this.fetchMessages();
+     
       this.fetchMembers();
     },
     methods:{
@@ -604,26 +604,7 @@ export default {
             }
             
          },
-          fetchMessages: function(){
           
-           axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
-      .then(response => {
-      
-      if (response.status == 200) {
-        
-     
-       this.$root.selectedSpace = response.data[1]
-       
-     }
-       
-     
-     })
-     .catch(error => {
-    
-     }) 
-
-        },
-
        checkIfOnline: function(member){
 
         let userData = this.$root.SpaceUsers.filter((user)=>{
