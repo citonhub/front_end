@@ -247,6 +247,7 @@ export default {
         this.$root.codeBoxOpened = true;
         this.setCodeContent();
         this.updateCodeMaster();
+        this.fetchMembers();
        
       },
      components: {
@@ -543,6 +544,8 @@ methods:{
           },1000)
       },
       showAdminUsers:function(){
+
+        
          
          this.showAdminOptions = true;
          this.adminMembers = this.$root.selectedSpaceMembers.filter((member)=>{
@@ -551,6 +554,26 @@ methods:{
          
 
       },
+       fetchMembers: function(){
+          
+           axios.get('/fetch-space-members-' + this.$root.selectedSpace.general_spaceId )
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+     
+      this.$root.selectedSpaceMembers = response.data;
+
+        
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+        },
       checkIfMaster: function(){
      
       let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{

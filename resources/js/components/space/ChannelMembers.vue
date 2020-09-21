@@ -641,7 +641,7 @@ export default {
        },
         fetchMembers: function(){
           
-           axios.get('/fetch-space-members-' + this.$route.params.spaceId )
+           axios.get('/fetch-space-members-' + this.$root.selectedSpace.general_spaceId )
       .then(response => {
       
       if (response.status == 200) {
