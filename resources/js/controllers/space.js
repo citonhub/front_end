@@ -1863,10 +1863,13 @@ this.$root.audioconnection.onstreamended = function(event) {
                  
             
               var socket = this.$root.audioconnection.socket;
-
-              this.userIsReconnecting = false;
+               
+              
+             
              
              if(socket != undefined){
+
+              this.userIsReconnecting = false;
 
 
               socket.on('connect', ()=>{

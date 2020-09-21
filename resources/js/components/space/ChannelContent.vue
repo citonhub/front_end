@@ -330,7 +330,7 @@
     
      
     </v-card>
-    <v-list  class="pb-3 scrollerStyle" style=" height:250px;width:100%; overflow-y:auto;">
+    <v-list  class="pb-3 scrollerStyle" style=" height:210px;width:100%; overflow-y:auto;">
 
       <v-list-item
        style="border-bottom:1px solid #c5c5c5;"
@@ -748,7 +748,45 @@ export default {
       },
       rejoinAudio: function(){
 
+         let _this = this;
+
+         if(this.$root.audioconnection != undefined){
+
+         
+          
+        
+
+        // disconnect with all users
+    this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
+        _this.$root.audioconnection.disconnectWith(pid);
+    });
+
+    // stop all local cameras
+    this.$root.audioconnection.attachStreams.forEach(function(localStream) {
+        localStream.stop();
+    });
+
+    // close socket.io connection
+   this.$root.audioconnection.closeSocket();
+
+
+           
+         }
+       
+       
+        this.$root.audioconnection = undefined;
+
+        
+        this.$root.userIsReconnecting = true;
+
+
+         this.$root.setAudioConnection();
+
          this.$root.checkAudioRoomState();
+
+          this.$root.sendLiveSignal('audio');
+
+            this.$root.screenSharingOn = true;
 
       },
       resendMessages:function(){
