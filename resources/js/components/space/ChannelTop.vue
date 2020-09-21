@@ -29,10 +29,10 @@
             
             <v-icon v-if="this.$root.selectedSubSpaceType == 'Public'" color="#ffffff"   class="d-inline-block" style="font-size:12px;">mdi-pound </v-icon>
             <v-icon v-if="this.$root.selectedSubSpaceType == 'Private'" color="#ffffff"  class="d-inline-block" style="font-size:12px;"> mdi-lock </v-icon>
-            <span class="px-1">{{this.$root.selectedSubSpaceName}}</span>
+            <span class="px-1">  {{shortenContent(this.$root.selectedSubSpaceName,25)}}</span>
           </span>
 
-                 <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'Direct' && checkIfOnline(this.$root.selectedSpace.userInfo.id)">Online</span>
+              <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'Direct' && checkIfOnline(this.$root.selectedSpace.userInfo.id)">Online</span>
                  
            </div>
              
@@ -40,7 +40,7 @@
 
           <div class="col-1 py-0 my-0 px-0 text-right"  style="" v-if="this.$root.selectedSpace.type != 'Direct'">
                
-               <v-btn icon @click="subSpaceBoard"><v-icon color="#ffffff">mdi-dns-outline</v-icon></v-btn>
+               <v-btn icon @click="subSpaceBoard"><v-icon color="#ffffff">mdi-pound</v-icon></v-btn>
               
          </div>
 
@@ -121,7 +121,7 @@
             
              
              
-              <span style="font-size:12px;">Audio Conference</span>
+              <span style="font-size:12px;">Voice Chat</span>
            </v-card>
            
           </v-menu>

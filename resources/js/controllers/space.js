@@ -1884,36 +1884,7 @@ this.$root.audioconnection.onstreamended = function(event) {
             let _this = this;
 
 
-                // disconnect with all users
-    this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
-      _this.$root.audioconnection.disconnectWith(pid);
-  });
-
-  // stop all local cameras
-  this.$root.audioconnection.attachStreams.forEach(function(localStream) {
-      localStream.stop();
-  });
-          
-  
-
-    
-    
-              
-            this.$root.audioconnection.checkPresence('audio' + this.$route.params.spaceId, function(isRoomExist, roomid) {
-
-
-              if (isRoomExist === true) {
-               _this.joinAudioRoom();
-               _this.$root.connectingToSocket = false;
-               _this.userIsReconnecting = false;
-            } else {
-              _this.openAudioRoom();
-              _this.$root.connectingToSocket = false;
-              _this.userIsReconnecting = false;
-            }
-
-     
-      });
+            
            
           
            
@@ -1963,9 +1934,7 @@ this.$root.audioconnection.onstreamended = function(event) {
 
                 }
 
-                this.connectingToSocket = false;
-
-                this.userIsReconnecting = false;
+                
                
                
                

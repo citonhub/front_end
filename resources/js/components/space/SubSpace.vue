@@ -15,7 +15,7 @@
          </div>
         
          <div class="col-2 py-0 my-0 text-right px-0"  style="border-bottom:2px solid #3E8893;" >
-          <v-btn icon color="#3E8893" @click="closeAddBoard = false"  ><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+          <v-btn icon color="#3E8893" @click="closeAddBoard = false" v-if="checkIfisOwner()"  ><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
          </div>
 
          </div>
@@ -201,6 +201,22 @@ export default {
         preventClose: function(){
 
         },
+         checkIfisOwner: function(){
+
+           let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
+   
+             return members.user_id == this.$root.user_temp_id;
+           });
+
+           if(userMemberData.length != 0){
+
+             return userMemberData[0].is_admin;
+
+           }else{
+              return false
+           }
+         
+       },
         checkForUnread:function(){
 
            if(this.subSpaces.length != 0){
