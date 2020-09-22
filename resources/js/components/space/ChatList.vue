@@ -1025,6 +1025,20 @@ export default {
          this.$root.checkUnread();
           
         this.$root.SpaceWithoutChannel = this.$root.ChatList;
+
+         let storedChat = this.$root.getLocalStore('ChatList'+ this.$root.username);
+
+         storedChat.then((result)=>{
+                
+                 if(result != null ){
+
+                    let finalResult = JSON.parse(result);
+
+                   this.$root.ChatList = finalResult;
+                
+
+                 }
+            })
         
              }
             
