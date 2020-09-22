@@ -1015,6 +1015,8 @@ export default {
 
              }else{
 
+              this.$root.sortChatList();
+
                 this.personalSpace = this.$root.ChatList[0];
            this.teamSpace = this.$root.ChatList[1];
           this.channelSpace = this.$root.ChatList[2];
@@ -1023,6 +1025,9 @@ export default {
          this.channelSuggestions = this.$root.ChatList[5];
 
          this.$root.checkUnread();
+
+         
+
           
         this.$root.SpaceWithoutChannel = this.$root.ChatList;
 
