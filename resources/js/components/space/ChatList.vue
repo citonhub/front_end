@@ -940,7 +940,11 @@ export default {
        fetchChatList: function(){
 
           if(this.$root.checkauthroot == 'auth'){
-             let storedChat = this.$root.getLocalStore('ChatList'+ this.$root.username);
+
+             if( this.$root.ChatList.length == 0 ){
+
+
+                let storedChat = this.$root.getLocalStore('ChatList'+ this.$root.username);
 
             storedChat.then((result)=>{
                 
@@ -1008,6 +1012,22 @@ export default {
 
                  }
             })
+
+             }else{
+
+                this.personalSpace = this.$root.ChatList[0];
+           this.teamSpace = this.$root.ChatList[1];
+          this.channelSpace = this.$root.ChatList[2];
+        this.channelProject = this.$root.ChatList[3].data;
+        this.channelDirect = this.$root.ChatList[4];
+         this.channelSuggestions = this.$root.ChatList[5];
+
+         this.$root.checkUnread();
+          
+        this.$root.SpaceWithoutChannel = this.$root.ChatList;
+        
+             }
+            
         
          
           }
