@@ -518,6 +518,7 @@ export default {
          this.$root.selectedSpace = [];
        this.trackUser();
       this.$root.checkUnread(true);
+       
        this.updateSpaceMessages();
      
        
@@ -529,9 +530,10 @@ export default {
 
            interval = setInterval(()=>{
 
-             this.$root.checkUnread(false);
+            
           
-               
+                this.$root.checkUnread(false);
+                
                if(this.$root.makeRecallSpace){
 
                   this.$root.makeRecallSpace = false;
@@ -557,6 +559,8 @@ export default {
               
                    
                if(result != null){
+
+                  
                 
                 let parsedResult = JSON.parse(result);
 
@@ -622,6 +626,8 @@ export default {
             unreadStoredMsg.then((result)=>{
 
                if(result != null){
+
+                   
 
                   
               let finalResultUnread = JSON.parse(result);
@@ -718,7 +724,7 @@ export default {
 
                }
          
-           },3000);
+           },5000);
 
         },
        

@@ -26,6 +26,9 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import '@mdi/font/css/materialdesignicons.css'
 
+import VueI18n from 'vue-i18n'
+
+Vue.use(VueI18n)
 
 Vue.use(Vuetify);
 

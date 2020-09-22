@@ -17,6 +17,12 @@
  * Released under the MIT License.
  */
 
+/*!
+ * vue-i18n v8.21.1 
+ * (c) 2020 kazuya kawaguchi
+ * Released under the MIT License.
+ */
+
 /*! ../../../directives/resize */
 
 /*! ../../../directives/ripple */

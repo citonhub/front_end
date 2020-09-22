@@ -1855,12 +1855,7 @@ this.$root.audioconnection.onstreamended = function(event) {
          
          },
 
-         checkIfUserIsReconnecting: function(){
-
-          
-
-        
-                 
+         checkIfUserIsReconnecting: function(){                 
             
               var socket = this.$root.audioconnection.socket;
                
