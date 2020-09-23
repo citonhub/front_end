@@ -319,7 +319,7 @@ export default {
             spaceId: this.$route.params.spaceId
         });
 
-      },5000)
+      },1000)
 
 
    
