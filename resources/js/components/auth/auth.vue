@@ -4,7 +4,7 @@
 
            <div  style=" top:5%; z-index:1000000;"  class="text-center fixed-top col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0"> 
             
-        <h4 style="color:#26535a;">Welcome to CitonHub</h4>
+        <h4 style="color:#26535a;">{{ $t('home_page.welcome') }}</h4>
             
                 
      </div>
@@ -32,12 +32,14 @@
         </div>
          <div class="col-12 text-center">
 
-          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">A messaging platform for growing developer communities</span>
+          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">
+            {{ $t('home_page.message_1') }}
+          </span>
              
         </div>
         <div class="col-12 text-center mt-2">
 
-          <v-btn rounded color="#3E8893" @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">Get Started</span></v-btn>
+          <v-btn rounded color="#3E8893" @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">{{ $t('home_page.message_1_cta') }}</span></v-btn>
              
         </div>
         
@@ -53,12 +55,14 @@
         </div>
          <div class="col-12 text-center">
 
-          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">Chat, share and run codes, live code in your Space</span>
+          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">
+             {{ $t('home_page.message_2') }}
+          </span>
              
         </div>
         <div class="col-12 text-center mt-2">
 
-          <v-btn rounded color="#3E8893" @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">Set up Your Space</span></v-btn>
+          <v-btn rounded color="#3E8893" @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">{{ $t('home_page.message_2_cta') }}</span></v-btn>
              
         </div>
         
@@ -74,13 +78,15 @@
 
         <div class="col-12 text-center">
 
-          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">Build awesome projects without setting up a server</span>
+          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">
+            {{ $t('home_page.message_3') }}
+          </span>
              
         </div>
 
          <div class="col-12 text-center mt-2">
 
-          <v-btn rounded color="#3E8893" @click="showLogin" ><span style="color:white;font-size:13px;font-family:HeaderText;">Build Projects</span></v-btn>
+          <v-btn rounded color="#3E8893" @click="showLogin" ><span style="color:white;font-size:13px;font-family:HeaderText;">  {{ $t('home_page.message_3_cta') }}</span></v-btn>
              
         </div>
         
@@ -96,13 +102,17 @@
 
          <div class="col-12 text-center">
 
-          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">Challenge your friends to coding duels</span>
+          <span style="color:#26535a; font-size:14px; font-family:HeaderText;">
+            {{ $t('home_page.message_4') }}
+          </span>
              
         </div>
 
         <div class="col-12 text-center mt-2">
 
-          <v-btn rounded color="#3E8893"  @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">Start a duel</span></v-btn>
+          <v-btn rounded color="#3E8893"  @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">
+            {{ $t('home_page.message_4_cta') }}
+            </span></v-btn>
              
         </div>
         
@@ -120,7 +130,9 @@
 
      <div class="text-center fixed-bottom col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0" style=" z-index:10000000; bottom:2%;" >
 
-           <a style="font-size:11px; color:white; font-family:HeaderText;" href="http://www.freepik.com" target="_blank"><i>Images by Freepik</i></a>
+           <a style="font-size:11px; color:white; font-family:HeaderText;" href="http://www.freepik.com" target="_blank"><i>
+             {{ $t('home_page.images_by_freepik') }}
+             </i></a>
 
         </div>
          

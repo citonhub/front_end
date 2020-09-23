@@ -532,7 +532,7 @@ export default {
 
             
           
-                this.$root.checkUnread(false);
+              
                 
                if(this.$root.makeRecallSpace){
 
@@ -545,7 +545,10 @@ export default {
 
          let returnData = response.data;
 
-         returnData.forEach(space => {
+          if(returnData.length > 0){
+
+
+            returnData.forEach(space => {
 
           
 
@@ -588,6 +591,8 @@ export default {
               
                
               this.$root.LocalStore('unread' + space.space_id + this.$root.username,finalResultUnread);
+
+              
                
                  
                
@@ -637,6 +642,8 @@ export default {
               
                
               this.$root.LocalStore('unread' + space.space_id + this.$root.username,finalResultUnread);
+
+               
                
 
                }
@@ -703,9 +710,16 @@ export default {
            
          });
 
-     if(this.fetchSpaceUpdate){
-      this.updateSpace();
+          this.$root.checkUnread(true);
+
+          }else{
+
+              this.$root.checkUnread(false);
+
+
           }
+
+         
            
         this.$root.makeRecallSpace = true;
 
@@ -724,7 +738,7 @@ export default {
 
                }
          
-           },5000);
+           },3000);
 
         },
        
@@ -1040,10 +1054,16 @@ export default {
                     let finalResult = JSON.parse(result);
 
                    this.$root.ChatList = finalResult;
+
+                    this.$root.sortChatList();
+
+                   this.$root.checkUnread();
                 
 
                  }
             })
+
+            this.updateSpace();
         
              }
             

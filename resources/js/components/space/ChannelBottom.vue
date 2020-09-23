@@ -308,16 +308,23 @@ export default {
 
       
       let channel =  window.Echo.join('space.' + this.$route.params.spaceId);
-   
-      setTimeout(()=>{
 
-         channel.whisper('typing', {
+      channel.whisper('typing', {
           user: Laravel.user.username,
             typing: true,
             spaceId: this.$route.params.spaceId
         });
 
-      },1000)
+   
+      setTimeout(()=>{
+
+         channel.whisper('typing', {
+          user: Laravel.user.username,
+            typing: false,
+            spaceId: this.$route.params.spaceId
+        });
+
+      },5000)
         
      
     
@@ -372,7 +379,7 @@ export default {
 
                this.$root.scrollToBottom();
 
-               this.reFocus();
+              
 
               let postData = {
               content: this.contentInWord,

@@ -19,7 +19,7 @@
             <div class="text-center">
             @if($tablabel == 'space')
              <span class="iconname" style="color:#36848C;">
-              Space
+             @{{ $t('general.space') }}
              </span>
              @else
              <v-badge
@@ -28,12 +28,12 @@
           :content="notificationCountSpace"
         >
         <span class="iconname">
-               Space
+        @{{ $t('general.space') }}
              </span>
         </v-badge>
 
         <span class="iconname" v-else>
-               Space
+        @{{ $t('general.space') }}
              </span>
              @endif
             </div>
@@ -60,11 +60,12 @@
             <div class="text-center">
             @if($tablabel == 'duels')
              <span class="iconname" style="color:#36848C;">
-              Duels
+             @{{ $t('general.duels') }}
              </span>
              @else
              <span class="iconname">
-               Duels
+
+             @{{ $t('general.duels') }}
              </span>
              @endif
             </div>
@@ -94,11 +95,11 @@
             <div class="text-center">
             @if($tablabel == 'trends')
              <span class="iconname" style="color:#36848C;">
-              Trends
+               @{{ $t('general.trends') }}
              </span>
              @else
              <span class="iconname">
-               Trends
+             @{{ $t('general.trends') }}
              </span>
              @endif
             </div>
@@ -127,7 +128,7 @@
             <div class="text-center">
             @if($tablabel == 'profile')
              <span class="iconname" style="color:#36848C;">
-              Profile
+             @{{ $t('general.profile') }}
              </span>
              @else
              <v-badge
@@ -136,12 +137,12 @@
           :content="notificationCount"
         >
         <span class="iconname">
-               Profile
+        @{{ $t('general.profile') }}
              </span>
         </v-badge>
 
         <span class="iconname" v-else>
-               Profile
+        @{{ $t('general.profile') }}
              </span>
              
              @endif
@@ -176,7 +177,7 @@
             @if($tablabel == 'space')
             <img src="{{ asset('imgs/space_active.png') }}" class="iconstylemd"/><br>
             <span class="iconnamemd py-1" style="color:#36848C;">
-             Space
+            @{{ $t('general.space') }}
              </span>
             @else
             <v-badge
@@ -192,7 +193,7 @@
          <img src="{{ asset('imgs/space.png') }}" class="iconstylemd" v-else/>
          <br>
             <span class="iconnamemd py-1">
-             Space
+            @{{ $t('general.space') }}
              </span>
             @endif
              
@@ -206,12 +207,12 @@
             @if($tablabel == 'duels')
             <img src="{{ asset('imgs/duels_active.png') }}" class="iconstylemd"/><br>
             <span class="iconnamemd py-1" style="color:#36848C;">
-             Duels 
+            @{{ $t('general.duels') }} 
              </span>
             @else
             <img src="{{ asset('imgs/duels.png') }}" class="iconstylemd"/><br>
             <span class="iconnamemd py-1">
-             Duels 
+            @{{ $t('general.duels') }} 
              </span>
             @endif
             </a>
@@ -222,12 +223,12 @@
             @if($tablabel == 'trends')
             <img src="{{ asset('imgs/trend_active.png') }}" class="iconstylemd"/><br>
             <span class="iconnamemd py-1" style="color:#36848C;">
-             Trends
+            @{{ $t('general.trends') }}
              </span>
             @else
             <img src="{{ asset('imgs/trend.png') }}" class="iconstylemd"/><br>
             <span class="iconnamemd py-1">
-             Trends
+            @{{ $t('general.trends') }}
              </span>
             @endif
              
@@ -241,7 +242,7 @@
             @if($tablabel == 'profile')
             <img src="{{ asset('imgs/profile_active.png') }}" class="iconstylemd"/><br>
             <span class="iconnamemd py-1" style="color:#36848C;">
-             Profile
+            @{{ $t('general.profile') }}
              </span>
             @else
             <v-badge
@@ -258,7 +259,7 @@
         <br>
            
             <span class="iconnamemd py-1">
-             Profile
+            @{{ $t('general.profile') }}
              </span>
             @endif
             </a>
@@ -274,7 +275,7 @@
             @if($tablabel == 'space')
             <img src="{{ asset('imgs/space_active.png') }}" class="iconstylesm"/>
             <div class="iconnamesm " style="color:#36848C;">
-             Space
+            @{{ $t('general.space') }}
              </div>
             @else
             <v-badge
@@ -289,7 +290,7 @@
         <img src="{{ asset('imgs/space.png') }}" class="iconstylesm" v-else/>
         <br>
             <div class="iconnamesm ">
-             Space
+            @{{ $t('general.space') }}
              </div>
             @endif
              
@@ -302,12 +303,12 @@
             @if($tablabel == 'duels')
             <img src="{{ asset('imgs/duels_active.png') }}" class="iconstylesm"/>
             <div class="iconnamesm " style="color:#36848C;">
-             Duels 
+            @{{ $t('general.duels') }} 
              </div>
             @else
             <img src="{{ asset('imgs/duels.png') }}" class="iconstylesm"/>
             <div class="iconnamesm ">
-             Duels 
+            @{{ $t('general.duels') }} 
              </div>
             @endif
             </a>
@@ -319,12 +320,12 @@
             @if($tablabel == 'trends')
             <img src="{{ asset('imgs/trend_active.png') }}" class="iconstylesm"/>
             <div class="iconnamesm " style="color:#36848C;">
-             Trends
+            @{{ $t('general.trends') }}
              </div>
             @else
             <img src="{{ asset('imgs/trend.png') }}" class="iconstylesm"/>
             <div class="iconnamesm ">
-             Trends
+            @{{ $t('general.trends') }}
              </div>
             @endif
              
@@ -341,7 +342,7 @@
             @if($tablabel == 'profile')
             <img src="{{ asset('imgs/profile_active.png') }}" class="iconstylesm"/>
             <div class="iconnamesm " style="color:#36848C;">
-             Profile
+            @{{ $t('general.profile') }}
              </div>
             @else
             <v-badge
@@ -356,7 +357,7 @@
         <img src="{{ asset('imgs/profile.png') }}" class="iconstylesm" v-else/>
         <br>
             <div class="iconnamesm">
-             Profile
+            @{{ $t('general.profile') }}
              </div>
             @endif
             </a>

@@ -718,6 +718,8 @@ export default {
        this.$root.getAllConnectedUsers();
 
        this.animateVolumeControl();
+
+        this.$root.markSpaceRead(this.$route.params.spaceId);
        
       
     },
@@ -1167,7 +1169,7 @@ export default {
 
             this.$root.Messages.splice(msgIndex,0,newUnreadMsg);
 
-             this.$root.markSpaceRead(this.$route.params.spaceId);
+            
 
           }
       },
@@ -1324,15 +1326,11 @@ export default {
                this.$root.typingSpace = e.spaceId;
                 
               
-              setTimeout(() => {
-                 
-                 this.$root.typing = false;
-                 
-                 }, 1500);
+              
                  })
               .listenForWhisper('liveCoding', (e) => {
 
-                if(e.spaceId == this.$route.params.spaceId){
+                
 
 
                    if(e.action == 'typing'){
@@ -1394,7 +1392,7 @@ export default {
 
                   }
 
-                }
+                
               
                 
                
@@ -1910,7 +1908,25 @@ export default {
 
         
            
-            this.updateLocalStorage();
+          
+
+
+             let unreadStoredMsg = this.$root.getLocalStore('unread' + this.$route.params.spaceId  + this.$root.username);
+
+           unreadStoredMsg.then((result)=>{
+
+              let finalResultUnread = JSON.parse(result);
+
+              if(this.$root.sendingMessage == false){
+
+                 this.periodicUpdate(finalResultUnread);
+
+              }
+           });
+
+    
+          this.updateLocalStorage();
+             
               
                 
                }else{
@@ -2032,7 +2048,10 @@ export default {
          }
 
         
+        
       this.checkForUnreadMessagesDisconnected();
+
+
 
        
 

@@ -145,10 +145,23 @@ const router = new VueRouter({
   routes
 });
 
+import VueI18n from 'vue-i18n'
+
+Vue.use(VueI18n)
+
+const messages = require('../bootstraps/messages.json');
+
+const i18n = new VueI18n({
+    locale: 'en', // set locale
+    messages, // set locale messages
+})
+
+
 const app = new Vue({
    router: router,
     el: '#space',
     vuetify: new Vuetify(),
+    i18n,
     data:{
       pageloader:false,
       notificationApproved:'',
@@ -498,13 +511,35 @@ const app = new Vue({
                   if(finalResultUnread.length != 0 && fromChatList){
                     this.updateSpaceTracker(this.$root.ChatList[1][index].space_id);
                   }
-                  
-              unreadLength1 += finalResultUnread.length ;
 
-              this.$root.teamUnread = unreadLength1;
+                  if(finalResultUnread.length != 0){
+
+                    unreadLength1 += finalResultUnread.length ;
+
+                    this.$root.teamUnread = unreadLength1;
+      
+                     
+                    this.$root.ChatList[1].map((chat)=>{
+      
+                       if(chat.space_id == this.$root.ChatList[1][index].space_id){
+      
+                         
+      
+                         chat.unread = finalResultUnread.length;
+
+                         
+      
+                       }
+                      })
+                  }else{
+                    unreadLength1 += 0;
+                  }
+                  
             
+
+             
   
-              this.$root.ChatList[1][index].unread = finalResultUnread.length;
+             
   
              }
   
@@ -534,14 +569,35 @@ const app = new Vue({
               if(finalResultUnread2.length != 0 && fromChatList){
                 this.updateSpaceTracker(this.$root.ChatList[2][index].space_id);
               }
-              
-              unreadLenght2 += finalResultUnread2.length ;
+
+              if(finalResultUnread2.length != 0){
+
+                unreadLenght2 += finalResultUnread2.length ;
 
             
   
-               this.$root.channelUnread = unreadLenght2;
+                this.$root.channelUnread = unreadLenght2;
+ 
+                this.$root.ChatList[2].map((chat)=>{
+ 
+                 if(chat.space_id == this.$root.ChatList[2][index].space_id){
+ 
+                   chat.unread = finalResultUnread2.length;
 
-               this.$root.ChatList[2][index].unread = finalResultUnread2.length;
+                  
+      
+ 
+                 }
+ 
+              })
+
+              }else{
+                unreadLenght2 += 0;
+              }
+              
+             
+
+             
   
             }
   
@@ -575,11 +631,31 @@ const app = new Vue({
               
               UnreadLength3 += finalResultUnread3.length ;
 
+            
+              if(finalResultUnread3.length != 0 ){
 
+                this.$root.directUnread  = UnreadLength3;
 
-              this.$root.directUnread  = UnreadLength3;
+                this.$root.ChatList[4].map((chat)=>{
   
-              this.$root.ChatList[4][index].unread = finalResultUnread3.length;
+                  if(chat.space_id == this.$root.ChatList[4][index].space_id){
+  
+                    chat.unread = finalResultUnread3.length;
+
+                   
+      
+  
+                  }
+  
+               })
+
+              }else{
+                UnreadLength3 += 0;
+              }
+
+             
+  
+             
               
   
             }
