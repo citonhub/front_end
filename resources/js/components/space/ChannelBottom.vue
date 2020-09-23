@@ -309,11 +309,18 @@ export default {
       
       let channel =  window.Echo.join('space.' + this.$route.params.spaceId);
 
-      channel.whisper('typing', {
+     
+
+        setTimeout(()=>{
+
+       channel.whisper('typing', {
           user: Laravel.user.username,
             typing: true,
             spaceId: this.$route.params.spaceId
         });
+
+      },5000)
+
 
    
       setTimeout(()=>{
