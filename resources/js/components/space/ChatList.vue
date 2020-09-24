@@ -790,6 +790,9 @@ export default {
         this.$root.liveIsOn = false;
         this.$root.showVideoScreen = false;
         this.$root.liveInitiated = false;
+
+         this.$root.sendLiveSignal('all');
+
         this.$root.presentRoomId = null;
         this.$root.remoteLiveHappening = false;
 

@@ -202,7 +202,7 @@ export default {
           _this.remoteScreen= _this.$root.remoteScreen;
           _this.remoteAudio= _this.$root.remoteAudio;
             
-            console.log(_this.$root.remoteLiveHappening)
+          
               
          
          
@@ -267,6 +267,16 @@ export default {
            }else{
              
              this.$root.screenSharingOn = true; 
+
+             this.$root.remoteLiveHappening = true;
+            
+             this.$root.showVideoScreen = true;
+
+           this.$root.sendLiveSignal('screen');
+
+             this.$root.remoteScreen = true;
+               this.$root.liveIsOn = true;
+
              this.$root.checkScreenRoomState();
            }
 
@@ -293,6 +303,8 @@ export default {
             this.$root.screenSharingOn = true;
           
     }else{
+
+         this.$root.sendLiveSignal('audio');
 
        this.$root.screenSharingOn = true; 
 
