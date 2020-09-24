@@ -485,7 +485,7 @@ const app = new Vue({
       
       }
 
-      this.$root.LocalStore('ChatList' + this.username,this.ChatList);
+      this.$root.LocalStore('ChatListNew' + this.username,this.ChatList);
       this.$root.LocalStore('unread' + spaceId  + this.$root.username,[]);
     },
     checkUnread: function(fromChatList){

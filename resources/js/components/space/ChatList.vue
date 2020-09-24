@@ -899,7 +899,7 @@ export default {
 
           
 
-        this.$root.LocalStore('ChatList' + this.$root.username,response.data);
+        this.$root.LocalStore('ChatListNew' + this.$root.username,response.data);
 
          this.fetchSpaceUpdate = false;
         
@@ -958,7 +958,7 @@ export default {
              if( this.$root.ChatList.length == 0 ){
 
 
-                let storedChat = this.$root.getLocalStore('ChatList'+ this.$root.username);
+                let storedChat = this.$root.getLocalStore('ChatListNew'+ this.$root.username);
 
             storedChat.then((result)=>{
                 
@@ -1003,7 +1003,7 @@ export default {
 
         this.$root.ChatList = response.data;
 
-           this.$root.LocalStore('ChatList' + this.$root.username,response.data);
+           this.$root.LocalStore('ChatListNew' + this.$root.username,response.data);
 
          this.$root.sortChatList();
         
@@ -1053,7 +1053,7 @@ export default {
           
         this.$root.SpaceWithoutChannel = this.$root.ChatList;
 
-         let storedChat = this.$root.getLocalStore('ChatList'+ this.$root.username);
+         let storedChat = this.$root.getLocalStore('ChatListNew'+ this.$root.username);
 
          storedChat.then((result)=>{
                 
