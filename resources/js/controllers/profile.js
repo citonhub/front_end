@@ -82,10 +82,22 @@ const router = new VueRouter({
   routes
 });
 
+import VueI18n from 'vue-i18n'
+
+Vue.use(VueI18n)
+
+const messages = require('../bootstraps/messages.json');
+
+const i18n = new VueI18n({
+    locale: 'en', // set locale
+    messages, // set locale messages
+})
+
 const app = new Vue({
    router: router,
     el: '#profile',
     vuetify: new Vuetify(),
+    i18n,
     data:{
       checkauthroot:document.getElementById('checkauth').value,
       user_temp_id: document.getElementById('checkauthId').value,

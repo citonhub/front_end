@@ -28,10 +28,6 @@ import moment from 'moment'
 
 window.moment = require('moment');
 
-import VueI18n from 'vue-i18n'
-
-Vue.use(VueI18n)
-
 
 Vue.use(Vuetify);
 
