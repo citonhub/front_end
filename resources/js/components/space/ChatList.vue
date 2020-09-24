@@ -958,7 +958,7 @@ export default {
 
           if(this.$root.checkauthroot == 'auth'){
 
-             if( this.$root.ChatList.length == 0 && this.$root.ChatList[3] != undefined){
+             if( this.$root.ChatList.length == 0 ){
 
 
                 let storedChat = this.$root.getLocalStore('ChatListNew'+ this.$root.username);
@@ -970,8 +970,10 @@ export default {
                     let finalResult = JSON.parse(result);
 
                    this.$root.ChatList = finalResult;
-                  
-                      this.$root.sortChatList();
+
+                    if(this.$root.ChatList[3] != undefined){
+
+                       this.$root.sortChatList();
 
              this.personalSpace = this.$root.ChatList[0];
            this.teamSpace = this.$root.ChatList[1];
@@ -992,12 +994,58 @@ export default {
           
         this.$root.SpaceWithoutChannel = this.$root.ChatList;
 
+                    }else{
+
+              
+                
+             axios.get('/fetch-user-spaces')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+        this.$root.ChatList = response.data;
+
+           this.$root.LocalStore('ChatListNew' + this.$root.username,response.data);
+
+         this.$root.sortChatList();
+        
+         this.personalSpace = this.$root.ChatList[0];
+        this.teamSpace = this.$root.ChatList[1];
+        this.channelSpace = this.$root.ChatList[2];
+        this.channelProject = this.$root.ChatList[3].data;
+        this.channelDirect = this.$root.ChatList[4];
+         this.channelSuggestions = this.$root.ChatList[5];
+
+        
+
+         this.$root.checkUnread();
+          
+        this.$root.SpaceWithoutChannel = response.data;
+         
+         
+       
+
+     }
+       
+     
+     })
+     .catch(error => {
+       
+      
+     }) 
+                    
+
+                      
+
+                    }
+                  
+                     
+
         
 
                  }else{
             
-             this.teamSpace = null;
-        this.channelSpace = null;
+           
            
              axios.get('/fetch-user-spaces')
       .then(response => {
