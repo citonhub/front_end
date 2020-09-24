@@ -1299,6 +1299,7 @@ if (response.status == 200) {
 
 })
 .catch(error => {
+  
   this.sendingMessage = false;
   
   this.storeUnsentMessages(postData);

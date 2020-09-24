@@ -819,7 +819,7 @@ export default {
                   
                 this.unsentMessagesPresent = true;
 
-                 if(!this.$root.sendingMessage){
+                 
 
                     for (let index = 0; index < finalResult.length; index++) {
                
@@ -831,7 +831,7 @@ export default {
 
               
 
-                 }
+                 
                  
                  
                 }
@@ -1759,18 +1759,51 @@ export default {
          
          
 
+           let unsentMsg = this.$root.getLocalStore('unsent' + this.$route.params.spaceId  + this.$root.username );
 
+            unsentMsg.then((result)=>{
+
+           if(result != null){
+
+            let finalResult = JSON.parse(result);
+              
+                
+
+                if(finalResult.length > 0){
+
+                  
+
+                }else{
+                   this.$root.LocalStore(this.$route.params.spaceId + this.$root.username,response.data);
+
+           this.$root.LocalStore('unread' + this.$route.params.spaceId + this.$root.username,[]);
+
+            let returnedData = this.handleResults(response.data[0]);
+                }
+
+              
+               
+
+           }else{
+
+               this.$root.LocalStore(this.$route.params.spaceId + this.$root.username,response.data);
+ 
+         this.$root.LocalStore('unread' + this.$route.params.spaceId + this.$root.username,[]);
+
+         let returnedData = this.handleResults(response.data[0]);
+           }
+
+
+          
+        
+         });
        
          
-        if(!this.unsentMessagesPresent){
+       
 
-            this.$root.LocalStore(this.$route.params.spaceId + this.$root.username,response.data);
+           
 
-      this.$root.LocalStore('unread' + this.$route.params.spaceId + this.$root.username,[]);
-
-       let returnedData = this.handleResults(response.data[0]);
-
-        }
+        
 
      
         
