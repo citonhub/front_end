@@ -973,7 +973,15 @@ export default {
              this.personalSpace = this.$root.ChatList[0];
            this.teamSpace = this.$root.ChatList[1];
           this.channelSpace = this.$root.ChatList[2];
-        this.channelProject = this.$root.ChatList[3].data;
+
+           if(this.$root.ChatList[3] != undefined){
+
+              this.channelProject = this.$root.ChatList[3].data;
+
+           }else{
+               this.channelProject = [];
+           }
+       
         this.channelDirect = this.$root.ChatList[4];
          this.channelSuggestions = this.$root.ChatList[5];
 
