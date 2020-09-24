@@ -958,7 +958,7 @@ export default {
 
           if(this.$root.checkauthroot == 'auth'){
 
-             if( this.$root.ChatList.length == 0 ){
+             if( this.$root.ChatList.length == 0 && this.$root.ChatList[3] != undefined){
 
 
                 let storedChat = this.$root.getLocalStore('ChatListNew'+ this.$root.username);
