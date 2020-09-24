@@ -189,7 +189,12 @@ export default {
       let _this = this;
 
         function checkSignal(){
+               
+              if(!_this.$root.chatisOpen){
 
+           clearInterval(interval);
+
+         }
           
 
               _this.remoteLiveHappening = _this.$root.remoteLiveHappening;
@@ -197,7 +202,7 @@ export default {
           _this.remoteScreen= _this.$root.remoteScreen;
           _this.remoteAudio= _this.$root.remoteAudio;
             
-           
+            console.log(_this.$root.remoteLiveHappening)
               
          
          

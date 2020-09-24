@@ -270,7 +270,6 @@ body {
       </v-card>
     @endif
 
-     
 
       <v-list dense>
 
