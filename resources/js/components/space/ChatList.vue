@@ -125,15 +125,15 @@
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
                           <v-badge
           color="#36848C"
-            v-if="this.$root.channelUnread > 0 && this.$root.checkauthroot == 'auth'"
-          :content="this.$root.channelUnread"
+            v-if="generateTotalUnread(this.$root.ChatList[2]) > 0 && this.$root.checkauthroot == 'auth'"
+          :content="generateTotalUnread(this.$root.ChatList[2])"
         >
       
       <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Channels</span>
             
         </v-badge>
 
-        <span   v-if="this.$root.channelUnread <= 0 && this.$root.checkauthroot == 'auth'" style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Channels</span>
+        <span   v-if="generateTotalUnread(this.$root.ChatList[2]) <= 0 && this.$root.checkauthroot == 'auth'" style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Channels</span>
 
          <v-badge
           color="#36848C"
@@ -161,7 +161,7 @@
                 <div  v-if="channelSpace != null">
                     <div class="row my-0 my-0 px-0"  v-if="channelSpace.length != 0">
 
-                    <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in channelSpace"
+                    <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in this.$root.ChatList[2]"
                       :key="index">
                 <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
@@ -240,8 +240,8 @@
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
                           <v-badge
           color="#36848C"
-            v-if="this.$root.teamUnread > 0"
-          :content="this.$root.teamUnread"
+            v-if="generateTotalUnread(this.$root.ChatList[1]) > 0"
+          :content="generateTotalUnread(this.$root.ChatList[1])"
         >
       
       <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Teams</span>
@@ -261,7 +261,7 @@
               <div class="col-12 py-1 my-0 mx-0 teamSpace"  v-if="this.$root.showTeams" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;"  >
                  <div  v-if="teamSpace != null">
                  <div class="row my-0 my-0 px-0"  v-if="teamSpace.length != 0">
-                    <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in teamSpace"
+                    <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in this.$root.ChatList[1]"
                       :key="index">
                 <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
@@ -336,8 +336,8 @@
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
                           <v-badge
           color="#36848C"
-            v-if="this.$root.directUnread > 0"
-          :content="this.$root.directUnread"
+            v-if="generateTotalUnread(this.$root.ChatList[4]) > 0"
+          :content="generateTotalUnread(this.$root.ChatList[1])"
         >
       
        <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Direct Messages</span>
@@ -357,7 +357,7 @@
                   <div  v-if="channelDirect != null">
                     <div class="row my-0 my-0 px-0"  v-if="channelDirect.length != 0">
 
-                    <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in channelDirect"
+                    <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in  this.$root.ChatList[4]"
                       :key="index">
                 <div class="row py-0 my-0 px-0" v-if="space.userInfo != null">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
@@ -520,6 +520,9 @@ export default {
     
        
        this.updateSpaceMessages();
+
+        this.$root.checkUnread(true);
+
      
        
     },
@@ -593,7 +596,7 @@ export default {
       this.$root.checkUnread(true);
 
       
-         
+          
 
     }).then(function (value) {
       // we got our value
@@ -628,8 +631,10 @@ export default {
                 
              
                 localforage.setItem('unread' + space.space_id + this.$root.username,JSON.stringify(returnData)).then( ()=> {
+
       this.$root.checkUnread(true);
 
+       
        
 
     }).then(function (value) {
@@ -751,7 +756,7 @@ export default {
              }
             
         
-            this.$root.updateSpaceTracker(space.space_id);
+           
           
            
          });
@@ -764,16 +769,17 @@ export default {
            
         this.$root.makeRecallSpace = true;
 
-            
- 
+        
+      
        
+
+
+       
+
 
      }
 
-       this.teamSpace = this.$root.ChatList[1];
-          this.channelSpace = this.$root.ChatList[2];
-        this.channelProject = this.$root.ChatList[3].data;
-        this.channelDirect = this.$root.ChatList[4];
+      
        
      
      })
@@ -783,13 +789,34 @@ export default {
      })
 
     
-
+    
+     
                }
          
            },3000);
 
         },
-       
+        generateTotalUnread: function(array){
+
+           let result = 0;
+
+            if(array != undefined){
+
+              array.forEach((chat)=>{
+             
+             result += chat.unread
+             
+          })
+
+          return result;
+
+            }else{
+               return 0;
+            }
+
+          
+
+        },
        closeConnections:function(){
           let _this = this;
 

@@ -454,7 +454,6 @@ const app = new Vue({
              
           if(space.space_id == spaceId){
 
-            this.teamUnread -= space.unread;
             
             space.unread = 0;
           }
@@ -464,7 +463,7 @@ const app = new Vue({
         this.ChatList[2].map((space)=>{
          
           if(space.space_id == spaceId){
-            this.channelUnread -= space.unread;
+           
             space.unread = 0;
           }
   
@@ -475,7 +474,7 @@ const app = new Vue({
          
           if(space.space_id == spaceId){
 
-            this.directUnread -= space.unread;
+           
 
             space.unread = 0;
           }
@@ -496,8 +495,7 @@ const app = new Vue({
 
        if(this.ChatList[1] != undefined){
 
-         let unreadLength1 = 0;
-
+        
         for (let index = 0; index < this.$root.ChatList[1].length; index++) {
            
           let unreadStoredMsg = this.$root.getLocalStore('unread' + this.$root.ChatList[1][index].space_id + this.$root.username) ;
@@ -507,17 +505,11 @@ const app = new Vue({
              if(result != null){
   
               let finalResultUnread = JSON.parse(result);
+
+               
                   
-                  if(finalResultUnread.length != 0 && fromChatList){
-                    this.updateSpaceTracker(this.$root.ChatList[1][index].space_id);
-                  }
-
-                  if(finalResultUnread.length != 0){
-
-                    unreadLength1 += finalResultUnread.length ;
-
-                    this.$root.teamUnread = unreadLength1;
-      
+                  
+                   
                      
                     this.$root.ChatList[1].map((chat)=>{
       
@@ -527,13 +519,17 @@ const app = new Vue({
       
                          chat.unread = finalResultUnread.length;
 
+                         if(finalResultUnread.length > 0){
+
+                          this.updateSpaceTracker(chat.space_id)
+         
+                        }
+
                          
       
                        }
                       })
-                  }else{
-                    unreadLength1 += 0;
-                  }
+                 
                   
             
 
@@ -555,7 +551,7 @@ const app = new Vue({
        
   
         
-        let unreadLenght2 = 0;
+       
          for (let index = 0; index < this.$root.ChatList[2].length; index++) {
   
           let unreadStoredMsg2 = this.$root.getLocalStore('unread' + this.$root.ChatList[2][index].space_id + this.$root.username);
@@ -566,19 +562,9 @@ const app = new Vue({
   
               let finalResultUnread2 = JSON.parse(result);
   
-              if(finalResultUnread2.length != 0 && fromChatList){
-                this.updateSpaceTracker(this.$root.ChatList[2][index].space_id);
-              }
-
-              if(finalResultUnread2.length != 0){
-
-                unreadLenght2 += finalResultUnread2.length ;
-
             
-  
-                this.$root.channelUnread = unreadLenght2;
-
-                let secondChatList = this.$root.ChatList[2];
+             
+              
  
                 this.$root.ChatList[2].map((chat)=>{
  
@@ -587,6 +573,12 @@ const app = new Vue({
                   
  
                    chat.unread = finalResultUnread2.length;
+
+                   if(finalResultUnread2.length > 0){
+
+                    this.updateSpaceTracker(chat.space_id)
+   
+                  }
 
                    
 
@@ -597,9 +589,7 @@ const app = new Vue({
  
               })
 
-              }else{
-                unreadLenght2 += 0;
-              }
+             
               
              
 
@@ -618,7 +608,7 @@ const app = new Vue({
 
        
       
-        let UnreadLength3 = 0;
+       
   
          for (let index = 0; index < this.$root.ChatList[4].length; index++) {
   
@@ -630,23 +620,26 @@ const app = new Vue({
   
               let finalResultUnread3 = JSON.parse(result);
 
-              if(finalResultUnread3.length != 0 && fromChatList){
-                this.updateSpaceTracker(this.$root.ChatList[4][index].space_id);
-              }
-  
+             
+
               
-              UnreadLength3 += finalResultUnread3.length ;
 
             
-              if(finalResultUnread3.length != 0 ){
-
-                this.$root.directUnread  = UnreadLength3;
+             
+                
 
                 this.$root.ChatList[4].map((chat)=>{
   
                   if(chat.space_id == this.$root.ChatList[4][index].space_id){
   
                     chat.unread = finalResultUnread3.length;
+
+
+                   if(finalResultUnread3.length > 0){
+
+                    this.updateSpaceTracker(chat.space_id)
+   
+                  }
 
                    
       
@@ -655,9 +648,7 @@ const app = new Vue({
   
                })
 
-              }else{
-                UnreadLength3 += 0;
-              }
+              
 
              
   
