@@ -234,6 +234,8 @@ export default {
              this.$root.setAudioConnection();
               this.$root.checkAudioRoomState();
            }
+
+            this.$root.getAllConnectedUsers();
              
             
         },
@@ -280,8 +282,8 @@ export default {
              this.$root.checkScreenRoomState();
            }
 
-          
-
+      this.$root.getAllConnectedUsers();         
+ 
 
         },
         initaiteAudioConf: function(){
@@ -311,6 +313,8 @@ export default {
         this.$root.checkAudioRoomState();
         
     }
+
+    this.$root.getAllConnectedUsers();
 
         
         },

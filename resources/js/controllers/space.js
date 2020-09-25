@@ -1744,7 +1744,7 @@ this.$root.audioconnection.onstreamended = function(event) {
        
        },
 
-       getAllConnectedUsers(){
+       getAllConnectedUsers:function(){
 
              let connectionInterval = null;
 

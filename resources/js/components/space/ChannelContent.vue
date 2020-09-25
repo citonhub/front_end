@@ -715,7 +715,7 @@ export default {
 
        this.resendMessages();
 
-       this.$root.getAllConnectedUsers();
+      
 
        this.animateVolumeControl();
 
