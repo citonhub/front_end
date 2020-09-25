@@ -770,7 +770,7 @@ export default {
 
      }
 
-     this.teamSpace = this.$root.ChatList[1];
+       this.teamSpace = this.$root.ChatList[1];
           this.channelSpace = this.$root.ChatList[2];
         this.channelProject = this.$root.ChatList[3].data;
         this.channelDirect = this.$root.ChatList[4];

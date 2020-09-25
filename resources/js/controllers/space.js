@@ -1751,11 +1751,12 @@ this.$root.audioconnection.onstreamended = function(event) {
             
 
              connectionInterval = setInterval(()=>{
-           
+                
+              
                
-               if(!this.$root.chatisOpen){
+               if(!this.$root.liveIsOn){
 
-                    clearInterval(connectionInterval);
+                   
 
               }else{
 

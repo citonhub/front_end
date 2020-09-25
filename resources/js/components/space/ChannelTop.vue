@@ -66,7 +66,7 @@
               >
               <v-badge
                dot
-               v-if="remoteLiveHappening"
+               v-if="$data._this.$root.remoteLiveHappening"
                 color="red">
                <v-icon>mdi-television-play</v-icon>
               </v-badge>
@@ -80,7 +80,7 @@
               
               <v-badge
                dot
-               v-if="remoteLiveHappening && remoteCode"
+               v-if="$data._this.$root.remoteLiveHappening && $data._this.$root.remoteCode"
                 color="red">
                <v-icon>mdi-monitor-dashboard mdi-18px</v-icon>
               </v-badge>
@@ -97,7 +97,7 @@
 
               <v-badge
                dot
-               v-if="remoteLiveHappening && remoteScreen"
+               v-if="$data._this.$root.remoteLiveHappening && $data._this.$root.remoteScreen"
                 color="red">
                <v-icon>mdi-monitor-cellphone mdi-18px</v-icon>
               </v-badge>
@@ -112,7 +112,7 @@
 
                    <v-badge
                dot
-               v-if="remoteLiveHappening && remoteAudio"
+               v-if="$data._this.$root.remoteLiveHappening && $data._this.$root.remoteAudio"
                 color="red">
                <v-icon>mdi-microphone mdi-18px</v-icon>
               </v-badge>
@@ -156,14 +156,14 @@ export default {
           remoteCode: this.$root.remoteCode,
           remoteScreen: this.$root.remoteScreen,
           remoteAudio: this.$root.remoteAudio,
-
+          _this: this
         }
     },
      components: {
    
   },
     mounted(){
-             this.checkIfRemoteLive();
+             
     },
     methods:{
       checkIfOnline: function(user_id){
@@ -182,33 +182,7 @@ export default {
          }
 
       },
-      checkIfRemoteLive: function(){
-
-           let interval = setInterval(checkSignal,2000);
-
-      let _this = this;
-
-        function checkSignal(){
-               
-              if(!_this.$root.chatisOpen){
-
-           clearInterval(interval);
-
-         }
-          
-
-              _this.remoteLiveHappening = _this.$root.remoteLiveHappening;
-            _this.remoteCode = _this.$root.remoteCode;
-          _this.remoteScreen= _this.$root.remoteScreen;
-          _this.remoteAudio= _this.$root.remoteAudio;
-            
-          
-              
-         
-         
-        }
-
-        },
+     
        goBack() {
             this.$router.push({ path: '/space/chat-list'});
         
