@@ -440,10 +440,10 @@ const app = new Vue({
   
         });
   
-        this.sortChatList();
+        
       }
       
-
+      this.sortChatList();
 
     },
     markSpaceRead:function(spaceId){
@@ -577,15 +577,21 @@ const app = new Vue({
             
   
                 this.$root.channelUnread = unreadLenght2;
+
+                let secondChatList = this.$root.ChatList[2];
  
                 this.$root.ChatList[2].map((chat)=>{
  
                  if(chat.space_id == this.$root.ChatList[2][index].space_id){
+
+                  
  
                    chat.unread = finalResultUnread2.length;
 
+                   
+
                   
-      
+               
  
                  }
  
@@ -669,12 +675,15 @@ const app = new Vue({
        
           
         }
+    
 
-       
+        
 
        }
-      
 
+      
+      
+    
        
     },
     LocalStore:function(key,data){

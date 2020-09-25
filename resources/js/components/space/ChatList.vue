@@ -517,7 +517,7 @@ export default {
        this.$root.SpaceUsers = [];
          this.$root.selectedSpace = [];
        this.trackUser();
-      this.$root.checkUnread(true);
+    
        
        this.updateSpaceMessages();
      
@@ -532,7 +532,7 @@ export default {
 
             
           
-              
+               
                 
                if(this.$root.makeRecallSpace){
 
@@ -545,9 +545,9 @@ export default {
 
          let returnData = response.data;
 
-          if(returnData.length > 0){
+         
 
-
+ 
             returnData.forEach(space => {
 
           
@@ -588,9 +588,28 @@ export default {
 
                finalResultUnread.push(messages)
 
+
+               localforage.setItem('unread' + space.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
+      this.$root.checkUnread(true);
+
+      
+         
+
+    }).then(function (value) {
+      // we got our value
+     
+    }).catch(function (err) {
+      console.log(err)
+      // we got an error
+    });
+
               
                
-              this.$root.LocalStore('unread' + space.space_id + this.$root.username,finalResultUnread);
+              
+
+               
+
+             
 
               
                
@@ -607,7 +626,22 @@ export default {
 
        
                 
-               this.$root.LocalStore('unread' + space.space_id + this.$root.username,returnData);
+             
+                localforage.setItem('unread' + space.space_id + this.$root.username,JSON.stringify(returnData)).then( ()=> {
+      this.$root.checkUnread(true);
+
+       
+
+    }).then(function (value) {
+      // we got our value
+     
+    }).catch(function (err) {
+      console.log(err)
+      // we got an error
+    });
+
+
+               
 
 
                   let parsedResult = JSON.parse(result);
@@ -639,10 +673,22 @@ export default {
 
                finalResultUnread.push(messages)
 
+
+              localforage.setItem('unread' + space.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
+      this.$root.checkUnread(true);
+
+       
+
+    }).then(function (value) {
+      // we got our value
+     
+    }).catch(function (err) {
+      console.log(err)
+      // we got an error
+    });
               
                
-              this.$root.LocalStore('unread' + space.space_id + this.$root.username,finalResultUnread);
-
+              
                
                
 
@@ -710,15 +756,10 @@ export default {
            
          });
 
-          this.$root.checkUnread(true);
+         
+           
 
-          }else{
-
-              this.$root.checkUnread(false);
-
-
-          }
-
+         
          
            
         this.$root.makeRecallSpace = true;
@@ -728,6 +769,11 @@ export default {
        
 
      }
+
+     this.teamSpace = this.$root.ChatList[1];
+          this.channelSpace = this.$root.ChatList[2];
+        this.channelProject = this.$root.ChatList[3].data;
+        this.channelDirect = this.$root.ChatList[4];
        
      
      })
@@ -735,6 +781,8 @@ export default {
        
         this.$root.makeRecallSpace = true;
      })
+
+    
 
                }
          
@@ -990,7 +1038,7 @@ export default {
         this.channelDirect = this.$root.ChatList[4];
          this.channelSuggestions = this.$root.ChatList[5];
 
-         this.$root.checkUnread();
+         this.$root.checkUnread(true);
           
         this.$root.SpaceWithoutChannel = this.$root.ChatList;
 
@@ -1018,7 +1066,7 @@ export default {
 
         
 
-         this.$root.checkUnread();
+           this.$root.checkUnread(true);
           
         this.$root.SpaceWithoutChannel = response.data;
          
@@ -1067,7 +1115,7 @@ export default {
 
         
 
-         this.$root.checkUnread();
+          this.$root.checkUnread(true);
           
         this.$root.SpaceWithoutChannel = response.data;
          
@@ -1097,7 +1145,7 @@ export default {
         this.channelDirect = this.$root.ChatList[4];
          this.channelSuggestions = this.$root.ChatList[5];
 
-         this.$root.checkUnread();
+           this.$root.checkUnread(true);
 
          
 
@@ -1116,7 +1164,7 @@ export default {
 
                     this.$root.sortChatList();
 
-                   this.$root.checkUnread();
+                    this.$root.checkUnread(true);
                 
 
                  }

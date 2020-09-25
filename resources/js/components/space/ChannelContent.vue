@@ -719,7 +719,7 @@ export default {
 
        this.animateVolumeControl();
 
-        this.$root.markSpaceRead(this.$route.params.spaceId);
+        
        
       
     },
@@ -1835,6 +1835,10 @@ export default {
       fetchMessages: function(){
         
          if(this.$root.checkauthroot == 'auth'){
+           
+
+           this.$root.markSpaceRead(this.$route.params.spaceId);
+
 
             this.$root.TrackLastSubSpace = [];
 
