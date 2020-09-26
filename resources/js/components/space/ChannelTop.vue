@@ -87,7 +87,7 @@
               
               <v-icon v-else>mdi-monitor-dashboard mdi-18px</v-icon>
               
-               <span style="font-size:12px;">Live Coding</span>
+               <span style="font-size:12px;">Live Coding <span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
 
 
            </v-card>
@@ -105,7 +105,7 @@
               <v-icon v-else>mdi-monitor-cellphone mdi-18px</v-icon>
 
 
-             <span style="font-size:12px;">Share Your Screen</span>
+             <span style="font-size:12px;">Screen Sharing <span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
            </v-card>
             <v-card  tile flat class="py-2 text-left px-4" style="width:auto; background:white;" @click="initaiteAudioConf()">
                  
@@ -121,7 +121,7 @@
             
              
              
-              <span style="font-size:12px;">Voice Chat</span>
+              <span style="font-size:12px;">Voice Chat <span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
            </v-card>
            
           </v-menu>
