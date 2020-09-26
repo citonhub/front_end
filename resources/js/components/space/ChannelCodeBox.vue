@@ -401,6 +401,7 @@ export default {
          ResultCode:'',
          showAdminOptions:false,
          adminMembers:[],
+         recheckCodeBox: true,
          
     }
    
@@ -941,10 +942,14 @@ methods:{
 
         function check(){
 
+           
+             if(_this.recheckCodeBox){
 
-           axios.post('/check-for-submission',{
+               _this.recheckCodeBox = false;
+
+                axios.post('/check-for-submission',{
                token: token,
-                langId: this.selectedLangId
+                langId: _this.selectedLangId
                   })
           .then(response => {
              
@@ -989,14 +994,18 @@ methods:{
               
 
          _this.sendCodeRunning();
-              
+
+         
+               _this.recheckCodeBox = true;
 
           }
+
+          
             
           })
           .catch(error => {
 
-           
+             
              
                _this.ResultCode = 'An issue occured,unable to run on sandbox...';
 
@@ -1004,6 +1013,10 @@ methods:{
                clearInterval(interval);
               
           })
+
+             }
+
+          
 
         }
 
