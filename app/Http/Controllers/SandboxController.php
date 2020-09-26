@@ -7,11 +7,14 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
 use App\SandboxLanguage;
 use App\SandboxSubmission;
+use App\SandboxLanguageExtra;
 
 class SandboxController extends Controller
 {
 
      public $baseUrl;
+
+    
 
 
 
@@ -20,13 +23,26 @@ class SandboxController extends Controller
     {
         $this->baseUrl = 'https://gazux.com';
         
+        
     }
 
 
     
     public function runCode(Request $request){
 
-        $sandboxLanguage = SandboxLanguage::where('id',$request->get('langId'))->first();
+         if($request->get('langId')  == 100){
+
+            $sandboxLanguage = SandboxLanguageExtra::where('id',20)->first();
+
+            $this->baseUrl = 'https://extra.gazux.com';
+
+         }else{
+            $sandboxLanguage = SandboxLanguage::where('id',$request->get('langId'))->first();
+
+            $this->baseUrl = 'https://gazux.com';
+         }
+
+       
 
         $submissionArray = [];
 
@@ -94,5 +110,7 @@ class SandboxController extends Controller
          return $submissionArray;
 
     }
+
+    
 
 }

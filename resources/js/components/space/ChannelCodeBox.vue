@@ -53,7 +53,7 @@
          </div>
        </div>
 
-         <span style="position:absolute; top:85%; right:5%;z-index:1000;"  v-if="!this.$root.codeIsLive">
+         <span style="position:absolute; top:85%; left:5%;z-index:1000;"  v-if="!this.$root.codeIsLive">
            <v-btn
                 color="#35747e"
                 small
@@ -66,7 +66,7 @@
          
      </span>
 
-      <span style="position:absolute; top:85%; right:5%;z-index:1000;"  v-else>
+      <span style="position:absolute; top:85%; left:5%;z-index:1000;"  v-else>
            <v-btn
                 color="#35747e"
                 small
@@ -91,7 +91,7 @@
          
      </span>
 
-     <span style="position:absolute; top:85%; left:5%;z-index:1000;" >
+     <span style="position:absolute; top:85%; right:5%;z-index:1000;" >
            <v-btn
                 color="#35747e"
                 small
@@ -127,7 +127,7 @@
    :srcdoc="ResultCode" 
     style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%;" v-if="selectedLangId == 0"></iframe>
 
-    <textarea v-else v-model="ResultCode"  style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%; font-size:13px;" class="px-2 py-2">
+    <textarea  readonly v-else v-model="ResultCode"  style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%; font-size:13px;" class="px-2 py-2">
        
     </textarea>
 
@@ -305,6 +305,10 @@ export default {
           {
             "id": 39,
             "name": 'PYTHON(3.8.1)' 
+          },
+          {
+            "id": 100,
+            "name": 'PYTHON For ML(3.7.7)' 
           },
           {
             "id": 38,
@@ -1134,6 +1138,27 @@ methods:{
          
 
          }
+
+         if(language == 'PYTHON For ML(3.7.7)'){
+           
+
+
+           this.cmOption.mode = 'text/x-python';
+
+       if(!this.$root.codeIsLive && !this.$root.codeFromChat){
+       this.code = "import mlxtend\n" +
+"import numpy\n" +
+"import pandas\n" +
+"import scipy\n" +
+"import sklearn\n" +
+"\n" +
+"print(\"hello, world\")";
+       }
+         
+
+         }
+
+
          if(language == 'PYTHON(2.7.17)'){
            this.cmOption.mode = 'text/x-python';
 

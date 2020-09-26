@@ -170,6 +170,11 @@ methods:{
           if(language == 'PYTHON(3.8.1)'){
            this.cmOption.mode = 'text/x-python';
          }
+
+         if(language == 'PYTHON For ML(3.7.7)'){
+           this.cmOption.mode = 'text/x-python';
+         }
+
          if(language == 'PYTHON(2.7.17)'){
            this.cmOption.mode = 'text/x-python';
          }

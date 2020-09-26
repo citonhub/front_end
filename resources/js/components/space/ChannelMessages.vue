@@ -1127,6 +1127,11 @@ export default {
           if(language == 'PYTHON(3.8.1)'){
            return 'py';
          }
+
+         if(language == 'PYTHON For ML(3.7.7)'){
+           return 'py';
+         }
+
          if(language == 'PYTHON(2.7.17)'){
            return 'py';
          }
