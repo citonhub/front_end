@@ -98,6 +98,19 @@ class SandboxController extends Controller
 
     public function checkSubmission(Request $request){
 
+        if($request->get('langId')  == 100){
+
+           
+
+            $this->baseUrl = 'https://extra.gazux.com';
+
+         }else{
+           
+
+            $this->baseUrl = 'https://gazux.com';
+         }
+
+
 
         $getSubmission = Http::withHeaders([
             'X-Auth-Token' => 'f6583e60-b13b-4228-b554-2eb332ca64e7',
