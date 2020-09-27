@@ -1447,15 +1447,15 @@ if (response.status == 200) {
 
 // second step, set STUN url
   this.$root.connection.iceServers.push({
-    urls: 'stun:207.154.243.18:3478'  
+    urls: 'stun:165.227.152.44:3478'  
    });
 
 // last step, set TURN url (recommended)
 
         
      this.$root.connection.iceServers.push({
-      urls: 'turn:207.154.243.18:3478',
-      credential: '#5Raymond',
+      urls: 'turn:165.227.152.44:3478',
+      credential: '15Raymond',
       username: 'ILoveCitonHubPort'
      });
 
@@ -1590,14 +1590,14 @@ this.$root.audioconnection.sdpConstraints.mandatory = {
 
  // second step, set STUN url
    this.$root.audioconnection.iceServers.push({
-     urls: 'stun:207.154.243.18:3478'  
+     urls: 'stun:165.227.152.44:3478'  
     });
  
  // last step, set TURN url (recommended)
 
 this.$root.audioconnection.iceServers.push({
-  urls: 'turn:207.154.243.18:3478',
-  credential: '#5Raymond',
+  urls: 'turn:165.227.152.44:3478',
+  credential: '15Raymond',
   username: 'ILoveCitonHubPort'
  });
 
