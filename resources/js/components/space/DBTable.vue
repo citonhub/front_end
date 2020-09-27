@@ -24,7 +24,7 @@
              <div class="col-12 py-1 my-0 mt-1 " >
                       <div class="row my-0 px-0">
                         <div class="col-2 py-0 my-0 px-0" style="border-bottom:1px solid #c4c4c4;" >
-                           <v-btn icon @click="addEntry" v-if="checkIfOwner()"><v-icon color="#3E8893">mdi-table-row-plus-before mdi-18px</v-icon></v-btn>
+                          
                               
                          </div>
                          <div class="col-8 py-0 my-0 px-0" style="border-bottom:1px solid #c4c4c4;" >
@@ -40,7 +40,7 @@
                   ></v-text-field>
                          </div>
                          <div class="col-2 py-0 my-0 px-0 text-right" style="border-bottom:1px solid #c4c4c4;" >
-                           <v-btn icon @click="addField" v-if="checkIfOwner()"><v-icon color="#3E8893">mdi-table-column-plus-before mdi-18px</v-icon></v-btn>
+                          
                               
                          </div> 
                         
@@ -150,12 +150,7 @@ export default {
          
         
       },
-      addField: function(){
-         this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/create-db-table-field' });
-      },
-      addEntry(){
-         this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/create-db-table-entry' });
-      },
+      
       fetchTableEntries: function(){
          axios.get('/fetch-table-entries/' + this.$root.SelectedTable.id)
       .then(response => {

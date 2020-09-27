@@ -30,8 +30,6 @@ import CodeEditor from "../components/space/CodeEditor.vue"
 import DBTable from "../components/space/DBTable.vue"
 import NewCodeFile from "../components/space/NewCodeFile.vue"
 import PanelLoader from "../components/space/PanelLoader.vue"
-import CreateTableField from "../components/space/CreateTableField.vue"
-import CreateTableEntries from "../components/space/CreateTableEntries.vue"
 import ProjectComments from "../components/space/ProjectComments.vue"
 import NewComment from "../components/space/NewComment.vue"
 import HowTo from "../components/space/HowTo.vue"
@@ -51,8 +49,6 @@ const routes = [
   { path: '/:projectSlug/add-panel-route', name: 'AddPanelRoutes', component: AddPanelRoutes},
   { path: '/:projectSlug/code-editor', name: 'CodeEditor', component: CodeEditor},
   { path: '/:projectSlug/db-table', name: 'DBTable', component: DBTable},
-  { path: '/:projectSlug/create-db-table-field', name: 'CreateTableField', component: CreateTableField},
-  { path: '/:projectSlug/create-db-table-entry', name: 'CreateTableEntries', component: CreateTableEntries},
   { path: '/:projectSlug/:language_type/add-new-file', name: 'NewCodeFile', component: NewCodeFile},
   { path: '/:projectSlug/comments', name: 'ProjectComments', component: ProjectComments},
   { path: '/:projectSlug/make-comment', name: 'NewComment', component: NewComment},
@@ -1442,6 +1438,24 @@ if (response.status == 200) {
             };
 
 
+            this.$root.connection.bandwidth = {
+              screen: 1024
+          };
+          
+          var videoConstraints = {
+              mandatory: {
+                  maxWidth: 1920,
+                  maxHeight: 1080,
+                  minAspectRatio: 1.77,
+                  minFrameRate: 3,
+                  maxFrameRate: 64
+              },
+              optional: []
+          };
+          
+        this.$root.connection.mediaConstraints.video = videoConstraints;
+
+
       // first step, ignore default STUN+TURN servers
       this.$root.connection.iceServers = [];
 
@@ -1584,6 +1598,11 @@ this.$root.audioconnection.sdpConstraints.mandatory = {
     OfferToReceiveAudio: true,
     OfferToReceiveVideo: false
 };
+
+this.$root.audioconnection.bandwidth = {
+  audio: 128
+};
+
 
  // first step, ignore default STUN+TURN servers
  this.$root.audioconnection.iceServers = [];
