@@ -335,6 +335,7 @@ const app = new Vue({
      presentRoomId: null,
      selectedSubSpaceName:'',
      selectedGenSpaceType:'',
+     pageLoaderOpened:false,
      TrackLastSubSpace:[],
         },
      mounted: function () {

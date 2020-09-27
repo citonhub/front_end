@@ -194,6 +194,8 @@ export default {
        this.checkLogin();
         
        this.fetchProject();
+
+       this.$root.pageLoaderOpened = true;
        this.trackUser();
     },
     methods:{
@@ -372,7 +374,11 @@ export default {
               }
 
 
-             
+             if(_this.$root.pageLoaderOpened == false){
+
+             clearInterval(interval);
+
+             }
 
               
 

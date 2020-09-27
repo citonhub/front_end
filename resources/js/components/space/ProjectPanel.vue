@@ -673,6 +673,8 @@ export default {
            this.panelsettingsChecked = true;
 
         }
+
+         this.$root.pageLoaderOpened = false;
       },
  methods:{
    showUpload:function(type,message){

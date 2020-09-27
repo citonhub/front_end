@@ -186,6 +186,7 @@ export default {
        this.fetchProject();
        this.detectchange(this.$root.EditorLanguage);
        this.trackUser();
+       this.$root.pageLoaderOpened = false;
       },
      components: {
       codemirror,
