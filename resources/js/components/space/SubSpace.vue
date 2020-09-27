@@ -372,7 +372,18 @@ export default {
       },
         setSubSpaces: function(){
 
-             this.subSpaces = this.$root.selectedSpace.sub_spaces;
+           if(this.checkIfisOwner()){
+
+               this.subSpaces = this.$root.selectedSpace.sub_spaces;
+
+           }else{
+
+             this.subSpaces = this.$root.selectedSpace.sub_spaces.filter((space)=>{
+
+               return space.type == 'Public';
+
+             });
+           }
 
              this.checkForUnread();
 
