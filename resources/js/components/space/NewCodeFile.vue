@@ -115,6 +115,117 @@ export default {
         ],
          loading:false,
          formstate:false,
+         appTypeList:[
+            {
+            "id": 'NodeJs',
+            "name": 'Web app with NodeJs' 
+          },
+          {
+            "id": 'PHP',
+            "name": 'Web app with PHP' 
+          },
+          {
+            "id": 26,
+            "name": 'JAVASCRIPT(Node)' 
+          },
+          {
+            "id": 35,
+            "name": 'PHP' 
+          },
+          {
+            "id": 39,
+            "name": 'PYTHON(3.8.1)' 
+          },
+          {
+            "id": 100,
+            "name": 'PYTHON For ML(3.7.7)' 
+          },
+          {
+            "id": 38,
+            "name": 'PYTHON(2.7.17)' 
+          },
+          {
+            "id": 44,
+            "name": 'SQL' 
+          },
+          {
+            "id": 4,
+            "name": 'C' 
+          },
+          {
+            "id": 11,
+            "name": 'C++' 
+          },
+          {
+            "id": 25,
+            "name": 'JAVA' 
+          },
+          {
+            "id": 13,
+            "name": 'C#' 
+          },
+          {
+            "id": 18,
+            "name": 'ERLANG' 
+          },
+          {
+            "id": 14,
+            "name": 'COBOL' 
+          },
+          {
+            "id": 27,
+            "name": 'KOTLIN' 
+          },
+          {
+            "id": 21,
+            "name": 'FOTRAN' 
+          },
+          {
+            "id": 34,
+            "name": 'PERL' 
+          },
+          {
+            "id": 40,
+            "name": 'R' 
+          },
+          {
+            "id": 41,
+            "name": 'RUBY' 
+          },
+          {
+            "id": 22,
+            "name": 'GO' 
+          },
+          {
+            "id": 24,
+            "name": 'HASKELL' 
+          },
+          {
+            "id": 28,
+            "name": 'LUA' 
+          },
+          {
+            "id": 33,
+            "name": 'PASCAL' 
+          },
+          {
+            "id": 42,
+            "name": 'RUST' 
+          },
+          {
+            "id": 43,
+            "name": 'SCALA' 
+          },
+          {
+            "id": 45,
+            "name": 'SWIFT' 
+          },
+          {
+            "id": 46,
+            "name": 'TYPESCRIPT' 
+          }
+          ],
+          sandboxCodeId:'',
         }
     },
     components: {
@@ -140,14 +251,27 @@ export default {
     setLanguageType: function(){
        if(this.$route.params.language_type == 'front_end'){
        this.languageCat = this.front_languages;
-       }else{
+       }
+        
+        if(this.$route.params.language_type == 'code_files'){
+
+           let codeLang = this.appTypeList.filter((code)=>{
+             return code.id == this.$root.panelLanguage;
+           })
+
+          this.languageCat = [codeLang[0].name];
+
+           
+          
+        }
+       if(this.$route.params.language_type ==  'back-end'){
            this.programmingLanguage = this.$root.panelLanguage;
             this.languageCat = [this.$root.panelLanguage];
        }
     },
   
    goBack() {
-          
+           this.$root.forcePanelReload= true;
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
     saveCodeFile:function(){
@@ -179,7 +303,7 @@ export default {
 
                 this.$root.LocalStore(this.$route.params.projectSlug,this.$root.CodeFilesData);
                 
-               this.$root.forcePanelReload= false;
+            
               this.goBack();
             
             }

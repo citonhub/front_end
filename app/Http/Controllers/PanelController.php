@@ -234,6 +234,102 @@ class PanelController extends Controller
         }
     }
 
+     public function generateFileExtension($language){
+
+      if($language == 'HTML'){
+        return 'html';
+    }
+    if($language == 'CSS'){
+     return 'css';
+    }
+     if($language == 'PYTHON(3.8.1)'){
+      return 'py';
+    }
+
+    if($language == 'PYTHON For ML(3.7.7)'){
+      return 'py';
+    }
+
+    if($language == 'PYTHON(2.7.17)'){
+      return 'py';
+    }
+     if($language == 'PHP'){
+       return 'php';
+    }
+     if($language == 'JAVASCRIPT(Node)'){
+      return 'js';
+    }
+     if($language == 'SQL'){
+       return 'sql';
+    }
+     if($language == 'C'){
+       return 'c';
+    }
+     if($language == 'C++'){
+      return 'cpp';
+    }
+     if($language == 'JAVA'){
+       return 'java';
+    }
+     if($language == 'C#'){
+      return 'cs';
+    }
+     if($language == 'ERLANG'){
+       return 'erl';
+    }
+     if($language == 'KOTLIN'){
+    return 'kt';
+    }
+     if($language == 'FOTRAN'){
+     return 'for';
+    }
+     if($language == 'PERL'){
+      return 'pl';
+    }
+     if($language == 'R'){
+       return 'r';
+    }
+    if($language == 'GO'){
+       return 'go';
+    }
+    if($language == 'HASKELL'){
+      return 'hs';
+    }
+     if($language == 'RUBY'){
+       return 'rb';
+    }
+    if($language == 'LUA'){
+      
+        return 'lua';
+
+    }
+    if($language == 'PASCAL'){
+
+        return 'pas';
+    }
+    if($language == 'RUST'){
+
+        return 'rs';
+    }
+    if($language == 'SCALA'){
+      
+         return 'scala';
+
+    }
+    if($language == 'SWIFT'){
+
+          return 'swift';
+
+    }
+    if($language  == 'TYPESCRIPT'){
+
+        return 'ts';
+
+    }
+
+
+     }
+
 
      public function SaveSettingsProject(Request $request){
 
@@ -244,12 +340,47 @@ class PanelController extends Controller
         $characters = '1234567890';
         $randomString = $this->generateRandomNumber(9,$characters);
 
+         if($request->get('panel_language') != 'NodeJs' && $request->get('panel_language') != 'PHP'){
+
+          $newPanel = Panel::create([
+            "user_id"=> Auth::id(),
+            "purpose"=> 'project',
+            "panel_id"=> $randomString,
+            "app_type" => $request->get('app_type'),
+            "is_set"=> true,
+            "panel_language"=>$request->get('panel_language')
+          ]);
+    
+         $newPanel->save();
+         
+         $projectPanel->update([
+          "panel_id"=> $randomString,
+          "is_web"=> false
+         ]);
+
+
+         $codeFile = CodeBox::create([
+          "content"=> "",
+          "language_type"=> $request->get('language_name'),
+          "file_name"=> "main",
+          "type"=> "code_files",
+          "user_id"=> Auth::id(),
+          "panel_id"=> $newPanel->panel_id
+        ]);
+  
+          $codeFile->save();
+
+        
+         Storage::disk('views')->put( $codeFile->panel_id . '/' . $codeFile->file_name . '.' . $this->generateFileExtension($codeFile->language_type) , $codeFile->content);
+       
+         }
+
 
         if($request->get('panel_language') == 'NodeJs'){
         
           $newPanel = Panel::create([
             "user_id"=> Auth::id(),
-            "purpose"=> 'duel',
+            "purpose"=> 'project',
             "panel_id"=> $randomString,
             "app_type" => $request->get('app_type'),
             "is_set"=> true,
@@ -1338,6 +1469,34 @@ public function saveMyData(){
       $panel = Panel::where('panel_id',$projectPanel->panel_id)->first();
 
 
+         
+      if($request->get('code_category') == 'code_files'){
+
+
+        $newCodeBox = CodeBox::create([
+          "content"=> '',
+          "language_type"=> $request->get('language_type'),
+          "file_name"=> $request->get('file_name'),
+          "type"=> $request->get('code_category'),
+          "user_id"=> Auth::id(),
+          "panel_id"=> $projectPanel->panel_id
+       ]);
+
+
+       $newCodeBox->save();
+
+         
+     Storage::disk('views')->put( $newCodeBox->panel_id . '/' . $newCodeBox->file_name . '.' . $this->generateFileExtension($newCodeBox->language_type) , $newCodeBox->content);
+
+         
+     broadcast(new PanelChannel('new-file',$newCodeBox,$request->get('project_slug')))->toOthers();
+   
+
+     return $newCodeBox;
+
+      }
+
+
 
       if($request->get('code_category') == 'front_end'){
           
@@ -1879,7 +2038,9 @@ public function saveMyData(){
      
 
     public function saveCodeContentProject(Request $request){
-        
+
+      
+     
       $projectPanel = Project::where('project_slug',$request->get('project_slug'))->first();
 
        
@@ -1891,9 +2052,27 @@ public function saveMyData(){
        $CodeBox->update([
           'content'=> $request->get('content')
        ]);
+
+
+        
+
+
+       if($request->get('code_category')  == 'code-file'){
+
+         
+
+         
+        Storage::disk('views')->put( $CodeBox->panel_id . '/' . $CodeBox->file_name . '.' . $this->generateFileExtension($CodeBox->language_type) , $CodeBox->content);
+         
+
+      }else{
+
+        $this->updateRealFile($CodeBox,$request,$projectPanel->panel_id);
+
+      }
          
      
-       $this->updateRealFile($CodeBox,$request,$projectPanel->panel_id);
+      
 
 
        broadcast(new PanelChannel('new-file-update',$CodeBox,$request->get('project_slug')))->toOthers();
@@ -2187,7 +2366,9 @@ public function saveMyData(){
 
       $panelResources = PanelResource::where('panel_id',$projectPanel->panel_id)->get();
 
-    return [$allCodeBoxes,$panel,$allRouteConfig,$newDbTable,$panelResources];
+        
+
+    return [$allCodeBoxes,$panel,$allRouteConfig,$newDbTable,$panelResources,$projectPanel->is_web];
 
      }
 

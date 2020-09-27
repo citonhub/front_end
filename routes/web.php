@@ -161,6 +161,7 @@ Route::post('/send-to-connections','ProfileController@sendToConnections');
 // sanbox routes
 Route::post('/run-code-on-sandbox','SandboxController@runCode');
 Route::post('/check-for-submission','SandboxController@checkSubmission');
+Route::post('/run-code-on-sandbox-project','SandboxController@runProjectSandbox');
 
 
 

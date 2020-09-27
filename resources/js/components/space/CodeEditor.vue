@@ -407,7 +407,9 @@ methods:{
               this.detectchange(this.language);
              this.code = codeData.content;
 
-          }else{
+          }
+          
+          if(this.$root.SelectedCodeBox.type == 'back-end'){
 
             this.$root.selectedFileCatType = 'back-end';
 
@@ -420,6 +422,26 @@ methods:{
               this.detectchange(this.language);
              this.code = codeData.content;
           }
+
+
+          if(this.$root.SelectedCodeBox.type == 'code_files' || this.$root.SelectedCodeBox.type == 'code_file'){
+
+            this.$root.selectedFileCatType = 'code_files';
+
+             let codeData = this.$root.codeFiles.filter((file)=>{
+           return   file.id == this.$root.selectedFileId;
+
+           })
+
+            
+              codeData = codeData[0];
+               this.language = codeData.language_type;
+              this.detectchange(this.language);
+             this.code = codeData.content;
+          }
+
+
+          
          
          this.canChange = true;
        
@@ -535,134 +557,285 @@ methods:{
 
 
       },
-         detectchange: function(language){
-         if(language == 'HTML'){
-            this.cmOption.mode = 'text/html';
+       languageExtensions: function(language){
+
+
+           if(language == 'HTML'){
+             return 'html';
          }
          if(language == 'CSS'){
-         this.cmOption.mode = 'text/css';
+          return 'css';
          }
-          if(language == 'PYTHON'){
-           this.cmOption.mode = 'text/x-python';
+          if(language == 'PYTHON(3.8.1)'){
+           return 'py';
          }
-          if(language == 'PHP'){
-           this.cmOption.mode = 'text/x-php';
+
+         if(language == 'PYTHON For ML(3.7.7)'){
+           return 'py';
          }
-          if(language == 'JAVASCRIPT'){
-           this.cmOption.mode = 'text/javascript';
-         }
-          if(language == 'VUEJS'){
-           this.cmOption.mode = 'text/x-vue';
-         }
-          if(language == 'SQL'){
-           this.cmOption.mode = 'text/x-sql';
-         }
-          if(language == 'C'){
-           this.cmOption.mode = 'text/x-csrc';
-         }
-          if(language == 'C++'){
-           this.cmOption.mode = 'text/x-c++src';
-         }
-          if(language == 'JAVA'){
-           this.cmOption.mode = 'text/x-java';
-         }
-          if(language == 'C#'){
-           this.cmOption.mode = 'text/x-csharp';
-         }
-          if(language == 'ERLANG'){
-           this.cmOption.mode = 'text/x-erlang';
-         }
-          if(language == 'COFFEESCRIPT'){
-           this.cmOption.mode = 'text/x-coffeescript';
-         }
-          if(language == 'LIVESCRIPT'){
-           this.cmOption.mode = 'text/x-livescript';
-         }
-          if(language == 'DJANGO'){
-           this.cmOption.mode = 'text/x-django';
-         }
-          if(language == 'KOTLIN'){
-           this.cmOption.mode = 'x-shader/x-fragment';
-         }
-          if(language == 'FOTRAN'){
-           this.cmOption.mode = 'text/x-fortran';
-         }
-          if(language == 'MARKDOWN'){
-           this.cmOption.mode = 'text/x-markdown';
-         }
-          if(language == 'PERL'){
-           this.cmOption.mode = 'text/x-perl';
-         }
-          if(language == 'R'){
-           this.cmOption.mode = 'text/x-rsrc';
-         }
-          if(language == 'RUBY'){
-           this.cmOption.mode = 'text/x-ruby';
-         }
-      },
-      languageExtensions: function(language){
-        if(language == 'HTML'){
-           return 'html';
-         }
-         if(language == 'CSS'){
-            return 'css';
-         }
-          if(language == 'PYTHON'){
+
+         if(language == 'PYTHON(2.7.17)'){
            return 'py';
          }
           if(language == 'PHP'){
-           return 'php';
+            return 'php';
          }
-          if(language == 'JAVASCRIPT'){
+          if(language == 'JAVASCRIPT(Node)'){
            return 'js';
          }
-          if(language == 'VUEJS'){
-           return 'vue';
-         }
           if(language == 'SQL'){
-           return 'sql';
+            return 'sql';
          }
           if(language == 'C'){
-           return 'c';
+            return 'c';
          }
           if(language == 'C++'){
            return 'cpp';
          }
           if(language == 'JAVA'){
-           return 'java';
+            return 'java';
          }
           if(language == 'C#'){
            return 'cs';
          }
           if(language == 'ERLANG'){
-          return 'erl';
-         }
-          if(language == 'COFFEESCRIPT'){
-           return 'coffee';
-         }
-          if(language == 'LIVESCRIPT'){
-           return 'ls';
-         }
-         if(language == 'DJANGO'){
-           return 'py';
+            return 'erl';
          }
           if(language == 'KOTLIN'){
-           return 'kt';
+         return 'kt';
          }
           if(language == 'FOTRAN'){
-           return 'for';
-         }
-          if(language == 'MARKDOWN'){
-          return 'md';
+          return 'for';
          }
           if(language == 'PERL'){
-          return 'pl';
+           return 'pl';
          }
           if(language == 'R'){
-           return 'r';
+            return 'r';
+         }
+         if(language == 'GO'){
+            return 'go';
+         }
+         if(language == 'HASKELL'){
+           return 'hs';
          }
           if(language == 'RUBY'){
-           return 'rb';
+            return 'rb';
+         }
+         if(language == 'LUA'){
+           
+             return 'lua';
+
+         }
+         if(language == 'PASCAL'){
+
+             return 'pas';
+         }
+         if(language == 'RUST'){
+
+             return 'rs';
+         }
+         if(language == 'SCALA'){
+           
+              return 'scala';
+
+         }
+         if(language == 'SWIFT'){
+
+               return 'swift';
+
+         }
+         if(language  == 'TYPESCRIPT'){
+
+             return 'ts';
+
+         }
+
+      },
+
+         detectchange: function(language){
+        if(language == 'HTML'){
+            this.cmOption.mode = 'text/html';
+         }
+         if(language == 'CSS'){
+         this.cmOption.mode = 'text/css';
+         }
+          if(language == 'PYTHON(3.8.1)'){
+           
+
+
+           this.cmOption.mode = 'text/x-python';
+
+
+         
+
+         }
+
+         if(language == 'PYTHON'){
+           
+
+
+           this.cmOption.mode = 'text/x-python';
+
+
+         
+
+         }
+
+         if(language == 'PYTHON For ML(3.7.7)'){
+           
+
+
+           this.cmOption.mode = 'text/x-python';
+
+         
+
+         }
+
+
+         if(language == 'PYTHON(2.7.17)'){
+           this.cmOption.mode = 'text/x-python';
+
+  
+         }
+          if(language == 'PHP'){
+           this.cmOption.mode = 'text/x-php';
+
+          
+
+         }
+          if(language == 'JAVASCRIPT(Node)'){
+           this.cmOption.mode = 'text/javascript';
+
+
+ 
+            
+         }
+          if(language == 'SQL'){
+           this.cmOption.mode = 'text/x-sql';
+   
+         }
+          if(language == 'C'){
+           this.cmOption.mode = 'text/x-csrc';
+
+
+
+          
+         }
+          if(language == 'C++'){
+           this.cmOption.mode = 'text/x-c++src';
+
+
+           
+         }
+          if(language == 'JAVA'){
+           this.cmOption.mode = 'text/x-java';
+
+
+
+          
+         }
+          if(language == 'C#'){
+           this.cmOption.mode = 'text/x-csharp';
+
+
+
+           
+         }
+          if(language == 'ERLANG'){
+           this.cmOption.mode = 'text/x-erlang';
+
+
+
+          
+         }
+          if(language == 'KOTLIN'){
+           this.cmOption.mode = 'x-shader/x-fragment';
+
+
+          
+         }
+          if(language == 'FOTRAN'){
+           this.cmOption.mode = 'text/x-fortran';
+
+
+           
+         }
+          if(language == 'PERL'){
+           this.cmOption.mode = 'text/x-perl';
+
+
+         
+         }
+          if(language == 'R'){
+           this.cmOption.mode = 'text/x-rsrc';
+
+  
+
+           
+         }
+         if(language == 'GO'){
+           this.cmOption.mode = 'text/x-go';
+
+
+           
+         }
+         if(language == 'HASKELL'){
+           this.cmOption.mode = 'text/x-haskell';
+
+   
+
+          
+         }
+          if(language == 'RUBY'){
+           this.cmOption.mode = 'text/x-ruby';
+
+
+          
+         }
+         if(language == 'LUA'){
+           
+            this.cmOption.mode = 'text/x-lua';
+
+            
+
+         }
+         if(language == 'PASCAL'){
+
+            this.cmOption.mode = 'text/x-pascal';
+            
+
+         }
+         if(language == 'RUST'){
+
+            this.cmOption.mode = 'text/x-rustsrc';
+
+
+
+            
+         }
+         if(language == 'SCALA'){
+           
+             this.cmOption.mode = 'text/x-scala';
+
+
+            
+
+         }
+         if(language == 'SWIFT'){
+
+              this.cmOption.mode = 'text/x-swift';
+
+
+         }
+         if(language  == 'TYPESCRIPT'){
+           
+
+             this.cmOption.mode = 'text/javascript';
+
+              
+           
+
          }
       }
 }

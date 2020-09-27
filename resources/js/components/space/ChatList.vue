@@ -490,7 +490,8 @@ export default {
        this.$root.sharePage = false;
        this.$root.showUserInfo = false;
        this.$root.selectedSpaceMembers = [];
-
+      
+      this.$root.forcePanelReload= false;
 
      
        this.$root.Messages = null;

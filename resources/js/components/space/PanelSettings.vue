@@ -34,14 +34,15 @@
          <div class="col-12 py-2 my-0 px-2">
         <v-select
           v-model="backEndLang"
-          :items="back_languages"
-          label="Back-end Language"
+          :items="appTypeList"
+          label="Application type"
           persistent-hint
           style="font-size:12px;"
           :rules="requiredRule"
-          
+           item-text="name"
+           item-value="id"
           hide-selected
-          hint="For front-end application,click continue"
+           :disabled="this.$root.panelDataFull.is_set == true"
           placeholder="select..."
           color="#4495a2"
           small-chips
@@ -144,6 +145,116 @@ export default {
           serverRequired:'',
           FileName:'',
           Contributors:[],
+          appTypeList:[
+            {
+            "id": 'NodeJs',
+            "name": 'Web app with NodeJs' 
+          },
+          {
+            "id": 'PHP',
+            "name": 'Web app with PHP' 
+          },
+          {
+            "id": 26,
+            "name": 'JAVASCRIPT(Node)' 
+          },
+          {
+            "id": 35,
+            "name": 'PHP' 
+          },
+          {
+            "id": 39,
+            "name": 'PYTHON(3.8.1)' 
+          },
+          {
+            "id": 100,
+            "name": 'PYTHON For ML(3.7.7)' 
+          },
+          {
+            "id": 38,
+            "name": 'PYTHON(2.7.17)' 
+          },
+          {
+            "id": 44,
+            "name": 'SQL' 
+          },
+          {
+            "id": 4,
+            "name": 'C' 
+          },
+          {
+            "id": 11,
+            "name": 'C++' 
+          },
+          {
+            "id": 25,
+            "name": 'JAVA' 
+          },
+          {
+            "id": 13,
+            "name": 'C#' 
+          },
+          {
+            "id": 18,
+            "name": 'ERLANG' 
+          },
+          {
+            "id": 14,
+            "name": 'COBOL' 
+          },
+          {
+            "id": 27,
+            "name": 'KOTLIN' 
+          },
+          {
+            "id": 21,
+            "name": 'FOTRAN' 
+          },
+          {
+            "id": 34,
+            "name": 'PERL' 
+          },
+          {
+            "id": 40,
+            "name": 'R' 
+          },
+          {
+            "id": 41,
+            "name": 'RUBY' 
+          },
+          {
+            "id": 22,
+            "name": 'GO' 
+          },
+          {
+            "id": 24,
+            "name": 'HASKELL' 
+          },
+          {
+            "id": 28,
+            "name": 'LUA' 
+          },
+          {
+            "id": 33,
+            "name": 'PASCAL' 
+          },
+          {
+            "id": 42,
+            "name": 'RUST' 
+          },
+          {
+            "id": 43,
+            "name": 'SCALA' 
+          },
+          {
+            "id": 45,
+            "name": 'SWIFT' 
+          },
+          {
+            "id": 46,
+            "name": 'TYPESCRIPT' 
+          }
+          ],
         alertMsg:'',
         AppTypes:['Single-page','Multiple-pages'],
         back_languages:[
@@ -154,7 +265,7 @@ export default {
         ],
         appType:'',
         Connections:[],
-        backEndLang:'PHP',
+        backEndLang:'',
         loadingTitle:false,
          Rule:[
              v => !!v || 'Name is required',
@@ -246,11 +357,7 @@ export default {
 
     },
     setLanguageType: function(){
-       if(this.$route.params.language_type == 'front_end'){
-       this.languageCat = this.front_languages;
-       }else{
-           this.languageCat = this.back_languages;
-       }
+        this.backEndLang = this.$root.panelDataFull.panel_language;
     },
    showShelf: function(){
     this.$router.push({ path: '/shelve' });
@@ -331,6 +438,14 @@ export default {
 
         },
     savePanelSettings:function(){
+
+       let selectedLanguageInfo = this.appTypeList.filter((lang)=>{
+
+         return lang.id == this.backEndLang;
+
+       });
+
+
        
      if( this.$refs.form.validate()){
           this.loading = true;
@@ -338,7 +453,8 @@ export default {
                 project_slug: this.$route.params.projectSlug,
                 app_type: 'Multiple-pages',
                 panel_language: this.backEndLang,
-                panel_code_files : this.$root.CodeFilesData[0]
+                panel_code_files : this.$root.CodeFilesData[0],
+                language_name: selectedLanguageInfo[0].name
                   })
              .then(response => {
              

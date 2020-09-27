@@ -16,7 +16,7 @@
 
         
          <div class="col-4 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
-             <v-btn icon @click="showFullPage" class="sliderfullBtn"><v-icon color="#3E8893">mdi-launch mdi-18px</v-icon></v-btn> 
+             <v-btn icon @click="showFullPage" class="sliderfullBtn" v-if="projectData.is_web" ><v-icon color="#3E8893">mdi-launch mdi-18px</v-icon></v-btn> 
              <v-btn icon @click="showShare"><v-icon color="#3E8893">mdi-share-variant mdi-18px</v-icon></v-btn> 
                      
          </div>
@@ -33,9 +33,15 @@
 
      <div class="col-12 py-1 my-0 px-0" v-else>
           
-             <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
+             <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" v-if="projectData.is_web"
    :srcdoc="pageContent" 
     style="border: 0; height:91%; position:fixed;left:0; top:6%;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-0" ></iframe>
+
+  
+   <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; " class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-3" >
+       
+    </textarea>
+
 
         </div>
 
@@ -176,6 +182,7 @@ export default {
           rating:0,
           UserStar:[],
           userLoggedIn:false,
+          recheckCodeBox:true
         }
     },
     components: {
@@ -287,8 +294,20 @@ export default {
         
        this.projectData = response.data[0];
        this.UserStar = response.data[1];
+
+        if(this.projectData.is_web){
+
+           this.loadPageContent();
+
+        }else{
+
+           this.pageContent = 'sending to sandbox...';
+
+              this.runCodeOnSandbox();
+          
+        }
          
-         this.loadPageContent();
+        
 
      }
        
@@ -299,6 +318,163 @@ export default {
      }) 
 
         },
+         checkResponse:function(token,langId){
+
+         let _this = this;
+
+        let interval = setInterval(check,1000);
+
+
+        function check(){
+
+           
+             if(_this.recheckCodeBox){
+
+               _this.recheckCodeBox = false;
+
+                axios.post('/check-for-submission',{
+               token: token,
+                langId: langId
+                  })
+          .then(response => {
+             
+          
+          if(response.status == 200){
+
+            
+
+            
+
+              if(response.data[0].status.description == 'Accepted'){
+
+                 
+
+                  _this.pageContent =  response.data[0].stdout;
+
+                  
+                 clearInterval(interval);
+
+
+              }else if(response.data[0].status.description == 'In Queue'){
+
+                 _this.pageContent = 'In Queue...';
+
+              }else if(response.data[0].status.description == 'Processing'){
+
+                 _this.pageContent = 'Processing...';
+
+              }else{
+
+                 _this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr ;
+
+                 clearInterval(interval);
+
+              }
+
+
+              if(_this.$root.codeBoxOpened == false){
+                  clearInterval(interval);
+              }
+
+              
+
+        
+
+         
+               _this.recheckCodeBox = true;
+
+          }
+
+          
+            
+          })
+          .catch(error => {
+
+             
+             
+               _this.pageContent = 'An issue occured,unable to run on sandbox...';
+
+                
+               clearInterval(interval);
+              
+          })
+
+             }
+
+          
+
+        }
+
+        
+
+      },
+      runCodeOnSandbox: function(){
+
+          axios.post('/run-code-on-sandbox-project',{
+                panel_id: this.projectData.panel_id,
+                  })
+          .then(response => {
+             
+          
+          if(response.status == 200){
+
+            
+
+             let token = response.data[0][0].token;
+
+        
+              if(response.data[0][0].status.description == 'Accepted'){
+
+                  this.pageContent =  response.data[0][0].stdout ;
+
+                
+                
+
+              }else if(response.data[0][0].status.description == 'In Queue'){
+
+                 this.pageContent = 'In Queue...';
+                 this.checkResponse(token,response.data[1]);
+
+              }else if(response.data[0][0].status.description == 'Processing'){
+
+                 this.pageContent = 'Processing...';
+
+                 this.checkResponse(token,response.data[1]);
+
+              }else{
+
+                
+
+                this.pageContent =  response.data[0][0].stdout + '\n Error: \n' + response.data[0][0].stderr ;
+
+              }
+
+              
+
+           
+             
+
+                
+
+              
+
+             
+
+          }
+            
+          })
+          .catch(error => {
+
+            
+             
+               this.pageContent = 'An issue occured,unable to run on sandbox...';
+
+                
+              
+          })
+
+          
+      },
         SaveStars:function(){
           
           this.saveLoading = true;
@@ -322,6 +498,7 @@ export default {
        this.showAlert(5000,'Error-' + error);
      }) 
         },
+
      loadPageContent: function(){
          axios.get('/run-panel/' + this.projectData.panel_id)
       .then(response => {
