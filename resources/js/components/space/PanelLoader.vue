@@ -38,7 +38,7 @@
     style="border: 0; height:91%; position:fixed;left:0; top:6%;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-0" ></iframe>
 
   
-   <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; " class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-3" >
+   <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; " class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-3 py-3" >
        
     </textarea>
 

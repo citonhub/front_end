@@ -182,7 +182,7 @@ export default {
              
               this.$root.selectedSpace = response.data
 
-                this.$root.LocalStore('ChatList' + this.$root.username,this.$root.ChatList);
+                this.$root.LocalStore('ChatListNew' + this.$root.username,this.$root.ChatList);
           
          this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });
                }

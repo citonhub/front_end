@@ -1112,7 +1112,7 @@ export default {
 
                 }
 
-            this.panelsettingsChecked = true;
+        
 
                
 
@@ -1134,8 +1134,7 @@ export default {
           return file.type == "back_end"
         });
          
-           this.panelsettingsChecked = true;
-
+          
 
              }
 

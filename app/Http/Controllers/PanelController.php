@@ -331,6 +331,208 @@ class PanelController extends Controller
      }
 
 
+     public function languageDefaultContent($language){
+
+        $content = '';
+
+      if($language == 'HTML'){
+
+        
+       
+    }
+    if($language == 'CSS'){
+
+      
+    
+    }
+     if($language == 'PYTHON(3.8.1)'){
+
+      $content = "print(\"hello, world\")";
+     
+    }
+
+    if($language == 'PYTHON For ML(3.7.7)'){
+
+      $content = "import mlxtend\n" .
+      "import numpy\n" .
+      "import pandas\n" .
+      "import scipy\n" .
+      "import sklearn\n" .
+      "\n" .
+      "print(\"hello, world\")";
+      
+    }
+
+    if($language == 'PYTHON(2.7.17)'){
+
+      $content ="print(\"hello, world\")";
+      
+    }
+     if($language == 'PHP'){
+
+      $content ="<?php \n " .
+      "print(\"hello, world\n\"); \n " .
+      "?>";
+       
+    }
+     if($language == 'JAVASCRIPT(Node)'){
+
+      $content = "console.log(\"hello, world\");";
+     
+    }
+     if($language == 'SQL'){
+
+      $content = " SELECT \n " .
+      "Name, COUNT(*) AS num_albums \n " .
+    "FROM artists JOIN albums \n " .
+    "ON albums.ArtistID = artists.ArtistID \n " .
+    "GROUP BY Name \n " .
+    "ORDER BY num_albums DESC \n " .
+    "LIMIT 4; ";
+      
+    }
+     if($language == 'C'){
+
+      $content = "#include <stdio.h> \n " .
+      "                                        \n " .
+      "int main(void) { \n " .
+      "    printf(\"hello, world\n\"); \n " .
+      "    return 0; \n " .
+      "}";
+       
+    }
+     if($language == 'C++'){
+
+      $content ="#include <iostream>  \n " .
+      "                                           \n " .
+      "int main() {    \n " .
+      "    std::cout << \"hello, world\" << std::endl;  \n " .
+      "    return 0;  \n " .
+      "}";
+     
+    }
+     if($language == 'JAVA'){
+
+      $content = "public class Main { \n " .
+        "   public static void main(String[] args) { \n " .
+       "      System.out.println(\"hello, world\"); \n " .
+        "   } \n " .
+       "}";
+       
+      
+    }
+     if($language == 'C#'){
+     
+      $content = "public class Hello { \n " .
+        "    public static void Main() { \n " .
+        "       System.Console.WriteLine(\"hello, world\"); \n " .
+        "   } \n " .
+        "}";
+      
+    }
+     if($language == 'ERLANG'){
+       
+      $content = "main(_) -> \n " .
+      "   io:fwrite(\"hello, world\n\").";
+      
+    }
+     if($language == 'KOTLIN'){
+     
+      $content = "fun main() { \n " .
+        "   println(\"hello, world\") \n " .
+       "}";
+      
+    }
+     if($language == 'FOTRAN'){
+     
+      $content ="program main \n " .
+      "   print *, \"hello, world\" \n " .
+     "end";
+
+    }
+     if($language == 'PERL'){
+     
+       $content ="my $name = <STDIN>; \n " .
+       "print \"hello, $name\"";
+    }
+     if($language == 'R'){
+      
+      $content = "cat(\"hello, world\n\")";
+      
+    }
+    if($language == 'GO'){
+      
+      $content ="package main \n " .
+      "                           \n " .
+      "import \"fmt\" \n " .
+      "                        \n " .
+      "func main() { \n " .
+       "   fmt.Println(\"hello, world\") \n " .
+      "}";
+    }
+    if($language == 'HASKELL'){
+     
+      $content ="main = putStrLn \"hello, world\"";
+      
+    }
+     if($language == 'RUBY'){
+       
+      $content = "puts \"hello, world\"";
+      
+    }
+    if($language == 'LUA'){
+      
+      $content = "print(\"hello, world\")";
+      
+    }
+    if($language == 'PASCAL'){
+
+      $content = "program Hello; \n " .
+      "begin  \n " .
+       "   writeln ('hello, world') \n " .
+      "end. \n ";
+       
+      
+    }
+    if($language == 'RUST'){
+
+      $content ="fn main() { \n " .
+        "    println!(\"hello, world\"); \n " .
+        "}";
+      
+    }
+    if($language == 'SCALA'){
+      
+      $content ="object Main {  \n " .
+        "   def main(args: Array[String]) = {  \n " .
+        "      val name = scala.io.StdIn.readLine()  \n " .
+         "     println(\"hello, \"+ name)  \n " .
+        "   } \n " .
+       "}";
+       
+      
+
+    }
+    if($language == 'SWIFT'){
+
+      $content = "import Foundation \n " .
+      "let name = readLine() \n " .
+      "print(\"hello, \(name!)\")";
+      
+
+    }
+    if($language  == 'TYPESCRIPT'){
+
+       
+      $content = "console.log(\"hello, world\");";
+
+    }
+
+     return $content;
+
+     }
+
+
      public function SaveSettingsProject(Request $request){
 
       $projectPanel = Project::where('project_slug',$request->get('project_slug'))->first();
@@ -358,9 +560,12 @@ class PanelController extends Controller
           "is_web"=> false
          ]);
 
+         
+          $codeContent = $this->languageDefaultContent( $request->get('language_name'));
+
 
          $codeFile = CodeBox::create([
-          "content"=> "",
+          "content"=> $codeContent,
           "language_type"=> $request->get('language_name'),
           "file_name"=> "main",
           "type"=> "code_files",

@@ -31,7 +31,7 @@
   
         
         <v-fade-transition>
-         <div class="col-12 py-2 my-0 px-2">
+         <div class="col-12 py-2 my-0 px-2"  v-if="this.$root.panelDataFull.is_set != true">
         <v-select
           v-model="backEndLang"
           :items="appTypeList"
@@ -47,6 +47,20 @@
           color="#4495a2"
           small-chips
         ></v-select>
+             </div>
+
+              <div class="col-12 py-2 my-0 px-2" v-else>
+         <v-text-field
+                style="font-size:12px;"
+                
+            label="Application type"
+             dense
+             :disabled="true"
+             v-model="languageAppName"
+             
+             color="#4495a2"
+            
+             ></v-text-field>
              </div>
         </v-fade-transition>
          
@@ -145,6 +159,7 @@ export default {
           serverRequired:'',
           FileName:'',
           Contributors:[],
+          languageAppName:'',
           appTypeList:[
             {
             "id": 'NodeJs',
@@ -357,7 +372,40 @@ export default {
 
     },
     setLanguageType: function(){
-        this.backEndLang = this.$root.panelDataFull.panel_language;
+
+     
+      if( this.$root.panelDataFull.panel_language == 'NodeJs'){
+
+          
+
+          this.languageAppName =  'Web app with NodeJs';
+
+        }
+
+         if( this.$root.panelDataFull.panel_language == 'PHP'){
+
+          
+
+          this.languageAppName =  'Web app with PHP';
+
+        }
+         
+        if( this.$root.panelDataFull.panel_language != 'NodeJs' &&  this.$root.panelDataFull.panel_language != 'PHP'){
+
+          
+
+          let codeLang = this.appTypeList.filter((code)=>{
+             return code.id == this.$root.panelDataFull.panel_language;
+           })
+
+          
+           
+
+          this.languageAppName =  codeLang[0].name ;
+
+        }
+
+        
     },
    showShelf: function(){
     this.$router.push({ path: '/shelve' });
@@ -389,6 +437,8 @@ export default {
      }else{
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
      }
+
+      this.$root.forcePanelReload = true;
           
        
         },

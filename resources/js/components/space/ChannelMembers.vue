@@ -551,7 +551,7 @@ export default {
          if(this.$root.ChatList.length != 0){
            this.$root.ChatList[4].unshift(response.data);
            
-            this.$root.LocalStore('ChatList' + this.$root.username,this.$root.ChatList);
+            this.$root.LocalStore('ChatListNew' + this.$root.username,this.$root.ChatList);
         this.$root.forceListReload = true;
          }
        
