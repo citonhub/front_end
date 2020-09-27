@@ -1108,8 +1108,11 @@ export default {
                    this.codeFiles = this.$root.CodeFilesData[0];
 
              this.$root.codeFiles = this.$root.CodeFilesData[0];
+             
 
                 }
+
+            this.panelsettingsChecked = true;
 
                
 
@@ -1130,7 +1133,8 @@ export default {
         this.$root.backEndFiles = this.codeFiles.filter((file)=>{
           return file.type == "back_end"
         });
-        
+         
+           this.panelsettingsChecked = true;
 
 
              }
