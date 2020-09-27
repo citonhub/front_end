@@ -337,7 +337,7 @@
                           <v-badge
           color="#36848C"
             v-if="generateTotalUnread(this.$root.ChatList[4]) > 0"
-          :content="generateTotalUnread(this.$root.ChatList[1])"
+          :content="generateTotalUnread(this.$root.ChatList[4])"
         >
       
        <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Direct Messages</span>
