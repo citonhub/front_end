@@ -372,9 +372,7 @@ export default {
               }
 
 
-              if(_this.$root.codeBoxOpened == false){
-                  clearInterval(interval);
-              }
+             
 
               
 
