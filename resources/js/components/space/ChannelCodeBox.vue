@@ -248,6 +248,7 @@ export default {
         this.setCodeContent();
         this.updateCodeMaster();
         this.fetchMembers();
+        this.$root.codeBoxOpened = true;
        
       },
      components: {
@@ -745,6 +746,7 @@ methods:{
         this.$root.codeIsLive = false;
 
         this.$root.codeFromChat= false;
+        this.$root.codeBoxOpened = false;
 
         },
         makeUUID:function(){
