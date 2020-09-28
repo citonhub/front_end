@@ -114,7 +114,16 @@ class SpaceController extends Controller
          $userSubSpace = (array) $subSpaces;
       
 
-        
+         $UserMember = SpaceMember::where('user_id',Auth::id())->where('space_id',$userSubSpace["space_id"])->first();
+
+         if($UserMember == null){
+
+           $userSubSpace["is_member"] = false;
+
+         }else{
+            
+           $userSubSpace["is_member"] = true;
+         }
 
          $userSubSpace["gen_space"] = $userSpaces[0];
 
@@ -1273,6 +1282,8 @@ foreach ($userDirectSpaces as $spaceDirect) {
                   )
                   ->where('spaces.space_id',$spaceId)
                   ->get();
+
+             $spaceMembers = $this->fetchSpaceMembers($spaceId);
       
                        $newSpaceArray = [];
                   
@@ -1295,6 +1306,8 @@ foreach ($userDirectSpaces as $spaceDirect) {
 
                          $allSubSpaces = DB::table('sub_spaces')->where('gen_space_id',$subSpaceData->gen_space_id)->get();
 
+                         
+
                       }else{
 
                         $userSpaceChannel["general_spaceId"] = $userSpaceChannel["space_id"];
@@ -1309,8 +1322,25 @@ foreach ($userDirectSpaces as $spaceDirect) {
                      $subSpaceArray = [];
             
                       foreach ($allSubSpaces as $subSpaces) {
+
+                        
+
+                
+                        
             
                          $userSubSpace = (array) $subSpaces;
+
+
+                         $UserMember = SpaceMember::where('user_id',Auth::id())->where('space_id',$userSubSpace["space_id"])->first();
+
+               if($UserMember == null){
+
+                 $userSubSpace["is_member"] = false;
+
+               }else{
+                  
+                 $userSubSpace["is_member"] = true;
+               }
                       
                          $userSubSpace["gen_space"] = $userSpaceChannel;
 
@@ -1336,6 +1366,17 @@ foreach ($userDirectSpaces as $spaceDirect) {
                   }
 
          $thisSpace = $newSpaceArray[0];
+
+         if($thisSpace["type"] == 'SubSpace'){
+
+            $subSpaceData = SubSpace::where('space_id',$spaceId)->first();
+
+            $spaceMembers = $this->fetchSpaceMembers($subSpaceData->gen_space_id);
+           
+         }else{
+
+            $spaceMembers = $this->fetchSpaceMembers($spaceId);
+         }
          
          if($thisSpace["type"] == 'Direct'){
 
@@ -1417,9 +1458,11 @@ foreach ($userDirectSpaces as $spaceDirect) {
       
   $thisSpace = $newDirectArray[0];
 
+
+
          }
 
-      $spaceMembers = $this->fetchSpaceMembers($spaceId);
+      
                   
 
      $newMessages = $this->MessageEngine($spacemessages,$timeArray);
@@ -2834,6 +2877,8 @@ return  $newChannelArray;
             foreach ($allSubSpaces as $subSpaces) {
 
                $userSubSpace = (array) $subSpaces;
+
+             
             
                $userSubSpace["gen_space"] = $userSpace;
 
@@ -2886,6 +2931,8 @@ return  $newChannelArray;
           foreach ($allSubSpaces as $subSpaces) {
 
              $userSubSpace = (array) $subSpaces;
+
+              
           
              $userSubSpace["gen_space"] = $userSpaceChannel;
 

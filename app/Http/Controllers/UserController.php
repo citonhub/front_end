@@ -244,7 +244,7 @@ class UserController extends Controller
 
        if($notificationUser != null){
 
-        $notificationUser = PushNotification::where('user_id',Auth::id())->where('public_key',$request->get('public_key'))->first();
+        $notificationUser = PushNotification::where('user_id',Auth::id())->where('auth_token',$request->get('auth_token'))->first();
 
          if($notificationUser == null){
 

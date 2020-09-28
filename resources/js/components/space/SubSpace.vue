@@ -72,7 +72,7 @@
              <v-card tile flat
        height="100%"
           
-       class="py-2 " >
+       class="py-2 px-2" >
 
 
        <v-app class="row" style="background:transparent; font-family:BodyText;  ">
@@ -380,10 +380,12 @@ export default {
 
              this.subSpaces = this.$root.selectedSpace.sub_spaces.filter((space)=>{
 
-               return space.type == 'Public';
+               return space.type == 'Public' || (space.type == 'Private' && space.is_member == true);
 
              });
            }
+
+          
 
              this.checkForUnread();
 
