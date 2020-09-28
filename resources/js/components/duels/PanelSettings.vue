@@ -26,27 +26,43 @@
 
             
             
-        <v-fade-transition>
-         <div class="col-12 py-2 my-0 px-2">
+         <v-fade-transition>
+         <div class="col-12 py-2 my-0 px-2"  v-if="this.$root.panelDataFull.is_set != true">
         <v-select
           v-model="backEndLang"
-          :items="back_languages"
-          label="Back-end Language"
+          :items="appTypeList"
+          label="Application type"
+          persistent-hint
           style="font-size:12px;"
           :rules="requiredRule"
-          persistent-hint
-           hint="For front-end application,click continue"
+           item-text="name"
+           item-value="id"
           hide-selected
+           :disabled="this.$root.panelDataFull.is_set == true"
           placeholder="select..."
           color="#4495a2"
           small-chips
         ></v-select>
              </div>
+
+              <div class="col-12 py-2 my-0 px-2" v-else>
+         <v-text-field
+                style="font-size:12px;"
+                
+            label="Application type"
+             dense
+             :disabled="true"
+             v-model="languageAppName"
+             
+             color="#4495a2"
+            
+             ></v-text-field>
+             </div>
         </v-fade-transition>
          
 
 
-             <div class="col-12 py-2 my-0 px-2 text-center">
+             <div class="col-12 py-2 my-0 px-2 text-center"  v-if="this.$root.panelDataFull.is_set != true">
                   <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="savePanelSettings">Continue</v-btn>
              </div>
               
@@ -89,6 +105,117 @@ export default {
           serverRequired:'',
           FileName:'',
         alertMsg:'',
+         languageAppName:'',
+          appTypeList:[
+            {
+            "id": 'NodeJs',
+            "name": 'Web app with NodeJs' 
+          },
+          {
+            "id": 'PHP',
+            "name": 'Web app with PHP' 
+          },
+          {
+            "id": 26,
+            "name": 'JAVASCRIPT(Node)' 
+          },
+          {
+            "id": 35,
+            "name": 'PHP' 
+          },
+          {
+            "id": 39,
+            "name": 'PYTHON(3.8.1)' 
+          },
+          {
+            "id": 100,
+            "name": 'PYTHON For ML(3.7.7)' 
+          },
+          {
+            "id": 38,
+            "name": 'PYTHON(2.7.17)' 
+          },
+          {
+            "id": 44,
+            "name": 'SQL' 
+          },
+          {
+            "id": 4,
+            "name": 'C' 
+          },
+          {
+            "id": 11,
+            "name": 'C++' 
+          },
+          {
+            "id": 25,
+            "name": 'JAVA' 
+          },
+          {
+            "id": 13,
+            "name": 'C#' 
+          },
+          {
+            "id": 18,
+            "name": 'ERLANG' 
+          },
+          {
+            "id": 14,
+            "name": 'COBOL' 
+          },
+          {
+            "id": 27,
+            "name": 'KOTLIN' 
+          },
+          {
+            "id": 21,
+            "name": 'FOTRAN' 
+          },
+          {
+            "id": 34,
+            "name": 'PERL' 
+          },
+          {
+            "id": 40,
+            "name": 'R' 
+          },
+          {
+            "id": 41,
+            "name": 'RUBY' 
+          },
+          {
+            "id": 22,
+            "name": 'GO' 
+          },
+          {
+            "id": 24,
+            "name": 'HASKELL' 
+          },
+          {
+            "id": 28,
+            "name": 'LUA' 
+          },
+          {
+            "id": 33,
+            "name": 'PASCAL' 
+          },
+          {
+            "id": 42,
+            "name": 'RUST' 
+          },
+          {
+            "id": 43,
+            "name": 'SCALA' 
+          },
+          {
+            "id": 45,
+            "name": 'SWIFT' 
+          },
+          {
+            "id": 46,
+            "name": 'TYPESCRIPT' 
+          }
+          ],
         AppTypes:['Single-page','Multiple-pages'],
         back_languages:[
           'PHP','NodeJs'
@@ -97,7 +224,7 @@ export default {
            'Yes','No' 
         ],
         appType:'Multiple-pages',
-        backEndLang:'PHP',
+        backEndLang:'',
          Rule:[
              v => !!v || 'File Name is required',
            v => v.length < 30 || 'File Name must be less than 30 characters'
@@ -130,15 +257,38 @@ export default {
 
     },
     setLanguageType: function(){
-       if(this.$route.params.language_type == 'front_end'){
-       this.languageCat = this.front_languages;
-       }else{
-           this.languageCat = this.back_languages;
-       }
+        if( this.$root.panelDataFull.panel_language == 'NodeJs'){
+
+          
+
+          this.languageAppName =  'Web app with NodeJs';
+
+        }
+
+         if( this.$root.panelDataFull.panel_language == 'PHP'){
+
+          
+
+          this.languageAppName =  'Web app with PHP';
+
+        }
+         
+        if( this.$root.panelDataFull.panel_language != 'NodeJs' &&  this.$root.panelDataFull.panel_language != 'PHP'){
+
+          
+
+          let codeLang = this.appTypeList.filter((code)=>{
+             return code.id == this.$root.panelDataFull.panel_language;
+           })
+
+          
+           
+
+          this.languageAppName =  codeLang[0].name ;
+
+        }
     },
-   showShelf: function(){
-    this.$router.push({ path: '/shelve' });
-   },
+  
    goBack() {
          
             if(this.$root.fromDuelBoard){
@@ -152,6 +302,14 @@ export default {
       
         },
     savePanelSettings:function(){
+
+      let selectedLanguageInfo = this.appTypeList.filter((lang)=>{
+
+         return lang.id == this.backEndLang;
+
+       });
+
+
        
      if( this.$refs.form.validate()){
          
@@ -160,7 +318,8 @@ export default {
                 duel_id: this.$route.params.duelId,
                 app_type: this.appType,
                 panel_language: this.backEndLang,
-                panel_code_files : this.$root.CodeFilesData[0]
+                panel_code_files : this.$root.CodeFilesData[0],
+                language_name: selectedLanguageInfo[0].name
                   })
              .then(response => {
              

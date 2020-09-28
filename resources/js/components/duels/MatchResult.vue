@@ -26,9 +26,12 @@
       </div>
 
        <div class="col-12 py-0 my-0" v-if="pageContent != ''" >
-          <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" 
+          <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"   v-if="duelPanelIsWeb"
    :srcdoc="pageContent" 
     style="border: 0; height:91%; top:7%; position:fixed;left:0;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-0" ></iframe>
+
+  <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:7%; font-size:14px; " class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-3 py-3" >
+</textarea>
        </div>
 
     <div class="col-12 py-0 my-0"  v-if="pageContent == '' && !loading">
@@ -115,6 +118,7 @@ export default {
        this.$root.showTabs=false;
        this.$root.showHeader = false;
        this.checkState();
+       this.$root.pageLoaderOpened = true;
       },
      components: {
       
@@ -135,7 +139,9 @@ export default {
           alertMsg:'',
           rating:0,
           participantSelected:[],
+           recheckCodeBox:true,
           votes:[],
+          duelPanelIsWeb:true,
     }
 },
 methods:{
@@ -166,7 +172,18 @@ methods:{
           this.participantSelected = participant; 
            this.selectedParticipantId = participant.id;
           this.selecetedPanelId = participant.panel_id;
-           this.loadPageContent(this.selecetedPanelId);
+
+          this.duelPanelIsWeb = participant.duelIsWeb;
+
+            if(participant.duelIsWeb){
+
+               this.loadPageContent(this.selecetedPanelId);
+
+            }else{
+               
+                     this.runCodeOnSandbox();
+            }
+          
         },
          loadPageContent: function(panelId){
          axios.get('/run-panel/' + panelId)
@@ -187,6 +204,165 @@ methods:{
     
      }) 
      },
+     checkResponse:function(token,langId){
+
+         let _this = this;
+
+        let interval = setInterval(check,1000);
+
+
+        function check(){
+
+           
+             if(_this.recheckCodeBox){
+
+               _this.recheckCodeBox = false;
+
+                axios.post('/check-for-submission',{
+               token: token,
+                langId: langId
+                  })
+          .then(response => {
+             
+          
+          if(response.status == 200){
+
+            
+
+            
+
+              if(response.data[0].status.description == 'Accepted'){
+
+                 
+
+                  _this.pageContent =  response.data[0].stdout;
+
+                  
+                 clearInterval(interval);
+
+
+              }else if(response.data[0].status.description == 'In Queue'){
+
+                 _this.pageContent = 'In Queue...';
+
+              }else if(response.data[0].status.description == 'Processing'){
+
+                 _this.pageContent = 'Processing...';
+
+              }else{
+
+                 _this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr ;
+
+                 clearInterval(interval);
+
+              }
+
+
+             if(_this.$root.pageLoaderOpened == false){
+
+             clearInterval(interval);
+
+             }
+
+              
+
+        
+
+         
+               _this.recheckCodeBox = true;
+
+          }
+
+          
+            
+          })
+          .catch(error => {
+
+             
+             
+               _this.pageContent = 'An issue occured,unable to run on sandbox...';
+
+                
+               clearInterval(interval);
+              
+          })
+
+             }
+
+          
+
+        }
+
+        
+
+      },
+       runCodeOnSandbox: function(){
+
+          axios.post('/run-code-on-sandbox-project',{
+                panel_id: this.selecetedPanelId,
+                  })
+          .then(response => {
+             
+          
+          if(response.status == 200){
+
+            
+
+             let token = response.data[0][0].token;
+
+        
+              if(response.data[0][0].status.description == 'Accepted'){
+
+                  this.pageContent =  response.data[0][0].stdout ;
+
+                
+                
+
+              }else if(response.data[0][0].status.description == 'In Queue'){
+
+                 this.pageContent = 'In Queue...';
+                 this.checkResponse(token,response.data[1]);
+
+              }else if(response.data[0][0].status.description == 'Processing'){
+
+                 this.pageContent = 'Processing...';
+
+                 this.checkResponse(token,response.data[1]);
+
+              }else{
+
+                
+
+                this.pageContent =  response.data[0][0].stdout + '\n Error: \n' + response.data[0][0].stderr ;
+
+              }
+
+              
+
+           
+             
+
+                
+
+              
+
+             
+
+          }
+            
+          })
+          .catch(error => {
+
+            
+             
+               this.pageContent = 'An issue occured,unable to run on sandbox...';
+
+                
+              
+          })
+
+          
+      },
       fetchParticipants: function(){
         
          this.$root.checkIfUserIsLoggedIn('duels');
@@ -200,6 +376,8 @@ methods:{
         this.participants = response.data[0];
         this.votes = response.data[1];
          var duel = response.data[2];
+           
+          
       
         let status = this.checkDuelStatus(duel.duel_terminal_time,duel.duel_voting_time);
 
@@ -237,6 +415,8 @@ methods:{
         this.participants = response.data[0];
 
         var duel = response.data[1];
+
+       
       
         let status = this.checkDuelStatus(duel.duel_terminal_time,duel.duel_voting_time);
 

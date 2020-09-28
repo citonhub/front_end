@@ -246,6 +246,8 @@ const app = new Vue({
       UploadResources:false,
       frompage:'duels',
       reloadDuelBoard:false,
+      pageLoaderOpened: false,
+      panelDataFull:[],
     },
      mounted: function () {
       this.pageloader= false;

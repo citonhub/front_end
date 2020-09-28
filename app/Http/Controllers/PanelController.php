@@ -746,6 +746,48 @@ class PanelController extends Controller
         $randomString = $this->generateRandomNumber(9,$characters);
 
 
+        if($request->get('panel_language') != 'NodeJs' && $request->get('panel_language') != 'PHP'){
+
+          $newPanel = Panel::create([
+            "user_id"=> Auth::id(),
+            "purpose"=> 'project',
+            "panel_id"=> $randomString,
+            "app_type" => $request->get('app_type'),
+            "is_set"=> true,
+            "panel_language"=>$request->get('panel_language')
+          ]);
+    
+         $newPanel->save();
+         
+         $duelPanel->update([
+          "panel_id"=> $randomString,
+          "is_web"=> false
+         ]);
+
+        
+
+
+         
+          $codeContent = $this->languageDefaultContent( $request->get('language_name'));
+
+
+         $codeFile = CodeBox::create([
+          "content"=> $codeContent,
+          "language_type"=> $request->get('language_name'),
+          "file_name"=> "main",
+          "type"=> "code_files",
+          "user_id"=> Auth::id(),
+          "panel_id"=> $newPanel->panel_id
+        ]);
+  
+          $codeFile->save();
+
+        
+         Storage::disk('views')->put( $codeFile->panel_id . '/' . $codeFile->file_name . '.' . $this->generateFileExtension($codeFile->language_type) , $codeFile->content);
+       
+         }
+
+
 
 
         if($request->get('panel_language') == 'NodeJs'){
@@ -1992,6 +2034,35 @@ public function saveMyData(){
 
       $panel = Panel::where('panel_id',$duelPanel->panel_id)->first();
 
+
+      if($request->get('code_category') == 'code_files'){
+
+
+        $newCodeBox = CodeBox::create([
+          "content"=> '',
+          "language_type"=> $request->get('language_type'),
+          "file_name"=> $request->get('file_name'),
+          "type"=> $request->get('code_category'),
+          "user_id"=> Auth::id(),
+          "panel_id"=> $duelPanel->panel_id
+       ]);
+
+
+       $newCodeBox->save();
+
+         
+     Storage::disk('views')->put( $newCodeBox->panel_id . '/' . $newCodeBox->file_name . '.' . $this->generateFileExtension($newCodeBox->language_type) , $newCodeBox->content);
+
+         
+     if($duelTeam != null){
+      broadcast(new PanelChannel('new-file',$newCodeBox,$duelTeam->team_code))->toOthers();
+     }
+   
+
+     return $newCodeBox;
+
+      }
+
      
       if($request->get('code_category') == 'front_end'){
           
@@ -2334,9 +2405,24 @@ public function saveMyData(){
          $CodeBox->update([
             'content'=> $request->get('content')
          ]);
+
+
+         if($request->get('code_category')  == 'code-file'){
+
+         
+
+         
+          Storage::disk('views')->put( $CodeBox->panel_id . '/' . $CodeBox->file_name . '.' . $this->generateFileExtension($CodeBox->language_type) , $CodeBox->content);
+           
+  
+        }else{
+  
+          $this->updateRealFile($CodeBox,$request,$duelPanel->panel_id);
+  
+        }
            
        
-         $this->updateRealFile($CodeBox,$request,$duelPanel->panel_id);
+         
        
          if($duelTeam != null){
           broadcast(new PanelChannel('new-file-update',$CodeBox,$duelTeam->team_code))->toOthers();
@@ -2533,7 +2619,7 @@ public function saveMyData(){
 
         $panelResources = PanelResource::where('panel_id',$duelPanel->panel_id)->get();
 
-      return [$allCodeBoxes,$panel,$allRouteConfig,$newDbTable,$panelResources];
+      return [$allCodeBoxes,$panel,$allRouteConfig,$newDbTable,$panelResources,$duelPanel->is_web];
 
     }
 

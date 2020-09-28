@@ -126,7 +126,8 @@ class DuelController extends Controller
       $duelPanel = DuelPanel::create([
          "user_id"=> Auth::id(),
          "duel_id"=> $request->get('duel_id'),
-         "panel_id"=> $randomString
+         "panel_id"=> $randomString,
+         "is_web"=> true
       ]);
 
       $duelPanel->save();
@@ -242,6 +243,10 @@ class DuelController extends Controller
 
          }
         $participant["votes"] = $voteCount;
+
+      $duelPanel = DuelPanel::where('panel_id',$participant["panel_id"])->first();
+
+      $participant["duelIsWeb"] = $duelPanel->is_web;
 
 
       

@@ -503,7 +503,7 @@
 
       <v-expansion-panels v-if="!panelIsWeb"
        class="mt-2" 
-       v-model="panelNotWeb">
+       v-model="panel">
          <v-expansion-panel>
        <v-expansion-panel-header class="header">Code Files
 
@@ -1141,7 +1141,7 @@ export default {
              }
 
               
-       
+       this.panelsettingsChecked = true;
 
          this.panelData = this.$root.CodeFilesData[1];
 
@@ -1204,6 +1204,8 @@ export default {
 
                 }
 
+            this.panelsettingsChecked = true;
+
          }
         
         
@@ -1214,7 +1216,7 @@ export default {
      
      })
      .catch(error => {
-    
+      this.panelsettingsChecked = true;
      }) 
    },
    checkDuelStatus:function(terminalDate,votingDate){

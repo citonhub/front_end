@@ -247,7 +247,7 @@ export default {
         Alert:false,
         alertMsg:'',
        
-        programmingLanguage:['HTML','JAVASCRIPT'],
+        programmingLanguage:[],
       
         languages:[
          'HTML', 'CSS', 'JAVASCRIPT', 'PHP','PYTHON','SQL','VUEJS','C',

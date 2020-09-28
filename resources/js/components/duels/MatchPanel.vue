@@ -23,7 +23,11 @@
           <v-icon color="grey">mdi-lock</v-icon>  <span style="font-size:14px; color:grey;">Voting in progress, Panel Locked</span>
       </div>
 
-      <div class="col-12 py-1 my-0" v-else>
+      <div  class="col-12 py-1 my-0 d-flex" style="align-items:center; justify-content:center; position:absolute; width:100%; height:90%;" v-if="!panelsettingsChecked">
+       <span style="font-size:14px; color:grey;">Loading panel...</span>
+      </div>
+
+      <div class="col-12 py-1 my-0"  v-if="panelsettingsChecked" >
          <div class="row my-0 py-1 px-0 mx-1">
 
              <div class="col-12 py-0 px-1 ">
@@ -35,14 +39,14 @@
               style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;" @click="showShare"> Team link</v-btn>  
                    </div>
                     <div class="col-6 py-0 my-0 px-2 text-right">
-                      <v-btn  x-small color="#3E8893" @click="showHowTo"
+                      <v-btn  x-small color="#3E8893" @click="showHowTo"  v-if="panelIsWeb"
               style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-format-list-text mdi-18px</v-icon>FAQs</v-btn>  
                    </div>
                 </div>  
              </div>
 
 
-              <div class="col-12 py-0 px-1 my-1 " @click="handleCatFolder('front-end')" style="background:#c9e4e8; border:1px solid transparent; border-radius:12px; cursor:pointer;">
+              <div class="col-12 py-0 px-1 my-1 "  v-if="panelIsWeb"  @click="handleCatFolder('front-end')" style="background:#c9e4e8; border:1px solid transparent; border-radius:12px; cursor:pointer;">
              <div class="row px-2 py-0">
                    <div class="col-3 py-0 px-0">
 
@@ -61,7 +65,7 @@
              <v-expansion-panels
          v-model="panel"
           dense
-          v-if="showFront"
+          v-if="showFront && panelIsWeb"
           class="my-2"
          >
       <v-expansion-panel>
@@ -158,7 +162,7 @@
      
 
 
-        <v-expansion-panel >
+        <v-expansion-panel  v-if="panelIsWeb" >
         <v-expansion-panel-header class="header">Resources
 
           <template v-slot:actions>
@@ -356,7 +360,7 @@
 
     </v-expansion-panels>
 
-          <div class="col-12 py-0 px-1 my-1 " @click="handleCatFolder('back-end')" style="background:#c9e4e8; border:1px solid transparent; border-radius:12px; cursor:pointer;">
+          <div class="col-12 py-0 px-1 my-1 "  v-if="panelIsWeb" @click="handleCatFolder('back-end')" style="background:#c9e4e8; border:1px solid transparent; border-radius:12px; cursor:pointer;">
              <div class="row px-2 py-0">
                    <div class="col-3 py-0 px-0">
 
@@ -374,7 +378,7 @@
 
      <v-expansion-panels
       v-model="panelBack"
-           v-if="showBack"
+           v-if="showBack && panelIsWeb"
           dense
           class="my-2">
         
@@ -480,6 +484,85 @@
 
 
      </v-expansion-panels>
+
+
+   <v-expansion-panels v-if="!panelIsWeb"
+       class="mt-2" 
+       v-model="panel">
+         <v-expansion-panel>
+       <v-expansion-panel-header class="header">Code Files
+
+          <template v-slot:actions>
+            <v-icon color="#3E8893">mdi-file-code-outline</v-icon>
+          </template>
+          
+        </v-expansion-panel-header>
+        <v-expansion-panel-content class="px-0">       
+        
+            <div class="col-12 py-0 my-0 mx-0 px-0 text-right">
+               <v-btn icon @click="addNewFile('code_files')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+            </div>
+            <v-card tile flat class="col-12 py-1 my-0 " style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" 
+            v-for="(file, index) in this.$root.codeFiles" :key="index"  @click="showEditor(file,'code-file')"
+            >
+                <div class="row my-0 py-0">
+                  <div class="col-2 text-center py-0 my-0 ">
+
+                      <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'php'">mdi-language-php mdi-18px</v-icon>
+
+                       <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'py'">mdi-language-python mdi-18px</v-icon>
+
+                        <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'js'">mdi-language-javascript mdi-18px</v-icon>
+                      
+                       <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'c'">mdi-language-c mdi-18px</v-icon>
+
+                     <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'cpp'">mdi-language-cpp mdi-18px</v-icon>
+
+                       <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'cs'">mdi-language-csharp mdi-18px</v-icon>
+                    
+                      <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'for'">mdi-language-fortran mdi-18px</v-icon>
+
+                    <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'go'">mdi-language-go mdi-18px</v-icon>
+
+                    <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'kt'">mdi-code-not-equal-variant mdi-18px</v-icon>
+
+                      <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'lua'">mdi-language-lua mdi-18px</v-icon>
+                    
+                      <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'r'">mdi-language-r mdi-18px</v-icon>
+                    
+                      <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'rb'">mdi-language-ruby mdi-18px</v-icon>
+
+                    <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'swift'">mdi-language-swift mdi-18px</v-icon>
+
+                  <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'ts'">mdi-language-typescript mdi-18px</v-icon>
+
+                   <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'java'">mdi-language-java mdi-18px</v-icon>
+
+                    <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'hs'">mdi-language-haskell mdi-18px</v-icon>
+
+                     <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'sql'">mdi-code-not-equal-variant mdi-18px</v-icon>
+
+                      <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'erl'">mdi-code-not-equal-variant mdi-18px</v-icon>
+
+                       <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'scala'">mdi-code-not-equal-variant mdi-18px</v-icon>
+
+                      <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'rs'">mdi-code-not-equal-variant mdi-18px</v-icon>
+
+                        <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'pas'">mdi-code-not-equal-variant mdi-18px</v-icon>
+
+                        <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'pl'">mdi-code-not-equal-variant mdi-18px</v-icon>
+                </div>
+                 <div class="col-10 py-0 my-0 ">
+                    <span class="fileNamenewFile">{{returnFileNamenew(file.file_name,file.language_type)}}</span>
+                </div>
+                </div>
+             </v-card>
+      
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+
+      </v-expansion-panels>
+
          </div>
          <div class="my-5 py-3 "   style="padding-top:120px !important;">
 
@@ -635,7 +718,10 @@ export default {
      fileShow:false,
      panelData:[],
      localChannel:[],
+      panelIsWeb: true,
      lockPanel: false,
+      panelsettingsChecked: false,
+      panelNotWeb:[0]
    }
  },
     mounted(){
@@ -645,6 +731,14 @@ export default {
         this.trackPanel();
         this.trackUser();
         this.fetchCodeFiles();
+
+         if(this.$root.forcePanelReload){
+
+           this.panelsettingsChecked = true;
+
+        }
+
+         this.$root.pageLoaderOpened = false;
       },
  methods:{
     showUpload:function(type,message){
@@ -910,9 +1004,15 @@ export default {
      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/view' });
    },
      PanelSettingsCheck(settingStatus){
+
+        this.$root.panel = this.panel;
+       this.$root.panelBack = this.panelBack;
+
            if(!settingStatus.is_set){
             this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/new/settings' + '/duel' });
           }
+
+           this.panelsettingsChecked = true;
       },
    showEditor: function(codeBox,catType){
      this.$root.panel = this.panel;
@@ -937,9 +1037,12 @@ export default {
            this.$root.codeEditorArray.unshift(codeBox);
        }
        this.$root.selectedFileCatType = catType;
+       
        this.$root.EditorLanguage = codeBox.language_type;
        this.$root.codeEditorContent = codeBox.content;
        this.$root.selectedFileId = codeBox.id;
+
+       
        
     
     this.$router.push({ path: '/duel/' +  this.$route.params.duelId  +'/code-editor' });
@@ -986,6 +1089,8 @@ export default {
       .then(response => {
       
       if (response.status == 200) {
+
+         
         
          
        var duel = response.data[0];
@@ -1023,7 +1128,10 @@ export default {
    },
   fetchCodeFiles: function(){
        
-       let storedProject = this.$root.getLocalStore('panel' + this.$route.params.duelId);
+ 
+
+
+         let storedProject = this.$root.getLocalStore('panel'+this.$route.params.duelId);
 
 
          
@@ -1034,9 +1142,18 @@ export default {
               let finalResult = JSON.parse(result);
 
               this.$root.CodeFilesData = finalResult;
+              
              
+             if(this.$root.CodeFilesData[5] != undefined){
 
-               this.$root.panelRoutes = this.$root.CodeFilesData[2];
+               this.panelIsWeb = this.$root.CodeFilesData[5];
+
+                
+
+                if(this.panelIsWeb){
+
+                 
+                  this.$root.panelRoutes = this.$root.CodeFilesData[2];
 
         this.codeFiles = this.$root.CodeFilesData[0];
 
@@ -1053,17 +1170,60 @@ export default {
         });
         
 
-        this.PanelSettingsCheck(this.$root.CodeFilesData[1]);
+
+                }else{
+
+                   this.codeFiles = this.$root.CodeFilesData[0];
+
+             this.$root.codeFiles = this.$root.CodeFilesData[0];
+             
+
+                }
+
+        
+
+               
+
+             }else{
+
+               this.$root.panelRoutes = this.$root.CodeFilesData[2];
+
+        this.codeFiles = this.$root.CodeFilesData[0];
+
+        this.$root.codeFiles = this.$root.CodeFilesData[0];
+
+        this.$root.panelResources = this.$root.CodeFilesData[4];
+
+        this.$root.frontEndFiles = this.codeFiles.filter((file)=>{
+          return file.type == "front_end"
+        });
+
+        this.$root.backEndFiles = this.codeFiles.filter((file)=>{
+          return file.type == "back_end"
+        });
+         
+          
+
+             }
+
+              
+       
 
          this.panelData = this.$root.CodeFilesData[1];
 
           this.fetchDuel();
            }else{
             
-            this.fetchDuel();
+           this.fetchDuel();
            }
 
+           this.panelsettingsChecked = true;
+
          })
+
+
+
+  
 
 
 
@@ -1083,15 +1243,24 @@ export default {
 
              this.$root.CodeFilesData = response.data;
 
-        this.$root.LocalStore('panel'+this.$route.params.duelId,response.data);
+               this.$root.LocalStore('panel'+this.$route.params.duelId,response.data);
 
-       this.codeFiles = response.data[0];
+               this.panelIsWeb = this.$root.CodeFilesData[5];
+
+                
+
+                if(this.panelIsWeb){
+                   this.codeFiles = response.data[0];
          this.$root.codeFiles = response.data[0];
          this.$root.panelResources = response.data[4];
 
         this.PanelSettingsCheck(response.data[1]);
 
          this.panelData = response.data[1];
+
+         this.$root.panelDataFull = response.data[1];
+
+        
         
         this.$root.panelRoutes = response.data[2];
          
@@ -1104,6 +1273,19 @@ export default {
           return file.type == "back_end"
         });
 
+                }else{
+
+                   this.codeFiles = response.data[0];
+         this.$root.codeFiles = response.data[0];
+        
+                }
+
+          this.panelsettingsChecked = true;
+
+      
+
+      
+
          }
         
         
@@ -1114,7 +1296,7 @@ export default {
      
      })
      .catch(error => {
-    
+       this.panelsettingsChecked = true;
      }) 
    },
 
@@ -1154,69 +1336,99 @@ export default {
        return fileNamenew + '.' + file_extension;
    },
    languageExtensions: function(language){
-        if(language == 'HTML'){
-           return 'html';
+
+
+           if(language == 'HTML'){
+             return 'html';
          }
          if(language == 'CSS'){
-            return 'css';
+          return 'css';
          }
-          if(language == 'PYTHON'){
+          if(language == 'PYTHON(3.8.1)'){
+           return 'py';
+         }
+
+         if(language == 'PYTHON For ML(3.7.7)'){
+           return 'py';
+         }
+
+         if(language == 'PYTHON(2.7.17)'){
            return 'py';
          }
           if(language == 'PHP'){
-           return 'php';
+            return 'php';
          }
-          if(language == 'JAVASCRIPT'){
+          if(language == 'JAVASCRIPT(Node)'){
            return 'js';
          }
-          if(language == 'VUEJS'){
-           return 'vue';
-         }
           if(language == 'SQL'){
-           return 'sql';
+            return 'sql';
          }
           if(language == 'C'){
-           return 'c';
+            return 'c';
          }
           if(language == 'C++'){
            return 'cpp';
          }
           if(language == 'JAVA'){
-           return 'java';
+            return 'java';
          }
           if(language == 'C#'){
            return 'cs';
          }
           if(language == 'ERLANG'){
-          return 'erl';
-         }
-          if(language == 'COFFEESCRIPT'){
-           return 'coffee';
-         }
-          if(language == 'LIVESCRIPT'){
-           return 'ls';
-         }
-         if(language == 'DJANGO'){
-           return 'py';
+            return 'erl';
          }
           if(language == 'KOTLIN'){
-           return 'kt';
+         return 'kt';
          }
           if(language == 'FOTRAN'){
-           return 'for';
-         }
-          if(language == 'MARKDOWN'){
-          return 'md';
+          return 'for';
          }
           if(language == 'PERL'){
-          return 'pl';
+           return 'pl';
          }
           if(language == 'R'){
-           return 'r';
+            return 'r';
+         }
+         if(language == 'GO'){
+            return 'go';
+         }
+         if(language == 'HASKELL'){
+           return 'hs';
          }
           if(language == 'RUBY'){
-           return 'rb';
+            return 'rb';
          }
+         if(language == 'LUA'){
+           
+             return 'lua';
+
+         }
+         if(language == 'PASCAL'){
+
+             return 'pas';
+         }
+         if(language == 'RUST'){
+
+             return 'rs';
+         }
+         if(language == 'SCALA'){
+           
+              return 'scala';
+
+         }
+         if(language == 'SWIFT'){
+
+               return 'swift';
+
+         }
+         if(language  == 'TYPESCRIPT'){
+
+             return 'ts';
+
+         }
+
       }
  }   
 }

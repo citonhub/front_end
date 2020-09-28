@@ -13,8 +13,8 @@
          <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
              <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Page Loader</span>
          </div>
-         <div class="col-2 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
-               <v-btn icon @click="showFullPage" class="sliderfullBtn"><v-icon color="#3E8893">mdi-launch mdi-18px</v-icon></v-btn> 
+         <div class="col-2 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; "  >
+               <v-btn icon @click="showFullPage" class="sliderfullBtn" v-if="duelPanelIsWeb" ><v-icon color="#3E8893">mdi-launch mdi-18px</v-icon></v-btn> 
          </div>
       </div>
      </div>
@@ -31,10 +31,12 @@
 
      <div class="col-12 py-1 my-0 px-0" v-else>
           
-             <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
+             <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" v-if="duelPanelIsWeb"
    :srcdoc="pageContent" 
     style="border: 0; height:91%; position:fixed;left:0;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-0" ></iframe>
 
+<textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; " class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-3 py-3" >
+</textarea>
         </div>
 
          </div>
@@ -51,6 +53,9 @@ export default {
     data(){
         return{
           pageContent : '',
+          recheckCodeBox:true,
+          duelPanelIsWeb: false,
+          
         }
     },
     components: {
@@ -59,8 +64,11 @@ export default {
    mounted(){
       this.$root.showTabs= false;
        this.$root.showHeader = false;
-       this.loadPageContent();
+       this.initiateLoader();
        this.trackUser();
+       this.$root.pageLoaderOpened = true;
+       this.duelPanelIsWeb = this.$root.CodeFilesData[5]
+        
     },
     methods:{
 
@@ -113,6 +121,20 @@ export default {
           
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
+      initiateLoader: function(){
+
+         if(this.duelPanelIsWeb){
+ 
+         this.loadPageContent();
+
+
+         }else{
+    
+    this.runCodeOnSandbox();
+
+         }
+
+      },
     
      loadPageContent: function(){
          axios.get('/run-panel/' + this.$root.CodeFilesData[1].panel_id)
@@ -132,7 +154,166 @@ export default {
      .catch(error => {
     
      }) 
-     }
+     },
+      runCodeOnSandbox: function(){
+
+          axios.post('/run-code-on-sandbox-project',{
+                panel_id: this.$root.CodeFilesData[1].panel_id,
+                  })
+          .then(response => {
+             
+          
+          if(response.status == 200){
+
+            
+
+             let token = response.data[0][0].token;
+
+        
+              if(response.data[0][0].status.description == 'Accepted'){
+
+                  this.pageContent =  response.data[0][0].stdout ;
+
+                
+                
+
+              }else if(response.data[0][0].status.description == 'In Queue'){
+
+                 this.pageContent = 'In Queue...';
+                 this.checkResponse(token,response.data[1]);
+
+              }else if(response.data[0][0].status.description == 'Processing'){
+
+                 this.pageContent = 'Processing...';
+
+                 this.checkResponse(token,response.data[1]);
+
+              }else{
+
+                
+
+                this.pageContent =  response.data[0][0].stdout + '\n Error: \n' + response.data[0][0].stderr ;
+
+              }
+
+              
+
+           
+             
+
+                
+
+              
+
+             
+
+          }
+            
+          })
+          .catch(error => {
+
+            
+             
+               this.pageContent = 'An issue occured,unable to run on sandbox...';
+
+                
+              
+          })
+
+          
+      },
+       checkResponse:function(token,langId){
+
+         let _this = this;
+
+        let interval = setInterval(check,1000);
+
+
+        function check(){
+
+           
+             if(_this.recheckCodeBox){
+
+               _this.recheckCodeBox = false;
+
+                axios.post('/check-for-submission',{
+               token: token,
+                langId: langId
+                  })
+          .then(response => {
+             
+          
+          if(response.status == 200){
+
+            
+
+            
+
+              if(response.data[0].status.description == 'Accepted'){
+
+                 
+
+                  _this.pageContent =  response.data[0].stdout;
+
+                  
+                 clearInterval(interval);
+
+
+              }else if(response.data[0].status.description == 'In Queue'){
+
+                 _this.pageContent = 'In Queue...';
+
+              }else if(response.data[0].status.description == 'Processing'){
+
+                 _this.pageContent = 'Processing...';
+
+              }else{
+
+                 _this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr ;
+
+                 clearInterval(interval);
+
+              }
+
+
+             if(_this.$root.pageLoaderOpened == false){
+
+             clearInterval(interval);
+
+             }
+
+              
+
+        
+
+         
+               _this.recheckCodeBox = true;
+
+          }
+
+          
+            
+          })
+          .catch(error => {
+
+             
+             
+               _this.pageContent = 'An issue occured,unable to run on sandbox...';
+
+                
+               clearInterval(interval);
+              
+          })
+
+             }
+
+          
+
+        }
+
+        
+
+      },
    
     }
    

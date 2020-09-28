@@ -175,6 +175,8 @@ export default {
          this.fetchDuel();
          this.$root.duelComments = [];
 
+          this.$root.pageLoaderOpened = false;
+
           this.$root.closeNotification(this.$route.params.duelId +'duel_join');
           this.$root.closeNotification(this.$route.params.duelId +'duel_comment');
           this.$root.closeNotification(this.$route.params.duelId +'duel_like');

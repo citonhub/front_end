@@ -9,7 +9,7 @@
             <v-btn icon color="#4495a2" @click.stop="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          
-         <div class=" py-1 my-0 px-0 scrollerStyle"  style=" background:white; overflow-x:auto; white-space:nowrap; position:absolute; left:10%; width:90%; " >
+         <div class=" py-1 my-0 px-0 scrollerStyle"  style=" background:white; overflow-x:auto; white-space:nowrap; position:absolute; left:10%; width:85%; " >
               <v-chip v-for="(file,index) in this.$root.codeEditorArray" :key="index"
       class="ma-1 ml-0 fileText d-inline-block"
       close
@@ -24,24 +24,31 @@
    
 
          </div>
+
+          <div class="py-1 my-0 text-left px-1" style=" position:absolute; right:0; width:14%; background:white;" >
+            <v-btn icon color="#4495a2" @click="copyText"><v-icon>mdi-content-copy mdi-18px</v-icon></v-btn>
+         </div>
         
       </div>
 
        <div class="col-12 py-0 my-0" style="position:absolute; top:6%; height:95%; overflow-y:hidden; left:0; overflow-x:hidden;">
          <div class="row my-0 py-0 px-0 ">
               <div class="codebox scrollerStyle">
-         <codemirror
+         <codemirror 
         v-model="code"
         :options="cmOption"
+        class="scrollerStyle"
         style="height:100%;"
         @cursorActivity="onCmCursorActivity"
         @ready="onCmReady"
         @focus="onCmFocus"
+        @scroll="saveFileHeight"
         @blur="onCmBlur"
-        @input="onCmCodeChange"
+        @update="setEditorPosition"
+         @input="onCmCodeChange"
         />
               </div>
-              
+              <textarea type="hidden" id="codeBoxContent" :value="code"></textarea>
          </div>
        </div>
 
@@ -130,7 +137,7 @@
 import dedent from 'dedent'
   import { codemirror } from 'vue-codemirror'
 
-  // base style
+ // base style
   import 'codemirror/lib/codemirror.css'
 
   // theme css
@@ -138,10 +145,10 @@ import dedent from 'dedent'
     import 'codemirror/theme/base16-dark.css'
 
   // language
-  import 'codemirror/mode/vue/vue.js'
+
     import 'codemirror/mode/php/php.js'
 
-  // active-line.js
+// active-line.js
   import 'codemirror/addon/selection/active-line.js'
 
   // styleSelectedText
@@ -155,26 +162,19 @@ import dedent from 'dedent'
   import 'codemirror/addon/search/match-highlighter.js'
 
   // keyMap
- 
+
   import 'codemirror/addon/edit/matchbrackets.js'
-  import 'codemirror/addon/comment/comment.js'
-  import 'codemirror/addon/dialog/dialog.js'
-  import 'codemirror/addon/dialog/dialog.css'
   import 'codemirror/addon/search/searchcursor.js'
   import 'codemirror/addon/search/search.js'
   import 'codemirror/keymap/sublime.js'
-   import 'codemirror/mode/clike/clike.js'
- 
 
   // foldGutter
   import 'codemirror/addon/fold/foldgutter.css'
   import 'codemirror/addon/fold/brace-fold.js'
-  import 'codemirror/addon/fold/comment-fold.js'
   import 'codemirror/addon/fold/foldcode.js'
   import 'codemirror/addon/fold/foldgutter.js'
   import 'codemirror/addon/fold/indent-fold.js'
-  import 'codemirror/addon/fold/markdown-fold.js'
-  import 'codemirror/addon/fold/xml-fold.js'
+
 
 
   
@@ -184,6 +184,7 @@ export default {
        this.$root.showHeader = false;
        this.detectchange(this.$root.EditorLanguage);
        this.trackUser();
+        this.$root.pageLoaderOpened = false;
       },
      components: {
       codemirror,
@@ -225,9 +226,68 @@ export default {
          Alert: false,
          alertMsg:'',
          loading: false,
+         canChange: true,
     }
 },
 methods:{
+  setEditorPosition: function(codemirror){
+
+        
+        if(this.canChange){
+
+           let storedCodePosition = this.$root.getLocalStore('CodeFile'+ this.$root.selectedFileId + this.$root.username);
+          
+          storedCodePosition.then((result)=>{
+
+             if(result != null){
+
+                  let finalResult = JSON.parse(result);
+
+                   codemirror.scrollTo(finalResult.left,finalResult.top);
+
+             }else{
+
+                 codemirror.scrollTo(0,0);
+
+             }
+         
+           
+     
+          });
+
+        }
+
+        this.canChange = false;
+     
+      
+
+  },
+   copyText () {
+          let spacelink = document.querySelector('#codeBoxContent')
+          spacelink.setAttribute('type', 'text')  
+          spacelink.select()
+
+          try {
+            var successful = document.execCommand('copy');
+            var msg = successful ? 'successful' : 'unsuccessful';
+              if(msg == 'successful'){
+
+                this.showAlert(5000,'Copied!')
+                
+              }else{
+
+                 this.showAlert(5000,'Oops! unable to copy')
+                
+              }
+          } catch (err) {
+           
+          }
+
+          /* unselect the range */
+          spacelink.setAttribute('type', 'hidden')
+          window.getSelection().removeAllRanges()
+        },
+
    activateBot:function(){
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
             return page.page_name == 'duel_code_editor';
@@ -303,7 +363,9 @@ methods:{
               this.detectchange(this.language);
              this.code = codeData.content;
 
-          }else{
+          }
+          
+          if(this.$root.SelectedCodeBox.type == 'back-end'){
 
             this.$root.selectedFileCatType = 'back-end';
 
@@ -316,8 +378,28 @@ methods:{
               this.detectchange(this.language);
              this.code = codeData.content;
           }
+
+
+          if(this.$root.SelectedCodeBox.type == 'code_files' || this.$root.SelectedCodeBox.type == 'code_file'){
+
+            this.$root.selectedFileCatType = 'code_files';
+
+             let codeData = this.$root.codeFiles.filter((file)=>{
+           return   file.id == this.$root.selectedFileId;
+
+           })
+
+            
+              codeData = codeData[0];
+               this.language = codeData.language_type;
+              this.detectchange(this.language);
+             this.code = codeData.content;
+          }
+
+
+          
          
-       
+         this.canChange = true;
       
       },
       removeCode:function(codeBox){
@@ -408,134 +490,295 @@ methods:{
      
         
       },
-         detectchange: function(language){
-         if(language == 'HTML'){
-            this.cmOption.mode = 'text/html';
-         }
-         if(language == 'CSS'){
-         this.cmOption.mode = 'text/css';
-         }
-          if(language == 'PYTHON'){
-           this.cmOption.mode = 'text/x-python';
-         }
-          if(language == 'PHP'){
-           this.cmOption.mode = 'text/x-php';
-         }
-          if(language == 'JAVASCRIPT'){
-           this.cmOption.mode = 'text/javascript';
-         }
-          if(language == 'VUEJS'){
-           this.cmOption.mode = 'text/x-vue';
-         }
-          if(language == 'SQL'){
-           this.cmOption.mode = 'text/x-sql';
-         }
-          if(language == 'C'){
-           this.cmOption.mode = 'text/x-csrc';
-         }
-          if(language == 'C++'){
-           this.cmOption.mode = 'text/x-c++src';
-         }
-          if(language == 'JAVA'){
-           this.cmOption.mode = 'text/x-java';
-         }
-          if(language == 'C#'){
-           this.cmOption.mode = 'text/x-csharp';
-         }
-          if(language == 'ERLANG'){
-           this.cmOption.mode = 'text/x-erlang';
-         }
-          if(language == 'COFFEESCRIPT'){
-           this.cmOption.mode = 'text/x-coffeescript';
-         }
-          if(language == 'LIVESCRIPT'){
-           this.cmOption.mode = 'text/x-livescript';
-         }
-          if(language == 'DJANGO'){
-           this.cmOption.mode = 'text/x-django';
-         }
-          if(language == 'KOTLIN'){
-           this.cmOption.mode = 'x-shader/x-fragment';
-         }
-          if(language == 'FOTRAN'){
-           this.cmOption.mode = 'text/x-fortran';
-         }
-          if(language == 'MARKDOWN'){
-           this.cmOption.mode = 'text/x-markdown';
-         }
-          if(language == 'PERL'){
-           this.cmOption.mode = 'text/x-perl';
-         }
-          if(language == 'R'){
-           this.cmOption.mode = 'text/x-rsrc';
-         }
-          if(language == 'RUBY'){
-           this.cmOption.mode = 'text/x-ruby';
-         }
+       saveFileHeight:function(codemirror){
+
+       
+         
+           this.$root.LocalStore('CodeFile'+ this.$root.selectedFileId + this.$root.username,codemirror.getScrollInfo());
+           
+        
+
+
       },
-      languageExtensions: function(language){
-        if(language == 'HTML'){
-           return 'html';
+         languageExtensions: function(language){
+
+
+           if(language == 'HTML'){
+             return 'html';
          }
          if(language == 'CSS'){
-            return 'css';
+          return 'css';
          }
-          if(language == 'PYTHON'){
+          if(language == 'PYTHON(3.8.1)'){
+           return 'py';
+         }
+
+         if(language == 'PYTHON For ML(3.7.7)'){
+           return 'py';
+         }
+
+         if(language == 'PYTHON(2.7.17)'){
            return 'py';
          }
           if(language == 'PHP'){
-           return 'php';
+            return 'php';
          }
-          if(language == 'JAVASCRIPT'){
+          if(language == 'JAVASCRIPT(Node)'){
            return 'js';
          }
-          if(language == 'VUEJS'){
-           return 'vue';
-         }
           if(language == 'SQL'){
-           return 'sql';
+            return 'sql';
          }
           if(language == 'C'){
-           return 'c';
+            return 'c';
          }
           if(language == 'C++'){
            return 'cpp';
          }
           if(language == 'JAVA'){
-           return 'java';
+            return 'java';
          }
           if(language == 'C#'){
            return 'cs';
          }
           if(language == 'ERLANG'){
-          return 'erl';
-         }
-          if(language == 'COFFEESCRIPT'){
-           return 'coffee';
-         }
-          if(language == 'LIVESCRIPT'){
-           return 'ls';
-         }
-         if(language == 'DJANGO'){
-           return 'py';
+            return 'erl';
          }
           if(language == 'KOTLIN'){
-           return 'kt';
+         return 'kt';
          }
           if(language == 'FOTRAN'){
-           return 'for';
-         }
-          if(language == 'MARKDOWN'){
-          return 'md';
+          return 'for';
          }
           if(language == 'PERL'){
-          return 'pl';
+           return 'pl';
          }
           if(language == 'R'){
-           return 'r';
+            return 'r';
+         }
+         if(language == 'GO'){
+            return 'go';
+         }
+         if(language == 'HASKELL'){
+           return 'hs';
          }
           if(language == 'RUBY'){
-           return 'rb';
+            return 'rb';
+         }
+         if(language == 'LUA'){
+           
+             return 'lua';
+
+         }
+         if(language == 'PASCAL'){
+
+             return 'pas';
+         }
+         if(language == 'RUST'){
+
+             return 'rs';
+         }
+         if(language == 'SCALA'){
+           
+              return 'scala';
+
+         }
+         if(language == 'SWIFT'){
+
+               return 'swift';
+
+         }
+         if(language  == 'TYPESCRIPT'){
+
+             return 'ts';
+
+         }
+
+      },
+
+        detectchange: function(language){
+        if(language == 'HTML'){
+            this.cmOption.mode = 'text/html';
+         }
+         if(language == 'CSS'){
+         this.cmOption.mode = 'text/css';
+         }
+          if(language == 'PYTHON(3.8.1)'){
+           
+
+
+           this.cmOption.mode = 'text/x-python';
+
+
+         
+
+         }
+
+         if(language == 'PYTHON'){
+           
+
+
+           this.cmOption.mode = 'text/x-python';
+
+
+         
+
+         }
+
+         if(language == 'PYTHON For ML(3.7.7)'){
+           
+
+
+           this.cmOption.mode = 'text/x-python';
+
+         
+
+         }
+
+
+         if(language == 'PYTHON(2.7.17)'){
+           this.cmOption.mode = 'text/x-python';
+
+  
+         }
+          if(language == 'PHP'){
+           this.cmOption.mode = 'text/x-php';
+
+          
+
+         }
+          if(language == 'JAVASCRIPT(Node)'){
+           this.cmOption.mode = 'text/javascript';
+
+
+ 
+            
+         }
+          if(language == 'SQL'){
+           this.cmOption.mode = 'text/x-sql';
+   
+         }
+          if(language == 'C'){
+           this.cmOption.mode = 'text/x-csrc';
+
+
+
+          
+         }
+          if(language == 'C++'){
+           this.cmOption.mode = 'text/x-c++src';
+
+
+           
+         }
+          if(language == 'JAVA'){
+           this.cmOption.mode = 'text/x-java';
+
+
+
+          
+         }
+          if(language == 'C#'){
+           this.cmOption.mode = 'text/x-csharp';
+
+
+
+           
+         }
+          if(language == 'ERLANG'){
+           this.cmOption.mode = 'text/x-erlang';
+
+
+
+          
+         }
+          if(language == 'KOTLIN'){
+           this.cmOption.mode = 'x-shader/x-fragment';
+
+
+          
+         }
+          if(language == 'FOTRAN'){
+           this.cmOption.mode = 'text/x-fortran';
+
+
+           
+         }
+          if(language == 'PERL'){
+           this.cmOption.mode = 'text/x-perl';
+
+
+         
+         }
+          if(language == 'R'){
+           this.cmOption.mode = 'text/x-rsrc';
+
+  
+
+           
+         }
+         if(language == 'GO'){
+           this.cmOption.mode = 'text/x-go';
+
+
+           
+         }
+         if(language == 'HASKELL'){
+           this.cmOption.mode = 'text/x-haskell';
+
+   
+
+          
+         }
+          if(language == 'RUBY'){
+           this.cmOption.mode = 'text/x-ruby';
+
+
+          
+         }
+         if(language == 'LUA'){
+           
+            this.cmOption.mode = 'text/x-lua';
+
+            
+
+         }
+         if(language == 'PASCAL'){
+
+            this.cmOption.mode = 'text/x-pascal';
+            
+
+         }
+         if(language == 'RUST'){
+
+            this.cmOption.mode = 'text/x-rustsrc';
+
+
+
+            
+         }
+         if(language == 'SCALA'){
+           
+             this.cmOption.mode = 'text/x-scala';
+
+
+            
+
+         }
+         if(language == 'SWIFT'){
+
+              this.cmOption.mode = 'text/x-swift';
+
+
+         }
+         if(language  == 'TYPESCRIPT'){
+           
+
+             this.cmOption.mode = 'text/javascript';
+
+              
+           
+
          }
       }
 }
