@@ -1939,6 +1939,8 @@ export default {
 
        this.$root.selectedSpaceMembers = finalResult[2];
 
+       
+
        setTimeout(() => {
          
            var container = document.querySelector('#messageContainer');
@@ -2043,7 +2045,7 @@ export default {
                this.$root.selectedSpace = generalSpace;
 
 
-               
+             
 
 
 

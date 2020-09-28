@@ -247,7 +247,7 @@ export default {
         this.$root.codeBoxOpened = true;
         this.setCodeContent();
         this.updateCodeMaster();
-        this.fetchMembers();
+       
         this.$root.codeBoxOpened = true;
        
       },
@@ -560,26 +560,7 @@ methods:{
          
 
       },
-       fetchMembers: function(){
-          
-           axios.get('/fetch-space-members-' + this.$root.selectedSpace.general_spaceId )
-      .then(response => {
-      
-      if (response.status == 200) {
-        
-     
-      this.$root.selectedSpaceMembers = response.data;
-
-        
-     }
        
-     
-     })
-     .catch(error => {
-    
-     }) 
-
-        },
       checkIfMaster: function(){
      
       let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
