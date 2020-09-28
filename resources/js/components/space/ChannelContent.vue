@@ -1330,10 +1330,11 @@ export default {
                  })
               .listenForWhisper('liveCoding', (e) => {
 
-                
+                 
+                 if(this.$route.params.spaceId == e.spaceId){
 
 
-                   if(e.action == 'typing'){
+                     if(e.action == 'typing'){
 
                     this.$root.FullcodeContent = e.data;
 
@@ -1392,6 +1393,11 @@ export default {
 
                   }
 
+
+                 }
+
+
+                 
                 
               
                 
