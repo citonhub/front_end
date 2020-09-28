@@ -539,7 +539,7 @@
 
                     <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'go'">mdi-language-go mdi-18px</v-icon>
 
-                    <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'kt'">mdi-language-kotlin mdi-18px</v-icon>
+                    <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'kt'">mdi-code-not-equal-variant mdi-18px</v-icon>
 
                       <v-icon color="#3E8893"  v-if="languageExtensions(file.language_type) == 'lua'">mdi-language-lua mdi-18px</v-icon>
                     
