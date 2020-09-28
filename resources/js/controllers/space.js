@@ -1439,23 +1439,7 @@ if (response.status == 200) {
             };
 
 
-            this.$root.connection.bandwidth = {
-              screen: 1024
-          };
           
-          var videoConstraints = {
-              mandatory: {
-                  maxWidth: 1920,
-                  maxHeight: 1080,
-                  minAspectRatio: 1.77,
-                  minFrameRate: 3,
-                  maxFrameRate: 64
-              },
-              optional: []
-          };
-          
-        this.$root.connection.mediaConstraints.video = videoConstraints;
-
 
       // first step, ignore default STUN+TURN servers
       this.$root.connection.iceServers = [];
@@ -1600,9 +1584,6 @@ this.$root.audioconnection.sdpConstraints.mandatory = {
     OfferToReceiveVideo: false
 };
 
-this.$root.audioconnection.bandwidth = {
-  audio: 128
-};
 
 
  // first step, ignore default STUN+TURN servers

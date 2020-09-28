@@ -627,7 +627,8 @@ methods:{
         
 
           if(this.$root.codeIsLive && !userState){
-
+            
+            
              
              this.cmOption.readOnly = 'nocursor';
 
