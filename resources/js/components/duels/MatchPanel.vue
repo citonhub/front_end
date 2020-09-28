@@ -1361,6 +1361,9 @@ export default {
           if(language == 'JAVASCRIPT(Node)'){
            return 'js';
          }
+         if(language == 'JAVASCRIPT'){
+           return 'js';
+         }
           if(language == 'SQL'){
             return 'sql';
          }

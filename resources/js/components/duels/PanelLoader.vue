@@ -67,7 +67,7 @@ export default {
        this.initiateLoader();
        this.trackUser();
        this.$root.pageLoaderOpened = true;
-       this.duelPanelIsWeb = this.$root.CodeFilesData[5]
+     
         
     },
     methods:{
@@ -122,6 +122,10 @@ export default {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
       initiateLoader: function(){
+
+          this.duelPanelIsWeb = this.$root.CodeFilesData[5]
+
+          
 
          if(this.duelPanelIsWeb){
  
