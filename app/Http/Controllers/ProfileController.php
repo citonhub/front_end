@@ -601,7 +601,7 @@ class ProfileController extends Controller
         $UnreadNotifications = Notification::where('user_id',Auth::id())->where('status','unread')->where('type','!=','new_message')->get();
         $UnreadNotificationsSpace = Notification::where('user_id',Auth::id())->where('status','unread')->where('type','new_message')->get();
          $notificationCount = count($UnreadNotifications);
-         $notificationCountSpace = count($UnreadNotificationsSpace);
+         $notificationCountSpace = count($UnreadNotificationsSpace) - 1;
       }else{
         $notificationCount  = 0;
         $notificationCountSpace = 0;
