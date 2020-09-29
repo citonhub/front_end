@@ -186,6 +186,8 @@ export default {
           this.$root.closeNotification(this.$route.params.duelId +'duel_like');
 
           this.$root.closeNotification('new_duel'+ this.$route.params.duelId);
+
+           this.$root.CodeFilesData = [];
           
           if(this.$root.selectedDuel.length != 0){
             
@@ -293,7 +295,7 @@ export default {
    },
       viewUser: function(participant){
        this.$root.pageloader = true;
-        window.location = '/view-profile#/profile/activities/'+ participant.username;
+        window.location = '/view-profile#/profile/channels/'+ participant.username;
     },
       showReply: function(){
            
@@ -464,6 +466,8 @@ export default {
       joinDuel: function(){
            this.$root.checkIfUserIsLoggedIn('duels'); 
            this.loading = true;
+
+           this.$root.reloadDuelBoard = true;
         
          axios.post('/join-duel',{
            duel_id: this.$route.params.duelId

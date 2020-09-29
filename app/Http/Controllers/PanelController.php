@@ -396,7 +396,7 @@ class PanelController extends Controller
       $content = "#include <stdio.h> \n " .
       "                                        \n " .
       "int main(void) { \n " .
-      "    printf(\"hello, world\n\"); \n " .
+      "    printf(\"hello, world\"); \n " .
       "    return 0; \n " .
       "}";
        
@@ -939,22 +939,37 @@ class PanelController extends Controller
      
       // create index html, css and Js view
 
-      $cssContent = "<style>
+      $cssContent = "
 body{
   background: #c5c5c5;
 }
-</style>";
+";
 
-$javaScriptContent = "<script>
+$javaScriptContent = "
 var start_building = \"Let's build it!\";
-</script>";
+";
 
       $filePath = '/var/www/citonhubnew/resources/views/pages/NodeIndex.html'; 
 
        $htmlContent = file_get_contents($filePath);
 
 
-    
+       $home = '$home';
+       $panel = '$panel';
+       $root = '$root';
+
+      // Input string 
+      $str  =  $htmlContent;
+
+      // Array containing search string  
+     $searchVal = array("$home", "$panel","$root"); 
+
+       // Array containing replace string from  search string 
+     $replaceVal = array("https://nodejs.citonhub.com/node", $panelId, "/public" . '/' . $panelId); 
+
+     // Function to replace string 
+     $resultFull = str_replace($searchVal, $replaceVal, $str); 
+
 
       // send data to NodeJs server
 
@@ -964,7 +979,7 @@ var start_building = \"Let's build it!\";
       $requestData = [
           'panel_id' =>  $panelId,
           'file_name' =>  'index',
-          'content'=> $htmlContent,
+          'content'=> $resultFull,
           'language_type' => 'html'
       ];
 
@@ -995,7 +1010,7 @@ var start_building = \"Let's build it!\";
 
      $requestData = [
       'panel_id' =>  $panelId,
-      'file_name' =>  'index',
+      'file_name' =>  "index",
       'content'=> $cssContent,
       'language_type' => 'css'
       ];
@@ -1050,18 +1065,20 @@ var start_building = \"Let's build it!\";
      $root = '$root';
 
       $jsContent = "const main=(req,res)=>{
-res.sendFile(dirname+\"" ."$root". "/views/index.html" . "\")
+res.sendFile(dirname+\"" ."$root" . "/views/index.html" . "\")
         
 }";
 
+
+$resultFullJs = str_replace($searchVal, $replaceVal, $jsContent); 
      
 
     // send request to NodeJs Server
 
     $requestData = [
       'panel_id' =>  $panelId,
-      'file_name'=> 'index',
-      'content'=> $jsContent
+      'file_name'=> "index",
+      'content'=> $resultFullJs
      ];
 
     $response = Http::post($baseUrl .'/create-controller',$requestData);
@@ -2359,6 +2376,8 @@ public function saveMyData(){
     public function saveCodeContent(Request $request){
         
       $duelPanel = DuelPanel::where('duel_id',$request->get('duel_id'))->where('user_id',Auth::id())->get();
+
+      $duelTeam = null;
 
       if($duelPanel->isEmpty()){
         

@@ -526,6 +526,10 @@ methods:{
           if(language == 'JAVASCRIPT(Node)'){
            return 'js';
          }
+
+         if(language == 'JAVASCRIPT'){
+           return 'js';
+         }
           if(language == 'SQL'){
             return 'sql';
          }
@@ -648,6 +652,14 @@ methods:{
 
          }
           if(language == 'JAVASCRIPT(Node)'){
+           this.cmOption.mode = 'text/javascript';
+
+
+ 
+            
+         }
+
+         if(language == 'JAVASCRIPT'){
            this.cmOption.mode = 'text/javascript';
 
 

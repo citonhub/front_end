@@ -23,7 +23,7 @@
                      </div>
                    
                     <div class="col-4 py-1 text-right">
-                       <v-icon color="#232531"  v-if="languageExtensions(source.duel_language_array) == 'php'">mdi-language-php </v-icon>
+                       <v-icon color="#0066ff"  v-if="languageExtensions(source.duel_language_array) == 'php'">mdi-language-php </v-icon>
 
                        <v-icon color="#306998"  v-if="languageExtensions(source.duel_language_array) == 'py'">mdi-language-python </v-icon>
 
@@ -99,7 +99,17 @@ export default {
         }
 
 
+     if(language == ''){
+             return 'html';
+         }
+
            if(language == 'HTML'){
+             return 'html';
+         }
+          if(language == 'Web app with NodeJs'){
+             return 'html';
+         }
+          if(language == 'Web app with PHP'){
              return 'html';
          }
          if(language == 'CSS'){

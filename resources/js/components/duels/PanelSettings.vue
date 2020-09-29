@@ -257,6 +257,36 @@ export default {
 
     },
     setLanguageType: function(){
+
+       
+
+        let duelLanguage = this.$root.selectedDuel.duel_language_array;
+
+       
+
+         if(Array.isArray(duelLanguage)){
+
+           duelLanguage = duelLanguage[0];
+
+         }
+            
+          let newItemList = this.appTypeList.filter((lang)=>{
+            return lang.name == duelLanguage;
+          });
+
+          if(newItemList.length == 0){
+
+            newItemList = this.appTypeList.filter((lang)=>{
+            return lang.name == 'Web app with NodeJs' ||  lang.name == 'Web app with PHP';
+          });
+
+            this.appTypeList = newItemList;
+      
+          }else{
+
+            this.appTypeList = newItemList;
+          }
+
         if( this.$root.panelDataFull.panel_language == 'NodeJs'){
 
           
@@ -283,8 +313,14 @@ export default {
 
           
            
+            if(codeLang[0] == undefined){
 
-          this.languageAppName =  codeLang[0].name ;
+               this.languageAppName =  '';
+
+            }else{
+         this.languageAppName =  codeLang[0].name ;
+            }
+         
 
         }
     },

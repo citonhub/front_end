@@ -425,6 +425,10 @@ export default {
 
                  this.loadingDelete = false;
 
+                   this.$root.isEditDuel = false;
+
+                       this.$root.selectedDuel = [];
+
            this.$router.push({ path: '/duel/duels' });
 
             }
@@ -481,6 +485,8 @@ export default {
            this.showAlert(5000,'Duel created');
                     }else{
                       this.$root.duels = [];
+
+                     
                     }
                 
                

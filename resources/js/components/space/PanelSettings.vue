@@ -401,8 +401,13 @@ export default {
           
            
 
-          this.languageAppName =  codeLang[0].name ;
+           if(codeLang[0] == undefined){
 
+               this.languageAppName =  '';
+
+            }else{
+         this.languageAppName =  codeLang[0].name ;
+            }
         }
 
         
