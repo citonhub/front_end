@@ -1512,6 +1512,15 @@ export default {
       },
       periodicUpdate: function(result){
 
+         if(this.$root.ChatList.length == 0){
+
+
+           this.showAlert(5000,'Loading new messages')
+
+         }
+
+         
+
          this.$root.sendingMessage = true;
            
           axios.post('/check-for-unread-messages-clean',{

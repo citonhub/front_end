@@ -37,7 +37,7 @@
             v-model="title"
             counter="50"
              dense
-             :disabled="this.$root.editDuelArray.started == 1"
+           
              :rules="titleRule"
              color="#4495a2"
              ></v-text-field>
@@ -48,14 +48,13 @@
                   <v-select
           v-model="programmingLanguage"
           :items="languages"
-          label="Duel Languages"
-          style="font-size:12px;"
-          multiple
+          label="Application type"
+          style="font-size:13px;"
+          
           :disabled="this.$root.editDuelArray.started == 1"
           :rules="requiredRule"
-          hint="select the main language first"
           hide-selected
-          placeholder="select languages"
+          placeholder="select..."
           color="#4495a2"
           small-chips
         ></v-select>
@@ -70,10 +69,10 @@
               <v-text-field
                 style="font-size:12px;"
                 v-model="max_participant"
-                 placeholder="Maximum Participants"
-            label="Max. number of participants"
+                 placeholder="participants"
+            label="Number of participants"
             :rules="max_participantRule"
-            :disabled="this.$root.editDuelArray.started == 1"
+           
             type="tel"
              dense
              color="#4495a2"
@@ -81,16 +80,19 @@
           </div>
 
              <div class="col-12 py-2 my-0 px-2">
-                <v-select
+                <v-combobox
       v-model="Judges"
       style="font-size:12px;"
       :items="JudgesItems"
       :search-input.sync="searchUsername"
+      item-text="username"
+          item-value="username"
       hide-selected
+      multiple
+      :loading="loadingConnection"
        color="#4495a2"
        :rules="requiredRule"
       hint="Friends can be Jugdes"
-      :disabled="this.$root.editDuelArray.started == 1"
       label="Judges"
       placeholder="select default Judges"
      
@@ -106,7 +108,7 @@
           </v-list-item-content>
         </v-list-item>
       </template>
-    </v-select>
+    </v-combobox>
              </div>
 
 
@@ -141,9 +143,24 @@
 
             
 
-             <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn  v-if="!this.$root.isEditDuel" :loading="loading" @click="createDuel" rounded small color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;">Create</v-btn>
-                   <v-btn v-else :loading="loading" @click="createDuel"  :disabled="this.$root.editDuelArray.started == 1" rounded small color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;">Save</v-btn>
+             <div class="col-12 py-2 my-0 px-2 text-center" v-if="!this.$root.isEditDuel">
+                  <v-btn  :loading="loading" @click="createDuel" rounded small color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;">Create</v-btn>
+             </div>
+
+
+              <div class="col-12 py-2 my-0 px-2 text-center" v-else>
+                <div class="row py-0 my-0">
+
+                  <div class="col-6 py-0 my-0 text-center">
+   <v-btn :loading="loading" @click="createDuel"   rounded small color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;">Save</v-btn>
+                  </div>
+
+                   <div class="col-6 py-0 my-0 text-center">
+   <v-btn :loading="loadingDelete" @click="deleteDuel"   rounded small color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;">Delete</v-btn>
+                  </div>
+
+                </div>
+                  
              </div>
 
              <div class="my-5 py-3 "   style="padding-top:120px !important;">
@@ -240,9 +257,9 @@ export default {
         ],
         searchUsername:'',
         JudgesItems:[
-            'Public'
+          
         ],
-        Judges:'Public',
+        Judges:'',
         preMatchTime:'',
         Alert:false,
         alertMsg:'',
@@ -250,9 +267,9 @@ export default {
         programmingLanguage:[],
       
         languages:[
-         'HTML', 'CSS', 'JAVASCRIPT', 'PHP','PYTHON','SQL','VUEJS','C',
-         'C++','JAVA','C#','ERLANG','COFFEESCRIPT','LIVESCRIPT','DJANGO','KOTLIN',
-         'FOTRAN','MARKDOWN','PERL','R','RUBY'
+         'Web app with NodeJs', 'Web app with PHP', 'JAVASCRIPT(Node)', 'PHP','PYTHON(3.8.1)','PYTHON For ML(3.7.7)','PYTHON(2.7.17)','SQL','C',
+         'C++','JAVA','C#','ERLANG','COBOL','SCALA','KOTLIN','TYPESCRIPT',
+         'FOTRAN','SWIFT','PERL','R','RUBY','HASKELL','LUA','GO','PASCAL','RUST'
         ],
         title:'',
         max_participant:'4',
@@ -261,6 +278,8 @@ export default {
         formstate: false,
         loading: false,
         rulesValue:'',
+        loadingConnection:false,
+        loadingDelete:false,
         }
     },
     components: {
@@ -272,6 +291,7 @@ export default {
        this.$root.showHeader = false;
        this.$root.checkIfUserIsLoggedIn();
        this.setEditValues();
+       this.fetchConnected();
     },
     methods:{
     setEditValues: function(){
@@ -286,9 +306,38 @@ export default {
          
        }
     },
+
         showDuels: function(){
       this.$router.push({ path: '/duel/duels' });
    },
+    fetchConnected: function(){
+
+      this.loadingConnection = true;
+          
+           axios.get('/fetch-connected' )
+      .then(response => {
+      
+      if (response.status == 200) {
+
+        let publicUser ={
+          username:"Public"
+        };
+        
+       this.JudgesItems = response.data.data;
+
+        this.JudgesItems.unshift(publicUser);
+
+        
+        this.loadingConnection = false;
+     }
+       
+     
+     })
+     .catch(error => {
+       this.loadingConnection = false;
+     }) 
+
+        },
     showAlert:function(duration,text){
         this.Alert = true;
         this.alertMsg = text;
@@ -301,7 +350,17 @@ export default {
     },
      goBack() {
        this.$root.editDuelArray = [];
-          this.$root.isEditDuel = false;
+        if(this.$root.isEditDuel){
+
+           this.$root.reloadDuelBoard = true;
+
+
+        }else{
+         
+        }
+
+         this.$root.isEditDuel = false;
+          
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
     countCharacterDesc:function(value){
@@ -342,6 +401,42 @@ export default {
           })
 
     },
+    deleteDuel:function(){
+        
+        this.loadingDelete = true;
+       axios.post('/delete-duel',{
+                duelId: this.$root.editDuelArray.duel_id
+                  })
+          .then(response => {
+            
+           if (response.status == 200) {
+                
+               
+                 
+                if(this.$root.duels.length != 0){
+
+                   let remainingDuels = this.$root.duels.filter((duel)=>{
+                     return duel.duel_id != this.$root.editDuelArray.duel_id;
+                   });
+
+                  this.$root.duels =  remainingDuels;
+
+                }
+
+                 this.loadingDelete = false;
+
+           this.$router.push({ path: '/duel/duels' });
+
+            }
+            
+            
+          })
+          .catch(error => {
+            this.showAlert(5000,'Failed- ' + error);
+              this.loadingDelete = false;
+          })
+    
+    },
    createDuel: function(){
     
     if(this.$refs.creatduel.validate()){
@@ -377,11 +472,23 @@ export default {
                        
                         
                       this.$root.thisDuelConnection(response.data[0]);
+
+
+                this.$root.reloadDuelBoard = true;
+           
+          this.$router.push({ path: '/duel/' + response.data[0].duel_id +'/board' + '/user' });
+
+           this.showAlert(5000,'Duel created');
+                    }else{
+                      this.$root.duels = [];
                     }
                 
-                this.showAlert(5000,'Duel created');
+               
                 this.loading = false;
-                 this.$router.push({ path: '/duel/list' });
+
+
+          
+                 
 
             }else{
              

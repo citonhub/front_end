@@ -75,7 +75,7 @@
           <v-btn
                 color="#35747e"
                 small
-                @click="showmore ? showmore = false : showmore = true"
+                @click="createDuel"
                 class="d-block"
                 fab
               >
@@ -87,7 +87,7 @@
           <v-btn
                 color="#35747e"
                 small
-                @click="showmore ? showmore = false : showmore = true"
+                @click="createDuel"
                 class="d-block"
                 fab
               >
@@ -102,107 +102,7 @@
 
      
     
-     <div :class=" showmore ? 'morebackground col-md-8 offset-md-2  col-lg-4 offset-lg-4' : 'hidebackground col-md-8 offset-md-2  col-lg-4 offset-lg-4'" @click="showmore = false"
-         style="position:fixed; height:100%;z-index:13450003445; " >
-      
-       <span style="position:absolute; top:65%; right:3%;" class="d-md-none d-inline-block">
-         
-              <span v-show="showmore">
-                <div class="my-2">
-                      <span class="px-1 morelabel"  @click.stop="myDuels" >&nbsp; &nbsp; My Duels</span>
-                 <v-btn
-                color="#35747e"
-                small
-                @click.stop="myDuels"
-                class="d-inline-block "
-                fab
-              >
-                <v-icon color="#ffffff">mdi-layers</v-icon>
-              </v-btn>
-                  </div>
-                  <div class="my-2">
-                      <span class="px-1 morelabel"  @click.stop="createDuel" >Create Duel</span>
-                 <v-btn
-                color="#35747e"
-                small
-                @click.stop="createDuel"
-                class="d-inline-block "
-                fab
-              >
-                <v-icon color="#ffffff">mdi-layers-plus</v-icon>
-              </v-btn>
-                  </div>
-
-               
-
-              <div class="my-2">
-                  <span class="px-1 morelabel">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
-              <v-btn
-                color="#35747e"
-                small
-                @click="showmore ? showmore = false : showmore = true"
-                class="d-inline-block "
-                fab
-              >
-                <v-icon color="#ffffff">mdi-close</v-icon>
-              </v-btn>
-              </div>
-         
-           </span>
-         
-         
-     </span>
-
-
-      <span style="position:absolute; top:70%; right:3%;" class="d-none d-md-inline-block">
-         
-              <span v-show="showmore">
-                  <div class="my-2">
-                      <span class="px-1 morelabel " style="cursor:pointer;" @click.stop="myDuels">&nbsp; &nbsp; My Duels</span>
-                 <v-btn
-                color="#35747e"
-                small
-                @click.stop="myDuels"
-                class="d-inline-block "
-                fab
-              >
-                <v-icon color="#ffffff">mdi-layers</v-icon>
-              </v-btn>
-                  </div>
-
-                   <div class="my-2">
-                      <span class="px-1 morelabel" style="cursor:pointer;" @click.stop="createDuel" >Create Duel</span>
-                 <v-btn
-                color="#35747e"
-                small
-                @click.stop="createDuel"
-                class="d-inline-block "
-                fab
-              >
-                <v-icon color="#ffffff">mdi-layers-plus</v-icon>
-              </v-btn>
-                  </div>
-
-             
-              <div class="my-2">
-                  <span class="px-1 morelabel">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
-              <v-btn
-                color="#35747e"
-                small
-                @click="showmore ? showmore = false : showmore = true"
-                class="d-inline-block "
-                fab
-              >
-                <v-icon color="#ffffff">mdi-close</v-icon>
-              </v-btn>
-              </div>
-         
-           </span>
-         
-         
-     </span>
-
-     </div>
+    
      
           
 </div>
@@ -236,15 +136,11 @@ export default {
     },
     methods:{
       
-      myDuels:function(){
-         this.$router.push({ path: '/duel/list' });
-      },
+    
        createDuel: function(){
             this.$router.push({ path: '/duel/create' });
        },
-       findDuels: function(){
-           alert('I will search Duels');
-       },
+      
        activateBot:function(){
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
             return page.page_name == 'duel';
@@ -297,6 +193,8 @@ export default {
       .then(response => {
       
       if (response.status == 200) {
+
+         
         
         this.duels = response.data;
         this.$root.duels = response.data;

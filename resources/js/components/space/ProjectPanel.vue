@@ -653,7 +653,7 @@ export default {
      audioShow:false,
      panelsettingsChecked: false,
      videoShow:false,
-     panelIsWeb: true,
+     panelIsWeb: false,
      fileShow:false,
      projectSpace:[],
      panelNotWeb:[0],

@@ -23,8 +23,51 @@
                      </div>
                    
                     <div class="col-4 py-1 text-right">
-                        <span><v-icon class="px-0" color="#3E8893">mdi-heart mdi-18px</v-icon></span>
-                         <span style="font-size:11px; color:#595959;font-family:HeaderText;">{{source.likes}}</span>
+                       <v-icon color="#232531"  v-if="languageExtensions(source.duel_language_array) == 'php'">mdi-language-php </v-icon>
+
+                       <v-icon color="#306998"  v-if="languageExtensions(source.duel_language_array) == 'py'">mdi-language-python </v-icon>
+
+                        <v-icon color="#e6b800"  v-if="languageExtensions(source.duel_language_array) == 'js'">mdi-language-javascript </v-icon>
+                      
+                       <v-icon color="#3E8893"  v-if="languageExtensions(source.duel_language_array) == 'c'">mdi-language-c </v-icon>
+
+                     <v-icon color="#3E8893"  v-if="languageExtensions(source.duel_language_array) == 'cpp'">mdi-language-cpp </v-icon>
+
+                       <v-icon color="#3E8893"  v-if="languageExtensions(source.duel_language_array) == 'cs'">mdi-language-csharp </v-icon>
+                    
+                      <v-icon color="#3E8893"  v-if="languageExtensions(source.duel_language_array) == 'for'">mdi-language-fortran </v-icon>
+
+                    <v-icon color="#29BEB0"  v-if="languageExtensions(source.duel_language_array) == 'go'">mdi-language-go </v-icon>
+
+                    <v-icon color="#3E8893"  v-if="languageExtensions(source.duel_language_array) == 'kt'">mdi-code-not-equal-variant </v-icon>
+
+                      <v-icon color="#5f574f"  v-if="languageExtensions(source.duel_language_array) == 'lua'">mdi-language-lua </v-icon>
+                    
+                      <v-icon color="#276DC2"  v-if="languageExtensions(source.duel_language_array) == 'r'">mdi-language-r </v-icon>
+                    
+                      <v-icon color="#A91401"  v-if="languageExtensions(source.duel_language_array) == 'rb'">mdi-language-ruby </v-icon>
+
+                    <v-icon color="#A91401"  v-if="languageExtensions(source.duel_language_array) == 'swift'">mdi-language-swift </v-icon>
+
+                  <v-icon color="#007acc"  v-if="languageExtensions(source.duel_language_array) == 'ts'">mdi-language-typescript </v-icon>
+
+                   <v-icon color="#f89820"  v-if="languageExtensions(source.duel_language_array) == 'java'">mdi-language-java </v-icon>
+
+                    <v-icon color="#3E8893"  v-if="languageExtensions(source.duel_language_array) == 'hs'">mdi-language-haskell </v-icon>
+
+                     <v-icon color="#3E8893"  v-if="languageExtensions(source.duel_language_array) == 'sql'">mdi-code-not-equal-variant </v-icon>
+
+                      <v-icon color="#3E8893"  v-if="languageExtensions(source.duel_language_array) == 'erl'">mdi-code-not-equal-variant </v-icon>
+
+                       <v-icon color="#3E8893"  v-if="languageExtensions(source.duel_language_array) == 'scala'">mdi-code-not-equal-variant </v-icon>
+
+                      <v-icon color="#3E8893"  v-if="languageExtensions(source.duel_language_array) == 'rs'">mdi-code-not-equal-variant </v-icon>
+
+                        <v-icon color="#3E8893"  v-if="languageExtensions(source.duel_language_array) == 'pas'">mdi-code-not-equal-variant </v-icon>
+
+                        <v-icon color="#3E8893"  v-if="languageExtensions(source.duel_language_array) == 'pl'">mdi-code-not-equal-variant </v-icon>
+
+                         <v-icon color="#f06529"  v-if="languageExtensions(source.duel_language_array) == 'html'">mdi-language-html5 </v-icon>
                      </div>
 
                 </div>
@@ -47,6 +90,110 @@ export default {
      
     },
  methods:{
+    languageExtensions: function(language){
+
+        if(Array.isArray(language)){
+
+            language = language[0]
+
+        }
+
+
+           if(language == 'HTML'){
+             return 'html';
+         }
+         if(language == 'CSS'){
+          return 'html';
+         }
+          if(language == 'PYTHON(3.8.1)'){
+           return 'py';
+         }
+
+         if(language == 'PYTHON For ML(3.7.7)'){
+           return 'py';
+         }
+
+         if(language == 'PYTHON(2.7.17)'){
+           return 'py';
+         }
+          if(language == 'PHP'){
+            return 'php';
+         }
+          if(language == 'JAVASCRIPT(Node)'){
+           return 'js';
+         }
+          if(language == 'JAVASCRIPT'){
+           return 'js';
+         }
+          if(language == 'SQL'){
+            return 'sql';
+         }
+          if(language == 'C'){
+            return 'c';
+         }
+          if(language == 'C++'){
+           return 'cpp';
+         }
+          if(language == 'JAVA'){
+            return 'java';
+         }
+          if(language == 'C#'){
+           return 'cs';
+         }
+          if(language == 'ERLANG'){
+            return 'erl';
+         }
+          if(language == 'KOTLIN'){
+         return 'kt';
+         }
+          if(language == 'FOTRAN'){
+          return 'for';
+         }
+          if(language == 'PERL'){
+           return 'pl';
+         }
+          if(language == 'R'){
+            return 'r';
+         }
+         if(language == 'GO'){
+            return 'go';
+         }
+         if(language == 'HASKELL'){
+           return 'hs';
+         }
+          if(language == 'RUBY'){
+            return 'rb';
+         }
+         if(language == 'LUA'){
+           
+             return 'lua';
+
+         }
+         if(language == 'PASCAL'){
+
+             return 'pas';
+         }
+         if(language == 'RUST'){
+
+             return 'rs';
+         }
+         if(language == 'SCALA'){
+           
+              return 'scala';
+
+         }
+         if(language == 'SWIFT'){
+
+               return 'swift';
+
+         }
+         if(language  == 'TYPESCRIPT'){
+
+             return 'ts';
+
+         }
+
+      },
           showboard: function(duel){
            
           this.$router.push({ path: '/duel/' + duel.duel_id +'/board' + '/user' });

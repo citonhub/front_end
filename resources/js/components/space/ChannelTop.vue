@@ -161,8 +161,10 @@ export default {
     },
      components: {
    
-  },
+      },
     mounted(){
+
+      this.$root.remoteLiveHappening = false;
              
     },
     methods:{

@@ -31,6 +31,19 @@ class DuelController extends Controller
 {   
   use PushNotificationTrait;
 
+   public function deleteDuel(Request $request){
+
+
+      $duel = Duel::where('duel_id',$request->get('duelId'))->first();
+
+      if($duel != null){
+
+        $duel->delete();
+
+      }
+
+   }
+
     public function MakeTeam(Request $request){
 
       $characters = '1234567890abcdefghijklmnopqrstuvwxyz';

@@ -15,8 +15,9 @@
          <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
            <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">{{this.shortenContent(this.selectedDuel.title,40)}}</span>
          </div>
-         <div class="col-2 py-0 my-0  d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-                
+         <div class="col-2 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2;" >
+
+                <v-btn icon left @click.stop="editDuel()" v-if="this.$root.username == this.selectedDuel.username"><v-icon color="#4495a2">mdi-playlist-edit</v-icon></v-btn>
          </div>
                </div>
               </div> 
@@ -87,7 +88,7 @@
           
             <div class="col-12 my-0 py-0 px-2" style="border-bottom:1px solid #c5c5c5;">
                 <div class="row py-0 my-0" >
-                     <div class="col-4 text-left my-0 pb-0" style="align-items:center; justify-content:center;">
+                     <div class="col-3 text-left my-0 pb-0" style="align-items:center; justify-content:center;">
                         <v-btn class="d-inline-block" icon  @click="likeDuel">
 
                         <v-icon color="#3E8893" v-if="this.selectedDuel.liked_by_user">mdi-heart</v-icon>
@@ -96,13 +97,16 @@
                         </v-btn>
                       <span style="font-size:9px; color:#a6a6a6;">{{this.selectedDuel.likes}}</span>
                      </div>
-                      <div class="col-4 d-flex my-0 pb-0" style="align-items:center; justify-content:center;">     
+                      <div class="col-6 d-flex my-0 pb-0" style="align-items:center; justify-content:center;">     
 
-                     <v-btn  v-if="this.selectedDuel.user_participating" x-small color="#3E8893 " @click="DuelPanel" ><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Panel</span></v-btn>
+                   <v-btn  v-if="this.$root.username == this.selectedDuel.username && checkDuelStatus(this.selectedDuel) == 'Pending'"
+                     @click="startDuel"  x-small color="#3E8893 " style="color:white;" class="mx-1"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Start</span></v-btn>
+
+                     <v-btn  v-if="this.selectedDuel.user_participating" x-small color="#3E8893 "  class="mx-1" @click="DuelPanel" ><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Panel</span></v-btn>
                      <v-btn  v-if="!this.selectedDuel.user_participating && !this.selectedDuel.participant_reached && knowDuelStatus(this.selectedDuel)"
-                     x-small color="#3E8893 " @click="joinDuel" :loading="loading" style="color:white;"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Join</span></v-btn>
+                     x-small color="#3E8893 "  class="mx-1" @click="joinDuel" :loading="loading" style="color:white;"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Join</span></v-btn>
                      </div>
-                      <div class="col-4 text-right my-0 pb-0" style="align-items:center; justify-content:center;">
+                      <div class="col-3 text-right my-0 pb-0" style="align-items:center; justify-content:center;">
                         <v-btn class="d-inline-block" icon @click="comment">
                         <v-icon color="#3E8893 ">mdi-comment-text-outline</v-icon>
                          
@@ -210,6 +214,43 @@ export default {
 
          this.$root.showShare = true;
    },
+    editDuel: function(){
+      
+      this.$root.editDuelArray = this.selectedDuel;
+        this.$root.isEditDuel = true;
+      this.$router.push({ path: '/duel/edit' });
+   },
+   startDuel: function(){
+
+     let duel = this.selectedDuel;
+       
+      axios.post('/start-duel',{
+                
+                duelId: duel.duel_id
+                
+                  })
+          .then(response => {
+            
+           if (response.status == 200) {
+
+               this.$root.reloadDuelBoard = true;
+
+               this.fetchDuel();
+              
+              
+                
+
+            }else{
+             
+            }
+            
+            
+          })
+          .catch(error => {
+           
+          })
+
+    },
       
       activateBot:function(){
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
@@ -281,9 +322,15 @@ export default {
          this.$root.duels.map((duel)=> {
             if(duel.duel_id ==  this.$route.params.duelId){
                 duel.liked_by_user = true;
-              duel.likes = duel.likes + 1;
+              duel.likes = parseInt(duel.likes)  + 1;
             }
          });
+
+         this.selectedDuel.liked_by_user = true;
+
+         this.selectedDuel.likes = parseInt(this.selectedDuel.likes)  + 1;
+
+
         
         
      }
@@ -333,6 +380,8 @@ export default {
          
         this.selectedDuel = response.data[0];
         this.$root.selectedDuel = response.data[0];
+
+          
         
           
         var  status = this.checkDuelStatus(this.selectedDuel);
@@ -360,7 +409,11 @@ export default {
      .catch(error => {
     
      }) 
+
+     
           }
+
+         
       },
       goToDuels: function(){
          

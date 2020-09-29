@@ -109,7 +109,7 @@
           multiple
           :loading="loadingConnection"
           hide-selected
-          hint="Note: Contributors have full access to your project"
+          hint="Note: Contributors can edit your project"
           placeholder="select..."
           color="#4495a2"
           small-chips

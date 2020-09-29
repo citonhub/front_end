@@ -73,6 +73,7 @@ Route::get('/fetch-user-duels','DuelController@fetchUserDuel');
 Route::post('/start-duel','DuelController@startDuel');
 Route::post('/make-team','DuelController@MakeTeam');
 Route::get('/fetch-trend-duels/{query?}','DuelController@fetchTrendDuels');
+Route::post('/delete-duel','DuelController@deleteDuel');
 
 // Panel Routes
 Route::post('/save-code-file','PanelController@SaveCodeFile');

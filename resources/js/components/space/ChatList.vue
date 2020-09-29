@@ -479,6 +479,8 @@ export default {
        this.$root.showHeader = true;
        this.$root.channel = null;
 
+         this.$root.showShare = false;
+
       this.closeConnections();
         this.$root.checkIfUserIsLoggedIn('space');
         

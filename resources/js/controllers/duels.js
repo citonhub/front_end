@@ -24,7 +24,6 @@ import CreateTable from "../components/duels/CreateTable.vue"
 import CreateTableField from "../components/duels/CreateTableField.vue"
 import CreateTableEntries from "../components/duels/CreateTableEntries.vue"
 import PanelLoader from "../components/duels/PanelLoader.vue"
-import DuelList from "../components/duels/DuelList.vue"
 import ProjectComments from "../components/duels/ProjectComments.vue"
 import NewComment from "../components/duels/NewComment.vue"
 import HowTo from "../components/space/HowTo.vue"
@@ -81,11 +80,6 @@ const routes = [
         //edit duel
         path: 'edit',
         component: CreateDuel
-      },
-      {
-        // duel list
-        path: 'list',
-        component: DuelList
       },
 
       {
