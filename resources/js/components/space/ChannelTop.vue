@@ -23,7 +23,7 @@
                <span class="TitleText d-block" v-if="this.$root.selectedSpace.type != 'Direct'"> {{shortenContent(this.$root.selectedSpace.name,22)}}</span>
               <span class="TitleText d-block" v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'" @click.stop="viewUser()">{{shortenContent(this.$root.selectedSpace.userInfo.username,22)}}</span>
                <span class="typingText d-block" v-if="this.$root.typing && (this.$root.typingSpace == this.$root.selectedSpace.space_id)">{{this.$root.typinguser}} is typing... </span>
-                <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}} Members</span>
+                <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }}</span>
 
           <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' ">
             
@@ -32,7 +32,7 @@
             <span class="px-1">  {{shortenContent(this.$root.selectedSubSpaceName,25)}}</span>
           </span>
 
-              <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'Direct' && checkIfOnline(this.$root.selectedSpace.userInfo.id)">Online</span>
+              <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'Direct' && checkIfOnline(this.$root.selectedSpace.userInfo.id)">{{ $t('space.Online') }}</span>
                  
            </div>
              
@@ -87,7 +87,7 @@
               
               <v-icon v-else>mdi-monitor-dashboard mdi-18px</v-icon>
               
-               <span style="font-size:12px;">Live Coding <span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
+               <span style="font-size:12px;"> {{ $t('space.live_coding') }}<span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
 
 
            </v-card>
@@ -105,7 +105,7 @@
               <v-icon v-else>mdi-monitor-cellphone mdi-18px</v-icon>
 
 
-             <span style="font-size:12px;">Screen Sharing <span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
+             <span style="font-size:12px;">{{ $t('space.screen_sharing') }}<span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
            </v-card>
             <v-card  tile flat class="py-2 text-left px-4" style="width:auto; background:white;" @click="initaiteAudioConf()">
                  
@@ -121,7 +121,7 @@
             
              
              
-              <span style="font-size:12px;">Voice Chat <span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
+              <span style="font-size:12px;">{{ $t('space.voice_chat') }}<span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
            </v-card>
            
           </v-menu>

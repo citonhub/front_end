@@ -25,7 +25,7 @@
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
                          
       
-      <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Projects</span>
+      <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">{{ $t('space.projects') }}</span>
             
        
                          
@@ -66,7 +66,7 @@
                  </div>
 
                  <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
-       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No Project found</span>
+       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">{{ $t('trends.no_projects') }}</span>
               
             </div>
                 </div>
@@ -129,11 +129,11 @@
           :content="generateTotalUnread(this.$root.ChatList[2])"
         >
       
-      <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Channels</span>
+      <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">{{ $t('space.channels') }}</span>
             
         </v-badge>
 
-        <span   v-if="generateTotalUnread(this.$root.ChatList[2]) <= 0 && this.$root.checkauthroot == 'auth'" style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Channels</span>
+        <span   v-if="generateTotalUnread(this.$root.ChatList[2]) <= 0 && this.$root.checkauthroot == 'auth'" style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">{{ $t('space.channels') }}</span>
 
          <v-badge
           color="#36848C"
@@ -142,7 +142,7 @@
           content="1"
         >
       
-      <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Channels</span>
+      <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">{{ $t('space.channels') }}</span>
             
         </v-badge>
                          
@@ -180,7 +180,7 @@
                  </div>
 
                  <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
-       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No Channel found</span>
+       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">{{ $t('trend.no_channel') }}</span>
               
             </div>
                 </div>
@@ -244,11 +244,11 @@
           :content="generateTotalUnread(this.$root.ChatList[1])"
         >
       
-      <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Teams</span>
+      <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">{{ $t('space.teams') }}</span>
             
         </v-badge>
 
-         <span  v-else style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Teams</span>
+         <span  v-else style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">{{ $t('space.teams') }}</span>
                          
                     </div>
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
@@ -280,7 +280,7 @@
                  </div>
 
                  <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
-              <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No Team found</span>
+              <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">{{ $t('space.no_team') }}</span>
               
             </div>
                  </div>
@@ -340,11 +340,11 @@
           :content="generateTotalUnread(this.$root.ChatList[4])"
         >
       
-       <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Direct Messages</span>
+       <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">{{ $t('space.direct_messages') }}</span>
             
         </v-badge>
 
-         <span  v-else style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Direct Messages</span>
+         <span  v-else style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">{{ $t('space.direct_messages') }}</span>
                         
                     </div>
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
@@ -376,7 +376,7 @@
                  </div>
 
                  <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
-       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No Direct Messages</span>
+       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block"> {{ $t('space.no_direct_messages') }}</span>
               
             </div>
                 </div>

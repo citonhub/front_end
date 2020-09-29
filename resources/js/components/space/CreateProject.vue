@@ -10,7 +10,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Create new Project</span>
+           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">{{ $t('space.create_project') }}</span>
          </div>
          <div class="col-2 py-0 my-0  d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
             
@@ -25,8 +25,8 @@
             <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                 placeholder="project title..."
-            label="Title"
+                 :placeholder="$t('space.project_title') + '...'"
+            :label="$t('general.title')"
              dense
              :rules="Rule"
              v-model="name"
@@ -42,7 +42,7 @@
                   <v-select
          
           :items="ownerList"
-          label="Owner"
+          :label="$t('space.owner')"
           style="font-size:12px;"
           hide-selected
           :loading="ownerList.length == 0"
@@ -50,7 +50,7 @@
            item-text="name"
            item-value="space_id"
            v-model="owner"
-          placeholder="select project owner..."
+          :placeholder="$t('space.select_owner') + '...'"
           color="#4495a2"
           small-chips
         ></v-select>
@@ -66,7 +66,7 @@
         
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn @click="createProject" rounded small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" :loading="loading">Create</v-btn>
+                  <v-btn @click="createProject" rounded small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" :loading="loading">{{ $t('general.create') }}</v-btn>
              </div>
 
              <div class="my-5 py-3">

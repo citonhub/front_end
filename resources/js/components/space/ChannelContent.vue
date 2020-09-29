@@ -20,7 +20,7 @@
 
 
       <div v-show="this.$root.Messages.length == 0" class="col-12 my-2 py-0 px-0 mx-1 text-center"  style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;" >
-       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No message found</span>
+       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block"> {{ $t('space.no_messages') }}</span>
               
          </div>
 
@@ -89,7 +89,7 @@
          <div class="text-center">
 
 
-                    <span class=" px-1 d-block" style="color: #2d626c; font-size:12px;">Connections</span>
+                    <span class=" px-1 d-block" style="color: #2d626c; font-size:12px;">{{ $t('profile.connections') }}</span>
 
 
                   <span class=" px-1 d-block" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.connections}}</span>
@@ -151,7 +151,7 @@
        class="d-block"
      style="color:#ffffff;background:#3E8893; font-size:11px;"
       >
-      Channels
+      {{ $t('space.channels') }}
       </v-chip>  
 
        <span class=" px-1 d-block py-1" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.channels}}</span>
@@ -171,7 +171,7 @@
       label
      style="color:#ffffff;background:#3E8893; font-size:11px;"
       >
-      Projects
+       {{ $t('space.projects') }}
       </v-chip>  
 
       <span class=" px-1 d-block py-1" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.projects}}</span>
@@ -190,7 +190,7 @@
       label
      style="color:#ffffff;background:#3E8893; font-size:11px;"
       >
-      Teams
+       {{ $t('space.teams') }}
       </v-chip>  
 
       <span class=" px-1 d-block py-1" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.teams}}</span>
@@ -213,15 +213,15 @@
                   </div>
 
                    <div class="col-6 text-center py-0 px-0" v-if="this.$root.userBasicInfo.user_connected == true">
-                    <v-btn  rounded color="#ffffff" small @click.stop="viewProfile"><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">Profile</span></v-btn>
+                    <v-btn  rounded color="#ffffff" small @click.stop="viewProfile"><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">  {{ $t('general.profile') }}</span></v-btn>
                   </div>
 
                   <div class="col-6 text-center py-0 px-0" v-if="this.$root.userBasicInfo.user_connected == false">
-                    <v-btn  rounded color="#ffffff" :loading="connectionLoading" small @click.stop="connectToUser"><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">Connect</span></v-btn>
+                    <v-btn  rounded color="#ffffff" :loading="connectionLoading" small @click.stop="connectToUser"><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">{{ $t('general.connect') }}</span></v-btn>
                   </div>
 
                    <div class="col-6 text-center py-0 px-0" v-if="this.$root.userBasicInfo.user_connected == 'connected'">
-                    <v-btn  rounded color="#ffffff" small  ><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">Connected</span></v-btn>
+                    <v-btn  rounded color="#ffffff" small  ><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">{{ $t('general.connected') }}</span></v-btn>
                   </div>
                  
 
@@ -295,22 +295,22 @@
          
              <v-icon color="#ffffff"  @click="closeboard">mdi-close mdi-18px</v-icon>
      
-      Active Members <span class="ml-1 py-1 px-1" 
+      {{ $t('space.active_members') }} <span class="ml-1 py-1 px-1" 
         style="color:#ffffff; ">({{ this.$root.allAudioParticipant.length + 1 }})</span></div>
 
       <div class="col-5 py-0 my-0 text-right">
        
         <div>
            <v-btn x-small color="#ffffff" @click="closeConnections" v-if="!this.$root.connectingToSocket && !this.$root.userIsReconnecting">
-        <span style="color:#265259; font-size:10px;font-family:HeaderText; ">Leave</span>
+        <span style="color:#265259; font-size:10px;font-family:HeaderText; ">{{ $t('space.leave') }}</span>
       </v-btn>
 
 
       <span style="font-size:12px; color:white;" v-if="this.$root.connectingToSocket && !this.$root.userIsReconnecting">
-        Connecting...
+        {{ $t('general.connecting') }}...
       </span>
       <span v-if="this.$root.userIsReconnecting" style="font-size:12px; color:white;"  >
-        Reconnecting...
+       {{ $t('general.reconnecting') }}...
       </span>
         </div>
         
@@ -396,7 +396,7 @@
       </v-list-item>
 
       <div class="col-12 py-1 my-0 text-center" v-if="this.$root.allAudioParticipant.length == 0 && !this.$root.connectingToSocket">
-      <span style="font-size:12px; color:gray;">Checking for members...</span>
+      <span style="font-size:12px; color:gray;">{{ $t('general.check_members') }}...</span>
       </div>
 
 
@@ -410,9 +410,9 @@
     </v-list>
 
      <div class="col-12 py-2  my-0 text-center"  style="position:sticky; bottom:0%; left:0%;" >
-      <span style="font-size:12px; color:gray;">Lost Connection? 
+      <span style="font-size:12px; color:gray;">{{ $t('general.lost_connection') }}? 
        <v-btn rounded  x-small  type="submit" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
-                  @click.prevent="rejoinAudio()">Re-Join</v-btn>
+                  @click.prevent="rejoinAudio()">{{ $t('general.re_join') }}</v-btn>
       </span>
       </div>
   </v-card>
@@ -426,7 +426,7 @@
 
         <div class="col-12 py-0 my-0 text-center"  v-if="this.$root.Messages == null && this.errorLoadingMessage == true" style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">
 
-           <div style="color:gray; font-size:12px;" class="mb-2">Unable to load messages</div>
+           <div style="color:gray; font-size:12px;" class="mb-2">{{ $t('space.error_message_load') }}</div>
 
            <v-btn fab color="#3E8893" small @click="fetchMessages"> <v-icon color="#ffffff">mdi-reload</v-icon> </v-btn>
        

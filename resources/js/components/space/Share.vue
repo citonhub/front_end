@@ -24,7 +24,7 @@
                         <v-icon color="#35747e" class="mx-1">mdi-whatsapp</v-icon> 
                     </div>
                      <div class="py-0 my-0 d-flex col-8" style="align-items:center; justify-content:center;">
-                        <span class="titleTextNew">Share to WhatsApp</span>
+                        <span class="titleTextNew">{{ $t('general.share_whatsapp') }}</span>
                     </div>
                      <div class="col-2 d-flex" style="align-items:center; justify-content:center;">
                        
@@ -41,7 +41,7 @@
                         <v-icon color="#35747e" class="mx-1">mdi-twitter</v-icon> 
                     </div>
                      <div class="py-0 my-0 d-flex col-8" style="align-items:center; justify-content:center;">
-                        <span class="titleTextNew">Share to Twitter</span>
+                        <span class="titleTextNew">{{ $t('general.share_twitter') }}</span>
                     </div>
                      <div class="col-2 d-flex" style="align-items:center; justify-content:center;">
                        
@@ -58,7 +58,7 @@
                         <v-icon color="#35747e" class="mx-1">mdi-facebook</v-icon> 
                     </div>
                      <div class="py-0 my-0 d-flex col-8" style="align-items:center; justify-content:center;">
-                        <span class="titleTextNew">Share to Facebook</span>
+                        <span class="titleTextNew">{{ $t('general.share_facebook') }}</span>
                     </div>
                      <div class="col-2 d-flex" style="align-items:center; justify-content:center;">
                        
@@ -75,7 +75,7 @@
                         <v-icon color="#35747e" class="mx-1">mdi-email</v-icon> 
                     </div>
                      <div class="py-0 my-0 d-flex col-8" style="align-items:center; justify-content:center;">
-                        <span class="titleTextNew">Mail Invite Link</span>
+                        <span class="titleTextNew">{{ $t('general.mail_link') }}</span>
                     </div>
                      <div class="col-2 d-flex" style="align-items:center; justify-content:center;">
                        
@@ -92,7 +92,7 @@
                         <v-icon color="#35747e" class="mx-1">mdi-account-group</v-icon> 
                     </div>
                      <div class="py-0 my-0 d-flex col-8" style="align-items:center; justify-content:center;">
-                        <span class="titleTextNew">Send to Connections</span>
+                        <span class="titleTextNew">{{ $t('general.send_connection') }}</span>
                     </div>
                      <div class="col-2 d-flex" style="align-items:center; justify-content:center;">
                        
@@ -109,7 +109,7 @@
                         <v-icon color="#35747e" class="mx-1">mdi-link</v-icon> 
                     </div>
                      <div class="py-0 my-0 d-flex col-8" style="align-items:center; justify-content:center;">
-                        <span class="titleTextNew">Copy Link</span>
+                        <span class="titleTextNew">{{ $t('general.copy_link') }}</span>
                     </div>
                      <div class="col-2 d-flex" style="align-items:center; justify-content:center;">
                        
@@ -136,11 +136,11 @@
                <v-combobox
           v-model="mails"
           :items="items"
-          label="Emails"
+          label="E-mails"
           :rules="emailRule"
           style="font-size:13px;"
           multiple
-          placeholder="Type emails"
+          placeholder="Type e-mails"
           dense
           color="#3E8893"
           chips
@@ -154,7 +154,7 @@
         <div class="col-12 py-1 my-0 px-2 text-center">
                   <v-btn rounded :loading="loadingEmail"  small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
                     @click.stop="sendInviteMail">
-                  Invite
+                  {{ $t('general.invite') }}
                   </v-btn>
              </div>
                    
@@ -173,7 +173,7 @@
                <v-combobox
           v-model="selectedConnections"
           :items="Connections"
-          label="Your Connections"
+          :label="$t('space.your_connections')"
            style="font-size:13px;"
           item-text="name"
           item-value="username"
@@ -181,7 +181,7 @@
            :loading="loadingConnection"
           multiple
           dense
-          placeholder="select..."
+          :placeholder="$t('general.select') + '...'"
           color="#3E8893"
           chips
         ></v-combobox>
@@ -194,7 +194,7 @@
         <div class="col-12 py-1 my-0 px-2 text-center">
                   <v-btn rounded :loading="loadingEmail" small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
                  @click.stop="sendToConnection" >
-                  Send
+                   {{ $t('general.invite') }}
                   </v-btn>
              </div>
                    

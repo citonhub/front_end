@@ -10,7 +10,18 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Create new <span style="text-transform:capitalize;">{{this.$route.params.type}}</span></span>
+           <span  style="font-size:13px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">
+              <span v-if="this.$route.params.type == 'Channel'">
+                {{ $t('space.create_new_channel') }}
+              </span>
+
+               <span v-if="this.$route.params.type == 'Team'">
+
+              {{ $t('space.create_new_team') }}
+              </span>
+            
+             
+             </span>
          </div>
          <div class="col-2 py-0 my-0  d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
             
@@ -26,8 +37,8 @@
                    <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                 placeholder="name..."
-            label="Name"
+                 :placeholder="$t('general.Name') + '...'"
+            :label="$t('general.Name')"
              dense
              :rules="Rule"
              v-model="name"
@@ -49,7 +60,7 @@
         
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn @click="createSpace" rounded small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" :loading="loading">Create</v-btn>
+                  <v-btn @click="createSpace" rounded small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" :loading="loading">{{ $t('general.create') }}</v-btn>
              </div>
 
              <div class="my-5 py-3">

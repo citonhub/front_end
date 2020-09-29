@@ -337,6 +337,7 @@ const app = new Vue({
      selectedGenSpaceType:'',
      pageLoaderOpened:false,
      TrackLastSubSpace:[],
+     showLangOption: false,
         },
      mounted: function () {
       this.pageloader= false;
@@ -352,6 +353,12 @@ const app = new Vue({
      }
   },
   methods:{
+    changeLocale: function(locale){
+     
+      this.$root.$i18n.locale = locale;
+
+       this.showLangOption = false;
+    },
     closeNotification(uniqueId){
        
       if ('serviceWorker' in navigator) {

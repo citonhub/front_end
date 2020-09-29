@@ -10,7 +10,20 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-close</v-icon></v-btn>
          </div>
          <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Edit {{this.$root.selectedSpace.type}} Space</span>
+           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">
+               
+                <span v-if="this.$root.selectedSpace.type == 'Channel'">
+
+                {{ $t('space.edit_channels') }}
+
+             </span>
+              <span v-if="this.$root.selectedSpace.type == 'Team'">
+                  
+                   {{ $t('space.edit_teams') }}
+             </span>
+            
+             
+             </span>
          </div>
          <div class="col-2 py-0 my-0  d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
             
@@ -24,7 +37,7 @@
 
               <div class="col-12 py-2 my-0 px-2">
                  <div>
-                     <span style="font-size:12px;color:#666666;">Space Image</span>
+                     <span style="font-size:12px;color:#666666;"> {{ $t('space.space_image') }}</span>
                  </div>
              
               <v-row>
@@ -62,8 +75,8 @@
                    <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:11px;"
-                 placeholder="name..."
-            label="Name"
+                 :placeholder="$t('general.Name') + '...'"
+            :label="$t('general.Name')"
             :rules="Rule"
             counter="20"
              dense
@@ -80,10 +93,10 @@
                    <v-textarea
                 style="font-size:11px;"
                  
-            label="Description"
+            :label="$t('general.description')"
              dense
             
-             placeholder="description..."
+            :placeholder="$t('general.description') + '...'"
              :rules="DescriptionRule"
              v-model="contentInWord"
              counter="300"
@@ -99,7 +112,7 @@
         
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="saveChanges">Save</v-btn>
+                  <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="saveChanges">{{$t('general.save')}}</v-btn>
              </div>
 
              <div class="my-5 py-5" style="margin-top:120px !important;">
@@ -110,6 +123,8 @@
               
           </v-form>
         </div>
+
+         <input :value="$t('space.channel_desc')" type="hidden" id="descSpace">
 
             <v-fade-transition>
               <div  style="position:absolute; width:100%; height:auto: align-items:center;justify-content:center;bottom:15%; z-index:123453566;"  class="d-flex">
@@ -171,7 +186,7 @@ export default {
        this.$root.showHeader = false;
        this.fetchMessages();
         if(this.$root.selectedSpace.description == null){
-           this.contentInWord = 'Describes what this space is about';
+           this.contentInWord = document.querySelector("#descSpace").value;
         }else{
        this.contentInWord = this.$root.selectedSpace.description;
         }

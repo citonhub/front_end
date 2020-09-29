@@ -718,7 +718,7 @@ export default {
      fileShow:false,
      panelData:[],
      localChannel:[],
-      panelIsWeb: true,
+      panelIsWeb: false,
      lockPanel: false,
       panelsettingsChecked: false,
       panelNotWeb:[0]

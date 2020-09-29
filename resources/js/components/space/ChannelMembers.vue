@@ -8,7 +8,7 @@
            <v-btn icon color="#3E8893" @click="goBack"><v-icon>mdi-close mdi-18px</v-icon></v-btn>
          </div>
          <div class="col-8 py-0 my-0 mt-1 d-flex" style="border-bottom:2px solid #3E8893; align-items:center;justify-content:center;">
-            <span  style="font-size:12px; color:#3E8893; font-weight:bolder;font-family:HeaderText;">Members</span>
+            <span  style="font-size:12px; color:#3E8893; font-weight:bolder;font-family:HeaderText;">{{ $t('space.members') }}</span>
             <span class="messagesBadges mx-1">
                              <span class=" ">{{Members.length}}</span>
                           </span>
@@ -38,7 +38,7 @@
                         </div>    
                     </div>
                      <div class="py-0 my-0 d-flex col-10" style="align-items:center;" v-if="checkIfUser(member.user_id)">
-                         <span class="titleText">You</span>
+                         <span class="titleText">{{ $t('general.you') }}</span>
                     </div>
 
                     <div class="py-0 my-0 d-flex col-10" style="align-items:center;" v-else>
@@ -73,22 +73,22 @@
 
             <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click="makeAdmin"
              v-if="selectedSpaceMembers.is_admin == false">
-        <span style="font-size:13px;">Make an Admin</span>
+        <span style="font-size:13px;">{{ $t('space.make_admin') }}</span>
             </v-card>
              <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" v-else>
-        <span style="font-size:13px;">Remove as Admin</span>
+        <span style="font-size:13px;">{{ $t('space.remove_admin') }}</span>
             </v-card>
              <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click="muteUser">
-        <span style="font-size:13px;">Mute</span>
+        <span style="font-size:13px;">{{ $t('space.mute') }}</span>
             </v-card>
              <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click="blockUser">
-        <span style="font-size:13px;">Block</span>
+        <span style="font-size:13px;">{{ $t('space.block') }}</span>
             </v-card>
              <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click="removeUser">
-        <span style="font-size:13px;">Remove</span>
+        <span style="font-size:13px;">{{ $t('space.remove') }}</span>
             </v-card>
          <v-card tile flat class="text-center py-2"  @click.stop="createSpace(selectedSpaceMembers,true)">
-        <span style="font-size:13px;">View Profile</span>
+        <span style="font-size:13px;">{{ $t('space.view_profile') }}</span>
             </v-card>
 
              </v-card>
@@ -114,7 +114,7 @@
          <div class="text-center">
 
 
-                    <span class=" px-1 d-block" style="color: #2d626c; font-size:12px;">Connections</span>
+                    <span class=" px-1 d-block" style="color: #2d626c; font-size:12px;">{{ $t('profile.connections') }}</span>
 
 
                   <span class=" px-1 d-block" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.connections}}</span>
@@ -176,7 +176,7 @@
        class="d-block"
      style="color:#ffffff;background:#3E8893; font-size:11px;"
       >
-      Channels
+      {{ $t('space.channels') }}
       </v-chip>  
 
        <span class=" px-1 d-block py-1" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.channels}}</span>
@@ -196,7 +196,7 @@
       label
      style="color:#ffffff;background:#3E8893; font-size:11px;"
       >
-      Projects
+       {{ $t('space.projects') }}
       </v-chip>  
 
       <span class=" px-1 d-block py-1" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.projects}}</span>
@@ -215,7 +215,7 @@
       label
      style="color:#ffffff;background:#3E8893; font-size:11px;"
       >
-      Teams
+      {{ $t('space.teams') }}
       </v-chip>  
 
       <span class=" px-1 d-block py-1" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.teams}}</span>
@@ -238,15 +238,15 @@
                   </div>
 
                    <div class="col-6 text-center py-0 px-0" v-if="this.$root.userBasicInfo.user_connected == true">
-                    <v-btn  rounded color="#ffffff" small @click.stop="viewProfile"><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">Profile</span></v-btn>
+                    <v-btn  rounded color="#ffffff" small @click.stop="viewProfile"><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">{{ $t('general.profile') }}</span></v-btn>
                   </div>
 
                   <div class="col-6 text-center py-0 px-0" v-if="this.$root.userBasicInfo.user_connected == false">
-                    <v-btn  rounded color="#ffffff" :loading="connectionLoading" small @click.stop="connectToUser"><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">Connect</span></v-btn>
+                    <v-btn  rounded color="#ffffff" :loading="connectionLoading" small @click.stop="connectToUser"><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">{{ $t('general.connect') }}</span></v-btn>
                   </div>
 
                    <div class="col-6 text-center py-0 px-0" v-if="this.$root.userBasicInfo.user_connected == 'connected'">
-                    <v-btn  rounded color="#ffffff" small  ><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">Connected</span></v-btn>
+                    <v-btn  rounded color="#ffffff" small  ><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">{{ $t('general.connected') }}</span></v-btn>
                   </div>
                  
 

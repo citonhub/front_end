@@ -61,7 +61,7 @@
                   <v-btn   color="#3E8893" small 
                   @click="toggleUserList()"
                > 
-                  <span style="color:#ffffff; font-size:12px; text-transform:capitalize;">Live</span> 
+                  <span style="color:#ffffff; font-size:12px; text-transform:capitalize;">{{ $t('general.live') }}</span> 
                    <v-progress-circular indeterminate color="#ffffff"><v-icon>mdi-microphone</v-icon></v-progress-circular>
                 </v-btn>
                </div>
@@ -75,7 +75,7 @@
             
          </div>
 
-         
+         <input :value="$t('general.type_here')" type="hidden" id="typingText"> 
         
       </div>
 </template>
@@ -97,7 +97,7 @@ export default {
              new Placeholder({
             emptyEditorClass: 'is-editor-empty',
             emptyNodeClass: 'is-empty',
-            emptyNodeText: 'Type here...',
+            emptyNodeText:  '...',
             showOnlyWhenEditable: true,
             showOnlyCurrent: true,
           }),
@@ -110,6 +110,7 @@ export default {
       showSend:false,
       audioChunks:[],
       Alert:true,
+      typingText: '',
       alertMsg:'',
       recording:false,
       audioBlob:'',
@@ -125,7 +126,9 @@ export default {
     EditorMenuBubble,
   },
     mounted(){
+        this.typingText = document.querySelector("#typingText").value;
 
+        this.editor.extensions.options.placeholder.emptyNodeText = this.typingText + '...'
     },
     methods:{
         

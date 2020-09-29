@@ -15,7 +15,7 @@
 
            <div class="col-12 py-1 px-2 text-center">
               <div>
-                 <span class="TitleName">Channel Name</span>
+                 <span class="TitleName">{{ $t('space.channel_name') }}</span>
               </div>
               <div>
                  <span class="content">{{this.$root.selectedSpace.name}}</span>
@@ -24,24 +24,24 @@
 
           <div class="col-12 py-1 px-2 text-center">
               <div>
-                 <span class="TitleName">Description</span>
+                 <span class="TitleName">{{ $t('general.description') }}</span>
               </div>
               <div>
                  <span class="contentdesc" v-if="this.$root.selectedSpace.description != null" v-html="this.$root.selectedSpace.description"></span>
-                 <span v-else class="contentdescnull">Describes what this space is about</span>
+                 <span v-else class="contentdescnull">{{ $t('space.channel_desc') }}</span>
               </div>
           </div>
 
 
-          <div class="col-12 py-2 my-0 px-0 text-center" v-if="checkIfisOwner()">
-                   <v-btn @click="editSpace" rounded small color="#3E8893" style="font-size:10px; color:white;text-transform:capitalize;">Edit</v-btn>
+          <div class="col-12 py-2 my-0 px-0 text-center" v-if="checkIfisOwner() && this.$root.selectedSpace.type != 'SubSpace'">
+                   <v-btn @click="editSpace" rounded small color="#3E8893" style="font-size:10px; color:white;text-transform:capitalize;">{{ $t('general.edit') }}</v-btn>
                 </div>
 
           <div class="col-12 px-2 py-1 pt-2" v-if="this.$root.selectedSpace.type != 'Personal'">
                <v-card tile flat class=" py-2 px-2 " color="#edf6f7" style="border-bottom:1px solid #3E8893; border-top:1px solid #3E8893;" @click="channelMembers">
               <div class="row py-0 my-0">
                 <div class="col-10 py-0 my-0 ">
-                   <span class="content" style="font-size:12px;">Members</span>
+                   <span class="content" style="font-size:12px;">{{ $t('space.members') }}</span>
                 </div>
                 <div class="py-0 my-0 col-2 text-right" >
                        <span class="messagesBadges">
@@ -59,13 +59,13 @@
                <v-card tile flat class=" py-2 px-2 " color="#edf6f7" style="border-bottom:1px solid #3E8893; border-top:1px solid #3E8893;">
               <div class="row py-0 my-0">
                 <div class="col-4 py-0 my-0 text-left">
-                   <v-btn rounded x-small color="#3E8893" :loading="loadingLeave" @click="leaveSpace" style="font-size:10px; color:white; text-transform:capitalize;">Leave</v-btn>
+                   <v-btn rounded x-small color="#3E8893" :loading="loadingLeave" @click="leaveSpace" style="font-size:10px; color:white; text-transform:capitalize;">{{ $t('space.leave') }}</v-btn>
                 </div>
                 <div class="col-4 py-0 my-0 px-0 text-center">
                   
                 </div>
                 <div class="py-0 my-0 col-4 text-right" >
-                  <v-btn rounded x-small color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;" @click="share">Share</v-btn>
+                  <v-btn rounded x-small color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;" @click="share">{{ $t('general.share') }}</v-btn>
 
                    
                     </div>
@@ -75,7 +75,7 @@
           </div>
  
              <div class="col-12 py-2 my-0 px-0 text-center" v-if="this.$root.selectedSpace.type == 'Team'">
-                   <v-btn @click="channelProjects" rounded x-small color="#3E8893" style="font-size:10px; color:white;text-transform:capitalize;">Teams Projects</v-btn>
+                   <v-btn @click="channelProjects" rounded x-small color="#3E8893" style="font-size:10px; color:white;text-transform:capitalize;">{{ $t('space.team_project') }}</v-btn>
                 </div>
 
           

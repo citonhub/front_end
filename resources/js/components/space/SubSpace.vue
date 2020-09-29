@@ -8,10 +8,36 @@
          </div>
          
          <div class="col-8 py-0 my-0 d-flex" style="border-bottom:2px solid #3E8893; align-items:center;justify-content:center;">
-          <span v-if="this.$route.params.channelType != 'SubSpace'" style="font-size:12px; color:#3E8893; font-weight:bolder;font-family:HeaderText;">Sub-{{this.$route.params.channelType}}s</span>
+          <span v-if="this.$route.params.channelType != 'SubSpace'" style="font-size:12px; color:#3E8893; font-weight:bolder;font-family:HeaderText;">
+             
+             <span v-if="this.$route.params.channelType == 'Channel'">
+
+                {{ $t('space.sub_channels') }}
+
+             </span>
+              <span v-if="this.$route.params.channelType == 'Team'">
+                  
+                   {{ $t('space.sub_teams') }}
+             </span>
+           
+            
+            </span>
 
           <span v-else
-          style="font-size:12px; color:#3E8893; font-weight:bolder;font-family:HeaderText;">Sub-{{this.$root.selectedGenSpaceType}}s</span>
+          style="font-size:12px; color:#3E8893; font-weight:bolder;font-family:HeaderText;">
+          
+
+           <span v-if="this.$root.selectedGenSpaceType == 'Channel'">
+
+                {{ $t('space.sub_channels') }}
+
+             </span>
+              <span v-if="this.$root.selectedGenSpaceType == 'Team'">
+                  
+                   {{ $t('space.sub_teams') }}
+             </span>
+          
+          </span>
          </div>
         
          <div class="col-2 py-0 my-0 text-right px-0"  style="border-bottom:2px solid #3E8893;" >
@@ -31,7 +57,7 @@
                      
                   </div>
                   <div class="col-8 py-0 my-0 text-center">
-                       <span  style="font-size:12px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">General</span>
+                       <span  style="font-size:12px; color:#1e4148; font-weight:bolder;font-family:HeaderText;"> {{ $t('space.general') }}</span>
                   </div>
                   <div class="py-0 my-0 d-flex col-2" style="align-items:center;" v-if="false">
                           <span class="messagesBadges"><span style="padding:2px;"></span></span>
@@ -59,7 +85,23 @@
 
           <div class="col-12 text-center" v-else>
       
-        <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">No Sub-{{this.$route.params.channelType}}s created yet</span>
+        <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block">
+
+           <span v-if="this.$root.selectedGenSpaceType == 'Channel'">
+
+            
+
+                {{ $t('space.no_sub_channels') }}
+
+             </span>
+              <span v-if="this.$root.selectedGenSpaceType == 'Team'">
+                  
+                   {{ $t('space.no_sub_teams') }}
+             </span>
+          
+          
+          
+          </span>
          
          </div>
 
@@ -83,8 +125,8 @@
                
            <v-text-field
                 style="font-size:12px;"
-                 placeholder="name..."
-            label="Name"
+               :placeholder="$t('general.Name') + '...'"
+             :label="$t('general.Name')"
              dense
              :rules="Rule"
              v-model="name"
@@ -104,7 +146,7 @@
           hide-selected
            :rules="requiredRule"
            v-model="subType"
-          placeholder="select..."
+          :placeholder="$t('general.select') + '...'"
           color="#4495a2"
           small-chips
         ></v-select>
@@ -116,7 +158,7 @@
                   <v-btn rounded :loading="loadingSubSpace"  small color="#3E8893" 
                   style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
                     @click.stop="createSubSpace">
-                  Add
+                  {{$t('general.add')}}
                   </v-btn>
              </div>
                    

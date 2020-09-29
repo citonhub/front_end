@@ -77,9 +77,9 @@ body {
             <a href="/"  class="d-block d-md-none"><img src="{{asset('imgs/CitonHub.png')}}" height="25" width="auto"/></a>
         </div>
         
-        <div style="text-align:right; border-bottom:1px solid #e6e6e6; align-items:center; " class="col-4 px-1 text-right py-1">
+        <div style="text-align:right; border-bottom:1px solid #e6e6e6; " class="col-4 pr-2 py-0 text-right">
            
-            
+            <v-btn icon color="#3E8893"  @click="showLangOption = true" class="mt-2"  small style="border:2px solid #3E8893; border-radius:50%;"><v-icon>mdi-translate mdi-18px</v-icon></v-btn>
         </div>
         
     </div>
@@ -87,6 +87,33 @@ body {
  
 
 <space></space>
+
+
+<div   v-if="showLangOption" @click="showLangOption = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+           <div  @click.stop="showLangOption = true" style="position:absolute; height:auto; width:90%; bottom:50%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
+
+             <v-card style="border-radius:10px;"
+       height="auto"
+      
+       class="py-2 px-1" >
+
+            <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click="changeLocale('en')">
+
+            <span style="font-size:13px;">@{{ $t('general.english') }}</span>
+
+            </v-card>
+
+             <v-card tile flat class="text-center py-2" style="border-radius:0px;"  @click="changeLocale('fr')">
+
+             <span style="font-size:13px;">@{{ $t('general.french') }}</span>
+
+            </v-card>
+            
+             </v-card>
+
+           </div>
+         </div>
+
 
 
 <div class=" d-none d-md-none d-lg-block mx-2  py-2" 
@@ -326,7 +353,7 @@ body {
 
    <script src="https://cdn.webrtc-experiment.com/hark.js"></script>
 
- <script src="{{ asset('js/space.js?v=4.38') }}"></script>
+ <script src="{{ asset('js/space.js?v=4.39') }}"></script>
  
      
  @endsection

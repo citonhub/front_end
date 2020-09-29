@@ -88,7 +88,7 @@ body {
                 <v-icon color="#3E8893">mdi-layers</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Duel List</span>
+               <span style="font-size:12px; color:#333333;">@{{ $t('general.Duel_list') }}</span>
             </div>
            </div>
          </v-card>
@@ -98,7 +98,7 @@ body {
                 <v-icon color="#3E8893">mdi-account-cog-outline</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Account Settings</span>
+               <span style="font-size:12px; color:#333333;">@{{ $t('general.Account_Setting') }}</span>
             </div>
            </div>
          </v-card>
@@ -108,7 +108,7 @@ body {
                 <v-icon color="#3E8893">mdi-account-tie-outline</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Privacy</span>
+               <span style="font-size:12px; color:#333333;">@{{ $t('general.Privacy') }}</span>
             </div>
            </div>
          </v-card>
@@ -118,7 +118,7 @@ body {
                 <v-icon color="#3E8893">mdi-comment-question-outline</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Help</span>
+               <span style="font-size:12px; color:#333333;">@{{ $t('general.Help') }}</span>
             </div>
            </div>
          </v-card>
@@ -126,14 +126,14 @@ body {
       
 
       
-    @if(Auth::check())
+         @if(Auth::check())
       <v-card tile flat  @click="logout"  class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon color="#3E8893">mdi-logout-variant</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Logout</span>
+               <span style="font-size:12px; color:#333333;">@{{ $t('general.logout') }}</span>
             </div>
            </div>
       </v-card>
@@ -144,7 +144,7 @@ body {
                 <v-icon color="#3E8893">mdi-login-variant</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Login</span>
+               <span style="font-size:12px; color:#333333;">@{{ $t('general.login') }}</span>
             </div>
            </div>
       </v-card>
@@ -207,7 +207,7 @@ body {
                 <v-icon color="#3E8893">mdi-layers</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Duel List</span>
+               <span style="font-size:12px; color:#333333;">@{{ $t('general.Duel_list') }}span>
             </div>
            </div>
          </v-card>
@@ -217,7 +217,7 @@ body {
                 <v-icon color="#3E8893">mdi-account-cog-outline</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Account Settings</span>
+               <span style="font-size:12px; color:#333333;">@{{ $t('general.Account_Setting') }}</span>
             </div>
            </div>
          </v-card>
@@ -227,7 +227,7 @@ body {
                 <v-icon color="#3E8893">mdi-account-tie-outline</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Privacy</span>
+               <span style="font-size:12px; color:#333333;">@{{ $t('general.Privacy') }}</span>
             </div>
            </div>
          </v-card>
@@ -237,7 +237,7 @@ body {
                 <v-icon color="#3E8893">mdi-comment-question-outline</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Help</span>
+               <span style="font-size:12px; color:#333333;">@{{ $t('general.Help') }}</span>
             </div>
            </div>
          </v-card>
@@ -247,14 +247,14 @@ body {
       </div>
 
 
-    @if(Auth::check())
+      @if(Auth::check())
       <v-card tile flat  class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; position:absolute;bottom:0%;" @click="logout">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon color="#3E8893">mdi-logout-variant</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Logout</span>
+               <span style="font-size:12px; color:#333333;">@{{ $t('general.logout') }}</span>
             </div>
            </div>
       </v-card>
@@ -265,7 +265,7 @@ body {
                 <v-icon color="#3E8893">mdi-login-variant</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Login</span>
+               <span style="font-size:12px; color:#333333;">@{{ $t('general.login') }}</span>
             </div>
            </div>
       </v-card>
