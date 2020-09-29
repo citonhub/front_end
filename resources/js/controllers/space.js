@@ -342,8 +342,7 @@ const app = new Vue({
      mounted: function () {
       this.pageloader= false;
      
-     
-     
+    
       this.fetchUserDetails();
       this.connectToChannel();
     },
@@ -354,10 +353,12 @@ const app = new Vue({
   },
   methods:{
     changeLocale: function(locale){
+
+      this.$root.showLangOption = false;
      
       this.$root.$i18n.locale = locale;
 
-       this.showLangOption = false;
+       
     },
     closeNotification(uniqueId){
        

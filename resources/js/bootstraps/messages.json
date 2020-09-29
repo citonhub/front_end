@@ -44,7 +44,8 @@
         "send":"Send",
         "you":"You",
         "english":"English",
-        "french":"French"
+        "french":"French",
+        "app_type":"Application Type"
       },
       "space":{
         "projects":"Projects",
@@ -88,7 +89,9 @@
         "remove":"Remove",
         "view_profile":"View Profile",
         "edit_channels":"Edit Channel",
-        "edit_teams":"Edit Team"
+        "edit_teams":"Edit Team",
+        "project_panel":"Project Panel",
+        "project_URL":"project URL"
       },
       "panel":{
         "front_end":"Front-end",
@@ -109,7 +112,8 @@
         "panel_settings":"Panel Settings",
         "back_end_lang":"Back-end Language",
         "front_end_info":"For front-end application,click continue",
-        "add_contributors":"Add Contributors"
+        "add_contributors":"Add Contributors",
+        "code_files":"Code Files"
       },
       "duels":{
         "participant":"Participants",
@@ -250,7 +254,8 @@
         "send":"Envoyer",
         "you":"Tue",
         "english":"Anglais",
-        "french":"français"
+        "french":"français",
+        "app_type":"Type d'application"
       },
       "space":{
         "projects":"Projets",
@@ -294,7 +299,9 @@
         "remove":"Retirer",
         "view_profile":"Voir le profil",
         "edit_channels":"Modifier la salon",
-        "edit_teams":"Modifier l'équipe"
+        "edit_teams":"Modifier l'équipe",
+        "project_panel":"Panneau de projet",
+        "project_URL":"URL du projet"
       },
       "panel":{
         "front_end":"Front-end",
@@ -315,7 +322,8 @@
         "panel_settings":"Onglet paramètres",
         "back_end_lang":"Langage back-end",
         "front_end_info":"Cliquez sur continuer pour une application front-end",
-        "add_contributors":"Ajouter des contributeurs"
+        "add_contributors":"Ajouter des contributeurs",
+        "code_files":"Fichiers de code"
       },
       "duels":{
         "participant":"Participants",

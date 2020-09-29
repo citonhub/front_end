@@ -11,7 +11,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-4 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Project Panel</span>
+           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">{{ $t('space.project_panel') }} </span>
          </div>
          <div class="col-4 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
              <v-btn icon color="#4495a2" @click="goToSettings" v-if="checkIfOwner()"><v-icon>mdi-cogs</v-icon></v-btn>
@@ -38,8 +38,8 @@
                         
                             <div class="col-6 text-left py-0"  v-if="panelIsWeb">
                                <input type="hidden" v-if="this.$root.projectData.length != 0" id="codeBoxContent" :value="'https://www.citonhub.com/run-panel/' + this.$root.projectData.panel_id">
- <v-btn  x-small color="#3E8893" @click="copyText"
-              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-link mdi-18px</v-icon> {{btnText}}</v-btn>  
+         <v-btn  x-small color="#3E8893" @click="copyText"
+              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-link mdi-18px</v-icon> {{ $t('space.project_URL') }}</v-btn>  
                             </div>
                             <div class="col-6 text-right py-0" v-if="panelIsWeb">
                             <v-btn  x-small color="#3E8893" @click="showHowTo"   
@@ -58,7 +58,7 @@
 
                    </div>
                    <div class="col-6 py-0 px-0 text-center">
-                <span style="font-family:HeaderText; font-size:13px;color:#1e4148;">Front-end</span> 
+                <span style="font-family:HeaderText; font-size:13px;color:#1e4148;">{{ $t('panel.front_end') }}</span> 
                    </div>
                    <div class="col-3 py-0 text-right">
                     <v-icon color="#35757e" v-if="showFront">mdi-chevron-up mdi-18px</v-icon>
@@ -75,7 +75,7 @@
           class="my-2"
          >
       <v-expansion-panel  >
-        <v-expansion-panel-header class="header">View Files
+        <v-expansion-panel-header class="header">{{ $t('panel.view_files') }}
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-iframe-outline</v-icon>
@@ -108,7 +108,7 @@
                       <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
                 </div>
                  <div class="col-10 py-0 my-0 ">
-                    <span class="fileNamenew">Styles</span>
+                    <span class="fileNamenew">{{ $t('panel.styles') }}</span>
                 </div>
                 </div>
              </div>
@@ -137,7 +137,7 @@
                       <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
                 </div>
                  <div class="col-10 py-0 my-0 ">
-                    <span class="fileNamenew">Scripts</span>
+                    <span class="fileNamenew">{{ $t('panel.scripts') }}</span>
                 </div>
                 </div>
              </div>
@@ -178,7 +178,7 @@
 
 
         <v-expansion-panel   >
-        <v-expansion-panel-header class="header">Resources
+        <v-expansion-panel-header class="header">{{ $t('panel.resources') }}
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-folder-open-outline</v-icon>
@@ -193,7 +193,7 @@
                       <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
                 </div>
                  <div class="col-8 py-0 my-0 ">
-                    <span class="fileNamenew">Framework</span>
+                    <span class="fileNamenew"> {{ $t('panel.frameworks') }}</span>
                 </div>
                 <div class="col-2 py-0 my-0 text-center " @click.stop="showUpload('Framework','Code file')">
                    <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
@@ -229,7 +229,7 @@
                       <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
                 </div>
                  <div class="col-8 py-0 my-0 ">
-                    <span class="fileNamenew">Images</span>
+                    <span class="fileNamenew">{{ $t('panel.images') }}</span>
                 </div>
                  <div class="col-2 py-0 my-0 text-center"  @click.stop="showUpload('Images','Image file')">
                    <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
@@ -264,7 +264,7 @@
                       <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
                 </div>
                  <div class="col-8 py-0 my-0 ">
-                    <span class="fileNamenew">Audios</span>
+                    <span class="fileNamenew"> {{ $t('panel.audios') }}</span>
                 </div>
                  <div class="col-2 py-0 my-0 text-center"  @click.stop="showUpload('Audios','Audio file')">
                    <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
@@ -300,7 +300,7 @@
                       <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
                 </div>
                  <div class="col-8 py-0 my-0 ">
-                    <span class="fileNamenew">Videos</span>
+                    <span class="fileNamenew"> {{ $t('panel.videos') }}</span>
                 </div>
                  <div class="col-2 py-0 my-0 text-center" @click.stop="showUpload('Videos','Video file')">
                    <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
@@ -336,7 +336,7 @@
                       <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
                 </div>
                  <div class="col-8 py-0 my-0 ">
-                    <span class="fileNamenew">Files</span>
+                    <span class="fileNamenew"> {{ $t('panel.files') }}</span>
                 </div>
                  <div class="col-2 py-0 my-0 text-center" @click.stop="showUpload('Files','Document file')"> 
                    <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
@@ -381,7 +381,7 @@
 
                    </div>
                    <div class="col-6 py-0 px-0 text-center">
-                <span style="font-family:HeaderText; font-size:13px;color:#1e4148;">Back-end</span> 
+                <span style="font-family:HeaderText; font-size:13px;color:#1e4148;">{{ $t('panel.back-end') }}</span> 
                    </div>
                    <div class="col-3 py-0 text-right">
                     <v-icon color="#35757e" v-if="showBack">mdi-chevron-up mdi-18px</v-icon>
@@ -431,7 +431,7 @@
       </v-expansion-panel>
 
            <v-expansion-panel   > 
-        <v-expansion-panel-header class="header">Web Routes
+        <v-expansion-panel-header class="header">{{ $t('panel.web_routes') }}
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-router</v-icon>
@@ -469,7 +469,7 @@
      
 
        <v-expansion-panel  >
-       <v-expansion-panel-header class="header">Database Tables
+       <v-expansion-panel-header class="header">{{ $t('panel.DB_table') }}
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-database</v-icon>
@@ -505,7 +505,7 @@
        class="mt-2" 
        v-model="panel">
          <v-expansion-panel>
-       <v-expansion-panel-header class="header">Code Files
+       <v-expansion-panel-header class="header">{{ $t('panel.code_files') }}
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-file-code-outline</v-icon>
@@ -645,7 +645,6 @@ export default {
      language:'',
      duel:[],
      panelData:[],
-     btnText:'Project URL',
      scriptsShow:true,
      stylesShow:true,
      frameworkShow:false,
