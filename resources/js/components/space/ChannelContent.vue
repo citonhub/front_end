@@ -411,8 +411,8 @@
 
      <div class="col-12 py-2  my-0 text-center"  style="position:sticky; bottom:0%; left:0%;" >
       <span style="font-size:12px; color:gray;">{{ $t('general.lost_connection') }}? 
-       <v-btn rounded  x-small  type="submit" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
-                  @click.prevent="rejoinAudio()">{{ $t('general.re_join') }}</v-btn>
+       <v-btn rounded  small  type="submit" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
+                  @click="rejoinAudio()">{{ $t('general.re_join') }}</v-btn>
       </span>
       </div>
   </v-card>
