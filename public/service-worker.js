@@ -345,7 +345,7 @@ self.addEventListener('notificationclick', function (event)
                 }
             }
 
-            return clients.openWindow(rootUrl).then(function (client) { client.focus(); });
+            return clients.openWindow(rootUrl);
         })
     );
 });
