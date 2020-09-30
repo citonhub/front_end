@@ -1425,7 +1425,7 @@ if (response.status == 200) {
 
         this.$root.connection.enableLogs = false;
 
-       this.$root.connection.socketURL = 'https://sandbox.citonhub.com/';
+       this.$root.connection.socketURL = 'https://live.citonhub.com/';
 
        this.$root.connection.socketMessageEvent = 'screen-sharing';
 
@@ -1562,7 +1562,7 @@ this.$root.connection.onMediaError = function(e) {
           this.$root.audioconnection.enableLogs = false;
 
 // by default, socket.io server is assumed to be deployed on your own URL
-this.$root.audioconnection.socketURL = 'https://sandbox.citonhub.com/';
+this.$root.audioconnection.socketURL = 'https://live.citonhub.com/';
 
 
 this.$root.audioconnection.socketMessageEvent = 'audio-conference';
