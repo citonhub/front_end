@@ -338,6 +338,8 @@ const app = new Vue({
      pageLoaderOpened:false,
      TrackLastSubSpace:[],
      showLangOption: false,
+     fetchSpaceUpdate: true,
+     isConnected: true
         },
      mounted: function () {
       this.pageloader= false;
@@ -360,6 +362,305 @@ const app = new Vue({
 
        
     },
+    manualFetchUnread: function(){
+
+
+      axios.get('/check-for-new-space-messages')
+ .then(response => {
+ 
+ if (response.status == 200) {
+
+    let returnData = response.data;
+      
+      this.handleSpaceData(returnData);
+
+ 
+
+}
+
+ 
+  
+
+})
+.catch(error => {
+  
+   
+})
+
+
+    },
+    updateSpaceMessages: function(){
+
+      let interval = null;
+
+      interval = setInterval(()=>{
+
+       
+    
+        Echo.connector.socket.on('connect', ()=>{
+          this.isConnected = true
+      })
+
+  Echo.connector.socket.on('disconnect', ()=> {
+          this.isConnected = false
+      })
+
+  Echo.connector.socket.on('reconnecting', (attemptNumber)=>{
+       this.isConnected = false
+    });
+          
+   
+           
+          if(this.$root.makeRecallSpace && this.isConnected == false){
+
+             this.$root.makeRecallSpace = false;
+
+axios.get('/check-for-new-space-messages')
+ .then(response => {
+ 
+ if (response.status == 200) {
+
+    let returnData = response.data;
+      
+      this.handleSpaceData(returnData);
+
+   this.$root.makeRecallSpace = true;
+
+}
+
+ 
+  
+
+})
+.catch(error => {
+  
+   this.$root.makeRecallSpace = true;
+})
+
+
+
+
+          }else{
+
+
+          }
+    
+      },3000);
+
+   },
+   handleSpaceData: function(returnData){
+
+    returnData.forEach(space => {
+
+     
+
+      if( this.$root.selectedSpace.space_id != space.space_id){
+
+
+           let storedMsg = this.$root.getLocalStore(space.space_id  + this.$root.username);
+     
+      storedMsg.then((result)=>{
+
+       
+            
+        if(result != null){
+
+           
+         
+         let parsedResult = JSON.parse(result);
+
+         let MessagesFull = parsedResult;
+
+         let newMessages = space.new_messages;
+              
+             
+           
+
+          newMessages.forEach((messages)=>{
+
+            MessagesFull[0].push(messages);
+
+              this.$root.LocalStore(space.space_id  + this.$root.username,MessagesFull);
+
+             let unreadStoredMsg = this.$root.getLocalStore('unread' + space.space_id + this.$root.username);
+
+     unreadStoredMsg.then((result)=>{
+
+       let finalResultUnread = JSON.parse(result);
+
+        finalResultUnread.push(messages)
+
+
+        localforage.setItem('unread' + space.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
+this.$root.checkUnread(true);
+
+
+   
+
+}).then(function (value) {
+// we got our value
+
+}).catch(function (err) {
+console.log(err)
+// we got an error
+});
+
+       
+        
+       
+
+        
+
+      
+
+       
+        
+          
+        
+
+        });
+
+          });
+
+           
+        }else{
+
+
+
+         
+      
+         localforage.setItem('unread' + space.space_id + this.$root.username,JSON.stringify(returnData)).then( ()=> {
+
+this.$root.checkUnread(true);
+
+
+
+
+}).then(function (value) {
+// we got our value
+
+}).catch(function (err) {
+console.log(err)
+// we got an error
+});
+
+
+        
+
+
+           let parsedResult = JSON.parse(result);
+
+         let MessagesFull = parsedResult;
+
+         let newMessages = space.new_messages;
+              
+             
+             
+
+
+          newMessages.forEach((messages)=>{
+
+           
+
+            
+
+             let unreadStoredMsg = this.$root.getLocalStore('unread' + space.space_id + this.$root.username);
+
+     unreadStoredMsg.then((result)=>{
+
+        if(result != null){
+
+            
+
+           
+       let finalResultUnread = JSON.parse(result);
+
+        finalResultUnread.push(messages)
+
+
+       localforage.setItem('unread' + space.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
+this.$root.checkUnread(true);
+
+
+
+}).then(function (value) {
+// we got our value
+
+}).catch(function (err) {
+console.log(err)
+// we got an error
+});
+       
+        
+       
+        
+        
+
+        }
+
+          
+        
+
+        });
+
+          });
+
+
+        }
+      });
+
+      }else{
+
+
+         let storedMsg = this.$root.getLocalStore(space.space_id  + this.$root.username);
+     
+      storedMsg.then((result)=>{
+
+       
+            
+        if(result != null){
+         
+         let parsedResult = JSON.parse(result);
+
+         let MessagesFull = parsedResult;
+
+         let newMessages = space.new_messages;
+              
+             
+           
+
+          newMessages.forEach((messages)=>{
+
+            MessagesFull[0].push(messages);
+
+              this.$root.LocalStore(space.space_id  + this.$root.username,MessagesFull);
+
+              this.$root.Messages.push(messages);
+
+               this.$root.sortChatList();
+
+           this.$root.scrollToBottom(); 
+
+           this.$root.updateSpaceTracker(space.space_id);
+
+           
+
+          });
+
+           
+        }
+      });
+        
+
+      }
+     
+ 
+    
+   
+    
+  });
+
+   },
     closeNotification(uniqueId){
        
       if ('serviceWorker' in navigator) {
@@ -823,8 +1124,6 @@ const app = new Vue({
 if (response.status == 200) {
  
 
-
-
 }
 
 
@@ -833,6 +1132,27 @@ if (response.status == 200) {
   
 }) 
     
+   },
+   clearUnreadMessageRemote: function(messageId){
+
+
+    axios.post('/delete-unread-message',{
+      message_id:messageId
+   } )
+  .then(response => {
+  
+  if (response.status == 200) {
+   
+  
+  }
+  
+  
+  })
+  .catch(error => {  
+    
+  }) 
+     
+   
    },
     connectToChannel:function(){
    
@@ -846,46 +1166,17 @@ if (response.status == 200) {
            }
          
           if(e.actionType == 'message-alert'){
+
+             this.clearUnreadMessageRemote(e.data.message_id);
             
-            this.ChatList[1].map((space)=>{
-             
-              if(space.space_id == e.data.space_id){
-               
-                space.message_track = new Date();
-                
+            let messageFormat = {
+              space_id: e.data.space_id,
+              new_messages: [e.data]
+            };
 
-              
-               
-              }
+            let returnData = [messageFormat];
 
-            });
-
-            this.ChatList[2].map((space)=>{
-             
-              if(space.space_id == e.data.space_id){
-               
-                space.message_track = new Date();
-               
-              }
-
-            });
-
-
-            this.ChatList[4].map((space)=>{
-             
-              if(space.space_id == e.data.space_id){
-              
-                space.message_track = new Date();
-               
-                
-              }
-
-
-             
-
-            });
-
-            this.sortChatList();
+            this.handleSpaceData(returnData);
             
           }
 
@@ -925,47 +1216,116 @@ if (response.status == 200) {
   },
   fetchUserDetails: function(){
    
+    let userInfo = this.$root.getLocalStore('userInfo'+ this.$root.username);
 
-       axios.get('/fetch-profile-'+ this.username)
- .then(response => {
- 
- if (response.status == 200) {
-      
-      let userProfile = response.data[1];
-      let user = response.data[0];
+     userInfo.then((result)=>{
+       
+      if(result != null){
+        let finalResult = JSON.parse(result);
 
-      this.notificationCount = response.data[3];
 
-      this.notificationCountSpace = response.data[4];
-      
-     let userDetails = {
-     'username':user.username,
-     'name': user.name,
-     'coin': userProfile.coins,
-     'image_name': userProfile.image_name,
-     'image_extension': userProfile.image_extension,
-     'about': userProfile.about,
-     'Interests': userProfile.interestsArray,
-     'connections': userProfile.connections,
-     'background_color': userProfile.background_color
-     };
+        this.authProfile = finalResult;
+
+
+         this.fetchProfileStandAlone();
+
+
+      }else{
+
+   
+        axios.get('/fetch-profile-'+ this.username)
+        .then(response => {
+        
+        if (response.status == 200) {
+             
+             let userProfile = response.data[1];
+             let user = response.data[0];
+       
+             this.notificationCount = response.data[3];
+       
+             this.notificationCountSpace = response.data[4];
+             
+            let userDetails = {
+            'username':user.username,
+            'name': user.name,
+            'coin': userProfile.coins,
+            'image_name': userProfile.image_name,
+            'image_extension': userProfile.image_extension,
+            'about': userProfile.about,
+            'Interests': userProfile.interestsArray,
+            'connections': userProfile.connections,
+            'background_color': userProfile.background_color
+            };
+              
+
+            this.$root.LocalStore('userInfo' + this.$root.username,userDetails);
+       
+            
+             this.authProfile = userDetails;
+          
+         
+          
+          
+       }
+         
+       
+       })
+       .catch(error => {
+       
+       }) 
        
 
-     
-   this.authProfile = userDetails;
-   
-  
-   
-   
-}
-  
+      }
 
-})
-.catch(error => {
+     })
 
-}) 
-
+      
     
+ },
+ fetchProfileStandAlone: function(){
+
+
+  axios.get('/fetch-profile-'+ this.username)
+  .then(response => {
+  
+  if (response.status == 200) {
+       
+       let userProfile = response.data[1];
+       let user = response.data[0];
+ 
+       this.notificationCount = response.data[3];
+ 
+       this.notificationCountSpace = response.data[4];
+       
+      let userDetails = {
+      'username':user.username,
+      'name': user.name,
+      'coin': userProfile.coins,
+      'image_name': userProfile.image_name,
+      'image_extension': userProfile.image_extension,
+      'about': userProfile.about,
+      'Interests': userProfile.interestsArray,
+      'connections': userProfile.connections,
+      'background_color': userProfile.background_color
+      };
+        
+
+     
+ 
+      
+       this.authProfile = userDetails;
+    
+   
+    
+    
+ }
+   
+ 
+ })
+ .catch(error => {
+ 
+ }) 
+
  },
   loader:function(){
    

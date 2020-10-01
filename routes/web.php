@@ -116,6 +116,7 @@ Route::post('/check-for-unread-messages-clean','SpaceController@checkUnreadMessa
 Route::get('/download-file-{messageId}','SpaceController@downloadFile');
 Route::post('/leave-space','SpaceController@leaveSpace');
 Route::post('/delete-message','SpaceController@deleteMessage');
+Route::post('/delete-unread-message','SpaceController@deleteUnreadMessage');
 Route::post('/save-selected-channels','SpaceController@saveSelectedChannels');
 Route::get('/check-for-new-space-messages','SpaceController@CheckForUpdatesSpace');
 Route::post('/make-user-admin','SpaceController@makeUserAdmin');

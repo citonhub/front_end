@@ -313,47 +313,117 @@ const app = new Vue({
 
     },
     fetchUserDetails: function(){
-    
-
-         axios.get('/fetch-profile-'+ this.username)
-   .then(response => {
    
-   if (response.status == 200) {
-        
-        let userProfile = response.data[1];
-        let user = response.data[0];
-
-        this.notificationCount = response.data[3];
-        this.notificationCountSpace = response.data[4];
-
-       let userDetails = {
-       'username':user.username,
-       'name': user.name,
-       'coin': userProfile.coins,
-       'image_name': userProfile.image_name,
-       'image_extension': userProfile.image_extension,
-       'about': userProfile.about,
-       'Interests': userProfile.interestsArray,
-       'connections': userProfile.connections,
-       'background_color': userProfile.background_color
-       };
-         
-
-       
-     this.$root.authProfile = userDetails;
-     
-    
-     
-     
-  }
-    
+      let userInfo = this.$root.getLocalStore('userInfo'+ this.$root.username);
   
-  })
-  .catch(error => {
- 
-  }) 
-
+       userInfo.then((result)=>{
+         
+        if(result != null){
+          let finalResult = JSON.parse(result);
+  
+  
+          this.authProfile = finalResult;
+  
+  
+           this.fetchProfileStandAlone();
+  
+  
+        }else{
+  
+     
+          axios.get('/fetch-profile-'+ this.username)
+          .then(response => {
+          
+          if (response.status == 200) {
+               
+               let userProfile = response.data[1];
+               let user = response.data[0];
+         
+               this.notificationCount = response.data[3];
+         
+               this.notificationCountSpace = response.data[4];
+               
+              let userDetails = {
+              'username':user.username,
+              'name': user.name,
+              'coin': userProfile.coins,
+              'image_name': userProfile.image_name,
+              'image_extension': userProfile.image_extension,
+              'about': userProfile.about,
+              'Interests': userProfile.interestsArray,
+              'connections': userProfile.connections,
+              'background_color': userProfile.background_color
+              };
+                
+  
+              this.$root.LocalStore('userInfo' + this.$root.username,userDetails);
+         
+              
+               this.authProfile = userDetails;
+            
+           
+            
+            
+         }
+           
+         
+         })
+         .catch(error => {
+         
+         }) 
+         
+  
+        }
+  
+       })
+  
+        
       
+   },
+   fetchProfileStandAlone: function(){
+  
+  
+    axios.get('/fetch-profile-'+ this.username)
+    .then(response => {
+    
+    if (response.status == 200) {
+         
+         let userProfile = response.data[1];
+         let user = response.data[0];
+   
+         this.notificationCount = response.data[3];
+   
+         this.notificationCountSpace = response.data[4];
+         
+        let userDetails = {
+        'username':user.username,
+        'name': user.name,
+        'coin': userProfile.coins,
+        'image_name': userProfile.image_name,
+        'image_extension': userProfile.image_extension,
+        'about': userProfile.about,
+        'Interests': userProfile.interestsArray,
+        'connections': userProfile.connections,
+        'background_color': userProfile.background_color
+        };
+          
+  
+       
+   
+        
+         this.authProfile = userDetails;
+      
+     
+      
+      
+   }
+     
+   
+   })
+   .catch(error => {
+   
+   }) 
+  
    },
     loader:function(){
      

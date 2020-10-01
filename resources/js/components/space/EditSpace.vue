@@ -78,7 +78,7 @@
                  :placeholder="$t('general.Name') + '...'"
             :label="$t('general.Name')"
             :rules="Rule"
-            counter="20"
+            counter="80"
              dense
               v-model="spaceName"
              color="#4495a2"
@@ -164,7 +164,7 @@ export default {
           spaceName:this.$root.selectedSpace.name,
            Rule:[
              v => !!v || 'Name is required',
-           v => v.length < 30 || 'Name must be less than 20 characters'
+           v => v.length < 80 || 'Name must be less than 80 characters'
          ],
          DescriptionRule:[
               v => !!v || 'Description is required',

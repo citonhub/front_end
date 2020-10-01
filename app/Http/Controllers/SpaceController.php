@@ -1825,6 +1825,20 @@ public function MessageEngine($messageArray,$timeArray){
       
   }
 
+  public function deleteUnreadMessage(Request $request){
+
+ $unreadMessage = UnreadMessage::where('user_id',Auth::id())->where('message_id',$request->get('message_id'))->first();
+
+    if($unreadMessage != null){
+     
+       $unreadMessage->delete();
+    }
+    
+  }
+
+
+  
+
  public function checkDirectMessage($spaceId,$member_user_id){
 
    $spaceMembers = DB::table('space_members')
@@ -2279,7 +2293,7 @@ array_push($newSpaceArray,$userSpace);
      
      
      
-           $MessageContent = 'Hi <strong>' . Auth::user()->name . '</strong>, I\'m glad you\'re here. I\'m Olutola 😃.
+           $MessageContent = 'Hi <strong>' . Auth::user()->name . '</strong>, I\'m glad you\'re here. I\'m Tola 😃.
             I\'m here to help with any problem you have using CitonHub. Please, direct your concerns to me if you face any problem. Have a nice time 😊'; 
        
            $newMessage = SpaceMessage::create([
