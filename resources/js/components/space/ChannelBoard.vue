@@ -124,7 +124,8 @@ export default {
    
   },
     mounted(){
-     
+     Echo.leave('space.' + this.$root.selectedSpace.space_id);
+
     },
     methods:{
       channelProjects: function(){

@@ -662,6 +662,10 @@ export default {
     mounted(){
        this.$root.showTabs=true;
         this.$root.showHeader = false;
+
+      Echo.leave('space.' + this.$root.selectedSpace.space_id);
+
+
         this.$root.closeNotification(this.$route.params.projectSlug);
         this.fetchCodeFiles();
        this.trackPanel();

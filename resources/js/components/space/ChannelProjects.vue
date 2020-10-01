@@ -76,6 +76,8 @@ export default {
   },
     mounted(){
       this.fetchMessages();
+      Echo.leave('space.' + this.$root.selectedSpace.space_id);
+
        this.fetchProjects();
         if(this.$root.projectData.length != 0){
               
