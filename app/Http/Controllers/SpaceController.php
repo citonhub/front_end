@@ -697,6 +697,16 @@ class SpaceController extends Controller
             }
 
 
+            $userUnread = UnreadMessage::create([
+               'user_id'=> $space->user_1,
+               'space_id'=> $space->space_id,
+               'msg_read'=> false,
+               'message_id'=> $newMessage->id
+               ]);
+ 
+               $userUnread->save();
+
+
        $spaceMembers = DB::table('space_members')
                     ->join('users','users.id','space_members.user_id')
                     ->select(
