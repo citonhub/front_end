@@ -11,7 +11,7 @@
                 <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()"  />
                 </div>
                </v-card>
-               <div class="col-3 d-flex py-0 my-0" style="align-items:center;justify-content:center;" v-if="!this.$root.screenSharingOn">
+               <div class="col-3 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
                  <v-btn  style="box-shadow:none;"
                   fab color="#3E8893" class="mr-1 d-md-none d-inline-block" x-small  v-if="!showSend"
                @click="shareHandler"
@@ -57,14 +57,7 @@
                 </v-btn>
 
                </div>
-               <div v-else class="col-3 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
-                  <v-btn   color="#3E8893" small 
-                  @click="toggleUserList()"
-               > 
-                  <span style="color:#ffffff; font-size:12px; text-transform:capitalize;">{{ $t('general.live') }}</span> 
-                   <v-progress-circular indeterminate color="#ffffff"><v-icon>mdi-microphone</v-icon></v-progress-circular>
-                </v-btn>
-               </div>
+              
 
               
             </div>

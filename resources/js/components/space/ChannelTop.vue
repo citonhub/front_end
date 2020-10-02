@@ -255,7 +255,7 @@ export default {
              this.$root.remoteScreen = true;
                this.$root.liveIsOn = true;
 
-             this.$root.checkScreenRoomState();
+            
            }
 
       this.$root.getAllConnectedUsers();         
@@ -286,7 +286,7 @@ export default {
 
        this.$root.screenSharingOn = true; 
 
-        this.$root.checkAudioRoomState();
+      
         
     }
 
