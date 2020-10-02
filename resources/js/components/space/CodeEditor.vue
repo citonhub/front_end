@@ -9,7 +9,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          
-         <div class=" py-1 my-0 px-0 scrollerStyleNew"  style=" background:white; overflow-x:auto; white-space:nowrap; position:absolute; left:10%; width:85%; " >
+         <div class=" py-1 my-0 px-0 mainNewScroll"  style=" background:white; overflow-x:auto; white-space:nowrap; position:absolute; left:10%; width:85%; " >
               <v-chip v-for="(file,index) in this.$root.codeEditorArray" :key="index"
       class="ma-1 ml-0 fileText d-inline-block"
       close
@@ -933,17 +933,17 @@ methods:{
         overflow-y:hidden;
     }
 
-    .scrollerStyleNew::-webkit-scrollbar {
+    .mainNewScroll::-webkit-scrollbar {
   width: 5px;
 }
  
-.scrollerStyleNew::-webkit-scrollbar-track {
+.mainNewScroll::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(111, 181, 195, 0.8);
   border:1px solid transparent;
   border-radius:6px;
 }
  
-.scrollerStyleNew::-webkit-scrollbar-thumb {
+.mainNewScroll::-webkit-scrollbar-thumb {
   background-color: #6fb8c3;
   outline: 1px solid #6fb8c3;
   border:1px solid transparent;

@@ -862,7 +862,7 @@ export default {
              name : "vue",
              version: "2.6.12",
              description:"Simple, Fast & Composable MVVM for building interactive interfaces",
-             latest:"https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.common.dev.min.js"
+             latest:"https://cdn.jsdelivr.net/npm/vue@2.6.12"
            };
 
              
