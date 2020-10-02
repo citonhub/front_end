@@ -619,21 +619,21 @@
        class="py-2 px-2" >
 
 
-       <v-app class="row" style="background:transparent; font-family:BodyText;  ">
               <v-form class="col-12 py-2 my-0 text-center" ref="jsExtensions" v-model="jsExtensionState">
-                 <div class="row py-0 my-0 px-2">
+                 <div class="row py-0 my-0 ">
 
-                   <div class="col-12 py-2 my-0 px-2">
-              
+                   <div  class="col-12 py-2 my-0 px-0">
 
 
-             <v-autocomplete
+                        <v-autocomplete
         v-model="selectedExtension"
+        
         :items="items"
         :loading="isLoading"
         :search-input.sync="search"
         hide-no-data
         hide-selected
+         dense
         color="#4495a2"
         :input="testChange()"
         item-text="description"
@@ -645,7 +645,12 @@
         return-object
       ></v-autocomplete>
 
-             </div>
+
+                   </div>
+
+            
+          
+            
 
             
 
@@ -668,7 +673,7 @@
               </v-form>
 
              
-        </v-app>
+     
 
 
 
@@ -875,7 +880,7 @@ export default {
             let descriptionValue = entry.name + ' ' + entry.version + "-> " + entry.description;
             
 
-             entry.description = descriptionValue;
+             entry.description = this.shortenContent(descriptionValue,60);
             
              
 
@@ -916,6 +921,9 @@ export default {
 
                }
            })
+
+
+            this.closeExtension();
              
             }
               
