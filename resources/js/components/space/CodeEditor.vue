@@ -488,7 +488,20 @@ methods:{
            }
 
        });
-               
+           
+           
+            if(this.$root.SelectedCodeBox.file_name == 'extensions'){
+
+
+            let indexFile =   this.$root.frontEndFiles.filter((codeFile)=>{
+          
+           return codeFile.file_name == 'index' && codeFile.language_type == 'HTML';
+         })
+            
+          this.handleIndexFile(indexFile[0]);
+
+              }
+
               this.showAlert(5000,'saved');
               this.loading = false;
             
@@ -502,7 +515,23 @@ methods:{
               this.showAlert(5000,'Failed- ' + error);
               this.loading = false;
           })
-   },
+    },
+    handleIndexFile:function(indexFile){
+
+       axios.post('/save-code-content-project',{
+                project_slug: this.$route.params.projectSlug,
+                file_id: indexFile.id,
+                content: indexFile.content,
+                code_category: this.$root.selectedFileCatType
+                  })
+          .then(response => {
+             
+          })
+          .catch(error => {
+            
+          })
+
+    },
       onCmReady(codemirror) {
 
         
@@ -567,6 +596,15 @@ methods:{
          if(language == 'CSS'){
           return 'css';
          }
+
+          if(language == 'VUE'){
+          return 'vue';
+         }
+
+          if(language == 'MD'){
+          return 'md';
+         }
+
           if(language == 'PYTHON(3.8.1)'){
            return 'py';
          }
@@ -659,6 +697,8 @@ methods:{
       },
 
          detectchange: function(language){
+
+
         if(language == 'HTML'){
             this.cmOption.mode = 'text/html';
          }
@@ -675,6 +715,16 @@ methods:{
          
 
          }
+
+         if(language == 'VUE'){
+         this.cmOption.mode = 'text/x-vue';
+         }
+
+
+          if(language == 'MD'){
+         this.cmOption.mode = 'text/x-markdown';
+         }
+
 
          if(language == 'PYTHON'){
            

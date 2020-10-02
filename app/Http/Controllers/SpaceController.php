@@ -2473,7 +2473,7 @@ array_push($newSpaceArray,$userSpace);
 
    
 
-    $MessageContentTeam1 = '<p>While anyone can join your channels,teams are private, and for of developers 👨‍💻 you want to collaborate with.
+    $MessageContentTeam1 = '<p>While anyone can join your channels,teams are private, and for developers 👨‍💻 you want to collaborate with.
     Assign projects to teams,
     and everyone has access to the same panel.</p> '; 
 

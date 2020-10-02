@@ -95,6 +95,7 @@ Route::get('/run-panel/{panelId}','PanelController@runPanel');
 Route::get('/page-loader/{panelId}/{pageName}','PanelController@pageLoader');
 Route::post('/upload-panel-file','PanelController@uploadPanelFiles');
 Route::post('/delete-project','PanelController@deleteProjectPanel');
+Route::post('/add-extension-project','PanelController@addExtensionProject');
 
 
 

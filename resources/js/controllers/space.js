@@ -339,7 +339,8 @@ const app = new Vue({
      TrackLastSubSpace:[],
      showLangOption: false,
      fetchSpaceUpdate: true,
-     isConnected: true
+     isConnected: true,
+     panelIsWeb:false,
         },
      mounted: function () {
       this.pageloader= false;
@@ -354,6 +355,20 @@ const app = new Vue({
      }
   },
   methods:{
+    checkIfMessageExist(data){
+
+      let messageData = this.$root.Messages.filter((message)=>{
+                   return message.message_id == data.message_id ||  message.temp_id == data.temp_id;
+                });
+
+                if(messageData.length == 0){
+
+                  return false
+                }else{
+                  return true
+                }
+
+    },
     changeLocale: function(locale){
 
       this.$root.showLangOption = false;

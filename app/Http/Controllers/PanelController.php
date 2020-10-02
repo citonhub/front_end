@@ -37,6 +37,125 @@ class PanelController extends Controller
          }
 
 
+      
+         public function addExtensionProject(Request $request){
+         
+          $project = Project::where('project_slug',$request->get('project_slug'))->first();
+
+          $panel = Panel::where('panel_id',$project->panel_id)->first();
+
+
+          $extensionCodeBox = CodeBox::where('panel_id',$panel->panel_id)->where('file_name','=','extensions')->where('language_type','HTML')->first();
+
+          if($extensionCodeBox != null){
+
+             $extensionContent = $extensionCodeBox->content . "\n" . "<script src=\"" . $request->get('extensionVal') . "\" ></script>";
+
+             $extensionCodeBox->update([
+              "content"=> $extensionContent
+             ]);
+
+             
+          }else{
+
+             $extensionContent = "<script src=\"" . $request->get('extensionVal') . "\" ></script>";
+
+             $HtmlCodeBoxExt = CodeBox::create([
+              "content"=> $extensionContent,
+              "language_type"=> "HTML",
+              "file_name"=> "extensions",
+              "type"=> "front_end",
+              "user_id"=> Auth::id(),
+              "panel_id"=> $panel->panel_id
+            ]);
+
+            $HtmlCodeBoxExt->save();
+
+
+          if($panel->panel_language == 'PHP') {
+
+            $baseUrl = 'https://php.citonhub.com';
+
+           
+               
+
+            $requestData = [
+              'panel_id' =>  $panel->panel_id,
+              'file_name'=> 'extensions',
+              'content'=> $extensionContent,
+              'language_type'=> 'HTML'
+          ];
+         $response = Http::post($baseUrl .'/create-view-file',$requestData);
+
+   
+           }
+   
+          
+
+           
+       
+   
+           }
+
+
+
+           if($panel->panel_language == 'NodeJs') {
+   
+            $baseUrl = 'https://nodejs.citonhub.com/node';
+
+            
+
+            $requestData = [
+             'panel_id' =>  $panel->panel_id,
+             'file_name' =>  'extensions',
+             'content'=> $extensionContent,
+             'language_type' => 'html'
+          ];
+       
+          $response = Http::post($baseUrl .'/create-view-file',$requestData);
+
+          $home = '$home';
+          $panelName = '$panel';
+        $baseUrl = 'https://nodejs.citonhub.com/node';
+
+           
+        $codeBoxIndex = CodeBox::where('panel_id',$panel->panel_id)->where('file_name','=','index')->where('language_type','HTML')->first();
+         
+                          // Input string 
+           $str  = $codeBoxIndex->content;
+
+           // Array containing search string  
+          $searchVal = array("$home", "$panelName","<extension></extension>"); 
+
+          $extensionCodeBox = CodeBox::where('panel_id',$panel->panel_id)->where('file_name','=','extensions')->where('language_type','HTML')->first();
+
+            // Array containing replace string from  search string 
+          $replaceVal = array("https://nodejs.citonhub.com/node", $panel->panel_id,$extensionCodeBox->content); 
+
+          // Function to replace string 
+          $resultFull = str_replace($searchVal, $replaceVal, $str); 
+                
+          $requestData = [
+            'panel_id' =>  $panel->panel_id,
+            'file_name' =>  'index',
+            'content'=> $resultFull,
+            'language_type'=> 'html'
+        ];
+
+
+          $response = Http::post($baseUrl .'/create-view-file',$requestData); 
+
+
+         
+             }
+           
+
+            return $extensionContent;
+            
+     
+         }
+
+
 
       public function deleteProjectPanel(Request $request){
     
@@ -986,6 +1105,7 @@ var start_building = \"Let's build it!\";
      $response = Http::post($baseUrl .'/create-view-file',$requestData);
 
    
+   
 
       if($response->body() == 'done'){
        
@@ -1003,6 +1123,38 @@ var start_building = \"Let's build it!\";
       $HtmlCodeBox->save();
 
       }
+
+
+        // extension HTML
+
+     $extensionContent = '';
+
+     $requestData = [
+      'panel_id' =>  $panelId,
+      'file_name' =>  'extensions',
+      'content'=> $extensionContent,
+      'language_type' => 'html'
+   ];
+
+   $response = Http::post($baseUrl .'/create-view-file',$requestData);
+
+
+   if($response->body() == 'done'){
+       
+    // save contents to database
+
+$HtmlExCodeBox = CodeBox::create([
+  "content"=> '',
+  "language_type"=> "HTML",
+  "file_name"=> "extensions",
+  "type"=> "front_end",
+  "user_id"=> Auth::id(),
+  "panel_id"=> $panelId
+]);
+
+$HtmlExCodeBox->save();
+
+}
 
      // send CSS
 
@@ -1056,6 +1208,8 @@ var start_building = \"Let's build it!\";
       $JavascriptCodeBox->save();
     }
 
+
+    
      // create controller
 
      // save data to database 
@@ -1346,6 +1500,19 @@ $HtmlCodeBox = CodeBox::create([
   "panel_id"=> $newpanelId
 ]);
 
+// extension files
+
+$HtmlCodeBoxExt = CodeBox::create([
+  "content"=> '',
+  "language_type"=> "HTML",
+  "file_name"=> "extensions",
+  "type"=> "front_end",
+  "user_id"=> Auth::id(),
+  "panel_id"=> $newpanelId
+]);
+
+$HtmlCodeBoxExt->save();
+
   if($projectPanel != null){
     if($projectPanel->title == 'Citonhub Project'){
       $HtmlCodeBox2 = CodeBox::create([
@@ -1399,6 +1566,19 @@ $JavascriptCodeBox->save();
               'language_type'=> 'HTML'
           ];
          $response = Http::post($baseUrl .'/create-view-file',$requestData);
+
+
+
+           // extensions file
+         $baseUrl = 'https://php.citonhub.com';
+         $requestData = [
+             'panel_id' =>  $newpanelId,
+             'file_name'=> 'extensions',
+             'content'=> '',
+             'language_type'=> 'HTML'
+         ];
+        $response = Http::post($baseUrl .'/create-view-file',$requestData);
+        
 
           if($projectPanel != null){
             if($projectPanel->title == 'Citonhub Project'){
@@ -1818,33 +1998,40 @@ public function saveMyData(){
 
            if($panelRouteController->isEmpty()){
 
-            if($panel->panel_language == 'PHP') {
-              $PHPCodeBox = CodeBox::create([
-                "content"=> $phpContent,
-                "language_type"=> "PHP",
-                "file_name"=> "routes",
-                "type"=> "back_end",
-                "user_id"=> Auth::id(),
-                "panel_id"=> $projectPanel->panel_id
-              ]);
 
-              $PHPCodeBox->save();
+              if($request->get('language_type') == 'HTML'){
 
-            }
+                if($panel->panel_language == 'PHP') {
+                  $PHPCodeBox = CodeBox::create([
+                    "content"=> $phpContent,
+                    "language_type"=> "PHP",
+                    "file_name"=> "routes",
+                    "type"=> "back_end",
+                    "user_id"=> Auth::id(),
+                    "panel_id"=> $projectPanel->panel_id
+                  ]);
+    
+                  $PHPCodeBox->save();
+    
+                }
+    
+                if($panel->panel_language == 'NodeJs') {
+    
+                  $JsCodeBox = CodeBox::create([
+                    "content"=> $JsContent,
+                    "language_type"=> "JAVASCRIPT",
+                    "file_name"=> "routes",
+                    "type"=> "back_end",
+                    "user_id"=> Auth::id(),
+                    "panel_id"=> $projectPanel->panel_id
+                  ]);
+    
+                  $JsCodeBox->save();
+                }
 
-            if($panel->panel_language == 'NodeJs') {
+              }
 
-              $JsCodeBox = CodeBox::create([
-                "content"=> $JsContent,
-                "language_type"=> "JAVASCRIPT",
-                "file_name"=> "routes",
-                "type"=> "back_end",
-                "user_id"=> Auth::id(),
-                "panel_id"=> $projectPanel->panel_id
-              ]);
-
-              $JsCodeBox->save();
-            }
+           
 
             
              
@@ -1870,31 +2057,40 @@ public function saveMyData(){
            }
 
 
-           if($panel->panel_language == 'PHP') {
-            $baseUrl = 'https://php.citonhub.com';
+           if($request->get('language_type') == 'HTML'){
 
-            $requestData = [
-              'panel_id' =>  $projectPanel->panel_id,
-              'file_name'=> 'routes',
-              'content'=> $phpContent
-          ];
+            if($panel->panel_language == 'PHP') {
+              $baseUrl = 'https://php.citonhub.com';
+  
+              $requestData = [
+                'panel_id' =>  $projectPanel->panel_id,
+                'file_name'=> 'routes',
+                'content'=> $phpContent
+            ];
+  
+             }
+  
+             if($panel->panel_language == 'NodeJs') {
+              $baseUrl = 'https://nodejs.citonhub.com/node';
+  
+              $requestData = [
+                'panel_id' =>  $projectPanel->panel_id,
+                'file_name'=> 'routes',
+                'content'=> $JsContent
+            ];
+             }
+
+             $response = Http::post($baseUrl .'/create-controller',$requestData);
 
            }
 
-           if($panel->panel_language == 'NodeJs') {
-            $baseUrl = 'https://nodejs.citonhub.com/node';
 
-            $requestData = [
-              'panel_id' =>  $projectPanel->panel_id,
-              'file_name'=> 'routes',
-              'content'=> $JsContent
-          ];
-           }
+          
         
           
          
           
-         $response = Http::post($baseUrl .'/create-controller',$requestData);
+        
 
          
 
@@ -1917,6 +2113,9 @@ public function saveMyData(){
            if($panel->panel_language == 'NodeJs') {
             $baseUrl = 'https://nodejs.citonhub.com/node';
            }
+
+
+           
         
 
 
@@ -1925,8 +2124,37 @@ public function saveMyData(){
           'file_name' =>  $request->get('file_name'),
           'content'=> 'start coding...',
           'language_type' => $request->get('language_type')
+          
       ];
+
+      if($request->get('language_type') == 'VUE'){
+
+      $requestData = [
+          'panel_id' =>  $projectPanel->panel_id,
+          'file_name' =>  $request->get('file_name'),
+          'content'=> 'start coding...',
+          'language_type' => 'vue'
+          
+       ];    
+
+      }
+
+       if($request->get('language_type') == 'MD'){
+
+      $requestData = [
+          'panel_id' =>  $projectPanel->panel_id,
+          'file_name' =>  $request->get('file_name'),
+          'content'=> 'start coding...',
+          'language_type' => 'md'
+          
+       ];    
+
+      }
+
+      
      $response = Http::post($baseUrl .'/create-view-file',$requestData);
+
+    
 
      
       broadcast(new PanelChannel('new-file',$newCodeBox,$request->get('project_slug')))->toOthers();
@@ -2476,15 +2704,19 @@ public function saveMyData(){
                 $home = '$home';
                 $panel = '$panel';
               $baseUrl = 'https://nodejs.citonhub.com/node';
+
+        
                
                                 // Input string 
                  $str  = $codeBox->content;
   
                  // Array containing search string  
-                $searchVal = array("$home", "$panel"); 
+                $searchVal = array("$home", "$panel","<extension></extension>"); 
+
+                $extensionCodeBox = CodeBox::where('panel_id',$panelId)->where('file_name','=','extensions')->where('language_type','HTML')->first();
   
                   // Array containing replace string from  search string 
-                $replaceVal = array("https://nodejs.citonhub.com/node", $panelId); 
+                $replaceVal = array("https://nodejs.citonhub.com/node", $panelId,$extensionCodeBox->content); 
   
                 // Function to replace string 
                 $resultFull = str_replace($searchVal, $replaceVal, $str); 
@@ -2503,7 +2735,37 @@ public function saveMyData(){
 
                }
 
+               if($codeBox->language_type == 'VUE'){
+
+
+
+                $requestData = [
+                  'panel_id' =>  $codeBox->panel_id,
+                  'file_name' =>  $codeBox->file_name,
+                  'content'=> $resultFull,
+                  'language_type'=> 'vue'
+              ];
+
+               }
+
+
+               if($codeBox->language_type == 'MD'){
+
+
+
+                $requestData = [
+                  'panel_id' =>  $codeBox->panel_id,
+                  'file_name' =>  $codeBox->file_name,
+                  'content'=> $resultFull,
+                  'language_type'=> 'md'
+              ];
+
+               }
+
+
                if($codeBox->language_type == 'HTML'){
+
+                 
 
                 $requestData = [
                   'panel_id' =>  $codeBox->panel_id,

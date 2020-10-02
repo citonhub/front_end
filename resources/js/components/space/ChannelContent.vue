@@ -1291,13 +1291,10 @@ export default {
                
 
               
-                let messageData = this.$root.Messages.filter((message)=>{
-                   return message.message_id == e.data.message_id ||  message.temp_id == e.data.temp_id;
-                });
-
+              
                 
 
-                 if(messageData.length == 0){
+                 if(!this.$root.checkIfMessageExist(e.data)){
 
                      this.$root.returnedMessages.push(e.data); 
                  this.$root.Messages.push(e.data);
@@ -1541,14 +1538,18 @@ export default {
            
              for (let index = 0; index < response.data[0].length; index++) {
                
-            
-                  
-                  this.$root.returnedMessages.push(response.data[0][index]);
+                if(!this.$root.checkIfMessageExist(response.data[0][index])){
+
+                    this.$root.returnedMessages.push(response.data[0][index]);
                    this.$root.Messages.push(response.data[0][index]);
                   this.$root.pushDataToLocal(response.data[0][index]);
 
                   this.scrollToBottom();
 
+
+                }
+                  
+                
                   
               
                 }

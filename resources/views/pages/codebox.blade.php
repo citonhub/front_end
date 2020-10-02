@@ -177,6 +177,7 @@
 <script src="{{$home}}/{{$panel}}/Framework/jquery.js"></script>
 <script src="{{$home}}/{{$panel}}/Framework/bootstrap.min.js"></script>
 
+
 <!-- include script file -->
 
 @include($panel  . '.Scripts.index')

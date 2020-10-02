@@ -84,16 +84,27 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content class="px-0">       
         
-            <div class="col-12 py-0 my-0 mx-0 px-0 text-right" v-if="checkIfOwner()">
-               <v-btn icon @click="addNewFile('front_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+            <div class="col-12 py-0 my-0 mx-0 px-0 " v-if="checkIfOwner()">
+              <div class="row py-0 my-0">
+                <div class="col-6 py-0 my-0 text-left">
+                   <v-btn  x-small color="#3E8893" @click="showExtensionhandler"
+              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-plus mdi-18px</v-icon> Extensions</v-btn> 
+                </div>
+                <div class="col-6 py-0 my-0 text-right">
+                   <v-btn icon @click="addNewFile('front_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+                </div>
+              </div>
+              
             </div>
             <div class="py-0 my-0 col-12 px-0"   v-for="(file,index) in this.$root.frontEndFiles" :key="index">
 
-               <v-card tile flat class="col-12 py-1 my-0 "  v-if="file.language_type == 'HTML'" @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" 
+               <v-card tile flat class="col-12 py-1 my-0 "  v-if="file.language_type == 'HTML' || file.language_type == 'VUE' || file.language_type == 'MD'" @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" 
            >
                 <div class="row my-0 py-0">
                   <div class="col-2 text-center py-0 my-0 ">
-                     <v-icon color="#e34f26">mdi-language-html5 mdi-18px</v-icon>
+                     <v-icon color="#e34f26" v-if="file.language_type == 'HTML'">mdi-language-html5 mdi-18px</v-icon>
+                      <v-icon color="#41B883" v-if="file.language_type == 'VUE'">mdi-vuejs mdi-18px</v-icon>
+                       <v-icon  v-if="file.language_type == 'MD'">mdi-code-not-equal-variant mdi-18px</v-icon>
                 </div>
                  <div class="col-10 py-0 my-0 ">
                     <span class="fileNamenewFile">{{returnFileNamenew(file.file_name,file.language_type)}}</span>
@@ -144,7 +155,7 @@
               <div class="py-0 my-0 col-12"   v-for="(file,index) in this.$root.frontEndFiles" :key="'script' + index">
              <v-slide-y-transition>
                   <div class="col-12 py-0 my-0 px-0" v-show="scriptsShow">
-                     <div class="row py-0 my-0 px-0" v-if="file.language_type != 'CSS' && file.language_type != 'HTML'">
+                     <div class="row py-0 my-0 px-0" v-if="file.language_type == 'JAVASCRIPT' || file.language_type == 'TYPESCRIPT'">
                          <v-card tile flat class="col-11 offset-1 py-1 my-0 "  @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" >
                 <div class="row my-0 py-0"> 
                   <div class="col-2 text-center py-0 my-0 ">
@@ -599,6 +610,75 @@
       </div>
 
 
+       <div  @click="closeExtension"  v-if="!closeExtesionBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+           <div  @click.stop="preventClose"  style="position:absolute; height:60%; width:100%; top:40%; left:0%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto">
+
+             <v-card tile flat
+       height="100%"
+          
+       class="py-2 px-2" >
+
+
+       <v-app class="row" style="background:transparent; font-family:BodyText;  ">
+              <v-form class="col-12 py-2 my-0 text-center" ref="jsExtensions" v-model="jsExtensionState">
+                 <div class="row py-0 my-0 px-2">
+
+                   <div class="col-12 py-2 my-0 px-2">
+              
+
+
+             <v-autocomplete
+        v-model="selectedExtension"
+        :items="items"
+        :loading="isLoading"
+        :search-input.sync="search"
+        hide-no-data
+        hide-selected
+        color="#4495a2"
+        :input="testChange()"
+        item-text="description"
+        item-value="latest"
+          style="font-size:12px;"
+         placeholder="Type extension name"
+          label="Extensions"
+        prepend-icon="mdi-database-search"
+        return-object
+      ></v-autocomplete>
+
+             </div>
+
+            
+
+       
+
+             <div class="col-12 py-1 my-0 px-2 text-center">
+                  <v-btn rounded :loading="loadingAddExt"  small color="#3E8893" 
+                  style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
+                    @click.stop="handleExtensionAdd">
+                  {{$t('general.add')}}
+                  </v-btn>
+             </div>
+                   
+              
+                 </div>
+                   
+
+
+
+              </v-form>
+
+             
+        </v-app>
+
+
+
+            
+             </v-card>
+
+           </div>
+         </div>
+
+
 
 
         <span style="position:absolute; top:76%; right:3%; z-index:10; "  class="d-md-none d-inline-block sliderfullBtn">
@@ -629,6 +709,28 @@
      </span>
 
       </div>
+
+      <v-fade-transition>
+              <div  style="position:absolute; width:100%; height:auto: align-items:center;justify-content:center;bottom:15%; z-index:123453566;"  class="d-flex">
+             <v-alert
+      v-model="Alert"
+      dismissible
+      close-icon="mdi-delete"
+      color="#3E8893"
+       width="auto"
+       style="font-size:13px;"
+       height="auto"
+      border="left"
+     
+      elevation="2"
+      colored-border
+     
+    >
+      {{alertMsg}}
+    </v-alert>
+        </div>
+        </v-fade-transition>
+
     </v-app>
 </template>
 <script>
@@ -644,21 +746,50 @@ export default {
      frontEndFiles:[],
      language:'',
      duel:[],
+     requiredRule: [
+         v => !!v || 'This feild is required',
+        ],
      panelData:[],
      scriptsShow:true,
      stylesShow:true,
+     htmlFileName:'',
      frameworkShow:false,
      imagesShow:false,
      audioShow:false,
      panelsettingsChecked: false,
      videoShow:false,
-     panelIsWeb: false,
+     panelIsWeb: this.$root.panelIsWeb,
      fileShow:false,
      projectSpace:[],
      panelNotWeb:[0],
+     closeExtesionBoard:true,
+     jsExtensionState:false,
+     selectedExtension:null,
+     isLoading:false,
+     entries: [],
+     descriptionLimit: 60,
+      search: null,
+      items:[],
+      Alert:false,
+      alertMsg:'',
+      loadingAddExt:false
      
    }
- },
+ }, computed: {
+      fields () {
+        if (!this.selectedExtension) return []
+
+        return Object.keys(this.selectedExtension).map(key => {
+          return {
+            key,
+            value: this.selectedExtension[key] || 'n/a',
+          }
+        })
+      },
+     
+    },
+
+  
     mounted(){
        this.$root.showTabs=true;
         this.$root.showHeader = false;
@@ -680,6 +811,131 @@ export default {
          this.$root.pageLoaderOpened = false;
       },
  methods:{
+   preventClose:function(){
+     
+     
+   },
+    showAlertBase:function(duration,text){
+        this.Alert = true;
+        this.alertMsg = text;
+        let _this = this;
+     
+     setTimeout(function(){
+        _this.Alert = false;
+     },duration);
+
+    },
+   showExtensionhandler: function(){
+      this.closeExtesionBoard = false;
+     this.$root.showTabs = false;
+   },
+   closeExtension: function(){
+     this.closeExtesionBoard = true;
+     this.$root.showTabs = true;
+   },
+   testChange: function(e){
+   
+
+
+     if(this.search == null) return
+
+      if (this.items.length > 0) return
+
+ 
+      if (this.search.length < 2) return
+
+
+      if( this.isLoading == true)  return
+
+    
+        this.isLoading = true
+
+         setTimeout(() => {
+
+
+            axios.get("https://api.cdnjs.com/libraries?search=" + '' + "&fields=name,description,version,latest")
+      .then(response => {
+      
+           
+          
+        
+          this.items = response.data.results
+
+           let newData = {
+             name : "vue",
+             version: "2.6.12",
+             description:"Simple, Fast & Composable MVVM for building interactive interfaces",
+             latest:"https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.12/vue.common.dev.min.js"
+           };
+
+             
+
+           this.items.unshift(newData);
+
+            this.items.map(entry => {
+
+
+            let descriptionValue = entry.name + ' ' + entry.version + "-> " + entry.description;
+            
+
+             entry.description = descriptionValue;
+
+          
+        });
+        
+   
+   
+      
+
+     
+       this.isLoading = false
+     
+     })
+     .catch(error => {
+    
+     }) 
+           
+         }, 2000);
+
+
+        
+   },
+   handleExtensionAdd: function(){
+
+      this.loadingAddExt = true;
+         axios.post('/add-extension-project',{
+                project_slug: this.$route.params.projectSlug,
+                extensionVal: this.selectedExtension.latest
+                  })
+          .then(response => {
+             
+ 
+             if (response.status == 200) {
+
+                this.showAlertBase(5000,'Added');
+
+          this.loadingAddExt = false;
+
+           this.$root.frontEndFiles.map((file)=>{
+               
+               if(file.file_name == 'extensions'){
+
+                  file.content = response.data;
+
+               }
+           })
+             
+            }
+              
+            
+           
+            
+          })
+          .catch(error => {
+              this.showAlertBase(5000,'Failed- ' + error);
+              this.loadingAddExt = false;
+          })
+   },
    showUpload:function(type,message){
      this.$root.UploadType = type;
      this.$root.UploadMessage = message;
@@ -721,11 +977,11 @@ export default {
             var msg = successful ? 'successful' : 'unsuccessful';
               if(msg == 'successful'){
 
-                this.showAlert(5000,'Copied!')
+                this.showAlertBase(5000,'Copied!')
                 
               }else{
 
-                 this.showAlert(5000,'Oops! unable to copy')
+                 this.showAlertBase(5000,'Oops! unable to copy')
                 
               }
           } catch (err) {
@@ -737,15 +993,7 @@ export default {
           window.getSelection().removeAllRanges()
         },
 
-        showAlert:function(duration,text){
-           this.btnText = 'Copied!';
-        let _this = this;
-     
-     setTimeout(function(){
-        _this.btnText = 'Project URL';
-     },duration);
-
-    },  
+        
    shortenContent: function(content,limit){
              
              if(content.length > limit){
@@ -1087,6 +1335,8 @@ export default {
 
                this.panelIsWeb = this.$root.CodeFilesData[5];
 
+               this.$root.panelIsWeb = this.$root.CodeFilesData[5];
+
                 if(this.panelIsWeb){
 
                  
@@ -1178,6 +1428,8 @@ export default {
 
         this.panelIsWeb = this.$root.CodeFilesData[5];
 
+        this.$root.panelIsWeb = this.$root.CodeFilesData[5];
+
                 if(this.panelIsWeb){
 
                  
@@ -1262,6 +1514,14 @@ export default {
          if(language == 'CSS'){
           return 'css';
          }
+
+          if(language == 'VUE'){
+             return 'vue';
+         }
+         if(language == 'MD'){
+          return 'md';
+         }
+
           if(language == 'PYTHON(3.8.1)'){
            return 'py';
          }

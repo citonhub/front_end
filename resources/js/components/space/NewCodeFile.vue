@@ -97,7 +97,7 @@ export default {
         alertMsg:'',
         languageCat:[],
         front_languages:[
-         'HTML', 'CSS', 'JAVASCRIPT'
+         'HTML', 'CSS', 'JAVASCRIPT','VUE','MD'
         ],
         back_languages:[
            'PHP','JAVASCRIPT' 

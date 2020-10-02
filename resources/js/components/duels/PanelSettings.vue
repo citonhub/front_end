@@ -281,6 +281,8 @@ export default {
           });
 
             this.appTypeList = newItemList;
+
+             this.backEndLang = 'NodeJs';
       
           }else{
 
