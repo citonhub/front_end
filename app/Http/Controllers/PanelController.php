@@ -2039,20 +2039,26 @@ public function saveMyData(){
 
             $backCodeBox = CodeBox::where('panel_id',$projectPanel->panel_id)->where('file_name','routes')->first();
 
-            if($panel->panel_language == 'PHP') {
+            if($request->get('language_type') == 'HTML'){
 
-            $backCodeBox->update([
-           "content"=> $phpContent
-            ]);
+              if($panel->panel_language == 'PHP') {
+
+                $backCodeBox->update([
+               "content"=> $phpContent
+                ]);
+    
+                }
+    
+               if($panel->panel_language == 'NodeJs') {
+    
+                $backCodeBox->update([
+                  "content"=> $JsContent
+                   ]);
+       
+               }
 
             }
-
-           if($panel->panel_language == 'NodeJs') {
-            $backCodeBox->update([
-              "content"=> $JsContent
-               ]);
-   
-           }
+            
 
            }
 
@@ -2896,7 +2902,7 @@ public function saveMyData(){
        
        
          $allRouteConfig = PanelRoute::where('panel_id',$duelPanel->panel_id)->get();
-        $allCodeBoxes = CodeBox::where('panel_id',$duelPanel->panel_id)->orderBy('code_boxes.created_at', 'desc')->get();
+        $allCodeBoxes = CodeBox::where('panel_id',$duelPanel->panel_id)->orderBy('code_boxes.created_at', 'asc')->get();
 
         $panelResources = PanelResource::where('panel_id',$duelPanel->panel_id)->get();
 
@@ -2934,7 +2940,7 @@ public function saveMyData(){
      
      
        $allRouteConfig = PanelRoute::where('panel_id',$projectPanel->panel_id)->get();
-      $allCodeBoxes = CodeBox::where('panel_id',$projectPanel->panel_id)->orderBy('code_boxes.created_at', 'desc')->get();
+      $allCodeBoxes = CodeBox::where('panel_id',$projectPanel->panel_id)->orderBy('code_boxes.created_at', 'asc')->get();
 
       $panelResources = PanelResource::where('panel_id',$projectPanel->panel_id)->get();
 

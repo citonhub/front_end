@@ -850,16 +850,13 @@ export default {
     
         this.isLoading = true
 
-         setTimeout(() => {
+       
 
+        fetch("https://api.cdnjs.com/libraries?search=" + '' + "&fields=name,description,version,latest")
+          .then(res => res.json())
+          .then(res => {
 
-            axios.get("https://api.cdnjs.com/libraries?search=" + '' + "&fields=name,description,version,latest")
-      .then(response => {
-      
-           
-          
-        
-          this.items = response.data.results
+            this.items = res.results;
 
            let newData = {
              name : "vue",
@@ -879,24 +876,19 @@ export default {
             
 
              entry.description = descriptionValue;
+            
+             
 
-          
-        });
-        
-   
-   
+          })
+
+           this.isLoading = false
+
+          })
+          .catch(err => {
+            console.log(err)
+          })
+          .finally(() => (this.isLoading = false))
       
-
-     
-       this.isLoading = false
-     
-     })
-     .catch(error => {
-    
-     }) 
-           
-         }, 2000);
-
 
         
    },
