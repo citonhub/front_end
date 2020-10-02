@@ -79,15 +79,26 @@
         <v-expansion-panel-content class="px-0">       
         
             <div class="col-12 py-0 my-0 mx-0 px-0 text-right">
-               <v-btn icon @click="addNewFile('front_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+                 <div class="row py-0 my-0">
+                <div class="col-6 py-0 my-0 text-left">
+                   <v-btn  x-small color="#3E8893" @click="showExtensionhandler"
+              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-plus mdi-18px</v-icon> Extensions</v-btn> 
+                </div>
+                <div class="col-6 py-0 my-0 text-right">
+                   <v-btn icon @click="addNewFile('front_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+                </div>
+              </div>
+              
             </div>
             <div class="py-0 my-0 col-12 px-0"   v-for="(file,index) in this.$root.frontEndFiles" :key="index">
 
-               <v-card tile flat class="col-12 py-1 my-0 "  v-if="file.language_type == 'HTML'" @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" 
+               <v-card tile flat class="col-12 py-1 my-0 "   v-if="file.language_type == 'HTML' || file.language_type == 'VUE' || file.language_type == 'MD'" @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" 
            >
                 <div class="row my-0 py-0">
                   <div class="col-2 text-center py-0 my-0 ">
-                     <v-icon color="#e34f26">mdi-language-html5 mdi-18px</v-icon>
+                     <v-icon color="#e34f26" v-if="file.language_type == 'HTML'">mdi-language-html5 mdi-18px</v-icon>
+                      <v-icon color="#41B883" v-if="file.language_type == 'VUE'">mdi-vuejs mdi-18px</v-icon>
+                       <v-icon  v-if="file.language_type == 'MD'">mdi-code-not-equal-variant mdi-18px</v-icon>
                 </div>
                  <div class="col-10 py-0 my-0 ">
                     <span class="fileNamenewFile">{{returnFileNamenew(file.file_name,file.language_type)}}</span>
@@ -138,7 +149,7 @@
               <div class="py-0 my-0 col-12"   v-for="(file,index) in this.$root.frontEndFiles" :key="'script' + index">
              <v-slide-y-transition>
                   <div class="col-12 py-0 my-0 px-0" v-show="scriptsShow">
-                     <div class="row py-0 my-0 px-0" v-if="file.language_type != 'CSS' && file.language_type != 'HTML'">
+                     <div class="row py-0 my-0 px-0"  v-if="file.language_type == 'JAVASCRIPT' || file.language_type == 'TYPESCRIPT'">
                          <v-card tile flat class="col-11 offset-1 py-1 my-0 "  @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" >
                 <div class="row my-0 py-0"> 
                   <div class="col-2 text-center py-0 my-0 ">
@@ -577,6 +588,80 @@
          </div>
       
         
+
+
+         <div  @click="closeExtension"  v-if="!closeExtesionBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+           <div  @click.stop="preventClose"  style="position:absolute; height:60%; width:100%; top:40%; left:0%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto">
+
+             <v-card tile flat
+       height="100%"
+          
+       class="py-2 px-2" >
+
+
+              <v-form class="col-12 py-2 my-0 text-center">
+                 <div class="row py-0 my-0 ">
+
+                   <div  class="col-12 py-2 my-0 px-0">
+
+
+                        <v-autocomplete
+        v-model="selectedExtension"
+        
+        :items="items"
+        :loading="isLoading"
+        :search-input.sync="search"
+        hide-no-data
+        hide-selected
+         dense
+        color="#4495a2"
+        :input="testChange()"
+        item-text="description"
+        item-value="latest"
+          style="font-size:12px;"
+         placeholder="Type extension name"
+          label="Extensions"
+        prepend-icon="mdi-database-search"
+        return-object
+      ></v-autocomplete>
+
+
+                   </div>
+
+            
+          
+            
+
+            
+
+       
+
+             <div class="col-12 py-1 my-0 px-2 text-center">
+                  <v-btn rounded :loading="loadingAddExt"  small color="#3E8893" 
+                  style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
+                    @click.stop="handleExtensionAdd">
+                  {{$t('general.add')}}
+                  </v-btn>
+             </div>
+                   
+              
+                 </div>
+                   
+
+
+
+              </v-form>
+
+             
+     
+
+
+
+            
+             </v-card>
+
+           </div>
+         </div>
       </div>
 
 
@@ -721,7 +806,13 @@ export default {
       panelIsWeb: false,
      lockPanel: false,
       panelsettingsChecked: false,
-      panelNotWeb:[0]
+      panelNotWeb:[0],
+      loadingAddExt:false,
+      selectedExtension:'',
+      closeExtesionBoard:true,
+      isLoading:false,
+      items:[],
+      search:'',
    }
  },
     mounted(){
@@ -745,6 +836,116 @@ export default {
      this.$root.UploadType = type;
      this.$root.UploadMessage = message;
      this.$root.UploadResources = true;
+   },
+    preventClose:function(){
+     
+     
+   },
+    testChange: function(e){
+   
+
+
+     if(this.search == null) return
+
+      if (this.items.length > 0) return
+
+ 
+      if (this.search.length < 2) return
+
+
+      if( this.isLoading == true)  return
+
+    
+        this.isLoading = true
+
+       
+
+        fetch("https://api.cdnjs.com/libraries?search=" + '' + "&fields=name,description,version,latest")
+          .then(res => res.json())
+          .then(res => {
+
+            this.items = res.results;
+
+           let newData = {
+             name : "vue",
+             version: "2.6.12",
+             description:"Simple, Fast & Composable MVVM for building interactive interfaces",
+             latest:"https://cdn.jsdelivr.net/npm/vue@2.6.12"
+           };
+
+             
+
+           this.items.unshift(newData);
+
+            this.items.map(entry => {
+
+
+            let descriptionValue = entry.name + ' ' + entry.version + "-> " + entry.description;
+            
+
+             entry.description = this.shortenContent(descriptionValue,60);
+            
+             
+
+          })
+
+           this.isLoading = false
+
+          })
+          .catch(err => {
+            console.log(err)
+          })
+          .finally(() => (this.isLoading = false))
+      
+
+        
+   },
+    showExtensionhandler: function(){
+      this.closeExtesionBoard = false;
+     this.$root.showTabs = false;
+   },
+   closeExtension: function(){
+     this.closeExtesionBoard = true;
+     this.$root.showTabs = true;
+   },
+    handleExtensionAdd: function(){
+
+      this.loadingAddExt = true;
+         axios.post('/add-extension-project',{
+                duel_id: this.$route.params.duelId,
+                extensionVal: this.selectedExtension.latest
+                  })
+          .then(response => {
+             
+ 
+             if (response.status == 200) {
+
+                this.showAlert(5000,'Added');
+
+          this.loadingAddExt = false;
+
+           this.$root.frontEndFiles.map((file)=>{
+               
+               if(file.file_name == 'extensions'){
+
+                  file.content = response.data;
+
+               }
+           })
+
+
+            this.closeExtension();
+             
+            }
+              
+            
+           
+            
+          })
+          .catch(error => {
+              this.showAlert(5000,'Failed- ' + error);
+              this.loadingAddExt = false;
+          })
    },
     activateBot:function(){
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{

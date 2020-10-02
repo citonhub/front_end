@@ -35,7 +35,7 @@
                  <v-card flat class="col-12 py-1 my-1" elevation-19 style="background: whitesmoke;">
                    <span class="HeadingText">Judge</span>
                 <div class="col-12 py-0 my-0 text-left">
-                   <span class="mybadgenew mx-1"  >{{this.$root.selectedDuel.judges_array}}</span>
+                   <span class="mybadgenew mx-1" v-for="(judge,index) in this.$root.selectedDuel.judges_array" :key="index" >{{ judge.username }}</span>
                 </div>
                 </v-card>
 
@@ -81,7 +81,7 @@ export default {
  },
    mounted(){ 
       this.$root.showTabs=true;
-       this.$root.showHeader = true;
+       this.$root.showHeader = false;
        this.fetchDuel();
     },
  methods:{

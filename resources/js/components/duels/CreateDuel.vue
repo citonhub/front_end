@@ -126,18 +126,46 @@
 
              <div class="col-12 py-2 my-0 px-2">
                 
+               <div class="row py-0 my-0">
+                  <div class="col-12 py-1 mb-2">
+                     <span style="font-size:12px;color:#666666;">Set duration</span>
+                 </div>
 
-         <v-text-field
+                <div class="col-6 text-center py-0 my-0">
+
+                  <v-text-field
                 style="font-size:12px;"
-                v-model="durationValue"
-                 placeholder="set duel duration..."
-            label="Duration in hours"
+                v-model="durationValueDay"
+                placeholder="days..."
+            label="Days"
             :rules="durationRule"
             :disabled="this.$root.editDuelArray.started == 1"
             type="tel"
              dense
              color="#4495a2"
              ></v-text-field>
+
+                </div>
+
+
+                 <div class="col-6 text-center py-0 my-0">
+
+                  <v-text-field
+                style="font-size:12px;"
+                v-model="durationValueHr"
+                placeholder="hours..."
+            label="Hours"
+            :rules="durationRule2"
+            :disabled="this.$root.editDuelArray.started == 1"
+            type="tel"
+             dense
+             color="#4495a2"
+             ></v-text-field>
+
+                </div>
+
+               </div>
+         
 
              </div>
 
@@ -201,36 +229,16 @@
 </template>
 <script>
 import { Editor, EditorContent, EditorMenuBar  } from 'tiptap';
-import {
-        Bold, 
-        Underline,
-        Image,BulletList,ListItem} from 'tiptap-extensions';
+
 
 export default {
     data(){
         return{
           loadingStart: false,
-          editor: new Editor({
-        content: '',
-        extensions:[
-        
-            new Bold(),
-            new Underline(),
-            new Image(),
-       
-           
-        ],
-        
-      }),
+      
        editorRules: new Editor({
         content: '',
-        extensions:[
-        
-           
-            new ListItem(),
-            new BulletList()
-           
-        ],
+       
         
       }),
       selectedParticipant:['Individuals'],
@@ -247,8 +255,11 @@ export default {
              v => !isNaN(parseFloat(v)) && v >= 2 && v <= 500 || 'Number has to be between 2 and 500'
         ],
         durationRule:[
+             v => !isNaN(parseFloat(v)) && v >= 0 && v <= 1000 || 'Days has to be between 0 and 1000 hours'
+        ],
+        durationRule2:[
             v => !!v || 'duration is required',
-             v => !isNaN(parseFloat(v)) && v >= 0.5 && v <= 2500 || 'Duration has to be between 0.5 and 2500 hours'
+             v => !isNaN(parseFloat(v)) && v >= 0 && v <= 23.9 || 'Duration has to be between 0 and 23.9 hours'
         ],
 
         participant: [
@@ -280,6 +291,8 @@ export default {
         rulesValue:'',
         loadingConnection:false,
         loadingDelete:false,
+        durationValueDay:0,
+        durationValueHr:2,
         }
     },
     components: {
@@ -300,8 +313,9 @@ export default {
          this.max_participant = this.$root.editDuelArray.max_participant;
          this.durationValue = this.$root.editDuelArray.duration;
          this.selectedParticipant = this.$root.editDuelArray.participant_type_array;
-         this.editor.setContent(this.$root.editDuelArray.description);
+         this.Judges = this.$root.editDuelArray.judges_array;
          this.editorRules.setContent(this.$root.editDuelArray.rules);
+
          this.programmingLanguage = this.$root.editDuelArray.duel_language_array;
          
        }
@@ -369,8 +383,9 @@ export default {
          this.description = this.editor.getHTML();
    
       },
-    countCharacterRules: function(value){
-      this.rulesValue = this.editor.getHTML();
+    countCharacterRules: function(){
+      
+      this.rulesValue = this.editorRules.getHTML();
     },
 
     startDuel: function(){
@@ -450,6 +465,8 @@ export default {
         }else{
           var duelId = this.$root.editDuelArray.duel_id;
         }
+
+        this.durationValue = (this.durationValueDay * 24) + this.durationValueHr;
       axios.post('/save-duel',{
                 title: this.title,
                 duel_languages: this.programmingLanguage,
@@ -507,13 +524,10 @@ export default {
               this.loading = false;
           })
     }
-   },
-   loadImage:function(command){
-          command({src: "https://66.media.tumblr.com/dcd3d24b79d78a3ee0f9192246e727f1/tumblr_o00xgqMhPM1qak053o1_400.gif"})
-      }
+   }
     },
     beforeDestroy() {
-    this.editor.destroy()
+    this.editorRules.destroy()
   },
 }
 </script>
