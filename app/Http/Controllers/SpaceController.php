@@ -678,6 +678,25 @@ class SpaceController extends Controller
             }
 
 
+
+            if($message->type == 'file'){
+
+               $fileMessage = FileMessage::where('message_id',$messageId)->first();
+   
+   
+               $newMessageFile = FileMessage::create([
+                  "file_extension"=> $fileMessage->file_extension,
+                  "file_name"=> $fileMessage->file_name,
+                  "file_size"=> $fileMessage->file_size,
+                  "message_id"=> $newMessage->id,
+                  "display_name"=> $fileMessage->display_name
+                ]);
+         
+                $newMessageFile->save();
+   
+            }
+
+
        $spaceMembers = DB::table('space_members')
                     ->join('users','users.id','space_members.user_id')
                     ->select(
