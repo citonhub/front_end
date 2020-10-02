@@ -492,6 +492,8 @@ export default {
        this.$root.sharePage = false;
        this.$root.showUserInfo = false;
        this.$root.selectedSpaceMembers = [];
+
+       this.$root.typing = false;
       
       this.$root.forcePanelReload= false;
 

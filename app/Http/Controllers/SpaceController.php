@@ -496,7 +496,7 @@ class SpaceController extends Controller
       
 
 
-       $newMessageAudio = FileMessage::create([
+       $newMessageFile = FileMessage::create([
          "file_extension"=> $fileExtension,
          "file_name"=> $fileName,
          "file_size"=> $request->get('file_size'),
@@ -504,7 +504,7 @@ class SpaceController extends Controller
          "display_name"=> $request->get('display_name')
        ]);
 
-       $newMessageAudio->save();
+       $newMessageFile->save();
 
     
        }
@@ -676,16 +676,25 @@ class SpaceController extends Controller
                 $newMessageVideo->save();
 
             }
+
+
+       $spaceMembers = DB::table('space_members')
+                    ->join('users','users.id','space_members.user_id')
+                    ->select(
+                       'users.username as username',
+                       'users.name as name',
+                       'users.id as id'
+                    )->where('space_members.space_id',$space->space_id)
+                    ->get();
+
+            
+         $disconnectedUsers = $spaceMembers;
+
+
+         $this->spaceNotification($space->space_id,'new_message',$disconnectedUsers,$newMessage);
            
    
-            $userUnread = UnreadMessage::create([
-               'user_id'=> $space->user_1,
-               'space_id'=> $space->space_id,
-               'msg_read'=> false,
-               'message_id'=> $newMessage->id
-               ]);
-
-               $userUnread->save();
+           
            }
 
           
@@ -696,6 +705,84 @@ class SpaceController extends Controller
 
 
    }
+
+
+   public function createNewUserMsg($space,$messageId){
+
+      $message = SpaceMessage::where('id',$messageId)->first();
+
+     
+    
+       if($message != null){
+
+        
+
+           $newMessage = SpaceMessage::create([
+              "space_id"=>$space->space_id,
+              "type"=>$message->type,
+              "is_reply"=>$message->is_reply,
+              "user_id"=> 93,
+              "replied_message_id"=> $message->replied_message_id,
+              "content"=> $message->content,
+              "temp_id"=> $message->temp_id,
+           ]);
+
+           $newMessage->save();
+
+           if($message->type == 'video'){
+
+               $videoMessage = VideoMessage::where('message_id',$messageId)->first();
+
+
+              $newMessageVideo = VideoMessage::create([
+                 "video_extension"=> 'mpd',
+                 "video_name"=> $videoMessage->video_name,
+                 "preview_image_url"=> $videoMessage->preview_image_url,
+                 "message_id"=> $newMessage->id,
+                 "display_name"=> $videoMessage->display_name,
+                 "background_color"=> $videoMessage->background_color
+               ]);
+           
+               $newMessageVideo->save();
+
+           }
+
+           if($message->type == 'file'){
+
+            $fileMessage = FileMessage::where('message_id',$messageId)->first();
+
+
+            $newMessageFile = FileMessage::create([
+               "file_extension"=> $fileMessage->file_extension,
+               "file_name"=> $fileMessage->file_name,
+               "file_size"=> $fileMessage->file_size,
+               "message_id"=> $newMessage->id,
+               "display_name"=> $fileMessage->display_name
+             ]);
+      
+             $newMessageFile->save();
+
+         }
+          
+  
+           $userUnread = UnreadMessage::create([
+              'user_id'=> $space->user_1,
+              'space_id'=> $space->space_id,
+              'msg_read'=> false,
+              'message_id'=> $newMessage->id
+              ]);
+
+              $userUnread->save();
+          
+
+         
+
+       }
+     
+
+
+
+  }
 
     public function makeUserAdmin(Request $request){
 
@@ -2206,6 +2293,7 @@ array_push($newSpaceArray,$userSpace);
 
  public function createDefaultSpaces(){
 
+     
 
    $characters = '123456789abcdefghijklmnopqrstuvwsyz';
        
@@ -2319,6 +2407,15 @@ array_push($newSpaceArray,$userSpace);
            ]);
        
            $newMessage12->save();
+
+
+
+
+           $this->createNewUserMsg($newSpace,7672);
+
+           $this->createNewUserMsg($newSpace,7673);
+
+           $this->createNewUserMsg($newSpace,7670);
         
      
            }

@@ -693,6 +693,8 @@ export default {
        this.$root.showHeader = false;
         this.$root.checkIfUserIsLoggedIn('space');
         this.$root.initialPushMangerReg();
+
+         this.$root.typing = false;
        
        this.$root.chatisOpen = true;
        
