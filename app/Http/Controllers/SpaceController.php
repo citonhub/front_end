@@ -697,7 +697,7 @@ class SpaceController extends Controller
             }
 
 
-            $userUnread = UnreadMessage::create([
+             $userUnread = UnreadMessage::create([
                'user_id'=> $space->user_1,
                'space_id'=> $space->space_id,
                'msg_read'=> false,
