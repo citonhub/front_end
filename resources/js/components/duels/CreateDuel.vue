@@ -139,7 +139,7 @@
                 placeholder="days..."
             label="Days"
             :rules="durationRule"
-            :disabled="this.$root.editDuelArray.started == 1"
+            
             type="tel"
              dense
              color="#4495a2"
@@ -156,7 +156,7 @@
                 placeholder="hours..."
             label="Hours"
             :rules="durationRule2"
-            :disabled="this.$root.editDuelArray.started == 1"
+           
             type="tel"
              dense
              color="#4495a2"
@@ -311,7 +311,13 @@ export default {
        if(this.$root.editDuelArray.length != 0){
          this.title = this.$root.editDuelArray.title;
          this.max_participant = this.$root.editDuelArray.max_participant;
+         
          this.durationValue = this.$root.editDuelArray.duration;
+         
+         this.durationValueHr = this.durationValue % 24;
+
+          this.durationValueDay = (this.durationValue - this.durationValueHr)  / 24;
+          
          this.selectedParticipant = this.$root.editDuelArray.participant_type_array;
          this.Judges = this.$root.editDuelArray.judges_array;
          this.editorRules.setContent(this.$root.editDuelArray.rules);

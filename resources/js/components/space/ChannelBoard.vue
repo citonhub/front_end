@@ -126,6 +126,13 @@ export default {
     mounted(){
      Echo.leave('space.' + this.$root.selectedSpace.space_id);
 
+     
+      if(this.$root.reloadSpaceInfo){
+
+        this.fetchSpaceInfo();
+
+      }
+
     },
     methods:{
       channelProjects: function(){
@@ -133,6 +140,26 @@ export default {
              this.$router.push({ path: '/space/'  + this.$route.params.spaceId + '/channel/projects' });
 
             
+        },
+        fetchSpaceInfo: function(){
+
+            axios.get('/fetch-space-info-'+ this.$route.params.spaceId)
+   .then(response => {
+   
+   if (response.status == 200) {
+
+    
+
+       this.$root.selectedSpace = response.data;
+  }
+    
+  
+  })
+  .catch(error => {
+ 
+  }) 
+
+ 
         },
        checkIfisOwner: function(){
 

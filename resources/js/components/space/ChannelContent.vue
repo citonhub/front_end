@@ -717,15 +717,82 @@ export default {
 
        this.resendMessages();
 
-      
+        
 
        this.animateVolumeControl();
 
-        
+         if(this.$root.reloadSpaceInfo){
+
+        this.fetchSpaceInfo();
+
+      }
+
        
       
     },
     methods:{
+       fetchSpaceInfo: function(){
+
+            axios.get('/fetch-space-info-'+ this.$route.params.spaceId)
+   .then(response => {
+   
+   if (response.status == 200) {
+
+    
+
+       this.$root.selectedSpace = response.data;
+
+        if(this.$root.ChatList[0] != undefined){
+
+           this.$root.ChatList[1].map((chat)=>{
+          
+           if(chat.space_id == this.$route.params.spaceId){
+
+              chat.name = this.$root.selectedSpace.name;
+
+               chat.background_color = this.$root.selectedSpace.background_color;
+
+                chat.image_name = this.$root.selectedSpace.image_name;
+
+                 chat.image_extension = this.$root.selectedSpace.image_extension;
+
+           }
+
+
+           });
+
+          this.$root.ChatList[2].map((chat)=>{
+
+
+             if(chat.space_id == this.$route.params.spaceId){
+
+              chat.name = this.$root.selectedSpace.name;
+
+               chat.background_color = this.$root.selectedSpace.background_color;
+
+                chat.image_name = this.$root.selectedSpace.image_name;
+
+                 chat.image_extension = this.$root.selectedSpace.image_extension;
+
+           }
+
+          })
+
+       this.$root.LocalStore('ChatListNew' + this.$root.username,this.$root.ChatList);
+
+        }
+
+       this.$root.reloadSpaceInfo = false;
+  }
+    
+  
+  })
+  .catch(error => {
+ 
+  }) 
+
+ 
+        },
       animateVolumeControl: function(){
          
          let volumeInterval = null;

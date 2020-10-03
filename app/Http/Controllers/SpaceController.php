@@ -1385,8 +1385,7 @@ foreach ($userDirectSpaces as $spaceDirect) {
    
 
 
-     $userSpaces = DB::table('space_members')
-                  ->join('spaces','spaces.space_id','space_members.space_id')
+     $userSpaces = DB::table('spaces')
                   ->select(
                       'spaces.image_name as image_name',
                       'spaces.image_extension as image_extension',
@@ -1587,6 +1586,110 @@ foreach ($userDirectSpaces as $spaceDirect) {
       
 
      return [$newMessages,$thisSpace,$spaceMembers];
+}
+
+
+public function fetchSpaceInfo($spaceId){
+
+   $userSpaces = DB::table('spaces')
+   ->select(
+       'spaces.image_name as image_name',
+       'spaces.image_extension as image_extension',
+       'spaces.type as type',
+       'spaces.name as name',
+       'spaces.background_color as background_color',
+       'spaces.description as description',
+       'spaces.space_id as space_id'
+   )
+   ->where('spaces.space_id',$spaceId)
+   ->get();
+ 
+
+        $newSpaceArray = [];
+   
+   foreach ($userSpaces as $spaceChannel) {
+
+      $userSpaceChannel = (array) $spaceChannel;
+
+    
+       if($userSpaceChannel["type"] == 'SubSpace'){
+
+          $subSpaceData = SubSpace::where('space_id',$userSpaceChannel["space_id"])->first();
+
+          $userSpaceChannel["general_spaceId"] = $subSpaceData->gen_space_id;
+
+          $genspaceInfo = DB::table('spaces')->where('space_id',$subSpaceData->gen_space_id)->first();
+
+          $userSpaceChannel["gen_space"] = $genspaceInfo;
+
+          $userSpaceChannel["sub_space_data"] = $subSpaceData;
+
+          $allSubSpaces = DB::table('sub_spaces')->where('gen_space_id',$subSpaceData->gen_space_id)->get();
+
+          
+
+       }else{
+
+         $userSpaceChannel["general_spaceId"] = $userSpaceChannel["space_id"];
+
+
+         $allSubSpaces = DB::table('sub_spaces')->where('gen_space_id',$userSpaceChannel["space_id"])->get();
+
+       }
+  
+     
+
+      $subSpaceArray = [];
+
+       foreach ($allSubSpaces as $subSpaces) {
+
+         
+
+ 
+         
+
+          $userSubSpace = (array) $subSpaces;
+
+
+          $UserMember = SpaceMember::where('user_id',Auth::id())->where('space_id',$userSubSpace["space_id"])->first();
+
+if($UserMember == null){
+
+  $userSubSpace["is_member"] = false;
+
+}else{
+   
+  $userSubSpace["is_member"] = true;
+}
+       
+          $userSubSpace["gen_space"] = $userSpaceChannel;
+
+          $spaceInfo = DB::table('spaces')->where('space_id',$userSubSpace["space_id"])->first();
+
+          $userSubSpace["space_info"] = $spaceInfo;
+
+          $userUnread = UnreadMessage::where('space_id',$userSubSpace["space_id"])->where('user_id',Auth::id())->get();
+
+          $userSubSpace["unread"] = count($userUnread);
+
+
+           array_push($subSpaceArray,$userSubSpace);
+       }
+
+    
+       $userSpaceChannel["sub_spaces"] = $subSpaceArray;
+
+      
+
+      array_push($newSpaceArray,$userSpaceChannel);
+
+   }
+
+$thisSpace = $newSpaceArray[0];
+
+
+  return $thisSpace;
+
 }
 
     

@@ -341,6 +341,7 @@ const app = new Vue({
      fetchSpaceUpdate: true,
      isConnected: true,
      panelIsWeb:false,
+     reloadSpaceInfo:false
         },
      mounted: function () {
       this.pageloader= false;
