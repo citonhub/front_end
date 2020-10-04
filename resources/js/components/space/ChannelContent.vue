@@ -812,6 +812,8 @@ export default {
 
       }
 
+
+     
        
       
     },
@@ -823,6 +825,60 @@ export default {
               return false;
             }
             
+         },
+         checkIfisOwner: function(){
+
+           let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
+   
+             return members.user_id == this.$root.user_temp_id;
+           });
+
+           
+           if(userMemberData.length != 0){
+
+             return userMemberData[0].is_admin;
+
+           }else{
+              return false
+           }
+         
+       },
+     
+         autoMakeuserMaster:function(){
+                     
+                     
+   
+
+            if(this.checkIfisOwner()){
+           
+             
+           
+           let master = this.$root.selectedSpaceMembers.filter((member)=>{
+               
+              return member.master_user == true;
+
+            });
+        
+      
+
+            
+            let userMember = this.$root.selectedSpaceMembers.filter((member)=>{
+               
+              return member.user_id == this.$root.user_temp_id;
+
+            });
+
+            if(master.length == 0){
+
+              
+
+               this.makeUserMaster(userMember[0]);
+
+            }
+           
+
+            }
+
          },
           makeUserMaster: function(member){
 
@@ -1574,6 +1630,36 @@ export default {
 
                    this.$root.newMasterId = e.data;
 
+                  
+
+                   this.$root.adminMembers.forEach((member)=>{
+            
+             member.master_user = false;
+
+          });
+        
+          this.$root.adminMembers.map((member)=>{
+           if(member.memberId ==  this.$root.newMasterId){
+
+             member.master_user = true;
+
+           }
+         })
+
+          this.$root.selectedSpaceMembers.forEach((member)=>{
+            
+             member.master_user = false;
+
+          });
+
+          this.$root.selectedSpaceMembers.map((member)=>{
+           if(member.memberId ==  this.$root.newMasterId){
+
+             member.master_user = true;
+
+           }
+           })
+
                  }
 
                   if(e.action == 'liveIsOn'){
@@ -2162,7 +2248,7 @@ export default {
 
        this.$root.selectedSpaceMembers = finalResult[2];
 
-       
+           this.autoMakeuserMaster();
 
        setTimeout(() => {
          
@@ -2319,7 +2405,7 @@ export default {
         
       this.checkForUnreadMessagesDisconnected();
 
-
+   
 
        
 
@@ -2390,70 +2476,113 @@ export default {
                return moment(realTimeHour).format("MMMM Do");
       },
        languageExtensions: function(language){
-        if(language == 'HTML'){
-           return 'html';
+
+
+           if(language == 'HTML'){
+             return 'html';
          }
          if(language == 'CSS'){
-            return 'css';
+          return 'css';
          }
-          if(language == 'PYTHON'){
+
+          if(language == 'VUE'){
+          return 'vue';
+         }
+
+          if(language == 'MD'){
+          return 'md';
+         }
+
+          if(language == 'PYTHON(3.8.1)'){
+           return 'py';
+         }
+
+         if(language == 'PYTHON For ML(3.7.7)'){
+           return 'py';
+         }
+
+         if(language == 'PYTHON(2.7.17)'){
            return 'py';
          }
           if(language == 'PHP'){
-           return 'php';
+            return 'php';
          }
+          if(language == 'JAVASCRIPT(Node)'){
+           return 'js';
+         }
+
           if(language == 'JAVASCRIPT'){
            return 'js';
          }
-          if(language == 'VUEJS'){
-           return 'vue';
-         }
           if(language == 'SQL'){
-           return 'sql';
+            return 'sql';
          }
           if(language == 'C'){
-           return 'c';
+            return 'c';
          }
           if(language == 'C++'){
            return 'cpp';
          }
           if(language == 'JAVA'){
-           return 'java';
+            return 'java';
          }
           if(language == 'C#'){
            return 'cs';
          }
           if(language == 'ERLANG'){
-          return 'erl';
-         }
-          if(language == 'COFFEESCRIPT'){
-           return 'coffee';
-         }
-          if(language == 'LIVESCRIPT'){
-           return 'ls';
-         }
-         if(language == 'DJANGO'){
-           return 'py';
+            return 'erl';
          }
           if(language == 'KOTLIN'){
-           return 'kt';
+         return 'kt';
          }
           if(language == 'FOTRAN'){
-           return 'for';
-         }
-          if(language == 'MARKDOWN'){
-          return 'md';
+          return 'for';
          }
           if(language == 'PERL'){
-          return 'pl';
+           return 'pl';
          }
           if(language == 'R'){
-           return 'r';
+            return 'r';
+         }
+         if(language == 'GO'){
+            return 'go';
+         }
+         if(language == 'HASKELL'){
+           return 'hs';
          }
           if(language == 'RUBY'){
-           return 'rb';
+            return 'rb';
          }
-      }
+         if(language == 'LUA'){
+           
+             return 'lua';
+
+         }
+         if(language == 'PASCAL'){
+
+             return 'pas';
+         }
+         if(language == 'RUST'){
+
+             return 'rs';
+         }
+         if(language == 'SCALA'){
+           
+              return 'scala';
+
+         }
+         if(language == 'SWIFT'){
+
+               return 'swift';
+
+         }
+         if(language  == 'TYPESCRIPT'){
+
+             return 'ts';
+
+         }
+
+      },
   
   },
 
