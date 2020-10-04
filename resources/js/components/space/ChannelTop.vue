@@ -87,7 +87,7 @@
               
               <v-icon v-else>mdi-monitor-dashboard mdi-18px</v-icon>
               
-               <span style="font-size:12px;"> {{ $t('space.live_coding') }}<span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
+               <span style="font-size:12px;"><span v-if="checkIfMaster()" >Start</span><span v-else >Join</span> {{ $t('space.live_coding') }}<span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
 
 
            </v-card>
@@ -105,7 +105,7 @@
               <v-icon v-else>mdi-monitor-cellphone mdi-18px</v-icon>
 
 
-             <span style="font-size:12px;">{{ $t('space.screen_sharing') }}<span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
+             <span style="font-size:12px;"><span v-if="checkIfMaster()" >Start</span><span v-else >Join</span> {{ $t('space.screen_sharing') }}<span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
            </v-card>
             <v-card  tile flat class="py-2 text-left px-4" style="width:auto; background:white;" @click="initaiteAudioConf()">
                  
@@ -121,7 +121,19 @@
             
              
              
-              <span style="font-size:12px;">{{ $t('space.voice_chat') }}<span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
+              <span style="font-size:12px;"><span v-if="checkIfMaster()" >Start</span><span v-else >Join</span> {{ $t('space.voice_chat') }}<span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
+           </v-card>
+
+
+            <v-card  tile flat class="py-2 text-left px-4" style="width:auto; background:white;" @click="showAdminUsers()" v-if="checkIfisOwner()">
+                 
+
+                  
+              <v-icon>mdi-account-cog mdi-18px</v-icon>
+            
+             
+             
+              <span style="font-size:12px;">Administrators</span>
            </v-card>
            
           </v-menu>
@@ -184,6 +196,50 @@ export default {
          }
 
       },
+       showAdminUsers:function(){
+
+        
+         
+         this.$root.showAdminOptions = true;
+         this.$root.adminMembers = this.$root.selectedSpaceMembers.filter((member)=>{
+           return member.is_admin == true;
+         });
+         
+
+      },
+       checkIfMaster: function(){
+     
+      let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
+   
+             return members.user_id == this.$root.user_temp_id;
+           });
+
+           if(userMemberData.length != 0){
+
+             return userMemberData[0].master_user;
+
+           }else{
+              return false
+           }
+
+
+      },
+       checkIfisOwner: function(){
+
+           let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
+   
+             return members.user_id == this.$root.user_temp_id;
+           });
+
+           if(userMemberData.length != 0){
+
+             return userMemberData[0].is_admin;
+
+           }else{
+              return false
+           }
+         
+       },
      
        goBack() {
             this.$router.push({ path: '/space/chat-list'});
@@ -207,11 +263,19 @@ export default {
                this.$root.remoteAudio = true;
 
                if(this.$root.audioconnection == undefined){
+
              this.$root.setAudioConnection();
-              this.$root.checkAudioRoomState();
+               if(this.checkIfMaster()){
+
+                  this.$root.checkAudioRoomState(true);
+
+               }else{
+                  this.$root.checkAudioRoomState(false);
+               }
+             
            }
 
-            this.$root.getAllConnectedUsers();
+            
              
             
         },
@@ -227,7 +291,16 @@ export default {
              this.$root.remoteScreen = true;
 
           
-          this.$root.checkScreenRoomState();
+         
+
+           if(this.checkIfMaster()){
+
+                  this.$root.checkScreenRoomState(true);
+                 
+
+               }else{
+                  this.$root.checkScreenRoomState(false);
+               }
 
           this.$root.showVideoScreen = true;
 
@@ -238,8 +311,15 @@ export default {
           this.$root.liveIsOn = true;
 
            if(this.$root.audioconnection == undefined){
-             this.$root.setAudioConnection();
-              this.$root.checkAudioRoomState();
+              if(this.checkIfMaster()){
+
+                  this.$root.checkAudioRoomState(true);
+
+               }else{
+                  this.$root.checkAudioRoomState(false);
+               }
+
+             
            }
 
            }else{
@@ -258,7 +338,7 @@ export default {
             
            }
 
-      this.$root.getAllConnectedUsers();         
+            
  
 
         },
@@ -274,7 +354,14 @@ export default {
 
         this.$root.setAudioConnection();
 
-         this.$root.checkAudioRoomState();
+          if(this.checkIfMaster()){
+
+                  this.$root.checkAudioRoomState(true);
+
+               }else{
+                  this.$root.checkAudioRoomState(false);
+               }
+               
 
           this.$root.sendLiveSignal('audio');
 
@@ -290,7 +377,7 @@ export default {
         
     }
 
-    this.$root.getAllConnectedUsers();
+    
 
         
         },

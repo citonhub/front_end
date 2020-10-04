@@ -339,7 +339,7 @@ body {
 
 
 
- 
+
 
  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
   
@@ -353,7 +353,7 @@ body {
 
    <script src="https://cdn.webrtc-experiment.com/hark.js"></script>
 
- <script src="{{ asset('js/space.js?v=4.59') }}"></script>
+ <script src="{{ asset('js/space.js?v=4.66') }}"></script>
  
      
  @endsection

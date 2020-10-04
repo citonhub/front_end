@@ -2236,6 +2236,7 @@ return $newSpaceMembersArray;
          $spaceMember1 = SpaceMember::create([
             'user_id'=> Auth::id(),
             "is_admin"=> true,
+            "master_user"=> true,
             'space_id'=> $spaceId
          ]);
    
@@ -2274,6 +2275,7 @@ return $newSpaceMembersArray;
          $spaceMember = SpaceMember::create([
             'user_id'=> Auth::id(),
             "is_admin"=> true,
+            "master_user"=> true,
             'space_id'=> $spaceId
          ]);
    

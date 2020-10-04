@@ -273,11 +273,73 @@
 
       <div v-if="this.$root.liveIsOn" @click="closeLiveBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; left:0%; top:%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
     
+
+
+
+
        <div  @click.stop="preventCloseBoard" style="position:absolute; height:auto; width:90%; top:45%; left:5%; overflow-y:hidden; " class="mx-auto pb-2">
+
+
+        <div class="col-12 text-center"    v-if="this.$root.connectingToSocket == true">
+
+           <div v-if="this.$root.roomNotExist && this.$root.roomCheckingInitaited">
+
+               <div class="py-2">
+          <v-progress-circular indeterminate color="#3E8893"></v-progress-circular>
+           </div>
+
+              <div>
+          <span style="font-size:14px; color:white;">Waiting for Admin to start live session</span>
+           </div>
+
+           
+
+
+           </div>
+            
+            <div v-if="!this.$root.roomNotExist">
+
+               <div class="py-2">
+          <v-progress-circular indeterminate color="#3E8893"></v-progress-circular>
+           </div>
+
+           <div>
+          <span style="font-size:14px; color:white;">Connecting...</span>
+           </div>
+
+            </div>
+          
+
+         
+        </div>
+
+        <div class="col-12 text-center"    v-if="this.$root.connectingToSocket == 'disconnected'">
+
+           <div>
+
+               <div class="py-2">
+          <v-progress-circular indeterminate color="#3E8893"></v-progress-circular>
+           </div>
+
+              <div>
+          <span style="font-size:14px; color:white;">You are disconnected,trying to reconnect...</span>
+           </div>
+
+           
+
+
+           </div>
+            
+          
+
+         
+        </div>
+
+
   
 
           <v-card  
-    
+       v-if="this.$root.connectingToSocket == false"
   >
     <v-card
       color="#3E8893"
@@ -330,7 +392,7 @@
     
      
     </v-card>
-    <v-list  class="pb-3 scrollerStyle" style=" height:210px;width:100%; overflow-y:auto;">
+    <v-list  class="pb-3 scrollerStyle" style=" height:250px;width:100%; overflow-y:auto;">
 
       <v-list-item
        style="border-bottom:1px solid #c5c5c5;"
@@ -409,12 +471,7 @@
       
     </v-list>
 
-     <div class="col-12 py-2  my-0 text-center"  style="position:sticky; bottom:0%; left:0%;" >
-      <span style="font-size:12px; color:gray;">{{ $t('general.lost_connection') }}? 
-       <v-btn rounded  small  type="submit" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
-                  @click="rejoinAudio()">{{ $t('general.re_join') }}</v-btn>
-      </span>
-      </div>
+    
   </v-card>
 
 
@@ -422,6 +479,33 @@
         
 
       </div>
+
+
+
+       <div    v-if="this.$root.showAdminOptions" @click="that.$root.showAdminOptions = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+           <div  @click.stop="that.$root.showAdminOptions = true" style="position:absolute; height:auto; width:90%; top:30%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
+
+             <v-card style="border-radius:10px;"
+       height="auto"
+      
+       class="py-2 px-1" >
+
+             <div class="text-center">
+               <h6>Administrators</h6>
+             </div>
+           
+             <v-card tile flat  @click.stop="makeUserMaster(admin)" :color="admin.master_user ? '#b7dbe1': '#ffffff'" class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" v-for="(admin, index) in this.$root.adminMembers" 
+             :key="index">
+        <span style="font-size:13px;" v-if="!checkIfUser(admin.user_id)">{{admin.username}}</span>
+         <span style="font-size:13px;" v-else>You</span>
+            </v-card>
+            
+           
+
+             </v-card>
+
+           </div>
+         </div>
 
 
         <div class="col-12 py-0 my-0 text-center"  v-if="this.$root.Messages == null && this.errorLoadingMessage == true" style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">
@@ -632,6 +716,7 @@ export default {
     data(){
         return{
           file:'audio/audio.mp3',
+          that:this,
           videoUrl:'videos/post_video_y800o6u10xxz50c.mp4',
           videoImage:'videos/videoshow.jpg',
           backgroundVideo:'#c5c5c5',
@@ -731,6 +816,88 @@ export default {
       
     },
     methods:{
+       checkIfUser:function(userId){
+            if(userId == this.$root.user_temp_id){
+                return true;
+            }else{
+              return false;
+            }
+            
+         },
+          makeUserMaster: function(member){
+
+
+        axios.post('/make-user-master',{
+           memberId: member.memberId,
+           space_id: this.$route.params.spaceId
+         })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+          this.$root.adminMembers.forEach((member)=>{
+            
+             member.master_user = false;
+
+          });
+        
+          this.$root.adminMembers.map((member)=>{
+           if(member.memberId == response.data){
+
+             member.master_user = true;
+
+           }
+         })
+
+          this.$root.selectedSpaceMembers.forEach((member)=>{
+            
+             member.master_user = false;
+
+          });
+
+          this.$root.selectedSpaceMembers.map((member)=>{
+           if(member.memberId == response.data){
+
+             member.master_user = true;
+
+           }
+         })
+
+         
+    
+
+        this.liveChanges(response.data,'new_master');
+      }
+       
+     
+     })
+     .catch(error => {
+
+       
+    
+     }) 
+
+      },
+       liveChanges:function(data,action) {
+
+      
+      let channel =  window.Echo.join('space.' + this.$route.params.spaceId);
+   
+      
+
+         channel.whisper('liveCoding', {
+          data:data,
+            action: action,
+            spaceId: this.$route.params.spaceId
+        });
+
+
+       
+
+         
+     
+          
+        },
        fetchSpaceInfo: function(){
 
             axios.get('/fetch-space-info-'+ this.$route.params.spaceId)
@@ -817,47 +984,22 @@ export default {
            
          }, 300);
       },
-      rejoinAudio: function(){
+      
+       checkIfMaster: function(){
+     
+      let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
+   
+             return members.user_id == this.$root.user_temp_id;
+           });
 
-         let _this = this;
+           if(userMemberData.length != 0){
 
-         if(this.$root.audioconnection != undefined){
+             return userMemberData[0].master_user;
 
-         
-          
-        
+           }else{
+              return false
+           }
 
-        // disconnect with all users
-    this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
-        _this.$root.audioconnection.disconnectWith(pid);
-    });
-
-    // stop all local cameras
-    this.$root.audioconnection.attachStreams.forEach(function(localStream) {
-        localStream.stop();
-    });
-
-    // close socket.io connection
-   this.$root.audioconnection.closeSocket();
-
-
-           
-         }
-       
-       
-        this.$root.audioconnection = undefined;
-
-        
-        this.$root.userIsReconnecting = true;
-
-
-         this.$root.setAudioConnection();
-
-         this.$root.checkAudioRoomState();
-
-          this.$root.sendLiveSignal('audio');
-
-            this.$root.screenSharingOn = true;
 
       },
       resendMessages:function(){
@@ -1181,6 +1323,8 @@ export default {
           this.$root.remoteAudio= false;
           this.$root.connectingToSocket = false;
           this.$root.allAudioParticipant = [];
+          this.$root.roomNotExist =false;
+        this.$root.roomCheckingInitaited = false;
       },
     hideAlert:function(){
       this.$root.AlertRoot = false;

@@ -341,7 +341,12 @@ const app = new Vue({
      fetchSpaceUpdate: true,
      isConnected: true,
      panelIsWeb:false,
-     reloadSpaceInfo:false
+     reloadSpaceInfo:false,
+     showAdminOptions:false,
+     adminMembers:[],
+     roomNotExist:false,
+     reconnectionCount:0,
+     roomCheckingInitaited: false,
         },
      mounted: function () {
       this.pageloader= false;
@@ -1940,6 +1945,10 @@ this.$root.connection.onMediaError = function(e) {
 // by default, socket.io server is assumed to be deployed on your own URL
 this.$root.audioconnection.socketURL = 'https://live.citonhub.com:9001/';
 
+this.$root.audioconnection.bandwidth = {
+  audio: 128
+};
+
 
 this.$root.audioconnection.socketMessageEvent = 'audio-conference';
 
@@ -1988,17 +1997,30 @@ this.$root.audioconnection.iceServers.push({
 
 this.$root.audioconnection.audiosContainer = document.getElementById('audios-container');
 
+
+
+
+
 this.$root.audioconnection.onstream = function(event) {
 
-   
-
-  var width = parseInt(_this.$root.audioconnection.audiosContainer.clientWidth / 2) - 20;
+ 
+	
+ var width = parseInt(_this.$root.audioconnection.audiosContainer.clientWidth / 2) - 20;
   var mediaElement = getHTMLMediaElement(event.mediaElement, {
       title: event.userid,
       buttons: ['full-screen'],
       width: width,
       showOnMouseEnter: false
   });
+
+
+
+  
+  
+  if(event.type === 'local') {
+    event.mediaElement.muted = true;
+		delete event.mediaElement;
+	}
 
   _this.$root.audioconnection.audiosContainer.appendChild(mediaElement);
 
@@ -2008,10 +2030,88 @@ this.$root.audioconnection.onstream = function(event) {
 
   mediaElement.id = event.streamid;
 
+
+ 
     
    
 
   
+};
+
+
+this.$root.audioconnection.onleave = this.$root.audioconnection.onclose = (event) =>{
+
+
+  let newusers = this.$root.allAudioParticipant.filter((user)=>{
+
+    return user[1] != event.userid;
+
+  });
+
+  
+   
+  this.$root.allAudioParticipant = newusers;
+  
+    
+};
+
+
+this.$root.audioconnection.multiPeersHandler.onPeerStateChanged = (state)=> {
+
+   let connection = this.$root.audioconnection;
+  if (state.iceConnectionState.search(/disconnected|closed|failed/gi) === -1) {
+      
+      
+
+      var peer = connection.peers[state.userid].peer;
+
+      
+
+       
+
+       let userState = state.iceConnectionState;
+
+       let newInfo = this.$root.allAudioParticipant.filter((user)=>{
+
+        return user[1] == state.userid;
+
+      });
+
+    
+
+       if(newInfo.length == 0  && state.extra.profile.username != this.username){
+
+        this.$root.allAudioParticipant.push([state.extra,state.userid])
+
+       }
+
+
+
+
+     
+      return;
+  }else{
+
+  
+
+      
+
+         let newusers = this.$root.allAudioParticipant.filter((user)=>{
+
+           return user[1] != state.userid;
+   
+         });
+
+         
+          
+         this.$root.allAudioParticipant = newusers;
+
+
+      
+
+     
+  
+  }
 };
 
 
@@ -2032,7 +2132,7 @@ this.$root.audioconnection.onstreamended = function(event) {
 
 
       },
-      checkAudioRoomState: function(){
+      checkAudioRoomState: function(master){
       
       
         if(this.$root.audioconnection != undefined){
@@ -2067,41 +2167,54 @@ this.$root.audioconnection.onstreamended = function(event) {
           
             let _this = this;
 
+        
+           
             
-          
 
+           
 
+              this.$root.audioconnection.checkPresence('audio' + this.$route.params.spaceId, function(isRoomExist, roomid) {
               
 
-            
+                     
+                if (isRoomExist === true) {
+                 _this.joinAudioRoom();
+              } else {
+  
+                  
+                if(master){
+                  _this.openAudioRoom();
+                }else{
+  
+                  _this.roomNotExist = true;
+  
+                  _this.roomCheckingInitaited = true;
 
-            
+                   setTimeout(()=>{
+                    _this.rejoinAudio(master);
+                   },5000);
+
+                 
+  
+                  return;
+                }
+  
+                
+              }
+  
+  
+        _this.checkIfUserIsReconnecting(master)
+  
+        
+       
+  
+        _this.$root.connectingToSocket = false;
+        _this.userIsReconnecting = false;
+        });
+
+             
    
-            this.$root.audioconnection.checkPresence('audio' + this.$route.params.spaceId, function(isRoomExist, roomid) {
-
-
-              if (isRoomExist === true) {
-               _this.joinAudioRoom();
-            } else {
-              _this.openAudioRoom();
-            }
-
-      
-  
-      /** 
-       * 
-       *  
-      ;
-      _this.setUserSpeaker();
-      _this.checkIfUserIsReconnecting();*/ 
-
-      _this.checkUserPresence(roomid)
-
-  
-
-      _this.$root.connectingToSocket = false;
-      _this.userIsReconnecting = false;
-      });
+           
 
      
   
@@ -2119,62 +2232,53 @@ this.$root.audioconnection.onstreamended = function(event) {
            
        
        },
+       
+       rejoinAudio: function(master){
 
-       getAllConnectedUsers:function(){
-
-             let connectionInterval = null;
-
-            
-
-             connectionInterval = setInterval(()=>{
-                
-              
-               
-               if(!this.$root.liveIsOn){
-
-                   
-
-              }else{
-
-                if(this.$root.audioconnection != undefined){
+         let _this = this;
 
 
+         if(this.$root.audioconnection != undefined){
 
-                  let fullUsers = [];
-   
-                  this.$root.audioconnection.getAllParticipants().forEach((remoteUserId) => {
-                    var user = this.$root.audioconnection.peers[remoteUserId];
-                       
-                        fullUsers.push([user.extra,user.userid]);
-                  
-                  
-                  });  
-                     this.$root.allAudioParticipant = fullUsers;
-                  
-   
-   
-                    
-   
-                     this.checkIfUserIsReconnecting();
+         
+          
+        
 
-                }
-   
-              
-               
-               
-                       }
+        // disconnect with all users
+    this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
+        _this.$root.audioconnection.disconnectWith(pid);
+    });
 
+    // stop all local cameras
+    this.$root.audioconnection.attachStreams.forEach(function(localStream) {
+        localStream.stop();
+    });
 
-             },3000)
+    // close socket.io connection
+   this.$root.audioconnection.closeSocket();
+
 
            
-          
+         }
+       
+       
+        this.$root.audioconnection = undefined;
 
-          
+
+         this.$root.setAudioConnection();
+
+          if(master){
+
+                  this.$root.checkAudioRoomState(true);
+
+               }else{
+                  this.$root.checkAudioRoomState(false);
+               }
+
+       
 
 
-        }, 
-
+      },
         setUserSpeaker: function(){
 
          
@@ -2267,158 +2371,109 @@ this.$root.audioconnection.onstreamended = function(event) {
 
         },
 
-        checkUserPresence: function(sessionId){
-
-          
-         
-            let presenceInterval = null;
-
-            presenceInterval = setInterval(()=>{
-
-
-              let _this = this;
-
-             if(this.$root.audioconnection == undefined){
-                   
-              clearInterval(presenceInterval);
-              
-             }else{
-             
-                 
-              if(this.$root.allAudioParticipant.length > 0){
-            
-              }
-
-              this.$root.audioconnection.checkPresence(sessionId, function(isRoomExist, roomid) {
-                    
-              
-  
-                if (isRoomExist === true) {
-
-                 
-                  return;
-              }
-  
-              });
-
-             
-                 this.setUserSpeaker();
-
-             }
-
-
-            },3000)
-
-            
-              
-            
-
-          
-
-         
-         },
-
-         checkIfUserIsReconnecting: function(){                 
-            
-              var socket = this.$root.audioconnection.socket;
-               
-              
-             
-             
-             if(socket != undefined){
-
-              this.userIsReconnecting = false;
-
-
-              socket.on('connect', ()=>{
-                this.userIsReconnecting = false;
-
-              
-  
-               
-            })
-  
-           socket.on('disconnect', ()=> {
-             
-            this.userIsReconnecting = true;
-
-            let _this = this;
-
-
-            
-           
-          
-           
-            })
-  
-          socket.on('reconnecting', (attemptNumber)=>{
-           
-            
-
-            this.userIsReconnecting = true;
-
-           
-            
-           
-          });
-
-             }
-              
-          
-        
        
 
-              if(this.userIsReconnecting){
+         checkIfUserIsReconnecting: function(master){     
+       
 
-                
+          let interval = null;
 
-                
+           interval = setInterval(()=>{
 
-                
-
-              this.connectingToSocket = true;
-
-            
-
-             
-               
-                 
-
-              }else{
-
-
-                if(this.$root.allAudioParticipant.length == 0){
-
-                 
-
-                  
-
-                }
-
-                
-               
-               
-               
-              }
-
+             if(!this.$root.liveIsOn){
               
 
+              clearInterval(interval);
+
+              return;
+             }
+
+
+            this.setUserSpeaker();
+            
+            var socket = this.$root.audioconnection.socket;
+             
+            
+           
+           
+           if(socket != undefined){
+
+           
+
+
+            socket.on('connect', ()=>{
+              this.userIsReconnecting = false;
+
+          })
+
+         socket.on('disconnect', ()=> {
+           
+          this.userIsReconnecting = true;
+
+          let _this = this;
+
+          })
+
+        socket.on('reconnecting', (attemptNumber)=>{
+         
+          this.userIsReconnecting = true;
+
+        });
+
+           }
+            
+
+            if(this.userIsReconnecting){
+
+               this.reconnectionCount++
+
+               if(this.reconnectionCount == 1){
+
+                 this.reconnectionCount = 0;
+
+                 this.connectingToSocket = 'disconnected';
+
+
+                 setTimeout(()=>{
+                  this.rejoinAudio(master);
+                 },2000);
+
+               }
+
+
+               
+
+
+           
+
+
+            }else{
+
+              this.connectingToSocket = false;
+            }
              
 
-             
-         
+           },3000);
+           
 
          },
 
          openScreenRoom: function(){    
          
            
+    
+
         let _this = this;
+      
+        this.$root.connection.sdpConstraints.mandatory = {
+           OfferToReceiveAudio: false,
+           OfferToReceiveVideo: true
+       };
       
      this.$root.connection.open('screen' + this.$route.params.spaceId, function() {
        
-        console.log(_this.$root.connection.userid)
-         console.log('screen created')
+       
+        
     });
 
       },
@@ -2435,23 +2490,32 @@ this.$root.audioconnection.onstreamended = function(event) {
     this.$root.connection.join('screen' + this.$route.params.spaceId);
 
       },
-      checkScreenRoomState: function(){
+      checkScreenRoomState: function(master){
       
        let _this = this;
        
       
 
-         this.$root.connection.openOrJoin('screen' + this.$route.params.spaceId, function(isRoomExist, roomid) {
-        if (isRoomExist === false && this.$root.connection.isInitiator === true) {
-            // if room doesn't exist, it means that current user will create the room
-            _this.openScreenRoom();
-        }
+         this.$root.connection.checkPresence('screen' + this.$route.params.spaceId, function(isRoomExist, roomid) {
 
-        if(isRoomExist) {
-           
-           
-        }
 
+
+          if (isRoomExist === true) {
+            _this.joinScreenRoom();
+         } else {
+
+             
+           if(master){
+             _this.openScreenRoom();
+           }else{
+
+             return;
+           }
+
+           
+         }
+
+       
        
     });
 

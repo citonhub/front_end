@@ -525,6 +525,7 @@ export default {
        this.$root.manualFetchUnread();
        this.$root.updateSpaceMessages();
 
+       
         this.$root.checkUnread(true);
 
      
@@ -612,6 +613,8 @@ export default {
          this.$root.remoteScreen = false;
           this.$root.remoteAudio= false;
             this.$root.allAudioParticipant = [];
+             this.$root.roomNotExist =false;
+              this.$root.roomCheckingInitaited = false;
       },
       showTab: function(type){
         this.$root.checkIfUserIsLoggedIn('space');
