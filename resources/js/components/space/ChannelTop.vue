@@ -23,7 +23,7 @@
                <span class="TitleText d-block" v-if="this.$root.selectedSpace.type != 'Direct'"> {{shortenContent(this.$root.selectedSpace.name,22)}}</span>
               <span class="TitleText d-block" v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'" @click.stop="viewUser()">{{shortenContent(this.$root.selectedSpace.userInfo.username,22)}}</span>
                <span class="typingText d-block" v-if="this.$root.typing && (this.$root.typingSpace == this.$root.selectedSpace.space_id)">{{this.$root.typinguser}} is typing... </span>
-                <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }}</span>
+                <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }} , {{this.$root.SpaceUsers.length}}  {{ $t('space.Online') }}</span>
 
           <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' ">
             
@@ -66,7 +66,7 @@
               >
               <v-badge
                dot
-               v-if="$data._this.$root.remoteCode || $data._this.$root.remoteScreen || $data._this.$root.remoteAudio"
+               v-if="($data._this.$root.remoteLiveHappening && $data._this.$root.remoteCode) || ($data._this.$root.remoteLiveHappening && $data._this.$root.remoteScreen) || ($data._this.$root.remoteLiveHappening && $data._this.$root.remoteAudio)"
                 color="red">
                <v-icon>mdi-television-play</v-icon>
               </v-badge>

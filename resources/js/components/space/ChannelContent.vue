@@ -1809,6 +1809,28 @@ export default {
         
 
       },
+      getMemberUpdates: function(spaceId){
+
+
+      axios.get('/fetch-space-members-' + spaceId )
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+     
+       this.$root.selectedSpaceMembers = response.data;
+
+        
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+
+      },
       periodicUpdate: function(result){
 
          if(this.$root.ChatList.length == 0){
@@ -2367,6 +2389,7 @@ export default {
 
        this.$root.selectedSpaceMembers = response.data[2];
 
+         
        setTimeout(() => {
          
            var container = document.querySelector('#messageContainer');
@@ -2409,6 +2432,7 @@ export default {
       this.checkForUnreadMessagesDisconnected();
 
    
+      this.getMemberUpdates(this.$root.selectedSpace.general_spaceId);
 
        
 
