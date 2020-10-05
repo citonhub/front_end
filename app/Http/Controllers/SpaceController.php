@@ -579,7 +579,15 @@ class SpaceController extends Controller
                     ->get();
 
 
-         foreach ($spaceMembers as $member) {
+         $AllspaceMembers = DB::table('space_members')
+         ->join('users','users.id','space_members.user_id')
+         ->select(
+            'users.username as username',
+            'users.name as name',
+            'users.id as id'
+         )->where('space_members.space_id',$request->get('space_id')
+         ->get();
+         foreach ($AllspaceMembers as $member) {
 
              if($member->id != Auth::id()){
 
