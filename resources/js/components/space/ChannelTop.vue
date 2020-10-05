@@ -66,7 +66,7 @@
               >
               <v-badge
                dot
-               v-if="$data._this.$root.remoteLiveHappening"
+               v-if="$data._this.$root.remoteCode || $data._this.$root.remoteScreen || $data._this.$root.remoteAudio"
                 color="red">
                <v-icon>mdi-television-play</v-icon>
               </v-badge>

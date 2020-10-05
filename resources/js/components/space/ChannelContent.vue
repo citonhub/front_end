@@ -1840,7 +1840,7 @@ export default {
            
              for (let index = 0; index < response.data[0].length; index++) {
                
-                if(!this.$root.checkIfMessageExist(response.data[0][index])){
+               
 
                     this.$root.returnedMessages.push(response.data[0][index]);
                    this.$root.Messages.push(response.data[0][index]);
@@ -1849,7 +1849,7 @@ export default {
                   this.scrollToBottom();
 
 
-                }
+                
                   
                 
                   
