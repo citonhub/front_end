@@ -1562,8 +1562,7 @@ export default {
 
                
 
-              
-              
+            
                 
 
                  if(!this.$root.checkIfMessageExist(e.data)){
@@ -1578,6 +1577,8 @@ export default {
                 this.$root.sortChatList();
 
                   this.scrollToBottom(); 
+
+                  this.$root.clearUnreadMessageRemote(e.data.message_id);
 
                  }
               

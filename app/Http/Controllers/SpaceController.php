@@ -578,6 +578,26 @@ class SpaceController extends Controller
                      ->where('space_members.status',false)
                     ->get();
 
+
+         foreach ($spaceMembers as $member) {
+
+             if($member->id != Auth::id()){
+
+
+                $userUnread = UnreadMessage::create([
+                  'user_id'=> $member->id,
+                  'space_id'=> $request->get('space_id'),
+                  'msg_read'=> false,
+                  'message_id'=> $newMessage[0]["message_id"]
+                  ]);
+      
+                $userUnread->save();
+
+             }
+
+            
+         }
+
             
          $disconnectedUsers = $spaceMembers;
      
@@ -600,14 +620,8 @@ class SpaceController extends Controller
             
             if($user->id != Auth::id()){
 
-               $userUnread = UnreadMessage::create([
-                  'user_id'=> $user->id,
-                  'space_id'=> $request->get('space_id'),
-                  'msg_read'=> false,
-                  'message_id'=> $newMessage[0]["message_id"]
-                  ]);
-   
-                  $userUnread->save();
+              
+              
              
    
              

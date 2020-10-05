@@ -1566,10 +1566,10 @@ imageStyle:function(dimension,authProfile){
    },
    pushDataToLocal:function(data){
 
-    localforage.getItem(data.space_id).then((result)=> {
+    localforage.getItem(data.space_id + this.$root.username).then((result)=> {
 
      if(result != null){
-
+      
       
       let finalResult = JSON.parse(result);
           finalResult[0].push(data);
