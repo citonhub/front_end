@@ -419,6 +419,8 @@
               
         <v-icon >mdi-microphone-off </v-icon>
            </v-btn>
+
+          
          
         </v-list-item-icon>
       </v-list-item>
@@ -436,11 +438,11 @@
 
         <v-list-item-icon >
           
-          <div style="position:relative; height:40px; width:40px; background:#35747e; 
+          <div style="position:relative; height:40px; width:40px; background:#666666; 
                border:1px solid transparent; border-radius:50%;" v-if="user[0].speaking == false"
         class="outerbox d-flex">     
    <div :style="'width:' + user[0].volume + '%; height:' + user[0].volume  +'%;'"
-     class="innerBoxnew">
+     class="innerBoxnewFade">
   
      </div>
      </div>
@@ -1380,6 +1382,7 @@ export default {
           this.$root.connectingToSocket = false;
           this.$root.allAudioParticipant = [];
           this.$root.roomNotExist =false;
+          this.$root.localAudioMuted = false;
         this.$root.roomCheckingInitaited = false;
       },
     hideAlert:function(){
@@ -2648,6 +2651,13 @@ export default {
   
   
   
+}
+
+.innerBoxnewFade{
+   border:1px solid transparent;
+  border-radius:50%;
+  background: #bfbfbf;
+  position: absolute;
 }
 .outerbox{
   display:-webkit-flex;

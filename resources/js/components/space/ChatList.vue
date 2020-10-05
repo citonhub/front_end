@@ -615,6 +615,8 @@ export default {
             this.$root.allAudioParticipant = [];
              this.$root.roomNotExist = false;
               this.$root.roomCheckingInitaited = false;
+
+              this.$root.localAudioMuted = false;
       },
       showTab: function(type){
         this.$root.checkIfUserIsLoggedIn('space');

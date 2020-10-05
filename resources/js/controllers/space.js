@@ -2256,7 +2256,7 @@ this.$root.audioconnection.onstreamended = function(event) {
   
         
        
-  
+        _this.$root.localAudioMuted = false;
         _this.$root.connectingToSocket = false;
         _this.userIsReconnecting = false;
         });
