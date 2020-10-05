@@ -2309,12 +2309,41 @@ this.$root.audioconnection.onstreamended = function(event) {
 
            
          }
+
+
+         if(this.$root.connection != undefined){
+
+
+          // disconnect with all users
+this.$root.connection.getAllParticipants().forEach(function(pid) {
+    _this.$root.connection.disconnectWith(pid);
+});
+
+
+
+// stop all local cameras
+this.$root.connection.attachStreams.forEach(function(localStream) {
+    localStream.stop();
+});
+
+
+      this.$root.connection.closeSocket();
+      }
+    
+      this.$root.connection = undefined;
+
+      this.$root.screenSharingOn = false;
+        this.$root.liveIsOn = false;
+        this.$root.showVideoScreen = false;
+        
        
        
         this.$root.audioconnection = undefined;
 
 
          this.$root.setAudioConnection();
+
+        
 
           if(master){
 
