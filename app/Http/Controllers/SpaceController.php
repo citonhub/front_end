@@ -585,8 +585,9 @@ class SpaceController extends Controller
             'users.username as username',
             'users.name as name',
             'users.id as id'
-         )->where('space_members.space_id',$request->get('space_id')
+         )->where('space_members.space_id',$request->get('space_id'))
          ->get();
+         
          foreach ($AllspaceMembers as $member) {
 
              if($member->id != Auth::id()){
