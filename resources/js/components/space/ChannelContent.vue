@@ -2419,6 +2419,14 @@ export default {
      }) 
 
                }
+
+
+             if(this.$root.selectedSpace.general_spaceId != undefined){
+
+        this.getMemberUpdates(this.$root.selectedSpace.general_spaceId);
+
+          }
+
                 });
            
           
@@ -2431,8 +2439,8 @@ export default {
         
       this.checkForUnreadMessagesDisconnected();
 
-   
-      this.getMemberUpdates(this.$root.selectedSpace.general_spaceId);
+     
+      
 
        
 
