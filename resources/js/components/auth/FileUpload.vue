@@ -39,7 +39,7 @@
 
                 
 
-                  <span style="color:gray; font-size:12px;">Upload {{UploadMessage}}</span>  
+                  <span style="color:gray; font-size:12px;">{{ $t('general.upload') }} {{UploadMessage}}</span>  
              </div>
 
              
@@ -82,7 +82,7 @@
                        </div>
 
                <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn x-small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="uploadeFile" :loading="loading" :disabled="fileUrl == ''" >Upload</v-btn>
+                  <v-btn x-small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="uploadeFile" :loading="loading" :disabled="fileUrl == ''" >{{$t('general.upload')}}</v-btn>
              </div>
 
             </div>

@@ -11,7 +11,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-4 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Duel Panel</span>
+           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">{{ $t('duels.duel_panel') }}</span>
          </div>
          <div class="col-4 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
              <v-btn icon color="#4495a2" @click="goToSettings"><v-icon>mdi-cogs</v-icon></v-btn>
@@ -20,11 +20,11 @@
      </div>
 
       <div  class="col-12 py-1 my-0 d-flex" style="align-items:center; justify-content:center; position:absolute; width:100%; height:90%;" v-if="this.checkDuelStatus(duel) == 'Voting'">
-          <v-icon color="grey">mdi-lock</v-icon>  <span style="font-size:14px; color:grey;">Voting in progress, Panel Locked</span>
+          <v-icon color="grey">mdi-lock</v-icon>  <span style="font-size:14px; color:grey;"> {{ $t('duels.voting_progress') }} </span>
       </div>
 
       <div  class="col-12 py-1 my-0 d-flex" style="align-items:center; justify-content:center; position:absolute; width:100%; height:90%;" v-if="!panelsettingsChecked">
-       <span style="font-size:14px; color:grey;">Loading panel...</span>
+       <span style="font-size:14px; color:grey;">{{ $t('panel.loading') }}...</span>
       </div>
 
       <div class="col-12 py-1 my-0"  v-if="panelsettingsChecked" >
@@ -34,9 +34,9 @@
                 <div class="row py-0 my-0">
                    <div class="col-6 py-0 my-0 px-2 text-left">
                       <v-btn  x-small color="#3E8893" v-if="duel.user_type == 'user'"
-              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;" @click="makeTeam = true">Make <span class="mx-1" style="text-transform:lowercase;">a</span> team</v-btn>
+              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;" @click="makeTeam = true">  {{ $t('duels.make_team') }} </v-btn>
                  <v-btn  x-small color="#3E8893" v-else
-              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;" @click="showShare"> Team link</v-btn>  
+              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;" @click="showShare">  {{ $t('duels.team_link') }} </v-btn>  
                    </div>
                     <div class="col-6 py-0 my-0 px-2 text-right">
                       <v-btn  x-small color="#3E8893" @click="showHowTo"  v-if="panelIsWeb"
@@ -69,7 +69,7 @@
           class="my-2"
          >
       <v-expansion-panel>
-        <v-expansion-panel-header class="header">View Files
+        <v-expansion-panel-header class="header">{{ $t('panel.view_files') }}
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-iframe-outline</v-icon>
@@ -82,7 +82,7 @@
                  <div class="row py-0 my-0">
                 <div class="col-6 py-0 my-0 text-left">
                    <v-btn  x-small color="#3E8893" @click="showExtensionhandler"
-              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-plus mdi-18px</v-icon> Extensions</v-btn> 
+              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-plus mdi-18px</v-icon> {{ $t('panel.extensions') }}</v-btn> 
                 </div>
                 <div class="col-6 py-0 my-0 text-right">
                    <v-btn icon @click="addNewFile('front_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
@@ -174,7 +174,7 @@
 
 
         <v-expansion-panel  v-if="panelIsWeb" >
-        <v-expansion-panel-header class="header">Resources
+        <v-expansion-panel-header class="header">{{ $t('panel.resources') }}
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-folder-open-outline</v-icon>
@@ -189,7 +189,7 @@
                       <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
                 </div>
                  <div class="col-8 py-0 my-0 ">
-                    <span class="fileNamenew">Framework</span>
+                    <span class="fileNamenew">{{ $t('panel.frameworks') }}</span>
                 </div>
                 <div class="col-2 py-0 my-0 text-center " @click.stop="showUpload('Framework','Code file')">
                    <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
@@ -225,7 +225,7 @@
                       <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
                 </div>
                  <div class="col-8 py-0 my-0 ">
-                    <span class="fileNamenew">Images</span>
+                    <span class="fileNamenew">{{ $t('panel.images') }}</span>
                 </div>
                  <div class="col-2 py-0 my-0 text-center"  @click.stop="showUpload('Images','Image file')">
                    <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
@@ -260,7 +260,7 @@
                       <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
                 </div>
                  <div class="col-8 py-0 my-0 ">
-                    <span class="fileNamenew">Audios</span>
+                    <span class="fileNamenew">{{ $t('panel.audios') }}</span>
                 </div>
                  <div class="col-2 py-0 my-0 text-center"  @click.stop="showUpload('Audios','Audio file')">
                    <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
@@ -296,7 +296,7 @@
                       <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
                 </div>
                  <div class="col-8 py-0 my-0 ">
-                    <span class="fileNamenew">Videos</span>
+                    <span class="fileNamenew">{{ $t('panel.videos') }}</span>
                 </div>
                  <div class="col-2 py-0 my-0 text-center" @click.stop="showUpload('Videos','Video file')">
                    <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
@@ -332,7 +332,7 @@
                       <v-icon color="#737373">mdi-folder mdi-18px</v-icon>
                 </div>
                  <div class="col-8 py-0 my-0 ">
-                    <span class="fileNamenew">Files</span>
+                    <span class="fileNamenew">{{ $t('panel.files') }}</span>
                 </div>
                  <div class="col-2 py-0 my-0 text-center" @click.stop="showUpload('Files','Document file')"> 
                    <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
@@ -427,7 +427,7 @@
       </v-expansion-panel>
 
            <v-expansion-panel > 
-        <v-expansion-panel-header class="header">Web Routes
+        <v-expansion-panel-header class="header">{{ $t('panel.web_routes') }}
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-router</v-icon>
@@ -465,7 +465,7 @@
      
 
        <v-expansion-panel>
-       <v-expansion-panel-header class="header">Database Tables
+       <v-expansion-panel-header class="header">{{ $t('panel.DB_table') }}
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-database</v-icon>
@@ -501,7 +501,7 @@
        class="mt-2" 
        v-model="panel">
          <v-expansion-panel>
-       <v-expansion-panel-header class="header">Code Files
+       <v-expansion-panel-header class="header">{{ $t('panel.code_files') }}
 
           <template v-slot:actions>
             <v-icon color="#3E8893">mdi-file-code-outline</v-icon>
@@ -619,7 +619,7 @@
         item-text="description"
         item-value="latest"
           style="font-size:12px;"
-         placeholder="Type extension name"
+         :placeholder="$t('panel.type_extension')"
           label="Extensions"
         prepend-icon="mdi-database-search"
         return-object
@@ -1022,8 +1022,8 @@ export default {
              }
         },
    showHowTo: function(){
-     this.$root.panel = this.panel;
-       this.$root.panelBack = this.panelBack;
+       this.$root.panel = this.panel;
+     this.$root.panelBack = this.panelBack;
       this.$router.push({ path: '/how-to' });
    },
      trackPanel: function(){

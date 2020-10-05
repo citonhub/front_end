@@ -10,7 +10,7 @@
       <div class="col-12 my-1 px-1 text-center py-0">
            <v-text-field
               style="font-size:13px;"
-             placeholder="Find channels" 
+              :placeholder="$t('trends.find_channels')" 
              @keydown="queryChannel"
              dense
              :loading="loading"
@@ -46,7 +46,7 @@
              </v-card>
 
              <div v-if="allChannels.length == 0" class="text-center col-12">
-           <span style="color:gray; font-size:12px;">No Channel found</span>
+           <span style="color:gray; font-size:12px;">{{ $t('trends.no_channel') }}</span>
                 </div>  
              <div class="col-12 py-5 my-5">
 

@@ -13,7 +13,7 @@
               v-model="query"
                @keydown="queryChannel"
              :loading="loading"
-             placeholder="Find connections" 
+             :placeholder="$t('trends.find_connections')" 
              dense
              color="#4495a2"
              ></v-text-field>
@@ -59,7 +59,7 @@
               </v-card>
            
             <div v-if="connections.length == 0" class="text-center col-12">
-           <span style="color:gray; font-size:12px;">No Connection found</span>
+           <span style="color:gray; font-size:12px;">{{ $t('trends.no_connections') }}</span>
                 </div>  
 
              <div class="col-12 py-5 my-5">

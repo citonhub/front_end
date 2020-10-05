@@ -160,7 +160,7 @@ Route::get('/fetch-connected','ProfileController@userConnected');
 Route::get('/fetch-all-connected','ProfileController@userAllConnected');
 Route::get('/fetch-trend-connections/{query?}','ProfileController@fetchTrendConnections');
 Route::post('/send-to-connections','ProfileController@sendToConnections');
-
+Route::post('/save-locale','ProfileController@saveUserlocale');
 
 // sanbox routes
 Route::post('/run-code-on-sandbox','SandboxController@runCode');

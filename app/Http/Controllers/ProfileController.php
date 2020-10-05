@@ -32,7 +32,18 @@ class ProfileController extends Controller
         $this->setImageDefaultsFromConfig('profileImage');
       
     }
+    
 
+     public function saveUserlocale(Request $request){
+
+
+       $userProfile = Profile::where('user_id',Auth::id())->first();
+
+        $userProfile->update([
+          'user_locale'=> $request->get('locale')
+        ]);
+
+     }
 
     public function userAllConnected(){
       

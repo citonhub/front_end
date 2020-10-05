@@ -11,16 +11,16 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-4 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;" v-if="!this.$root.isEditDuel">Create Duel</span>
-           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;" v-else>Edit Duel</span>
+           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;" v-if="!this.$root.isEditDuel"> {{ $t('duels.create_duels') }}</span>
+           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;" v-else>{{ $t('duels.edit_duel') }}</span>
          </div>
          <div class="col-4 py-1 my-0  text-right px-2"  style="border-bottom:2px solid #4495a2;" >
           
              <v-btn v-if="this.$root.isEditDuel && this.$root.editDuelArray.started == 1"  rounded x-small disabled color="#3E8893"
-              style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;">started</v-btn>
+              style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;">{{ $t('duels.started') }}</v-btn>
 
                <v-btn v-if="this.$root.isEditDuel && this.$root.editDuelArray.started == 0" :loading="loadingStart" @click="startDuel" rounded x-small color="#3E8893"
-              style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;">start</v-btn>
+              style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;">{{ $t('duels.start') }}</v-btn>
 
          </div>
       </div>
@@ -32,8 +32,8 @@
                    <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                 placeholder="This is displayed to the public"
-            label="Title"
+                 :placeholder="$t('duels.title_pholder')"
+            :label="$t('general.title')"
             v-model="title"
             counter="50"
              dense
@@ -48,13 +48,13 @@
                   <v-select
           v-model="programmingLanguage"
           :items="languages"
-          label="Application type"
+           :label="$t('general.app_type')"
           style="font-size:13px;"
           
           :disabled="this.$root.editDuelArray.started == 1"
           :rules="requiredRule"
           hide-selected
-          placeholder="select..."
+           :placeholder="$t('general.select') + '...'"
           color="#4495a2"
           small-chips
         ></v-select>
@@ -69,8 +69,9 @@
               <v-text-field
                 style="font-size:12px;"
                 v-model="max_participant"
-                 placeholder="participants"
-            label="Number of participants"
+                
+                  :placeholder="$t('duels.participant')"
+            :label="$t('duels.max_participant')"
             :rules="max_participantRule"
            
             type="tel"
@@ -92,29 +93,23 @@
       :loading="loadingConnection"
        color="#4495a2"
        :rules="requiredRule"
-      hint="Friends can be Jugdes"
-      label="Judges"
-      placeholder="select default Judges"
+      :hint="$t('duels.judge_hint')"
+      
+       :label="$t('duels.judges')"
+      
+       :placeholder="$t('duels.judge_pholder')"
      
       persistent-hint
       small-chips
     >
-      <template v-slot:no-data>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title style="font-size:9px;">
-              No results matching "<strong>{{ searchUsername }}</strong>". Press <kbd>enter</kbd> to create a new one
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </template>
+     
     </v-combobox>
              </div>
 
 
              <div class="col-12 py-2 my-0 px-2">
                  <div>
-                     <span style="font-size:12px;color:#666666;">Rules</span>
+                     <span style="font-size:12px;color:#666666;"> {{$t('duels.rules')}}</span>
                  </div>
                 
     <v-row>
@@ -128,7 +123,7 @@
                 
                <div class="row py-0 my-0">
                   <div class="col-12 py-1 mb-2">
-                     <span style="font-size:12px;color:#666666;">Set duration</span>
+                     <span style="font-size:12px;color:#666666;">{{ $t('duels.set_duration') }}</span>
                  </div>
 
                 <div class="col-6 text-center py-0 my-0">
@@ -136,8 +131,8 @@
                   <v-text-field
                 style="font-size:12px;"
                 v-model="durationValueDay"
-                placeholder="days..."
-            label="Days"
+                :placeholder="$t('duels.days') + '...'"
+            :label="$t('duels.days')"
             :rules="durationRule"
             
             type="tel"
@@ -153,8 +148,8 @@
                   <v-text-field
                 style="font-size:12px;"
                 v-model="durationValueHr"
-                placeholder="hours..."
-            label="Hours"
+                :placeholder="$t('duels.hours') + '...'"
+            :label="$t('duels.hours')"
             :rules="durationRule2"
            
             type="tel"
@@ -172,7 +167,7 @@
             
 
              <div class="col-12 py-2 my-0 px-2 text-center" v-if="!this.$root.isEditDuel">
-                  <v-btn  :loading="loading" @click="createDuel" rounded small color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;">Create</v-btn>
+                  <v-btn  :loading="loading" @click="createDuel" rounded small color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;">{{$t('general.create')}}</v-btn>
              </div>
 
 
@@ -180,11 +175,11 @@
                 <div class="row py-0 my-0">
 
                   <div class="col-6 py-0 my-0 text-center">
-   <v-btn :loading="loading" @click="createDuel"   rounded small color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;">Save</v-btn>
+   <v-btn :loading="loading" @click="createDuel"   rounded small color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;">{{$t('general.save')}}</v-btn>
                   </div>
 
                    <div class="col-6 py-0 my-0 text-center">
-   <v-btn :loading="loadingDelete" @click="deleteDuel"   rounded small color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;">Delete</v-btn>
+   <v-btn :loading="loadingDelete" @click="deleteDuel"   rounded small color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;">{{$t('general.delete')}}</v-btn>
                   </div>
 
                 </div>

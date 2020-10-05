@@ -33,15 +33,15 @@ import PanelLoader from "../components/space/PanelLoader.vue"
 import ProjectComments from "../components/space/ProjectComments.vue"
 import NewComment from "../components/space/NewComment.vue"
 import HowTo from "../components/space/HowTo.vue"
-import Suggestions from "../components/space/Suggestions.vue"
+
 
 
 
 const routes = [
   { path: '/', redirect: '/space'},
   { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},
-  { path: '/how-to', name: 'HowTo', component: HowTo},
   { path: '/login', name: 'Login', component: Login},
+  { path: '/how-to', name: 'HowTo', component: HowTo},
   { path: '/auth/:frompage', name: 'Auth', component: Auth},
   { path: '/:projectSlug/panel', name: 'ProjectPanel', component: ProjectPanel},
   { path: '/:projectSlug/panel/settings', name: 'PanelSettings', component: PanelSettings},
@@ -69,11 +69,6 @@ const routes = [
       // chat-list
       path: 'chat-list',
       component: ChatList
-    },
-    {
-      // suggestions
-      path: 'suggestions',
-      component: Suggestions
     },
     {
       // create-channel
@@ -346,6 +341,7 @@ const app = new Vue({
      adminMembers:[],
      roomNotExist:false,
      reconnectionCount:0,
+     userLocale:document.getElementById('appLocale').value,
      roomCheckingInitaited: false,
         },
      mounted: function () {
@@ -354,6 +350,7 @@ const app = new Vue({
     
       this.fetchUserDetails();
       this.connectToChannel();
+       this.SetLocale(this.userLocale);
     },
     http: {
      headers:{
@@ -378,10 +375,38 @@ const app = new Vue({
     changeLocale: function(locale){
 
       this.$root.showLangOption = false;
+
      
       this.$root.$i18n.locale = locale;
 
+      axios.post('/save-locale',{
+        locale: locale
+      }).then(response => {
+          
+        if (response.status == 200) {
+           
+         }else{
+           
+         }
+         
+         
+       })
+       .catch(error => {
+        
+       })
+
        
+    },
+    SetLocale:function(locale){
+       
+      if(this.checkauthroot != 'noauth'){
+
+        this.$root.$i18n.locale = locale;
+
+      }
+
+     
+
     },
     manualFetchUnread: function(){
 
@@ -1275,11 +1300,14 @@ if (response.status == 200) {
             'about': userProfile.about,
             'Interests': userProfile.interestsArray,
             'connections': userProfile.connections,
-            'background_color': userProfile.background_color
+            'background_color': userProfile.background_color,
+            'user_locale': userProfile.user_locale
             };
               
 
             this.$root.LocalStore('userInfo' + this.$root.username,userDetails);
+
+          
        
             
              this.authProfile = userDetails;
@@ -1298,8 +1326,21 @@ if (response.status == 200) {
 
       }
 
-     })
+      
+      
+      if(this.authProfile.user_locale != undefined){
 
+
+        this.SetLocale(this.authProfile.user_locale);
+  
+      }
+     
+
+     
+
+     })
+   
+    
       
     
  },
@@ -1327,14 +1368,22 @@ if (response.status == 200) {
       'about': userProfile.about,
       'Interests': userProfile.interestsArray,
       'connections': userProfile.connections,
-      'background_color': userProfile.background_color
+      'background_color': userProfile.background_color,
+      'user_locale': userProfile.user_locale
       };
         
 
-     
+    this.$root.LocalStore('userInfo' + this.$root.username,userDetails);
  
       
        this.authProfile = userDetails;
+
+       if(this.authProfile.user_locale != undefined){
+
+
+        this.SetLocale(this.authProfile.user_locale);
+  
+      }
     
    
     

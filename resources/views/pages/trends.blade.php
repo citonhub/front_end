@@ -206,7 +206,7 @@ body {
                 <v-icon color="#3E8893">mdi-layers</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">@{{ $t('general.Duel_list') }}span>
+               <span style="font-size:12px; color:#333333;">@{{ $t('general.Duel_list') }}<span>
             </div>
            </div>
          </v-card>
@@ -290,5 +290,5 @@ body {
 
 
  @section('scripts')
-<script src="{{ asset('js/trends.js?v=1.48') }}"></script>
+<script src="{{ asset('js/trends.js?v=1.49') }}"></script>
  @endsection

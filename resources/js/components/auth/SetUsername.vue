@@ -4,7 +4,7 @@
 
            <div  style=" top:5%; z-index:1000000;"  class="text-center fixed-top col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0"> 
             
-        <h4 style="color:#26535a;"> Set Your Username</h4>
+        <h4 style="color:#26535a;">  {{ $t('general.set_a_username') }}</h4>
             
                 
      </div>
@@ -13,20 +13,20 @@
        <div class="col-12 py-3 morebackground4 d-flex" >
           
           <v-card class="py-1 px-2 row">
-             <div class="col-3 px-1">
+             <div class="col-1 px-1">
              <span>
                 
              </span>
             </div>
 
-            <div class="col-6 px-0 d-flex" style="align-items:center;justify-content:center;">
+            <div class="col-10 px-0 d-flex" style="align-items:center;justify-content:center;">
             
               <h5  style="color:#26535a;">
-                Set Username
+                {{ $t('general.set_username') }}
              </h5>
             </div>
 
-            <div class="col-3 text-center">
+            <div class="col-1 text-center">
             
             </div>
     
@@ -37,8 +37,8 @@
                   <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                 placeholder="Lord_Snow"
-            label="Username"
+                 placeholder="JsRoland"
+            :label="$t('general.username')"
              dense
              :error="usernameExist"
              v-model="usernameValue"
@@ -54,7 +54,7 @@
 
          
                <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn rounded  small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" :loading="loading" @click="setUsername">Continue</v-btn>
+                  <v-btn rounded  small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" :loading="loading" @click="setUsername">{{ $t('general.set') }}</v-btn>
              </div>
 
 

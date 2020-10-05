@@ -89,7 +89,7 @@ Vue.use(VueI18n)
 const messages = require('../bootstraps/messages.json');
 
 const i18n = new VueI18n({
-    locale: 'en', // set locale
+    locale: 'fr', // set locale
     messages, // set locale messages
 })
 
@@ -138,11 +138,14 @@ const app = new Vue({
         notificationCount:0,
         notificationCountSpace:0,
         frompage:'profile',
+        showLangOption:false,
+        userLocale:document.getElementById('appLocale').value,
     },
     mounted: function () {
       this.pageloader= false;
        this.initialPushMangerReg();
        this.fetchUserDetails();
+       this.SetLocale(this.userLocale);
       this.connectToChannel();
     },
     http: {
@@ -151,6 +154,42 @@ const app = new Vue({
      }
   },
   methods:{
+    changeLocale: function(locale){
+
+      this.$root.showLangOption = false;
+
+     
+      this.$root.$i18n.locale = locale;
+
+      axios.post('/save-locale',{
+        locale: locale
+      }).then(response => {
+          
+        if (response.status == 200) {
+           
+         }else{
+           
+         }
+         
+         
+       })
+       .catch(error => {
+        
+       })
+
+       
+    },
+    SetLocale:function(locale){
+       
+      if(this.checkauthroot != 'noauth'){
+
+        this.$root.$i18n.locale = locale;
+
+      }
+
+     
+
+    },
     logout: function(){
       this.$root.pageloader = true;
       document.getElementById('logout-form').submit();
@@ -352,7 +391,8 @@ const app = new Vue({
               'about': userProfile.about,
               'Interests': userProfile.interestsArray,
               'connections': userProfile.connections,
-              'background_color': userProfile.background_color
+              'background_color': userProfile.background_color,
+              'user_locale': userProfile.user_locale
               };
                 
   
@@ -372,6 +412,12 @@ const app = new Vue({
          
          }) 
          
+  
+        }
+
+        if(this.authProfile.user_locale != undefined){
+
+          this.SetLocale(this.authProfile.user_locale);
   
         }
   
@@ -404,14 +450,24 @@ const app = new Vue({
         'about': userProfile.about,
         'Interests': userProfile.interestsArray,
         'connections': userProfile.connections,
-        'background_color': userProfile.background_color
+        'background_color': userProfile.background_color,
+        'user_locale': userProfile.user_locale
         };
           
   
-       
+        this.$root.LocalStore('userInfo' + this.$root.username,userDetails);
    
         
          this.authProfile = userDetails;
+
+
+         if(this.authProfile.user_locale != undefined){
+
+
+          this.SetLocale(this.authProfile.user_locale);
+    
+        }
+      
       
      
       

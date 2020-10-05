@@ -10,7 +10,7 @@
       label
       :style="$router.currentRoute.path.indexOf('channels') >= 0  ? 'color:#ffffff;background:#3E8893;cursor:pointer; font-size:12px;' : 'color:#204346; cursor:pointer; background:#ffffff; font-size:12px;' "
       >
-      Channels
+      {{ $t('space.channels') }}
       </v-chip>  
  </router-link>
 
@@ -24,7 +24,8 @@
       label
      :style="$router.currentRoute.path.indexOf('duels') >= 0 ? 'color:#ffffff;background:#3E8893;font-size:12px;cursor:pointer;' : 'cursor:pointer;color:#204346;background:#ffffff;font-size:12px;' "
       >
-      Duels
+      
+      {{ $t('duels.duels') }}
       </v-chip>
  </router-link>
      
@@ -36,7 +37,7 @@
       label
       :style="$router.currentRoute.path.indexOf('projects') >= 0  ? 'color:#ffffff;background:#3E8893;font-size:12px;cursor:pointer;' : 'cursor:pointer;color:#204346;background:#ffffff;font-size:12px;' "
       >
-      Projects
+      {{ $t('space.projects') }}
       </v-chip>  
  </router-link>
 
@@ -51,7 +52,7 @@
      
      :style="$router.currentRoute.path.indexOf('connect') >= 0 ? 'color:#ffffff;background:#3E8893; font-size:12px;cursor:pointer;' : 'cursor:pointer;color:#204346;background:#ffffff; font-size:12px;' "
       >
-      Connect
+      {{ $t('general.connect') }}
       </v-chip>  
         </router-link>
          

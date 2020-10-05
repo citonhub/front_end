@@ -18,7 +18,7 @@
                
             
                 <div class="d-inline-block ml-2 mt-1">
-                  <span  class="d-block titleText"><b>{{notification.duel_owner.username}} created a duel</b></span>
+                  <span  class="d-block titleText"><b>{{ $t('profile.duel_created', { name: notification.duel_owner.username }) }}</b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -27,8 +27,8 @@
                    
                     <div class="py-0 my-0 d-flex col-12 " style="align-items:center;">
                         <div class="row py-0 px-0">
-                         <div style="font-size:12px; color:#595959;" class="col-12 py-1">Title: {{notification.dataArray[0].title}} </div>
-                         <div style="font-size:12px; color:#595959;" class="col-12 py-0">Max_Participants: {{notification.dataArray[0].max_participant}} </div>
+                         <div style="font-size:12px; color:#595959;" class="col-12 py-1">{{$t('general.title')}}: {{notification.dataArray[0].title}} </div>
+                         <div style="font-size:12px; color:#595959;" class="col-12 py-0">{{$t('profile.max_participant')}}: {{notification.dataArray[0].max_participant}} </div>
                         </div>
                          
                     </div>
@@ -53,7 +53,7 @@
                
             
                 <div class="d-inline-block ml-2 mt-1">
-                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}} liked your duel</b></span>
+                  <span  class="d-block titleText"><b> {{ $t('profile.duel_like', { name: notification.dataArray[0].username }) }}</b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -77,7 +77,7 @@
                
             
                 <div class="ml-2 mt-1 col-12 px-2 py-0">
-                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}}  and {{ notification.dataArray.length - 1 }} others liked your duel</b></span>
+                  <span  class="d-block titleText"><b>{{ $t('profile.duel_likes', { name: notification.dataArray[0].username, count: notification.dataArray.length - 1 }) }}</b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -86,8 +86,8 @@
                    
                     <div class="py-0 my-0 d-flex col-12 " style="align-items:center;">
                         <div class="row py-0 px-0">
-                         <div style="font-size:12px; color:#595959;" class="col-12 py-1">Title: {{notification.duel_data.title}} </div>
-                         <div style="font-size:12px; color:#595959;" class="col-12 py-0">Current_Participants: {{notification.duel_data.current_participant}} </div>
+                         <div style="font-size:12px; color:#595959;" class="col-12 py-1">{{$t('general.title')}}: {{notification.duel_data.title}} </div>
+                         <div style="font-size:12px; color:#595959;" class="col-12 py-0">{{$t('duels.participant')}}: {{notification.duel_data.current_participant}} </div>
                         </div>
                          
                     </div>
@@ -112,7 +112,7 @@
                
             
                 <div class="d-inline-block ml-2 mt-1">
-                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}} commented on your duel</b></span>
+                  <span  class="d-block titleText"><b>{{ $t('profile.duel_comment', { name: notification.dataArray[0].username }) }}</b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -136,7 +136,7 @@
                
             
                 <div class="ml-2 mt-1 col-12 px-2 py-0">
-                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}}  and {{ notification.dataArray.length - 1 }} others commented on your duel</b></span>
+                  <span  class="d-block titleText"><b>{{ $t('profile.duel_comments', { name: notification.dataArray[0].username, count: notification.dataArray.length - 1 }) }}</b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -145,8 +145,8 @@
                    
                     <div class="py-0 my-0 d-flex col-12 " style="align-items:center;">
                         <div class="row py-0 px-0">
-                         <div style="font-size:12px; color:#595959;" class="col-12 py-1">Title: {{notification.duel_data.title}} </div>
-                         <div style="font-size:12px; color:#595959;" class="col-12 py-0">Current_Participants: {{notification.duel_data.current_participant}} </div>
+                        <div style="font-size:12px; color:#595959;" class="col-12 py-1">{{$t('general.title')}}: {{notification.duel_data.title}} </div>
+                         <div style="font-size:12px; color:#595959;" class="col-12 py-0">{{$t('duels.participant')}}: {{notification.duel_data.current_participant}} </div>
                         </div>
                          
                     </div>
@@ -172,7 +172,7 @@
                
             
                 <div class="d-inline-block ml-2 mt-1">
-                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}} joined your duel</b></span>
+                  <span  class="d-block titleText"><b>{{ $t('profile.duel_join', { name: notification.dataArray[0].username }) }} </b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -196,7 +196,8 @@
                
             
                 <div class="ml-2 mt-1 col-12 px-2 py-0">
-                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}}  and {{ notification.dataArray.length - 1 }} others joined your duel</b></span>
+                  <span  class="d-block titleText"><b>
+                     {{ $t('profile.duel_joins', { name: notification.dataArray[0].username, count: notification.dataArray.length - 1 }) }}</b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -205,8 +206,8 @@
                    
                     <div class="py-0 my-0 d-flex col-12 " style="align-items:center;">
                         <div class="row py-0 px-0">
-                         <div style="font-size:12px; color:#595959;" class="col-12 py-1">Title: {{notification.duel_data.title}} </div>
-                         <div style="font-size:12px; color:#595959;" class="col-12 py-0">Current_Participants: {{notification.duel_data.current_participant}} </div>
+                          <div style="font-size:12px; color:#595959;" class="col-12 py-1">{{$t('general.title')}}: {{notification.duel_data.title}} </div>
+                         <div style="font-size:12px; color:#595959;" class="col-12 py-0">{{$t('duels.participant')}}: {{notification.duel_data.current_participant}} </div>
                         </div>
                          
                     </div>
@@ -233,7 +234,10 @@
 
                </div>
                 <div class="d-inline-block ml-2 mt-1">
-                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}} commented on your project:{{ notification.project_data.title }} </b></span>
+                  <span  class="d-block titleText"><b>
+                     
+                      {{ $t('profile.project_comment', { name: notification.dataArray[0].username, title:notification.project_data.title  }) }} 
+                       </b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -257,7 +261,9 @@
                
             
                 <div class="ml-2 mt-1 col-12 px-2 py-0">
-                  <span  class="d-block titleText px-1"><b>{{notification.dataArray[0].username}}  and {{ notification.dataArray.length - 1 }} others commented on your project:{{ notification.project_data.title }}</b></span>
+                  <span  class="d-block titleText px-1"><b>
+                       {{ $t('profile.project_comments', { name: notification.dataArray[0].username, title:notification.project_data.title , count: notification.dataArray.length - 1  }) }} 
+                       </b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -283,7 +289,10 @@
 
                </div>
                 <div class="d-inline-block ml-2 mt-1">
-                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}} created a new project:{{ notification.project_data.title }} </b></span>
+                  <span  class="d-block titleText"><b>
+                     
+                     {{ $t('profile.project_created', { name: notification.dataArray[0].username, title:notification.project_data.title  }) }} 
+                      </b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -307,8 +316,7 @@
                
             
                 <div class="ml-2 mt-1 col-12 px-2 py-0">
-                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}}  and {{ notification.dataArray.length - 1 }} others created a new project:{{ notification.project_data.title }}</b></span>
-                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                 
                    
                 </div>
 
@@ -334,7 +342,9 @@
 
                </div>
                 <div class="d-inline-block ml-2 mt-1">
-                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}} connected to you </b></span>
+                  <span  class="d-block titleText"><b>
+                     {{ $t('profile.new_connection', { name: notification.dataArray[0].username }) }}  
+                     </b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -358,7 +368,8 @@
                
             
                 <div class="ml-2 mt-1 col-12 px-2 py-0">
-                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}}  and {{ notification.dataArray.length - 1 }} others connected to you</b></span>
+                  <span  class="d-block titleText"><b>
+                      {{ $t('profile.new_connections', { name: notification.dataArray[0].username,count: notification.dataArray.length - 1}) }}  </b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -386,7 +397,9 @@
 
                </div>
                 <div class="d-inline-block ml-2 mt-1">
-                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}} Invites you to {{notification.space.name}} {{notification.space.type}} </b></span>
+                  <span  class="d-block titleText"><b>
+                     {{ $t('profile.space_invite', { name: notification.dataArray[0].username,space_name:notification.space.name , space_type:notification.space.type}) }}
+                      </b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -410,7 +423,11 @@
                
             
                 <div class="ml-2 mt-1 col-12 px-2 py-0">
-                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username}}  and {{ notification.dataArray.length - 1 }} others Invites you to {{notification.space.name}} {{notification.space.type}}</b></span>
+                  <span  class="d-block titleText"><b>
+                      {{ $t('profile.space_invite', { name: notification.dataArray[0].username,space_name:notification.space.name , space_type:notification.space.type}) }}
+                      </b>
+                      </span>
+
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
                    
                 </div>
@@ -420,7 +437,7 @@
                  <div class="ml-2 mt-1 col-12 px-2 py-0 text-center">
                    
                    <v-btn rounded  x-small  type="submit" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
-                   @click="handleNotify(notification)"  >Join</v-btn>
+                   @click="handleNotify(notification)"  >{{$t('general.join')}}</v-btn>
                    
                 </div>
 
@@ -431,28 +448,7 @@
  
 
            <!-- new message -->
-              <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"  @click="handleNotify(notification)" 
-                     v-if="notification.type == 'new_message'"  >
-                <div class="row py-0 my-0 px-2">
-                    <div class="col-12 py-0 d-flex "  >
-                <div>
-                  <div :style="imageStyle(34,notification.space)" 
-                  class="d-inline-block" >
-
-                  </div>
-
-               </div>
-            
-                <div class="d-inline-block ml-2 mt-1">
-                 <span  class="d-block titleText"><b>You have {{ notification.dataArray.length }} new messages from {{notification.space.name}}</b></span>
-                     <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
-                   
-                </div>
-
-                </div>
-                   
-                </div>
-             </v-card>
+             
 
             </div>
     </div>

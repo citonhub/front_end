@@ -11,7 +11,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-             <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Add New File</span>
+             <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">{{ $t('panel.add_new_file') }}</span>
          </div>
          <div class="col-2 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
              
@@ -25,11 +25,11 @@
            <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:13px;"
-                 placeholder="name..."
+                 :placeholder="$t('general.Name') + '...'"
                  :rules="Rule"
                  v-model="FileName"
                  counter="30"
-            label="File Name"
+            :label="$t('panel.file_name')"
              dense
              color="#4495a2"
              ></v-text-field>
@@ -42,11 +42,11 @@
                   <v-select
           v-model="programmingLanguage"
           :items="languageCat"
-          label="Languages"
+          :label="$t('general.language')"
           style="font-size:12px;"
           :rules="requiredRule"
           hide-selected
-          placeholder="select language"
+          :placeholder="$t('general.select') + '...'"
           color="#4495a2"
           small-chips
         ></v-select>
@@ -54,7 +54,7 @@
 
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="saveCodeFile">Add</v-btn>
+                  <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="saveCodeFile">{{$t('general.add')}}</v-btn>
              </div>
               
           </v-form>

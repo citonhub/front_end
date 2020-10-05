@@ -24,12 +24,12 @@
                <div class="col-12 py-0 my-0 topboard"  >
                  <div class="row py-0 my-0">
                     <div class="col-4 text-left my-0 py-0">
-                         <v-btn x-small color="#ffffff " v-if="checkDuelStatus(this.selectedDuel) == 'Voting'"><span style="color:rgba(38, 82, 89,0.8); font-weight:bolder;" @click="result('vote')">Vote</span></v-btn>
-                        <v-btn x-small color="#ffffff " v-if="checkDuelStatus(this.selectedDuel) == 'Ended'"><span style="color:rgba(38, 82, 89,0.8); font-weight:bolder;" @click="result('vote')">Results</span></v-btn>
+                         <v-btn x-small color="#ffffff " v-if="checkDuelStatus(this.selectedDuel) == 'Voting'"><span style="color:rgba(38, 82, 89,0.8); font-weight:bolder;" @click="result('vote')">{{$t('duels.vote')}}</span></v-btn>
+                        <v-btn x-small color="#ffffff " v-if="checkDuelStatus(this.selectedDuel) == 'Ended'"><span style="color:rgba(38, 82, 89,0.8); font-weight:bolder;" @click="result('vote')">{{$t('duels.result')}}</span></v-btn>
                     </div>
                     <div class="col-4 text-center py-1">
 
-                       <v-btn x-small  text color="#ffffff " @click="showDuelInfo"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Duel Info</span></v-btn>
+                       <v-btn x-small  text color="#ffffff " @click="showDuelInfo"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">{{$t('duels.info')}} </span></v-btn>
                       
                     </div>
                     <div class="col-4 text-right py-0">
@@ -39,16 +39,19 @@
                       <h1 class="timer">{{ TimerValue }}</h1>
                     </div>
                     <div class="col-12 d-flex py-0" style="align-items:center; justify-content:center;">
-                      <h1 class="TimerLabelNew">Day : Hour : Min : Sec</h1>
+                      <h1 class="TimerLabelNew">{{$t('duels.timer_label')}}</h1>
                     </div>
                     <div class="col-12 d-flex py-1" style="align-items:center; justify-content:center;">
-                      <span class="statusnew">{{checkDuelStatus(this.selectedDuel)}}</span>
+                      <span class="statusnew" v-if="checkDuelStatus(this.selectedDuel) == 'Active'">{{$t('duels.active')}} </span>
+                       <span class="statusnew" v-if="checkDuelStatus(this.selectedDuel) == 'Pending'">{{$t('duels.pending')}} </span>
+                        <span class="statusnew" v-if="checkDuelStatus(this.selectedDuel) == 'Ended'">{{$t('duels.ended')}} </span>
+                        <span class="statusnew" v-if="checkDuelStatus(this.selectedDuel) == 'Voting'">{{$t('duels.voting')}} </span>
                     </div>
 
                     <div class="col-12 py-0 my-0">
                       <div class="row">
                         <div class="py-0 col-12 text-center">
-                        <span style="font-size:12px;color:white;">Participants: {{this.selectedDuel.current_participant}}</span>
+                        <span style="font-size:12px;color:white;">{{$t('duels.participant')}}: {{this.selectedDuel.current_participant}}</span>
                         </div>
                         <div class="col-2 text-center py-0">
                             <v-btn icon @click="participantScoller--"><v-icon color="#ffffff">mdi-chevron-left mdi-18px</v-icon></v-btn>
@@ -100,11 +103,11 @@
                       <div class="col-6 d-flex my-0 pb-0" style="align-items:center; justify-content:center;">     
 
                    <v-btn  v-if="this.$root.username == this.selectedDuel.username && checkDuelStatus(this.selectedDuel) == 'Pending'"
-                     @click="startDuel"  x-small color="#3E8893 " style="color:white;" class="mx-1"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Start</span></v-btn>
+                     @click="startDuel"  x-small color="#3E8893 " style="color:white;" class="mx-1"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">{{$t('duels.start')}}</span></v-btn>
 
-                     <v-btn  v-if="this.selectedDuel.user_participating" x-small color="#3E8893 "  class="mx-1" @click="DuelPanel" ><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Panel</span></v-btn>
+                     <v-btn  v-if="this.selectedDuel.user_participating" x-small color="#3E8893 "  class="mx-1" @click="DuelPanel" ><span style="color:#ffffff; font-weight:bolder; font-size:9px;">{{$t('duels.panel')}}</span></v-btn>
                      <v-btn  v-if="!this.selectedDuel.user_participating && !this.selectedDuel.participant_reached && knowDuelStatus(this.selectedDuel)"
-                     x-small color="#3E8893 "  class="mx-1" @click="joinDuel" :loading="loading" style="color:white;"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Join</span></v-btn>
+                     x-small color="#3E8893 "  class="mx-1" @click="joinDuel" :loading="loading" style="color:white;"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">{{$t('general.join')}}</span></v-btn>
                      </div>
                       <div class="col-3 text-right my-0 pb-0" style="align-items:center; justify-content:center;">
                         <v-btn class="d-inline-block" icon @click="comment">

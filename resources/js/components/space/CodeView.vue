@@ -17,7 +17,7 @@
      
     </div>
 
-     <textarea type="hidden" id="spacelink" :value="codeContent"></textarea>
+     <textarea style="display:none;" id="spacelink" :value="codeContent"></textarea>
     </div>
 </template>
 <script>

@@ -9,7 +9,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Notifications</span>
+           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;"> {{ $t('profile.notifications') }}</span>
          </div>
          <div class="col-2 py-0 my-0  d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
             
@@ -23,7 +23,7 @@
             <notify-list :Notifications="Notifications" v-if="Notifications.length != 0"></notify-list>
 
           <div v-if="Notifications.length == 0" class="text-center col-12">
-       <span style="color:gray; font-size:12px;">No notifications yet</span>
+       <span style="color:gray; font-size:12px;"> {{ $t('profile.no_notifications') }}</span>
           </div>
        </div>
 

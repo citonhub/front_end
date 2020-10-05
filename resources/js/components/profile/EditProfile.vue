@@ -7,14 +7,14 @@
 
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
-         <div class="col-3 py-0 my-0 text-left px-1" style="border-bottom:2px solid #4495a2;" >
+         <div class="col-4 py-0 my-0 text-left px-1" style="border-bottom:2px solid #4495a2;" >
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-close</v-icon></v-btn>
          </div>
-         <div class="col-6 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Edit Profile</span>
+         <div class="col-4 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
+           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">{{ $t('profile.edit_profile') }}</span>
          </div>
-         <div class="col-3 py-1 my-0 text-right px-1"  style="border-bottom:2px solid #4495a2; " >
-             <v-btn rounded x-small :loading="loading" @click="saveChanges" :disabled="editFeild" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;">Save</v-btn>
+         <div class="col-4 py-1 my-0 text-right px-1"  style="border-bottom:2px solid #4495a2; " >
+             <v-btn rounded x-small :loading="loading" @click="saveChanges" :disabled="editFeild" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;">{{$t('general.save')}}</v-btn>
          </div>
       </div>
      </div>
@@ -25,7 +25,7 @@
 
               <div class="col-12 py-2 my-0 px-2">
                  <div>
-                     <span style="font-size:12px;color:#666666;">Profile Image</span>
+                     <span style="font-size:12px;color:#666666;">{{ $t('profile.profile_images') }}</span>
                  </div>
              
               <v-row>
@@ -63,8 +63,8 @@
                    <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:11px;"
-                 placeholder="name..."
-            label="Name"
+                :placeholder="$t('general.Name') + '...'"
+            :label="$t('general.Name')"
              dense
              :rules="nameRule"
              v-model="fullName"
@@ -81,13 +81,13 @@
                   <v-combobox
         
           :items="Categories"
-          label="Interests"
+           :label="$t('profile.interests')"
           style="font-size:11px;"
           multiple
           hide-selected
           :rules="Required"
           v-model="Interests"
-          placeholder="select..."
+          :placeholder="$t('general.select') + '...'"
           color="#4495a2"
           small-chips
         ></v-combobox>
@@ -97,10 +97,10 @@
                   <v-textarea
                 style="font-size:11px;"
                  
-            label="About"
+             :label="$t('profile.about')"
              dense
             
-             placeholder="about..."
+            :placeholder="$t('profile.about') + '...'"
              :rules="aboutRule"
              v-model="contentInWord"
              counter="300"

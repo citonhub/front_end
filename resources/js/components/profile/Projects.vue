@@ -33,7 +33,7 @@
      </div> 
 
    <div v-if="projects.length == 0"  class="text-center col-12 ">
-       <span style="color:gray; font-size:12px;">No project found</span>
+       <span style="color:gray; font-size:12px;">{{ $t('trends.no_projects') }}</span>
    </div>
 
       </div>

@@ -10,7 +10,8 @@
       <div class="col-12 my-1 mb-0 px-1 text-center py-0">
            <v-text-field
               style="font-size:13px;"
-             placeholder="Find duels" 
+             
+              :placeholder="$t('trends.find_duels')" 
              dense
               @keydown="queryChannel"
              v-model="query"
@@ -55,7 +56,7 @@
         
 
          <div v-if="allDuels.length == 0" class="text-center col-12">
-           <span style="color:gray; font-size:12px;">No Duel found</span>
+           <span style="color:gray; font-size:12px;">{{ $t('trends.no_duels') }}</span>
                 </div>  
 
 

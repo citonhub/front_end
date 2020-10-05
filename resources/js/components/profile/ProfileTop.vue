@@ -55,7 +55,7 @@
 
           <div class="col-4 d-flex my-0 py-0" style="align-items:center; justify-content:center;" @click="showConnections">
                  <div  class="text-center">
-                   <span class="friends d-block">Connections</span>
+                   <span class="friends d-block">{{ $t('profile.connections') }}</span>
                     <span class="friendCount d-block" v-if="this.$root.profileDetails != null">{{this.$root.profileDetails.connections}}</span>
                     <v-skeleton-loader v-else class="mt-2" type="text"></v-skeleton-loader>
                  </div>
@@ -71,11 +71,11 @@
          </div>
          <div class="col-4 d-flex my-0 py-0" style="align-items:center; justify-content:center;" v-if="this.$root.profileDetails != null">
            
-              <v-btn x-small v-if="this.$root.checkauthroot == 'auth' && this.$root.username == this.$root.profileDetails.username " rounded color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;" @click="editProfile">edit profile</v-btn>
+              <v-btn x-small v-if="this.$root.checkauthroot == 'auth' && this.$root.username == this.$root.profileDetails.username " rounded color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;" @click="editProfile">  {{ $t('profile.edit_profile') }}</v-btn>
               
-     <v-btn x-small :loading="loading"  v-if="!this.$root.profileDetails.connected && this.$root.username != this.$root.profileDetails.username" rounded color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;" @click="connect">Connect</v-btn>
+     <v-btn x-small :loading="loading"  v-if="!this.$root.profileDetails.connected && this.$root.username != this.$root.profileDetails.username" rounded color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;" @click="connect">{{ $t('general.connect') }}</v-btn>
 
-      <v-btn x-small   v-if="this.$root.profileDetails.connected && this.$root.username != this.$root.profileDetails.username" rounded color="#3E8893" style="font-size:10px; color:white;text-transform:capitalize;" >Connected</v-btn>     
+      <v-btn x-small   v-if="this.$root.profileDetails.connected && this.$root.username != this.$root.profileDetails.username" rounded color="#3E8893" style="font-size:10px; color:white;text-transform:capitalize;" >{{ $t('general.connected') }}</v-btn>     
              
              
 
@@ -100,7 +100,7 @@
      
      :style="$router.currentRoute.path.indexOf('channels') >= 0 ? 'color:#ffffff;background:#3E8893; font-size:11px;' : 'color:#204346;background:#ffffff; font-size:11px;' "
       >
-      Channels
+       {{ $t('space.channels') }}
       </v-chip>  
         </router-link>
          
@@ -113,7 +113,7 @@
       label
       :style="$router.currentRoute.path.indexOf('projects') >= 0  ? 'color:#ffffff;background:#3E8893; font-size:11px;' : 'color:#204346;background:#ffffff; font-size:11px;' "
       >
-      Projects
+       {{ $t('space.projects') }}
       </v-chip>  
  </router-link>
       
@@ -126,7 +126,7 @@
       label
      :style="$router.currentRoute.path.indexOf('teams') >= 0 ? 'color:#ffffff;background:#3E8893;font-size:11px;' : 'color:#204346;background:#ffffff;font-size:11px;' "
       >
-      Teams
+      {{ $t('space.teams') }}
       </v-chip>
  </router-link>
      
@@ -140,7 +140,7 @@
       label
       :style="$router.currentRoute.path.indexOf('about') >= 0  ? 'color:#ffffff;background:#3E8893;font-size:11px;' : 'color:#204346;background:#ffffff;font-size:11px;' "
       >
-      About
+      {{ $t('profile.about') }}
       </v-chip>  
  </router-link>
       

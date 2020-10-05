@@ -289,7 +289,7 @@
            </div>
 
               <div>
-          <span style="font-size:14px; color:white;">Waiting for Admin to start live session</span>
+          <span style="font-size:14px; color:white;">{{ $t('space.wait_for_admin') }}</span>
            </div>
 
            
@@ -304,7 +304,7 @@
            </div>
 
            <div>
-          <span style="font-size:14px; color:white;">Connecting...</span>
+          <span style="font-size:14px; color:white;">{{ $t('general.connecting') }}...</span>
            </div>
 
             </div>
@@ -322,7 +322,7 @@
            </div>
 
               <div>
-          <span style="font-size:14px; color:white;">You are disconnected,trying to reconnect...</span>
+          <span style="font-size:14px; color:white;">{{ $t('space.disconnected_info') }}</span>
            </div>
 
            

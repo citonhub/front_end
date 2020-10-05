@@ -30,9 +30,7 @@
                 </div>
              </v-card>
 
-             <div v-if="allChannels.length == 0" class="text-center col-12">
-           <span style="color:gray; font-size:12px;">No Channel found</span>
-                </div>  
+           
              <div class="col-12 py-5 my-5">
 
                 
@@ -43,7 +41,7 @@
         
 
  <div v-if="allChannels.length == 0"  style="background:white; font-family:BodyText;position:absolute;left:0;width:100%; height:80%; overflow-y:auto; overflow-x:hidden; padding-top:40px !important;padding-bottom:140px !important;" class="text-center">
-       <span style="color:gray; font-size:12px;">No Channel found</span>
+       <span style="color:gray; font-size:12px;">{{ $t('trends.no_channel') }}</span>
    </div>
 
 </div>

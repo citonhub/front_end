@@ -11,7 +11,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-             <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Panel Settings</span>
+             <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">{{ $t('panel.panel_settings') }} </span>
          </div>
          <div class="col-2 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
              
@@ -31,7 +31,7 @@
         <v-select
           v-model="backEndLang"
           :items="appTypeList"
-          label="Application type"
+           :label="$t('general.app_type')"
           persistent-hint
           style="font-size:12px;"
           :rules="requiredRule"
@@ -39,7 +39,7 @@
            item-value="id"
           hide-selected
            :disabled="this.$root.panelDataFull.is_set == true"
-          placeholder="select..."
+          :placeholder="$t('general.select') + '...'"
           color="#4495a2"
           small-chips
         ></v-select>
@@ -49,7 +49,7 @@
          <v-text-field
                 style="font-size:12px;"
                 
-            label="Application type"
+             :label="$t('general.app_type')"
              dense
              :disabled="true"
              v-model="languageAppName"
@@ -63,7 +63,7 @@
 
 
              <div class="col-12 py-2 my-0 px-2 text-center"  v-if="this.$root.panelDataFull.is_set != true">
-                  <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="savePanelSettings">Continue</v-btn>
+                  <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="savePanelSettings">{{$t('general.continue')}}</v-btn>
              </div>
               
           </v-form>

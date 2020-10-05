@@ -225,7 +225,7 @@
               <div class="col-12 py-0 text-left">
                 <span style="color:#2e626b; font-size:13px;">
                       <b style="color:#173136;">Step 2-</b> Copy this URL and paste it where you need it.
-                 </span>
+                 </span><br>
 
                  <span style="color:#2e626b; font-size:13px;">
                        For Videos

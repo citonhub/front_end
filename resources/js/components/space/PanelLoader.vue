@@ -72,7 +72,7 @@
                  <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
                  class="d-flex col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2" v-if="UserStar.length == 0 && userLoggedIn">
                    <div class="row py-2 d-flex" style="align-items:center; justify-content:center;">
-                       <span><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:13px; color:white;" class="px-1">{{projectData.total_stars}} Stars</span> </span>
+                       <span><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:13px; color:white;" class="px-1">{{projectData.total_stars}} {{$t('general.stars')}}</span> </span>
                    </div>
                    
                 </div>

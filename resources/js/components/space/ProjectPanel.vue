@@ -21,7 +21,7 @@
 
 
        <div  class="col-12 py-1 my-0 d-flex" style="align-items:center; justify-content:center; position:absolute; width:100%; height:90%;" v-if="!panelsettingsChecked">
-       <span style="font-size:14px; color:grey;">Loading panel...</span>
+       <span style="font-size:14px; color:grey;">{{ $t('panel.loading') }}...</span>
       </div>
 
      
@@ -88,7 +88,7 @@
               <div class="row py-0 my-0">
                 <div class="col-6 py-0 my-0 text-left">
                    <v-btn  x-small color="#3E8893" @click="showExtensionhandler"
-              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-plus mdi-18px</v-icon> Extensions</v-btn> 
+              style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-plus mdi-18px</v-icon> {{ $t('panel.extensions') }}</v-btn> 
                 </div>
                 <div class="col-6 py-0 my-0 text-right">
                    <v-btn icon @click="addNewFile('front_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
@@ -639,7 +639,7 @@
         item-text="description"
         item-value="latest"
           style="font-size:12px;"
-         placeholder="Type extension name"
+         :placeholder="$t('panel.type_extension')"
           label="Extensions"
         prepend-icon="mdi-database-search"
         return-object
@@ -1043,9 +1043,10 @@ export default {
       
    },
     showHowTo: function(){
-       this.$root.panel = this.panel;
-       this.$root.panelBack = this.panelBack;
+      this.$root.panel = this.panel;
+     this.$root.panelBack = this.panelBack;
       this.$router.push({ path: '/how-to' });
+
    },
    addDBTable: function(){
      this.$root.panel = this.panel;

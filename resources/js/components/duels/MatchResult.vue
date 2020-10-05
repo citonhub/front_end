@@ -39,7 +39,9 @@
       
     style="border: 0; height:91%; top:7%; position:fixed;left:0; align-items:center; justify-content:center;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-0 d-flex" >
          <span style="font-size:13px; color:gray;">
-           Select participants above to view result
+            
+           {{ $t('duels.selete_to_view') }}
+
          </span>
        </div>
     </div>
@@ -58,7 +60,7 @@
                 <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
                  class="d-flex col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2" v-if="votes.length != 0">
                   
-                  <span  v-if="selectedParticipantId == ''"><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:12px; color:white;" class="px-1">Votes</span> </span>
+                  <span  v-if="selectedParticipantId == ''"><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:12px; color:white;" class="px-1">{{ $t('duels.votes') }}</span> </span>
                   
                    <div class="row py-0 my-0" v-else>
                      <div class="col-8 py-0 my-0 text-center">
@@ -68,7 +70,7 @@
                    </div>
                      </div>
                      <div class="col-4 py-2 my-0 text-center">
-             <span><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:13px; color:white;" class="px-1">{{participantSelected.votes}} Votes</span> </span>
+             <span><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:13px; color:white;" class="px-1">{{participantSelected.votes}} {{ $t('duels.votes') }}</span> </span>
                      </div>
                    </div>
 
@@ -80,7 +82,7 @@
                  <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
                  class="d-flex col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2" v-else>
                    <div class="row py-2 d-flex" style="align-items:center; justify-content:center;">
-                       <span><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:13px; color:white;" class="px-1">{{participantSelected.votes}} Votes</span> </span>
+                       <span><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:13px; color:white;" class="px-1">{{participantSelected.votes}} {{ $t('duels.votes') }}</span> </span>
                    </div>
                    
                 </div>

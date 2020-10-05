@@ -41,7 +41,7 @@
          
      </div>
       <div v-if="Teams.length == 0"  class="text-center col-12 ">
-       <span style="color:gray; font-size:12px;">No Team found</span>
+       <span style="color:gray; font-size:12px;">{{ $t('profile.no_teams') }}</span>
    </div> 
      </div> 
 

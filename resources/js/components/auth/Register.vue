@@ -5,7 +5,7 @@
 
            <div  style=" top:5%; z-index:1000000;"  class="text-center fixed-top col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0"> 
             
-        <h4 style="color:#26535a;">Create New Account</h4>
+        <h4 style="color:#26535a;">{{ $t('general.create_an_account') }}</h4>
             
                 
      </div>
@@ -14,19 +14,19 @@
        <div class="col-12 py-3 morebackground4 d-flex" >
           
           <v-card class="py-1 px-2 row">
-             <div class="col-3 px-1">
+             <div class="col-2 px-1">
              <span>
                 <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-close mdi-18px</v-icon></v-btn>
              </span>
             </div>
 
-            <div class="col-6 px-0 d-flex" style="align-items:center;justify-content:center;">
+            <div class="col-8 px-0 d-flex" style="align-items:center;justify-content:center;">
              <h5  style="color:#26535a;">
-                 Join CitonHub
+                 {{ $t('general.join_citonhub') }}
              </h5>
             </div>
 
-            <div class="col-3 text-center">
+            <div class="col-2 text-center">
             
             </div>
            
@@ -38,7 +38,7 @@
               <v-text-field
                 style="font-size:12px;"
                  placeholder="James Roland"
-            label="Name"
+            :label="$t('general.Name')"
             counter="80"
             v-model="name"
             :rules="nameRule"
@@ -53,7 +53,7 @@
                 style="font-size:12px;"
                 
                  placeholder="jamesroland@email.com"
-            label="Email"
+            label="E-mail"
              v-model="email"
           
             :rules="emailRule"
@@ -69,7 +69,7 @@
               <v-text-field
                 style="font-size:12px;"
                  placeholder="Javascript"
-            label="Password"
+            :label="$t('general.password')"
              dense
              
               v-model="password"
@@ -86,7 +86,7 @@
               <v-text-field
                 style="font-size:12px;"
                  placeholder="Javascript"
-            label="Confirm Password"
+                 :label="$t('general.confirm_password')"
              dense
              counter="20"
               v-model="passwordConfirm"
@@ -104,7 +104,7 @@
                <div class="col-12 py-1 my-0 px-2 text-center">
                   <v-btn rounded :loading="loading" type="submit" small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
                   @click.prevent="checkemail">
-                  Sign up
+                  {{ $t('general.sign_up') }}
                   </v-btn>
              </div>
 

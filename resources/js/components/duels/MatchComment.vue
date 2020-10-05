@@ -10,7 +10,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-4 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Comment</span>
+           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;"> {{$t('general.comment')}}</span>
          </div>
          <div class="col-4 py-0 my-0  d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
             
@@ -53,7 +53,7 @@
         
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn rounded small color="#3E8893" @click="saveComment" :loading="loading" :disabled="editFeild" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;">Send</v-btn>
+                  <v-btn rounded small color="#3E8893" @click="saveComment" :loading="loading" :disabled="editFeild" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;">{{$t('general.send')}}</v-btn>
              </div>
 
              <div class="my-5 py-3">
@@ -66,14 +66,13 @@
         </div>
          </div>
            </div>
+
+           <input :value="$t('general.type_comment')" type="hidden" id="typingText"> 
      </v-app>
 </template>
 <script>
-import { Editor, EditorContent, EditorMenuBar  } from 'tiptap';
-import {
-        Bold, 
-        Underline,
-        Image,BulletList,ListItem,Placeholder} from 'tiptap-extensions';
+import { Editor, EditorContent  } from 'tiptap';
+import { Placeholder} from 'tiptap-extensions';
 
 export default {
     data(){
@@ -82,9 +81,6 @@ export default {
         content: '',
         extensions:[
         
-            new Bold(),
-            new Underline(),
-            new Image(),
             new Placeholder({
             emptyEditorClass: 'is-editor-empty',
             emptyNodeClass: 'is-empty',
@@ -96,17 +92,7 @@ export default {
         ],
         
       }),
-       editorRules: new Editor({
-        content: '',
-        extensions:[
-        
-           
-            new ListItem(),
-            new BulletList()
-           
-        ],
-        
-      }),
+     
       selectedParticipant:'',
         participant: [
             'Individuals',
@@ -124,18 +110,24 @@ export default {
     editFeild:false,
      loading:false,
      labelText: '',
+     typingText:'',
         }
     },
     components: {
     EditorContent,
      
-    EditorMenuBar,
+   
     
   },
    mounted(){
       this.$root.showTabs=true;
        this.$root.showHeader = false;
        this.checkifReply();
+
+        this.typingText = document.querySelector("#typingText").value;
+
+        this.editor.extensions.options.placeholder.emptyNodeText = this.typingText + '...'
+
         this.$root.checkIfUserIsLoggedIn('duels');
        this.fetchDuel();
     },

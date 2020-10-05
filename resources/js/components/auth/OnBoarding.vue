@@ -8,7 +8,7 @@
 
        
 
-       <div class="py-1 px-auto pt-5 my-0 d-flex" style=" background:rgba(38, 82, 89,0.5);position:absolute;bottom:0%; height:100%; width:100%; left:0; overflow-y:auto; overflow-x:hidden; 
+       <div class="py-1 px-auto pt-5 my-0 d-flex" style=" background:rgba(38, 82, 89,0.5);position:absolute;bottom:0%; top:45%;  height:100%; width:100%; left:0; overflow-y:auto; overflow-x:hidden; 
         ">
            
           

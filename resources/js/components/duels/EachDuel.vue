@@ -15,11 +15,15 @@
                    </div>
 
                    <div class="py-1 col-4">
-                        <span style="font-size:12px;color:#595959;">Participants: {{source.current_participant}}</span>
+                        <span style="font-size:12px;color:#595959;">{{ $t('duels.participant') }}: {{source.current_participant}}</span>
                    </div>
 
                    <div class="col-4 py-1 text-center">
-                            <span class="statusnew" >{{checkDuelStatus(source)}}</span>
+
+                            <span class="statusnew" v-if="checkDuelStatus(source) == 'Active'">{{$t('duels.active')}} </span>
+                       <span class="statusnew" v-if="checkDuelStatus(source) == 'Pending'">{{$t('duels.pending')}} </span>
+                        <span class="statusnew" v-if="checkDuelStatus(source) == 'Ended'">{{$t('duels.ended')}} </span>
+                        <span class="statusnew" v-if="checkDuelStatus(source) == 'Voting'">{{$t('duels.voting')}} </span>
                      </div>
                    
                     <div class="col-4 py-1 text-right">

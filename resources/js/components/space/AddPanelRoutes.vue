@@ -11,7 +11,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-             <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Add New Route</span>
+             <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;"> {{ $t('panel.add_new_route') }}</span>
          </div>
          <div class="col-2 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
              
@@ -30,11 +30,11 @@
                   <v-select
           v-model="RouteType"
           :items="Routes"
-          label="Route Type"
+          :label="$t('panel.route_type')"
           style="font-size:12px;"
           :rules="requiredRule"
           hide-selected
-          placeholder="select..."
+         :placeholder="$t('general.select') + '...'"
            :disabled="disableForm"
           color="#4495a2"
           small-chips
@@ -45,13 +45,13 @@
              <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:13px;"
-                 placeholder="path e.g /index..."
-                 hint="must begin with '/'"
+                 :placeholder="$t('panel.path_pholder')"
+                 :hint="$t('panel.path_hint')"
                   :disabled="disableForm"
                  :rules="Rule"
                  v-model="path"
                  counter="20"
-            label="Path"
+            :label="$t('panel.path')"
              dense
              color="#4495a2"
              ></v-text-field>
@@ -62,14 +62,14 @@
                   <v-select
           v-model="ControllerFile"
           :items="Controllers"
-          label="Controller File"
+          :label="$t('panel.controller_file')"
            item-text="file_name"
            item-value="file_name"
           style="font-size:12px;"
            :disabled="disableForm"
           :rules="requiredRule"
           hide-selected
-          placeholder="select..."
+          :placeholder="$t('general.select') + '...'"
           color="#4495a2"
           small-chips
         ></v-select>
@@ -79,13 +79,13 @@
              <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:13px;"
-                 placeholder="Method name e.g main"
-                 hint="Method name in the selected controller"
+                 :placeholder="$t('panel.method_name_pholder')"
+                 :hint="$t('panel.method_hint')"
                  :rules="requiredRule"
                  :disabled="disableForm"
                  v-model="functionName"
                  counter="20"
-            label="Method Name"
+            :label="$t('panel.panel_method')"
              dense
              color="#4495a2"
              ></v-text-field>
@@ -97,7 +97,7 @@
 
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn rounded small :loading="loading" :disabled="disableForm" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="saveRoute">Add</v-btn>
+                  <v-btn rounded small :loading="loading" :disabled="disableForm" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="saveRoute">{{$t('general.add')}}</v-btn>
              </div>
               
           </v-form>

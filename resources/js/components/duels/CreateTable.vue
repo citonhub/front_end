@@ -11,7 +11,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-             <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Create Table</span>
+             <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">{{ $t('panel.create_table') }}</span>
          </div>
          <div class="col-2 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
              
@@ -25,14 +25,16 @@
            <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:13px;"
-                 placeholder="name..."
+                 :placeholder="$t('general.Name') + '...'"
                  :rules="Rule"
                  v-model="TableName"
                  counter="30"
-            label="Table Name"
+            :label="$t('panel.table_name')"
+            
              dense
              color="#4495a2"
              ></v-text-field>
+
 
              </div>
 

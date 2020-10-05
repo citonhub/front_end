@@ -21,17 +21,16 @@ import NewCodeFile from "../components/duels/NewCodeFile.vue"
 import PanelSettings from "../components/duels/PanelSettings.vue"
 import AddPanelRoutes from "../components/duels/AddPanelRoutes.vue"
 import CreateTable from "../components/duels/CreateTable.vue"
-import CreateTableField from "../components/duels/CreateTableField.vue"
-import CreateTableEntries from "../components/duels/CreateTableEntries.vue"
 import PanelLoader from "../components/duels/PanelLoader.vue"
 import ProjectComments from "../components/duels/ProjectComments.vue"
 import NewComment from "../components/duels/NewComment.vue"
 import HowTo from "../components/space/HowTo.vue"
 
+
 const routes = [
   { path: '/', redirect: '/duel'},
-  { path: '/how-to', name: 'HowTo', component: HowTo},
   { path: '/login', name: 'Login', component: Login},
+  { path: '/how-to', name: 'HowTo', component: HowTo},
   { path: '/auth/:frompage', name: 'Auth', component: Auth},
   { path: '/register', name: 'Register', component: Register},
   { path: '/verify', name: 'Verify', component: Verify},
@@ -86,17 +85,6 @@ const routes = [
         //create db table
         path: ':duelId/create-db-table',
         component: CreateTable
-      },
-     
-      {
-        //create db table field
-        path: ':duelId/create-db-table-field',
-        component: CreateTableField
-      },
-      {
-        //create db table entry
-        path: ':duelId/create-db-table-entry',
-        component: CreateTableEntries
       },
      
       {
@@ -156,7 +144,7 @@ Vue.use(VueI18n)
 const messages = require('../bootstraps/messages.json');
 
 const i18n = new VueI18n({
-    locale: 'en', // set locale
+    locale: 'fr', // set locale
     messages, // set locale messages
 })
 
@@ -242,12 +230,15 @@ const app = new Vue({
       reloadDuelBoard:false,
       pageLoaderOpened: false,
       panelDataFull:[],
+      showLangOption:false,
+      userLocale:document.getElementById('appLocale').value,
     },
      mounted: function () {
       this.pageloader= false;
       let _this = this;
       this.trackConnections();
       this.fetchUserDetails();
+      this.SetLocale(this.userLocale);
       this.initialPushMangerReg();
 
     },
@@ -257,6 +248,42 @@ const app = new Vue({
      }
   },
   methods:{
+    changeLocale: function(locale){
+
+      this.$root.showLangOption = false;
+
+     
+      this.$root.$i18n.locale = locale;
+
+      axios.post('/save-locale',{
+        locale: locale
+      }).then(response => {
+          
+        if (response.status == 200) {
+           
+         }else{
+           
+         }
+         
+         
+       })
+       .catch(error => {
+        
+       })
+
+       
+    },
+    SetLocale:function(locale){
+       
+      if(this.checkauthroot != 'noauth'){
+
+        this.$root.$i18n.locale = locale;
+
+      }
+
+     
+
+    },
     closeNotification(uniqueId){
        
       if ('serviceWorker' in navigator) {
@@ -608,7 +635,8 @@ const app = new Vue({
           'about': userProfile.about,
           'Interests': userProfile.interestsArray,
           'connections': userProfile.connections,
-          'background_color': userProfile.background_color
+          'background_color': userProfile.background_color,
+          'user_locale': userProfile.user_locale
           };
             
 
@@ -616,6 +644,13 @@ const app = new Vue({
      
           
            this.authProfile = userDetails;
+        
+           if(this.authProfile.user_locale != undefined){
+
+
+            this.SetLocale(this.authProfile.user_locale);
+      
+          }
         
        
         
@@ -630,6 +665,13 @@ const app = new Vue({
      
 
     }
+
+    if(this.authProfile.user_locale != undefined){
+
+      this.SetLocale(this.authProfile.user_locale);
+
+    }
+
 
    })
 
@@ -660,11 +702,12 @@ if (response.status == 200) {
     'about': userProfile.about,
     'Interests': userProfile.interestsArray,
     'connections': userProfile.connections,
-    'background_color': userProfile.background_color
+    'background_color': userProfile.background_color,
+    'user_locale': userProfile.user_locale
     };
       
 
-   
+    this.$root.LocalStore('userInfo' + this.$root.username,userDetails);
 
     
      this.authProfile = userDetails;
