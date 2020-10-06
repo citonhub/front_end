@@ -3426,7 +3426,8 @@ return  $newChannelArray;
         "type"=> $type,
         "image"=> $imagePathPost,
         "space"=> $spaceData,
-        "url"=> $baseUrl
+        "url"=> $baseUrl,
+        "url_rd"=> '/link/space/' . $baseSpaceId
       ];
 
       

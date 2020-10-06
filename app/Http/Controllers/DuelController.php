@@ -882,7 +882,8 @@ class DuelController extends Controller
             "type"=> 'new_duel',
             "image"=> $imagePath,
             "duel"=> $duelData,
-            "url"=> $baseUrl
+            "url"=> $baseUrl,
+            "url_rd"=> '/link/duel/' . $newDuel->duel_id
           ];
       
           dispatch(new HandleNotification($notificationPayload,'duel'));
@@ -955,7 +956,8 @@ class DuelController extends Controller
           "type"=> $type,
           "image"=> $imagePath,
           "duel"=> $duelData,
-          "url"=> $baseUrl
+          "url"=> $baseUrl,
+          "url_rd"=> '/link/duel/' . $newDuel->duel_id
         ];
     
         if($presentDuel->user_id != Auth::id()){

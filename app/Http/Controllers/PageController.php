@@ -199,7 +199,31 @@ class PageController extends Controller
              }
           
             
-               $pageLink = '/space#\/' . $uniqueId .'/page-loader';
+               $pageLink = '/#\/' . $uniqueId .'/page-loader';
+              
+
+           
+   
+           
+           }
+
+
+           if($type == 'projectPanel'){
+            $thisProject = Project::where('project_slug',$uniqueId)->first();
+            
+            $thisSpace = Space::where('space_id',$thisProject->space_id)->first();
+   
+           $pageTitle = 'CitonHub-Project:' . $thisProject->title;
+           $pageDescription = 'Check out this project:' . $thisProject->title  .',on Citonhub.';
+   
+             if($thisSpace->image_name == null){
+                $imagePath = 'CitonHub.png';
+             }else{
+                $imagePath = 'space/' . $thisSpace->image_name .'.' . $thisSpace->image_extension;
+             }
+          
+            
+               $pageLink = '/#\/' . $uniqueId .'/panel';
               
 
            

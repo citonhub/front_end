@@ -719,7 +719,8 @@ return $newCommentArray;
             "type"=> $type,
             "image"=> $imagePath,
             "project"=> $project,
-            "url"=> $baseUrl
+            "url"=> $baseUrl,
+            "url_rd"=> '/link/projectPanel/' . $baseSpaceId
           ];
       
         

@@ -54,7 +54,7 @@ class HandleNotification implements ShouldQueue
                 "title"=> '',
                 "body"=> $notificationPayload["body"],
                 "badge" => "/imagesNew/icons/icon-72x72.png",
-                "vibrate"=> [1000,500,1000],
+                "vibrate"=> [200, 100, 200, 100, 200, 100, 400],
                 "tag" => $notificationPayload["tag"],
                 "icon" => $notificationPayload["image"],
                 "requireInteraction"=> true,
@@ -63,6 +63,7 @@ class HandleNotification implements ShouldQueue
                    "name"=>$notificationPayload["name"],
                    "space"=>$notificationPayload["space"],
                    "url"=> $notificationPayload["url"],
+                   "url_rd"=>  $notificationPayload["url_rd"]
                 ]
             ];
 
@@ -76,7 +77,7 @@ class HandleNotification implements ShouldQueue
                 "title"=> '',
                 "body"=> $notificationPayload["body"],
                 "badge" => "/imagesNew/icons/icon-72x72.png",
-                "vibrate"=> [1000,500,1000],
+                "vibrate"=> [200, 100, 200, 100, 200, 100, 400],
                 "tag" => $notificationPayload["tag"],
                 "icon" => $notificationPayload["image"],
                 "requireInteraction"=> true,
@@ -85,6 +86,7 @@ class HandleNotification implements ShouldQueue
                    "name"=>$notificationPayload["name"],
                    "duel"=>$notificationPayload["duel"],
                    "url"=> $notificationPayload["url"],
+                   "url_rd"=>  $notificationPayload["url_rd"]
                 ]
             ];
         }
@@ -96,7 +98,7 @@ class HandleNotification implements ShouldQueue
                 "title"=> '',
                 "body"=> $notificationPayload["body"],
                 "badge" => "/imagesNew/icons/icon-72x72.png",
-                "vibrate"=> [1000,500,1000],
+                "vibrate"=> [200, 100, 200, 100, 200, 100, 400],
                 "tag" => $notificationPayload["tag"],
                 "icon" => $notificationPayload["image"],
                 "requireInteraction"=> true,
@@ -105,6 +107,7 @@ class HandleNotification implements ShouldQueue
                    "name"=>$notificationPayload["name"],
                    "project"=>$notificationPayload["project"],
                    "url"=> $notificationPayload["url"],
+                   "url_rd"=>  $notificationPayload["url_rd"]
                 ]
             ];
 
