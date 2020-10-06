@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ app()->getLocale() }}" style="overflow-y:hidden;">
     <head>
     @yield('title')
 
@@ -9,7 +9,7 @@
         @include('shared.css')
           @yield('css')
     </head>
-    <body class="body">
+    <body class="body" style="overflow-y:hidden;">
     
     
      

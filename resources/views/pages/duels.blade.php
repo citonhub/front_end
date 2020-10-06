@@ -107,16 +107,7 @@ body {
   
       
         
-         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;"  @click="showNavLink('duel_list')">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-layers</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">@{{ $t('general.Duel_list') }}</span>
-            </div>
-           </div>
-         </v-card>
+        
          <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;"  @click="showNavLink('account_settings')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">

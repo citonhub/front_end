@@ -2,9 +2,11 @@
  
        
    
-
-    <div class="col-12 py-1"  :id="'post'+ source.id" @click.stop="viewPost(source,'fromcomment')" style="cursor:pointer;" >
-        <div class="row" style="background-color:white; border-bottom:1px solid #cccccc;" >
+    
+          <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 my-0 py-1 "   :id="'post'+ source.id" @click.stop="viewPost(source,'fromcomment')" 
+    style="cursor:pointer;" >
+    
+        <div class="row ml-lg-1" style="background-color:white; border-bottom:1px solid #cccccc;" >
            <div class="col-12 py-0 d-flex "  >
                 <div>
                  <div :style="imageStyle(43,source.userProfile)"  @click.stop="viewUser(source)"
@@ -40,11 +42,11 @@
                   :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="source.id"></video-player>
              </div>
 
-               <div style="width:100%;" v-if="source.attachment_type == 'code'" class="px-lg-4" >
+               <div style="width:100%;" v-if="source.attachment_type == 'code'" class="px-lg-5" >
                  <code-box :codeContent="source.code.content" :filename="source.code.name" :codeLanguage="source.code.language_type" :codeViewerType="viewerType"></code-box>
              </div>
 
-              <div style="width:100%;" v-if="source.attachment_type == 'link'"  class="px-lg-4">
+              <div style="width:100%;" v-if="source.attachment_type == 'link'"  class="px-lg-5">
                   <link-view :urlInfo="source.link" ></link-view>
              </div>
                   
@@ -115,6 +117,8 @@
         </div>
      </div>
 
+   
+
      
    
 
@@ -155,11 +159,7 @@ export default {
     },
     mounted(){
       
-       this.$root.showTabs=true;
       
-     
-       
-       this.$root.showHeader = true;
       
     },
     methods:{
@@ -181,7 +181,7 @@ export default {
     },
     viewUser: function(postData){
        this.$root.pageloader = true;
-        window.location = '/view-profile#/profile/activities/'+ postData.username;
+        window.location = '/view-profile#/profile/channels/'+ postData.username;
     },
        likePost: function(postData){
          this.$root.checkIfUserIsLoggedIn('home');

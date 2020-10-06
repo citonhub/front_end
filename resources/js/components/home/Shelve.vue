@@ -25,29 +25,28 @@
        
 <div v-if="post_data != null">
 
-   <virtual-list id="postContainerShelve" 
-      class="py-1 my-0"
-      :data-key="'id'"
-      :data-sources="post_data"
-      v-if="post_data.length != 0"
-      :data-component="itemComponent"
-      :keeps="15"
-
-      style="position:absolute;top:7%; height:93%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; ">
+   <div id="postContainerShelve" 
+      class=" my-0 postScroll"
       
-</virtual-list> 
+      v-if="post_data.length != 0"
+      
+      style="background:transparent; font-family:BodyText;position:fixed;left:0;  width:100%; height:100% ; overflow-y:auto;overflow-x:hidden; padding-top:50px;padding-bottom:250px;">
 
-   <div v-if="post_data.length == 0" style="position:absolute;top:7%; height:93%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; " class="text-center">
+       <public v-for="(post,index) in post_data" :key="index" :index="post.id" :source="post"></public>
+      
+</div> 
+
+   <div v-if="post_data.length == 0" style="background:transparent; top:6%; font-family:BodyText;position:fixed;left:0; width:100%; height:100% ; overflow-y:auto; overflow-x:hidden; " class="text-center">
        <span style="color:gray; font-size:12px;">No post found</span>
    </div>
 
 
 </div>
      
-<div v-else  style="position:absolute;top:7%; height:93%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; ">
-      <div class="col-12 py-0 my-0">
+<div v-else  :style="'background:transparent; font-family:BodyText;position:fixed;left:0; top:6%;  width:100%; height:100%; overflow-y:' + 'hidden' + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'">
+      <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0">
 
-         <div class="row py-0 my-0 px-1">
+         <div class="ml-lg-1 row py-0 my-0 px-1">
           <div  class="col-6 py-0 my-0 px-0">
           <v-skeleton-loader
         type="list-item-avatar-two-line"
@@ -63,7 +62,7 @@
          </div>
 
 
-          <div class="row py-0 my-0 px-1" >
+          <div class="ml-lg-1  row py-0 my-0 px-1" >
           <div  class="col-6 py-0 my-0 px-0">
           <v-skeleton-loader
         type="list-item-avatar-two-line"
@@ -78,7 +77,7 @@
      </div>
          </div>
 
-          <div class="row py-0 my-0 px-1" >
+          <div class="ml-lg-1 row py-0 my-0 px-1" >
           <div  class="col-6 py-0 my-0 px-0">
           <v-skeleton-loader
         type="list-item-avatar-two-line"
@@ -93,7 +92,7 @@
      </div>
          </div>
 
-          <div class="row py-0 my-0 px-1" >
+          <div class="ml-lg-1 row py-0 my-0 px-1" >
           <div  class="col-6 py-0 my-0 px-0">
           <v-skeleton-loader
         type="list-item-avatar-two-line"
@@ -109,7 +108,7 @@
          </div>
 
        
-         <div class="row py-0 my-0 px-1" >
+         <div class="ml-lg-1 row py-0 my-0 px-1" >
           <div  class="col-6 py-0 my-0 px-0">
           <v-skeleton-loader
         type="list-item-avatar-two-line"
@@ -125,7 +124,7 @@
          </div>
 
 
-        <div class="row py-0 my-0 px-1" >
+        <div class="ml-lg-1 row py-0 my-0 px-1" >
           <div  class="col-6 py-0 my-0 px-0">
           <v-skeleton-loader
         type="list-item-avatar-two-line"
@@ -155,22 +154,21 @@
 </template>
 <script>
 
-import ShelveContent from './ShelveContent'
-import VirtualList from 'vue-virtual-scroll-list'
+
+
 
 export default {
     data(){
         return{
           
         myhtml:'<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.Veniam atque quod voluptatum dolorum dicta tempore,</p>',
-         itemComponent: ShelveContent,
             post_data:this.$root.postShelveData,
        
         }
     },
 
    components: { 
-     'virtual-list': VirtualList
+    
       },
    
    mounted(){
@@ -236,6 +234,21 @@ export default {
    
 }
 </script>
-<style>
-
+<style scoped>
+  .postScroll::-webkit-scrollbar {
+  width: 6px;
+}
+ 
+.postScroll::-webkit-scrollbar-track {
+   box-shadow: inset 0 0 6px rgba(111, 181, 195, 0.9);
+  border:1px solid transparent;
+  border-radius:6px;
+}
+ 
+.postScroll::-webkit-scrollbar-thumb {
+   background-color: #4ba6b4;
+  outline: 1px solid #4ba6b4;
+  border:1px solid transparent;
+   border-radius:6px;
+}
 </style>

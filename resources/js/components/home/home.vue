@@ -5,7 +5,7 @@
    <div style="width:100%; height:auto; overflow-y:hidden; overflow-x:hidden; ">
       
       <div v-if="this.$root.showCodeEditor">
-            <code-viewer></code-viewer>
+            <code-editor></code-editor>
       </div>
      
      <share v-if="this.$root.showShare"></share>

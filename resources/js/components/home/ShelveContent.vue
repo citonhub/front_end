@@ -181,7 +181,7 @@ export default {
   },
    viewUser: function(postData){
        this.$root.pageloader = true;
-      window.location = '/view-profile#/profile/activities/'+ postData.username;
+      window.location = '/view-profile#/profile/channels/'+ postData.username;
     },
        likePost: function(postData){
         

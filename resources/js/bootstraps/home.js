@@ -14,6 +14,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 window.Vuetify = require('vuetify');
 
+window.localforage = require('localforage');
+
 let token = document.head.querySelector('meta[name="csrf-token"]');
 
 // src/plugins/vuetify.js
@@ -34,12 +36,9 @@ const vuetify = new Vuetify({
 });
 
 
-import { DynamicScroller } from 'vue-virtual-scroller'
-
-Vue.component('DynamicScroller', DynamicScroller)
 
 
-import moment from 'moment'
+
 
 window.moment = require('moment');
 

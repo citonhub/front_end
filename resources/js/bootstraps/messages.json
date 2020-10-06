@@ -4,6 +4,7 @@
         "space": "Space",
         "duels":"Duels",
         "trends": "Trends",
+        "hub":"Hub",
         "profile":"Profile",
         "Duel_list": "Duel List",
         "Account_Setting":"Account Setting",
@@ -246,6 +247,7 @@
    "fr": {
       "general": {
         "space": "Espace",
+        "hub":"Hub",
         "duels": "Duels",
         "trends":"Tendance",
         "profile":"Profil",

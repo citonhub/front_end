@@ -24,7 +24,7 @@
              @else
              <v-badge
           color="#36848C"
-          v-if="notificationCountSpace != 0"
+          v-if="false"
           :content="notificationCountSpace"
         >
         <span class="iconname">
@@ -34,6 +34,36 @@
 
         <span class="iconname" v-else>
         @{{ $t('general.space') }}
+             </span>
+             @endif
+            </div>
+            </div>
+            <div class="col-4 d-flex py-0 "  style="align-items:center; justify-content:center;">
+            </div>
+
+
+          </div>
+         </a>
+
+
+         <a :class=" tabLabel == 'home' ? 'd-block col-12 px-2 py-2 my-0 activeTab' : 'd-block col-12 px-2 py-2 my-0 notActiveTab'" href="/hub" @click="loader"> 
+          <div class="row py-0 my-0">
+            <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
+              @if($tablabel == 'hub')
+              <img src="{{ asset('imgs/hub_icon_active.png') }}" class="iconstyle"/>
+              @else
+              <img src="{{ asset('imgs/hub_icon1.png') }}" class="iconstyle"/>
+              @endif
+            </div>
+            <div class="col-4 d-flex py-0 "  style="align-items:center; justify-content:center;">
+            <div class="text-center">
+            @if($tablabel == 'hub')
+             <span class="iconname" style="color:#36848C;">
+               @{{ $t('general.hub') }}
+             </span>
+             @else
+             <span class="iconname">
+             @{{ $t('general.hub') }}
              </span>
              @endif
             </div>
@@ -82,34 +112,7 @@
 
         
 
-         <a :class=" tabLabel == 'home' ? 'd-block col-12 px-2 py-2 my-0 activeTab' : 'd-block col-12 px-2 py-2 my-0 notActiveTab'" href="/trends" @click="loader"> 
-          <div class="row py-0 my-0">
-            <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
-              @if($tablabel == 'trends')
-              <img src="{{ asset('imgs/trend_active.png') }}" class="iconstyle"/>
-              @else
-              <img src="{{ asset('imgs/trend.png') }}" class="iconstyle"/>
-              @endif
-            </div>
-            <div class="col-4 d-flex py-0 "  style="align-items:center; justify-content:center;">
-            <div class="text-center">
-            @if($tablabel == 'trends')
-             <span class="iconname" style="color:#36848C;">
-               @{{ $t('general.trends') }}
-             </span>
-             @else
-             <span class="iconname">
-             @{{ $t('general.trends') }}
-             </span>
-             @endif
-            </div>
-            </div>
-            <div class="col-4 d-flex py-0 "  style="align-items:center; justify-content:center;">
-            </div>
-
-
-          </div>
-         </a>
+        
   
 
       
@@ -133,7 +136,7 @@
              @else
              <v-badge
           color="#36848C"
-          v-if="notificationCount != 0"
+          v-if="false"
           :content="notificationCount"
         >
         <span class="iconname">
@@ -182,7 +185,7 @@
             @else
             <v-badge
           color="#36848C"
-          v-if="notificationCountSpace != 0"
+          v-if="false"
           :content="notificationCountSpace"
         >
       
@@ -199,6 +202,25 @@
              
             </a>
             </div>
+
+
+            <div class="text-center iconcontainer" > 
+            <a href="/hub">
+            @if($tablabel == 'hub')
+            <img src="{{ asset('imgs/hub_icon_active.png') }}" class="iconstylemd"/><br>
+            <span class="iconnamemd py-1" style="color:#36848C;">
+            @{{ $t('general.hub') }}
+             </span>
+            @else
+            <img src="{{ asset('imgs/hub_icon1.png') }}" class="iconstylemd"/><br>
+            <span class="iconnamemd py-1">
+            @{{ $t('general.hub') }}
+             </span>
+            @endif
+             
+             </a>
+            </div>
+           
             
     
            
@@ -218,22 +240,6 @@
             </a>
             </div>
 
-            <div class="text-center iconcontainer" > 
-            <a href="/trends">
-            @if($tablabel == 'trends')
-            <img src="{{ asset('imgs/trend_active.png') }}" class="iconstylemd"/><br>
-            <span class="iconnamemd py-1" style="color:#36848C;">
-            @{{ $t('general.trends') }}
-             </span>
-            @else
-            <img src="{{ asset('imgs/trend.png') }}" class="iconstylemd"/><br>
-            <span class="iconnamemd py-1">
-            @{{ $t('general.trends') }}
-             </span>
-            @endif
-             
-             </a>
-            </div>
            
 
             
@@ -247,7 +253,7 @@
             @else
             <v-badge
           color="#36848C"
-          v-if="notificationCount != 0"
+          v-if="false"
           :content="notificationCount"
         >
       
@@ -280,7 +286,7 @@
             @else
             <v-badge
           color="#36848C"
-            v-if="notificationCountSpace != 0"
+            v-if="false"
           :content="notificationCountSpace"
         >
       
@@ -295,6 +301,25 @@
             @endif
              
             </a>
+            </div>
+
+
+
+            <div class="text-center iconcontainer" > 
+            <a href="/hub" @click="loader">
+            @if($tablabel == 'hub')
+            <img src="{{ asset('imgs/hub_icon_active.png') }}" class="iconstylesm"/>
+            <div class="iconnamesm " style="color:#36848C;">
+            @{{ $t('general.hub') }}
+             </div>
+            @else
+            <img src="{{ asset('imgs/hub_icon1.png') }}" class="iconstylesm"/>
+            <div class="iconnamesm ">
+            @{{ $t('general.hub') }}
+             </div>
+            @endif
+             
+             </a>
             </div>
             
    
@@ -315,23 +340,6 @@
             </div>
 
 
-            <div class="text-center iconcontainer" > 
-            <a href="/trends" @click="loader">
-            @if($tablabel == 'trends')
-            <img src="{{ asset('imgs/trend_active.png') }}" class="iconstylesm"/>
-            <div class="iconnamesm " style="color:#36848C;">
-            @{{ $t('general.trends') }}
-             </div>
-            @else
-            <img src="{{ asset('imgs/trend.png') }}" class="iconstylesm"/>
-            <div class="iconnamesm ">
-            @{{ $t('general.trends') }}
-             </div>
-            @endif
-             
-             </a>
-            </div>
-
            
            
 
@@ -347,7 +355,7 @@
             @else
             <v-badge
           color="#36848C"
-            v-if="notificationCount != 0"
+            v-if="false"
           :content="notificationCount"
         >
       

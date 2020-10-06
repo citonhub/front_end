@@ -20,6 +20,7 @@
   html,
 body {
     overscroll-behavior-y: contain;
+    overflow-y:auto;
 }
  </style>
   
@@ -60,10 +61,11 @@ body {
             <a href="/"  class="d-block d-md-none"><img src="{{asset('imgs/CitonHub.png')}}" height="25" width="auto"/></a>
         </div>
         
-        <div style="text-align:right; border-bottom:1px solid #e6e6e6; align-items:center; " class="col-4 px-1 text-right py-1">
+        <div style="text-align:right; border-bottom:1px solid #e6e6e6; " class="col-4 pr-2 py-0 text-right">
+           
+           <v-btn icon color="#3E8893"  class="mt-2"  small style="border:2px solid #3E8893; border-radius:50%;"><v-icon>mdi-translate mdi-18px</v-icon></v-btn>
+       </div>
         
-            
-        </div>
         
     </div>
 </div>
@@ -84,16 +86,6 @@ body {
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
                <span style="font-size:12px; color:#333333;">My Library</span>
-            </div>
-           </div>
-         </v-card>
-         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;"  @click="showNavLink('duel_list')">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-layers</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Duel List</span>
             </div>
            </div>
          </v-card>
@@ -304,6 +296,6 @@ body {
 
  @section('scripts')
 
- <script src="{{ asset('js/home.js?v=0.77') }}"></script>
+ <script src="{{ asset('js/home.js?v=0.79') }}"></script>
      
  @endsection

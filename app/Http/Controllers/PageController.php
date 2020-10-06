@@ -236,9 +236,9 @@ class PageController extends Controller
     }
 
 
-    public function home(){
+    public function hub(){
 
-        $tablabel = 'home';
+        $tablabel = 'hub';
         return view('pages.home',compact('tablabel'));
     }
 
@@ -254,13 +254,7 @@ class PageController extends Controller
         
     }
 
-  
 
-    public function testMail(){
-        Mail::to('sample@myemail.com')->send(new VerifyUserEmail());
-
-        return 'done';
-    }
 
     public function space(){
       

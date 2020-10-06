@@ -22,8 +22,8 @@ import Privacy from "../components/home/Privacy.vue"
 
 
 const routes = [
-  { path: '/', redirect: '/home'},
-  { path: '/home', name: 'HomeController', component: HomeController},
+  { path: '/', redirect: '/hub'},
+  { path: '/hub', name: 'HomeController', component: HomeController},
   { path: '/privacy-policy', name: 'Privacy', component: Privacy},
   { path: '/new-post', name: 'NewPost', component: NewPost},
   { path: '/code-editor', name: 'CodeEditor', component: CodeEditor},
@@ -45,11 +45,24 @@ const router = new VueRouter({
   routes
 });
 
+import VueI18n from 'vue-i18n'
+
+Vue.use(VueI18n)
+
+const messages = require('../bootstraps/messages.json');
+
+const i18n = new VueI18n({
+    locale: 'en', // set locale
+    messages, // set locale messages
+})
+
+
 
 const app = new Vue({
   router: router,
     el: '#home',
     vuetify: new Vuetify(),
+    i18n,
     data:{
       pageloader: false,
       notificationApproved:'',
@@ -132,6 +145,9 @@ const app = new Vue({
             drawer:false,
             notificationCount:0,
             notificationCountSpace:0,
+            codeMessageId:'',
+            codeBoxOpened:false,
+            codeFromView:false,
     },
      mounted: function () {
       this.pageloader = false;
@@ -155,7 +171,7 @@ const app = new Vue({
     },
     showNavLink:function(type){
        if(type == 'library'){
-         window.location = '/#/library';
+         window.location = '/hub#/library';
        }
 
        if(type == 'duel_list'){

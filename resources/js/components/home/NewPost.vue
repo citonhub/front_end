@@ -316,6 +316,7 @@ export default {
        this.setContentField();
         this.$root.checkIfUserIsLoggedIn();
         this.trackUser();
+        this.$root.codeBoxOpened = false;
     },
     methods:{
       urlify:function(text) {

@@ -1,6 +1,6 @@
 <template>
    <div class="px-2">
-    <div class="col-12 py-1" style="background-color:whitesmoke; border-bottom:1px solid #cccccc;" v-for="(post,index) in CommentArray" :key="index">
+    <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-1" style="background-color:whitesmoke; border-bottom:1px solid #cccccc;" v-for="(post,index) in CommentArray" :key="index">
         <div class="row" >
            <div class="col-12 py-0 d-flex ">
              <div>
@@ -144,7 +144,7 @@ export default {
   },
    viewUser: function(postData){
        this.$root.pageloader = true;
-       window.location = '/view-profile#/profile/activities/'+ postData.username;
+       window.location = '/view-profile#/profile/channels/'+ postData.username;
     },
        replyComment: function(post){
            this.$root.commentIsReply = true;

@@ -42,9 +42,9 @@
  */
 
 /*!
- * vue-virtual-scroll-list v2.3.0
- * open source under the MIT license
- * https://github.com/tangbc/vue-virtual-scroll-list#readme
+ * vue-i18n v8.21.1 
+ * (c) 2020 kazuya kawaguchi
+ * Released under the MIT License.
  */
 
 /*! ../../../directives/resize */

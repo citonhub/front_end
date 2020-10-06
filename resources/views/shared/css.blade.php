@@ -184,8 +184,8 @@ body::-webkit-scrollbar-thumb {
      width: 23px;
    }
    .iconstylesm{
-      height:18px;
-     width: 18px;
+      height:19px;
+     width: 19px;
    }
    .iconnamemd{
       font-weight:bold;

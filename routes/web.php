@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 // pages routes
 Route::get('/','PageController@space');
 Route::get('/home','PageController@space');
+Route::get('/hub','PageController@hub');
 Route::get('/trends','PageController@trends');
 Route::get('/space','PageController@space');
 Route::get('/duels','PageController@duels');

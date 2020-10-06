@@ -15,4 +15,5 @@ mix.js('resources/js/duels.js', 'public/js');
 mix.js('resources/js/space.js', 'public/js');
 mix.js('resources/js/profile.js', 'public/js');
 mix.js('resources/js/trends.js', 'public/js');
+mix.js('resources/js/home.js', 'public/js');
 
