@@ -95,6 +95,11 @@ import dedent from 'dedent'
   import 'codemirror/addon/fold/indent-fold.js'
   import 'codemirror/addon/fold/markdown-fold.js'
   import 'codemirror/addon/fold/xml-fold.js'
+
+       // scroll
+import 'codemirror/addon/scroll/simplescrollbars.js'
+import 'codemirror/addon/scroll/simplescrollbars.css'
+
 // media 
 export default {
     props:['messages','user_id','selected_class_id','showcode','displaycodebox'],
@@ -112,6 +117,7 @@ export default {
              cmOption: {
           tabSize: 4,
           foldGutter: true,
+          scrollbarStyle:"overlay",
           filepath:'',
           styleActiveLine: true,
           lineNumbers: true,

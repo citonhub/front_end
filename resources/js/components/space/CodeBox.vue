@@ -87,6 +87,10 @@ import dedent from 'dedent'
   import 'codemirror/addon/fold/foldgutter.js'
   import 'codemirror/addon/fold/indent-fold.js'
 
+    // scroll
+import 'codemirror/addon/scroll/simplescrollbars.js'
+import 'codemirror/addon/scroll/simplescrollbars.css'
+
   
 export default {
     props:['codeContent','filename','codeLanguage','codeViewerType','messageId'],
@@ -114,6 +118,7 @@ export default {
           keyMap: "sublime",
           mode: 'text/html',
           theme: 'base16-dark',
+          scrollbarStyle:"overlay",
           readOnly: 'nocursor',
           extraKeys: {
              "F11": function(cm) {

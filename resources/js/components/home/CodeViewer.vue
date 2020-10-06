@@ -156,6 +156,11 @@ import dedent from 'dedent'
   import 'codemirror/addon/fold/foldgutter.js'
   import 'codemirror/addon/fold/indent-fold.js'
 
+     // scroll
+import 'codemirror/addon/scroll/simplescrollbars.js'
+import 'codemirror/addon/scroll/simplescrollbars.css'
+
+
 
 
 export default {
@@ -187,6 +192,7 @@ export default {
           filepath:'',
           styleActiveLine: true,
           lineNumbers: true,
+          scrollbarStyle:"overlay",
           line: true,
           keyMap: "sublime",
           mode: 'text/html',

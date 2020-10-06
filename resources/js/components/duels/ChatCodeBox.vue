@@ -77,6 +77,11 @@ import dedent from 'dedent'
   import 'codemirror/addon/fold/indent-fold.js'
   import 'codemirror/addon/fold/markdown-fold.js'
   import 'codemirror/addon/fold/xml-fold.js'
+
+        // scroll
+import 'codemirror/addon/scroll/simplescrollbars.js'
+import 'codemirror/addon/scroll/simplescrollbars.css'
+
 // media 
 export default {
     props:['code','mode','messageid'],
@@ -96,6 +101,7 @@ export default {
           foldGutter: true,
           filepath:'',
           styleActiveLine: true,
+           scrollbarStyle:"overlay",
           lineNumbers: true,
           line: true,
           keyMap: "sublime",

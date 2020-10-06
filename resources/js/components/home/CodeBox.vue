@@ -86,6 +86,9 @@ import dedent from 'dedent'
   import 'codemirror/addon/fold/foldcode.js'
   import 'codemirror/addon/fold/foldgutter.js'
   import 'codemirror/addon/fold/indent-fold.js'
+      // scroll
+import 'codemirror/addon/scroll/simplescrollbars.js'
+import 'codemirror/addon/scroll/simplescrollbars.css'
 
 
 export default {
@@ -108,6 +111,7 @@ export default {
           tabSize: 4,
           foldGutter: true,
           filepath:'',
+           scrollbarStyle:"overlay",
           styleActiveLine: true,
           lineNumbers: true,
           line: true,

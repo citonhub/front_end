@@ -33,11 +33,11 @@
 
        <div class="col-12 py-0 my-0" style="position:absolute; top:5%; height:95%; overflow-y:hidden; left:0; overflow-x:hidden;">
          <div class="row my-0 py-0 px-0 ">
-              <div class="codebox scrollerStyle">
+              <div class="codebox mainNewScrollNew">
          <codemirror
         v-model="code"
         :options="cmOption"
-        class="scrollerStyle"
+      
         style="height:100%;"
         @cursorActivity="onCmCursorActivity"
         @ready="onCmReady"
@@ -176,6 +176,9 @@ import dedent from 'dedent'
   import 'codemirror/addon/fold/foldcode.js'
   import 'codemirror/addon/fold/foldgutter.js'
   import 'codemirror/addon/fold/indent-fold.js'
+  // scroll
+import 'codemirror/addon/scroll/simplescrollbars.js'
+import 'codemirror/addon/scroll/simplescrollbars.css'
 
   
 
@@ -209,6 +212,7 @@ export default {
           line: true,
           autocorrect: true,
           keyMap: "sublime",
+          scrollbarStyle:"overlay",
           mode: 'text/html',
           theme: 'base16-dark',
           extraKeys: {
@@ -950,6 +954,7 @@ methods:{
   border:1px solid transparent;
    border-radius:6px;
 }
+
 
     
 </style>
