@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title')
 
-    <title>CitonHub:Home</title>
+    <title>CitonHub:Hub</title>
 
  @endsection
  @section('meta') 
