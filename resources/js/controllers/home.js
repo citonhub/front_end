@@ -148,6 +148,10 @@ const app = new Vue({
             codeMessageId:'',
             codeBoxOpened:false,
             codeFromView:false,
+            allPostArray:[],
+            postInitialLimit:30,
+            postStoreTop:[],
+            postStoreBottom:[]
     },
      mounted: function () {
       this.pageloader = false;

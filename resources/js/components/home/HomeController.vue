@@ -9,13 +9,13 @@
 
 
           <div id="postContainer" 
-      v-if="post_data.length != 0"
-    
+      v-if="this.$root.postData.length != 0"
+      v-on:scroll="handlePushPost()"
        class="postScroll"
     
     :style="'background:transparent; font-family:BodyText;position:fixed;left:0; width:100%; height:100%;overflow-y:' + 'auto' + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'">
         
-     <public v-for="(post,index) in post_data" :key="index" :index="post.id" :source="post"></public>
+     <public v-for="(post,index) in this.$root.postData" :key="index" :index="post.id" :source="post"></public>
          
     </div> 
 
@@ -174,7 +174,13 @@ export default {
       data(){
           return{
             scrollHome: 'hidden',
-            post_data: this.$root.postData
+            post_data: this.$root.postData,
+            containerScrollPosition:0,
+             scrollPosition:0,
+            startPosition:0,
+            newPostLoading:false,
+            postPerLoad:20,
+            postInitialLimit:30,
           }
       },
    components: { 
@@ -183,22 +189,170 @@ export default {
      mounted(){
       this.$root.showTabs=true;
        this.$root.showHeader = true;
-       this.fetchPosts();
+       this.postLoader();
        this.scrollToPost();
        
          if(this.$root.postShelveData != null){
      this.$root.disconnectPost(this.$root.postShelveData);
          }
-      
-      
-      
-   
-      
-      
-      
+
       
     },
     methods:{
+    
+       handlePushPost: function(){
+
+       
+           
+
+        var container = document.querySelector('#postContainer');
+
+         let scrollPosition = container.scrollTop;
+
+          let containerScrollHeigthFixed = container.scrollHeight;
+
+         this.scrollPosition = containerScrollHeigthFixed - scrollPosition;
+
+        
+       
+        
+        if(scrollPosition <= 5 && this.$root.postStoreTop.length != 0){
+
+          
+          if(scrollPosition == 0){
+           container.scrollTop = 100;
+         }
+            
+
+           
+             
+               this.newPostLoading = true;
+         
+          
+        
+
+           let loadingArray = [];
+
+
+           if(this.$root.postStoreTop.length < this.postPerLoad){
+             
+              loadingArray = new Array(this.$root.postStoreTop.length);
+
+
+
+           }else{
+             
+               loadingArray = new Array(this.postPerLoad);
+
+           }
+            
+          
+             
+             for (let index = 0; index < loadingArray.length; index++) {
+               
+                 let arrayPoppedLoader =  this.$root.postStoreTop.pop();
+                  
+                  this.$root.postData.unshift(arrayPoppedLoader);
+             }
+             
+
+           
+               if(this.$root.postData[11] != undefined){
+                      var elementId = this.$root.postData[11].id;
+                  
+                    var element =  document.querySelector('#post' + elementId);
+            
+             if(this.$root.postStoreTop.length < this.postPerLoad){
+
+             }else{
+
+                 var top = element.offsetTop - 200;
+
+             }
+             
+            
+
+               let NumberToRemove = 0;
+
+              if(this.$root.postData.length < this.$root.postInitialLimit){
+                  NumberToRemove = this.postPerLoad; 
+              }
+              if(this.$root.postData.length > this.$root.postInitialLimit){
+                 NumberToRemove = this.$root.postData.length - this.$root.postInitialLimit;
+              }
+
+            
+             let NumberArray =  new Array(NumberToRemove);
+
+             for (let index = 0; index < NumberArray.length; index++) {
+               
+                 let arrayPopped =  this.$root.postData.pop();
+                  
+                  this.$root.postStoreBottom.unshift(arrayPopped);
+             }
+
+             container.scrollTop = top;
+
+            
+
+          
+          
+         
+                    
+               }
+
+ 
+        }
+
+     let containerScrollHeigth = container.scrollHeight;
+         
+        
+         
+           
+        if((scrollPosition > (containerScrollHeigth - 1000)) && this.$root.postStoreBottom.length != 0 ){
+         
+         container.scrollTop = containerScrollHeigth - 1300;
+
+           
+
+             let NumberArrayBottom = [];
+
+
+           if( this.$root.postStoreBottom.length < this.postPerLoad){
+             
+              NumberArrayBottom = new Array( this.$root.postStoreBottom.length);
+
+
+
+           }else{
+             
+               NumberArrayBottom = new Array(this.postPerLoad);
+
+           }
+
+             for (let index = 0; index < NumberArrayBottom.length; index++) {
+               
+                 let arrayPopped =  this.$root.postStoreBottom.shift();
+                  
+                  this.$root.postData.push(arrayPopped);
+             }
+
+
+              
+
+             for (let index = 0; index < NumberArrayBottom.length; index++) {
+               
+                 let arrayPoppedTop =  this.$root.postData.shift();
+                  
+                  this.$root.postStoreTop.push(arrayPoppedTop);
+             }
+             
+             
+
+              
+              }
+        
+        },
       activateBot:function(){
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
             return page.page_name == 'public';
@@ -241,23 +395,29 @@ export default {
       newPost: function(){
          this.$router.push({ path: '/new-post' });
         },
-         fetchPosts:function(){
-            if(this.$root.postData.length != 0){
-                this.post_data = this.$root.postData;
+        postLoader: function(){
+
+           if(this.$root.postData.length != 0){
+              
 
                this.$root.trackPostConnections(this.$root.postData);
+
+                 this.$root.postData = this.handleResults(this.$root.allPostArray);
                
             }else{
+               
                 axios.get('/fetch-post')
       .then(response => {
       
       if (response.status == 200) {
         
-        this.post_data = response.data;
-        this.$root.postData = response.data;
        
       
         this.$root.trackPostConnections(this.$root.postData);
+
+         this.$root.postData = this.handleResults(response.data)
+
+         
        
         
         
@@ -268,9 +428,43 @@ export default {
      .catch(error => {
     
      }) 
+             
+
             }
-          
+
         },
+         handleResults(postArray){
+
+        
+          
+
+
+          this.$root.allPostArray = postArray;
+          
+          let PostLenght = postArray.length;
+
+         
+             let startCount = PostLenght - this.$root.postInitialLimit;
+
+             if(startCount <= 0){
+               startCount = 0;
+             }
+
+             
+  
+          let sliedPost = this.$root.allPostArray.slice(0,this.$root.postInitialLimit);
+
+         
+         this.$root.postStoreBottom = this.$root.allPostArray.slice(startCount,PostLenght);
+
+         var finalPosts = sliedPost;
+
+         
+         
+         return finalPosts;
+          
+      },
+         
        
       scrollToPost: function(){
 
