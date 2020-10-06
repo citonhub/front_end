@@ -345,11 +345,7 @@ self.addEventListener('notificationclick', function (event)
                 }
             }
 
-      let urlFullRd = 'https://link.citonhub.com' +  event.notification.data.url_rd; 
-
-      const rootUrlRd = new URL(urlFullRd, location).href; 
-
-            return clients.openWindow(rootUrlRd);
+            return clients.openWindow(rootUrl);
         })
     );
 });
