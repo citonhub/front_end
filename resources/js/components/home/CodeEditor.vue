@@ -57,7 +57,6 @@
                   @click="runCode"
                 class="d-inline-block "
                 fab
-                v-if="this.selectedLangId != null"
               >
                 <v-icon color="#ffffff">mdi-play</v-icon>
             </v-btn>
