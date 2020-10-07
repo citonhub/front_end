@@ -415,7 +415,7 @@ class ProfileController extends Controller
 
       
 
-      $allProjects = Project::where('space_id',$userSpace->space_id)->orderBy('created_at','desc')->paginate(20);
+      $allProjects = Project::where('space_id',$userSpace->space_id)->orderBy('created_at','desc')->paginate(50);
 
 
       $newProject = [];
