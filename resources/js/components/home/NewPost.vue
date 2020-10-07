@@ -97,9 +97,10 @@
              
                   
                   <div class="col-12 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="progressvalue > 0">
-                             <v-progress-linear color="#3E8893" height="14px"  class="" striped :value="progressvalue" rounded>
+                             <v-progress-linear color="#3E8893" height="14px"  class="" striped :value="progressvalue" rounded v-if="progressvalue < 100">
 
                           </v-progress-linear>
+                          <span style="font-size:14px;" v-else>Processing...</span>
                        </div>
 
                         <div class="col-12 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="showLinkField">
@@ -782,13 +783,13 @@ var blob = this.b64toBlob(realData, contentType);
         fr.readAsDataURL(files[0])
          let fileSize = files[0].size;
 
-           if(fileSize <= 400000000){
+           if(fileSize <= 10000000){
               fr.addEventListener('load', () => {
           this.videoUrl = fr.result;
           
         });
            }else{
-              this.showAlert(5000,'Video size cannot be more than 400MB')
+              this.showAlert(5000,'Video size cannot be more than 10MB')
                 return;
            }
 				

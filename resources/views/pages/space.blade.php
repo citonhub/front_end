@@ -339,8 +339,6 @@ body {
 
 
 
-
-
  <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
   
   <script src="{{ asset('js/shaka-player.compiled.js') }}"></script>

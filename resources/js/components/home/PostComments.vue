@@ -50,8 +50,8 @@
              </div>
 
               <div style="width:100%;" v-if="post.attachment_type == 'video'" class="px-lg-4">
-                 <video-player :videoUrl="'/videos/' + post.video.video_name + '.' + post.video.video_extension" :backgroundColor="post.video.background_color"
-                  :backgroundImg="'/videos/previewImage/'+ post.video.preview_image_url" :playerId="post.post_id"></video-player>
+                 <main-video v-if="post.attachment_type == 'video'" :videoUrl="'/videos/' + post.video.video_name + '.mpd'" :backgroundColor="post.video.background_color" style="height:100%; width:100%;"
+               :backgroundImg="'/videos/previewImage/'+ post.video.preview_image_url" :playerId="'small' + post.id" > </main-video>
              </div>
 
                <div style="width:100%;" v-if="post.attachment_type == 'code'" class="px-lg-4">
@@ -110,7 +110,6 @@ export default {
       return {
         model: 0,
          viewerType:'homeViewer',
-        myhtml:'<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.Veniam atque quod voluptatum dolorum dicta tempore,</p>',
         slidedots: [0,1,2]
       }
     },

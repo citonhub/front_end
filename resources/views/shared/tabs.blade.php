@@ -136,7 +136,7 @@
              @else
              <v-badge
           color="#36848C"
-          v-if="false"
+          v-if="notificationCount != 0"
           :content="notificationCount"
         >
         <span class="iconname">
@@ -253,7 +253,7 @@
             @else
             <v-badge
           color="#36848C"
-          v-if="false"
+          v-if="notificationCount != 0"
           :content="notificationCount"
         >
       
@@ -355,7 +355,7 @@
             @else
             <v-badge
           color="#36848C"
-            v-if="false"
+            v-if="notificationCount != 0"
           :content="notificationCount"
         >
       

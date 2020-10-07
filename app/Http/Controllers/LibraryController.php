@@ -148,9 +148,9 @@ class LibraryController extends Controller
           $postOwner = User::where('id',$commentedPost->user_id)->first();
 
           if($type == 'post_like' || $type == 'post_comment' || $type == 'post_pulled'){
-            $baseUrl = '/home#/post/' . $postOwner->username . '/'.  $commentedPost->post_id . '/user';
+            $baseUrl = '/hub#/post/' . $postOwner->username . '/'.  $commentedPost->post_id . '/user';
           }else{
-            $baseUrl = '/home#/post/comment/' . $postOwner->username . '/'.  $commentedPost->post_id . '/user';
+            $baseUrl = '/hub#/post/comment/' . $postOwner->username . '/'.  $commentedPost->post_id . '/user';
           }
      
                $notificationPayload = [
@@ -166,7 +166,8 @@ class LibraryController extends Controller
             
                 if($commentedPost->user_id != Auth::id()){
            
-                  $this->triggerNotification($notificationPayload);
+                 
+                  dispatch(new HandleNotification($notificationPayload,'post'));
                   
                  }
         
@@ -225,41 +226,7 @@ class LibraryController extends Controller
    }
 
 
-   public function triggerNotification($notificationPayload){
-      
-      $allNotification = PushNotification::where('user_id',$notificationPayload["owner_id"])->get();
-
-    
-     
-      $payload = [
-          "title"=> '',
-          "body"=> $notificationPayload["body"],
-          "badge" => "/imagesNew/icons/icon-72x72.png",
-          "vibrate"=> [1000,500,1000],
-          "tag" => $notificationPayload["tag"],
-          "icon" => $notificationPayload["image"],
-          "requireInteraction"=> true,
-          "data"=> [
-             "type"=>$notificationPayload["type"],
-             "name"=>$notificationPayload["name"],
-             "url"=> $notificationPayload["url"]
-          ]
-      ];
-  
-      $defaultOption = [
-          'TTL' => 2000000, // defaults to 4 weeks
-          'urgency' => 'high', // protocol defaults to "normal"
-          'topic' => 'CitonHub Notification', // not defined by default,
-          'batchSize' => 10000, // defaults to 1000
-      ];
-       
-      $this->generateNotification($allNotification,json_encode($payload));
-       
-      $this->sendNotification($defaultOption);
-
-      $this->notificationReport();
-
-  }
+ 
 
 
    public function generateRandomNumber($length = 10) {

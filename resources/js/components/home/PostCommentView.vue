@@ -32,12 +32,12 @@
       </div>
      </div>
 
-       <div class="py-1 my-0" style="position:absolute;top:7%; height:93%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; ">
+       <div class="py-1 my-0 postScroll" style="position:fixed;top:7%; height:93%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; ">
            
-           <div v-for="(post,index) in this.$root.postArray" :key="index">
+           <div v-for="(post,index) in this.$root.postArray" :key="index" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-0 py-0">
           
 
-           <div class="col-12 py-1"  @click.stop="viewPost()">
+           <div class="col-12  my-0  py-1"  @click.stop="viewPost()">
         <div class="row" style="background-color:white; border-bottom:1px solid #cccccc;">
            <div class="col-12 py-0 d-flex ">
              <div>
@@ -67,8 +67,10 @@
              </div>
 
               <div style="width:100%;" v-if="post.commented_post.attachment_type == 'video'" class="px-lg-4">
-                 <video-player :videoUrl="'/videos/' + post.commented_post.video.video_name + '.' + post.commented_post.video.video_extension" :backgroundColor="post.commented_post.video.background_color"
-                  :backgroundImg="'/videos/previewImage/'+ post.commented_post.video.preview_image_url" :playerId="post.commented_post.post_id"></video-player>
+              
+                  <main-video v-if="post.commented_post.attachment_type == 'video'" :videoUrl="'/videos/' + post.commented_post.video.video_name + '.mpd'" 
+                  :backgroundColor="post.commented_post.video.background_color" style="height:100%; width:100%;"
+               :backgroundImg="'/videos/previewImage/'+ post.commented_post.video.preview_image_url" :playerId="'small' + post.commented_post.id" > </main-video>
              </div>
 
                <div style="width:100%;" v-if="post.commented_post.attachment_type == 'code'" class="px-lg-4">
@@ -147,9 +149,9 @@
              </div>
 
               <div style="width:100%;" v-if="post.attachment_type == 'video'" class="px-lg-4">
-                 <video-player :videoUrl="'/videos/' + post.video.video_name + '.' + post.video.video_extension" :backgroundColor="post.video.background_color"
-                  :backgroundImg="'/videos/previewImage/'+ post.video.preview_image_url" :playerId="post.post_id"></video-player>
-             </div>
+                 <main-video v-if="post.attachment_type == 'video'" :videoUrl="'/videos/' + post.video.video_name + '.mpd'" :backgroundColor="post.video.background_color" style="height:100%; width:100%;"
+               :backgroundImg="'/videos/previewImage/'+ post.video.preview_image_url" :playerId="'small' + post.id" > </main-video>
+              </div>
 
                <div style="width:100%;" v-if="post.attachment_type == 'code'"  class="px-lg-4">
                  <code-box :codeContent="post.code.content" :filename="post.code.name" :codeLanguage="post.code.language_type" :codeViewerType="viewerType"></code-box>
@@ -393,5 +395,21 @@ export default {
 <style>
 .detectLink a{
    color: #3E8893;
+}
+ .postScroll::-webkit-scrollbar {
+  width: 6px;
+}
+ 
+.postScroll::-webkit-scrollbar-track {
+   box-shadow: inset 0 0 6px rgba(111, 181, 195, 0.9);
+  border:1px solid transparent;
+  border-radius:6px;
+}
+ 
+.postScroll::-webkit-scrollbar-thumb {
+   background-color: #4ba6b4;
+  outline: 1px solid #4ba6b4;
+  border:1px solid transparent;
+   border-radius:6px;
 }
 </style>

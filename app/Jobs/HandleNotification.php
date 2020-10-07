@@ -91,6 +91,26 @@ class HandleNotification implements ShouldQueue
             ];
         }
 
+        if($this->type == 'post'){
+           
+
+            $payload = [
+                "title"=> '',
+                "body"=> $notificationPayload["body"],
+                "badge" => "/imagesNew/icons/icon-72x72.png",
+                "vibrate"=> [200, 100, 200, 100, 200, 100, 400],
+                "tag" => $notificationPayload["tag"],
+                "icon" => $notificationPayload["image"],
+                "requireInteraction"=> true,
+                "data"=> [
+                   "type"=>$notificationPayload["type"],
+                   "name"=>$notificationPayload["name"],
+                   "duel"=>$notificationPayload["duel"],
+                   "url"=> $notificationPayload["url"]
+                ]
+            ];
+        }
+
         if($this->type == 'project'){
          
 

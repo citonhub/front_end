@@ -3,7 +3,7 @@
 
    <div>
      <div  class="d-flex alignContent col-12 py-0 my-0"  v-if="!playVideoValue"
-   :style="'border:1px solid transparent;width:100%;height:200px; background-size:cover; background-repeat:no-repeat; background-color:'+ backgroundColor+ ';background-image:url('+ backgroundImg+ '); border-radius: 10px;'" :id="'playerContainer'+playerId">
+   :style="'border:1px solid transparent;width:100%;height:230px; background-size:cover;  background-repeat:no-repeat; background-color:'+ backgroundColor+ ';background-image:url('+ backgroundImg+ '); border-radius: 10px;'" :id="'playerContainer'+playerId">
          
        <div>
          <span style="color:#c9e4e8; background:#3E8893; border:1px solid #3E8893; border-radius:50%;" class="px-2 py-2"  @click.stop="playVideo" ><v-icon color="#ffffff">mdi-play</v-icon></span>
@@ -14,7 +14,7 @@
       <!-- The manifest url in the src attribute will be automatically loaded -->
       <video  data-shaka-player   :id="'video'+playerId"
        :poster="backgroundImg" 
-        style="width:100%;height:100%"
+        style="width:100%;height:100%; border-radius:10px; border:1px solid transparent;"
        :src="videoUrl"></video>
       </div>
     </div>

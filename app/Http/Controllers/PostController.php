@@ -14,7 +14,6 @@ use App\PostVideo;
 use App\PostLink;
 use ColorThief\ColorThief;
 use App\traits\ManagesImages;
-use FFMpeg\FFMpeg;
 use App\ShelvePost;
 use DB;
 use App\Profile;
@@ -25,11 +24,17 @@ use App\PushNotification;
 use App\Notification;
 use App\CustomClass\Curler;
 use App\CustomClass\MetaParser;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
+use Response;
+use Streaming\Representation;
+use Streaming\FFMpeg;
+use App\Jobs\HandleNotification;
 use App\User;
 
 class PostController extends Controller
 {
-   use ManagesImages,PushNotificationTrait;
+   use ManagesImages;
 
    public function __construct()
    {
@@ -507,6 +512,39 @@ class PostController extends Controller
   }
 
 
+  public function createVideoDash($videoFile,$videoName){
+
+   $config = [
+      'ffmpeg.binaries'  => '/usr/bin/ffmpeg',
+      'ffprobe.binaries' => '/usr/bin/ffprobe',
+      'timeout'          => 3600, // The timeout for the underlying process
+      'ffmpeg.threads'   => 12,   // The number of threads that FFmpeg should use
+  ];
+  
+  $log = new Logger('FFmpeg_Streaming');
+  $log->pushHandler(new StreamHandler('/var/www/citonhubnew/ffmpeg-streaming.log')); // path to log file
+
+  $ffmpeg = FFMpeg::create($config, $log);
+
+   $video = $ffmpeg->open($videoFile);
+
+   $r_240p  = (new Representation)->setKiloBitrate(150)->setResize(426, 240);
+   $r_360p  = (new Representation)->setKiloBitrate(276)->setResize(640, 360);
+  
+  
+ 
+
+    $video->dash()
+   ->setSegDuration(5) // Default value is 10 
+   ->setAdaption('id=0,streams=v id=1,streams=a')
+   ->x264()
+   ->addRepresentations([$r_240p, $r_360p])
+   ->save('/var/www/citonhubnew/public/videos/'.  $videoName .'.mpd');
+
+
+
+ }
+
    public function savePost(Request $request){
         $attachment_type = $request->get('attachment_type');
 
@@ -619,13 +657,13 @@ class PostController extends Controller
         $location = '/var/www/citonhubnew/public/videos/';
               
         $file = $request->file('video');
-        $file->move($location, $videoName . '.' . $videoExtension);
+        $this->createVideoDash($file,$videoName);
 
        
 
 
         $newPostVideo = PostVideo::create([
-          "video_extension"=> $videoExtension,
+          "video_extension"=> 'mpd',
           "video_name"=> $videoName,
           "preview_image_url"=> $videoName . '.jpg',
           "post_id"=> $newPost->id,
@@ -686,6 +724,7 @@ class PostController extends Controller
            }
 
          }else{
+
             $this->postNotification($request->get('reply_post_id'),'post_replied');
          }
          
@@ -748,9 +787,9 @@ class PostController extends Controller
           $postOwner = User::where('id',$commentedPost->user_id)->first();
 
           if($type == 'post_like' || $type == 'post_comment' || $type == 'post_pulled'){
-            $baseUrl = '/home#/post/' . $postOwner->username . '/'.  $commentedPost->post_id . '/user';
+            $baseUrl = '/hub#/post/' . $postOwner->username . '/'.  $commentedPost->post_id . '/user';
           }else{
-            $baseUrl = '/home#/post/comment/' . $postOwner->username . '/'.  $commentedPost->post_id . '/user';
+            $baseUrl = '/hub#/post/comment/' . $postOwner->username . '/'.  $commentedPost->post_id . '/user';
           }
 
         
@@ -768,7 +807,8 @@ class PostController extends Controller
        
            if($commentedPost->user_id != Auth::id()){
            
-            $this->triggerNotification($notificationPayload);
+
+            dispatch(new HandleNotification($notificationPayload,'post'));
 
            }
            
@@ -828,41 +868,5 @@ class PostController extends Controller
    }
 
 
-   public function triggerNotification($notificationPayload){
-      
-      $allNotification = PushNotification::where('user_id',$notificationPayload["owner_id"])->get();
-
-    
-     
-      $payload = [
-          "title"=> '',
-          "body"=> $notificationPayload["body"],
-         "badge" => "/imagesNew/icons/icon-72x72.png",
-          "vibrate"=> [1000,500,1000],
-          "tag" => $notificationPayload["tag"],
-          "icon" => $notificationPayload["image"],
-          "requireInteraction"=> true,
-          "data"=> [
-             "type"=>$notificationPayload["type"],
-             "name"=>$notificationPayload["name"],
-             "url"=> $notificationPayload["url"],
-          ]
-      ];
-  
-      $defaultOption = [
-          'TTL' => 2000000, // defaults to 4 weeks
-          'urgency' => 'high', // protocol defaults to "normal"
-          'topic' => 'CitonHub Notification', // not defined by default,
-          'batchSize' => 10000, // defaults to 1000
-      ];
-       
-      $this->generateNotification($allNotification,json_encode($payload));
-       
-      $this->sendNotification($defaultOption);
-
-      $this->notificationReport();
-
-  }
-
-
+ 
 }

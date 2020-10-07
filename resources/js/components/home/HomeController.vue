@@ -400,9 +400,9 @@ export default {
            if(this.$root.postData.length != 0){
               
 
-               this.$root.trackPostConnections(this.$root.postData);
+             
 
-                 this.$root.postData = this.handleResults(this.$root.allPostArray);
+               
                
             }else{
                

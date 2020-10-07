@@ -174,6 +174,140 @@ const {NetworkOnly} = workbox.strategies;
       
        }
 
+       if(notificationOptions.data.type == 'post_replied'){
+               
+        
+        if(notificationCount == undefined){
+          notificationOptions.title = notificationOptions.data.name + ' replied your post';
+         
+        }else{
+          
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others replied your post';
+
+
+        
+          
+        }
+      
+       }
+
+
+       if(notificationOptions.data.type == 'post_comment'){
+               
+        
+        if(notificationCount == undefined){
+          notificationOptions.title = notificationOptions.data.name + ' commented on your post';
+         
+        }else{
+          
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others commented on your post';
+
+
+        
+          
+        }
+      
+       }
+
+
+
+       if(notificationOptions.data.type == 'post_comment_like'){
+               
+        
+        if(notificationCount == undefined){
+          notificationOptions.title = notificationOptions.data.name + ' liked your comment';
+         
+        }else{
+          
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others liked your comment';
+
+
+        
+          
+        }
+      
+       }
+
+
+       if(notificationOptions.data.type == 'post_reply_like'){
+               
+        
+        if(notificationCount == undefined){
+          notificationOptions.title = notificationOptions.data.name + ' liked your reply';
+         
+        }else{
+          
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others liked your reply';
+
+
+        
+          
+        }
+      
+       }
+
+
+       if(notificationOptions.data.type == 'post_like'){
+               
+        
+        if(notificationCount == undefined){
+          notificationOptions.title = notificationOptions.data.name + ' liked your post';
+         
+        }else{
+          
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others liked your post';
+
+          
+        }
+      
+       }
+
+
+       if(notificationOptions.data.type == 'post_comment_pulled'){
+               
+        
+        if(notificationCount == undefined){
+          notificationOptions.title = notificationOptions.data.name + ' pulled your comment';
+         
+        }else{
+          
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others pulled your comment';
+
+          
+        }
+      
+       }
+
+       if(notificationOptions.data.type == 'post_reply_pulled'){
+               
+        
+        if(notificationCount == undefined){
+          notificationOptions.title = notificationOptions.data.name + ' pulled your reply';
+         
+        }else{
+          
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others pulled your reply';
+
+          
+        }
+      
+       }
+
+       if(notificationOptions.data.type == 'post_pulled'){
+               
+        
+        if(notificationCount == undefined){
+          notificationOptions.title = notificationOptions.data.name + ' pulled your post';
+         
+        }else{
+          
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others pulled your post';
+
+          
+        }
+      
+       }
+
 
        if(notificationOptions.data.type == 'new_duel'){
                

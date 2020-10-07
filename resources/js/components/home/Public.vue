@@ -37,9 +37,11 @@
                  <image-viewer :imageArray="source.image"></image-viewer>
              </div>
 
-              <div style="width:100%;" v-if="source.attachment_type == 'video'" class="px-lg-4">
-                 <video-player :videoUrl="'/videos/' + source.video.video_name + '.' + source.video.video_extension" :backgroundColor="source.video.background_color"
-                  :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="source.id"></video-player>
+              <div style="width:100%;" class="px-lg-4">
+
+            <main-video v-if="source.attachment_type == 'video'" :videoUrl="'/videos/' + source.video.video_name + '.mpd'" :backgroundColor="source.video.background_color" style="height:100%; width:100%;"
+               :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.id" > </main-video>
+               
              </div>
 
                <div style="width:100%;" v-if="source.attachment_type == 'code'" class="px-lg-5" >

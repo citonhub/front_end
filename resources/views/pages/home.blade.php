@@ -6,13 +6,15 @@
  @endsection
  @section('meta') 
  <meta name="description" content="Citonhub is a community of developers where they interact,learn and build." />
-  <meta name="keywords" content="Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
+  <meta name="keywords" content="Programming Duels,Developer Community,Citonhub Channels,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
   <meta name="og:image" content="https://citonhub.com/imgs/CitonHub.png"/>
  @endsection
  @section('css')
   
+ <link rel="stylesheet" type="text/css" href="/css/controls.css">
+
 <style>
  .body{
     background:#edf6f7;
@@ -296,6 +298,17 @@ body {
 
  @section('scripts')
 
- <script src="{{ asset('js/home.js?v=0.80') }}"></script>
+
+ <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+  
+  <script src="{{ asset('js/shaka-player.compiled.js') }}"></script>
+
+   <!-- Shaka Player ui compiled library: -->
+   <script src="{{ asset('js/shaka-player.ui.js') }}"></script>
+
+   <!-- Chromecast SDK  -->
+   <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
+
+ <script src="{{ asset('js/home.js?v=0.82') }}"></script>
      
  @endsection

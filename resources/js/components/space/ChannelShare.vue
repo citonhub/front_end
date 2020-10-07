@@ -850,13 +850,13 @@ var blob = this.b64toBlob(realData, contentType);
          let fileSize = files[0].size;
            this.VideoName = files[0].name;
 
-           if(fileSize <= 400000000){
+           if(fileSize <= 100000000){
               fr.addEventListener('load', () => {
           this.videoUrl = fr.result;
           
         });
            }else{
-              this.showAlert(5000,'Video size cannot be more than 400MB')
+              this.showAlert(5000,'Video size cannot be more than 100MB')
                 return;
            }
 				

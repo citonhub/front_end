@@ -174,6 +174,7 @@ export default {
          }
          },
          showNotification:function(){
+              this.$root.notificationCount = 0;
           this.$router.push({ path: '/notifications'});
          },
          connect:function(){
