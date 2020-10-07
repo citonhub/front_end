@@ -192,6 +192,8 @@ export default {
        this.postLoader();
        this.scrollToPost();
        
+        this.$root.codeFromPostView = false;
+        
          if(this.$root.postShelveData != null){
      this.$root.disconnectPost(this.$root.postShelveData);
          }

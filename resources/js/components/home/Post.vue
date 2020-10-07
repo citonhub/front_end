@@ -1,7 +1,7 @@
 <template>
      <div style="overflow-y:hidden;">
 
-         <div v-if="this.$root.showCodeEditor">
+         <div v-if="this.$root.showCodeEditor" style="z-index:999938859;">
             <code-editor></code-editor>
       </div>
 
@@ -178,7 +178,7 @@ export default {
        this.$root.postComments = [];
       this.getPost();
       this.getPostComments();
-      
+       this.$root.codeFromPostView = true;
        
     },
     methods:{

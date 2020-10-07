@@ -151,7 +151,8 @@ const app = new Vue({
             allPostArray:[],
             postInitialLimit:30,
             postStoreTop:[],
-            postStoreBottom:[]
+            postStoreBottom:[],
+            codeFromPostView: false,
     },
      mounted: function () {
       this.pageloader = false;

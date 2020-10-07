@@ -1,7 +1,7 @@
 <template>
      <div style="overflow-y:hidden;">
 
-         <div v-if="this.$root.showCodeEditor">
+         <div v-if="this.$root.showCodeEditor" style="z-index:999938859;">
             <code-viewer></code-viewer>
       </div>
 
@@ -239,6 +239,7 @@ export default {
    mounted(){
       this.$root.showTabs=true;
        this.$root.showHeader = false;
+       this.$root.codeFromPostView = true;
        
       this.getPost();
     },

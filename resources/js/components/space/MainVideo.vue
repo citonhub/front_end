@@ -33,7 +33,7 @@ export default {
     },
     mounted(){
 
-         this.manifestUri = this.videoUrl;
+        
      
      
     },
@@ -42,6 +42,8 @@ export default {
 	},
   methods:{
     playVideo:function(){
+
+       this.manifestUri = this.videoUrl;
 
       this.initApp();
 

@@ -1,5 +1,5 @@
 <template>
-     <v-app style="background:transparent; font-family:BodyText;">
+     <v-app style="background:transparent; font-family:BodyText; z-index:985778699686;">
 
        <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
@@ -32,13 +32,13 @@
         
         </div>
 
-       <div class="col-12 py-0 my-0" style="position:absolute; height:95.5%;width:100%; overflow-y:hidden; overflow-x:hidden;">
+       <div class="col-12 py-0 my-0" style="position:absolute; height:95.5%;width:100%; overflow-y:hidden;z-index:985779686; overflow-x:hidden;">
          <div class="row my-0 py-0 px-0 ">
               <div class="codebox">
          <codemirror
         v-model="code"
         :options="cmOption"
-        style="height:100%;"
+        style="height:100%;z-index:985779686;"
         @cursorActivity="onCmCursorActivity"
         @ready="onCmReady"
         @focus="onCmFocus"
@@ -352,6 +352,25 @@ methods:{
       },
        goBack() {
 
+
+         if(this.$root.codeFromPostView){
+
+             this.$root.showTabs=true;
+          this.$root.showHeader = false;
+
+            this.$root.showCodeEditor = false;
+
+           
+              
+    this.$root.codeFromView = false;
+
+    this.$root.codeContent = '';
+
+       return;
+          
+        }
+       
+
           if(this.$root.codeFromView){ 
 
              this.$root.showTabs=true;
@@ -360,13 +379,16 @@ methods:{
             this.$root.showCodeEditor = false;
               
     this.$root.codeFromView = false;
+     this.$root.codeContent = '';
 
           }else{
 
              window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
 
           }
-       
+
+   this.$root.codeContent = '';
+        
           
         },
       onCmReady(codemirror) {

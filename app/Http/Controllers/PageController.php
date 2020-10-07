@@ -116,9 +116,9 @@ class PageController extends Controller
         
             
          if($thisPost->is_comment == 'true'){
-            $pageLink = '/home#/post/comment/' . $thisUser->username .'/'. $uniqueId;
+            $pageLink = '/hub#/post/comment/' . $thisUser->username .'/'. $uniqueId;
          }else{
-            $pageLink = '/home#/post/' . $thisUser->username .'/'. $uniqueId;
+            $pageLink = '/hub#/post/' . $thisUser->username .'/'. $uniqueId;
          }
         
 
