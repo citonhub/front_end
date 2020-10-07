@@ -244,11 +244,18 @@ class PostController extends Controller
            )
          ->where('posts.is_reply',null)
          ->orderBy('created_at', 'desc')->paginate(40);
+
+
+         
+         $postArr = (array) $posts;
+
+          $currentPostPage = $postArr["\x00*\x00currentPage"];
+       
         
 
         $postArray = $this->postEngine($posts);
 
-         return $postArray;
+         return [$postArray,$currentPostPage];
      
    } 
 
@@ -259,6 +266,8 @@ class PostController extends Controller
       $newPostArray = [];
 
       foreach ($postArray as $post) {
+
+        
          
          $post = (array) $post;
          if($post["attachment_type"] == 'image'){
@@ -366,7 +375,7 @@ class PostController extends Controller
           'posts.created_at as created_at'
         )
       ->where('posts.post_id',$post->post_id)
-      ->orderBy('created_at', 'desc')->paginate(10);
+      ->orderBy('created_at', 'desc')->get();
          
       $newPostArray = [];
 

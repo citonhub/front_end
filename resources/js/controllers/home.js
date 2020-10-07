@@ -153,6 +153,7 @@ const app = new Vue({
             postStoreTop:[],
             postStoreBottom:[],
             codeFromPostView: false,
+            postCurrentPage:0,
     },
      mounted: function () {
       this.pageloader = false;

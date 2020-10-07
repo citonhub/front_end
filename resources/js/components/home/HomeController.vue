@@ -13,13 +13,27 @@
       v-on:scroll="handlePushPost()"
        class="postScroll"
     
-    :style="'background:transparent; font-family:BodyText;position:fixed;left:0; width:100%; height:100%;overflow-y:' + 'auto' + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'">
+    :style="'background:transparent; font-family:BodyText;position:fixed;left:0; width:100%; height:100%;overflow-y:' + scrollValue + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'">
         
+
+         <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 my-0 py-1 text-center" v-if="postisLoading && loadingFromTop">
+
+        <v-progress-circular indeterminate color="#35747e"></v-progress-circular>
+
+      </div>
+
+
      <public v-for="(post,index) in this.$root.postData" :key="index" :index="post.id" :source="post"></public>
+
+      <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 my-0 py-1 text-center"  v-if="postisLoading && loadingFromBottom">
+
+        <v-progress-circular indeterminate color="#35747e"></v-progress-circular>
+
+      </div>
          
     </div> 
 
-<div v-else  :style="'background:transparent; font-family:BodyText;position:fixed;left:0; width:100%; height:100%; overflow-y:' + 'auto' + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'">
+<div v-else class="postScroll" :style="'background:transparent; font-family:BodyText;position:fixed;left:0; width:100%; height:100%; overflow-y:' + scrollValue + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'">
       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0">
 
          <div class="ml-lg-1 row py-0 my-0 px-1">
@@ -180,7 +194,12 @@ export default {
             startPosition:0,
             newPostLoading:false,
             postPerLoad:20,
+            scrollValue:'auto',
             postInitialLimit:30,
+            postisLoading:false,
+            loadingFromBottom:false,
+            stopPostFetch:false,
+            loadingFromTop: false,
           }
       },
    components: { 
@@ -221,10 +240,8 @@ export default {
         if(scrollPosition <= 5 && this.$root.postStoreTop.length != 0){
 
           
-          if(scrollPosition == 0){
-           container.scrollTop = 100;
-         }
-            
+         
+           
 
            
              
@@ -257,22 +274,8 @@ export default {
                   this.$root.postData.unshift(arrayPoppedLoader);
              }
              
-
-           
-               if(this.$root.postData[11] != undefined){
-                      var elementId = this.$root.postData[11].id;
-                  
-                    var element =  document.querySelector('#post' + elementId);
-            
-             if(this.$root.postStoreTop.length < this.postPerLoad){
-
-             }else{
-
-                 var top = element.offsetTop - 200;
-
-             }
-             
-            
+                
+                
 
                let NumberToRemove = 0;
 
@@ -293,7 +296,29 @@ export default {
                   this.$root.postStoreBottom.unshift(arrayPopped);
              }
 
-             container.scrollTop = top;
+             var elementId = this.$root.postData[29].id;
+                  
+                    var element =  document.querySelector('#post' + elementId);
+            
+          
+
+                if(element){
+
+                
+
+                  var top =  containerScrollHeigthFixed - (element.offsetTop + 600) ;
+
+                }
+
+                 
+
+              if(this.$root.postStoreTop.length < this.postPerLoad){
+
+                 container.scrollTop = top;
+
+              }
+
+            
 
             
 
@@ -301,19 +326,31 @@ export default {
           
          
                     
-               }
+               
+
+              
 
  
         }
 
+         
+
      let containerScrollHeigth = container.scrollHeight;
          
         
-         
+            if(scrollPosition == 0){
+
+              if(this.$root.postStoreTop.length == 0){
+
+                this.loadNewPosts('top');
+
+             }
+
+          }
            
         if((scrollPosition > (containerScrollHeigth - 1000)) && this.$root.postStoreBottom.length != 0 ){
          
-         container.scrollTop = containerScrollHeigth - 1300;
+         
 
            
 
@@ -348,11 +385,52 @@ export default {
                   
                   this.$root.postStoreTop.push(arrayPoppedTop);
              }
+
+              let loadingArray = 0;
+
+
+         if(this.$root.postStoreBottom.length < this.postPerLoad){
+             
+              loadingArray = this.$root.postStoreBottom.length;
+
+               
+
+
+
+           }else{
              
              
 
+                  var elementId = this.$root.postData[6].id;
+                  
+                    var element =  document.querySelector('#post' + elementId);
+            
+          
+
+                if(element){
+
+                  var top = element.offsetTop;
+
+                }
+
+               
+
+           }
+ 
+             container.scrollTop = top;
+
               
               }
+          
+          if(scrollPosition > (containerScrollHeigth - 1000)){
+
+              if(this.$root.postStoreBottom.length == 0){
+
+                this.loadNewPosts('bottom');
+
+             }
+
+          }
         
         },
       activateBot:function(){
@@ -415,10 +493,13 @@ export default {
         
        
       
+   
+
+         this.$root.postData = this.handleResults(response.data[0]);
+
+          this.$root.postCurrentPage = response.data[1];
+
         this.$root.trackPostConnections(this.$root.postData);
-
-         this.$root.postData = this.handleResults(response.data)
-
          
        
         
@@ -435,10 +516,162 @@ export default {
             }
 
         },
-         handleResults(postArray){
-
-        
+        loadNewPosts: function(position){
           
+           if(this.stopPostFetch) return;
+            if(this.postisLoading) return;
+
+           this.postisLoading = true;
+
+            if(position == 'top'){
+
+               this.loadingFromTop = true;
+
+            }
+
+            if(position == 'bottom'){
+               
+               this.loadingFromBottom = true;
+            }
+            let nextPage = parseInt(this.$root.postCurrentPage)  + 1
+            axios.get('/fetch-post?page=' + nextPage )
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+       
+      
+        if(response.data[0].length != 0){
+
+           if(position == 'top'){
+
+              
+             let fullPostData = this.$root.allPostArray;
+
+               let returnedData = response.data[0];
+
+              
+                 this.$root.allPostArray = returnedData.concat(fullPostData);
+
+                 let firstDataSet = returnedData.slice(0,19);
+
+                 let remainingDataSet = returnedData.slice(20,returnedData.length);
+
+                 this.$root.PostRefId = this.$root.postData[0].id;
+
+                
+
+                this.$root.postData =  firstDataSet.concat(this.$root.postData);
+
+                this.$root.postStoreTop =  remainingDataSet;
+
+                
+                
+            
+          
+                     var container = document.querySelector('#postContainer'); 
+
+                      let containerScrollHeigthFixed = container.scrollHeight;
+
+                      
+                  var elementId = this.$root.postData[20].id;
+                  
+                    var element =  document.querySelector('#post' + elementId);
+            
+          
+
+                if(element){
+
+                
+
+                  var top =  containerScrollHeigthFixed - (element.offsetTop + 1300) ;
+
+                }
+
+                  
+
+                   container.scrollTop = top;
+
+                
+
+
+
+                
+             
+
+             
+
+             
+
+
+           }
+
+            if(position == 'bottom'){
+
+              
+
+               let fullPostData = this.$root.allPostArray;
+
+               let returnedData = response.data[0];
+              
+                 this.$root.allPostArray = fullPostData.concat(returnedData);
+
+                 let firstDataSet = returnedData.slice(0,19);
+
+                 let remainingDataSet = returnedData.slice(20,returnedData.length);
+
+
+               this.$root.postData.concat(firstDataSet);
+
+                this.$root.postStoreBottom =  remainingDataSet;
+                
+             
+                var elementId = this.$root.postData[6].id;
+
+                 var container = document.querySelector('#postContainer'); 
+                  
+                    var element =  document.querySelector('#post' + elementId);
+            
+          
+
+                if(element){
+
+                  var top = element.offsetTop;
+
+                }
+
+
+                container.scrollTop = top;
+
+             
+              
+
+              
+
+
+           }
+
+            this.$root.trackPostConnections(response.data[0]);
+
+            this.$root.postCurrentPage++;
+        }else{
+       this.stopPostFetch = true;
+     }
+
+        this.loadingFromTop = false;
+        this.loadingFromBottom = false;
+        this.postisLoading = false;
+        
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+        },
+         handleResults(postArray){
 
 
           this.$root.allPostArray = postArray;
