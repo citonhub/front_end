@@ -16,18 +16,18 @@
     :style="'background:transparent; font-family:BodyText;position:fixed;left:0; width:100%; height:100%;overflow-y:' + scrollValue + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'">
         
 
-         <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 my-0 py-1 text-center" v-if="postisLoading && loadingFromTop">
+         <div class="col-md-4 offset-md-4  col-lg-2 offset-lg-5 col-4 offset-4 my-0 py-1 text-center" v-if="postisLoading && loadingFromTop">
 
-        <v-progress-circular indeterminate color="#35747e"></v-progress-circular>
+        <v-progress-linear indeterminate color="#3E8893" rounded height="6" ></v-progress-linear>
 
       </div>
 
 
      <public v-for="(post,index) in this.$root.postData" :key="index" :index="post.id" :source="post"></public>
 
-      <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 my-0 py-1 text-center"  v-if="postisLoading && loadingFromBottom">
+      <div  class="col-md-4 offset-md-4  col-lg-2 offset-lg-5 col-4 offset-4 my-0 py-1 text-center"  v-if="postisLoading && loadingFromBottom">
 
-        <v-progress-circular indeterminate color="#35747e"></v-progress-circular>
+         <v-progress-linear indeterminate color="#3E8893" rounded height="6" ></v-progress-linear>
 
       </div>
          
