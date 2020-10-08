@@ -2573,7 +2573,8 @@ array_push($newSpaceArray,$userSpace);
            $this->createNewUserMsg($newSpace,7673);
 
            $this->createNewUserMsg($newSpace,7670);
-        
+           
+           $this->createNewUserMsg($newSpace,10433);
      
            }
      
