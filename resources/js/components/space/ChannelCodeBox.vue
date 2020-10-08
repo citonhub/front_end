@@ -22,8 +22,8 @@
                     
                     <v-btn icon color="#4495a2" @click="showAdminUsers()" v-else><v-icon>mdi-account-cog mdi-18px</v-icon></v-btn>
                    </div>
-                   <div class="col-2 py-0 my-0 px-2 text-right">
-                    <v-btn icon color="#4495a2" @click="sendMessage"><v-icon>mdi-send mdi-18px</v-icon></v-btn>
+                   <div class="col-2 py-1 my-0 px-2 text-right">
+                     <v-btn   x-small color="#3E8893 "  @click="sendMessage" ><span style="color:#ffffff; font-weight:bolder; font-size:10px;">send</span></v-btn>
                    </div>
              </div>
                

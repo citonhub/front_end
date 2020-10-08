@@ -4,7 +4,7 @@
        <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
-         <div style="position:absolute; height:98%; width:100%; overflow-y:hidden;left:0;top:2%;"  v-if="showCode"> 
+         <div style="position:absolute; height:100%; width:100%; overflow-y:hidden;left:0;top:0%;"  v-if="showCode"> 
 
 
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
@@ -15,14 +15,14 @@
                   <div class="col-2 py-0 my-0 px-0 d-flex" style="text-align:center; justify-content:center;">
                      <v-btn icon color="#4495a2" @click="goBack" style="text-align:center; justify-content:center;"  class="d-inline-block  d-flex"><v-icon>mdi-close mdi-18px</v-icon></v-btn>
                   </div>
-                  <div class="col-8 py-0 my-0 px-1">
+                  <div class="col-8 py-0 pt-1 my-0 px-1">
                       <select  style="font-size:13px !important; " placeholder="select language"  @change="detectchange(language)"   v-model="language" class="browser-default custom-select">
                  <option v-for="(option,index)  in items" :value="option.name" :key="index">{{ option.name}}</option>
                      </select>
                    </div>
                    
-                   <div class="col-2 py-0 my-0 px-2 text-right" v-if="!this.$root.codeFromView">
-                    <v-btn icon color="#4495a2"  @click="saveFile = true" ><v-icon>mdi-send mdi-18px</v-icon></v-btn>
+                   <div class="col-2 py-1 my-0 px-2 text-right" v-if="!this.$root.codeFromView">
+                     <v-btn   x-small color="#3E8893 "  @click="saveFile = true" ><span style="color:#ffffff; font-weight:bolder; font-size:10px;">save</span></v-btn>
                    </div>
              </div>
                
