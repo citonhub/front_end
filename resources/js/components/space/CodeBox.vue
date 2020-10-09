@@ -162,6 +162,8 @@ methods:{
              this.$root.codeFromChat = true;
 
              this.$root.showChatBottom = false;
+
+              this.$router.push({ path: '/code-viewer'});
             
             
       },

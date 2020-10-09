@@ -19,6 +19,7 @@ import SetUsername from "../components/auth/SetUsername.vue"
 import MakeComment from "../components/home/MakeComment.vue"
 import PostCommentView from "../components/home/PostCommentView.vue"
 import Privacy from "../components/home/Privacy.vue"
+import NotFound from "../components/auth/NotFound.vue"
 
 
 const routes = [
@@ -56,6 +57,11 @@ const routes = [
 
     next()
   }
+  },
+  {
+    path: '*',
+    name: 'notFound',
+    component: NotFound
   },
   { path: '/privacy-policy', name: 'Privacy', component: Privacy},
   { path: '/new-post', name: 'NewPost', component: NewPost},

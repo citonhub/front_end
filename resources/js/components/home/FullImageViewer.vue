@@ -59,10 +59,12 @@ methods:{
       },
        goBack() {
 
-          window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
+         
           this.$root.showPostModal = true;
         this.$root.fullImageViewer = false;
          this.$root.showTabs=true;
+
+          window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
          
   
         },

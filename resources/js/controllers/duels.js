@@ -24,13 +24,17 @@ import CreateTable from "../components/duels/CreateTable.vue"
 import PanelLoader from "../components/duels/PanelLoader.vue"
 import ProjectComments from "../components/duels/ProjectComments.vue"
 import NewComment from "../components/duels/NewComment.vue"
-import HowTo from "../components/space/HowTo.vue"
+import NotFound from "../components/auth/NotFound.vue"
 
 
 const routes = [
   { path: '/', redirect: '/duel'},
+  {
+    path: '*',
+    name: 'notFound',
+    component: NotFound
+  },
   { path: '/login', name: 'Login', component: Login},
-  { path: '/how-to', name: 'HowTo', component: HowTo},
   { path: '/auth/:frompage', name: 'Auth', component: Auth},
   { path: '/register', name: 'Register', component: Register},
   { path: '/verify', name: 'Verify', component: Verify},

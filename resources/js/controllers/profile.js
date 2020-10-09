@@ -18,6 +18,7 @@ import Register from "../components/auth/Register.vue"
 import Verify from "../components/auth/Verify.vue"
 import SetUsername from "../components/auth/SetUsername.vue"
 import Notification from "../components/profile/Notification.vue"
+import NotFound from "../components/auth/NotFound.vue"
 
 const routes = [
   { path: '/', redirect: '/profile/'},
@@ -27,9 +28,79 @@ const routes = [
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
   { path: '/login', name: 'Login', component: Login},
   { path: '/notifications', name: 'Notification', component: Notification},
+  {
+    path: '*',
+    name: 'notFound',
+    component: NotFound
+  },
+  { path: '/image-viewer',
+   name: 'ImageViewer',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Profile,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Profile
+      }
+    }
+
+    next()
+  }
+},
   { path: '/profile/', 
   name: 'Profile', 
   component: Profile,
+  meta: {
+    twModalView: true
+  },
+  beforeEnter: (to, from, next) => {
+   
+    to.matched[0].components = {
+      default: Profile,
+      modal: false
+    }
+
+     if(window.thisUserState != undefined){
+
+      thisUserState.$root.fullImageViewer = false;
+
+      thisUserState.$root.showTabs=true;
+          
+    
+
+     }
+  
+
+
+
+  next()
+},
   redirect:'/profile/channels/' + document.getElementById('checkauthUsername').value,
   children:[
     {
@@ -147,6 +218,10 @@ const app = new Vue({
        this.fetchUserDetails();
        this.SetLocale(this.userLocale);
       this.connectToChannel();
+      window.thisUserState = this;
+    },
+    created(){
+      window.thisUserState = this;
     },
     http: {
      headers:{

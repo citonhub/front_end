@@ -32,7 +32,8 @@ import NewCodeFile from "../components/space/NewCodeFile.vue"
 import PanelLoader from "../components/space/PanelLoader.vue"
 import ProjectComments from "../components/space/ProjectComments.vue"
 import NewComment from "../components/space/NewComment.vue"
-import HowTo from "../components/space/HowTo.vue"
+import NotFound from "../components/auth/NotFound.vue"
+
 
 
 
@@ -41,7 +42,11 @@ const routes = [
   { path: '/', redirect: '/space'},
   { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},
   { path: '/login', name: 'Login', component: Login},
-  { path: '/how-to', name: 'HowTo', component: HowTo},
+  {
+    path: '*',
+    name: 'notFound',
+    component: NotFound
+  },
   { path: '/auth/:frompage', name: 'Auth', component: Auth},
   { path: '/:projectSlug/panel', name: 'ProjectPanel', component: ProjectPanel},
   { path: '/:projectSlug/panel/settings', name: 'PanelSettings', component: PanelSettings},
@@ -56,9 +61,168 @@ const routes = [
   { path: '/register', name: 'Register', component: Register},
   { path: '/verify', name: 'Verify', component: Verify},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
+  { path: '/image-viewer',
+   name: 'ImageViewer',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: ChannelContent,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = ChannelContent
+      }
+    }
+
+    next()
+  }
+},
+{ path: '/code-viewer',
+   name: 'CodeViewer',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: ChannelContent,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = ChannelContent
+      }
+    }
+
+    next()
+  }
+},
   { path: '/crop-image', 
   name: 'CropImage', 
   component: CropImage,
+  },
+  {
+    // channel
+    path: '/space/:spaceId/channel',
+    component: Channel,
+    meta: {
+      twModalView: true
+    },
+    beforeEnter: (to, from, next) => {
+   
+      to.matched[0].components = {
+        default: Channel,
+        modal: false
+      }
+
+       if(window.thisUserState != undefined){
+
+        thisUserState.$root.fullImageViewer = false;
+            
+        thisUserState.$root.showCodeBox = false;
+        thisUserState.$root.showChatBottom = true;
+        thisUserState.$root.codeBoxOpened = false;
+
+        thisUserState.$root.codeIsLive = false;
+
+        thisUserState.$root.codeFromChat= false;
+        thisUserState.$root.codeBoxOpened = false;
+
+       }
+       
+    next()
+  },
+    children: [
+    {
+    // content 
+    path: 'content/:referral',
+     component: ChannelContent, 
+   },
+   {
+    // resources 
+    path: 'sub/:channelType',
+     component: SubSpace
+   },
+   {
+    // projects 
+    path: 'projects',
+     component: ChannelProjects
+   },
+   {
+    // board 
+    path: 'board',
+     component: ChannelBoard,
+     meta: {
+      twModalView: true
+    },
+   },
+   {
+    // members 
+    path: 'members',
+     component: ChannelMembers
+   },
+   {
+    // share 
+    path: 'share',
+     component: ChannelShare
+   },
+   {
+    // edit 
+    path: 'edit',
+     component: ChannelEdit
+   },
+   {
+    // share 
+    path: 'code-box',
+     component: ChannelCodeBox
+   },
+   
+ 
+   ]
   },
   { path: '/space', 
   name: 'Space',
@@ -80,55 +244,7 @@ const routes = [
       path: 'create-project',
       component: CreateProject
     },
-    {
-      // channel
-      path: ':spaceId/channel',
-      component: Channel,
-      children: [
-      {
-      // content 
-      path: 'content/:referral',
-       component: ChannelContent
-     },
-     {
-      // resources 
-      path: 'sub/:channelType',
-       component: SubSpace
-     },
-     {
-      // projects 
-      path: 'projects',
-       component: ChannelProjects
-     },
-     {
-      // board 
-      path: 'board',
-       component: ChannelBoard
-     },
-     {
-      // members 
-      path: 'members',
-       component: ChannelMembers
-     },
-     {
-      // share 
-      path: 'share',
-       component: ChannelShare
-     },
-     {
-      // edit 
-      path: 'edit',
-       component: ChannelEdit
-     },
-     {
-      // share 
-      path: 'code-box',
-       component: ChannelCodeBox
-     },
-     
    
-     ]
-    },
   ]},
 ];
 
@@ -351,6 +467,10 @@ const app = new Vue({
       this.fetchUserDetails();
       this.connectToChannel();
        this.SetLocale(this.userLocale);
+       window.thisUserState = this;
+    },
+    created(){
+      window.thisUserState = this;
     },
     http: {
      headers:{

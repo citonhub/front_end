@@ -274,6 +274,8 @@ export default {
             this.$root.fullImageViewer = true;
             this.$root.fullImageColor = imageData.background_color;
             this.$root.imageViewPath = 'imgs/space/' + imageData.image_name + '.' + imageData.image_extension;
+
+            this.$router.push({ path: '/image-viewer'});
         },
         copyLink () {
           let spacelink = document.querySelector('#spacelink')

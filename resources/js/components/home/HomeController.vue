@@ -16,6 +16,7 @@
     <template v-slot="{ item, index, active }">
       <DynamicScrollerItem
         :item="item"
+        :buffer="900"
         :active="active"
         :size-dependencies="[
           item.content,

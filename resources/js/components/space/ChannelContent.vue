@@ -1453,6 +1453,7 @@ export default {
        showCodeBox: function(){
            this.$root.showChatBottom = false;
              this.$root.showCodeBox = true;
+             this.$router.push({ path: '/code-viewer'});
         },
          closeReply:function(){
         this.$root.showRootReply = false;
@@ -1960,7 +1961,7 @@ export default {
                this.newMessagesLoading = true;
          
           
-          this.showAlert(5000,'loading messages...')
+          this.showAlert(2000,'loading messages...')
 
            let loadingArray = [];
 
@@ -2044,7 +2045,7 @@ export default {
          
          container.scrollTop = containerScrollHeigth - 1300;
 
-           this.showAlert(10000,'loading messages...')
+           this.showAlert(4000,'loading messages...')
 
              let NumberArrayBottom = [];
 

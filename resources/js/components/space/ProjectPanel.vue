@@ -1045,7 +1045,7 @@ export default {
     showHowTo: function(){
       this.$root.panel = this.panel;
      this.$root.panelBack = this.panelBack;
-      this.$router.push({ path: '/how-to' });
+     
 
    },
    addDBTable: function(){

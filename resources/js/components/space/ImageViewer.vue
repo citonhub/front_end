@@ -35,6 +35,8 @@ export default {
             this.$root.fullImageColor = imageData.background_color;
             this.$root.imageViewPath = 'imgs/space/' + imageData.image_name + '.' + imageData.image_extension;
              this.$root.showChatBottom = false;
+
+               this.$router.push({ path: '/image-viewer'});
         }
     }  
 }

@@ -165,6 +165,7 @@ export default {
             this.$root.fullImageViewer = true;
             this.$root.fullImageColor = this.$root.profileDetails.background_color;
             this.$root.imageViewPath = 'imgs/profile/' + this.$root.profileDetails.image_name + '.' + this.$root.profileDetails.image_extension;
+             this.$router.push({ path: '/image-viewer'});
         },
          showConnections:function(){
          if(this.$root.checkauthroot == 'auth' && this.$root.username == this.$root.profileDetails.username){

@@ -733,6 +733,8 @@ methods:{
         this.$root.codeFromChat= false;
         this.$root.codeBoxOpened = false;
 
+         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+
         },
         makeUUID:function(){
      var id = "id" + Math.random().toString(16).slice(2);

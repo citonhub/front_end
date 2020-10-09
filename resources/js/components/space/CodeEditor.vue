@@ -55,7 +55,7 @@
        </div>
 
        
-       <span style="position:absolute; top:90%; right:3%; z-index:23456788;"  class="d-md-none d-inline-block">
+       <span style="position:absolute; top:80%; right:3%; z-index:23456788;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#35747e"
                 small
@@ -82,7 +82,7 @@
      </span>
 
 
-           <span style="position:absolute; top:90%; left:3%;  z-index:23456788;"  class="d-md-none d-inline-block" v-if="checkIfOwner()">
+           <span style="position:absolute; top:80%; left:3%;  z-index:23456788;"  class="d-md-none d-inline-block" v-if="checkIfOwner()">
           <v-btn
                 color="#35747e"
                 small
