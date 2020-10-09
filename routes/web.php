@@ -126,6 +126,7 @@ Route::post('/make-user-master','SpaceController@makeUserMaster');
 Route::post('/send-space-invite-mail','SpaceController@sendInviteMail');
 Route::post('/create-sub-space','SpaceController@createSubSpace');
 Route::get('/fetch-space-info-{spaceId}','SpaceController@fetchSpaceInfo');
+Route::get('/fetch-sub-spaces-{spaceId}','SpaceController@fetchSubSpaces');
 
 // should be deleted
 Route::get('/assistant-messager/{messageId}','SpaceController@createMessageAssistant');

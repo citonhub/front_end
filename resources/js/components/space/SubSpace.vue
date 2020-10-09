@@ -240,11 +240,48 @@ export default {
 
       
       this.setSubSpaces();
+
+      this.fetchSubSpaces();
     
     },
     methods:{
         preventClose: function(){
 
+        },
+        fetchSubSpaces: function(){
+         
+           axios.get('/fetch-sub-spaces-' + this.$root.selectedSpace.general_spaceId )
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+     
+     
+        if(this.checkIfisOwner()){
+
+               this.subSpaces =  response.data;
+
+           }else{
+
+             this.subSpaces = response.data.filter((space)=>{
+
+               return space.type == 'Public' || (space.type == 'Private' && space.is_member == true);
+
+             });
+           }
+
+          
+
+             this.checkForUnread();
+       
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+       
         },
          checkIfisOwner: function(){
 

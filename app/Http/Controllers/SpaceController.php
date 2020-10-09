@@ -144,6 +144,63 @@ class SpaceController extends Controller
 
      }
 
+     public function fetchSubSpaces($spaceId){
+
+      $userSpaces = DB::table('space_members')
+      ->join('spaces','spaces.space_id','space_members.space_id')
+      ->select(
+          'spaces.image_name as image_name',
+          'spaces.image_extension as image_extension',
+          'spaces.type as type',
+          'spaces.message_track as message_track',
+          'spaces.name as name',
+          'spaces.background_color as background_color',
+          'spaces.description as description',
+          'spaces.space_id as space_id'
+      )
+      ->where('space_members.user_id',Auth::id())
+      ->where('spaces.space_id',$spaceId)
+      ->get();
+
+
+      $allSubSpaces = DB::table('sub_spaces')
+                    ->where('gen_space_id',$spaceId)->get();
+
+     $subSpaceArray = [];
+
+      foreach ($allSubSpaces as $subSpaces) {
+
+         $userSubSpace = (array) $subSpaces;
+      
+
+         $UserMember = SpaceMember::where('user_id',Auth::id())->where('space_id',$userSubSpace["space_id"])->first();
+
+         if($UserMember == null){
+
+           $userSubSpace["is_member"] = false;
+
+         }else{
+            
+           $userSubSpace["is_member"] = true;
+         }
+
+         $userSubSpace["gen_space"] = $userSpaces[0];
+
+         $spaceInfo = DB::table('spaces')->where('space_id',$userSubSpace["space_id"])->first();
+
+         $userSubSpace["space_info"] = $spaceInfo;
+
+         $userUnread = UnreadMessage::where('space_id',$userSubSpace["space_id"])->where('user_id',Auth::id())->get();
+
+         $userSubSpace["unread"] = count($userUnread);
+
+          array_push($subSpaceArray,$userSubSpace);
+      }
+
+
+      return $subSpaceArray;
+
+     }
 
     public function createVideoDash($videoFile,$videoName){
 
