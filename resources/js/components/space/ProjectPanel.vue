@@ -1043,10 +1043,15 @@ export default {
       
    },
     showHowTo: function(){
-      this.$root.panel = this.panel;
-     this.$root.panelBack = this.panelBack;
      
+     if(this.panelData.panel_language == 'PHP'){
+          window.open('https://blog.citonhub.com/frequently-asked-questions-about-creating-a-frontend-application-on-citonhubphp', '_blank');
+     }
 
+     if(this.panelData.panel_language == 'NodeJS'){
+       window.open('https://blog.citonhub.com/faqs-on-hosting-a-front-end-application-on-on-citonhub-node', '_blank');
+     }
+      
    },
    addDBTable: function(){
      this.$root.panel = this.panel;
