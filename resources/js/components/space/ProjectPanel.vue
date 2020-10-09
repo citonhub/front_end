@@ -1053,7 +1053,7 @@ export default {
      if(this.panelData.panel_language == 'NodeJs'){
 
         
-       window.open('https://blog.citonhub.com/faqs-on-hosting-a-front-end-application-on-on-citonhub-node', '_blank');
+       window.open('https://blog.citonhub.com/faqs-on-hosting-a-front-end-application-on-on-citonhub-nodejs', '_blank');
      }
       
    },
