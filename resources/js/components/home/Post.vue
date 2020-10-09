@@ -5,17 +5,19 @@
             <code-editor></code-editor>
       </div>
 
+     
+
       <div v-if="this.$root.fullImageViewer">
             <full-image-viewer></full-image-viewer>
       </div>
 
        <library-shelves v-if="this.$root.showShelves"></library-shelves>
 
-       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden;z-index:999938859; ">
          <div class="row my-0 py-0 px-2">
 
 
-        <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
+        <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;z-index:999938859;">
        <div class="row py-1 my-0 px-1" >
          <div class="col-4 py-0 my-0 text-left" style="border-bottom:2px solid #4495a2;" >
             <v-btn icon color="#4495a2" @click="showHome"><v-icon>mdi-arrow-left</v-icon></v-btn>
@@ -34,7 +36,7 @@
 
 
 
-       <div class="py-1 my-0 postScroll" style="position:fixed;top:7%; height:93%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; ">
+       <div class="py-1 my-0 postScroll" style="position:fixed;top:7%; height:93%;width:100%; left:0; overflow-y:auto; overflow-x:hidden;z-index:999938859; ">
            
           
            <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4  my-0 py-1" >
@@ -177,9 +179,9 @@ export default {
        this.$root.showHeader = false;
        this.$root.postComments = [];
       this.getPost();
-      this.getPostComments();
+     
        this.$root.codeFromPostView = true;
-       
+     
     },
     methods:{
       
@@ -225,17 +227,17 @@ export default {
          this.$root.PostRefId = this.post.id;
           
          
+          this.$root.showPostModal = false;
 
+          this.$root.showHeader = true;
+
+           this.$root.postViewType = '';
          
-          if(this.$root.fromHome){
-
-             this.$router.push('/');
-          }else{
              
-             window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
+         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
 
              
-          }
+          
 
       
    },
@@ -255,6 +257,7 @@ export default {
   
     goBack() {
          this.$root.croppedImage = this.$refs.cropper.image;
+       
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
       getPost:function(){
@@ -263,6 +266,9 @@ export default {
             
          
           this.post = this.$root.postArray[0];
+           this.getPostComments(this.post.PostId);
+
+           
          
         }else{
            
@@ -274,7 +280,7 @@ export default {
         this.post = response.data[0];
         this.postArray = response.data;
         this.$root.postArray = response.data;
-       
+        this.getPostComments(this.post.PostId);
      }
        
      
@@ -285,15 +291,17 @@ export default {
 
         }
       },
-      getPostComments:function(){
+      getPostComments:function(postId){
 
          if(this.$root.postComments.length != 0){
              
                this.postComments = this.$root.postComments;
 
+               
+
          }else{
 
-        axios.get('/post-comments/' + this.$route.params.postId )
+        axios.get('/post-comments/' + postId )
       .then(response => {
       
       if (response.status == 200) {

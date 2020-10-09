@@ -222,6 +222,7 @@ export default {
        viewPost: function(postData,fromcomment){
              this.$root.checkIfUserIsLoggedIn('home');
 
+           
              this.$root.postArray = this.$root.postData.filter((post)=>{
                 return post.PostId == postData.PostId;
              });
@@ -233,12 +234,19 @@ export default {
              }
 
              this.$root.fromHome = true; 
+
+                this.$root.showPostModal = true;
+
+               this.$root.showHeader = false;
+
                 
               if(postData.is_comment == 'true'){
 
       this.$router.push({ path: '/post/comment/' + postData.username + '/' + postData.PostId + '/user'});
+        this.$root.postViewType = 'comment';
  }else{
-   
+     
+      this.$root.postViewType = 'full';
    this.$router.push({ path: '/post/' + postData.username + '/' + postData.PostId + '/user'});
 
  }

@@ -152,20 +152,15 @@ methods:{
       showEditor: function(codeViewerType){
          
            
-               if(codeViewerType == 'homeViewer'){
+              
         
                   this.$root.codeLanguage = this.language;
                this.$root.codeContent = this.code;
                this.$root.codeFromView = true;
                 this.$root.showCodeEditor = true;
-               } 
+               this.$root.showPostModal = false;
+              this.$router.push({ path: '/post/code-viewer'});
 
-                if(codeViewerType == 'postViewer'){
-                  this.$root.codeContent = this.code;
-                   this.$root.codeLanguage = this.language;
-                   this.$router.push({ path: '/code-editor' });
-               } 
-            
             
       },
          detectchange: function(language){

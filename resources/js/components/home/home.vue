@@ -4,9 +4,12 @@
 
    <div style="width:100%; height:auto; overflow-y:hidden; overflow-x:hidden; ">
       
-      <div v-if="this.$root.showCodeEditor">
+     
+       <div style="z-index:9999938859;"  v-if="this.$root.showCodeEditor"  >
+
             <code-editor></code-editor>
-      </div>
+
+        </div>
      
      <share v-if="this.$root.showShare"></share>
 
@@ -19,9 +22,22 @@
 
        <library-shelves v-if="this.$root.showShelves"></library-shelves>
 
+        
+        <div style="z-index:9999938859;"  v-if="this.$root.fullImageViewer"  >
+
+           <full-image-viewer ></full-image-viewer>
+
+        </div>
+
        
 
-        <full-image-viewer  v-if="this.$root.fullImageViewer"></full-image-viewer>
+        <div v-if="this.$root.showPostModal && this.$root.postViewType == 'full'" style="z-index:999938859;">
+            <post></post>
+      </div>
+
+       <div v-if="this.$root.showPostModal  && this.$root.postViewType == 'comment'" style="z-index:999938859;">
+            <post-comment-view></post-comment-view>
+      </div>
         
       <router-view></router-view>
    

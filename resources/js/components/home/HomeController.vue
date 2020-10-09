@@ -3,35 +3,39 @@
       
       
      <div class=" col-md-8 offset-md-2  col-lg-4 offset-lg-4  py-0 px-0 my-0" style="position:absolute;z-index:20; background:white; height:100%;" >
+   <DynamicScroller
+    :items="this.$root.postData"
+     v-if="this.$root.postData.length != 0"
+    :min-item-size="54"
+    ref="postScrollCont"
+    id="postContainer" 
+      :style="'background:transparent; font-family:BodyText;position:fixed;left:0; width:100%; height:100%;overflow-y:' + scrollValue + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'"
+    class="scroller postScroll"
+  >
 
-      
+    <template v-slot="{ item, index, active }">
+      <DynamicScrollerItem
+        :item="item"
+        :active="active"
+        :size-dependencies="[
+          item.content,
+        ]"
+        :data-index="index"
+      >
+        <public  :index="item.id" :source="item"></public>
+      </DynamicScrollerItem>
+    </template>
 
+     <template #after>
+     <div  class="col-md-4 offset-md-4  col-lg-2 offset-lg-5 col-4 offset-4 my-0 py-1 text-center"  >
 
+         <v-progress-linear indeterminate color="#3E8893" v-if="postisLoading && loadingFromBottom" rounded height="6" ></v-progress-linear>
 
-          <div id="postContainer" 
-      v-if="this.$root.postData.length != 0"
-      v-on:scroll="handlePushPost()"
-       class="postScroll"
-    
-    :style="'background:transparent; font-family:BodyText;position:fixed;left:0; width:100%; height:100%;overflow-y:' + scrollValue + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'">
-        
-
-         <div class="col-md-4 offset-md-4  col-lg-2 offset-lg-5 col-4 offset-4 my-0 py-1 text-center" v-if="postisLoading && loadingFromTop">
-
-        <v-progress-linear indeterminate color="#3E8893" rounded height="6" ></v-progress-linear>
+         <v-btn text small @click="loadNewPosts('bottom')" v-else><span style="font-size:13px; text-transform:lowercase; color:#3E8893;">Load more.. </span></v-btn>
 
       </div>
-
-
-     <public v-for="(post,index) in this.$root.postData" :key="index" :index="post.id" :source="post"></public>
-
-      <div  class="col-md-4 offset-md-4  col-lg-2 offset-lg-5 col-4 offset-4 my-0 py-1 text-center"  v-if="postisLoading && loadingFromBottom">
-
-         <v-progress-linear indeterminate color="#3E8893" rounded height="6" ></v-progress-linear>
-
-      </div>
-         
-    </div> 
+  </template>
+  </DynamicScroller> 
 
 <div v-else class="postScroll" :style="'background:transparent; font-family:BodyText;position:fixed;left:0; width:100%; height:100%; overflow-y:' + scrollValue + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'">
       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0">
@@ -209,7 +213,7 @@ export default {
       this.$root.showTabs=true;
        this.$root.showHeader = true;
        this.postLoader();
-       this.scrollToPost();
+       
        
         this.$root.codeFromPostView = false;
         
@@ -217,222 +221,10 @@ export default {
      this.$root.disconnectPost(this.$root.postShelveData);
          }
 
-      
+     
+
     },
     methods:{
-    
-       handlePushPost: function(){
-
-       
-           
-
-        var container = document.querySelector('#postContainer');
-
-         let scrollPosition = container.scrollTop;
-
-          let containerScrollHeigthFixed = container.scrollHeight;
-
-         this.scrollPosition = containerScrollHeigthFixed - scrollPosition;
-
-        
-       
-        
-        if(scrollPosition <= 5 && this.$root.postStoreTop.length != 0){
-
-          
-         
-           
-
-           
-             
-               this.newPostLoading = true;
-         
-          
-        
-
-           let loadingArray = [];
-
-
-           if(this.$root.postStoreTop.length < this.postPerLoad){
-             
-              loadingArray = new Array(this.$root.postStoreTop.length);
-
-
-
-           }else{
-             
-               loadingArray = new Array(this.postPerLoad);
-
-           }
-            
-          
-             
-             for (let index = 0; index < loadingArray.length; index++) {
-               
-                 let arrayPoppedLoader =  this.$root.postStoreTop.pop();
-                  
-                  this.$root.postData.unshift(arrayPoppedLoader);
-             }
-             
-                
-                
-
-               let NumberToRemove = 0;
-
-              if(this.$root.postData.length < this.$root.postInitialLimit){
-                  NumberToRemove = this.postPerLoad; 
-              }
-              if(this.$root.postData.length > this.$root.postInitialLimit){
-                 NumberToRemove = this.$root.postData.length - this.$root.postInitialLimit;
-              }
-
-            
-             let NumberArray =  new Array(NumberToRemove);
-
-             for (let index = 0; index < NumberArray.length; index++) {
-               
-                 let arrayPopped =  this.$root.postData.pop();
-                  
-                  this.$root.postStoreBottom.unshift(arrayPopped);
-             }
-
-             var elementId = this.$root.postData[29].id;
-                  
-                    var element =  document.querySelector('#post' + elementId);
-            
-          
-
-                if(element){
-
-                
-
-                  var top =  containerScrollHeigthFixed - (element.offsetTop + 600) ;
-
-                }
-
-                 
-
-              if(this.$root.postStoreTop.length < this.postPerLoad){
-
-                 container.scrollTop = top;
-
-              }
-
-            
-
-            
-
-          
-          
-         
-                    
-               
-
-              
-
- 
-        }
-
-         
-
-     let containerScrollHeigth = container.scrollHeight;
-         
-        
-            if(scrollPosition == 0){
-
-              if(this.$root.postStoreTop.length == 0){
-
-                this.loadNewPosts('top');
-
-             }
-
-          }
-           
-        if((scrollPosition > (containerScrollHeigth - 1000)) && this.$root.postStoreBottom.length != 0 ){
-         
-         
-
-           
-
-             let NumberArrayBottom = [];
-
-
-           if( this.$root.postStoreBottom.length < this.postPerLoad){
-             
-              NumberArrayBottom = new Array( this.$root.postStoreBottom.length);
-
-
-
-           }else{
-             
-               NumberArrayBottom = new Array(this.postPerLoad);
-
-           }
-
-             for (let index = 0; index < NumberArrayBottom.length; index++) {
-               
-                 let arrayPopped =  this.$root.postStoreBottom.shift();
-                  
-                  this.$root.postData.push(arrayPopped);
-             }
-
-
-              
-
-             for (let index = 0; index < NumberArrayBottom.length; index++) {
-               
-                 let arrayPoppedTop =  this.$root.postData.shift();
-                  
-                  this.$root.postStoreTop.push(arrayPoppedTop);
-             }
-
-              let loadingArray = 0;
-
-
-         if(this.$root.postStoreBottom.length < this.postPerLoad){
-             
-              loadingArray = this.$root.postStoreBottom.length;
-
-               
-
-
-
-           }else{
-             
-             
-
-                  var elementId = this.$root.postData[6].id;
-                  
-                    var element =  document.querySelector('#post' + elementId);
-            
-          
-
-                if(element){
-
-                  var top = element.offsetTop;
-
-                }
-
-               
-
-           }
- 
-             container.scrollTop = top;
-
-              
-              }
-          
-          if(scrollPosition > (containerScrollHeigth - 1000)){
-
-              if(this.$root.postStoreBottom.length == 0){
-
-                this.loadNewPosts('bottom');
-
-             }
-
-          }
-        
-        },
       activateBot:function(){
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
             return page.page_name == 'public';
@@ -495,7 +287,7 @@ export default {
       
    
 
-         this.$root.postData = this.handleResults(response.data[0]);
+         this.$root.postData = response.data[0];
 
           this.$root.postCurrentPage = response.data[1];
 
@@ -543,111 +335,18 @@ export default {
       
         if(response.data[0].length != 0){
 
-           if(position == 'top'){
-
-              
-             let fullPostData = this.$root.allPostArray;
-
-               let returnedData = response.data[0];
-
-              
-                 this.$root.allPostArray = returnedData.concat(fullPostData);
-
-                 let firstDataSet = returnedData.slice(0,19);
-
-                 let remainingDataSet = returnedData.slice(20,returnedData.length);
-
-                 this.$root.PostRefId = this.$root.postData[0].id;
-
-                
-
-                this.$root.postData =  firstDataSet.concat(this.$root.postData);
-
-                this.$root.postStoreTop =  remainingDataSet;
-
-                
-                
-            
           
-                     var container = document.querySelector('#postContainer'); 
-
-                      let containerScrollHeigthFixed = container.scrollHeight;
-
-                      
-                  var elementId = this.$root.postData[20].id;
-                  
-                    var element =  document.querySelector('#post' + elementId);
-            
-          
-
-                if(element){
-
-                
-
-                  var top =  containerScrollHeigthFixed - (element.offsetTop + 1300) ;
-
-                }
-
-                  
-
-                   container.scrollTop = top;
-
-                
-
-
-
-                
-             
-
-             
-
-             
-
-
-           }
-
             if(position == 'bottom'){
 
               
 
-               let fullPostData = this.$root.allPostArray;
-
+              
                let returnedData = response.data[0];
               
-                 this.$root.allPostArray = fullPostData.concat(returnedData);
-
-                 let firstDataSet = returnedData.slice(0,19);
-
-                 let remainingDataSet = returnedData.slice(20,returnedData.length);
-
-
-               this.$root.postData.concat(firstDataSet);
-
-                this.$root.postStoreBottom =  remainingDataSet;
-                
-             
-                var elementId = this.$root.postData[6].id;
-
-                 var container = document.querySelector('#postContainer'); 
-                  
-                    var element =  document.querySelector('#post' + elementId);
-            
-          
-
-                if(element){
-
-                  var top = element.offsetTop;
-
-                }
-
-
-                container.scrollTop = top;
-
-             
-              
+               
+             this.$root.postData =  this.$root.postData.concat(returnedData);
 
               
-
 
            }
 
@@ -671,54 +370,8 @@ export default {
      }) 
 
         },
-         handleResults(postArray){
-
-
-          this.$root.allPostArray = postArray;
-          
-          let PostLenght = postArray.length;
-
-         
-             let startCount = PostLenght - this.$root.postInitialLimit;
-
-             if(startCount <= 0){
-               startCount = 0;
-             }
-
-             
-  
-          let sliedPost = this.$root.allPostArray.slice(0,this.$root.postInitialLimit);
-
-         
-         this.$root.postStoreBottom = this.$root.allPostArray.slice(startCount,PostLenght);
-
-         var finalPosts = sliedPost;
-
-         
-         
-         return finalPosts;
-          
-      },
-         
-       
-      scrollToPost: function(){
-
-          if(this.$root.fromView){
-               setTimeout(() => {
-         
-           var container = document.querySelector('#postContainer');
-           
-        var element =  document.querySelector('#post' + this.$root.PostRefId);
-       
-        var top = element.offsetTop;
-        container.scrollTo(0, top);
-        },500)
-          }
-         
-      
-   
-
-      }
+        
+     
 
     }
 }

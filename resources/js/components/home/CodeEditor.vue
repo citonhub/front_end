@@ -359,12 +359,15 @@ methods:{
 
             this.$root.showCodeEditor = false;
 
-           
+            
               
     this.$root.codeFromView = false;
 
     this.$root.codeContent = '';
-
+    
+  this.$root.showPostModal = true;
+   
+    window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
        return;
           
         }
@@ -378,9 +381,14 @@ methods:{
             this.$root.showCodeEditor = false;
               
     this.$root.codeFromView = false;
+      
      this.$root.codeContent = '';
 
+    
+
           }else{
+
+
 
              window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
 

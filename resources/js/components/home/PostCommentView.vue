@@ -11,7 +11,7 @@
 
       <library-shelves v-if="this.$root.showShelves"></library-shelves>
 
-       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="z-index:999938859;position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -293,6 +293,10 @@ export default {
         showHome: function(){
         this.$root.fromView = true;
          this.$root.PostRefId = this.post.id;
+
+           this.$root.showPostModal = false;
+         this.$root.postViewType = '';
+          this.$root.showHeader = true;
        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
    },
           library: function(post){

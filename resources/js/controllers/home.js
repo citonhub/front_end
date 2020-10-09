@@ -23,14 +23,233 @@ import Privacy from "../components/home/Privacy.vue"
 
 const routes = [
   { path: '/', redirect: '/hub'},
-  { path: '/hub', name: 'HomeController', component: HomeController},
+  { path: '/hub', name: 'HomeController',
+   component: HomeController,
+    meta: {
+    twModalView: true
+  },
+  beforeEnter: (to, from, next) => {
+   
+      to.matched[0].components = {
+        default: HomeController,
+        modal: false
+      }
+
+       if(window.thisUserState != undefined){
+
+        thisUserState.$root.showPostModal = false;
+
+        thisUserState.$root.postViewType = '';
+
+        thisUserState.$root.showHeader = true;
+
+        thisUserState.$root.fullImageViewer = false;
+
+        thisUserState.$root.showCodeEditor = false;
+        
+        thisUserState.$root.showTabs=true;
+
+       }
+    
+
+  
+
+    next()
+  }
+  },
   { path: '/privacy-policy', name: 'Privacy', component: Privacy},
   { path: '/new-post', name: 'NewPost', component: NewPost},
   { path: '/code-editor', name: 'CodeEditor', component: CodeEditor},
   { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},
-  { path: '/post/:username/:postId/:referral', name: 'Post', component: Post},
+  { path: '/post/:username/:postId/:referral',
+   name: 'Post',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Post,
+        modal: false
+      }
+    }
+
+    
+
+    if (twModalView) {
+
+      if(window.thisUserState != undefined){
+
+      
+        thisUserState.$root.showPostModal = true;
+        thisUserState.$root.fullImageViewer = false;
+  
+         thisUserState.$root.showCodeEditor = false;
+  
+        thisUserState.$root.showTabs= true;
+  
+       }
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Post
+      }
+    }
+
+    next()
+  }
+},
+{ path: '/post/image-viewer',
+   name: 'ImageViewer',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: HomeController,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = HomeController
+      }
+    }
+
+    next()
+  }
+},
+{ path: '/post/code-viewer',
+   name: 'CodeViewer',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: HomeController,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = HomeController
+      }
+    }
+
+    next()
+  }
+},
   { path: '/post/:username/:postId/comment/post', name: 'MakeComment', component: MakeComment},
-  { path: '/post/comment/:username/:postId/:referral', name: 'PostCommentView', component: PostCommentView},
+  { path: '/post/comment/:username/:postId/:referral', 
+  name: 'PostCommentView', 
+  meta: {
+    twModalView: true
+  },
+  beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: PostCommentView,
+        modal: false
+      }
+    }
+
+   
+
+    if (twModalView) {
+
+      if(window.thisUserState != undefined){
+
+      
+        thisUserState.$root.showPostModal = true;
+        thisUserState.$root.fullImageViewer = false;
+  
+         thisUserState.$root.showCodeEditor = false;
+  
+        thisUserState.$root.showTabs= true;
+  
+       }
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = PostCommentView
+      }
+    }
+
+    next()
+  }
+},
   { path: '/library', name: 'Library', component: Library},
   { path: '/shelve', name: 'Shelve', component: Shelve},
   { path: '/add-shelve', name: 'AddShelve', component: AddShelve},
@@ -154,12 +373,18 @@ const app = new Vue({
             postStoreBottom:[],
             codeFromPostView: false,
             postCurrentPage:0,
+            showPostModal:false,
+            postViewType:'',
     },
      mounted: function () {
       this.pageloader = false;
       this.initialPushMangerReg();
       this.fetchUserDetails();
       this.trackConnections();
+      window.thisUserState = this;
+    },
+    created(){
+      window.thisUserState = this;
     },
     http: {
      headers:{

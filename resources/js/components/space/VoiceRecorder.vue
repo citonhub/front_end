@@ -163,7 +163,21 @@ methods:{
              this.$root.scrollerControlHandler();
 
          
-          
+            this.$root.spaceFullData[0] = this.$root.returnedMessages;
+         
+            let fullData = [];
+                    fullData.push(this.$root.spaceFullData[0]);
+                fullData.push(this.$root.spaceFullData[1]);
+
+                 let thirdData = [];
+                    
+                    thirdData.push(this.$root.spaceFullData[2][0])
+
+                fullData.push(thirdData);
+
+               
+              this.$root.LocalStore(this.$route.params.spaceId  + this.$root.username,fullData);
+
 
          this.$root.scrollToBottom();
 
