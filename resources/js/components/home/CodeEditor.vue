@@ -384,7 +384,7 @@ methods:{
       
      this.$root.codeContent = '';
 
-    
+    window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
 
           }else{
 
