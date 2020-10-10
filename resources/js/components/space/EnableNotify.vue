@@ -26,7 +26,7 @@
                 </div>
 
                
-                <div class="col-12 py-1 text-center">
+                <div class="col-12 py-1 mt-2 text-center">
                    <v-btn small rounded color="#3E8893" @click.stop="askPermission" style="font-size:12px; text-transform:capitalize; color:white;">Notify Me</v-btn>
                 </div>
                 
