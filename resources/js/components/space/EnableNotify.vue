@@ -9,7 +9,7 @@
        
 
        <div class="py-1 my-0" style=" background-color:white;position:absolute;bottom:0%; height:auto; width:100%; left:0; overflow-y:auto; overflow-x:hidden;
-       padding-bottom:80px !important; " @click.stop="preventClose = true">
+       padding-bottom:80px !important; " @click="preventClose()">
            
           
            <div class="col-12 py-4 " >
@@ -20,14 +20,14 @@
                 <div class="col-12 px-2 py-0 text-center">
                      
               <span style="font-size:13px;">
-                 Lets us Notify you whenever have new messages on your space
+                 Lets us Notify you whenever have new messages
               </span>
 
                 </div>
 
                
                 <div class="col-12 py-1 text-center">
-                   <v-btn small rounded color="#3E8893" @click.stop="askPermission" style="font-size:12px; text-transform:capitalize; color:white;">Yes,Notify Me</v-btn>
+                   <v-btn small rounded color="#3E8893" @click.stop="askPermission" style="font-size:12px; text-transform:capitalize; color:white;">Notify Me</v-btn>
                 </div>
                 
              
@@ -69,6 +69,9 @@ export default {
     methods:{
      closeNotify: function(){
          this.$root.shownotificationboard = false;
+     },
+     preventClose:function(){
+          this.$root.shownotificationboard = true;
      },
      askPermission: function(){
          this.$root.askPermission();
