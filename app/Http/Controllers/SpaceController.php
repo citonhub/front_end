@@ -211,10 +211,9 @@ class SpaceController extends Controller
          'ffmpeg.threads'   => 12,   // The number of threads that FFmpeg should use
      ];
      
-     $log = new Logger('FFmpeg_Streaming');
-     $log->pushHandler(new StreamHandler('/var/www/citonhubnew/ffmpeg-streaming.log')); // path to log file
+    
 
-     $ffmpeg = FFMpeg::create($config, $log);
+     $ffmpeg = FFMpeg::create();
    
       $video = $ffmpeg->open($videoFile);
 
