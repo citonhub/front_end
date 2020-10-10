@@ -523,17 +523,8 @@ class PostController extends Controller
 
   public function createVideoDash($videoFile,$videoName){
 
-   $config = [
-      'ffmpeg.binaries'  => '/usr/bin/ffmpeg',
-      'ffprobe.binaries' => '/usr/bin/ffprobe',
-      'timeout'          => 3600, // The timeout for the underlying process
-      'ffmpeg.threads'   => 12,   // The number of threads that FFmpeg should use
-  ];
   
-  $log = new Logger('FFmpeg_Streaming');
-  $log->pushHandler(new StreamHandler('/var/www/citonhubnew/ffmpeg-streaming.log')); // path to log file
-
-  $ffmpeg = FFMpeg::create($config, $log);
+  $ffmpeg = FFMpeg::create();
 
    $video = $ffmpeg->open($videoFile);
 
