@@ -1,7 +1,7 @@
 <template>
      <div  style="background:transparent; font-family:BodyText;">
 
-       <div class=" col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:fixed;  background:rgba(38, 82, 89,0.4); height:100%; overflow-y:auto; overflow-x:hidden; z-index:200;" 
+       <div class=" col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:fixed;  background:rgba(38, 82, 89,0.4); height:100%; overflow-y:auto; overflow-x:hidden; z-index:9999999999999200;" 
         @click="closeNotify" >
          <div class="row my-0 py-0 px-2">
 
@@ -9,7 +9,7 @@
        
 
        <div class="py-1 my-0" style=" background-color:white;position:absolute;bottom:0%; height:auto; width:100%; left:0; overflow-y:auto; overflow-x:hidden;
-       padding-bottom:80px !important; ">
+       padding-bottom:80px !important; " @click.stop="preventClose = true">
            
           
            <div class="col-12 py-4 " >
@@ -56,6 +56,7 @@ export default {
         return{
            Alert:false,
         alertMsg:'',
+        preventClose:true
        
         }
     },
