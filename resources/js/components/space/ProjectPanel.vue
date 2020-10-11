@@ -1003,24 +1003,7 @@ export default {
                return content;
              }
         },
-   activateBot:function(){
-         this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
-            return page.page_name == 'project_panel';
-          });
-         
-          if(this.$root.selectedPage.length != 0){
-               
-              if(this.$root.selectedPage[0].status == 0){
-                 this.$root.showBoard = true;
-         this.$root.boardContent = 'Congratulations ' + this.$root.username + ' 🥳, you created your first project. Write and run your codes here. Have some more questions? Click on \'FAQs\' button to answer them.';
-         this.$root.boardBtnLabel = 'Okay,Got It';
-
-              }
-               
-          }
-        
-         
-      },
+   
         trackUser: function(){
       
 
@@ -1031,7 +1014,7 @@ export default {
 
         this.$root.userPageTrack = response.data[2];
 
-        this.activateBot();
+      
   }
     
   

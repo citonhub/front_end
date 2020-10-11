@@ -1,5 +1,5 @@
 <template>
-     <div  style="background:transparent; font-family:BodyText;">
+     <div  style="background:transparent; font-family:BodyText; z-index:9998999889090999;">
 
        <div class=" col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:fixed;  background:rgba(38, 82, 89,0.4); height:100%; overflow-y:auto; overflow-x:hidden; z-index:200;" 
          @click="closeShare">

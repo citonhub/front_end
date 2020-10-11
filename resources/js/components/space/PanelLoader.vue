@@ -208,24 +208,7 @@ export default {
 
           window.open('/run-panel/' + this.projectData.panel_id, '_blank');
       },
-       activateBot:function(){
-         this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
-            return page.page_name == 'project_page_loader';
-          });
-         
-          if(this.$root.selectedPage.length != 0){
-               
-              if(this.$root.selectedPage[0].status == 0){
-                 this.$root.showBoard = true;
-        this.$root.boardContent = 'Weldone '+ this.$root.username + '😇, you can always view the output of your codes here and follow up stars and comments on your project';
-         this.$root.boardBtnLabel = 'Okay,Got It';
-
-              }
-               
-          }
-        
-         
-      },
+     
         trackUser: function(){
       
 
@@ -236,7 +219,7 @@ export default {
 
         this.$root.userPageTrack = response.data[2];
 
-        this.activateBot();
+       
   }
     
   
