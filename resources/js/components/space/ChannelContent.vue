@@ -649,7 +649,7 @@
      </span>
 
       
-       <span style="position:fixed; top:78%; right:3%; z-index:98757;"  class="d-md-none d-inline-block">
+       <span style="position:fixed; top:73%; right:3%; z-index:98757;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#3E8893"
                 small
@@ -676,7 +676,7 @@
      </span>
 
 
- <span style="position:fixed; top:78%; left:3%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="this.$root.showMsgDelete">
+ <span style="position:fixed; top:73%; left:3%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="this.$root.showMsgDelete">
           <v-btn
                 color="#3E8893"
                 x-small
@@ -689,7 +689,7 @@
               </v-btn>
      </span>
 
-      <span style="position:absolute; top:85%; left:3%;  z-index:999998757;" class="d-none d-md-inline-block" v-if="this.$root.showMsgDelete">
+      <span style="position:fixed; top:73%; left:3%;  z-index:999998757;" class="d-none d-md-inline-block" v-if="this.$root.showMsgDelete">
           <v-btn
                 color="#3E8893"
                 x-small
