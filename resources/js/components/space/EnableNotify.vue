@@ -9,7 +9,7 @@
        
 
        <div class="py-1 my-0" style=" background-color:white;position:absolute;bottom:0%; height:auto; width:100%; left:0; overflow-y:auto; overflow-x:hidden;
-       padding-bottom:80px !important; " @click="preventClose()">
+       padding-bottom:80px !important; " @click="preventCloseCtl()">
            
           
            <div class="col-12 py-4 " >
@@ -70,7 +70,7 @@ export default {
      closeNotify: function(){
          this.$root.shownotificationboard = false;
      },
-     preventClose:function(){
+     preventCloseCtl:function(){
           this.$root.shownotificationboard = true;
      },
      askPermission: function(){

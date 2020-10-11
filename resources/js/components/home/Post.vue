@@ -69,7 +69,6 @@
              </div>
 
               <div style="width:100%;" v-if="post.attachment_type == 'video'" class="px-lg-4">
-
                   <main-video v-if="post.attachment_type == 'video'" :videoUrl="'/videos/' + post.video.video_name + '.mpd'" :backgroundColor="post.video.background_color" style="height:100%; width:100%;"
                :backgroundImg="'/videos/previewImage/'+ post.video.preview_image_url" :playerId="'small' + post.id" > </main-video>
              </div>
@@ -146,9 +145,6 @@
        
          </div>
 
-
-
-      
 
        </div>
 
