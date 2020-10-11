@@ -56,7 +56,7 @@
                         </div>    
                     </div>
                      <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
-                         <span class="titleText">{{space.title}}</span>
+                         <span class="titleText">{{shortenContent(space.title,24)}}</span>
                     </div>
                     <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
                           
@@ -170,7 +170,7 @@
                         </div>    
                     </div>
                      <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
-                         <span class="titleText">{{space.name}}</span>
+                         <span class="titleText">{{ shortenContent(space.name,24)}}</span>
                     </div>
                     <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
                           <span class="messagesBadges" v-if="space.unread != 0"><span style="padding:2px;">{{ space.unread }}</span></span>
@@ -270,7 +270,7 @@
                         </div>    
                     </div>
                      <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
-                         <span class="titleText">{{space.name}}</span>
+                         <span class="titleText">{{ shortenContent(space.name,24)}}</span>
                     </div>
                     <div     class="py-0 my-0 d-flex col-2" style="align-items:center;">
                          <span class="messagesBadges" v-if="space.unread != 0"><span style="padding:2px;">{{ space.unread }}</span></span>
@@ -366,7 +366,7 @@
                         </div>    
                     </div>
                      <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
-                         <span class="titleText">{{space.userInfo.username}}</span>
+                         <span class="titleText">{{  shortenContent(space.userInfo.username,24)}}</span>
                     </div>
                     <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
                           <span class="messagesBadges" v-if="space.unread != 0"><span style="padding:2px;">{{ space.unread }}</span></span>
@@ -920,6 +920,19 @@ export default {
 
         
        },
+        shortenContent: function(content,limit){
+             if(content != undefined){
+             
+             if(content.length > limit){
+                let shortcontent = content.slice(0,limit);
+                 return shortcontent + '...';
+             }else{
+               return content;
+             }
+             
+             }
+             
+        },
      
     }
 }
