@@ -169,8 +169,8 @@
                           <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
                         </div>    
                     </div>
-                     <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
-                         <span class="titleText">{{ shortenContent(space.name,24)}}</span>
+                     <div class="py-0 my-0 d-flex col-7 px-1" style="align-items:center;">
+                         <span class="titleText">{{ shortenContent(space.name,19)}}</span>
                     </div>
                     <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
                           <span class="messagesBadges" v-if="space.unread != 0"><span style="padding:2px;">{{ space.unread }}</span></span>
@@ -269,7 +269,7 @@
                           <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
                         </div>    
                     </div>
-                     <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
+                     <div class="py-0 my-0 d-flex col-7 px-1" style="align-items:center;">
                          <span class="titleText">{{ shortenContent(space.name,24)}}</span>
                     </div>
                     <div     class="py-0 my-0 d-flex col-2" style="align-items:center;">
@@ -365,7 +365,7 @@
                           <v-img  :background-color="space.userInfo.background_color" :src="space.userInfo.image_name == null ? 'imgs/usernew.png' : '/imgs/profile/'+ space.userInfo.image_name +'.' + space.userInfo.image_extension " height="38" width="38" class="avatarImg"></v-img>
                         </div>    
                     </div>
-                     <div class="py-0 my-0 d-flex col-7" style="align-items:center;">
+                     <div class="py-0 my-0 d-flex col-7 px-1" style="align-items:center;">
                          <span class="titleText">{{  shortenContent(space.userInfo.username,24)}}</span>
                     </div>
                     <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
