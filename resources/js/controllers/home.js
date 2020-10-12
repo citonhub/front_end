@@ -42,13 +42,13 @@ const routes = [
 
         thisUserState.$root.postViewType = '';
 
-        thisUserState.$root.showHeader = true;
-
         thisUserState.$root.fullImageViewer = false;
 
         thisUserState.$root.showCodeEditor = false;
         
         thisUserState.$root.showTabs=true;
+
+        thisUserState.$root.showHeader = true;
 
        }
     

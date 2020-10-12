@@ -61,6 +61,16 @@
                <div style="width:100%;" v-if="post.attachment_type == 'link'"  class="px-lg-4">
                   <link-view :urlInfo="post.link" ></link-view>
              </div>
+
+             <div style="width:100%;" v-if="post.attachment_type == 'project'" class="px-lg-5" >
+                 <project :projectData="post.project"></project>
+             </div>
+              <div style="width:100%;" v-if="post.attachment_type == 'duel'" class="px-lg-5" >
+                 <duel :duelData="post.duel"></duel>
+             </div>
+              <div style="width:100%;" v-if="post.attachment_type == 'channel'" class="px-lg-5" >
+                 <channel :channelData="post.channel"></channel>
+             </div>
                   
                 </div>
 

@@ -12,6 +12,9 @@ use App\PostImage;
 use App\PostCode;
 use App\PostVideo;
 use App\PostLink;
+use App\PostProject;
+use App\Project;
+use App\PostDuel;
 use ColorThief\ColorThief;
 use App\traits\ManagesImages;
 use App\ShelvePost;
@@ -31,6 +34,7 @@ use Streaming\Representation;
 use Streaming\FFMpeg;
 use App\Jobs\HandleNotification;
 use App\User;
+use App\Space;
 
 class PostController extends Controller
 {
@@ -259,6 +263,23 @@ class PostController extends Controller
      
    } 
 
+   public function duelEngine($duelArray){
+
+      $newDuelArray = [];
+
+      foreach ($duelArray as $duel) {
+         
+         $duel = (array) $duel;
+       
+         $duel["duel_language_array"] = unserialize($duel["languages"]);
+
+         array_push($newDuelArray,$duel);
+
+      }
+
+      return $newDuelArray;
+   }
+
 
 
    public function postEngine($postArray){
@@ -293,6 +314,61 @@ class PostController extends Controller
             $post["code"] = $postCode;
 
          }
+
+         if($post["attachment_type"] == 'project'){
+            
+            $postProject = PostProject::where('post_id',$post["id"])->first();
+
+            $project = Project::where('project_slug',$postProject->project_slug)->first();
+
+            $post["project"] = $project;
+
+         }
+
+         if($post["attachment_type"] == 'channel'){
+            
+            $postChannel = \App\PostChannel::where('post_id',$post["id"])->first();
+
+            $channel = Space::where('space_id',$postChannel->space_id)->first();
+
+            $post["channel"] = $channel;
+
+         }
+
+
+         if($post["attachment_type"] == 'duel'){
+            
+            $postDuel= PostDuel::where('post_id',$post["id"])->first();
+
+            $duels = DB::table('duels')
+      ->join('users','users.id','duels.user_id')
+      ->select(
+           'duels.title as title',
+           'duels.duel_language as languages',
+           'duels.description as description',
+           'duels.participant_type as participant_type',
+           'duels.rules as rules',
+           'duels.duration as duration',
+           'duels.user_id as tempId',
+           'duels.started as started',
+           'duels.start_date as start_date',
+           'duels.likes as likes',
+           'duels.comments as comments',
+           'duels.judges as judges',
+           'duels.duel_id as duel_id',
+           'duels.current_participant as current_participant',
+           'duels.max_participant as max_participant',
+           'users.username as username',
+           'duels.created_at as created_at'
+        )
+      ->where('duels.duel_id',$postDuel->duel_id)->get();
+
+       $duelArray = $this->duelEngine($duels);
+
+       $post["duel"] = $duelArray[0];
+
+         }
+
 
          if($post["attachment_type"] == 'link'){
             
@@ -406,6 +482,60 @@ class PostController extends Controller
    
             $post["code"] = $postCode;
    
+         }
+
+         if($post["attachment_type"] == 'project'){
+            
+            $postProject = PostProject::where('post_id',$post["id"])->first();
+
+            $project = Project::where('project_slug',$postProject->project_slug)->first();
+
+            $post["project"] = $project;
+
+         }
+
+         if($post["attachment_type"] == 'channel'){
+            
+            $postChannel = \App\PostChannel::where('post_id',$post["id"])->first();
+
+            $channel = Space::where('space_id',$postChannel->space_id)->first();
+
+            $post["channel"] = $channel;
+
+         }
+
+
+         if($post["attachment_type"] == 'duel'){
+            
+            $postDuel= PostDuel::where('post_id',$post["id"])->first();
+
+            $duels = DB::table('duels')
+      ->join('users','users.id','duels.user_id')
+      ->select(
+           'duels.title as title',
+           'duels.duel_language as languages',
+           'duels.description as description',
+           'duels.participant_type as participant_type',
+           'duels.rules as rules',
+           'duels.duration as duration',
+           'duels.user_id as tempId',
+           'duels.started as started',
+           'duels.start_date as start_date',
+           'duels.likes as likes',
+           'duels.comments as comments',
+           'duels.judges as judges',
+           'duels.duel_id as duel_id',
+           'duels.current_participant as current_participant',
+           'duels.max_participant as max_participant',
+           'users.username as username',
+           'duels.created_at as created_at'
+        )
+      ->where('duels.duel_id',$postDuel->duel_id)->get();
+
+       $duelArray = $this->duelEngine($duels);
+
+       $post["duel"] = $duelArray[0];
+
          }
 
          if($post["attachment_type"] == 'link'){
@@ -694,6 +824,39 @@ class PostController extends Controller
          ]);
 
          $newPostCode->save();
+
+        }
+
+        if($attachment_type == 'project'){
+        
+         $newPostProject = PostProject::create([
+           "project_slug"=> $request->get('project_slug'),
+           "post_id"=> $newPost->id
+         ]);
+
+         $newPostProject->save();
+
+        }
+
+        if($attachment_type == 'duel'){
+        
+         $newPostDuel = PostDuel::create([
+           "duel_id"=> $request->get('duel_id'),
+           "post_id"=> $newPost->id
+         ]);
+
+         $newPostDuel->save();
+
+        }
+
+        if($attachment_type == 'channel'){
+        
+         $newPostChannel = \App\PostChannel::create([
+           "space_id"=> $request->get('channel_id'),
+           "post_id"=> $newPost->id
+         ]);
+
+         $newPostChannel->save();
 
         }
 

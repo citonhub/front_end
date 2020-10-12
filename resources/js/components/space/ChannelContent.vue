@@ -35,7 +35,6 @@
      <div class="col-8 py-1 my-0">
        <v-skeleton-loader
       class=" "
-     
       type="sentences"
     ></v-skeleton-loader>
      </div>
@@ -680,7 +679,6 @@
           <v-btn
                 color="#3E8893"
                 x-small
-               
                  @click="deleteMessage"
                 class="d-block"
                 fab
@@ -695,7 +693,6 @@
                 x-small
               @click="deleteMessage"
                 class="d-block"
-                
                 fab
               >
                 <v-icon color="#ffffff">mdi-delete mdi-18px</v-icon>

@@ -88,6 +88,12 @@
                     <v-icon>mdi-link-variant mdi-18px</v-icon>
                 </v-btn>
 
+                 <v-btn text icon  color="#4495a2"
+                    @click="closeAddBoard = false"
+                >
+                    <v-icon>mdi-plus-circle-outline mdi-18px</v-icon>
+                </v-btn>
+
 
                
             </div>            
@@ -178,6 +184,45 @@
                               </div> 
                        </div>
 
+
+                        <div class="col-12  py-2 "  v-if="projectData.length != 0">
+
+                          <div  style="height:100%;width:100%; "  class="px-4">
+                          <project :projectData="projectData"></project>
+           </div>
+
+           <div style="position:absolute; height:auto; width:auto; right:10%; top:10%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;">
+                               <v-btn icon @click.stop="projectData = []"><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
+                             </div>
+                       </div>
+
+
+                       <div class="col-12  py-2 "  v-if="channelData.length != 0">
+
+                          <div  style="height:100%;width:100%; "  class="px-4">
+                          <channel :channelData="channelData"></channel>
+           </div>
+
+            <div style="position:absolute; height:auto; width:auto; right:10%; top:10%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;">
+                               <v-btn icon @click.stop="channelData = []"><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
+                             </div>
+                       </div>
+
+
+             
+             <div class="col-12  py-2 "  v-if="duelData.length != 0">
+
+                          <div  style="height:100%;width:100%; "  class="px-4">
+                        <duel :duelData="duelData"></duel>     
+           </div>
+            <div style="position:absolute; height:auto; width:auto; right:10%; top:10%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;">
+                               <v-btn icon @click.stop="duelData = []"><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
+                             </div>
+                       </div>
+
+
+                       
+
                        <div class="col-12 py-2" v-if="codeContent != ''">
                             <div  style="height:100%;width:100%; "  class="px-4">
                               
@@ -209,6 +254,118 @@
         </div>
          </div>
        </div>
+
+
+         <div  @click="closeAddBoardCtl()"  v-if="!closeAddBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+           <div  @click.stop="preventClose"  style="position:absolute; height:60%; width:100%; top:40%; left:0%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto">
+
+             <v-card tile flat
+       height="100%"
+          
+       class="py-2 px-2" >
+
+       <div v-if="!showSelect">
+          <v-card tile flat class="col-12 py-2 px-0 my-1" color="#edf6f7" style="border:1px solid #5fb0b9;" @click="selectType('Project')">
+                <div class="row py-0 my-0 px-0">
+                    
+                    <div class="col-2 d-flex py-0 my-0" style="align-items:center; justify-content:center;">
+                        <v-icon color="#35747e" class="mx-1"></v-icon> 
+                    </div>
+                     <div class="py-0 my-0 d-flex col-8" style="align-items:center; justify-content:center;">
+                        <span class="titleTextNew">Project</span>
+                    </div>
+                     <div class="col-2 d-flex" style="align-items:center; justify-content:center;">
+                       
+                    </div>
+                    
+                    
+                </div>
+             </v-card>
+            <v-card tile flat class="col-12 py-2 px-0 my-1" color="#edf6f7" style="border:1px solid #5fb0b9;" @click="selectType('Duel')">
+                <div class="row py-0 my-0 px-0">
+                    
+                    <div class="col-2 d-flex py-0 my-0" style="align-items:center; justify-content:center;">
+                        <v-icon color="#35747e" class="mx-1"></v-icon> 
+                    </div>
+                     <div class="py-0 my-0 d-flex col-8" style="align-items:center; justify-content:center;">
+                        <span class="titleTextNew">Duel</span>
+                    </div>
+                     <div class="col-2 d-flex" style="align-items:center; justify-content:center;">
+                       
+                    </div>
+                    
+                    
+                </div>
+             </v-card>
+               <v-card tile flat class="col-12 py-2 px-0 my-1" color="#edf6f7" style="border:1px solid #5fb0b9;" @click="selectType('Channel')">
+                <div class="row py-0 my-0 px-0">
+                    
+                    <div class="col-2 d-flex py-0 my-0" style="align-items:center; justify-content:center;">
+                        <v-icon color="#35747e" class="mx-1"></v-icon> 
+                    </div>
+                     <div class="py-0 my-0 d-flex col-8" style="align-items:center; justify-content:center;">
+                        <span class="titleTextNew">Channel</span>
+                    </div>
+                     <div class="col-2 d-flex" style="align-items:center; justify-content:center;">
+                       
+                    </div>
+                    
+                    
+                </div>
+             </v-card>
+       </div>
+
+       <v-app class="row" style="background:transparent; font-family:BodyText;  " v-if="showSelect">
+              <v-form class="col-12 py-2 my-0 text-center">
+                <h6>{{selectTypeName}}</h6>
+                 <div class="row py-0 my-0 px-2">
+
+             <div class="col-12 py-2 my-0 px-2">
+                  <v-select
+         
+          :items="dataType"
+          style="font-size:12px;"
+         :item-text="itemText"
+         :item-value="itemValue"
+         @change="handleDataSelection()"
+         :loading="loadingData"
+          hide-selected
+           v-model="selectedData"
+          :placeholder="$t('general.select') + '...'"
+          color="#4495a2"
+          small-chips
+        ></v-select>
+             </div>
+
+       
+
+        <div class="col-12 py-1 my-0 px-2 text-center">
+                  <v-btn rounded :loading="loadingAdd"  small color="#3E8893" 
+                  style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
+                  @click="closeAddBoardCtl()"
+                    >
+                  {{$t('general.add')}}
+                  </v-btn>
+             </div>
+                   
+              
+                 </div>
+                   
+
+
+
+              </v-form>
+
+             
+        </v-app>
+
+
+
+            
+             </v-card>
+
+           </div>
+         </div>
 
         <v-fade-transition>
               <div  style="position:absolute; width:100%; height:auto: align-items:center;justify-content:center;bottom:15%; z-index:123453566;"  class="d-flex">
@@ -302,6 +459,19 @@ export default {
           progressvalue:0,
           showLinkField:false,
           loadingField:false,
+          projectData:[],
+          channelData:[],
+          duelData:[],
+          closeAddBoard:true,
+          selectedData:[],
+          dataType:[],
+          loadingAdd:false,
+          selectTypeName:'',
+          showSelect: false,
+          itemText:'',
+          loadingData: false,
+          itemValue:'',
+          selectedDataFull:[]
         }
     },
      computed: {
@@ -312,14 +482,128 @@ export default {
     
   },
    mounted(){
-      this.$root.showTabs=true;
+      this.$root.showTabs=false;
        this.$root.showHeader = false;
        this.setContentField();
         this.$root.checkIfUserIsLoggedIn();
-        this.trackUser();
         this.$root.codeBoxOpened = false;
     },
     methods:{
+     
+      closeAddBoardCtl: function(){
+
+        this.closeAddBoard = true;
+        
+       this.showSelect = false;
+       
+       this.dataType = [];
+
+      },
+      selectType: function(type){
+
+         this.selectTypeName = type;
+
+          this.getSelectedData(type);
+        this.showSelect = true;
+          
+      },
+      handleDataSelection:function(){
+ 
+     this.projectData = [];
+     this.duelData = [];
+     this.channelData = [];
+        
+     if(this.selectTypeName == 'Project'){
+
+      this.selectedDataFull =  this.dataType.filter((data)=>{
+            return data.project_slug == this.selectedData;
+      })
+
+      this.projectData = this.selectedDataFull[0];
+
+      
+      }
+
+      if(this.selectTypeName == 'Duel'){
+
+         this.selectedDataFull =  this.dataType.filter((data)=>{
+            return data.duel_id == this.selectedData;
+      })
+
+      this.duelData =  this.selectedDataFull[0];
+
+
+      }
+
+      if(this.selectTypeName == 'Channel'){
+
+          this.selectedDataFull =  this.dataType.filter((data)=>{
+            return data.space_id == this.selectedData;
+      })
+
+      this.channelData = this.selectedDataFull[0]
+
+      
+      }
+ 
+      },
+    getSelectedData:function(type){
+
+       let url ='';
+
+       
+
+      if(type == 'Project'){
+
+        url = '/fetch-projects-' + this.$root.username 
+        this.itemText = 'title';
+        this.itemValue = 'project_slug';
+
+      }
+
+      if(type == 'Duel'){
+
+        url = '/fetch-user-duels';
+        this.itemText = 'title';
+         this.itemValue = 'duel_id';
+
+      }
+
+      if(type == 'Channel'){
+
+        url = '/fetch-user-channels-'+ this.$root.username;
+        this.itemText = 'name';
+         this.itemValue = 'space_id';
+
+      }
+
+       this.loadingData = true;
+      
+   axios.get(url)
+      .then(response => {
+      
+      if (response.status == 200) {
+
+        this.dataType = response.data;
+       this.loadingData = false;
+     }
+       
+     
+     })
+     .catch(error => {
+       this.loadingData = false;
+
+       this.showAlert(5000,'Unable to fetch data');
+    
+     }) 
+
+     
+
+    },
+   
+      preventClose:function(){
+
+      },
       urlify:function(text) {
       var urlRegex =  /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
      return text.replace(urlRegex, function(url) {
@@ -330,48 +614,7 @@ export default {
    // or alternatively
     // return text.replace(urlRegex, '<a href="$1">$1</a>')
      },
-      activateBot:function(){
-         this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
-            return page.page_name == 'new_post';
-          });
-         
-          if(this.$root.selectedPage.length != 0){
-               
-              if(this.$root.selectedPage[0].status == 0){
-                 this.$root.showBoard = true;
-         this.$root.boardContent = 'Hi! ' + this.$root.username + ',write your first post 🤩 and share what you love doing or what you are working on 👩‍💻.';
-         this.$root.boardBtnLabel = 'Okay';
-
-              }
-               
-          }
-        
-         
-      },
-       trackUser: function(){
       
-      if(this.$root.userPageTrack.length == 0){
-        
-      axios.get('/fetch-profile-'+ this.$root.username)
-   .then(response => {
-   
-   if (response.status == 200) {
-
-        this.$root.userPageTrack = response.data[2];
-
-        this.activateBot();
-  }
-    
-  
-  })
-  .catch(error => {
- 
-  }) 
-      }
-        
-
-      
-   },
       handleLink: function(){
         if(this.showLinkField){
           this.showLinkField = false;
@@ -442,6 +685,9 @@ export default {
             this.image3 = '';
             this.image4 = '';
             this.videoUrl = '';
+             this.projectData = [];
+     this.duelData = [];
+     this.channelData = [];
             this.$root.postContent = this.contentInWord; 
     this.$router.push({ path: '/code-editor' });
    },
@@ -503,6 +749,9 @@ var blob = this.b64toBlob(realData, contentType);
       this.$root.imagepath4 = '';
       this.$root.codeContent = '';
       this.contentInWord = '';
+      this.projectData = [];
+      this.duelData = [];
+      this.channelData = [];
       this.$root.postContent = '';
  },
     savePost: function(){
@@ -598,6 +847,27 @@ var blob = this.b64toBlob(realData, contentType);
             this.attachment_type = 'video';
 
             formData.append('video',this.VideoBlob);
+            
+        }
+
+        if(this.projectData.length != 0){
+            this.attachment_type = 'project';
+
+            formData.append('project_slug',this.projectData.project_slug);
+            
+        }
+
+         if(this.duelData.length != 0){
+            this.attachment_type = 'duel';
+
+            formData.append('duel_id',this.duelData.duel_id);
+            
+        }
+
+        if(this.channelData.length != 0){
+            this.attachment_type = 'channel';
+
+            formData.append('channel_id',this.channelData.space_id);
             
         }
 
@@ -776,6 +1046,9 @@ var blob = this.b64toBlob(realData, contentType);
             this.image2 = '';
             this.image3 = '';
             this.image4 = '';
+             this.projectData = [];
+     this.duelData = [];
+     this.channelData = [];
           const files = e.target.files
             
             this.VideoBlob = files[0];
@@ -820,6 +1093,11 @@ var blob = this.b64toBlob(realData, contentType);
 }
 
 
+.titleText{
+    font-size:13px; 
+    font-family:HeaderText; 
+    color:#173236;
+}
 
 .counter{
   font-size: 12px;
@@ -831,7 +1109,7 @@ var blob = this.b64toBlob(realData, contentType);
     border-style: solid;
     border-width: 1px;
 }
- /* *:focus {
-    outline: none;
-}  */
+
+ 
+
 </style>

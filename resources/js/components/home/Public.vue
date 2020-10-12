@@ -48,6 +48,16 @@
                  <code-box :codeContent="source.code.content" :filename="source.code.name" :codeLanguage="source.code.language_type" :codeViewerType="viewerType"></code-box>
              </div>
 
+              <div style="width:100%;" v-if="source.attachment_type == 'project'" class="px-lg-5" >
+                 <project :projectData="source.project"></project>
+             </div>
+              <div style="width:100%;" v-if="source.attachment_type == 'duel'" class="px-lg-5" >
+                 <duel :duelData="source.duel"></duel>
+             </div>
+              <div style="width:100%;" v-if="source.attachment_type == 'channel'" class="px-lg-5" >
+                 <channel :channelData="source.channel"></channel>
+             </div>
+
               <div style="width:100%;" v-if="source.attachment_type == 'link'"  class="px-lg-5">
                   <link-view :urlInfo="source.link" ></link-view>
              </div>

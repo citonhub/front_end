@@ -222,6 +222,9 @@ export default {
      this.$root.disconnectPost(this.$root.postShelveData);
          }
 
+         this.$root.showPostModal = false;
+         this.$root.postViewType = '';
+        
      
 
     },

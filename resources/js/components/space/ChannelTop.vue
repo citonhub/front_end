@@ -93,7 +93,7 @@
               
               <v-icon v-else>mdi-monitor-dashboard mdi-18px</v-icon>
               
-               <span style="font-size:12px;"><span v-if="checkIfMaster()" >{{ $t('general.start') }}</span><span v-else >{{ $t('general.join') }}</span> {{ $t('space.live_coding') }}<span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
+               <span style="font-size:12px;"><span v-if="checkIfMaster()" >{{ $t('general.start') }}</span><span v-else >{{ $t('general.join') }}</span> {{ $t('space.live_coding') }}</span>
 
 
            </v-card>
@@ -111,7 +111,7 @@
               <v-icon v-else>mdi-monitor-cellphone mdi-18px</v-icon>
 
 
-             <span style="font-size:12px;"><span v-if="checkIfMaster()" >{{ $t('general.start') }}</span><span v-else >{{ $t('general.join') }}</span> {{ $t('space.screen_sharing') }}<span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
+             <span style="font-size:12px;"><span v-if="checkIfMaster()" >{{ $t('general.start') }}</span><span v-else >{{ $t('general.join') }}</span> {{ $t('space.screen_sharing') }}</span>
            </v-card>
             <v-card  tile flat class="py-2 text-left px-4" style="width:auto; background:white;" @click="initaiteAudioConf()">
                  
@@ -127,7 +127,7 @@
             
              
              
-              <span style="font-size:12px;"><span v-if="checkIfMaster()" >{{ $t('general.start') }}</span><span v-else >{{ $t('general.join') }}</span> {{ $t('space.voice_chat') }}<span class="mx-1" style="color:gray; font-size:9px;">Beta</span></span>
+              <span style="font-size:12px;"><span v-if="checkIfMaster()" >{{ $t('general.start') }}</span><span v-else >{{ $t('general.join') }}</span> {{ $t('space.voice_chat') }}</span>
            </v-card>
 
 

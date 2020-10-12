@@ -11,9 +11,10 @@ Vue.component('full-image-viewer',require('./home/FullImageViewer.vue').default)
 Vue.component('link-view',require('./home/LinkView').default);
 Vue.component('library-shelves',require('./home/LibraryShelves').default);
 Vue.component('shelve-content',require('./home/ShelveContent').default);
+Vue.component('duel',require('./home/Duel.vue').default);
+Vue.component('project',require('./home/Project.vue').default);
+Vue.component('channel',require('./home/Channel.vue').default);
 Vue.component('share',require('./space/Share.vue').default);
-Vue.component('on-boarding',require('./auth/OnBoarding.vue').default);
-Vue.component('navigator',require('./auth/Navigator.vue').default);
 Vue.component('main-video',require('./space/MainVideo.vue').default);
 Vue.component('post',require('./home/Post.vue').default);
 Vue.component('post-comment-view',require('./home/PostCommentView.vue').default);
