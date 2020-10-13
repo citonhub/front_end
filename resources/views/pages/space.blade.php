@@ -351,7 +351,7 @@ body {
 
    <script src="https://cdn.webrtc-experiment.com/hark.js"></script>
 
- <script src="{{ asset('js/space.js?v=4.93') }}"></script>
+ <script src="{{ asset('js/space.js?v=4.94') }}"></script>
  
      
  @endsection

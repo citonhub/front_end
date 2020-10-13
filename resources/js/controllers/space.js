@@ -2207,6 +2207,33 @@ this.$root.audioconnection.onstream = function(event) {
   
 };
 
+this.$root.audioconnection.onmute = function(e) {
+  if (!e.mediaElement) {
+      return;
+  }
+
+  if (e.muteType === 'both' || e.muteType === 'video') {
+      e.mediaElement.src = null;
+      e.mediaElement.pause();
+  } else if (e.muteType === 'audio') {
+      e.mediaElement.muted = true;
+  }
+};
+
+this.$root.audioconnection.onunmute = function(e) {
+  if (!e.mediaElement) {
+      return;
+  }
+
+  if (e.unmuteType === 'both' || e.unmuteType === 'video') {
+      e.mediaElement.poster = null;
+      e.mediaElement.src = URL.createObjectURL(e.stream);
+      e.mediaElement.play();
+  } else if (e.unmuteType === 'audio') {
+      e.mediaElement.muted = false;
+  }
+};
+
 
 this.$root.audioconnection.onleave = this.$root.audioconnection.onclose = (event) =>{
 
