@@ -12,7 +12,7 @@
                         <span style="font-size:12px;" class="msgText">{{projectData.title}}</span>
                      </div>
                      <div class="col-3 py-0 my-0 d-flex" style="align-items:center;justify-content:center;">
-                          <v-icon color="#3E8893">mdi-star</v-icon> <span class="mx-1 pt-1" style="color:gray; font-size:11px;">{{projectData.stars}}</span>
+                          <v-icon color="#3E8893">mdi-star</v-icon> <span class="mx-1 pt-1" style="color:gray; font-size:11px;">{{projectData.total_stars}}</span>
                      </div>
                   </div>
               </div>

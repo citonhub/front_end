@@ -16,7 +16,7 @@
                    
                 </div>
         </div>
-         <div class="py-1 px-2 col-12 my-0">
+         <div class="py-1 px-2 col-12 my-0 ml-1">
                    <span style="font-size:13px; color: #333333;" class="detectLink" v-html="post.content"></span>
                 </div>
 
@@ -62,13 +62,13 @@
                   <link-view :urlInfo="post.link" ></link-view>
              </div>
 
-             <div style="width:100%;" v-if="post.attachment_type == 'project'" class="px-lg-5" >
+             <div style="width:100%;" v-if="post.attachment_type == 'project'" class="px-lg-5 pb-4" >
                  <project :projectData="post.project"></project>
              </div>
-              <div style="width:100%;" v-if="post.attachment_type == 'duel'" class="px-lg-5" >
+              <div style="width:100%;" v-if="post.attachment_type == 'duel'" class="px-lg-5 pb-4" >
                  <duel :duelData="post.duel"></duel>
              </div>
-              <div style="width:100%;" v-if="post.attachment_type == 'channel'" class="px-lg-5" >
+              <div style="width:100%;" v-if="post.attachment_type == 'channel'" class="px-lg-5 pb-4" >
                  <channel :channelData="post.channel"></channel>
              </div>
                   

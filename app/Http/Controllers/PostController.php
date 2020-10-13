@@ -35,6 +35,7 @@ use Streaming\FFMpeg;
 use App\Jobs\HandleNotification;
 use App\User;
 use App\Space;
+use App\ProjectStar;
 
 class PostController extends Controller
 {
@@ -280,6 +281,35 @@ class PostController extends Controller
       return $newDuelArray;
    }
 
+   public function fetchProjects($projectSlug){
+      
+      $allProjects = Project::where('project_slug',$projectSlug)->orderBy('created_at','desc')->paginate(20);
+
+
+      $newProject = [];
+
+      foreach ($allProjects as $eachProject) {
+           
+          $eachProjectNew = (array) $eachProject;
+
+          $totalStars = 0;
+
+          $allStars = ProjectStar::where('project_id',$eachProject["id"])->get();
+
+          foreach ($allStars as $star) {
+            
+               $totalStars += $star->stars;
+          }
+
+          $eachProject["total_stars"] = $totalStars;
+
+          array_push($newProject,$eachProject);
+      }
+
+      return $newProject;
+  }
+
+
 
 
    public function postEngine($postArray){
@@ -319,9 +349,9 @@ class PostController extends Controller
             
             $postProject = PostProject::where('post_id',$post["id"])->first();
 
-            $project = Project::where('project_slug',$postProject->project_slug)->first();
+            $project = $this->fetchProjects($postProject->project_slug);
 
-            $post["project"] = $project;
+            $post["project"] = $project[0];
 
          }
 

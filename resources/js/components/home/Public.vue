@@ -23,7 +23,7 @@
 
         </div>
 
-                <div class="py-1 px-2 col-12 my-0 ">
+                <div class="py-1 px-2 col-12 my-0 ml-1">
                    <span style="font-size:13px; color: #333333;" class="detectLink" v-html="source.content"></span>
                 </div>
 
@@ -48,13 +48,13 @@
                  <code-box :codeContent="source.code.content" :filename="source.code.name" :codeLanguage="source.code.language_type" :codeViewerType="viewerType"></code-box>
              </div>
 
-              <div style="width:100%;" v-if="source.attachment_type == 'project'" class="px-lg-5" >
+              <div style="width:100%;" v-if="source.attachment_type == 'project'" class="px-lg-5 pb-4" >
                  <project :projectData="source.project"></project>
              </div>
-              <div style="width:100%;" v-if="source.attachment_type == 'duel'" class="px-lg-5" >
+              <div style="width:100%;" v-if="source.attachment_type == 'duel'" class="px-lg-5 pb-4" >
                  <duel :duelData="source.duel"></duel>
              </div>
-              <div style="width:100%;" v-if="source.attachment_type == 'channel'" class="px-lg-5" >
+              <div style="width:100%;" v-if="source.attachment_type == 'channel'" class="px-lg-5 pb-4" >
                  <channel :channelData="source.channel"></channel>
              </div>
 
