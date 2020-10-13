@@ -114,7 +114,7 @@
                 
     <v-row>
         <v-col cols=12 >
-            <editor-content class="editor-box" :editor="editorRules" :onUpdate="countCharacterRules()" />
+            <textarea :value="input" @input="update"  :placeholder="$t('general.type_here')"  class="editor-box2" ></textarea>
         </v-col>
     </v-row>
              </div>
@@ -223,19 +223,13 @@
      </v-app>
 </template>
 <script>
-import { Editor, EditorContent, EditorMenuBar  } from 'tiptap';
+
 
 
 export default {
     data(){
         return{
           loadingStart: false,
-      
-       editorRules: new Editor({
-        content: '',
-       
-        
-      }),
       selectedParticipant:['Individuals'],
        titleRule:[
              v => !!v || 'Title is required',
@@ -288,12 +282,17 @@ export default {
         loadingDelete:false,
         durationValueDay:0,
         durationValueHr:2,
+        input:''
         }
     },
     components: {
-    EditorContent,
-    EditorMenuBar,
+  
   },
+   computed: {
+          compiledMarkdown: function() {
+            return marked(this.input, { sanitize: true });
+          }
+        },
    mounted(){
       this.$root.showTabs=true;
        this.$root.showHeader = false;
@@ -315,7 +314,7 @@ export default {
           
          this.selectedParticipant = this.$root.editDuelArray.participant_type_array;
          this.Judges = this.$root.editDuelArray.judges_array;
-         this.editorRules.setContent(this.$root.editDuelArray.rules);
+         this.input = this.$root.editDuelArray.rules;
 
          this.programmingLanguage = this.$root.editDuelArray.duel_language_array;
          
@@ -325,6 +324,14 @@ export default {
         showDuels: function(){
       this.$router.push({ path: '/duel/duels' });
    },
+    urlify:function(text) {
+      var urlRegex =  /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+     return text.replace(urlRegex, function(url) {
+     return '<a href="' + url + '" target="_blank">' + url + '</a>';
+  })
+   // or alternatively
+    // return text.replace(urlRegex, '<a href="$1">$1</a>')
+     },
     fetchConnected: function(){
 
       this.loadingConnection = true;
@@ -353,6 +360,16 @@ export default {
      }) 
 
         },
+         update:function(e){
+           this.input = e.target.value;
+
+           this.wordCount =  this.input.length;
+
+        
+         
+        this.rulesValue = this.urlify(this.compiledMarkdown);
+
+        },
     showAlert:function(duration,text){
         this.Alert = true;
         this.alertMsg = text;
@@ -378,16 +395,8 @@ export default {
           
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
-    countCharacterDesc:function(value){
-           
-       
-         this.description = this.editor.getHTML();
    
-      },
-    countCharacterRules: function(){
-      
-      this.rulesValue = this.editorRules.getHTML();
-    },
+   
 
     startDuel: function(){
         this.loadingStart = true;
@@ -527,15 +536,14 @@ export default {
     }
    }
     },
-    beforeDestroy() {
-    this.editorRules.destroy()
-  },
+    
 }
 </script>
-<style>
-.editor-box> * {
+<style scoped>
+textarea  {
     border-bottom:1px solid #4495a2;
-    height: auto;
+    height: 70px;
+    width:100%;
     line-height: 20px !important;
     padding: 5px 2px;
     font-size: 12px;

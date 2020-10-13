@@ -309,6 +309,8 @@ body {
    <!-- Chromecast SDK  -->
    <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
 
- <script src="{{ asset('js/home.js?v=0.94') }}"></script>
+   <script src="https://unpkg.com/marked@0.3.6"></script>
+
+ <script src="{{ asset('js/home.js?v=0.98') }}"></script>
      
  @endsection

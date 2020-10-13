@@ -16,7 +16,6 @@ import Auth from "../components/auth/auth.vue"
 import Register from "../components/auth/Register.vue"
 import Verify from "../components/auth/Verify.vue"
 import SetUsername from "../components/auth/SetUsername.vue"
-import MakeComment from "../components/home/MakeComment.vue"
 import PostCommentView from "../components/home/PostCommentView.vue"
 import Privacy from "../components/home/Privacy.vue"
 import NotFound from "../components/auth/NotFound.vue"
@@ -201,7 +200,46 @@ const routes = [
     next()
   }
 },
-  { path: '/post/:username/:postId/comment/post', name: 'MakeComment', component: MakeComment},
+  { path: '/post/:username/:postId/comment/post',
+   name: 'MakeComment', 
+  
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: NewPost,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = NewPost
+      }
+    }
+
+    next()
+  }},
   { path: '/post/comment/:username/:postId/:referral', 
   name: 'PostCommentView', 
   meta: {
@@ -233,6 +271,8 @@ const routes = [
          thisUserState.$root.showCodeEditor = false;
   
         thisUserState.$root.showTabs= true;
+
+        thisUserState.$root.showCreatepost = false;
   
        }
       //
@@ -381,6 +421,7 @@ const app = new Vue({
             postCurrentPage:0,
             showPostModal:false,
             postViewType:'',
+            showCreatepost: false,
     },
      mounted: function () {
       this.pageloader = false;

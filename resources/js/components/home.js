@@ -18,3 +18,4 @@ Vue.component('share',require('./space/Share.vue').default);
 Vue.component('main-video',require('./space/MainVideo.vue').default);
 Vue.component('post',require('./home/Post.vue').default);
 Vue.component('post-comment-view',require('./home/PostCommentView.vue').default);
+Vue.component('new-post',require('./home/NewPost.vue').default);

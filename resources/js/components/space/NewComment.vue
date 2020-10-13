@@ -31,10 +31,9 @@
         <v-col cols=12 >
          
 
-            <div class="editor">
+            
+                 <textarea :value="input" @input="update"  :placeholder="$t('general.type_here')"  class="editor-box2" ></textarea>
           
-             <editor-content class="editor-box2" :editor="editor" :onUpdate="countCharacter()"   />
-            </div>
         </v-col>
         <div class="col-12 py-0 px-2">
          
@@ -89,28 +88,12 @@
      </v-app>
 </template>
 <script>
-import { Editor, EditorContent  } from 'tiptap';
-import {
-        Placeholder} from 'tiptap-extensions';
+
 
 export default {
     data(){
         return{
-          editor: new Editor({
-        content: '',
-        extensions:[
-        
-            new Placeholder({
-            emptyEditorClass: 'is-editor-empty',
-            emptyNodeClass: 'is-empty',
-            emptyNodeText: 'type your comment...',
-            showOnlyWhenEditable: true,
-            showOnlyCurrent: true,
-          }),
-           
-        ],
-        
-      }),
+         
        wordLimit:300,
          wordCount:0,
          Alert:false,
@@ -118,15 +101,22 @@ export default {
          editFeild:true,
         contentInWord:'',
         loading:false,
+        input:'',
+        labelText:''
 
     }
     },
     components: {
-    EditorContent,
+  
      
     
     
   },
+  computed: {
+          compiledMarkdown: function() {
+            return marked(this.input, { sanitize: true });
+          }
+        },
    mounted(){
       this.$root.showTabs=true;
        this.$root.showHeader = false;
@@ -158,23 +148,22 @@ export default {
      },duration);
 
     },
-    
-     countCharacter:function(value){
-            this.wordCount = this.editor.getHTML().length;
+     update:function(e){
+           this.input = e.target.value;
 
-         if(this.wordCount > this.wordLimit || this.wordCount == 7){
+           this.wordCount =  this.input.length;
+
+         if(this.wordCount > this.wordLimit || this.wordCount == 0){
            this.editFeild = true;
 
          }else{
             this.editFeild = false;
          }
          
-       
-         this.contentInWord = this.urlify(this.editor.getHTML());
+        this.contentInWord = this.urlify(this.compiledMarkdown);
 
-          
-          
-      },
+        },
+    
       fetchProject: function(){
         
          axios.get('/fetch-project-' + this.$route.params.projectSlug)
@@ -238,29 +227,20 @@ export default {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
     },
-    beforeDestroy() {
-    this.editor.destroy()
-  },
+   
 }
 </script>
-<style>
-.editor-box2> * {
+<style scoped>
+textarea  {
     border-bottom:1px solid #4495a2;
-    height: auto;
+    height: 100px;
+    width:100%;
     line-height: 20px !important;
     padding: 5px 2px;
     font-size: 12px;
     color: #262626;
 }
 
-.editor2 p.is-editor-empty:first-child::before {
-  content: attr(data-empty-text);
-  float: left;
-  color: #aaa;
-  pointer-events: none;
-  height: 0;
-  font-style: italic;
-}
 
 .counter{
   font-size: 12px;

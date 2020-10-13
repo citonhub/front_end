@@ -1,5 +1,5 @@
 <template>
-   <div class="px-2">
+   <div class="px-2 ml-lg-1">
     <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-1" style="background-color:whitesmoke; border-bottom:1px solid #cccccc;" v-for="(post,index) in CommentArray" :key="index">
         <div class="row" >
            <div class="col-12 py-0 d-flex ">
@@ -160,6 +160,8 @@ export default {
            this.$root.repliedPostId = post.PostId;
             this.$root.commentUsername = post.username;
             this.$root.commentPostId = this.$route.params.postId;
+             this.$root.showPostModal = false;
+             this.$root.showCreatepost = true;
            this.$router.push({ path: '/post/' + this.$route.params.username + '/' +this.$route.params.postId +  '/comment/post' }); 
        },
        library: function(post){

@@ -12,8 +12,8 @@
          <div class="col-4 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
            <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Make a comment</span>
          </div>
-         <div class="col-4 py-0 my-0  d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-            
+         <div class="col-4 py-1 my-0  text-right"  style="border-bottom:2px solid #4495a2;" >
+            <v-btn rounded small color="#3E8893" @click="saveComment" :disabled="editFeild" :loading="loading"  style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;">Send</v-btn>
          </div>
       </div>
      </div>
@@ -29,10 +29,7 @@
         <v-col cols=12 >
          
 
-            <div class="editor2">
-          
-             <editor-content class="editor-box2" :editor="editor" :onUpdate="countCharacter()"   />
-            </div>
+            <textarea :value="input" @input="update"  :placeholder="$t('general.type_here')"  class="editor-box2" ></textarea>
         </v-col>
         <div class="col-12 py-0 px-2">
          
@@ -52,10 +49,7 @@
 
         
 
-             <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn rounded small color="#3E8893" @click="saveComment" :loading="loading"  style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;">Send</v-btn>
-             </div>
-
+            
              <div class="my-5 py-3">
 
              </div>
@@ -90,45 +84,12 @@
      </v-app>
 </template>
 <script>
-import { Editor, EditorContent, EditorMenuBar  } from 'tiptap';
-import {
-        Bold, 
-        Underline,
-        Image,BulletList,ListItem,Placeholder} from 'tiptap-extensions';
+
 
 export default {
     data(){
         return{
-          editor: new Editor({
-        content: '',
-        extensions:[
-        
-            new Bold(),
-            new Underline(),
-            new Image(),
-            new Placeholder({
-            emptyEditorClass: 'is-editor-empty',
-            emptyNodeClass: 'is-empty',
-            emptyNodeText: 'type your comment...',
-            showOnlyWhenEditable: true,
-            showOnlyCurrent: true,
-          }),
-           
-        ],
-        
-      }),
-       editorRules: new Editor({
-        content: '',
-        extensions:[
-        
-           
-            new ListItem(),
-            new BulletList()
-           
-        ],
-        
-      }),
-     
+       
         Alert:false,
         alertMsg:'',
         wordLimit:200,
@@ -137,15 +98,20 @@ export default {
     editFeild:false,
      loading:false,
      labelText: '',
+     input:''
         }
     },
     components: {
-    EditorContent,
-     
-    EditorMenuBar,
+    
     
   },
+  computed: {
+          compiledMarkdown: function() {
+            return marked(this.input, { sanitize: true });
+          }
+        },
    mounted(){
+
       this.$root.showTabs=true;
        this.$root.showHeader = false;
        this.checkifReply();
@@ -153,6 +119,14 @@ export default {
       
     },
     methods:{
+       urlify:function(text) {
+      var urlRegex =  /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+     return text.replace(urlRegex, function(url) {
+     return '<a href="' + url + '" target="_blank">' + url + '</a>';
+  })
+   // or alternatively
+    // return text.replace(urlRegex, '<a href="$1">$1</a>')
+     },
       checkifReply: function(){
             if(this.$root.is_reply_comment){
                this.labelText = 'replying ' + this.$root.replyCommentUsername;
@@ -169,24 +143,22 @@ export default {
 
     },
     
-     countCharacter:function(value){
-            this.wordCount = this.editor.getHTML().length;
+       update:function(e){
+           this.input = e.target.value;
 
-         if(this.wordCount > this.wordLimit){
+           this.wordCount =  this.input.length;
+
+         if(this.wordCount > this.wordLimit || this.wordCount == 0){
            this.editFeild = true;
 
          }else{
             this.editFeild = false;
          }
          
-       
-         this.contentInWord = this.editor.getHTML();
-        
+        this.contentInWord = this.urlify(this.compiledMarkdown);
 
-          
-          
-      },
-     
+        },
+    
        
    saveComment:function(){
        this.loading = true;
@@ -233,23 +205,15 @@ export default {
   },
 }
 </script>
-<style>
-.editor-box2> * {
+<style  scoped>
+textarea  {
     border-bottom:1px solid #4495a2;
-    height: auto;
+    height: 100px;
+    width:100%;
     line-height: 20px !important;
     padding: 5px 2px;
     font-size: 12px;
     color: #262626;
-}
-
-.editor2 p.is-editor-empty:first-child::before {
-  content: attr(data-empty-text);
-  float: left;
-  color: #aaa;
-  pointer-events: none;
-  height: 0;
-  font-style: italic;
 }
 
 .counter{

@@ -234,6 +234,7 @@ export default {
           
          
           this.$root.showPostModal = false;
+        
 
            this.$root.postViewType = '';
          
@@ -330,6 +331,8 @@ export default {
             this.$root.checkIfUserIsLoggedIn('home');
            this.$root.commentUsername = this.$route.params.username;
             this.$root.commentPostId = this.$route.params.postId;
+             this.$root.showPostModal = false;
+             this.$root.showCreatepost = true;
          this.$router.push({ path: '/post/' + this.$route.params.username + '/' +this.$route.params.postId + '/comment/post' });
       },
        likePost: function(postData){

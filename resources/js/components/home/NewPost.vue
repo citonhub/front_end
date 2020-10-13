@@ -1,7 +1,7 @@
 <template>
-     <v-app style="background:transparent; font-family:BodyText;">
+     <v-app style="background:transparent; font-family:BodyText; z-index:999959699999;">
 
-       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; z-index:999959699999; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -11,16 +11,18 @@
             <v-btn icon color="#4495a2" @click="showHome"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-4 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">New Post</span>
+           <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;" v-if="this.$route.params.postId == undefined" >New Post</span>
+             <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;" v-else>Comment</span>
          </div>
          <div class="col-4 py-1 my-0 px-1 pr-2 text-right"  style="border-bottom:2px solid #4495a2;" >
               <v-btn rounded x-small color="#3E8893" :disabled="editFeild" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
                    @click="savePost" :loading="loading">Send</v-btn>
+                   
          </div>
       </div>
      </div>
 
-      <div class="col-12 py-1 my-0 " >
+      <div class="col-12 py-1 my-0 " style="z-index:999959699999; background:white;">
          <v-form class="row my-2 py-2 px-2 ">
               
              
@@ -35,10 +37,9 @@
         <v-col cols=12 >
          
 
-            <div class="editor">
-          
-             <editor-content class="editor-box" :editor="editor" :onUpdate="countCharacter()" :onFocus="focusedText"  />
-            </div>
+           
+             <textarea :value="input" @input="update"  :placeholder="handlePlaceholder()"  class="editor-box2" ></textarea>
+           
         </v-col>
         <div class="col-12 py-0">
           <div class="row py-0 my-0">
@@ -392,32 +393,11 @@
      </v-app>
 </template>
 <script>
-import { Editor, EditorContent  } from 'tiptap';
-import {
-        Link,Placeholder} from 'tiptap-extensions';
+
 
 export default {
     data(){
         return{
-          editor: new Editor({
-        content: this.$root.postContent,
-        extensions:[
-        
-            
-             new Placeholder({
-            emptyEditorClass: 'is-editor-empty',
-            emptyNodeClass: 'is-empty',
-            emptyNodeText: 'What are you working on...',
-            showOnlyWhenEditable: true,
-            showOnlyCurrent: true,
-          }),
-       
-           
-        ],
-        
-      }),
-      
-     
        imagepath:'',
         Alert:false,
         alertMsg:'',
@@ -445,7 +425,7 @@ export default {
          wordCount:0,
          mycontent:'',
          contentInWord:'',
-         editFeild:false,
+         editFeild:true,
          loading:false,
          is_comment: false,
          attachment_type:null,
@@ -471,25 +451,42 @@ export default {
           itemText:'',
           loadingData: false,
           itemValue:'',
-          selectedDataFull:[]
+          selectedDataFull:[],
+          input:''
         }
     },
      computed: {
-   
-     },
+          compiledMarkdown: function() {
+            return marked(this.input, { sanitize: true });
+          }
+        },
     components: {
-    EditorContent,
-    
+  
   },
    mounted(){
       this.$root.showTabs=false;
        this.$root.showHeader = false;
        this.setContentField();
+        if(this.$route.params.postId == undefined){
+            this.is_comment = false;
+        }else{
+           this.is_comment = true;
+        }
         this.$root.checkIfUserIsLoggedIn();
         this.$root.codeBoxOpened = false;
     },
     methods:{
-     
+      handlePlaceholder: function(){
+          if(this.$route.params.postId == undefined){
+
+            return 'What are you working on...';
+
+
+          }else{
+
+            return 'replying ' + this.$root.commentUsername + '...';
+          }
+      },
       closeAddBoardCtl: function(){
 
         this.closeAddBoard = true;
@@ -651,7 +648,19 @@ export default {
       countCharacter:function(value){
             this.wordCount = this.editor.getHTML().length;
 
-         if(this.wordCount > this.wordLimit || this.wordCount == 7){
+        
+
+          
+          
+      },
+
+       update:function(e){
+           this.input = e.target.value;
+
+           this.wordCount =  this.input.length;
+
+
+            if(this.wordCount > this.wordLimit || this.wordCount == 0){
            this.editFeild = true;
 
          }else{
@@ -660,24 +669,33 @@ export default {
          
 
      
-          this.contentInWord = this.urlify(this.editor.getHTML());
+          this.contentInWord = this.urlify(this.compiledMarkdown);
 
           
            
-         this.$root.postContent = this.urlify(this.editor.getHTML());
+         this.$root.postContent = this.input;
 
-          
-          
-      },
+
+        
+
+        },
       setContentField: function(){
         
-          this.editor.setContent(this.$root.postContent);
+       
+          this.input = this.$root.postContent
       },
       focusedText:function(){
       
       },
       showHome: function(){
-      this.$router.push({ path: '/' });
+         
+            
+             if(this.$route.params.postId != undefined){
+                this.$root.showCreatepost = false;
+            this.$root.showPostModal = true;
+             }
+              
+     window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
    },
    codeEditor: function(){
            this.image1 = '';
@@ -688,7 +706,7 @@ export default {
              this.projectData = [];
      this.duelData = [];
      this.channelData = [];
-            this.$root.postContent = this.contentInWord; 
+            this.$root.postContent = this.input; 
     this.$router.push({ path: '/code-editor' });
    },
    
@@ -882,7 +900,20 @@ var blob = this.b64toBlob(realData, contentType);
 
         formData.append('content',this.contentInWord);
         formData.append('is_comment',this.is_comment);
-         formData.append('commented_post_id',0);
+
+
+         if(this.$root.commentIsReply){
+         formData.append('is_reply',true);
+         formData.append('reply_post_id',this.$root.repliedPostId);
+          }
+           if(this.$route.params.postId == undefined){
+               formData.append('commented_post_id',0);
+           }else{
+                formData.append('commented_post_id',this.$route.params.postId);
+           }
+       
+
+       
         formData.append('attachment_type',this.attachment_type);
 
        axios.post('/save-post',formData,
@@ -903,11 +934,25 @@ var blob = this.b64toBlob(realData, contentType);
                  this.ChangeDataToDefaults();
                  let newPost = response.data[0];
 
-                  this.$root.postData.unshift(newPost);
+                  if(this.$route.params.postId == undefined){
+
+                     this.$root.postData.unshift(newPost);
 
                  this.$root.trackThisPost(newPost);
 
-                 this.$router.push({ path: '/' });
+                  window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+
+                  }else{
+                      this.$root.postComments.unshift(newPost);
+                  
+                  this.$root.postArray[0].comments = this.$root.postArray[0].comments + 1;
+
+                 
+                this.showHome();
+                  }
+
+              
+                
             }else{
               
             }
@@ -1068,29 +1113,21 @@ var blob = this.b64toBlob(realData, contentType);
 				
         }
     },
-    beforeDestroy() {
-    this.editor.destroy()
-  },
+    
 }
 </script>
-<style lang="scss">
-.editor-box> * {
+<style lang="scss" scoped>
+textarea  {
     border-bottom:1px solid #4495a2;
-    height: auto;
+    height: 70px;
+    width:100%;
     line-height: 20px !important;
     padding: 5px 2px;
     font-size: 12px;
     color: #262626;
 }
 
-.editor p.is-editor-empty:first-child::before {
-  content: attr(data-empty-text);
-  float: left;
-  color: #aaa;
-  pointer-events: none;
-  height: 0;
-  font-style: italic;
-}
+
 
 
 .titleText{

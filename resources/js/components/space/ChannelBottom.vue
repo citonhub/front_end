@@ -5,11 +5,13 @@
 
             <div class="row py-0 my-0">
                
-               <v-card  flat  color="#ffffff" style="border-radius: 10px;" class="col-9 px-2 py-0 my-0">
-                 <div class="editor">
+               <v-card  flat  color="#ffffff" style="border-radius: 7px;" class="col-9 px-2 py-0 my-0">
+                  
+               
           
-                <editor-content class="editor-box" :editor="editor"   :onUpdate="countCharacter()"  />
-                </div>
+                <textarea ref="textBottom" :value="input" @input="update"  :placeholder="$t('general.type_here')"  @keydown="handelkeyAct" class="editor-box card" ></textarea>
+   
+               
                </v-card>
                <div class="col-3 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
                  <v-btn  style="box-shadow:none;"
@@ -68,63 +70,53 @@
             
          </div>
 
-         <input :value="$t('general.type_here')" type="hidden" id="typingText"> 
+        
         
       </div>
 </template>
 <script>
 
-import { Editor, EditorContent, EditorMenuBubble  } from 'tiptap';
-import {
-        Placeholder} from 'tiptap-extensions';
+
+
+
 
 export default {
       data(){
         return{
         
-          editor: new Editor({
-        content: this.$root.postContent,
-        extensions:[
-        
-             
-             new Placeholder({
-            emptyEditorClass: 'is-editor-empty',
-            emptyNodeClass: 'is-empty',
-            emptyNodeText:  '...',
-            showOnlyWhenEditable: true,
-            showOnlyCurrent: true,
-          }),
-       
-           
-        ],
-        
-      }),
       wordCount:0,
       showSend:false,
       audioChunks:[],
       Alert:true,
       typingText: '',
+      content: this.$root.postContent,
       alertMsg:'',
       recording:false,
       audioBlob:'',
       mediaRecorder:null,
       contentInWord:'',
       NewMsg:'',
-    
+      input:'',
+      shiftIsPressed: false,
 
         }
     },
     components: {
-    EditorContent,
-    EditorMenuBubble,
+       
+    
   },
     mounted(){
-        this.typingText = document.querySelector("#typingText").value;
-
-        this.editor.extensions.options.placeholder.emptyNodeText = this.typingText + '...'
+       
     },
+     computed: {
+          compiledMarkdown: function() {
+            return marked(this.input, { sanitize: true });
+          }
+        },
     methods:{
-        
+       reactToKey:function(e){
+      console.log(e)
+       },        
        urlify:function(text) {
       var urlRegex =  /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
      return text.replace(urlRegex, function(url) {
@@ -133,20 +125,45 @@ export default {
    // or alternatively
     // return text.replace(urlRegex, '<a href="$1">$1</a>')
      },
-     
+     handelkeyAct: function(e){
+        
+        if(e.keyCode == 16){
+
+           this.shiftIsPressed = true;
+          
+        }
+
+        if(e.keyCode != 16 && e.keyCode != 13){
+
+           this.shiftIsPressed = false;
+          
+        }
+
+        if(e.keyCode == 13 && this.shiftIsPressed){
+           e.preventDefault()
+
+               this.sendMessage();
+
+                this.shiftIsPressed = false;
+            
+
+           }
+     },
        goBack() {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
+
        
         shareHandler:function(){
           this.$root.sharePage= true;
            this.$root.showChatBottom = false;
         },
-         countCharacter:function(value){
-            this.wordCount = this.editor.getHTML().length;
-            
+        update:function(e){
+           this.input = e.target.value;
 
-         if(this.wordCount > 7){
+           this.wordCount =  this.input.length;
+
+             if(this.wordCount > 0){
            this.showSend = true;
             this.$root.ShowButton = false;
                  
@@ -161,14 +178,11 @@ export default {
              this.$root.ShowButton = true;
              
          }
-         
-       
-          this.contentInWord = this.urlify(this.editor.getHTML());
-      
 
-         
-          
-      },
+           this.contentInWord = this.urlify(this.compiledMarkdown);
+
+        },
+        
       reactToFocus:function(){
 
           
@@ -334,9 +348,9 @@ export default {
           
         },
       sendMessage: function(){
-           this.editor.setContent('');
-           this.editor.focus();
+            this.input = '';
             this.$root.showRootReply = false;
+            this.$refs.textBottom.focus();
               
               let Data = [];
              
@@ -411,31 +425,23 @@ export default {
   },
 }
 </script>
-<style>
+<style scoped>
 
 
-.editor-box> * {
+textarea {
     font-size:12px; 
-    background:#f2f2f2;
+    background:#ffffff;
     width:100%; 
-    height: auto;
-    max-height: 70px;
+    height: 50px;
+    max-height: 75px;
     padding: 4px 4px;
     resize:none; 
     overflow-x: hidden;
      overflow-y: auto;
     border:1px solid transparent; 
-    border-radius:10px;
+    border-radius:2px;
 }
 
-.editor p.is-editor-empty:first-child::before {
-  content: attr(data-empty-text);
-  float: left;
-  color: rgb(128, 117, 117);
-  pointer-events: none;
-   font-size: 12px;
-  
-  font-style: italic;
-}
+
 
 </style>

@@ -44,6 +44,7 @@
     "swagger-router": "^0.7.4",
     "tiptap": "^1.27.1",
     "tiptap-extensions": "^1.29.1",
+    "tiptap-vuetify": "^2.24.0",
     "tls": "0.0.1",
     "url-metadata": "^2.4.0",
     "v-markdown-editor": "^1.2.5",

@@ -14,18 +14,18 @@
      <share v-if="this.$root.showShare"></share>
 
      
-
- 
-    
-           
-     
-
        <library-shelves v-if="this.$root.showShelves"></library-shelves>
 
         
         <div style="z-index:9999938859;"  v-if="this.$root.fullImageViewer"  >
 
            <full-image-viewer ></full-image-viewer>
+
+        </div>
+
+         <div style="z-index:99999388599;"  v-if="this.$root.showCreatepost"  >
+
+           <new-post ></new-post>
 
         </div>
 

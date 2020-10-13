@@ -308,6 +308,8 @@ export default {
            this.$root.repliedPostId = post.PostId;
             this.$root.commentUsername = post.username;
             this.$root.commentPostId = this.$route.params.postId;
+             this.$root.showPostModal = false;
+              this.$root.showCreatepost = true;
            this.$router.push({ path: '/post/' + this.$route.params.username + '/' +this.$route.params.postId + '/comment' }); 
        },
         showHome: function(){
