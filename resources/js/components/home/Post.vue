@@ -235,8 +235,6 @@ export default {
          
           this.$root.showPostModal = false;
 
-          this.$root.showHeader = true;
-
            this.$root.postViewType = '';
          
              
