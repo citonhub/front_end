@@ -459,6 +459,7 @@ const app = new Vue({
      reconnectionCount:0,
      userLocale:document.getElementById('appLocale').value,
      roomCheckingInitaited: false,
+     bottomEditorValue:''
         },
      mounted: function () {
       this.pageloader= false;

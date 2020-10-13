@@ -106,7 +106,7 @@ export default {
     
   },
     mounted(){
-       
+       this.$root.bottomEditorValue = this.$refs.textBottom;
     },
      computed: {
           compiledMarkdown: function() {
@@ -176,6 +176,7 @@ export default {
          }else{
             this.showSend = false;
              this.$root.ShowButton = true;
+             this.$root.showRootReply = false;
              
          }
 
@@ -349,7 +350,10 @@ export default {
         },
       sendMessage: function(){
             this.input = '';
+             this.showSend = false;
+             this.$root.ShowButton = true;
             this.$root.showRootReply = false;
+              this.$root.showRootReply = false;
             this.$refs.textBottom.focus();
               
               let Data = [];

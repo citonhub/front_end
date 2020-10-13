@@ -1069,6 +1069,8 @@ export default {
           this.$root.showRootReply = true;
 
            message.showReply = false;
+
+           this.$root.bottomEditorValue.focus();
          
       },
        
