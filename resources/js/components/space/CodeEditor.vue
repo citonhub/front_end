@@ -82,33 +82,7 @@
      </span>
 
 
-           <span style="position:absolute; top:80%; left:3%;  z-index:23456788;"  class="d-md-none d-inline-block" v-if="checkIfOwner()">
-          <v-btn
-                color="#35747e"
-                small
-                :loading="loading"
-                @click="saveFileContent"
-                style="color:white;"
-                class="d-block"
-                fab
-              >
-                <v-icon color="#ffffff">mdi-content-save-outline</v-icon>
-              </v-btn>
-     </span>
-
-      <span style="position:absolute; top:92%; left:3%; z-index:23456788;" class="d-none d-md-inline-block" v-if="checkIfOwner()">
-          <v-btn
-                color="#35747e"
-                small
-                :loading="loading"
-                @click="saveFileContent"
-                style="color:white;"
-                class="d-block"
-                fab
-              >
-                <v-icon color="#ffffff">mdi-content-save-outline</v-icon>
-              </v-btn>
-     </span>
+       
          </div>
        </div>
 
@@ -452,6 +426,12 @@ methods:{
 
         },
        saveFileContent: function(){
+
+          if(this.checkIfOwner()){
+
+          }else{
+            return;
+          }
           this.loading = true;
       axios.post('/save-code-content-project',{
                 project_slug: this.$route.params.projectSlug,
@@ -488,7 +468,7 @@ methods:{
 
               }
 
-              this.showAlert(5000,'saved');
+              this.showAlert(2000,'saved');
               this.loading = false;
             
             }
@@ -560,6 +540,12 @@ methods:{
 
        
            this.$root.LocalStore(this.$route.params.projectSlug ,this.$root.CodeFilesData);
+
+          setTimeout(() => {
+
+            this.saveFileContent()
+            
+          }, 2000);
      
         
       },
