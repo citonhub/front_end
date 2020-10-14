@@ -1881,6 +1881,8 @@ if (response.status == 200) {
 
   
   this.updateSentMessage(postData);
+
+  this.sendingMessage = false;
    
   
 }
@@ -1918,7 +1920,7 @@ if (response.status == 200) {
  this.scrollToBottom();
 
  this.updateSentMessage(postData);
-
+ this.sendingMessage = false;
 
  
 }

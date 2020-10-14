@@ -340,10 +340,12 @@ export default {
            if(this.checkIfMaster()){
 
                   this.$root.checkScreenRoomState(true);
+                  this.$root.checkAudioRoomState(true);
                  
 
                }else{
                   this.$root.checkScreenRoomState(false);
+                   this.$root.checkAudioRoomState(false);
                }
 
           this.$root.showVideoScreen = true;
@@ -353,18 +355,9 @@ export default {
           this.$root.screenSharingOn = true;
           
           this.$root.liveIsOn = true;
+          this.$root.remoteAudio = true;
 
-           if(this.$root.audioconnection == undefined){
-              if(this.checkIfMaster()){
-
-                  this.$root.checkAudioRoomState(true);
-
-               }else{
-                  this.$root.checkAudioRoomState(false);
-               }
-
-             
-           }
+          
 
            }else{
              

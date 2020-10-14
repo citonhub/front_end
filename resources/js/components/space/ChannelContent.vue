@@ -1085,20 +1085,24 @@ export default {
                   
                 this.unsentMessagesPresent = true;
 
-                 
+                  if(!this.$root.sendingMessage){
+                      for (let index = 0; index < finalResult.length; index++) {
 
-                    for (let index = 0; index < finalResult.length; index++) {
-               
-                this.$root.sendTextMessage(finalResult[index]);
-
-                    this.$root.sendingMessage = false;
-                
+                      if(this.$route.params.spaceId == finalResult[index].space_id){
+                  
+                      
+                        
+                         this.$root.sendTextMessage(finalResult[index]);
+                        
+  
+                      }
+ 
                         }
 
-              
+                  }
 
-                 
-                 
+                  
+                
                  
                 }
 
@@ -1841,7 +1845,7 @@ export default {
 
          
 
-         this.$root.sendingMessage = true;
+         
            
           axios.post('/check-for-unread-messages-clean',{
                 spaceId: this.$route.params.spaceId,
@@ -1881,14 +1885,14 @@ export default {
              }
           
 
-          this.$root.sendingMessage = false;
+        
             
             }
 
           })
           .catch(error => {
 
-            this.$root.sendingMessage = false;
+            
              
           })
 
@@ -2300,10 +2304,25 @@ export default {
                  this.periodicUpdate(finalResultUnread);
 
               }
+              
+           });
+
+            let unsentStoredMsg = this.$root.getLocalStore('unsent' + this.$route.params.spaceId  + this.$root.username);
+
+           unsentStoredMsg.then((result)=>{
+
+              let finalResultunsent = JSON.parse(result);
+              
+              if(finalResultunsent.length == 0){
+
+               this.updateLocalStorage();
+
+              }
+              
            });
 
     
-          this.updateLocalStorage();
+          
              
               
                 
