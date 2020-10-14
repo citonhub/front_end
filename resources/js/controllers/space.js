@@ -2514,7 +2514,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
       this.$root.connection = undefined;
 
       this.$root.screenSharingOn = false;
-        this.$root.liveIsOn = false;
+       
         this.$root.showVideoScreen = false;
         
        

@@ -354,7 +354,7 @@
 
         <div style="color:white; font-size:13px; font-family:HeaderText;" class="col-7 py-0 my-1 px-1"> 
          
-             <v-icon color="#ffffff"  @click="closeboard">mdi-close mdi-18px</v-icon>
+             <v-icon color="#ffffff"  >mdi-close mdi-18px</v-icon>
      
       {{ $t('space.active_members') }} <span class="ml-1 py-1 px-1" 
         style="color:#ffffff; ">({{ this.$root.allAudioParticipant.length + 1 }})</span></div>

@@ -468,7 +468,7 @@ methods:{
 
               }
 
-              this.showAlert(2000,'saved');
+              
               this.loading = false;
             
             }

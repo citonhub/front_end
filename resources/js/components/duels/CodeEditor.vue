@@ -412,7 +412,7 @@ methods:{
             
              if (response.status == 200) {
                
-              this.showAlert(2000,'saved');
+             
               this.loading = false;
             
             }
