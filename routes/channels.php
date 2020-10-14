@@ -39,3 +39,7 @@ Broadcast::channel('duel.{duelId}', function () {
 Broadcast::channel('panel.{uniqueId}', function () {
 	return Auth::check();
 });
+
+Broadcast::channel('global', function () {
+	return Auth::user();
+});

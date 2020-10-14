@@ -1031,13 +1031,18 @@ export default {
      
      if(this.panelData.panel_language == 'PHP'){
           window.open('https://blog.citonhub.com/frequently-asked-questions-about-creating-a-frontend-application-on-citonhubphp', '_blank');
+
+          return;
      }
 
      if(this.panelData.panel_language == 'NodeJs'){
 
         
        window.open('https://blog.citonhub.com/faqs-on-hosting-a-front-end-application-on-on-citonhub-nodejs', '_blank');
+       return;
      }
+
+       window.open('https://blog.citonhub.com/faqs-on-hosting-a-front-end-application-on-on-citonhub-nodejs', '_blank');
       
    },
    addDBTable: function(){

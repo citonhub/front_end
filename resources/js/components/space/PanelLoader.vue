@@ -50,19 +50,14 @@
                  class="d-flex col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2"  v-if="UserStar.length != 0 && userLoggedIn">
                    <div class="row py-0 my-0">
                     
-                      <div class="col-9 py-0 text-center">
+                      <div class="col-12 py-0 text-center">
 
                       <div v-for="(star,index) in UserStar" :key="index">
-                      <v-rating v-model="star.stars" background-color="#edf6f7" color="#edf6f7"  ></v-rating>
+                      <v-rating v-model="star.stars" background-color="#edf6f7" color="#edf6f7" @input="SaveStars()"  ></v-rating>
 
                       </div>
                       </div>
-                      <div class="col-3  text-center">
-
-                      <v-btn x-small color="#3E8893 "  @click="SaveStars" :loading="saveLoading" class="mx-2"
-                   style="color:white;"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Save</span></v-btn>
-
-                      </div>
+                    
                    </div>
                    
                    

@@ -386,15 +386,15 @@ export default {
 
       },
       shareToWhatsapp:function(){
-        let link = 'whatsapp://send?text=' + this.$root.shareLink + '. Sent from CitonHub, share codes on CitonHub.';
+        let link = 'whatsapp://send?text=' + this.$root.shareLink + '. Sent from CitonHub.';
          window.location =  link;
       },
       shareToTwitter: function(){
-         let link = 'https://twitter.com/intent/tweet?text=' + ',&url=' + this.$root.shareLink + '. Sent from CitonHub, share codes on CitonHub.';
+         let link = 'https://twitter.com/intent/tweet?' + 'url=' + this.$root.shareLink + '&text=Sent from CitonHub.';
          window.location =  link;
       },
       shareToFacebook:function(){
-          let link = 'https://www.facebook.com/sharer/sharer.php?u=' + this.$root.shareLink + '. Sent from CitonHub, share codes on CitonHub.';
+          let link = 'https://www.facebook.com/sharer/sharer.php?u=' + this.$root.shareLink + '. Sent from CitonHub.';
          window.location =  link;
       },
      

@@ -23,7 +23,7 @@
                <span class="TitleText d-block" v-if="this.$root.selectedSpace.type != 'Direct'"> {{shortenContent(this.$root.selectedSpace.name,19)}}</span>
               <span class="TitleText d-block" v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'" @click.stop="viewUser()">{{shortenContent(this.$root.selectedSpace.userInfo.username,22)}}</span>
                <span class="typingText d-block" v-if="this.$root.typing && (this.$root.typingSpace == this.$root.selectedSpace.space_id)">{{this.$root.typinguser}} is typing... </span>
-                <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }} , {{this.$root.SpaceUsers.length}}  {{ $t('space.Online') }}</span>
+                <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }} , {{generateOnlineUsers()}}  {{ $t('space.Online') }}</span>
 
           <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' ">
             
@@ -186,9 +186,47 @@ export default {
              
     },
     methods:{
+       generateOnlineUsers: function(){
+          let onlineUserList = [];
+
+          this.$root.selectedSpaceMembers.forEach(member => {
+             
+             let userData = this.$root.globalUsers.filter((user)=>{
+               return user.id == member.user_id;
+             })
+
+             if(userData.length != 0){
+               onlineUserList.push(userData[0])
+             }
+           
+            
+          });
+        
+        return onlineUserList.length;
+       },
+        generateOnlineUsersList: function(){
+          let onlineUserList = [];
+
+          this.$root.selectedSpaceMembers.forEach(member => {
+             
+             let userData = this.$root.globalUsers.filter((user)=>{
+               return user.id == member.user_id;
+             })
+
+             if(userData.length != 0){
+               onlineUserList.push(userData[0])
+             }
+           
+            
+          });
+        
+        return onlineUserList;
+       },
       checkIfOnline: function(user_id){
 
-        let userData = this.$root.SpaceUsers.filter((user)=>{
+         let SpaceUserOnline = this.generateOnlineUsersList();
+
+        let userData = SpaceUserOnline.filter((user)=>{
          return user.id == user_id;
         });
 

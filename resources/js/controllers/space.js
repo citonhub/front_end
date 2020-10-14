@@ -459,7 +459,8 @@ const app = new Vue({
      reconnectionCount:0,
      userLocale:document.getElementById('appLocale').value,
      roomCheckingInitaited: false,
-     bottomEditorValue:''
+     bottomEditorValue:'',
+     globalUsers:[],
         },
      mounted: function () {
       this.pageloader= false;
@@ -1357,6 +1358,38 @@ if (response.status == 200) {
           }
           
      });
+
+
+     Echo.join('global')
+     .here((users) => {
+
+        
+       
+     this.$root.globalUsers = users;
+
+      
+
+   })
+   .joining((user) => {
+
+      
+   
+    
+   this.$root.globalUsers.push(user);
+
+  
+   
+   })
+   .leaving((user) => {
+      let newList = this.$root.globalUsers.filter((eachuser)=>{
+          return eachuser.id != user.id
+      });
+   this.$root.globalUsers = newList;
+
+   
+    
+   
+   })
       
 
        }
@@ -2529,7 +2562,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
 
          speechEvents.on('speaking', function() {
 
-          if(_this.$root.audioconnection != undefined){
+          if(_this.$root.audioconnection != undefined && _this.$route.params.spaceId != undefined){
 
             let channel =  window.Echo.join('space.' + _this.$route.params.spaceId);
           
@@ -2553,7 +2586,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
 
           
 
-            if(_this.$root.audioconnection != undefined){
+            if(_this.$root.audioconnection != undefined && _this.$route.params.spaceId != undefined){
 
               let channel =  window.Echo.join('space.' + _this.$route.params.spaceId);
             
