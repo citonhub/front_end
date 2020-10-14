@@ -40,10 +40,10 @@
           <div class="col-12 px-2 py-1 pt-2" v-if="this.$root.selectedSpace.type != 'Personal'">
                <v-card tile flat class=" py-2 px-2 " color="#edf6f7" style="border-bottom:1px solid #3E8893; border-top:1px solid #3E8893;" @click="channelMembers">
               <div class="row py-0 my-0">
-                <div class="col-10 py-0 my-0 ">
+                <div class="col-6 py-0 my-0 ">
                    <span class="content" style="font-size:12px;">{{ $t('space.members') }}</span>
                 </div>
-                <div class="py-0 my-0 col-2 text-right" >
+                <div class="py-0 my-0 col-6 text-right" >
                        <span class="messagesBadges">
                              <span class="">{{this.$root.selectedSpaceMembers.length}}</span>
                           </span>
