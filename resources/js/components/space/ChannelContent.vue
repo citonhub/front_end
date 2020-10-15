@@ -1067,7 +1067,7 @@ export default {
              
              
 
-              let unsentMsg = this.$root.getLocalStore('unsent' + this.$route.params.spaceId  + this.$root.username );
+              let unsentMsg = this.$root.getLocalStore('unsentnew' + this.$route.params.spaceId  + this.$root.username );
 
          unsentMsg.then((result)=>{
 
@@ -2102,7 +2102,7 @@ export default {
          
          
 
-           let unsentMsg = this.$root.getLocalStore('unsent' + this.$route.params.spaceId  + this.$root.username );
+           let unsentMsg = this.$root.getLocalStore('unsentnew' + this.$route.params.spaceId  + this.$root.username );
 
             unsentMsg.then((result)=>{
 
@@ -2307,7 +2307,7 @@ export default {
               
            });
 
-            let unsentStoredMsg = this.$root.getLocalStore('unsent' + this.$route.params.spaceId  + this.$root.username);
+            let unsentStoredMsg = this.$root.getLocalStore('unsentnew' + this.$route.params.spaceId  + this.$root.username);
 
            unsentStoredMsg.then((result)=>{
 

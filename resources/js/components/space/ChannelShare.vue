@@ -465,7 +465,7 @@ var blob = this.b64toBlob(realData, contentType);
        showDate:null,
        loading:true,
        progressValue:0,
-       space_id:this.$route.params.spaceId,
+       space_id:this.$root.selectedSpace.space_id,
         tagged:false,
         type:msgType,    
         user_id:this.$root.user_temp_id,
@@ -690,7 +690,7 @@ var blob = this.b64toBlob(realData, contentType);
                
 
 
-             this.$root.LocalStore(this.$route.params.spaceId  + this.$root.username,fullData);
+             this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
 
             this.$root.scrollerControlHandler();
 
@@ -713,11 +713,11 @@ var blob = this.b64toBlob(realData, contentType);
         
         formData.append('is_reply',this.$root.is_reply);
         formData.append('attachment_type',this.attachment_type);
-        formData.append('space_id',this.$route.params.spaceId);
+        formData.append('space_id',this.$root.selectedSpace.space_id);
         formData.append('temp_id', this.$root.NewMsg.message_id)
         this.ChangeDataToDefaults();
 
-         this.$root.updateSpaceTracker(this.$route.params.spaceId);
+         this.$root.updateSpaceTracker(this.$root.selectedSpace.space_id);
        this.$root.sendShareMessage(formData);
     },
      crophandler:function(e){

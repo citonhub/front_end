@@ -1784,7 +1784,7 @@ this.$root.LocalStore(spaceId + this.$root.username,fullData);
       },
       updateSentMessage:function(postData){
       
-        let unsentMsg = this.$root.getLocalStore('unsent' + postData.space_id  + this.$root.username);
+        let unsentMsg = this.$root.getLocalStore('unsentnew' + postData.space_id  + this.$root.username);
 
         unsentMsg.then((result)=>{
 
@@ -1799,7 +1799,7 @@ this.$root.LocalStore(spaceId + this.$root.username,fullData);
           });
 
 
-          this.LocalStore('unsent' + postData.space_id  + this.$root.username,[]);
+          this.LocalStore('unsentnew' + postData.space_id  + this.$root.username,[]);
 
               
           this.sendingMessage = false;
@@ -1818,7 +1818,7 @@ this.$root.LocalStore(spaceId + this.$root.username,fullData);
       },
       storeUnsentMessages:function(postData){
 
-        let unsentMsg = this.$root.getLocalStore('unsent' + postData.space_id  + this.$root.username);
+        let unsentMsg = this.$root.getLocalStore('unsentnew' + postData.space_id  + this.$root.username);
 
          unsentMsg.then((result)=>{
 
@@ -1837,7 +1837,7 @@ this.$root.LocalStore(spaceId + this.$root.username,fullData);
                if(messageData.length == 0){
 
                 finalResult.push(postData);
-                this.LocalStore('unsent' + postData.space_id  + this.$root.username,finalResult);
+                this.LocalStore('unsentnew' + postData.space_id  + this.$root.username,finalResult);
 
                }
 
@@ -1847,7 +1847,7 @@ this.$root.LocalStore(spaceId + this.$root.username,fullData);
            }else{
 
             
-              this.LocalStore('unsent' + postData.space_id  + this.$root.username,[postData]);
+              this.LocalStore('unsentnew' + postData.space_id  + this.$root.username,[postData]);
 
            }
 
@@ -1929,7 +1929,9 @@ if (response.status == 200) {
 })
 .catch(error => {
   this.sendingMessage = false;
-  this.storeUnsentMessages(postData);
+
+
+  
 }) 
 
     },

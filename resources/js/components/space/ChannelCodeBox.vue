@@ -444,7 +444,7 @@ methods:{
 
         axios.post('/make-user-master',{
            memberId: member.memberId,
-           space_id: this.$route.params.spaceId
+           space_id: this.$root.selectedSpace.space_id
          })
       .then(response => {
       
@@ -752,7 +752,7 @@ methods:{
        showDate:null,
        loading:true,
        progressValue:0,
-       space_id:this.$route.params.spaceId,
+       space_id:this.$root.selectedSpace.space_id,
         tagged:false,
         type:msgType,    
         user_id:this.$root.user_temp_id,
@@ -796,7 +796,7 @@ methods:{
               let Data = [];
               this.$root.NewMsg = this.makeMessage('code',Data);
               
-             
+               console.log()
 
                this.$root.returnedMessages.push(this.$root.NewMsg);
                this.$root.Messages.push(this.$root.NewMsg);
@@ -816,7 +816,7 @@ methods:{
                
 
 
-              this.$root.LocalStore(this.$route.params.spaceId  + this.$root.username,fullData);
+              this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
 
                  this.$root.scrollerControlHandler();
 
@@ -827,7 +827,7 @@ methods:{
                 
                 let postData = {
               content: '',
-              space_id: this.$route.params.spaceId,
+              space_id: this.$root.selectedSpace.space_id,
               is_reply: this.$root.is_reply,
               current_user: JSON.stringify(this.$root.SpaceUsers ),
               replied_message_id: this.$root.replyMessage.message_id,
@@ -838,7 +838,7 @@ methods:{
               temp_id:  this.$root.NewMsg.message_id
             };
             
-         this.$root.updateSpaceTracker(this.$route.params.spaceId);
+         this.$root.updateSpaceTracker(this.$root.selectedSpace.space_id);
        this.$root.sendCodeMessage(postData);
          
       },
@@ -865,14 +865,14 @@ methods:{
        liveChanges:function(data,action) {
 
       
-      let channel =  window.Echo.join('space.' + this.$route.params.spaceId);
+      let channel =  window.Echo.join('space.' + this.$root.selectedSpace.space_id);
    
        if(this.$root.codeIsLive){
 
          channel.whisper('liveCoding', {
           data:data,
             action: action,
-            spaceId: this.$route.params.spaceId
+            spaceId: this.$root.selectedSpace.space_id
         });
 
 
