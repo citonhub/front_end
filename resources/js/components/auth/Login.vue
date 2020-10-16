@@ -200,6 +200,7 @@ export default {
 
         this.$root.username = userData.user.username;
         this.$root.user_temp_id = userData.user.id;
+        this.$root.returnedToken = userData.token;
     
     }
 

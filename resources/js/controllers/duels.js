@@ -295,7 +295,9 @@ const app = new Vue({
       this.pageloader= false;
       let _this = this;
       this.connectToChannel();
-      this.fetchUserDetails();
+      if(this.isLogged){
+        this.fetchUserDetails();
+       }
       this.SetLocale(this.userLocale);
      
 

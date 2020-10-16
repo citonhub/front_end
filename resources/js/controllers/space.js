@@ -517,8 +517,11 @@ const app = new Vue({
      mounted: function () {
       this.pageloader= false;
      
-     
-      this.fetchUserDetails();
+       if(this.isLogged){
+        this.fetchUserDetails();
+       }
+      
+
       this.connectToChannel();
        this.SetLocale(this.userLocale);
        window.thisUserState = this;
@@ -666,8 +669,8 @@ const app = new Vue({
 
       interval = setInterval(()=>{
 
-       
-    
+       if(this.checkauthroot == 'auth'){
+
         window.Echo.connector.socket.on('connect', ()=>{
           this.isConnected = true
       })
@@ -715,6 +718,10 @@ axios.get( '/check-for-new-space-messages')
 
 
           }
+
+       }
+    
+       
     
       },3000);
 
@@ -1433,6 +1440,8 @@ if (response.status == 200) {
     connectToChannel:function(){
    
        if(this.checkauthroot == 'auth'){
+
+     
         window.Echo.private('user.' + this.username)
         .listen('.UserChannel',(e) => {
           

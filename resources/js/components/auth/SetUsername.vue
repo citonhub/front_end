@@ -220,6 +220,7 @@ export default {
 
         this.$root.username = userData.user.username;
         this.$root.user_temp_id = userData.user.id;
+        this.$root.returnedToken = userData.token;
     
     }
 
@@ -232,7 +233,7 @@ export default {
       let storedTracker = this.$root.getLocalStore('route_tracker');
 
       storedTracker.then((result)=>{
-         this.$root.connectToChannel();
+        
         if(result != null ){
             let finalResult = JSON.parse(result);
             

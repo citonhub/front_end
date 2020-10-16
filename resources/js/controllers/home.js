@@ -480,7 +480,9 @@ const app = new Vue({
      mounted: function () {
       this.pageloader = false;
      
-      this.fetchUserDetails();
+      if(this.isLogged){
+        this.fetchUserDetails();
+       }
       this.connectToChannel();
       window.thisUserState = this;
     },

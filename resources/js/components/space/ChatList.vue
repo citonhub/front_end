@@ -528,10 +528,13 @@ export default {
          this.$root.selectedSpace = [];
      
        this.$root.manualFetchUnread();
-       this.$root.updateSpaceMessages();
+      
+      this.$root.updateSpaceMessages();
+      this.$root.checkUnread(true);
+    
 
        
-        this.$root.checkUnread(true);
+        
 
      
        
