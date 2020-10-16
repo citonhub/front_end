@@ -294,7 +294,7 @@ const app = new Vue({
      mounted: function () {
       this.pageloader= false;
       let _this = this;
-      this.connectToChannel();
+     
       this.fetchUserDetails();
       this.SetLocale(this.userLocale);
      
@@ -358,7 +358,7 @@ const app = new Vue({
                }
         });}
        
-       
+        this.connectToChannel();
         
     },
     changeLocale: function(locale){
