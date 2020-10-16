@@ -459,6 +459,7 @@ const app = new Vue({
       });
       },
       logout: function(){
+        this.pageloader= true;
         this.$store.dispatch('logout');
         this.username = '';
         this.user_temp_id = 0;
