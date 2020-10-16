@@ -151,8 +151,14 @@ export default {
         window.location = '/#/space/' + space.space_id + '/channel/content/user';
       },
         fetchUserChannel:function(){
+
+           let user = this.$route.params.username;
+
+           if(user == 'user'){
+             user = this.$root.username;
+           }
            
-                axios.get( '/fetch-user-channels-'+ this.$route.params.username)
+                axios.get( '/fetch-user-channels-'+ user)
       .then(response => {
       
       if (response.status == 200) {

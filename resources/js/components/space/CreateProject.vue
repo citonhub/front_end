@@ -148,7 +148,7 @@ export default {
         if(this.$root.projectData.length != 0){
               
               this.$root.localChannel = [];
-             Echo.leave('panel.' + this.$root.projectData.project_slug);
+              window.Echo.leave('panel.' + this.$root.projectData.project_slug);
 
           }
     },

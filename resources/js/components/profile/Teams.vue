@@ -134,8 +134,14 @@ export default {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
          fecthTeams:function(){
+
+             let user = this.$route.params.username;
+
+           if(user == 'user'){
+             user = this.$root.username;
+           }
        
-        axios.get( '/fetch-teams-' + this.$route.params.username )
+        axios.get( '/fetch-teams-' + user )
       .then(response => {
       
       if (response.status == 200) {

@@ -30,6 +30,7 @@ import moment from 'moment'
 
 window.moment = require('moment');
 
+window.customLocation = 'http://api.citonhubnew.com';
 
 Vue.use(Vuetify);
 
@@ -38,29 +39,6 @@ const vuetify = new Vuetify({
         iconfont: 'mdi'
     }
 });
-
-
-
-import Echo from 'laravel-echo';
-window.Echo = require('laravel-echo');
-
-window.io = require('socket.io-client');
-
-if (typeof io !== 'undefined') {
-  window.Echo = new Echo({
-      broadcaster: 'socket.io', 
-     host: window.location.hostname + ':6001',
-     transports: ['websocket', 'polling', 'flashsocket'] ,// Fix CORS error!
-     auth:
-         {
-             headers:
-             {
-                 'Authorization': 'Bearer ' + token
-             }
-         }
-  });}
-
-
 
 
 

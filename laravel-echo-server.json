@@ -1,6 +1,6 @@
 {
-	"authHost": "https://www.citonhub.com",
-	"authEndpoint": "/broadcasting/auth",
+	"authHost": "https://api.citonhub.com",
+	"authEndpoint": "/api/broadcasting/auth",
 	"clients": [
 					{
 									"appId": "58255787a5286999",
@@ -21,8 +21,8 @@
 	"protocol": "https",
 	"socketio": {},
 	"secureOptions": 67108864,
-	"sslCertPath": "/etc/letsencrypt/live/citonhub.com/fullchain.pem",
-	"sslKeyPath": "/etc/letsencrypt/live/citonhub.com/privkey.pem",
+	"sslCertPath": "/etc/letsencrypt/live/api.citonhub.com/fullchain.pem",
+	"sslKeyPath": "/etc/letsencrypt/live/api.citonhub.com/privkey.pem",
 	"sslCertChainPath": "",
 	"sslPassphrase": "",
 	"subscribers": {

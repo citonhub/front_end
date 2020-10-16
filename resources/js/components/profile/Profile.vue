@@ -44,7 +44,16 @@
       fetchUserDetails: function(){
          if(this.$root.profileDetails == null){
 
-            axios.get('/fetch-profile-'+ this.$route.params.username)
+            let user = this.$route.params.username;
+
+            
+
+           if(user == 'user'){
+             user = this.$root.username;
+
+           }
+
+            axios.get('/fetch-profile-'+ user)
       .then(response => {
       
       if (response.status == 200) {

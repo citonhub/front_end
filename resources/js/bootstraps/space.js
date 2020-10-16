@@ -22,7 +22,7 @@ let token = document.head.querySelector('meta[name="csrf-token"]');
 
 import Vue from 'vue'
 
-
+window.customLocation = 'http://api.citonhubnew.com';
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
@@ -41,24 +41,12 @@ const vuetify = new Vuetify({
 
 window.moment = require('moment');
 
-import Echo from 'laravel-echo';
-window.Echo = require('laravel-echo');
 
-window.io = require('socket.io-client');
 
-if (typeof io !== 'undefined') {
-  window.Echo = new Echo({
-      broadcaster: 'socket.io', 
-     host: window.location.hostname + ':6001',
-     transports: ['websocket', 'polling', 'flashsocket'] ,// Fix CORS error!
-     auth:
-         {
-             headers:
-             {
-                 'Authorization': 'Bearer ' + token
-             }
-         }
-  });}
+
+
+
+
 
 
 

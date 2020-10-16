@@ -1,3 +1,53 @@
+import Vuex from 'vuex'
+import { mapGetters } from 'vuex'
+
+window.Echo = require('laravel-echo');
+import Echo from 'laravel-echo';
+
+window.io = require('socket.io-client');
+
+Vue.use(Vuex)
+
+axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
+
+const store = new Vuex.Store({
+  state: {
+    user: null
+  },
+
+  mutations: {
+    setUserData (state, userData) {
+      state.user = userData
+      localStorage.setItem('user', JSON.stringify(userData))
+      axios.defaults.headers.common.Authorization = `Bearer ${userData.token}`
+    },
+
+    clearUserData () {
+      localStorage.removeItem('user')
+      location.reload()
+    }
+  },
+
+  actions: {
+    login ({ commit }, credentials) {
+      return axios
+        .post('/login', credentials)
+        .then(({ data }) => {
+          commit('setUserData', data)
+        })
+    },
+
+    logout ({ commit }) {
+      commit('clearUserData')
+    }
+  },
+
+  getters : {
+    isLogged: state => !!state.user
+  }
+});
+
+
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
@@ -266,6 +316,7 @@ const i18n = new VueI18n({
 
 const app = new Vue({
    router: router,
+   store,
     el: '#space',
     vuetify: new Vuetify(),
     i18n,
@@ -274,9 +325,9 @@ const app = new Vue({
       notificationApproved:'',
        pushManager:'',
       shownotificationboard: false,
-      checkauthroot:document.getElementById('checkauth').value,
-      user_temp_id: document.getElementById('checkauthId').value,
-      username: document.getElementById('checkauthUsername').value,
+      checkauthroot:'noauth',
+      user_temp_id: 0,
+      username: '',
       showTabs:true,
       showHeader:true,
       fullImageViewer:false,
@@ -460,19 +511,53 @@ const app = new Vue({
      userLocale:document.getElementById('appLocale').value,
      roomCheckingInitaited: false,
      bottomEditorValue:'',
+     returnedToken:'',
      globalUsers:[],
         },
      mounted: function () {
       this.pageloader= false;
      
-    
+     
       this.fetchUserDetails();
       this.connectToChannel();
        this.SetLocale(this.userLocale);
        window.thisUserState = this;
+    },computed: {
+      ...mapGetters([
+        'isLogged'
+      ])
     },
     created(){
       window.thisUserState = this;
+     
+      const userInfo = localStorage.getItem('user')
+    if (userInfo) {
+      const userData = JSON.parse(userInfo)
+
+        this.username = userData.user.username;
+        this.user_temp_id = userData.user.id;
+        this.returnedToken = userData.token;
+        this.setEcho();
+       
+      this.$store.commit('setUserData', userData)
+    }
+    axios.interceptors.response.use(
+      response => response,
+      error => {
+        if (error.response.status === 401) {
+          this.$store.dispatch('logout')
+        }
+        return Promise.reject(error)
+      }
+    );
+
+    if(this.isLogged){
+       this.checkauthroot = 'auth';
+    }else{
+      this.checkauthroot = 'noauth';
+    }
+  
+
     },
     http: {
      headers:{
@@ -480,6 +565,24 @@ const app = new Vue({
      }
   },
   methods:{
+    setEcho:function(){
+      if (typeof io !== 'undefined') {
+        window.Echo = new Echo({
+            broadcaster: 'socket.io', 
+           host: window.customLocation + ':6001',
+           transports: ['websocket', 'polling', 'flashsocket'] ,// Fix CORS error!
+           auth:
+               {
+                   headers:
+                   {
+                       'Authorization': 'Bearer ' + this.returnedToken
+                   }
+               }
+        });}
+       
+       
+        
+    },
     checkIfMessageExist(data){
 
       let messageData = this.$root.Messages.filter((message)=>{
@@ -565,15 +668,15 @@ const app = new Vue({
 
        
     
-        Echo.connector.socket.on('connect', ()=>{
+        window.Echo.connector.socket.on('connect', ()=>{
           this.isConnected = true
       })
 
-  Echo.connector.socket.on('disconnect', ()=> {
+      window.Echo.connector.socket.on('disconnect', ()=> {
           this.isConnected = false
       })
 
-  Echo.connector.socket.on('reconnecting', (attemptNumber)=>{
+      window.Echo.connector.socket.on('reconnecting', (attemptNumber)=>{
        this.isConnected = false
     });
           
@@ -1215,8 +1318,12 @@ console.log(err)
       
     },
     logout: function(){
-      this.$root.pageloader = true;
-      document.getElementById('logout-form').submit();
+      this.$store.dispatch('logout');
+      this.username = '';
+      this.user_temp_id = 0;
+      this.checkauthroot = 'noauth';
+      this.drawer = false;
+      this.checkIfUserIsLoggedIn('space');
     },
     showNavigator:function(){
       this.drawer = true;
@@ -1325,7 +1432,7 @@ if (response.status == 200) {
     connectToChannel:function(){
    
        if(this.checkauthroot == 'auth'){
-        Echo.private('user.' + this.username)
+        window.Echo.private('user.' + this.username)
         .listen('.UserChannel',(e) => {
           
 
@@ -1360,7 +1467,7 @@ if (response.status == 200) {
      });
 
 
-     Echo.join('global')
+     window.Echo.join('global')
      .here((users) => {
 
         
@@ -1710,7 +1817,8 @@ imageStyle:function(dimension,authProfile){
      },
       checkIfUserIsLoggedIn: function(frompage){
       if(this.checkauthroot == 'noauth'){
-        this.UrlTrack = window.location.href;
+        this.LocalStore('route_tracker',[this.$router.currentRoute.path]);
+       
         if(this.$route.params.referral != null){
           this.referralUser = this.$route.params.referral;
          }

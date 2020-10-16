@@ -175,8 +175,8 @@ export default {
              this.$router.push({ path: '/space' });
           } 
 
-           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'trends'){
-             this.$router.push({ path: '/trends' });
+           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'hub'){
+             this.$router.push({ path: '/hub' });
           } 
 
            if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'profile'){

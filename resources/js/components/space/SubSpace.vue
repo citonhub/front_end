@@ -236,7 +236,7 @@ export default {
   },
     mounted(){
 
-      Echo.leave('space.' + this.$root.selectedSpace.space_id);
+       window.Echo.leave('space.' + this.$root.selectedSpace.space_id);
 
       
       this.setSubSpaces();
@@ -347,7 +347,7 @@ export default {
        this.$root.sharePage = false;
        this.$root.showUserInfo = false;
 
-          Echo.leave('space.' + this.$root.selectedSpace.space_id);
+           window.Echo.leave('space.' + this.$root.selectedSpace.space_id);
         
         this.$root.forceListReload = true;
         this.$root.showUserInfo = false;
@@ -382,7 +382,7 @@ export default {
        this.$root.showUserInfo = false;
        
 
-          Echo.leave('space.' + this.$root.selectedSpace.space_id);
+           window.Echo.leave('space.' + this.$root.selectedSpace.space_id);
         
         this.$root.forceListReload = true;
         this.$root.showUserInfo = false;

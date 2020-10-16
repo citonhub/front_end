@@ -131,8 +131,8 @@ export default {
              this.$router.push({ path: '/space' });
           } 
 
-           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'trends'){
-             this.$router.push({ path: '/trends' });
+          if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'hub'){
+             this.$router.push({ path: '/hub' });
           } 
 
            if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'profile'){
@@ -203,33 +203,51 @@ export default {
           })
        }
     },
-    loginuser: function(){
-            axios.post('/login',{
-                username: this.usernameValue,
-                password: this.$root.userPassword
-                  })
-          .then(response => {
-             
-            
-            
-             if (response.status == 204) {
+     loginuser: function(){
+            this.errorState = false;
+      if(this.$refs.loginform.validate()){
+          this.loading = true;
 
-                  this.$root.LocalStore('user_temp_email',[]);
-                  
-              this.$root.pageloader = true;
-              
-             window.location =  this.$root.UrlTrack;
-             location.reload();
-              
-            }
-              
-            
+     this.$store
+        .dispatch('login', {
+          username: this.usernameValue,
+          password: this.password
+        })
+        .then(() => {
+          const userInfo = localStorage.getItem('user')
+    if (userInfo) {
+      const userData = JSON.parse(userInfo)
+
+        this.$root.username = userData.user.username;
+        this.$root.user_temp_id = userData.user.id;
+    
+    }
+
+      this.$root.checkauthroot = 'auth';
+
+      this.$root.fetchUserDetails();
+
+      let storedTracker = this.$root.getLocalStore('route_tracker');
+
+      storedTracker.then((result)=>{
+        if(result != null ){
+            let finalResult = JSON.parse(result);
+       this.$router.push({ path: finalResult[0] });
+        }else{
+          this.checkIfLogin()
+        }
+      })
+
+       
+
+        })
+        .catch(err => {
+          this.showAlert(5000,  '😬 ' + 'Unable to login, please check your login details');
+              this.loading = false;
+        })
+  
+      }
            
-            
-          })
-          .catch(error => {
-            console.log(error);
-          })
         },
     }
 }

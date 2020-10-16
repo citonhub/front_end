@@ -1,3 +1,53 @@
+import Vuex from 'vuex'
+import { mapGetters } from 'vuex'
+
+window.Echo = require('laravel-echo');
+import Echo from 'laravel-echo';
+
+window.io = require('socket.io-client');
+
+Vue.use(Vuex)
+
+axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
+
+const store = new Vuex.Store({
+  state: {
+    user: null
+  },
+
+  mutations: {
+    setUserData (state, userData) {
+      state.user = userData
+      localStorage.setItem('user', JSON.stringify(userData))
+      axios.defaults.headers.common.Authorization = `Bearer ${userData.token}`
+    },
+
+    clearUserData () {
+      localStorage.removeItem('user')
+      location.reload()
+    }
+  },
+
+  actions: {
+    login ({ commit }, credentials) {
+      return axios
+        .post('/login', credentials)
+        .then(({ data }) => {
+          commit('setUserData', data)
+        })
+    },
+
+    logout ({ commit }) {
+      commit('clearUserData')
+    }
+  },
+
+  getters : {
+    isLogged: state => !!state.user
+  }
+});
+
+
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
@@ -154,17 +204,19 @@ const i18n = new VueI18n({
 
 const app = new Vue({
   router: router,
+   store,
     el: '#duels',
     vuetify: new Vuetify(),
     i18n,
     data:{
       pageloader: false,
-      checkauthroot:document.getElementById('checkauth').value,
-      username: document.getElementById('checkauthUsername').value,
+      checkauthroot:'',
+      username: '',
       typing: false,
       typinguser:'',
       notificationApproved:'',
       shownotificationboard: false,
+      user_temp_id:0,
       pushManager:'',
       sentmessageid:0,
        members:[],
@@ -237,6 +289,7 @@ const app = new Vue({
       showLangOption:false,
       userLocale:document.getElementById('appLocale').value,
       baseApiUrl:'http://api.citonhubnew.com/api',
+      returnedToken:''
     },
      mounted: function () {
       this.pageloader= false;
@@ -247,12 +300,67 @@ const app = new Vue({
       this.initialPushMangerReg();
 
     },
+    computed: {
+      ...mapGetters([
+        'isLogged'
+      ])
+    },
+    created(){
+      window.thisUserState = this;
+     
+      const userInfo = localStorage.getItem('user')
+    if (userInfo) {
+      const userData = JSON.parse(userInfo)
+
+        this.username = userData.user.username;
+        this.user_temp_id = userData.user.id;
+
+        this.returnedToken = userData.token;
+        this.setEcho();
+      this.$store.commit('setUserData', userData)
+    }
+    axios.interceptors.response.use(
+      response => response,
+      error => {
+        if (error.response.status === 401) {
+          this.$store.dispatch('logout')
+        }
+        return Promise.reject(error)
+      }
+    );
+
+    if(this.isLogged){
+       this.checkauthroot = 'auth';
+    }else{
+      this.checkauthroot = 'noauth';
+    }
+
+
+    },
     http: {
      headers:{
         'X-CSRF-TOKEN':document.head.querySelector("meta[name='csrf-token']").content
      }
   },
   methods:{
+    setEcho:function(){
+      if (typeof io !== 'undefined') {
+        window.Echo = new Echo({
+            broadcaster: 'socket.io', 
+           host: window.customLocation + ':6001',
+           transports: ['websocket', 'polling', 'flashsocket'] ,// Fix CORS error!
+           auth:
+               {
+                   headers:
+                   {
+                       'Authorization': 'Bearer ' + this.returnedToken
+                   }
+               }
+        });}
+       
+       
+        
+    },
     changeLocale: function(locale){
 
       this.$root.showLangOption = false;
@@ -350,10 +458,14 @@ const app = new Vue({
           console.log(err);
       });
       },
-    logout: function(){
-      this.$root.pageloader = true;
-      document.getElementById('logout-form').submit();
-    },
+      logout: function(){
+        this.$store.dispatch('logout');
+        this.username = '';
+        this.user_temp_id = 0;
+        this.checkauthroot = 'noauth';
+        this.drawer = false;
+        this.checkIfUserIsLoggedIn('space');
+      },
     showNavigator:function(){
       this.drawer = true;
       },
@@ -388,7 +500,7 @@ const app = new Vue({
 
 
       if(this.checkauthroot == 'auth'){
-        Echo.private('user.' + this.username)
+        window.Echo.private('user.' + this.username)
         .listen('.UserChannel',(e) => {
           
           if(e.actionType == 'new-duel'){
@@ -414,7 +526,7 @@ const app = new Vue({
       this.allChannel = [];
       duelArray.forEach((duel)=>{
      
-       Echo.leave('duel.' + duel.duel_id);
+       window.Echo.leave('duel.' + duel.duel_id);
      });
    },
 
@@ -429,7 +541,7 @@ const app = new Vue({
             DuelArray.forEach((duel)=>{
 
           
-      var channel =  Echo.private('duel.' + duel.duel_id)
+      var channel =  window.Echo.private('duel.' + duel.duel_id)
        .listen('.DuelChannel',(e) => {
 
 
@@ -518,7 +630,7 @@ const app = new Vue({
 
    thisDuelConnection: function(duel){
     
-     Echo.private('duel.' + duel.duel_id)
+     window.Echo.private('duel.' + duel.duel_id)
      .listen('.DuelChannel',(e) => {
 
 
@@ -747,19 +859,18 @@ if (response.status == 200) {
     
 
 },
-    checkIfUserIsLoggedIn: function(frompage){
-      if(this.checkauthroot == 'noauth'){
-          this.UrlTrack = window.location.href;
-          if(this.$route.params.referral != null){
-            this.referralUser = this.$route.params.referral;
-           }
-       this.$router.push({ path: '/auth/' + frompage });
-       return;
-      } 
-   },
-    leaveclass:function(classid){
-      Echo.leave('class.' + classid);
-    },
+checkIfUserIsLoggedIn: function(frompage){
+  if(this.checkauthroot == 'noauth'){
+    this.LocalStore('route_tracker',[this.$router.currentRoute.path]);
+   
+    if(this.$route.params.referral != null){
+      this.referralUser = this.$route.params.referral;
+     }
+   this.$router.push({ path: '/auth/' + frompage });
+    return;
+  } 
+},
+   
     loader:function(){
      
         this.pageloader = true;

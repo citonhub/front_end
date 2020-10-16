@@ -70,7 +70,7 @@ export default {
       }
     },
     mounted(){
-      this.$root.checkIfUserIsLoggedIn('space');
+      
       this.$root.showTabs=false;
        this.$root.showHeader = false;
        

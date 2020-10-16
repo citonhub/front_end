@@ -157,7 +157,7 @@ export default {
       
      if( this.$refs.form.validate()){
           this.loading = true;
-         axios.post(this.$root.baseApiUrl + '/create-space',{
+         axios.post('/create-space',{
                 name: this.name,
                 limit: this.limit,
                 type: this.type

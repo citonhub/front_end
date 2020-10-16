@@ -124,7 +124,7 @@ export default {
    
   },
     mounted(){
-     Echo.leave('space.' + this.$root.selectedSpace.space_id);
+      window.Echo.leave('space.' + this.$root.selectedSpace.space_id);
 
      
       if(this.$root.reloadSpaceInfo){

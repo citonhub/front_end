@@ -41,7 +41,9 @@ body {
   <div class="subline dec"></div>
 </div>
 
+<img src="/imgs/background1.png"  style="position:absolute;height:50%; width:100%; align-items:center; bottom:0%; left:0;"  >
 
+<img src="/imgs/top.png"  style="position:absolute;height:17%; width:20%; align-items:center; top:0%; right:0;"  >
 
 <div class="col-lg-10 col-12 offset-lg-1 py-0" style="display:fixed; top:0%;height:auto; background:white; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; " v-show="showHeader">
     <div class="row">
@@ -126,8 +128,7 @@ body {
 
       
 
-         @if(Auth::check())
-      <v-card tile flat color="#ffffff" @click="logout"  class="col-12 px-2 py-2" style="border-top:1px solid #c5c5c5; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
+         <v-card tile flat color="#ffffff" v-if="isLogged"  @click="logout"  class="col-12 px-2 py-2" style="border-top:1px solid #c5c5c5; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-logout-variant</v-icon>
@@ -137,8 +138,8 @@ body {
             </div>
            </div>
       </v-card>
-    @else
-    <v-card tile flat color="#ffffff"  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2" style="border-top:1px solid #c5c5c5; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
+  
+    <v-card  v-else tile flat color="#ffffff"  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2" style="border-top:1px solid #c5c5c5; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-login-variant</v-icon>
@@ -148,7 +149,6 @@ body {
             </div>
            </div>
       </v-card>
-    @endif
 
 </div>
 
@@ -176,21 +176,20 @@ body {
             </div>
 
           <div class="col-9 py-0 d-flex px-1" style="align-items:center;" >
-          @if(Auth::check())
-          <div class="row py-0" @click="showNavLink('profile')">
+          
+          <div class="row py-0" @click="showNavLink('profile')" v-if="isLogged">
            <div class="col-12 py-0 my-0">
            <div style="font-size:13px; font-family:HeaderText;" >@{{ authProfile.name }}</div>
            <div style="font-size:11px; color:#4d4d4d;" >@{{  '@' + authProfile.username }}</div>
            </div>
           </div>
-          @else
-          <div class="row py-0">
+         
+          <div class="row py-0"  v-else>
            <div class="col-12 py-0 my-0">
            <div style="font-size:13px; font-family:HeaderText;" >Name</div>
            <div style="font-size:11px; color:#4d4d4d;" >@username</div>
            </div>
           </div>
-          @endif
            
           </div>
           
@@ -245,29 +244,27 @@ body {
 
       </div>
 
-      @if(Auth::check())
-      <v-card tile flat  class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; position:absolute;bottom:0%;" @click="logout">
+      <v-card tile flat v-if="isLogged" class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; position:absolute;bottom:0%;" @click="logout">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon color="#3E8893">mdi-logout-variant</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Logout</span>
+               <span style="font-size:12px; color:#333333;">@{{ $t('general.logout') }}</span>
             </div>
            </div>
       </v-card>
-    @else
-    <v-card tile flat  class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; position:absolute;bottom:0%;" @click="checkIfUserIsLoggedIn('home')">
+   
+    <v-card  v-else tile flat  class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; position:absolute;bottom:0%;" @click="checkIfUserIsLoggedIn('space')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon color="#3E8893">mdi-login-variant</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Login</span>
+               <span style="font-size:12px; color:#333333;">@{{ $t('general.login') }}</span>
             </div>
            </div>
       </v-card>
-    @endif
 
      
 

@@ -76,10 +76,10 @@
   
 
           <v-card  
-      style="border-radius:10px;"
+      style="border-radius:20px;"
        height="auto"
-      
-       class="pt-2 px-1"
+         
+       class="pt-2 pb-0 col-12 col-lg-8 offset-lg-2"
   >
    <div class="row py-0 my-0"  v-if="this.$root.userBasicInfo.length != 0" >
 
@@ -339,6 +339,7 @@
 
           <v-card  
        v-if="this.$root.connectingToSocket == false"
+       class="col-12 col-lg-8 offset-lg-2 py-1 px-1"
   >
     <v-card
       color="#3E8893"
@@ -391,7 +392,7 @@
     
      
     </v-card>
-    <v-list  class="pb-3 scrollerStyle" style=" height:250px;width:100%; overflow-y:auto;">
+    <v-list  class="pb-3 scrollerStyle" style=" height:220px;width:100%; overflow-y:auto;">
 
       <v-list-item
        style="border-bottom:1px solid #c5c5c5;"
@@ -788,7 +789,7 @@ export default {
        if(this.$root.projectData.length != 0){
               
               this.$root.localChannel = [];
-             Echo.leave('panel.' + this.$root.projectData.project_slug);
+             window.Echo.leave('panel.' + this.$root.projectData.project_slug);
 
           }
           
@@ -1528,7 +1529,7 @@ export default {
       
             
            
-             this.$root.channel =   Echo.join('space.' + this.$route.params.spaceId)
+             this.$root.channel =   window.Echo.join('space.' + this.$route.params.spaceId)
       .here((users) => {
 
          
@@ -1756,15 +1757,15 @@ export default {
         function check() {
 
 
-            Echo.connector.socket.on('connect', ()=>{
+            window.Echo.connector.socket.on('connect', ()=>{
                     _this.isConnected = true
                 })
 
-            Echo.connector.socket.on('disconnect', ()=> {
+            window.Echo.connector.socket.on('disconnect', ()=> {
                     _this.isConnected = false
                 })
 
-            Echo.connector.socket.on('reconnecting', function(attemptNumber){
+            window.Echo.connector.socket.on('reconnecting', function(attemptNumber){
                  _this.isConnected = false
               });
             

@@ -69,7 +69,7 @@
              <v-card style="border-radius:10px;"
        height="auto"
       
-       class="py-2 px-1" >
+       class="py-2 px-1 col-12 col-lg-8 offset-lg-2 " >
 
             <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click="makeAdmin"
              v-if="selectedSpaceMembers.is_admin == false">
@@ -105,7 +105,7 @@
       style="border-radius:10px;"
        height="auto"
       
-       class="pt-2 px-1"
+       class="pt-2 pb-0 col-12 col-lg-8 offset-lg-2"
   >
    <div class="row py-0 my-0"  v-if="this.$root.userBasicInfo.length != 0" >
 
@@ -337,7 +337,7 @@ export default {
    
   },
     mounted(){
-     Echo.leave('space.' + this.$root.selectedSpace.space_id);
+      window.Echo.leave('space.' + this.$root.selectedSpace.space_id);
 
       this.fetchMembers();
     },

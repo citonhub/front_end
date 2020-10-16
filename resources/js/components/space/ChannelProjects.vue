@@ -76,13 +76,13 @@ export default {
   },
     mounted(){
       this.fetchMessages();
-      Echo.leave('space.' + this.$root.selectedSpace.space_id);
+       window.Echo.leave('space.' + this.$root.selectedSpace.space_id);
 
        this.fetchProjects();
         if(this.$root.projectData.length != 0){
               
               this.$root.localChannel = [];
-             Echo.leave('panel.' + this.$root.projectData.project_slug);
+              window.Echo.leave('panel.' + this.$root.projectData.project_slug);
 
             this.$root.projectData = [];
 

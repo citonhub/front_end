@@ -799,7 +799,7 @@ export default {
        this.$root.showTabs=true;
         this.$root.showHeader = false;
 
-      Echo.leave('space.' + this.$root.selectedSpace.space_id);
+      window.Echo.leave('space.' + this.$root.selectedSpace.space_id);
 
 
         this.$root.closeNotification(this.$route.params.projectSlug);
@@ -1056,7 +1056,7 @@ export default {
 
         if( this.$root.localChannel.length == 0){
           
-          var channel = Echo.private('panel.' + this.$route.params.projectSlug)
+          var channel = window.Echo.private('panel.' + this.$route.params.projectSlug)
        .listen('.PanelChannel',(e) => {
              
     

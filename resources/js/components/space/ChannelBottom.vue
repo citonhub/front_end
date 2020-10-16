@@ -325,7 +325,7 @@ export default {
         setTimeout(()=>{
 
        channel.whisper('typing', {
-          user: Laravel.user.username,
+          user: this.$root.username,
             typing: true,
             spaceId: this.$route.params.spaceId
         });
@@ -337,7 +337,7 @@ export default {
       setTimeout(()=>{
 
          channel.whisper('typing', {
-          user: Laravel.user.username,
+          user: this.$root.username,
             typing: false,
             spaceId: this.$route.params.spaceId
         });
