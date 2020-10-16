@@ -1,7 +1,7 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText; z-index:985778699686;">
 
-       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
          <div style="position:absolute; height:100%; width:100%; overflow-y:hidden;left:0;top:0%;"  v-if="showCode"> 
@@ -532,7 +532,7 @@ methods:{
       },
        runCodeOnSandbox: function(){
 
-          axios.post('/run-code-on-sandbox',{
+          axios.post( '/run-code-on-sandbox',{
                 langId: this.selectedLangId,
                 code: this.code,
                 messageId: 900

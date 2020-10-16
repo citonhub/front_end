@@ -65,7 +65,7 @@ export default {
           return;
         }
 
-         axios.post('/save-liked-duel-comment',{
+         axios.post( '/save-liked-duel-comment',{
             "comment_id": comment.id
           })
       .then(response => {

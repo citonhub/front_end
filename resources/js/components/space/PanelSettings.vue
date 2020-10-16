@@ -1,7 +1,7 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText;">
 
-       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0 scrollerStyle" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -315,7 +315,7 @@ export default {
     methods:{
          addContributors: function(){
            this.loadingConnection = true;
-               axios.post('/add-contributors',{
+               axios.post(  '/add-contributors',{
                  'contributors': this.Contributors,
                  'project_slug': this.$route.params.projectSlug
                })
@@ -340,7 +340,7 @@ export default {
          },
           changeTitle: function(){
            this.loadingTitle = true;
-               axios.post('/save-project-title',{
+               axios.post( '/save-project-title',{
                  'title': this.name,
                  'project_slug': this.$route.params.projectSlug
                })
@@ -421,7 +421,7 @@ export default {
 
       this.loadingConnection = true;
           
-           axios.get('/fetch-connected' )
+           axios.get( '/fetch-connected' )
       .then(response => {
       
       if (response.status == 200) {
@@ -453,7 +453,7 @@ export default {
 
            this.loadingDelete = true;
 
-          axios.post('/delete-project',{
+          axios.post( '/delete-project',{
                 project_slug: this.$route.params.projectSlug,
                 panel_code_files : this.$root.CodeFilesData[0]
                   })
@@ -506,7 +506,7 @@ export default {
        
      if( this.$refs.form.validate()){
           this.loading = true;
-         axios.post('/save-panel-settings-project',{
+         axios.post( '/save-panel-settings-project',{
                 project_slug: this.$route.params.projectSlug,
                 app_type: 'Multiple-pages',
                 panel_language: this.backEndLang,

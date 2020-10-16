@@ -9,7 +9,7 @@
             <full-image-viewer></full-image-viewer>
       </div>
 
-       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -58,31 +58,33 @@
 
           <div class="py-0 pb-1 px-2 col-12 my-0" >
 
-             <div style="width:100%;" v-if="post.attachment_type == 'image'" class="px-lg-4">
+          <div  v-if="post.attachment_type == 'image'" class="px-lg-4 col-lg-8 offset-lg-2">
                  <image-viewer :imageArray="post.image"></image-viewer>
              </div>
 
-              <div style="width:100%;" v-if="post.attachment_type == 'video'" class="px-lg-4">
-                 <main-video v-if="post.attachment_type == 'video'" :videoUrl="'/videos/' + post.video.video_name + '.mpd'" :backgroundColor="post.video.background_color" style="height:100%; width:100%;"
+              <div  class="px-lg-4 col-lg-8 offset-lg-2">
+
+            <main-video v-if="post.attachment_type == 'video'" :videoUrl="'/videos/' + post.video.video_name + '.mpd'" :backgroundColor="post.video.background_color" style="height:100%; width:100%;"
                :backgroundImg="'/videos/previewImage/'+ post.video.preview_image_url" :playerId="'small' + post.id" > </main-video>
+               
              </div>
 
-               <div style="width:100%;" v-if="post.attachment_type == 'code'" class="px-lg-4">
+               <div  v-if="post.attachment_type == 'code'" class="px-lg-5 col-lg-8 offset-lg-2" >
                  <code-box :codeContent="post.code.content" :filename="post.code.name" :codeLanguage="post.code.language_type" :codeViewerType="viewerType"></code-box>
              </div>
 
-             <div style="width:100%;" v-if="post.attachment_type == 'link'"  class="px-lg-4">
-                  <link-view :urlInfo="post.link" ></link-view>
-             </div>
-
-             <div style="width:100%;" v-if="post.attachment_type == 'project'" class="px-lg-5" >
+              <div v-if="post.attachment_type == 'project'" class="px-lg-5  pb-4 col-lg-8 offset-lg-2" >
                  <project :projectData="post.project"></project>
              </div>
-              <div style="width:100%;" v-if="post.attachment_type == 'duel'" class="px-lg-5" >
+              <div  v-if="post.attachment_type == 'duel'" class="px-lg-5 pb-4 col-lg-8 offset-lg-2"  >
                  <duel :duelData="post.duel"></duel>
              </div>
-              <div style="width:100%;" v-if="post.attachment_type == 'channel'" class="px-lg-5" >
+              <div  v-if="post.attachment_type == 'channel'" class="px-lg-5 pb-4 col-lg-8 offset-lg-2" >
                  <channel :channelData="post.channel"></channel>
+             </div>
+
+              <div  v-if="post.attachment_type == 'link'"  class="px-lg-5 col-lg-8 offset-lg-2">
+                  <link-view :urlInfo="post.link" ></link-view>
              </div>
                   
                 </div>
@@ -243,7 +245,7 @@ export default {
 
         }else{
            
-           axios.get('/fetch-post/' + this.$root.currentPostId )
+           axios.get( '/fetch-post/' + this.$root.currentPostId )
       .then(response => {
       
       if (response.status == 200) {

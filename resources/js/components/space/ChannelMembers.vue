@@ -357,7 +357,7 @@ export default {
       },
       makeAdmin:function(){
 
-         axios.post('/make-user-admin',{
+         axios.post( '/make-user-admin',{
            memberId: this.selectedSpaceMembers.memberId
          })
       .then(response => {
@@ -440,7 +440,7 @@ export default {
           
             this.$root.selectedMember = member;
             
-      axios.get('/fetch-user-info/'  + member.username )
+      axios.get( '/fetch-user-info/'  + member.username )
       .then(response => {
       
       if (response.status == 200) {
@@ -463,7 +463,7 @@ export default {
       },
          connectToUser:function(){
            this.connectionLoading = true;
-         axios.get('/connect-user-'+ this.$root.userBasicInfo.userData.username)
+         axios.get( '/connect-user-'+ this.$root.userBasicInfo.userData.username)
       .then(response => {
       
       if (response.status == 200) {
@@ -533,7 +533,7 @@ export default {
 
         this.loading = true;
            
-          axios.post('/create-space',{
+          axios.post( '/create-space',{
                 name: '',
                 limit: 2,
                 memberId: member.user_id,
@@ -654,7 +654,7 @@ export default {
        },
         fetchMembers: function(){
           
-           axios.get('/fetch-space-members-' + this.$root.selectedSpace.general_spaceId )
+           axios.get( '/fetch-space-members-' + this.$root.selectedSpace.general_spaceId )
       .then(response => {
       
       if (response.status == 200) {

@@ -1,12 +1,12 @@
 <template>
 
-<v-app  class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0" style="position:absolute; font-family:BodyText; background:transparent; height:100%; overflow-y:auto; overflow-x:hidden; ">
+<v-app  class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 my-0 px-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; font-family:BodyText; background:transparent; height:100%; overflow-y:auto; overflow-x:hidden; ">
         <div class="row my-0 py-0 px-0">
 
           
 
          
-       <div class="col-12 py-3 morebackground4 d-flex" >  
+       <div class="col-12 col-lg-8 offset-lg-2 py-3 morebackground4 d-flex" >  
          <v-card class="py-1 px-2 row" >
             <div class="col-12 text-center py-1">
                <h6>Oops! Page not found</h6>

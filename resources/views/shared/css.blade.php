@@ -128,7 +128,7 @@ body::-webkit-scrollbar-thumb {
    .iconname{
       font-weight:bold;
       color:#A6A6A6;
-      font-size:12px;
+      font-size:14px;
    }
 
    .iconcontainer{
@@ -190,7 +190,7 @@ body::-webkit-scrollbar-thumb {
    .iconnamemd{
       font-weight:bold;
       color:#A6A6A6;
-      font-size:12px;
+      font-size:14px;
    }
 
    .iconnamesm{

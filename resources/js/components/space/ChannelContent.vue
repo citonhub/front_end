@@ -1,5 +1,5 @@
 <template>
-    <div style="background:#F3FFFC; position:absolute; height:100%; width:100%; overflow-y:hidden;left:0; overflow-x:hidden; " >
+    <div style="background:#F3FFFC; position:absolute; height:100%; width:100%; overflow-y:hidden;left:0; overflow-x:hidden; border-right:1px solid #e6e6e6;" >
 
        <div v-if="this.$root.Messages != null">
       
@@ -70,7 +70,7 @@
 
 
 
- <div  @click="closeUserInfoBoard"   v-if="this.$root.showUserInfo" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+ <div  @click="closeUserInfoBoard"   v-if="this.$root.showUserInfo" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
     
        <div @click.stop="preventCloseBoard" style="position:absolute; height:auto; width:90%; bottom:5%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
   
@@ -270,7 +270,7 @@
 
      
 
-      <div v-if="this.$root.liveIsOn" @click="closeLiveBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; left:0%; top:%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+      <div v-if="this.$root.liveIsOn" @click="closeLiveBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; left:0%; top:%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
     
 
 
@@ -483,7 +483,7 @@
 
 
 
-       <div    v-if="this.$root.showAdminOptions" @click="that.$root.showAdminOptions = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+       <div    v-if="this.$root.showAdminOptions" @click="that.$root.showAdminOptions = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="that.$root.showAdminOptions = true" style="position:absolute; height:auto; width:90%; top:30%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
              <v-card style="border-radius:10px;"
@@ -519,7 +519,7 @@
        </div>
       
 
-         <div   class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0 fixed-bottom " style="z-index:66;" >
+         <div   class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 my-0 px-0 fixed-bottom " style="z-index:66; " >
                 <div class="px-2" v-if="this.$root.showRootReply">
 
                   <div class=" py-2 px-2  text-left mb-1"  style="background:#3E8893; border:1px solid transparent; border-radius:8px;" >
@@ -882,7 +882,7 @@ export default {
           makeUserMaster: function(member){
 
 
-        axios.post('/make-user-master',{
+        axios.post( '/make-user-master',{
            memberId: member.memberId,
            space_id: this.$route.params.spaceId
          })
@@ -955,7 +955,7 @@ export default {
         },
        fetchSpaceInfo: function(){
 
-            axios.get('/fetch-space-info-'+ this.$route.params.spaceId)
+            axios.get( '/fetch-space-info-'+ this.$route.params.spaceId)
    .then(response => {
    
    if (response.status == 200) {
@@ -1131,7 +1131,7 @@ export default {
      
       connectToUser:function(){
            this.connectionLoading = true;
-         axios.get('/connect-user-'+ this.$root.userBasicInfo.userData.username)
+         axios.get( '/connect-user-'+ this.$root.userBasicInfo.userData.username)
       .then(response => {
       
       if (response.status == 200) {
@@ -1208,7 +1208,7 @@ export default {
 
         this.loading = true;
            
-          axios.post('/create-space',{
+          axios.post( '/create-space',{
                 name: '',
                 limit: 2,
                 memberId: member.id,
@@ -1410,7 +1410,7 @@ export default {
         trackUser: function(){
       
 
-         axios.get('/fetch-profile-'+ this.$root.username)
+         axios.get( '/fetch-profile-'+ this.$root.username)
    .then(response => {
    
    if (response.status == 200) {
@@ -1815,7 +1815,7 @@ export default {
       getMemberUpdates: function(spaceId){
 
 
-      axios.get('/fetch-space-members-' + spaceId )
+      axios.get( '/fetch-space-members-' + spaceId )
       .then(response => {
       
       if (response.status == 200) {
@@ -1847,7 +1847,7 @@ export default {
 
          
            
-          axios.post('/check-for-unread-messages-clean',{
+          axios.post( '/check-for-unread-messages-clean',{
                 spaceId: this.$route.params.spaceId,
                 existingMsg: result,
                 localMessageCount:  this.$root.returnedMessages.length
@@ -2088,7 +2088,7 @@ export default {
         },
      updateLocalStorage: function(){
 
-          axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
+          axios.get( '/fetch-space-messages-' + this.$route.params.spaceId )
       .then(response => {
       
       if (response.status == 200) {
@@ -2328,7 +2328,7 @@ export default {
                 
                }else{
                   
-                    axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
+                    axios.get( '/fetch-space-messages-' + this.$route.params.spaceId )
       .then(response => {
       
       if (response.status == 200) {

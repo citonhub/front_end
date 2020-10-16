@@ -211,6 +211,7 @@ const app = new Vue({
         frompage:'profile',
         showLangOption:false,
         userLocale:document.getElementById('appLocale').value,
+        baseApiUrl:'http://api.citonhubnew.com/api',
     },
     mounted: function () {
       this.pageloader= false;
@@ -274,7 +275,7 @@ const app = new Vue({
       },
     showNavLink:function(type){
       if(type == 'library'){
-        window.location = '/#/library';
+        window.location = '/hub#/library';
       }
 
       if(type == 'duel_list'){

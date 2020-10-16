@@ -1,7 +1,7 @@
 <template>
     <v-app style="font-family:BodyText;background:transparent; ">
 
-       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0 scrollerStyle" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
@@ -28,16 +28,16 @@
        <div class="col-12 py-0 my-0" v-if="pageContent != ''" >
           <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"   v-if="duelPanelIsWeb"
    :srcdoc="pageContent" 
-    style="border: 0; height:91%; top:7%; position:fixed;left:0;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-0" ></iframe>
+    style="border: 0; height:91%; top:7%; position:fixed;left:0;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 px-1 py-0" ></iframe>
 
-  <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:7%; font-size:14px; " class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-3 py-3" >
+  <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:7%; font-size:14px; " class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 px-3 py-3" >
 </textarea>
        </div>
 
     <div class="col-12 py-0 my-0"  v-if="pageContent == '' && !loading">
       <div 
       
-    style="border: 0; height:91%; top:7%; position:fixed;left:0; align-items:center; justify-content:center;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-0 d-flex" >
+    style="border: 0; height:91%; top:7%; position:fixed;left:0; align-items:center; justify-content:center;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 px-1 py-0 d-flex" >
          <span style="font-size:13px; color:gray;">
             
            {{ $t('duels.selete_to_view') }}
@@ -50,7 +50,7 @@
     <v-app class="col-12 py-0 my-0" v-if="pageContent == '' && loading">
       <div 
        
-    style="border: 0; height:91%; top:7%; position:fixed;left:0; align-items:center; justify-content:center;" class="col-md-8 offset-md-2 px-5 col-lg-4 offset-lg-4 px-1 py-0 d-flex" >
+    style="border: 0; height:91%; top:7%; position:fixed;left:0; align-items:center; justify-content:center;" class="col-md-8 offset-md-2 px-5 col-lg-6 offset-lg-6 px-1 py-0 d-flex" >
          <v-progress-linear indeterminate color="#3E8893" rounded ></v-progress-linear>
        </div>
     </v-app>
@@ -58,7 +58,7 @@
 
        
                 <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
-                 class="d-flex col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2" v-if="votes.length != 0">
+                 class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2" v-if="votes.length != 0">
                   
                   <span  v-if="selectedParticipantId == ''"><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:12px; color:white;" class="px-1">{{ $t('duels.votes') }}</span> </span>
                   
@@ -80,7 +80,7 @@
                 </div>
 
                  <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
-                 class="d-flex col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2" v-else>
+                 class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2" v-else>
                    <div class="row py-2 d-flex" style="align-items:center; justify-content:center;">
                        <span><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:13px; color:white;" class="px-1">{{participantSelected.votes}} {{ $t('duels.votes') }}</span> </span>
                    </div>
@@ -188,7 +188,7 @@ methods:{
           
         },
          loadPageContent: function(panelId){
-         axios.get('/run-panel/' + panelId)
+         axios.get( '/run-panel/' + panelId)
       .then(response => {
       
       if (response.status == 200) {
@@ -220,7 +220,7 @@ methods:{
 
                _this.recheckCodeBox = false;
 
-                axios.post('/check-for-submission',{
+                axios.post( '/check-for-submission',{
                token: token,
                 langId: langId
                   })
@@ -300,7 +300,7 @@ methods:{
       },
        runCodeOnSandbox: function(){
 
-          axios.post('/run-code-on-sandbox-project',{
+          axios.post( '/run-code-on-sandbox-project',{
                 panel_id: this.selecetedPanelId,
                   })
           .then(response => {
@@ -369,7 +369,7 @@ methods:{
         
          this.$root.checkIfUserIsLoggedIn('duels');
 
-         axios.get('/fetch-duel-participants/' + this.$route.params.duelId)
+         axios.get( '/fetch-duel-participants/' + this.$route.params.duelId)
       .then(response => {
       
       if (response.status == 200) {
@@ -408,7 +408,7 @@ methods:{
           this.$root.checkIfUserIsLoggedIn('duels');
         
 
-         axios.get('/fetch-duel-results/' + this.$route.params.duelId)
+         axios.get( '/fetch-duel-results/' + this.$route.params.duelId)
       .then(response => {
       
       if (response.status == 200) {
@@ -468,7 +468,7 @@ methods:{
            return;
          }
           this.saveLoading = true;
-           axios.post('/save-duel-votes',{
+           axios.post( '/save-duel-votes',{
              votes: this.votes
            })
       .then(response => {

@@ -1,7 +1,7 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText;">
 
-       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0 scrollerStyle" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
         <div class="col-12 py-1 my-0 fixed-top" style="position:sticky; background:#3E8893;">
@@ -203,7 +203,7 @@ export default {
     },
     fetchSuggestions:function(){
           this.loading = true;
-           axios.get('/fetch-suggested-channels/' )
+           axios.get( '/fetch-suggested-channels/' )
       .then(response => {
       
       if (response.status == 200) {
@@ -235,7 +235,7 @@ export default {
        });
 
         this.loadingContinue = true;
-           axios.post('/save-selected-channels',{
+           axios.post( '/save-selected-channels',{
               selectedChannels: selectedChannels
            })
       .then(response => {

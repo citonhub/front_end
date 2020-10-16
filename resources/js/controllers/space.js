@@ -501,7 +501,7 @@ const app = new Vue({
      
       this.$root.$i18n.locale = locale;
 
-      axios.post('/save-locale',{
+      axios.post( '/save-locale',{
         locale: locale
       }).then(response => {
           
@@ -583,7 +583,7 @@ const app = new Vue({
 
              this.$root.makeRecallSpace = false;
 
-axios.get('/check-for-new-space-messages')
+axios.get( '/check-for-new-space-messages')
  .then(response => {
  
  if (response.status == 200) {
@@ -1224,7 +1224,7 @@ console.log(err)
       },
     showNavLink:function(type){
       if(type == 'library'){
-        window.location = '/#/library';
+        window.location = '/hub#/library';
       }
 
       if(type == 'profile'){

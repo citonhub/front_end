@@ -30,31 +30,33 @@
 
           <div class="py-0 pb-1 px-2 col-12 my-0" >
 
-             <div style="width:100%;" v-if="source.attachment_type == 'image'" class="px-lg-4">
+            <div  v-if="source.attachment_type == 'image'" class="px-lg-4 col-lg-8 offset-lg-2">
                  <image-viewer :imageArray="source.image"></image-viewer>
              </div>
 
-              <div style="width:100%;" v-if="source.attachment_type == 'video'" class="px-lg-4">
-                 <video-player :videoUrl="'/videos/' + source.video.video_name + '.' + source.video.video_extension" :backgroundColor="source.video.background_color"
-                  :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url"></video-player>
+              <div  class="px-lg-4 col-lg-8 offset-lg-2">
+
+            <main-video v-if="source.attachment_type == 'video'" :videoUrl="'/videos/' + source.video.video_name + '.mpd'" :backgroundColor="source.video.background_color" style="height:100%; width:100%;"
+               :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.id" > </main-video>
+               
              </div>
 
-               <div style="width:100%;" v-if="source.attachment_type == 'code'" class="px-lg-4">
+               <div  v-if="source.attachment_type == 'code'" class="px-lg-5 col-lg-8 offset-lg-2" >
                  <code-box :codeContent="source.code.content" :filename="source.code.name" :codeLanguage="source.code.language_type" :codeViewerType="viewerType"></code-box>
              </div>
 
-             <div style="width:100%;" v-if="source.attachment_type == 'link'"  class="px-lg-4">
-                  <link-view :urlInfo="source.link" ></link-view>
-             </div>
-
-             <div style="width:100%;" v-if="source.attachment_type == 'project'" class="px-lg-5 pb-4" >
+              <div v-if="source.attachment_type == 'project'" class="px-lg-5  pb-4 col-lg-8 offset-lg-2" >
                  <project :projectData="source.project"></project>
              </div>
-              <div style="width:100%;" v-if="source.attachment_type == 'duel'" class="px-lg-5 pb-4" >
+              <div  v-if="source.attachment_type == 'duel'" class="px-lg-5 pb-4 col-lg-8 offset-lg-2"  >
                  <duel :duelData="source.duel"></duel>
              </div>
-              <div style="width:100%;" v-if="source.attachment_type == 'channel'" class="px-lg-5 pb-4" >
+              <div  v-if="source.attachment_type == 'channel'" class="px-lg-5 pb-4 col-lg-8 offset-lg-2" >
                  <channel :channelData="source.channel"></channel>
+             </div>
+
+              <div  v-if="source.attachment_type == 'link'"  class="px-lg-5 col-lg-8 offset-lg-2">
+                  <link-view :urlInfo="source.link" ></link-view>
              </div>
                   
                 </div>

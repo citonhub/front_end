@@ -1,7 +1,7 @@
 <template>
      <div  style="background:transparent; font-family:BodyText; z-index:9998999889090999;">
 
-       <div class=" col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:fixed;  background:rgba(38, 82, 89,0.4); height:100%; overflow-y:auto; overflow-x:hidden; z-index:9998999889090999;" 
+       <div class=" col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:fixed;  background:rgba(38, 82, 89,0.4); height:100%; overflow-y:auto; overflow-x:hidden; z-index:9998999889090999;" 
          @click="closeShare">
          <div class="row my-0 py-0 px-2">
 
@@ -324,7 +324,7 @@ export default {
             
               
               this.loadingEmail = true;
-             axios.post('/send-space-invite-mail',{
+             axios.post( '/send-space-invite-mail',{
                 space_id: this.$route.params.spaceId,
                 mails: this.mails
                   })
@@ -350,7 +350,7 @@ export default {
 
       this.loadingConnection = true;
           
-           axios.get('/fetch-connected' )
+           axios.get( '/fetch-connected' )
       .then(response => {
       
       if (response.status == 200) {

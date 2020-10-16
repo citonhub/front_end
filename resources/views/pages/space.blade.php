@@ -28,7 +28,7 @@
 
 <style>
 .body{
-    background:#edf6f7;
+    background:#ffffff;
   }
 
 html,
@@ -57,7 +57,7 @@ body {
 
 
             
-<div class="col-lg-8 col-12 offset-lg-2 py-0" style="display:fixed; top:0%;height:auto; background:white;" v-show="showHeader"> 
+<div class="col-lg-10 col-12 offset-lg-1 py-0" style="display:fixed; top:0%;height:auto; background:white; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; " v-show="showHeader"> 
     <div class="row">
     <div class="col-4 d-flex  py-1" style="border-bottom:1px solid #e6e6e6;  align-items:center; ">
     <div>
@@ -89,7 +89,7 @@ body {
 <space></space>
 
 
-<div   v-if="showLangOption" @click="showLangOption = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+<div   v-if="showLangOption" @click="showLangOption = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="showLangOption = true" style="position:absolute; height:auto; width:90%; bottom:50%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
              <v-card style="border-radius:10px;"
@@ -117,47 +117,47 @@ body {
 
 
 <div class=" d-none d-md-none d-lg-block mx-2  py-2" 
- style="border-radius:7px; height:80%; position:fixed; width:15%;top:10%; right:16.60%; background:white; border:1px solid #b7dbe1;" >
+ style="border-radius:7px; height:80%; position:fixed; width:15%;top:10%; right:8.30%; background:#ffffff; border:1px solid #c5c5c5;" >
 
   
       
-         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;"  @click="showNavLink('duel_list')">
+         <v-card tile flat color="#ffffff"  class="col-12 px-2 py-2" style="border-bottom:1px solid #c5c5c5;"  @click="showNavLink('library')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-layers</v-icon>
+                <v-icon >mdi-inbox-full-outline</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">@{{ $t('general.Duel_list') }}</span>
+               <span style="font-size:14px;  font-weight: bold; color:#595959;">My Library</span>
             </div>
            </div>
          </v-card>
-         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;"  @click="showNavLink('account_settings')">
+         <v-card tile flat color="#ffffff" class="col-12 px-2 py-2" style="border-bottom:1px solid #c5c5c5;"  @click="showNavLink('account_settings')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-account-cog-outline</v-icon>
+                <v-icon >mdi-account-cog-outline</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">@{{ $t('general.Account_Setting') }}</span>
+               <span style="font-size:14px;  font-weight: bold; color:#595959;">@{{ $t('general.Account_Setting') }}</span>
             </div>
            </div>
          </v-card>
-         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;"  @click="showNavLink('privacy')">
+         <v-card tile flat color="#ffffff" class="col-12 px-2 py-2" style="border-bottom:1px solid #c5c5c5;"  @click="showNavLink('privacy')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-account-tie-outline</v-icon>
+                <v-icon>mdi-account-tie-outline</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">@{{ $t('general.Privacy') }}</span>
+               <span style="font-size:14px; font-weight: bold; color:#595959;">@{{ $t('general.Privacy') }}</span>
             </div>
            </div>
          </v-card>
-         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;"  @click="showNavLink('help')">
+         <v-card tile flat color="#ffffff" class="col-12 px-2 py-2" style="border-bottom:1px solid #c5c5c5;"  @click="showNavLink('help')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-comment-question-outline</v-icon>
+                <v-icon>mdi-comment-question-outline</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">@{{ $t('general.Help') }}</span>
+               <span style="font-size:14px; font-weight: bold; color:#595959;">@{{ $t('general.Help') }}</span>
             </div>
            </div>
          </v-card>
@@ -167,24 +167,24 @@ body {
       
 
          @if(Auth::check())
-      <v-card tile flat  @click="logout"  class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
+      <v-card tile flat color="#ffffff" @click="logout"  class="col-12 px-2 py-2" style="border-top:1px solid #c5c5c5; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-logout-variant</v-icon>
+                <v-icon >mdi-logout-variant</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">@{{ $t('general.logout') }}</span>
+               <span style="font-size:14px;  font-weight: bold; color:#595959;">@{{ $t('general.logout') }}</span>
             </div>
            </div>
       </v-card>
     @else
-    <v-card tile flat  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
+    <v-card tile flat color="#ffffff"  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2" style="border-top:1px solid #c5c5c5; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-login-variant</v-icon>
+                <v-icon >mdi-login-variant</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">@{{ $t('general.login') }}</span>
+               <span style="font-size:14px; font-weight: bold; color:#595959;">@{{ $t('general.login') }}</span>
             </div>
            </div>
       </v-card>
@@ -241,13 +241,13 @@ body {
       <div class="col-12 py-3 px-0">
        <div class="row py-0 my-0" >
         
-         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;" @click="showNavLink('duel_list')">
+         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;" @click="showNavLink('library')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-layers</v-icon>
+                <v-icon color="#3E8893">mdi-inbox-full-outline</v-icon>
             </div>
             <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">@{{ $t('general.Duel_list') }}</span>
+               <span style="font-size:12px; color:#333333;">My Library</span>
             </div>
            </div>
          </v-card>
@@ -353,7 +353,7 @@ body {
 
    <script src="https://unpkg.com/marked@0.3.6"></script>
 
- <script src="{{ asset('js/space.js?v=5.11') }}"></script>
+ <script src="{{ asset('js/space.js?v=5.16') }}"></script>
  
      
  @endsection

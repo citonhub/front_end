@@ -1,7 +1,7 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText;">
 
-       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0 scrollerStyle" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -35,7 +35,7 @@
    :srcdoc="pageContent" 
     style="border: 0; height:91%; position:fixed;left:0;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-0" ></iframe>
 
-<textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; " class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-3 py-3" >
+<textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 px-3 py-3" >
 </textarea>
         </div>
 
@@ -97,7 +97,7 @@ export default {
         trackUser: function(){
       
 
-         axios.get('/fetch-profile-'+ this.$root.username)
+         axios.get( '/fetch-profile-'+ this.$root.username)
    .then(response => {
    
    if (response.status == 200) {
@@ -141,7 +141,7 @@ export default {
       },
     
      loadPageContent: function(){
-         axios.get('/run-panel/' + this.$root.CodeFilesData[1].panel_id)
+         axios.get( '/run-panel/' + this.$root.CodeFilesData[1].panel_id)
       .then(response => {
       
       if (response.status == 200) {
@@ -161,7 +161,7 @@ export default {
      },
       runCodeOnSandbox: function(){
 
-          axios.post('/run-code-on-sandbox-project',{
+          axios.post( '/run-code-on-sandbox-project',{
                 panel_id: this.$root.CodeFilesData[1].panel_id,
                   })
           .then(response => {
@@ -240,7 +240,7 @@ export default {
 
                _this.recheckCodeBox = false;
 
-                axios.post('/check-for-submission',{
+                axios.post( '/check-for-submission',{
                token: token,
                 langId: langId
                   })

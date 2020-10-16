@@ -1,7 +1,7 @@
 <template>
     <v-app style="font-family:BodyText;background:transparent;overflow-x:hidden;">
 
-      <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0 scrollerStyle" style="position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
+      <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
         <div style="overflow-y:auto;position:absolute;left:0; width:100%; height:100%; overflow-x:hidden;" class="scrollerStyle">
          <div class="row my-0 py-0 px-2" >
 
@@ -911,7 +911,7 @@ export default {
     handleExtensionAdd: function(){
 
       this.loadingAddExt = true;
-         axios.post('/add-extension-project',{
+         axios.post( '/add-extension-project',{
                 duel_id: this.$route.params.duelId,
                 extensionVal: this.selectedExtension.latest
                   })
@@ -994,7 +994,7 @@ export default {
         trackUser: function(){
       
 
-         axios.get('/fetch-profile-'+ this.$root.username)
+         axios.get( '/fetch-profile-'+ this.$root.username)
    .then(response => {
    
    if (response.status == 200) {
@@ -1146,7 +1146,7 @@ export default {
        return;
       }
        this.loadingTeamBtn = true;
-      axios.post('/make-team',{
+      axios.post( '/make-team',{
          duel_id :   this.$route.params.duelId,
          name : this.teamName
       })
@@ -1291,7 +1291,7 @@ export default {
 
       }else{
        
-       axios.get('/fetch-this-duel/' + this.$route.params.duelId + '/' + this.$route.params.type)
+       axios.get( '/fetch-this-duel/' + this.$route.params.duelId + '/' + this.$route.params.type)
       .then(response => {
       
       if (response.status == 200) {
@@ -1439,7 +1439,7 @@ export default {
    },
 
    fetchUpdatedContent: function(){
-       axios.get('/fetch-code-files/' + this.$route.params.duelId)
+       axios.get( '/fetch-code-files/' + this.$route.params.duelId)
       .then(response => {
       
       if (response.status == 200) {

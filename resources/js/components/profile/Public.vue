@@ -171,7 +171,7 @@ export default {
         if(postData.post_liked){
           return;
         }
-          axios.post('/save-liked-post',{
+          axios.post( '/save-liked-post',{
             "post_id": postData.PostId
           })
       .then(response => {

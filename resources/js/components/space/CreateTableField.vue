@@ -1,7 +1,7 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText;">
 
-       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -167,7 +167,7 @@ export default {
       
      if( this.$refs.form.validate()){
           this.loading = true;
-         axios.post('/save-db-table-field',{
+         axios.post( '/save-db-table-field',{
                 name: this.FieldName,
                 data_type: this.dataTypeValue,
                 table_id: this.$root.SelectedTable.id

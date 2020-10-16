@@ -1,7 +1,7 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText;">
 
-       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0 scrollerStyle" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -26,7 +26,7 @@
         <v-app class="col-12 py-0 my-0" v-if="pageContent == ''">
       <div 
        
-    style="border: 0; height:91%; top:7%; position:fixed;left:0; align-items:center; justify-content:center;" class="col-md-8 offset-md-2 px-5 col-lg-4 offset-lg-4 px-1 py-0 d-flex" >
+    style="border: 0; height:91%; top:7%; position:fixed;left:0; align-items:center; justify-content:center;" class="col-md-8 offset-md-2 px-5 col-lg-6 offset-lg-3 px-1 py-0 d-flex" >
          <v-progress-linear indeterminate color="#3E8893" rounded ></v-progress-linear>
        </div>
     </v-app>
@@ -38,7 +38,7 @@
     style="border: 0; height:91%; position:fixed;left:0; top:6%;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-0" ></iframe>
 
   
-   <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; " class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-3 py-3" >
+   <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; " class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 px-3 py-3" >
        
     </textarea>
 
@@ -47,7 +47,7 @@
 
 
        <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
-                 class="d-flex col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2"  v-if="UserStar.length != 0 && userLoggedIn">
+                 class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2"  v-if="UserStar.length != 0 && userLoggedIn">
                    <div class="row py-0 my-0">
                     
                       <div class="col-12 py-0 text-center">
@@ -65,7 +65,7 @@
                 </div>
 
                  <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
-                 class="d-flex col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2" v-if="UserStar.length == 0 && userLoggedIn">
+                 class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2" v-if="UserStar.length == 0 && userLoggedIn">
                    <div class="row py-2 d-flex" style="align-items:center; justify-content:center;">
                        <span><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:13px; color:white;" class="px-1">{{projectData.total_stars}} {{$t('general.stars')}}</span> </span>
                    </div>
@@ -73,7 +73,7 @@
                 </div>
 
                 <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
-                 class="d-flex col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2" v-if="!userLoggedIn">
+                 class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2" v-if="!userLoggedIn">
                    <div class="row py-2 d-flex" style="align-items:center; justify-content:center;" @click="showLogin">
                       <v-rating  background-color="#edf6f7" color="#edf6f7"  ></v-rating>
                    </div>
@@ -207,7 +207,7 @@ export default {
         trackUser: function(){
       
 
-         axios.get('/fetch-profile-'+ this.$root.username)
+         axios.get(  '/fetch-profile-'+ this.$root.username)
    .then(response => {
    
    if (response.status == 200) {
@@ -266,7 +266,7 @@ export default {
         },
         fetchProject: function(){
         
-         axios.get('/fetch-project-' + this.$route.params.projectSlug)
+         axios.get( '/fetch-project-' + this.$route.params.projectSlug)
       .then(response => {
       
       if (response.status == 200) {
@@ -312,7 +312,7 @@ export default {
 
                _this.recheckCodeBox = false;
 
-                axios.post('/check-for-submission',{
+                axios.post( '/check-for-submission',{
                token: token,
                 langId: langId
                   })
@@ -392,7 +392,7 @@ export default {
       },
       runCodeOnSandbox: function(){
 
-          axios.post('/run-code-on-sandbox-project',{
+          axios.post( '/run-code-on-sandbox-project',{
                 panel_id: this.projectData.panel_id,
                   })
           .then(response => {
@@ -460,7 +460,7 @@ export default {
         SaveStars:function(){
           
           this.saveLoading = true;
-           axios.post('/save-project-stars',{
+           axios.post( '/save-project-stars',{
              stars: this.UserStar
            })
       .then(response => {
@@ -482,7 +482,7 @@ export default {
         },
 
      loadPageContent: function(){
-         axios.get('/run-panel/' + this.projectData.panel_id)
+         axios.get( '/run-panel/' + this.projectData.panel_id)
       .then(response => {
       
       if (response.status == 200) {

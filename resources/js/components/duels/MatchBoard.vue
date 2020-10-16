@@ -1,7 +1,7 @@
 <template>
      <div>
 
-    <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
+    <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
         <div class="col-12 py-0 my-0">
@@ -229,7 +229,7 @@ export default {
 
      let duel = this.selectedDuel;
        
-      axios.post('/start-duel',{
+      axios.post( '/start-duel',{
                 
                 duelId: duel.duel_id
                 
@@ -278,7 +278,7 @@ export default {
         trackUser: function(){
       
 
-         axios.get('/fetch-profile-'+ this.$root.username)
+         axios.get( '/fetch-profile-'+ this.$root.username)
    .then(response => {
    
    if (response.status == 200) {
@@ -314,7 +314,7 @@ export default {
           return;
         }
 
-        axios.post('/save-liked-duel',{
+        axios.post(  '/save-liked-duel',{
             "duel_id": this.$route.params.duelId
           })
       .then(response => {
@@ -377,7 +377,7 @@ export default {
 
 
           }else{
-             axios.get('/fetch-this-duel/' + this.$route.params.duelId + '/user')
+             axios.get( '/fetch-this-duel/' + this.$route.params.duelId + '/user')
       .then(response => {
       
       if (response.status == 200) {
@@ -446,7 +446,7 @@ export default {
              this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/comment' });
       },
       fetchDuelComments: function(){
-         axios.get('/fetch-duel-comments/' + this.$route.params.duelId)
+         axios.get(  '/fetch-duel-comments/' + this.$route.params.duelId)
       .then(response => {
       
       if (response.status == 200) {
@@ -472,7 +472,7 @@ export default {
 
            this.$root.reloadDuelBoard = true;
         
-         axios.post('/join-duel',{
+         axios.post( '/join-duel',{
            duel_id: this.$route.params.duelId
          })
       .then(response => {

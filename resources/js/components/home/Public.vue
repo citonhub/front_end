@@ -3,8 +3,10 @@
        
    
     
-          <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 my-0 py-1 "   :id="'post'+ source.id" @click.stop="viewPost(source,'fromcomment')" 
+          <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 my-0 py-1 "   :id="'post'+ source.id" @click.stop="viewPost(source,'fromcomment')" 
     style="cursor:pointer;" >
+
+    
     
         <div class="row ml-lg-1" style="background-color:white; border-bottom:1px solid #cccccc;" >
            <div class="col-12 py-0 d-flex "  >
@@ -31,34 +33,34 @@
            <!-- commented post -->
       
 
-          <div class="py-0 pb-1 px-2 col-12 my-0" >
+          <div class="py-0 pb-1 px-2 col-12 my-0 " >
 
-             <div style="width:100%;" v-if="source.attachment_type == 'image'" class="px-lg-4">
+             <div  v-if="source.attachment_type == 'image'" class="px-lg-4 col-lg-8 offset-lg-2">
                  <image-viewer :imageArray="source.image"></image-viewer>
              </div>
 
-              <div style="width:100%;" class="px-lg-4">
+              <div  class="px-lg-4 col-lg-8 offset-lg-2">
 
             <main-video v-if="source.attachment_type == 'video'" :videoUrl="'/videos/' + source.video.video_name + '.mpd'" :backgroundColor="source.video.background_color" style="height:100%; width:100%;"
                :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.id" > </main-video>
                
              </div>
 
-               <div style="width:100%;" v-if="source.attachment_type == 'code'" class="px-lg-5" >
+               <div  v-if="source.attachment_type == 'code'" class="px-lg-5 col-lg-8 offset-lg-2" >
                  <code-box :codeContent="source.code.content" :filename="source.code.name" :codeLanguage="source.code.language_type" :codeViewerType="viewerType"></code-box>
              </div>
 
-              <div style="width:100%;" v-if="source.attachment_type == 'project'" class="px-lg-5 pb-4" >
+              <div v-if="source.attachment_type == 'project'" class="px-lg-5  pb-4 col-lg-8 offset-lg-2" >
                  <project :projectData="source.project"></project>
              </div>
-              <div style="width:100%;" v-if="source.attachment_type == 'duel'" class="px-lg-5 pb-4" >
+              <div  v-if="source.attachment_type == 'duel'" class="px-lg-5 pb-4 col-lg-8 offset-lg-2"  >
                  <duel :duelData="source.duel"></duel>
              </div>
-              <div style="width:100%;" v-if="source.attachment_type == 'channel'" class="px-lg-5 pb-4" >
+              <div  v-if="source.attachment_type == 'channel'" class="px-lg-5 pb-4 col-lg-8 offset-lg-2" >
                  <channel :channelData="source.channel"></channel>
              </div>
 
-              <div style="width:100%;" v-if="source.attachment_type == 'link'"  class="px-lg-5">
+              <div  v-if="source.attachment_type == 'link'"  class="px-lg-5 col-lg-8 offset-lg-2">
                   <link-view :urlInfo="source.link" ></link-view>
              </div>
                   

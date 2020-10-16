@@ -67,6 +67,7 @@
     "vue-virtual-scroller": "^1.0.10",
     "vue2-medium-editor": "^1.1.6",
     "vuetify": "^2.2.15",
-    "vuetify-audio": "^0.3.2"
+    "vuetify-audio": "^0.3.2",
+    "vuex": "^3.5.1"
   }
 }

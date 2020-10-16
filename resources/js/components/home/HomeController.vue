@@ -2,7 +2,7 @@
 <div style="overflow-y:hidden;">
       
       
-     <div class=" col-md-8 offset-md-2  col-lg-4 offset-lg-4  py-0 px-0 my-0" style="position:absolute;z-index:20; background:white; height:100%;" >
+     <div class=" col-md-8 offset-md-2  col-lg-6 offset-lg-3  py-0 px-0 my-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute;z-index:20; background:white; height:100%;" >
    <DynamicScroller
     :items="this.$root.postData"
      v-if="this.$root.postData.length != 0"
@@ -39,7 +39,7 @@
   </DynamicScroller> 
 
 <div v-else class="postScroll" :style="'background:transparent; font-family:BodyText;position:fixed;left:0; width:100%; height:100%; overflow-y:' + scrollValue + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'">
-      <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0">
+      <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 my-0">
 
          <div class="ml-lg-1 row py-0 my-0 px-1">
           <div  class="col-6 py-0 my-0 px-0">
@@ -250,7 +250,7 @@ export default {
         trackUser: function(){
       
 
-         axios.get('/fetch-profile-'+ this.$root.username)
+         axios.get( '/fetch-profile-'+ this.$root.username)
    .then(response => {
    
    if (response.status == 200) {
@@ -282,7 +282,7 @@ export default {
                
             }else{
                
-                axios.get('/fetch-post')
+                axios.get( '/fetch-post')
       .then(response => {
       
       if (response.status == 200) {
@@ -330,7 +330,7 @@ export default {
                this.loadingFromBottom = true;
             }
             let nextPage = parseInt(this.$root.postCurrentPage)  + 1
-            axios.get('/fetch-post?page=' + nextPage )
+            axios.get( '/fetch-post?page=' + nextPage )
       .then(response => {
       
       if (response.status == 200) {

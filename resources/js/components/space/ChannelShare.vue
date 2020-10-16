@@ -303,7 +303,7 @@ export default {
             this.projectArray = this.$root.ChatList[3].data;
           }else{
             this.loadingProjects = true;
-             axios.get('/fetch-user-projects')
+             axios.get( '/fetch-user-projects')
       .then(response => {
       
       if (response.status == 200) {

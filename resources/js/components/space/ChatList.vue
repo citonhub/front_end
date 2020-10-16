@@ -1,7 +1,8 @@
 <template>
 
  
- <v-app class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
+ <v-app class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0" style="
+ border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -30,7 +31,7 @@
        
                          
                     </div>
-                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                    <div class="py-1 my-0 text-right col-2" style="background:#c9e4e8;">
                            <v-btn icon color="#3E8893" @click="createProject"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
                     </div>
                  </div>
@@ -44,7 +45,7 @@
                 <div  v-if="channelProject != null">
                     <div class="row my-0 my-0 px-0"  v-if="channelProject.length != 0">
 
-                    <v-card tile flat class="col-12 py-1 px-0 my-1" @click="showProjectLink(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in channelProject"
+                    <v-card tile flat class="col-12  py-1 px-0 my-1" @click="showProjectLink(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in channelProject"
                       :key="index">
                 <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
@@ -148,7 +149,7 @@
                          
                         
                     </div>
-                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                    <div class="py-1 my-0 text-right  col-2" style="background:#c9e4e8;">
                            <v-btn icon color="#3E8893" @click.stop="createChannel('Channel')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
                     </div>
                  </div>
@@ -161,7 +162,7 @@
                 <div  v-if="channelSpace != null">
                     <div class="row my-0 my-0 px-0"  v-if="channelSpace.length != 0">
 
-                    <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in this.$root.ChatList[2]"
+                    <v-card tile flat class="col-12  py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in this.$root.ChatList[2]"
                       :key="index">
                 <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
@@ -251,7 +252,7 @@
          <span  v-else style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">{{ $t('space.teams') }}</span>
                          
                     </div>
-                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                    <div class="py-1 my-0 text-right  col-2" style="background:#c9e4e8;">
                            <v-btn icon color="#3E8893" @click.stop="createChannel('Team')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
                     </div>
                  </div>
@@ -261,7 +262,7 @@
               <div class="col-12 py-1 my-0 mx-0 teamSpace"  v-if="this.$root.showTeams" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;"  >
                  <div  v-if="teamSpace != null">
                  <div class="row my-0 my-0 px-0"  v-if="teamSpace.length != 0">
-                    <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in this.$root.ChatList[1]"
+                    <v-card tile flat class="col-12  py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in this.$root.ChatList[1]"
                       :key="index">
                 <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">

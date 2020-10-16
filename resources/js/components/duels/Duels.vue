@@ -3,7 +3,7 @@
 
   
      
-     <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-1 my-0" style="position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
+     <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-1 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-1">
            <div  >
              
@@ -24,7 +24,7 @@
 </virtual-list>  
 
 <div v-else   style="overflow-y:auto;position:absolute;left:0; width:100%; height:100%;z-index:1345000;padding-bottom:200px;">
-      <div class="col-12 py-0 my-0">
+      <div class="col-12 col-lg-8 offset-lg-2 py-0 my-0">
 
          <div class="row py-0 my-0 px-1">
             

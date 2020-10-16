@@ -1,7 +1,7 @@
 
 
  <div class=" d-none d-md-none d-lg-block mx-2 px-2 py-2" 
- style="border-radius:7px; height:auto; position:fixed; width:15%;top:10%; left:16.60%; background:white;border:1px solid #b7dbe1;" >
+ style="border-radius:7px; height:auto; position:fixed; width:15%;top:10%; left:8.30%; background:white;border:1px solid #e6e6e6;" >
          
        
 

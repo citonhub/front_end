@@ -4,7 +4,7 @@
        <div  style="position:fixed; background:transparent; height:100%; overflow-y:auto; overflow-x:hidden; width:100%;">
          <div class="row my-0 py-0 px-2">
 
-         <div style="position:fixed; height:100%; overflow-y:hidden;left:0;top:0%;" v-if="showCode" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0"> 
+         <div style="position:fixed; height:100%; overflow-y:hidden;left:0;top:0%;  border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;" v-if="showCode" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0"> 
 
 
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">

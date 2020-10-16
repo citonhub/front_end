@@ -1,6 +1,6 @@
 <template>
      <div >
-         <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0 scrollerStyle" style="position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+         <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
         <div class="col-12 py-0 my-0 fixed-top " style="position:sticky; background:white;">
@@ -176,7 +176,7 @@ export default {
         trackUser: function(){
       
 
-         axios.get('/fetch-profile-'+ this.$root.username)
+         axios.get( '/fetch-profile-'+ this.$root.username)
    .then(response => {
    
    if (response.status == 200) {
@@ -231,7 +231,7 @@ export default {
        },
         startDuel: function(duel){
        
-      axios.post('/start-duel',{
+      axios.post( '/start-duel',{
                 
                 duelId: duel.duel_id
                 
@@ -276,7 +276,7 @@ export default {
          
         }else{
          
-         axios.get('/fetch-user-duels')
+         axios.get( '/fetch-user-duels')
       .then(response => {
       
       if (response.status == 200) {

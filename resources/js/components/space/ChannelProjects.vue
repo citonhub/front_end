@@ -97,7 +97,7 @@ export default {
         },
        fetchMessages: function(){
           
-           axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
+           axios.get(  '/fetch-space-messages-' + this.$route.params.spaceId )
       .then(response => {
       
       if (response.status == 200) {
@@ -125,7 +125,7 @@ export default {
         },
        fetchProjects: function(){
           
-           axios.get('/fetch-space-projects-' + this.$route.params.spaceId )
+           axios.get( '/fetch-space-projects-' + this.$route.params.spaceId )
       .then(response => {
       
       if (response.status == 200) {

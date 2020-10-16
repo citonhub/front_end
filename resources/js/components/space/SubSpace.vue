@@ -108,7 +108,7 @@
          
          </div>
 
-      <div  @click="closeAddBoard =  true"  v-if="!closeAddBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+      <div  @click="closeAddBoard =  true"  v-if="!closeAddBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="preventClose"  style="position:absolute; height:60%; width:100%; top:40%; left:0%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto">
 
              <v-card tile flat
@@ -250,7 +250,7 @@ export default {
         },
         fetchSubSpaces: function(){
          
-           axios.get('/fetch-sub-spaces-' + this.$root.selectedSpace.general_spaceId )
+           axios.get( '/fetch-sub-spaces-' + this.$root.selectedSpace.general_spaceId )
       .then(response => {
       
       if (response.status == 200) {
@@ -521,7 +521,7 @@ export default {
 
           this.loadingSubSpace = true;
 
-         axios.post('/create-sub-space',{
+         axios.post( '/create-sub-space',{
                 name: this.name,
                 general_spaceId: this.$root.selectedSpace.general_spaceId,
                 type: this.subType

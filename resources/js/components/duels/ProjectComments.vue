@@ -1,7 +1,7 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText;">
 
-       <div class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0 " style="position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
+       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0 " style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -125,7 +125,7 @@ export default {
 
       }else{
        
-       axios.get('/fetch-this-duel/' + this.$route.params.duelId + '/' + this.$route.params.type)
+       axios.get( '/fetch-this-duel/' + this.$route.params.duelId + '/' + this.$route.params.type)
       .then(response => {
       
       if (response.status == 200) {
@@ -162,7 +162,7 @@ export default {
           return;
         }
 
-         axios.post('/save-liked-project-comment',{
+         axios.post(  '/save-liked-project-comment',{
             "comment_id": comment.id
           })
       .then(response => {
@@ -298,7 +298,7 @@ export default {
 
        }else{
         
-          axios.get('/fetch-comment-panel-' + this.$route.params.type)
+          axios.get( '/fetch-comment-panel-' + this.$route.params.type)
       .then(response => {
       
       if (response.status == 200) {

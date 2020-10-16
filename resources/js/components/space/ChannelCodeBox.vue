@@ -442,7 +442,7 @@ methods:{
             return;
          }
 
-        axios.post('/make-user-master',{
+        axios.post( '/make-user-master',{
            memberId: member.memberId,
            space_id: this.$root.selectedSpace.space_id
          })
@@ -936,7 +936,7 @@ methods:{
 
                _this.recheckCodeBox = false;
 
-                axios.post('/check-for-submission',{
+                axios.post( '/check-for-submission',{
                token: token,
                 langId: _this.selectedLangId
                   })
@@ -1014,7 +1014,7 @@ methods:{
       },
       runCodeOnSandbox: function(){
 
-          axios.post('/run-code-on-sandbox',{
+          axios.post( '/run-code-on-sandbox',{
                 langId: this.selectedLangId,
                 code: this.code,
                 messageId: this.$root.codeMessageId

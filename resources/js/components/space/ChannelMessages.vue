@@ -27,7 +27,7 @@
 
       
        <!-- audio -->
-        <div  :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''" :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-11 col-sm-11 offset-1 offset-lg-5 offset-md-4 py-2 px-2 ' : 'col-lg-7 col-11  col-md-8 col-sm-11   py-2 px-2 '"  v-if="source.type == 'audio'">
+        <div  :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''" :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-5 col-md-8 col-11 col-sm-11 offset-1 offset-lg-7 offset-md-4 py-2 px-2 ' : 'col-lg-5 col-11  col-md-8 col-sm-11   py-2 px-2 '"  v-if="source.type == 'audio'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'">
                <div class="row py-0 my-0">
               
@@ -71,7 +71,7 @@
 
 
           <!-- project -->
-        <div  :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''" :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-11 col-sm-11 offset-1 offset-lg-5 offset-md-4 py-2 px-2 ' : 'col-lg-7 col-11  col-md-8 col-sm-11   py-2 px-2 '"  v-if="source.type == 'project'">
+        <div  :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''" :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-5 col-md-8 col-11 col-sm-11 offset-1 offset-lg-7 offset-md-4 py-2 px-2 ' : 'col-lg-5 col-11  col-md-8 col-sm-11   py-2 px-2 '"  v-if="source.type == 'project'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" v-if="source.project != null">
                 <div class="row py-0 my-0">
               
@@ -118,7 +118,7 @@
 
 
          <!-- files -->
-          <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)"  :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-11 col-sm-11 offset-1 offset-lg-5 offset-md-4 py-2 px-2 ' : 'col-lg-7 col-11  col-md-8 col-sm-11   py-2 px-2 '" v-if="source.type == 'file'">
+          <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)"  :class="checkOwner(source.user_id) ?   'col-lg-5 col-md-8 col-11 col-sm-11 offset-1 offset-lg-7 offset-md-4 py-2 px-2 ' : 'col-lg-5 col-11  col-md-8 col-sm-11   py-2 px-2 '" v-if="source.type == 'file'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'">
 
                <div class="row py-0 my-0">
@@ -182,7 +182,7 @@
      
          <!-- images -->
 
-      <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)"   :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-10 col-sm-10 offset-2 offset-lg-5 offset-md-4 py-3 px-2 ' : 'col-lg-7 col-md-8 col-10 col-sm-10  py-2 px-2 '" v-if="source.type == 'image'">
+      <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)"   :class="checkOwner(source.user_id) ?   'col-lg-5 col-md-8 col-10 col-sm-10 offset-2 offset-lg-7 offset-md-4 py-3 px-2 ' : 'col-lg-5 col-md-8 col-10 col-sm-10  py-2 px-2 '" v-if="source.type == 'image'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'">
                <div class="row py-0 my-0">
               
@@ -228,7 +228,7 @@
         <!-- text messages --> 
 
 
-       <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" v-if="source.type == null  && source.is_reply != '1' ">
+       <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-6 col-md-9 col-11 col-sm-11 offset-1 offset-lg-6 offset-md-3 py-2 px-2 ' : 'col-lg-6 col-md-9 col-11 col-sm-11  py-2 px-2 '" v-if="source.type == null  && source.is_reply != '1' ">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="auto">
             
               <div class="row py-0 my-0">
@@ -264,7 +264,7 @@
          <!-- action messages --> 
 
 
-       <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" v-if="source.type == 'action'  && source.is_reply != '1' ">
+       <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-6 col-md-9 col-11 col-sm-11 offset-1 offset-lg-6 offset-md-3 py-2 px-2 ' : 'col-lg-6 col-md-9 col-11 col-sm-11  py-2 px-2 '" v-if="source.type == 'action'  && source.is_reply != '1' ">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="auto">
               <div class="row py-0 my-0">
               
@@ -298,7 +298,7 @@
 
      <!-- code boxes -->
 
-        <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" v-if="source.type == 'code'">
+        <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-5 col-md-9 col-11 col-sm-11 offset-1 offset-lg-7 offset-md-3 py-2 px-2 ' : 'col-lg-5 col-md-9 col-11 col-sm-11  py-2 px-2 '" v-if="source.type == 'code'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
 
               <div class="row py-0 my-0">
@@ -346,7 +346,7 @@
 
       
          
-         <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-7 col-md-8 col-11 col-sm-11 offset-1 offset-lg-5 offset-md-4 py-2 px-2 ' : 'col-lg-7 col-md-8 col-11 col-sm-11  py-2 px-2 '"  v-if="source.type == 'video'">
+         <div :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-6 col-md-8 col-11 col-sm-11 offset-1 offset-lg-6 offset-md-4 py-2 px-2 ' : 'col-lg-6 col-md-8 col-11 col-sm-11  py-2 px-2 '"  v-if="source.type == 'video'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'">
               <div class="row py-0 my-0">
               
@@ -395,7 +395,7 @@
         <!-- text reply -->
 
         <div   v-if="source.replied_message != undefined && source.is_reply == '1'"  class="col-12 py-0 my-0 px-0" >
-             <div   v-if="source.is_reply == '1' && source.replied_message.type == null" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '">
+             <div   v-if="source.is_reply == '1' && source.replied_message.type == null" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-6 col-md-9 col-11 col-sm-11 offset-1 offset-lg-6 offset-md-3 py-2 px-2 ' : 'col-lg-6 col-md-9 col-11 col-sm-11  py-2 px-2 '">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
               <div class="row py-0 my-0">
               
@@ -433,7 +433,7 @@
          <!-- action reply -->
 
         <div   v-if="source.replied_message != undefined && source.is_reply == '1'"  class="col-12 py-0 my-0 px-0" >
-             <div   v-if="source.is_reply == '1' && source.replied_message.type == 'action'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '">
+             <div   v-if="source.is_reply == '1' && source.replied_message.type == 'action'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-6 col-md-9 col-11 col-sm-11 offset-1 offset-lg-6 offset-md-3 py-2 px-2 ' : 'col-lg-6 col-md-9 col-11 col-sm-11  py-2 px-2 '">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
               <div class="row py-0 my-0">
               
@@ -476,7 +476,7 @@
 
 
            <div   v-if="source.replied_message != undefined && source.is_reply == '1'" class="col-12 py-0 my-0 px-0" >
-               <div  v-if="source.is_reply == '1' && source.replied_message.type == 'image'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '">
+               <div  v-if="source.is_reply == '1' && source.replied_message.type == 'image'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-6 col-md-9 col-11 col-sm-11 offset-1 offset-lg-6 offset-md-3 py-2 px-2 ' : 'col-lg-6 col-md-9 col-11 col-sm-11  py-2 px-2 '">
           <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
              <div class="row py-0 my-0">
               
@@ -531,7 +531,7 @@
        <!-- video reply -->
 
           <div  v-if="source.replied_message != undefined && source.is_reply == '1'"  class="col-12 py-0 my-0 px-0"  >
-             <div v-if="source.is_reply == '1' && source.replied_message.type == 'video'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" >
+             <div v-if="source.is_reply == '1' && source.replied_message.type == 'video'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-6 col-md-9 col-11 col-sm-11 offset-1 offset-lg-6 offset-md-3 py-2 px-2 ' : 'col-lg-6 col-md-9 col-11 col-sm-11  py-2 px-2 '" >
               <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
 
                  <div class="row py-0 my-0">
@@ -585,7 +585,7 @@
 
        
         <div  v-if="source.replied_message != undefined && source.is_reply == '1'" class="col-12 py-0 my-0 px-0" >
-           <div v-if="source.is_reply == '1' && source.replied_message.type == 'audio'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" >
+           <div v-if="source.is_reply == '1' && source.replied_message.type == 'audio'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-6 col-md-9 col-11 col-sm-11 offset-1 offset-lg-6 offset-md-3 py-2 px-2 ' : 'col-lg-6 col-md-9 col-11 col-sm-11  py-2 px-2 '" >
    <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
 
       <div class="row py-0 my-0">
@@ -639,7 +639,7 @@
   
 
     <div  v-if="source.replied_message != undefined && source.is_reply == '1'" class="col-12 py-0 my-0 px-0"  >
-        <div v-if="source.is_reply == '1' && source.replied_message.type == 'file'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" >
+        <div v-if="source.is_reply == '1' && source.replied_message.type == 'file'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-6 col-md-9 col-11 col-sm-11 offset-1 offset-lg-6 offset-md-3 py-2 px-2 ' : 'col-lg-6 col-md-9 col-11 col-sm-11  py-2 px-2 '" >
         <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
 
            <div class="row py-0 my-0">
@@ -690,7 +690,7 @@
   
 
     <div  v-if="source.replied_message != undefined && source.is_reply == '1'" class="col-12 py-0 my-0 px-0"  >
-        <div v-if="source.is_reply == '1' && source.replied_message.type == 'project'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '" >
+        <div v-if="source.is_reply == '1' && source.replied_message.type == 'project'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-6 col-md-9 col-11 col-sm-11 offset-1 offset-lg-6 offset-md-3 py-2 px-2 ' : 'col-lg-6 col-md-9 col-11 col-sm-11  py-2 px-2 '" >
         <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
 
            <div class="row py-0 my-0">
@@ -745,7 +745,7 @@
    
        
         <div  v-if="source.replied_message != undefined && source.is_reply == '1'"  class="col-12 py-0 my-0 px-0" >
-             <div v-if="source.is_reply == '1' && source.replied_message.type == 'code'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-8 col-md-9 col-11 col-sm-11 offset-1 offset-lg-4 offset-md-3 py-2 px-2 ' : 'col-lg-8 col-md-9 col-11 col-sm-11  py-2 px-2 '">
+             <div v-if="source.is_reply == '1' && source.replied_message.type == 'code'" :style="source.tagged ? 'background:rgba(38, 82, 89,0.5);border:1px solid transparent; border-radius:8px;' : ''"  :id="'message'+ source.message_id" @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-6 col-md-9 col-11 col-sm-11 offset-1 offset-lg-6 offset-md-3 py-2 px-2 ' : 'col-lg-6 col-md-9 col-11 col-sm-11  py-2 px-2 '">
              <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'" width="100%">
 
                 <div class="row py-0 my-0">

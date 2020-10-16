@@ -1,5 +1,5 @@
 <template>
-           <div class="col-12 px-2 py-2">
+           <div class="col-12 col-lg-8 offset-lg-2 px-2 py-2">
                <v-card elevation-22 class="py-2 px-2"  @click="showboard(source)">
                 <div class="row">
                    <div class="py-0 col-12 text-center d-md-block d-none">

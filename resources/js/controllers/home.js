@@ -422,6 +422,7 @@ const app = new Vue({
             showPostModal:false,
             postViewType:'',
             showCreatepost: false,
+            baseApiUrl:'http://api.citonhubnew.com/api',
     },
      mounted: function () {
       this.pageloader = false;
