@@ -8,7 +8,7 @@ window.io = require('socket.io-client');
 
 Vue.use(Vuex)
 
-axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
+axios.defaults.baseURL = 'https://api.citonhub.com/api'
 
 const store = new Vuex.Store({
   state: {
@@ -474,7 +474,7 @@ const app = new Vue({
             showPostModal:false,
             postViewType:'',
             showCreatepost: false,
-            baseApiUrl:'http://api.citonhubnew.com/api',
+            baseApiUrl:'https://api.citonhub.com/api',
             returnedToken:''
     },
      mounted: function () {

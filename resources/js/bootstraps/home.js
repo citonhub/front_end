@@ -48,7 +48,7 @@ Vue.component('DynamicScrollerItem', DynamicScrollerItem)
 
 
 
-window.customLocation = 'http://api.citonhubnew.com';
+window.customLocation = 'https://api.citonhub.com';
 
 window.moment = require('moment');
 

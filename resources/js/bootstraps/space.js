@@ -22,7 +22,7 @@ let token = document.head.querySelector('meta[name="csrf-token"]');
 
 import Vue from 'vue'
 
-window.customLocation = 'http://api.citonhubnew.com';
+window.customLocation = 'https://api.citonhub.com';
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
