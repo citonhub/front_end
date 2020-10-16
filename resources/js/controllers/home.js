@@ -481,7 +481,7 @@ const app = new Vue({
       this.pageloader = false;
      
       this.fetchUserDetails();
-      
+      this.connectToChannel();
       window.thisUserState = this;
     },
     computed: {
@@ -543,7 +543,6 @@ const app = new Vue({
                }
         });}
        
-        this.connectToChannel();
         
     },
     logout: function(){

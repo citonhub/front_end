@@ -519,7 +519,7 @@ const app = new Vue({
      
      
       this.fetchUserDetails();
-     
+      this.connectToChannel();
        this.SetLocale(this.userLocale);
        window.thisUserState = this;
     },computed: {
@@ -580,7 +580,7 @@ const app = new Vue({
                }
         });}
        
-        this.connectToChannel();
+       
         
     },
     checkIfMessageExist(data){

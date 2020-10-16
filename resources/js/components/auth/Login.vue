@@ -212,12 +212,15 @@ export default {
       let storedTracker = this.$root.getLocalStore('route_tracker');
 
       storedTracker.then((result)=>{
+        this.$root.connectToChannel();
         if(result != null ){
             let finalResult = JSON.parse(result);
        this.$router.push({ path: finalResult[0] });
         }else{
           this.checkIfLogin()
         }
+
+         
       })
 
        

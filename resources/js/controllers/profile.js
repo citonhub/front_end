@@ -268,6 +268,7 @@ const app = new Vue({
       this.pageloader= false;
       
        this.fetchUserDetails();
+       this.connectToChannel();
        this.SetLocale(this.userLocale);
     
       window.thisUserState = this;
@@ -335,7 +336,6 @@ const app = new Vue({
                }
         });}
        
-        this.connectToChannel();
         
     },
     changeLocale: function(locale){
