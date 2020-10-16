@@ -206,6 +206,7 @@ export default {
       this.$root.checkauthroot = 'auth';
 
       this.$root.fetchUserDetails();
+      this.$root.connectToChannel();
 
       let storedTracker = this.$root.getLocalStore('route_tracker');
 

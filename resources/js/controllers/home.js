@@ -479,9 +479,9 @@ const app = new Vue({
     },
      mounted: function () {
       this.pageloader = false;
-      this.initialPushMangerReg();
+     
       this.fetchUserDetails();
-      this.trackConnections();
+      this.connectToChannel();
       window.thisUserState = this;
     },
     computed: {
@@ -606,7 +606,7 @@ const app = new Vue({
       }
      
     },
-    trackConnections: function(){
+    connectToChannel: function(){
 
 
 

@@ -266,7 +266,7 @@ const app = new Vue({
     },
     mounted: function () {
       this.pageloader= false;
-       this.initialPushMangerReg();
+      
        this.fetchUserDetails();
        this.SetLocale(this.userLocale);
       this.connectToChannel();

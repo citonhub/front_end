@@ -511,9 +511,13 @@ export default {
 
           }
 
-        window.Echo.leave('space.' + this.$root.selectedSpace.space_id);
+        if(this.$root.selectedSpace.length != 0){
 
-     
+           window.Echo.leave('space.' + this.$root.selectedSpace.space_id);
+
+        }
+
+       
 
        
         
@@ -604,7 +608,7 @@ export default {
         this.$root.showVideoScreen = false;
         this.$root.liveInitiated = false;
 
-         this.$root.sendLiveSignal('all');
+         
 
         this.$root.presentRoomId = null;
         this.$root.remoteLiveHappening = false;

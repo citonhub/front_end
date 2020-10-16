@@ -294,10 +294,10 @@ const app = new Vue({
      mounted: function () {
       this.pageloader= false;
       let _this = this;
-      this.trackConnections();
+      this.connectToChannel();
       this.fetchUserDetails();
       this.SetLocale(this.userLocale);
-      this.initialPushMangerReg();
+     
 
     },
     computed: {
@@ -496,7 +496,7 @@ const app = new Vue({
      }
     
    },
-    trackConnections: function(){
+   connectToChannel: function(){
 
 
       if(this.checkauthroot == 'auth'){
