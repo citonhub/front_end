@@ -35,7 +35,7 @@
           
              <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" v-if="projectData.is_web"
    :srcdoc="pageContent" 
-    style="border: 0; height:91%; position:fixed;left:0; top:6%;" class="col-md-8 offset-md-2  col-lg-3 offset-lg-4 px-1 py-0" ></iframe>
+    style="border: 0; height:91%; position:fixed;left:0; top:6%;" class="col-md-8 offset-md-2  col-lg-3 offset-lg-6 px-1 py-0" ></iframe>
 
   
    <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; " class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 px-3 py-3" >
@@ -82,7 +82,7 @@
 
          </div>
 
-          <span style="position:absolute; top:81.5%; right:3%; z-index:10;"  class="d-md-none d-inline-block">
+          <span style="position:absolute; top:81.5%; left:3%; z-index:10;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#35747e"
                 small
@@ -97,7 +97,7 @@
    
 
 
-      <span style="position:absolute; top:86%; right:3%;z-index:90099;" class="d-none d-md-inline-block">
+      <span style="position:absolute; top:86%; lrft:3%;z-index:90099;" class="d-none d-md-inline-block">
           <v-btn
                 color="#35747e"
                 small
@@ -111,7 +111,7 @@
 
 
 
-      <span style="position:absolute; top:81.5%; left:3%; z-index:10;"  class="d-md-none d-inline-block">
+      <span style="position:absolute; top:81.5%; right:3%; z-index:10;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#35747e"
                 small
@@ -119,14 +119,14 @@
                 class="d-block"
                 fab
               >
-                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
+                <v-icon color="#ffffff">mdi-pencil-plus</v-icon>
               </v-btn>
      </span>
 
    
 
 
-      <span style="position:absolute; top:86%; left:3%;z-index:9999;" class="d-none d-md-inline-block">
+      <span style="position:absolute; top:86%; right:3%;z-index:9999;" class="d-none d-md-inline-block">
           <v-btn
                 color="#35747e"
                 small
@@ -134,7 +134,7 @@
                 class="d-block"
                 fab
               >
-                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
+                <v-icon color="#ffffff">mdi-pencil-plus</v-icon>
               </v-btn>
      </span>
 

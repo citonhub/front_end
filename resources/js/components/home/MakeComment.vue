@@ -287,7 +287,7 @@ export default {
        urlify:function(text) {
       var urlRegex =  /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
      return text.replace(urlRegex, function(url) {
-     return '<a href="' + url + '" target="_blank">' + url + '</a>';
+      return "<a href=\"" + url + "\" target=\"_blank\">"  + url + "</a>";
   })
    // or alternatively
     // return text.replace(urlRegex, '<a href="$1">$1</a>')
