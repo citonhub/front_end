@@ -229,12 +229,10 @@ export default {
        },
       checkIfOnline: function(user_id){
 
-         let SpaceUserOnline = this.generateOnlineUsersList();
-
-        let userData = SpaceUserOnline.filter((user)=>{
-         return user.id == user_id;
-        });
-
+          let userData = this.$root.globalUsers.filter((user)=>{
+               return user.id == user_id;
+             })
+          
          if(userData.length == 0){
 
             return false
