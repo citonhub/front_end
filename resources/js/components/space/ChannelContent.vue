@@ -2643,8 +2643,8 @@ export default {
 }
 </script>
 <style>
-.msgTextnew{
-  font-size: 14px;
+.msgTextnew2{
+  font-size: 13px;
   color: #4d4d4d;
 }
 .label{

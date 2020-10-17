@@ -35,7 +35,7 @@
           
              <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" v-if="projectData.is_web"
    :srcdoc="pageContent" 
-    style="border: 0; height:91%; position:fixed;left:0; top:6%;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 px-1 py-0" ></iframe>
+    style="border: 0; height:91%; position:fixed;left:0; top:6%;" class="col-md-8 offset-md-2  col-lg-3 offset-lg-4 px-1 py-0" ></iframe>
 
   
    <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; " class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 px-3 py-3" >
