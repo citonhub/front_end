@@ -50,7 +50,7 @@
     <v-app class="col-12 py-0 my-0" v-if="pageContent == '' && loading">
       <div 
        
-    style="border: 0; height:91%; top:7%; position:fixed;left:0; align-items:center; justify-content:center;" class="col-md-8 offset-md-2 px-5 col-lg-6 offset-lg-6 px-1 py-0 d-flex" >
+    style="border: 0; height:91%; top:7%; position:fixed;left:0; align-items:center; justify-content:center;" class="col-md-8 offset-md-2 px-5 col-lg-6 offset-lg-3 px-1 py-0 d-flex" >
          <v-progress-linear indeterminate color="#3E8893" rounded ></v-progress-linear>
        </div>
     </v-app>
