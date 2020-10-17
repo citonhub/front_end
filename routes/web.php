@@ -27,3 +27,4 @@ Route::get('/profile','PageController@profile');
 // panel routes
 Route::get('/run-panel/{panelId}','PanelController@runPanel');
 Route::get('/page-loader/{panelId}/{pageName}','PanelController@pageLoader');
+Route::get('/link/{type}/{uniqueId}/{referral}','PageController@handelLink');
