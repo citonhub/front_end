@@ -415,7 +415,7 @@
            </div>
 
               <div :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-right' : 'col-12 py-1 px-1 my-1 taggedOthers text-right' " @click.stop="scrollToMessage(source.replied_message.message_id)" >
-                  <span class="msgTextReply text-left d-block" v-html=" shortenContent(source.replied_message.content ,80)" ></span>
+                  <span class="msgTextReplynew text-left d-block" v-html=" shortenContent(source.replied_message.content ,80)" ></span>
                   <span class="text-right label">{{source.replied_message.username}}</span>
               </div>
             <span  class="msgTextnew" v-html="source.content"></span>
@@ -453,7 +453,7 @@
            </div>
 
               <div :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-right' : 'col-12 py-1 px-1 my-1 taggedOthers text-right' " @click.stop="scrollToMessage(source.replied_message.message_id)" >
-                  <span class="msgTextReply text-left d-block" v-html=" shortenContent(source.replied_message.content ,80)" ></span>
+                  <span class="msgTextReplynew text-left d-block" v-html=" shortenContent(source.replied_message.content ,80)" ></span>
                   <span class="text-right label">{{source.replied_message.username}}</span>
               </div>
             <span  class="msgTextnew" v-html="source.content"></span>
@@ -503,7 +503,7 @@
                  </v-img>
                      </div>
                      <div class="col-6 py-1 my-0 text-center px-0">
-                 <span class="msgTextReply">{{source.replied_message.image.length}} Images</span>
+                 <span class="msgTextReplynew">{{source.replied_message.image.length}} Images</span>
                      </div>
                      <div class="col-3 py-0 my-0 text-center px-0">
                  
@@ -559,7 +559,7 @@
                  
                      </div>
                      <div class="col-9 py-0 my-0 text-left px-0">
-                 <span class="msgTextReply">{{ shortenContent(source.replied_message.video.display_name ,25)}}</span>
+                 <span class="msgTextReplynew">{{ shortenContent(source.replied_message.video.display_name ,25)}}</span>
                      </div>
                      
                   </div>
@@ -612,7 +612,7 @@
                  
                      </div>
                      <div class="col-9 py-0 my-0 text-left px-0">
-                 <span class="msgTextReply">{{ shortenContent(source.replied_message.audio.display_name ,25)}}</span>
+                 <span class="msgTextReplynew">{{ shortenContent(source.replied_message.audio.display_name ,25)}}</span>
                      </div>
                      
                   </div>
@@ -666,7 +666,7 @@
                  
                      </div>
                      <div class="col-9 py-0 my-0 text-left px-0">
-                 <span class="msgTextReply">{{shortenContent(source.replied_message.file.display_name  ,25)}}</span>
+                 <span class="msgTextReplynew">{{shortenContent(source.replied_message.file.display_name  ,25)}}</span>
                      </div>
                      
                   </div>
@@ -718,8 +718,8 @@
                  
                      </div>
                      <div class="col-9 py-0 my-0 text-left px-0">
-                 <span class="msgTextReply" v-if="source.replied_message.project !=  null">{{shortenContent(source.replied_message.project.title ,25)}}</span>
-                  <span class="msgTextReply" v-else>project not found</span>
+                 <span class="msgTextReplynew" v-if="source.replied_message.project !=  null">{{shortenContent(source.replied_message.project.title ,25)}}</span>
+                  <span class="msgTextReplynew" v-else>project not found</span>
                      </div>
                      
                   </div>
@@ -773,7 +773,7 @@
                  
                      </div>
                      <div class="col-9 py-0 my-0 text-left px-0">
-                 <span class="msgTextReply">{{ source.replied_message.code.name + '.' + languageExtensions(source.replied_message.code.language_type)}}</span>
+                 <span class="msgTextReplynew">{{ source.replied_message.code.name + '.' + languageExtensions(source.replied_message.code.language_type)}}</span>
                      </div>
                      
                   </div>

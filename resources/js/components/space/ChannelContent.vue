@@ -2661,7 +2661,7 @@ export default {
   border:2px solid transparent;
   border-radius: 8px;
 }
-.msgTextReplynewnew{
+.msgTextReplynew{
   font-size: 13px;
   color: #4d4d4d;
 }
