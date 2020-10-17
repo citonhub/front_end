@@ -688,7 +688,7 @@
               </v-btn>
      </span>
 
-      <span style="position:fixed; top:73%; left:3%;  z-index:999998757;" class="d-none d-md-inline-block" v-if="this.$root.showMsgDelete">
+      <span style="position:absolute; top:73%; left:3%;  z-index:999998757;" class="d-none d-md-inline-block" v-if="this.$root.showMsgDelete">
           <v-btn
                 color="#3E8893"
                 x-small

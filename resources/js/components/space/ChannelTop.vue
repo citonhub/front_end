@@ -155,7 +155,7 @@
  
          <div  class="col-12 " style=" position:absolute;top:100%; z-index:99899898999988;" v-show="this.$root.showVideoScreen">
 
-               <div style="height:auto; width:100%;align-items:center;justify-content:center; " class="d-flex" >
+               <div style="height:auto;align-items:center;justify-content:center; " class="d-flex col-12 col-md-8 offset-md-2  col-lg-8 offset-lg-2" >
 
                   <div  id="videos-container" class="mb-3"></div>
 
