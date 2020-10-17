@@ -9,7 +9,7 @@
                   
                
           
-                <textarea ref="textBottom" :value="input" @input="update"  :placeholder="$t('general.type_here')"  @keydown="handelkeyAct" class="editor-box card" ></textarea>
+                <textarea ref="textBottom" :value="input" @input="update" style="font-size:14px;"  :placeholder="$t('general.type_here')"  @keydown="handelkeyAct" class="editor-box card" ></textarea>
    
                
                </v-card>
@@ -433,7 +433,7 @@ export default {
 
 
 textarea {
-    font-size:12px; 
+    font-size:14px; 
     background:#ffffff;
     width:100%; 
     height: 50px;

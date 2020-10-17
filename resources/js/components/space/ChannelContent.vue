@@ -526,12 +526,12 @@
                   <div class=" py-2 px-2  text-left mb-1"  style="background:#3E8893; border:1px solid transparent; border-radius:8px;" >
 
                      <div class="col-12 py-1 px-1  text-right" v-if="this.$root.replyMessage.type == null">
-                  <span class="msgTextReply text-left d-block" style="color:white;" v-html="shortenContent(this.$root.replyMessage.content ,50)" ></span>
+                  <span class="msgTextReplynew text-left d-block" style="color:white;" v-html="shortenContent(this.$root.replyMessage.content ,50)" ></span>
                  
               </div>
 
                <div class="col-12 py-1 px-1  text-right" v-if="this.$root.replyMessage.type == 'action'">
-                  <span class="msgTextReply text-left d-block" style="color:white;" v-html="shortenContent(this.$root.replyMessage.content ,50)" ></span>
+                  <span class="msgTextReplynew text-left d-block" style="color:white;" v-html="shortenContent(this.$root.replyMessage.content ,50)" ></span>
                  
               </div>
               
@@ -542,7 +542,7 @@
                  </v-img>
                      </div>
                      <div class="col-6 py-1 my-0 text-center px-0">
-                 <span class="msgTextReply" style="color:white;">{{this.$root.replyMessage.image.length}} Images</span>
+                 <span class="msgTextReplynew" style="color:white;">{{this.$root.replyMessage.image.length}} Images</span>
                      </div>
                      <div class="col-3 py-0 my-0 text-center px-0">
                  
@@ -556,7 +556,7 @@
                 
                      </div>
                      <div class="col-6 py-1 my-0 text-center px-0">
-                 <span class="msgTextReply" style="color:white;">{{shortenContent(this.$root.replyMessage.project.title ,30)}}</span>
+                 <span class="msgTextReplynew" style="color:white;">{{shortenContent(this.$root.replyMessage.project.title ,30)}}</span>
                      </div>
                      <div class="col-3 py-0 my-0 text-center px-0">
                  
@@ -570,7 +570,7 @@
                  
                      </div>
                      <div class="col-9 py-0 my-0 text-left px-0">
-                 <span class="msgTextReply" style="color:white;">{{ shortenContent(this.$root.replyMessage.video.display_name ,30)}}</span>
+                 <span class="msgTextReplynew" style="color:white;">{{ shortenContent(this.$root.replyMessage.video.display_name ,30)}}</span>
                      </div>
                      
                   </div>
@@ -581,7 +581,7 @@
                  
                      </div>
                      <div class="col-9 py-0 my-0 text-left px-0">
-                 <span class="msgTextReply" style="color:white;">{{ shortenContent(this.$root.replyMessage.audio.display_name ,30)}}</span>
+                 <span class="msgTextReplynew" style="color:white;">{{ shortenContent(this.$root.replyMessage.audio.display_name ,30)}}</span>
                      </div>
                      
                   </div>
@@ -592,7 +592,7 @@
                  
                      </div>
                      <div class="col-9 py-0 my-0 text-left px-0">
-                 <span class="msgTextReply" style="color:white;">{{ shortenContent(this.$root.replyMessage.file.display_name ,30)}}</span>
+                 <span class="msgTextReplynew" style="color:white;">{{ shortenContent(this.$root.replyMessage.file.display_name ,30)}}</span>
                      </div>
                      
                   </div>
@@ -603,7 +603,7 @@
                  
                      </div>
                      <div class="col-9 py-0 my-0 text-left px-0">
-                 <span class="msgTextReply" style="color:white;">{{ this.$root.replyMessage.code.name + '.' + languageExtensions(this.$root.replyMessage.code.language_type)}}</span>
+                 <span class="msgTextReplynew" style="color:white;">{{ this.$root.replyMessage.code.name + '.' + languageExtensions(this.$root.replyMessage.code.language_type)}}</span>
                      </div>
                      
                   </div>
@@ -2643,8 +2643,8 @@ export default {
 }
 </script>
 <style>
-.msgText{
-  font-size: 12px;
+.msgTextnew{
+  font-size: 14px;
   color: #4d4d4d;
 }
 .label{
@@ -2661,8 +2661,8 @@ export default {
   border:2px solid transparent;
   border-radius: 8px;
 }
-.msgTextReply{
-  font-size: 11px;
+.msgTextReplynewnew{
+  font-size: 13px;
   color: #4d4d4d;
 }
 

@@ -4,15 +4,15 @@
       <!-- date time -->
         
          <div class="col-12  text-center" v-if="source.showDate != undefined">
-            <span  class=" DateBadge py-1 px-2" style="font-size:11px;color:white;">{{covertDate(source.showDate)}}</span>
+            <span  class=" DateBadge py-1 px-2" style="font-size:12px;color:white;">{{covertDate(source.showDate)}}</span>
          </div>
 
 
           <!-- user joined -->
         
          <div class="col-12  text-center" v-if="source.type == 'join'">
-            <span  class=" DateBadge py-1 px-2" style="font-size:11px;color:white;" v-if="source.username != username">{{source.username}} joined</span>
-             <span  class=" DateBadge py-1 px-2" style="font-size:11px;color:white;" v-else>You joined</span>
+            <span  class=" DateBadge py-1 px-2" style="font-size:12px;color:white;" v-if="source.username != username">{{source.username}} joined</span>
+             <span  class=" DateBadge py-1 px-2" style="font-size:12px;color:white;" v-else>You joined</span>
          </div>
 
 
@@ -20,7 +20,7 @@
         
          <div class="col-12  text-center" v-if="source.type == 'unread'">
             
-             <span  class=" DateBadge py-1 px-2" style="font-size:11px;color:white;">{{source.content}}</span>
+             <span  class=" DateBadge py-1 px-2" style="font-size:12px;color:white;">{{source.content}}</span>
          </div>
 
 
@@ -97,7 +97,7 @@
               
                      </div>
                      <div class="col-6 py-0 my-0 text-left px-0" >
-                        <span style="font-size:12px;" class="msgText">{{shortenContent(source.project.title,25) }}</span>
+                        <span style="font-size:12px;" class="msgTextnew">{{shortenContent(source.project.title,25) }}</span>
                      </div>
                      <div class="col-3 py-0 my-0 text-center">
                           <v-btn icon @click.stop="showProject(source.project.project_slug)"><v-icon>mdi-arrow-right-bold-circle-outline</v-icon></v-btn>
@@ -158,10 +158,10 @@
                  
                      </div>
                      <div class="col-6 py-1 my-0 text-left px-0">
-                 <span class="msgText">{{ shortenContent(source.file.display_name,20) }} </span>
+                 <span class="msgTextnew">{{ shortenContent(source.file.display_name,20) }} </span>
                      </div>
                       <div class="col-3 py-0 my-0  d-flex px-1" style="align-items:center; justify-content:center;">
-                 <span class="msgText" style="font-size:10px;">{{source.file.file_size}}</span>
+                 <span class="msgTextnew" style="font-size:10px;">{{source.file.file_size}}</span>
                      </div>
                      
                   </div>
@@ -249,7 +249,7 @@
            </div>
               
 
-            <span  class="msgText" v-html="source.content"></span>
+            <span  class="msgTextnew" v-html="source.content"></span>
             
            </v-card>
            <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
@@ -283,7 +283,7 @@
                
            </div>
 
-            <span  class="msgText" v-html="source.content"></span>
+            <span  class="msgTextnew" v-html="source.content"></span>
             <div class="col-12 py-1 my-2 text-center " style="">
               <v-btn x-small rounded color="#3E8893" @click.stop="handleAction(source)"><span style="color:white; font-size:11px; text-transform:capitalize;">{{ source.action.label }}</span></v-btn>
             </div>
@@ -418,7 +418,7 @@
                   <span class="msgTextReply text-left d-block" v-html=" shortenContent(source.replied_message.content ,80)" ></span>
                   <span class="text-right label">{{source.replied_message.username}}</span>
               </div>
-            <span  class="msgText" v-html="source.content"></span>
+            <span  class="msgTextnew" v-html="source.content"></span>
            
            </v-card>
            
@@ -456,7 +456,7 @@
                   <span class="msgTextReply text-left d-block" v-html=" shortenContent(source.replied_message.content ,80)" ></span>
                   <span class="text-right label">{{source.replied_message.username}}</span>
               </div>
-            <span  class="msgText" v-html="source.content"></span>
+            <span  class="msgTextnew" v-html="source.content"></span>
             
            </v-card>
            
@@ -511,7 +511,7 @@
                   </div>
               <span class="text-right label">{{source.replied_message.username}}</span>
               </div>
-             <span  class="msgText" v-html="source.content"></span>
+             <span  class="msgTextnew" v-html="source.content"></span>
            
            </v-card>
               
@@ -565,7 +565,7 @@
                   </div>
               <span class="text-right label d-block">{{source.replied_message.username}}</span>
               </div>
-            <span  class="msgText" v-html="source.content"></span>
+            <span  class="msgTextnew" v-html="source.content"></span>
            
            </v-card>
              
@@ -618,7 +618,7 @@
                   </div>
               <span class="text-right label d-block">{{source.replied_message.username}}</span>
               </div>
-            <span  class="msgText" v-html="source.content"></span>
+            <span  class="msgTextnew" v-html="source.content"></span>
             
 
            </v-card>
@@ -672,7 +672,7 @@
                   </div>
               <span class="text-right label d-block">{{source.replied_message.username}}</span>
               </div>
-            <span  class="msgText" v-html="source.content"></span>
+            <span  class="msgTextnew" v-html="source.content"></span>
             
 
            </v-card>
@@ -725,7 +725,7 @@
                   </div>
               <span class="text-right label d-block">{{source.replied_message.username}}</span>
               </div>
-            <span  class="msgText" v-html="source.content"></span>
+            <span  class="msgTextnew" v-html="source.content"></span>
            
            </v-card>
        
@@ -779,7 +779,7 @@
                   </div>
               <span class="text-right label d-block">{{source.replied_message.username}}</span>
               </div>
-             <span  class="msgText" v-html="source.content"></span>
+             <span  class="msgTextnew" v-html="source.content"></span>
            
            </v-card>
             
@@ -1216,7 +1216,7 @@ export default {
 }
 </script>
 <style>
-.msgText a{
+.msgTextnew a{
    color: #3E8893;
 }
 </style>
