@@ -21,6 +21,7 @@ Route::get('/hub','PageController@hub');
 Route::get('/space','PageController@space');
 Route::get('/duels','PageController@duels');
 Route::get('/profile','PageController@profile');
+Route::get('/view-profile','PageController@profile');
 
 
 
