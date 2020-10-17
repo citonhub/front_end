@@ -32,10 +32,20 @@ const store = new Vuex.Store({
     login ({ commit }, credentials) {
       return axios
         .post('/login', credentials)
-        .then(({ data }) => {
-          commit('setUserData', data)
+        .then(response =>{
+
+          
+           
+           if(response.status == 200){
+            
+            routerData.push({ path: '/verify' });
+
+           }
+
+          commit('setUserData', response.data)
         })
     },
+
 
     logout ({ commit }) {
       commit('clearUserData')
@@ -266,7 +276,7 @@ const app = new Vue({
     },
     mounted: function () {
       this.pageloader= false;
-      
+      window.routerData = this.$router;
       if(this.isLogged){
         this.fetchUserDetails();
        }
@@ -282,7 +292,9 @@ const app = new Vue({
     },
     created(){
       window.thisUserState = this;
-     
+
+      window.routerData = this.$router;
+      
       const userInfo = localStorage.getItem('user')
     if (userInfo) {
       const userData = JSON.parse(userInfo)

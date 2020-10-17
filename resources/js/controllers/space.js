@@ -32,8 +32,17 @@ const store = new Vuex.Store({
     login ({ commit }, credentials) {
       return axios
         .post('/login', credentials)
-        .then(({ data }) => {
-          commit('setUserData', data)
+        .then(response =>{
+
+          
+           
+           if(response.status == 200){
+            
+            routerData.push({ path: '/verify' });
+
+           }
+
+          commit('setUserData', response.data)
         })
     },
 
@@ -521,7 +530,7 @@ const app = new Vue({
         this.fetchUserDetails();
        }
       
-
+       window.routerData = this.$router;
       this.connectToChannel();
        this.SetLocale(this.userLocale);
        window.thisUserState = this;
@@ -543,6 +552,8 @@ const app = new Vue({
         this.setEcho();
        
       this.$store.commit('setUserData', userData)
+
+      window.routerData = this.$router;
     }
     axios.interceptors.response.use(
       response => response,
@@ -669,7 +680,7 @@ const app = new Vue({
 
       interval = setInterval(()=>{
 
-       if(this.checkauthroot == 'auth'){
+       if(this.isLogged){
 
         window.Echo.connector.socket.on('connect', ()=>{
           this.isConnected = true

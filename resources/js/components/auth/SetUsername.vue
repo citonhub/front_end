@@ -204,14 +204,12 @@ export default {
        }
     },
      loginuser: function(){
-            this.errorState = false;
-      if(this.$refs.loginform.validate()){
-          this.loading = true;
+            
 
      this.$store
         .dispatch('login', {
           username: this.usernameValue,
-          password: this.password
+          password: this.$root.userPassword
         })
         .then(() => {
           const userInfo = localStorage.getItem('user')
@@ -251,7 +249,7 @@ export default {
               this.loading = false;
         })
   
-      }
+    
            
         },
     }

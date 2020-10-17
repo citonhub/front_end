@@ -187,7 +187,7 @@ export default {
             this.errorState = false;
       if(this.$refs.loginform.validate()){
           this.loading = true;
-
+     this.$root.userPassword = this.password;
      this.$store
         .dispatch('login', {
           username: this.usernameValue,
