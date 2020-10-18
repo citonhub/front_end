@@ -34,7 +34,7 @@
 
        <div class="col-12 py-0 my-0" style="position:absolute; height:95.5%;width:100%; overflow-y:hidden;z-index:985779686; overflow-x:hidden;">
          <div class="row my-0 py-0 px-0 ">
-              <div class="codebox">
+              <div class="codeboxnew">
          <codemirror
         v-model="code"
         :options="cmOption"
@@ -1036,13 +1036,13 @@ methods:{
     font-size:10px;
 }
 
- .codebox,
+ .codeboxnew,
     .pre {
       width: 100%;
       margin: 0;
      
        display: block;
-      font-size: 12px;
+      font-size: 13px;
        letter-spacing: 1px !important;
       line-height: 1.6;
       word-break: break-all;

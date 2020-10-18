@@ -1,6 +1,6 @@
 <template>
   <div class="py-2">
-    <div class=" codebox">
+    <div class=" codeboxnew">
          <codemirror
         v-model="codeContent"
         :options="cmOption"
@@ -264,13 +264,13 @@ methods:{
 </script>
 <style lang="scss" scoped>
      
-    .codebox,
+    .codeboxnew,
     .pre {
       width: 100%;
       margin: 0;
       height: 100%;
        display: block;
-      font-size: 11px;
+      font-size: 13px;
       
       line-height: 1.6;
       word-break: break-all;
@@ -279,7 +279,7 @@ methods:{
       overflow: auto;
     }
 
-    .codebox{
+    .codeboxnew{
        height: 220px;
       border:1px solid #5dafbb;
         border-radius: 10px;
@@ -288,12 +288,12 @@ methods:{
     }
 
  /* Hide scrollbar for Chrome, Safari and Opera */
-.codebox::-webkit-scrollbar {
+.codeboxnew::-webkit-scrollbar {
   display: none;
 }
 
 /* Hide scrollbar for IE, Edge and Firefox */
-.codebox {
+.codeboxnew {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }

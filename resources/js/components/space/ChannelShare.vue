@@ -71,7 +71,7 @@
 
           
              
-            <div class="col-12 py-2 my-0 px-2 text-center">
+            <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2 text-center">
                  <div class="row py-0 my-0">
                        <div class="col-6 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="image1 != ''">
                             <div @click="editImage('image1')" :style="'border:2px solid #3E8893; border-radius:10px; height:120px; background-image:url('+ image1 +');width:100%; background-size:cover;'" >

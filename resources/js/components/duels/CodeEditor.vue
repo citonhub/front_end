@@ -33,7 +33,7 @@
 
        <div class="col-12 py-0 my-0" style="position:absolute; top:6%; height:95%; overflow-y:hidden; left:0; overflow-x:hidden;">
          <div class="row my-0 py-0 px-0 ">
-              <div class="codebox scrollerStyle">
+              <div class="codeboxnew scrollerStyle">
          <codemirror 
         v-model="code"
         :options="cmOption"
@@ -788,12 +788,12 @@ methods:{
     font-size:10px;
 }
 
- .codebox,
+ .codeboxnew,
     .pre {
       width: 100%;
       margin: 0;
        display: block;
-      font-size: 12px;
+      font-size: 13px;
       line-height: 1.6;
       word-break: break-all;
       word-wrap: break-word;
@@ -801,7 +801,7 @@ methods:{
       overflow: auto;
     }
 
-    .codebox{
+    .codeboxnew{
        height: 100%;
        border: 1px solid #e6e6e6;
         position:absolute;
