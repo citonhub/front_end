@@ -2103,7 +2103,7 @@ export default {
          
          
 
-           let unsentMsg = this.$root.getLocalStore('unsentnew' + this.$route.params.spaceId  + this.$root.username );
+           let unsentMsg = this.$root.getLocalStore('unsentnew' + this.$root.selectedSpace  + this.$root.username );
 
             unsentMsg.then((result)=>{
 
@@ -2313,12 +2313,21 @@ export default {
            unsentStoredMsg.then((result)=>{
 
               let finalResultunsent = JSON.parse(result);
-              
-              if(finalResultunsent.length == 0){
+
+              if(finalResultunsent != null){
+
+                if(finalResultunsent.length == 0){
 
                this.updateLocalStorage();
 
               }
+
+              }else{
+                 this.updateLocalStorage();
+
+              }
+              
+              
               
            });
 
