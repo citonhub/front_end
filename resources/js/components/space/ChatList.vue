@@ -688,7 +688,16 @@ export default {
          
       },
        
+     sortbyDate: function(arrayValue){
 
+         arrayValue.sort(function(a, b){ 
+      
+        return new Date(b.created) - new Date(a.created); 
+    }); 
+
+     return arrayValue;
+        
+     },
     updateSpace: function(){
 
   axios.get('/fetch-user-spaces')
@@ -697,14 +706,23 @@ export default {
       if (response.status == 200) {
 
           
+        
+         this.$root.ChatList = response.data;
 
-        this.$root.LocalStore('ChatListNew' + this.$root.username,response.data);
+           this.$root.LocalStore('ChatListNew' + this.$root.username,response.data);
+    
+         this.$root.sortChatList();
 
+          this.$root.ChatList[3].data =  this.$root.ChatList[3].data.concat(this.$root.ChatList[5]);
+        
+         this.personalSpace = this.$root.ChatList[0];
+        this.teamSpace = this.$root.ChatList[1];
+        this.channelSpace = this.$root.ChatList[2];
+        this.channelProject = this.sortbyDate(this.$root.ChatList[3].data); 
+        this.channelDirect = this.$root.ChatList[4];
+        
+         
          this.fetchSpaceUpdate = false;
-        
-        
-         
-         
        
 
      }
@@ -777,7 +795,7 @@ export default {
 
            if(this.$root.ChatList[3] != undefined){
 
-              this.channelProject = this.$root.ChatList[3].data;
+              this.channelProject = this.sortbyDate(this.$root.ChatList[3].data); 
 
            }else{
                this.channelProject = [];
@@ -789,6 +807,8 @@ export default {
          this.$root.checkUnread(true);
           
         this.$root.SpaceWithoutChannel = this.$root.ChatList;
+         
+          this.updateSpace();
 
                     }else{
 
@@ -804,13 +824,15 @@ export default {
            this.$root.LocalStore('ChatListNew' + this.$root.username,response.data);
 
          this.$root.sortChatList();
+
+            this.$root.ChatList[3].data =  this.$root.ChatList[3].data.concat(this.$root.ChatList[5]);
         
          this.personalSpace = this.$root.ChatList[0];
         this.teamSpace = this.$root.ChatList[1];
         this.channelSpace = this.$root.ChatList[2];
-        this.channelProject = this.$root.ChatList[3].data;
+        this.channelProject = this.sortbyDate(this.$root.ChatList[3].data); 
         this.channelDirect = this.$root.ChatList[4];
-         this.channelSuggestions = this.$root.ChatList[5];
+      
 
         
 
@@ -853,13 +875,15 @@ export default {
            this.$root.LocalStore('ChatListNew' + this.$root.username,response.data);
 
          this.$root.sortChatList();
+
+            this.$root.ChatList[3].data =  this.$root.ChatList[3].data.concat(this.$root.ChatList[5]);
         
          this.personalSpace = this.$root.ChatList[0];
         this.teamSpace = this.$root.ChatList[1];
         this.channelSpace = this.$root.ChatList[2];
-        this.channelProject = this.$root.ChatList[3].data;
+        this.channelProject = this.sortbyDate(this.$root.ChatList[3].data); 
         this.channelDirect = this.$root.ChatList[4];
-         this.channelSuggestions = this.$root.ChatList[5];
+         
 
         
 
@@ -885,13 +909,13 @@ export default {
              }else{
 
               this.$root.sortChatList();
-
+           this.$root.ChatList[3].data =  this.$root.ChatList[3].data.concat(this.$root.ChatList[5]);
                 this.personalSpace = this.$root.ChatList[0];
            this.teamSpace = this.$root.ChatList[1];
           this.channelSpace = this.$root.ChatList[2];
-        this.channelProject = this.$root.ChatList[3].data;
+        this.channelProject =  this.sortbyDate(this.$root.ChatList[3].data); 
         this.channelDirect = this.$root.ChatList[4];
-         this.channelSuggestions = this.$root.ChatList[5];
+        
 
            this.$root.checkUnread(true);
 

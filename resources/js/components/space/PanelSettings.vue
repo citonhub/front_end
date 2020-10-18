@@ -74,7 +74,7 @@
           </v-form>
 
 
-             <div class="col-12 py-2 my-0 px-2" v-if="this.$root.projectData.user_id == this.$root.user_temp_id">
+             <div class="col-12 py-2 my-0 px-2" v-if="this.$root.projectData.user_id == this.$root.user_temp_id && this.$root.panelDataFull.is_set == true">
               <v-text-field
                 style="font-size:12px;"
                 
@@ -94,7 +94,7 @@
              </div>
 
 
-          <div class="col-12 py-2 my-0 px-2" v-if="this.$root.projectData.user_id == this.$root.user_temp_id">
+          <div class="col-12 py-2 my-0 px-2" v-if="this.$root.projectData.user_id == this.$root.user_temp_id && this.$root.panelDataFull.is_set == true">
 
             
         <v-select
