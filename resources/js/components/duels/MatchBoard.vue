@@ -203,7 +203,7 @@ export default {
               
           }
          
-        this.trackUser();
+       
     },
     components: { 
      'virtual-list': VirtualList
@@ -275,27 +275,7 @@ export default {
         
          
       },
-        trackUser: function(){
-      
-
-         axios.get( '/fetch-profile-'+ this.$root.username)
-   .then(response => {
-   
-   if (response.status == 200) {
-
-        this.$root.userPageTrack = response.data[2];
-
-        this.activateBot();
-  }
-    
-  
-  })
-  .catch(error => {
- 
-  }) 
-
-      
-   },
+       
       viewUser: function(participant){
        this.$root.pageloader = true;
         window.location = '/view-profile#/profile/channels/'+ participant.username;

@@ -22,10 +22,11 @@ Route::get('/space','PageController@space');
 Route::get('/duels','PageController@duels');
 Route::get('/profile','PageController@profile');
 Route::get('/view-profile','PageController@profile');
+Route::get('/link/{type}/{uniqueId}/{referral}','PageController@handelLink');
 
 
 
 // panel routes
 Route::get('/run-panel/{panelId}','PanelController@runPanel');
 Route::get('/page-loader/{panelId}/{pageName}','PanelController@pageLoader');
-Route::get('/link/{type}/{uniqueId}/{referral}','PageController@handelLink');
+Route::get('/download-file-{messageId}','PanelController@downloadFile');

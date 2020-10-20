@@ -39,7 +39,7 @@
         </div>
         <div class="col-12 text-center mt-2">
 
-          <v-btn rounded color="#3E8893" @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">{{ $t('home_page.message_1_cta') }}</span></v-btn>
+          <v-btn rounded color="#3E8893" @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">{{ $t('general.login') }}</span></v-btn>
              
         </div>
         
@@ -62,7 +62,7 @@
         </div>
         <div class="col-12 text-center mt-2">
 
-          <v-btn rounded color="#3E8893" @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">{{ $t('home_page.message_2_cta') }}</span></v-btn>
+          <v-btn rounded color="#3E8893" @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">{{ $t('general.login') }}</span></v-btn>
              
         </div>
         
@@ -86,7 +86,7 @@
 
          <div class="col-12 text-center mt-2">
 
-          <v-btn rounded color="#3E8893" @click="showLogin" ><span style="color:white;font-size:13px;font-family:HeaderText;">  {{ $t('home_page.message_3_cta') }}</span></v-btn>
+          <v-btn rounded color="#3E8893" @click="showLogin" ><span style="color:white;font-size:13px;font-family:HeaderText;">  {{ $t('general.login') }}</span></v-btn>
              
         </div>
         
@@ -111,7 +111,7 @@
         <div class="col-12 text-center mt-2">
 
           <v-btn rounded color="#3E8893"  @click="showLogin"><span style="color:white;font-size:13px;font-family:HeaderText;">
-            {{ $t('home_page.message_4_cta') }}
+           {{ $t('general.login') }}
             </span></v-btn>
              
         </div>

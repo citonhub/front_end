@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use App\Panel;
+use App\FileMessage;
+use Response;
 use App\PanelRoute;
 
 class PanelController extends Controller
@@ -65,6 +67,26 @@ class PanelController extends Controller
 
    }
 
+
+   public function downloadFile($messageId){
+     
+    $fileMessage = FileMessage::where('message_id',$messageId)->first();
+
+     if($fileMessage != null){
+ 
+       $location = '/var/www/citonhubnew/public/file/';
+
+       $fileFullName = $fileMessage->file_name . '.' . $fileMessage->file_extension;
+
+       $file = $location . $fileFullName;
+        
+       $displayName = $fileMessage->display_name;
+
+       return Response::download($file, $displayName);
+        
+     }
+
+ }
 
 
   public function runPanel($panelId){
