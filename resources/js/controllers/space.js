@@ -1409,7 +1409,7 @@ console.log(err)
 
       fullData.push(thirdData);
 
-   this.$root.LocalStore(this.$route.params.spaceId  + this.$root.username,fullData);
+   this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
 
    axios.post('/delete-message',{
     'message_id':messageId
@@ -2482,19 +2482,19 @@ this.$root.audioconnection.multiPeersHandler.onPeerStateChanged = (state)=> {
 this.$root.audioconnection.onmessage = (event) => {
   
     
-   if(event.data.action == 'typing' && this.$route.params.spaceId == event.data.space_id){
+   if(event.data.action == 'typing' && this.$root.selectedSpace.space_id == event.data.space_id){
 
     this.$root.FullcodeContent = event.data.data;
      
    }
    
-   if(event.data.action == 'codeChange' && this.$route.params.spaceId == event.data.space_id){
+   if(event.data.action == 'codeChange' && this.$root.selectedSpace.space_id == event.data.space_id){
 
     this.$root.fullCodeLanguage = event.data.data;
      
    }
 
-   if(event.data.action == 'codeRun' && this.$route.params.spaceId == event.data.space_id){
+   if(event.data.action == 'codeRun' && this.$root.selectedSpace.space_id == event.data.space_id){
 
             this.$root.liveShowCode = false;
 
@@ -2502,13 +2502,13 @@ this.$root.audioconnection.onmessage = (event) => {
      
    }
 
-   if(event.data.action == 'returnToCode' && this.$route.params.spaceId == event.data.space_id){
+   if(event.data.action == 'returnToCode' && this.$root.selectedSpace.space_id == event.data.space_id){
 
     this.$root.liveShowCode = true;
      
    }
 
-   if(event.data.action == 'neutral' && this.$route.params.spaceId == event.data.space_id){
+   if(event.data.action == 'neutral' && this.$root.selectedSpace.space_id == event.data.space_id){
 
     if(this.$root.allAudioParticipant.length != 0){
       this.$root.allAudioParticipant.map((user)=>{
@@ -2526,7 +2526,7 @@ this.$root.audioconnection.onmessage = (event) => {
      
    }
    
-   if(event.data.action == 'new_master' && this.$route.params.spaceId == event.data.space_id){
+   if(event.data.action == 'new_master' && this.$root.selectedSpace.space_id == event.data.space_id){
 
     this.$root.newMasterId = event.data.data;
 
@@ -2621,7 +2621,7 @@ this.$root.audioconnection.onstreamended = function(event) {
 
            
 
-              this.$root.audioconnection.checkPresence('audio' + this.$route.params.spaceId, function(isRoomExist, roomid) {
+              this.$root.audioconnection.checkPresence('audio' + this.$root.selectedSpace.space_id, function(isRoomExist, roomid) {
               
 
                      
@@ -2780,7 +2780,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
 
          speechEvents.on('speaking', function() {
 
-          if(_this.$root.audioconnection != undefined && _this.$route.params.spaceId != undefined){
+          if(_this.$root.audioconnection != undefined && _this.$root.selectedSpace.space_id != undefined){
 
           
           
@@ -2792,7 +2792,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
           _this.$root.audioconnection.send({
             action:'neutral',
             data: data,
-            space_id: _this.$route.params.spaceId
+            space_id: _this.$root.selectedSpace.space_id
           });
       
           
@@ -2807,7 +2807,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
 
           
 
-            if(_this.$root.audioconnection != undefined && _this.$route.params.spaceId != undefined){
+            if(_this.$root.audioconnection != undefined && _this.$root.selectedSpace.space_id != undefined){
 
             
             
@@ -2819,7 +2819,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
             _this.$root.audioconnection.send({
               action:'neutral',
               data: data,
-              space_id: _this.$route.params.spaceId
+              space_id: _this.$root.selectedSpace.space_id
             });
         
         
@@ -2952,7 +2952,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
            OfferToReceiveVideo: true
        };
       
-     this.$root.connection.open('screen' + this.$route.params.spaceId, function() {
+     this.$root.connection.open('screen' + this.$root.selectedSpace.space_id, function() {
        
        
         
@@ -2969,7 +2969,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
         OfferToReceiveVideo: true
     };
 
-    this.$root.connection.join('screen' + this.$route.params.spaceId);
+    this.$root.connection.join('screen' + this.$root.selectedSpace.space_id);
 
       },
       checkScreenRoomState: function(master){
@@ -2978,7 +2978,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
        
       
 
-         this.$root.connection.checkPresence('screen' + this.$route.params.spaceId, function(isRoomExist, roomid) {
+         this.$root.connection.checkPresence('screen' + this.$root.selectedSpace.space_id, function(isRoomExist, roomid) {
 
 
 
@@ -3013,7 +3013,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
            
         let _this = this;
       
-        this.$root.audioconnection.open('audio' + this.$route.params.spaceId, () =>{
+        this.$root.audioconnection.open('audio' + this.$root.selectedSpace.space_id, () =>{
 
             
           _this.$root.connectingToSocket = false;
@@ -3036,7 +3036,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
            
         let _this = this;
         
-         this.$root.audioconnection.join('audio' + this.$route.params.spaceId);
+         this.$root.audioconnection.join('audio' + this.$root.selectedSpace.space_id);
 
          _this.$root.connectingToSocket = false;
          _this.userIsReconnecting = false;
@@ -3082,14 +3082,14 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
      liveChanges:function(data,action) {
 
    
-   let channel =  window.Echo.join('space.' + this.$route.params.spaceId);
+   let channel =  window.Echo.join('space.' + this.$root.selectedSpace.space_id);
 
   
 
       channel.whisper('liveCoding', {
        data:data,
          action: action,
-         spaceId: this.$route.params.spaceId
+         spaceId: this.$root.selectedSpace.space_id
      });
 
 
