@@ -8,7 +8,7 @@ window.io = require('socket.io-client');
 
 Vue.use(Vuex)
 
-axios.defaults.baseURL = 'https://api.citonhub.com/api'
+axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
 
 const store = new Vuex.Store({
   state: {
@@ -2481,7 +2481,7 @@ this.$root.audioconnection.multiPeersHandler.onPeerStateChanged = (state)=> {
 
 this.$root.audioconnection.onmessage = (event) => {
   
-     console.log(event.data)
+    
 
    if(event.data.action == 'typing' && this.$root.selectedSpace.space_id == event.data.space_id){
 

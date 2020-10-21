@@ -593,41 +593,43 @@ methods:{
 
 
     let userState = this.checkIfMaster();
+
+     console.log(userState)
        
 
          let _this = this;
-        let  interval = setInterval(setCode,200);
-        function setCode(){
+          let  intervalCheckLive = null;
+       
+       intervalCheckLive = setInterval(()=>{
 
-           _this.code = _this.$root.FullcodeContent;
-           _this.language = _this.$root.fullCodeLanguage;
-           _this.detectchange(_this.$root.fullCodeLanguage);
+        
+           this.code = this.$root.FullcodeContent;
+           this.language = this.$root.fullCodeLanguage;
+           this.detectchange(this.$root.fullCodeLanguage);
            
 
            if(_this.$root.liveShowCode){
-               _this.showCode = true;
+               this.showCode = true;
            }else{
 
-           _this.showCode = false;
-           _this.ResultCode = _this.$root.CodeResult;
+           this.showCode = false;
+           this.ResultCode = this.$root.CodeResult;
            
            }
               
-          if(_this.$root.codeIsLive == false){
+          if(this.$root.codeIsLive == false){
             
             clearInterval(interval);
 
           }
 
-          if(_this.$root.selfStopTrigger){
+          if(this.$root.selfStopTrigger){
 
-         clearInterval(interval);
+            clearInterval(interval);
           }
-         
-        }
-    
 
-        
+       } ,1000);
+
 
           if(this.$root.codeIsLive && !userState){
             
