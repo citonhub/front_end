@@ -8,7 +8,7 @@ window.io = require('socket.io-client');
 
 Vue.use(Vuex)
 
-axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
+axios.defaults.baseURL = 'https://api.citonhub.com/api'
 
 const store = new Vuex.Store({
   state: {
@@ -523,6 +523,7 @@ const app = new Vue({
      returnedToken:'',
      globalUsers:[],
      closenotifyRoot:false,
+     codeboxComponent:undefined
         },
      mounted: function () {
       this.pageloader= false;
@@ -531,6 +532,9 @@ const app = new Vue({
         this.fetchUserDetails();
        }
       
+
+     
+
        window.routerData = this.$router;
       this.connectToChannel();
        this.SetLocale(this.userLocale);
@@ -2486,12 +2490,16 @@ this.$root.audioconnection.onmessage = (event) => {
    if(event.data.action == 'typing' && this.$root.selectedSpace.space_id == event.data.space_id){
 
     this.$root.FullcodeContent = event.data.data;
+
+     this.codeboxComponent.setCodeContent();
      
    }
    
    if(event.data.action == 'codeChange' && this.$root.selectedSpace.space_id == event.data.space_id){
 
     this.$root.fullCodeLanguage = event.data.data;
+
+    this.codeboxComponent.setCodeContent();
      
    }
 
@@ -2500,12 +2508,15 @@ this.$root.audioconnection.onmessage = (event) => {
             this.$root.liveShowCode = false;
 
                    this.$root.CodeResult = event.data.data;
+                   this.codeboxComponent.setCodeContent();
      
    }
 
    if(event.data.action == 'returnToCode' && this.$root.selectedSpace.space_id == event.data.space_id){
 
     this.$root.liveShowCode = true;
+
+    this.codeboxComponent.setCodeContent();
      
    }
 
@@ -2560,7 +2571,7 @@ member.master_user = true;
 
 }
 })
-     
+this.codeboxComponent.setCodeContent();
    }
 };
 

@@ -118,9 +118,10 @@
          <div class="col-6 py-0 my-0 d-flex px-0"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
              <span   style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Page Loader</span>
          </div>
-         <div class="col-3 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
-            
-         </div>
+        
+         <div class="col-3 py-1 my-0 px-2 text-right"  style="border-bottom:2px solid #4495a2; " >
+                     <v-btn   x-small color="#3E8893 "  @click="sendMessage" ><span style="color:#ffffff; font-weight:bolder; font-size:10px;">send</span></v-btn>
+          </div>
       </div>
      </div> 
           <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
@@ -249,6 +250,7 @@ export default {
         this.$root.codeBoxOpened = true;
         this.setCodeContent();
         this.updateCodeMaster();
+         this.$root.codeboxComponent = this;
        
         this.$root.codeBoxOpened = true;
        
@@ -425,8 +427,7 @@ methods:{
       },
       unmuteAudio: function(){
 
-        
-0.
+      
            this.$root.localAudioMuted = false;
 
              var localStream = this.$root.audioconnection.attachStreams[0];
@@ -594,21 +595,29 @@ methods:{
 
     let userState = this.checkIfMaster();
 
-     console.log(userState)
+          this.$root.intervalCheckLive = null;
        
+      
 
-         let _this = this;
-          let  intervalCheckLive = null;
-       
-       intervalCheckLive = setInterval(()=>{
+          if(this.$root.codeIsLive && !userState){
+            
+            
+             
+             this.cmOption.readOnly = 'nocursor';
 
-        
+             this.$root.selfStopTrigger = false;
+             
+
+            
+         
+         console.log('called')
+          
            this.code = this.$root.FullcodeContent;
            this.language = this.$root.fullCodeLanguage;
            this.detectchange(this.$root.fullCodeLanguage);
            
 
-           if(_this.$root.liveShowCode){
+           if(this.$root.liveShowCode){
                this.showCode = true;
            }else{
 
@@ -619,25 +628,14 @@ methods:{
               
           if(this.$root.codeIsLive == false){
             
-            clearInterval(interval);
+            clearInterval(this.$root.intervalCheckLive);
 
           }
 
-          if(this.$root.selfStopTrigger){
+          
 
-            clearInterval(interval);
-          }
+     
 
-       } ,1000);
-
-
-          if(this.$root.codeIsLive && !userState){
-            
-            
-             
-             this.cmOption.readOnly = 'nocursor';
-
-             this.$root.selfStopTrigger = false;
           
 
     

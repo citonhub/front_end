@@ -1453,6 +1453,9 @@ export default {
           this.$root.codeFromChat = false;
              this.$root.showCodeBox = true;
              this.$router.push({ path: '/code-viewer'});
+
+              
+
         },
          closeReply:function(){
         this.$root.showRootReply = false;

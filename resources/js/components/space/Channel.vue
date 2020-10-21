@@ -28,8 +28,9 @@
           <div v-if="this.$root.voiceRecorder" class="col-12  py-0 my-0 px-0" style="position:absolute;z-index:20;left:0; top:7%;  z-index:987664736;">
             <voice-recorder></voice-recorder>
           </div>
+          
        <div v-if="this.$root.showCodeBox" class="col-12 py-0 my-0 px-0 " style="position:absolute;z-index:20;left:0; top:0%; height:100%; width:100%;  z-index:9999999999999987664736568;">
-            <channel-code-box></channel-code-box>
+            <channel-code-box ></channel-code-box>
           </div>
 
          
