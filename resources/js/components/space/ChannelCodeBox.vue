@@ -610,7 +610,7 @@ methods:{
 
             
          
-         console.log('called')
+        
           
            this.code = this.$root.FullcodeContent;
            this.language = this.$root.fullCodeLanguage;
