@@ -426,7 +426,7 @@ methods:{
       unmuteAudio: function(){
 
         
-
+0.
            this.$root.localAudioMuted = false;
 
              var localStream = this.$root.audioconnection.attachStreams[0];
@@ -859,27 +859,24 @@ methods:{
 
             this.liveChanges(codemirror,'typing');
 
+            
+
         
 
       },
        liveChanges:function(data,action) {
 
-      
-      let channel =  window.Echo.join('space.' + this.$root.selectedSpace.space_id);
-   
-       if(this.$root.codeIsLive){
+          if(this.$root.codeIsLive){
 
-         channel.whisper('liveCoding', {
-          data:data,
-            action: action,
-            spaceId: this.$root.selectedSpace.space_id
-        });
+             this.$root.audioconnection.send({
+                action:action,
+                data: data,
+                space_id: this.$root.selectedSpace.space_id
+              });
+
+          }
 
 
-       }
-
-         
-     
           
         },
       runCode:function(){
@@ -1111,6 +1108,8 @@ methods:{
 
               
               this.liveChanges(language,'codeChange');
+
+            
             
 
           }

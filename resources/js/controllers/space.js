@@ -2301,6 +2301,7 @@ this.$root.audioconnection.socketMessageEvent = 'audio-conference';
 this.$root.audioconnection.session = {
     audio: true,
     video: false,
+    data: true
     
 };
 
@@ -2478,6 +2479,89 @@ this.$root.audioconnection.multiPeersHandler.onPeerStateChanged = (state)=> {
   }
 };
 
+this.$root.audioconnection.onmessage = (event) => {
+  
+    
+   if(event.data.action == 'typing' && this.$route.params.spaceId == event.data.space_id){
+
+    this.$root.FullcodeContent = event.data.data;
+     
+   }
+   
+   if(event.data.action == 'codeChange' && this.$route.params.spaceId == event.data.space_id){
+
+    this.$root.fullCodeLanguage = event.data.data;
+     
+   }
+
+   if(event.data.action == 'codeRun' && this.$route.params.spaceId == event.data.space_id){
+
+            this.$root.liveShowCode = false;
+
+                   this.$root.CodeResult = event.data.data;
+     
+   }
+
+   if(event.data.action == 'returnToCode' && this.$route.params.spaceId == event.data.space_id){
+
+    this.$root.liveShowCode = true;
+     
+   }
+
+   if(event.data.action == 'neutral' && this.$route.params.spaceId == event.data.space_id){
+
+    if(this.$root.allAudioParticipant.length != 0){
+      this.$root.allAudioParticipant.map((user)=>{
+  
+        if(user[1] == event.data.data.userid){
+  
+            
+        
+          user[0].speaking = event.data.data.speaking;
+           
+        }
+  
+         });
+     }
+     
+   }
+   
+   if(event.data.action == 'new_master' && this.$route.params.spaceId == event.data.space_id){
+
+    this.$root.newMasterId = event.data.data;
+
+                  
+
+    this.$root.adminMembers.forEach((member)=>{
+
+member.master_user = false;
+
+});
+
+this.$root.adminMembers.map((member)=>{
+if(member.memberId ==  this.$root.newMasterId){
+
+member.master_user = true;
+
+}
+})
+
+this.$root.selectedSpaceMembers.forEach((member)=>{
+
+member.master_user = false;
+
+});
+
+this.$root.selectedSpaceMembers.map((member)=>{
+if(member.memberId ==  this.$root.newMasterId){
+
+member.master_user = true;
+
+}
+})
+     
+   }
+};
 
 
 this.$root.audioconnection.onstreamended = function(event) {
@@ -2698,17 +2782,20 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
 
           if(_this.$root.audioconnection != undefined && _this.$route.params.spaceId != undefined){
 
-            let channel =  window.Echo.join('space.' + _this.$route.params.spaceId);
+          
           
             let data = {
               userid: _this.$root.audioconnection.userid,
               speaking: true
           };
+
+          _this.$root.audioconnection.send({
+            action:'neutral',
+            data: data,
+            space_id: _this.$route.params.spaceId
+          });
       
-          channel.whisper('audioSpeaker', {
-             data:data,
-             spaceId: _this.$route.params.spaceId
-         });
+          
       
       
           }
@@ -2722,17 +2809,19 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
 
             if(_this.$root.audioconnection != undefined && _this.$route.params.spaceId != undefined){
 
-              let channel =  window.Echo.join('space.' + _this.$route.params.spaceId);
+            
             
               let data = {
                 userid: _this.$root.audioconnection.userid,
                 speaking: false
             };
         
-            channel.whisper('audioSpeaker', {
-               data:data,
-               spaceId: _this.$route.params.spaceId
-           });
+            _this.$root.audioconnection.send({
+              action:'neutral',
+              data: data,
+              space_id: _this.$route.params.spaceId
+            });
+        
         
         
             }

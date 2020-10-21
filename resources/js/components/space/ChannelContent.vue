@@ -1278,11 +1278,7 @@ export default {
 
         
         },
-      closeboard:function(){
-
-        this.$root.liveIsOn = false;
-
-      },
+    
       deleteMessage:function(){
        this.$root.deleteMessage(this.$root.messageIdToDelete)
       },
@@ -1608,67 +1604,7 @@ export default {
                  if(this.$route.params.spaceId == e.spaceId){
 
 
-                     if(e.action == 'typing'){
-
-                    this.$root.FullcodeContent = e.data;
-
-                 }
-
-                  if(e.action == 'codeChange'){
-
-                    this.$root.fullCodeLanguage = e.data;
-
-                 }
-                 
-                 if(e.action == 'codeRun'){
-
-                   this.$root.liveShowCode = false;
-
-                   this.$root.CodeResult = e.data;
-
-                 }
-
-                 if(e.action == 'returnToCode'){
-                  
-                  this.$root.liveShowCode = true;
-
-                 }
-
-                 if(e.action == 'new_master'){
-
-                   this.$root.newMasterId = e.data;
-
-                  
-
-                   this.$root.adminMembers.forEach((member)=>{
-            
-             member.master_user = false;
-
-          });
-        
-          this.$root.adminMembers.map((member)=>{
-           if(member.memberId ==  this.$root.newMasterId){
-
-             member.master_user = true;
-
-           }
-         })
-
-          this.$root.selectedSpaceMembers.forEach((member)=>{
-            
-             member.master_user = false;
-
-          });
-
-          this.$root.selectedSpaceMembers.map((member)=>{
-           if(member.memberId ==  this.$root.newMasterId){
-
-             member.master_user = true;
-
-           }
-           })
-
-                 }
+                   
 
                   if(e.action == 'liveIsOn'){
 
@@ -1701,55 +1637,14 @@ export default {
                  }
 
 
-                 
-                
-              
-                
-               
-                
-              
              
-                 })
-                 .listenForWhisper('audioSpeaker',(e)=>{
-
-                    
-                       
-                      
-
-      
-   if(this.$root.allAudioParticipant.length != 0){
-    this.$root.allAudioParticipant.map((user)=>{
-
-      if(user[1] == e.data.userid){
-
-          
-      
-        user[0].speaking = e.data.speaking;
-         
-      }
-
-       });
-   }
-     
-    
-      
-
-      
-  
-                       
-                   
-
                  });
-
          }
          
    
       },
       checkForUnreadMessagesDisconnected:function(){
-        
-        
 
-       
           let _this = this;
 
         let interval = setInterval(check,5000);
@@ -2179,6 +2074,9 @@ export default {
      
       fetchMessages: function(){
         
+          this.$root.Messages = null;
+          this.errorLoadingMessage = false;
+           
          if(this.$root.checkauthroot == 'auth'){
            
 
