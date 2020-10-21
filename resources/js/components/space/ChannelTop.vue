@@ -297,7 +297,8 @@ export default {
            
            this.$root.codeIsLive = true;
             this.$root.showChatBottom = false;
-             this.$root.showCodeBox = true;
+            this.$root.showCodeBox = true;
+             this.$router.push({ path: '/code-viewer'});
 
               this.$root.remoteLiveHappening = true;
         this.$root.remoteCode = true;
