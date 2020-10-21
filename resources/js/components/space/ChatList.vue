@@ -533,7 +533,9 @@ export default {
       this.$root.checkUnread(true);
     
 
-       
+           this.$root.closenotifyRoot = true;
+
+             this.$root.shownotificationboard = false;
         
 
      

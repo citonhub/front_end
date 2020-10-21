@@ -54,7 +54,7 @@
 
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="saveCodeFile">{{$t('general.add')}}</v-btn>
+                  <v-btn rounded small :loading="loading" type="submit" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click.prevent="saveCodeFile">{{$t('general.add')}}</v-btn>
              </div>
               
           </v-form>

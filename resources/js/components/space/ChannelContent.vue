@@ -1454,6 +1454,7 @@ export default {
  },
        showCodeBox: function(){
            this.$root.showChatBottom = false;
+          this.$root.codeFromChat = false;
              this.$root.showCodeBox = true;
              this.$router.push({ path: '/code-viewer'});
         },

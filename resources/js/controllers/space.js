@@ -522,6 +522,7 @@ const app = new Vue({
      bottomEditorValue:'',
      returnedToken:'',
      globalUsers:[],
+     closenotifyRoot:false,
         },
      mounted: function () {
       this.pageloader= false;
@@ -1723,7 +1724,7 @@ imageStyle:function(dimension,authProfile){
             
            registration.pushManager.getSubscription().then(sub => {
              
-             if(sub == undefined){
+             if(sub == undefined && !this.closenotifyRoot){
               this.shownotificationboard = true;
              }else{
 
