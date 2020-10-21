@@ -2481,7 +2481,8 @@ this.$root.audioconnection.multiPeersHandler.onPeerStateChanged = (state)=> {
 
 this.$root.audioconnection.onmessage = (event) => {
   
-    
+     console.log(event.data)
+
    if(event.data.action == 'typing' && this.$root.selectedSpace.space_id == event.data.space_id){
 
     this.$root.FullcodeContent = event.data.data;
@@ -2638,10 +2639,9 @@ this.$root.audioconnection.onstreamended = function(event) {
   
                   _this.roomCheckingInitaited = true;
 
-                   setTimeout(()=>{
+                  
                     _this.rejoinAudio(master);
-                   },5000);
-
+                  
                  
   
                   return;
@@ -2916,9 +2916,9 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
                  this.connectingToSocket = 'disconnected';
 
 
-                 setTimeout(()=>{
+               
                   this.rejoinAudio(master);
-                 },2000);
+               
 
                }
 
