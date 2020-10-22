@@ -440,6 +440,31 @@
 
      
          </div>
+
+    <span style="position:absolute; top:71%; right:3%;z-index:134500045;"  class="d-md-none d-inline-block">
+          <v-btn
+                color="#35747e"
+                small
+               @click="showSearch"
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-magnify</v-icon>
+              </v-btn>
+     </span>
+
+      <span style="position:absolute; top:84%; right:3%;z-index:134500045;" class="d-none d-md-inline-block">
+          <v-btn
+                color="#35747e"
+                small
+                  @click="showSearch"
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-magnify</v-icon>
+              </v-btn>
+     </span>
+
      
       <span style="position:absolute; top:71%; left:3%; z-index:12345665786; background:rgba(38, 82, 89,0.7); border:1px solid transparent; border-radius:7px;" class=" px-1 py-1 d-md-none d-inline-block text-center">
           <img src="imgs/coin.svg" height="22" >
@@ -542,7 +567,12 @@ export default {
        
     },
     methods:{
-       
+       showSearch: function(){
+
+          this.$root.showSearchControl = true;
+          this.$router.push({ path: '/search' });
+
+       },
         generateTotalUnread: function(array){
 
            let result = 0;

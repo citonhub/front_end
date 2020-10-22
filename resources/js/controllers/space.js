@@ -200,6 +200,46 @@ const routes = [
     next()
   }
 },
+{ path: '/search',
+   name: 'search',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: ChatList,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = ChatList
+      }
+    }
+
+    next()
+  }
+},
   { path: '/crop-image', 
   name: 'CropImage', 
   component: CropImage,
@@ -291,7 +331,27 @@ const routes = [
     {
       // chat-list
       path: 'chat-list',
-      component: ChatList
+      component: ChatList,
+      meta: {
+        twModalView: true
+      },
+      beforeEnter: (to, from, next) => {
+     
+        to.matched[0].components = {
+          default: ChatList,
+          modal: false
+        }
+  
+         if(window.thisUserState != undefined){
+  
+          thisUserState.$root.showSearchControl = false;
+              
+         
+  
+         }
+         
+      next()
+    },
     },
     {
       // create-channel
@@ -522,8 +582,12 @@ const app = new Vue({
      bottomEditorValue:'',
      returnedToken:'',
      globalUsers:[],
+<<<<<<< HEAD
      closenotifyRoot:false,
      codeboxComponent:undefined
+=======
+     showSearchControl:false
+>>>>>>> repo
         },
      mounted: function () {
       this.pageloader= false;

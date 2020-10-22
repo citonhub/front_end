@@ -41,6 +41,8 @@ body {
 
  @section('content')
 <div id="space" style="height:100%; width:100%;position:fixed;">
+
+
 <div  style="z-index:1000000; position:fixed; width:100%; height:auto; top:0;" v-if="pageloader">
   <div class="line"></div>
   <div class="subline inc"></div>
@@ -63,7 +65,8 @@ body {
      
      
 
-
+     
+      <search v-if="showSearchControl"></search>
 
             
 <div class="col-lg-10 col-12 offset-lg-1 py-0" style="display:fixed; top:0%;height:auto; background:white; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; " v-show="showHeader"> 
@@ -94,6 +97,8 @@ body {
     </div>
 </div>
  
+
+
 
 <space></space>
 
@@ -362,7 +367,11 @@ body {
 
    <script src="https://unpkg.com/marked@0.3.6"></script>
 
+<<<<<<< HEAD
  <script src="{{ asset('js/space.js?v=5.54') }}"></script>
+=======
+ <script src="{{ asset('js/space.js?v=5.43') }}"></script>
+>>>>>>> repo
  
      
  @endsection
