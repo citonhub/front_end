@@ -16,3 +16,4 @@ Vue.component('channel-code-box',require('./space/ChannelCodeBox.vue').default);
 Vue.component('file-upload',require('./auth/FileUpload.vue').default);
 Vue.component('enable-notify',require('./space/EnableNotify.vue').default);
 Vue.component('main-video',require('./space/MainVideo.vue').default);
+Vue.component('search',require('./space/Search.vue').default);
