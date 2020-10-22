@@ -67,7 +67,7 @@
 
                   </div>
                         <div @click="viewUser(user)">
-                       <span class=" d-block" style="font-size:13px; color:#26535a;">{{ shortenContent(user.name,30)}} </span>
+                       <span class=" d-block" style="font-size:13px; color:#26535a;">{{ shortenContent(user.name,23)}} </span>
                          <span class=" d-block" style="font-size:11px; color:#595959;"> @{{user.username}}</span>
                         </div>
                         
@@ -95,7 +95,7 @@
                   
                      <div class="row py-0 my-0">
                          <div class="col-6 py-0 text-left ">
-                     <span class="documentTitle" style="color:#2d646c;">{{shortenContent(project.title,35)}}</span>
+                     <span class="documentTitle" style="color:#2d646c;">{{shortenContent(project.title,23)}}</span>
                     </div>
                 <div class="col-6 py-0 text-right">
                        <span class="mybadgenew">@{{project.owner}}</span>
@@ -212,6 +212,9 @@ export default {
      
       fetchData: function(){
          if(this.query.length <= 2) return;
+
+          if(this.loading) return;
+
            this.loading = true;
            axios.get('/global-search/' + this.query  )
       .then(response => {
