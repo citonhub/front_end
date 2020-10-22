@@ -582,12 +582,9 @@ const app = new Vue({
      bottomEditorValue:'',
      returnedToken:'',
      globalUsers:[],
-<<<<<<< HEAD
      closenotifyRoot:false,
-     codeboxComponent:undefined
-=======
+     codeboxComponent:undefined,
      showSearchControl:false
->>>>>>> repo
         },
      mounted: function () {
       this.pageloader= false;

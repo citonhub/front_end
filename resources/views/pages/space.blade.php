@@ -367,11 +367,8 @@ body {
 
    <script src="https://unpkg.com/marked@0.3.6"></script>
 
-<<<<<<< HEAD
+
  <script src="{{ asset('js/space.js?v=5.54') }}"></script>
-=======
- <script src="{{ asset('js/space.js?v=5.43') }}"></script>
->>>>>>> repo
  
      
  @endsection
