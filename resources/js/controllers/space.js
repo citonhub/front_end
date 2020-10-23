@@ -2581,7 +2581,7 @@ this.$root.audioconnection.onmessage = (event) => {
      
    }
 
-   if(event.data.action == 'neutral' && this.$root.selectedSpace.space_id == event.data.space_id){
+   if(event.data.action == 'neutral' ){
 
     if(this.$root.allAudioParticipant.length != 0){
       this.$root.allAudioParticipant.map((user)=>{

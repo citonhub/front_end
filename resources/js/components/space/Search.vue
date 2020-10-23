@@ -241,7 +241,7 @@ export default {
     messageSpace: function(user){
 
 
-         user.loading = true;
+       
 
           
         if(user.direct_present){
