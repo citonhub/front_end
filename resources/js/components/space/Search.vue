@@ -306,10 +306,22 @@ export default {
         this.$root.forceListReload = true;
          }
        
-         
+          if(this.$root.TrackLastSubSpace.length != 0 && response.data.space_id == this.$root.TrackLastSubSpace[0]){
+                 
+                  this.$router.push({ path: '/space/'  +  this.$root.TrackLastSubSpace[1]  +  '/channel/content' + '/user' });
 
-               this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });
+                     return;
 
+             }else{
+               
+
+                this.$root.selectedSpace = response.data;
+
+                this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });
+
+             }
+
+             
               this.$root.showSearchControl = false;
                          
             }
