@@ -286,7 +286,7 @@ export default {
           axios.post( '/create-space',{
                 name: '',
                 limit: 2,
-                memberId: user.user_id,
+                memberId: user.tempId,
                 type: 'Direct'
                   })
           .then(response => {
