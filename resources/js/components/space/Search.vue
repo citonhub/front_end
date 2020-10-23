@@ -58,7 +58,7 @@
            <span style="font-size:13px; color:#ffffff;"> People</span>
          </div>
 
-           <v-card class="py-2 px-1 mb-1" @click="messageSpace(user)" color="#ffffff" v-for="(user,index) in userData" :key="index + 'user'" :loading="loadingMessage">
+           <v-card class="py-2 px-1 mb-1" @click="messageSpace(user)" color="#ffffff" v-for="(user,index) in userData" :key="index + 'user'" :loading="user.loading">
                <div class="row py-0 my-0 px-1">
                 
                     <div class="py-0 my-0 d-flex col-12" style="align-items:center;" >
@@ -241,7 +241,7 @@ export default {
     messageSpace: function(user){
 
 
-          this.loadingMessage = true;
+         user.loading = true;
 
           
         if(user.direct_present){
@@ -277,11 +277,11 @@ export default {
           return;
       
         }
-        if(this.loading){
+        if(user.loading){
             return;
         }
 
-        this.loading = true;
+         user.loading = true;
            
           axios.post( '/create-space',{
                 name: '',
@@ -318,7 +318,7 @@ export default {
           .catch(error => {
               
 
-               this.loadingMessage = false;
+               user.loading = false;
 
              
           })
