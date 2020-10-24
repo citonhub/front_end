@@ -323,6 +323,22 @@ const routes = [
  
    ]
   },
+  { path: '/space/sub/', 
+  name: 'Space',
+  component: Space,
+  children:[
+    {
+      // create-channel
+      path: ':type/create',
+      component: CreateChannel
+    },
+    {
+      // create-project
+      path: 'create-project',
+      component: CreateProject
+    },
+   
+  ]},
   { path: '/space', 
   name: 'Space',
   component: Space,
@@ -352,17 +368,7 @@ const routes = [
          
       next()
     },
-    },
-    {
-      // create-channel
-      path: ':type/create',
-      component: CreateChannel
-    },
-    {
-      // create-project
-      path: 'create-project',
-      component: CreateProject
-    },
+    }
    
   ]},
 ];

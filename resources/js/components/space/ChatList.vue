@@ -783,10 +783,10 @@ export default {
            this.$router.push({ path: '/' + project.project_slug +'/panel' });
        },
        createChannel:function(type){
-           this.$router.push({ path: '/space/' + type + '/create' });
+           this.$router.push({ path: '/space/sub/' + type + '/create' });
        },
        createProject:function(){
-           this.$router.push({ path: '/space/create-project' });
+           this.$router.push({ path: '/space/sub/create-project' });
        },
        fetchChatList: function(){
 
