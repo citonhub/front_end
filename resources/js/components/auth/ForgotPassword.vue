@@ -4,7 +4,7 @@
 
            <div  style=" top:5%; z-index:1000000;"  class="text-center fixed-top col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0"> 
             
-        <h4 style="color:#26535a;">Reset Password</h4>
+        <h4 style="color:#26535a;">Forgot Password</h4>
             
                 
      </div>
@@ -22,7 +22,7 @@
             <div class="col-10 px-0 d-flex" style="align-items:center;justify-content:center;">
             
               <h5  style="color:#26535a;">
-              Enter New Password
+              Enter Your Email
              </h5>
             </div>
 
@@ -37,39 +37,24 @@
                   <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
-                 placeholder="Javascript"
-            :label="$t('general.password')"
+                
+                 placeholder="jamesroland@email.com"
+            label="E-mail"
+             v-model="email"
+            :rules="emailRule"
+             :error="emailExist"
              dense
-             
-              v-model="password"
-             
-              counter="20"
-            :rules="passwordRule"
-             type="password"
+             type="email"
              color="#4495a2"
              ></v-text-field>
-
+          
              </div>
 
-              <div class="col-12 py-2 my-0 px-2">
-              <v-text-field
-                style="font-size:12px;"
-                 placeholder="Javascript"
-                 :label="$t('general.confirm_password')"
-             dense
-             counter="20"
-              v-model="passwordConfirm"
-            :rules="comfirmPasswordRule"
-             type="password"
-             color="#4495a2"
-             ></v-text-field>
-
-             </div>
              
 
          
                <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn rounded  type="submit" small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" :loading="loading" @click.prevent="updatepassword">Reset</v-btn>
+                  <v-btn rounded  type="submit" small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" :loading="loading" @click.prevent="checkemail">Verify</v-btn>
              </div>
 
 
@@ -94,7 +79,7 @@
 
 
        <v-fade-transition>
-              <div  style="position:fixed; height:auto: left:0; align-items:center;justify-content:center;bottom:15%; z-index:9999999123453566;"   class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3">
+              <div  style="position:fixed; left:0; height:auto: align-items:center;justify-content:center;bottom:15%; z-index:9999999123453566;"  class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3">
              <v-alert
       v-model="Alert"
   
@@ -128,15 +113,11 @@ export default {
         Alert:false,
         alertMsg:'',
         formstate:false,
-       passwordConfirm:'',
-            password:'',
-             comfirmPasswordRule: [
-          v => !!v || 'Confirm Password is required',
-           v => this.password ==  this.passwordConfirm || 'Password do not match',
-            ],
-             passwordRule:[
-        v => !!v || 'password is required',
-           v => v.length >= 8 || 'Password must be more than 8 characters',
+        emailExist:false,
+       email:'',
+        emailRule: [
+            v => !!v || 'Email is required',
+             v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
             ],
       }
     },
@@ -148,29 +129,7 @@ export default {
        this.checkIfLogin();
     },
     methods:{
-        updatepassword: function(){
-          this.loading = true;
-         axios.post('/reset-password',{
-             password: this.password,
-             email:this.$root.userEmail
-         }).then(response =>{
-              if (response.status == 200) {
-
-                   this.loginuser();
-
-              }else{
-
-                  
-
-              }
-         })
-         .catch(error => {
-            this.showAlert(5000,'Failed- ' + error);
-              this.loading = false;
-          })
-          
-      },
-       setEmail: function(){
+        setEmail: function(){
         
          let storedEmail = this.$root.getLocalStore('user_temp_email');
               
@@ -224,55 +183,50 @@ export default {
 
     },
    
-  loginuser: function(){
-            
-
-     this.$store
-        .dispatch('login', {
-          username: this.$root.userEmail,
-          password: this.password
-        })
-        .then(() => {
-          const userInfo = localStorage.getItem('user')
-    if (userInfo) {
-      const userData = JSON.parse(userInfo)
-
-        this.$root.username = userData.user.username;
-        this.$root.user_temp_id = userData.user.id;
-        this.$root.returnedToken = userData.token;
-    
-    }
-
-      this.$root.checkauthroot = 'auth';
-
-      this.$root.fetchUserDetails();
-      this.$root.setEcho();
-         this.$root.checkUserDevice();
-      
-
-      let storedTracker = this.$root.getLocalStore('route_tracker');
-
-      storedTracker.then((result)=>{
-        
-        if(result != null ){
-            let finalResult = JSON.parse(result);
-            
-       this.$router.push({ path: finalResult[0] });
-        }else{
-          this.checkIfLogin()
-        }
-      })
-
-       
-
-        })
-        .catch(err => {
-          this.showAlert(5000,  '😬 ' + 'Unable to login, please try again');
-              this.loading = false;
-        })
-  
-    
+   checkemail: function(){
+            this.emailExist= false;
+           this.$refs.password.validate();
            
+           if(this.formstate){
+
+           this.$root.LocalStore('user_temp_email',[this.email,null]);
+              
+              this.loading = true;
+             axios.post( '/check-if-email-exist',{
+                email: this.email,
+                from_password: true
+                  })
+          .then(response => {
+            
+            if (response.status == 200) {
+                 
+            if(response.data == 'exist'){
+
+                 this.$root.userEmail = this.email;
+                   this.$root.LocalStore('is_forget_password',[true]);
+               
+              this.$router.push({ path: '/verify' });
+                 
+              
+            }else{   
+                
+               
+                 this.loading = false;
+              
+                 this.emailExist = true;
+                 this.showAlert(5000,'Can\'t find Email,please try again');
+
+            }  
+            }else{
+              console.log(response.status);
+            }
+            
+          })
+          .catch(error => {
+             this.showAlert(5000, '😬 ' + 'Failed- ' + error);
+              this.loading = false;
+          })
+       }
         },
      
     }

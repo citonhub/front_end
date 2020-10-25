@@ -197,6 +197,7 @@ methods:{
         formData.append('attachment_type',this.attachment_type);
         formData.append('space_id',this.$route.params.spaceId);
         formData.append('temp_id', this.$root.NewMsg.message_id);
+         formData.append('device_id',this.$root.userDeviceId);
 
          this.$root.updateSpaceTracker(this.$route.params.spaceId);
         

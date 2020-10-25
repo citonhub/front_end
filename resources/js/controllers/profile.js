@@ -79,9 +79,13 @@ import Verify from "../components/auth/Verify.vue"
 import SetUsername from "../components/auth/SetUsername.vue"
 import Notification from "../components/profile/Notification.vue"
 import NotFound from "../components/auth/NotFound.vue"
+import ForgotPassword from "../components/auth/ForgotPassword.vue"
+import ResetPassword from "../components/auth/ResetPassword.vue"
 
 const routes = [
   { path: '/', redirect: '/profile/'},
+  { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
+  { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/register', name: 'Register', component: Register},
   { path: '/auth/:frompage', name: 'Auth', component: Auth},
   { path: '/verify', name: 'Verify', component: Verify},

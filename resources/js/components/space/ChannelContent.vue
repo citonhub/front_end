@@ -1750,7 +1750,8 @@ export default {
           axios.post( '/check-for-unread-messages-clean',{
                 spaceId: this.$route.params.spaceId,
                 existingMsg: result,
-                localMessageCount:  this.$root.returnedMessages.length
+                localMessageCount:  this.$root.returnedMessages.length,
+                 device_id: this.$root.userDeviceId
                   })
           .then(response => {
              

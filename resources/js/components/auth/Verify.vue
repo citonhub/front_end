@@ -226,7 +226,27 @@ export default {
            if (response.status == 200) {
                
                if(response.data == 'verified'){
-                 this.$router.push({ path: '/set-username' });
+
+                  let storedTracker = this.$root.getLocalStore('is_forget_password');
+
+      storedTracker.then((result)=>{
+        
+        if(result != null ){
+            let finalResult = JSON.parse(result);
+            
+           if(finalResult[0]){
+
+             this.$router.push({ path: '/reset-password' });
+
+           }else{
+
+             this.$router.push({ path: '/set-username' });
+
+           }
+        }
+      })
+
+                 
                }else{
                  this.loading = false; 
                this.showAlert(5000,'Verification code is incorrect,please try again');

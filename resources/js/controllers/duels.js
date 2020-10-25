@@ -85,6 +85,8 @@ import PanelLoader from "../components/duels/PanelLoader.vue"
 import ProjectComments from "../components/duels/ProjectComments.vue"
 import NewComment from "../components/duels/NewComment.vue"
 import NotFound from "../components/auth/NotFound.vue"
+import ForgotPassword from "../components/auth/ForgotPassword.vue"
+import ResetPassword from "../components/auth/ResetPassword.vue"
 
 
 const routes = [
@@ -95,6 +97,8 @@ const routes = [
     component: NotFound
   },
   { path: '/login', name: 'Login', component: Login},
+  { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
+  { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/auth/:frompage', name: 'Auth', component: Auth},
   { path: '/register', name: 'Register', component: Register},
   { path: '/verify', name: 'Verify', component: Verify},

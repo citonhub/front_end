@@ -76,7 +76,29 @@
          
 
         </div>
-
+   
+     <v-fade-transition>
+              <div  style="position:fixed; height:auto: align-items:center; left:0; justify-content:center;top:15%; z-index:9999999123453566;"   class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3">
+             <v-alert
+      v-model="Alert"
+  
+     
+      color="#3E8893"
+       width="auto"
+       class="py-1 px-2"
+       rounded
+       style="font-size:13px;background:#3E8893; color:white; border-radius:20px;"
+       height="auto"
+    
+       elevation-10
+    
+     
+     
+    >
+     {{alertMsg}}
+    </v-alert>
+        </div>
+        </v-fade-transition>
      </v-app>
   
 </template>
@@ -226,6 +248,7 @@ export default {
 
       this.$root.fetchUserDetails();
       this.$root.setEcho();
+         this.$root.checkUserDevice();
       
 
       let storedTracker = this.$root.getLocalStore('route_tracker');

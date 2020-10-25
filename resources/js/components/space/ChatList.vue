@@ -552,7 +552,7 @@ export default {
        this.$root.SpaceUsers = [];
          this.$root.selectedSpace = [];
      
-       this.$root.manualFetchUnread();
+       
       
       this.$root.updateSpaceMessages();
       this.$root.checkUnread(true);
@@ -732,7 +732,7 @@ export default {
      },
     updateSpace: function(){
 
-  axios.get('/fetch-user-spaces')
+  axios.get('/fetch-user-spaces-' + this.$root.userDeviceId)
       .then(response => {
       
       if (response.status == 200) {
@@ -834,7 +834,7 @@ export default {
 
               
                 
-             axios.get('/fetch-user-spaces')
+             axios.get('/fetch-user-spaces-' + this.$root.userDeviceId)
       .then(response => {
       
       if (response.status == 200) {
@@ -885,7 +885,7 @@ export default {
             
            
            
-             axios.get('/fetch-user-spaces')
+             axios.get('/fetch-user-spaces-' + this.$root.userDeviceId)
       .then(response => {
       
       if (response.status == 200) {

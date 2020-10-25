@@ -79,6 +79,8 @@ import SetUsername from "../components/auth/SetUsername.vue"
 import PostCommentView from "../components/home/PostCommentView.vue"
 import Privacy from "../components/home/Privacy.vue"
 import NotFound from "../components/auth/NotFound.vue"
+import ForgotPassword from "../components/auth/ForgotPassword.vue"
+import ResetPassword from "../components/auth/ResetPassword.vue"
 
 
 const routes = [
@@ -123,6 +125,8 @@ const routes = [
     component: NotFound
   },
   { path: '/privacy-policy', name: 'Privacy', component: Privacy},
+  { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
+  { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/new-post', name: 'NewPost', component: NewPost},
   { path: '/code-editor', name: 'CodeEditor', component: CodeEditor},
   { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},

@@ -92,6 +92,8 @@ import PanelLoader from "../components/space/PanelLoader.vue"
 import ProjectComments from "../components/space/ProjectComments.vue"
 import NewComment from "../components/space/NewComment.vue"
 import NotFound from "../components/auth/NotFound.vue"
+import ForgotPassword from "../components/auth/ForgotPassword.vue"
+import ResetPassword from "../components/auth/ResetPassword.vue"
 
 
 
@@ -101,6 +103,8 @@ const routes = [
   { path: '/', redirect: '/space'},
   { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},
   { path: '/login', name: 'Login', component: Login},
+  { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
+  { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   {
     path: '*',
     name: 'notFound',
@@ -324,7 +328,7 @@ const routes = [
    ]
   },
   { path: '/space/sub/', 
-  name: 'Space',
+  name: 'SpaceSub',
   component: Space,
   children:[
     {
@@ -590,7 +594,8 @@ const app = new Vue({
      globalUsers:[],
      closenotifyRoot:false,
      codeboxComponent:undefined,
-     showSearchControl:false
+     showSearchControl:false,
+     userDeviceId:null
         },
      mounted: function () {
       this.pageloader= false;
@@ -639,6 +644,8 @@ const app = new Vue({
 
     if(this.isLogged){
        this.checkauthroot = 'auth';
+
+       this.checkUserDevice();
     }else{
       this.checkauthroot = 'noauth';
     }
@@ -651,6 +658,64 @@ const app = new Vue({
      }
   },
   methods:{
+    checkUserDevice: function(){
+         
+
+      let storedInfo = this.$root.getLocalStore('user_device_id_' + this.$root.username);
+
+       storedInfo.then((result)=>{
+         if(result != null){
+         
+
+          let finalResult = JSON.parse(result);
+
+          this.userDeviceId = finalResult[0];
+
+          this.saveDeviceInfo(this.userDeviceId);
+
+
+         }else{
+
+          var deviceId = "device_" + Math.random().toString(36).slice(2);
+
+          this.userDeviceId = deviceId;
+
+          this.$root.LocalStore('user_device_id_' + this.$root.username,[deviceId]);
+
+          this.saveDeviceInfo(deviceId);
+
+
+         }
+
+         this.$root.manualFetchUnread();
+       })
+
+
+      },
+      saveDeviceInfo:function(deviceId){
+
+        axios.post('/save-user-device',{
+          deviceId: deviceId,
+          device_name: navigator.appName,
+          device_platform: navigator.platform
+            })
+    .then(response => {
+      
+     if (response.status == 200) {
+        
+  
+      
+      }else{
+        console.log(response.status);
+      }
+      
+      
+    })
+    .catch(error => {
+      console.log(error);
+    })
+
+      },
     setEcho:function(){
       if (typeof io !== 'undefined') {
         window.Echo = new Echo({
@@ -722,7 +787,7 @@ const app = new Vue({
     manualFetchUnread: function(){
 
 
-      axios.get('/check-for-new-space-messages')
+      axios.get('/check-for-new-space-messages/'+ this.$root.userDeviceId)
  .then(response => {
  
  if (response.status == 200) {
@@ -772,7 +837,7 @@ const app = new Vue({
 
              this.$root.makeRecallSpace = false;
 
-axios.get( '/check-for-new-space-messages')
+axios.get( '/check-for-new-space-messages/' + this.$root.userDeviceId)
  .then(response => {
  
  if (response.status == 200) {
@@ -1503,8 +1568,9 @@ if (response.status == 200) {
 
 
     axios.post('/delete-unread-message',{
-      message_id:messageId
-   } )
+      message_id:messageId,
+      device_id: this.$root.userDeviceId
+   })
   .then(response => {
   
   if (response.status == 200) {

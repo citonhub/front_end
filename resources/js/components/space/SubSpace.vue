@@ -250,7 +250,7 @@ export default {
         },
         fetchSubSpaces: function(){
          
-           axios.get( '/fetch-sub-spaces-' + this.$root.selectedSpace.general_spaceId )
+           axios.get( '/fetch-sub-spaces-' + this.$root.selectedSpace.general_spaceId + '-' + this.$root.userDeviceId )
       .then(response => {
       
       if (response.status == 200) {

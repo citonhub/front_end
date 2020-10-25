@@ -835,7 +835,8 @@ methods:{
                 code: this.code,
               language_type: this.language,
               file_name:'index',
-              temp_id:  this.$root.NewMsg.message_id
+              temp_id:  this.$root.NewMsg.message_id,
+               device_id: this.$root.userDeviceId
             };
             
          this.$root.updateSpaceTracker(this.$root.selectedSpace.space_id);

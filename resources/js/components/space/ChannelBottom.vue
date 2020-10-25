@@ -120,7 +120,7 @@ export default {
        urlify:function(text) {
       var urlRegex =  /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
      return text.replace(urlRegex, function(url) {
-     return "<a href=\"" + url + "\" target=\"_blank\">"  + url + "</a>";
+     return  url ;
   })
    // or alternatively
     // return text.replace(urlRegex, '<a href="$1">$1</a>')
@@ -409,7 +409,8 @@ export default {
               current_user: JSON.stringify(this.$root.SpaceUsers),
               replied_message_id: this.$root.replyMessage.message_id,
               attachment_type: null,
-              temp_id:  this.$root.NewMsg.message_id
+              temp_id:  this.$root.NewMsg.message_id,
+              device_id: this.$root.userDeviceId
             };
 
             

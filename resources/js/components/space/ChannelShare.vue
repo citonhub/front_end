@@ -715,6 +715,8 @@ var blob = this.b64toBlob(realData, contentType);
         formData.append('attachment_type',this.attachment_type);
         formData.append('space_id',this.$root.selectedSpace.space_id);
         formData.append('temp_id', this.$root.NewMsg.message_id)
+         formData.append('device_id',this.$root.userDeviceId)
+        
         this.ChangeDataToDefaults();
 
          this.$root.updateSpaceTracker(this.$root.selectedSpace.space_id);

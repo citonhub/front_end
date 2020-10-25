@@ -129,6 +129,29 @@
 
         </div>
 
+          <v-fade-transition>
+              <div  style="position:fixed; height:auto: align-items:center;justify-content:center; left:0; bottom:15%; z-index:9999999123453566;"   class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3">
+             <v-alert
+      v-model="Alert"
+  
+     
+      color="#3E8893"
+       width="auto"
+       class="py-1 px-2"
+       rounded
+       style="font-size:13px;background:#3E8893; color:white; border-radius:20px;"
+       height="auto"
+    
+       elevation-10
+    
+     
+     
+    >
+     {{alertMsg}}
+    </v-alert>
+        </div>
+        </v-fade-transition>
+
      </v-app>
 
 </template>
@@ -142,7 +165,9 @@ export default {
            v => v.length <= 80 || 'Name must be less than 80 characters'
             ],
             name:'',
+            Alert:false,
             passwordConfirm:'',
+            alertMsg:'',
             password:'',
             email:'',
              emailRule: [
@@ -249,7 +274,7 @@ export default {
       register: function(){
 
          this.$root.LocalStore('user_temp_email',[this.email,this.password]);
-
+         this.$root.LocalStore('is_forget_password',[false]);
              axios.post( '/register',{
                 name: this.name,
                 email: this.email,

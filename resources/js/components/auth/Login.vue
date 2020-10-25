@@ -83,7 +83,7 @@
                  
                 <div class="col-6 text-center py-0 my-0">
                   
-                   <span class="forgot"  style="cursor:pointer;">
+                   <span class="forgot"  style="cursor:pointer;" @click="showForgot">
                       {{ $t('general.forgot_password') }}
              
              </span>
@@ -111,6 +111,29 @@
          
 
         </div>
+
+          <v-fade-transition>
+              <div  style="position:fixed; height:auto: align-items:center; left:0; justify-content:center;bottom:15%; z-index:9999999123453566;"   class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3">
+             <v-alert
+      v-model="Alert"
+  
+     
+      color="#3E8893"
+       width="auto"
+       class="py-1 px-2"
+       rounded
+       style="font-size:13px;background:#3E8893; color:white; border-radius:20px;"
+       height="auto"
+    
+       elevation-10
+    
+     
+     
+    >
+     {{alertMsg}}
+    </v-alert>
+        </div>
+        </v-fade-transition>
 
      </v-app>
 
@@ -145,6 +168,9 @@ export default {
        showRegister: function(){
             this.$router.push({ path: '/register' });
         },
+        showForgot: function(){
+            this.$router.push({ path: '/forgot-password' });
+        },
       checkIfLogin:function(){
 
           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'space'){
@@ -164,12 +190,7 @@ export default {
           } 
 
        },
-       viewPost: function(){
-            this.$router.push({ path: '/post' });
-        },
-        library: function(){
-            this.$router.push({ path: '/library' });
-        },
+     
         goBack: function(){
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
    },
@@ -208,7 +229,7 @@ export default {
 
       this.$root.fetchUserDetails();
        this.$root.setEcho();
-    
+       this.$root.checkUserDevice();
 
       let storedTracker = this.$root.getLocalStore('route_tracker');
 
