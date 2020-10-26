@@ -112,30 +112,49 @@
 
 
       <span style="position:absolute; top:81.5%; right:3%; z-index:10;"  class="d-md-none d-inline-block">
-          <v-btn
+         <v-badge
+          color="#36848C"
+          left
+          v-if="projectData.comments != 0"
+          :content="projectData.comments"
+        >
+          
+           <v-btn
                 color="#35747e"
                 small
                  @click="showComments"
                 class="d-block"
                 fab
               >
-                <v-icon color="#ffffff">mdi-pencil-plus</v-icon>
+                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
               </v-btn>
+     
+         </v-badge>
+         
      </span>
 
    
 
 
       <span style="position:absolute; top:86%; right:3%;z-index:9999;" class="d-none d-md-inline-block">
-          <v-btn
+           <v-badge
+          color="#36848C"
+          left
+          v-if="projectData.comments != 0"
+          :content="projectData.comments"
+        >
+          
+           <v-btn
                 color="#35747e"
                 small
                  @click="showComments"
                 class="d-block"
                 fab
               >
-                <v-icon color="#ffffff">mdi-pencil-plus</v-icon>
+                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
               </v-btn>
+     
+         </v-badge>
      </span>
 
        </div>

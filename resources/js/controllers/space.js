@@ -90,7 +90,6 @@ import DBTable from "../components/space/DBTable.vue"
 import NewCodeFile from "../components/space/NewCodeFile.vue"
 import PanelLoader from "../components/space/PanelLoader.vue"
 import ProjectComments from "../components/space/ProjectComments.vue"
-import NewComment from "../components/space/NewComment.vue"
 import NotFound from "../components/auth/NotFound.vue"
 import ForgotPassword from "../components/auth/ForgotPassword.vue"
 import ResetPassword from "../components/auth/ResetPassword.vue"
@@ -119,7 +118,6 @@ const routes = [
   { path: '/:projectSlug/db-table', name: 'DBTable', component: DBTable},
   { path: '/:projectSlug/:language_type/add-new-file', name: 'NewCodeFile', component: NewCodeFile},
   { path: '/:projectSlug/comments', name: 'ProjectComments', component: ProjectComments},
-  { path: '/:projectSlug/make-comment', name: 'NewComment', component: NewComment},
   { path: '/:projectSlug/page-loader/:referral', name: 'PanelLoader', component: PanelLoader},
   { path: '/register', name: 'Register', component: Register},
   { path: '/verify', name: 'Verify', component: Verify},
