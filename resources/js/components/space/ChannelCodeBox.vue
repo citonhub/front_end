@@ -36,7 +36,7 @@
        <div class="col-12 py-0 my-0" style="position:absolute; height:95.5%;width:100%; overflow-y:hidden; overflow-x:hidden;">
          <div class="row my-0 py-0 px-0 ">
              
-              <div class="codeboxnew">
+              <div class="codeboxnew1">
               
          <codemirror
         v-model="code"
@@ -1428,20 +1428,20 @@ methods:{
     font-size:10px;
 }
 
- .codeboxnew,
+ .codeboxnew1,
     .pre {
       width: 100%;
       margin: 0;
      
        display: block;
-      font-size: 13px;
+      font-size: 14px;
       line-height: 1.6;
       word-break: break-all;
       word-wrap: break-word;
       overflow: auto;
     }
 
-    .codeboxnew{
+    .codeboxnew1{
        height: 100%;
        border: 1px solid #e6e6e6;
         position:absolute;
