@@ -13,7 +13,7 @@
   <meta property="og:description" content="Citonhub is a community of developers where they interact,learn and build" />
   <meta property='twitter:title' content="Citonhub:Hub."/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/CitonHub.png"/>
-<meta name="twitter:card" content="summary"/>
+<meta name="twitter:card" content="summary_large_image"/>
  @endsection
  @section('css')
   
