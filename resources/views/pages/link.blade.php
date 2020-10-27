@@ -11,7 +11,10 @@
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
   <meta name="og:image" content="https://www.citonhub.com/imgs/{{$imagePath}}"/>
-  
+  <meta property="og:description" content="{!! $pageDescription !!}" />
+    <meta property='twitter:title' content="{{$pageTitle}}"/>
+<meta property='twitter:image' content="https://www.citonhub.com/imgs/{{$imagePath}}"/>
+<meta name="twitter:card" content="summary_large_image"/>
  @endsection
 
 
