@@ -21,7 +21,9 @@
     <meta property="og:description" content="A messaging platform for developer communities. Chat, share codes, live code and build projects in your Space. Create an account or log in to get started" />
     <meta property='twitter:title' content="Citonhub:Space"/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/CitonHub.png"/>
-<meta name="twitter:card" content="summary_large_image/>
+<meta name="twitter:card" content="summary_large_image"/>
+
+
  @endsection
  @section('css')
   <!-- Shaka Player ui compiled library default CSS: -->
