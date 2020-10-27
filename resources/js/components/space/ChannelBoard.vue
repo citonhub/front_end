@@ -65,7 +65,7 @@
                   
                 </div>
                 <div class="py-0 my-0 col-4 text-right" >
-                  <v-btn rounded x-small color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;" @click="share">{{ $t('general.share') }}</v-btn>
+                  <v-btn rounded x-small color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;" @click="share">invite</v-btn>
 
                    
                     </div>

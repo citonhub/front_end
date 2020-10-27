@@ -37,10 +37,10 @@
            <div v-for="(post,index) in this.$root.postArray" :key="index" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 px-0 py-0">
           
 
-           <div class="col-12  my-0  py-1"  @click.stop="viewPost()">
+           <div class="col-12  my-0  py-1"  @click.stop="viewPost()" v-if="post.commented_post">
         <div class="row" style="background-color:white; border-bottom:1px solid #cccccc;border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;">
            <div class="col-12 py-0 d-flex ">
-             <div>
+             <div  v-if="post.commented_post">
                   <div :style="imageStyle(43,post.commented_post.userProfile)"   @click.stop="viewUser(post.commented_post)"
                   class="d-inline-block" >
 
@@ -135,7 +135,7 @@
               <div class="col-12 py-1" style="background-color:whitesmoke; border-bottom:1px solid #cccccc;">
         <div class="row" >
            <div class="col-12 py-0 d-flex " >
-             <div>
+             <div v-if="post.userProfile">
                   <div :style="imageStyle(38,post.userProfile)"  @click.stop="viewUser(post)" 
                   class="d-inline-block" >
 
@@ -381,7 +381,14 @@ export default {
            this.$root.checkIfUserIsLoggedIn('home');
 
            this.$root.postArray = [this.post.commented_post];
+
+           this.$root.showPostViewModal = false;
+
+          
+
         this.$router.push({ path: '/post/' + this.post.commented_post.username + '/' + this.post.commented_post.PostId + '/user' });
+
+         this.$root.showPostModal = true;
     },
     likePost: function(postData){
 

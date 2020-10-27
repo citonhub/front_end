@@ -82,7 +82,7 @@
 
          </div>
 
-          <span style="position:absolute; top:81.5%; left:3%; z-index:10;"  class="d-md-none d-inline-block">
+          <span style="position:fixed; top:81.5%; left:3%; z-index:10;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#35747e"
                 small
@@ -111,7 +111,7 @@
 
 
 
-      <span style="position:absolute; top:81.5%; right:3%; z-index:10;"  class="d-md-none d-inline-block">
+      <span style="position:fixed; top:81.5%; right:3%; z-index:999999999999910;"  class="d-md-none d-inline-block">
          <v-badge
           color="#36848C"
           left
@@ -130,13 +130,24 @@
               </v-btn>
      
          </v-badge>
+
+          <v-btn
+                color="#35747e"
+                small
+                v-else
+                 @click="showComments"
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
+              </v-btn>
          
      </span>
 
    
 
 
-      <span style="position:absolute; top:86%; right:3%;z-index:9999;" class="d-none d-md-inline-block">
+      <span style="position:absolute; top:86%; right:3%;z-index:999999989999999;" class="d-none d-md-inline-block">
            <v-badge
           color="#36848C"
           left
@@ -155,6 +166,18 @@
               </v-btn>
      
          </v-badge>
+
+           <v-btn
+                color="#35747e"
+                small
+                v-else
+                 @click="showComments"
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
+              </v-btn>
+              
      </span>
 
        </div>

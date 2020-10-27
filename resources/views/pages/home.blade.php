@@ -299,6 +299,6 @@ body {
 
    <script src="https://unpkg.com/marked@0.3.6"></script>
 
- <script src="{{ asset('js/home.js?v=1.02') }}"></script>
+ <script src="{{ asset('js/home.js?v=1.07') }}"></script>
      
  @endsection

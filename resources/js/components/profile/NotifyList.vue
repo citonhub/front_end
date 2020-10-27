@@ -2,6 +2,486 @@
     <div>
         <div class="row"  v-for="(notification, index) in Notifications" :key="index" >
 
+
+             <!-- post replied -->
+               <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
+                   v-if="notification.type == 'post_replied'  && notification.post_data != null"  
+                      >
+                <div class="row py-0 my-0 px-2">
+                    <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">
+                 <div>
+                  <div :style="imageStyle(34,notification.dataArray[0])" 
+                  class="d-inline-block" >
+
+                  </div>
+
+               </div>
+               
+            
+                <div class="d-inline-block ml-2 mt-1">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username }} replied your comment </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+
+                   <div class="col-12 py-0  px-0"  v-else>
+                     
+                           
+                           <div class="col-12 py-0 px-2">
+                                <div v-for="(user,index) in notification.dataArray" :key="index" class="d-inline-block mx-1">
+                  <div :style="imageStyle(25,user)" 
+                   >
+
+                    </div>
+
+                     </div>
+                           </div>
+                      
+                
+               
+            
+                <div class="ml-2 mt-1 col-12 px-2 py-0">
+                  <span  class="d-block titleText"><b>
+                    {{notification.dataArray[0].username}} and {{ notification.dataArray.length - 1 }} others replied your comment </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+                   
+                    <div class="py-0 my-0 d-flex col-12 " style="align-items:center;">
+                        
+                         <div  style="font-size:12px;" v-html="shortenContent(notification.post_data.content,50)"></div>
+                        
+                         
+                    </div>
+                   
+                </div>
+             </v-card>
+
+
+
+              <!-- post comment -->
+               <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
+                   v-if="notification.type == 'post_comment'  && notification.post_data != null"  
+                      >
+                <div class="row py-0 my-0 px-2">
+                    <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">
+                 <div>
+                  <div :style="imageStyle(34,notification.dataArray[0])" 
+                  class="d-inline-block" >
+
+                  </div>
+
+               </div>
+               
+            
+                <div class="d-inline-block ml-2 mt-1">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username }} commented on  your post </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+
+                   <div class="col-12 py-0  px-0"  v-else>
+                     
+                           
+                           <div class="col-12 py-0 px-2">
+                                <div v-for="(user,index) in notification.dataArray" :key="index" class="d-inline-block mx-1">
+                  <div :style="imageStyle(25,user)" 
+                   >
+
+                    </div>
+
+                     </div>
+                           </div>
+                      
+                
+               
+            
+                <div class="ml-2 mt-1 col-12 px-2 py-0">
+                  <span  class="d-block titleText"><b>
+                    {{notification.dataArray[0].username}} and {{ notification.dataArray.length - 1 }} others commented on your post </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+                   
+                    <div class="py-0 my-0 d-flex col-12 " style="align-items:center;">
+                       
+                         <div  style="font-size:12px;" v-html="shortenContent(notification.post_data.content,50)"></div>
+                        
+                         
+                    </div>
+                   
+                </div>
+             </v-card>
+
+
+              <!-- post comment like -->
+               <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
+                   v-if="notification.type == 'post_comment_like'  && notification.post_data != null"  
+                      >
+                <div class="row py-0 my-0 px-2">
+                    <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">
+                 <div>
+                  <div :style="imageStyle(34,notification.dataArray[0])" 
+                  class="d-inline-block" >
+
+                  </div>
+
+               </div>
+               
+            
+                <div class="d-inline-block ml-2 mt-1">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username }} liked your comment </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+
+                   <div class="col-12 py-0  px-0"  v-else>
+                     
+                           
+                           <div class="col-12 py-0 px-2">
+                                <div v-for="(user,index) in notification.dataArray" :key="index" class="d-inline-block mx-1">
+                  <div :style="imageStyle(25,user)" 
+                   >
+
+                    </div>
+
+                     </div>
+                           </div>
+                      
+                
+               
+            
+                <div class="ml-2 mt-1 col-12 px-2 py-0">
+                  <span  class="d-block titleText"><b>
+                    {{notification.dataArray[0].username}} and {{ notification.dataArray.length - 1 }} others liked your comment </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+                   
+                    <div class="py-0 my-0 d-flex col-12 " style="align-items:center;">
+                     
+                         <div  style="font-size:12px;" v-html="shortenContent(notification.post_data.content,50)"></div>
+                       
+                         
+                    </div>
+                   
+                </div>
+             </v-card>
+           
+
+
+             <!-- post reply like -->
+               <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
+                   v-if="notification.type == 'post_reply_like'  && notification.post_data != null"  
+                      >
+                <div class="row py-0 my-0 px-2">
+                    <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">
+                 <div>
+                  <div :style="imageStyle(34,notification.dataArray[0])" 
+                  class="d-inline-block" >
+
+                  </div>
+
+               </div>
+               
+            
+                <div class="d-inline-block ml-2 mt-1">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username }} liked your reply </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+
+                   <div class="col-12 py-0  px-0"  v-else>
+                     
+                           
+                           <div class="col-12 py-0 px-2">
+                                <div v-for="(user,index) in notification.dataArray" :key="index" class="d-inline-block mx-1">
+                  <div :style="imageStyle(25,user)" 
+                   >
+
+                    </div>
+
+                     </div>
+                           </div>
+                      
+                
+               
+            
+                <div class="ml-2 mt-1 col-12 px-2 py-0">
+                  <span  class="d-block titleText"><b>
+                    {{notification.dataArray[0].username}} and {{ notification.dataArray.length - 1 }} others liked your reply </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+                   
+                    <div class="py-0 my-0 d-flex col-12 " style="align-items:center;">
+
+                         <div  style="font-size:12px;" v-html="shortenContent(notification.post_data.content,50)"></div>
+                         
+                    </div>
+                   
+                </div>
+             </v-card>
+
+
+
+
+             <!-- post like -->
+               <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
+                   v-if="notification.type == 'post_like'  && notification.post_data != null"  
+                      >
+                <div class="row py-0 my-0 px-2">
+                    <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">
+                 <div>
+                  <div :style="imageStyle(34,notification.dataArray[0])" 
+                  class="d-inline-block" >
+
+                  </div>
+
+               </div>
+               
+            
+                <div class="d-inline-block ml-2 mt-1">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username }} liked your post </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+
+                   <div class="col-12 py-0  px-0"  v-else>
+                     
+                           
+                           <div class="col-12 py-0 px-2">
+                                <div v-for="(user,index) in notification.dataArray" :key="index" class="d-inline-block mx-1">
+                  <div :style="imageStyle(25,user)" 
+                   >
+
+                    </div>
+
+                     </div>
+                           </div>
+                      
+                
+               
+            
+                <div class="ml-2 mt-1 col-12 px-2 py-0">
+                  <span  class="d-block titleText"><b>
+                    {{notification.dataArray[0].username}} and {{ notification.dataArray.length - 1 }} others liked your post </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+                   
+                    <div class="py-0 my-0 d-flex col-12 " style="align-items:center;">
+                      
+                         <div  style="font-size:12px;" v-html="shortenContent(notification.post_data.content,50)"></div>
+                       
+                         
+                    </div>
+                   
+                </div>
+             </v-card>
+
+
+
+
+
+              <!-- post comment pulled -->
+               <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
+                   v-if="notification.type == 'post_comment_pulled'  && notification.post_data != null"  
+                      >
+                <div class="row py-0 my-0 px-2">
+                    <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">
+                 <div>
+                  <div :style="imageStyle(34,notification.dataArray[0])" 
+                  class="d-inline-block" >
+
+                  </div>
+
+               </div>
+               
+            
+                <div class="d-inline-block ml-2 mt-1">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username }} pulled your comment </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+
+                   <div class="col-12 py-0  px-0"  v-else>
+                     
+                           
+                           <div class="col-12 py-0 px-2">
+                                <div v-for="(user,index) in notification.dataArray" :key="index" class="d-inline-block mx-1">
+                  <div :style="imageStyle(25,user)" 
+                   >
+
+                    </div>
+
+                     </div>
+                           </div>
+                      
+                
+               
+            
+                <div class="ml-2 mt-1 col-12 px-2 py-0">
+                  <span  class="d-block titleText"><b>
+                    {{notification.dataArray[0].username}} and {{ notification.dataArray.length - 1 }} others pulled your comment </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+                   
+                    <div class="py-0 my-0 d-flex col-12 " style="align-items:center;">
+                       
+                         <div  style="font-size:12px;" v-html="shortenContent(notification.post_data.content,50)"></div>
+
+                    </div>
+                   
+                </div>
+             </v-card>
+
+
+
+
+
+              <!-- post reply pulled -->
+               <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
+                   v-if="notification.type == 'post_reply_pulled'  && notification.post_data != null"  
+                      >
+                <div class="row py-0 my-0 px-2">
+                    <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">
+                 <div>
+                  <div :style="imageStyle(34,notification.dataArray[0])" 
+                  class="d-inline-block" >
+
+                  </div>
+
+               </div>
+               
+            
+                <div class="d-inline-block ml-2 mt-1">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username }} pulled your reply </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+
+                   <div class="col-12 py-0  px-0"  v-else>
+                     
+                           
+                           <div class="col-12 py-0 px-2">
+                                <div v-for="(user,index) in notification.dataArray" :key="index" class="d-inline-block mx-1">
+                  <div :style="imageStyle(25,user)" 
+                   >
+
+                    </div>
+
+                     </div>
+                           </div>
+                      
+                
+               
+            
+                <div class="ml-2 mt-1 col-12 px-2 py-0">
+                  <span  class="d-block titleText"><b>
+                    {{notification.dataArray[0].username}} and {{ notification.dataArray.length - 1 }} others pulled your reply </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+                   
+                    <div class="py-0 my-0 d-flex col-12 " style="align-items:center;">
+
+                          <div  style="font-size:12px;" v-html="shortenContent(notification.post_data.content,50)"></div>
+                         
+                    </div>
+                   
+                </div>
+             </v-card>
+
+
+              <!-- post pulled -->
+               <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
+                   v-if="notification.type == 'post_pulled'  && notification.post_data != null"  
+                      >
+                <div class="row py-0 my-0 px-2">
+                    <div class="col-12 py-0 d-flex "  v-if="notification.dataArray.length == 1">
+                 <div>
+                  <div :style="imageStyle(34,notification.dataArray[0])" 
+                  class="d-inline-block" >
+
+                  </div>
+
+               </div>
+               
+            
+                <div class="d-inline-block ml-2 mt-1">
+                  <span  class="d-block titleText"><b>{{notification.dataArray[0].username }} pulled your post </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+
+                   <div class="col-12 py-0  px-0"  v-else>
+                     
+                           
+                           <div class="col-12 py-0 px-2">
+                                <div v-for="(user,index) in notification.dataArray" :key="index" class="d-inline-block mx-1">
+                  <div :style="imageStyle(25,user)" 
+                   >
+
+                    </div>
+
+                     </div>
+                           </div>
+                      
+                
+               
+            
+                <div class="ml-2 mt-1 col-12 px-2 py-0">
+                  <span  class="d-block titleText"><b>
+                    {{notification.dataArray[0].username}} and {{ notification.dataArray.length - 1 }} others pulled your post </b></span>
+                   <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
+                   
+                </div>
+
+                </div>
+                   
+                    <div class="py-0 my-0 d-flex col-12 " style="align-items:center;">
+                       
+                         <div  style="font-size:12px;" v-html="shortenContent(notification.post_data.content,50)"></div>
+                         
+                    </div>
+                   
+                </div>
+             </v-card>
+
+
+
                <!-- new duel -->
                <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
                    v-if="notification.type == 'new_duel' && notification.dataArray[0] != null"  
@@ -469,7 +949,7 @@ export default {
 
         if(notification.type == 'post_like'){
 
-        window.location = '/#/' + 'post/' + this.$root.username + '/' + notification.basePost.post_id + '/user';
+        window.location = '/hub#/' + 'post/' + this.$root.username + '/' + notification.post_data.post_id + '/user';
         
      
        }
@@ -477,52 +957,52 @@ export default {
 
         if(notification.type == 'post_pulled'){
         
-       window.location = '/#/' + 'post/' + this.$root.username + '/' + notification.basePost.post_id + '/user';
+       window.location = '/hub#/' + 'post/' + this.$root.username + '/' + notification.post_data.post_id + '/user';
 
        }
 
         if(notification.type == 'post_comment'){
         
-       window.location = '/#/' + 'post/' + this.$root.username + '/' + notification.basePost.post_id + '/user';
+       window.location = '/hub#/' + 'post/' + this.$root.username + '/' + notification.post_data.post_id + '/user';
 
        }
 
         if(notification.type == 'post_comment_like'){
         
-       window.location = '/#/' + 'post/comment/' + this.$root.username + '/' + notification.basePost.post_id + '/user';
+       window.location = '/hub#/' + 'post/comment/' + this.$root.username + '/' + notification.post_data.post_id + '/user';
 
        }
 
         if(notification.type == 'post_replied'){
         
-       window.location = '/#/' + 'post/comment/' + this.$root.username + '/' + notification.basePost.post_id + '/user';
+       window.location = '/hub#/' + 'post/comment/' + this.$root.username + '/' + notification.post_data.post_id + '/user';
 
        }
 
         if(notification.type == 'post_reply_like'){
         
-       window.location = '/#/' + 'post/comment/' + this.$root.username + '/' + notification.basePost.post_id + '/user';
+       window.location = '/hub#/' + 'post/comment/' + this.$root.username + '/' + notification.post_data.post_id + '/user';
 
        }
 
 
         if(notification.type == 'post_comment_pulled'){
         
-       window.location = '/#/' + 'post/comment/' + this.$root.username + '/' + notification.basePost.post_id + '/user';
+       window.location = '/hub#/' + 'post/comment/' + this.$root.username + '/' + notification.post_data.post_id + '/user';
 
        }
 
 
         if(notification.type == 'post_reply_pulled'){
         
-      window.location = '/#/' + 'post/comment/' + this.$root.username + '/' + notification.basePost.post_id + '/user';
+      window.location = '/hub#/' + 'post/comment/' + this.$root.username + '/' + notification.post_data.post_id + '/user';
 
        }
 
 
         if(notification.type == 'new_project_comment'){
         
-        window.location = '/space#/' + notification.project_data.project_slug + '/page-loader/user';
+        window.location = '/#/' + notification.project_data.project_slug + '/page-loader/user';
 
        }
 
@@ -534,13 +1014,13 @@ export default {
 
          if(notification.type == 'new_message'){
         
-        window.location = '/space#/space/' + notification.space.space_id + '/channel/content/user';
+        window.location = '/#/space/' + notification.space.space_id + '/channel/content/user';
 
        }
 
         if(notification.type == 'space_invitation'){
         
-        window.location = '/space#/space/' + notification.space.space_id + '/channel/content/user';
+        window.location = '/#/space/' + notification.space.space_id + '/channel/content/user';
 
        }
 
@@ -572,6 +1052,21 @@ export default {
 
         return  Dateformat.format('H:mm a');
     },
+    shortenContent: function(content,limit){
+
+        if( content != null){
+
+           if(content.length > limit){
+                let shortcontent = content.slice(0,limit);
+                 return shortcontent + '...';
+             }else{
+               return content;
+             }
+
+        }
+             
+             
+        },
        imageStyle:function(dimension,data){
             let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;";
 

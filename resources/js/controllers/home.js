@@ -100,6 +100,7 @@ const routes = [
        if(window.thisUserState != undefined){
 
         thisUserState.$root.showPostModal = false;
+        thisUserState.$root.showPostViewModal = false;
 
         thisUserState.$root.postViewType = '';
 
@@ -154,7 +155,7 @@ const routes = [
 
       if(window.thisUserState != undefined){
 
-      
+        thisUserState.$root.showPostViewModal = false;
         thisUserState.$root.showPostModal = true;
         thisUserState.$root.fullImageViewer = false;
   
@@ -328,8 +329,9 @@ const routes = [
 
       if(window.thisUserState != undefined){
 
-      
-        thisUserState.$root.showPostModal = true;
+     
+        thisUserState.$root.showPostViewModal = true;   
+        thisUserState.$root.showPostModal = false;
         thisUserState.$root.fullImageViewer = false;
   
          thisUserState.$root.showCodeEditor = false;
@@ -486,6 +488,7 @@ const app = new Vue({
             codeFromPostView: false,
             postCurrentPage:0,
             showPostModal:false,
+            showPostViewModal:false,
             postViewType:'',
             showCreatepost: false,
             baseApiUrl:'https://api.citonhub.com/api',

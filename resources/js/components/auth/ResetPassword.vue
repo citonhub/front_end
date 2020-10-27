@@ -247,7 +247,10 @@ export default {
 
       this.$root.fetchUserDetails();
       this.$root.setEcho();
-         this.$root.checkUserDevice();
+          if(this.$root.frompage == 'space'){
+        this.$root.checkUserDevice();
+
+      }
       
 
       let storedTracker = this.$root.getLocalStore('route_tracker');

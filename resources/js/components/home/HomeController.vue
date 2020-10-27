@@ -16,7 +16,7 @@
     <template v-slot="{ item, index, active }">
       <DynamicScrollerItem
         :item="item"
-        :buffer="900"
+        :buffer="1500"
         :active="active"
         :size-dependencies="[
           item.content,
@@ -223,8 +223,7 @@ export default {
          }
 
          this.$root.showPostModal = false;
-         this.$root.postViewType = '';
-        
+     this.$root.showPostViewModal = false;
      
 
     },

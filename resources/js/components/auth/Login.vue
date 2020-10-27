@@ -227,9 +227,14 @@ export default {
 
       this.$root.checkauthroot = 'auth';
 
+      if(this.$root.frompage == 'space'){
+        this.$root.checkUserDevice();
+
+      }
+
       this.$root.fetchUserDetails();
        this.$root.setEcho();
-       this.$root.checkUserDevice();
+       
 
       let storedTracker = this.$root.getLocalStore('route_tracker');
 

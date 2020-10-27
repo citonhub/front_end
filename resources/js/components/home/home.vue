@@ -31,11 +31,11 @@
 
        
 
-        <div v-if="this.$root.showPostModal && this.$root.postViewType == 'full'" style="z-index:999938859;">
+        <div v-if="this.$root.showPostModal " style="z-index:999938859;">
             <post></post>
       </div>
 
-       <div v-if="this.$root.showPostModal  && this.$root.postViewType == 'comment'" style="z-index:999938859;">
+       <div v-if="this.$root.showPostViewModal " style="z-index:999938859;">
             <post-comment-view></post-comment-view>
       </div>
         
