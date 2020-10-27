@@ -5,7 +5,7 @@
 
  @endsection
  @section('meta') 
- <meta name="description" content="Citonhub is a community of developers where they interact,learn and build." />
+ <meta name="description" content="A teaching platform for developer communities" />
   <meta name="keywords" content="Programming Duels,Developer Community,Citonhub Channels,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
