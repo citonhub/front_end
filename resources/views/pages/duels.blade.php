@@ -18,6 +18,10 @@
     <!--Metadata for Microsoft-->
     <meta name="msapplication-TileImage" content="imagesNew/icons/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#4495a2">
+
+    <meta property='twitter:title' content="Citonhub:Duels"/>
+<meta property='twitter:image' content="https://citonhub.com/imgs/CitonHub.png"/>
+<meta name="twitter:card" content="Improve your skills by challenging friends to duels"/>
  @endsection
  
  @section('css')

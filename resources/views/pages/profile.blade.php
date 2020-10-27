@@ -18,6 +18,10 @@
     <!--Metadata for Microsoft-->
     <meta name="msapplication-TileImage" content="imagesNew/icons/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#4495a2">
+
+    <meta property='twitter:title' content="Citonhub:Profile"/>
+<meta property='twitter:image' content="https://citonhub.com/imgs/CitonHub.png"/>
+<meta name="twitter:card" content="Show your projects to developers that connect with you"/>
  @endsection
  @section('css')
   

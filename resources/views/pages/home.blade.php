@@ -10,8 +10,13 @@
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
   <meta name="og:image" content="https://citonhub.com/imgs/CitonHub.png"/>
+
+  <meta property='twitter:title' content="Citonhub:Hub."/>
+<meta property='twitter:image' content="https://citonhub.com/imgs/CitonHub.png"/>
+<meta name="twitter:card" content="Citonhub is a community of developers where they interact,learn and build."/>
  @endsection
  @section('css')
+  
   
  <link rel="stylesheet" type="text/css" href="/css/controls.css">
 
