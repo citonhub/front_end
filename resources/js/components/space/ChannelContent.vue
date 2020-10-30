@@ -650,6 +650,10 @@
 
       
        <span style="position:fixed; top:73%; right:3%; z-index:98757;"  class="d-md-none d-inline-block">
+
+            <div style="position:absolute;bottom:120%; right:17%; z-index:2;" v-if="showCodeBoxInfo" >
+                    <info-dialog :buttonText="'Ok'" :content="codeBoxContent" :type="'infobottom'" :next="'liveContent'"></info-dialog>
+                      </div>
           <v-btn
                 color="#3E8893"
                 small
@@ -663,6 +667,11 @@
      </span>
 
       <span style="position:absolute; top:85%; right:3%;  z-index:98757;" class="d-none d-md-inline-block">
+
+        <div style="position:absolute;bottom:120%; right:-30%; z-index:2;" v-if="showCodeBoxInfo">
+                    <info-dialog :buttonText="'Ok'" :content="codeBoxContent" :type="'infobottom'" :next="'liveContent'"></info-dialog>
+                      </div>
+
           <v-btn
                 color="#3E8893"
                 small
@@ -739,7 +748,6 @@ export default {
           scrollPosition:0,
           startPosition:0,
           messageStore: [],
-         
           messageStoreTop:[],
           endPosition:0,
            containerScrollPosition:0,
@@ -755,6 +763,8 @@ export default {
           unsentMessagesPresent: false,
           errorLoadingMessage:false,
           loadingJoin:false,
+          showCodeBoxInfo:false,
+          codeBoxContent:'Share and run more then 25 programming languages',
           imageArray:[
             {
               image_name: 'imgproj',
@@ -795,7 +805,7 @@ export default {
           
        
 
-      
+       this.$root.channelContentComponent = this;
        
        this.makeSpaceConnetion();
        this.$root.forceListReload = false;
@@ -812,12 +822,24 @@ export default {
 
       }
 
-
+    
+    this.handleInfoSession();
      
        
       
     },
     methods:{
+       handleInfoSession:function(){
+
+      let storedInfo = this.$root.getLocalStore('channelcontentinfo'+ this.$root.username);
+
+        storedInfo.then((result)=>{
+          if(result == null){
+            this.showCodeBoxInfo = true;
+          }
+        })
+
+      },
        checkIfUser:function(userId){
             if(userId == this.$root.user_temp_id){
                 return true;

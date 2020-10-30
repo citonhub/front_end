@@ -1,5 +1,34 @@
 <template>
      <div class="row py-1 my-0 px-1" style="cursor:pointer;" >
+
+        <div style="position:absolute;top:120%; right:1%; z-index:2;" class="d-none d-md-block" v-if="showLiveInfo">
+                    <info-dialog :buttonText="'Ok'" :content="liveCodingContent" :type="'infotop'"  :next="'subSpace'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:120%; right:2%; z-index:2;" class="d-md-none d-block" v-if="showLiveInfo">
+                    <info-dialog :buttonText="'Ok'" :content="liveCodingContent" :type="'infotop'" :next="'subSpace'" ></info-dialog>
+                      </div>
+
+
+                     <div style="position:absolute;top:120%; right:17%; z-index:2;" class="d-none d-md-block" v-if="showSubSpaceInfo">
+                    <info-dialog :buttonText="'Ok'" :content="subChannelContent" :type="'infotop'"  :next="'customizeSpace'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:120%; right:17%; z-index:2;" class="d-md-none d-block" v-if="showSubSpaceInfo">
+                    <info-dialog :buttonText="'Ok'" :content="subChannelContent" :type="'infotop'" :next="'customizeSpace'" ></info-dialog>
+                      </div>
+
+
+
+                     <div style="position:absolute;top:120%; right:45%; z-index:2;" class="d-none d-md-block" v-if="showCustomizerInfo">
+                    <info-dialog :buttonText="'Ok'" :content="customizeContent" :type="'infotop'"  :next="'finalTop'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:120%; right:40%; z-index:2;" class="d-md-none d-block" v-if="showCustomizerInfo">
+                    <info-dialog :buttonText="'Ok'" :content="customizeContent" :type="'infotop'" :next="'finalTop'" ></info-dialog>
+                      </div>
+
+
          <div class="col-1 py-0 my-0 d-flex" style="align-items:center; justify-content:center;">
                <v-btn icon @click.stop="goBack"><v-icon color="white">mdi-arrow-left</v-icon></v-btn>
          </div>
@@ -179,6 +208,12 @@ export default {
           remoteCode: this.$root.remoteCode,
           remoteScreen: this.$root.remoteScreen,
           remoteAudio: this.$root.remoteAudio,
+          liveCodingContent:'Join a live coding session or share your screen with everyone',
+          subChannelContent:'Organize chats and contents by create sub-channels or sub-teams',
+          showLiveInfo:false,
+          showSubSpaceInfo:false,
+          customizeContent:'Click here to customize your channel or team and invite members',
+          showCustomizerInfo:false,
           _this: this
         }
     },
@@ -188,6 +223,8 @@ export default {
     mounted(){
 
       this.$root.remoteLiveHappening = false;
+
+      this.$root.channelTopComponent = this;
              
     },
     methods:{

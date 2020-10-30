@@ -593,7 +593,10 @@ const app = new Vue({
      closenotifyRoot:false,
      codeboxComponent:undefined,
      showSearchControl:false,
-     userDeviceId:null
+     userDeviceId:null,
+     chatListComponent:undefined,
+     channelTopComponent:undefined,
+     channelContentComponent:undefined
         },
      mounted: function () {
       this.pageloader= false;

@@ -16,8 +16,18 @@
 
          <div class="row my-0 py-0 px-2 "  >
 
+          
+
                
                 <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('project')"  style="cursor:pointer;">
+
+                   <div style="position:absolute;top:30%; right:8%; z-index:2;" class="d-none d-md-block" v-if="showProjectInfo">
+                    <info-dialog :buttonText="'Ok'" :content="projectContent" :type="'inforight'" :next="'channelInfo'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:34%; right:17%; z-index:2;" class="d-md-none d-block" v-if="showProjectInfo">
+                    <info-dialog :buttonText="'Ok'" :content="projectContent" :type="'inforight'" :next="'channelInfo'"></info-dialog>
+                      </div>
                  
                  <div class="row py-0 my-0 px-2">
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
@@ -32,6 +42,7 @@
                          
                     </div>
                     <div class="py-1 my-0 text-right col-2" style="background:#c9e4e8;">
+                     
                            <v-btn icon color="#3E8893" @click="createProject"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
                     </div>
                  </div>
@@ -42,6 +53,8 @@
 
               
               <div class="col-12 py-1 my-0 mx-0 project" v-if="this.$root.showProject" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;" >
+
+                
                 <div  v-if="channelProject != null">
                     <div class="row my-0 my-0 px-0"  v-if="channelProject.length != 0">
 
@@ -118,6 +131,15 @@
 
             
              <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('channel')" style="cursor:pointer;" >
+                 
+                  <div style="position:absolute;top:30%; right:8%; z-index:2;" class="d-none d-md-block" v-if="showChannelInfo">
+                    <info-dialog :buttonText="'Ok'" :content="channelContent" :type="'inforight'" :next="'teamInfo'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:34%; right:17%; z-index:2;" class="d-md-none d-block" v-if="showChannelInfo">
+                    <info-dialog :buttonText="'Ok'" :content="channelContent" :type="'inforight'" :next="'teamInfo'"></info-dialog>
+                      </div>
+
                  
                  <div class="row py-0 my-0 px-2">
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
@@ -233,6 +255,14 @@
 
 
                 <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('team')" style="cursor:pointer;">
+
+                   <div style="position:absolute;top:30%; right:8%; z-index:2;" class="d-none d-md-block" v-if="showTeamInfo">
+                    <info-dialog :buttonText="'Ok'" :content="teamContent" :type="'inforight'"  :next="'searchInfo'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:34%; right:17%; z-index:2;" class="d-md-none d-block" v-if="showTeamInfo">
+                    <info-dialog :buttonText="'Ok'" :content="teamContent" :type="'inforight'" :next="'searchInfo'" ></info-dialog>
+                      </div>
                  
                  <div class="row py-0 my-0 px-2">
                     <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
@@ -442,6 +472,11 @@
          </div>
 
     <span style="position:absolute; top:71%; right:3%;z-index:134500045;"  class="d-md-none d-inline-block">
+       
+
+                      <div style="position:absolute;bottom:120%; right:17%; z-index:2;" v-if="showSearchInfo" >
+                    <info-dialog :buttonText="'Ok'" :content="searchContent" :type="'infobottom'" :next="'final'"></info-dialog>
+                      </div>
           <v-btn
                 color="#35747e"
                 small
@@ -454,6 +489,10 @@
      </span>
 
       <span style="position:absolute; top:84%; right:3%;z-index:134500045;" class="d-none d-md-inline-block">
+
+        <div style="position:absolute;bottom:120%; right:-30%; z-index:2;" v-if="showSearchInfo">
+                    <info-dialog :buttonText="'Ok'" :content="searchContent" :type="'infobottom'" :next="'final'"></info-dialog>
+                      </div>
           <v-btn
                 color="#35747e"
                 small
@@ -463,19 +502,6 @@
               >
                 <v-icon color="#ffffff">mdi-magnify</v-icon>
               </v-btn>
-     </span>
-
-     
-      <span style="position:absolute; top:71%; left:3%; z-index:12345665786; background:rgba(38, 82, 89,0.7); border:1px solid transparent; border-radius:7px;" class=" px-1 py-1 d-md-none d-inline-block text-center">
-          <img src="imgs/coin.svg" height="22" >
-          <span class="coin"  style="font-size:13px;">{{this.$root.authProfile.coin}}</span>
-
-     </span>
-
-<span style="position:absolute; top:84%; left:5%; z-index:12345665786; background:rgba(38, 82, 89,0.7); border:1px solid transparent; border-radius:7px;" class=" px-1 py-1 d-none d-md-inline-block text-center">
-          <img src="imgs/coin.svg" height="22" >
-          <span class="coin"  style="font-size:13px;">{{this.$root.authProfile.coin}}</span>
-
      </span>
 
  </v-app>
@@ -498,9 +524,20 @@ export default {
        channelDirect: null,
        showProject:true, 
        fetchSpaceUpdate: true,
+       projectContent:'Create new project in various programming languages',
+       channelContent:'Create new channels, chat, share and run codes with members',
+       teamContent:'Team, are for a small number of people to collaborate with on projects',
+       searchContent:'Search for people, projects, communities on citonhub',
+       showProjectInfo:false,
+       showTeamInfo: false,
+       showChannelInfo:false,
+       showSearchInfo: false,
+
       }
     },
     mounted(){
+
+      this.$root.chatListComponent = this;
       this.$root.showTabs=true;
        this.$root.showHeader = true;
        this.$root.channel = null;
@@ -543,7 +580,7 @@ export default {
         }
 
        
-
+      this.handleInfoSession();
        
         
        this.fetchChatList();
@@ -567,6 +604,17 @@ export default {
        
     },
     methods:{
+      handleInfoSession:function(){
+
+      let storedInfo = this.$root.getLocalStore('chatlistinfo'+ this.$root.username);
+
+        storedInfo.then((result)=>{
+          if(result == null){
+            this.showProjectInfo = true;
+          }
+        })
+
+      },
        showSearch: function(){
 
           this.$root.showSearchControl = true;
@@ -1014,6 +1062,14 @@ export default {
   font-weight: bolder;
   font-family:HeaderText;
   color: white;
+}
+
+.largeScreen{
+ position:absolute;top:30%; right:8%; z-index:2;
+}
+
+.smallScreen{
+
 }
 
 
