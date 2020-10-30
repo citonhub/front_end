@@ -209,7 +209,7 @@ export default {
           remoteScreen: this.$root.remoteScreen,
           remoteAudio: this.$root.remoteAudio,
           liveCodingContent:'Join a live coding session or share your screen with everyone',
-          subChannelContent:'Organize chats and contents by create sub-channels or sub-teams',
+          subChannelContent:'Organize chats and contents by creating sub-channels or sub-teams',
           showLiveInfo:false,
           showSubSpaceInfo:false,
           customizeContent:'Click here to customize your channel or team and invite members',
