@@ -869,7 +869,7 @@ methods:{
 
           if(this.$root.codeIsLive){
 
-             this.$root.audioconnection.send({
+             this.$root.dataconnection.send({
                 action:action,
                 data: data,
                 space_id: this.$root.selectedSpace.space_id
@@ -922,18 +922,9 @@ methods:{
       },
       checkResponse:function(token){
 
-         let _this = this;
+        let _this = this;
 
-        let interval = setInterval(check,1000);
-
-
-        function check(){
-
-           
-             if(_this.recheckCodeBox){
-
-               _this.recheckCodeBox = false;
-
+      
                 axios.post( '/check-for-submission',{
                token: token,
                 langId: _this.selectedLangId
@@ -954,28 +945,32 @@ methods:{
                   _this.ResultCode =  response.data[0].stdout;
 
                   
-                 clearInterval(interval);
+                 
 
 
               }else if(response.data[0].status.description == 'In Queue'){
 
                  _this.ResultCode = 'In Queue...';
 
+                   _this.checkResponse(response.data[0].token);
+
               }else if(response.data[0].status.description == 'Processing'){
 
                  _this.ResultCode = 'Processing...';
+
+                   _this.checkResponse(response.data[0].token);
 
               }else{
 
                  _this.ResultCode =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr ;
 
-                 clearInterval(interval);
+               
 
               }
 
 
               if(_this.$root.codeBoxOpened == false){
-                  clearInterval(interval);
+                
               }
 
               
@@ -983,7 +978,7 @@ methods:{
          _this.sendCodeRunning();
 
          
-               _this.recheckCodeBox = true;
+             
 
           }
 
@@ -997,15 +992,9 @@ methods:{
                _this.ResultCode = 'An issue occured,unable to run on sandbox...';
 
                  _this.sendCodeRunning();
-               clearInterval(interval);
-              
+             
           })
 
-             }
-
-          
-
-        }
 
         
 

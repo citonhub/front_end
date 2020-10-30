@@ -596,7 +596,8 @@ const app = new Vue({
      userDeviceId:null,
      chatListComponent:undefined,
      channelTopComponent:undefined,
-     channelContentComponent:undefined
+     channelContentComponent:undefined,
+     dataconnection:undefined,
         },
      mounted: function () {
       this.pageloader= false;
@@ -2272,6 +2273,179 @@ if (response.status == 200) {
            
           })
     },
+    setDataConnection:function(){
+
+      let _this = this;
+
+        this.$root.dataconnection = new RTCMultiConnection();
+
+          this.$root.dataconnection.enableLogs = false;
+
+// by default, socket.io server is assumed to be deployed on your own URL
+this.$root.dataconnection.socketURL = 'https://live.citonhub.com:9001/';
+
+
+
+this.$root.dataconnection.socketMessageEvent = 'data-channel';
+
+  this.$root.dataconnection.extra = {
+       profile: this.$root.authProfile,
+      joinedAt: (new Date).toISOString(),
+      volume: 80.00,
+      speaking: false
+         };
+
+         this.$root.dataconnection.socketCustomParameters = '&extra=' + JSON.stringify(this.$root.dataconnection.extra);
+
+this.$root.dataconnection.session = {
+    audio: false,
+    video: false,
+    data: true
+    
+};
+
+this.$root.dataconnection.mediaConstraints = {
+    audio: true,
+    video: false
+};
+
+this.$root.dataconnection.sdpConstraints.mandatory = {
+    OfferToReceiveAudio: false,
+    OfferToReceiveVideo: false
+};
+
+
+
+ // first step, ignore default STUN+TURN servers
+ this.$root.dataconnection.iceServers = [];
+
+ // second step, set STUN url
+   this.$root.dataconnection.iceServers.push({
+     urls: 'stun:165.227.152.44:3478'  
+    });
+ 
+ // last step, set TURN url (recommended)
+
+this.$root.dataconnection.iceServers.push({
+  urls: 'turn:165.227.152.44:3478',
+  credential: '15Raymond',
+  username: 'ILoveCitonHubPort'
+ });
+
+
+
+
+
+
+
+
+
+
+
+
+this.$root.dataconnection.onmessage = (event) => {
+  
+    
+
+   if(event.data.action == 'typing' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+    this.$root.FullcodeContent = event.data.data;
+
+     this.codeboxComponent.setCodeContent();
+     
+   }
+   
+   if(event.data.action == 'codeChange' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+    this.$root.fullCodeLanguage = event.data.data;
+
+    this.codeboxComponent.setCodeContent();
+     
+   }
+
+   if(event.data.action == 'codeRun' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+            this.$root.liveShowCode = false;
+
+                   this.$root.CodeResult = event.data.data;
+                   this.codeboxComponent.setCodeContent();
+     
+   }
+
+   if(event.data.action == 'returnToCode' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+    this.$root.liveShowCode = true;
+
+    this.codeboxComponent.setCodeContent();
+     
+   }
+
+   if(event.data.action == 'neutral' ){
+
+    if(this.$root.allAudioParticipant.length != 0){
+      this.$root.allAudioParticipant.map((user)=>{
+  
+        if(user[1] == event.data.data.userid){
+  
+            
+        
+          user[0].speaking = event.data.data.speaking;
+           
+        }
+  
+         });
+     }
+     
+   }
+   
+   if(event.data.action == 'new_master' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+    this.$root.newMasterId = event.data.data;
+
+                  
+
+    this.$root.adminMembers.forEach((member)=>{
+
+member.master_user = false;
+
+});
+
+this.$root.adminMembers.map((member)=>{
+if(member.memberId ==  this.$root.newMasterId){
+
+member.master_user = true;
+
+}
+})
+
+this.$root.selectedSpaceMembers.forEach((member)=>{
+
+member.master_user = false;
+
+});
+
+this.$root.selectedSpaceMembers.map((member)=>{
+if(member.memberId ==  this.$root.newMasterId){
+
+member.master_user = true;
+
+}
+})
+this.codeboxComponent.setCodeContent();
+   }
+};
+
+
+
+
+  
+
+
+
+
+
+
+    },
     setSreenShareConnection:function(){
           
 
@@ -2617,97 +2791,7 @@ this.$root.audioconnection.multiPeersHandler.onPeerStateChanged = (state)=> {
   }
 };
 
-this.$root.audioconnection.onmessage = (event) => {
-  
-    
 
-   if(event.data.action == 'typing' && this.$root.selectedSpace.space_id == event.data.space_id){
-
-    this.$root.FullcodeContent = event.data.data;
-
-     this.codeboxComponent.setCodeContent();
-     
-   }
-   
-   if(event.data.action == 'codeChange' && this.$root.selectedSpace.space_id == event.data.space_id){
-
-    this.$root.fullCodeLanguage = event.data.data;
-
-    this.codeboxComponent.setCodeContent();
-     
-   }
-
-   if(event.data.action == 'codeRun' && this.$root.selectedSpace.space_id == event.data.space_id){
-
-            this.$root.liveShowCode = false;
-
-                   this.$root.CodeResult = event.data.data;
-                   this.codeboxComponent.setCodeContent();
-     
-   }
-
-   if(event.data.action == 'returnToCode' && this.$root.selectedSpace.space_id == event.data.space_id){
-
-    this.$root.liveShowCode = true;
-
-    this.codeboxComponent.setCodeContent();
-     
-   }
-
-   if(event.data.action == 'neutral' ){
-
-    if(this.$root.allAudioParticipant.length != 0){
-      this.$root.allAudioParticipant.map((user)=>{
-  
-        if(user[1] == event.data.data.userid){
-  
-            
-        
-          user[0].speaking = event.data.data.speaking;
-           
-        }
-  
-         });
-     }
-     
-   }
-   
-   if(event.data.action == 'new_master' && this.$root.selectedSpace.space_id == event.data.space_id){
-
-    this.$root.newMasterId = event.data.data;
-
-                  
-
-    this.$root.adminMembers.forEach((member)=>{
-
-member.master_user = false;
-
-});
-
-this.$root.adminMembers.map((member)=>{
-if(member.memberId ==  this.$root.newMasterId){
-
-member.master_user = true;
-
-}
-})
-
-this.$root.selectedSpaceMembers.forEach((member)=>{
-
-member.master_user = false;
-
-});
-
-this.$root.selectedSpaceMembers.map((member)=>{
-if(member.memberId ==  this.$root.newMasterId){
-
-member.master_user = true;
-
-}
-})
-this.codeboxComponent.setCodeContent();
-   }
-};
 
 
 this.$root.audioconnection.onstreamended = function(event) {
@@ -2764,7 +2848,7 @@ this.$root.audioconnection.onstreamended = function(event) {
         
            
             
-
+             
            
 
               this.$root.audioconnection.checkPresence('audio' + this.$root.selectedSpace.space_id, function(isRoomExist, roomid) {
@@ -2773,11 +2857,13 @@ this.$root.audioconnection.onstreamended = function(event) {
                      
                 if (isRoomExist === true) {
                  _this.joinAudioRoom();
+                 _this.dataconnection.join('data' + _this.$root.selectedSpace.space_id)
               } else {
   
                   
                 if(master){
                   _this.openAudioRoom();
+                  _this.dataconnection.open('data' + _this.$root.selectedSpace.space_id)
                 }else{
   
                   _this.roomNotExist = true;
@@ -2934,7 +3020,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
               speaking: true
           };
 
-          _this.$root.audioconnection.send({
+          _this.$root.dataconnection.send({
             action:'neutral',
             data: data,
             space_id: _this.$root.selectedSpace.space_id
@@ -2961,7 +3047,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
                 speaking: false
             };
         
-            _this.$root.audioconnection.send({
+            _this.$root.dataconnection.send({
               action:'neutral',
               data: data,
               space_id: _this.$root.selectedSpace.space_id

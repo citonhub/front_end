@@ -11,11 +11,11 @@
     </div>
 </template>
 <script>
-import { CircleStencil, Cropper,RectangleStencil } from 'vue-advanced-cropper';
+import {  Cropper } from 'vue-advanced-cropper';
 export default {
     props:['stencilProps','img','componentType'],
     components: {
-		Cropper, CircleStencil,RectangleStencil
+		Cropper
 	},
     data() {
 		return {

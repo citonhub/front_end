@@ -431,6 +431,7 @@ export default {
     if(this.$root.audioconnection == undefined){
 
         this.$root.setAudioConnection();
+        this.$root.setDataConnection();
 
           if(this.checkIfMaster()){
 

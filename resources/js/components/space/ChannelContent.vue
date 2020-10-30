@@ -1361,6 +1361,8 @@ export default {
     // close socket.io connection
    this.$root.audioconnection.closeSocket();
 
+   this.$root.dataconnection.closeSocket();
+
 
            
          }
@@ -1388,6 +1390,8 @@ export default {
 
         this.$root.connection = undefined;
         this.$root.audioconnection = undefined;
+
+        this.$root.dataconnection = undefined;
 
         this.$root.screenSharingOn = false;
         this.$root.liveIsOn = false;
