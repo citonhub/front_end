@@ -1562,6 +1562,9 @@ export default {
                  if(!this.$root.checkIfMessageExist(e.data)){
 
                      e.data.index_count = this.$root.returnLastIndex() + 1;
+                      e.data.id =  e.data.message_id;
+
+                      
 
                  this.$root.Messages.push(e.data);
 
@@ -1761,6 +1764,9 @@ export default {
                
 
                      response.data[0][index].index_count = this.$root.returnLastIndex() + 1;
+                      response.data[0][index].id =  response.data[0][index].message_id;
+
+                      
                    this.$root.Messages.push(response.data[0][index]);
                   this.$root.pushDataToLocal(response.data[0][index]);
 
