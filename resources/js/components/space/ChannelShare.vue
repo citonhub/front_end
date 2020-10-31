@@ -459,6 +459,7 @@ var blob = this.b64toBlob(realData, contentType);
       created_at: moment().subtract(1,'hours'),
        is_reply:"false",
        message_id: this.makeUUID(),
+        id:this.makeUUID(),
        replied_message:[],
        replied_message_id:null,
        showReply:false,
@@ -692,8 +693,7 @@ var blob = this.b64toBlob(realData, contentType);
 
              this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
 
-            this.$root.scrollerControlHandler();
-
+           
          
            
          this.$root.sharePage = false;

@@ -594,10 +594,12 @@ const app = new Vue({
      codeboxComponent:undefined,
      showSearchControl:false,
      userDeviceId:null,
+     msgCompRaw:undefined,
      chatListComponent:undefined,
      channelTopComponent:undefined,
      channelContentComponent:undefined,
      dataconnection:undefined,
+     msgScrollComponent:undefined,
         },
      mounted: function () {
       this.pageloader= false;
@@ -1846,15 +1848,25 @@ imageStyle:function(dimension,authProfile){
 
    
 
-    setTimeout(() => {
+    if(this.$root.msgScrollComponent){
+
+      setTimeout(() => {
          
-      var container = document.querySelector('#messageContainer');
-      
-   var element =  document.querySelector('#message' + 'bottomDiv');
-  
-   var top = element.offsetTop - 85;
-   container.scrollTo(0, top);
-   },500)
+        this.$root.msgScrollComponent.messageContainer.scrollToBottom();
+     },200)
+
+    }
+    
+
+
+  },
+  returnLastIndex:function(){
+     let lastMsg = this.$root.Messages[this.$root.Messages.length - 1];
+
+     let msgIndex = lastMsg.index_count;
+
+         
+     return msgIndex;
   },
     initialPushMangerReg: function(){
       if('serviceWorker' in navigator){
@@ -2037,20 +2049,7 @@ fullData.push(thirdData);
 
 this.$root.LocalStore(spaceId + this.$root.username,fullData);
    },
-   scrollToBottom:function(){
-        
-         setTimeout(() => {
-         
-           var container = document.querySelector('#messageContainer');
-           
-        var element =  document.querySelector('#messagebottomDiv');
-       
-        var top = element.offsetTop - 120;
-        container.scrollTo(0 , top);
-        },500)
-      
-
-      },
+  
       updateSentMessage:function(postData){
       
         let unsentMsg = this.$root.getLocalStore('unsentnew' + postData.space_id  + this.$root.username);
@@ -2142,6 +2141,10 @@ if (response.status == 200) {
             if(messageId == message.message_id){
                message.loading = false;
                message.message_id = response.data[0].message_id; 
+               message.id = response.data[0].message_id; 
+               message.index_count= this.$root.returnLastIndex() + 1;
+
+               
             }
          });
     this.updateSpaceData(response.data[0].space_id);
@@ -2181,13 +2184,15 @@ if (response.status == 200) {
           if(messageId == message.message_id){
              message.loading = false;
              message.message_id = response.data[0].message_id; 
+             message.id = response.data[0].message_id; 
               message.code = response.data[0].code;
+                message.index_count = this.$root.returnLastIndex() + 1;
           }
        });
      
        this.updateSpaceData(response.data[0].space_id);
- this.scrollToBottom();
-
+ 
+      this.scrollToBottom();
  this.updateSentMessage(postData);
  this.sendingMessage = false;
 
@@ -2238,6 +2243,8 @@ if (response.status == 200) {
                   if(messageId == message.message_id){
                      message.loading = false;
                      message.message_id = response.data[0].message_id;
+                     message.id = response.data[0].message_id; 
+                     message.index_count = this.$root.returnLastIndex() + 1;
                      if(messageType == 'image'){
                        message.image = response.data[0].image;
                      }
@@ -2263,8 +2270,10 @@ if (response.status == 200) {
               
             }
 
+            this.scrollToBottom();
+
             this.updateSpaceData(response.data[0].space_id);
-              this.scrollToBottom();
+             
             
           })
           .catch(error => {

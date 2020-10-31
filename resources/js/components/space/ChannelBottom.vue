@@ -120,7 +120,7 @@ export default {
        urlify:function(text) {
       var urlRegex =  /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
      return text.replace(urlRegex, function(url) {
-     return  url ;
+     return  "<a href=\"" + url + "\" target=\"_blank\">"  + url + "</a>"; 
   })
    // or alternatively
     // return text.replace(urlRegex, '<a href="$1">$1</a>')
@@ -273,6 +273,7 @@ export default {
       created_at: moment().subtract(1,'hours'),
        is_reply:reply,
        message_id: this.makeUUID(),
+       id:this.makeUUID(),
        replied_message:replied_message,
        replied_message_id:null,
        showReply:false,
@@ -368,7 +369,6 @@ export default {
               }
                this.$root.NewMsg.content = this.contentInWord;
 
-                this.$root.returnedMessages.push(this.$root.NewMsg);
 
                 this.$root.Messages.push(this.$root.NewMsg);
 
@@ -396,7 +396,7 @@ export default {
 
                
                
-                this.$root.scrollerControlHandler();
+               
 
                this.$root.scrollToBottom();
 

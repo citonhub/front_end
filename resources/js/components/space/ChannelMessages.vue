@@ -1,16 +1,16 @@
 <template>
     <div>
-         <div class="row py-0 my-0 px-2" v-for="(source, index) in sources" :key="index">
+        
       <!-- date time -->
         
-         <div class="col-12  text-center" v-if="source.showDate != undefined">
+         <div class="col-12  text-center" v-if="source.showDate != undefined" :id="'message'+ source.id">
             <span  class=" DateBadge py-1 px-2" style="font-size:12px;color:white;">{{covertDate(source.showDate)}}</span>
          </div>
 
 
           <!-- user joined -->
         
-         <div class="col-12  text-center" v-if="source.type == 'join'">
+         <div class="col-12  text-center" v-if="source.type == 'join'"  :id="'message'+ source.id">
             <span  class=" DateBadge py-1 px-2" style="font-size:12px;color:white;" v-if="source.username != username">{{source.username}} joined</span>
              <span  class=" DateBadge py-1 px-2" style="font-size:12px;color:white;" v-else>You joined</span>
          </div>
@@ -18,7 +18,7 @@
 
           <!--unread messages -->
         
-         <div class="col-12  text-center" v-if="source.type == 'unread'">
+         <div class="col-12  text-center" v-if="source.type == 'unread'"  :id="'message'+ source.id">
             
              <span  class=" DateBadge py-1 px-2" style="font-size:12px;color:white;">{{source.content}}</span>
          </div>
@@ -27,7 +27,7 @@
 
       
        <!-- audio -->
-        <div  :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''" :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-5 col-md-8 col-11 col-sm-11 offset-1 offset-lg-7 offset-md-4 py-2 px-2 ' : 'col-lg-5 col-11  col-md-8 col-sm-11   py-2 px-2 '"  v-if="source.type == 'audio'">
+        <div   :style="source.tagged ? 'background:rgba(38, 82, 89,0.5); border:1px solid transparent; border-radius:8px;' : ''" :id="'message'+ source.message_id"  @click="showMoreHandler(source)" :class="checkOwner(source.user_id) ?   'col-lg-5 col-md-8 col-11 col-sm-11 offset-1 offset-lg-7 offset-md-4 py-2 px-2 ' : 'col-lg-5 col-11  col-md-8 col-sm-11   py-2 px-2 '"  v-if="source.type == 'audio'">
            <v-card class="py-1 px-2" :color=" checkOwner(source.user_id) ? '#ACF8E9' : '#ffffff'">
                <div class="row py-0 my-0">
               
@@ -414,7 +414,8 @@
                
            </div>
 
-              <div :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-right' : 'col-12 py-1 px-1 my-1 taggedOthers text-right' " @click.stop="scrollToMessage(source.replied_message.message_id)" >
+              <div :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-right' : 'col-12 py-1 px-1 my-1 taggedOthers text-right' "
+               @click.stop="scrollToMessage(source.replied_message.message_id)" style="height:50px; overflow-y:hidden; overflow-x:hidden;" >
                   <span class="msgTextReplynew text-left d-block" v-html=" shortenContent(source.replied_message.content ,80)" ></span>
                   <span class="text-right label">{{source.replied_message.username}}</span>
               </div>
@@ -452,7 +453,8 @@
                
            </div>
 
-              <div :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-right' : 'col-12 py-1 px-1 my-1 taggedOthers text-right' " @click.stop="scrollToMessage(source.replied_message.message_id)" >
+              <div :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-right' : 'col-12 py-1 px-1 my-1 taggedOthers text-right' " 
+              @click.stop="scrollToMessage(source.replied_message.message_id)" style="height:50px; overflow-y:hidden; overflow-x:hidden;" >
                   <span class="msgTextReplynew text-left d-block" v-html=" shortenContent(source.replied_message.content ,80)" ></span>
                   <span class="text-right label">{{source.replied_message.username}}</span>
               </div>
@@ -495,10 +497,11 @@
                
            </div>
 
-              <div :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' "   @click.stop="scrollToMessage(source.replied_message.message_id)">
+              <div :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' "  
+                @click.stop="scrollToMessage(source.replied_message.message_id)" style="height:50px; overflow-y:hidden; overflow-x:hidden;">
                  <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0">
-                   <v-img width="50" :src="'/imgs/space/' + source.replied_message.image[0].image_name  + '.' + source.replied_message.image[0].image_extension" class="d-inline-block "> 
+                   <v-img width="40" height="40" :src="'/imgs/space/' + source.replied_message.image[0].image_name  + '.' + source.replied_message.image[0].image_extension" class="d-inline-block "> 
 
                  </v-img>
                      </div>
@@ -552,7 +555,8 @@
            </div>
 
 
-              <div   @click.stop="scrollToMessage(source.replied_message.message_id)" :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' " >
+              <div   @click.stop="scrollToMessage(source.replied_message.message_id)" 
+              :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' "  style="height:50px; overflow-y:hidden; overflow-x:hidden;">
                  <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
                     <span style="background:whitesmoke; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#3E8893">mdi-video mdi-18px</v-icon></span>
@@ -605,7 +609,9 @@
                
            </div>
 
-              <div   @click.stop="scrollToMessage(source.replied_message.message_id)" :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' " >
+              <div   @click.stop="scrollToMessage(source.replied_message.message_id)" 
+              :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' "
+              style="height:50px; overflow-y:hidden; overflow-x:hidden;" >
                  <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
                     <span style="background:whitesmoke; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#3E8893">mdi-music mdi-18px</v-icon></span>
@@ -659,7 +665,7 @@
                
            </div>
 
-              <div   @click.stop="scrollToMessage(source.replied_message.message_id)" :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' " >
+              <div  style="height:50px; overflow-y:hidden; overflow-x:hidden;"  @click.stop="scrollToMessage(source.replied_message.message_id)" :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' " >
                  <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
                     <span style="background:whitesmoke; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#3E8893">mdi-file mdi-18px</v-icon></span>
@@ -711,7 +717,7 @@
            </div>
 
 
-              <div   @click.stop="scrollToMessage(source.replied_message.message_id)" :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' " >
+              <div   style="height:50px; overflow-y:hidden; overflow-x:hidden;" @click.stop="scrollToMessage(source.replied_message.message_id)" :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' " >
                  <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
                     <span style="background:whitesmoke; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#3E8893">mdi-plus-network-outline mdi-18px</v-icon></span>
@@ -766,7 +772,7 @@
            </div>
 
 
-              <div  @click.stop="scrollToMessage(source.replied_message.message_id)" :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' " >
+              <div style="height:50px; overflow-y:hidden; overflow-x:hidden;"  @click.stop="scrollToMessage(source.replied_message.message_id)" :class=" checkOwner(source.user_id) ? 'col-12 py-1 px-1 my-1 tagged text-left' : 'col-12 py-1 px-1 my-1 taggedOthers text-left' " >
                  <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
                     <span style="background:whitesmoke; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#3E8893">mdi-xml mdi-18px</v-icon></span>
@@ -797,12 +803,12 @@
       
 
 
-     </div>
+   
     </div>
 </template>
 <script>
 export default {
-     props:['sources','username'],
+     props:['source'],
     data(){
         return{
          viewerType:'',
@@ -810,6 +816,7 @@ export default {
          clicks: 0,
          delay:400,
          timer:'',
+         username:this.$root.username
         }
     },
     methods:{
@@ -990,17 +997,21 @@ export default {
           
          setTimeout(() => {
          
-           var container = document.querySelector('#messageContainer');
-           
-        var element =  document.querySelector('#message' + messageid);
-       
-        var top = element.offsetTop - 120;
-        container.scrollTo(0 , top);
-        },500)
+          let messageData =this.$root.Messages.filter((message)=>{
+               return message.message_id == messageid;
+             });
+
+          let msgIndex = messageData[0].index_count;
+
+        
+  
+          this.$root.msgScrollComponent.messageContainer.scrollToItem(msgIndex - 2);
+        },200)
       
         
 
       },
+      
         showAlert:function(duration,text){
         this.$root.AlertRoot = true;
         this.$root.AlertMsgRoot = text;
@@ -1012,6 +1023,9 @@ export default {
 
     },
       showMoreHandler(message){
+
+       
+        
             
             this.clicks++ 
           if(this.clicks === 1) {

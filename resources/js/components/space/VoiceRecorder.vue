@@ -89,6 +89,7 @@ methods:{
        created_at: moment().subtract(1,'hours'),
        is_reply:"false",
        message_id: this.makeUUID(),
+        id:this.makeUUID(),
        replied_message:[],
        replied_message_id:null,
        showReply:false,

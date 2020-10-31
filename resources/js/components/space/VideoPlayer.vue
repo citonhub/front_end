@@ -100,11 +100,11 @@ export default {
 		},
 		percentComplete:{
        get: function () {
-       this.videoProgress = parseInt(this.currentSeconds / this.durationSeconds * 100);
+      
 			return parseInt(this.currentSeconds / this.durationSeconds * 100);
     },
     // setter
-    set: function (newValue) {
+    set: function () {
       this.videoProgress = parseInt(this.currentSeconds / this.durationSeconds * 100);
 			return parseInt(this.currentSeconds / this.durationSeconds * 100);
     }
