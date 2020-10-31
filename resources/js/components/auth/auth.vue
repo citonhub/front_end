@@ -27,7 +27,7 @@
     >
         <div class="col-12 text-center">
 
-          <img src="/imgs/dev_community_back.svg"  width="100%" height="300px">
+          <img src="/imgs/teach.png"  width="100%" height="300px">
              
         </div>
          <div class="col-12 text-center">
