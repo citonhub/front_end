@@ -27,7 +27,7 @@
     >
         <div class="col-12 text-center">
 
-          <img src="/imgs/teach.png"  width="100%" height="300px">
+          <img src="/imgs/teach1.svg"  width="100%" height="300px">
              
         </div>
          <div class="col-12 text-center">
@@ -70,9 +70,9 @@
      <v-carousel-item
      
     >
-        <div class="col-12 text-center">
+        <div class="col-12 text-center" style="margin-top:50px;">
 
-          <img src="/imgs/build_projects.svg"  width="100%" height="300px">
+          <img src="/imgs/build_projects.svg"  width="100%" height="250px">
              
         </div>
 
