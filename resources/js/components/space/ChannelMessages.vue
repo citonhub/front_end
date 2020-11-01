@@ -370,9 +370,17 @@
                      <div class="col-3 py-0 my-0 text-center">
                          <v-icon color="#3E8893">mdi-video mdi-18px</v-icon>
                      </div>
-                     <div class="col-6 py-0 my-0 d-flex px-0" style="align-items:center; justify-content:center;">
+                     <div class="col-6 py-0 my-0 d-flex px-0" style="align-items:center; justify-content:center;" v-if="source.progressValue < 100">
                        <v-progress-linear color="#3E8893" height="5" rounded :value="source.progressValue"></v-progress-linear>
                      </div>
+
+                      <div class="col-6 py-0 my-0 d-flex px-0" style="align-items:center; justify-content:center;" v-else>
+                         <div class="col-12 py-0 text-center">
+                       <span style="font-size:12px;color:grey;">Processing...</span>
+                         </div>
+                       <v-progress-linear color="#3E8893" height="5" rounded indeterminate></v-progress-linear>
+                     </div>
+
                      <div class="col-3 py-0 my-0 text-center">
                           <span style="font-size:10px; color:gray;">{{ source.progressValue}}%</span>
                      </div>

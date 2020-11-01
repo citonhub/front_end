@@ -524,7 +524,7 @@ export default {
        channelDirect: null,
        showProject:true, 
        fetchSpaceUpdate: true,
-       projectContent:'Create new project in various programming languages',
+       projectContent:'Create new projects in various programming languages',
        channelContent:'Create new channels, chat, share and run codes with members',
        teamContent:'Team, are for a small number of people you want to collaborate with',
        searchContent:'Search for people, projects and communities on citonhub',
