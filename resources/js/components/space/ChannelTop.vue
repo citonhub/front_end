@@ -246,6 +246,7 @@ export default {
         
         return onlineUserList.length;
        },
+
         generateOnlineUsersList: function(){
           let onlineUserList = [];
 
@@ -339,7 +340,8 @@ export default {
 
               this.$root.remoteLiveHappening = true;
         this.$root.remoteCode = true;
-       
+          
+          this.$root.setDataConnection();
             
              this.$root.sendLiveSignal('code');
 
@@ -348,6 +350,8 @@ export default {
                this.$root.remoteAudio = true;
 
                if(this.$root.audioconnection == undefined){
+
+                
 
              this.$root.setAudioConnection();
                if(this.checkIfMaster()){
