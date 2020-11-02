@@ -526,7 +526,7 @@ export default {
        fetchSpaceUpdate: true,
        projectContent:'Create new projects in various programming languages',
        channelContent:'Create new channels, chat, share and run codes with members',
-       teamContent:'Team, are for a small number of people you want to collaborate with',
+       teamContent:'Teams are private. You can chat, share and run codes with members, and also work on projects together',
        searchContent:'Search for people, projects and communities on citonhub',
        showProjectInfo:false,
        showTeamInfo: false,
