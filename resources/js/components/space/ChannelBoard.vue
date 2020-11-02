@@ -64,7 +64,7 @@
                 <div class="col-4 py-0 my-0 px-0 text-center">
                   
                 </div>
-                <div class="py-0 my-0 col-4 text-right" >
+                <div class="py-0 my-0 col-4 text-right" v-if="checkIfisOwner()">
                   <v-btn rounded x-small color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;" @click="share">invite</v-btn>
 
                    
