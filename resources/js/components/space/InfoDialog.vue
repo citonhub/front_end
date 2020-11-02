@@ -73,12 +73,21 @@
 
      }
 
-     if(this.next == 'subSpace'){
+     if(this.next == 'subSpace' && this.$root.selectedSpace.type != 'Direct'){
 
      
        this.$root.channelTopComponent.showLiveInfo = false;
     
      this.$root.channelTopComponent.showSubSpaceInfo = true;
+     }else{
+
+       this.$root.channelTopComponent.showSubSpaceInfo = false;
+
+
+      this.$root.channelTopComponent.showCustomizerInfo = true;
+
+
+
      }
 
       if(this.next == 'customizeSpace'){
@@ -94,7 +103,12 @@
       if(this.next == 'finalTop'){
 
       this.$root.channelTopComponent.showCustomizerInfo = false;
-       this.$root.LocalStore('channelcontentinfo' + this.$root.username,['done']);
+        if(this.$root.selectedSpace.type != 'Direct'){
+
+           this.$root.LocalStore('channelcontentinfo' + this.$root.username,['done']);
+
+        }
+      
      }
    }
     }

@@ -10,6 +10,7 @@
      :keyField="'message_id'"
     :min-item-size="54"
     ref="messageContainer"
+     :buffer="1000"
     id="messageContainer" 
    class="col-12 py-2 px-2" 
      
@@ -19,7 +20,7 @@
     <template v-slot="{ item, index, active }">
       <DynamicScrollerItem
         :item="item"
-        :buffer="1500"
+       
         
         :active="active"
         :size-dependencies="[

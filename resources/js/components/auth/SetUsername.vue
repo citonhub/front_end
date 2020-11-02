@@ -123,7 +123,7 @@ export default {
       this.$root.showTabs=false;
        this.$root.showHeader = false;
        this.setEmail();
-       this.showVerifiedAlert()
+     
        this.checkIfLogin();
     },
     methods:{

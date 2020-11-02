@@ -8,6 +8,7 @@
      v-if="this.$root.postData.length != 0"
     :min-item-size="54"
     ref="postScrollCont"
+    :buffer="1500"
     id="postContainer" 
       :style="'background:transparent; font-family:BodyText;position:fixed;left:0; width:100%; height:100%;overflow-y:' + scrollValue + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'"
     class="scroller postScroll"
@@ -16,7 +17,7 @@
     <template v-slot="{ item, index, active }">
       <DynamicScrollerItem
         :item="item"
-        :buffer="1500"
+        
         :active="active"
         :size-dependencies="[
           item.content,

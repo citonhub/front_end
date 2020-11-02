@@ -21,11 +21,11 @@
 
 
                      <div style="position:absolute;top:120%; right:45%; z-index:2;" class="d-none d-md-block" v-if="showCustomizerInfo">
-                    <info-dialog :buttonText="'Ok'" :content="customizeContent" :type="'infotop'"  :next="'finalTop'"></info-dialog>
+                    <info-dialog :buttonText="'Ok'" :content="this.$root.selectedSpace.type != 'Direct' ? customizeContent : gotoprofile" :type="'infotop'"  :next="'finalTop'"></info-dialog>
                       </div>
 
                       <div style="position:absolute;top:120%; right:40%; z-index:2;" class="d-md-none d-block" v-if="showCustomizerInfo">
-                    <info-dialog :buttonText="'Ok'" :content="customizeContent" :type="'infotop'" :next="'finalTop'" ></info-dialog>
+                    <info-dialog :buttonText="'Ok'" :content="this.$root.selectedSpace.type != 'Direct' ? customizeContent : gotoprofile" :type="'infotop'" :next="'finalTop'" ></info-dialog>
                       </div>
 
 
@@ -213,6 +213,7 @@ export default {
           showLiveInfo:false,
           showSubSpaceInfo:false,
           customizeContent:'Click here to customize your channel or team and invite members',
+          gotoprofile:'Click here to view user\'s profile',
           showCustomizerInfo:false,
           _this: this
         }
