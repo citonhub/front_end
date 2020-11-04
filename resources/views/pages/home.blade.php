@@ -50,7 +50,7 @@ body {
 
 <img src="/imgs/top.png"  style="position:absolute;height:17%; width:20%; align-items:center; top:0%; right:0;"  >
 
-<div class="col-lg-10 col-12 offset-lg-1 py-0" style="display:fixed; top:0%;height:auto; background:white; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; " v-show="showHeader">
+<div class="col-lg-10  col-12 offset-lg-1 py-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; display:fixed; top:0%;height:auto; background:white;  " v-show="showHeader">
     <div class="row">
     <div class="col-4 d-flex  py-1" style="border-bottom:1px solid #e6e6e6;  align-items:center; ">
     <div>
@@ -83,7 +83,7 @@ body {
 
 <home></home>
 
-<div class=" d-none d-md-none d-lg-block mx-2  py-2" 
+<div class=" d-none d-md-none d-lg-block mx-2  py-2 card" 
  style="border-radius:7px; height:80%; position:fixed; width:15%;top:10%; right:8.30%; background:#ffffff; border:1px solid #c5c5c5;" >
 
   

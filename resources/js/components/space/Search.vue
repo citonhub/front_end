@@ -1,7 +1,7 @@
 <template>
    
 
-       <div class=" col-md-8 offset-md-2 col-lg-6 offset-lg-3  py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:fixed;  background:rgba(38, 82, 89,0.4); height:100%; overflow-y:auto; overflow-x:hidden; z-index:9999999999999200;" 
+       <div class="  col-lg-6 offset-lg-3  py-0 px-0 my-0 scrollerStyle" style=" position:fixed;  background:rgba(38, 82, 89,0.4); height:100%; overflow-y:auto; overflow-x:hidden; z-index:9999999999999200;" 
         >
          <div class="row my-0 py-0 px-2">
 

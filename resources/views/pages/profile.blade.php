@@ -109,7 +109,7 @@ body {
            </div>
          </div>
 
-         <div class=" d-none d-md-none d-lg-block mx-2  py-2" 
+         <div class=" d-none d-md-none d-lg-block mx-2  py-2 card" 
  style="border-radius:7px; height:80%; position:fixed; width:15%;top:10%; right:8.30%; background:#ffffff; border:1px solid #c5c5c5;" >
 
   

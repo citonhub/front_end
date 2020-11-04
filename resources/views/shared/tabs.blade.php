@@ -1,12 +1,13 @@
 
 
  <div class=" d-none d-md-none d-lg-block mx-2 px-2 py-2" 
- style="border-radius:7px; height:auto; position:fixed; width:15%;top:10%; left:8.30%; background:white;border:1px solid #e6e6e6;" >
+ style=" height:auto; position:fixed; width:15%;top:10%; left:8.30%; background:white;" >
          
        
 
 
-       <a :class=" tabLabel == 'space' ? 'd-block col-12 px-2 py-2 my-0 activeTab' : 'd-block col-12 px-2 py-2 my-0 notActiveTab'"  href="/"  @click="loader"> 
+       <a :class=" tabLabel == 'space' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card ' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'"  href="/"  @click="loader"
+        style="border:1px solid transparent; border-radius:30px;"> 
           <div class="row py-0 my-0">
             <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
               @if($tablabel == 'space')
@@ -46,7 +47,8 @@
          </a>
 
 
-         <a :class=" tabLabel == 'home' ? 'd-block col-12 px-2 py-2 my-0 activeTab' : 'd-block col-12 px-2 py-2 my-0 notActiveTab'" href="/hub" @click="loader"> 
+         <a :class=" tabLabel == 'home' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'" href="/hub" @click="loader"
+         style="border:1px solid transparent; border-radius:30px;"> 
           <div class="row py-0 my-0">
             <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
               @if($tablabel == 'hub')
@@ -77,7 +79,8 @@
 
 
 
-         <a :class=" tabLabel == 'duels' ? 'd-block col-12 px-2 py-2 my-0 activeTab' : 'd-block col-12 px-2 py-2 my-0 notActiveTab'"  href="/duels" @click="loader"> 
+         <a :class=" tabLabel == 'duels' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'"  href="/duels" @click="loader"
+         style="border:1px solid transparent; border-radius:30px;"> 
           <div class="row py-0 my-0">
             <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
               @if($tablabel == 'duels')
@@ -118,7 +121,8 @@
       
 
 
-         <a :class=" tabLabel == 'profile' ? 'd-block col-12 px-2 py-2 my-0 activeTab' : 'd-block col-12 px-2 py-2 my-0 notActiveTab'"  href="/profile" @click="loader" > 
+         <a :class=" tabLabel == 'profile' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card '"  href="/profile" @click="loader" 
+         style="border:1px solid transparent; border-radius:30px;"> 
           <div class="row py-0 my-0">
             <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
               @if($tablabel == 'profile')
