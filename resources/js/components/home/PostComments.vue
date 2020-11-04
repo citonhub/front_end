@@ -1,6 +1,6 @@
 <template>
    <div class="px-2 ml-lg-1">
-    <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-1" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; background-color:whitesmoke; border-bottom:1px solid #cccccc;" v-for="(post,index) in CommentArray" :key="index">
+    <div class="  col-lg-6 offset-lg-3 py-1" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; background-color:whitesmoke; border-bottom:1px solid #cccccc;" v-for="(post,index) in CommentArray" :key="index">
         <div class="row" >
            <div class="col-12 py-0 d-flex ">
              <div>

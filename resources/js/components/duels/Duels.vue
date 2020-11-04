@@ -3,7 +3,7 @@
 
   
      
-     <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-1 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
+     <div class="  col-lg-6 offset-lg-3 py-1 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-1">
            <div  >
              

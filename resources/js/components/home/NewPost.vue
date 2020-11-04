@@ -1,7 +1,7 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText; z-index:999959699999;">
 
-       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; z-index:999959699999; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; z-index:999959699999; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -257,7 +257,7 @@
        </div>
 
 
-         <div  @click="closeAddBoardCtl()"  v-if="!closeAddBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:999999999999999999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+         <div  @click="closeAddBoardCtl()"  v-if="!closeAddBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:999999999999999999;" class="  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="preventClose"  style="position:absolute; height:60%; width:100%; top:40%; left:0%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto">
 
              <v-card tile flat

@@ -3,7 +3,7 @@
        
    
     
-          <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 my-0 py-1 "   :id="'post'+ source.id" @click.stop="viewPost(source,'fromcomment')" 
+          <div class="  col-lg-6 offset-lg-3 my-0 py-1 "   :id="'post'+ source.id" @click.stop="viewPost(source,'fromcomment')" 
     style="cursor:pointer;" >
 
     

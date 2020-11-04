@@ -26,7 +26,7 @@
         <v-app class="col-12 py-0 my-0" v-if="pageContent == ''">
       <div 
        
-    style="border: 0; height:91%; top:7%; position:fixed;left:0; align-items:center; justify-content:center;" class="col-md-8 offset-md-2 px-5 col-lg-6 offset-lg-3 px-1 py-0 d-flex" >
+    style="border: 0; height:91%; top:7%; position:fixed;left:0; align-items:center; justify-content:center;" class=" px-5 col-lg-6 offset-lg-3 px-1 py-0 d-flex" >
          <v-progress-linear indeterminate color="#3E8893" rounded ></v-progress-linear>
        </div>
     </v-app>
@@ -35,10 +35,10 @@
           
              <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" v-if="projectData.is_web"
    :srcdoc="pageContent" 
-    style="border: 0; height:91%; position:fixed;left:0; top:6%;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 px-1 py-0" ></iframe>
+    style="border: 0; height:91%; position:fixed;left:0; top:6%;" class="  col-lg-6 offset-lg-3 px-1 py-0" ></iframe>
 
   
-   <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; " class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 px-3 py-3" >
+   <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; " class="  col-lg-6 offset-lg-3 px-3 py-3" >
        
     </textarea>
 
@@ -47,7 +47,7 @@
 
 
        <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
-                 class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2"  v-if="UserStar.length != 0 && userLoggedIn">
+                 class="d-flex   col-lg-6 offset-lg-3 py-2"  v-if="UserStar.length != 0 && userLoggedIn">
                    <div class="row py-0 my-0">
                     
                       <div class="col-12 py-0 text-center">
@@ -65,7 +65,7 @@
                 </div>
 
                  <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
-                 class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2" v-if="UserStar.length == 0 && userLoggedIn">
+                 class="d-flex   col-lg-6 offset-lg-3 py-2" v-if="UserStar.length == 0 && userLoggedIn">
                    <div class="row py-2 d-flex" style="align-items:center; justify-content:center;">
                        <span><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:13px; color:white;" class="px-1">{{projectData.total_stars}} {{$t('general.stars')}}</span> </span>
                    </div>
@@ -73,7 +73,7 @@
                 </div>
 
                 <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
-                 class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2" v-if="!userLoggedIn">
+                 class="d-flex   col-lg-6 offset-lg-3 py-2" v-if="!userLoggedIn">
                    <div class="row py-2 d-flex" style="align-items:center; justify-content:center;" @click="showLogin">
                       <v-rating  background-color="#edf6f7" color="#edf6f7"  ></v-rating>
                    </div>
