@@ -51,11 +51,11 @@
        
             
                 <div class=" py-2 px-4 d-md-block d-none" style="position:absolute; width:100%; top:2%; left:2%;">
-                <span style="font-size:14px; ">Spaces</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;" @click="createSpace()" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
+                <span style="font-size:14px; ">Channels and teams</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;" @click="createSpace()" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
                 </div>
 
                  <div class=" py-2 px-2 d-md-none d-block" style="position:absolute; width:100%; top:5%; left:1%;">
-                <span style="font-size:13px; ">Spaces</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;"  @click="createSpace()"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
+                <span style="font-size:13px; ">Channels and teams</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;"  @click="createSpace()"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
                 </div>
 
                 <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:62%; left:0;">

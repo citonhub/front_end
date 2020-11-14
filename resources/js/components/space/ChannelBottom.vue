@@ -350,7 +350,7 @@ export default {
     
           
         },
-      sendMessage: function(){
+      sendMessage: function(refocus = true){
 
           if( this.input.length == 0) return;
             this.input = '';
@@ -358,7 +358,12 @@ export default {
              this.$root.ShowButton = true;
             this.$root.showRootReply = false;
               this.$root.showRootReply = false;
-            this.$refs.textBottom.focus();
+  
+      if(refocus){
+    this.$refs.textBottom.focus();
+      }
+
+            
               
               let Data = [];
              

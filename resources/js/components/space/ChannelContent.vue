@@ -834,8 +834,9 @@ export default {
           this.$root.channelBottomComp.contentInWord = message;
 
            this.$root.channelBottomComp.input = message;
-
-          this.$root.channelBottomComp.sendMessage();
+            
+            let refocus = false;
+          this.$root.channelBottomComp.sendMessage(refocus);
 
 
            this.$root.botSuggestionArray = [];
