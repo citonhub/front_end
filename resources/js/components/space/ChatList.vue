@@ -467,17 +467,9 @@
                           
                     </div>
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
-                          <v-badge
-          color="#36848C"
-            v-if="generateTotalUnread(this.$root.ChatList[4]) > 0"
-          :content="generateTotalUnread(this.$root.ChatList[4])"
-        >
-      
-       <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Learning Bots</span>
-            
-        </v-badge>
+                      
 
-         <span  v-else style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Learning Bots</span>
+         <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Learning Bots</span>
                         
                     </div>
                     <div class="py-1 my-0 d-flex col-2" >
