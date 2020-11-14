@@ -275,6 +275,7 @@ export default {
        is_reply:reply,
        message_id: this.makeUUID(),
        id:this.makeUUID(),
+       sizes:40,
        replied_message:replied_message,
        replied_message_id:null,
        showReply:false,
