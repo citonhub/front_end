@@ -26,7 +26,7 @@
 
 
             
-               <div class="col-12 py-2 my-0 px-2">
+               <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2">
                   <v-select
           v-model="RouteType"
           :items="Routes"
@@ -42,7 +42,7 @@
              </div>
 
 
-             <div class="col-12 py-2 my-0 px-2">
+             <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:13px;"
                  :placeholder="$t('panel.path_pholder')"
@@ -58,7 +58,7 @@
 
              </div>
 
-              <div class="col-12 py-2 my-0 px-2">
+              <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2">
                   <v-select
           v-model="ControllerFile"
           :items="Controllers"
@@ -76,7 +76,7 @@
              </div>
 
 
-             <div class="col-12 py-2 my-0 px-2">
+             <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:13px;"
                  :placeholder="$t('panel.method_name_pholder')"

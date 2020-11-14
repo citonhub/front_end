@@ -75,7 +75,7 @@ export default {
           this.imagepath = this.$root.imagepath4;
       }
       this.$root.showTabs=true;
-       this.$root.showHeader = true;
+       this.$root.showHeader = false;
     },
     methods:{
         showHome: function(){

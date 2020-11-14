@@ -1187,7 +1187,7 @@ export default {
    addDBTable: function(){
        this.$root.panel = this.panel;
        this.$root.panelBack = this.panelBack;
-      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/create-db-table' });
+      this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/create-db-table' });
 
    },
    addNewRoute: function(is_edit,route = []){
@@ -1201,13 +1201,13 @@ export default {
            this.$root.selectedRoute = route;
          }
           
-       this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/add-panel-route' });
+       this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/add-panel-route' });
    },
    showComment:function(){
      this.$root.panel = this.panel;
        this.$root.panelBack = this.panelBack;
 
-     this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/view' });
+     this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/view' });
    },
      PanelSettingsCheck(settingStatus){
 
@@ -1215,7 +1215,7 @@ export default {
        this.$root.panelBack = this.panelBack;
 
            if(!settingStatus.is_set){
-            this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/new/settings' + '/duel' });
+            this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/panel/new/settings' + '/duel' });
           }
 
            this.panelsettingsChecked = true;
@@ -1251,14 +1251,14 @@ export default {
        
        
     
-    this.$router.push({ path: '/duel/' +  this.$route.params.duelId  +'/code-editor' });
+    this.$router.push({ path: '/panel/' +  this.$route.params.duelId  +'/code-editor' });
    },
    databaseTable: function(database){
      this.$root.panel = this.panel;
        this.$root.panelBack = this.panelBack;
       this.$root.SelectedTable = database;
      
-       this.$router.push({ path: '/duel/' +  this.$route.params.duelId  +'/db-table' });
+       this.$router.push({ path: '/panel/' +  this.$route.params.duelId  +'/db-table' });
 
     
    },
@@ -1266,7 +1266,7 @@ export default {
 
          this.$root.CodeFilesData = [];
      
-      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/board' + '/user' });
+      this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/board' + '/user' });
 
       
         },
@@ -1274,13 +1274,13 @@ export default {
      this.$root.panel = this.panel;
        this.$root.panelBack = this.panelBack;
         this.$root.panelLanguage = this.panelData.panel_language;
-       this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/' + codeType + '/add-new-file' });
+       this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/' + codeType + '/add-new-file' });
    },
    goToSettings:function(){
      this.$root.panel = this.panel;
        this.$root.panelBack = this.panelBack;
        this.$root.fromDuelBoard = false;
-      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/new/settings' + '/duel' });
+      this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/panel/new/settings' + '/duel' });
    },
    fetchDuel: function(){
       if(this.$root.selectedDuel.length != 0){
@@ -1533,7 +1533,7 @@ export default {
    loadPage:function(){
      this.$root.panel = this.panel;
        this.$root.panelBack = this.panelBack;
-      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/page-loader' });
+      this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/page-loader' });
    },
   
    returnFileNamenew: function(fileNamenew,fileType){

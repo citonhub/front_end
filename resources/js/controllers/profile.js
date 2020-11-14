@@ -67,7 +67,6 @@ import Channels from  "../components/profile/Channels.vue"
 import About from  "../components/profile/About.vue"
 import Projects from  "../components/profile/Projects.vue"
 import Teams from  "../components/profile/Teams.vue"
-import AddProject from  "../components/profile/AddProject.vue"
 import CropImage from  "../components/profile/CropImage.vue"
 import EditProfile from  "../components/profile/EditProfile.vue"
 import Connections from  "../components/profile/Connections.vue"
@@ -87,10 +86,10 @@ const routes = [
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/register', name: 'Register', component: Register},
-  { path: '/auth/:frompage', name: 'Auth', component: Auth},
   { path: '/verify', name: 'Verify', component: Verify},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
   { path: '/login', name: 'Login', component: Login},
+  { path: '/auth/:fromPage', name: 'Auth', component: Auth},
   { path: '/notifications', name: 'Notification', component: Notification},
   {
     path: '*',
@@ -199,10 +198,7 @@ const routes = [
     },
   ]
   },
-  { path: '/add-project', 
-  name: 'AddProject', 
-  component: AddProject,
-  },
+  
   { path: '/crop-image', 
   name: 'CropImage', 
   component: CropImage,
@@ -276,7 +272,8 @@ const app = new Vue({
         showLangOption:false,
         userLocale:document.getElementById('appLocale').value,
         baseApiUrl:'https://api.citonhub.com/api',
-        returnedToken:''
+        returnedToken:'',
+        itIsHomePage:false
     },
     mounted: function () {
       this.pageloader= false;
@@ -718,7 +715,7 @@ checkIfUserIsLoggedIn: function(frompage){
     if(this.$route.params.referral != null){
       this.referralUser = this.$route.params.referral;
      }
-   this.$router.push({ path: '/auth/' + frompage });
+     this.$router.push({ path: '/auth/' + frompage });
     return;
   } 
 },

@@ -34,7 +34,7 @@
               
 
             
-                   <div class="col-12 py-2 my-0 px-2">
+                   <div class="col-lg-8 offset-lg-2 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:12px;"
                  :placeholder="$t('general.Name') + '...'"

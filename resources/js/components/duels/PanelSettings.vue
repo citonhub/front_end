@@ -331,7 +331,7 @@ export default {
          
             if(this.$root.fromDuelBoard){
 
-                this.$router.push({ path: '/duel/' + this.$route.params.duelId +'/board' + '/user' });
+                this.$router.push({ path: '/panel/' + this.$route.params.duelId +'/board' + '/user' });
               
             
         }else{

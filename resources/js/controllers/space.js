@@ -63,7 +63,6 @@ Vue.use(VueRouter)
 
 import Space from "../components/space/Space.vue"
 import ChatList from "../components/space/ChatList.vue"
-import CreateChannel from "../components/space/CreateChannel.vue"
 import Channel from "../components/space/Channel.vue"
 import ChannelContent from "../components/space/ChannelContent.vue"
 import SubSpace from "../components/space/SubSpace.vue"
@@ -89,6 +88,7 @@ import CodeEditor from "../components/space/CodeEditor.vue"
 import DBTable from "../components/space/DBTable.vue"
 import NewCodeFile from "../components/space/NewCodeFile.vue"
 import PanelLoader from "../components/space/PanelLoader.vue"
+import BotEngine from "../components/space/BotEngine.vue"
 import ProjectComments from "../components/space/ProjectComments.vue"
 import NotFound from "../components/auth/NotFound.vue"
 import ForgotPassword from "../components/auth/ForgotPassword.vue"
@@ -101,7 +101,9 @@ import ResetPassword from "../components/auth/ResetPassword.vue"
 const routes = [
   { path: '/', redirect: '/space'},
   { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},
+  { path: '/bot-engine/:botId/:user', name: 'BotEngine', component: BotEngine},
   { path: '/login', name: 'Login', component: Login},
+  { path: '/auth/:fromPage', name: 'Auth', component: Auth},
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   {
@@ -109,7 +111,6 @@ const routes = [
     name: 'notFound',
     component: NotFound
   },
-  { path: '/auth/:frompage', name: 'Auth', component: Auth},
   { path: '/:projectSlug/panel', name: 'ProjectPanel', component: ProjectPanel},
   { path: '/:projectSlug/panel/settings', name: 'PanelSettings', component: PanelSettings},
   { path: '/:projectSlug/create-db-table', name: 'CreateTable', component: CreateTable},
@@ -329,11 +330,6 @@ const routes = [
   name: 'SpaceSub',
   component: Space,
   children:[
-    {
-      // create-channel
-      path: ':type/create',
-      component: CreateChannel
-    },
     {
       // create-project
       path: 'create-project',
@@ -600,6 +596,11 @@ const app = new Vue({
      channelContentComponent:undefined,
      dataconnection:undefined,
      msgScrollComponent:undefined,
+     showBots:false,
+     botIsLoading:false,
+     botSuggestionArray:[],
+     channelBottomComp:undefined,
+     itIsHomePage:false,
         },
      mounted: function () {
       this.pageloader= false;
@@ -1132,17 +1133,21 @@ console.log(err)
           let array1 = this.ChatList[1];
           let array2 = this.ChatList[2];
           let array3 =  this.ChatList[4];
+          let array4 =  this.ChatList[6];
         
         
          this.sortArray(array1);
          this.sortArray(array2);
           this.sortArray(array3);
+          this.sortArray(array4);
       
           this.ChatList[1] = array1;
           
           this.ChatList[2] = array2;
 
           this.ChatList[4] = array3;
+
+          this.ChatList[6] = array4;
 
         }
        
@@ -1169,6 +1174,14 @@ console.log(err)
   
   
         this.ChatList[4].map((space)=>{
+         
+          if(space.space_id == spaceId){
+            space.message_track = new Date();
+          }
+  
+        });
+
+        this.ChatList[6].map((space)=>{
          
           if(space.space_id == spaceId){
             space.message_track = new Date();
@@ -1217,6 +1230,17 @@ console.log(err)
   
         });
   
+
+        this.ChatList[6].map((space)=>{
+         
+          if(space.space_id == spaceId){
+
+           
+
+            space.unread = 0;
+          }
+  
+        });
       
       }
 
@@ -2126,6 +2150,89 @@ this.$root.LocalStore(spaceId + this.$root.username,fullData);
        
 
       },
+      botMessager:function(message){
+
+          
+      this.botIsLoading = true;
+        axios.post('initiate-bot-chat',{
+          bot_id: this.$root.selectedSpace.bot_id,
+          device_id: this.$root.userDeviceId,
+          message: message,
+          space_id: this.$root.selectedSpace.space_id
+        })
+     .then(response => {
+        
+       this.botIsLoading = false;
+       if(response.status == 200){
+      
+        let fullMessages = response.data[0];
+
+         
+
+       
+        fullMessages.forEach((message)=>{
+   
+           
+
+            message.index_count = this.$root.returnLastIndex() + 1;
+            message.id =  message.message_id;
+    
+            
+    
+       this.$root.Messages.push(message);
+    
+     
+
+      this.$root.returnedMessages.push(message)
+
+               this.$root.spaceFullData[0] = this.$root.returnedMessages;
+
+
+               
+
+                 let fullData = [];
+                    fullData.push(this.$root.spaceFullData[0]);
+                fullData.push(this.$root.spaceFullData[1]);
+
+                 let thirdData = [];
+                    
+                    thirdData.push(this.$root.spaceFullData[2][0])
+
+                fullData.push(thirdData);
+
+               
+
+
+             this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
+    
+      this.$root.updateSpaceTracker(message.space_id);
+    
+      this.$root.sortChatList();
+    
+    
+          
+
+        })
+
+        this.botSuggestionArray = response.data[1];
+
+         this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data[1]);
+        
+    
+       }
+
+     })
+     .catch(error => {
+
+      
+         console.log(error)
+         this.botIsLoading = false;
+       
+     })
+
+   
+      
+   },
     sendTextMessage: function(postData){
          this.sendingMessage = true;
       axios.post('/send-message',postData)
@@ -2147,6 +2254,13 @@ if (response.status == 200) {
                
             }
          });
+  
+         if(this.selectedSpace.type == 'Bot'){
+          this.botMessager(response.data[0].content);
+         }
+
+    
+
     this.updateSpaceData(response.data[0].space_id);
        
   this.replyMessage = [];

@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-4 text-center py-1">
 
-                       <v-btn x-small  text color="#ffffff " @click="showDuelInfo"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">{{$t('duels.info')}} </span></v-btn>
+                       <v-btn x-small  text color="#ffffff " @click="showDuelInfo"><span style="color:#ffffff; font-weight:bolder; font-size:9px;">Rules</span></v-btn>
                       
                     </div>
                     <div class="col-4 text-right py-0">
@@ -123,16 +123,23 @@
 
          
 
-             <virtual-list 
+             <div
 
              class="py-1 px-0 scrollerStyle"
       style="height:700px; background:whitesmoke;overflow-y:auto;width:100%; overflow-x:hidden; padding-bottom:450px !important;" 
-      :data-key="'id'"
-      :data-sources="this.$root.duelComments"
-      :data-component="itemComponent"
-      :keeps="15">   
+      >  
+
+        <div class="col-12 py-0 my-0">
+
+          <div class="row my-0 py-0">
+               
+               <duel-comments :source="comment" v-for="(comment,index) in this.$root.duelComments" :key="index"></duel-comments>
+
+            </div> 
+
+        </div>
      
-       </virtual-list>  
+       </div>  
 
               <div class="row my-0 py-0">
 
@@ -156,10 +163,8 @@
      </div>
 </template>
 <script>
-import DuelComments from './DuelComments'
-import VirtualList from 'vue-virtual-scroll-list'
 
-import { format } from 'url';
+
 export default {
     data () {
       return {
@@ -169,7 +174,7 @@ export default {
        loading:false,
        selectedDuel:[],
        channel:'',
-        itemComponent: DuelComments,
+       
       
       }
     },
@@ -206,7 +211,7 @@ export default {
        
     },
     components: { 
-     'virtual-list': VirtualList
+     
       },
 
 
@@ -223,7 +228,7 @@ export default {
       
       this.$root.editDuelArray = this.selectedDuel;
         this.$root.isEditDuel = true;
-      this.$router.push({ path: '/duel/edit' });
+      this.$router.push({ path: '/panel/challenge/edit' });
    },
    startDuel: function(){
 
@@ -402,28 +407,28 @@ export default {
       },
       goToDuels: function(){
          
-          this.$router.push({ path: '/duel/duels' });
+            this.$router.push({ path: '/panel/main/' + this.$root.orgIdRoot });
       },
       DuelPanel: function(){
          this.$root.checkIfUserIsLoggedIn('duels');
 
           if(this.selectedDuel.user_type == "user"){
-                this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/panel/user/user' });
+                this.$router.push({ path: '/panel/'+ this.$route.params.duelId + '/panel/user/user' });
           }else{
-              this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/panel/' + this.selectedDuel.user_team.team_code + '/user'});
+              this.$router.push({ path: '/panel/'+ this.$route.params.duelId + '/panel/' + this.selectedDuel.user_team.team_code + '/user'});
           }
           
       },
      
       showDuelInfo: function(){
-            this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/info' });
+            this.$router.push({ path: '/panel/'+ this.$route.params.duelId + '/info' });
        },
        
       comment:function(){
 
             this.$root.checkIfUserIsLoggedIn('duels');
 
-             this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/comment' });
+             this.$router.push({ path: '/panel/'+ this.$route.params.duelId + '/comment' });
       },
       fetchDuelComments: function(){
          axios.get(  '/fetch-duel-comments/' + this.$route.params.duelId)
@@ -530,7 +535,7 @@ export default {
        },
       result:function(type){
          
-           this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/participant/' + type });
+           this.$router.push({ path: '/panel/'+ this.$route.params.duelId + '/participant/' + type });
       },
        countDownTimer: function(){
            let _this = this;

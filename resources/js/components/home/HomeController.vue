@@ -40,7 +40,7 @@
   </DynamicScroller> 
 
 <div v-else class="postScroll" :style="'background:transparent; font-family:BodyText;position:fixed;left:0; width:100%; height:100%; overflow-y:' + scrollValue + '; overflow-x:hidden; padding-top:8px;padding-bottom:120px;'">
-      <div class="  col-lg-6 offset-lg-3 py-0 my-0">
+      <div class="  col-lg-4 offset-lg-4 py-0 my-0">
 
          <div class="ml-lg-1 row py-0 my-0 px-1">
           <div  class="col-6 py-0 my-0 px-0">

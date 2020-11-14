@@ -31,7 +31,7 @@
   
         
         <v-fade-transition>
-         <div class="col-12 py-2 my-0 px-2"  v-if="this.$root.panelDataFull.is_set != true">
+         <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2"  v-if="this.$root.panelDataFull.is_set != true">
         <v-select
           v-model="backEndLang"
           :items="appTypeList"
@@ -49,7 +49,7 @@
         ></v-select>
              </div>
 
-              <div class="col-12 py-2 my-0 px-2" v-else>
+              <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2" v-else>
          <v-text-field
                 style="font-size:12px;"
                 
@@ -74,7 +74,7 @@
           </v-form>
 
 
-             <div class="col-12 py-2 my-0 px-2" v-if="this.$root.projectData.user_id == this.$root.user_temp_id && this.$root.panelDataFull.is_set == true">
+             <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2" v-if="this.$root.projectData.user_id == this.$root.user_temp_id && this.$root.panelDataFull.is_set == true">
               <v-text-field
                 style="font-size:12px;"
                 
@@ -94,7 +94,7 @@
              </div>
 
 
-          <div class="col-12 py-2 my-0 px-2" v-if="this.$root.projectData.user_id == this.$root.user_temp_id && this.$root.panelDataFull.is_set == true">
+          <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2" v-if="this.$root.projectData.user_id == this.$root.user_temp_id && this.$root.panelDataFull.is_set == true">
 
             
         <v-select

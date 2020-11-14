@@ -166,7 +166,7 @@ methods:{
        }
     },
        goBack() {
-       this.$router.push({ path: '/duel/' + this.$route.params.duelId +'/board' + '/user'});
+       this.$router.push({ path: '/panel/' + this.$route.params.duelId +'/board' + '/user'});
         },
         showPage: function(participant){
           this.pageContent = '';
@@ -424,7 +424,7 @@ methods:{
 
         if(status == 'Active'){
             this.fetchParticipants();
-           this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/participant/vote' });
+           this.$router.push({ path: '/panel/'+ this.$route.params.duelId + '/participant/vote' });
         }
          
         

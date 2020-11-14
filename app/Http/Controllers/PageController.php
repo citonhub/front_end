@@ -10,6 +10,8 @@ use App\Space;
 use App\Project;
 use App\Profile;
 use App\DuelTeam;
+use App\Bot;
+use App\Organization;
 
 
 class PageController extends Controller
@@ -145,6 +147,52 @@ class PageController extends Controller
            
            }
 
+           if($type == 'bot'){
+            $thisbot = Bot::where('bot_id',$uniqueId)->first();
+            
+         
+   
+           $pageTitle = 'CitonHub-Bot:' . $thisbot->name;
+           $pageDescription = $thisbot->description;
+   
+             if($thisbot->image_name == null){
+                $imagePath = 'CitonHub.png';
+             }else{
+                $imagePath = 'space/' . $thisbot->image_name .'.' . $thisbot->image_extension;
+             }
+          
+            
+             $pageLink = '/#\/bot-engine\/' . $uniqueId ;
+              
+
+           
+   
+           
+           }
+
+           if($type == 'org'){
+            $thisOrg = Organization::where('organization_id',$uniqueId)->first();
+            
+         
+   
+           $pageTitle =  $thisOrg->name . ' on CitonHub';
+           $pageDescription = $thisOrg->description;
+   
+             if($thisOrg->image_name == null){
+                $imagePath = 'CitonHub.png';
+             }else{
+                $imagePath = 'space/' . $thisOrg->image_name .'.' . $thisOrg->image_extension;
+             }
+          
+            
+             $pageLink = '/panel#\/panel\/main\/' . $uniqueId ;
+              
+
+           
+   
+           
+           }
+
 
            if($type == 'projectPanel'){
             $thisProject = Project::where('project_slug',$uniqueId)->first();
@@ -192,10 +240,10 @@ class PageController extends Controller
 
 
 
-    public function duels(){
+    public function panel(){
 
-        $tablabel = 'duels';
-        return view('pages.duels',compact('tablabel'));
+        $tablabel = 'panel';
+        return view('pages.panel',compact('tablabel'));
     }
 
 

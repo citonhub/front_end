@@ -1,10 +1,10 @@
 <template>
   <div class="py-2">
-    <div class=" codeboxnew">
+    <div class=" codeboxnew" >
          <codemirror
         v-model="codeContent"
         :options="cmOption"
-        style="height:150px; overflow-y:hidden !important; overflow-x:hidden !important;"
+        style="height:150px; overflow-y:hidden !important; overflow-x:hidden !important;  ;"
         @cursorActivity="onCmCursorActivity"
         @ready="onCmReady"
         @focus="onCmFocus"
@@ -13,10 +13,10 @@
     <div class="position:absolute; width:100%;height:70px;bottom:0;background:#f2f2f2;">
         <div class="row py-0 my-0" style="cursor:pointer;" @click.stop="showEditor(codeViewerType)">
            <div class="col-4 d-flex" style="align-items:center; justify-content:center;">
-             <span style="background:white; border:2px solid #3E8893; border-radius:50%;"><v-icon color="#3E8893" class="px-2 py-2">mdi-xml</v-icon></span>
+             <span :style="'background:white;  border-radius:50%;border:2px solid' + color"><v-icon color="#3E8893" class="px-2 py-2">mdi-xml</v-icon></span>
            </div> 
            <div class="col-8  d-flex" style="align-items:center; "> 
-            <span style="font-size:11px; color:#333333;letter-spacing: normal !important;">{{filename}}</span>
+            <span :style="'font-size:11px; color:' + color + ';letter-spacing: normal !important;'">{{filename}}</span>
            </div>
             
         </div>
@@ -93,7 +93,7 @@ import 'codemirror/addon/scroll/simplescrollbars.css'
 
   
 export default {
-    props:['codeContent','filename','codeLanguage','codeViewerType','messageId'],
+    props:['codeContent','filename','codeLanguage','codeViewerType','messageId','color'],
      components: {
       codemirror,
       
@@ -281,7 +281,7 @@ methods:{
 
     .codeboxnew{
        height: 220px;
-      border:1px solid #5dafbb;
+     
         border-radius: 10px;
         overflow-x: hidden;
         overflow-y:hidden;

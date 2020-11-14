@@ -15,7 +15,7 @@
                </v-card>
                <div class="col-3 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
                  <v-btn  style="box-shadow:none;"
-                  fab color="#3E8893" class="mr-1 d-md-none d-inline-block" x-small  v-if="!showSend"
+                  fab color="#3E8893" class="mr-1 d-md-none d-inline-block" x-small  v-if="!showSend && this.$root.selectedSpace.type != 'Bot'"
                @click="shareHandler"
                >
                    <v-icon color="#ffffff">mdi-attachment</v-icon>
@@ -30,7 +30,7 @@
                
 
                     <v-btn  style="box-shadow:none;"
-                  fab color="#3E8893" class="mr-1 d-md-inline-block d-none" small  v-if="!showSend"
+                  fab color="#3E8893" class="mr-1 d-md-inline-block d-none" small  v-if="!showSend && this.$root.selectedSpace.type != 'Bot'"
                @click="shareHandler"
                >
                    <v-icon color="#ffffff">mdi-attachment</v-icon>
@@ -43,7 +43,7 @@
                 </v-btn>
                 
 
-                 <v-btn  style="box-shadow:none;" fab color="#3E8893" class="d-md-none d-inline-block" x-small v-if="!showSend"
+                 <v-btn  style="box-shadow:none;" fab color="#3E8893" class="d-md-none d-inline-block" x-small v-if="!showSend && this.$root.selectedSpace.type != 'Bot'"
                   @click="toggleRecording"
                >
                    <v-icon  color="#ffffff" v-if="!recording">mdi-microphone</v-icon>
@@ -51,7 +51,7 @@
                 </v-btn>
 
 
-                <v-btn  style="box-shadow:none;" fab color="#3E8893" class="d-md-inline-block d-none" small v-if="!showSend"
+                <v-btn  style="box-shadow:none;" fab color="#3E8893" class="d-md-inline-block d-none" small v-if="!showSend && this.$root.selectedSpace.type != 'Bot'"
                   @click="toggleRecording"
                >
                    <v-icon  color="#ffffff" v-if="!recording">mdi-microphone</v-icon>
@@ -107,6 +107,7 @@ export default {
   },
     mounted(){
        this.$root.bottomEditorValue = this.$refs.textBottom;
+       this.$root.channelBottomComp = this;
     },
      computed: {
           compiledMarkdown: function() {
@@ -350,6 +351,8 @@ export default {
           
         },
       sendMessage: function(){
+
+          if( this.input.length == 0) return;
             this.input = '';
              this.showSend = false;
              this.$root.ShowButton = true;

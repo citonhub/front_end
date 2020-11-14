@@ -1,7 +1,7 @@
 @extends('layouts.duels')
 @section('title')
 
-    <title>CitonHub:Duels</title>
+    <title>CitonHub:Dashboard</title>
 
  @endsection
  @section('meta') 
@@ -19,7 +19,7 @@
     <meta name="msapplication-TileImage" content="imagesNew/icons/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#4495a2">
     <meta property="og:description" content="Improve your skills by challenging friends to duels" />
-    <meta property='twitter:title' content="Citonhub:Duels"/>
+    <meta property='twitter:title' content="Citonhub:Dashboard"/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/CitonHub.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
  @endsection
@@ -28,7 +28,7 @@
   
 <style>
    .body{
-    background:#ffffff;
+    background:whitesmoke;
   }
   html,
 body {
@@ -50,21 +50,19 @@ body {
 </div>
 
 
-<img src="/imgs/background1.png"  style="position:absolute;height:50%; width:100%; align-items:center; bottom:0%; left:0;"  >
 
-<img src="/imgs/top.png"  style="position:absolute;height:17%; width:20%; align-items:center; top:0%; right:0;"  >
 
 <div class="col-lg-10 col-12 offset-lg-1 py-0" style="display:fixed; top:0%;height:auto; background:white; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;" v-show="showHeader">
     <div class="row">
     <div class="col-4 d-flex  py-1" style="border-bottom:1px solid #e6e6e6;  align-items:center; ">
     <div>
-    <div  v-if="authProfile != undefined" :style="imageStyle(46,authProfile)"   @click="showNavigator"
+    <div  v-if="authProfile != undefined" :style="imageStyle(46,authProfile)"  
                 class="pl-3 d-none d-md-block addBorder">
 
                   </div>
 
                   <div  v-if="authProfile != undefined" :style="imageStyle(35,authProfile)"   @click="showNavigator"
-                  class="pl-3 d-block d-md-none addBorder">
+                class="pl-3 d-block d-md-none   addBorder">
 
                   </div>
     </div>
@@ -76,7 +74,7 @@ body {
         
         <div style="text-align:right; border-bottom:1px solid #e6e6e6; " class="col-4 pr-2 py-0 text-right">
            
-           <v-btn icon color="#3E8893"  @click="showLangOption = true" class="mt-2"  small style="border:2px solid #3E8893; border-radius:50%;"><v-icon>mdi-translate mdi-18px</v-icon></v-btn>
+           <v-btn icon color="#3E8893"  @click="showLangOption = true" class="mt-2"  small ><v-icon>mdi-earth </v-icon></v-btn>
        </div>
         
     </div>
@@ -109,12 +107,12 @@ body {
            </div>
          </div>
 
-         <div class=" d-none d-md-none d-lg-block mx-2  py-2 card" 
- style="border-radius:7px; height:80%; position:fixed; width:15%;top:10%; right:8.30%; background:#ffffff; border:1px solid #c5c5c5;" >
+         <div class=" d-none d-md-none d-lg-block mx-2  py-2 "  v-if="!itIsHomePage"
+ style="border-radius:7px; height:80%; position:fixed; width:15%;top:10%; right:8.30%; background:transparent; border:1px solid transparent;" >
 
   
       
-         <v-card tile flat color="#ffffff"  class="col-12 px-2 py-2" style="border-bottom:1px solid #c5c5c5;"  @click="showNavLink('library')">
+         <div  color="#ffffff"  class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px; "  @click="showNavLink('library')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-inbox-full-outline</v-icon>
@@ -123,8 +121,8 @@ body {
                <span style="font-size:14px;  font-weight: bold; color:#595959;">My Library</span>
             </div>
            </div>
-         </v-card>
-         <v-card tile flat color="#ffffff" class="col-12 px-2 py-2" style="border-bottom:1px solid #c5c5c5;"  @click="showNavLink('account_settings')">
+         </div>
+         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card"  style="border:1px solid transparent; border-radius:30px;"  @click="showNavLink('account_settings')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-account-cog-outline</v-icon>
@@ -133,8 +131,8 @@ body {
                <span style="font-size:14px;  font-weight: bold; color:#595959;">@{{ $t('general.Account_Setting') }}</span>
             </div>
            </div>
-         </v-card>
-         <v-card tile flat color="#ffffff" class="col-12 px-2 py-2" style="border-bottom:1px solid #c5c5c5;"  @click="showNavLink('privacy')">
+         </div>
+         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px;"  @click="showNavLink('privacy')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon>mdi-account-tie-outline</v-icon>
@@ -143,8 +141,8 @@ body {
                <span style="font-size:14px; font-weight: bold; color:#595959;">@{{ $t('general.Privacy') }}</span>
             </div>
            </div>
-         </v-card>
-         <v-card tile flat color="#ffffff" class="col-12 px-2 py-2" style="border-bottom:1px solid #c5c5c5;"  @click="showNavLink('help')">
+         </div>
+         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px;"  @click="showNavLink('help')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon>mdi-comment-question-outline</v-icon>
@@ -153,13 +151,14 @@ body {
                <span style="font-size:14px; font-weight: bold; color:#595959;">@{{ $t('general.Help') }}</span>
             </div>
            </div>
-         </v-card>
+         </div>
          
       
 
       
 
-         <v-card tile flat color="#ffffff" v-if="isLogged"  @click="logout"  class="col-12 px-2 py-2" style="border-top:1px solid #c5c5c5; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
+        
+      <div  color="#ffffff" v-if="isLogged"  @click="logout"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; border-radius:30px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-logout-variant</v-icon>
@@ -168,9 +167,9 @@ body {
                <span style="font-size:14px;  font-weight: bold; color:#595959;">@{{ $t('general.logout') }}</span>
             </div>
            </div>
-      </v-card>
+      </div>
   
-    <v-card  v-else tile flat color="#ffffff"  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2" style="border-top:1px solid #c5c5c5; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
+    <div  v-else color="#ffffff"  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; border-radius:30px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-login-variant</v-icon>
@@ -179,7 +178,9 @@ body {
                <span style="font-size:14px; font-weight: bold; color:#595959;">@{{ $t('general.login') }}</span>
             </div>
            </div>
-      </v-card>
+      </div>
+  
+
 </div>
 
 
@@ -320,5 +321,5 @@ body {
 
  @section('scripts')
  <script src="https://unpkg.com/marked@0.3.6"></script>
-<script src="{{ asset('js/duels.js?v=1.67') }}"></script>
+<script src="{{ asset('js/duels.js?v=1.80') }}"></script>
  @endsection

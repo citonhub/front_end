@@ -1,5 +1,5 @@
 <template>
-    <div style="background:#F3FFFC; position:absolute; height:100%; width:100%; overflow-y:hidden;left:0; overflow-x:hidden; border-right:1px solid #e6e6e6;" >
+    <div style="background:#edf6f7; position:absolute; height:100%; width:100%; overflow-y:hidden;left:0; overflow-x:hidden; border-right:1px solid #e6e6e6;" >
 
        <div v-if="this.$root.Messages != null">
       
@@ -33,6 +33,27 @@
        
       </DynamicScrollerItem>
     </template>
+
+    <template #after>
+     <div  class=" col-12 mt-2 py-1 text-left" v-if="that.$root.botIsLoading" >
+
+        <v-card class="py-0 px-1 text-center" style="border-radius:30px;" width="100px" >
+          <img src="/imgs/bot_loading.svg" width="90px" height="40px">
+        </v-card>
+
+      </div>
+
+      <div  class=" col-10 offset-2 col-lg-4 offset-lg-8 col-md-6 offset-md-6 mt-3 py-1 text-center" v-if="!that.$root.botIsLoading && that.$root.botSuggestionArray.length != 0">
+
+          
+           <v-btn  v-for="(pattern,index) in that.$root.botSuggestionArray" :key="index"
+           rounded color="#3E8893" @click="initiateMessageCtl(pattern.pattern_content)" class="ma-1" style="color:white; text-transform:capitalize; border:2px solid white;" small > {{pattern.pattern_content}}</v-btn>
+         
+        <v-btn rounded color="#3E8893" class="ma-1" style="color:white; text-transform:capitalize; border:2px solid white;" small @click="initiateMessageCtl(that.$root.botSuggestionArray[0].pattern_content)" > Continue</v-btn>
+
+         
+      </div>
+  </template>
 
   </DynamicScroller> 
 
@@ -610,7 +631,7 @@
                 </div>
 
            
-            <div  style="background:#ffffff;" class="px-2 py-1">
+            <div  style="background:#ffffff; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;" class="px-2 py-1">
           <channel-bottom ref="channelBottom"></channel-bottom>
         </div>
          </div>
@@ -622,7 +643,7 @@
        
 
       
-       <span style="position:fixed; top:73%; right:3%; z-index:98757;"  class="d-md-none d-inline-block">
+       <span style="position:fixed; top:73%; right:3%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type != 'Bot'">
 
             <div style="position:absolute;bottom:120%; right:17%; z-index:2;" v-if="showCodeBoxInfo" >
                     <info-dialog :buttonText="'Ok'" :content="codeBoxContent" :type="'infobottom'" :next="'liveContent'"></info-dialog>
@@ -639,7 +660,7 @@
               </v-btn>
      </span>
 
-      <span style="position:absolute; top:85%; right:3%;  z-index:98757;" class="d-none d-md-inline-block">
+      <span style="position:absolute; top:85%; right:3%;  z-index:98757;" class="d-none d-md-inline-block"  v-if=" this.$root.selectedSpace.type != 'Bot'">
 
         <div style="position:absolute;bottom:120%; right:-30%; z-index:2;" v-if="showCodeBoxInfo">
                     <info-dialog :buttonText="'Ok'" :content="codeBoxContent" :type="'infobottom'" :next="'liveContent'"></info-dialog>
@@ -807,7 +828,19 @@ export default {
       
     },
     methods:{
-     
+       initiateMessageCtl: function(message){       
+
+        
+          this.$root.channelBottomComp.contentInWord = message;
+
+           this.$root.channelBottomComp.input = message;
+
+          this.$root.channelBottomComp.sendMessage();
+
+
+           this.$root.botSuggestionArray = [];
+
+       },
        handleInfoSession:function(){
 
       let storedInfo = this.$root.getLocalStore('channelcontentinfo'+ this.$root.username);
@@ -1884,21 +1917,7 @@ export default {
          });
        
          
-       
-
-           
-
-        
-
-     
-        
-       
-       
-       
-      
-        
-      
-
+  
 
       }
          
@@ -2207,6 +2226,12 @@ export default {
 
                }
 
+      if( this.$root.selectedSpace.type == 'Bot'){
+
+        this.botMessager();
+
+      }
+
 
              if(this.$root.selectedSpace.general_spaceId != undefined){
 
@@ -2233,7 +2258,34 @@ export default {
 
        
         },
-       
+        botMessager:function(){
+
+          
+              if(this.$root.Messages.length == 0){
+                     this.$root.botMessager('hello');
+              }else{
+
+                let storedSuggestions = this.$root.getLocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username);
+
+           storedSuggestions.then((result)=>{
+
+              let finalResultUnread = JSON.parse(result);
+ 
+                       if(finalResultUnread != null){
+
+                          this.$root.botSuggestionArray = finalResultUnread;
+
+                       }
+                
+
+             
+              
+           });
+              }
+
+        
+           
+        },
          showMoreHandler(message){
            if(message.showReply){
               message.showReply = false;
@@ -2420,12 +2472,12 @@ export default {
   font-size: 10px;
 }
 .tagged{
-  background:white;
+  background:#cbe3e7;
   border:2px solid transparent;
   border-radius: 8px;
 }
 .taggedOthers{
-  background:#ACF8E9;
+  background:#cbe3e7;
   border:2px solid transparent;
   border-radius: 8px;
 }
@@ -2439,9 +2491,10 @@ export default {
   color: #4d4d4d;
 }
 .DateBadge{
-  background-color: #3E8893;
-  border:1px solid transparent;
-  border-radius:10px;
+ background:#ffffff; 
+ color:#3E8893;
+  border-radius:20px; 
+  border:2px solid #3E8893;
 }
 
   #messageContainer::-webkit-scrollbar {

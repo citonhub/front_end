@@ -3,6 +3,7 @@
      "general": {
         "space": "Space",
         "duels":"Duels",
+        "panel":"Dashboard",
         "trends": "Trends",
         "hub":"Hub",
         "profile":"Profile",
@@ -249,6 +250,7 @@
         "space": "Espace",
         "hub":"Hub",
         "duels": "Duels",
+        "panel":"Panneau",
         "trends":"Tendance",
         "profile":"Profil",
         "Duel_list": "Liste des duels",

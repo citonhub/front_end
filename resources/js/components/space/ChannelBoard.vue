@@ -7,9 +7,14 @@
              <v-btn icon color="#3E8893" @click="goBack"><v-icon>mdi-close mdi-18px</v-icon></v-btn>
           </div>
           <div class="col-12 py-0 px-0 d-flex" style="align-items:center; justify-content:center;">
-              <div>
+              <div v-if="this.$root.selectedSpace.type != 'Bot'">
                  
-   <v-img  @click.stop="viewFullImage()" :background-color="this.$root.selectedSpace.background_color" :src="this.$root.selectedSpace.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ this.$root.selectedSpace.image_name +'.' + this.$root.selectedSpace.image_extension " height="130" width="130" class="avatarImg" style="border:3px solid #3E8893;"></v-img>
+   <v-img  @click.stop="viewFullImage(this.$root.selectedSpace)" :background-color="this.$root.selectedSpace.background_color" :src="this.$root.selectedSpace.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ this.$root.selectedSpace.image_name +'.' + this.$root.selectedSpace.image_extension " height="130" width="130" class="avatarImg" style="border:3px solid #3E8893;"></v-img>
+              </div>
+
+              <div else>
+                 
+   <v-img  @click.stop="viewFullImage(this.$root.selectedSpace.bot_data)" :background-color="this.$root.selectedSpace.bot_data.background_color" :src="this.$root.selectedSpace.bot_data.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ this.$root.selectedSpace.bot_data.image_name +'.' + this.$root.selectedSpace.bot_data.image_extension " height="130" width="130" class="avatarImg" style="border:3px solid #3E8893;"></v-img>
               </div>
           </div>
 
@@ -33,11 +38,11 @@
           </div>
 
 
-          <div class="col-12 py-2 my-0 px-0 text-center" v-if="checkIfisOwner() && this.$root.selectedSpace.type != 'SubSpace'">
+          <div class="col-12 py-2 my-0 px-0 text-center" v-if="checkIfisOwner() && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpace.type != 'Bot'">
                    <v-btn @click="editSpace" rounded small color="#3E8893" style="font-size:10px; color:white;text-transform:capitalize;">{{ $t('general.edit') }}</v-btn>
                 </div>
 
-          <div class="col-12 px-2 py-1 pt-2" v-if="this.$root.selectedSpace.type != 'Personal'">
+          <div class="col-12 px-2 py-1 pt-2"  v-if="this.$root.selectedSpace.type != 'Bot'">
                <v-card tile flat class=" py-2 px-2 " color="#edf6f7" style="border-bottom:1px solid #3E8893; border-top:1px solid #3E8893;" @click="channelMembers">
               <div class="row py-0 my-0">
                 <div class="col-6 py-0 my-0 ">
@@ -55,7 +60,7 @@
 
 
 
-           <div class="col-12 px-2 py-1" v-if="this.$root.selectedSpace.type != 'Personal'">
+           <div class="col-12 px-2 py-1"  v-if="this.$root.selectedSpace.type != 'Bot'">
                <v-card tile flat class=" py-2 px-2 " color="#edf6f7" style="border-bottom:1px solid #3E8893; border-top:1px solid #3E8893;">
               <div class="row py-0 my-0">
                 <div class="col-4 py-0 my-0 text-left">
@@ -73,7 +78,20 @@
               
           </v-card>
           </div>
- 
+
+           <div class="col-12 px-2 py-1"  v-if="this.$root.selectedSpace.type == 'Bot'">
+               <v-card tile flat class=" py-2 px-2 " color="#edf6f7" style="border-bottom:1px solid #3E8893; border-top:1px solid #3E8893;">
+              <div class="row py-0 my-0">
+                <div class="col-12 py-0 my-0 text-center">
+                   <v-btn rounded x-small color="#3E8893"  @click="leaveSpace" style="font-size:10px; color:white; text-transform:capitalize;">{{ $t('space.leave') }}</v-btn>
+                </div>
+                
+              </div>
+              
+          </v-card>
+          </div>
+
+          
              <div class="col-12 py-2 my-0 px-0 text-center" v-if="this.$root.selectedSpace.type == 'Team'">
                    <v-btn @click="channelProjects" rounded x-small color="#3E8893" style="font-size:10px; color:white;text-transform:capitalize;">{{ $t('space.team_project') }}</v-btn>
                 </div>
@@ -266,11 +284,11 @@ export default {
        this.$root.shareLink =   'https://www.citonhub.com/link/space/'+ this.$route.params.spaceId + '/' + this.$root.username;
       this.$root.showShare = true;
     },
-     viewFullImage:function(){
-           if(this.$root.selectedSpace.image_name == null){
+     viewFullImage:function(data){
+           if(data.image_name == null){
                 return;
            }
-        var imageData = this.$root.selectedSpace;
+        var imageData = data;
             this.$root.fullImageViewer = true;
             this.$root.fullImageColor = imageData.background_color;
             this.$root.imageViewPath = 'imgs/space/' + imageData.image_name + '.' + imageData.image_extension;

@@ -157,7 +157,7 @@ export default {
               
         }
             
-     this.$router.push({ path: '/duel/' + this.$route.params.duelId +'/board' + '/user' });
+     this.$router.push({ path: '/panel/' + this.$route.params.duelId +'/board' + '/user' });
    },
    saveComment:function(){
        this.loading = true;
@@ -201,7 +201,7 @@ export default {
             this.$root.selectedDuel = thisDuel[0];
              this.countDownDate = new Date(this.$root.selectedDuel.duel_terminal_time).getTime();
           }else{
-             axios.get('/fetch-this-duel/' + this.$route.params.duelId)
+             axios.get('/fetch-this-duel/' + this.$route.params.duelId + '/user' )
       .then(response => {
       
       if (response.status == 200) {
@@ -224,7 +224,7 @@ export default {
   
        goBack() {
          this.$root.is_reply_comment = false;
-        this.$router.push({ path: '/duel/' + this.$route.params.duelId +'/board' + '/user'});
+        this.$router.push({ path: '/panel/' + this.$route.params.duelId +'/board' + '/user'});
         },
     },
    

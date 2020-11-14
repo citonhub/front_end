@@ -48,7 +48,7 @@
        width="auto"
        class="py-1 px-2"
        rounded
-       style="font-size:13px;background:#3E8893; color:white; border-radius:20px;"
+       style="font-size:13px;background:#ffffff; color:#3E8893; border-radius:20px; border:2px solid #3E8893;"
        height="auto"
     
        elevation-10

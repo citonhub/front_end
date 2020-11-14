@@ -151,10 +151,10 @@ export default {
   
    goBack() {
           
-        this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/panel/' + this.$root.selectedDuel.user_team.team_code + '/user'});
+        this.$router.push({ path: '/panel/'+ this.$route.params.duelId + '/panel/' + this.$root.selectedDuel.user_team.team_code + '/user'});
         },
     makeComment:function(){
-        this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/new' });
+        this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/new' });
     },
     likeComment:function(comment){
            this.$root.checkIfUserIsLoggedIn('space');
@@ -290,7 +290,7 @@ export default {
            this.$root.replyCommentId = comment.id;
            this.$root.replyCommentUsername = comment.username;
 
-           this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/new' });
+           this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/new' });
       },
     fetchPanelComments: function(){
 

@@ -8,7 +8,7 @@ window.io = require('socket.io-client');
 
 Vue.use(Vuex)
 
-axios.defaults.baseURL = 'https://api.citonhub.com/api'
+axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
 
 const store = new Vuex.Store({
   state: {
@@ -130,6 +130,7 @@ const routes = [
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/new-post', name: 'NewPost', component: NewPost},
   { path: '/code-editor', name: 'CodeEditor', component: CodeEditor},
+  { path: '/auth/:fromPage', name: 'Auth', component: Auth},
   { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},
   { path: '/post/:username/:postId/:referral',
    name: 'Post',
@@ -366,7 +367,6 @@ const routes = [
   { path: '/shelve', name: 'Shelve', component: Shelve},
   { path: '/add-shelve', name: 'AddShelve', component: AddShelve},
   { path: '/login', name: 'Login', component: Login},
-  { path: '/auth/:frompage', name: 'Auth', component: Auth},
   { path: '/register', name: 'Register', component: Register},
   { path: '/verify', name: 'Verify', component: Verify},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
@@ -492,7 +492,8 @@ const app = new Vue({
             postViewType:'',
             showCreatepost: false,
             baseApiUrl:'https://api.citonhub.com/api',
-            returnedToken:''
+            returnedToken:'',
+            itIsHomePage:false
     },
      mounted: function () {
       this.pageloader = false;
@@ -1077,7 +1078,7 @@ return post.PostId == this.$root.currentPostId;
         if(this.$route.params.referral != null){
           this.referralUser = this.$route.params.referral;
          }
-       this.$router.push({ path: '/auth/' + 'hub' });
+         this.$router.push({ path: '/auth/' + frompage });
         return;
       } 
    },

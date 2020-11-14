@@ -1,26 +1,26 @@
 <template>
      <div class="row py-1 my-0 px-1" style="cursor:pointer;" >
 
-        <div style="position:absolute;top:120%; right:1%; z-index:2;" class="d-none d-md-block" v-if="showLiveInfo">
+        <div style="position:absolute;top:120%; right:1%; z-index:2;" class="d-none d-md-block" v-if="showLiveInfo && this.$root.selectedSpace.type != 'Bot'">
                     <info-dialog :buttonText="'Ok'" :content="liveCodingContent" :type="'infotop'"  :next="'subSpace'"></info-dialog>
                       </div>
 
-                      <div style="position:absolute;top:120%; right:2%; z-index:2;" class="d-md-none d-block" v-if="showLiveInfo">
+                      <div style="position:absolute;top:120%; right:2%; z-index:2;" class="d-md-none d-block" v-if="showLiveInfo && this.$root.selectedSpace.type != 'Bot'">
                     <info-dialog :buttonText="'Ok'" :content="liveCodingContent" :type="'infotop'" :next="'subSpace'" ></info-dialog>
                       </div>
 
 
-                     <div style="position:absolute;top:120%; right:17%; z-index:2;" class="d-none d-md-block" v-if="showSubSpaceInfo">
+                     <div style="position:absolute;top:120%; right:17%; z-index:2;" class="d-none d-md-block" v-if="showSubSpaceInfo && this.$root.selectedSpace.type != 'Bot' && this.$root.selectedSpace.type != 'Direct'">
                     <info-dialog :buttonText="'Ok'" :content="subChannelContent" :type="'infotop'"  :next="'customizeSpace'"></info-dialog>
                       </div>
 
-                      <div style="position:absolute;top:120%; right:17%; z-index:2;" class="d-md-none d-block" v-if="showSubSpaceInfo">
+                      <div style="position:absolute;top:120%; right:17%; z-index:2;" class="d-md-none d-block" v-if="showSubSpaceInfo && this.$root.selectedSpace.type != 'Bot' && this.$root.selectedSpace.type != 'Direct' ">
                     <info-dialog :buttonText="'Ok'" :content="subChannelContent" :type="'infotop'" :next="'customizeSpace'" ></info-dialog>
                       </div>
 
 
 
-                     <div style="position:absolute;top:120%; right:45%; z-index:2;" class="d-none d-md-block" v-if="showCustomizerInfo">
+                     <div style="position:absolute;top:120%; right:45%; z-index:2;" class="d-none d-md-block" v-if="showCustomizerInfo && this.$root.selectedSpace.type != 'Bot'">
                     <info-dialog :buttonText="'Ok'" :content="this.$root.selectedSpace.type != 'Direct' ? customizeContent : gotoprofile" :type="'infotop'"  :next="'finalTop'"></info-dialog>
                       </div>
 
@@ -33,15 +33,22 @@
                <v-btn icon @click.stop="goBack"><v-icon color="white">mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-2 py-0 my-0 d-flex" style="align-items:center; justify-content:center;" >
-            <div v-if="this.$root.selectedSpace.type != 'Direct'">
+            <div v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
                 
-                <v-img v-if="this.$root.selectedSpace.type == 'Personal'" :background-color="this.$root.selectedSpace.background_color" :src="this.$root.selectedSpace.image_name == null ? 'imgs/usernew.png' : '/imgs/space/'+ this.$root.selectedSpace.image_name +'.' + this.$root.selectedSpace.image_extension " height="36" width="36" class="avatarImg"  style="border:2px solid white;"></v-img>
-                <v-img v-else :background-color="this.$root.selectedSpace.background_color" :src="this.$root.selectedSpace.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ this.$root.selectedSpace.image_name +'.' + this.$root.selectedSpace.image_extension " height="36" width="36" class="avatarImg"  style="border:2px solid white;"></v-img>
+              
+                <v-img  :background-color="this.$root.selectedSpace.background_color" :src="this.$root.selectedSpace.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ this.$root.selectedSpace.image_name +'.' + this.$root.selectedSpace.image_extension " height="36" width="36" class="avatarImg"  style="border:2px solid white;"></v-img>
 
             </div> 
             <div v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'">
                 
                 <v-img  :background-color="this.$root.selectedSpace.userInfo.background_color" :src="this.$root.selectedSpace.userInfo.image_name == null ? 'imgs/usernew.png' : '/imgs/profile/'+ this.$root.selectedSpace.userInfo.image_name +'.' + this.$root.selectedSpace.userInfo.image_extension " height="36" width="36" class="avatarImg"  style="border:2px solid white;"></v-img>
+                
+
+            </div> 
+
+            <div v-if="this.$root.selectedSpace.bot_data != undefined && this.$root.selectedSpace.type == 'Bot'">
+                
+                <v-img  :background-color="this.$root.selectedSpace.bot_data.background_color" :src="this.$root.selectedSpace.bot_data.image_name == null ? 'imgs/usernew.png' : '/imgs/space/'+ this.$root.selectedSpace.bot_data.image_name +'.' + this.$root.selectedSpace.bot_data.image_extension " height="36" width="36" class="avatarImg"  style="border:2px solid white;"></v-img>
                 
 
             </div>  
@@ -78,7 +85,7 @@
              
          </div>
 
-          <div class="col-1 py-0 my-0 px-0 text-right"  style="" v-if="this.$root.selectedSpace.type != 'Direct'">
+          <div class="col-1 py-0 my-0 px-0 text-right"  style="" v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
                
                <v-btn icon @click="subSpaceBoard"><v-icon color="#ffffff">mdi-pound</v-icon></v-btn>
               
@@ -92,7 +99,7 @@
 
          
           <div class="col-2 py-0 my-0 px-0 text-right"  style="" >
-              <v-menu bottom left
+              <v-menu bottom left v-if="this.$root.selectedSpace.type != 'Bot'"
                 transition="slide-y-transition" dense
                
                z-index="9899996969696" tile>
@@ -177,6 +184,8 @@
            </v-card>
            
           </v-menu>
+
+           <v-btn v-else icon ><v-icon color="#ffffff">mdi-robot</v-icon></v-btn>
               
          </div>
         

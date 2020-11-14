@@ -29,23 +29,7 @@
     methods:{
    trigger: function(){
 
-     if(this.next == 'channelInfo'){
-
-        this.$root.chatListComponent.showProjectInfo = false;
-
-        this.$root.chatListComponent.showChannelInfo = true;
-
-     }
-
-     if(this.next == 'teamInfo'){
-
-      
-
-        this.$root.chatListComponent.showChannelInfo = false;
-
-         this.$root.chatListComponent.showTeamInfo = true;
-
-     }
+    
 
       if(this.next == 'searchInfo'){
 

@@ -1,7 +1,7 @@
 
 
- <div class=" d-none d-md-none d-lg-block mx-2 px-2 py-2" 
- style=" height:auto; position:fixed; width:15%;top:10%; left:8.30%; background:white;" >
+ <div class=" d-none d-md-none d-lg-block mx-2 px-2 py-2"  v-if="!itIsHomePage"
+ style=" height:auto; position:fixed; width:15%;top:10%; left:8.30%; background:whitesmoke;" >
          
        
 
@@ -79,26 +79,26 @@
 
 
 
-         <a :class=" tabLabel == 'duels' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'"  href="/duels" @click="loader"
+         <a :class=" tabLabel == 'panel' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'"  href="/dashboard" @click="loader"
          style="border:1px solid transparent; border-radius:30px;"> 
           <div class="row py-0 my-0">
             <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
-              @if($tablabel == 'duels')
-              <img src="{{ asset('imgs/duels_active.png') }}" class="iconstyle"/>
+              @if($tablabel == 'panel')
+              <img src="{{ asset('imgs/panel_active.png') }}" class="iconstyle"/>
               @else
-              <img src="{{ asset('imgs/duels.png') }}" class="iconstyle"/>
+              <img src="{{ asset('imgs/panel.png') }}" class="iconstyle"/>
               @endif
             </div>
             <div class="col-4 d-flex py-0 "  style="align-items:center; justify-content:center;">
             <div class="text-center">
-            @if($tablabel == 'duels')
+            @if($tablabel == 'panel')
              <span class="iconname" style="color:#36848C;">
-             @{{ $t('general.duels') }}
+             @{{ $t('general.panel') }}
              </span>
              @else
              <span class="iconname">
 
-             @{{ $t('general.duels') }}
+             @{{ $t('general.panel') }}
              </span>
              @endif
             </div>
@@ -229,16 +229,16 @@
     
            
             <div class="text-center iconcontainer" > 
-            <a href="/duels">
-            @if($tablabel == 'duels')
-            <img src="{{ asset('imgs/duels_active.png') }}" class="iconstylemd"/><br>
+            <a href="/dashboard">
+            @if($tablabel == 'panel')
+            <img src="{{ asset('imgs/panel_active.png') }}" class="iconstylemd"/><br>
             <span class="iconnamemd py-1" style="color:#36848C;">
-            @{{ $t('general.duels') }} 
+            @{{ $t('general.panel') }} 
              </span>
             @else
-            <img src="{{ asset('imgs/duels.png') }}" class="iconstylemd"/><br>
+            <img src="{{ asset('imgs/panel.png') }}" class="iconstylemd"/><br>
             <span class="iconnamemd py-1">
-            @{{ $t('general.duels') }} 
+            @{{ $t('general.panel') }} 
              </span>
             @endif
             </a>
@@ -328,16 +328,16 @@
             
    
             <div class="text-center iconcontainer" > 
-            <a href="/duels" @click="loader">
-            @if($tablabel == 'duels')
-            <img src="{{ asset('imgs/duels_active.png') }}" class="iconstylesm"/>
+            <a href="/dashboard" @click="loader">
+            @if($tablabel == 'panel')
+            <img src="{{ asset('imgs/panel_active.png') }}" class="iconstylesm"/>
             <div class="iconnamesm " style="color:#36848C;">
-            @{{ $t('general.duels') }} 
+            @{{ $t('general.panel') }} 
              </div>
             @else
-            <img src="{{ asset('imgs/duels.png') }}" class="iconstylesm"/>
+            <img src="{{ asset('imgs/panel.png') }}" class="iconstylesm"/>
             <div class="iconnamesm ">
-            @{{ $t('general.duels') }} 
+            @{{ $t('general.panel') }} 
              </div>
             @endif
             </a>
