@@ -1135,11 +1135,32 @@ console.log(err)
           let array3 =  this.ChatList[4];
           let array4 =  this.ChatList[6];
         
-        
-         this.sortArray(array1);
-         this.sortArray(array2);
-          this.sortArray(array3);
-          this.sortArray(array4);
+      
+
+          if(array1){
+
+            this.sortArray(array1);
+
+           }
+
+          if(array2){
+
+            this.sortArray(array2);
+
+           }
+
+          if(array3){
+
+            this.sortArray(array3);
+
+           }
+
+           if(array4){
+
+            this.sortArray(array4);
+
+           }
+         
       
           this.ChatList[1] = array1;
           
