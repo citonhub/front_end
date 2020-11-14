@@ -628,7 +628,7 @@ export default {
        showProject:true, 
        fetchSpaceUpdate: true,
        projectContent:'Create new projects in various programming languages.',
-       searchContent:'Search for people, projects, and communities on citonhub.',
+       searchContent:'Search for people, projects, learning bots and communities on citonhub.',
        showProjectInfo:false,
        showTeamInfo: false,
        showChannelInfo:false,

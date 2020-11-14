@@ -47,36 +47,7 @@
          </a>
 
 
-         <a :class=" tabLabel == 'home' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'" href="/hub" @click="loader"
-         style="border:1px solid transparent; border-radius:30px;"> 
-          <div class="row py-0 my-0">
-            <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
-              @if($tablabel == 'hub')
-              <img src="{{ asset('imgs/hub_icon_active.png') }}" class="iconstyle"/>
-              @else
-              <img src="{{ asset('imgs/hub_icon1.png') }}" class="iconstyle"/>
-              @endif
-            </div>
-            <div class="col-4 d-flex py-0 "  style="align-items:center; justify-content:center;">
-            <div class="text-center">
-            @if($tablabel == 'hub')
-             <span class="iconname" style="color:#36848C;">
-               @{{ $t('general.hub') }}
-             </span>
-             @else
-             <span class="iconname">
-             @{{ $t('general.hub') }}
-             </span>
-             @endif
-            </div>
-            </div>
-            <div class="col-4 d-flex py-0 "  style="align-items:center; justify-content:center;">
-            </div>
-
-
-          </div>
-         </a>
-
+       
 
 
          <a :class=" tabLabel == 'panel' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'"  href="/dashboard" @click="loader"
@@ -114,6 +85,35 @@
 
 
         
+         <a :class=" tabLabel == 'home' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'" href="/hub" @click="loader"
+         style="border:1px solid transparent; border-radius:30px;"> 
+          <div class="row py-0 my-0">
+            <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
+              @if($tablabel == 'hub')
+              <img src="{{ asset('imgs/hub_icon_active.png') }}" class="iconstyle"/>
+              @else
+              <img src="{{ asset('imgs/hub_icon1.png') }}" class="iconstyle"/>
+              @endif
+            </div>
+            <div class="col-4 d-flex py-0 "  style="align-items:center; justify-content:center;">
+            <div class="text-center">
+            @if($tablabel == 'hub')
+             <span class="iconname" style="color:#36848C;">
+               @{{ $t('general.hub') }}
+             </span>
+             @else
+             <span class="iconname">
+             @{{ $t('general.hub') }}
+             </span>
+             @endif
+            </div>
+            </div>
+            <div class="col-4 d-flex py-0 "  style="align-items:center; justify-content:center;">
+            </div>
+
+
+          </div>
+         </a>
 
         
   
@@ -208,6 +208,25 @@
             </div>
 
 
+          
+           
+            <div class="text-center iconcontainer" > 
+            <a href="/dashboard">
+            @if($tablabel == 'panel')
+            <img src="{{ asset('imgs/panel_active.png') }}" class="iconstylemd"/><br>
+            <span class="iconnamemd py-1" style="color:#36848C;">
+            @{{ $t('general.panel') }} 
+             </span>
+            @else
+            <img src="{{ asset('imgs/panel.png') }}" class="iconstylemd"/><br>
+            <span class="iconnamemd py-1">
+            @{{ $t('general.panel') }} 
+             </span>
+            @endif
+            </a>
+            </div>
+
+            
             <div class="text-center iconcontainer" > 
             <a href="/hub">
             @if($tablabel == 'hub')
@@ -227,24 +246,6 @@
            
             
     
-           
-            <div class="text-center iconcontainer" > 
-            <a href="/dashboard">
-            @if($tablabel == 'panel')
-            <img src="{{ asset('imgs/panel_active.png') }}" class="iconstylemd"/><br>
-            <span class="iconnamemd py-1" style="color:#36848C;">
-            @{{ $t('general.panel') }} 
-             </span>
-            @else
-            <img src="{{ asset('imgs/panel.png') }}" class="iconstylemd"/><br>
-            <span class="iconnamemd py-1">
-            @{{ $t('general.panel') }} 
-             </span>
-            @endif
-            </a>
-            </div>
-
-           
 
             
             <div class="text-center iconcontainer"> 
@@ -307,24 +308,6 @@
             </a>
             </div>
 
-
-
-            <div class="text-center iconcontainer" > 
-            <a href="/hub" @click="loader">
-            @if($tablabel == 'hub')
-            <img src="{{ asset('imgs/hub_icon_active.png') }}" class="iconstylesm"/>
-            <div class="iconnamesm " style="color:#36848C;">
-            @{{ $t('general.hub') }}
-             </div>
-            @else
-            <img src="{{ asset('imgs/hub_icon1.png') }}" class="iconstylesm"/>
-            <div class="iconnamesm ">
-            @{{ $t('general.hub') }}
-             </div>
-            @endif
-             
-             </a>
-            </div>
             
    
             <div class="text-center iconcontainer" > 
@@ -343,6 +326,24 @@
             </a>
             </div>
 
+
+
+            <div class="text-center iconcontainer" > 
+            <a href="/hub" @click="loader">
+            @if($tablabel == 'hub')
+            <img src="{{ asset('imgs/hub_icon_active.png') }}" class="iconstylesm"/>
+            <div class="iconnamesm " style="color:#36848C;">
+            @{{ $t('general.hub') }}
+             </div>
+            @else
+            <img src="{{ asset('imgs/hub_icon1.png') }}" class="iconstylesm"/>
+            <div class="iconnamesm ">
+            @{{ $t('general.hub') }}
+             </div>
+            @endif
+             
+             </a>
+            </div>
 
            
            

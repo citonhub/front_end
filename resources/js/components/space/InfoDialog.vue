@@ -34,7 +34,7 @@
       if(this.next == 'searchInfo'){
 
       
-         this.$root.chatListComponent.showTeamInfo = false;
+         this.$root.chatListComponent.showProjectInfo = false;
 
         this.$root.chatListComponent.showSearchInfo = true;
 
@@ -63,9 +63,11 @@
        this.$root.channelTopComponent.showLiveInfo = false;
     
      this.$root.channelTopComponent.showSubSpaceInfo = true;
-     }else{
+     }
 
-       this.$root.channelTopComponent.showSubSpaceInfo = false;
+     if(this.next == 'subSpace' && this.$root.selectedSpace.type == 'Direct'){
+
+       this.$root.channelTopComponent.showLiveInfo = false;
 
 
       this.$root.channelTopComponent.showCustomizerInfo = true;
