@@ -1,14 +1,14 @@
 <template>
 <div>
  
-     <div style="color:white;background:#3E8893; max-width:200px; min-width:180px;" :class="'px-2 py-2 card ' + type">
+     <div style="color:white;background:#3E8893;  max-width:180px; min-width:160px;" :class="'px-2 py-2 card ' + type" @click.stop="hello = true">
     
         <div style="font-size:13px;">
            {{content }}
         </div>
         
         <div class="text-right">
-     <v-btn text small style="color:white;font-size:13px;" @click.stop="trigger">{{buttonText}}</v-btn>
+     <v-btn text small style="color:white;font-size:13px;" @click.stop="trigger"> <span style="color:#ffffff;">Ok</span></v-btn>
         </div>
             
      </div>
@@ -23,13 +23,56 @@
      props:['buttonText','content','type','next'],
     data () {
       return {
-       
+        hello:false
       }
     },
     methods:{
    trigger: function(){
 
+     if(this.next == 'panelShowSwitch'){
+
+      this.$root.mainPanelComponent.showOrgInfo = false;
+
+      this.$root.mainPanelComponent.showSwitchInfo = true;
+
+     }
+
+     if(this.next == 'panelTeamChannel'){
+
+      this.$root.mainPanelComponent.showSwitchInfo = false;
+
+      this.$root.mainPanelComponent.showAddSpaceInfo = true;
+
+     }
+
+      if(this.next == 'panelBot'){
+
+      this.$root.mainPanelComponent.showAddSpaceInfo = false;
+
+      this.$root.mainPanelComponent.showBotInfo = true;
+
+     }
+
+      if(this.next == 'panelChallenges'){
+
+      this.$root.mainPanelComponent.showBotInfo = false;
+
+      this.$root.mainPanelComponent.showChallengesInfo = true;
+
+     }
+
+
+
+       if(this.next == 'panelFinal'){
+
+      this.$root.mainPanelComponent.showChallengesInfo = false;
+
     
+    this.$root.LocalStore('panelinfo' + this.$root.username,['done']);
+     }
+
+
+     
 
       if(this.next == 'searchInfo'){
 
@@ -41,11 +84,32 @@
 
      }
 
+     if(this.next == 'dashboardInfo'){
+       
+        this.$root.chatListComponent.showSearchInfo = false;
+
+        this.$root.showDashboardInfo = true;
+     }
+
+     if(this.next == 'hubinfo'){
+       
+        this.$root.showDashboardInfo = false;
+
+        this.$root.showHubInfo = true;
+     }
+
+     if(this.next =='profileInfo'){
+       
+        this.$root.showHubInfo = false;
+
+        this.$root.showProfileInfo = true;
+     }
+
       if(this.next == 'final'){
 
-
-        this.$root.chatListComponent.showSearchInfo = false;
-     this.$root.LocalStore('chatlistinfo' + this.$root.username,['done']);
+    this.$root.showProfileInfo = false;
+       
+     this.$root.LocalStore('chatlistinfonew' + this.$root.username,['done']);
 
      }
 
@@ -107,6 +171,18 @@ content: "";
   position: absolute;
   top: 100%;
   left: 85%;
+  margin-left: -5px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: #3E8893 transparent transparent transparent;
+
+}
+
+.infobottomstart::after{
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 15%;
   margin-left: -5px;
   border-width: 6px;
   border-style: solid;

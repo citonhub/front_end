@@ -5,11 +5,14 @@
      
      <div class="  col-lg-6 offset-lg-3 py-1 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
         
-        <div style="position:fixed; width:100%; left:0; height:5%;" class="col-lg-6 offset-lg-3 py-0 my-0">
+        <div style="position:fixed; width:100%; left:0; height:5%;z-index:999999999999;" class="col-lg-6 offset-lg-3 py-0 my-0">
           <div class="col-12 d-md-block d-none py-0 my-0">
 
             <div class="row py-0 my-0">
-               <div class="col-3 text-left ">
+               <div class="col-3 text-left " >
+                 <div style="position:absolute;top:28%; left:38%;" class="d-none d-md-block text-left" v-if="showSwitchInfo">
+                    <info-dialog :buttonText="'Ok'" :content="switchContent" :type="'infoleft'" :next="'panelTeamChannel'"></info-dialog>
+                      </div>
                   <v-btn small  color="#ffffff" @click="showUserOrgBoard = true" rounded><v-icon color="#3E8893">mdi-account-switch</v-icon></v-btn>
                </div>
 
@@ -19,6 +22,11 @@
                </div>
 
                <div class="col-3 text-right ">
+                 <div style="position:absolute;top:25%; right:65%; z-index:2;" class="d-none d-md-block text-left" v-if="showOrgInfo">
+                    <info-dialog :buttonText="'Ok'" :content="orgContent" :type="'inforight'" :next="'panelShowSwitch'"></info-dialog>
+                      </div>
+
+                      
                 <v-btn x-small color="#3E8893" @click="showOrgList" style="color:white;">Organizations</v-btn>
                </div>
             </div>
@@ -29,6 +37,9 @@
 
             <div class="row py-0 my-0">
                <div class="col-3 text-left px-1">
+                 <div style="position:absolute;top:28%; left:76%;z-index:999999999999;" class=" text-left" v-if="showSwitchInfo">
+                    <info-dialog :buttonText="'Ok'" :content="switchContent" :type="'infoleft'" :next="'panelTeamChannel'"></info-dialog>
+                      </div>
                   <v-btn small  color="#ffffff" @click="showUserOrgBoard = true" rounded><v-icon color="#3E8893">mdi-account-switch mdi-18px</v-icon></v-btn>
                </div>
 
@@ -38,6 +49,9 @@
                </div>
 
                <div class="col-3 text-right px-1">
+                 <div style="position:absolute;top:25%; right:67%; z-index:2;" class="d-md-none d-block text-left" v-if="showOrgInfo">
+                    <info-dialog :buttonText="'Ok'" :content="orgContent" :type="'inforight'" :next="'panelShowSwitch'"></info-dialog>
+                      </div>
                 <v-btn small color="#3E8893" rounded @click="showOrgList"><v-icon color="#ffffff">mdi-bank mdi-18px</v-icon></v-btn>
                </div>
             </div>
@@ -51,10 +65,16 @@
        
             
                 <div class=" py-2 px-4 d-md-block d-none" style="position:absolute; width:100%; top:2%; left:2%;">
+                  <div style="position:absolute;top:28%; left:24%;z-index:999999999999;" class=" text-left" v-if="showAddSpaceInfo">
+                    <info-dialog :buttonText="'Ok'" :content="spaceContent" :type="'infoleft'" :next="'panelBot'"></info-dialog>
+                      </div>
                 <span style="font-size:14px; ">Channels and teams</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;" @click="createSpace()" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
                 </div>
 
                  <div class=" py-2 px-2 d-md-none d-block" style="position:absolute; width:100%; top:5%; left:1%;">
+                   <div style="position:absolute;top:28%; left:44%;z-index:999999999999;" class=" text-left" v-if="showAddSpaceInfo">
+                    <info-dialog :buttonText="'Ok'" :content="spaceContent" :type="'infoleft'" :next="'panelBot'"></info-dialog>
+                      </div>
                 <span style="font-size:13px; ">Channels and teams</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;"  @click="createSpace()"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
                 </div>
 
@@ -215,10 +235,16 @@
        
             
                 <div class=" py-2 px-4 d-md-block d-none" style="position:absolute; width:100%; top:2%; left:2%;">
+                   <div style="position:absolute;top:28%; left:19%;z-index:999999999999;" class=" text-left" v-if="showBotInfo">
+                    <info-dialog :buttonText="'Ok'" :content="botInfoContent" :type="'infoleft'" :next="'panelChallenges'"></info-dialog>
+                      </div>
                 <span style="font-size:14px; ">Teaching Bots</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;" @click="gotToBotCreate" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
                 </div>
 
                  <div class=" py-2 px-2 d-md-none d-block" style="position:absolute; width:100%; top:5%; left:1%;">
+                    <div style="position:absolute;top:28%; left:36%;z-index:999999999999;" class=" text-left" v-if="showBotInfo">
+                    <info-dialog :buttonText="'Ok'" :content="botInfoContent" :type="'infoleft'" :next="'panelChallenges'"></info-dialog>
+                      </div>
                 <span style="font-size:13px; ">Teaching Bots</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;"  @click="gotToBotCreate"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
                 </div>
 
@@ -378,12 +404,20 @@
      
      <div style="position:fixed; width:100%; left:0; top:61%; height:25%;" class="col-lg-6 offset-lg-3 py-0 my-0">
          <div class=" py-2 px-4 d-md-block d-none" style="position:absolute; width:100%; top:2%; left:2%;">
+           <div style="position:absolute;top:28%; left:22%;z-index:999999999999;" class=" text-left" v-if="showChallengesInfo">
+                    <info-dialog :buttonText="'Ok'" :content="challengesContent" :type="'infoleft'" :next="'panelFinal'"></info-dialog>
+                      </div>
                 <span style="font-size:14px; ">Coding Challenges</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;" @click="gotToChallengeCreate" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
 
                  
                 </div>
 
              <div class=" py-2 px-2 d-md-none d-block" style="position:absolute; width:100%; top:4%; left:1%;">
+
+                <div style="position:absolute;top:28%; left:43%;z-index:999999999999;" class=" text-left" v-if="showChallengesInfo">
+                    <info-dialog :buttonText="'Ok'" :content="challengesContent" :type="'infoleft'" :next="'panelFinal'"></info-dialog>
+                      </div>
+
                 <span style="font-size:13px; ">Coding Challenges</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;"  @click="gotToChallengeCreate" color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
                 </div>
 
@@ -568,8 +602,17 @@ export default {
        returnedChallenges:[],
        organizations:[],
        that:this,
-       showUserOrgBoard:false
-      
+       showUserOrgBoard:false,
+      orgContent:'Create and manage your organizations here',
+       switchContent:'Click here to switch between your organizations',
+      showOrgInfo:false,
+      showSwitchInfo: false,
+      showAddSpaceInfo: false,
+      showBotInfo: false,
+      showChallengesInfo:false,
+      spaceContent:'Click here to create new channels and teams',
+      botInfoContent:'Click here to create new teaching bots',
+      challengesContent:'Click here to create new challenges'
          
       }
     },
@@ -583,10 +626,23 @@ export default {
       this.$root.showTabs=true;
        this.$root.showHeader = true;
          this.$root.isBotLink = false;
+         this.$root.mainPanelComponent = this;
+         this.handleInfoSession();
        this.getPanelFullData();
       
     },
     methods:{
+       handleInfoSession:function(){
+
+      let storedInfo = this.$root.getLocalStore('panelinfo'+ this.$root.username);
+
+        storedInfo.then((result)=>{
+          if(result == null){
+            this.showOrgInfo = true;
+          }
+        })
+
+      },
       createSpace:function(){
            this.$router.push({ path: '/panel/space/create' });
        },

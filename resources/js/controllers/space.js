@@ -601,6 +601,14 @@ const app = new Vue({
      botSuggestionArray:[],
      channelBottomComp:undefined,
      itIsHomePage:false,
+     showDashboardInfo:false,
+     showHubInfo: false,
+     showProfileInfo: false,
+     buttonText:'Ok',
+     dashboardContent:'Create new organizations, channels, teams and teaching bots in your dashboard',
+     hubContent:'Network and share your works with other developers on CitonHub',
+     profileContent:'Manage your account and connections in your profile',
+     mainPanelComponent:undefined,
         },
      mounted: function () {
       this.pageloader= false;

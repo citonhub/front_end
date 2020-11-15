@@ -62,7 +62,7 @@
                 <div  v-if="channelProject != null">
                     <div class="row my-0 my-0 px-2"  v-if="channelProject.length != 0">
 
-                    <v-card tile flat class="col-12 col-lg-8 offset-lg-2 col-md-10 offset-md-1   py-1 px-0 my-1" @click="showProjectLink(space)" color="#ffffff" style="border:2px solid #5fb0b9; border-radius:8px;" v-for="(space,index) in channelProject"
+                    <v-card tile flat class=" col-lg-8 offset-lg-2 col-md-10 offset-md-1   py-1 px-0 my-1" @click="showProjectLink(space)" color="#ffffff" style="border:2px solid #5fb0b9; border-radius:8px;" v-for="(space,index) in channelProject"
                       :key="index">
                 <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
@@ -186,7 +186,7 @@
                 <div  v-if="channelSpace != null">
                     <div class="row my-0 my-0 px-2"  v-if="channelSpace.length != 0">
 
-                    <v-card tile flat class="col-12 col-lg-8 offset-lg-2 col-md-10 offset-md-1   py-1 px-0 my-1" @click="showSpace(space)" color="#ffffff" style="border:2px solid #5fb0b9; border-radius:8px;" v-for="(space,index) in this.$root.ChatList[2]"
+                    <v-card tile flat class=" col-lg-8 offset-lg-2 col-md-10 offset-md-1   py-1 px-0 my-1" @click="showSpace(space)" color="#ffffff" style="border:2px solid #5fb0b9; border-radius:8px;" v-for="(space,index) in this.$root.ChatList[2]"
                       :key="index">
                 <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
@@ -292,7 +292,7 @@
               <div class="col-12 py-1 my-0 mx-0 teamSpace"  v-if="this.$root.showTeams" style="max-height:160px; height:auto; overflow-x:hidden; overflow-y:auto;border-bottom:1px solid #5fb0b9;"  >
                  <div  v-if="teamSpace != null">
                  <div class="row my-0 my-0 px-2"  v-if="teamSpace.length != 0">
-                    <v-card tile flat class="col-12 col-lg-8 offset-lg-2 col-md-10 offset-md-1   py-1 px-0 my-1" @click="showSpace(space)" color="#ffffff" style="border:2px solid #5fb0b9; border-radius:8px;" v-for="(space,index) in this.$root.ChatList[1]"
+                    <v-card tile flat class="col-lg-8 offset-lg-2 col-md-10 offset-md-1   py-1 px-0 my-1" @click="showSpace(space)" color="#ffffff" style="border:2px solid #5fb0b9; border-radius:8px;" v-for="(space,index) in this.$root.ChatList[1]"
                       :key="index">
                 <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
@@ -392,7 +392,7 @@
                   <div  v-if="channelDirect != null">
                     <div class="row my-0 my-0 px-2"  v-if="channelDirect.length != 0">
 
-                    <v-card tile flat class="col-12 col-lg-8 offset-lg-2 col-md-10 offset-md-1   py-1 px-0 my-1" @click="showSpace(space)" color="#ffffff" style="border:2px solid #5fb0b9; border-radius:8px;" v-for="(space,index) in  this.$root.ChatList[4]"
+                    <v-card tile flat class="col-lg-8 offset-lg-2 col-md-10 offset-md-1   py-1 px-0 my-1" @click="showSpace(space)" color="#ffffff" style="border:2px solid #5fb0b9; border-radius:8px;" v-for="(space,index) in  this.$root.ChatList[4]"
                       :key="index">
                 <div class="row py-0 my-0 px-0" v-if="space.userInfo != null">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
@@ -486,7 +486,7 @@
                   <div  v-if="this.$root.ChatList[6] != null">
                     <div class="row my-0 my-0 px-2"  v-if="this.$root.ChatList[6].length != 0">
 
-                    <v-card tile flat class="col-12 col-lg-8 offset-lg-2 col-md-10 offset-md-1   py-1 px-0 my-1" @click="showSpace(space)" color="#ffffff" style="border:2px solid #5fb0b9; border-radius:8px;" v-for="(space,index) in  this.$root.ChatList[6]"
+                    <v-card tile flat class="col-lg-8 offset-lg-2 col-md-10 offset-md-1   py-1 px-0 my-1" @click="showSpace(space)" color="#ffffff" style="border:2px solid #5fb0b9; border-radius:8px;" v-for="(space,index) in  this.$root.ChatList[6]"
                       :key="index">
                 <div class="row py-0 my-0 px-0" >
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
@@ -569,7 +569,7 @@
        
 
                       <div style="position:absolute;bottom:120%; right:17%; z-index:2;" v-if="showSearchInfo" >
-                    <info-dialog :buttonText="'Ok'" :content="searchContent" :type="'infobottom'" :next="'final'"></info-dialog>
+                    <info-dialog :buttonText="'Ok'" :content="searchContent" :type="'infobottom'" :next="'dashboardInfo'"></info-dialog>
                       </div>
           <v-btn
                 color="#35747e"
@@ -585,7 +585,7 @@
       <span style="position:absolute; top:84%; right:3%;z-index:134500045;" class="d-none d-md-inline-block">
 
         <div style="position:absolute;bottom:120%; right:-30%; z-index:2;" v-if="showSearchInfo">
-                    <info-dialog :buttonText="'Ok'" :content="searchContent" :type="'infobottom'" :next="'final'"></info-dialog>
+                    <info-dialog :buttonText="'Ok'" :content="searchContent" :type="'infobottom'" :next="'dashboardInfo'"></info-dialog>
                       </div>
           <v-btn
                 color="#35747e"
@@ -703,7 +703,7 @@ export default {
     methods:{
       handleInfoSession:function(){
 
-      let storedInfo = this.$root.getLocalStore('chatlistinfo'+ this.$root.username);
+      let storedInfo = this.$root.getLocalStore('chatlistinfonew'+ this.$root.username);
 
         storedInfo.then((result)=>{
           if(result == null){

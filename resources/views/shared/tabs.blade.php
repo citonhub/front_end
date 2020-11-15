@@ -3,7 +3,21 @@
  <div class=" d-none d-md-none d-lg-block mx-2 px-2 py-2"  v-if="!itIsHomePage"
  style=" height:auto; position:fixed; width:15%;top:10%; left:8.30%; background:whitesmoke;" >
          
-       
+ <div style="position:absolute;top:30%; left:90%; z-index:2;" class="d-none d-lg-block" v-if="showDashboardInfo">
+                    <info-dialog :buttonText="buttonText" :content="dashboardContent" :type="'infoleft'" :next="'hubinfo'"></info-dialog>
+                      </div>
+
+
+                      <div style="position:absolute;top:55%; left:90%; z-index:2;" class="d-none d-lg-block" v-if="showHubInfo">
+                    <info-dialog :buttonText="buttonText" :content="hubContent" :type="'infoleft'" :next="'profileInfo'"></info-dialog>
+                      </div>
+
+              
+               <div style="position:absolute;top:78%; left:90%; z-index:2;" class="d-none d-lg-block" v-if="showProfileInfo">
+               <info-dialog :buttonText="buttonText" :content="profileContent" :type="'infoleft'" :next="'final'"></info-dialog>
+                </div>
+
+                     
 
 
        <a :class=" tabLabel == 'space' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card ' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'"  href="/"  @click="loader"
@@ -52,6 +66,7 @@
 
          <a :class=" tabLabel == 'panel' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'"  href="/dashboard" @click="loader"
          style="border:1px solid transparent; border-radius:30px;"> 
+        
           <div class="row py-0 my-0">
             <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
               @if($tablabel == 'panel')
@@ -177,7 +192,16 @@
 
     <div class="col-12 card  py-2 px-2  d-md-flex flex-row d-lg-none d-none" style="border-radius:0px; height:auto;" >
          
-            
+    <div style="position:absolute;bottom:110%; left:16%; z-index:2;"  v-if="showDashboardInfo">
+                    <info-dialog :buttonText="buttonText" :content="dashboardContent" :type="'infobottom'" :next="'hubinfo'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;bottom:110%; left:40%; z-index:2;"  v-if="showHubInfo">
+                    <info-dialog :buttonText="buttonText" :content="hubContent" :type="'infobottom'" :next="'profileInfo'"></info-dialog>
+                      </div>
+                      <div style="position:absolute;bottom:110%; left:65%; z-index:2;"  v-if="showProfileInfo">
+               <info-dialog :buttonText="buttonText" :content="profileContent" :type="'infobottom'" :next="'final'"></info-dialog>
+                </div>
 
     <div class="text-center iconcontainer" > 
             <a href="/">
@@ -280,6 +304,19 @@
     </div>
 
     <div class="col-12 card  py-1 px-2  d-md-none  flex-row " style="border-radius:0px; height:auto;" >
+
+    <div style="position:absolute;bottom:110%; left:30%; z-index:2;"  v-if="showDashboardInfo">
+                    <info-dialog :buttonText="buttonText" :content="dashboardContent" :type="'infobottomstart'" :next="'hubinfo'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;bottom:110%; left:19%; z-index:2;"  v-if="showHubInfo">
+                    <info-dialog :buttonText="buttonText" :content="hubContent" :type="'infobottom'" :next="'profileInfo'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;bottom:110%; left:43%; z-index:2;"  v-if="showProfileInfo">
+               <info-dialog :buttonText="buttonText" :content="profileContent" :type="'infobottom'" :next="'final'"></info-dialog>
+                </div>
+
          
     <div class="text-center iconcontainer" > 
             <a href="/" @click="loader">
