@@ -238,14 +238,14 @@
                    <div style="position:absolute;top:28%; left:19%;z-index:999999999999;" class=" text-left" v-if="showBotInfo">
                     <info-dialog :buttonText="'Ok'" :content="botInfoContent" :type="'infoleft'" :next="'panelChallenges'"></info-dialog>
                       </div>
-                <span style="font-size:14px; ">Teaching Bots</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;" @click="gotToBotCreate" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
+                <span style="font-size:14px; ">Teaching Bots</span> <v-btn icon class="d-inline-block" :disabled="true" style="z-index:235464563;" @click="gotToBotCreate" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
                 </div>
 
                  <div class=" py-2 px-2 d-md-none d-block" style="position:absolute; width:100%; top:5%; left:1%;">
-                    <div style="position:absolute;top:28%; left:36%;z-index:999999999999;" class=" text-left" v-if="showBotInfo">
+                    <div style="position:absolute;top:28%; left:36%;z-index:999999999999;"  class=" text-left" v-if="showBotInfo">
                     <info-dialog :buttonText="'Ok'" :content="botInfoContent" :type="'infoleft'" :next="'panelChallenges'"></info-dialog>
                       </div>
-                <span style="font-size:13px; ">Teaching Bots</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;"  @click="gotToBotCreate"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
+                <span style="font-size:13px; ">Teaching Bots</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;" :disabled="true"  @click="gotToBotCreate"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
                 </div>
 
                 <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:62%; left:0;">
@@ -297,7 +297,7 @@
 
        <div v-if="botDataLg[0].length == 0" style="height:100%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
 
-         <span style="font-size:13px; color:gray;">No teaching bot created yet</span>
+         <span style="font-size:13px; color:gray;">Teaching bot in beta, coming soon</span>
            
        </div>
 
@@ -373,7 +373,7 @@
 
              <div v-if="botData.length == 0" style="height:70%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
 
-         <span style="font-size:13px; color:gray;">No teaching bot created yet</span>
+         <span style="font-size:13px; color:gray;">Teaching bot in beta, coming soon</span>
            
        </div>
               
