@@ -1242,7 +1242,5 @@ export default {
 }
 </script>
 <style>
-.msgTextnew2 a{
-   color: #3E8893;
-}
+
 </style>

@@ -430,8 +430,8 @@ export default {
             
            }
 
-          this.initaiteAudioConf();
- 
+         
+         this.initaiteAudioConf();
 
         },
         initaiteAudioConf: function(){

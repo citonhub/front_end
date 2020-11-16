@@ -8,7 +8,7 @@ window.io = require('socket.io-client');
 
 Vue.use(Vuex)
 
-axios.defaults.baseURL = 'https://api.citonhub.com/api'
+axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
 
 const store = new Vuex.Store({
   state: {
@@ -609,6 +609,9 @@ const app = new Vue({
      hubContent:'Network and share your works with other developers on CitonHub',
      profileContent:'Manage your account and connections in your profile',
      mainPanelComponent:undefined,
+     userIsReconnectingScreen:false,
+     reconnectionCountScreen:0,
+     screenIsConnecting:false,
         },
      mounted: function () {
       this.pageloader= false;
@@ -2622,6 +2625,7 @@ this.codeboxComponent.setCodeContent();
           screen: true,
           oneway: true
            };
+
        
        this.$root.connection.sdpConstraints.mandatory = {
    OfferToReceiveAudio: false,
@@ -2649,9 +2653,12 @@ this.codeboxComponent.setCodeContent();
      });
 
 
+ 
+
      this.$root.connection.videosContainer = document.getElementById('videos-container');
 
-      
+  
+    
 
      this.$root.connection.onstream = function(event) {
    var existing = document.getElementById(event.streamid);
@@ -2695,11 +2702,18 @@ this.codeboxComponent.setCodeContent();
 
    _this.$root.connection.videosContainer.appendChild(mediaElement);
 
+
    setTimeout(function() {
        mediaElement.media.play();
    }, 5000);
 
    mediaElement.id = event.streamid;
+
+ 
+ 
+  
+     
+    
 };
 
 this.$root.connection.onstreamended = function(event) {
@@ -3063,7 +3077,57 @@ this.$root.audioconnection.onstreamended = function(event) {
            
        
        },
+       rejoinScreen:function(master){
+
+
+        let _this = this;
+
+
+        if(this.$root.connection != undefined){
+
+       // disconnect with all users
+   this.$root.connection.getAllParticipants().forEach(function(pid) {
+       _this.$root.connection.disconnectWith(pid);
+   });
+
+   // stop all local cameras
+   this.$root.connection.attachStreams.forEach(function(localStream) {
+       localStream.stop();
+   });
+
+   // close socket.io connection
+  this.$root.connection.closeSocket();
+
+
+          
+        }
+
+      
+   
+     this.$root.connection = undefined;
+
+     this.$root.screenSharingOn = false;
+      
+       this.$root.showVideoScreen = false;
        
+      
+      
+       this.$root.connection = undefined;
+
+
+        this.$root.setSreenShareConnection();
+
+       
+
+         if(master){
+
+                 this.$root.checkScreenRoomState(true);
+
+              }else{
+                 this.$root.checkScreenRoomState(false);
+              }
+
+       }, 
        rejoinAudio: function(master){
 
          let _this = this;
@@ -3093,33 +3157,7 @@ this.$root.audioconnection.onstreamended = function(event) {
          }
 
 
-         if(this.$root.connection != undefined){
-
-
-          // disconnect with all users
-this.$root.connection.getAllParticipants().forEach(function(pid) {
-    _this.$root.connection.disconnectWith(pid);
-});
-
-
-
-// stop all local cameras
-this.$root.connection.attachStreams.forEach(function(localStream) {
-    localStream.stop();
-});
-
-
-      this.$root.connection.closeSocket();
-      }
-    
-      this.$root.connection = undefined;
-
-      this.$root.screenSharingOn = false;
-       
-        this.$root.showVideoScreen = false;
-        
-       
-       
+         
         this.$root.audioconnection = undefined;
 
 
@@ -3255,8 +3293,75 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
 
 
             this.setUserSpeaker();
+
+            // screen connections
+
+             if(this.$root.connection != undefined){
+
+              var socketScreen = this.$root.connection.socket;
+
+              if(socketScreen){
+
+                socketScreen.on('connect', ()=>{
+                  
+                  this.userIsReconnectingScreen = false;
+    
+              })
+    
+              socketScreen.on('disconnect', ()=> {
+               
+              this.userIsReconnectingScreen = true;
+
+              
+
+    
+              let _this = this;
+    
+              })
+    
+              socketScreen.on('reconnecting', (attemptNumber)=>{
+             
+              this.userIsReconnectingScreen = true;
+
+              
+    
+            });
+                
+
+              }
+              
+             }
+
+
+             if(this.userIsReconnectingScreen){
+
+              this.reconnectionCountScreen++
+
+              if(this.reconnectionCountScreen == 1){
+
+                this.reconnectionCountScreen = 0;
+                
+
+              
+              
+                if(!this.screenIsConnecting){
+
+                  this.rejoinScreen(master);
+
+                }
+
+              
+                
+              
+
+              }
+
+            }
+
+            
             
             var socket = this.$root.audioconnection.socket;
+            
              
             
            
@@ -3292,7 +3397,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
 
                this.reconnectionCount++
 
-               if(this.reconnectionCount == 1){
+               if(this.reconnectionCount == 2){
 
                  this.reconnectionCount = 0;
 
@@ -3324,9 +3429,6 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
          },
 
          openScreenRoom: function(){    
-         
-           
-    
 
         let _this = this;
       
@@ -3336,10 +3438,10 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
        };
       
      this.$root.connection.open('screen' + this.$root.selectedSpace.space_id, function() {
-       
-       
-        
+      
     });
+
+    this.screenIsConnecting = false;
 
       },
       joinScreenRoom: function(){    
@@ -3352,38 +3454,53 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
         OfferToReceiveVideo: true
     };
 
-    this.$root.connection.join('screen' + this.$root.selectedSpace.space_id);
+    this.screenIsConnecting = false;
 
+    this.$root.connection.join('screen' + this.$root.selectedSpace.space_id);
+   
       },
       checkScreenRoomState: function(master){
       
        let _this = this;
        
+        
+         console.log('screen called')
+       
+
+          this.screenIsConnecting = true;
+
+          this.$root.connection.checkPresence('screen' + this.$root.selectedSpace.space_id, function(isRoomExist, roomid) {
+        
+            _this.$root.screenSharingOn = true;
       
-
-         this.$root.connection.checkPresence('screen' + this.$root.selectedSpace.space_id, function(isRoomExist, roomid) {
-
+            _this.$root.showVideoScreen = true;
 
 
-          if (isRoomExist === true) {
-            _this.joinScreenRoom();
-         } else {
-
+            if (isRoomExist === true) {
+              _this.joinScreenRoom();
+              _this.screenIsConnecting = false;
+           } else {
+  
+               
+             if(master){
+               _this.openScreenRoom();
+               _this.screenIsConnecting = false;
+             }else{
+  
+               return;
+             }
+  
              
-           if(master){
-             _this.openScreenRoom();
-           }else{
-
-             return;
            }
-
+          
+         
+         
+      });
+  
            
-         }
+        
 
-       
-       
-    });
-
+        
 
        
         
