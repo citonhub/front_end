@@ -127,7 +127,7 @@ const routes = [
       },
       {
         // duels
-        path: 'main/:orgId',
+        path: 'main/:orgId/:user',
         component: Duels
       },
       {
