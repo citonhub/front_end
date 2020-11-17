@@ -293,20 +293,23 @@
            <div  @click.stop="showBotAuthorBoard = true" style="position:absolute; height:auto; width:90%; bottom:20%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
              <v-card style="border-radius:10px;"
-       height="auto"
+              height="auto"
       
-       class="py-2 px-1 col-12 col-lg-8 offset-lg-2 " >
+              class="py-2 px-1 col-12 col-lg-8 offset-lg-2 " >
          
          <div class="row py-0 my-0 px-2">
               <div class="col-12  pt-2 pb-1 my-0 px-2 text-center">
                   <v-textarea
                 style="font-size:13px;"
                  placeholder="Type here..."
+                 :loading="loadingAuthorMessage"
+                 @click:append="sendAuthorMessage"
             label="Send my author a message"
              filled
              append-icon="mdi-send"
              dense    
            height="100px"
+           v-model="messageContent"
               counter="200"
              color="#4495a2"
             
@@ -798,7 +801,9 @@ export default {
           errorLoadingMessage:false,
           loadingJoin:false,
           showCodeBoxInfo:false,
+          messageContent:'',
           showBotAuthorBoard:false,
+          loadingAuthorMessage: false,
           codeBoxContent:'Share and run more then 25 programming languages',
           imageArray:[
             {
@@ -868,6 +873,49 @@ export default {
       
     },
     methods:{
+       makeUUID:function(){
+     var id = "id" + Math.random().toString(16).slice(2);
+     return id;
+ },
+      sendAuthorMessage:function(){
+
+        if(this.loadingAuthorMessage) return
+
+        this.loadingAuthorMessage = true;
+
+          let postData = {
+              content: this.messageContent,
+              space_id: 'unknown',
+              is_reply: false,
+              current_user: JSON.stringify([]),
+              replied_message_id: 0,
+              attachment_type: null,
+              temp_id:  this.makeUUID(),
+              device_id: this.$root.userDeviceId,
+              bot_id: this.$root.selectedSpace.bot_data.bot_id
+            };
+
+        axios.post('/send-bot-author-message',postData)
+         .then(response => {
+      
+      if (response.status == 200) {
+    
+
+    this.messageContent = '';
+
+     this.loadingAuthorMessage = false;
+        
+      }
+       
+     
+     })
+     .catch(error => {
+
+       
+    
+     }) 
+
+      },
        initiateMessageCtl: function(message){       
 
         
