@@ -76,7 +76,7 @@ class PageController extends Controller
            
             $imagePath = 'CitonHub.png';
             
-               $pageLink = '/duels#/duel/' . $uniqueId .'/board';
+               $pageLink = '/dashboard#/duel/' . $uniqueId .'/board';
             
            
    
@@ -94,7 +94,7 @@ class PageController extends Controller
             
              $imagePath = 'CitonHub.png';
              
-                $pageLink = '/duels#/duel/' . $thisDuelTeam->duel_id .'/panel\/' . $uniqueId; 
+                $pageLink = '/dashboard#/duel/' . $thisDuelTeam->duel_id .'/panel\/' . $uniqueId; 
              
             
     
@@ -185,7 +185,7 @@ class PageController extends Controller
              }
           
             
-             $pageLink = '/panel#\/panel\/main\/' . $uniqueId ;
+             $pageLink = '/dashboard#\/panel\/main\/' . $uniqueId ;
               
 
            
