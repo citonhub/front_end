@@ -34,7 +34,6 @@ const store = new Vuex.Store({
         .post('/login', credentials)
         .then(response =>{
 
-          
            
            if(response.status == 200){
             

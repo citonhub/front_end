@@ -541,7 +541,7 @@
 
          
      
-         <div   v-if="showUserOrgBoard"  @click="showUserOrgBoard = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
+         <div   v-if="showUserOrgBoard"  @click="showUserOrgBoard = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999999999999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div @click.stop="showUserOrgBoard = true"  style="position:absolute; height:auto; width:90%; bottom:45%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
              <v-card style="border-radius:10px;"

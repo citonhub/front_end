@@ -272,7 +272,7 @@ export default {
       showShareOptions:function(organization){
 
            this.$root.shareText  = 'Join ' + organization.name + ' on CitonHub.';
-         this.$root.shareLink = 'https://www.citonhub.com/link/org/'+ organization.organization_id + '/' + this.$root.username;
+         this.$root.shareLink = 'https://www.citonhub.com/link/org/'+ organization.org_id + '/' + this.$root.username;
 
          this.$root.showShare = true;
 

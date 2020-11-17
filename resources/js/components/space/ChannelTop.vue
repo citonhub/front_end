@@ -85,13 +85,19 @@
              
          </div>
 
+          <div class="col-1 py-0 my-0 px-0 text-right"  style="" v-if="this.$root.selectedSpace.type == 'Bot'">
+               
+               <v-btn icon><v-icon color="#ffffff">mdi-account-supervisor-outline</v-icon></v-btn>
+              
+         </div>
+
           <div class="col-1 py-0 my-0 px-0 text-right"  style="" v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
                
                <v-btn icon @click="subSpaceBoard"><v-icon color="#ffffff">mdi-pound</v-icon></v-btn>
               
          </div>
 
-          <div class="col-1 py-0 my-0 px-0 text-right"  v-else>
+          <div class="col-1 py-0 my-0 px-0 text-right"  v-if="this.$root.selectedSpace.type == 'Direct'">
                
                
               
@@ -185,7 +191,7 @@
            
           </v-menu>
 
-           <v-btn v-else icon ><v-icon color="#ffffff">mdi-comment-question-outline</v-icon></v-btn>
+           <v-btn v-else icon   @click="showbotAuthor" ><v-icon color="#ffffff">mdi-comment-question-outline</v-icon></v-btn>
               
          </div>
         
@@ -238,6 +244,9 @@ export default {
              
     },
     methods:{
+      showbotAuthor:function(){
+        this.$root.channelContentComponent.showBotAuthorBoard = true;
+      },
        generateOnlineUsers: function(){
           let onlineUserList = [];
 

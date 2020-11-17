@@ -243,6 +243,10 @@
               </div>
           </div>
 
+
+      
+       
+
     
 
       
@@ -284,6 +288,48 @@
 
       </div>
 
+
+ <div   v-if="showBotAuthorBoard" @click="showBotAuthorBoard = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
+           <div  @click.stop="showBotAuthorBoard = true" style="position:absolute; height:auto; width:90%; bottom:20%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
+
+             <v-card style="border-radius:10px;"
+       height="auto"
+      
+       class="py-2 px-1 col-12 col-lg-8 offset-lg-2 " >
+         
+         <div class="row py-0 my-0 px-2">
+              <div class="col-12  pt-2 pb-1 my-0 px-2 text-center">
+                  <v-textarea
+                style="font-size:13px;"
+                 placeholder="Type here..."
+            label="Send my author a message"
+             filled
+             append-icon="mdi-send"
+             dense    
+           height="100px"
+              counter="200"
+             color="#4495a2"
+            
+             ></v-textarea>
+             </div>
+
+              <div class="col-12  pb-2 pt-0 my-0 px-2 text-center" >
+                 <span style="color:grey; font-size:12px;">Do you wish to own a bot too? </span>  <span style="font-size:12px;" class="ml-1">No</span><v-switch class="d-inline-block mx-1 mr-0" color="#3E8893"></v-switch> <span style="font-size:12px;" >Yes</span>
+             </div>
+
+              <div class="col-3  py-0 my-0 px-2 text-right">
+
+           
+                 
+             </div>
+
+         </div>
+            
+
+             </v-card>
+
+           </div>
+         </div>
      
 
       <div v-if="this.$root.liveIsOn" @click="closeLiveBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; left:0%; top:%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
@@ -400,13 +446,6 @@
 
     </div>
 
-      
-
-     
-
-     
-    
-     
     </v-card>
     <v-list  class="pb-3 scrollerStyle" style=" height:220px;width:100%; overflow-y:auto;">
 
@@ -759,6 +798,7 @@ export default {
           errorLoadingMessage:false,
           loadingJoin:false,
           showCodeBoxInfo:false,
+          showBotAuthorBoard:false,
           codeBoxContent:'Share and run more then 25 programming languages',
           imageArray:[
             {
