@@ -14,7 +14,7 @@
              <span v-if="this.$root.selectedBot.length != 0" style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">{{this.$root.selectedBot.name}}</span>
          </div>
          <div class="col-3 py-1 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
-            <v-btn rounded x-small color="#3E8893" style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext;" @click="showShareOptions"><span class="py-1 px-1">launch</span></v-btn> 
+            <v-btn rounded x-small color="#3E8893" style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext;" @click="showShareOptions"><span class="py-1 px-1">share</span></v-btn> 
          </div>
       </div>
      </div>
@@ -24,7 +24,7 @@
 
                <div class="col-12 py-0 pb-2 px-2 my-0 text-left">
 
-         <v-btn x-small rounded color="#3E8893" @click="trainBot" :loading="loadingTrain" style="color:white;">Update bot</v-btn>
+         <v-btn x-small rounded color="#3E8893" @click="trainBot" :loading="loadingTrain" style="color:white;">Train bot</v-btn>
 
         </div>
           

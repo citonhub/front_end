@@ -1010,7 +1010,7 @@ export default {
             
             
 
-            if(response.status == 201){
+            if(response.status == 200){
 
               this.loadingTag =false;
 
@@ -1018,13 +1018,13 @@ export default {
 
               let newData = {
                 patterns:[
-                  {
-                    pattern_content: response.data.tag_name
-                  }
+                  response.data.pattern
                 ],
-                responses:[],
-                tag_name: response.data.tag_name,
-                tag_unique_id: response.data.tag_unique_id
+                responses:[
+                   response.data.response
+                ],
+                tag_name: response.data.tag.tag_name,
+                tag_unique_id: response.data.tag.tag_unique_id
               };
 
                this.$root.fullData.unshift(newData);

@@ -76,6 +76,27 @@
              </div>
 
 
+              <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2">
+                  <v-select
+          :items="channeList"
+          label="Channel"
+          style="font-size:12px;"
+          hide-selected
+          :loading="channeList.length == 0"
+           :rules="Required"
+           v-model="selectedChannel"
+            item-text="name"
+            persistent-hint
+            hint="reviews and questions drops in this channel"
+           item-value="space_id"
+          placeholder="select..."
+          color="#4495a2"
+          small-chips
+        ></v-select>
+
+             </div>
+
+
 
               <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2">
                   <v-textarea
@@ -148,6 +169,8 @@ export default {
         Interests:'',
         userName:'',
         fullName:'',
+        channeList:[],
+        selectedChannel:'',
          Required:[
         v => !!v || 'field is required'
         ],
@@ -198,9 +221,33 @@ export default {
     mounted(){
       this.$root.showTabs=true;
        this.$root.showHeader = false;
+
+       this.fetchChannel();
        
     },
     methods:{
+      fetchChannel: function(){
+          
+           axios.get('/fetch-bot-channels/' +  this.$root.orgIdRoot  )
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+       this.channeList = response.data;
+
+      
+       
+      
+       
+      }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+        },
   
            b64toBlob: function(b64Data, contentType, sliceSize) {
         contentType = contentType || '';
@@ -293,15 +340,12 @@ var blob = this.b64toBlob(realData, contentType);
                     formData.append('image',data1[0]);
                        formData.append('image_ext',data1[1]);
            }
-
-       
-                      
-              
-
              
 
-        formData.append('full_name',this.fullName);
+         formData.append('full_name',this.fullName);
          formData.append('description',this.contentInWord);
+
+         formData.append('bot_channel',this.selectedChannel);
 
         if(this.$root.orgIdRoot != 'user'){
             formData.append('org_id',this.$root.orgIdRoot);

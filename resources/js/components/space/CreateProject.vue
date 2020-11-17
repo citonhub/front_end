@@ -56,15 +56,6 @@
         ></v-select>
              </div>
 
-
-            
-            
-
-
-
-             
-        
-
              <div class="col-12 py-2 my-0 px-2 text-center">
                   <v-btn @click.prevent="createProject" type="submit" rounded small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" :loading="loading">{{ $t('general.create') }}</v-btn>
              </div>

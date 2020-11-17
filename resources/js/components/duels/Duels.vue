@@ -245,7 +245,7 @@
                     <div style="position:absolute;top:28%; left:36%;z-index:999999999999;"  class=" text-left" v-if="showBotInfo">
                     <info-dialog :buttonText="'Ok'" :content="botInfoContent" :type="'infoleft'" :next="'panelChallenges'"></info-dialog>
                       </div>
-                <span style="font-size:13px; ">Teaching Bots</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;" :disabled="true"  @click="gotToBotCreate"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
+                <span style="font-size:13px; ">Teaching Bots</span> <v-btn icon class="d-inline-block" :disabled="true" style="z-index:235464563;" @click="gotToBotCreate"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
                 </div>
 
                 <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:62%; left:0;">

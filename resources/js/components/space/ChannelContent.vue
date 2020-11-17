@@ -2227,12 +2227,15 @@ export default {
 
                }
 
-      if( this.$root.selectedSpace.type == 'Bot'){
+      
+    if( this.$root.selectedSpace.type == 'Bot'){
+      setTimeout(() => {
+            this.botMessager();
+      }, 2000);
 
-        this.botMessager();
+      
 
       }
-
 
              if(this.$root.selectedSpace.general_spaceId != undefined){
 
@@ -2260,10 +2263,20 @@ export default {
        
         },
         botMessager:function(){
-
+                      
+                    
           
               if(this.$root.Messages.length == 0){
-                     this.$root.botMessager('hello');
+               
+                 
+
+                      this.$root.channelBottomComp.contentInWord = 'hello';
+
+           this.$root.channelBottomComp.input = 'hello';
+            
+            let refocus = false;
+          this.$root.channelBottomComp.sendMessage(refocus);
+
               }else{
 
                 let storedSuggestions = this.$root.getLocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username);
