@@ -68,14 +68,14 @@
                   <div style="position:absolute;top:28%; left:24%;z-index:999999999999;" class=" text-left" v-if="showAddSpaceInfo">
                     <info-dialog :buttonText="'Ok'" :content="spaceContent" :type="'infoleft'" :next="'panelBot'"></info-dialog>
                       </div>
-                <span style="font-size:14px; ">Channels and teams</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;" @click="createSpace()" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
+                <span style="font-size:14px; ">Channels and teams</span> <v-btn icon class="d-inline-block" :disabled="checkifnotowner()" style="z-index:235464563;" @click="createSpace()" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
                 </div>
 
                  <div class=" py-2 px-2 d-md-none d-block" style="position:absolute; width:100%; top:5%; left:1%;">
                    <div style="position:absolute;top:28%; left:44%;z-index:999999999999;" class=" text-left" v-if="showAddSpaceInfo">
                     <info-dialog :buttonText="'Ok'" :content="spaceContent" :type="'infoleft'" :next="'panelBot'"></info-dialog>
                       </div>
-                <span style="font-size:13px; ">Channels and teams</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;"  @click="createSpace()"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
+                <span style="font-size:13px; ">Channels and teams</span> <v-btn icon class="d-inline-block" :disabled="checkifnotowner()" style="z-index:235464563;"  @click="createSpace()"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
                 </div>
 
                 <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:62%; left:0;">
@@ -407,7 +407,7 @@
            <div style="position:absolute;top:28%; left:22%;z-index:999999999999;" class=" text-left" v-if="showChallengesInfo">
                     <info-dialog :buttonText="'Ok'" :content="challengesContent" :type="'infoleft'" :next="'panelFinal'"></info-dialog>
                       </div>
-                <span style="font-size:14px; ">Coding Challenges</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;" @click="gotToChallengeCreate" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
+                <span style="font-size:14px; ">Coding Challenges</span> <v-btn icon class="d-inline-block" :disabled="checkifnotowner()" style="z-index:235464563;" @click="gotToChallengeCreate" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
 
                  
                 </div>
@@ -418,7 +418,7 @@
                     <info-dialog :buttonText="'Ok'" :content="challengesContent" :type="'infoleft'" :next="'panelFinal'"></info-dialog>
                       </div>
 
-                <span style="font-size:13px; ">Coding Challenges</span> <v-btn icon class="d-inline-block"  style="z-index:235464563;"  @click="gotToChallengeCreate" color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
+                <span style="font-size:13px; ">Coding Challenges</span> <v-btn icon class="d-inline-block" :disabled="checkifnotowner()" style="z-index:235464563;"  @click="gotToChallengeCreate" color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
                 </div>
 
                 <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:70%; left:0;">
@@ -641,6 +641,21 @@ export default {
             this.showOrgInfo = true;
           }
         })
+
+      },
+      checkifnotowner:function(){
+
+        if(this.$route.params.orgId == 'user'){
+            return false;
+        }else{
+          if(this.$root.user_temp_id == this.$root.selectedOrg.user_id){
+
+            return false;
+
+          }else{
+            return true;
+          }
+        }
 
       },
       createSpace:function(){

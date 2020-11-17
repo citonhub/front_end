@@ -94,9 +94,6 @@ import ForgotPassword from "../components/auth/ForgotPassword.vue"
 import ResetPassword from "../components/auth/ResetPassword.vue"
 
 
-
-
-
 const routes = [
   { path: '/', redirect: '/space'},
   { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},
@@ -585,7 +582,7 @@ const app = new Vue({
      bottomEditorValue:'',
      returnedToken:'',
      globalUsers:[],
-     closenotifyRoot:false,
+     closenotifyRoot:true,
      codeboxComponent:undefined,
      showSearchControl:false,
      userDeviceId:null,
