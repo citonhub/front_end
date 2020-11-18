@@ -2293,6 +2293,8 @@ if (response.status == 200) {
        
   this.replyMessage = [];
 
+  this.scrollToBottom();
+
   
   this.updateSentMessage(postData);
 

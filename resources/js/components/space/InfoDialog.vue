@@ -153,9 +153,23 @@
       if(this.next == 'finalTop'){
 
       this.$root.channelTopComponent.showCustomizerInfo = false;
-        if(this.$root.selectedSpace.type != 'Direct'){
 
-           this.$root.LocalStore('channelcontentinfo' + this.$root.username,['done']);
+        if(this.$root.selectedSpace.type == 'Team' || this.$root.selectedSpace.type == 'Channel'){
+
+           this.$root.LocalStore('channelcontentinfoChannel' + this.$root.username,['done']);
+
+        }
+
+         if(this.$root.selectedSpace.type == 'Direct'){
+
+           this.$root.LocalStore('channelcontentinfoDirect' + this.$root.username,['done']);
+
+        }
+
+
+         if(this.$root.selectedSpace.type == 'Bot'){
+
+           this.$root.LocalStore('channelcontentinfoBot' + this.$root.username,['done']);
 
         }
       

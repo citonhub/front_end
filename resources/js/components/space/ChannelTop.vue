@@ -8,6 +8,14 @@
                       <div style="position:absolute;top:120%; right:2%; z-index:2;" class="d-md-none d-block" v-if="showLiveInfo && this.$root.selectedSpace.type != 'Bot'">
                     <info-dialog :buttonText="'Ok'" :content="liveCodingContent" :type="'infotop'" :next="'subSpace'" ></info-dialog>
                       </div>
+                
+                 <div style="position:absolute;top:120%; right:1%; z-index:2;" class="d-none d-md-block" v-if="showLiveInfo && this.$root.selectedSpace.type == 'Bot'">
+                    <info-dialog :buttonText="'Ok'" :content="SendAuthorMsg" :type="'infotop'"  :next="'subSpace'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:120%; right:2%; z-index:2;" class="d-md-none d-block" v-if="showLiveInfo && this.$root.selectedSpace.type == 'Bot'">
+                    <info-dialog :buttonText="'Ok'" :content="SendAuthorMsg" :type="'infotop'" :next="'subSpace'" ></info-dialog>
+                      </div>
 
 
                      <div style="position:absolute;top:120%; right:17%; z-index:2;" class="d-none d-md-block" v-if="showSubSpaceInfo && this.$root.selectedSpace.type != 'Bot' && this.$root.selectedSpace.type != 'Direct'">
@@ -18,14 +26,31 @@
                     <info-dialog :buttonText="'Ok'" :content="subChannelContent" :type="'infotop'" :next="'customizeSpace'" ></info-dialog>
                       </div>
 
+                       <div style="position:absolute;top:120%; right:17%; z-index:2;" class="d-none d-md-block" v-if="showSubSpaceInfo && this.$root.selectedSpace.type == 'Bot' ">
+                    <info-dialog :buttonText="'Ok'" :content="botInfoContent" :type="'infotop'"  :next="'customizeSpace'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:120%; right:17%; z-index:2;" class="d-md-none d-block" v-if="showSubSpaceInfo && this.$root.selectedSpace.type == 'Bot' ">
+                    <info-dialog :buttonText="'Ok'" :content="botInfoContent" :type="'infotop'" :next="'customizeSpace'" ></info-dialog>
+                      </div>
+
 
 
                      <div style="position:absolute;top:120%; right:45%; z-index:2;" class="d-none d-md-block" v-if="showCustomizerInfo && this.$root.selectedSpace.type != 'Bot'">
                     <info-dialog :buttonText="'Ok'" :content="this.$root.selectedSpace.type != 'Direct' ? customizeContent : gotoprofile" :type="'infotop'"  :next="'finalTop'"></info-dialog>
                       </div>
 
-                      <div style="position:absolute;top:120%; right:40%; z-index:2;" class="d-md-none d-block" v-if="showCustomizerInfo">
+                      <div style="position:absolute;top:120%; right:40%; z-index:2;" class="d-md-none d-block" v-if="showCustomizerInfo && this.$root.selectedSpace.type != 'Bot'">
                     <info-dialog :buttonText="'Ok'" :content="this.$root.selectedSpace.type != 'Direct' ? customizeContent : gotoprofile" :type="'infotop'" :next="'finalTop'" ></info-dialog>
+                      </div>
+
+
+                       <div style="position:absolute;top:120%; right:45%; z-index:2;" class="d-none d-md-block" v-if="showCustomizerInfo && this.$root.selectedSpace.type == 'Bot'">
+                    <info-dialog :buttonText="'Ok'" :content="botInfoContentTop" :type="'infotop'"  :next="'finalTop'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:120%; right:40%; z-index:2;" class="d-md-none d-block" v-if="showCustomizerInfo && this.$root.selectedSpace.type == 'Bot'">
+                    <info-dialog :buttonText="'Ok'" :content="botInfoContentTop" :type="'infotop'" :next="'finalTop'" ></info-dialog>
                       </div>
 
 
@@ -87,7 +112,7 @@
 
           <div class="col-1 py-0 my-0 px-0 text-right"  style="" v-if="this.$root.selectedSpace.type == 'Bot'">
                
-               <v-btn icon><v-icon color="#ffffff">mdi-account-supervisor-outline</v-icon></v-btn>
+               <v-btn icon @click="gotToBotChannel()"><v-icon color="#ffffff">mdi-account-supervisor-outline</v-icon></v-btn>
               
          </div>
 
@@ -225,6 +250,9 @@ export default {
           remoteAudio: this.$root.remoteAudio,
           liveCodingContent:'Join a live coding session or share your screen with everyone',
           subChannelContent:'Organize chats and contents by creating sub-channels or sub-teams',
+          botInfoContentTop:'Click here to view bot\'s profile',
+          botInfoContent: 'Join every other people learning actively from the bot',
+          SendAuthorMsg:'Send a message to the bot author here',
           showLiveInfo:false,
           showSubSpaceInfo:false,
           customizeContent:'Click here to customize your channel or team and invite members',
@@ -244,6 +272,38 @@ export default {
              
     },
     methods:{
+      gotToBotChannel: function(){
+          
+          if(this.$root.selectedSpace.bot_data.bot_channel){
+
+             this.$root.Messages = null;
+
+              this.$root.channel = null
+
+              
+
+                this.$root.codeEditorArray = [];
+       this.$root.returnedMessages = [];
+       this.$root.messageStoreTop = [];
+       this.$root.messageStore = [];
+       this.$root.sharePage = false;
+       this.$root.showUserInfo = false;
+       
+
+           window.Echo.leave('space.' + this.$root.selectedSpace.space_id);
+        
+        this.$root.forceListReload = true;
+        this.$root.showUserInfo = false;
+       this.$root.selectedSpaceMembers = [];
+
+        this.$root.SpaceUsers = [];
+         this.$root.selectedSpace = [];
+
+
+             this.$router.push({ path: '/space/'  +   this.$root.selectedSpace.bot_data.bot_channel  +  '/channel/content' + '/user' });
+
+          }
+      },
       showbotAuthor:function(){
         this.$root.channelContentComponent.showBotAuthorBoard = true;
       },

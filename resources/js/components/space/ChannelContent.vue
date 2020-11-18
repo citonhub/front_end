@@ -8,7 +8,7 @@
     :items="this.$root.Messages"
      v-if="this.$root.Messages.length != 0"
      :keyField="'message_id'"
-    :min-item-size="54"
+    :min-item-size="24"
     ref="messageContainer"
      :buffer="1000"
     id="messageContainer" 
@@ -24,7 +24,7 @@
         
         :active="active"
         :size-dependencies="[
-          item.content,
+         
         ]"
         :data-index="index"
       >
@@ -864,10 +864,10 @@ export default {
 
         this.fetchSpaceInfo();
 
-      }
+       }
 
     
-    this.handleInfoSession();
+    
      
        
       
@@ -932,13 +932,43 @@ export default {
        },
        handleInfoSession:function(){
 
-      let storedInfo = this.$root.getLocalStore('channelcontentinfo'+ this.$root.username);
+         if(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team'){
+
+           let storedInfo = this.$root.getLocalStore('channelcontentinfoChannel'+ this.$root.username);
 
         storedInfo.then((result)=>{
           if(result == null){
             this.showCodeBoxInfo = true;
           }
         })
+
+         }
+
+         if(this.$root.selectedSpace.type == 'Direct'){
+
+           let storedInfo = this.$root.getLocalStore('channelcontentinfoDirect'+ this.$root.username);
+
+        storedInfo.then((result)=>{
+          if(result == null){
+            this.showCodeBoxInfo = true;
+          }
+        })
+
+         }
+
+          if(this.$root.selectedSpace.type == 'Bot'){
+
+           let storedInfo = this.$root.getLocalStore('channelcontentinfoBot'+ this.$root.username);
+
+        storedInfo.then((result)=>{
+          if(result == null){
+            this.$root.channelTopComponent.showLiveInfo = true;
+          }
+        })
+
+         }
+
+      
 
       },
        checkIfUser:function(userId){
@@ -2324,6 +2354,8 @@ export default {
       
 
       }
+
+      this.handleInfoSession();
 
              if(this.$root.selectedSpace.general_spaceId != undefined){
 

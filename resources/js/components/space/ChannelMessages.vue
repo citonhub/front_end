@@ -1242,5 +1242,8 @@ export default {
 }
 </script>
 <style>
-
+.msgTextnew2 a {
+text-decoration: underline;
+color: #81c1ca !important;
+}
 </style>

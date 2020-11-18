@@ -309,11 +309,11 @@
                     <info-dialog :buttonText="buttonText" :content="dashboardContent" :type="'infobottomstart'" :next="'hubinfo'"></info-dialog>
                       </div>
 
-                      <div style="position:absolute;bottom:110%; left:19%; z-index:2;"  v-if="showHubInfo">
+                      <div style="position:absolute;bottom:110%; left:20%; z-index:2;"  v-if="showHubInfo">
                     <info-dialog :buttonText="buttonText" :content="hubContent" :type="'infobottom'" :next="'profileInfo'"></info-dialog>
                       </div>
 
-                      <div style="position:absolute;bottom:110%; left:43%; z-index:2;"  v-if="showProfileInfo">
+                      <div style="position:absolute;bottom:110%; left:44%; z-index:2;"  v-if="showProfileInfo">
                <info-dialog :buttonText="buttonText" :content="profileContent" :type="'infobottom'" :next="'final'"></info-dialog>
                 </div>
 
