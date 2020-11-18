@@ -582,7 +582,7 @@ const app = new Vue({
      bottomEditorValue:'',
      returnedToken:'',
      globalUsers:[],
-     closenotifyRoot:true,
+     closenotifyRoot:false,
      codeboxComponent:undefined,
      showSearchControl:false,
      userDeviceId:null,
@@ -1926,8 +1926,8 @@ imageStyle:function(dimension,authProfile){
          if("PushManager" in window){
             
            registration.pushManager.getSubscription().then(sub => {
-             
-             if(sub == undefined && !this.closenotifyRoot){
+              
+             if(sub == null && !this.closenotifyRoot){
               this.shownotificationboard = true;
              }else{
 
