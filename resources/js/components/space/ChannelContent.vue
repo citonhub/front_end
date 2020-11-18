@@ -804,7 +804,7 @@ export default {
           messageContent:'',
           showBotAuthorBoard:false,
           loadingAuthorMessage: false,
-          codeBoxContent:'Share and run more then 25 programming languages',
+          codeBoxContent:'Share and run more than 25 programming languages',
           imageArray:[
             {
               image_name: 'imgproj',

@@ -62,7 +62,7 @@
                   </div>
               </div>
               
-         <audio-player v-else :file="'/audio/' + source.audio.audio_name + '.' + source.audio.audio_extension" :playerId="source.message_id"></audio-player>
+         <audio-player v-else :file="'/audio/' + source.audio.audio_name + '.' + source.audio.audio_extension" :playerId="source.message_id" :colorBase="checkOwner(source.user_id) ? '#ffffff' : '#3E8893'"></audio-player>
            
            </v-card>
             <div  @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
