@@ -251,7 +251,7 @@ export default {
           liveCodingContent:'Join a live coding session or share your screen with everyone',
           subChannelContent:'Organize chats and contents by creating sub-channels or sub-teams',
           botInfoContentTop:'Click here to view bot\'s profile',
-          botInfoContent: 'Join every other people learning actively from the bot',
+          botInfoContent: 'Join every other people learning actively from this bot',
           SendAuthorMsg:'Send a message to the bot author here',
           showLiveInfo:false,
           showSubSpaceInfo:false,

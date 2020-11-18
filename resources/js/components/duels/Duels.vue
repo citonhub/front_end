@@ -238,14 +238,14 @@
                    <div style="position:absolute;top:28%; left:19%;z-index:999999999999;" class=" text-left" v-if="showBotInfo">
                     <info-dialog :buttonText="'Ok'" :content="botInfoContent" :type="'infoleft'" :next="'panelChallenges'"></info-dialog>
                       </div>
-                <span style="font-size:14px; ">Teaching Bots</span> <v-btn icon class="d-inline-block" :disabled="true" style="z-index:235464563;" @click="gotToBotCreate" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
+                <span style="font-size:14px; ">Teaching Bots</span> <v-btn icon class="d-inline-block" :disabled="!isBetatester" style="z-index:235464563;" @click="gotToBotCreate" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
                 </div>
 
                  <div class=" py-2 px-2 d-md-none d-block" style="position:absolute; width:100%; top:5%; left:1%;">
                     <div style="position:absolute;top:28%; left:36%;z-index:999999999999;"  class=" text-left" v-if="showBotInfo">
                     <info-dialog :buttonText="'Ok'" :content="botInfoContent" :type="'infoleft'" :next="'panelChallenges'"></info-dialog>
                       </div>
-                <span style="font-size:13px; ">Teaching Bots</span> <v-btn icon class="d-inline-block" :disabled="true" style="z-index:235464563;" @click="gotToBotCreate"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
+                <span style="font-size:13px; ">Teaching Bots</span> <v-btn icon class="d-inline-block" :disabled="!isBetatester" style="z-index:235464563;" @click="gotToBotCreate"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
                 </div>
 
                 <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:62%; left:0;">
@@ -600,6 +600,7 @@ export default {
        returnedChannel:[],
        returnedBot:[],
        returnedChallenges:[],
+       isBetatester: false,
        organizations:[],
        that:this,
        showUserOrgBoard:false,
@@ -926,6 +927,18 @@ export default {
                this.fetchUserOrg();
 
              this.handleData(response.data);
+
+             let betaUsers = response.data.betaTesters;
+
+              let thisUserisBeta = betaUsers.filter((user)=>{
+
+                return user == this.$root.username;
+
+              })
+
+              if(thisUserisBeta.length != 0){
+                this.isBetatester = true;
+              }
 
              this.$root.selectedOrg = response.data.organization;
      

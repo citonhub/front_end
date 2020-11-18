@@ -1,9 +1,9 @@
 <template>
-  <v-app style="position:absolute; width:100%; height:100%;  z-index:999999999999999;" class="baseStyle">
+  <v-app style="position:absolute; width:100%; height:100%;  z-index:999999999999999;overflow-y:hidden;" class="baseStyle">
 
     <div class="col-12">
 
-       <div class="row py-0 my-0 px-md-3 px-lg-3">
+       <div class="row py-0 my-0 px-md-3 px-lg-3" style="overflow-y:hidden;">
          <div class="col-4 text-left py-0 my-0">
           <img src="/imgs/CitonHub.png" height="40" width="auto"/>
          </div>
@@ -15,13 +15,22 @@
                  >Sign up</v-btn>
          </div>
 
+       
+       <v-slide-y-reverse-transition> 
 
-         <div class="col-lg-6 d-none d-lg-block text-center py-3 pt-2 my-0 mt-3">
+          <div class="col-lg-6 d-none d-lg-block text-center py-3 pt-2 my-0 mt-3" v-if="viewType == 'main'">
              <img src="/imgs/homeMain.svg" height="100%" width="auto"/>
          </div>
+          
+        </v-slide-y-reverse-transition>
 
+
+        <img style="position:fixed; height:70%; width:60%; right:-2%; bottom:-6%;z-index:2;" class="d-lg-none d-block" src="/imgs/homeMain.svg">
         
-         <div class="col-lg-6 d-md-block d-none text-center py-2 pt-2 mt-md-5" style="z-index:9999; ">
+
+        <v-slide-y-reverse-transition>
+
+           <div class="col-lg-6 d-md-block d-none text-center py-2 pt-2 mt-md-5" style="z-index:9999; " v-if="viewType == 'main'">
                <v-carousel
                 v-model="model"
                reverse-transition="fade-transition"
@@ -79,10 +88,128 @@
          </div>
          </div>
 
+        </v-slide-y-reverse-transition>
+        
 
+
+  
+
+ 
+
+   <v-slide-y-reverse-transition>
+
+     <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2  text-center py-1 pt-2 my-0 mt-2 d-flex" style="position:fixed; justify-content:center; align-items:center; height:70%; top:7%; left:0%;  z-index:23;" v-if="viewType == 'gettingStarted'">
+            
+            <div >
+   <div>
+
+     <h4 style="color:#26535a;" class="col-md-10 offset-md-1">How to get started</h4>
+
+  </div>
+  <v-stepper
+    v-model="howTo"
+    vertical
+    color="#3E8893"
+  >
+    <v-stepper-step
+      :complete="howTo > 1"
+      step="1"
+       color="#3E8893"
+    >
+     Create an organization
+      <small>Go to your dashboard and create an organization</small>
+    </v-stepper-step>
+
+    <v-stepper-content step="1">
+      <v-card
+        color="#edf6f7"
+        class="mb-3 px-1 py-1  d-md-block d-none"
+        height="200px"
+      >
+      <img width="100%" height="100%" src="/imgs/organization.png">
+      </v-card>
+      <v-btn
+        color="#3E8893"
+        rounded
+        class="my-1"
+        style="color:#ffffff;"
+        @click="howTo = 2"
+      >
+        Continue
+      </v-btn>
+    
+    </v-stepper-content>
+
+    <v-stepper-step
+      :complete="howTo > 2"
+      step="2"
+       color="#3E8893"
+    >
+      Add channels, teaching bots or coding challenges
+     
+    </v-stepper-step>
+
+    <v-stepper-content step="2">
+      <v-card
+        color="#edf6f7"
+        class="mb-3 px-1 py-1  d-md-block d-none"
+        height="200px"
+      >
+       <img width="100%" height="100%" src="/imgs/addChannels.png">
+      </v-card>
+      <v-btn
+        color="#3E8893"
+         rounded
+          class="my-1"
+        style="color:#ffffff;z-index:99999999;"
+        @click="howTo = 3"
+      >
+        Continue
+      </v-btn>
+      
+    </v-stepper-content>
+
+    <v-stepper-step
+      :complete="howTo > 3"
+      step="3"
+       color="#3E8893"
+    >
+     Invite your members
+    </v-stepper-step>
+
+    <v-stepper-content step="3">
+      <v-card
+        color="#edf6f7"
+        class="mb-3 px-1 py-1  d-md-block d-none"
+        height="200px"
+      >
+       <img width="100%" height="100%" src="/imgs/share.png">
+      </v-card>
+      <v-btn
+        color="#3E8893"
+         rounded
+         to="/login"
+          class="my-1"
+        style="color:#ffffff;z-index:99999999;"
+       
+      >
+        Get started
+      </v-btn>
+      
+    </v-stepper-content>
+
+  </v-stepper>
+            </div>
+           
+         </div>
+     
+   </v-slide-y-reverse-transition>
+ 
 
 <!-- small screen -->
-          <div class="d-md-none  text-center py-0 pt-0 d-flex" style="z-index:9999; top:10%; height:70%; position:fixed; width:100%; align-items:center; justify-content:center;">
+ <v-slide-y-reverse-transition> 
+
+       <div class="d-md-none  text-center py-0 pt-0 d-flex" v-if="viewType == 'main'" style="z-index:9999; top:10%; height:70%; position:fixed; width:100%; align-items:center; justify-content:center;">
 
             <div>
 
@@ -140,11 +267,8 @@
   
          </div>
 
-          
-
-       
-         
-       </div>
+ </v-slide-y-reverse-transition>
+ </div>
 
     </div>
 
@@ -221,6 +345,29 @@
       </div>
 
     </div>
+   
+
+   <span style="position:fixed; height:auto; width:auto; right:3%; bottom:5%; z-index:25;" class="d-lg-block d-none">
+     <v-btn fab style="background:#ffffff; border:2px solid #3E8893;" class="sliderfullBtn" @click="viewType = 'gettingStarted'"  v-if="viewType == 'main'">
+       <v-icon color="#26535a" >mdi-arrow-down</v-icon>
+     </v-btn>
+
+      <v-btn fab style="background:#ffffff; border:2px solid #3E8893;" class="sliderfullBtn" @click="viewType = 'main'"  v-else>
+       <v-icon color="#26535a" >mdi-arrow-up</v-icon>
+     </v-btn>
+   </span>
+
+ 
+  <span style="position:fixed; height:auto; width:auto; right:3%; bottom:18%; z-index:9999999999;" class="d-lg-none d-block">
+     <v-btn fab medium style="background:#ffffff; border:2px solid #3E8893;" class="sliderfullBtn" @click="viewType = 'gettingStarted'"  v-if="viewType == 'main'">
+       <v-icon color="#26535a" >mdi-arrow-down</v-icon>
+     </v-btn>
+
+      <v-btn fab medium style="background:#ffffff; border:2px solid #3E8893;" class="sliderfullBtn" @click="viewType = 'main'"  v-else>
+       <v-icon color="#26535a" >mdi-arrow-up</v-icon>
+     </v-btn>
+   </span>
+
 
     <img style="position:fixed; height:35%; width:25%; left:-8%; bottom:-5%; z-index:23;" class="d-lg-block d-none" src="/imgs/side2.png">
 
@@ -244,8 +391,9 @@ export default {
      data () {
       return {
         model: 0,
-       
-        slidedots: [0,1,2]
+       howTo:1,
+        slidedots: [0,1,2],
+        viewType:'main'
       }
     },
      mounted(){
