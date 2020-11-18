@@ -188,21 +188,7 @@
     </v-chip>
 
 
-      <v-chip
-      class="ma-1"
-      close
-        v-if="content.type == 'channel'"
-        @click="showContent(content)"
-         @click:close="deleteContent(content)"
-      color="#3E8893"
-      outlined
-    >
-      <v-icon left>
-        mdi-account-group
-      </v-icon>
-     Channel
-    </v-chip>
-
+     
                 </span>
 
                  
@@ -256,13 +242,7 @@
               text/plain, application/pdf"/>
                 </v-btn>
 
-                 <v-btn text  x-small @click="handleInput('channel')" color="#3E8893" style="background:#edf6f7;border:1px solid #3E8893; font-size:11px;" class="mx-1">Channel
-                 
-                </v-btn>
-
-                 <v-btn text  x-small @click="handleInput('people')" color="#3E8893" style="background:#edf6f7;border:1px solid #3E8893; font-size:11px;" class="mx-1">People
-                 
-                </v-btn>
+                
 
                      </div>
 
@@ -535,33 +515,7 @@
                        </div>
 
 
-                       <div class="col-lg-10 offset-lg-1  d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="showAddChannel">
-                            <div  style=" height:100%;width:100%; " >
-                             
-                             
-                           <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-select
-         
-          :items="tagList"
-          label="Channels"
-          style="font-size:13px;"
-          hide-selected
-         
-           item-text="name"
-           item-value="space_id"
-           v-model="selectedChannel"
-          placeholder="select..."
-          color="#4495a2"
-          small-chips
-        ></v-select>
-             </div>
-                             <div style="position:absolute; height:auto; width:auto; right:2%; top:-10%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;">
-                               <v-btn icon @click.stop="fileUrl = ''"><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
-                             </div>
-                              
-                              </div> 
-                       </div>
-
+                      
 
                        
 

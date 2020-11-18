@@ -2007,6 +2007,7 @@ export default {
                 
 
                 if(finalResult.length > 0){
+                  
 
                   
 
@@ -2197,6 +2198,8 @@ export default {
               }
               
            });
+
+           
 
             let unsentStoredMsg = this.$root.getLocalStore('unsentnew' + this.$route.params.spaceId  + this.$root.username);
 

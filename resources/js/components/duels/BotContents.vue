@@ -5,7 +5,7 @@
           <div class="col-12 py-1 my-0 " >
                       <div class="row my-0 px-2">
                          <div class="col-4 py-0" style="border-bottom:1px solid #c4c4c4;">
-                           <span style="font-size:12px; font-weight:bolder; text-transform:uppercase;">Bot database</span>
+                           <span style="font-size:12px; font-weight:bolder; text-transform:uppercase;">Bot contents</span>
                          </div>
 
                          <div class="col-8 py-0 my-0" style="border-bottom:1px solid #c4c4c4;" >
@@ -154,7 +154,8 @@ export default {
                     this.$root.contentGenratorComponent.editMode = true;
                    this.$root.contentGenratorComponent.selectedTagData = tagData[0];
                    this.$root.contentGenratorComponent.tagactionType = 'response';
-
+          
+          this.$root.contentGenratorComponent.tagName = tagData[0].tag_name;
           axios.get('/get-intent-response-' + responseData.response_slug)
           .then(response => {
              
