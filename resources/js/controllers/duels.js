@@ -208,6 +208,11 @@ const routes = [
         component: MatchPanel
       },
       {
+        //match panel view
+        path: ':duelId/panel/:type/:referral/:panelId',
+        component: MatchPanel
+      },
+      {
         //match panel comment
         path: ':duelId/panel/:type/comments/view',
         component: ProjectComments
@@ -389,6 +394,7 @@ const app = new Vue({
         showDashboardInfo:false,
      showHubInfo: false,
      showProfileInfo: false,
+     panelViewMode:false,
      buttonText:'Ok',
      dashboardContent:'Create new organizations, channels, teams and teaching bots in your dashboard',
      hubContent:'Network and share your works with other developers on CitonHub',

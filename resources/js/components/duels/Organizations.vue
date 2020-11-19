@@ -110,7 +110,7 @@
                     <div class="py-0 my-0 d-flex col-2" style="align-items:center;justify-content:center; ">
                         <div class="py-0">
                           
-                  <div :style="imageStyle(35,null)"
+                  <div :style="imageStyle(35,member.user)"
                   class="d-inline-block" >
 
                   </div>

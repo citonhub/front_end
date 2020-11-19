@@ -72,7 +72,7 @@
          v-model="panel"
           dense
           v-if="showFront && panelIsWeb"
-          class="my-2"
+          class="my-2 col-lg-8 offset-lg-2 px-0"
          >
       <v-expansion-panel  >
         <v-expansion-panel-header class="header">{{ $t('panel.view_files') }}
@@ -406,7 +406,7 @@
       v-model="panelBack"
            v-if="showBack && panelIsWeb"
           dense
-          class="my-2">
+          class="my-2 col-lg-8 offset-lg-2 px-0">
         
           <v-expansion-panel v-if="panelData.app_type == 'Multiple-pages' || panelData.panel_language != 'not-set'">
         <v-expansion-panel-header class="header">Controllers
@@ -610,7 +610,7 @@
       </div>
 
 
-       <div  @click="closeExtension"  v-if="!closeExtesionBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+       <div  @click="closeExtension"  v-if="!closeExtesionBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-12  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="preventClose"  style="position:absolute; height:60%; width:100%; top:40%; left:0%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto">
 
              <v-card tile flat

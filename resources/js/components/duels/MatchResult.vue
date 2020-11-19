@@ -79,6 +79,8 @@
                    
                 </div>
 
+                
+
                  <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
                  class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2" v-else>
                    <div class="row py-2 d-flex" style="align-items:center; justify-content:center;">
@@ -86,8 +88,22 @@
                    </div>
                    
                 </div>
+
+                 <span style="position:absolute; top:82%; right:3%;z-index:10;"  v-if="selectedParticipantId != ''">
+          <v-btn
+                color="#35747e"
+                small
+                 @click="goTopanel"
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-xml</v-icon>
+              </v-btn>
+     </span>
          </div>
        </div>
+
+       
 
         <v-fade-transition>
               <div  style="position:absolute; width:100%; height:auto: align-items:center;justify-content:center;bottom:16%; z-index:123453566;"  class="d-flex">
@@ -157,6 +173,9 @@ methods:{
         _this.Alert = false;
      },duration);
 
+    },
+    goTopanel:function(){
+      this.$router.push({ path: '/panel/'+ this.$route.params.duelId + '/panel/user/user/' + this.selecetedPanelId });
     },
     checkState: function(){
        if(this.$route.params.actionType == "vote"){
