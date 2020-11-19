@@ -601,7 +601,7 @@ const app = new Vue({
      showHubInfo: false,
      showProfileInfo: false,
      buttonText:'Ok',
-     dashboardContent:'Create new organizations, channels, teams and teaching bots in your dashboard',
+     dashboardContent:'Create new community, channels, teams and teaching bots in your dashboard',
      hubContent:'Network and share your works with other developers on CitonHub',
      profileContent:'Manage your account and connections in your profile',
      mainPanelComponent:undefined,
@@ -2211,7 +2211,7 @@ this.$root.LocalStore(spaceId + this.$root.username,fullData);
             message.index_count = this.$root.returnLastIndex() + 1;
             message.id =  message.message_id;
             message.initialSize = 200
-            message.size = 40;
+            message.size = 20;
     
             
     
