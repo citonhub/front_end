@@ -69,7 +69,7 @@ export default {
 
                 this.$root.botSuggestionArray = response.data.suggestions;
 
-                this.$router.push({ path: '/space/'  +  response.data.space  +  '/channel/content' + '/user' });
+                this.$router.push({ path: '/space/'  +  response.data.space.space_id  +  '/channel/content' + '/user' });
                
              
             }
