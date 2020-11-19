@@ -10,7 +10,6 @@
      :keyField="'id'"
     :min-item-size="36"
     ref="messageContainer"
-     :buffer="1000"
     id="messageContainer" 
    class="col-12 py-2 px-2" 
      
