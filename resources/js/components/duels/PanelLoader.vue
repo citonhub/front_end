@@ -24,7 +24,7 @@
        <v-app class="col-12 py-0 my-0" v-if="pageContent == ''">
       <div 
        
-    style="border: 0; height:91%; top:7%; position:fixed;left:0; align-items:center; justify-content:center;" class=" px-5 col-lg-4 offset-lg-4 px-1 py-0 d-flex" >
+    style="border: 0; height:91%; top:7%; position:fixed;left:0; align-items:center; justify-content:center;" class=" px-5 col-lg-6 offset-lg-3 px-1 py-0 d-flex" >
          <v-progress-linear indeterminate color="#3E8893" rounded ></v-progress-linear>
        </div>
     </v-app>
@@ -33,7 +33,7 @@
           
              <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" v-if="duelPanelIsWeb"
    :srcdoc="pageContent" 
-    style="border: 0; height:91%; position:fixed;left:0;" class="  col-lg-4 offset-lg-4 px-1 py-0" ></iframe>
+    style="border: 0; height:91%; position:fixed;left:0;" class="  col-lg-6 offset-lg-3 px-1 py-0" ></iframe>
 
 <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;" class="  col-lg-6 offset-lg-3 px-3 py-3" >
 </textarea>
