@@ -1258,6 +1258,23 @@ export default {
      
 
     },
+    trackImageChanges: function(){
+
+
+       this.image1 = this.$root.imagepath1;
+        this.image2 = this.$root.imagepath2;
+        this.image3 = this.$root.imagepath3;
+        this.image4 = this.$root.imagepath4;
+        this.imageHeight1 = this.$root.imageHeight1;
+        this.imageHeight2 = this.$root.imageHeight2;
+        this.imageHeight3 = this.$root.imageHeight3;
+        this.imageHeight4 = this.$root.imageHeight4;
+        this.imageWidth1 = this.$root.imageWidth1;
+        this.imageWidth2 = this.$root.imageWidth2;
+        this.imageWidth3 = this.$root.imageWidth3;
+        this.imageWidth4 = this.$root.imageWidth4;
+
+    },
         editImage:function(imageNumber){
            
           if(imageNumber == 'image1'){
@@ -1302,8 +1319,9 @@ export default {
           this.$root.currentImage = 'image4'
           }
             
+            this.$root.showImageEditor = true;
 
-          this.$router.push({ path: '/image-editor' });
+          
           
         },
        handleInput:function(typeValue){

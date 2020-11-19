@@ -90,7 +90,6 @@ import Organization from "../components/duels/Organizations.vue"
 import AddOrganization from "../components/duels/AddOrganization.vue"
 import AddBot from "../components/duels/AddBot.vue"
 import Bots from "../components/duels/Bots.vue"
-import ImageEditor from "../components/home/ImageEditor.vue"
 import NotFound from "../components/auth/NotFound.vue"
 import ForgotPassword from "../components/auth/ForgotPassword.vue"
 import ResetPassword from "../components/auth/ResetPassword.vue"
@@ -103,7 +102,6 @@ const routes = [
     name: 'notFound',
     component: NotFound
   },
-  { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},
   { path: '/login', name: 'Login', component: Login},
   { path: '/crop-image', 
   name: 'CropImage', 
@@ -396,9 +394,10 @@ const app = new Vue({
      showProfileInfo: false,
      panelViewMode:false,
      buttonText:'Ok',
-     dashboardContent:'Create new organizations, channels, teams and teaching bots in your dashboard',
+     dashboardContent:'Create new communities, channels, teams and teaching bots in your dashboard',
      hubContent:'Network and share your works with other developers on CitonHub',
-     profileContent:'Manage your account and connections in your profile'
+     profileContent:'Manage your account and connections in your profile',
+     showImageEditor:false,
         
     },
      mounted: function () {
