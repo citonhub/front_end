@@ -2211,7 +2211,6 @@ this.$root.LocalStore(spaceId + this.$root.username,fullData);
             message.index_count = this.$root.returnLastIndex() + 1;
             message.id =  message.message_id;
             message.initialSize = 200
-            message.size = 20;
     
             
     

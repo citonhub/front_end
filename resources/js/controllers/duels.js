@@ -209,7 +209,7 @@ const routes = [
       },
       {
         //match panel view
-        path: ':duelId/panel/:type/:referral/:panelId',
+        path: ':duelId/panel/:type/:referral/view/:panelId',
         component: MatchPanel
       },
       {

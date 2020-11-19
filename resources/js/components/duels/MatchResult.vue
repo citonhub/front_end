@@ -175,7 +175,7 @@ methods:{
 
     },
     goTopanel:function(){
-      this.$router.push({ path: '/panel/'+ this.$route.params.duelId + '/panel/user/user/' + this.selecetedPanelId });
+      this.$router.push({ path: '/panel/'+ this.$route.params.duelId + '/panel/user/user/view/' + this.selecetedPanelId });
     },
     checkState: function(){
        if(this.$route.params.actionType == "vote"){
