@@ -372,7 +372,7 @@ body {
    <script src="https://unpkg.com/marked@0.3.6"></script>
 
 
- <script src="{{ asset('js/space.js?v=6.43') }}"></script>
+ <script src="{{ asset('js/space.js?v=6.44') }}"></script>
  
      
  @endsection

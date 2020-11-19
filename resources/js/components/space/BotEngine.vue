@@ -65,9 +65,11 @@ export default {
             
             
               
-                this.$root.selectedSpace = response.data;
+                this.$root.selectedSpace = response.data.space;
 
-                this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });
+                this.$root.botSuggestionArray = response.data.suggestions;
+
+                this.$router.push({ path: '/space/'  +  response.data.space  +  '/channel/content' + '/user' });
                
              
             }
