@@ -116,8 +116,8 @@
       step="1"
        color="#3E8893"
     >
-     Create an organization
-      <small>Go to your dashboard and create an organization</small>
+     Create an Community
+      <small>Go to your dashboard and create a community</small>
     </v-stepper-step>
 
     <v-stepper-content step="1">
@@ -126,7 +126,7 @@
         class="mb-3 px-1 py-1  d-md-block d-none"
         height="200px"
       >
-      <img width="100%" height="100%" src="/imgs/organization.png">
+      <img width="100%" height="100%" src="/imgs/community.png">
       </v-card>
       <v-btn
         color="#3E8893"

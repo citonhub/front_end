@@ -20,11 +20,9 @@
     <template v-slot="{ item, index, active }">
       <DynamicScrollerItem
         :item="item"
-       
-        
         :active="active"
         :size-dependencies="[
-         
+         item.content
         ]"
         :data-index="index"
       >
@@ -1717,7 +1715,7 @@ export default {
 
                      e.data.index_count = this.$root.returnLastIndex() + 1;
                       e.data.id =  e.data.message_id;
-
+                      e.data.initialSize = 200;
                       
 
                  this.$root.Messages.push(e.data);
@@ -1919,6 +1917,8 @@ export default {
 
                      response.data[0][index].index_count = this.$root.returnLastIndex() + 1;
                       response.data[0][index].id =  response.data[0][index].message_id;
+                      response.data[0][index].initialSize =  200;
+                      
 
                       
                    this.$root.Messages.push(response.data[0][index]);
@@ -1966,7 +1966,7 @@ export default {
           
            this.$root.returnedMessages.map((msg)=>{
                msg.id = msg.message_id
-
+               msg.initialSize = 200
                msg.index_count = intialCount++;
 
 

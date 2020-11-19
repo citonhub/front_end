@@ -461,6 +461,7 @@ var blob = this.b64toBlob(realData, contentType);
        message_id: this.makeUUID(),
         id:this.makeUUID(),
        replied_message:[],
+       size:40,
        replied_message_id:null,
        showReply:false,
        showDate:null,

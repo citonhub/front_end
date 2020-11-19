@@ -27,7 +27,7 @@
                       </div>
 
                       
-                <v-btn x-small color="#3E8893" @click="showOrgList" style="color:white;">Organizations</v-btn>
+                <v-btn x-small color="#3E8893" @click="showOrgList" style="color:white;">communities</v-btn>
                </div>
             </div>
 
@@ -78,7 +78,7 @@
                 <span style="font-size:13px; ">Channels and teams</span> <v-btn icon class="d-inline-block" :disabled="checkifnotowner()" style="z-index:235464563;"  @click="createSpace()"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
                 </div>
 
-                <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:62%; left:0;">
+                <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:60%; left:0;">
                     <v-btn icon small @click="circulateData('channel','decr')"> <v-icon>mdi-chevron-left</v-icon></v-btn>
                 </div>
 
@@ -226,7 +226,7 @@
                </div>
              </div>
 
-             <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute;  width:10%; top:62%; right:0;">
+             <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute;  width:10%; top:60%; right:0;">
                     <v-btn icon small @click="circulateData('channel','incr')"> <v-icon>mdi-chevron-right</v-icon></v-btn>
                 </div>
         </div>
@@ -248,7 +248,7 @@
                 <span style="font-size:13px; ">Teaching Bots</span> <v-btn icon class="d-inline-block" :disabled="!isBetatester" style="z-index:235464563;" @click="gotToBotCreate"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
                 </div>
 
-                <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:62%; left:0;">
+                <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:60%; left:0;">
                     <v-btn icon small @click="circulateData('bots','decr')"> <v-icon>mdi-chevron-left</v-icon></v-btn>
                 </div>
 
@@ -396,7 +396,7 @@
                </div>
              </div>
 
-             <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute;  width:10%; top:62%; right:0;">
+             <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute;  width:10%; top:60%; right:0;">
                     <v-btn icon small @click="circulateData('bots','incr')"> <v-icon>mdi-chevron-right</v-icon></v-btn>
                 </div>
         </div>
@@ -421,7 +421,7 @@
                 <span style="font-size:13px; ">Coding Challenges</span> <v-btn icon class="d-inline-block" :disabled="checkifnotowner()" style="z-index:235464563;"  @click="gotToChallengeCreate" color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
                 </div>
 
-                <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:70%; left:0;">
+                <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:60%; left:0;">
                     <v-btn icon small @click="circulateData('challenges','decr')"> <v-icon>mdi-chevron-left</v-icon></v-btn>
                 </div>
                 
@@ -534,7 +534,7 @@
 
              </div>
 
-             <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute;  width:10%; top:70%; right:0;">
+             <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute;  width:10%; top:60%; right:0;">
                     <v-btn icon small @click="circulateData('challenges','incr')"> <v-icon>mdi-chevron-right</v-icon></v-btn>
                 </div>
         </div>  
@@ -604,8 +604,8 @@ export default {
        organizations:[],
        that:this,
        showUserOrgBoard:false,
-      orgContent:'Create and manage your organizations here',
-       switchContent:'Click here to switch between your organizations',
+      orgContent:'Create and manage your communities here',
+       switchContent:'Click here to switch between your communities',
       showOrgInfo:false,
       showSwitchInfo: false,
       showAddSpaceInfo: false,

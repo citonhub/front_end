@@ -374,6 +374,7 @@ export default {
       register: function(){
 
          this.$root.LocalStore('user_temp_email',[this.email,this.password]);
+        
          this.$root.LocalStore('is_forget_password',[false]);
              axios.post( '/register',{
                 name: this.name,

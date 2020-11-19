@@ -916,6 +916,8 @@ axios.get( '/check-for-new-space-messages/' + this.$root.userDeviceId)
 
           newMessages.forEach((messages)=>{
 
+
+
             MessagesFull[0].push(messages);
 
               this.$root.LocalStore(space.space_id  + this.$root.username,MessagesFull);
@@ -1072,6 +1074,10 @@ console.log(err)
             MessagesFull[0].push(messages);
 
               this.$root.LocalStore(space.space_id  + this.$root.username,MessagesFull);
+
+              messages.initialSize = 200
+              messages.id = messages.message_id
+              messages.index_count = this.$root.returnLastIndex() + 1;
 
               this.$root.Messages.push(messages);
 
@@ -2204,6 +2210,8 @@ this.$root.LocalStore(spaceId + this.$root.username,fullData);
 
             message.index_count = this.$root.returnLastIndex() + 1;
             message.id =  message.message_id;
+            message.initialSize = 200
+            message.size = 40;
     
             
     

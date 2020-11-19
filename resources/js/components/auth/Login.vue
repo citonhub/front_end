@@ -320,6 +320,8 @@ export default {
       if(this.$refs.loginform.validate()){
           this.loading = true;
      this.$root.userPassword = this.password;
+     this.$root.userEmail = this.usernameValue;
+      this.$root.LocalStore('user_temp_email',[this.usernameValue,this.password]);
      this.$store
         .dispatch('login', {
           username: this.usernameValue,

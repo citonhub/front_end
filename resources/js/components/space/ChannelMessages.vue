@@ -250,9 +250,16 @@
                
            </div>
               
-
-            <span  class="msgTextnew2" :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
+            <span v-if="source.content.length > source.initialSize">
+             <span  class="msgTextnew2" :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="handelMessageContent(source)" :id="'shortContent'+ source.message_id"></span>
+             <span  :id="'fullContent'+ source.message_id" class="msgTextnew2" :style="checkOwner(source.user_id) ? 'color:#ffffff;display:none;' :'display:none;'" v-html="source.content"></span>
             
+        <v-btn :id="'moreContentbtn'+ source.message_id" @click.stop="showFullMsg(source)"   class=" mb-1 ml-auto" x-small :color="checkOwner(source.user_id) ? '#ffffff' : '#3E8893'" :style="checkOwner(source.user_id) ? 'color:#3E8893;font-size:10px;text-transform:lowercase;display:block;' :'color:#ffffff;display:block;font-size:10px;text-transform:lowercase;'">more</v-btn>
+           
+            
+            </span>
+           
+             <span v-else  class="msgTextnew2" :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
            </v-card>
            <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
                                <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
@@ -832,7 +839,20 @@ export default {
         }
     },
     methods:{
+    handelMessageContent: function(message){
+
+       return this.shortenContent(message.content,200);
     
+    },
+    showFullMsg:function(message){
+
+       document.getElementById('moreContentbtn'+ message.message_id).style.visibility='hidden' ;
+        document.getElementById('shortContent' + message.message_id).style.display = 'none';
+       document.getElementById('fullContent'+ message.message_id).style.display = 'block';
+
+
+
+    },
     createSpace:function(member){
            
            this.$root.showUserInfo = true;
@@ -1112,6 +1132,7 @@ export default {
              
              if(content.length > limit){
                 let shortcontent = content.slice(0,limit);
+                  
                  return shortcontent + '...';
              }else{
                return content;

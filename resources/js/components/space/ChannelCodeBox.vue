@@ -748,6 +748,7 @@ methods:{
        message_id: this.makeUUID(),
         id:this.makeUUID(),
        replied_message:[],
+       size:100,
        replied_message_id:null,
        showReply:false,
        showDate:null,

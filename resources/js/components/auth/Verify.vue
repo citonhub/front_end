@@ -239,8 +239,10 @@ export default {
       setEmail: function(){
         
          let storedEmail = this.$root.getLocalStore('user_temp_email');
-              
-              storedEmail.then((result)=>{
+
+          if(this.$root.userEmail == ''){
+
+             storedEmail.then((result)=>{
 
                  if(result != null){
                    
@@ -254,6 +256,10 @@ export default {
 
               });
 
+
+          }
+              
+             
           let interval = null;
           
          interval = setInterval(()=>{

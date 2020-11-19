@@ -11,7 +11,7 @@
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-             <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Organizations</span>
+             <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Communities</span>
          </div>
          <div class="col-2 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
              <v-btn icon color="#4495a2" @click="gotToCreateOrg" ><v-icon>mdi-plus-circle-outline</v-icon></v-btn>
@@ -60,7 +60,7 @@
              <div v-if="organizations.length == 0" style="height:100%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
           
           <div class="text-center">
-             <span style="font-size:13px; color:gray;" class="d-block py-3">Not organization found</span>
+             <span style="font-size:13px; color:gray;" class="d-block py-3">Not Community found</span>
 
              <v-btn rounded small @click="gotToCreateOrg" color="#3E8893" style="font-size:11px;color:white;text-transform:capitalize;" >Create</v-btn>
           </div>
