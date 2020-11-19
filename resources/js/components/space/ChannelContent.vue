@@ -2391,14 +2391,7 @@ export default {
           
               if(this.$root.Messages.length == 0){
                
-                 
-
-                      this.$root.channelBottomComp.contentInWord = 'hello';
-
-           this.$root.channelBottomComp.input = 'hello';
-            
-            let refocus = false;
-          this.$root.channelBottomComp.sendMessage(refocus);
+              
 
               }else{
 
