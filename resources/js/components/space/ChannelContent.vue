@@ -10,10 +10,11 @@
      :keyField="'id'"
     :min-item-size="36"
     ref="messageContainer"
+    :buffer="5000"
     id="messageContainer" 
    class="col-12 py-2 px-2" 
      
-        style="position:absolute; width:100%; height:94%; top:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;"
+        style="position:absolute; width:100%; height:100%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -2185,8 +2186,15 @@ export default {
 
             
        setTimeout(() => {
-         
+
+         if( this.$root.selectedSpace.type == 'Bot'){
            this.$root.msgScrollComponent.messageContainer.scrollToBottom();
+      }else{
+
+         this.$root.msgScrollComponent.messageContainer.scrollToItem(this.$root.Messages.length);
+
+      }
+          
 
           
 
@@ -2332,8 +2340,16 @@ export default {
 
          
       setTimeout(() => {
-         
+
+           if( this.$root.selectedSpace.type == 'Bot'){
            this.$root.msgScrollComponent.messageContainer.scrollToBottom();
+      }else{
+
+         this.$root.msgScrollComponent.messageContainer.scrollToItem(this.$root.Messages.length);
+
+      }
+         
+           
 
           
 
