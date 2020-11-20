@@ -98,6 +98,10 @@
             <span class="px-1">  {{shortenContent(this.$root.selectedSubSpaceName,25)}}</span>
           </span>
 
+          <span class="typingText d-block" v-if="this.$root.selectedSpace.type == 'Bot' ">
+            Online
+          </span>
+
            <span class="typingText d-block" v-if="this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' && (this.$root.typingSpace == this.$root.selectedSpace.space_id) ">
             
               {{this.$root.typinguser}} is typing... 

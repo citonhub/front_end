@@ -699,6 +699,7 @@
                 <v-icon color="#ffffff">mdi-xml</v-icon>
               </v-btn>
      </span>
+     
 
       <span style="position:absolute; top:85%; right:3%;  z-index:98757;" class="d-none d-md-inline-block"  v-if=" this.$root.selectedSpace.type != 'Bot'">
 
@@ -715,6 +716,40 @@
                 fab
               >
                 <v-icon color="#ffffff">mdi-xml</v-icon>
+              </v-btn>
+     </span>
+
+
+
+      <span style="position:fixed; top:73%; right:3%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type == 'Bot'">
+
+          
+          <v-btn
+                color="#3E8893"
+                small
+               
+                 @click="shareBot()"
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-share-variant mdi-18px</v-icon>
+              </v-btn>
+     </span>
+     
+
+      <span style="position:absolute; top:85%; right:3%;  z-index:98757;" class="d-none d-md-inline-block"  v-if=" this.$root.selectedSpace.type == 'Bot'">
+
+      
+
+          <v-btn
+                color="#3E8893"
+                small
+              @click="shareBot()"
+                class="d-block"
+               
+                fab
+              >
+                <v-icon color="#ffffff">mdi-share-variant mdi-18px</v-icon>
               </v-btn>
      </span>
 
@@ -871,6 +906,14 @@ export default {
       
     },
     methods:{
+      shareBot:function(){
+
+         this.$root.shareText  = 'Checkout this teaching bot on CitonHub.';
+         this.$root.shareLink = 'https://www.citonhub.com/link/bot/'+ this.$root.selectedSpace.bot_data.bot_id + '/' + this.$root.username;
+
+         this.$root.showShare = true;
+
+      },
        makeUUID:function(){
      var id = "id" + Math.random().toString(16).slice(2);
      return id;
