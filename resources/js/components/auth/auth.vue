@@ -42,7 +42,7 @@
     >
      <div class="py-2 px-2 d-flex"   style="width:100%; height:100%; border-radius:50px;justify-content:center; align-items:center;" >
        <div>
-         <h1 style="color:#26535a;" class="col-md-10 offset-md-1 ">CitonHub helps developer communities teach better</h1>
+         <h1 style="color:#26535a;" class="col-md-10 offset-md-1 ">CitonHub helps developers teach better</h1>
          <p style="color:#3E8893;font-size:20px;" class="col-md-10 offset-md-1">Save time and stress by automating how you teach code </p>
          <v-btn rounded   class="mt-3"  type="submit" color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;font-family: Headertext;" 
                to="/login"  >Get started</v-btn>
@@ -56,7 +56,7 @@
      <div class="py-2 px-2 d-flex"   style="width:100%; height:100%; border-radius:50px;justify-content:center; align-items:center;" >
        <div>
          <h1 style="color:#26535a;" class="col-md-10 offset-md-1">No more combining multiple platforms to teach code</h1>
-         <p style="color:#3E8893;font-size:20px;" class="col-md-10 offset-md-1">We help developer communities organize how they teach code, by providing all the features they need in one place</p>
+         <p style="color:#3E8893;font-size:20px;" class="col-md-10 offset-md-1">We help you organize how you teach code, by providing all the features you need in one place</p>
          <v-btn rounded   class="mt-3"  type="submit" color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;font-family: Headertext;" 
               to="/login"   >Get started</v-btn>
        </div>
@@ -224,7 +224,7 @@
     >
      <div class="py-0 px-2 d-flex"   style="width:100%; height:100%; justify-content:center; align-items:center;" >
        <div>
-         <h3 style="color:#26535a;" class="col-10 offset-1 ">CitonHub helps developer communities teach better</h3>
+         <h3 style="color:#26535a;" class="col-10 offset-1 ">CitonHub helps developers teach better</h3>
          <p style="color:#3E8893;font-size:15px;" class="col-10 offset-1">Save time and stress by automating how you teach code </p>
          <v-btn rounded  small  class="mt-2"  type="submit" color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;font-family: Headertext;" 
                 to="/login" >Get started</v-btn>
@@ -238,7 +238,7 @@
      <div class="py-2 px-2 d-flex"   style="width:100%; height:100%; justify-content:center; align-items:center;" >
        <div>
          <h3 style="color:#26535a;" class="col-10 offset-1">No more combining multiple platforms to teach code</h3>
-         <p style="color:#3E8893;font-size:15px;" class="col-10 offset-1">We help developer communities organize how they teach code, by providing all the features they need in one place</p>
+         <p style="color:#3E8893;font-size:15px;" class="col-10 offset-1">We help you organize how you teach code, by providing all the features you need in one place</p>
          <v-btn rounded small  class="mt-2"  type="submit" color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;font-family: Headertext;" 
               to="/login"   >Get started</v-btn>
        </div>
