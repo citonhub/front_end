@@ -748,7 +748,7 @@ methods:{
        message_id: this.makeUUID(),
         id:this.makeUUID(),
        replied_message:[],
-       size:100,
+         index_count : this.$root.returnLastIndex() + 1,
        replied_message_id:null,
        showReply:false,
        showDate:null,
@@ -800,10 +800,10 @@ methods:{
               
                console.log()
 
-               this.$root.returnedMessages.push(this.$root.NewMsg);
+              
                this.$root.Messages.push(this.$root.NewMsg);
 
-              this.$root.spaceFullData[0] = this.$root.returnedMessages;
+              this.$root.spaceFullData[0] =  this.$root.Messages;
          
            let fullData = [];
                     fullData.push(this.$root.spaceFullData[0]);

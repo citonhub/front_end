@@ -2215,53 +2215,54 @@ this.$root.LocalStore(spaceId + this.$root.username,fullData);
         let fullMessages = response.data[0];
 
          
+        
+        for (let index = 0; index < fullMessages.length; index++) {
 
-       
-        fullMessages.forEach((message)=>{
+           let message = fullMessages[index];
+               
+               
+
+           message.index_count = this.$root.returnLastIndex() + 1;
+           message.id =  message.message_id;
+           message.initialSize = 200
    
            
+   
+      this.$root.Messages.push(message);
+   
+    
 
-            message.index_count = this.$root.returnLastIndex() + 1;
-            message.id =  message.message_id;
-            message.initialSize = 200
     
-            
-    
-       this.$root.Messages.push(message);
-    
+
+              this.$root.spaceFullData[0] = this.$root.Messages;
+
+
+              
+
+                let fullData = [];
+                   fullData.push(this.$root.spaceFullData[0]);
+               fullData.push(this.$root.spaceFullData[1]);
+
+                let thirdData = [];
+                   
+                   thirdData.push(this.$root.spaceFullData[2][0])
+
+               fullData.push(thirdData);
+
+              
+
+
+            this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
+   
+     this.$root.updateSpaceTracker(message.space_id);
+   
+     this.$root.sortChatList();
      
-
-      this.$root.returnedMessages.push(message)
-
-               this.$root.spaceFullData[0] = this.$root.returnedMessages;
-
-
-               
-
-                 let fullData = [];
-                    fullData.push(this.$root.spaceFullData[0]);
-                fullData.push(this.$root.spaceFullData[1]);
-
-                 let thirdData = [];
-                    
-                    thirdData.push(this.$root.spaceFullData[2][0])
-
-                fullData.push(thirdData);
-
-               
-
-
-             this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
-    
-      this.$root.updateSpaceTracker(message.space_id);
-    
-      this.$root.sortChatList();
-    
-    
-          
-
-        })
-
+       
+   
+     }
+       
+        
         this.botSuggestionArray = response.data[1];
 
          this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data[1]);
