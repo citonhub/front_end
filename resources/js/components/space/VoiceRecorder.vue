@@ -92,6 +92,7 @@ methods:{
         id:this.makeUUID(),
        replied_message:[],
        replied_message_id:null,
+        index_count : this.$root.returnLastIndex() + 1,
        showReply:false,
        showDate:null,
        loading:true,

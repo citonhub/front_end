@@ -7,7 +7,7 @@
       <DynamicScroller
     :items="this.$root.Messages"
      v-if="this.$root.Messages.length != 0"
-     :keyField="'id'"
+     :keyField="'index_count'"
     :min-item-size="36"
     ref="messageContainer"
     :buffer="5000"

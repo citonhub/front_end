@@ -276,6 +276,7 @@ export default {
        message_id: this.makeUUID(),
        id:this.makeUUID(),
        initialSize:200,
+      index_count : this.$root.returnLastIndex() + 1,
        replied_message:replied_message,
        replied_message_id:null,
        showReply:false,

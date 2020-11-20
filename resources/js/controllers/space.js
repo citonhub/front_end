@@ -1919,9 +1919,22 @@ imageStyle:function(dimension,authProfile){
 
   },
   returnLastIndex:function(){
-     let lastMsg = this.$root.Messages[this.$root.Messages.length - 1];
 
-     let msgIndex = lastMsg.index_count;
+     let msgIndex = 0;
+      
+      if(this.$root.Messages.length == 0){
+
+         msgIndex = 0;
+
+      }else{
+
+        let lastMsg = this.$root.Messages[this.$root.Messages.length - 1];
+
+      msgIndex = lastMsg.index_count;
+
+      }
+    
+     
 
          
      return msgIndex;
@@ -2284,7 +2297,7 @@ if (response.status == 200) {
                message.loading = false;
                message.message_id = response.data[0].message_id; 
                message.id = response.data[0].message_id; 
-               message.index_count= this.$root.returnLastIndex() + 1;
+              
 
                
             }
@@ -2337,7 +2350,7 @@ if (response.status == 200) {
              message.message_id = response.data[0].message_id; 
              message.id = response.data[0].message_id; 
               message.code = response.data[0].code;
-                message.index_count = this.$root.returnLastIndex() + 1;
+              
           }
        });
      
@@ -2395,7 +2408,7 @@ if (response.status == 200) {
                      message.loading = false;
                      message.message_id = response.data[0].message_id;
                      message.id = response.data[0].message_id; 
-                     message.index_count = this.$root.returnLastIndex() + 1;
+                    
                      if(messageType == 'image'){
                        message.image = response.data[0].image;
                      }
