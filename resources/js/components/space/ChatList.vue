@@ -703,13 +703,32 @@ export default {
     methods:{
       handleInfoSession:function(){
 
-      let storedInfo = this.$root.getLocalStore('chatlistinfonew'+ this.$root.username);
+          axios.get('/fetch-user-onboarding')
+      .then(response => {
+      
+      if (response.status == 200 || response.status == 201) {
+
+          
+        let storedInfo = this.$root.getLocalStore('chatlistinfonew'+ this.$root.username);
 
         storedInfo.then((result)=>{
-          if(result == null){
+          if(result == null && response.data.chatlist_info == false){
             this.showProjectInfo = true;
           }
         })
+       
+
+     }
+       
+     
+     })
+     .catch(error => {
+       
+       
+     })
+          
+
+      
 
       },
        showSearch: function(){

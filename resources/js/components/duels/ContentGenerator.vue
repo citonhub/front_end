@@ -1258,7 +1258,8 @@ export default {
      
 
     },
-    trackImageChanges: function(){
+    
+     function(){
 
 
        this.image1 = this.$root.imagepath1;

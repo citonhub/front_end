@@ -13,7 +13,7 @@
     id="messageContainer" 
    class="col-12 py-2 px-2" 
      
-        style="position:absolute; width:100%; height:100%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;"
+        style="position:absolute; width:100%; height:94%; top:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -929,12 +929,19 @@ export default {
        },
        handleInfoSession:function(){
 
-         if(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team'){
+
+           axios.get('/fetch-user-onboarding')
+      .then(response => {
+      
+      if (response.status == 200 || response.status == 201) {
+
+          
+        if(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team'){
 
            let storedInfo = this.$root.getLocalStore('channelcontentinfoChannel'+ this.$root.username);
 
         storedInfo.then((result)=>{
-          if(result == null){
+          if(result == null && response.data.channel_info == false){
             this.showCodeBoxInfo = true;
           }
         })
@@ -946,24 +953,36 @@ export default {
            let storedInfo = this.$root.getLocalStore('channelcontentinfoDirect'+ this.$root.username);
 
         storedInfo.then((result)=>{
-          if(result == null){
+          if(result == null && response.data.dm_info == false){
             this.showCodeBoxInfo = true;
           }
         })
 
          }
 
-          if(this.$root.selectedSpace.type == 'Bot'){
+          if(this.$root.selectedSpace.type == 'Bot' ){
 
            let storedInfo = this.$root.getLocalStore('channelcontentinfoBot'+ this.$root.username);
 
         storedInfo.then((result)=>{
-          if(result == null){
+          if(result == null && response.data.bot_info == false){
             this.$root.channelTopComponent.showLiveInfo = true;
           }
         })
 
          }
+       
+
+     }
+       
+     
+     })
+     .catch(error => {
+       
+       
+     })
+
+        
 
       
 

@@ -69,6 +69,21 @@
 
     
     this.$root.LocalStore('panelinfo' + this.$root.username,['done']);
+
+     axios.post('/save-user-onboarding-dashboard_info')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+       
+     }
+       
+     
+     })
+     .catch(error => {
+       
+       
+     })
      }
 
 
@@ -110,6 +125,21 @@
     this.$root.showProfileInfo = false;
        
      this.$root.LocalStore('chatlistinfonew' + this.$root.username,['done']);
+
+     axios.post('/save-user-onboarding-chatlist_info')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+       
+     }
+       
+     
+     })
+     .catch(error => {
+       
+       
+     })
 
      }
 
@@ -158,11 +188,42 @@
 
            this.$root.LocalStore('channelcontentinfoChannel' + this.$root.username,['done']);
 
+             axios.post('/save-user-onboarding-channel_info')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+       
+     }
+       
+     
+     })
+     .catch(error => {
+       
+       
+     })
+
         }
 
          if(this.$root.selectedSpace.type == 'Direct'){
 
            this.$root.LocalStore('channelcontentinfoDirect' + this.$root.username,['done']);
+
+
+             axios.post('/save-user-onboarding-dm_info')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+       
+     }
+       
+     
+     })
+     .catch(error => {
+       
+       
+     })
 
         }
 
@@ -170,6 +231,21 @@
          if(this.$root.selectedSpace.type == 'Bot'){
 
            this.$root.LocalStore('channelcontentinfoBot' + this.$root.username,['done']);
+
+             axios.post('/save-user-onboarding-bot_info')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+       
+     }
+       
+     
+     })
+     .catch(error => {
+       
+       
+     })
 
         }
       

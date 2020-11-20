@@ -635,14 +635,32 @@ export default {
     methods:{
        handleInfoSession:function(){
 
-      let storedInfo = this.$root.getLocalStore('panelinfo'+ this.$root.username);
+
+           axios.get('/fetch-user-onboarding')
+      .then(response => {
+      
+      if (response.status == 200 || response.status == 201) {
+
+          
+       let storedInfo = this.$root.getLocalStore('panelinfo'+ this.$root.username);
 
         storedInfo.then((result)=>{
-          if(result == null){
+          if(result == null && response.data.dashboard_info == false){
             this.showOrgInfo = true;
           }
         })
 
+
+     }
+       
+     
+     })
+     .catch(error => {
+       
+       
+     })
+
+      
       },
       checkifnotowner:function(){
 
