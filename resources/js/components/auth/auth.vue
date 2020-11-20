@@ -69,7 +69,7 @@
      <div class="py-2 px-2 d-flex"   style="width:100%; height:100%; border-radius:50px;justify-content:center; align-items:center;" >
        <div>
          <h1 style="color:#26535a;" class="col-md-10 offset-md-1">Organize coding challenges to help people grow</h1>
-         <p style="color:#3E8893;font-size:20px;" class="col-md-10 offset-md-1">Challenges are a great way to improve people , grow their skills and help them become better developers</p>
+         <p style="color:#3E8893;font-size:20px;" class="col-md-10 offset-md-1">Challenges are a great way to improve people, grow their skills and help them become better developers</p>
          <v-btn rounded   class="mt-3"  type="submit" color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;font-family: Headertext;" 
                to="/login"  >Get started</v-btn>
        </div>
@@ -251,7 +251,7 @@
      <div class="py-2 px-2 d-flex"   style="width:100%; height:100%; border-radius:50px;justify-content:center; align-items:center;" >
        <div>
          <h3 style="color:#26535a;" class="col-10 offset-1">Organize coding challenges to help people grow</h3>
-         <p style="color:#3E8893;font-size:15px;" class="col-10 offset-1">Challenges are a great way to improve people , grow their skills and help them become better developers</p>
+         <p style="color:#3E8893;font-size:15px;" class="col-10 offset-1">Challenges are a great way to improve people, grow their skills and help them become better developers</p>
          <v-btn rounded   class="mt-2"  small type="submit" color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;font-family: Headertext;" 
                 to="/login" >Get started</v-btn>
        </div>

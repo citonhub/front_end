@@ -237,7 +237,7 @@ export default {
 					// Read image as base64 and set to imageData
                     this.$root.imagepath = e.target.result;
                     this.imagepath = e.target.result;
-                  
+                 
                     
 				};
 				// Start the reader job - read file as a data url (base64 format)

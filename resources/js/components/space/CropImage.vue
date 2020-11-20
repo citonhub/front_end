@@ -1,5 +1,5 @@
 <template>
-     <v-app style="background:transparent; font-family:BodyText;">
+     <div style="background:transparent; font-family:BodyText;">
         <div class="card col-lg-6 offset-lg-3 py-0 px-0 my-0" style=" border-radius:0;position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
@@ -17,7 +17,7 @@
       </div>
      </div>
 
-      <div class="py-1 my-0" style="position:absolute; top:5%; height:100%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; ">
+      <div class="py-1 my-0" style="position:absolute; top:5%; height:300px;width:100%; left:0; overflow-y:auto; overflow-x:hidden; ">
         
       <image-cropper :img="this.$root.imagepath" :componentType="cropType" :stencilProps="cropProp" class=" d-flex col-12 " ref="cropper"
       style="align-items:center; justify-content:center; height:80%;" ></image-cropper>
@@ -31,7 +31,7 @@
          </div>
          </div>
         </div>
-     </v-app>
+     </div>
 </template>
 <script>
 
