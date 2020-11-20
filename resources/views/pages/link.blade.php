@@ -10,8 +10,24 @@
   <meta name="keywords" content="Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
+
+   <!--Metadata for Apple-->
+   <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="apple-mobile-web-app-title" content="CitonHub">
+    <link rel="apple-touch-icon" href="imagesNew/icons/icon-144x144.png">
+    <!--Metadata for Microsoft-->
+    <meta name="msapplication-TileImage" content="imagesNew/icons/icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#4495a2">
+
+    <meta name="twitter:card" content="summary_large_image"/>
   <meta name="og:image" content="https://www.citonhub.com/imgs/{{$imagePath}}"/>
-  
+  <meta property="og:description" content="{!! $pageDescription !!}" />
+
+
+    <meta property='twitter:title' content="{!! $pageTitle !!}"/>
+<meta property='twitter:image' content="https://www.citonhub.com/imgs/{{$imagePath}}"/>
+
  @endsection
 
 

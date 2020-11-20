@@ -1,7 +1,7 @@
 <template>
      <div  style="background:transparent; font-family:BodyText;">
 
-       <div class=" col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 px-0 my-0" style="position:fixed;  background:rgba(38, 82, 89,0.5); height:100%; overflow-y:auto; overflow-x:hidden; z-index:999999900;" 
+       <div class=" col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0" style="position:fixed;  background:rgba(38, 82, 89,0.5); height:100%; overflow-y:auto; overflow-x:hidden; z-index:999999900;" 
          @click="closeButton">
          <div class="row my-0 py-0 px-2">
 

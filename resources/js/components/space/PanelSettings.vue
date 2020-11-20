@@ -1,7 +1,7 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText;">
 
-       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;  position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -31,7 +31,7 @@
   
         
         <v-fade-transition>
-         <div class="col-12 py-2 my-0 px-2"  v-if="this.$root.panelDataFull.is_set != true">
+         <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2"  v-if="this.$root.panelDataFull.is_set != true">
         <v-select
           v-model="backEndLang"
           :items="appTypeList"
@@ -49,7 +49,7 @@
         ></v-select>
              </div>
 
-              <div class="col-12 py-2 my-0 px-2" v-else>
+              <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2" v-else>
          <v-text-field
                 style="font-size:12px;"
                 
@@ -74,7 +74,7 @@
           </v-form>
 
 
-             <div class="col-12 py-2 my-0 px-2" v-if="this.$root.projectData.user_id == this.$root.user_temp_id && this.$root.panelDataFull.is_set == true">
+             <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2" v-if="this.$root.projectData.user_id == this.$root.user_temp_id && this.$root.panelDataFull.is_set == true">
               <v-text-field
                 style="font-size:12px;"
                 
@@ -94,7 +94,7 @@
              </div>
 
 
-          <div class="col-12 py-2 my-0 px-2" v-if="this.$root.projectData.user_id == this.$root.user_temp_id && this.$root.panelDataFull.is_set == true">
+          <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2" v-if="this.$root.projectData.user_id == this.$root.user_temp_id && this.$root.panelDataFull.is_set == true">
 
             
         <v-select

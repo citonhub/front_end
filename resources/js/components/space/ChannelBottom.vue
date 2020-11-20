@@ -15,7 +15,7 @@
                </v-card>
                <div class="col-3 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
                  <v-btn  style="box-shadow:none;"
-                  fab color="#3E8893" class="mr-1 d-md-none d-inline-block" x-small  v-if="!showSend"
+                  fab color="#3E8893" class="mr-1 d-md-none d-inline-block" x-small  v-if="!showSend && this.$root.selectedSpace.type != 'Bot'"
                @click="shareHandler"
                >
                    <v-icon color="#ffffff">mdi-attachment</v-icon>
@@ -30,7 +30,7 @@
                
 
                     <v-btn  style="box-shadow:none;"
-                  fab color="#3E8893" class="mr-1 d-md-inline-block d-none" small  v-if="!showSend"
+                  fab color="#3E8893" class="mr-1 d-md-inline-block d-none" small  v-if="!showSend && this.$root.selectedSpace.type != 'Bot'"
                @click="shareHandler"
                >
                    <v-icon color="#ffffff">mdi-attachment</v-icon>
@@ -43,7 +43,7 @@
                 </v-btn>
                 
 
-                 <v-btn  style="box-shadow:none;" fab color="#3E8893" class="d-md-none d-inline-block" x-small v-if="!showSend"
+                 <v-btn  style="box-shadow:none;" fab color="#3E8893" class="d-md-none d-inline-block" x-small v-if="!showSend && this.$root.selectedSpace.type != 'Bot'"
                   @click="toggleRecording"
                >
                    <v-icon  color="#ffffff" v-if="!recording">mdi-microphone</v-icon>
@@ -51,7 +51,7 @@
                 </v-btn>
 
 
-                <v-btn  style="box-shadow:none;" fab color="#3E8893" class="d-md-inline-block d-none" small v-if="!showSend"
+                <v-btn  style="box-shadow:none;" fab color="#3E8893" class="d-md-inline-block d-none" small v-if="!showSend && this.$root.selectedSpace.type != 'Bot'"
                   @click="toggleRecording"
                >
                    <v-icon  color="#ffffff" v-if="!recording">mdi-microphone</v-icon>
@@ -107,6 +107,7 @@ export default {
   },
     mounted(){
        this.$root.bottomEditorValue = this.$refs.textBottom;
+       this.$root.channelBottomComp = this;
     },
      computed: {
           compiledMarkdown: function() {
@@ -120,7 +121,7 @@ export default {
        urlify:function(text) {
       var urlRegex =  /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
      return text.replace(urlRegex, function(url) {
-     return "<a href=\"" + url + "\" target=\"_blank\">"  + url + "</a>";
+     return  "<a href=\"" + url + "\" target=\"_blank\">"  + url + "</a>"; 
   })
    // or alternatively
     // return text.replace(urlRegex, '<a href="$1">$1</a>')
@@ -273,6 +274,9 @@ export default {
       created_at: moment().subtract(1,'hours'),
        is_reply:reply,
        message_id: this.makeUUID(),
+       id:this.makeUUID(),
+       initialSize:200,
+      index_count : this.$root.returnLastIndex() + 1,
        replied_message:replied_message,
        replied_message_id:null,
        showReply:false,
@@ -348,13 +352,20 @@ export default {
     
           
         },
-      sendMessage: function(){
+      sendMessage: function(refocus = true){
+
+          if( this.input.length == 0) return;
             this.input = '';
              this.showSend = false;
              this.$root.ShowButton = true;
             this.$root.showRootReply = false;
               this.$root.showRootReply = false;
-            this.$refs.textBottom.focus();
+  
+      if(refocus){
+    this.$refs.textBottom.focus();
+      }
+
+            
               
               let Data = [];
              
@@ -368,11 +379,12 @@ export default {
               }
                this.$root.NewMsg.content = this.contentInWord;
 
-                this.$root.returnedMessages.push(this.$root.NewMsg);
 
                 this.$root.Messages.push(this.$root.NewMsg);
 
-               this.$root.spaceFullData[0] = this.$root.returnedMessages;
+              
+
+               this.$root.spaceFullData[0] = this.$root.Messages;
 
 
                
@@ -396,7 +408,7 @@ export default {
 
                
                
-                this.$root.scrollerControlHandler();
+               
 
                this.$root.scrollToBottom();
 
@@ -409,7 +421,8 @@ export default {
               current_user: JSON.stringify(this.$root.SpaceUsers),
               replied_message_id: this.$root.replyMessage.message_id,
               attachment_type: null,
-              temp_id:  this.$root.NewMsg.message_id
+              temp_id:  this.$root.NewMsg.message_id,
+              device_id: this.$root.userDeviceId
             };
 
             

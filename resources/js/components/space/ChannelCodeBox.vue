@@ -36,7 +36,7 @@
        <div class="col-12 py-0 my-0" style="position:absolute; height:95.5%;width:100%; overflow-y:hidden; overflow-x:hidden;">
          <div class="row my-0 py-0 px-0 ">
              
-              <div class="codebox">
+              <div class="codeboxnew1">
               
          <codemirror
         v-model="code"
@@ -118,9 +118,10 @@
          <div class="col-6 py-0 my-0 d-flex px-0"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
              <span   style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Page Loader</span>
          </div>
-         <div class="col-3 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
-            
-         </div>
+        
+         <div class="col-3 py-1 my-0 px-2 text-right"  style="border-bottom:2px solid #4495a2; " >
+                     <v-btn   x-small color="#3E8893 "  @click="sendMessage" ><span style="color:#ffffff; font-weight:bolder; font-size:10px;">send</span></v-btn>
+          </div>
       </div>
      </div> 
           <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
@@ -148,7 +149,7 @@
 
         </div>
 
-          <div    v-if="showAdminOptions" @click="showAdminOptions = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+          <div    v-if="showAdminOptions" @click="showAdminOptions = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="showAdminOptions = true" style="position:absolute; height:auto; width:90%; top:30%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
              <v-card style="border-radius:10px;"
@@ -249,6 +250,7 @@ export default {
         this.$root.codeBoxOpened = true;
         this.setCodeContent();
         this.updateCodeMaster();
+         this.$root.codeboxComponent = this;
        
         this.$root.codeBoxOpened = true;
        
@@ -425,8 +427,7 @@ methods:{
       },
       unmuteAudio: function(){
 
-        
-
+      
            this.$root.localAudioMuted = false;
 
              var localStream = this.$root.audioconnection.attachStreams[0];
@@ -593,41 +594,10 @@ methods:{
 
 
     let userState = this.checkIfMaster();
+
+          this.$root.intervalCheckLive = null;
        
-
-         let _this = this;
-        let  interval = setInterval(setCode,200);
-        function setCode(){
-
-           _this.code = _this.$root.FullcodeContent;
-           _this.language = _this.$root.fullCodeLanguage;
-           _this.detectchange(_this.$root.fullCodeLanguage);
-           
-
-           if(_this.$root.liveShowCode){
-               _this.showCode = true;
-           }else{
-
-           _this.showCode = false;
-           _this.ResultCode = _this.$root.CodeResult;
-           
-           }
-              
-          if(_this.$root.codeIsLive == false){
-            
-            clearInterval(interval);
-
-          }
-
-          if(_this.$root.selfStopTrigger){
-
-         clearInterval(interval);
-          }
-         
-        }
-    
-
-        
+      
 
           if(this.$root.codeIsLive && !userState){
             
@@ -636,6 +606,36 @@ methods:{
              this.cmOption.readOnly = 'nocursor';
 
              this.$root.selfStopTrigger = false;
+             
+
+            
+         
+        
+          
+           this.code = this.$root.FullcodeContent;
+           this.language = this.$root.fullCodeLanguage;
+           this.detectchange(this.$root.fullCodeLanguage);
+           
+
+           if(this.$root.liveShowCode){
+               this.showCode = true;
+           }else{
+
+           this.showCode = false;
+           this.ResultCode = this.$root.CodeResult;
+           
+           }
+              
+          if(this.$root.codeIsLive == false){
+            
+            clearInterval(this.$root.intervalCheckLive);
+
+          }
+
+          
+
+     
+
           
 
     
@@ -746,7 +746,9 @@ methods:{
       created_at: moment().subtract(1,'hours'),
        is_reply:"false",
        message_id: this.makeUUID(),
+        id:this.makeUUID(),
        replied_message:[],
+         index_count : this.$root.returnLastIndex() + 1,
        replied_message_id:null,
        showReply:false,
        showDate:null,
@@ -798,10 +800,10 @@ methods:{
               
                console.log()
 
-               this.$root.returnedMessages.push(this.$root.NewMsg);
+              
                this.$root.Messages.push(this.$root.NewMsg);
 
-              this.$root.spaceFullData[0] = this.$root.returnedMessages;
+              this.$root.spaceFullData[0] =  this.$root.Messages;
          
            let fullData = [];
                     fullData.push(this.$root.spaceFullData[0]);
@@ -818,7 +820,7 @@ methods:{
 
               this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
 
-                 this.$root.scrollerControlHandler();
+                 
 
               
                this.goBack();
@@ -835,7 +837,8 @@ methods:{
                 code: this.code,
               language_type: this.language,
               file_name:'index',
-              temp_id:  this.$root.NewMsg.message_id
+              temp_id:  this.$root.NewMsg.message_id,
+               device_id: this.$root.userDeviceId
             };
             
          this.$root.updateSpaceTracker(this.$root.selectedSpace.space_id);
@@ -859,27 +862,24 @@ methods:{
 
             this.liveChanges(codemirror,'typing');
 
+            
+
         
 
       },
        liveChanges:function(data,action) {
 
-      
-      let channel =  window.Echo.join('space.' + this.$root.selectedSpace.space_id);
-   
-       if(this.$root.codeIsLive){
+          if(this.$root.codeIsLive){
 
-         channel.whisper('liveCoding', {
-          data:data,
-            action: action,
-            spaceId: this.$root.selectedSpace.space_id
-        });
+             this.$root.dataconnection.send({
+                action:action,
+                data: data,
+                space_id: this.$root.selectedSpace.space_id
+              });
+
+          }
 
 
-       }
-
-         
-     
           
         },
       runCode:function(){
@@ -924,18 +924,9 @@ methods:{
       },
       checkResponse:function(token){
 
-         let _this = this;
+        let _this = this;
 
-        let interval = setInterval(check,1000);
-
-
-        function check(){
-
-           
-             if(_this.recheckCodeBox){
-
-               _this.recheckCodeBox = false;
-
+      
                 axios.post( '/check-for-submission',{
                token: token,
                 langId: _this.selectedLangId
@@ -956,28 +947,32 @@ methods:{
                   _this.ResultCode =  response.data[0].stdout;
 
                   
-                 clearInterval(interval);
+                 
 
 
               }else if(response.data[0].status.description == 'In Queue'){
 
                  _this.ResultCode = 'In Queue...';
 
+                   _this.checkResponse(response.data[0].token);
+
               }else if(response.data[0].status.description == 'Processing'){
 
                  _this.ResultCode = 'Processing...';
+
+                   _this.checkResponse(response.data[0].token);
 
               }else{
 
                  _this.ResultCode =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr ;
 
-                 clearInterval(interval);
+               
 
               }
 
 
               if(_this.$root.codeBoxOpened == false){
-                  clearInterval(interval);
+                
               }
 
               
@@ -985,7 +980,7 @@ methods:{
          _this.sendCodeRunning();
 
          
-               _this.recheckCodeBox = true;
+             
 
           }
 
@@ -999,15 +994,9 @@ methods:{
                _this.ResultCode = 'An issue occured,unable to run on sandbox...';
 
                  _this.sendCodeRunning();
-               clearInterval(interval);
-              
+             
           })
 
-             }
-
-          
-
-        }
 
         
 
@@ -1111,6 +1100,8 @@ methods:{
 
               
               this.liveChanges(language,'codeChange');
+
+            
             
 
           }
@@ -1119,7 +1110,7 @@ methods:{
 
           
 
-          this.$root.fullCodeLanguage = language;
+       this.$root.fullCodeLanguage = language;
           
 
   
@@ -1428,20 +1419,20 @@ methods:{
     font-size:10px;
 }
 
- .codebox,
+ .codeboxnew1,
     .pre {
       width: 100%;
       margin: 0;
      
        display: block;
-      font-size: 12px;
+      font-size: 14px;
       line-height: 1.6;
       word-break: break-all;
       word-wrap: break-word;
       overflow: auto;
     }
 
-    .codebox{
+    .codeboxnew1{
        height: 100%;
        border: 1px solid #e6e6e6;
         position:absolute;

@@ -1,7 +1,7 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText;">
 
-       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
+       <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -31,7 +31,7 @@
                          <div class="col-10 my-0 py-0 ">
                           
                                 <div class="commentHeader d-block col-12 px-0 py-0 my-0 mx-0">{{comment.username}}</div>
-                                <div class="commentText d-block" v-html="comment.content"></div>
+                                <div class="commentText d-block" style="font-size:13px;" v-html="comment.content"></div>
                             
                          </div>
 
@@ -51,11 +51,12 @@
                             </v-btn>
                              <span style="font-size:10px; color:#999999;" class="px-1">{{comment.likes}}</span>
                                </div>
-                                <div class="col-6 py-0 my-0 text-right">
-                               <v-btn icon @click="replyComment(comment)">
-                              <v-icon color="#999999">mdi-reply mdi-18px</v-icon>
-                            </v-btn>
-                         </div>
+                                 <div class="col-6 py-0 my-0 text-right">
+                                  <v-btn icon @click="replyComment(comment)">
+                                      <v-icon color="#999999">mdi-reply</v-icon>
+                                   </v-btn>   
+                               </div>
+                               
 
                             </div>
 
@@ -64,31 +65,60 @@
                    </div>
          </div>
        </div>
+
+      
+
+       <div  class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2 my-0 px-0 fixed-bottom " style="z-index:66; height:auto;background:#c5c5c5;" >
+
+            <div class="px-2" v-if=" this.$root.is_reply_comment" >
+
+                  <div class=" py-2 px-2  text-left mb-1"  style="background:#3E8893; border:1px solid transparent; border-radius:8px;" >
+
+                     <div class="col-12 py-1 px-1  text-right">
+                  <span class="msgTextReplynew text-left d-block" style="color:white;" v-html="shortenContent(commentContent ,50)" ></span>
+                 
+              </div>
+
+                  </div>
+                <div style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
+                               <v-btn icon @click="closeComment"><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
+                             </div>
+            </div>
+          
+          <div class="col-12 py-0 my-0 d-flex px-5 flex-row" style="align-items:center; justify-content:center;">
+
+             
+
+              <div class="row py-0 my-0">
+               
+               <v-card  flat  color="#c5c5c5" style="border-radius: 7px;" class="col-9 px-2 py-0 my-0">
+                  
+               
+          
+                <textarea ref="textBottom" :value="input" @input="update" style="font-size:13px;" @keydown="handelkeyAct" :placeholder="$t('general.type_here')"  class="editor-box card" ></textarea>
+   
+               
+               </v-card>
+               <div class="col-3 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
+                <v-btn   style="box-shadow:none;color:white;" fab color="#3E8893" class="mr-1 d-inline-block "  small :disabled="editFeild"
+               @click="saveComment" :loading="loading"
+               >
+                   <v-icon color="#ffffff"  >mdi-send</v-icon>
+                </v-btn>
+
+               </div>
+              
+
+              
+            </div>
+
+          </div>
+          
+
+       </div>
          </div>
 
-          <span style="position:absolute; top:83.5%; right:3%;" class="d-md-none d-inline-block">
-          <v-btn
-                color="#35747e"
-                small
-                @click="makeComment"
-                class="d-block"
-                fab
-              >
-                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
-              </v-btn>
-     </span>
-
-      <span style="position:absolute; top:90%; right:3%;"  class="d-none d-md-inline-block">
-          <v-btn
-                color="#35747e"
-                small
-                @click="makeComment"
-                class="d-block"
-                fab
-              >
-                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
-              </v-btn>
-     </span>
+        
        </div>
       
 
@@ -101,20 +131,116 @@ export default {
     data(){
         return{
          
-         
+          wordLimit:300,
+         wordCount:0,
+         Alert:false,
+         alertMsg:'',
+         editFeild:true,
+        contentInWord:'',
+        loading:false,
+        input:'',
+        labelText:'',
+        shiftIsPressed:false,
+        commentContent:'',
        
         }
     },
     components: {
    
   },
+   computed: {
+          compiledMarkdown: function() {
+            return marked(this.input, { sanitize: true });
+          }
+        },
    mounted(){
-      this.$root.showTabs=true;
+      this.$root.showTabs=false;
        this.$root.showHeader = false;
        this.fetchProjectComments();
        this.trackPanel();
     },
     methods:{
+        urlify:function(text) {
+      var urlRegex =  /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+     return text.replace(urlRegex, function(url) {
+      return "<a href=\"" + url + "\" target=\"_blank\">"  + url + "</a>";
+  })
+   // or alternatively
+    // return text.replace(urlRegex, '<a href="$1">$1</a>')
+     },
+      shortenContent: function(content,limit){
+             
+             if(content.length > limit){
+                let shortcontent = content.slice(0,limit);
+                 return shortcontent + '...';
+             }else{
+               return content;
+             }
+        },
+      checkifReply: function(){
+            if(this.$root.is_reply_comment){
+               this.labelText = 'replying ' + this.$root.replyCommentUsername;
+            }
+      },
+       handelkeyAct: function(e){
+        
+        if(e.keyCode == 16){
+
+           this.shiftIsPressed = true;
+          
+        }
+
+        if(e.keyCode != 16 && e.keyCode != 13){
+
+           this.shiftIsPressed = false;
+          
+        }
+
+        if(e.keyCode == 13 && this.shiftIsPressed){
+           e.preventDefault()
+
+               this.saveComment();
+
+                this.shiftIsPressed = false;
+            
+
+           }
+     },
+       update:function(e){
+           this.input = e.target.value;
+
+           this.wordCount =  this.input.length;
+
+         if(this.wordCount > this.wordLimit || this.wordCount == 0){
+           this.editFeild = true;
+
+         }else{
+            this.editFeild = false;
+         }
+         
+        this.contentInWord = this.urlify(this.compiledMarkdown);
+
+        },
+    
+      fetchProject: function(){
+        
+         axios.get( '/fetch-project-' + this.$route.params.projectSlug)
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+        
+       this.$root.projectData = response.data[0];
+
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+        },
        
    trackPanel: function(){
 
@@ -211,7 +337,44 @@ export default {
    
        
      },
-  
+     closeComment:function(){
+            this.$root.replyCommentId = 0;
+         this.$root.is_reply_comment = false;
+
+         this.commentContent = '';
+     },
+    saveComment:function(){
+       this.loading = true;
+     axios.post('/save-project-comment',{
+      'project_slug':this.$route.params.projectSlug,
+       'content': this.contentInWord,
+       'is_reply': this.$root.is_reply_comment,
+       'replied_comment_id': this.$root.replyCommentId 
+     })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         this.$root.replyCommentId = 0;
+         this.$root.is_reply_comment = false;
+
+         this.commentContent = '';
+
+         this.input = '';
+
+          this.$root.projectComments.unshift(response.data);
+        
+        this.loading = false;
+
+     }
+       
+     
+     })
+     .catch(error => {
+       this.showAlert(5000,'Failed- ' + error);
+              this.loading = false;
+     }) 
+   },
    goBack() {
           
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
@@ -257,8 +420,8 @@ export default {
            this.$root.is_reply_comment = true;
            this.$root.replyCommentId = comment.id;
            this.$root.replyCommentUsername = comment.username;
-
-           this.$router.push({ path: '/'+ this.$route.params.projectSlug + '/make-comment' });
+            this.commentContent = comment.content;
+          
       },
     fetchProjectComments: function(){ 
 
@@ -299,12 +462,25 @@ export default {
    
 }
 </script>
-<style>
+<style scoped>
 .shelfText{
     font-size: 12px;
     color: #265259;
 }
 
+textarea {
+    font-size:13px; 
+    background:#ffffff;
+    width:100%; 
+    height: 50px;
+    max-height: 75px;
+    padding: 4px 4px;
+    resize:none; 
+    overflow-x: hidden;
+     overflow-y: auto;
+    border:1px solid transparent; 
+    border-radius:2px;
+}
 .avatarCommentnew{
    background:#dbedf0;
     border:1px solid #dbedf0;

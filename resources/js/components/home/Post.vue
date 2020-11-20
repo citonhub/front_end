@@ -39,8 +39,8 @@
        <div class="py-1 my-0 postScroll" style="position:fixed;top:7%; height:93%;width:100%; left:0; overflow-y:auto; overflow-x:hidden;z-index:999938859; ">
            
           
-           <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3  my-0 py-1" >
-        <div class="row px-0" style="background-color:transparent; border-bottom:1px solid #cccccc; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;" v-if="post.length != 0">
+           <div class="col-lg-4 offset-lg-4 col-md-8 offset-md-2  my-0 py-1" >
+        <div class="row px-0" style="background-color:transparent; border-bottom:1px solid #cccccc;" v-if="post.length != 0">
            <div class="col-12 py-0 d-flex " >
              <div>
                    <div  v-if="post.userProfile != undefined" :style="imageStyle(43,post.userProfile)"  @click.stop="viewUser(post)"
@@ -62,39 +62,39 @@
                 
 
 
-          <div class="py-0 pb-1 px-2 col-12 my-0" >
+          <div class="py-0 pb-1 px-2 col-12 my-0 " >
 
-              <div  v-if="post.attachment_type == 'image'" class="px-lg-4 col-lg-8 offset-lg-2">
+             <div  v-if="post.attachment_type == 'image'" class="px-lg-4 pb-0 col-12">
                  <image-viewer :imageArray="post.image"></image-viewer>
              </div>
 
-              <div  class="px-lg-4 col-lg-8 offset-lg-2">
+              <div  class="px-lg-4 pb-0 col-12">
 
             <main-video v-if="post.attachment_type == 'video'" :videoUrl="'/videos/' + post.video.video_name + '.mpd'" :backgroundColor="post.video.background_color" style="height:100%; width:100%;"
                :backgroundImg="'/videos/previewImage/'+ post.video.preview_image_url" :playerId="'small' + post.id" > </main-video>
                
              </div>
 
-               <div  v-if="post.attachment_type == 'code'" class="px-lg-5 col-lg-8 offset-lg-2" >
+               <div  v-if="post.attachment_type == 'code'" class="px-lg-2 pb-0 col-md-8 offset-md-2" >
                  <code-box :codeContent="post.code.content" :filename="post.code.name" :codeLanguage="post.code.language_type" :codeViewerType="viewerType"></code-box>
              </div>
 
-              <div v-if="post.attachment_type == 'project'" class="px-lg-5  pb-4 col-lg-8 offset-lg-2" >
+              <div v-if="post.attachment_type == 'project'" class="px-lg-2  pb-0 col-md-10 offset-md-1" >
                  <project :projectData="post.project"></project>
              </div>
-              <div  v-if="post.attachment_type == 'duel'" class="px-lg-5 pb-4 col-lg-8 offset-lg-2"  >
+              <div  v-if="post.attachment_type == 'duel'" class="px-lg-2 pb-0 col-md-10 offset-md-1"  >
                  <duel :duelData="post.duel"></duel>
              </div>
-              <div  v-if="post.attachment_type == 'channel'" class="px-lg-5 pb-4 col-lg-8 offset-lg-2" >
+              <div  v-if="post.attachment_type == 'channel'" class="px-lg-2 pb-0 col-md-10 offset-md-1" >
                  <channel :channelData="post.channel"></channel>
              </div>
 
-              <div  v-if="post.attachment_type == 'link'"  class="px-lg-5 col-lg-8 offset-lg-2">
+              <div  v-if="post.attachment_type == 'link'"  class="px-lg-2 pb-4 col-12">
                   <link-view :urlInfo="post.link" ></link-view>
              </div>
                   
                 </div>
-            <div class="py-0 px-2 col-12 my-0">
+            <div class="py-0 px-2 col-12 mt-2 my-0">
                    <div class="row">
                     <div class="col-3 my-0 py-0 text-center">
                       <v-btn class="d-inline-block" icon  @click.stop="likePost(post)">

@@ -5,7 +5,7 @@
 
  @endsection
  @section('meta') 
- <meta name="description" content="A messaging platform for developer communities. Chat, share codes, live code and build projects in your Space. Create an account or log in to get started." />
+ <meta name="description" content="A teaching platform for developers. Chat, share codes, live code and build projects in your Space. Create an account or log in to get started." />
   <meta name="keywords" content="Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
@@ -18,6 +18,12 @@
     <!--Metadata for Microsoft-->
     <meta name="msapplication-TileImage" content="imagesNew/icons/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#4495a2">
+    <meta property="og:description" content="A teaching platform for developers. Chat, share codes, live code and build projects in your Space. Create an account or log in to get started" />
+    <meta property='twitter:title' content="Citonhub:A teaching platform for developers"/>
+<meta property='twitter:image' content="https://citonhub.com/imgs/CitonHub.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+
+
  @endsection
  @section('css')
   <!-- Shaka Player ui compiled library default CSS: -->
@@ -28,7 +34,7 @@
 
 <style>
 .body{
-    background:#ffffff;
+    background:whitesmoke;
   }
 
 html,
@@ -59,27 +65,25 @@ body {
 
 
     
-      <img src="/imgs/background1.png"  style="position:absolute;height:50%; width:100%; align-items:center; bottom:0%; left:0;"  >
-
-      <img src="/imgs/top.png"  style="position:absolute;height:17%; width:20%; align-items:center; top:0%; right:0;"  >
-     
+      
      
 
      
       <search v-if="showSearchControl"></search>
 
             
-<div class="col-lg-10 col-12 offset-lg-1 py-0" style="display:fixed; top:0%;height:auto; background:white; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; " v-show="showHeader"> 
+<div class="col-lg-10 col-12 offset-lg-1 py-0 " style="display:fixed; top:0%;height:auto;border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; background:white; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; " v-show="showHeader"> 
     <div class="row">
     <div class="col-4 d-flex  py-1" style="border-bottom:1px solid #e6e6e6;  align-items:center; ">
     <div>
-    <div  v-if="authProfile != undefined" :style="imageStyle(46,authProfile)"   @click="showNavigator"
+    <div  v-if="authProfile != undefined" :style="imageStyle(46,authProfile)"  
                 class="pl-3 d-none d-md-block addBorder">
 
                   </div>
 
+               
                   <div  v-if="authProfile != undefined" :style="imageStyle(35,authProfile)"   @click="showNavigator"
-                  class="pl-3 d-block d-md-none addBorder">
+                class="pl-3 d-block d-md-none   addBorder">
 
                   </div>
     </div>
@@ -91,7 +95,7 @@ body {
         
         <div style="text-align:right; border-bottom:1px solid #e6e6e6; " class="col-4 pr-2 py-0 text-right">
            
-            <v-btn icon color="#3E8893"  @click="showLangOption = true" class="mt-2"  small style="border:2px solid #3E8893; border-radius:50%;"><v-icon>mdi-translate mdi-18px</v-icon></v-btn>
+            <v-btn icon color="#3E8893"  @click="showLangOption = true" class="mt-2"  small ><v-icon>mdi-earth </v-icon></v-btn>
         </div>
         
     </div>
@@ -103,7 +107,7 @@ body {
 <space></space>
 
 
-<div   v-if="showLangOption" @click="showLangOption = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
+<div   v-if="showLangOption" @click="showLangOption = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="showLangOption = true" style="position:absolute; height:auto; width:90%; bottom:50%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
              <v-card style="border-radius:10px;"
@@ -130,12 +134,12 @@ body {
 
 
 
-<div class=" d-none d-md-none d-lg-block mx-2  py-2" 
- style="border-radius:7px; height:80%; position:fixed; width:15%;top:10%; right:8.30%; background:#ffffff; border:1px solid #c5c5c5;" >
+<div class=" d-none d-md-none d-lg-block mx-2  py-2 "  v-if="!itIsHomePage"
+ style="border-radius:7px; height:80%; position:fixed; width:15%;top:10%; right:8.30%; background:transparent; border:1px solid transparent;" >
 
   
       
-         <v-card tile flat color="#ffffff"  class="col-12 px-2 py-2" style="border-bottom:1px solid #c5c5c5;"  @click="showNavLink('library')">
+         <div  color="#ffffff"  class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px; cursor:pointer;"  @click="showNavLink('library')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-inbox-full-outline</v-icon>
@@ -144,8 +148,8 @@ body {
                <span style="font-size:14px;  font-weight: bold; color:#595959;">My Library</span>
             </div>
            </div>
-         </v-card>
-         <v-card tile flat color="#ffffff" class="col-12 px-2 py-2" style="border-bottom:1px solid #c5c5c5;"  @click="showNavLink('account_settings')">
+         </div>
+         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card"  style="border:1px solid transparent; border-radius:30px; cursor:pointer;"  @click="showNavLink('account_settings')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-account-cog-outline</v-icon>
@@ -154,8 +158,8 @@ body {
                <span style="font-size:14px;  font-weight: bold; color:#595959;">@{{ $t('general.Account_Setting') }}</span>
             </div>
            </div>
-         </v-card>
-         <v-card tile flat color="#ffffff" class="col-12 px-2 py-2" style="border-bottom:1px solid #c5c5c5;"  @click="showNavLink('privacy')">
+         </div>
+         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px; cursor:pointer;"  @click="showNavLink('privacy')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon>mdi-account-tie-outline</v-icon>
@@ -164,8 +168,8 @@ body {
                <span style="font-size:14px; font-weight: bold; color:#595959;">@{{ $t('general.Privacy') }}</span>
             </div>
            </div>
-         </v-card>
-         <v-card tile flat color="#ffffff" class="col-12 px-2 py-2" style="border-bottom:1px solid #c5c5c5;"  @click="showNavLink('help')">
+         </div>
+         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px;cursor:pointer;"  @click="showNavLink('help')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon>mdi-comment-question-outline</v-icon>
@@ -174,14 +178,14 @@ body {
                <span style="font-size:14px; font-weight: bold; color:#595959;">@{{ $t('general.Help') }}</span>
             </div>
            </div>
-         </v-card>
+         </div>
          
       
 
       
 
         
-      <v-card tile flat color="#ffffff" v-if="isLogged"  @click="logout"  class="col-12 px-2 py-2" style="border-top:1px solid #c5c5c5; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
+      <div  color="#ffffff" v-if="isLogged"  @click="logout"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; cursor:pointer; border-radius:30px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-logout-variant</v-icon>
@@ -190,9 +194,9 @@ body {
                <span style="font-size:14px;  font-weight: bold; color:#595959;">@{{ $t('general.logout') }}</span>
             </div>
            </div>
-      </v-card>
+      </div>
   
-    <v-card  v-else tile flat color="#ffffff"  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2" style="border-top:1px solid #c5c5c5; border-bottom-left-radius:7px; border-bottom-right-radius:7px; position:absolute;bottom:0%;">
+    <div  v-else color="#ffffff"  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; cursor:pointer; border-radius:30px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-login-variant</v-icon>
@@ -201,7 +205,7 @@ body {
                <span style="font-size:14px; font-weight: bold; color:#595959;">@{{ $t('general.login') }}</span>
             </div>
            </div>
-      </v-card>
+      </div>
   
 
 </div>
@@ -367,7 +371,8 @@ body {
 
    <script src="https://unpkg.com/marked@0.3.6"></script>
 
- <script src="{{ asset('js/space.js?v=5.43') }}"></script>
+
+ <script src="{{ asset('js/space.js?v=6.59') }}"></script>
  
      
  @endsection

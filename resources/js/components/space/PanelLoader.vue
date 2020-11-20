@@ -1,7 +1,7 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText;">
 
-       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;  position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -26,7 +26,7 @@
         <v-app class="col-12 py-0 my-0" v-if="pageContent == ''">
       <div 
        
-    style="border: 0; height:91%; top:7%; position:fixed;left:0; align-items:center; justify-content:center;" class="col-md-8 offset-md-2 px-5 col-lg-6 offset-lg-3 px-1 py-0 d-flex" >
+    style="border: 0; height:91%; top:7%; position:fixed;left:0; align-items:center; justify-content:center;" class=" px-5 col-lg-6 offset-lg-3 px-1 py-0 d-flex" >
          <v-progress-linear indeterminate color="#3E8893" rounded ></v-progress-linear>
        </div>
     </v-app>
@@ -35,10 +35,10 @@
           
              <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" v-if="projectData.is_web"
    :srcdoc="pageContent" 
-    style="border: 0; height:91%; position:fixed;left:0; top:6%;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 px-1 py-0" ></iframe>
+    style="border: 0; height:91%; position:fixed;left:0; top:6%;" class="  col-lg-6 offset-lg-3 px-1 py-0" ></iframe>
 
   
-   <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; " class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 px-3 py-3" >
+   <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; " class="  col-lg-6 offset-lg-3 px-3 py-3" >
        
     </textarea>
 
@@ -47,7 +47,7 @@
 
 
        <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
-                 class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2"  v-if="UserStar.length != 0 && userLoggedIn">
+                 class="d-flex   col-lg-6 offset-lg-3 py-2"  v-if="UserStar.length != 0 && userLoggedIn">
                    <div class="row py-0 my-0">
                     
                       <div class="col-12 py-0 text-center">
@@ -65,7 +65,7 @@
                 </div>
 
                  <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
-                 class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2" v-if="UserStar.length == 0 && userLoggedIn">
+                 class="d-flex   col-lg-6 offset-lg-3 py-2" v-if="UserStar.length == 0 && userLoggedIn">
                    <div class="row py-2 d-flex" style="align-items:center; justify-content:center;">
                        <span><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:13px; color:white;" class="px-1">{{projectData.total_stars}} {{$t('general.stars')}}</span> </span>
                    </div>
@@ -73,7 +73,7 @@
                 </div>
 
                 <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
-                 class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2" v-if="!userLoggedIn">
+                 class="d-flex   col-lg-6 offset-lg-3 py-2" v-if="!userLoggedIn">
                    <div class="row py-2 d-flex" style="align-items:center; justify-content:center;" @click="showLogin">
                       <v-rating  background-color="#edf6f7" color="#edf6f7"  ></v-rating>
                    </div>
@@ -82,7 +82,7 @@
 
          </div>
 
-          <span style="position:absolute; top:81.5%; left:3%; z-index:10;"  class="d-md-none d-inline-block">
+          <span style="position:fixed; top:81.5%; left:3%; z-index:10;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#35747e"
                 small
@@ -111,31 +111,73 @@
 
 
 
-      <span style="position:absolute; top:81.5%; right:3%; z-index:10;"  class="d-md-none d-inline-block">
-          <v-btn
+      <span style="position:fixed; top:81.5%; right:3%; z-index:999999999999910;"  class="d-md-none d-inline-block">
+         <v-badge
+          color="#36848C"
+          left
+          v-if="projectData.comments != 0"
+          :content="projectData.comments"
+        >
+          
+           <v-btn
                 color="#35747e"
                 small
                  @click="showComments"
                 class="d-block"
                 fab
               >
-                <v-icon color="#ffffff">mdi-pencil-plus</v-icon>
+                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
               </v-btn>
+     
+         </v-badge>
+
+          <v-btn
+                color="#35747e"
+                small
+                v-else
+                 @click="showComments"
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
+              </v-btn>
+         
      </span>
 
    
 
 
-      <span style="position:absolute; top:86%; right:3%;z-index:9999;" class="d-none d-md-inline-block">
-          <v-btn
+      <span style="position:absolute; top:86%; right:3%;z-index:999999989999999;" class="d-none d-md-inline-block">
+           <v-badge
+          color="#36848C"
+          left
+          v-if="projectData.comments != 0"
+          :content="projectData.comments"
+        >
+          
+           <v-btn
                 color="#35747e"
                 small
                  @click="showComments"
                 class="d-block"
                 fab
               >
-                <v-icon color="#ffffff">mdi-pencil-plus</v-icon>
+                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
               </v-btn>
+     
+         </v-badge>
+
+           <v-btn
+                color="#35747e"
+                small
+                v-else
+                 @click="showComments"
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-comment-text-outline</v-icon>
+              </v-btn>
+              
      </span>
 
        </div>
@@ -298,23 +340,14 @@ export default {
      }) 
 
         },
-         checkResponse:function(token,langId){
+         checkResponse:function(token){
 
-         let _this = this;
+        let _this = this;
 
-        let interval = setInterval(check,1000);
-
-
-        function check(){
-
-           
-             if(_this.recheckCodeBox){
-
-               _this.recheckCodeBox = false;
-
+      
                 axios.post( '/check-for-submission',{
                token: token,
-                langId: langId
+                langId: _this.selectedLangId
                   })
           .then(response => {
              
@@ -332,35 +365,37 @@ export default {
                   _this.pageContent =  response.data[0].stdout;
 
                   
-                 clearInterval(interval);
+                 
 
 
               }else if(response.data[0].status.description == 'In Queue'){
 
                  _this.pageContent = 'In Queue...';
 
+                   _this.checkResponse(response.data[0].token);
+
               }else if(response.data[0].status.description == 'Processing'){
 
                  _this.pageContent = 'Processing...';
+
+                   _this.checkResponse(response.data[0].token);
 
               }else{
 
                  _this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr ;
 
-                 clearInterval(interval);
+               
 
               }
 
 
-             if(_this.$root.pageLoaderOpened == false){
-
-             clearInterval(interval);
-
-             }
+              if(_this.$root.codeBoxOpened == false){
+                
+              }
 
               
 
-        
+       
 
          
                _this.recheckCodeBox = true;
@@ -376,16 +411,10 @@ export default {
              
                _this.pageContent = 'An issue occured,unable to run on sandbox...';
 
-                
-               clearInterval(interval);
-              
+               
+             
           })
 
-             }
-
-          
-
-        }
 
         
 

@@ -1,7 +1,7 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText;">
 
-       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0" style="  border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class=" col-lg-6 offset-lg-3 py-0 px-0 my-0" style="  border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -58,7 +58,7 @@
             
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="addEntry">Add</v-btn>
+                  <v-btn rounded small :loading="loading" submit="type" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click.prevent="addEntry">Add</v-btn>
              </div>
               
           </v-form>

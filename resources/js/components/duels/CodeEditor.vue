@@ -1,6 +1,6 @@
 <template>
     <v-app style="font-family:BodyText;background:transparent;">
-       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-2 py-0 px-0 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
+       <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
@@ -33,7 +33,7 @@
 
        <div class="col-12 py-0 my-0" style="position:absolute; top:6%; height:95%; overflow-y:hidden; left:0; overflow-x:hidden;">
          <div class="row my-0 py-0 px-0 ">
-              <div class="codebox scrollerStyle">
+              <div class="codeboxnew scrollerStyle">
          <codemirror 
         v-model="code"
         :options="cmOption"
@@ -268,24 +268,7 @@ methods:{
           window.getSelection().removeAllRanges()
         },
 
-   activateBot:function(){
-         this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
-            return page.page_name == 'duel_code_editor';
-          });
-         
-          if(this.$root.selectedPage.length != 0){
-               
-              if(this.$root.selectedPage[0].status == 0){
-                 this.$root.showBoard = true;
-         this.$root.boardContent = 'Nice 😃, You figured it out. You can write and edit your codes here.And don\'t forget to save changes so you won\'t lose them ';
-         this.$root.boardBtnLabel = 'Okay,Got It';
-
-              }
-               
-          }
-        
-         
-      },
+  
         trackUser: function(){
       
 
@@ -296,7 +279,7 @@ methods:{
 
         this.$root.userPageTrack = response.data[2];
 
-        this.activateBot();
+        
   }
     
   
@@ -311,7 +294,7 @@ methods:{
         console.debug('onCmCursorActivity', codemirror)
       },
         loadPage:function(){
-      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/page-loader' });
+      this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/page-loader'  });
    },
         showAlert:function(duration,text){
         this.Alert = true;
@@ -471,7 +454,13 @@ methods:{
 
            setTimeout(() => {
 
-            this.saveFileContent()
+             if(!this.$root.panelViewMode){
+
+                this.saveFileContent()
+
+             }
+
+           
             
           }, 2000);
      
@@ -788,12 +777,12 @@ methods:{
     font-size:10px;
 }
 
- .codebox,
+ .codeboxnew,
     .pre {
       width: 100%;
       margin: 0;
        display: block;
-      font-size: 12px;
+      font-size: 13px;
       line-height: 1.6;
       word-break: break-all;
       word-wrap: break-word;
@@ -801,7 +790,7 @@ methods:{
       overflow: auto;
     }
 
-    .codebox{
+    .codeboxnew{
        height: 100%;
        border: 1px solid #e6e6e6;
         position:absolute;

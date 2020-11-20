@@ -1,22 +1,61 @@
 <template>
-    <div style="background:#F3FFFC; position:absolute; height:100%; width:100%; overflow-y:hidden;left:0; overflow-x:hidden; border-right:1px solid #e6e6e6;" >
+    <div style="background:#edf6f7; position:absolute; height:100%; width:100%; overflow-y:hidden;left:0; overflow-x:hidden; border-right:1px solid #e6e6e6;" >
 
        <div v-if="this.$root.Messages != null">
       
      
-
-     <div id="messageContainer" 
-      v-if="this.$root.Messages.length != 0"
-      v-on:scroll="handlePushMessage()"
-       class="col-12 py-2 px-2" 
+      <DynamicScroller
+    :items="this.$root.Messages"
+     v-if="this.$root.Messages.length != 0"
+     :keyField="'index_count'"
+    :min-item-size="36"
+    ref="messageContainer"
+    :buffer="5000"
+    id="messageContainer" 
+   class="col-12 py-2 px-2" 
      
-        style="position:absolute; width:100%; height:100%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">  
+        style="position:absolute; width:100%; height:100%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;"
+  >
 
-        <channel-messages :sources="this.$root.Messages"  :username="this.$root.username"></channel-messages>
+    <template v-slot="{ item, index, active }">
+      <DynamicScrollerItem
+        :item="item"
+        :active="active"
+        :size-dependencies="[
+         item.content
+        ]"
+        :data-index="index"
+      >
 
-        <div class="col-12 py-4" id="messagebottomDiv">
-          </div>      
-    </div> 
+       <channel-messages :source="item"  ></channel-messages>
+       
+      </DynamicScrollerItem>
+    </template>
+
+    <template #after>
+     <div  class=" col-12 mt-2 py-1 text-left" v-if="that.$root.botIsLoading" >
+
+        <v-card class="py-0 px-1 text-center" style="border-radius:30px;" width="100px" >
+          <img src="/imgs/bot_loading.svg" width="90px" height="40px">
+        </v-card>
+
+      </div>
+
+      <div  class=" col-10 offset-2 col-lg-4 offset-lg-8 col-md-6 offset-md-6 mt-3 py-1 text-center" v-if="!that.$root.botIsLoading && that.$root.botSuggestionArray.length != 0">
+
+          
+           <v-btn  v-for="(pattern,index) in that.$root.botSuggestionArray" :key="index"
+           rounded color="#3E8893" @click="initiateMessageCtl(pattern.pattern_content)" class="ma-1" style="color:white; text-transform:capitalize; border:2px solid white;" small > {{pattern.pattern_content}}</v-btn>
+         
+        <v-btn rounded color="#3E8893" class="ma-1" style="color:white; text-transform:capitalize; border:2px solid white;" small @click="initiateMessageCtl(that.$root.botSuggestionArray[0].pattern_content)" > Continue</v-btn>
+
+         
+      </div>
+  </template>
+
+  </DynamicScroller> 
+
+  
 
 
       <div v-show="this.$root.Messages.length == 0" class="col-12 my-2 py-0 px-0 mx-1 text-center"  style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;" >
@@ -28,40 +67,15 @@
        </div>
        
 
-     <div class="col-12 py-0 my-0"  v-if="this.$root.Messages == null && this.errorLoadingMessage == false" style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">
+     <div class="col-12 py-0 my-0 d-flex"  v-if=" this.errorLoadingMessage == false && !this.messageIsReady" style=" align-item:center;justify-content:center;position:absolute; background:white; width:100%; z-index:3455699; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">
 
-         <div class="row py-0 my-0 px-1">
+         <div class=" py-0 my-0 px-1 text-center" style="top:40%;position:absolute; height:50%; width:100%;">
             
-     <div class="col-8 py-1 my-0">
-       <v-skeleton-loader
-      class=" "
-      type="sentences"
-    ></v-skeleton-loader>
-     </div>
+          <span style="font-size:13px; color:grey;">Loading messages...</span>
          </div>
 
 
-        <div class="row py-0 my-0 px-1">
-            
-     <div class="col-8 offset-4 py-1 my-0">
-       <v-skeleton-loader
-      class=" "
        
-      type="sentences"
-    ></v-skeleton-loader>
-     </div>
-         </div>
-
-          <div class="row py-0 my-0 px-1">
-            
-     <div class="col-8 py-1 my-0">
-       <v-skeleton-loader
-      class=" "
-       
-      type="sentences"
-    ></v-skeleton-loader>
-     </div>
-         </div>
 
        
 
@@ -70,7 +84,7 @@
 
 
 
- <div  @click="closeUserInfoBoard"   v-if="this.$root.showUserInfo" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
+ <div  @click="closeUserInfoBoard"   v-if="this.$root.showUserInfo" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
     
        <div @click.stop="preventCloseBoard" style="position:absolute; height:auto; width:90%; bottom:5%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
   
@@ -227,6 +241,10 @@
               </div>
           </div>
 
+
+      
+       
+
     
 
       
@@ -268,9 +286,54 @@
 
       </div>
 
+
+ <div   v-if="showBotAuthorBoard" @click="showBotAuthorBoard = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
+           <div  @click.stop="showBotAuthorBoard = true" style="position:absolute; height:auto; width:90%; bottom:20%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
+
+             <v-card style="border-radius:10px;"
+              height="auto"
+      
+              class="py-2 px-1 col-12 col-lg-8 offset-lg-2 " >
+         
+         <div class="row py-0 my-0 px-2">
+              <div class="col-12  pt-2 pb-1 my-0 px-2 text-center">
+                  <v-textarea
+                style="font-size:13px;"
+                 placeholder="Type here..."
+                 :loading="loadingAuthorMessage"
+                 @click:append="sendAuthorMessage"
+            label="Send my author a message"
+             filled
+             append-icon="mdi-send"
+             dense    
+           height="100px"
+           v-model="messageContent"
+              counter="200"
+             color="#4495a2"
+            
+             ></v-textarea>
+             </div>
+
+              <div class="col-12  pb-2 pt-0 my-0 px-2 text-center" >
+                 <span style="color:grey; font-size:12px;">Do you wish to own a bot too? </span>  <span style="font-size:12px;" class="ml-1">No</span><v-switch class="d-inline-block mx-1 mr-0" color="#3E8893"></v-switch> <span style="font-size:12px;" >Yes</span>
+             </div>
+
+              <div class="col-3  py-0 my-0 px-2 text-right">
+
+           
+                 
+             </div>
+
+         </div>
+            
+
+             </v-card>
+
+           </div>
+         </div>
      
 
-      <div v-if="this.$root.liveIsOn" @click="closeLiveBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; left:0%; top:%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
+      <div v-if="this.$root.liveIsOn" @click="closeLiveBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; left:0%; top:%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
     
 
 
@@ -384,13 +447,6 @@
 
     </div>
 
-      
-
-     
-
-     
-    
-     
     </v-card>
     <v-list  class="pb-3 scrollerStyle" style=" height:220px;width:100%; overflow-y:auto;">
 
@@ -484,7 +540,7 @@
 
 
 
-       <div    v-if="this.$root.showAdminOptions" @click="that.$root.showAdminOptions = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
+       <div    v-if="this.$root.showAdminOptions" @click="that.$root.showAdminOptions = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="that.$root.showAdminOptions = true" style="position:absolute; height:auto; width:90%; top:30%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
              <v-card style="border-radius:10px;"
@@ -520,7 +576,7 @@
        </div>
       
 
-         <div   class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 my-0 px-0 fixed-bottom " style="z-index:66; " >
+         <div   class="  col-lg-6 offset-lg-3 py-0 my-0 px-0 fixed-bottom " style="z-index:66; " >
                 <div class="px-2" v-if="this.$root.showRootReply">
 
                   <div class=" py-2 px-2  text-left mb-1"  style="background:#3E8893; border:1px solid transparent; border-radius:8px;" >
@@ -615,7 +671,7 @@
                 </div>
 
            
-            <div  style="background:#ffffff;" class="px-2 py-1">
+            <div  style="background:#ffffff; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;" class="px-2 py-1">
           <channel-bottom ref="channelBottom"></channel-bottom>
         </div>
          </div>
@@ -624,32 +680,14 @@
       
       <div v-if="this.$root.ShowButton">
        
-        <span style="position:absolute; top:74%; left:2%; z-index:98757;"  class="d-md-none d-inline-block" v-if="scrollPosition >= 1500 && !this.$root.showMsgDelete">
-          <span
-               
-                v-if="!this.$root.showRootReply"
-                 @click="scrollToBottom"
-                class="d-block"
-                style="background:#3E8893; padding:3px; border:1px solid transparent; border-radius:50%; color:white;"
-              >
-                <v-icon color="#ffffff"> mdi-chevron-double-down</v-icon>
-              </span>
-     </span>
-
-      <span style="position:absolute; top:85%; left:2%;  z-index:98757;" class="d-none d-md-inline-block" v-if="scrollPosition >= 1500 && !this.$root.showMsgDelete">
-          <span
-              
-               @click="scrollToBottom"
-                class="d-block"
-                 v-if="!this.$root.showRootReply"
-                 style="background:#3E8893; padding:3px; border:1px solid transparent; border-radius:50%; color:white;"
-              >
-                <v-icon color="#ffffff">mdi-chevron-double-down</v-icon>
-              </span>
-     </span>
+       
 
       
-       <span style="position:fixed; top:73%; right:3%; z-index:98757;"  class="d-md-none d-inline-block">
+       <span style="position:fixed; top:73%; right:3%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type != 'Bot'">
+
+            <div style="position:absolute;bottom:120%; right:17%; z-index:2;" v-if="showCodeBoxInfo" >
+                    <info-dialog :buttonText="'Ok'" :content="codeBoxContent" :type="'infobottom'" :next="'liveContent'"></info-dialog>
+                      </div>
           <v-btn
                 color="#3E8893"
                 small
@@ -661,8 +699,14 @@
                 <v-icon color="#ffffff">mdi-xml</v-icon>
               </v-btn>
      </span>
+     
 
-      <span style="position:absolute; top:85%; right:3%;  z-index:98757;" class="d-none d-md-inline-block">
+      <span style="position:absolute; top:85%; right:3%;  z-index:98757;" class="d-none d-md-inline-block"  v-if=" this.$root.selectedSpace.type != 'Bot'">
+
+        <div style="position:absolute;bottom:120%; right:-30%; z-index:2;" v-if="showCodeBoxInfo">
+                    <info-dialog :buttonText="'Ok'" :content="codeBoxContent" :type="'infobottom'" :next="'liveContent'"></info-dialog>
+                      </div>
+
           <v-btn
                 color="#3E8893"
                 small
@@ -672,6 +716,40 @@
                 fab
               >
                 <v-icon color="#ffffff">mdi-xml</v-icon>
+              </v-btn>
+     </span>
+
+
+
+      <span style="position:fixed; top:73%; right:3%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type == 'Bot'">
+
+          
+          <v-btn
+                color="#3E8893"
+                small
+               
+                 @click="shareBot()"
+                class="d-block"
+                fab
+              >
+                <v-icon color="#ffffff">mdi-share-variant mdi-18px</v-icon>
+              </v-btn>
+     </span>
+     
+
+      <span style="position:absolute; top:85%; right:3%;  z-index:98757;" class="d-none d-md-inline-block"  v-if=" this.$root.selectedSpace.type == 'Bot'">
+
+      
+
+          <v-btn
+                color="#3E8893"
+                small
+              @click="shareBot()"
+                class="d-block"
+               
+                fab
+              >
+                <v-icon color="#ffffff">mdi-share-variant mdi-18px</v-icon>
               </v-btn>
      </span>
 
@@ -736,14 +814,14 @@ export default {
           oldLoading:false,
           typinguser:'',
           scrollHeightContainer:[],
-          scrollPosition:0,
+         scrollPosition:0,
           startPosition:0,
           messageStore: [],
-         
           messageStoreTop:[],
           endPosition:0,
            containerScrollPosition:0,
            isConnected:true,
+           messageIsReady:false,
            loadingMessage: false,
            showUserInfo:false,
            flexSize:80,
@@ -755,6 +833,11 @@ export default {
           unsentMessagesPresent: false,
           errorLoadingMessage:false,
           loadingJoin:false,
+          showCodeBoxInfo:false,
+          messageContent:'',
+          showBotAuthorBoard:false,
+          loadingAuthorMessage: false,
+          codeBoxContent:'Share and run more than 25 programming languages',
           imageArray:[
             {
               image_name: 'imgproj',
@@ -773,6 +856,10 @@ export default {
      components: {
    
   },
+   computed:{
+     
+
+   },
     mounted(){
        this.$root.showTabs=false;
        this.$root.showHeader = false;
@@ -795,7 +882,7 @@ export default {
           
        
 
-      
+       this.$root.channelContentComponent = this;
        
        this.makeSpaceConnetion();
        this.$root.forceListReload = false;
@@ -810,14 +897,140 @@ export default {
 
         this.fetchSpaceInfo();
 
-      }
+       }
 
-
+    
+    
      
        
       
     },
     methods:{
+      shareBot:function(){
+
+         this.$root.shareText  = 'Checkout this teaching bot on CitonHub.';
+         this.$root.shareLink = 'https://www.citonhub.com/link/bot/'+ this.$root.selectedSpace.bot_data.bot_id + '/' + this.$root.username;
+
+         this.$root.showShare = true;
+
+      },
+       makeUUID:function(){
+     var id = "id" + Math.random().toString(16).slice(2);
+     return id;
+ },
+      sendAuthorMessage:function(){
+
+        if(this.loadingAuthorMessage) return
+
+        this.loadingAuthorMessage = true;
+
+          let postData = {
+              content: this.messageContent,
+              space_id: 'unknown',
+              is_reply: false,
+              current_user: JSON.stringify([]),
+              replied_message_id: 0,
+              attachment_type: null,
+              temp_id:  this.makeUUID(),
+              device_id: this.$root.userDeviceId,
+              bot_id: this.$root.selectedSpace.bot_data.bot_id
+            };
+
+        axios.post('/send-bot-author-message',postData)
+         .then(response => {
+      
+      if (response.status == 200) {
+    
+
+    this.messageContent = '';
+
+     this.loadingAuthorMessage = false;
+        
+      }
+       
+     
+     })
+     .catch(error => {
+
+       
+    
+     }) 
+
+      },
+       initiateMessageCtl: function(message){       
+
+        
+          this.$root.channelBottomComp.contentInWord = message;
+
+           this.$root.channelBottomComp.input = message;
+            
+            let refocus = false;
+          this.$root.channelBottomComp.sendMessage(refocus);
+
+
+           this.$root.botSuggestionArray = [];
+
+       },
+       handleInfoSession:function(){
+
+
+           axios.get('/fetch-user-onboarding')
+      .then(response => {
+      
+      if (response.status == 200 || response.status == 201) {
+
+          
+        if(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team'){
+
+           let storedInfo = this.$root.getLocalStore('channelcontentinfoChannel'+ this.$root.username);
+
+        storedInfo.then((result)=>{
+          if(result == null && response.data.channel_info == false){
+            this.showCodeBoxInfo = true;
+          }
+        })
+
+         }
+
+         if(this.$root.selectedSpace.type == 'Direct'){
+
+           let storedInfo = this.$root.getLocalStore('channelcontentinfoDirect'+ this.$root.username);
+
+        storedInfo.then((result)=>{
+          if(result == null && response.data.dm_info == false){
+            this.showCodeBoxInfo = true;
+          }
+        })
+
+         }
+
+          if(this.$root.selectedSpace.type == 'Bot' ){
+
+           let storedInfo = this.$root.getLocalStore('channelcontentinfoBot'+ this.$root.username);
+
+        storedInfo.then((result)=>{
+          if(result == null && response.data.bot_info == false){
+            this.$root.channelTopComponent.showLiveInfo = true;
+          }
+        })
+
+         }
+       
+
+     }
+       
+     
+     })
+     .catch(error => {
+       
+       
+     })
+
+        
+
+      
+
+      },
        checkIfUser:function(userId){
             if(userId == this.$root.user_temp_id){
                 return true;
@@ -1278,11 +1491,7 @@ export default {
 
         
         },
-      closeboard:function(){
-
-        this.$root.liveIsOn = false;
-
-      },
+    
       deleteMessage:function(){
        this.$root.deleteMessage(this.$root.messageIdToDelete)
       },
@@ -1343,6 +1552,8 @@ export default {
     // close socket.io connection
    this.$root.audioconnection.closeSocket();
 
+   this.$root.dataconnection.closeSocket();
+
 
            
          }
@@ -1370,6 +1581,8 @@ export default {
 
         this.$root.connection = undefined;
         this.$root.audioconnection = undefined;
+
+        this.$root.dataconnection = undefined;
 
         this.$root.screenSharingOn = false;
         this.$root.liveIsOn = false;
@@ -1454,8 +1667,12 @@ export default {
  },
        showCodeBox: function(){
            this.$root.showChatBottom = false;
+          this.$root.codeFromChat = false;
              this.$root.showCodeBox = true;
              this.$router.push({ path: '/code-viewer'});
+
+              
+
         },
          closeReply:function(){
         this.$root.showRootReply = false;
@@ -1497,19 +1714,7 @@ export default {
       },
       scrollToBottom:function(){
 
-         this.$root.scrollerControlHandler();
-        
-         setTimeout(() => {
-         
-           var container = document.querySelector('#messageContainer');
-           
-        var element =  document.querySelector('#messagebottomDiv');
-       
-        var top = element.offsetTop - 120;
-        container.scrollTo(0 , top);
-        },500)
-      
-
+        this.$root.scrollToBottom();
       },
        showAlert:function(duration,text){
         this.$root.AlertRoot = true;
@@ -1570,7 +1775,11 @@ export default {
 
                  if(!this.$root.checkIfMessageExist(e.data)){
 
-                     this.$root.returnedMessages.push(e.data); 
+                     e.data.index_count = this.$root.returnLastIndex() + 1;
+                      e.data.id =  e.data.message_id;
+                      e.data.initialSize = 200;
+                      
+
                  this.$root.Messages.push(e.data);
 
                 this.$root.pushDataToLocal(e.data);
@@ -1607,67 +1816,7 @@ export default {
                  if(this.$route.params.spaceId == e.spaceId){
 
 
-                     if(e.action == 'typing'){
-
-                    this.$root.FullcodeContent = e.data;
-
-                 }
-
-                  if(e.action == 'codeChange'){
-
-                    this.$root.fullCodeLanguage = e.data;
-
-                 }
-                 
-                 if(e.action == 'codeRun'){
-
-                   this.$root.liveShowCode = false;
-
-                   this.$root.CodeResult = e.data;
-
-                 }
-
-                 if(e.action == 'returnToCode'){
-                  
-                  this.$root.liveShowCode = true;
-
-                 }
-
-                 if(e.action == 'new_master'){
-
-                   this.$root.newMasterId = e.data;
-
-                  
-
-                   this.$root.adminMembers.forEach((member)=>{
-            
-             member.master_user = false;
-
-          });
-        
-          this.$root.adminMembers.map((member)=>{
-           if(member.memberId ==  this.$root.newMasterId){
-
-             member.master_user = true;
-
-           }
-         })
-
-          this.$root.selectedSpaceMembers.forEach((member)=>{
-            
-             member.master_user = false;
-
-          });
-
-          this.$root.selectedSpaceMembers.map((member)=>{
-           if(member.memberId ==  this.$root.newMasterId){
-
-             member.master_user = true;
-
-           }
-           })
-
-                 }
+                   
 
                   if(e.action == 'liveIsOn'){
 
@@ -1700,55 +1849,14 @@ export default {
                  }
 
 
-                 
-                
-              
-                
-               
-                
-              
              
-                 })
-                 .listenForWhisper('audioSpeaker',(e)=>{
-
-                    
-                       
-                      
-
-      
-   if(this.$root.allAudioParticipant.length != 0){
-    this.$root.allAudioParticipant.map((user)=>{
-
-      if(user[1] == e.data.userid){
-
-          
-      
-        user[0].speaking = e.data.speaking;
-         
-      }
-
-       });
-   }
-     
-    
-      
-
-      
-  
-                       
-                   
-
                  });
-
          }
          
    
       },
       checkForUnreadMessagesDisconnected:function(){
-        
-        
 
-       
           let _this = this;
 
         let interval = setInterval(check,5000);
@@ -1851,7 +1959,8 @@ export default {
           axios.post( '/check-for-unread-messages-clean',{
                 spaceId: this.$route.params.spaceId,
                 existingMsg: result,
-                localMessageCount:  this.$root.returnedMessages.length
+                localMessageCount:  this.$root.returnedMessages.length,
+                 device_id: this.$root.userDeviceId
                   })
           .then(response => {
              
@@ -1868,7 +1977,12 @@ export default {
                
                
 
-                    this.$root.returnedMessages.push(response.data[0][index]);
+                     response.data[0][index].index_count = this.$root.returnLastIndex() + 1;
+                      response.data[0][index].id =  response.data[0][index].message_id;
+                      response.data[0][index].initialSize =  200;
+                      
+
+                      
                    this.$root.Messages.push(response.data[0][index]);
                   this.$root.pushDataToLocal(response.data[0][index]);
 
@@ -1905,188 +2019,29 @@ export default {
       handleResults(messageArray){
 
         
-          
+       
 
 
           this.$root.returnedMessages = messageArray;
+
+           let intialCount = 0;
           
-          let MsgLenght = messageArray.length;
+           this.$root.returnedMessages.map((msg)=>{
+               msg.id = msg.message_id
+               msg.initialSize = 200
+               msg.index_count = intialCount++;
 
-         
-             let startCount = MsgLenght - this.$root.messageInitialLimit;
 
-             if(startCount <= 0){
-               startCount = 0;
-             }
-
-             
-  
-          let sliedMsg = this.$root.returnedMessages.slice(startCount,MsgLenght);
-
-         
-         this.$root.messageStoreTop = this.$root.returnedMessages.slice(0,startCount);
-
-         var finalMessage = sliedMsg;
+              
+           });
 
          
          
-         return finalMessage;
+         return this.$root.returnedMessages;
           
       },
 
-      handlePushMessage: function(){
-
-       
-           
-
-        var container = document.querySelector('#messageContainer');
-
-         let scrollPosition = container.scrollTop;
-
-          let containerScrollHeigthFixed = container.scrollHeight;
-
-         this.scrollPosition = containerScrollHeigthFixed - scrollPosition;
-
-        
-       
-        
-        if(scrollPosition <= 5 && this.$root.messageStoreTop.length != 0){
-
-          
-          if(scrollPosition == 0){
-           container.scrollTop = 100;
-         }
-            
-
-           
-             
-               this.newMessagesLoading = true;
-         
-          
-          this.showAlert(2000,'loading messages...')
-
-           let loadingArray = [];
-
-
-           if(this.$root.messageStoreTop.length < this.messagePerLoad){
-             
-              loadingArray = new Array(this.$root.messageStoreTop.length);
-
-
-
-           }else{
-             
-               loadingArray = new Array(this.messagePerLoad);
-
-           }
-            
-          
-             
-             for (let index = 0; index < loadingArray.length; index++) {
-               
-                 let arrayPoppedLoader =  this.$root.messageStoreTop.pop();
-                  
-                  this.$root.Messages.unshift(arrayPoppedLoader);
-             }
-             
-
-           
-               if(this.$root.Messages[21] != undefined){
-                      var elementId = this.$root.Messages[21].message_id;
-                  
-                    var element =  document.querySelector('#message' + elementId);
-            
-             if(this.$root.messageStoreTop.length < this.messagePerLoad){
-
-             }else{
-
-                 var top = element.offsetTop - 200;
-
-             }
-             
-            
-
-               let NumberToRemove = 0;
-
-              if(this.$root.Messages.length < this.$root.messageInitialLimit){
-                  NumberToRemove = 10; 
-              }
-              if(this.$root.Messages.length > this.$root.messageInitialLimit){
-                 NumberToRemove = this.$root.Messages.length - this.$root.messageInitialLimit;
-              }
-
-            
-             let NumberArray =  new Array(NumberToRemove);
-
-             for (let index = 0; index < NumberArray.length; index++) {
-               
-                 let arrayPopped =  this.$root.Messages.pop();
-                  
-                  this.$root.messageStore.unshift(arrayPopped);
-             }
-
-             container.scrollTop = top;
-
-            
-
-          
-          
-         
-                    
-               }
-
- 
-        }
-
-     let containerScrollHeigth = container.scrollHeight;
-         
-        
-         
-           
-        if((scrollPosition > (containerScrollHeigth - 1000)) && this.$root.messageStore.length != 0 ){
-         
-         container.scrollTop = containerScrollHeigth - 1300;
-
-           this.showAlert(4000,'loading messages...')
-
-             let NumberArrayBottom = [];
-
-
-           if( this.$root.messageStore.length < this.messagePerLoad){
-             
-              NumberArrayBottom = new Array( this.$root.messageStore.length);
-
-
-
-           }else{
-             
-               NumberArrayBottom = new Array(this.messagePerLoad);
-
-           }
-
-             for (let index = 0; index < NumberArrayBottom.length; index++) {
-               
-                 let arrayPopped =  this.$root.messageStore.shift();
-                  
-                  this.$root.Messages.push(arrayPopped);
-             }
-
-
-              
-
-             for (let index = 0; index < NumberArrayBottom.length; index++) {
-               
-                 let arrayPoppedTop =  this.$root.Messages.shift();
-                  
-                  this.$root.messageStoreTop.push(arrayPoppedTop);
-             }
-             
-             
-
-              
-              }
-        
-        },
+     
      updateLocalStorage: function(){
 
           axios.get( '/fetch-space-messages-' + this.$route.params.spaceId )
@@ -2114,6 +2069,7 @@ export default {
                 
 
                 if(finalResult.length > 0){
+                  
 
                   
 
@@ -2143,21 +2099,7 @@ export default {
          });
        
          
-       
-
-           
-
-        
-
-     
-        
-       
-       
-       
-      
-        
-      
-
+  
 
       }
          
@@ -2178,6 +2120,9 @@ export default {
      
       fetchMessages: function(){
         
+          this.$root.Messages = null;
+          this.errorLoadingMessage = false;
+           
          if(this.$root.checkauthroot == 'auth'){
            
 
@@ -2279,15 +2224,30 @@ export default {
 
            this.autoMakeuserMaster();
 
+            
+             this.$root.msgScrollComponent = this.$refs;
+
+            
        setTimeout(() => {
-         
-           var container = document.querySelector('#messageContainer');
-           
-        var element =  document.querySelector('#messagebottomDiv');
-       
-        var top = element.offsetTop - 120;
-        container.scrollTo(0 , top);
-        },500)
+
+         if( this.$root.selectedSpace.type == 'Bot'){
+           this.$root.msgScrollComponent.messageContainer.scrollToBottom();
+      }else{
+
+         this.$root.msgScrollComponent.messageContainer.scrollToItem(this.$root.Messages.length);
+
+      }
+          
+
+          
+
+        },500);
+
+         setTimeout(()=>{
+
+            this.messageIsReady = true;
+
+           },1500);
 
         
            
@@ -2307,6 +2267,8 @@ export default {
               }
               
            });
+
+           
 
             let unsentStoredMsg = this.$root.getLocalStore('unsentnew' + this.$route.params.spaceId  + this.$root.username);
 
@@ -2417,16 +2379,31 @@ export default {
 
        this.$root.selectedSpaceMembers = response.data[2];
 
+       this.$root.msgScrollComponent = this.$refs;
+
          
-       setTimeout(() => {
+      setTimeout(() => {
+
+           if( this.$root.selectedSpace.type == 'Bot'){
+           this.$root.msgScrollComponent.messageContainer.scrollToBottom();
+      }else{
+
+         this.$root.msgScrollComponent.messageContainer.scrollToItem(this.$root.Messages.length);
+
+      }
          
-           var container = document.querySelector('#messageContainer');
            
-        var element =  document.querySelector('#messagebottomDiv');
-       
-        var top = element.offsetTop - 120;
-        container.scrollTo(0 , top);
-        },500)
+
+          
+
+        },500);
+
+        setTimeout(()=>{
+
+            this.messageIsReady = true;
+
+           },1500);
+
 
 
      }
@@ -2448,6 +2425,17 @@ export default {
 
                }
 
+      
+    if( this.$root.selectedSpace.type == 'Bot'){
+      setTimeout(() => {
+            this.botMessager();
+      }, 2000);
+
+      
+
+      }
+
+      this.handleInfoSession();
 
              if(this.$root.selectedSpace.general_spaceId != undefined){
 
@@ -2474,7 +2462,37 @@ export default {
 
        
         },
-       
+        botMessager:function(){
+                      
+                    
+          
+              if(this.$root.Messages.length == 0){
+               
+              
+
+              }else{
+
+                let storedSuggestions = this.$root.getLocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username);
+
+           storedSuggestions.then((result)=>{
+
+              let finalResultUnread = JSON.parse(result);
+ 
+                       if(finalResultUnread != null){
+
+                          this.$root.botSuggestionArray = finalResultUnread;
+
+                       }
+                
+
+             
+              
+           });
+              }
+
+        
+           
+        },
          showMoreHandler(message){
            if(message.showReply){
               message.showReply = false;
@@ -2661,12 +2679,12 @@ export default {
   font-size: 10px;
 }
 .tagged{
-  background:white;
+  background:#cbe3e7;
   border:2px solid transparent;
   border-radius: 8px;
 }
 .taggedOthers{
-  background:#ACF8E9;
+  background:#cbe3e7;
   border:2px solid transparent;
   border-radius: 8px;
 }
@@ -2680,9 +2698,10 @@ export default {
   color: #4d4d4d;
 }
 .DateBadge{
-  background-color: #3E8893;
-  border:1px solid transparent;
-  border-radius:10px;
+ background:#ffffff; 
+ color:#3E8893;
+  border-radius:20px; 
+  border:2px solid #3E8893;
 }
 
   #messageContainer::-webkit-scrollbar {

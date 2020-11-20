@@ -1,7 +1,7 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText; z-index:985778699686;">
 
-       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
          <div style="position:absolute; height:100%; width:100%; overflow-y:hidden;left:0;top:0%;"  v-if="showCode"> 
@@ -34,7 +34,7 @@
 
        <div class="col-12 py-0 my-0" style="position:absolute; height:95.5%;width:100%; overflow-y:hidden;z-index:985779686; overflow-x:hidden;">
          <div class="row my-0 py-0 px-0 ">
-              <div class="codebox">
+              <div class="codeboxnew">
          <codemirror
         v-model="code"
         :options="cmOption"
@@ -1036,13 +1036,13 @@ methods:{
     font-size:10px;
 }
 
- .codebox,
+ .codeboxnew,
     .pre {
       width: 100%;
       margin: 0;
      
        display: block;
-      font-size: 12px;
+      font-size: 13px;
        letter-spacing: 1px !important;
       line-height: 1.6;
       word-break: break-all;

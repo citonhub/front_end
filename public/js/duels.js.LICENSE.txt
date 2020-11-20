@@ -24,12 +24,6 @@
  */
 
 /*!
- * vue-virtual-scroll-list v2.3.0
- * open source under the MIT license
- * https://github.com/tangbc/vue-virtual-scroll-list#readme
- */
-
-/*!
  * vuex v3.5.1
  * (c) 2020 Evan You
  * @license MIT
@@ -1220,8 +1214,6 @@
 /*! exports provided: preset */
 
 /*! exports provided: stack */
-
-/*! https://mths.be/punycode v1.4.1 by @mathias */
 
 /*! https://mths.be/utf8js v2.1.2 by @mathias */
 

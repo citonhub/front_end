@@ -1,8 +1,8 @@
 <template>
 
  
- <v-app class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0" style="
- border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
+ <v-app class="  col-lg-6 offset-lg-3 py-0 px-0 my-0 " style="
+ position:absolute; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -16,11 +16,22 @@
 
          <div class="row my-0 py-0 px-2 "  >
 
-               
-                <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('project')"  style="cursor:pointer;">
+          
+
+               <div class="col-12 py-0 px-0 my-1 mt-2 mb-2"  @click="showTab('project')"  >
+
+                  <v-card style="cursor:pointer;border-radius:20px;" >
+
+                   <div style="position:absolute;top:30%; right:8%; z-index:2;" class="d-none d-md-block" v-if="showProjectInfo">
+                    <info-dialog :buttonText="'Ok'" :content="projectContent" :type="'inforight'" :next="'searchInfo'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:34%; right:17%; z-index:2;" class="d-md-none d-block" v-if="showProjectInfo">
+                    <info-dialog :buttonText="'Ok'" :content="projectContent" :type="'inforight'" :next="'searchInfo'"></info-dialog>
+                      </div>
                  
                  <div class="row py-0 my-0 px-2">
-                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                    <div class="py-1 my-0 d-flex col-2"  >
                           
                     </div>
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
@@ -31,21 +42,27 @@
        
                          
                     </div>
-                    <div class="py-1 my-0 text-right col-2" style="background:#c9e4e8;">
-                           <v-btn icon color="#3E8893" @click="createProject"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+                    <div class="py-1 my-0 text-right col-2"  >
+                     
+                           <v-btn icon color="#3E8893" @click.stop="createProject"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
                     </div>
                  </div>
 
-             </div>
+             </v-card>
+
+               </div>
+               
 
               
 
               
-              <div class="col-12 py-1 my-0 mx-0 project" v-if="this.$root.showProject" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;" >
+              <div class="col-12 py-1 my-0 mx-0 project" v-if="this.$root.showProject" style="max-height:160px; height:auto; overflow-x:hidden; overflow-y:auto; border-bottom:1px solid #5fb0b9;" >
+
+                
                 <div  v-if="channelProject != null">
-                    <div class="row my-0 my-0 px-0"  v-if="channelProject.length != 0">
+                    <div class="row my-0 my-0 px-2"  v-if="channelProject.length != 0">
 
-                    <v-card tile flat class="col-12  py-1 px-0 my-1" @click="showProjectLink(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in channelProject"
+                    <v-card tile flat class=" col-lg-8 offset-lg-2 col-md-10 offset-md-1   py-1 px-0 my-1" @click="showProjectLink(space)" color="#ffffff" style="border:2px solid #5fb0b9; border-radius:8px;" v-for="(space,index) in channelProject"
                       :key="index">
                 <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
@@ -116,14 +133,18 @@
               </div>
              
 
-            
-             <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('channel')" style="cursor:pointer;" >
+            <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('channel')">
+
+               <v-card  style="cursor:pointer;border-radius:20px;">
+                 
+                 
+
                  
                  <div class="row py-0 my-0 px-2">
-                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                    <div class="py-1 my-0 d-flex col-2">
                           
                     </div>
-                       <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                       <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8; ">
                           <v-badge
           color="#36848C"
             v-if="generateTotalUnread(this.$root.ChatList[2]) > 0 && this.$root.checkauthroot == 'auth'"
@@ -149,20 +170,23 @@
                          
                         
                     </div>
-                    <div class="py-1 my-0 text-right  col-2" style="background:#c9e4e8;">
-                           <v-btn icon color="#3E8893" @click.stop="createChannel('Channel')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+                    <div class="py-1 my-0 text-right  col-2">
+                           <v-btn icon ></v-btn>
                     </div>
                  </div>
 
-             </div>
+             </v-card>
+
+            </div>
+            
              
 
               
-              <div class="col-12 py-1 my-0 mx-0 channelSpace" v-if="this.$root.showChannel" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;" >
+              <div class="col-12 py-1 my-0 mx-0 channelSpace" v-if="this.$root.showChannel" style="max-height:160px; height:auto; overflow-x:hidden; overflow-y:auto;border-bottom:1px solid #5fb0b9;" >
                 <div  v-if="channelSpace != null">
-                    <div class="row my-0 my-0 px-0"  v-if="channelSpace.length != 0">
+                    <div class="row my-0 my-0 px-2"  v-if="channelSpace.length != 0">
 
-                    <v-card tile flat class="col-12  py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in this.$root.ChatList[2]"
+                    <v-card tile flat class=" col-lg-8 offset-lg-2 col-md-10 offset-md-1   py-1 px-0 my-1" @click="showSpace(space)" color="#ffffff" style="border:2px solid #5fb0b9; border-radius:8px;" v-for="(space,index) in this.$root.ChatList[2]"
                       :key="index">
                 <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
@@ -170,10 +194,10 @@
                           <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
                         </div>    
                     </div>
-                     <div class="py-0 my-0 d-flex col-7 px-1" style="align-items:center;">
+                     <div class="py-0 my-0 d-flex col-6 px-1" style="align-items:center;">
                          <span class="titleText">{{ shortenContent(space.name,19)}}</span>
                     </div>
-                    <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
+                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;">
                           <span class="messagesBadges" v-if="space.unread != 0"><span style="padding:2px;">{{ space.unread }}</span></span>
                     </div>
                 </div>
@@ -231,11 +255,14 @@
              
 
 
+             <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('team')" >
 
-                <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('team')" style="cursor:pointer;">
+               <v-card style="cursor:pointer;border-radius:20px;">
+
+                  
                  
                  <div class="row py-0 my-0 px-2">
-                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                    <div class="py-1 my-0 d-flex col-2" >
                           
                     </div>
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
@@ -252,17 +279,20 @@
          <span  v-else style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">{{ $t('space.teams') }}</span>
                          
                     </div>
-                    <div class="py-1 my-0 text-right  col-2" style="background:#c9e4e8;">
-                           <v-btn icon color="#3E8893" @click.stop="createChannel('Team')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+                    <div class="py-1 my-0 text-right  col-2" >
+                           <v-btn icon ></v-btn>
                     </div>
                  </div>
 
+             </v-card>
+
              </div>
+                
             
-              <div class="col-12 py-1 my-0 mx-0 teamSpace"  v-if="this.$root.showTeams" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;"  >
+              <div class="col-12 py-1 my-0 mx-0 teamSpace"  v-if="this.$root.showTeams" style="max-height:160px; height:auto; overflow-x:hidden; overflow-y:auto;border-bottom:1px solid #5fb0b9;"  >
                  <div  v-if="teamSpace != null">
-                 <div class="row my-0 my-0 px-0"  v-if="teamSpace.length != 0">
-                    <v-card tile flat class="col-12  py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in this.$root.ChatList[1]"
+                 <div class="row my-0 my-0 px-2"  v-if="teamSpace.length != 0">
+                    <v-card tile flat class="col-lg-8 offset-lg-2 col-md-10 offset-md-1   py-1 px-0 my-1" @click="showSpace(space)" color="#ffffff" style="border:2px solid #5fb0b9; border-radius:8px;" v-for="(space,index) in this.$root.ChatList[1]"
                       :key="index">
                 <div class="row py-0 my-0 px-0">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
@@ -270,10 +300,10 @@
                           <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
                         </div>    
                     </div>
-                     <div class="py-0 my-0 d-flex col-7 px-1" style="align-items:center;">
-                         <span class="titleText">{{ shortenContent(space.name,24)}}</span>
+                     <div class="py-0 my-0 d-flex col-6 px-1" style="align-items:center;">
+                         <span class="titleText">{{ shortenContent(space.name,22)}}</span>
                     </div>
-                    <div     class="py-0 my-0 d-flex col-2" style="align-items:center;">
+                    <div     class="py-0 my-0 d-flex col-3" style="align-items:center;">
                          <span class="messagesBadges" v-if="space.unread != 0"><span style="padding:2px;">{{ space.unread }}</span></span>
                     </div>
                 </div>
@@ -327,11 +357,12 @@
               </div>
               </div>
               
+              <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('direct')">
 
-                <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('direct')" style="cursor:pointer;">
+                 <v-card  style="cursor:pointer;border-radius:20px;">
                  
                  <div class="row py-0 my-0 px-2">
-                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                    <div class="py-1 my-0 d-flex col-2" >
                           
                     </div>
                        <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
@@ -348,17 +379,20 @@
          <span  v-else style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">{{ $t('space.direct_messages') }}</span>
                         
                     </div>
-                    <div class="py-1 my-0 d-flex col-2" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                    <div class="py-1 my-0 d-flex col-2" >
                            <v-btn icon color="#3E8893"><v-icon></v-icon></v-btn>
                     </div>
                  </div>
-                </div>
-            
-              <div class="col-12 py-1 my-0 mx-0 directSpace"   v-if="this.$root.showDirect" style="max-height:230px; height:auto; overflow-x:hidden; overflow-y:auto;" >
-                  <div  v-if="channelDirect != null">
-                    <div class="row my-0 my-0 px-0"  v-if="channelDirect.length != 0">
+                </v-card>
 
-                    <v-card tile flat class="col-12 py-1 px-0 my-0" @click="showSpace(space)" color="#ffffff" style="border-bottom:1px solid #5fb0b9;" v-for="(space,index) in  this.$root.ChatList[4]"
+              </div>
+               
+            
+              <div class="col-12 py-1 my-0 mx-0 directSpace"   v-if="this.$root.showDirect" style="max-height:160px; height:auto; overflow-x:hidden; overflow-y:auto;border-bottom:1px solid #5fb0b9;" >
+                  <div  v-if="channelDirect != null">
+                    <div class="row my-0 my-0 px-2"  v-if="channelDirect.length != 0">
+
+                    <v-card tile flat class="col-lg-8 offset-lg-2 col-md-10 offset-md-1   py-1 px-0 my-1" @click="showSpace(space)" color="#ffffff" style="border:2px solid #5fb0b9; border-radius:8px;" v-for="(space,index) in  this.$root.ChatList[4]"
                       :key="index">
                 <div class="row py-0 my-0 px-0" v-if="space.userInfo != null">
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
@@ -366,10 +400,10 @@
                           <v-img  :background-color="space.userInfo.background_color" :src="space.userInfo.image_name == null ? 'imgs/usernew.png' : '/imgs/profile/'+ space.userInfo.image_name +'.' + space.userInfo.image_extension " height="38" width="38" class="avatarImg"></v-img>
                         </div>    
                     </div>
-                     <div class="py-0 my-0 d-flex col-7 px-1" style="align-items:center;">
-                         <span class="titleText">{{  shortenContent(space.userInfo.username,24)}}</span>
+                     <div class="py-0 my-0 d-flex col-6 px-1" style="align-items:center;">
+                         <span class="titleText">{{  shortenContent(space.userInfo.username,22)}}</span>
                     </div>
-                    <div class="py-0 my-0 d-flex col-2" style="align-items:center;">
+                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;">
                           <span class="messagesBadges" v-if="space.unread != 0"><span style="padding:2px;">{{ space.unread }}</span></span>
                     </div>
                 </div>
@@ -424,12 +458,102 @@
               </div>
               </div>
 
+              <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('bots')">
+
+                  <v-card  style="cursor:pointer;border-radius:20px;">
+                 
+                 <div class="row py-0 my-0 px-2">
+                    <div class="py-1 my-0 d-flex col-2" >
+                          
+                    </div>
+                       <div class="py-1 my-0 d-flex col-8" style="align-items:center;justify-content:center;background:#c9e4e8;">
+                      
+
+         <span  style="font-size:13px; color:#1e4148; font-weight:bolder;font-family:HeaderText;">Learning Bots</span>
+                        
+                    </div>
+                    <div class="py-1 my-0 d-flex col-2" >
+                           <v-btn icon color="#3E8893"><v-icon></v-icon></v-btn>
+                    </div>
+                 </div>
+                </v-card>
+
+              </div >
+
              
+
+                 <div class="col-12 py-1 my-0 mx-0 directSpace"   v-if="this.$root.showBots" style="max-height:160px; height:auto; overflow-x:hidden; overflow-y:auto;border-bottom:1px solid #5fb0b9;" >
+                  <div  v-if="this.$root.ChatList[6] != null">
+                    <div class="row my-0 my-0 px-2"  v-if="this.$root.ChatList[6].length != 0">
+
+                    <v-card tile flat class="col-lg-8 offset-lg-2 col-md-10 offset-md-1   py-1 px-0 my-1" @click="showSpace(space)" color="#ffffff" style="border:2px solid #5fb0b9; border-radius:8px;" v-for="(space,index) in  this.$root.ChatList[6]"
+                      :key="index">
+                <div class="row py-0 my-0 px-0" >
+                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
+                        <div class="py-1">
+                          <v-img  :background-color="space.bot_data.background_color" :src="space.bot_data.image_name == null ? 'imgs/usernew.png' : '/imgs/space/'+ space.bot_data.image_name +'.' + space.bot_data.image_extension " height="38" width="38" class="avatarImg"></v-img>
+                        </div>    
+                    </div>
+                     <div class="py-0 my-0 d-flex col-6 px-1" style="align-items:center;">
+                         <span class="titleText">{{  shortenContent(space.bot_data.name,22)}}</span>
+                    </div>
+                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;">
+                          <span class="messagesBadges" v-if="false"><span style="padding:2px;">{{ space.unread }}</span></span>
+                    </div>
+                </div>
+                </v-card>
+                 </div>
+
+                 <div v-else class="col-12 my-2 py-0 px-0 mx-1 text-center" >
+       <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block"> No bots found</span>
+              
+            </div>
+                </div>
+
+                <div v-else  class="row my-0 py-0 px-1 ">
+            <div class="col-12 py-0 my-0">
+   
+           <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
+           
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
+
+          
+
+         </div>
+
+
+            </div>
+
+             <div class="col-12 py-0 my-0">
+   
+           <div class="row py-0 my-0 px-1">
+            
+          <div class="col-12 py-1 my-0">
+           <v-skeleton-loader
+          class=" "
+           
+          type="list-item-avatar"
+          ></v-skeleton-loader>
+          </div>
+
+          
+
+         </div>
+
+
+            </div>
+  
+              </div>
+              </div>
              
               
-             <div class="my-5 py-5 col-12" style="padding-top:120px !important;">
-
-             </div>
+             
             
          </div>
 
@@ -441,7 +565,12 @@
      
          </div>
 
-    <span style="position:absolute; top:71%; right:3%;z-index:134500045;"  class="d-md-none d-inline-block">
+    <span style="left:85%;z-index:134500045; bottom:13%;"  class="d-md-none d-inline-block fixed-bottom">
+       
+
+                      <div style="position:absolute;bottom:120%; right:17%; z-index:2;" v-if="showSearchInfo" >
+                    <info-dialog :buttonText="'Ok'" :content="searchContent" :type="'infobottom'" :next="'dashboardInfo'"></info-dialog>
+                      </div>
           <v-btn
                 color="#35747e"
                 small
@@ -454,6 +583,10 @@
      </span>
 
       <span style="position:absolute; top:84%; right:3%;z-index:134500045;" class="d-none d-md-inline-block">
+
+        <div style="position:absolute;bottom:120%; right:-30%; z-index:2;" v-if="showSearchInfo">
+                    <info-dialog :buttonText="'Ok'" :content="searchContent" :type="'infobottom'" :next="'dashboardInfo'"></info-dialog>
+                      </div>
           <v-btn
                 color="#35747e"
                 small
@@ -463,19 +596,6 @@
               >
                 <v-icon color="#ffffff">mdi-magnify</v-icon>
               </v-btn>
-     </span>
-
-     
-      <span style="position:absolute; top:71%; left:3%; z-index:12345665786; background:rgba(38, 82, 89,0.7); border:1px solid transparent; border-radius:7px;" class=" px-1 py-1 d-md-none d-inline-block text-center">
-          <img src="imgs/coin.svg" height="22" >
-          <span class="coin"  style="font-size:13px;">{{this.$root.authProfile.coin}}</span>
-
-     </span>
-
-<span style="position:absolute; top:84%; left:5%; z-index:12345665786; background:rgba(38, 82, 89,0.7); border:1px solid transparent; border-radius:7px;" class=" px-1 py-1 d-none d-md-inline-block text-center">
-          <img src="imgs/coin.svg" height="22" >
-          <span class="coin"  style="font-size:13px;">{{this.$root.authProfile.coin}}</span>
-
      </span>
 
  </v-app>
@@ -494,13 +614,23 @@ export default {
        channelProject:null,
        channelSpace:null,
        showChannel:true,
+       botSpace:null,
        channelSuggestions:null,
        channelDirect: null,
        showProject:true, 
        fetchSpaceUpdate: true,
+       projectContent:'Create new projects in various programming languages.',
+       searchContent:'Search for people, projects, learning bots and communities on citonhub.',
+       showProjectInfo:false,
+       showTeamInfo: false,
+       showChannelInfo:false,
+       showSearchInfo: false,
+
       }
     },
     mounted(){
+
+      this.$root.chatListComponent = this;
       this.$root.showTabs=true;
        this.$root.showHeader = true;
        this.$root.channel = null;
@@ -520,6 +650,10 @@ export default {
        this.$root.selectedSpaceMembers = [];
 
        this.$root.typing = false;
+
+       this.$root.botIsLoading = false;
+      
+       this.$root.botSuggestionArray = [];
       
       this.$root.forcePanelReload= false;
 
@@ -543,7 +677,7 @@ export default {
         }
 
        
-
+      this.handleInfoSession();
        
         
        this.fetchChatList();
@@ -552,19 +686,51 @@ export default {
        this.$root.SpaceUsers = [];
          this.$root.selectedSpace = [];
      
-       this.$root.manualFetchUnread();
+       
       
       this.$root.updateSpaceMessages();
       this.$root.checkUnread(true);
     
 
-       
+           this.$root.closenotifyRoot = true;
+
+             this.$root.shownotificationboard = false;
         
 
      
        
     },
     methods:{
+      handleInfoSession:function(){
+
+          axios.get('/fetch-user-onboarding')
+      .then(response => {
+      
+      if (response.status == 200 || response.status == 201) {
+
+          
+        let storedInfo = this.$root.getLocalStore('chatlistinfonew'+ this.$root.username);
+
+        storedInfo.then((result)=>{
+          if(result == null && response.data.chatlist_info == false){
+            this.showProjectInfo = true;
+          }
+        })
+       
+
+     }
+       
+     
+     })
+     .catch(error => {
+       
+       
+     })
+          
+
+      
+
+      },
        showSearch: function(){
 
           this.$root.showSearchControl = true;
@@ -611,6 +777,8 @@ export default {
     // close socket.io connection
    this.$root.audioconnection.closeSocket();
 
+   this.$root.dataconnection.closeSocket();
+
 
            
          }
@@ -635,6 +803,8 @@ export default {
 
         this.$root.connection = undefined;
         this.$root.audioconnection = undefined;
+
+        this.$root.dataconnection = undefined;
 
         this.$root.screenSharingOn = false;
         this.$root.liveIsOn = false;
@@ -675,6 +845,7 @@ export default {
               this.$root.showTeams = false;
               this.$root.showChannel = false;
               this.$root.showSuggetions = false;
+              this.$root.showBots = false
          }
          if(type == 'team'){
               this.$root.showTeams ? this.$root.showTeams = false : this.$root.showTeams = true;
@@ -683,6 +854,7 @@ export default {
               this.$root.showDirect = false;
               this.$root.showChannel = false;
               this.$root.showSuggetions = false;
+              this.$root.showBots = false
          }
          if(type == 'channel'){
 
@@ -692,6 +864,7 @@ export default {
               this.$root.showDirect = false;
               this.$root.showTeams = false;
               this.$root.showSuggetions = false;
+              this.$root.showBots = false
          }
          if(type == 'suggestions'){
              this.$root.showSuggetions ? this.$root.showSuggetions = false : this.$root.showSuggetions = true
@@ -699,6 +872,17 @@ export default {
                this.$root.showProject = false;
               this.$root.showDirect = false;
               this.$root.showTeams = false;
+              this.$root.showChannel = false;
+              this.$root.showBots = false
+         }
+
+          if(type == 'bots'){
+             this.$root.showBots ? this.$root.showBots = false : this.$root.showBots = true
+
+               this.$root.showProject = false;
+              this.$root.showDirect = false;
+              this.$root.showTeams = false;
+               this.$root.showSuggetions = false;
               this.$root.showChannel = false;
          }
       },
@@ -730,28 +914,16 @@ export default {
      },
     updateSpace: function(){
 
-  axios.get('/fetch-user-spaces')
+  axios.get('/fetch-user-spaces-' + this.$root.userDeviceId)
       .then(response => {
       
       if (response.status == 200) {
 
           
         
-         this.$root.ChatList = response.data;
-
+       
            this.$root.LocalStore('ChatListNew' + this.$root.username,response.data);
     
-         this.$root.sortChatList();
-
-          this.$root.ChatList[3].data =  this.$root.ChatList[3].data.concat(this.$root.ChatList[5]);
-        
-         this.personalSpace = this.$root.ChatList[0];
-        this.teamSpace = this.$root.ChatList[1];
-        this.channelSpace = this.$root.ChatList[2];
-        this.channelProject = this.sortbyDate(this.$root.ChatList[3].data); 
-        this.channelDirect = this.$root.ChatList[4];
-        
-         
          this.fetchSpaceUpdate = false;
        
 
@@ -793,10 +965,10 @@ export default {
            this.$router.push({ path: '/' + project.project_slug +'/panel' });
        },
        createChannel:function(type){
-           this.$router.push({ path: '/space/' + type + '/create' });
+           this.$router.push({ path: '/space/sub/' + type + '/create' });
        },
        createProject:function(){
-           this.$router.push({ path: '/space/create-project' });
+           this.$router.push({ path: '/space/sub/create-project' });
        },
        fetchChatList: function(){
 
@@ -844,7 +1016,7 @@ export default {
 
               
                 
-             axios.get('/fetch-user-spaces')
+             axios.get('/fetch-user-spaces-' + this.$root.userDeviceId)
       .then(response => {
       
       if (response.status == 200) {
@@ -895,7 +1067,7 @@ export default {
             
            
            
-             axios.get('/fetch-user-spaces')
+             axios.get('/fetch-user-spaces-' + this.$root.userDeviceId)
       .then(response => {
       
       if (response.status == 200) {
@@ -1009,6 +1181,7 @@ export default {
   border-radius:50%;
   border: 3px solid #3E8893;
 }
+
 .messagesBadges{
     
     color: #ffffff;
@@ -1025,6 +1198,13 @@ export default {
   font-family:HeaderText;
   color: white;
 }
+
+
+.largeScreen{
+ position:absolute;top:30%; right:8%; z-index:2;
+}
+
+
 
 
   .teamSpace::-webkit-scrollbar, .directSpace::-webkit-scrollbar, .channelSpace::-webkit-scrollbar, .project::-webkit-scrollbar {

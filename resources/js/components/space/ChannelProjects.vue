@@ -17,7 +17,7 @@
          </div>
          </div>
 
-         <div class="col-12 py-0 my-0" >
+         <div class="col-12 col-lg-8 offset-lg-2 py-0 my-0" >
          <div class="row my-0 py-0" v-if="projects.length != 0">
          
 

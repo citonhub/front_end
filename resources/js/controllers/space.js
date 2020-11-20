@@ -34,7 +34,6 @@ const store = new Vuex.Store({
         .post('/login', credentials)
         .then(response =>{
 
-          
            
            if(response.status == 200){
             
@@ -63,7 +62,6 @@ Vue.use(VueRouter)
 
 import Space from "../components/space/Space.vue"
 import ChatList from "../components/space/ChatList.vue"
-import CreateChannel from "../components/space/CreateChannel.vue"
 import Channel from "../components/space/Channel.vue"
 import ChannelContent from "../components/space/ChannelContent.vue"
 import SubSpace from "../components/space/SubSpace.vue"
@@ -74,7 +72,7 @@ import ChannelMembers from "../components/space/ChannelMembers.vue"
 import ChannelShare from "../components/space/ChannelShare.vue"
 import ChannelEdit from "../components/space/EditSpace.vue"
 import ChannelCodeBox from "../components/space/ChannelCodeBox.vue"
-import CropImage from  "../components/space/CropImage.vue"
+import CropImage from  "../components/profile/CropImage.vue"
 import Login from "../components/auth/Login.vue"
 import Auth from "../components/auth/auth.vue"
 import Register from "../components/auth/Register.vue"
@@ -89,24 +87,26 @@ import CodeEditor from "../components/space/CodeEditor.vue"
 import DBTable from "../components/space/DBTable.vue"
 import NewCodeFile from "../components/space/NewCodeFile.vue"
 import PanelLoader from "../components/space/PanelLoader.vue"
+import BotEngine from "../components/space/BotEngine.vue"
 import ProjectComments from "../components/space/ProjectComments.vue"
-import NewComment from "../components/space/NewComment.vue"
 import NotFound from "../components/auth/NotFound.vue"
-
-
-
+import ForgotPassword from "../components/auth/ForgotPassword.vue"
+import ResetPassword from "../components/auth/ResetPassword.vue"
 
 
 const routes = [
   { path: '/', redirect: '/space'},
   { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},
+  { path: '/bot-engine/:botId/:user', name: 'BotEngine', component: BotEngine},
   { path: '/login', name: 'Login', component: Login},
+  { path: '/auth/:fromPage', name: 'Auth', component: Auth},
+  { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
+  { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   {
     path: '*',
     name: 'notFound',
     component: NotFound
   },
-  { path: '/auth/:frompage', name: 'Auth', component: Auth},
   { path: '/:projectSlug/panel', name: 'ProjectPanel', component: ProjectPanel},
   { path: '/:projectSlug/panel/settings', name: 'PanelSettings', component: PanelSettings},
   { path: '/:projectSlug/create-db-table', name: 'CreateTable', component: CreateTable},
@@ -115,7 +115,6 @@ const routes = [
   { path: '/:projectSlug/db-table', name: 'DBTable', component: DBTable},
   { path: '/:projectSlug/:language_type/add-new-file', name: 'NewCodeFile', component: NewCodeFile},
   { path: '/:projectSlug/comments', name: 'ProjectComments', component: ProjectComments},
-  { path: '/:projectSlug/make-comment', name: 'NewComment', component: NewComment},
   { path: '/:projectSlug/page-loader/:referral', name: 'PanelLoader', component: PanelLoader},
   { path: '/register', name: 'Register', component: Register},
   { path: '/verify', name: 'Verify', component: Verify},
@@ -323,6 +322,17 @@ const routes = [
  
    ]
   },
+  { path: '/space/sub/', 
+  name: 'SpaceSub',
+  component: Space,
+  children:[
+    {
+      // create-project
+      path: 'create-project',
+      component: CreateProject
+    },
+   
+  ]},
   { path: '/space', 
   name: 'Space',
   component: Space,
@@ -352,17 +362,7 @@ const routes = [
          
       next()
     },
-    },
-    {
-      // create-channel
-      path: ':type/create',
-      component: CreateChannel
-    },
-    {
-      // create-project
-      path: 'create-project',
-      component: CreateProject
-    },
+    }
    
   ]},
 ];
@@ -582,7 +582,32 @@ const app = new Vue({
      bottomEditorValue:'',
      returnedToken:'',
      globalUsers:[],
-     showSearchControl:false
+     closenotifyRoot:false,
+     codeboxComponent:undefined,
+     showSearchControl:false,
+     userDeviceId:null,
+     msgCompRaw:undefined,
+     chatListComponent:undefined,
+     channelTopComponent:undefined,
+     channelContentComponent:undefined,
+     dataconnection:undefined,
+     msgScrollComponent:undefined,
+     showBots:false,
+     botIsLoading:false,
+     botSuggestionArray:[],
+     channelBottomComp:undefined,
+     itIsHomePage:false,
+     showDashboardInfo:false,
+     showHubInfo: false,
+     showProfileInfo: false,
+     buttonText:'Ok',
+     dashboardContent:'Create new communities, channels, teams and teaching bots in your dashboard',
+     hubContent:'Network and share your works with other developers on CitonHub',
+     profileContent:'Manage your account and connections in your profile',
+     mainPanelComponent:undefined,
+     userIsReconnectingScreen:false,
+     reconnectionCountScreen:0,
+     screenIsConnecting:false,
         },
      mounted: function () {
       this.pageloader= false;
@@ -591,6 +616,9 @@ const app = new Vue({
         this.fetchUserDetails();
        }
       
+
+     
+
        window.routerData = this.$router;
       this.connectToChannel();
        this.SetLocale(this.userLocale);
@@ -628,6 +656,8 @@ const app = new Vue({
 
     if(this.isLogged){
        this.checkauthroot = 'auth';
+
+       this.checkUserDevice();
     }else{
       this.checkauthroot = 'noauth';
     }
@@ -640,6 +670,64 @@ const app = new Vue({
      }
   },
   methods:{
+    checkUserDevice: function(){
+         
+
+      let storedInfo = this.$root.getLocalStore('user_device_id_' + this.$root.username);
+
+       storedInfo.then((result)=>{
+         if(result != null){
+         
+
+          let finalResult = JSON.parse(result);
+
+          this.userDeviceId = finalResult[0];
+
+          this.saveDeviceInfo(this.userDeviceId);
+
+
+         }else{
+
+          var deviceId = "device_" + Math.random().toString(36).slice(2);
+
+          this.userDeviceId = deviceId;
+
+          this.$root.LocalStore('user_device_id_' + this.$root.username,[deviceId]);
+
+          this.saveDeviceInfo(deviceId);
+
+
+         }
+
+         this.$root.manualFetchUnread();
+       })
+
+
+      },
+      saveDeviceInfo:function(deviceId){
+
+        axios.post('/save-user-device',{
+          deviceId: deviceId,
+          device_name: navigator.appName,
+          device_platform: navigator.platform
+            })
+    .then(response => {
+      
+     if (response.status == 200) {
+        
+  
+      
+      }else{
+        console.log(response.status);
+      }
+      
+      
+    })
+    .catch(error => {
+      console.log(error);
+    })
+
+      },
     setEcho:function(){
       if (typeof io !== 'undefined') {
         window.Echo = new Echo({
@@ -711,7 +799,7 @@ const app = new Vue({
     manualFetchUnread: function(){
 
 
-      axios.get('/check-for-new-space-messages')
+      axios.get('/check-for-new-space-messages/'+ this.$root.userDeviceId)
  .then(response => {
  
  if (response.status == 200) {
@@ -761,7 +849,7 @@ const app = new Vue({
 
              this.$root.makeRecallSpace = false;
 
-axios.get( '/check-for-new-space-messages')
+axios.get( '/check-for-new-space-messages/' + this.$root.userDeviceId)
  .then(response => {
  
  if (response.status == 200) {
@@ -827,6 +915,8 @@ axios.get( '/check-for-new-space-messages')
            
 
           newMessages.forEach((messages)=>{
+
+
 
             MessagesFull[0].push(messages);
 
@@ -985,6 +1075,10 @@ console.log(err)
 
               this.$root.LocalStore(space.space_id  + this.$root.username,MessagesFull);
 
+              messages.initialSize = 200
+              messages.id = messages.message_id
+              messages.index_count = this.$root.returnLastIndex() + 1;
+
               this.$root.Messages.push(messages);
 
                this.$root.sortChatList();
@@ -1052,17 +1146,42 @@ console.log(err)
           let array1 = this.ChatList[1];
           let array2 = this.ChatList[2];
           let array3 =  this.ChatList[4];
+          let array4 =  this.ChatList[6];
         
-        
-         this.sortArray(array1);
-         this.sortArray(array2);
-          this.sortArray(array3);
+      
+
+          if(array1){
+
+            this.sortArray(array1);
+
+           }
+
+          if(array2){
+
+            this.sortArray(array2);
+
+           }
+
+          if(array3){
+
+            this.sortArray(array3);
+
+           }
+
+           if(array4){
+
+            this.sortArray(array4);
+
+           }
+         
       
           this.ChatList[1] = array1;
           
           this.ChatList[2] = array2;
 
           this.ChatList[4] = array3;
+
+          this.ChatList[6] = array4;
 
         }
        
@@ -1089,6 +1208,14 @@ console.log(err)
   
   
         this.ChatList[4].map((space)=>{
+         
+          if(space.space_id == spaceId){
+            space.message_track = new Date();
+          }
+  
+        });
+
+        this.ChatList[6].map((space)=>{
          
           if(space.space_id == spaceId){
             space.message_track = new Date();
@@ -1137,6 +1264,17 @@ console.log(err)
   
         });
   
+
+        this.ChatList[6].map((space)=>{
+         
+          if(space.space_id == spaceId){
+
+           
+
+            space.unread = 0;
+          }
+  
+        });
       
       }
 
@@ -1469,7 +1607,7 @@ console.log(err)
 
       fullData.push(thirdData);
 
-   this.$root.LocalStore(this.$route.params.spaceId  + this.$root.username,fullData);
+   this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
 
    axios.post('/delete-message',{
     'message_id':messageId
@@ -1492,8 +1630,9 @@ if (response.status == 200) {
 
 
     axios.post('/delete-unread-message',{
-      message_id:messageId
-   } )
+      message_id:messageId,
+      device_id: this.$root.userDeviceId
+   })
   .then(response => {
   
   if (response.status == 200) {
@@ -1767,15 +1906,38 @@ imageStyle:function(dimension,authProfile){
 
    
 
-    setTimeout(() => {
+    if(this.$root.msgScrollComponent){
+
+      setTimeout(() => {
          
-      var container = document.querySelector('#messageContainer');
+        this.$root.msgScrollComponent.messageContainer.scrollToBottom();
+     },200)
+
+    }
+    
+
+
+  },
+  returnLastIndex:function(){
+
+     let msgIndex = 0;
       
-   var element =  document.querySelector('#message' + 'bottomDiv');
-  
-   var top = element.offsetTop - 85;
-   container.scrollTo(0, top);
-   },500)
+      if(this.$root.Messages.length == 0){
+
+         msgIndex = 0;
+
+      }else{
+
+        let lastMsg = this.$root.Messages[this.$root.Messages.length - 1];
+
+      msgIndex = lastMsg.index_count;
+
+      }
+    
+     
+
+         
+     return msgIndex;
   },
     initialPushMangerReg: function(){
       if('serviceWorker' in navigator){
@@ -1783,8 +1945,8 @@ imageStyle:function(dimension,authProfile){
          if("PushManager" in window){
             
            registration.pushManager.getSubscription().then(sub => {
-             
-             if(sub == undefined){
+              
+             if(sub == null && !this.closenotifyRoot){
               this.shownotificationboard = true;
              }else{
 
@@ -1958,20 +2120,7 @@ fullData.push(thirdData);
 
 this.$root.LocalStore(spaceId + this.$root.username,fullData);
    },
-   scrollToBottom:function(){
-        
-         setTimeout(() => {
-         
-           var container = document.querySelector('#messageContainer');
-           
-        var element =  document.querySelector('#messagebottomDiv');
-       
-        var top = element.offsetTop - 120;
-        container.scrollTo(0 , top);
-        },500)
-      
-
-      },
+  
       updateSentMessage:function(postData){
       
         let unsentMsg = this.$root.getLocalStore('unsentnew' + postData.space_id  + this.$root.username);
@@ -2048,6 +2197,91 @@ this.$root.LocalStore(spaceId + this.$root.username,fullData);
        
 
       },
+      botMessager:function(message){
+
+          
+      this.botIsLoading = true;
+        axios.post('initiate-bot-chat',{
+          bot_id: this.$root.selectedSpace.bot_id,
+          device_id: this.$root.userDeviceId,
+          message: message,
+          space_id: this.$root.selectedSpace.space_id
+        })
+     .then(response => {
+        
+       this.botIsLoading = false;
+       if(response.status == 200){
+      
+        let fullMessages = response.data[0];
+
+         
+        
+        for (let index = 0; index < fullMessages.length; index++) {
+
+           let message = fullMessages[index];
+               
+               
+
+           message.index_count = this.$root.returnLastIndex() + 1;
+           message.id =  message.message_id;
+           message.initialSize = 200
+   
+           
+   
+      this.$root.Messages.push(message);
+   
+    
+
+    
+
+              this.$root.spaceFullData[0] = this.$root.Messages;
+
+
+              
+
+                let fullData = [];
+                   fullData.push(this.$root.spaceFullData[0]);
+               fullData.push(this.$root.spaceFullData[1]);
+
+                let thirdData = [];
+                   
+                   thirdData.push(this.$root.spaceFullData[2][0])
+
+               fullData.push(thirdData);
+
+              
+
+
+            this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
+   
+     this.$root.updateSpaceTracker(message.space_id);
+   
+     this.$root.sortChatList();
+     
+       
+   
+     }
+       
+        
+        this.botSuggestionArray = response.data[1];
+
+         this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data[1]);
+        
+    
+       }
+
+     })
+     .catch(error => {
+
+      
+         console.log(error)
+         this.botIsLoading = false;
+       
+     })
+
+   
+      
+   },
     sendTextMessage: function(postData){
          this.sendingMessage = true;
       axios.post('/send-message',postData)
@@ -2063,11 +2297,24 @@ if (response.status == 200) {
             if(messageId == message.message_id){
                message.loading = false;
                message.message_id = response.data[0].message_id; 
+               message.id = response.data[0].message_id; 
+              
+
+               
             }
          });
+  
+         if(this.selectedSpace.type == 'Bot'){
+          this.botMessager(response.data[0].content);
+         }
+
+    
+
     this.updateSpaceData(response.data[0].space_id);
        
   this.replyMessage = [];
+
+  this.scrollToBottom();
 
   
   this.updateSentMessage(postData);
@@ -2102,13 +2349,15 @@ if (response.status == 200) {
           if(messageId == message.message_id){
              message.loading = false;
              message.message_id = response.data[0].message_id; 
+             message.id = response.data[0].message_id; 
               message.code = response.data[0].code;
+              
           }
        });
      
        this.updateSpaceData(response.data[0].space_id);
- this.scrollToBottom();
-
+ 
+      this.scrollToBottom();
  this.updateSentMessage(postData);
  this.sendingMessage = false;
 
@@ -2159,6 +2408,8 @@ if (response.status == 200) {
                   if(messageId == message.message_id){
                      message.loading = false;
                      message.message_id = response.data[0].message_id;
+                     message.id = response.data[0].message_id; 
+                    
                      if(messageType == 'image'){
                        message.image = response.data[0].image;
                      }
@@ -2184,8 +2435,10 @@ if (response.status == 200) {
               
             }
 
+            this.scrollToBottom();
+
             this.updateSpaceData(response.data[0].space_id);
-              this.scrollToBottom();
+             
             
           })
           .catch(error => {
@@ -2193,6 +2446,179 @@ if (response.status == 200) {
             this.sendingMessage = false;
            
           })
+    },
+    setDataConnection:function(){
+
+      let _this = this;
+
+        this.$root.dataconnection = new RTCMultiConnection();
+
+          this.$root.dataconnection.enableLogs = false;
+
+// by default, socket.io server is assumed to be deployed on your own URL
+this.$root.dataconnection.socketURL = 'https://live.citonhub.com:9001/';
+
+
+
+this.$root.dataconnection.socketMessageEvent = 'data-channel';
+
+  this.$root.dataconnection.extra = {
+       profile: this.$root.authProfile,
+      joinedAt: (new Date).toISOString(),
+      volume: 80.00,
+      speaking: false
+         };
+
+         this.$root.dataconnection.socketCustomParameters = '&extra=' + JSON.stringify(this.$root.dataconnection.extra);
+
+this.$root.dataconnection.session = {
+    audio: false,
+    video: false,
+    data: true
+    
+};
+
+this.$root.dataconnection.mediaConstraints = {
+    audio: true,
+    video: false
+};
+
+this.$root.dataconnection.sdpConstraints.mandatory = {
+    OfferToReceiveAudio: false,
+    OfferToReceiveVideo: false
+};
+
+
+
+ // first step, ignore default STUN+TURN servers
+ this.$root.dataconnection.iceServers = [];
+
+ // second step, set STUN url
+   this.$root.dataconnection.iceServers.push({
+     urls: 'stun:165.227.152.44:3478'  
+    });
+ 
+ // last step, set TURN url (recommended)
+
+this.$root.dataconnection.iceServers.push({
+  urls: 'turn:165.227.152.44:3478',
+  credential: '15Raymond',
+  username: 'ILoveCitonHubPort'
+ });
+
+
+
+
+
+
+
+
+
+
+
+
+this.$root.dataconnection.onmessage = (event) => {
+  
+    
+
+   if(event.data.action == 'typing' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+    this.$root.FullcodeContent = event.data.data;
+
+     this.codeboxComponent.setCodeContent();
+     
+   }
+   
+   if(event.data.action == 'codeChange' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+    this.$root.fullCodeLanguage = event.data.data;
+
+    this.codeboxComponent.setCodeContent();
+     
+   }
+
+   if(event.data.action == 'codeRun' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+            this.$root.liveShowCode = false;
+
+                   this.$root.CodeResult = event.data.data;
+                   this.codeboxComponent.setCodeContent();
+     
+   }
+
+   if(event.data.action == 'returnToCode' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+    this.$root.liveShowCode = true;
+
+    this.codeboxComponent.setCodeContent();
+     
+   }
+
+   if(event.data.action == 'neutral' ){
+
+    if(this.$root.allAudioParticipant.length != 0){
+      this.$root.allAudioParticipant.map((user)=>{
+  
+        if(user[1] == event.data.data.userid){
+  
+            
+        
+          user[0].speaking = event.data.data.speaking;
+           
+        }
+  
+         });
+     }
+     
+   }
+   
+   if(event.data.action == 'new_master' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+    this.$root.newMasterId = event.data.data;
+
+                  
+
+    this.$root.adminMembers.forEach((member)=>{
+
+member.master_user = false;
+
+});
+
+this.$root.adminMembers.map((member)=>{
+if(member.memberId ==  this.$root.newMasterId){
+
+member.master_user = true;
+
+}
+})
+
+this.$root.selectedSpaceMembers.forEach((member)=>{
+
+member.master_user = false;
+
+});
+
+this.$root.selectedSpaceMembers.map((member)=>{
+if(member.memberId ==  this.$root.newMasterId){
+
+member.master_user = true;
+
+}
+})
+this.codeboxComponent.setCodeContent();
+   }
+};
+
+
+
+
+  
+
+
+
+
+
+
     },
     setSreenShareConnection:function(){
           
@@ -2218,6 +2644,7 @@ if (response.status == 200) {
           screen: true,
           oneway: true
            };
+
        
        this.$root.connection.sdpConstraints.mandatory = {
    OfferToReceiveAudio: false,
@@ -2245,9 +2672,12 @@ if (response.status == 200) {
      });
 
 
+ 
+
      this.$root.connection.videosContainer = document.getElementById('videos-container');
 
-      
+  
+    
 
      this.$root.connection.onstream = function(event) {
    var existing = document.getElementById(event.streamid);
@@ -2291,11 +2721,18 @@ if (response.status == 200) {
 
    _this.$root.connection.videosContainer.appendChild(mediaElement);
 
+
    setTimeout(function() {
        mediaElement.media.play();
    }, 5000);
 
    mediaElement.id = event.streamid;
+
+ 
+ 
+  
+     
+    
 };
 
 this.$root.connection.onstreamended = function(event) {
@@ -2361,6 +2798,7 @@ this.$root.audioconnection.socketMessageEvent = 'audio-conference';
 this.$root.audioconnection.session = {
     audio: true,
     video: false,
+    data: true
     
 };
 
@@ -2540,6 +2978,7 @@ this.$root.audioconnection.multiPeersHandler.onPeerStateChanged = (state)=> {
 
 
 
+
 this.$root.audioconnection.onstreamended = function(event) {
     var mediaElement = document.getElementById(event.streamid);
     if (mediaElement) {
@@ -2594,30 +3033,31 @@ this.$root.audioconnection.onstreamended = function(event) {
         
            
             
-
+             
            
 
-              this.$root.audioconnection.checkPresence('audio' + this.$route.params.spaceId, function(isRoomExist, roomid) {
+              this.$root.audioconnection.checkPresence('audio' + this.$root.selectedSpace.space_id, function(isRoomExist, roomid) {
               
 
                      
                 if (isRoomExist === true) {
                  _this.joinAudioRoom();
+                 _this.dataconnection.join('data' + _this.$root.selectedSpace.space_id)
               } else {
   
                   
                 if(master){
                   _this.openAudioRoom();
+                  _this.dataconnection.open('data' + _this.$root.selectedSpace.space_id)
                 }else{
   
                   _this.roomNotExist = true;
   
                   _this.roomCheckingInitaited = true;
 
-                   setTimeout(()=>{
+                  
                     _this.rejoinAudio(master);
-                   },5000);
-
+                  
                  
   
                   return;
@@ -2656,7 +3096,57 @@ this.$root.audioconnection.onstreamended = function(event) {
            
        
        },
+       rejoinScreen:function(master){
+
+
+        let _this = this;
+
+
+        if(this.$root.connection != undefined){
+
+       // disconnect with all users
+   this.$root.connection.getAllParticipants().forEach(function(pid) {
+       _this.$root.connection.disconnectWith(pid);
+   });
+
+   // stop all local cameras
+   this.$root.connection.attachStreams.forEach(function(localStream) {
+       localStream.stop();
+   });
+
+   // close socket.io connection
+  this.$root.connection.closeSocket();
+
+
+          
+        }
+
+      
+   
+     this.$root.connection = undefined;
+
+     this.$root.screenSharingOn = false;
+      
+       this.$root.showVideoScreen = false;
        
+      
+      
+       this.$root.connection = undefined;
+
+
+        this.$root.setSreenShareConnection();
+
+       
+
+         if(master){
+
+                 this.$root.checkScreenRoomState(true);
+
+              }else{
+                 this.$root.checkScreenRoomState(false);
+              }
+
+       }, 
        rejoinAudio: function(master){
 
          let _this = this;
@@ -2686,33 +3176,7 @@ this.$root.audioconnection.onstreamended = function(event) {
          }
 
 
-         if(this.$root.connection != undefined){
-
-
-          // disconnect with all users
-this.$root.connection.getAllParticipants().forEach(function(pid) {
-    _this.$root.connection.disconnectWith(pid);
-});
-
-
-
-// stop all local cameras
-this.$root.connection.attachStreams.forEach(function(localStream) {
-    localStream.stop();
-});
-
-
-      this.$root.connection.closeSocket();
-      }
-    
-      this.$root.connection = undefined;
-
-      this.$root.screenSharingOn = false;
-       
-        this.$root.showVideoScreen = false;
-        
-       
-       
+         
         this.$root.audioconnection = undefined;
 
 
@@ -2756,19 +3220,22 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
 
          speechEvents.on('speaking', function() {
 
-          if(_this.$root.audioconnection != undefined && _this.$route.params.spaceId != undefined){
+          if(_this.$root.audioconnection != undefined && _this.$root.selectedSpace.space_id != undefined){
 
-            let channel =  window.Echo.join('space.' + _this.$route.params.spaceId);
+          
           
             let data = {
               userid: _this.$root.audioconnection.userid,
               speaking: true
           };
+
+          _this.$root.dataconnection.send({
+            action:'neutral',
+            data: data,
+            space_id: _this.$root.selectedSpace.space_id
+          });
       
-          channel.whisper('audioSpeaker', {
-             data:data,
-             spaceId: _this.$route.params.spaceId
-         });
+          
       
       
           }
@@ -2780,19 +3247,21 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
 
           
 
-            if(_this.$root.audioconnection != undefined && _this.$route.params.spaceId != undefined){
+            if(_this.$root.audioconnection != undefined && _this.$root.selectedSpace.space_id != undefined){
 
-              let channel =  window.Echo.join('space.' + _this.$route.params.spaceId);
+            
             
               let data = {
                 userid: _this.$root.audioconnection.userid,
                 speaking: false
             };
         
-            channel.whisper('audioSpeaker', {
-               data:data,
-               spaceId: _this.$route.params.spaceId
-           });
+            _this.$root.dataconnection.send({
+              action:'neutral',
+              data: data,
+              space_id: _this.$root.selectedSpace.space_id
+            });
+        
         
         
             }
@@ -2843,8 +3312,75 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
 
 
             this.setUserSpeaker();
+
+            // screen connections
+
+             if(this.$root.connection != undefined){
+
+              var socketScreen = this.$root.connection.socket;
+
+              if(socketScreen){
+
+                socketScreen.on('connect', ()=>{
+                  
+                  this.userIsReconnectingScreen = false;
+    
+              })
+    
+              socketScreen.on('disconnect', ()=> {
+               
+              this.userIsReconnectingScreen = true;
+
+              
+
+    
+              let _this = this;
+    
+              })
+    
+              socketScreen.on('reconnecting', (attemptNumber)=>{
+             
+              this.userIsReconnectingScreen = true;
+
+              
+    
+            });
+                
+
+              }
+              
+             }
+
+
+             if(this.userIsReconnectingScreen){
+
+              this.reconnectionCountScreen++
+
+              if(this.reconnectionCountScreen == 1){
+
+                this.reconnectionCountScreen = 0;
+                
+
+              
+              
+                if(!this.screenIsConnecting){
+
+                  this.rejoinScreen(master);
+
+                }
+
+              
+                
+              
+
+              }
+
+            }
+
+            
             
             var socket = this.$root.audioconnection.socket;
+            
              
             
            
@@ -2880,16 +3416,16 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
 
                this.reconnectionCount++
 
-               if(this.reconnectionCount == 1){
+               if(this.reconnectionCount == 2){
 
                  this.reconnectionCount = 0;
 
                  this.connectingToSocket = 'disconnected';
 
 
-                 setTimeout(()=>{
+               
                   this.rejoinAudio(master);
-                 },2000);
+               
 
                }
 
@@ -2912,9 +3448,6 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
          },
 
          openScreenRoom: function(){    
-         
-           
-    
 
         let _this = this;
       
@@ -2923,11 +3456,11 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
            OfferToReceiveVideo: true
        };
       
-     this.$root.connection.open('screen' + this.$route.params.spaceId, function() {
-       
-       
-        
+     this.$root.connection.open('screen' + this.$root.selectedSpace.space_id, function() {
+      
     });
+
+    this.screenIsConnecting = false;
 
       },
       joinScreenRoom: function(){    
@@ -2940,38 +3473,53 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
         OfferToReceiveVideo: true
     };
 
-    this.$root.connection.join('screen' + this.$route.params.spaceId);
+    this.screenIsConnecting = false;
 
+    this.$root.connection.join('screen' + this.$root.selectedSpace.space_id);
+   
       },
       checkScreenRoomState: function(master){
       
        let _this = this;
        
+        
+         console.log('screen called')
+       
+
+          this.screenIsConnecting = true;
+
+          this.$root.connection.checkPresence('screen' + this.$root.selectedSpace.space_id, function(isRoomExist, roomid) {
+        
+            _this.$root.screenSharingOn = true;
       
-
-         this.$root.connection.checkPresence('screen' + this.$route.params.spaceId, function(isRoomExist, roomid) {
-
+            _this.$root.showVideoScreen = true;
 
 
-          if (isRoomExist === true) {
-            _this.joinScreenRoom();
-         } else {
-
+            if (isRoomExist === true) {
+              _this.joinScreenRoom();
+              _this.screenIsConnecting = false;
+           } else {
+  
+               
+             if(master){
+               _this.openScreenRoom();
+               _this.screenIsConnecting = false;
+             }else{
+  
+               return;
+             }
+  
              
-           if(master){
-             _this.openScreenRoom();
-           }else{
-
-             return;
            }
-
+          
+         
+         
+      });
+  
            
-         }
+        
 
-       
-       
-    });
-
+        
 
        
         
@@ -2984,7 +3532,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
            
         let _this = this;
       
-        this.$root.audioconnection.open('audio' + this.$route.params.spaceId, () =>{
+        this.$root.audioconnection.open('audio' + this.$root.selectedSpace.space_id, () =>{
 
             
           _this.$root.connectingToSocket = false;
@@ -3007,7 +3555,7 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
            
         let _this = this;
         
-         this.$root.audioconnection.join('audio' + this.$route.params.spaceId);
+         this.$root.audioconnection.join('audio' + this.$root.selectedSpace.space_id);
 
          _this.$root.connectingToSocket = false;
          _this.userIsReconnecting = false;
@@ -3053,14 +3601,14 @@ this.$root.connection.attachStreams.forEach(function(localStream) {
      liveChanges:function(data,action) {
 
    
-   let channel =  window.Echo.join('space.' + this.$route.params.spaceId);
+   let channel =  window.Echo.join('space.' + this.$root.selectedSpace.space_id);
 
   
 
       channel.whisper('liveCoding', {
        data:data,
          action: action,
-         spaceId: this.$route.params.spaceId
+         spaceId: this.$root.selectedSpace.space_id
      });
 
 

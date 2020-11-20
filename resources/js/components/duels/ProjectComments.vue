@@ -1,7 +1,7 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText;">
 
-       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0 " style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
+       <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0 " style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -151,10 +151,10 @@ export default {
   
    goBack() {
           
-        this.$router.push({ path: '/duel/'+ this.$route.params.duelId + '/panel/' + this.$root.selectedDuel.user_team.team_code + '/user'});
+        this.$router.push({ path: '/panel/'+ this.$route.params.duelId + '/panel/' + this.$root.selectedDuel.user_team.team_code + '/user'});
         },
     makeComment:function(){
-        this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/new' });
+        this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/new' });
     },
     likeComment:function(comment){
            this.$root.checkIfUserIsLoggedIn('space');
@@ -290,7 +290,7 @@ export default {
            this.$root.replyCommentId = comment.id;
            this.$root.replyCommentUsername = comment.username;
 
-           this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/new' });
+           this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/new' });
       },
     fetchPanelComments: function(){
 

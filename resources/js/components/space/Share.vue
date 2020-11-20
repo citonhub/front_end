@@ -1,7 +1,7 @@
 <template>
      <div  style="background:transparent; font-family:BodyText; z-index:9998999889090999;">
 
-       <div class=" col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:fixed;  background:rgba(38, 82, 89,0.4); height:100%; overflow-y:auto; overflow-x:hidden; z-index:9998999889090999;" 
+       <div class="   col-lg-6 offset-lg-3 py-0 px-0 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;  position:fixed;  background:rgba(38, 82, 89,0.4); height:100%; overflow-y:auto; overflow-x:hidden; z-index:9998999889090999;" 
          @click="closeShare">
          <div class="row my-0 py-0 px-2">
 
@@ -17,6 +17,24 @@
          
                 
                 <div class="col-12 px-2 py-0">
+
+                  <v-card tile flat class="col-12 py-2 px-0 my-1" color="#edf6f7" style="border:1px solid #5fb0b9;" @click.stop="showBot" v-if="this.$root.isBotLink">
+                <div class="row py-0 my-0 px-0">
+                    
+                    <div class="col-2 d-flex py-0 my-0" style="align-items:center; justify-content:center;">
+                        <v-icon color="#35747e" class="mx-1">mdi-robot</v-icon> 
+                    </div>
+                     <div class="py-0 my-0 d-flex col-8" style="align-items:center; justify-content:center;">
+                        <span class="titleTextNew">Launch Bot</span>
+                    </div>
+                     <div class="col-2 d-flex" style="align-items:center; justify-content:center;">
+                       
+                    </div>
+                    
+                    
+                </div>
+             </v-card>
+
                        <v-card tile flat class="col-12 py-2 px-0 my-1" color="#edf6f7" style="border:1px solid #5fb0b9;" @click.stop="shareToWhatsapp">
                 <div class="row py-0 my-0 px-0">
                     
@@ -396,6 +414,10 @@ export default {
       shareToFacebook:function(){
           let link = 'https://www.facebook.com/sharer/sharer.php?u=' + this.$root.shareLink + '. Sent from CitonHub.';
          window.location =  link;
+      },
+      showBot:function(){
+                
+         window.location =  this.$root.shareLink;
       },
      
        copyLink () {

@@ -28,6 +28,11 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import '@mdi/font/css/materialdesignicons.css'
 
+import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
+Vue.component('DynamicScroller', DynamicScroller)
+Vue.component('DynamicScrollerItem', DynamicScrollerItem)
+
 
 
 Vue.use(Vuetify);

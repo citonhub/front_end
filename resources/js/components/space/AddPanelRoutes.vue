@@ -1,7 +1,7 @@
 <template>
      <v-app style="background:transparent; font-family:BodyText;">
 
-       <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
+       <div class=" col-lg-6 offset-lg-3 py-0 px-0 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;  position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
 
@@ -26,7 +26,7 @@
 
 
             
-               <div class="col-12 py-2 my-0 px-2">
+               <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2">
                   <v-select
           v-model="RouteType"
           :items="Routes"
@@ -42,7 +42,7 @@
              </div>
 
 
-             <div class="col-12 py-2 my-0 px-2">
+             <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:13px;"
                  :placeholder="$t('panel.path_pholder')"
@@ -58,7 +58,7 @@
 
              </div>
 
-              <div class="col-12 py-2 my-0 px-2">
+              <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2">
                   <v-select
           v-model="ControllerFile"
           :items="Controllers"
@@ -76,7 +76,7 @@
              </div>
 
 
-             <div class="col-12 py-2 my-0 px-2">
+             <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:13px;"
                  :placeholder="$t('panel.method_name_pholder')"
@@ -97,7 +97,7 @@
 
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn rounded small :loading="loading" :disabled="disableForm" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="saveRoute">{{$t('general.add')}}</v-btn>
+                  <v-btn rounded small :loading="loading" type="submit" :disabled="disableForm" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click.prevent="saveRoute">{{$t('general.add')}}</v-btn>
              </div>
               
           </v-form>

@@ -1,18 +1,79 @@
 <template>
      <div class="row py-1 my-0 px-1" style="cursor:pointer;" >
+
+        <div style="position:absolute;top:120%; right:1%; z-index:2;" class="d-none d-md-block" v-if="showLiveInfo && this.$root.selectedSpace.type != 'Bot'">
+                    <info-dialog :buttonText="'Ok'" :content="liveCodingContent" :type="'infotop'"  :next="'subSpace'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:120%; right:2%; z-index:2;" class="d-md-none d-block" v-if="showLiveInfo && this.$root.selectedSpace.type != 'Bot'">
+                    <info-dialog :buttonText="'Ok'" :content="liveCodingContent" :type="'infotop'" :next="'subSpace'" ></info-dialog>
+                      </div>
+                
+                 <div style="position:absolute;top:120%; right:1%; z-index:2;" class="d-none d-md-block" v-if="showLiveInfo && this.$root.selectedSpace.type == 'Bot'">
+                    <info-dialog :buttonText="'Ok'" :content="SendAuthorMsg" :type="'infotop'"  :next="'subSpace'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:120%; right:2%; z-index:2;" class="d-md-none d-block" v-if="showLiveInfo && this.$root.selectedSpace.type == 'Bot'">
+                    <info-dialog :buttonText="'Ok'" :content="SendAuthorMsg" :type="'infotop'" :next="'subSpace'" ></info-dialog>
+                      </div>
+
+
+                     <div style="position:absolute;top:120%; right:17%; z-index:2;" class="d-none d-md-block" v-if="showSubSpaceInfo && this.$root.selectedSpace.type != 'Bot' && this.$root.selectedSpace.type != 'Direct'">
+                    <info-dialog :buttonText="'Ok'" :content="subChannelContent" :type="'infotop'"  :next="'customizeSpace'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:120%; right:17%; z-index:2;" class="d-md-none d-block" v-if="showSubSpaceInfo && this.$root.selectedSpace.type != 'Bot' && this.$root.selectedSpace.type != 'Direct' ">
+                    <info-dialog :buttonText="'Ok'" :content="subChannelContent" :type="'infotop'" :next="'customizeSpace'" ></info-dialog>
+                      </div>
+
+                       <div style="position:absolute;top:120%; right:17%; z-index:2;" class="d-none d-md-block" v-if="showSubSpaceInfo && this.$root.selectedSpace.type == 'Bot' ">
+                    <info-dialog :buttonText="'Ok'" :content="botInfoContent" :type="'infotop'"  :next="'customizeSpace'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:120%; right:17%; z-index:2;" class="d-md-none d-block" v-if="showSubSpaceInfo && this.$root.selectedSpace.type == 'Bot' ">
+                    <info-dialog :buttonText="'Ok'" :content="botInfoContent" :type="'infotop'" :next="'customizeSpace'" ></info-dialog>
+                      </div>
+
+
+
+                     <div style="position:absolute;top:120%; right:45%; z-index:2;" class="d-none d-md-block" v-if="showCustomizerInfo && this.$root.selectedSpace.type != 'Bot'">
+                    <info-dialog :buttonText="'Ok'" :content="this.$root.selectedSpace.type != 'Direct' ? customizeContent : gotoprofile" :type="'infotop'"  :next="'finalTop'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:120%; right:40%; z-index:2;" class="d-md-none d-block" v-if="showCustomizerInfo && this.$root.selectedSpace.type != 'Bot'">
+                    <info-dialog :buttonText="'Ok'" :content="this.$root.selectedSpace.type != 'Direct' ? customizeContent : gotoprofile" :type="'infotop'" :next="'finalTop'" ></info-dialog>
+                      </div>
+
+
+                       <div style="position:absolute;top:120%; right:45%; z-index:2;" class="d-none d-md-block" v-if="showCustomizerInfo && this.$root.selectedSpace.type == 'Bot'">
+                    <info-dialog :buttonText="'Ok'" :content="botInfoContentTop" :type="'infotop'"  :next="'finalTop'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;top:120%; right:40%; z-index:2;" class="d-md-none d-block" v-if="showCustomizerInfo && this.$root.selectedSpace.type == 'Bot'">
+                    <info-dialog :buttonText="'Ok'" :content="botInfoContentTop" :type="'infotop'" :next="'finalTop'" ></info-dialog>
+                      </div>
+
+
          <div class="col-1 py-0 my-0 d-flex" style="align-items:center; justify-content:center;">
                <v-btn icon @click.stop="goBack"><v-icon color="white">mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-2 py-0 my-0 d-flex" style="align-items:center; justify-content:center;" >
-            <div v-if="this.$root.selectedSpace.type != 'Direct'">
+            <div v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
                 
-                <v-img v-if="this.$root.selectedSpace.type == 'Personal'" :background-color="this.$root.selectedSpace.background_color" :src="this.$root.selectedSpace.image_name == null ? 'imgs/usernew.png' : '/imgs/space/'+ this.$root.selectedSpace.image_name +'.' + this.$root.selectedSpace.image_extension " height="36" width="36" class="avatarImg"  style="border:2px solid white;"></v-img>
-                <v-img v-else :background-color="this.$root.selectedSpace.background_color" :src="this.$root.selectedSpace.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ this.$root.selectedSpace.image_name +'.' + this.$root.selectedSpace.image_extension " height="36" width="36" class="avatarImg"  style="border:2px solid white;"></v-img>
+              
+                <v-img  :background-color="this.$root.selectedSpace.background_color" :src="this.$root.selectedSpace.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ this.$root.selectedSpace.image_name +'.' + this.$root.selectedSpace.image_extension " height="36" width="36" class="avatarImg"  style="border:2px solid white;"></v-img>
 
             </div> 
             <div v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'">
                 
                 <v-img  :background-color="this.$root.selectedSpace.userInfo.background_color" :src="this.$root.selectedSpace.userInfo.image_name == null ? 'imgs/usernew.png' : '/imgs/profile/'+ this.$root.selectedSpace.userInfo.image_name +'.' + this.$root.selectedSpace.userInfo.image_extension " height="36" width="36" class="avatarImg"  style="border:2px solid white;"></v-img>
+                
+
+            </div> 
+
+            <div v-if="this.$root.selectedSpace.bot_data != undefined && this.$root.selectedSpace.type == 'Bot'">
+                
+                <v-img  :background-color="this.$root.selectedSpace.bot_data.background_color" :src="this.$root.selectedSpace.bot_data.image_name == null ? 'imgs/usernew.png' : '/imgs/space/'+ this.$root.selectedSpace.bot_data.image_name +'.' + this.$root.selectedSpace.bot_data.image_extension " height="36" width="36" class="avatarImg"  style="border:2px solid white;"></v-img>
                 
 
             </div>  
@@ -37,6 +98,10 @@
             <span class="px-1">  {{shortenContent(this.$root.selectedSubSpaceName,25)}}</span>
           </span>
 
+          <span class="typingText d-block" v-if="this.$root.selectedSpace.type == 'Bot' ">
+            Online
+          </span>
+
            <span class="typingText d-block" v-if="this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' && (this.$root.typingSpace == this.$root.selectedSpace.space_id) ">
             
               {{this.$root.typinguser}} is typing... 
@@ -49,13 +114,19 @@
              
          </div>
 
-          <div class="col-1 py-0 my-0 px-0 text-right"  style="" v-if="this.$root.selectedSpace.type != 'Direct'">
+          <div class="col-1 py-0 my-0 px-0 text-right"  style="" v-if="this.$root.selectedSpace.type == 'Bot'">
+               
+               <v-btn icon @click="gotToBotChannel()"><v-icon color="#ffffff">mdi-account-supervisor-outline</v-icon></v-btn>
+              
+         </div>
+
+          <div class="col-1 py-0 my-0 px-0 text-right"  style="" v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
                
                <v-btn icon @click="subSpaceBoard"><v-icon color="#ffffff">mdi-pound</v-icon></v-btn>
               
          </div>
 
-          <div class="col-1 py-0 my-0 px-0 text-right"  v-else>
+          <div class="col-1 py-0 my-0 px-0 text-right"  v-if="this.$root.selectedSpace.type == 'Direct'">
                
                
               
@@ -63,7 +134,7 @@
 
          
           <div class="col-2 py-0 my-0 px-0 text-right"  style="" >
-              <v-menu bottom left
+              <v-menu bottom left v-if="this.$root.selectedSpace.type != 'Bot'"
                 transition="slide-y-transition" dense
                
                z-index="9899996969696" tile>
@@ -148,6 +219,8 @@
            </v-card>
            
           </v-menu>
+
+           <v-btn v-else icon   @click="showbotAuthor" ><v-icon color="#ffffff">mdi-comment-question-outline</v-icon></v-btn>
               
          </div>
         
@@ -179,6 +252,16 @@ export default {
           remoteCode: this.$root.remoteCode,
           remoteScreen: this.$root.remoteScreen,
           remoteAudio: this.$root.remoteAudio,
+          liveCodingContent:'Join a live coding session or share your screen with everyone',
+          subChannelContent:'Organize chats and contents by creating sub-channels or sub-teams',
+          botInfoContentTop:'Click here to view bot\'s profile',
+          botInfoContent: 'Join every other people learning actively from this bot',
+          SendAuthorMsg:'Send a message to the bot author here',
+          showLiveInfo:false,
+          showSubSpaceInfo:false,
+          customizeContent:'Click here to customize your channel or team and invite members',
+          gotoprofile:'Click here to view user\'s profile',
+          showCustomizerInfo:false,
           _this: this
         }
     },
@@ -188,9 +271,46 @@ export default {
     mounted(){
 
       this.$root.remoteLiveHappening = false;
+
+      this.$root.channelTopComponent = this;
              
     },
     methods:{
+      gotToBotChannel: function(){
+          
+          if(this.$root.selectedSpace.bot_data.bot_channel){
+
+             this.$root.Messages = null;
+
+              this.$root.channel = null
+
+              
+
+                this.$root.codeEditorArray = [];
+       this.$root.returnedMessages = [];
+       this.$root.messageStoreTop = [];
+       this.$root.messageStore = [];
+       this.$root.sharePage = false;
+       this.$root.showUserInfo = false;
+       
+
+           window.Echo.leave('space.' + this.$root.selectedSpace.space_id);
+        
+        this.$root.forceListReload = true;
+        this.$root.showUserInfo = false;
+       this.$root.selectedSpaceMembers = [];
+
+        this.$root.SpaceUsers = [];
+         this.$root.selectedSpace = [];
+
+
+             this.$router.push({ path: '/space/'  +   this.$root.selectedSpace.bot_data.bot_channel  +  '/channel/content' + '/user' });
+
+          }
+      },
+      showbotAuthor:function(){
+        this.$root.channelContentComponent.showBotAuthorBoard = true;
+      },
        generateOnlineUsers: function(){
           let onlineUserList = [];
 
@@ -209,6 +329,7 @@ export default {
         
         return onlineUserList.length;
        },
+
         generateOnlineUsersList: function(){
           let onlineUserList = [];
 
@@ -297,11 +418,13 @@ export default {
            
            this.$root.codeIsLive = true;
             this.$root.showChatBottom = false;
-             this.$root.showCodeBox = true;
+            this.$root.showCodeBox = true;
+             this.$router.push({ path: '/code-viewer'});
 
               this.$root.remoteLiveHappening = true;
         this.$root.remoteCode = true;
-       
+          
+          this.$root.setDataConnection();
             
              this.$root.sendLiveSignal('code');
 
@@ -310,6 +433,8 @@ export default {
                this.$root.remoteAudio = true;
 
                if(this.$root.audioconnection == undefined){
+
+                
 
              this.$root.setAudioConnection();
                if(this.checkIfMaster()){
@@ -378,8 +503,8 @@ export default {
             
            }
 
-          this.initaiteAudioConf();
- 
+         
+         this.initaiteAudioConf();
 
         },
         initaiteAudioConf: function(){
@@ -393,6 +518,7 @@ export default {
     if(this.$root.audioconnection == undefined){
 
         this.$root.setAudioConnection();
+        this.$root.setDataConnection();
 
           if(this.checkIfMaster()){
 

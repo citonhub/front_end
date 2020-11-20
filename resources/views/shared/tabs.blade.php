@@ -1,12 +1,27 @@
 
 
- <div class=" d-none d-md-none d-lg-block mx-2 px-2 py-2" 
- style="border-radius:7px; height:auto; position:fixed; width:15%;top:10%; left:8.30%; background:white;border:1px solid #e6e6e6;" >
+ <div class=" d-none d-md-none d-lg-block mx-2 px-2 py-2"  v-if="!itIsHomePage"
+ style=" height:auto; position:fixed; width:15%;top:10%; left:8.30%; background:whitesmoke;" >
          
-       
+ <div style="position:absolute;top:30%; left:90%; z-index:2;" class="d-none d-lg-block" v-if="showDashboardInfo">
+                    <info-dialog :buttonText="buttonText" :content="dashboardContent" :type="'infoleft'" :next="'hubinfo'"></info-dialog>
+                      </div>
 
 
-       <a :class=" tabLabel == 'space' ? 'd-block col-12 px-2 py-2 my-0 activeTab' : 'd-block col-12 px-2 py-2 my-0 notActiveTab'"  href="/"  @click="loader"> 
+                      <div style="position:absolute;top:55%; left:90%; z-index:2;" class="d-none d-lg-block" v-if="showHubInfo">
+                    <info-dialog :buttonText="buttonText" :content="hubContent" :type="'infoleft'" :next="'profileInfo'"></info-dialog>
+                      </div>
+
+              
+               <div style="position:absolute;top:78%; left:90%; z-index:2;" class="d-none d-lg-block" v-if="showProfileInfo">
+               <info-dialog :buttonText="buttonText" :content="profileContent" :type="'infoleft'" :next="'final'"></info-dialog>
+                </div>
+
+                     
+
+
+       <a :class=" tabLabel == 'space' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card ' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'"  href="/"  @click="loader"
+        style="border:1px solid transparent; border-radius:30px;"> 
           <div class="row py-0 my-0">
             <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
               @if($tablabel == 'space')
@@ -46,7 +61,47 @@
          </a>
 
 
-         <a :class=" tabLabel == 'home' ? 'd-block col-12 px-2 py-2 my-0 activeTab' : 'd-block col-12 px-2 py-2 my-0 notActiveTab'" href="/hub" @click="loader"> 
+       
+
+
+         <a :class=" tabLabel == 'panel' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'"  href="/dashboard" @click="loader"
+         style="border:1px solid transparent; border-radius:30px;"> 
+        
+          <div class="row py-0 my-0">
+            <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
+              @if($tablabel == 'panel')
+              <img src="{{ asset('imgs/panel_active.png') }}" class="iconstyle"/>
+              @else
+              <img src="{{ asset('imgs/panel.png') }}" class="iconstyle"/>
+              @endif
+            </div>
+            <div class="col-4 d-flex py-0 "  style="align-items:center; justify-content:center;">
+            <div class="text-center">
+            @if($tablabel == 'panel')
+             <span class="iconname" style="color:#36848C;">
+             @{{ $t('general.panel') }}
+             </span>
+             @else
+             <span class="iconname">
+
+             @{{ $t('general.panel') }}
+             </span>
+             @endif
+            </div>
+            </div>
+            <div class="col-4 d-flex py-0 "  style="align-items:center; justify-content:center;">
+            </div>
+
+
+          </div>
+         </a>
+
+
+
+
+        
+         <a :class=" tabLabel == 'home' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'" href="/hub" @click="loader"
+         style="border:1px solid transparent; border-radius:30px;"> 
           <div class="row py-0 my-0">
             <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
               @if($tablabel == 'hub')
@@ -75,50 +130,14 @@
           </div>
          </a>
 
-
-
-         <a :class=" tabLabel == 'duels' ? 'd-block col-12 px-2 py-2 my-0 activeTab' : 'd-block col-12 px-2 py-2 my-0 notActiveTab'"  href="/duels" @click="loader"> 
-          <div class="row py-0 my-0">
-            <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
-              @if($tablabel == 'duels')
-              <img src="{{ asset('imgs/duels_active.png') }}" class="iconstyle"/>
-              @else
-              <img src="{{ asset('imgs/duels.png') }}" class="iconstyle"/>
-              @endif
-            </div>
-            <div class="col-4 d-flex py-0 "  style="align-items:center; justify-content:center;">
-            <div class="text-center">
-            @if($tablabel == 'duels')
-             <span class="iconname" style="color:#36848C;">
-             @{{ $t('general.duels') }}
-             </span>
-             @else
-             <span class="iconname">
-
-             @{{ $t('general.duels') }}
-             </span>
-             @endif
-            </div>
-            </div>
-            <div class="col-4 d-flex py-0 "  style="align-items:center; justify-content:center;">
-            </div>
-
-
-          </div>
-         </a>
-
-
-
-
-        
-
         
   
 
       
 
 
-         <a :class=" tabLabel == 'profile' ? 'd-block col-12 px-2 py-2 my-0 activeTab' : 'd-block col-12 px-2 py-2 my-0 notActiveTab'"  href="/profile" @click="loader" > 
+         <a :class=" tabLabel == 'profile' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card '"  href="/profile" @click="loader" 
+         style="border:1px solid transparent; border-radius:30px;"> 
           <div class="row py-0 my-0">
             <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
               @if($tablabel == 'profile')
@@ -173,7 +192,16 @@
 
     <div class="col-12 card  py-2 px-2  d-md-flex flex-row d-lg-none d-none" style="border-radius:0px; height:auto;" >
          
-            
+    <div style="position:absolute;bottom:110%; left:16%; z-index:2;"  v-if="showDashboardInfo">
+                    <info-dialog :buttonText="buttonText" :content="dashboardContent" :type="'infobottom'" :next="'hubinfo'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;bottom:110%; left:40%; z-index:2;"  v-if="showHubInfo">
+                    <info-dialog :buttonText="buttonText" :content="hubContent" :type="'infobottom'" :next="'profileInfo'"></info-dialog>
+                      </div>
+                      <div style="position:absolute;bottom:110%; left:65%; z-index:2;"  v-if="showProfileInfo">
+               <info-dialog :buttonText="buttonText" :content="profileContent" :type="'infobottom'" :next="'final'"></info-dialog>
+                </div>
 
     <div class="text-center iconcontainer" > 
             <a href="/">
@@ -204,6 +232,25 @@
             </div>
 
 
+          
+           
+            <div class="text-center iconcontainer" > 
+            <a href="/dashboard">
+            @if($tablabel == 'panel')
+            <img src="{{ asset('imgs/panel_active.png') }}" class="iconstylemd"/><br>
+            <span class="iconnamemd py-1" style="color:#36848C;">
+            @{{ $t('general.panel') }} 
+             </span>
+            @else
+            <img src="{{ asset('imgs/panel.png') }}" class="iconstylemd"/><br>
+            <span class="iconnamemd py-1">
+            @{{ $t('general.panel') }} 
+             </span>
+            @endif
+            </a>
+            </div>
+
+            
             <div class="text-center iconcontainer" > 
             <a href="/hub">
             @if($tablabel == 'hub')
@@ -223,24 +270,6 @@
            
             
     
-           
-            <div class="text-center iconcontainer" > 
-            <a href="/duels">
-            @if($tablabel == 'duels')
-            <img src="{{ asset('imgs/duels_active.png') }}" class="iconstylemd"/><br>
-            <span class="iconnamemd py-1" style="color:#36848C;">
-            @{{ $t('general.duels') }} 
-             </span>
-            @else
-            <img src="{{ asset('imgs/duels.png') }}" class="iconstylemd"/><br>
-            <span class="iconnamemd py-1">
-            @{{ $t('general.duels') }} 
-             </span>
-            @endif
-            </a>
-            </div>
-
-           
 
             
             <div class="text-center iconcontainer"> 
@@ -275,6 +304,19 @@
     </div>
 
     <div class="col-12 card  py-1 px-2  d-md-none  flex-row " style="border-radius:0px; height:auto;" >
+
+    <div style="position:absolute;bottom:110%; left:30%; z-index:2;"  v-if="showDashboardInfo">
+                    <info-dialog :buttonText="buttonText" :content="dashboardContent" :type="'infobottomstart'" :next="'hubinfo'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;bottom:110%; left:20%; z-index:2;"  v-if="showHubInfo">
+                    <info-dialog :buttonText="buttonText" :content="hubContent" :type="'infobottom'" :next="'profileInfo'"></info-dialog>
+                      </div>
+
+                      <div style="position:absolute;bottom:110%; left:44%; z-index:2;"  v-if="showProfileInfo">
+               <info-dialog :buttonText="buttonText" :content="profileContent" :type="'infobottom'" :next="'final'"></info-dialog>
+                </div>
+
          
     <div class="text-center iconcontainer" > 
             <a href="/" @click="loader">
@@ -303,6 +345,24 @@
             </a>
             </div>
 
+            
+   
+            <div class="text-center iconcontainer" > 
+            <a href="/dashboard" @click="loader">
+            @if($tablabel == 'panel')
+            <img src="{{ asset('imgs/panel_active.png') }}" class="iconstylesm"/>
+            <div class="iconnamesm " style="color:#36848C;">
+            @{{ $t('general.panel') }} 
+             </div>
+            @else
+            <img src="{{ asset('imgs/panel.png') }}" class="iconstylesm"/>
+            <div class="iconnamesm ">
+            @{{ $t('general.panel') }} 
+             </div>
+            @endif
+            </a>
+            </div>
+
 
 
             <div class="text-center iconcontainer" > 
@@ -321,24 +381,6 @@
              
              </a>
             </div>
-            
-   
-            <div class="text-center iconcontainer" > 
-            <a href="/duels" @click="loader">
-            @if($tablabel == 'duels')
-            <img src="{{ asset('imgs/duels_active.png') }}" class="iconstylesm"/>
-            <div class="iconnamesm " style="color:#36848C;">
-            @{{ $t('general.duels') }} 
-             </div>
-            @else
-            <img src="{{ asset('imgs/duels.png') }}" class="iconstylesm"/>
-            <div class="iconnamesm ">
-            @{{ $t('general.duels') }} 
-             </div>
-            @endif
-            </a>
-            </div>
-
 
            
            

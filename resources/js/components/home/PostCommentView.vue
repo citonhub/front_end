@@ -34,13 +34,13 @@
 
        <div class="py-1 my-0 postScroll" style="position:fixed;top:7%; height:93%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; ">
            
-           <div v-for="(post,index) in this.$root.postArray" :key="index" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 px-0 py-0">
+           <div v-for="(post,index) in this.$root.postArray" :key="index" class="col-lg-4 offset-lg-4 col-md-8 offset-md-2 px-0 py-0">
           
 
-           <div class="col-12  my-0  py-1"  @click.stop="viewPost()">
-        <div class="row" style="background-color:white; border-bottom:1px solid #cccccc;border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;">
+           <div class="col-12  my-0  py-1"  @click.stop="viewPost()" v-if="post.commented_post">
+        <div class="row" style="background-color:white; border-bottom:1px solid #cccccc;">
            <div class="col-12 py-0 d-flex ">
-             <div>
+             <div  v-if="post.commented_post">
                   <div :style="imageStyle(43,post.commented_post.userProfile)"   @click.stop="viewUser(post.commented_post)"
                   class="d-inline-block" >
 
@@ -58,44 +58,39 @@
                 </div>
 
                 
+                  <div class="py-0 pb-1 px-2 col-12 my-0 " >
 
-
-          <div class="py-0 pb-1 px-2 col-12 my-0" >
-
-            
-
-
-             <div  v-if="post.commented_post.attachment_type == 'image'" class="px-lg-4 col-lg-8 offset-lg-2">
+             <div  v-if="post.commented_post.attachment_type == 'image'" class="px-lg-4 pb-0 col-12">
                  <image-viewer :imageArray="post.commented_post.image"></image-viewer>
              </div>
 
-              <div  class="px-lg-4 col-lg-8 offset-lg-2">
+              <div  class="px-lg-4 pb-0 col-12">
 
             <main-video v-if="post.commented_post.attachment_type == 'video'" :videoUrl="'/videos/' + post.commented_post.video.video_name + '.mpd'" :backgroundColor="post.commented_post.video.background_color" style="height:100%; width:100%;"
                :backgroundImg="'/videos/previewImage/'+ post.commented_post.video.preview_image_url" :playerId="'small' + post.commented_post.id" > </main-video>
                
              </div>
 
-               <div  v-if="post.commented_post.attachment_type == 'code'" class="px-lg-5 col-lg-8 offset-lg-2" >
+               <div  v-if="post.commented_post.attachment_type == 'code'" class="px-lg-2 pb-0 col-md-8 offset-md-2" >
                  <code-box :codeContent="post.commented_post.code.content" :filename="post.commented_post.code.name" :codeLanguage="post.commented_post.code.language_type" :codeViewerType="viewerType"></code-box>
              </div>
 
-              <div v-if="post.commented_post.attachment_type == 'project'" class="px-lg-5  pb-4 col-lg-8 offset-lg-2" >
+              <div v-if="post.commented_post.attachment_type == 'project'" class="px-lg-2  pb-0 col-md-10 offset-md-1" >
                  <project :projectData="post.commented_post.project"></project>
              </div>
-              <div  v-if="post.commented_post.attachment_type == 'duel'" class="px-lg-5 pb-4 col-lg-8 offset-lg-2"  >
+              <div  v-if="post.commented_post.attachment_type == 'duel'" class="px-lg-2 pb-0 col-md-10 offset-md-1"  >
                  <duel :duelData="post.commented_post.duel"></duel>
              </div>
-              <div  v-if="post.commented_post.attachment_type == 'channel'" class="px-lg-5 pb-4 col-lg-8 offset-lg-2" >
+              <div  v-if="post.commented_post.attachment_type == 'channel'" class="px-lg-2 pb-0 col-md-10 offset-md-1" >
                  <channel :channelData="post.commented_post.channel"></channel>
              </div>
 
-              <div  v-if="post.commented_post.attachment_type == 'link'"  class="px-lg-5 col-lg-8 offset-lg-2">
+              <div  v-if="post.commented_post.attachment_type == 'link'"  class="px-lg-2 pb-4 col-12">
                   <link-view :urlInfo="post.commented_post.link" ></link-view>
              </div>
-
+                  
                 </div>
-            <div class="py-0 px-2 col-12 my-0">
+            <div class="py-0 px-2 col-12 my-0 mt-2">
                    <div class="row">
                     <div class="col-3 my-0 py-0 text-center">
                       <v-btn class="d-inline-block" icon  @click.stop="likePost(post.commented_post)">
@@ -135,7 +130,7 @@
               <div class="col-12 py-1" style="background-color:whitesmoke; border-bottom:1px solid #cccccc;">
         <div class="row" >
            <div class="col-12 py-0 d-flex " >
-             <div>
+             <div v-if="post.userProfile">
                   <div :style="imageStyle(38,post.userProfile)"  @click.stop="viewUser(post)" 
                   class="d-inline-block" >
 
@@ -155,41 +150,41 @@
             
 
 
-                  <div class="py-0 pb-1 px-2 col-12 my-0" >
+                   <div class="py-0 pb-1 px-2 col-12 my-0 " >
 
-             <div  v-if="post.attachment_type == 'image'" class="px-lg-4 col-lg-8 offset-lg-2">
+             <div  v-if="post.attachment_type == 'image'" class="px-lg-4 pb-0 col-12">
                  <image-viewer :imageArray="post.image"></image-viewer>
              </div>
 
-              <div  class="px-lg-4 col-lg-8 offset-lg-2">
+              <div  class="px-lg-4 pb-0 col-12">
 
             <main-video v-if="post.attachment_type == 'video'" :videoUrl="'/videos/' + post.video.video_name + '.mpd'" :backgroundColor="post.video.background_color" style="height:100%; width:100%;"
                :backgroundImg="'/videos/previewImage/'+ post.video.preview_image_url" :playerId="'small' + post.id" > </main-video>
                
              </div>
 
-               <div  v-if="post.attachment_type == 'code'" class="px-lg-5 col-lg-8 offset-lg-2" >
+               <div  v-if="post.attachment_type == 'code'" class="px-lg-2 pb-0 col-md-8 offset-md-2" >
                  <code-box :codeContent="post.code.content" :filename="post.code.name" :codeLanguage="post.code.language_type" :codeViewerType="viewerType"></code-box>
              </div>
 
-              <div v-if="post.attachment_type == 'project'" class="px-lg-5  pb-4 col-lg-8 offset-lg-2" >
+              <div v-if="post.attachment_type == 'project'" class="px-lg-2  pb-0 col-md-10 offset-md-1" >
                  <project :projectData="post.project"></project>
              </div>
-              <div  v-if="post.attachment_type == 'duel'" class="px-lg-5 pb-4 col-lg-8 offset-lg-2"  >
+              <div  v-if="post.attachment_type == 'duel'" class="px-lg-2 pb-0 col-md-10 offset-md-1"  >
                  <duel :duelData="post.duel"></duel>
              </div>
-              <div  v-if="post.attachment_type == 'channel'" class="px-lg-5 pb-4 col-lg-8 offset-lg-2" >
+              <div  v-if="post.attachment_type == 'channel'" class="px-lg-2 pb-0 col-md-10 offset-md-1" >
                  <channel :channelData="post.channel"></channel>
              </div>
 
-              <div  v-if="post.attachment_type == 'link'"  class="px-lg-5 col-lg-8 offset-lg-2">
+              <div  v-if="post.attachment_type == 'link'"  class="px-lg-2 pb-4 col-12">
                   <link-view :urlInfo="post.link" ></link-view>
              </div>
                   
                 </div>
 
         
-             <div class="py-0 px-2 col-12 my-0" >
+             <div class="py-0 px-2 col-12 my-0 mt-2" >
                    <div class="row">
                     <div class="col-4 my-0 py-0 text-center">
                      <v-btn class="d-inline-block" icon  @click.stop="likePost(post)">
@@ -381,7 +376,14 @@ export default {
            this.$root.checkIfUserIsLoggedIn('home');
 
            this.$root.postArray = [this.post.commented_post];
+
+           this.$root.showPostViewModal = false;
+
+          
+
         this.$router.push({ path: '/post/' + this.post.commented_post.username + '/' + this.post.commented_post.PostId + '/user' });
+
+         this.$root.showPostModal = true;
     },
     likePost: function(postData){
 

@@ -3,101 +3,570 @@
 
   
      
-     <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-1 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
-         <div class="row my-0 py-0 px-1">
-           <div  >
-             
+     <div class="  col-lg-6 offset-lg-3 py-1 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
+        
+        <div style="position:fixed; width:100%; left:0; height:5%;z-index:999999999999;" class="col-lg-6 offset-lg-3 py-0 my-0">
+          <div class="col-12 d-md-block d-none py-0 my-0">
+
+            <div class="row py-0 my-0">
+               <div class="col-3 text-left " >
+                 <div style="position:absolute;top:28%; left:38%;" class="d-none d-md-block text-left" v-if="showSwitchInfo">
+                    <info-dialog :buttonText="'Ok'" :content="switchContent" :type="'infoleft'" :next="'panelTeamChannel'"></info-dialog>
+                      </div>
+                  <v-btn small  color="#ffffff" @click="showUserOrgBoard = true" rounded><v-icon color="#3E8893">mdi-account-switch</v-icon></v-btn>
+               </div>
+
+               <div class="col-6 text-center ">
+                      <span style="font-size:14px; font-family:headerText;" v-if="this.$route.params.orgId == 'user'" >You</span>
+                      <span style="font-size:14px; font-family:headerText;" v-else >{{shortenContent(this.$root.selectedOrg.name,25)}}</span>
+               </div>
+
+               <div class="col-3 text-right ">
+                 <div style="position:absolute;top:25%; right:65%; z-index:2;" class="d-none d-md-block text-left" v-if="showOrgInfo">
+                    <info-dialog :buttonText="'Ok'" :content="orgContent" :type="'inforight'" :next="'panelShowSwitch'"></info-dialog>
+                      </div>
+
+                      
+                <v-btn x-small color="#3E8893" @click="showOrgList" style="color:white;">communities</v-btn>
+               </div>
+            </div>
+
+          </div>
+
+          <div class="col-12 d-md-none d-block py-0 my-0 px-1">
+
+            <div class="row py-0 my-0">
+               <div class="col-3 text-left px-1">
+                 <div style="position:absolute;top:28%; left:76%;z-index:999999999999;" class=" text-left" v-if="showSwitchInfo">
+                    <info-dialog :buttonText="'Ok'" :content="switchContent" :type="'infoleft'" :next="'panelTeamChannel'"></info-dialog>
+                      </div>
+                  <v-btn small  color="#ffffff" @click="showUserOrgBoard = true" rounded><v-icon color="#3E8893">mdi-account-switch mdi-18px</v-icon></v-btn>
+               </div>
+
+               <div class="col-6 text-center px-1">
+                      <span style="font-size:13px; font-family:headerText;" v-if="this.$route.params.orgId == 'user'" >You</span>
+                      <span style="font-size:13px; font-family:headerText;" v-else >{{shortenContent(this.$root.selectedOrg.name,20)}}</span>
+               </div>
+
+               <div class="col-3 text-right px-1">
+                 <div style="position:absolute;top:25%; right:67%; z-index:2;" class="d-md-none d-block text-left" v-if="showOrgInfo">
+                    <info-dialog :buttonText="'Ok'" :content="orgContent" :type="'inforight'" :next="'panelShowSwitch'"></info-dialog>
+                      </div>
+                <v-btn small color="#3E8893" rounded @click="showOrgList"><v-icon color="#ffffff">mdi-bank mdi-18px</v-icon></v-btn>
+               </div>
+            </div>
+
+          </div>
+        </div>  
+
+
+
+        <div style="position:fixed; width:100%; left:0; top:13%; height:25%;" class="col-lg-6 offset-lg-3 py-0 my-0 px-1"> 
+       
             
-            
-            
+                <div class=" py-2 px-4 d-md-block d-none" style="position:absolute; width:100%; top:2%; left:2%;">
+                  <div style="position:absolute;top:28%; left:24%;z-index:999999999999;" class=" text-left" v-if="showAddSpaceInfo">
+                    <info-dialog :buttonText="'Ok'" :content="spaceContent" :type="'infoleft'" :next="'panelBot'"></info-dialog>
+                      </div>
+                <span style="font-size:14px; ">Channels and teams</span> <v-btn icon class="d-inline-block" :disabled="checkifnotowner()" style="z-index:235464563;" @click="createSpace()" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
+                </div>
+
+                 <div class=" py-2 px-2 d-md-none d-block" style="position:absolute; width:100%; top:5%; left:1%;">
+                   <div style="position:absolute;top:28%; left:44%;z-index:999999999999;" class=" text-left" v-if="showAddSpaceInfo">
+                    <info-dialog :buttonText="'Ok'" :content="spaceContent" :type="'infoleft'" :next="'panelBot'"></info-dialog>
+                      </div>
+                <span style="font-size:13px; ">Channels and teams</span> <v-btn icon class="d-inline-block" :disabled="checkifnotowner()" style="z-index:235464563;"  @click="createSpace()"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
+                </div>
+
+                <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:60%; left:0;">
+                    <v-btn icon small @click="circulateData('channel','decr')"> <v-icon>mdi-chevron-left</v-icon></v-btn>
+                </div>
+
+                <div class="d-md-block d-none py-1" style="align-items:center; justify-content:center; position:absolute;  width:80%; height:90%; top:18%; left:10%;">
+
+                  <div v-if="ChannelTeamDataLg != null">
+
+        
+                     <div 
+        v-for="(spaces,index) in ChannelTeamDataLg" :key="'lg_space'+ index"
+    >
+        <div class="col-12  d-md-block d-none">
+
+         <div class="row py-0 my-0">
+
+           <div class="col-6 " v-for="(space,index) in spaces" :key="'inner'+index">
+             <v-card color="#ffffff" height="60px" @click="showSpace(space)">
+                <div class="row py-0 my-0 px-0">
+                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
+                        <div class="py-1">
+   <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
+                        </div>    
+                    </div>
+                     <div class="py-0 my-0 d-flex col-9" style="align-items:center;">
+                       <div>
+                      <span class="titleTextNew d-block">{{shortenContent(space.name,20)}}</span>
+                         <span class=" d-block" style="font-size:12px; color:gray;" v-html="shortenContent(space.description,30)" ></span>
+                       </div>
+                        
+                    </div>
+                   
+                </div>
+             </v-card>
            </div>
-            
-  <virtual-list 
-      style="overflow-y:auto;position:absolute;left:0; width:100%; height:100%;z-index:1345000;padding-bottom:200px;"
-      :data-key="'duel_id'"
-      :data-sources="duels"
-      class="scrollerStyle"
-      v-if="duels.length != 0"
-      :data-component="itemComponent"
-      :keeps="15">   
-     
-</virtual-list>  
-
-<div v-else   style="overflow-y:auto;position:absolute;left:0; width:100%; height:100%;z-index:1345000;padding-bottom:200px;">
-      <div class="col-12 col-lg-8 offset-lg-2 py-0 my-0">
-
-         <div class="row py-0 my-0 px-1">
-            
-     <div class="col-12 py-1 my-0">
-       <v-skeleton-loader
-      class="mx-auto "
-        height="70px"
-      type="image"
-    ></v-skeleton-loader>
-     </div>
-         </div>
-
-
-        <div class="row py-0 my-0 px-1">
-            
-     <div class="col-12 py-1 my-0">
-       <v-skeleton-loader
-      class="mx-auto "
-        height="70px"
-      type="image"
-    ></v-skeleton-loader>
-     </div>
-         </div>
-
-          <div class="row py-0 my-0 px-1">
-            
-     <div class="col-12 py-1 my-0">
-       <v-skeleton-loader
-      class="mx-auto "
-        height="70px"
-      type="image"
-    ></v-skeleton-loader>
-     </div>
-         </div>
-  </div>
           
-      
-    
+         
+
+         </div>
+             
+        </div>
+
      
-</div>
+        
+        
+    </div>
+
+       <div v-if="ChannelTeamDataLg[0].length == 0" style="height:100%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
+
+         <span style="font-size:13px; color:gray;">No Channel or team created yet</span>
+           
+       </div>
+
+
+                  </div>
+
+              <div v-else>
+                
+                 <div class="col-12  d-md-block d-none">
+
+         <div class="row py-0 my-0">
+
+           <div class="col-6 ">
+            <v-skeleton-loader height="60px"  type="image"></v-skeleton-loader>
+           </div>
+
+           <div class="col-6 ">
+            <v-skeleton-loader height="60px"  type="image"></v-skeleton-loader>
+           </div>
+
+           <div class="col-6 ">
+            <v-skeleton-loader height="60px"  type="image"></v-skeleton-loader>
+           </div>
+
+           <div class="col-6 ">
+            <v-skeleton-loader height="60px"  type="image"></v-skeleton-loader>
+           </div>
+          
+         
+
+         </div>
+             
+        </div>
+
+              </div>
+
+                
+
+              
+            </div>
+
+             <div class="d-md-none d-block pt-3 px-2 " v-if="ChannelTeamData != null" style="white-space:nowrap;  overflow-y:hidden; position:absolute; overflow-x:auto; width:90%; height:80%; top:20%; left:5%;">
+
+               
+              <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "
+              v-for="(space,index) in ChannelTeamData " :key="'sm_space'+index">
+
+              <v-card color="#ffffff" height="68px" @click="showSpace(space)"  >
+               <div class="col-12 py-2 my-0">
+
+                  <div class="row py-0 my-0 px-0">
+                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
+                        <div class="py-1">
+<v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
+                        </div>    
+                    </div>
+                     <div class="py-0 my-0 d-flex col-9" style="align-items:center;">
+                       <div>
+                      <span class="titleTextNew d-block">{{shortenContent(space.name,20)}}</span>
+                         <span class=" d-block" style="font-size:12px; color:gray;" v-html="shortenContent(space.description,25)"  ></span>
+                       </div>
+                        
+                    </div>
+                   
+                </div>
+
+               </div>
+               
+             </v-card>
+
+               </div>
+             
+
+             <div v-if="ChannelTeamData.length == 0" style="height:70%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
+
+         <span style="font-size:13px; color:gray;">No Channel or team created yet</span>
+           
+       </div>
+              
+
+             </div>
+
+             <div class="d-md-none d-block pt-3 px-2 " v-else style="white-space:nowrap;  position:absolute; overflow-x:auto; width:90%; height:80%; top:20%; left:5%;">
+                 <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "  >
+
+              <v-skeleton-loader height="68px"  type="image"></v-skeleton-loader>
+
+             
+               </div>
+
+               <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "  >
+
+              <v-skeleton-loader height="68px"  type="image"></v-skeleton-loader>
+
+             
+               </div>
+             </div>
+
+             <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute;  width:10%; top:60%; right:0;">
+                    <v-btn icon small @click="circulateData('channel','incr')"> <v-icon>mdi-chevron-right</v-icon></v-btn>
+                </div>
+        </div>
+
+      <div style="position:fixed; width:100%; left:0; top:37%; height:25%;" class="col-lg-6 offset-lg-3 py-0 my-0 px-1"> 
+       
+            
+                <div class=" py-2 px-4 d-md-block d-none" style="position:absolute; width:100%; top:2%; left:2%;">
+                   <div style="position:absolute;top:28%; left:19%;z-index:999999999999;" class=" text-left" v-if="showBotInfo">
+                    <info-dialog :buttonText="'Ok'" :content="botInfoContent" :type="'infoleft'" :next="'panelChallenges'"></info-dialog>
+                      </div>
+                <span style="font-size:14px; ">Teaching Bots</span> <v-btn icon class="d-inline-block" :disabled="!isBetatester" style="z-index:235464563;" @click="gotToBotCreate" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
+                </div>
+
+                 <div class=" py-2 px-2 d-md-none d-block" style="position:absolute; width:100%; top:5%; left:1%;">
+                    <div style="position:absolute;top:28%; left:36%;z-index:999999999999;"  class=" text-left" v-if="showBotInfo">
+                    <info-dialog :buttonText="'Ok'" :content="botInfoContent" :type="'infoleft'" :next="'panelChallenges'"></info-dialog>
+                      </div>
+                <span style="font-size:13px; ">Teaching Bots</span> <v-btn icon class="d-inline-block" :disabled="!isBetatester" style="z-index:235464563;" @click="gotToBotCreate"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
+                </div>
+
+                <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:60%; left:0;">
+                    <v-btn icon small @click="circulateData('bots','decr')"> <v-icon>mdi-chevron-left</v-icon></v-btn>
+                </div>
+
+                <div class="d-md-block d-none py-1" style="align-items:center; justify-content:center; position:absolute;  width:80%; height:90%; top:18%; left:10%;">
+
+                  <div v-if="botDataLg != null">
+
+        
+                     <div 
+        v-for="(botArray,index) in botDataLg" :key="'lg_bot'+ index"
+    >
+        <div class="col-12  d-md-block d-none">
+
+         <div class="row py-0 my-0">
+
+           <div class="col-6 " v-for="(bot,index) in botArray" :key="'inner'+index">
+             <v-card color="#ffffff" height="60px" @click="gotToBot(bot)">
+                <div class="row py-0 my-0 px-0">
+                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
+                        <div class="py-1">
+   <v-img  :background-color="bot.background_color" :src="bot.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ bot.image_name +'.' + bot.image_extension " height="38" width="38" class="avatarImg"></v-img>
+                        </div>    
+                    </div>
+                     <div class="py-0 my-0 d-flex col-9" style="align-items:center;">
+                       <div>
+                      <span class="titleTextNew d-block">{{shortenContent(bot.name,20)}}</span>
+                         <span class=" d-block" style="font-size:12px; color:gray;" v-html="shortenContent(bot.description,30)" ></span>
+                       </div>
+                        
+                    </div>
+                   
+                </div>
+             </v-card>
+           </div>
+          
+         
+
+         </div>
+             
+        </div>
+
+     
+        
+        
+    </div>
+
+       <div v-if="botDataLg[0].length == 0" style="height:100%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
+
+         <span style="font-size:13px; color:gray;">Teaching bot in beta, coming soon</span>
+           
+       </div>
+
+
+                  </div>
+
+              <div v-else>
+                
+                 <div class="col-12  d-md-block d-none">
+
+         <div class="row py-0 my-0">
+
+           <div class="col-6 ">
+            <v-skeleton-loader height="60px"  type="image"></v-skeleton-loader>
+           </div>
+
+           <div class="col-6 ">
+            <v-skeleton-loader height="60px"  type="image"></v-skeleton-loader>
+           </div>
+
+           <div class="col-6 ">
+            <v-skeleton-loader height="60px"  type="image"></v-skeleton-loader>
+           </div>
+
+           <div class="col-6 ">
+            <v-skeleton-loader height="60px"  type="image"></v-skeleton-loader>
+           </div>
+          
+         
+
+         </div>
+             
+        </div>
+
+              </div>
+
+                
+
+              
+            </div>
+
+             <div class="d-md-none d-block pt-3 px-2 " v-if="botData != null" style="white-space:nowrap; overflow-y:hidden;  position:absolute; overflow-x:auto; width:90%; height:80%; top:20%; left:5%;">
+
+               
+              <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "
+              v-for="(bot,index) in botData " :key="'sm_bot'+index">
+
+              <v-card color="#ffffff" height="68px" @click="gotToBot(bot)"  >
+               <div class="col-12 py-2 my-0">
+
+                  <div class="row py-0 my-0 px-0">
+                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
+                        <div class="py-1">
+<v-img  :background-color="bot.background_color" :src="bot.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ bot.image_name +'.' + bot.image_extension " height="38" width="38" class="avatarImg"></v-img>
+                        </div>    
+                    </div>
+                     <div class="py-0 my-0 d-flex col-9" style="align-items:center;">
+                       <div>
+                      <span class="titleTextNew d-block">{{shortenContent(bot.name,20)}}</span>
+                         <span class=" d-block" style="font-size:12px; color:gray;" v-html="shortenContent(bot.description,25)"  ></span>
+                       </div>
+                        
+                    </div>
+                   
+                </div>
+
+               </div>
+               
+             </v-card>
+
+               </div>
+             
+
+             <div v-if="botData.length == 0" style="height:70%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
+
+         <span style="font-size:13px; color:gray;">Teaching bot in beta, coming soon</span>
+           
+       </div>
+              
+
+             </div>
+
+             <div class="d-md-none d-block pt-3 px-2 " v-else style="white-space:nowrap;  position:absolute; overflow-x:auto; width:90%; height:80%; top:20%; left:5%;">
+                 <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "  >
+
+              <v-skeleton-loader height="68px"  type="image"></v-skeleton-loader>
+
+             
+               </div>
+
+               <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "  >
+
+              <v-skeleton-loader height="68px"  type="image"></v-skeleton-loader>
+
+             
+               </div>
+             </div>
+
+             <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute;  width:10%; top:60%; right:0;">
+                    <v-btn icon small @click="circulateData('bots','incr')"> <v-icon>mdi-chevron-right</v-icon></v-btn>
+                </div>
+        </div>
+        
+     
+     <div style="position:fixed; width:100%; left:0; top:61%; height:25%;" class="col-lg-6 offset-lg-3 py-0 my-0">
+         <div class=" py-2 px-4 d-md-block d-none" style="position:absolute; width:100%; top:2%; left:2%;">
+           <div style="position:absolute;top:28%; left:22%;z-index:999999999999;" class=" text-left" v-if="showChallengesInfo">
+                    <info-dialog :buttonText="'Ok'" :content="challengesContent" :type="'infoleft'" :next="'panelFinal'"></info-dialog>
+                      </div>
+                <span style="font-size:14px; ">Coding Challenges</span> <v-btn icon class="d-inline-block" :disabled="checkifnotowner()" style="z-index:235464563;" @click="gotToChallengeCreate" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
+
+                 
+                </div>
+
+             <div class=" py-2 px-2 d-md-none d-block" style="position:absolute; width:100%; top:4%; left:1%;">
+
+                <div style="position:absolute;top:28%; left:43%;z-index:999999999999;" class=" text-left" v-if="showChallengesInfo">
+                    <info-dialog :buttonText="'Ok'" :content="challengesContent" :type="'infoleft'" :next="'panelFinal'"></info-dialog>
+                      </div>
+
+                <span style="font-size:13px; ">Coding Challenges</span> <v-btn icon class="d-inline-block" :disabled="checkifnotowner()" style="z-index:235464563;"  @click="gotToChallengeCreate" color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
+                </div>
+
+                <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:60%; left:0;">
+                    <v-btn icon small @click="circulateData('challenges','decr')"> <v-icon>mdi-chevron-left</v-icon></v-btn>
+                </div>
+                
+
+                <div class="d-md-block d-none py-1" style="align-items:center; justify-content:center; position:absolute;  width:80%; height:90%; top:18%; left:10%;">
+
+                  <div v-if="challengesDataLg != null">
+
+
+                     <div
+       v-for="(challengeArray,index) in challengesDataLg" :key="'lg_challenge'+ index"
+    >
+        <div class="col-12  d-md-block d-none">
+
+         <div class="row py-0 my-0">
+
+            <div class="col-6 "   v-for="(challenge,index) in challengeArray" :key="'inner_challenge'+ index">
+            <each-duel :source="challenge"></each-duel>
+           </div>
+
+           
+
+         </div>
+             
+        </div>
+
+     
+        
+        
+    </div>
+
+     <div v-if="challengesDataLg[0].length == 0" style="height:100%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
+
+         <span style="font-size:13px; color:gray;">No challenges created yet</span>
+           
+       </div>
+
+
+
+                  </div>
+
+                  <div v-else>
+                
+                 <div class="col-12  d-md-block d-none">
+
+         <div class="row py-0 my-0">
+
+           <div class="col-6 ">
+            <v-skeleton-loader height="60px"  type="image"></v-skeleton-loader>
+           </div>
+
+           <div class="col-6 ">
+            <v-skeleton-loader height="60px"  type="image"></v-skeleton-loader>
+           </div>
+
+           <div class="col-6 ">
+            <v-skeleton-loader height="60px"  type="image"></v-skeleton-loader>
+           </div>
+
+           <div class="col-6 ">
+            <v-skeleton-loader height="60px"  type="image"></v-skeleton-loader>
+           </div>
+          
+         
+
+         </div>
+             
+        </div>
+
+              </div>
+
+                
+
+              
+            </div>
+
+             <div class="d-md-none d-block pt-3 px-2 " v-if="challengesData != null" style="white-space:nowrap;  overflow-y:hidden; position:absolute; overflow-x:auto; width:90%; height:80%; top:20%; left:5%;">
+              
+              <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "
+               v-for="(challenge,index) in challengesData" :key="'sm_challenge'+index">
+                <each-duel :source="challenge"></each-duel>
+               
+             </div>
+
+
+             <div v-if="challengesData.length == 0" style="height:70%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
+
+         <span style="font-size:13px; color:gray;">No challenges created yet</span>
+           
+       </div>
+
+             
+             </div>
+
+             <div class="d-md-none d-block pt-3 px-2 " v-else style="white-space:nowrap;  position:absolute; overflow-x:auto; width:90%; height:80%; top:20%; left:5%;">
+
+               <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "  >
+
+              <v-skeleton-loader height="68px"  type="image"></v-skeleton-loader>
+
+             
+               </div>
+
+               <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "  >
+
+              <v-skeleton-loader height="68px"  type="image"></v-skeleton-loader>
+
+             
+               </div>
+
+             </div>
+
+             <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute;  width:10%; top:60%; right:0;">
+                    <v-btn icon small @click="circulateData('challenges','incr')"> <v-icon>mdi-chevron-right</v-icon></v-btn>
+                </div>
+        </div>  
+
+         
+     
+         <div   v-if="showUserOrgBoard"  @click="showUserOrgBoard = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999999999999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
+           <div @click.stop="showUserOrgBoard = true"  style="position:absolute; height:auto; width:90%; bottom:45%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
+
+             <v-card style="border-radius:10px;"
+       height="auto"
+      
+       class="py-2 px-1 col-12 col-lg-8 offset-lg-2 " >
+
+           
+             <v-card tile :color="that.$route.params.orgId == 'user' ? '#b7dbe1': '#ffffff'" flat class="text-center py-2" style="border-radius:0px;" @click.stop="selectOrg('user')" >
+        <span style="font-size:13px;  color:#173236; font-family:headerText;">You</span>
+            </v-card>
+             <v-card tile :color="that.$route.params.orgId == org.org_id ? '#b7dbe1': '#ffffff'" flat class="text-center py-2" @click.stop="selectOrg(org.org_id)" style="border-top:1px solid #c5c5c5;border-radius:0px;" v-for="(org,index) in organizations" :key="index">
+        <span style="font-size:13px;  color:#173236; font-family:headerText;">{{org.name}}</span>
+            </v-card>
+
+            
             
 
+             </v-card>
+
+           </div>
          </div>
+
+    
       
- 
-
-     <span style="position:absolute; top:76%; right:3%;z-index:134500045;" v-show="!showmore" class="d-md-none d-inline-block">
-          <v-btn
-                color="#35747e"
-                small
-                @click="createDuel"
-                class="d-block"
-                fab
-              >
-                <v-icon color="#ffffff">mdi-plus</v-icon>
-              </v-btn>
-     </span>
-
-      <span style="position:absolute; top:84%; right:3%;z-index:134500045;" v-show="!showmore" class="d-none d-md-inline-block">
-          <v-btn
-                color="#35747e"
-                small
-                @click="createDuel"
-                class="d-block"
-                fab
-              >
-                <v-icon color="#ffffff">mdi-plus</v-icon>
-              </v-btn>
-     </span>
-
-       <div class="col-12 py-5 my-5" style="padding-top:100px !important;">
-             
-         </div>
      </div> 
 
      
@@ -109,151 +578,449 @@
      
 </template>
 <script>
-import EachDuel from './EachDuel'
-  import VirtualList from 'vue-virtual-scroll-list'
+
 
 export default {
      data () {
       return {
        showmore:false,
        duels:this.$root.duels,
-       itemComponent: EachDuel,
+       botData:null,
+       challengesData:null,
+       ChannelTeamData:null,
+       botDataLg:null,
+       challengesDataLg:null,
+       ChannelTeamDataLg:null,
+       botScroller:1,
+       challengeScroller:1,
+       TeamScroller:1,
+       botCountLength:0,
+       challengeCountLength:0,
+       channelCountLength:0,
+       returnedChannel:[],
+       returnedBot:[],
+       returnedChallenges:[],
+       isBetatester: false,
+       organizations:[],
+       that:this,
+       showUserOrgBoard:false,
+      orgContent:'Create and manage your communities here',
+       switchContent:'Click here to switch between your communities',
+      showOrgInfo:false,
+      showSwitchInfo: false,
+      showAddSpaceInfo: false,
+      showBotInfo: false,
+      showChallengesInfo:false,
+      spaceContent:'Click here to create new channels and teams',
+      botInfoContent:'Click here to create new teaching bots',
+      challengesContent:'Click here to create new challenges'
          
       }
     },
      components: { 
-     'virtual-list': VirtualList
+    
       },
+      
     mounted(){
+
+      this.$root.checkIfUserIsLoggedIn('duels')
       this.$root.showTabs=true;
        this.$root.showHeader = true;
-        if(this.$root.UserDuel != null){
-           this.$root.disconnectDuel(this.$root.UserDuel);
-        }
-      this.fetchDuels();
-      this.trackUser();
-       
+         this.$root.isBotLink = false;
+         this.$root.mainPanelComponent = this;
+         this.handleInfoSession();
+       this.getPanelFullData();
+      
     },
     methods:{
-      
-    
-       createDuel: function(){
-            this.$router.push({ path: '/duel/create' });
-       },
-      
-       activateBot:function(){
-         this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
-            return page.page_name == 'duel';
-          });
-         
-          if(this.$root.selectedPage.length != 0){
-               
-              if(this.$root.selectedPage[0].status == 0){
-                 this.$root.showBoard = true;
-         this.$root.boardContent = 'Challenge your friends to duels and support your favourite prticipants';
-         this.$root.boardBtnLabel = 'Okay,Got It';
+       handleInfoSession:function(){
 
-              }
-               
-          }
-        
-         
-      },
-        trackUser: function(){
-      
 
-         axios.get('/fetch-profile-'+ this.$root.username)
-   .then(response => {
-   
-   if (response.status == 200) {
-
-        this.$root.userPageTrack = response.data[2];
-
-       
-  }
-    
-  
-  })
-  .catch(error => {
- 
-  }) 
-
-      
-   },
-       
-       fetchDuels: function(){
-         if(this.$root.duels.length != 0){
-             this.duels =  this.$root.duels;
-
-              this.$root.trackDuelConnections(this.$root.duels);
-
-         }else{
-                 
-            axios.get('/fetch-duels')
+           axios.get('/fetch-user-onboarding')
       .then(response => {
       
-      if (response.status == 200) {
+      if (response.status == 200 || response.status == 201) {
 
-         
-        
-        this.duels = response.data;
-        this.$root.duels = response.data;
+          
+       let storedInfo = this.$root.getLocalStore('panelinfo'+ this.$root.username);
 
-          this.$root.trackDuelConnections(this.$root.duels);
-       
+        storedInfo.then((result)=>{
+          if(result == null && response.data.dashboard_info == false){
+            this.showOrgInfo = true;
+          }
+        })
+
 
      }
        
      
      })
      .catch(error => {
-    
-     }) 
-         }
+       
+       
+     })
 
       
+      },
+      checkifnotowner:function(){
+
+        if(this.$route.params.orgId == 'user'){
+            return false;
+        }else{
+          if(this.$root.user_temp_id == this.$root.selectedOrg.user_id){
+
+            return false;
+
+          }else{
+            return true;
+          }
+        }
+
+      },
+      createSpace:function(){
+           this.$router.push({ path: '/panel/space/create' });
+       },
+      selectOrg: function(orgId){
+
+         if(orgId == this.$route.params.orgId) return;
+
+          this.botData = null 
+       this.challengesData = null
+       this.botDataLg = null;
+       this.challengesDataLg = null;
+
+       this.ChannelTeamDataLg = null;
+       this.ChannelTeamData = null;
+
+       this.$route.params.orgId = orgId;
+      
+       this.getPanelFullData();
+
+       this.showUserOrgBoard = false;
+
+       if(this.$router.currentRoute.path.indexOf('new') >= 0){
+              this.$router.push({ path: '/panel/main/' + this.$root.orgIdRoot });
+            }else{
+                 this.$router.push({ path: '/panel/main/new/' + this.$root.orgIdRoot });
+            }
+
+       
+
+      },
+       showSpace:function(space){
+         this.$root.pageloader = true;
+        window.location = '/#/space/' + space.space_id + '/channel/content/user';
+      },
+      fetchUserOrg:function(){
+
+         axios.get('get-user-organizations')
+          .then(response => {
+             
+            
+            
+
+            if(response.status == 200){
+
+            
+               this.organizations = response.data;
+
+               
+             
+            }
+              
+            
+           
+            
+          })
+          .catch(error => {
+              console.log(error)
+            
+          })
+
+      },
+       gotToBot:function(bot){
+              
+              if(bot.user_id == this.$root.user_temp_id){
+                 this.$root.selectedBot = bot;
+          this.$router.push({ path: '/panel/bot/setup/' + bot.bot_id });
+              }else{
+                window.location = '/space#/bot-engine/' + bot.bot_id + '/user';
+              }
           
-       }
+
+       },
+       circulateData: function(type,action){
+
+           function paginate(array, page_size, page_number) {
+             return array.slice((page_number - 1) * page_size, page_number * page_size);
+           }
+         
+         if(type == 'bots'){
+              
+              if(this.botScroller >= this.botCountLength){
+                 this.botScroller = 1;
+              }else{
+
+                 if(action == 'incr'){
+               this.botScroller += 1;
+              
+
+             }else{
+                  if( this.botScroller <= 0){
+                this.botScroller = 1;
+                 }else{
+                   this.botScroller -= 1;
+                 }
+             }
+
+              }
+             
+              this.botDataLg = [paginate(this.botData,4,this.botScroller)];
+
+              
+
+         }
+
+
+          if(type == 'challenges'){
+              
+              if(this.challengeScroller >= this.challengeCountLength){
+                 this.challengeScroller = 1;
+              }else{
+
+                 if(action == 'incr'){
+               this.challengeScroller += 1;
+              
+
+             }else{
+                 if( this.challengeScroller <= 0){
+                this.challengeScroller = 1;
+                 }else{
+                   this.challengeScroller -= 1;
+                 }
+                
+             }
+
+              }
+             
+
+              this.challengesDataLg = [paginate(this.challengesData,4,this.challengeScroller)];
+
+         }
+
+         if(type == 'channel'){
+              
+              if(this.TeamScroller >= this.channelCountLength){
+                 this.TeamScroller = 1;
+              }else{
+
+                 if(action == 'incr'){
+               this.TeamScroller += 1;
+              
+
+             }else{
+                 if( this.TeamScroller <= 0){
+                this.TeamScroller = 1;
+                 }else{
+                   this.TeamScroller -= 1;
+                 }
+                
+             }
+
+              }
+             
+
+              this.ChannelTeamDataLg = [paginate(this.ChannelTeamData,4,this.TeamScroller)];
+
+         }
+
+        
+       
+       },
+       
+       handleData:function(data){
+
+          this.botData = data.bots;
+             this.challengesData = data.challenges;
+
+              this.ChannelTeamData = data.channels.concat(data.teams);
+
+                
+               this.returnedChannel =  this.splitData(this.ChannelTeamData);
+
+               this.channelCountLength =  this.returnedChannel[1];
+
+               this.ChannelTeamDataLg = [this.returnedChannel[0][0]];
+              
+              this.returnedBot = this.splitData(data.bots);
+              this.botDataLg = [this.returnedBot[0][0]];
+
+              this.botCountLength = this.returnedBot[1];
+
+             this.returnedChallenges = this.splitData(data.challenges);
+
+             this.challengesDataLg = [this.returnedChallenges[0][0]];
+
+              this.challengeCountLength = this.returnedChallenges[1];
+
+       },
+      splitData: function(data){
+         if(data.length <= 4){
+           return [[data],0];
+         }else{
+
+            function paginate(array, page_size, page_number) {
+             return array.slice((page_number - 1) * page_size, page_number * page_size);
+           }
+            
+            let arrayFullLength = data.length;
+
+            let countLength = 0;
+
+             let finalArray = [];
+
+             if(arrayFullLength % 4 == 0){
+
+                
+                 countLength = arrayFullLength / 4;
+
+                 let ArrayCounter = Array(countLength);
+
+                 for (let index = 0; index < ArrayCounter.length; index++) {
+                     let normalizedIndex = index + 1;
+                     finalArray.push(paginate(data,4,normalizedIndex));
+                 }
+
+             }else{
+                
+                let remainder = arrayFullLength % 4;
+
+                countLength = (arrayFullLength - remainder) / 4;
+
+                  let ArrayCounter = Array(countLength);
+
+                 for (let index = 0; index < ArrayCounter.length; index++) {
+                     let normalizedIndex = index + 1;
+                     finalArray.push(paginate(data,4,normalizedIndex));
+                 }
+               
+                finalArray.push(paginate(data,remainder,ArrayCounter + 1));
+               countLength += 1;
+             }
+
+             return [finalArray,countLength];
+            
+
+             
+         }
+      },
+      shortenContent: function(content,limit){
+             if(content != null){
+
+                if(content.length > limit){
+                let shortcontent = content.slice(0,limit);
+                 return shortcontent + '...';
+             }else{
+               return content;
+             }
+
+             }
+             
+        },
+   getPanelFullData:function(){
+          let orgId = this.$route.params.orgId
+
+           
+
+           this.$root.orgIdRoot = this.$route.params.orgId;
+
+       axios.get('get-panel-data/'+ orgId)
+          .then(response => {
+             
+            
+            
+
+            if(response.status == 200){
+
+               this.fetchUserOrg();
+
+             this.handleData(response.data);
+
+             let betaUsers = response.data.betaTesters;
+
+              let thisUserisBeta = betaUsers.filter((user)=>{
+
+                return user == this.$root.username;
+
+              })
+
+              if(thisUserisBeta.length != 0){
+                this.isBetatester = true;
+              }
+
+             this.$root.selectedOrg = response.data.organization;
+     
+            }
+              
+            
+           
+            
+          })
+          .catch(error => {
+              console.log(error)
+            
+          })
+
+   }, 
+    gotToBotCreate:function(){
+        this.$router.push({ path: '/panel/bot/create' });
+    },
+    gotToChallengeCreate:function(){
+        this.$router.push({ path: '/panel/challenge/create' });
+    },
+    showOrgList:function(){
+        this.$router.push({ path: '/panel/organizations' });
+    }
+      
     }
 }
 </script>
-<style>
- .mybadgenew{
-     font-size:11px;
-     color:white;
+<style scoped>
+ .titleTextNew{
+    font-size:13px; 
+    font-family:HeaderText; 
+    color:#35747e;
+}
+
+.avatarImg{
+  border-radius:50%;
+  border: 3px solid #3E8893;
+}
+.documentIcon{
+    background: #dbedf0;
+    border:1px solid #dbedf0;
+    border-radius:50%;
+}
+.documentTitle{
+  font-size: 12px;
+  color: #2d646c;
+}
+
+.documentSize{
+  font-size: 10px;
+  color: #a6a6a6;
+}
+.mybadgenew{
+     font-size:10px;
+     color:#2d646c;
      font-family:HeaderText; 
-     border:1px solid #3E8893; 
-     border-radius:4px; 
+     border:1px solid #2d646c; 
+     border-radius:10px; 
      padding: 2px 4px;
-     background:#3E8893;
+     background:#ffffff;
      font-weight: bolder;
  } 
-
- .morebackground{
-     position:absolute; 
-     width:100%; 
-     height:100%; 
-     display: block;
-     background:rgba(38, 82, 89,0.6);
-     z-index:100000;
- }
-
- .hidebackground{
-     display: none;
- }
- .morelabel{
-     font-family:HeaderText;
-     color: white;
-     font-size: 12px;
-     font-weight: bolder;
- }
- .versus{
-   color:#173236;
-   font-size:12px; 
-     font-family:HeaderText;
-     font-weight: bolder;
- }
- .statusnew{
+  .statusnew{
     font-size:10px;
       color:#173236;
      border:2px solid #dbedf0; 
@@ -262,19 +1029,4 @@ export default {
      background:#dbedf0;
      font-weight: bolder;
  }
- 
- .avatarText{
-   background:#dbedf0;
-    border:1px solid #dbedf0;
-     border-radius:50%;
-     color:#173236;
-     font-size:10px; 
-     font-family:HeaderText;
-     font-weight: bolder;
- }
- .coin{
-  font-size: 10px;
-  font-weight: bolder;
-  color: white;
-}
 </style>

@@ -1,7 +1,7 @@
 <template>
     <v-app style="font-family:BodyText;background:transparent;overflow-x:hidden;">
 
-      <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
+      <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
         <div style="overflow-y:auto;position:absolute;left:0; width:100%; height:100%; overflow-x:hidden;" class="scrollerStyle">
          <div class="row my-0 py-0 px-2" >
 
@@ -14,7 +14,7 @@
            <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">{{ $t('duels.duel_panel') }}</span>
          </div>
          <div class="col-4 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
-             <v-btn icon color="#4495a2" @click="goToSettings"><v-icon>mdi-cogs</v-icon></v-btn>
+             <v-btn icon  v-if="this.$route.params.panelId == undefined" color="#4495a2" @click="goToSettings"><v-icon>mdi-cogs</v-icon></v-btn>
          </div>
       </div>
      </div>
@@ -30,7 +30,7 @@
       <div class="col-12 py-1 my-0"  v-if="panelsettingsChecked" >
          <div class="row my-0 py-1 px-0 mx-1">
 
-             <div class="col-12 py-0 px-1 ">
+             <div class="col-12 py-0 px-1 " v-if="this.$route.params.panelId == undefined">
                 <div class="row py-0 my-0">
                    <div class="col-6 py-0 my-0 px-2 text-left">
                       <v-btn  x-small color="#3E8893" v-if="duel.user_type == 'user'"
@@ -66,7 +66,7 @@
          v-model="panel"
           dense
           v-if="showFront && panelIsWeb"
-          class="my-2"
+          class="my-2 col-lg-8 offset-lg-2 px-0"
          >
       <v-expansion-panel>
         <v-expansion-panel-header class="header">{{ $t('panel.view_files') }}
@@ -79,13 +79,13 @@
         <v-expansion-panel-content class="px-0">       
         
             <div class="col-12 py-0 my-0 mx-0 px-0 text-right">
-                 <div class="row py-0 my-0">
-                <div class="col-6 py-0 my-0 text-left">
+                 <div class="row py-0 my-0"  v-if="this.$route.params.panelId == undefined">
+                <div class="col-6 py-0 my-0 text-left" >
                    <v-btn  x-small color="#3E8893" @click="showExtensionhandler"
               style="font-size:10px; font-weight:bolder; color:white;font-family: Headertext; text-transform:capitalize;"> <v-icon class="mr-1">mdi-plus mdi-18px</v-icon> {{ $t('panel.extensions') }}</v-btn> 
                 </div>
                 <div class="col-6 py-0 my-0 text-right">
-                   <v-btn icon @click="addNewFile('front_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+                   <v-btn icon @click="addNewFile('front_end')" ><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
                 </div>
               </div>
               
@@ -391,7 +391,7 @@
       v-model="panelBack"
            v-if="showBack && panelIsWeb"
           dense
-          class="my-2">
+          class="my-2 col-lg-8 offset-lg-2 px-0">
         
           <v-expansion-panel>
         <v-expansion-panel-header class="header">Controllers
@@ -404,7 +404,7 @@
        <v-expansion-panel-content class="px-0">       
         
             <div class="col-12 py-0 my-0 mx-0 px-0 text-right">
-               <v-btn icon @click="addNewFile('back_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+               <v-btn icon  v-if="this.$route.params.panelId == undefined" @click="addNewFile('back_end')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
             </div>
             <v-card tile flat class="col-12 py-1 my-0 " @click="showEditor(file,'back-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;"
              v-for="(file,index) in this.$root.backEndFiles" :key="index">
@@ -437,7 +437,7 @@
        <v-expansion-panel-content class="px-0">       
         
             <div class="col-12 py-0 my-0 mx-0 px-0 text-right">
-               <v-btn icon @click="addNewRoute('false')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+               <v-btn icon  v-if="this.$route.params.panelId == undefined" @click="addNewRoute('false')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
             </div>
             <v-card tile flat class="col-12 py-1 my-0 "  style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" @click="addNewRoute('true',route)"
               v-for="(route,index) in this.$root.panelRoutes" :key="index" >
@@ -475,7 +475,7 @@
         <v-expansion-panel-content class="px-0">       
         
             <div class="col-12 py-0 my-0 mx-0 px-0 text-right">
-               <v-btn icon @click="addDBTable()"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+               <v-btn icon  v-if="this.$route.params.panelId == undefined" @click="addDBTable()"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
             </div>
             <v-card tile flat class="col-12 py-1 my-0 " @click="databaseTable(table)" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" 
              v-for="(table,index) in this.$root.CodeFilesData[3]" :key="index">
@@ -511,7 +511,7 @@
         <v-expansion-panel-content class="px-0">       
         
             <div class="col-12 py-0 my-0 mx-0 px-0 text-right">
-               <v-btn icon @click="addNewFile('code_files')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
+               <v-btn  v-if="this.$route.params.panelId == undefined" icon @click="addNewFile('code_files')"><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
             </div>
             <v-card tile flat class="col-12 py-1 my-0 " style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" 
             v-for="(file, index) in this.$root.codeFiles" :key="index"  @click="showEditor(file,'code-file')"
@@ -590,7 +590,7 @@
         
 
 
-         <div  @click="closeExtension"  v-if="!closeExtesionBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
+         <div  @click="closeExtension"  v-if="!closeExtesionBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-12  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="preventClose"  style="position:absolute; height:60%; width:100%; top:40%; left:0%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto">
 
              <v-card tile flat
@@ -829,6 +829,18 @@ export default {
 
         }
 
+        this.$root.CodeFilesData = [];
+     
+
+     if(this.$route.params.panelId == undefined){
+
+        this.$root.panelViewMode  = false;
+
+     }else{
+        this.$root.panelViewMode = true;
+     }
+        
+
          this.$root.pageLoaderOpened = false;
       },
  methods:{
@@ -947,24 +959,6 @@ export default {
               this.loadingAddExt = false;
           })
    },
-    activateBot:function(){
-         this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
-            return page.page_name == 'duel_panel';
-          });
-         
-          if(this.$root.selectedPage.length != 0){
-               
-              if(this.$root.selectedPage[0].status == 0){
-                 this.$root.showBoard = true;
-         this.$root.boardContent = 'Congratulations ' + this.$root.username + ' 🥳, you joined first duel. Write and run your codes here. Have some more questions? Click on \'How To\' button to answer them.';
-         this.$root.boardBtnLabel = 'Okay,Got It';
-
-              }
-               
-          }
-        
-         
-      },
        handleCatFolder: function(type){
        if(type == 'front-end'){
 
@@ -1001,7 +995,7 @@ export default {
 
         this.$root.userPageTrack = response.data[2];
 
-        this.activateBot();
+       
   }
     
   
@@ -1187,7 +1181,7 @@ export default {
    addDBTable: function(){
        this.$root.panel = this.panel;
        this.$root.panelBack = this.panelBack;
-      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/create-db-table' });
+      this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/create-db-table' });
 
    },
    addNewRoute: function(is_edit,route = []){
@@ -1201,13 +1195,13 @@ export default {
            this.$root.selectedRoute = route;
          }
           
-       this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/add-panel-route' });
+       this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/add-panel-route' });
    },
    showComment:function(){
      this.$root.panel = this.panel;
        this.$root.panelBack = this.panelBack;
 
-     this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/view' });
+     this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/panel/' + this.$route.params.type + '/comments/view' });
    },
      PanelSettingsCheck(settingStatus){
 
@@ -1215,7 +1209,7 @@ export default {
        this.$root.panelBack = this.panelBack;
 
            if(!settingStatus.is_set){
-            this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/new/settings' + '/duel' });
+            this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/panel/new/settings' + '/duel' });
           }
 
            this.panelsettingsChecked = true;
@@ -1251,14 +1245,14 @@ export default {
        
        
     
-    this.$router.push({ path: '/duel/' +  this.$route.params.duelId  +'/code-editor' });
+    this.$router.push({ path: '/panel/' +  this.$route.params.duelId  +'/code-editor' });
    },
    databaseTable: function(database){
      this.$root.panel = this.panel;
        this.$root.panelBack = this.panelBack;
       this.$root.SelectedTable = database;
      
-       this.$router.push({ path: '/duel/' +  this.$route.params.duelId  +'/db-table' });
+       this.$router.push({ path: '/panel/' +  this.$route.params.duelId  +'/db-table' });
 
     
    },
@@ -1266,7 +1260,7 @@ export default {
 
          this.$root.CodeFilesData = [];
      
-      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/board' + '/user' });
+      this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/board' + '/user' });
 
       
         },
@@ -1274,13 +1268,13 @@ export default {
      this.$root.panel = this.panel;
        this.$root.panelBack = this.panelBack;
         this.$root.panelLanguage = this.panelData.panel_language;
-       this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/' + codeType + '/add-new-file' });
+       this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/' + codeType + '/add-new-file' });
    },
    goToSettings:function(){
      this.$root.panel = this.panel;
        this.$root.panelBack = this.panelBack;
        this.$root.fromDuelBoard = false;
-      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/panel/new/settings' + '/duel' });
+      this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/panel/new/settings' + '/duel' });
    },
    fetchDuel: function(){
       if(this.$root.selectedDuel.length != 0){
@@ -1439,7 +1433,14 @@ export default {
    },
 
    fetchUpdatedContent: function(){
-       axios.get( '/fetch-code-files/' + this.$route.params.duelId)
+     let url = '';
+
+     if(this.$route.params.panelId == undefined){
+       url = '/fetch-code-files/' + this.$route.params.duelId;
+     }else{
+       url = '/fetch-code-files/' + this.$route.params.duelId + '/' + this.$route.params.panelId;
+     }
+       axios.get(url)
       .then(response => {
       
       if (response.status == 200) {
@@ -1533,7 +1534,7 @@ export default {
    loadPage:function(){
      this.$root.panel = this.panel;
        this.$root.panelBack = this.panelBack;
-      this.$router.push({ path: '/duel/' + this.$route.params.duelId +   '/page-loader' });
+      this.$router.push({ path: '/panel/' + this.$route.params.duelId +   '/page-loader' });
    },
   
    returnFileNamenew: function(fileNamenew,fileType){

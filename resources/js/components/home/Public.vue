@@ -3,7 +3,7 @@
        
    
     
-          <div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 my-0 py-1 "   :id="'post'+ source.id" @click.stop="viewPost(source,'fromcomment')" 
+          <div class="  col-lg-4 offset-lg-4 col-md-8 offset-md-2 my-0 py-1 "   :id="'post'+ source.id" @click.stop="viewPost(source,'fromcomment')" 
     style="cursor:pointer;" >
 
     
@@ -17,7 +17,7 @@
                   </div>
                </div>
             
-                <div class="d-inline-block ml-2 mt-1">
+                <div class="d-inline-block ml-2 mt-1 ">
                  <span style="font-size:13px;font-family:HeaderText;" class="d-block " @click.stop="viewUser(source)"><b>{{ source.username }}</b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(source.created_at)}} at {{formatTime(source.created_at)}}</b></span>
                    
@@ -25,8 +25,8 @@
 
         </div>
 
-                <div class="py-1 px-2 col-12 my-0 ml-1">
-                   <span style="font-size:13px; color: #333333;" class="detectLink" v-html="source.content"></span>
+                <div class="pt-1 pb-0 mb-0 px-2 col-12 my-0 ml-1">
+                   <span style="font-size:13px; color: #333333;" class="detectLinknew" v-html="source.content"></span>
                 </div>
 
 
@@ -35,32 +35,32 @@
 
           <div class="py-0 pb-1 px-2 col-12 my-0 " >
 
-             <div  v-if="source.attachment_type == 'image'" class="px-lg-4 col-lg-8 offset-lg-2">
+             <div  v-if="source.attachment_type == 'image'" class="px-lg-4 pb-0 col-12">
                  <image-viewer :imageArray="source.image"></image-viewer>
              </div>
 
-              <div  class="px-lg-4 col-lg-8 offset-lg-2">
+              <div  class="px-lg-4 pb-0 col-12">
 
             <main-video v-if="source.attachment_type == 'video'" :videoUrl="'/videos/' + source.video.video_name + '.mpd'" :backgroundColor="source.video.background_color" style="height:100%; width:100%;"
                :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.id" > </main-video>
                
              </div>
 
-               <div  v-if="source.attachment_type == 'code'" class="px-lg-5 col-lg-8 offset-lg-2" >
+               <div  v-if="source.attachment_type == 'code'" class="px-lg-2 pb-0 col-md-8 offset-md-2" >
                  <code-box :codeContent="source.code.content" :filename="source.code.name" :codeLanguage="source.code.language_type" :codeViewerType="viewerType"></code-box>
              </div>
 
-              <div v-if="source.attachment_type == 'project'" class="px-lg-5  pb-4 col-lg-8 offset-lg-2" >
+              <div v-if="source.attachment_type == 'project'" class="px-lg-2  pb-0 col-md-10 offset-md-1" >
                  <project :projectData="source.project"></project>
              </div>
-              <div  v-if="source.attachment_type == 'duel'" class="px-lg-5 pb-4 col-lg-8 offset-lg-2"  >
+              <div  v-if="source.attachment_type == 'duel'" class="px-lg-2 pb-0 col-md-10 offset-md-1"  >
                  <duel :duelData="source.duel"></duel>
              </div>
-              <div  v-if="source.attachment_type == 'channel'" class="px-lg-5 pb-4 col-lg-8 offset-lg-2" >
+              <div  v-if="source.attachment_type == 'channel'" class="px-lg-2 pb-0 col-md-10 offset-md-1" >
                  <channel :channelData="source.channel"></channel>
              </div>
 
-              <div  v-if="source.attachment_type == 'link'"  class="px-lg-5 col-lg-8 offset-lg-2">
+              <div  v-if="source.attachment_type == 'link'"  class="px-lg-2 pb-4 col-12">
                   <link-view :urlInfo="source.link" ></link-view>
              </div>
                   
@@ -68,7 +68,7 @@
 
                  <div class="col-12 py-1 px-3 mb-2" v-if="source.is_comment == 'true'">
 
-        <div style="background:#b8dbe0; border:1px solid #b8dbe0; border-radius:10px;" class="px-2  pt-2 pb-2 my-0">
+        <div style="background:#b8dbe0; border:1px solid #b8dbe0; border-radius:10px;" class="px-2  pt-2 mt-0 pb-2 my-0">
              <div class="row py-0 my-0 px-0 mx-0">
               <div class="col-2 py-0 my-0 px-0 text-center">
               
@@ -94,7 +94,7 @@
        </div>
          
 
-             <div class="py-0 px-2 col-12 my-0">
+             <div class="py-0 px-2 col-12 my-0 mt-1">
                    <div class="row">
                     <div class="col-3 my-0 py-0 text-center">
                       <v-btn class="d-inline-block" icon  @click.stop="likePost(source)">
@@ -130,18 +130,6 @@
                 </div>
         </div>
      </div>
-
-   
-
-     
-   
-
-       
-    
-    
-   
-        
-
      
 </template>
 <script>
@@ -247,18 +235,20 @@ export default {
 
              this.$root.fromHome = true; 
 
-                this.$root.showPostModal = true;
+             
 
                this.$root.showHeader = false;
 
                 
               if(postData.is_comment == 'true'){
 
+                 this.$root.showPostViewModal = true;
+
       this.$router.push({ path: '/post/comment/' + postData.username + '/' + postData.PostId + '/user'});
-        this.$root.postViewType = 'comment';
+       
  }else{
+        this.$root.showPostModal = true;
      
-      this.$root.postViewType = 'full';
    this.$router.push({ path: '/post/' + postData.username + '/' + postData.PostId + '/user'});
 
  }
@@ -287,6 +277,7 @@ export default {
   },
         library: function(post){
              this.$root.checkIfUserIsLoggedIn('home');
+             if(this.$root.checkauthroot == 'noauth') return;
               if(post.post_pulled){
                  return;
                }
@@ -305,7 +296,11 @@ export default {
 }
 </script>
 <style>
-.detectLink a{
+.detectLinknew a{
    color: #3E8893;
+}
+
+.detectLinknew p{
+   padding-bottom: 3px !important;
 }
 </style>

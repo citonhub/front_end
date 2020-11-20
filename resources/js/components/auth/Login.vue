@@ -1,23 +1,39 @@
 <template>
 
-<v-app  class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 my-0 px-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; font-family:BodyText; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
-        <div class="row my-0 py-0 px-0">
 
-           <div  style=" top:5%; z-index:1000000;"  class="text-center fixed-top col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0"> 
+<v-app style="position:absolute; width:100%; height:100%;  z-index:999999999999999;" class="baseStyle">
+
+    <div class="col-12">
+
+       <div class="row py-0 my-0 px-md-3 px-lg-3">
+         <div class="col-4 text-left py-0 my-0">
+          <img src="/imgs/CitonHub.png" height="40" width="auto"/>
+         </div>
+         <div class="col-8 text-right py-0 pt-2 my-0">
+             <v-btn rounded to="/login"  medium  outlined type="submit" color="#3E8893" style="font-size:12px; font-weight:bolder; font-family: Headertext;" 
+                 >Login</v-btn>
+
+                <v-btn rounded to="/register" medium class="ml-3"  type="submit" color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;font-family: Headertext;" 
+                 >Sign up</v-btn>
+         </div>
+
+
+          <div  style=" top:10%; z-index:1000000;"  class="text-center d-lg-block d-none fixed-top col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0"> 
             
         <h4 style="color:#26535a;">{{ $t('general.login_to') }}</h4>
             
                 
      </div>
 
-         
-       <div class="col-12 col-lg-8 offset-lg-2 py-3 morebackground4 d-flex" >
+
+
+       <div class="col-md-6 offset-md-3 col-lg-4 offset-lg-4  text-center py-0 pt-0 d-flex " style="z-index:9999; top:8%; height:80%; left:0; position:fixed;  align-items:center; justify-content:center;">
+
           
-           <v-card class="py-1 px-2 row">
+             
+              <v-card class="py-1 px-2 row" style="border-radius:20px;">
              <div class="col-2 px-1">
-             <span>
-                <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-             </span>
+             
             </div>
 
             <div class="col-8 px-0 d-flex" style="align-items:center;justify-content:center;">
@@ -40,7 +56,6 @@
                  placeholder="JsRoland"
             :label="$t('general.email_username')"
              dense
-            
              :error="errorState"
              
              v-model="usernameValue"
@@ -83,7 +98,7 @@
                  
                 <div class="col-6 text-center py-0 my-0">
                   
-                   <span class="forgot"  style="cursor:pointer;">
+                   <span class="forgot"  style="cursor:pointer;" @click="showForgot">
                       {{ $t('general.forgot_password') }}
              
              </span>
@@ -102,17 +117,135 @@
           </v-form>
             </div>
         </v-card>
-     </div>
+            
+       </div>
 
-     <div  style=" height:50%; bottom:-35%;  z-index:1000000;"  class=" fixed-bottom col-md-8 offset-md-2  col-lg-4 offset-lg-4 py-0 my-0 px-0"> 
-  
-       <img src="/imgs/CitonHub.png"  width="100%" height="100%">
-     </div>
+
+
+          
+
+       
          
+       </div>
 
+    </div>
+
+  
+
+    <div class="col-lg-10 offset-lg-1  d-md-block d-none" style="position:fixed; height:auto;  left:0%; bottom:0%; z-index:26;">
+
+      <div class="row">
+         <div class="col-md-4 text-center">
+   
+     <a href="https://blog.citonhub.com/a-new-way-to-teach-a-million-people-how-to-code-1"><span style="color:rgb(174,221,228); font-size:14px;" class="mx-2"> About</span></a> 
+
+     <a href="https://blog.citonhub.com"><span style="color:rgb(174,221,228); font-size:14px;" class="mx-2"> Blog</span></a> 
+
+      <a href="#"><span style="color:rgb(174,221,228); font-size:14px;" class="mx-2"> Terms of Use</span></a> 
+
+       <a href="#"><span style="color:rgb(174,221,228); font-size:14px;" class="mx-2">Privacy Policy</span></a>
+
+        
+
+         </div>
+
+         <div class="col-md-4 text-center "> 
+         <v-btn fab outlined small color="rgb(174,221,228)" class="mx-1" tag="a" href="https://mobile.twitter.com/citonhub" ><v-icon>mdi-twitter</v-icon></v-btn>
+
+           <v-btn fab outlined small color="rgb(174,221,228)"  class="mx-1" tag="a" href="https://www.youtube.com/channel/UCODtu7pKNlZiIZM9-ZByC4g" ><v-icon>mdi-youtube</v-icon></v-btn>
+
+            <v-btn fab outlined small color="rgb(174,221,228)"  class="mx-1" tag="a" href="https://www.linkedin.com/company/citonhub/" ><v-icon>mdi-linkedin</v-icon></v-btn>
+         </div>
+
+         <div class="col-md-4 text-center"> 
+          <span style="color:rgb(174,221,228); font-size:13px;" class="mx-2" >Copyright &copy; 2020 CitonHub</span>
+         </div>
+
+         
+       
+      </div>
+
+    </div>
+
+    <div class="col-12  d-md-none d-block" style="position:fixed; height:auto;  left:0%; bottom:0%; z-index:26;">
+
+      <div class="row">
+        
+
+         <div class="col-6 text-center pb-1 pt-0 my-0"> 
+         <v-btn fab outlined x-small color="rgb(174,221,228)" class="mx-1" tag="a" href="https://mobile.twitter.com/citonhub" ><v-icon>mdi-twitter</v-icon></v-btn>
+
+           <v-btn fab outlined x-small color="rgb(174,221,228)"  class="mx-1" tag="a" href="https://www.youtube.com/channel/UCODtu7pKNlZiIZM9-ZByC4g" ><v-icon>mdi-youtube</v-icon></v-btn>
+
+            <v-btn fab outlined x-small color="rgb(174,221,228)"  class="mx-1"  tag="a" href="https://www.linkedin.com/company/citonhub/" ><v-icon>mdi-linkedin</v-icon></v-btn>
+         </div>
+
+         <div class="col-6 text-center pb-1 pt-0 my-0"> 
+          <span style="color:rgb(174,221,228); font-size:11px;"  >Copyright &copy; 2020 CitonHub</span>
+         </div>
+
+          <div class="col-12 py-0 my-0 text-center">
+   
+     <a href="https://blog.citonhub.com/a-new-way-to-teach-a-million-people-how-to-code-1"><span style="color:rgb(174,221,228); font-size:11px;" class="mx-1"> About</span></a> 
+
+     <a href="https://blog.citonhub.com"><span style="color:rgb(174,221,228); font-size:11px;" class="mx-1"> Blog</span></a> 
+
+      <a href="#"><span style="color:rgb(174,221,228); font-size:11px;" class="mx-1"> Terms of Use</span></a> 
+
+       <a href="#"><span style="color:rgb(174,221,228); font-size:11px;" class="mx-1">Privacy Policy</span></a>
+
+        
+
+         </div>
+
+         
+       
+      </div>
+
+    </div>
+
+    <img style="position:fixed; height:35%; width:25%; left:-8%; bottom:-5%; z-index:23;" class="d-lg-block d-none" src="/imgs/side2.png">
+
+
+  
+
+
+
+     <img style="position:fixed; height:40%; width:15%; right:-2%; bottom:-12%;z-index:23;" class="d-lg-block d-none" src="/imgs/side1.png">
+
+    
+
+      <img style="position:fixed; height:40%; width:100%;  bottom:0%;"  class="d-md-block d-none" src="/imgs/bottom.png">
+
+      <img style="position:fixed; height:50%; width:100%;  bottom:0%;"  class="d-md-none d-block" src="/imgs/bottom.png">
+
+
+       <v-fade-transition>
+              <div  style="position:fixed; height:auto: align-items:center; left:0; justify-content:center;bottom:15%; z-index:9999999123453566;"   class="d-flex col-md-8 offset-md-2  col-lg-6 offset-lg-3">
+             <v-alert
+      v-model="Alert"
+  
+     
+      color="#3E8893"
+       width="auto"
+       class="py-1 px-2"
+       rounded
+       style="font-size:13px;background:#ffffff; color:#3E8893; border-radius:20px; border:2px solid #3E8893;"
+       height="auto"
+    
+       elevation-10
+    
+     
+     
+    >
+     {{alertMsg}}
+    </v-alert>
         </div>
+        </v-fade-transition>
 
-     </v-app>
+  </v-app>
+
+
 
 </template>
 <script>
@@ -138,12 +271,16 @@ export default {
     },
      mounted(){
       this.$root.showTabs=false;
+       this.$root.itIsHomePage = true;
        this.$root.showHeader = false;
        this.checkIfLogin();
     },
     methods:{
        showRegister: function(){
             this.$router.push({ path: '/register' });
+        },
+        showForgot: function(){
+            this.$router.push({ path: '/forgot-password' });
         },
       checkIfLogin:function(){
 
@@ -160,16 +297,11 @@ export default {
           } 
 
            if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'duels'){
-             this.$router.push({ path: '/duel' });
+             this.$router.push({ path: '/panel' });
           } 
 
        },
-       viewPost: function(){
-            this.$router.push({ path: '/post' });
-        },
-        library: function(){
-            this.$router.push({ path: '/library' });
-        },
+     
         goBack: function(){
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
    },
@@ -188,6 +320,8 @@ export default {
       if(this.$refs.loginform.validate()){
           this.loading = true;
      this.$root.userPassword = this.password;
+     this.$root.userEmail = this.usernameValue;
+      this.$root.LocalStore('user_temp_email',[this.usernameValue,this.password]);
      this.$store
         .dispatch('login', {
           username: this.usernameValue,
@@ -206,9 +340,14 @@ export default {
 
       this.$root.checkauthroot = 'auth';
 
+      if(this.$root.frompage == 'space'){
+        this.$root.checkUserDevice();
+
+      }
+
       this.$root.fetchUserDetails();
        this.$root.setEcho();
-    
+       
 
       let storedTracker = this.$root.getLocalStore('route_tracker');
 
@@ -217,15 +356,19 @@ export default {
         if(result != null ){
             let finalResult = JSON.parse(result);
        this.$router.push({ path: finalResult[0] });
+        this.$root.itIsHomePage = false;
+
         }else{
           this.checkIfLogin()
+
+           this.$root.itIsHomePage = false;
+
         }
 
          
       })
 
        
-
         })
         .catch(err => {
           this.showAlert(5000,  '😬 ' + 'Unable to login, please check your login details');
@@ -261,4 +404,9 @@ export default {
      color: #4494a2;
      font-size:12px;
  }
+
+ .baseStyle{
+ background: rgb(174,221,228) !important;
+background: linear-gradient(90deg, rgba(174,221,228,1) 3%, rgba(255,255,255,1) 88%) !important;
+}
 </style>

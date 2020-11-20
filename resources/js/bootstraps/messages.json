@@ -3,6 +3,7 @@
      "general": {
         "space": "Space",
         "duels":"Duels",
+        "panel":"Dashboard",
         "trends": "Trends",
         "hub":"Hub",
         "profile":"Profile",
@@ -232,13 +233,13 @@
       },
      
       "home_page":{
-        "message_1":"A messaging platform for developer communities",
+        "message_1":"A teaching platform for developer communities.",
         "message_1_cta":"Get Started",
-        "message_2":"Chat, share and run codes, live code in your Space",
+        "message_2":"Chat, share and run codes in your space.",
         "message_2_cta":"Set up Your Space",
-        "message_3":"Build awesome projects without setting up a server",
+        "message_3":"Build awesome projects without setting up a server.",
         "message_3_cta":"Build Projects",
-        "message_4":"Challenge your friends to coding duels",
+        "message_4":"Challenge your friends to coding duels.",
         "message_4_cta":"Start a duels",
         "images_by_freepik":"Images by Freepik",
         "welcome":"Welcome to CitonHub"
@@ -249,6 +250,7 @@
         "space": "Espace",
         "hub":"Hub",
         "duels": "Duels",
+        "panel":"Panneau",
         "trends":"Tendance",
         "profile":"Profil",
         "Duel_list": "Liste des duels",
@@ -475,7 +477,7 @@
         "space_invite":"{name} invite vous invite à {space_name} {space_type}"
        },
       "home_page":{
-        "message_1":"Une plateforme de messagerie pour les communautés de développeurs",
+        "message_1":"Une plateforme pédagogique pour les communautés de développeurs",
         "message_1_cta":"Commencer",
         "message_2":"Discutez, partagez et exécutez des codes, code en direct dans votre espace",
         "message_2_cta":"Configurez votre espace",

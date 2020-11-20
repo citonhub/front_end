@@ -79,6 +79,8 @@ import SetUsername from "../components/auth/SetUsername.vue"
 import PostCommentView from "../components/home/PostCommentView.vue"
 import Privacy from "../components/home/Privacy.vue"
 import NotFound from "../components/auth/NotFound.vue"
+import ForgotPassword from "../components/auth/ForgotPassword.vue"
+import ResetPassword from "../components/auth/ResetPassword.vue"
 
 
 const routes = [
@@ -98,6 +100,7 @@ const routes = [
        if(window.thisUserState != undefined){
 
         thisUserState.$root.showPostModal = false;
+        thisUserState.$root.showPostViewModal = false;
 
         thisUserState.$root.postViewType = '';
 
@@ -123,8 +126,11 @@ const routes = [
     component: NotFound
   },
   { path: '/privacy-policy', name: 'Privacy', component: Privacy},
+  { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
+  { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/new-post', name: 'NewPost', component: NewPost},
   { path: '/code-editor', name: 'CodeEditor', component: CodeEditor},
+  { path: '/auth/:fromPage', name: 'Auth', component: Auth},
   { path: '/image-editor', name: 'ImageEditor', component: ImageEditor},
   { path: '/post/:username/:postId/:referral',
    name: 'Post',
@@ -150,7 +156,7 @@ const routes = [
 
       if(window.thisUserState != undefined){
 
-      
+        thisUserState.$root.showPostViewModal = false;
         thisUserState.$root.showPostModal = true;
         thisUserState.$root.fullImageViewer = false;
   
@@ -324,8 +330,9 @@ const routes = [
 
       if(window.thisUserState != undefined){
 
-      
-        thisUserState.$root.showPostModal = true;
+     
+        thisUserState.$root.showPostViewModal = true;   
+        thisUserState.$root.showPostModal = false;
         thisUserState.$root.fullImageViewer = false;
   
          thisUserState.$root.showCodeEditor = false;
@@ -360,7 +367,6 @@ const routes = [
   { path: '/shelve', name: 'Shelve', component: Shelve},
   { path: '/add-shelve', name: 'AddShelve', component: AddShelve},
   { path: '/login', name: 'Login', component: Login},
-  { path: '/auth/:frompage', name: 'Auth', component: Auth},
   { path: '/register', name: 'Register', component: Register},
   { path: '/verify', name: 'Verify', component: Verify},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
@@ -482,10 +488,20 @@ const app = new Vue({
             codeFromPostView: false,
             postCurrentPage:0,
             showPostModal:false,
+            showPostViewModal:false,
             postViewType:'',
             showCreatepost: false,
             baseApiUrl:'https://api.citonhub.com/api',
-            returnedToken:''
+            returnedToken:'',
+            itIsHomePage:false,
+            showDashboardInfo:false,
+     showHubInfo: false,
+     showProfileInfo: false,
+     buttonText:'Ok',
+     dashboardContent:'Create new communities, channels, teams and teaching bots in your dashboard',
+     hubContent:'Network and share your works with other developers on CitonHub',
+     profileContent:'Manage your account and connections in your profile'
+        
     },
      mounted: function () {
       this.pageloader = false;
@@ -1070,7 +1086,7 @@ return post.PostId == this.$root.currentPostId;
         if(this.$route.params.referral != null){
           this.referralUser = this.$route.params.referral;
          }
-       this.$router.push({ path: '/auth/' + 'hub' });
+         this.$router.push({ path: '/auth/' + frompage });
         return;
       } 
    },

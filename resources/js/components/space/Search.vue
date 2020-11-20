@@ -1,7 +1,7 @@
 <template>
    
 
-       <div class=" col-md-8 offset-md-2 col-lg-6 offset-lg-3  py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:fixed;  background:rgba(38, 82, 89,0.4); height:100%; overflow-y:auto; overflow-x:hidden; z-index:9999999999999200;" 
+       <div class="  col-lg-6 offset-lg-3  py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:fixed;  background:rgba(38, 82, 89,0.4); height:100%; overflow-y:auto; overflow-x:hidden; z-index:9999999999999200;" 
         >
          <div class="row my-0 py-0 px-2">
 
@@ -46,7 +46,30 @@
                      <div class="py-0 my-0 d-flex col-9" style="align-items:center;">
                        <div>
                       <span class="titleText d-block">{{channel.name}}</span>
-                         <span class=" d-block" style="font-size:11px;" v-html="channel.description" ></span>
+                         <span class=" d-block" style="font-size:11px;" v-html="shortenContent(channel.description,35)" ></span>
+                       </div>
+                        
+                    </div>
+                   
+                </div>
+             </v-card>
+
+
+             <div class="col-12  py-2" v-if="botData.length != 0">
+           <span style="font-size:13px; color:#ffffff;">Learning Bots</span>
+         </div>
+
+            <v-card class="py-1 px-0 mb-1"  color="#ffffff"  v-for="(bot,index) in botData" :key="index + 'bot'"  @click="showBot(bot)" >
+                <div class="row py-0 my-0 px-0">
+                    <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
+                        <div class="py-1">
+     <v-img  :background-color="bot.background_color" :src="bot.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ bot.image_name +'.' + bot.image_extension " height="38" width="38" class="avatarImg"></v-img>
+                        </div>    
+                    </div>
+                     <div class="py-0 my-0 d-flex col-9" style="align-items:center;">
+                       <div>
+                      <span class="titleText d-block">{{bot.name}}</span>
+                         <span class=" d-block" style="font-size:11px;" v-html="shortenContent(bot.description,35)" ></span>
                        </div>
                         
                     </div>
@@ -58,7 +81,7 @@
            <span style="font-size:13px; color:#ffffff;"> People</span>
          </div>
 
-           <v-card class="py-2 px-1 mb-1" @click="messageSpace(user)" color="#ffffff" v-for="(user,index) in userData" :key="index + 'user'" :loading="loadingMessage">
+           <v-card class="py-2 px-1 mb-1" @click="messageSpace(user)" color="#ffffff" v-for="(user,index) in userData" :key="index + 'user'" :loading="user.loading">
                <div class="row py-0 my-0 px-1">
                 
                     <div class="py-0 my-0 d-flex col-12" style="align-items:center;" >
@@ -67,7 +90,7 @@
 
                   </div>
                         <div @click="viewUser(user)">
-                       <span class=" d-block" style="font-size:13px; color:#26535a;">{{ shortenContent(user.name,30)}} </span>
+                       <span class=" d-block" style="font-size:13px; color:#26535a;">{{ shortenContent(user.name,23)}} </span>
                          <span class=" d-block" style="font-size:11px; color:#595959;"> @{{user.username}}</span>
                         </div>
                         
@@ -95,7 +118,7 @@
                   
                      <div class="row py-0 my-0">
                          <div class="col-6 py-0 text-left ">
-                     <span class="documentTitle" style="color:#2d646c;">{{shortenContent(project.title,35)}}</span>
+                     <span class="documentTitle" style="color:#2d646c;">{{shortenContent(project.title,23)}}</span>
                     </div>
                 <div class="col-6 py-0 text-right">
                        <span class="mybadgenew">@{{project.owner}}</span>
@@ -144,7 +167,8 @@ export default {
         loading:false,
         searchRules:[
            v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
-        ]
+        ],
+        botData:[]
        
         }
     },
@@ -170,6 +194,14 @@ export default {
            this.$router.push({ path: '/' + project.project_slug +'/panel' });
 
             this.$root.showSearchControl = false;
+
+      },
+      showBot:function(bot){
+
+         this.$router.push({ path: '/bot-engine/' + bot.bot_id + '/user' });
+         
+          this.$root.showSearchControl = false;
+
 
       },
       showChannel:function(space){
@@ -201,6 +233,8 @@ export default {
       this.userData = [];
 
       this.projectData = [];
+
+      this.botData = [];
            return;
 
         }
@@ -212,6 +246,9 @@ export default {
      
       fetchData: function(){
          if(this.query.length <= 2) return;
+
+          if(this.loading) return;
+
            this.loading = true;
            axios.get('/global-search/' + this.query  )
       .then(response => {
@@ -223,6 +260,8 @@ export default {
       this.userData = response.data[1];
 
       this.projectData = response.data[2];
+
+       this.botData = response.data[3];
         
       this.loading = false;
        
@@ -238,7 +277,7 @@ export default {
     messageSpace: function(user){
 
 
-          this.loadingMessage = true;
+       
 
           
         if(user.direct_present){
@@ -274,16 +313,16 @@ export default {
           return;
       
         }
-        if(this.loading){
+        if(user.loading){
             return;
         }
 
-        this.loading = true;
+         user.loading = true;
            
           axios.post( '/create-space',{
                 name: '',
                 limit: 2,
-                memberId: user.user_id,
+                memberId: user.tempId,
                 type: 'Direct'
                   })
           .then(response => {
@@ -303,10 +342,22 @@ export default {
         this.$root.forceListReload = true;
          }
        
-         
+          if(this.$root.TrackLastSubSpace.length != 0 && response.data.space_id == this.$root.TrackLastSubSpace[0]){
+                 
+                  this.$router.push({ path: '/space/'  +  this.$root.TrackLastSubSpace[1]  +  '/channel/content' + '/user' });
 
-               this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });
+                     return;
 
+             }else{
+               
+
+                this.$root.selectedSpace = response.data;
+
+                this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });
+
+             }
+
+             
               this.$root.showSearchControl = false;
                          
             }
@@ -315,7 +366,7 @@ export default {
           .catch(error => {
               
 
-               this.loadingMessage = false;
+               user.loading = false;
 
              
           })
@@ -324,13 +375,17 @@ export default {
 
       },
          shortenContent: function(content,limit){
-             
-             if(content.length > limit){
+            if(content){
+
+              if(content.length > limit){
                 let shortcontent = content.slice(0,limit);
                  return shortcontent + '...';
              }else{
                return content;
              }
+
+            }
+               
         },
         imageStyle:function(dimension,user){
       

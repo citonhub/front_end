@@ -89,8 +89,10 @@ methods:{
        created_at: moment().subtract(1,'hours'),
        is_reply:"false",
        message_id: this.makeUUID(),
+        id:this.makeUUID(),
        replied_message:[],
        replied_message_id:null,
+        index_count : this.$root.returnLastIndex() + 1,
        showReply:false,
        showDate:null,
        loading:true,
@@ -156,14 +158,14 @@ methods:{
 
        
          
-           this.$root.returnedMessages.push(this.$root.NewMsg);
+         
 
            this.$root.Messages.push(this.$root.NewMsg);
            
-             this.$root.scrollerControlHandler();
+           
 
          
-            this.$root.spaceFullData[0] = this.$root.returnedMessages;
+            this.$root.spaceFullData[0] = this.$root.Messages;
          
             let fullData = [];
                     fullData.push(this.$root.spaceFullData[0]);
@@ -197,6 +199,7 @@ methods:{
         formData.append('attachment_type',this.attachment_type);
         formData.append('space_id',this.$route.params.spaceId);
         formData.append('temp_id', this.$root.NewMsg.message_id);
+         formData.append('device_id',this.$root.userDeviceId);
 
          this.$root.updateSpaceTracker(this.$route.params.spaceId);
         

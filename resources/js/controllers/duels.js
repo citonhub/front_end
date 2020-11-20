@@ -73,41 +73,90 @@ import DBTable from "../components/duels/DBTable.vue"
 import MatchComment from "../components/duels/MatchComment.vue"
 import MatchResult from "../components/duels/MatchResult.vue"
 import Login from "../components/auth/Login.vue"
-import Auth from "../components/auth/auth.vue"
 import Register from "../components/auth/Register.vue"
+import Auth from "../components/auth/auth.vue"
 import Verify from "../components/auth/Verify.vue"
 import SetUsername from "../components/auth/SetUsername.vue"
 import NewCodeFile from "../components/duels/NewCodeFile.vue"
 import PanelSettings from "../components/duels/PanelSettings.vue"
 import AddPanelRoutes from "../components/duels/AddPanelRoutes.vue"
+import CropImage from  "../components/profile/CropImage.vue"
 import CreateTable from "../components/duels/CreateTable.vue"
+import CreateSpace from "../components/duels/CreateSpace.vue"
 import PanelLoader from "../components/duels/PanelLoader.vue"
 import ProjectComments from "../components/duels/ProjectComments.vue"
 import NewComment from "../components/duels/NewComment.vue"
+import Organization from "../components/duels/Organizations.vue"
+import AddOrganization from "../components/duels/AddOrganization.vue"
+import AddBot from "../components/duels/AddBot.vue"
+import Bots from "../components/duels/Bots.vue"
 import NotFound from "../components/auth/NotFound.vue"
+import ForgotPassword from "../components/auth/ForgotPassword.vue"
+import ResetPassword from "../components/auth/ResetPassword.vue"
 
 
 const routes = [
-  { path: '/', redirect: '/duel'},
+  { path: '/', redirect: '/panel'},
   {
     path: '*',
     name: 'notFound',
     component: NotFound
   },
   { path: '/login', name: 'Login', component: Login},
-  { path: '/auth/:frompage', name: 'Auth', component: Auth},
+  { path: '/crop-image', 
+  name: 'CropImage', 
+  component: CropImage,
+  },
+  { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
+  { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/register', name: 'Register', component: Register},
+  { path: '/auth/:fromPage', name: 'Auth', component: Auth},
   { path: '/verify', name: 'Verify', component: Verify},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
-  { path: '/duel',
+  { path: '/panel',
      name: 'Hub', 
      component: Hub,
-     redirect: '/duel/duels',
+     redirect: '/panel/main/user',
     children: [
       {
         // duels
-        path: 'duels',
+        path: 'main/:orgId',
         component: Duels
+      },
+      {
+        // duels
+        path: 'main/:orgId/:user',
+        component: Duels
+      },
+      {
+        // duels
+        path: 'main/new/:orgId',
+        component: Duels
+      },
+      {
+        // duels
+        path: 'organizations',
+        component: Organization
+      },
+      {
+        // duels
+        path: 'bot/setup/:botId',
+        component: Bots
+      },
+      {
+        // duels
+        path: 'bot/create',
+        component: AddBot
+      },
+      {
+        // duels
+        path: 'organization/create',
+        component: AddOrganization
+      },
+      {
+        // duels
+        path: 'space/create',
+        component: CreateSpace
       },
       {
         // duels
@@ -136,12 +185,12 @@ const routes = [
       },
        {
         //create duel
-        path: 'create',
+        path: 'challenge/create',
         component: CreateDuel
       },
       {
         //edit duel
-        path: 'edit',
+        path: 'challenge/edit',
         component: CreateDuel
       },
 
@@ -154,6 +203,11 @@ const routes = [
       {
         //match panel
         path: ':duelId/panel/:type/:referral',
+        component: MatchPanel
+      },
+      {
+        //match panel view
+        path: ':duelId/panel/:type/:referral/view/:panelId',
         component: MatchPanel
       },
       {
@@ -208,7 +262,7 @@ Vue.use(VueI18n)
 const messages = require('../bootstraps/messages.json');
 
 const i18n = new VueI18n({
-    locale: 'fr', // set locale
+    locale: 'en', // set locale
     messages, // set locale messages
 })
 
@@ -299,7 +353,52 @@ const app = new Vue({
       showLangOption:false,
       userLocale:document.getElementById('appLocale').value,
       baseApiUrl:'http://api.citonhub.com/api',
-      returnedToken:''
+      returnedToken:'',
+      croppedImage:'',
+       imagepath:'',
+       imageExist:false,
+       imagepath:'',
+      imageHeight1: '',
+       imageHeight2: '',
+       imageHeight3: '',
+       imageHeight4: '',
+       imageWidth1: '',
+       imageWidth2: '',
+       imageWidth3: '',
+       imageWidth4: '',
+       imageCanvas1:'',
+       imageCanvas2:'',
+       imageCanvas3:'',
+       imageCanvas4:'',
+       imageTemp1:'',
+       imageTemp2:'',
+        imageTemp3:'',
+        imageViewPath:'',
+        currentImage:'',
+        imagepath1:'',
+        imagepath2:'',
+        imagepath3:'',
+        imagepath4:'',
+        tags:[],
+        patterns:[],
+        responses:[],
+        fullData:[],
+        contentGenratorComponent: undefined,
+        selectedBot:[],
+        isBotLink:false,
+        selectedOrg:[],
+        orgIdRoot:'user',
+        itIsHomePage:false,
+        showDashboardInfo:false,
+     showHubInfo: false,
+     showProfileInfo: false,
+     panelViewMode:false,
+     buttonText:'Ok',
+     dashboardContent:'Create new communities, channels, teams and teaching bots in your dashboard',
+     hubContent:'Network and share your works with other developers on CitonHub',
+     profileContent:'Manage your account and connections in your profile',
+     showImageEditor:false,
+        
     },
      mounted: function () {
       this.pageloader= false;
@@ -879,7 +978,7 @@ checkIfUserIsLoggedIn: function(frompage){
     if(this.$route.params.referral != null){
       this.referralUser = this.$route.params.referral;
      }
-   this.$router.push({ path: '/auth/' + frompage });
+     this.$router.push({ path: '/auth/' + frompage });
     return;
   } 
 },

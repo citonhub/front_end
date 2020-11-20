@@ -55,7 +55,7 @@
             
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="createTableField">Create</v-btn>
+                  <v-btn rounded small type="submit" :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click.prevent="createTableField">Create</v-btn>
              </div>
               
           </v-form>

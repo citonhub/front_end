@@ -67,7 +67,6 @@ import Channels from  "../components/profile/Channels.vue"
 import About from  "../components/profile/About.vue"
 import Projects from  "../components/profile/Projects.vue"
 import Teams from  "../components/profile/Teams.vue"
-import AddProject from  "../components/profile/AddProject.vue"
 import CropImage from  "../components/profile/CropImage.vue"
 import EditProfile from  "../components/profile/EditProfile.vue"
 import Connections from  "../components/profile/Connections.vue"
@@ -79,14 +78,18 @@ import Verify from "../components/auth/Verify.vue"
 import SetUsername from "../components/auth/SetUsername.vue"
 import Notification from "../components/profile/Notification.vue"
 import NotFound from "../components/auth/NotFound.vue"
+import ForgotPassword from "../components/auth/ForgotPassword.vue"
+import ResetPassword from "../components/auth/ResetPassword.vue"
 
 const routes = [
   { path: '/', redirect: '/profile/'},
+  { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
+  { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/register', name: 'Register', component: Register},
-  { path: '/auth/:frompage', name: 'Auth', component: Auth},
   { path: '/verify', name: 'Verify', component: Verify},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
   { path: '/login', name: 'Login', component: Login},
+  { path: '/auth/:fromPage', name: 'Auth', component: Auth},
   { path: '/notifications', name: 'Notification', component: Notification},
   {
     path: '*',
@@ -195,10 +198,7 @@ const routes = [
     },
   ]
   },
-  { path: '/add-project', 
-  name: 'AddProject', 
-  component: AddProject,
-  },
+  
   { path: '/crop-image', 
   name: 'CropImage', 
   component: CropImage,
@@ -220,7 +220,7 @@ Vue.use(VueI18n)
 const messages = require('../bootstraps/messages.json');
 
 const i18n = new VueI18n({
-    locale: 'fr', // set locale
+    locale: 'en', // set locale
     messages, // set locale messages
 })
 
@@ -272,7 +272,16 @@ const app = new Vue({
         showLangOption:false,
         userLocale:document.getElementById('appLocale').value,
         baseApiUrl:'https://api.citonhub.com/api',
-        returnedToken:''
+        returnedToken:'',
+        itIsHomePage:false,
+        showDashboardInfo:false,
+     showHubInfo: false,
+     showProfileInfo: false,
+     buttonText:'Ok',
+     dashboardContent:'Create new communities, channels, teams and teaching bots in your dashboard',
+     hubContent:'Network and share your works with other developers on CitonHub',
+     profileContent:'Manage your account and connections in your profile'
+        
     },
     mounted: function () {
       this.pageloader= false;
@@ -714,7 +723,7 @@ checkIfUserIsLoggedIn: function(frompage){
     if(this.$route.params.referral != null){
       this.referralUser = this.$route.params.referral;
      }
-   this.$router.push({ path: '/auth/' + frompage });
+     this.$router.push({ path: '/auth/' + frompage });
     return;
   } 
 },

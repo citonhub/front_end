@@ -1,6 +1,6 @@
 <template>
-           <div class="col-12 col-lg-8 offset-lg-2 px-2 py-2">
-               <v-card elevation-22 class="py-2 px-2"  @click="showboard(source)">
+           
+               <v-card style="background:white;" height="68px" class="px-1 py-1 " @click="showboard(source)">
                 <div class="row">
                    <div class="py-0 col-12 text-center d-md-block d-none">
                         <div style="background-color:#b9dcdf; border-radius:4px; border:1px solid transparent;">
@@ -15,7 +15,7 @@
                    </div>
 
                    <div class="py-1 col-4">
-                        <span style="font-size:12px;color:#595959;">{{ $t('duels.participant') }}: {{source.current_participant}}</span>
+                        <span style="font-size:12px;color:#595959;"><v-icon color="#3E8893">mdi-account-multiple mdi-18px</v-icon>  {{source.current_participant}}</span>
                    </div>
 
                    <div class="col-4 py-1 text-center">
@@ -76,8 +76,7 @@
 
                 </div>
                </v-card>
-            </div>
-            
+          
 </template>
 <script>
 export default {
@@ -210,7 +209,7 @@ export default {
       },
           showboard: function(duel){
            
-          this.$router.push({ path: '/duel/' + duel.duel_id +'/board' + '/user' });
+          this.$router.push({ path: '/panel/' + duel.duel_id +'/board' + '/user' });
        },
        shortenContent: function(content,limit){
              

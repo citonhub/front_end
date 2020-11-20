@@ -71,7 +71,7 @@
 
           
              
-            <div class="col-12 py-2 my-0 px-2 text-center">
+            <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2 text-center">
                  <div class="row py-0 my-0">
                        <div class="col-6 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="image1 != ''">
                             <div @click="editImage('image1')" :style="'border:2px solid #3E8893; border-radius:10px; height:120px; background-image:url('+ image1 +');width:100%; background-size:cover;'" >
@@ -459,7 +459,9 @@ var blob = this.b64toBlob(realData, contentType);
       created_at: moment().subtract(1,'hours'),
        is_reply:"false",
        message_id: this.makeUUID(),
+        id:this.makeUUID(),
        replied_message:[],
+        index_count : this.$root.returnLastIndex() + 1,
        replied_message_id:null,
        showReply:false,
        showDate:null,
@@ -671,11 +673,11 @@ var blob = this.b64toBlob(realData, contentType);
         }
 
 
-          this.$root.returnedMessages.push(this.$root.NewMsg);
+        
 
           this.$root.Messages.push(this.$root.NewMsg);
           
-           this.$root.spaceFullData[0] = this.$root.returnedMessages;
+           this.$root.spaceFullData[0] =  this.$root.Messages;
          
            let fullData = [];
                     fullData.push(this.$root.spaceFullData[0]);
@@ -692,8 +694,7 @@ var blob = this.b64toBlob(realData, contentType);
 
              this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
 
-            this.$root.scrollerControlHandler();
-
+           
          
            
          this.$root.sharePage = false;
@@ -715,6 +716,8 @@ var blob = this.b64toBlob(realData, contentType);
         formData.append('attachment_type',this.attachment_type);
         formData.append('space_id',this.$root.selectedSpace.space_id);
         formData.append('temp_id', this.$root.NewMsg.message_id)
+         formData.append('device_id',this.$root.userDeviceId)
+        
         this.ChangeDataToDefaults();
 
          this.$root.updateSpaceTracker(this.$root.selectedSpace.space_id);

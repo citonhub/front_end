@@ -17,7 +17,7 @@
        <div class="col-12 py-0 my-0 px-0 d-flex" style="position:absolute; height:80%; top:10%; width:100%; overflow-y:auto; overflow-x:hidden; align-items:center; justify-content:center;">
         
 
-           <v-img :src="this.$root.imageViewPath"></v-img>
+           <img :src="this.$root.imageViewPath" style="height:auto; max-height:100%;" width="100%">
        </div>
               
 

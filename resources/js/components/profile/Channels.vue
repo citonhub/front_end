@@ -1,5 +1,5 @@
 <template>
-<div class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-0 px-0 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute;z-index:20; background:white; height:100%;">
+<div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute;z-index:20; background:white; height:100%;">
        
      <profile-top></profile-top>
 
