@@ -5,12 +5,12 @@
 
  @endsection
  @section('meta') 
- <meta name="description" content="A teaching platform for developer communities" />
+ <meta name="description" content="A teaching platform for developers" />
   <meta name="keywords" content="Programming Duels,Developer Community,Citonhub Channels,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
   <meta name="og:image" content="https://citonhub.com/imgs/CitonHub.png"/>
-  <meta property="og:description" content="Citonhub is a community of developers where they interact,learn and build" />
+  <meta property="og:description" content="Citonhub is a teaching platform for developers. Automate how you teach code" />
   <meta property='twitter:title' content="Citonhub:Hub."/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/CitonHub.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
