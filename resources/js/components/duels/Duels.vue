@@ -297,7 +297,7 @@
 
        <div v-if="botDataLg[0].length == 0" style="height:100%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
 
-         <span style="font-size:13px; color:gray;">Teaching bot in beta, coming soon</span>
+         <span style="font-size:13px; color:gray;">Teaching bot in beta, coming soon.<a href="https://blog.citonhub.com/save-time-and-stress-by-automating-how-you-teach-code-with-citonhub">Know more</a> </span>
            
        </div>
 
