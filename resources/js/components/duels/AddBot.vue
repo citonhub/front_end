@@ -168,9 +168,9 @@ export default {
         loading:false,
         Interests:'',
         userName:'',
-        fullName:'',
+        fullName:this.$root.fullnameBot,
         channeList:[],
-        selectedChannel:'',
+        selectedChannel:this.$root.selectedChannelBot,
          Required:[
         v => !!v || 'field is required'
         ],
@@ -210,8 +210,8 @@ export default {
          mycontent:'',
          editFeild:false,
          progressvalue:0,
-        
-         contentInWord:'',
+         
+         contentInWord:this.$root.contentInWordBot,
          
         }
     },
@@ -323,6 +323,12 @@ var blob = this.b64toBlob(realData, contentType);
 				// Start the reader job - read file as a data url (base64 format)
                 reader.readAsDataURL(input.files[0]);
                 
+                this.$root.selectedChannelroot = this.selectedChannel;
+
+                 this.$root.contentInWordroot = this.contentInWord;
+
+                 this.$root.fullnameroot = this.fullName;
+
             this.$router.push({ path: '/crop-image' });
         }
         

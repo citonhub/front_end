@@ -237,9 +237,7 @@
                 </v-btn>
                 <v-btn text  x-small color="#3E8893" style="background:#edf6f7;border:1px solid #3E8893;font-size:11px;" class="mx-1">Doc
                   <input type="file"  @change="filehandler"
-               style="opacity:0;width:100%; height:100%; overflow:hidden; position:absolute; z-index:10;" 
-             accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,
-              text/plain, application/pdf"/>
+               style="opacity:0;width:100%; height:100%; overflow:hidden; position:absolute; z-index:10;" />
                 </v-btn>
 
                 
