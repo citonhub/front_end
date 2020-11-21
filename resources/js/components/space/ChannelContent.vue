@@ -2693,7 +2693,7 @@ export default {
 <style>
 
 .label{
-  color: #737373;
+  color: #000000;
   font-size: 10px;
 }
 .tagged{
