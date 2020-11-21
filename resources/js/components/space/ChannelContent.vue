@@ -2691,10 +2691,7 @@ export default {
 }
 </script>
 <style>
-.msgTextnew2{
-  font-size: 13px;
-  color: #4d4d4d;
-}
+
 .label{
   color: #737373;
   font-size: 10px;
