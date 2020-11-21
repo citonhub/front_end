@@ -154,6 +154,8 @@ export default {
                     this.$root.contentGenratorComponent.editMode = true;
                    this.$root.contentGenratorComponent.selectedTagData = tagData[0];
                    this.$root.contentGenratorComponent.tagactionType = 'response';
+
+                   this.$root.contentGenratorComponent.selectedResponse = responseData.response_slug;
           
           this.$root.contentGenratorComponent.tagName = tagData[0].tag_name;
           axios.get('/get-intent-response-' + responseData.response_slug)
