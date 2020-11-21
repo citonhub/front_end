@@ -112,7 +112,7 @@ body {
 
   
       
-         <div  color="#ffffff"  class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px;cursor:pointer; "  @click="showNavLink('library')">
+         <div  color="#ffffff"  class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:10px;cursor:pointer; "  @click="showNavLink('library')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-inbox-full-outline</v-icon>
@@ -122,7 +122,7 @@ body {
             </div>
            </div>
          </div>
-         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card"  style="border:1px solid transparent; border-radius:30px;cursor:pointer;"  @click="showNavLink('account_settings')">
+         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card"  style="border:1px solid transparent; border-radius:10px;cursor:pointer;"  @click="showNavLink('account_settings')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-account-cog-outline</v-icon>
@@ -132,7 +132,7 @@ body {
             </div>
            </div>
          </div>
-         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px;cursor:pointer;"  @click="showNavLink('privacy')">
+         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:10px;cursor:pointer;"  @click="showNavLink('privacy')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon>mdi-account-tie-outline</v-icon>
@@ -142,7 +142,7 @@ body {
             </div>
            </div>
          </div>
-         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px;cursor:pointer;"  @click="showNavLink('help')">
+         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:10px;cursor:pointer;"  @click="showNavLink('help')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon>mdi-comment-question-outline</v-icon>
@@ -158,7 +158,7 @@ body {
       
 
         
-      <div  color="#ffffff" v-if="isLogged"  @click="logout"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; cursor:pointer; border-radius:30px; position:absolute;bottom:0%;">
+      <div  color="#ffffff" v-if="isLogged"  @click="logout"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; cursor:pointer; border-radius:10px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-logout-variant</v-icon>
@@ -169,7 +169,7 @@ body {
            </div>
       </div>
   
-    <div  v-else color="#ffffff"  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; cursor:pointer; border-radius:30px; position:absolute;bottom:0%;">
+    <div  v-else color="#ffffff"  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; cursor:pointer; border-radius:10px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-login-variant</v-icon>

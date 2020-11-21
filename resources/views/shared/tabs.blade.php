@@ -21,7 +21,7 @@
 
 
        <a :class=" tabLabel == 'space' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card ' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'"  href="/"  @click="loader"
-        style="border:1px solid transparent; border-radius:30px;"> 
+        style="border:1px solid transparent; border-radius:10px;"> 
           <div class="row py-0 my-0">
             <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
               @if($tablabel == 'space')
@@ -65,7 +65,7 @@
 
 
          <a :class=" tabLabel == 'panel' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'"  href="/dashboard" @click="loader"
-         style="border:1px solid transparent; border-radius:30px;"> 
+         style="border:1px solid transparent; border-radius:10px;"> 
         
           <div class="row py-0 my-0">
             <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
@@ -101,7 +101,7 @@
 
         
          <a :class=" tabLabel == 'home' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card'" href="/hub" @click="loader"
-         style="border:1px solid transparent; border-radius:30px;"> 
+         style="border:1px solid transparent; border-radius:10px;"> 
           <div class="row py-0 my-0">
             <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
               @if($tablabel == 'hub')
@@ -137,7 +137,7 @@
 
 
          <a :class=" tabLabel == 'profile' ? 'd-block col-12 px-2 py-2 mb-2 activeTab card' : 'd-block col-12 px-2 py-2 mb-2 notActiveTab card '"  href="/profile" @click="loader" 
-         style="border:1px solid transparent; border-radius:30px;"> 
+         style="border:1px solid transparent; border-radius:10px;"> 
           <div class="row py-0 my-0">
             <div class="col-4 d-flex py-0" style="align-items:center; justify-content:center;">
               @if($tablabel == 'profile')
