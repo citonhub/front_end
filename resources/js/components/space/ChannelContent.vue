@@ -2251,7 +2251,7 @@ export default {
             
        setTimeout(() => {
 
-         if( this.$root.selectedSpace.type == 'Bot'){
+         if( this.$root.selectedSpace.type == 'Bot' || this.$root.selectedSpace.type == 'Direct' ){
            this.$root.msgScrollComponent.messageContainer.scrollToBottom();
       }else{
 
@@ -2405,7 +2405,7 @@ export default {
          
       setTimeout(() => {
 
-           if( this.$root.selectedSpace.type == 'Bot'){
+           if( this.$root.selectedSpace.type == 'Bot' || this.$root.selectedSpace.type == 'Direct' ){
            this.$root.msgScrollComponent.messageContainer.scrollToBottom();
       }else{
 
