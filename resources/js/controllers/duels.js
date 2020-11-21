@@ -398,6 +398,9 @@ const app = new Vue({
      hubContent:'Network and share your works with other developers on CitonHub',
      profileContent:'Manage your account and connections in your profile',
      showImageEditor:false,
+     contentInWordroot:'',
+     fullnameroot:'',
+     selectedChannelroot:''
         
     },
      mounted: function () {
