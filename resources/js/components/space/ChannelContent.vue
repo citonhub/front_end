@@ -2691,12 +2691,9 @@ export default {
 }
 </script>
 <style>
-.msgTextnew2{
-  font-size: 13px;
-  color: #4d4d4d;
-}
+
 .label{
-  color: #737373;
+  color: #000000;
   font-size: 10px;
 }
 .tagged{

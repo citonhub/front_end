@@ -99,7 +99,7 @@
               
                      </div>
                      <div class="col-6 py-0 my-0 text-left px-0" >
-                        <span style="font-size:12px;" class="msgTextnew2">{{shortenContent(source.project.title,25) }}</span>
+                        <span style="font-size:12px;" :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'" >{{shortenContent(source.project.title,25) }}</span>
                      </div>
                      <div class="col-3 py-0 my-0 text-center">
                           <v-btn icon @click.stop="showProject(source.project.project_slug)"><v-icon>mdi-arrow-right-bold-circle-outline</v-icon></v-btn>
@@ -160,10 +160,10 @@
                  
                      </div>
                      <div class="col-6 py-1 my-0 text-left px-0">
-                 <span class="msgTextnew2" :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" >{{ shortenContent(source.file.display_name,20) }} </span>
+                 <span :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" >{{ shortenContent(source.file.display_name,20) }} </span>
                      </div>
                       <div class="col-3 py-0 my-0  d-flex px-1" style="align-items:center; justify-content:center;">
-                 <span class="msgTextnew2" :style="checkOwner(source.user_id) ? 'color:#ffffff;font-size:10px;' :'font-size:10px;'" >{{source.file.file_size}}</span>
+                 <span :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;font-size:10px;' :'font-size:10px;'" >{{source.file.file_size}}</span>
                      </div>
                      
                   </div>
@@ -251,15 +251,15 @@
            </div>
               
             <span v-if="source.content.length > source.initialSize">
-             <span  class="msgTextnew2" :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="handelMessageContent(source)" :id="'shortContent'+ source.message_id"></span>
-             <span  :id="'fullContent'+ source.message_id" class="msgTextnew2" :style="checkOwner(source.user_id) ? 'color:#ffffff;display:none;' :'display:none;'" v-html="source.content"></span>
+             <span  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="handelMessageContent(source)" :id="'shortContent'+ source.message_id"></span>
+             <span  :id="'fullContent'+ source.message_id" :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;display:none;' :'display:none;'" v-html="source.content"></span>
             
         <v-btn :id="'moreContentbtn'+ source.message_id" @click.stop="showFullMsg(source)"   class=" mb-1 ml-auto" x-small :color="checkOwner(source.user_id) ? '#ffffff' : '#3E8893'" :style="checkOwner(source.user_id) ? 'color:#3E8893;font-size:10px;text-transform:lowercase;display:block;' :'color:#ffffff;display:block;font-size:10px;text-transform:lowercase;'">more</v-btn>
            
             
             </span>
            
-             <span v-else  class="msgTextnew2" :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
+             <span v-else  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
            </v-card>
            <div @click.stop="replyMsg(source)" v-if="source.showReply" style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
                                <v-btn icon ><v-icon color="#ffffff">mdi-reply mdi-18px</v-icon></v-btn>
@@ -292,7 +292,7 @@
                
            </div>
 
-            <span  class="msgTextnew2" v-html="source.content"></span>
+            <span  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  v-html="source.content"></span>
             <div class="col-12 py-1 my-2 text-center " style="">
               <v-btn x-small rounded color="#3E8893" @click.stop="handleAction(source)"><span style="color:white; font-size:11px; text-transform:capitalize;">{{ source.action.label }}</span></v-btn>
             </div>
@@ -438,7 +438,16 @@
                   <span class="msgTextReplynew text-left d-block"   v-html=" shortenContent(source.replied_message.content ,80)" ></span>
                   <span class="text-right label" >{{source.replied_message.username}}</span>
               </div>
-            <span  class="msgTextnew2"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''"  v-html="source.content"></span>
+           <span v-if="source.content.length > source.initialSize">
+             <span  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="handelMessageContent(source)" :id="'shortContent'+ source.message_id"></span>
+             <span  :id="'fullContent'+ source.message_id" :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;display:none;' :'display:none;'" v-html="source.content"></span>
+            
+        <v-btn :id="'moreContentbtn'+ source.message_id" @click.stop="showFullMsg(source)"   class=" mb-1 ml-auto" x-small :color="checkOwner(source.user_id) ? '#ffffff' : '#3E8893'" :style="checkOwner(source.user_id) ? 'color:#3E8893;font-size:10px;text-transform:lowercase;display:block;' :'color:#ffffff;display:block;font-size:10px;text-transform:lowercase;'">more</v-btn>
+           
+            
+            </span>
+           
+             <span v-else  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
            
            </v-card>
            
@@ -477,7 +486,17 @@
                   <span class="msgTextReplynew text-left d-block"   v-html=" shortenContent(source.replied_message.content ,80)" ></span>
                   <span class="text-right label" >{{source.replied_message.username}}</span>
               </div>
-            <span  class="msgTextnew2"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
+
+          <span v-if="source.content.length > source.initialSize">
+             <span  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="handelMessageContent(source)" :id="'shortContent'+ source.message_id"></span>
+             <span  :id="'fullContent'+ source.message_id" :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;display:none;' :'display:none;'" v-html="source.content"></span>
+            
+        <v-btn :id="'moreContentbtn'+ source.message_id" @click.stop="showFullMsg(source)"   class=" mb-1 ml-auto" x-small :color="checkOwner(source.user_id) ? '#ffffff' : '#3E8893'" :style="checkOwner(source.user_id) ? 'color:#3E8893;font-size:10px;text-transform:lowercase;display:block;' :'color:#ffffff;display:block;font-size:10px;text-transform:lowercase;'">more</v-btn>
+           
+            
+            </span>
+           
+             <span v-else  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
             
            </v-card>
            
@@ -533,7 +552,16 @@
                   </div>
               <span class="text-right label" >{{source.replied_message.username}}</span>
               </div>
-             <span  class="msgTextnew2"   :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
+            <span v-if="source.content.length > source.initialSize">
+             <span  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="handelMessageContent(source)" :id="'shortContent'+ source.message_id"></span>
+             <span  :id="'fullContent'+ source.message_id" :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;display:none;' :'display:none;'" v-html="source.content"></span>
+            
+        <v-btn :id="'moreContentbtn'+ source.message_id" @click.stop="showFullMsg(source)"   class=" mb-1 ml-auto" x-small :color="checkOwner(source.user_id) ? '#ffffff' : '#3E8893'" :style="checkOwner(source.user_id) ? 'color:#3E8893;font-size:10px;text-transform:lowercase;display:block;' :'color:#ffffff;display:block;font-size:10px;text-transform:lowercase;'">more</v-btn>
+           
+            
+            </span>
+           
+             <span v-else  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
            
            </v-card>
               
@@ -588,7 +616,16 @@
                   </div>
               <span class="text-right label d-block"  >{{source.replied_message.username}}</span>
               </div>
-            <span  class="msgTextnew2"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
+          <span v-if="source.content.length > source.initialSize">
+             <span  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="handelMessageContent(source)" :id="'shortContent'+ source.message_id"></span>
+             <span  :id="'fullContent'+ source.message_id" :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;display:none;' :'display:none;'" v-html="source.content"></span>
+            
+        <v-btn :id="'moreContentbtn'+ source.message_id" @click.stop="showFullMsg(source)"   class=" mb-1 ml-auto" x-small :color="checkOwner(source.user_id) ? '#ffffff' : '#3E8893'" :style="checkOwner(source.user_id) ? 'color:#3E8893;font-size:10px;text-transform:lowercase;display:block;' :'color:#ffffff;display:block;font-size:10px;text-transform:lowercase;'">more</v-btn>
+           
+            
+            </span>
+           
+             <span v-else  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
            
            </v-card>
              
@@ -643,7 +680,16 @@
                   </div>
               <span class="text-right label d-block"  >{{source.replied_message.username}}</span>
               </div>
-            <span  class="msgTextnew2"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
+          <span v-if="source.content.length > source.initialSize">
+             <span  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="handelMessageContent(source)" :id="'shortContent'+ source.message_id"></span>
+             <span  :id="'fullContent'+ source.message_id" :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;display:none;' :'display:none;'" v-html="source.content"></span>
+            
+        <v-btn :id="'moreContentbtn'+ source.message_id" @click.stop="showFullMsg(source)"   class=" mb-1 ml-auto" x-small :color="checkOwner(source.user_id) ? '#ffffff' : '#3E8893'" :style="checkOwner(source.user_id) ? 'color:#3E8893;font-size:10px;text-transform:lowercase;display:block;' :'color:#ffffff;display:block;font-size:10px;text-transform:lowercase;'">more</v-btn>
+           
+            
+            </span>
+           
+             <span v-else  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
             
 
            </v-card>
@@ -697,7 +743,16 @@
                   </div>
               <span class="text-right label d-block"  >{{source.replied_message.username}}</span>
               </div>
-            <span  class="msgTextnew2"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
+          <span v-if="source.content.length > source.initialSize">
+             <span  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="handelMessageContent(source)" :id="'shortContent'+ source.message_id"></span>
+             <span  :id="'fullContent'+ source.message_id" :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;display:none;' :'display:none;'" v-html="source.content"></span>
+            
+        <v-btn :id="'moreContentbtn'+ source.message_id" @click.stop="showFullMsg(source)"   class=" mb-1 ml-auto" x-small :color="checkOwner(source.user_id) ? '#ffffff' : '#3E8893'" :style="checkOwner(source.user_id) ? 'color:#3E8893;font-size:10px;text-transform:lowercase;display:block;' :'color:#ffffff;display:block;font-size:10px;text-transform:lowercase;'">more</v-btn>
+           
+            
+            </span>
+           
+             <span v-else  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
             
 
            </v-card>
@@ -750,7 +805,16 @@
                   </div>
               <span class="text-right label d-block"  >{{source.replied_message.username}}</span>
               </div>
-            <span  class="msgTextnew2"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
+          <span v-if="source.content.length > source.initialSize">
+             <span  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="handelMessageContent(source)" :id="'shortContent'+ source.message_id"></span>
+             <span  :id="'fullContent'+ source.message_id" :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;display:none;' :'display:none;'" v-html="source.content"></span>
+            
+        <v-btn :id="'moreContentbtn'+ source.message_id" @click.stop="showFullMsg(source)"   class=" mb-1 ml-auto" x-small :color="checkOwner(source.user_id) ? '#ffffff' : '#3E8893'" :style="checkOwner(source.user_id) ? 'color:#3E8893;font-size:10px;text-transform:lowercase;display:block;' :'color:#ffffff;display:block;font-size:10px;text-transform:lowercase;'">more</v-btn>
+           
+            
+            </span>
+           
+             <span v-else  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
            
            </v-card>
        
@@ -804,7 +868,16 @@
                   </div>
               <span class="text-right label d-block"  >{{source.replied_message.username}}</span>
               </div>
-             <span  class="msgTextnew2"   v-html="source.content"></span>
+            <span v-if="source.content.length > source.initialSize">
+             <span  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="handelMessageContent(source)" :id="'shortContent'+ source.message_id"></span>
+             <span  :id="'fullContent'+ source.message_id" :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;display:none;' :'display:none;'" v-html="source.content"></span>
+            
+        <v-btn :id="'moreContentbtn'+ source.message_id" @click.stop="showFullMsg(source)"   class=" mb-1 ml-auto" x-small :color="checkOwner(source.user_id) ? '#ffffff' : '#3E8893'" :style="checkOwner(source.user_id) ? 'color:#3E8893;font-size:10px;text-transform:lowercase;display:block;' :'color:#ffffff;display:block;font-size:10px;text-transform:lowercase;'">more</v-btn>
+           
+            
+            </span>
+           
+             <span v-else  :class="checkOwner(source.user_id) ?  'msgTextnewuser' : 'msgTextnew2'"  :style="checkOwner(source.user_id) ? 'color:#ffffff;' :''" v-html="source.content"></span>
            
            </v-card>
             
@@ -1263,8 +1336,21 @@ export default {
 }
 </script>
 <style>
+.msgTextnew2{
+  font-size: 13px;
+  color: #000000;
+}
 .msgTextnew2 a {
 text-decoration: underline;
-color: #81c1ca !important;
+color: #366f7d !important;
+}
+
+.msgTextnewuser{
+  font-size: 13px;
+  color: #ffffff;
+}
+.msgTextnewuser a {
+text-decoration: underline;
+color: #dbecf0 !important;
 }
 </style>
