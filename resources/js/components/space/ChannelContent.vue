@@ -315,7 +315,7 @@
              </div>
 
               <div class="col-12  pb-2 pt-0 my-0 px-2 text-center" >
-                 <span style="color:grey; font-size:12px;">Do you wish to own a bot too? </span>  <span style="font-size:12px;" class="ml-1">No</span><v-switch class="d-inline-block mx-1 mr-0" color="#3E8893"></v-switch> <span style="font-size:12px;" >Yes</span>
+                 <span style="color:grey; font-size:12px;">Do you wish to own a bot too? </span>  <span style="font-size:12px;" class="ml-1">No</span><v-switch class="d-inline-block mx-1 mr-0" v-model="botInterest" @change="saveUserInterest" color="#3E8893"></v-switch> <span style="font-size:12px;" >Yes</span>
              </div>
 
               <div class="col-3  py-0 my-0 px-2 text-right">
@@ -837,6 +837,7 @@ export default {
           messageContent:'',
           showBotAuthorBoard:false,
           loadingAuthorMessage: false,
+          botInterest:false,
           codeBoxContent:'Share and run more than 25 programming languages',
           imageArray:[
             {
@@ -918,6 +919,22 @@ export default {
      var id = "id" + Math.random().toString(16).slice(2);
      return id;
  },
+ saveUserInterest:function(){
+    axios.post('/save-user-onboarding-bot_interest')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+       
+     }
+       
+     
+     })
+     .catch(error => {
+       
+       
+     })
+ },
       sendAuthorMessage:function(){
 
         if(this.loadingAuthorMessage) return
@@ -976,6 +993,8 @@ export default {
 
            axios.get('/fetch-user-onboarding')
       .then(response => {
+
+         
       
       if (response.status == 200 || response.status == 201) {
 
@@ -1005,6 +1024,8 @@ export default {
          }
 
           if(this.$root.selectedSpace.type == 'Bot' ){
+
+            this.botInterest = response.data.bot_interest;
 
            let storedInfo = this.$root.getLocalStore('channelcontentinfoBot'+ this.$root.username);
 
