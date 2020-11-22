@@ -1079,13 +1079,19 @@ console.log(err)
               messages.id = messages.message_id
               messages.index_count = this.$root.returnLastIndex() + 1;
 
-              this.$root.Messages.push(messages);
+              if(!this.$root.checkIfMessageExist(messages)){
+
+                 this.$root.Messages.push(messages);
 
                this.$root.sortChatList();
 
            this.$root.scrollToBottom(); 
 
            this.$root.updateSpaceTracker(space.space_id);
+
+              }
+
+             
 
            
 

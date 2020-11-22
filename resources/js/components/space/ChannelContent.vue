@@ -2002,12 +2002,16 @@ export default {
                       response.data[0][index].id =  response.data[0][index].message_id;
                       response.data[0][index].initialSize =  200;
                       
+                  if(!this.$root.checkIfMessageExist(response.data[0][index])){
 
-                      
-                   this.$root.Messages.push(response.data[0][index]);
+                     this.$root.Messages.push(response.data[0][index]);
                   this.$root.pushDataToLocal(response.data[0][index]);
 
                   this.scrollToBottom();
+
+                  }
+                      
+                  
 
 
                 
