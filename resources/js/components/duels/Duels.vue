@@ -27,7 +27,7 @@
                       </div>
 
                       
-                <v-btn x-small color="#3E8893" @click="showOrgList" style="color:white;">community</v-btn>
+                <v-btn x-small color="#3E8893" @click="showOrgList" style="color:white; text-transform:capitalize;">community</v-btn>
                </div>
             </div>
 
@@ -52,7 +52,7 @@
                  <div style="position:absolute;top:25%; right:67%; z-index:2;" class="d-md-none d-block text-left" v-if="showOrgInfo">
                     <info-dialog :buttonText="'Ok'" :content="orgContent" :type="'inforight'" :next="'panelShowSwitch'"></info-dialog>
                       </div>
-               <v-btn x-small color="#3E8893" @click="showOrgList" style="color:white; font-size:10px;">community</v-btn>
+               <v-btn x-small color="#3E8893" @click="showOrgList" style="color:white; font-size:10px;text-transform:capitalize;">community</v-btn>
                </div>
             </div>
 
