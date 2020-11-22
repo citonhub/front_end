@@ -9,10 +9,10 @@
           <img src="/imgs/CitonHub.png" height="40" width="auto"/>
          </div>
          <div class="col-8 text-right py-0 pt-2 my-0">
-             <v-btn rounded to="/login" medium  outlined type="submit" color="#3E8893" style="font-size:12px; font-weight:bolder; font-family: Headertext;" 
+             <v-btn rounded to="/login" medium  outlined type="submit" color="#3E8893" style="font-size:12px; font-weight:bolder; font-family: Headertext;z-index:898566897;" 
                  >Login</v-btn>
 
-                <v-btn rounded  to="/register" medium class="ml-3"  type="submit" color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;font-family: Headertext;" 
+                <v-btn rounded  to="/register" medium class="ml-3"  type="submit" color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;font-family: Headertext;z-index:898566897;" 
                  >Sign up</v-btn>
          </div>
 
