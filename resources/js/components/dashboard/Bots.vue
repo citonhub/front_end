@@ -4,7 +4,7 @@
        <div id="mainScroller" class="  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
-
+      <!-- top bar -->
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
          <div class="col-3 py-0 my-0 text-left" style="border-bottom:2px solid #4495a2;" >
@@ -18,7 +18,9 @@
          </div>
       </div>
      </div>
+     <!-- ends -->
 
+   <!-- bot main component -->
       <div class="col-12 py-1 my-0 " >
             <div class="row my-1 mt-0 py-1 px-2 ">
 
@@ -30,17 +32,26 @@
           
         <div class="col-12 py-1 px-2 my-0">
 
-       <content-generator></content-generator>         
+          <!-- pulls in the bot content generator component -->
 
+       <content-generator></content-generator>         
+         <!-- ends -->
         </div>
 
         <div class="col-12 py-0 px-1 my-2 mt-3">
 
+          <!-- pulls in the bot content component -->
+
           <bot-contents></bot-contents>
+        
+        <!-- ends -->
 
         </div>
           </div>
         </div>
+<!-- ends -->
+
+
          </div>
        </div>
 

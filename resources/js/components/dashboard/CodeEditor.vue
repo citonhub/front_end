@@ -3,6 +3,8 @@
        <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
+        <!-- top bar , contains the opened code files, and a copy button -->
+
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
       
          <div class="py-1 my-0 text-left px-1" style=" position:absolute; left:0; width:10%; background:white;" >
@@ -31,6 +33,10 @@
         
       </div>
 
+    <!-- ends -->
+
+    <!-- codemirror component -->
+
        <div class="col-12 py-0 my-0" style="position:absolute; top:6%; height:95%; overflow-y:hidden; left:0; overflow-x:hidden;">
          <div class="row my-0 py-0 px-0 ">
               <div class="codeboxnew scrollerStyle">
@@ -51,8 +57,9 @@
               <textarea type="hidden" id="codeBoxContent" :value="code"></textarea>
          </div>
        </div>
-
+<!-- ends -->
        
+       <!-- Run code buttons for small and large screens -->
        <span style="position:absolute; top:90%; right:3%; z-index:23456788;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#35747e"
@@ -78,6 +85,8 @@
 
      </v-btn>
      </span>
+
+    <!-- ends -->
 
 
           

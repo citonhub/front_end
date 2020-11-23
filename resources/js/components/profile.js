@@ -5,3 +5,4 @@ Vue.component('image-loader',require('./profile/ImageLoader.vue').default);
 Vue.component('image-viewer',require('./profile/ImageViewer.vue').default);
 Vue.component('full-image-viewer',require('./hub/FullImageViewer.vue').default);
 Vue.component('notify-list',require('./profile/NotifyList.vue').default);
+Vue.component('bottom',require('./auth/bottom.vue').default);

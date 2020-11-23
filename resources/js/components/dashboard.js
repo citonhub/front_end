@@ -10,3 +10,4 @@ Vue.component('image-editor',require('./dashboard/ImageEditor.vue').default);
 Vue.component('file-upload',require('./auth/FileUpload.vue').default);
 Vue.component('video-player',require('./space/VideoPlayer.vue').default);
 Vue.component('info-dialog',require('./space/InfoDialog.vue').default);
+Vue.component('bottom',require('./auth/bottom.vue').default);

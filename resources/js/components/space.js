@@ -18,3 +18,4 @@ Vue.component('enable-notify',require('./space/EnableNotify.vue').default);
 Vue.component('main-video',require('./space/MainVideo.vue').default);
 Vue.component('search',require('./space/Search.vue').default);
 Vue.component('info-dialog',require('./space/InfoDialog.vue').default);
+Vue.component('bottom',require('./auth/bottom.vue').default);

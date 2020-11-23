@@ -19,3 +19,4 @@ Vue.component('main-video',require('./space/MainVideo.vue').default);
 Vue.component('post',require('./hub/Post.vue').default);
 Vue.component('post-comment-view',require('./hub/PostCommentView.vue').default);
 Vue.component('new-post',require('./hub/NewPost.vue').default);
+Vue.component('bottom',require('./auth/bottom.vue').default);
