@@ -337,6 +337,6 @@ body {
 <!-- ends -->
 
  <!-- The main compiled script for this page  -->
-<script src="{{ asset('js/duels.js?v=2.03') }}"></script>
+<script src="{{ asset('js/duels.js?v=2.04') }}"></script>
 <!-- ends -->
  @endsection

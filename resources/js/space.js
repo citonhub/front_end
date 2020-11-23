@@ -4,36 +4,28 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+// pulls in the dependencies in the of the script in the boostrap folder
+
 require('./bootstraps/space');
 
+// ends
 
-
+// pulls in vue Js
 window.Vue = require('vue');
 
-
-
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
-
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+// ends
 
 /**
 * We will require in our components.js file, which contains our
 * component files. Putting them in their own file reduces clutter.
+all global components can be found in the component folder
 */
 require('./components/space');
 
-require('./controllers/space');
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
+ * the page. all the app logik goes in here, and it serves as the root of the application
  */
-
+require('./controllers/space');
 
