@@ -2400,7 +2400,15 @@ export default {
 
               }
 
-      this.$root.TrackLastSubSpace.push(  this.$root.selectedSpace.general_spaceId, this.$route.params.spaceId);
+              if(response.data[1].type == 'Bot'){
+
+            this.botSuggestionArray = response.data[3];
+
+         this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data[1]);
+
+              }
+
+      this.$root.TrackLastSubSpace.push(this.$root.selectedSpace.general_spaceId, this.$route.params.spaceId);
 
        this.$root.selectedSpaceMembers = response.data[2];
 

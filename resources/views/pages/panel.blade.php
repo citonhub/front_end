@@ -321,5 +321,5 @@ body {
 
  @section('scripts')
  <script src="https://unpkg.com/marked@0.3.6"></script>
-<script src="{{ asset('js/duels.js?v=2.02') }}"></script>
+<script src="{{ asset('js/duels.js?v=2.03') }}"></script>
  @endsection
