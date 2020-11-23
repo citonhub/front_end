@@ -386,7 +386,7 @@
 
           
 
-    <textarea  readonly v-else v-model="ResultCode"  style="border: 1px solid #c5c5c5 ; max-height:150px;  width:100%; left:0; font-size:13px;" class="px-2 py-2">
+    <textarea  readonly v-else v-model="ResultCode"  style="border: 1px solid #c5c5c5 ; height:250px;  width:100%; left:0; font-size:13px;" class="px-2 py-2">
        
     </textarea>
 
