@@ -42,7 +42,7 @@ body {
  <!-- this contains all that is shown in the dahsboard tab -->
 
   <!-- fixed page loader shown while the page script is still loading -->
-<div id="duels" style="height:100%; width:100%;position:fixed;">
+<div id="dashboard" style="height:100%; width:100%;position:fixed;">
 <div  style="z-index:1000000; position:fixed; width:100%; height:auto; top:0;" v-if="pageloader">
   <div class="line"></div>
   <div class="subline inc"></div>
@@ -84,8 +84,8 @@ body {
 </div>
 <!-- ends -->
 
-<!-- The duel component, this is where all other vue components are pulled in  -->
-<duels></duels>
+<!-- The dashboard component, this is where all other vue components are pulled in  -->
+<dashboard></dashboard>
 <!-- ends -->
 
 
@@ -313,10 +313,7 @@ body {
 
      
 
-      <v-list dense>
-
-       
-      </v-list>
+     
     </v-navigation-drawer>
 </v-app>
 <!-- ends -->
@@ -337,6 +334,6 @@ body {
 <!-- ends -->
 
  <!-- The main compiled script for this page  -->
-<script src="{{ asset('js/duels.js?v=2.04') }}"></script>
+<script src="{{ asset('js/dashboard.js?v=2.04') }}"></script>
 <!-- ends -->
  @endsection

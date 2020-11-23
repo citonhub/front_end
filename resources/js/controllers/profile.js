@@ -723,7 +723,7 @@ checkIfUserIsLoggedIn: function(frompage){
     if(this.$route.params.referral != null){
       this.referralUser = this.$route.params.referral;
      }
-     this.$router.push({ path: '/auth/' + frompage });
+      this.$router.push({ path: '/login' });
     return;
   } 
 },

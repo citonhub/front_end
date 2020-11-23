@@ -649,7 +649,7 @@ export default {
          this.$root.showShare = false;
 
       this.closeConnections();
-        this.$root.checkIfUserIsLoggedIn('space');
+        this.$root.showHomePage('space');
         
        
        this.$root.codeEditorArray = [];

@@ -25,7 +25,7 @@ require('./components/profile');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
- * the page. all the app logik goes in here, and it serves as the root of the application
+ * the page. all the app logic goes in here, and it serves as the root of the application
  */
 require('./controllers/profile');
 

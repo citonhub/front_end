@@ -39,7 +39,7 @@ body {
   <!-- this contains all that is shown in the hub tab -->
 
     <!-- fixed page loader shown while the page script is still loading -->
-<div id="home" style="height:100%; width:100%;position:fixed;">
+<div id="hub" style="height:100%; width:100%;position:fixed;">
 
 <div style="position:absolute;height:100%; width:100%; align-items:center; top:0; left:0; justify-content:center;z-index:100000;background:white;"  class=" d-flex " v-if="pageloader"> 
       <img src="/imgs/CitonHub.png" height="40" width="40" class="sliderfull">
@@ -86,8 +86,8 @@ body {
 </div>
 <!-- ends -->
 
-<!-- The home component, this is where all other vue components are pulled in  -->
-<home></home>
+<!-- The hub component, this is where all other vue components are pulled in  -->
+<hub></hub>
 <!-- ends -->
 
 
@@ -320,7 +320,7 @@ body {
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/home.js?v=1.08') }}"></script>
+ <script src="{{ asset('js/hub.js?v=1.08') }}"></script>
  <!-- ends -->
      
  @endsection
