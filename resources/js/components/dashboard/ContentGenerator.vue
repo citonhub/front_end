@@ -1,10 +1,13 @@
-<template>
+end<template>
     <div class="py-0 px-0 "  style=" z-index:12;">
 
 
          <v-card class="col-12  my-0 ">
            
             <div class="col-12  py-1 my-0 px-2 ">
+
+
+             
 
               <div class="row py-0 my-0">
                   <div class="col-6 py-0 my-0 text-left">
@@ -91,6 +94,9 @@
              
 
               <div class="col-12 py-2 my-0 mx-2 text-center" >
+
+
+                <!-- responses or contents type components-->
 
                 <span v-for="(content,index) in responseContents" :key="index" >
 
@@ -191,6 +197,8 @@
      
                 </span>
 
+        <!-- ends -->
+
                  
               </div>
              
@@ -204,6 +212,8 @@
                        </div>
             
 
+
+         <!--  content type controllers -->
               <div class="col-12  py-2 my-0 px-2 text-center" v-if="showtypeList">
                  <div class="row">
 
@@ -247,6 +257,11 @@
                  </div>
              </div>
 
+        <!-- ends -->
+
+
+        <!-- new text content creator -->
+
               <div class="col-12  py-2 my-3 px-2 " v-if="showNewText">
 
                  <v-textarea
@@ -268,7 +283,12 @@
              </div>
 
               </div>
+     <!-- ends -->
 
+      
+      <!-- new code content creator -->
+
+      <!-- code language switch -->
                <div class="col-12 py-0 my-0 px-1"  v-if="showCreateCode">
 
                   <v-select
@@ -288,7 +308,10 @@
                  
                </div>
 
+        <!--  ends -->
 
+       
+       <!-- code file name -->
                <div class="col-12  py-2 my-0 px-2" v-if="showCreateCode">
                   <v-text-field
                 style="font-size:13px;"
@@ -303,7 +326,9 @@
              ></v-text-field>
              </div>
 
+    <!-- ends -->
 
+      <!-- code editor -->
                <div class="col-12  py-2 my-3 px-2 " v-if="showCreateCode">
 
                 
@@ -356,7 +381,14 @@
          
               </div>
 
+    <!-- ends -->
+
+
+ <!-- code viewer -->
               <div  v-else style="width:100%; height:250px;" >
+
+          
+          <!-- HTML code runner -->
 
                 <div  v-if="selectedLangId == 0" @click="showCode = true" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="selectedLangId = 0" style="position:absolute; height:80%; width:90%; bottom:10%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
@@ -384,7 +416,9 @@
            </div>
          </div>
 
-          
+        <!-- ends -->
+
+        <!-- other language code runner -->
 
     <textarea  readonly v-else v-model="ResultCode"  style="border: 1px solid #c5c5c5 ; height:250px;  width:100%; left:0; font-size:13px;" class="px-2 py-2">
        
@@ -419,17 +453,23 @@
          
      </span>
           
-
+     <!-- ends -->
       </div>
         
-         
+        <!-- ends -->   
 
               </div>
+<!-- ends -->
 
+   
+       <!-- content previewer -->
 
                <div class="col-12  col-md-10 offset-md-1  col-lg-8 offset-lg-2  py-2 my-1 px-2 text-center" >
                          
                   <div class="row py-1 px-1">
+
+
+                    <!-- Images previewer -->
                   
                   <div class="col-md-6 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="image1 != ''">
                             <div @click="editImage('image1')" :style="'border:2px solid #3E8893; border-radius:10px; height:150px; background-image:url('+ image1 +');width:100%; background-size:cover;'" >
@@ -465,6 +505,10 @@
                               </div> 
                        </div>
 
+                    <!-- ends -->
+                         
+
+                    <!-- Video previewer -->
                         <div class="col-12 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="videoUrl != ''">
                             <div  style="border:2px solid #3E8893; border-radius:10px; height:100%;width:100%; " >
                               <video-player :videoUrl="videoUrl" :backgroundColor="VideoBackground" :backgroundImg="VideoImgBackground"></video-player>
@@ -474,7 +518,10 @@
                               
                               </div> 
                        </div>
+                  <!-- ends -->
 
+
+                  <!-- Audio previewer -->
 
                        <div class="col-lg-10 offset-lg-1 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="audioUrl != ''">
                             <div  style=" height:100%;width:100%; " >
@@ -507,6 +554,10 @@
                               </div> 
                        </div>
 
+                      <!-- ends -->
+
+                      <!-- File/document previewer -->
+
                          <div class="col-lg-10 offset-lg-1  d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="fileUrl != ''">
                             <div  style=" height:100%;width:100%; " >
                               <v-card class="py-1 px-2" >
@@ -536,6 +587,8 @@
                               </div> 
                        </div>
 
+                      <!-- ends -->
+
 
                       
 
@@ -548,23 +601,25 @@
                 
 
               </div>
+
+          <!-- ends -->
              </div>
 
              
 
 
-         
+          <!-- Add content button -->
             <div class=" col-12  py-2 my-0 px-2 text-center">
                   <v-btn  type="submit" rounded small color="#3E8893"  v-if="editMode && tagactionType == 'response'" :disabled="showBaseAddBtn" @click="sendMessage" :loading="loadingSendMsg" style="font-size:11px; font-weight:bolder; color:white;">Add</v-btn>
              </div>
 
-
+               <!-- ends -->
             </div>
         </v-card>  
 
 
        
-
+   <!-- Alert -->
          <v-fade-transition>
               <div  style="position:absolute; width:100%; left:0; height:auto: align-items:center;justify-content:center;bottom:5%; z-index:123453566;"  class="d-flex">
              <v-alert
@@ -585,6 +640,8 @@
     </v-alert>
         </div>
         </v-fade-transition>
+
+    <!-- ends -->
     </div>
 </template>
 

@@ -6,6 +6,8 @@
     <div class="col-12">
 
        <div class="row py-0 my-0 px-md-3 px-lg-3" style="overflow-y:hidden;">
+
+         <!-- Top bar containing logo, login and register buttons -->
          <div class="col-4 text-left py-0 my-0">
           <img src="/imgs/CitonHub.png" height="40" width="auto"/>
          </div>
@@ -16,8 +18,9 @@
                 <v-btn rounded to="/register" medium class="ml-3"  type="submit" color="#3E8893" style="font-size:12px; font-weight:bolder; color:white;font-family: Headertext; z-index:898566897;" 
                  >Sign up</v-btn>
          </div>
-
+     <!-- ends -->
        
+       <!-- Illustration for large screen -->
        <v-slide-y-reverse-transition> 
 
           <div class="col-lg-6 d-none d-lg-block text-center py-3 pt-2 my-0 mt-3" v-if="viewType == 'main'">
@@ -25,11 +28,16 @@
          </div>
           
         </v-slide-y-reverse-transition>
+        <!-- ends -->
 
-
+      
+      <!-- Illustration for smaller screens -->
         <img style="position:fixed; height:70%; width:60%; right:-2%; bottom:-6%;z-index:2;" class="d-lg-none d-block" src="/imgs/homeMain.svg">
-        
 
+        <!-- ends -->
+        
+     
+     <!-- The info slider for larger screens -->
         <v-slide-y-reverse-transition>
 
            <div class="col-lg-6 d-md-block d-none text-center py-2 pt-2 mt-md-5" style="z-index:9999; " v-if="viewType == 'main'">
@@ -93,10 +101,10 @@
         </v-slide-y-reverse-transition>
         
 
-
-  
+<!-- ends -->
 
  
+<!-- Get started steppers (steps of how to get started) -->
 
    <v-slide-y-reverse-transition>
 
@@ -206,9 +214,9 @@
          </div>
      
    </v-slide-y-reverse-transition>
- 
+<!-- end -->
 
-<!-- small screen -->
+<!-- Info slider for smaller screen -->
  <v-slide-y-reverse-transition> 
 
        <div class="d-md-none  text-center py-0 pt-0 d-flex" v-if="viewType == 'main'" style="z-index:9999; top:10%; height:70%; position:fixed; width:100%; align-items:center; justify-content:center;">
@@ -270,11 +278,13 @@
          </div>
 
  </v-slide-y-reverse-transition>
+
+<!-- ends -->
  </div>
 
     </div>
 
-  
+  <!-- Fixed bottom for large screen-->
 
     <div class="col-lg-10 offset-lg-1  d-md-block d-none" style="position:fixed; height:auto;  left:0%; bottom:0%; z-index:26;">
 
@@ -310,6 +320,10 @@
       </div>
 
     </div>
+
+  <!-- ends -->
+
+  <!-- Fixed bottom for smaller screens -->
 
     <div class="col-12  d-md-none d-block" style="position:fixed; height:auto;  left:0%; bottom:0%; z-index:26;">
 
@@ -347,8 +361,12 @@
       </div>
 
     </div>
-   
+   <!-- ends -->
 
+   <!-- This switch btw the get started steppers and the info sliders -->
+
+
+<!-- larger screens -->
    <span style="position:fixed; height:auto; width:auto; right:3%; bottom:5%; z-index:25;" class="d-lg-block d-none">
      <v-btn fab style="background:#ffffff; border:2px solid #3E8893;" class="sliderfullBtn" @click="viewType = 'gettingStarted'"  v-if="viewType == 'main'">
        <v-icon color="#26535a" >mdi-arrow-down</v-icon>
@@ -358,8 +376,8 @@
        <v-icon color="#26535a" >mdi-arrow-up</v-icon>
      </v-btn>
    </span>
-
- 
+<!-- ends -->
+ <!-- smaller screens -->
   <span style="position:fixed; height:auto; width:auto; right:3%; bottom:18%; z-index:9999999999;" class="d-lg-none d-block">
      <v-btn fab medium style="background:#ffffff; border:2px solid #3E8893;" class="sliderfullBtn" @click="viewType = 'gettingStarted'"  v-if="viewType == 'main'">
        <v-icon color="#26535a" >mdi-arrow-down</v-icon>
@@ -370,21 +388,22 @@
      </v-btn>
    </span>
 
+<!-- ends -->
 
+
+<!-- ends -->
+
+<!-- bottom background images for larger screens -->
     <img style="position:fixed; height:35%; width:25%; left:-8%; bottom:-5%; z-index:23;" class="d-lg-block d-none" src="/imgs/side2.png">
-
-
-  
-
-
 
      <img style="position:fixed; height:40%; width:15%; right:-2%; bottom:-12%;z-index:23;" class="d-lg-block d-none" src="/imgs/side1.png">
 
-    
-
       <img style="position:fixed; height:40%; width:100%;  bottom:0%;"  class="d-md-block d-none" src="/imgs/bottom.png">
+<!-- ends -->
 
+<!-- bottom background image for smaller screens -->
       <img style="position:fixed; height:50%; width:100%;  bottom:0%;"  class="d-md-none d-block" src="/imgs/bottom.png">
+<!-- ends -->
 
   </v-app>
 </template>
@@ -420,7 +439,7 @@ export default {
              this.$router.push({ path: '/profile' });
           } 
 
-           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'duels'){
+           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'dashboard'){
              this.$router.push({ path: '/panel' });
           } 
 

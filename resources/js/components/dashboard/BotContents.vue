@@ -1,7 +1,8 @@
 <template>
      <div class="py-0 px-1 my-0" >
        <v-card>
-
+    
+    <!-- table header -->
           <div class="col-12 py-1 my-0 " >
                       <div class="row my-0 px-2">
                          <div class="col-4 py-0" style="border-bottom:1px solid #c4c4c4;">
@@ -23,6 +24,10 @@
                          
                       </div>  
         </div>
+
+      <!-- ends -->
+
+    <!-- table contant holder -->
         <div class="px-2 py-2">
 
          
@@ -81,6 +86,8 @@
        
 
         </div>
+
+   <!-- ends -->
        </v-card>
         
 

@@ -2,6 +2,8 @@
     <div>
          
      <div class="codemirror my-0" style="position:absolute; height:100%; width:100%; ">
+
+       <!-- code language switch  -->
        <div class="col-12 my-0 card pb-0" >
          <v-row class="my-0 py-0">
             <div class="col-lg-4 col-8 text-left my-0 py-0">
@@ -21,7 +23,11 @@
         
         
       </div>
+
+    <!-- ends -->
      
+    
+    <!-- codemirror component  -->
   <codemirror
         v-model="code" 
         style="height:80%;"
@@ -31,7 +37,7 @@
         @focus="onCmFocus"
         @blur="onCmBlur"
       />
-
+<!-- ends -->
      
  
       <div class="col-12 my-0 card py-1" style="margin-bottom:100px !important;">
