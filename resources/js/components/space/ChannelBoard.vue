@@ -9,12 +9,12 @@
           <div class="col-12 py-0 px-0 d-flex" style="align-items:center; justify-content:center;">
               <div v-if="this.$root.selectedSpace.type != 'Bot'">
                  
-   <v-img  @click.stop="viewFullImage(this.$root.selectedSpace)" :background-color="this.$root.selectedSpace.background_color" :src="this.$root.selectedSpace.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ this.$root.selectedSpace.image_name +'.' + this.$root.selectedSpace.image_extension " height="130" width="130" class="avatarImg" style="border:3px solid #3E8893;"></v-img>
+   <v-img  @click.stop="viewFullImage(that.$root.selectedSpace)" :background-color="this.$root.selectedSpace.background_color" :src="this.$root.selectedSpace.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ this.$root.selectedSpace.image_name +'.' + this.$root.selectedSpace.image_extension " height="130" width="130" class="avatarImg" style="border:3px solid #3E8893;"></v-img>
               </div>
 
               <div v-if="this.$root.selectedSpace.bot_data != undefined && this.$root.selectedSpace.type == 'Bot'">
                  
-   <v-img  @click.stop="viewFullImage(this.$root.selectedSpace.bot_data)" :background-color="this.$root.selectedSpace.bot_data.background_color" :src="this.$root.selectedSpace.bot_data.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ this.$root.selectedSpace.bot_data.image_name +'.' + this.$root.selectedSpace.bot_data.image_extension " height="130" width="130" class="avatarImg" style="border:3px solid #3E8893;"></v-img>
+   <v-img  @click.stop="viewFullImage(that.$root.selectedSpace.bot_data)" :background-color="this.$root.selectedSpace.bot_data.background_color" :src="this.$root.selectedSpace.bot_data.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ this.$root.selectedSpace.bot_data.image_name +'.' + this.$root.selectedSpace.bot_data.image_extension " height="130" width="130" class="avatarImg" style="border:3px solid #3E8893;"></v-img>
               </div>
           </div>
 
@@ -136,6 +136,7 @@ export default {
         alertMsg:'',
         SpaceMembers:[],
         loadingLeave: false,
+        that:this
         }
     },
      components: {
