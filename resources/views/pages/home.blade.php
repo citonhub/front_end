@@ -18,7 +18,9 @@
  @section('css')
   
   
+ <!-- Shaka Player ui compiled library default CSS: -->
  <link rel="stylesheet" type="text/css" href="/css/controls.css">
+  <!-- ends -->
 
 <style>
  .body{
@@ -34,6 +36,9 @@ body {
  @endsection
 
  @section('content')
+  <!-- this contains all that is shown in the hub tab -->
+
+    <!-- fixed page loader shown while the page script is still loading -->
 <div id="home" style="height:100%; width:100%;position:fixed;">
 
 <div style="position:absolute;height:100%; width:100%; align-items:center; top:0; left:0; justify-content:center;z-index:100000;background:white;"  class=" d-flex " v-if="pageloader"> 
@@ -45,9 +50,10 @@ body {
   <div class="subline inc"></div>
   <div class="subline dec"></div>
 </div>
+<!-- ends -->
 
 
-
+ <!-- the header bar of the page -->
 <div class="col-lg-10  col-12 offset-lg-1 py-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; display:fixed; top:0%;height:auto; background:white;  " v-show="showHeader">
     <div class="row">
     <div class="col-4 d-flex  py-1" style="border-bottom:1px solid #e6e6e6;  align-items:center; ">
@@ -78,11 +84,14 @@ body {
         
     </div>
 </div>
+<!-- ends -->
 
-
-
+<!-- The home component, this is where all other vue components are pulled in  -->
 <home></home>
+<!-- ends -->
 
+
+<!-- The large(system view)  rigth side navigator-->
 <div class=" d-none d-md-none d-lg-block mx-2  py-2 " v-if="!itIsHomePage"
  style="border-radius:7px; height:80%; position:fixed; width:15%;top:10%; right:8.30%; background:transparent; border:1px solid transparent;" >
 
@@ -158,8 +167,9 @@ body {
   
 
 </div>
+<!-- ends -->
 
-
+<!-- The navigator drawer for medium and small screen devices -->
 <v-app class="col-12 px-0 py-0 d-lg-none d-block" style="background:transparent; z-index:10999; font-family:BodyText; position:absolute;" v-if="drawer">
 <v-navigation-drawer
       v-model="drawer"
@@ -281,31 +291,36 @@ body {
       </v-list>
     </v-navigation-drawer>
 </v-app>
+<!-- ends -->
 
-<form id="logout-form" action="/logout" method="POST" style="display: none;">
-@csrf
-                                              </form>
+<!-- This includes the global navigation tabs, fixed on the left for large screens and fixed to bottom for smaller screens -->
 <div v-if="!drawer">
  @include('shared.tabs')
  </div>
+ <!-- ends -->
 </div>
  @endsection
 
  @section('scripts')
 
 
- <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-  
-  <script src="{{ asset('js/shaka-player.compiled.js') }}"></script>
+ <!-- Video player and streaming, third-party scripts -->
+ <script src="{{ asset('js/shaka-player.compiled.js') }}"></script>
 
-   <!-- Shaka Player ui compiled library: -->
-   <script src="{{ asset('js/shaka-player.ui.js') }}"></script>
+<script src="{{ asset('js/shaka-player.ui.js') }}"></script>
 
-   <!-- Chromecast SDK  -->
-   <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
+<script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
 
-   <script src="https://unpkg.com/marked@0.3.6"></script>
+<script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 
+<!-- ends -->
+
+<!-- Third-party script for markdown formating -->
+<script src="https://unpkg.com/marked@0.3.6"></script>
+<!-- ends -->
+
+<!-- The main compiled script for this page  -->
  <script src="{{ asset('js/home.js?v=1.08') }}"></script>
+ <!-- ends -->
      
  @endsection

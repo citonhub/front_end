@@ -1598,7 +1598,7 @@ console.log(err)
 
        // update to localStorage
        
-       this.$root.spaceFullData[0] = this.$root.returnedMessages;
+       this.$root.spaceFullData[0] = this.Messages;
 
 
                
