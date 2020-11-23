@@ -1,0 +1,12 @@
+Vue.component('dashboard',require('./dashboard/Hub.vue').default);
+Vue.component('content-generator',require('./dashboard/ContentGenerator.vue').default);
+Vue.component('bot-contents',require('./dashboard/BotContents.vue').default);
+Vue.component('each-duel',require('./dashboard/EachDuel.vue').default);
+Vue.component('duel-comments',require('./dashboard/DuelComments.vue').default);
+Vue.component('share',require('./space/Share.vue').default);
+Vue.component('code-view',require('./space/CodeView.vue').default);
+Vue.component('image-cropper',require('./profile/ImageCropper.vue').default);
+Vue.component('image-editor',require('./dashboard/ImageEditor.vue').default);
+Vue.component('file-upload',require('./auth/FileUpload.vue').default);
+Vue.component('video-player',require('./space/VideoPlayer.vue').default);
+Vue.component('info-dialog',require('./space/InfoDialog.vue').default);

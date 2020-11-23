@@ -6,7 +6,7 @@
 
 // pulls in the dependencies in the of the script in the boostrap folder
 
-require('./bootstraps/profile');
+require('./bootstraps/hub');
 
 // ends
 
@@ -20,12 +20,12 @@ window.Vue = require('vue');
 * component files. Putting them in their own file reduces clutter.
 all global components can be found in the component folder
 */
-require('./components/profile');
+require('./components/hub');
 
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. all the app logic goes in here, and it serves as the root of the application
  */
-require('./controllers/profile');
+require('./controllers/hub');
 

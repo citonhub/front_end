@@ -67,7 +67,7 @@ import ChannelContent from "../components/space/ChannelContent.vue"
 import SubSpace from "../components/space/SubSpace.vue"
 import ChannelProjects from "../components/space/ChannelProjects.vue"
 import ChannelBoard from "../components/space/ChannelBoard.vue"
-import ImageEditor from "../components/home/ImageEditor.vue"
+import ImageEditor from "../components/hub/ImageEditor.vue"
 import ChannelMembers from "../components/space/ChannelMembers.vue"
 import ChannelShare from "../components/space/ChannelShare.vue"
 import ChannelEdit from "../components/space/EditSpace.vue"
@@ -2065,6 +2065,19 @@ imageStyle:function(dimension,authProfile){
          return;
       }
      },
+     showHomePage:function(frompage){
+
+        if(this.checkauthroot == 'noauth'){
+        this.LocalStore('route_tracker',[this.$router.currentRoute.path]);
+       
+        if(this.$route.params.referral != null){
+          this.referralUser = this.$route.params.referral;
+         }
+       this.$router.push({ path: '/auth/' + frompage });
+        return;
+      } 
+
+     },
       checkIfUserIsLoggedIn: function(frompage){
       if(this.checkauthroot == 'noauth'){
         this.LocalStore('route_tracker',[this.$router.currentRoute.path]);
@@ -2072,7 +2085,7 @@ imageStyle:function(dimension,authProfile){
         if(this.$route.params.referral != null){
           this.referralUser = this.$route.params.referral;
          }
-       this.$router.push({ path: '/auth/' + frompage });
+         this.$router.push({ path: '/login' });
         return;
       } 
    },

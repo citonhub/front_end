@@ -63,21 +63,21 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 
-import HomeController from "../components/home/HomeController.vue"
-import NewPost from "../components/home/NewPost.vue"
-import CodeEditor from "../components/home/CodeEditor.vue"
-import ImageEditor from "../components/home/ImageEditor.vue"
-import Post from "../components/home/Post.vue"
-import Library from "../components/home/Library.vue"
-import Shelve from "../components/home/Shelve.vue"
-import AddShelve from "../components/home/AddShelve.vue"
+import HomeController from "../components/hub/HomeController.vue"
+import NewPost from "../components/hub/NewPost.vue"
+import CodeEditor from "../components/hub/CodeEditor.vue"
+import ImageEditor from "../components/hub/ImageEditor.vue"
+import Post from "../components/hub/Post.vue"
+import Library from "../components/hub/Library.vue"
+import Shelve from "../components/hub/Shelve.vue"
+import AddShelve from "../components/hub/AddShelve.vue"
 import Login from "../components/auth/Login.vue"
 import Auth from "../components/auth/auth.vue"
 import Register from "../components/auth/Register.vue"
 import Verify from "../components/auth/Verify.vue"
 import SetUsername from "../components/auth/SetUsername.vue"
-import PostCommentView from "../components/home/PostCommentView.vue"
-import Privacy from "../components/home/Privacy.vue"
+import PostCommentView from "../components/hub/PostCommentView.vue"
+import Privacy from "../components/hub/Privacy.vue"
 import NotFound from "../components/auth/NotFound.vue"
 import ForgotPassword from "../components/auth/ForgotPassword.vue"
 import ResetPassword from "../components/auth/ResetPassword.vue"
@@ -392,7 +392,7 @@ const i18n = new VueI18n({
 const app = new Vue({
   router: router,
      store,
-    el: '#home',
+    el: '#hub',
     vuetify: new Vuetify(),
     i18n,
     data:{
@@ -404,7 +404,7 @@ const app = new Vue({
       username: '',
       user_temp_id:0,
       showTabs:true,
-       tabLabel:'home',
+       tabLabel:'hub',
        showHeader:'',
        currentImage:'',
        imagepath:'',
@@ -1086,7 +1086,7 @@ return post.PostId == this.$root.currentPostId;
         if(this.$route.params.referral != null){
           this.referralUser = this.$route.params.referral;
          }
-         this.$router.push({ path: '/auth/' + frompage });
+         this.$router.push({ path: '/login' });
         return;
       } 
    },

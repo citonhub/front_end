@@ -62,34 +62,34 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-import Hub from "../components/duels/Hub.vue"
-import Duels from "../components/duels/Duels.vue"
-import MatchBoard from "../components/duels/MatchBoard.vue"
-import DuelInfo from "../components/duels/DuelInfo.vue"
-import CreateDuel from "../components/duels/CreateDuel.vue"
-import MatchPanel from "../components/duels/MatchPanel.vue"
-import CodeEditor from "../components/duels/CodeEditor.vue"
-import DBTable from "../components/duels/DBTable.vue"
-import MatchComment from "../components/duels/MatchComment.vue"
-import MatchResult from "../components/duels/MatchResult.vue"
+import Hub from "../components/dashboard/Hub.vue"
+import Dashboard from "../components/dashboard/Dashboard.vue"
+import MatchBoard from "../components/dashboard/MatchBoard.vue"
+import DuelInfo from "../components/dashboard/DuelInfo.vue"
+import CreateDuel from "../components/dashboard/CreateDuel.vue"
+import MatchPanel from "../components/dashboard/MatchPanel.vue"
+import CodeEditor from "../components/dashboard/CodeEditor.vue"
+import DBTable from "../components/dashboard/DBTable.vue"
+import MatchComment from "../components/dashboard/MatchComment.vue"
+import MatchResult from "../components/dashboard/MatchResult.vue"
 import Login from "../components/auth/Login.vue"
 import Register from "../components/auth/Register.vue"
 import Auth from "../components/auth/auth.vue"
 import Verify from "../components/auth/Verify.vue"
 import SetUsername from "../components/auth/SetUsername.vue"
-import NewCodeFile from "../components/duels/NewCodeFile.vue"
-import PanelSettings from "../components/duels/PanelSettings.vue"
-import AddPanelRoutes from "../components/duels/AddPanelRoutes.vue"
+import NewCodeFile from "../components/dashboard/NewCodeFile.vue"
+import PanelSettings from "../components/dashboard/PanelSettings.vue"
+import AddPanelRoutes from "../components/dashboard/AddPanelRoutes.vue"
 import CropImage from  "../components/profile/CropImage.vue"
-import CreateTable from "../components/duels/CreateTable.vue"
-import CreateSpace from "../components/duels/CreateSpace.vue"
-import PanelLoader from "../components/duels/PanelLoader.vue"
-import ProjectComments from "../components/duels/ProjectComments.vue"
-import NewComment from "../components/duels/NewComment.vue"
-import Organization from "../components/duels/Organizations.vue"
-import AddOrganization from "../components/duels/AddOrganization.vue"
-import AddBot from "../components/duels/AddBot.vue"
-import Bots from "../components/duels/Bots.vue"
+import CreateTable from "../components/dashboard/CreateTable.vue"
+import CreateSpace from "../components/dashboard/CreateSpace.vue"
+import PanelLoader from "../components/dashboard/PanelLoader.vue"
+import ProjectComments from "../components/dashboard/ProjectComments.vue"
+import NewComment from "../components/dashboard/NewComment.vue"
+import Organization from "../components/dashboard/Organizations.vue"
+import AddOrganization from "../components/dashboard/AddOrganization.vue"
+import AddBot from "../components/dashboard/AddBot.vue"
+import Bots from "../components/dashboard/Bots.vue"
 import NotFound from "../components/auth/NotFound.vue"
 import ForgotPassword from "../components/auth/ForgotPassword.vue"
 import ResetPassword from "../components/auth/ResetPassword.vue"
@@ -119,47 +119,47 @@ const routes = [
      redirect: '/panel/main/user',
     children: [
       {
-        // duels
+        // dashboard
         path: 'main/:orgId',
-        component: Duels
+        component: Dashboard
       },
       {
-        // duels
+        // dashboard
         path: 'main/:orgId/:user',
-        component: Duels
+        component: Dashboard
       },
       {
-        // duels
+        // dashboard
         path: 'main/new/:orgId',
-        component: Duels
+        component: Dashboard
       },
       {
-        // duels
+        // organization
         path: 'organizations',
         component: Organization
       },
       {
-        // duels
+        // bots
         path: 'bot/setup/:botId',
         component: Bots
       },
       {
-        // duels
+        // create bot
         path: 'bot/create',
         component: AddBot
       },
       {
-        // duels
+        // create organization
         path: 'organization/create',
         component: AddOrganization
       },
       {
-        // duels
+        // create new space
         path: 'space/create',
         component: CreateSpace
       },
       {
-        // duels
+        // new code file
         path: ':duelId/:language_type/add-new-file',
         component: NewCodeFile
       },
@@ -269,7 +269,7 @@ const i18n = new VueI18n({
 const app = new Vue({
   router: router,
    store,
-    el: '#duels',
+    el: '#dashboard',
     vuetify: new Vuetify(),
     i18n,
     data:{
@@ -291,7 +291,7 @@ const app = new Vue({
       showTabs:true,
       showHeader:true,
        serverControlled:true,
-      tabLabel:'duels',
+      tabLabel:'dashboard',
       duels:[],
       selectedDuel:[],
       duelComments:[],
@@ -598,7 +598,7 @@ const app = new Vue({
      }
 
      if(type == 'privacy'){
-      window.location = '/home#/privacy-policy';
+      window.location = '/#/privacy-policy';
     }
 
     if(type == 'profile'){
@@ -981,7 +981,7 @@ checkIfUserIsLoggedIn: function(frompage){
     if(this.$route.params.referral != null){
       this.referralUser = this.$route.params.referral;
      }
-     this.$router.push({ path: '/auth/' + frompage });
+     this.$router.push({ path: '/login' });
     return;
   } 
 },
