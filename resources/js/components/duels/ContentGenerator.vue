@@ -358,9 +358,33 @@
 
               <div  v-else style="width:100%; height:250px;" >
 
-          <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" 
+                <div  v-if="selectedLangId == 0" @click="showCode = true" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
+           <div  @click.stop="selectedLangId = 0" style="position:absolute; height:80%; width:90%; bottom:10%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
+
+             
+
+            <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" 
    :srcdoc="ResultCode" 
-    style="border: 1px solid #c5c5c5; height:100%; width:100%; left:0; " v-if="selectedLangId == 0"></iframe>
+    style="border: 1px solid #c5c5c5; height:100%; font-size:13px;  background:white; z-index:5757; width:100%; " ></iframe>
+
+              <span style="position:absolute; bottom:5%; right:5%;z-index:9000000890;" >
+           <v-btn
+                color="#35747e"
+                small
+                 @click="showCode = true"
+                class="d-inline-block "
+                fab
+                v-if="this.selectedLangId != null"
+              >
+                <v-icon color="#ffffff">mdi-xml</v-icon>
+            </v-btn>
+         
+     </span>
+
+           </div>
+         </div>
+
+          
 
     <textarea  readonly v-else v-model="ResultCode"  style="border: 1px solid #c5c5c5 ; max-height:150px;  width:100%; left:0; font-size:13px;" class="px-2 py-2">
        
@@ -1805,7 +1829,7 @@ var blob = this.b64toBlob(realData, contentType);
 
             if(this.selectedLangId == 0 || this.language == 'HTML'){
 
-              this.ResultCode = this.code; 
+              this.ResultCode = this.codeContent; 
              
 
             }else{
