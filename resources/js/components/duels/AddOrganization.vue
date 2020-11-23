@@ -287,12 +287,14 @@ var blob = this.b64toBlob(realData, contentType);
         
         },
           saveChanges: function(){
+          
+
+        if(this.$root.croppedImage != ''){
+
            this.loading = true;
           
           let formData = new FormData();
          
-
-        if(this.$root.croppedImage != ''){
 
            if(!this.$root.imageExist){
              var data1 = this.handleBlob(this.$root.croppedImage);
@@ -339,6 +341,8 @@ var blob = this.b64toBlob(realData, contentType);
             this.showAlert(5000,'Failed- ' + error);
               this.loading = false;
           })
+        }else{
+           this.showAlert(5000,'Please, add a profile picture');
         }
        
   },

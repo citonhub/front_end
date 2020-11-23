@@ -14,7 +14,7 @@
     id="messageContainer" 
    class="col-12 py-2 px-2" 
      
-        style="position:absolute; width:100%; height:100%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;"
+        style="position:absolute; width:100%; height:100%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:210px !important;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -2002,12 +2002,16 @@ export default {
                       response.data[0][index].id =  response.data[0][index].message_id;
                       response.data[0][index].initialSize =  200;
                       
+                  if(!this.$root.checkIfMessageExist(response.data[0][index])){
 
-                      
-                   this.$root.Messages.push(response.data[0][index]);
+                     this.$root.Messages.push(response.data[0][index]);
                   this.$root.pushDataToLocal(response.data[0][index]);
 
                   this.scrollToBottom();
+
+                  }
+                      
+                  
 
 
                 
@@ -2396,7 +2400,15 @@ export default {
 
               }
 
-      this.$root.TrackLastSubSpace.push(  this.$root.selectedSpace.general_spaceId, this.$route.params.spaceId);
+              if(response.data[1].type == 'Bot'){
+
+            this.botSuggestionArray = response.data[3];
+
+         this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data[1]);
+
+              }
+
+      this.$root.TrackLastSubSpace.push(this.$root.selectedSpace.general_spaceId, this.$route.params.spaceId);
 
        this.$root.selectedSpaceMembers = response.data[2];
 

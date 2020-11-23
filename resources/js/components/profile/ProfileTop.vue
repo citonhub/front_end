@@ -4,7 +4,7 @@
                <div class="row py-0 my-0">
                <div class="col-4 d-flex my-0 py-0" style="align-items:center; justify-content:center;">
               <div>
-                  <img src="imgs/coins.png" height="30"  > 
+                   <v-icon color="#3E8893" >mdi-medal-outline</v-icon>
                   <span class="friendCount px-1" v-if="this.$root.profileDetails != null">{{this.$root.profileDetails.coin}}</span>
 
                <v-skeleton-loader v-else class="mt-2" type="text"></v-skeleton-loader>

@@ -39,6 +39,9 @@ body {
  @endsection
 
  @section('content')
+ <!-- this contains all that is shown in the dahsboard tab -->
+
+  <!-- fixed page loader shown while the page script is still loading -->
 <div id="duels" style="height:100%; width:100%;position:fixed;">
 <div  style="z-index:1000000; position:fixed; width:100%; height:auto; top:0;" v-if="pageloader">
   <div class="line"></div>
@@ -48,10 +51,10 @@ body {
 <div style="position:absolute;height:100%; width:100%; align-items:center; top:0; left:0; justify-content:center;z-index:100000;background:white;"  class=" d-flex " v-if="pageloader"> 
       <img src="/imgs/CitonHub.png" height="40" width="40" class="sliderfull">
 </div>
+<!-- ends -->
 
 
-
-
+ <!-- the header bar of the page -->
 <div class="col-lg-10 col-12 offset-lg-1 py-0" style="display:fixed; top:0%;height:auto; background:white; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;" v-show="showHeader">
     <div class="row">
     <div class="col-4 d-flex  py-1" style="border-bottom:1px solid #e6e6e6;  align-items:center; ">
@@ -79,9 +82,14 @@ body {
         
     </div>
 </div>
+<!-- ends -->
 
+<!-- The duel component, this is where all other vue components are pulled in  -->
 <duels></duels>
+<!-- ends -->
 
+
+<!-- This is the language modal, for switching btw languages -->
 <div   v-if="showLangOption" @click="showLangOption = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class=" col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="showLangOption = true" style="position:absolute; height:auto; width:90%; bottom:50%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
@@ -107,12 +115,15 @@ body {
            </div>
          </div>
 
+<!-- ends -->
+
+<!-- The large(system view)  rigth side navigator-->
          <div class=" d-none d-md-none d-lg-block mx-2  py-2 "  v-if="!itIsHomePage"
  style="border-radius:7px; height:80%; position:fixed; width:15%;top:10%; right:8.30%; background:transparent; border:1px solid transparent;" >
 
   
       
-         <div  color="#ffffff"  class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px;cursor:pointer; "  @click="showNavLink('library')">
+         <div  color="#ffffff"  class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:10px;cursor:pointer; "  @click="showNavLink('library')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-inbox-full-outline</v-icon>
@@ -122,7 +133,7 @@ body {
             </div>
            </div>
          </div>
-         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card"  style="border:1px solid transparent; border-radius:30px;cursor:pointer;"  @click="showNavLink('account_settings')">
+         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card"  style="border:1px solid transparent; border-radius:10px;cursor:pointer;"  @click="showNavLink('account_settings')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-account-cog-outline</v-icon>
@@ -132,7 +143,7 @@ body {
             </div>
            </div>
          </div>
-         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px;cursor:pointer;"  @click="showNavLink('privacy')">
+         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:10px;cursor:pointer;"  @click="showNavLink('privacy')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon>mdi-account-tie-outline</v-icon>
@@ -142,7 +153,7 @@ body {
             </div>
            </div>
          </div>
-         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px;cursor:pointer;"  @click="showNavLink('help')">
+         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:10px;cursor:pointer;"  @click="showNavLink('help')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon>mdi-comment-question-outline</v-icon>
@@ -158,7 +169,7 @@ body {
       
 
         
-      <div  color="#ffffff" v-if="isLogged"  @click="logout"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; cursor:pointer; border-radius:30px; position:absolute;bottom:0%;">
+      <div  color="#ffffff" v-if="isLogged"  @click="logout"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; cursor:pointer; border-radius:10px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-logout-variant</v-icon>
@@ -169,7 +180,7 @@ body {
            </div>
       </div>
   
-    <div  v-else color="#ffffff"  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; cursor:pointer; border-radius:30px; position:absolute;bottom:0%;">
+    <div  v-else color="#ffffff"  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; cursor:pointer; border-radius:10px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-login-variant</v-icon>
@@ -182,8 +193,9 @@ body {
   
 
 </div>
+<!-- ends -->
 
-
+<!-- The navigator drawer for medium and small screen devices -->
 <v-app class="col-12 px-0 py-0 d-lg-none d-block" style="background:transparent; z-index:10999; font-family:BodyText; position:absolute;" v-if="drawer">
 <v-navigation-drawer
       v-model="drawer"
@@ -307,19 +319,24 @@ body {
       </v-list>
     </v-navigation-drawer>
 </v-app>
+<!-- ends -->
 
-<form id="logout-form" action="/logout" method="POST" style="display: none;">
-@csrf
-                                              </form>
-
+<!-- This includes the global navigation tabs, fixed on the left for large screens and fixed to bottom for smaller screens -->
 <div v-if="!drawer">
  @include('shared.tabs')
  </div>
+<!-- ends -->
 </div>
  @endsection
 
 
  @section('scripts')
- <script src="https://unpkg.com/marked@0.3.6"></script>
-<script src="{{ asset('js/duels.js?v=1.96') }}"></script>
+
+<!-- Third-party script for markdown formating -->
+<script src="https://unpkg.com/marked@0.3.6"></script>
+<!-- ends -->
+
+ <!-- The main compiled script for this page  -->
+<script src="{{ asset('js/duels.js?v=2.03') }}"></script>
+<!-- ends -->
  @endsection

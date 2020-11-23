@@ -27,7 +27,7 @@
                       </div>
 
                       
-                <v-btn x-small color="#3E8893" @click="showOrgList" style="color:white;">communities</v-btn>
+                <v-btn x-small color="#3E8893" @click="showOrgList" style="color:white; font-size:12px; text-transform:capitalize;">communities</v-btn>
                </div>
             </div>
 
@@ -36,23 +36,23 @@
           <div class="col-12 d-md-none d-block py-0 my-0 px-1">
 
             <div class="row py-0 my-0">
-               <div class="col-3 text-left px-1">
+               <div class="col-4 text-left px-1">
                  <div style="position:absolute;top:28%; left:76%;z-index:999999999999;" class=" text-left" v-if="showSwitchInfo">
                     <info-dialog :buttonText="'Ok'" :content="switchContent" :type="'infoleft'" :next="'panelTeamChannel'"></info-dialog>
                       </div>
                   <v-btn small  color="#ffffff" @click="showUserOrgBoard = true" rounded><v-icon color="#3E8893">mdi-account-switch mdi-18px</v-icon></v-btn>
                </div>
 
-               <div class="col-6 text-center px-1">
+               <div class="col-4 text-center px-1">
                       <span style="font-size:13px; font-family:headerText;" v-if="this.$route.params.orgId == 'user'" >You</span>
-                      <span style="font-size:13px; font-family:headerText;" v-else >{{shortenContent(this.$root.selectedOrg.name,20)}}</span>
+                      <span style="font-size:13px; font-family:headerText;" v-else >{{shortenContent(this.$root.selectedOrg.name,15)}}</span>
                </div>
 
-               <div class="col-3 text-right px-1">
+               <div class="col-4 text-right px-1">
                  <div style="position:absolute;top:25%; right:67%; z-index:2;" class="d-md-none d-block text-left" v-if="showOrgInfo">
                     <info-dialog :buttonText="'Ok'" :content="orgContent" :type="'inforight'" :next="'panelShowSwitch'"></info-dialog>
                       </div>
-                <v-btn small color="#3E8893" rounded @click="showOrgList"><v-icon color="#ffffff">mdi-bank mdi-18px</v-icon></v-btn>
+               <v-btn x-small color="#3E8893" @click="showOrgList" style="color:white; font-size:10px;text-transform:capitalize;">communities</v-btn>
                </div>
             </div>
 
