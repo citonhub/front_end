@@ -1,5 +1,5 @@
 <template>
-    <div style="background:#edf6f7; position:absolute; height:100%; width:100%; overflow-y:hidden;left:0; overflow-x:hidden; border-right:1px solid #e6e6e6;" >
+    <div style="background:#edf6f7; position:absolute; height:92%; width:100%; overflow-y:hidden;left:0; overflow-x:hidden; border-right:1px solid #e6e6e6;" >
 
        <div v-if="this.$root.Messages != null">
       
@@ -12,9 +12,9 @@
     ref="messageContainer"
     :buffer="5000"
     id="messageContainer" 
-   class="col-12  px-2" 
+   class="col-12 py-2 px-2" 
      
-        style="position:absolute; width:100%; height:87%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:120px !important;"
+        style="position:absolute; width:100%; height:95%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:220px !important;"
   >
 
     <template v-slot="{ item, index, active }">
