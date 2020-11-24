@@ -1430,7 +1430,10 @@ export default {
           this.$router.push({ path: '/space/'  +  member.space_id  +  '/channel/content/new' + '/user' });
 
           this.$root.showUserInfo = false;
+          
+          this.fetchMessages();
 
+          this.makeSpaceConnetion();
         
 
           return;
@@ -1469,7 +1472,9 @@ export default {
 
                this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content/new' + '/user' });
 
-              
+                 this.fetchMessages();
+
+          this.makeSpaceConnetion();
                          
             }
 

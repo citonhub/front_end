@@ -309,6 +309,11 @@ export default {
 
              this.$router.push({ path: '/space/'  +  botChannel  +  '/channel/content/new' + '/user' });
 
+                this.$root.channelContentComponent.fetchMessages();
+
+           this.$root.channelContentComponent.makeSpaceConnetion();
+                         
+
           }
       },
       showbotAuthor:function(){
