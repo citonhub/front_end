@@ -4,6 +4,8 @@
          <div class="col-12 py-0 my-0 d-flex px-5 flex-row" style="align-items:center; justify-content:center;">
 
             <div class="row py-0 my-0">
+
+               <!-- message textarea -->
                
                <v-card  flat  color="#ffffff" style="border-radius: 7px;" class="col-9 px-2 py-0 my-0">
                   
@@ -13,6 +15,10 @@
    
                
                </v-card>
+
+               <!-- ends -->
+
+               <!-- Share media, and record voice buttons -->
                <div class="col-3 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
                  <v-btn  style="box-shadow:none;"
                   fab color="#3E8893" class="mr-1 d-md-none d-inline-block" x-small  v-if="!showSend && this.$root.selectedSpace.type != 'Bot'"
@@ -59,6 +65,8 @@
                 </v-btn>
 
                </div>
+
+               <!-- ends -->
               
 
               
