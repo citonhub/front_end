@@ -1,3 +1,5 @@
+<!-- profile page navbar-->
+
 <template>
     <div>
         <div class="col-12 py-1 my-0 " style="border-bottom:2px solid #3E8893; "  >
@@ -12,7 +14,7 @@
               </div>
          </div>
          <div class="col-4 d-flex my-0 py-0" style="align-items:center; justify-content:center;">
-            <div>
+            <div> <!--profile picture-->
                   <v-img v-if="this.$root.profileDetails != null" @click="viewFullImage()"
                    :style="this.$root.profileDetails.background_color != null ?  'background-color:'   + this.$root.profileDetails.background_color + ';' : 'background-color:#ffffff;'" 
                    :src="this.$root.profileDetails.image_name != null ? 'imgs/profile/' + this.$root.profileDetails.image_name + '.' + this.$root.profileDetails.image_extension : 'imgs/usernew.png'" height="90" width="90" class="avatarImg" style="border:3px solid #3E8893;border-radius:50%;"></v-img>
@@ -90,6 +92,7 @@
       <div class="py-0 px-2  py-1 my-0" style="position:absolute;z-index:20;background:#a5d2d9;border-bottom:2px solid #4495a2; left:0;   left:0; width:100%;  ">
            <div class="col-12 my-0 px-0 py-0">
               <div class="row py-0 my-0">
+                   <!-- nav link to user's channel list-->
               
         <router-link  :to="'/profile/channels/' + this.$route.params.username" class="col-3 py-0 my-0 text-center">
             <v-chip
@@ -104,7 +107,7 @@
       </v-chip>  
         </router-link>
          
-
+<!-- nav link to user's projects-->
  <router-link :to="'/profile/projects/' + this.$route.params.username" class="col-3 py-0 my-0 text-center">
      <v-chip
       class="ma-1 ml-0 px-2 d-inline-block"
@@ -117,7 +120,7 @@
       </v-chip>  
  </router-link>
       
-
+<!-- nav link to user's team list-->
       <router-link  :to="'/profile/teams/' + this.$route.params.username" class="col-3 py-0 my-0 text-center">
         <v-chip
       class="ma-1 ml-0 px-2  d-inline-block"

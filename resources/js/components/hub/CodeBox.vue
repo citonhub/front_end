@@ -1,3 +1,5 @@
+<!-- hub codebox used in code posts starts~m-->
+
 <template>
   <div class="py-2">
     <div class=" codebox">
@@ -25,10 +27,12 @@
   </div>
    
 </template>
+<!-- hub codebox ends~m-->
 <script>
 
 import dedent from 'dedent'
   import { codemirror } from 'vue-codemirror'
+  // vue code mirror used for codebox displayed in code posts~m
 
   // base style
   import 'codemirror/lib/codemirror.css'

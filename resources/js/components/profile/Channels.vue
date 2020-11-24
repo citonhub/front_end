@@ -3,6 +3,8 @@
        
      <profile-top></profile-top>
 
+     <!-- channel settings for user with channels-->
+
 <div v-if="allChannels != null">
 
 
@@ -39,7 +41,7 @@
 
           </div>
         
-
+<!-- channel settings for users without channels-->
  <div v-if="allChannels.length == 0"  style="background:white; font-family:BodyText;position:absolute;left:0;width:100%; height:80%; overflow-y:auto; overflow-x:hidden; padding-top:40px !important;padding-bottom:140px !important;" class="text-center">
        <span style="color:gray; font-size:12px;">{{ $t('trends.no_channel') }}</span>
    </div>

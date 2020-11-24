@@ -1,5 +1,7 @@
+
 import Vuex from 'vuex'
 import { mapGetters } from 'vuex'
+// code and logic defining the user interface 
 
 window.Echo = require('laravel-echo');
 import Echo from 'laravel-echo';
