@@ -1,3 +1,5 @@
+// All components used for the duel feature imported here
+
 Vue.component('duels',require('./duels/Hub.vue').default);
 Vue.component('content-generator',require('./duels/ContentGenerator.vue').default);
 Vue.component('bot-contents',require('./duels/BotContents.vue').default);

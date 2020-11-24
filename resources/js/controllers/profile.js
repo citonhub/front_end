@@ -1,3 +1,5 @@
+// $root is used in relation to the root js file 
+
 import Vuex from 'vuex'
 import { mapGetters } from 'vuex'
 
@@ -5,6 +7,7 @@ window.Echo = require('laravel-echo');
 import Echo from 'laravel-echo';
 
 window.io = require('socket.io-client');
+// socket.io along with laravel echo used in managing live features like voice calls.
 
 Vue.use(Vuex)
 
@@ -95,6 +98,8 @@ const routes = [
     path: '*',
     name: 'notFound',
     component: NotFound
+
+    //image viewer implemented with modal to ensure that profile component is not destroyed while image is being viewed.
   },
   { path: '/image-viewer',
    name: 'ImageViewer',
