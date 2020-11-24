@@ -14,7 +14,7 @@
     id="messageContainer" 
    class="col-12 py-2 px-2" 
      
-        style="position:absolute; width:100%; height:100%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:210px !important;"
+        style="position:absolute; width:100%; height:95%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -33,6 +33,7 @@
     </template>
 
     <template #after>
+     
      <div  class=" col-12 mt-2 py-1 text-left" v-if="that.$root.botIsLoading" >
 
         <v-card class="py-0 px-1 text-center" style="border-radius:30px;" width="100px" >
@@ -43,13 +44,19 @@
 
       <div  class=" col-10 offset-2 col-lg-4 offset-lg-8 col-md-6 offset-md-6 mt-3 py-1 text-center" v-if="!that.$root.botIsLoading && that.$root.botSuggestionArray.length != 0">
 
-          
+
            <v-btn  v-for="(pattern,index) in that.$root.botSuggestionArray" :key="index"
            rounded color="#3E8893" @click="initiateMessageCtl(pattern.pattern_content)" class="ma-1" style="color:white; text-transform:capitalize; border:2px solid white;" small > {{pattern.pattern_content}}</v-btn>
          
         <v-btn rounded color="#3E8893" class="ma-1" style="color:white; text-transform:capitalize; border:2px solid white;" small @click="initiateMessageCtl(that.$root.botSuggestionArray[0].pattern_content)" > Continue</v-btn>
 
          
+      </div>
+
+       <div  class=" col-12 " style="margin-top:160px;">
+
+        
+
       </div>
   </template>
 
@@ -683,7 +690,7 @@
        
 
       
-       <span style="position:fixed; top:73%; right:3%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type != 'Bot'">
+       <span style="position:fixed; top:79%; right:4%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type != 'Bot'">
 
             <div style="position:absolute;bottom:120%; right:17%; z-index:2;" v-if="showCodeBoxInfo" >
                     <info-dialog :buttonText="'Ok'" :content="codeBoxContent" :type="'infobottom'" :next="'liveContent'"></info-dialog>
@@ -721,7 +728,7 @@
 
 
 
-      <span style="position:fixed; top:73%; right:3%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type == 'Bot'">
+      <span style="position:fixed; top:79%; right:4%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type == 'Bot'">
 
           
           <v-btn
@@ -754,7 +761,7 @@
      </span>
 
 
- <span style="position:fixed; top:73%; left:3%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="this.$root.showMsgDelete">
+ <span style="position:fixed; top:79%; left:4%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="this.$root.showMsgDelete">
           <v-btn
                 color="#3E8893"
                 x-small
@@ -1427,12 +1434,14 @@ export default {
         this.$root.forceListReload = true;
       
       this.$root.ChatList = [];
-          this.$router.push({ path: '/space/'  +  member.space_id  +  '/channel/content' + '/user' });
+          this.$router.push({ path: '/space/'  +  member.space_id  +  '/channel/content/new' + '/user' });
 
           this.$root.showUserInfo = false;
+          
+          this.fetchMessages();
 
-           this.fetchMessages();
-
+          this.makeSpaceConnetion();
+        
 
           return;
       
@@ -1468,9 +1477,11 @@ export default {
        
          
 
-               this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });
+               this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content/new' + '/user' });
 
-               this.fetchMessages();
+                 this.fetchMessages();
+
+          this.makeSpaceConnetion();
                          
             }
 
@@ -2002,14 +2013,14 @@ export default {
                       response.data[0][index].id =  response.data[0][index].message_id;
                       response.data[0][index].initialSize =  200;
                       
-                  if(!this.$root.checkIfMessageExist(response.data[0][index])){
+                 
 
                      this.$root.Messages.push(response.data[0][index]);
                   this.$root.pushDataToLocal(response.data[0][index]);
 
                   this.scrollToBottom();
 
-                  }
+                
                       
                   
 

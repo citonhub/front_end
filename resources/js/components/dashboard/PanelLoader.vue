@@ -3,7 +3,7 @@
 
        <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
-
+  <!-- top bar -->
 
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
@@ -19,8 +19,10 @@
       </div>
      </div>
 
-     
+     <!-- ends -->
 
+     
+  <!-- shows when pageloader is loading -->
        <v-app class="col-12 py-0 my-0" v-if="pageContent == ''">
       <div 
        
@@ -29,6 +31,9 @@
        </div>
     </v-app>
 
+<!-- ends -->
+
+<!-- pageloader views-->
      <div class="col-12 py-1 my-0 px-0" v-else>
           
              <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" v-if="duelPanelIsWeb"
@@ -38,6 +43,8 @@
 <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;" class="  col-lg-6 offset-lg-3 px-3 py-3" >
 </textarea>
         </div>
+
+      <!-- ends -->
 
          </div>
        </div>

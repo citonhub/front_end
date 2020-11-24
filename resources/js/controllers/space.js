@@ -281,6 +281,11 @@ const routes = [
      component: ChannelContent, 
    },
    {
+    // content duplicate
+    path: 'content/new/:referral',
+     component: ChannelContent, 
+   },
+   {
     // resources 
     path: 'sub/:channelType',
      component: SubSpace
