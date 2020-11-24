@@ -565,6 +565,16 @@
      
          </div>
 
+         <div style="z-index:1345005;  bottom:13%; justify-content:center; align-items:center;"  class=" fixed-bottom d-flex col-lg-6 offset-lg-3"  v-if="ShowappInstaller">
+
+          <v-card class="py-2 px-2 text-center" style="border-radius:10px;" color="#ffffff" width="150px" @click="installApp">
+
+           <v-icon color="#35747e">mdi-download</v-icon> <span style="font-size:13px;">Install App</span>
+
+          </v-card>
+           
+         </div>
+
     <span style="left:85%;z-index:134500045; bottom:13%;"  class="d-md-none d-inline-block fixed-bottom">
        
 
@@ -625,7 +635,8 @@ export default {
        showTeamInfo: false,
        showChannelInfo:false,
        showSearchInfo: false,
-
+       ShowappInstaller:false,
+       deferredPrompt:'',
       }
     },
     mounted(){
@@ -638,7 +649,7 @@ export default {
          this.$root.showShare = false;
 
       this.closeConnections();
-        this.$root.checkIfUserIsLoggedIn('space');
+        this.$root.showHomePage('space');
         
        
        this.$root.codeEditorArray = [];
@@ -697,10 +708,44 @@ export default {
              this.$root.shownotificationboard = false;
         
 
-     
+     this.checkPWA();
        
     },
     methods:{
+      checkPWA: function(){
+          
+         
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent the mini-infobar from appearing on mobile
+  e.preventDefault();
+  // Stash the event so it can be triggered later.
+   this.deferredPrompt = e;
+  // Update UI notify the user they can install the PWA
+  this.showInstallPromotion();
+});
+           
+      },
+      installApp:function(){
+
+        // Hide the app provided install promotion
+    this.ShowappInstaller = false;
+  // Show the install prompt
+   this.deferredPrompt.prompt();
+  // Wait for the user to respond to the prompt
+   this.deferredPrompt.userChoice.then((choiceResult) => {
+    if (choiceResult.outcome === 'accepted') {
+      console.log('User accepted the install prompt');
+    } else {
+      console.log('User dismissed the install prompt');
+    }
+  });
+
+
+      },
+      showInstallPromotion:function(){
+         this.ShowappInstaller = true;
+      },
       handleInfoSession:function(){
 
           axios.get('/fetch-user-onboarding')

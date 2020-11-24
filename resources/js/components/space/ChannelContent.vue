@@ -14,7 +14,7 @@
     id="messageContainer" 
    class="col-12 py-2 px-2" 
      
-        style="position:absolute; width:100%; height:100%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;"
+        style="position:absolute; width:100%; height:95%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -33,6 +33,7 @@
     </template>
 
     <template #after>
+     
      <div  class=" col-12 mt-2 py-1 text-left" v-if="that.$root.botIsLoading" >
 
         <v-card class="py-0 px-1 text-center" style="border-radius:30px;" width="100px" >
@@ -43,13 +44,19 @@
 
       <div  class=" col-10 offset-2 col-lg-4 offset-lg-8 col-md-6 offset-md-6 mt-3 py-1 text-center" v-if="!that.$root.botIsLoading && that.$root.botSuggestionArray.length != 0">
 
-          
+
            <v-btn  v-for="(pattern,index) in that.$root.botSuggestionArray" :key="index"
            rounded color="#3E8893" @click="initiateMessageCtl(pattern.pattern_content)" class="ma-1" style="color:white; text-transform:capitalize; border:2px solid white;" small > {{pattern.pattern_content}}</v-btn>
          
         <v-btn rounded color="#3E8893" class="ma-1" style="color:white; text-transform:capitalize; border:2px solid white;" small @click="initiateMessageCtl(that.$root.botSuggestionArray[0].pattern_content)" > Continue</v-btn>
 
          
+      </div>
+
+       <div  class=" col-12 " style="margin-top:160px;">
+
+        
+
       </div>
   </template>
 
@@ -315,7 +322,7 @@
              </div>
 
               <div class="col-12  pb-2 pt-0 my-0 px-2 text-center" >
-                 <span style="color:grey; font-size:12px;">Do you wish to own a bot too? </span>  <span style="font-size:12px;" class="ml-1">No</span><v-switch class="d-inline-block mx-1 mr-0" color="#3E8893"></v-switch> <span style="font-size:12px;" >Yes</span>
+                 <span style="color:grey; font-size:12px;">Do you wish to own a bot too? </span>  <span style="font-size:12px;" class="ml-1">No</span><v-switch class="d-inline-block mx-1 mr-0" v-model="botInterest" @change="saveUserInterest" color="#3E8893"></v-switch> <span style="font-size:12px;" >Yes</span>
              </div>
 
               <div class="col-3  py-0 my-0 px-2 text-right">
@@ -683,7 +690,7 @@
        
 
       
-       <span style="position:fixed; top:73%; right:3%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type != 'Bot'">
+       <span style="position:fixed; top:79%; right:4%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type != 'Bot'">
 
             <div style="position:absolute;bottom:120%; right:17%; z-index:2;" v-if="showCodeBoxInfo" >
                     <info-dialog :buttonText="'Ok'" :content="codeBoxContent" :type="'infobottom'" :next="'liveContent'"></info-dialog>
@@ -721,7 +728,7 @@
 
 
 
-      <span style="position:fixed; top:73%; right:3%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type == 'Bot'">
+      <span style="position:fixed; top:79%; right:4%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type == 'Bot'">
 
           
           <v-btn
@@ -754,7 +761,7 @@
      </span>
 
 
- <span style="position:fixed; top:73%; left:3%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="this.$root.showMsgDelete">
+ <span style="position:fixed; top:79%; left:4%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="this.$root.showMsgDelete">
           <v-btn
                 color="#3E8893"
                 x-small
@@ -837,6 +844,7 @@ export default {
           messageContent:'',
           showBotAuthorBoard:false,
           loadingAuthorMessage: false,
+          botInterest:false,
           codeBoxContent:'Share and run more than 25 programming languages',
           imageArray:[
             {
@@ -918,6 +926,22 @@ export default {
      var id = "id" + Math.random().toString(16).slice(2);
      return id;
  },
+ saveUserInterest:function(){
+    axios.post('/save-user-onboarding-bot_interest')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+       
+     }
+       
+     
+     })
+     .catch(error => {
+       
+       
+     })
+ },
       sendAuthorMessage:function(){
 
         if(this.loadingAuthorMessage) return
@@ -976,6 +1000,8 @@ export default {
 
            axios.get('/fetch-user-onboarding')
       .then(response => {
+
+         
       
       if (response.status == 200 || response.status == 201) {
 
@@ -1005,6 +1031,8 @@ export default {
          }
 
           if(this.$root.selectedSpace.type == 'Bot' ){
+
+            this.botInterest = response.data.bot_interest;
 
            let storedInfo = this.$root.getLocalStore('channelcontentinfoBot'+ this.$root.username);
 
@@ -1406,12 +1434,14 @@ export default {
         this.$root.forceListReload = true;
       
       this.$root.ChatList = [];
-          this.$router.push({ path: '/space/'  +  member.space_id  +  '/channel/content' + '/user' });
+          this.$router.push({ path: '/space/'  +  member.space_id  +  '/channel/content/new' + '/user' });
 
           this.$root.showUserInfo = false;
+          
+          this.fetchMessages();
 
-           this.fetchMessages();
-
+          this.makeSpaceConnetion();
+        
 
           return;
       
@@ -1447,9 +1477,11 @@ export default {
        
          
 
-               this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content' + '/user' });
+               this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content/new' + '/user' });
 
-               this.fetchMessages();
+                 this.fetchMessages();
+
+          this.makeSpaceConnetion();
                          
             }
 
@@ -1981,12 +2013,16 @@ export default {
                       response.data[0][index].id =  response.data[0][index].message_id;
                       response.data[0][index].initialSize =  200;
                       
+                 
 
-                      
-                   this.$root.Messages.push(response.data[0][index]);
+                     this.$root.Messages.push(response.data[0][index]);
                   this.$root.pushDataToLocal(response.data[0][index]);
 
                   this.scrollToBottom();
+
+                
+                      
+                  
 
 
                 
@@ -2230,7 +2266,7 @@ export default {
             
        setTimeout(() => {
 
-         if( this.$root.selectedSpace.type == 'Bot'){
+         if( this.$root.selectedSpace.type == 'Bot' || this.$root.selectedSpace.type == 'Direct' ){
            this.$root.msgScrollComponent.messageContainer.scrollToBottom();
       }else{
 
@@ -2375,7 +2411,15 @@ export default {
 
               }
 
-      this.$root.TrackLastSubSpace.push(  this.$root.selectedSpace.general_spaceId, this.$route.params.spaceId);
+              if(response.data[1].type == 'Bot'){
+
+            this.botSuggestionArray = response.data[3];
+
+         this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data[1]);
+
+              }
+
+      this.$root.TrackLastSubSpace.push(this.$root.selectedSpace.general_spaceId, this.$route.params.spaceId);
 
        this.$root.selectedSpaceMembers = response.data[2];
 
@@ -2384,7 +2428,7 @@ export default {
          
       setTimeout(() => {
 
-           if( this.$root.selectedSpace.type == 'Bot'){
+           if( this.$root.selectedSpace.type == 'Bot' || this.$root.selectedSpace.type == 'Direct' ){
            this.$root.msgScrollComponent.messageContainer.scrollToBottom();
       }else{
 
@@ -2670,12 +2714,9 @@ export default {
 }
 </script>
 <style>
-.msgTextnew2{
-  font-size: 13px;
-  color: #4d4d4d;
-}
+
 .label{
-  color: #737373;
+  color: #000000;
   font-size: 10px;
 }
 .tagged{

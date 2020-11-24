@@ -225,7 +225,7 @@ class PageController extends Controller
     public function hub(){
 
         $tablabel = 'hub';
-        return view('pages.home',compact('tablabel'));
+        return view('pages.hub',compact('tablabel'));
     }
 
    
@@ -242,8 +242,8 @@ class PageController extends Controller
 
     public function panel(){
 
-        $tablabel = 'panel';
-        return view('pages.panel',compact('tablabel'));
+        $tablabel = 'dashboard';
+        return view('pages.dashboard',compact('tablabel'));
     }
 
 

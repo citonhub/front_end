@@ -26,10 +26,15 @@
 
  @endsection
  @section('css')
-  <!-- Shaka Player ui compiled library default CSS: -->
-
+ 
+ <!-- WebRTC default css file -->
   <link rel="stylesheet" type="text/css" href="/css/getHTMLMediaElement.css?v=1.2">
+
+<!-- ends -->
+
+ <!-- Shaka Player ui compiled library default CSS: -->
     <link rel="stylesheet" type="text/css" href="/css/controls.css">
+  <!-- ends -->
 
 
 <style>
@@ -46,9 +51,13 @@ body {
  @endsection
 
  @section('content')
+
+ <!-- this contains all that is shown in the Space tab -->
+
 <div id="space" style="height:100%; width:100%;position:fixed;">
 
 
+ <!-- fixed page loader shown while the page script is still loading -->
 <div  style="z-index:1000000; position:fixed; width:100%; height:auto; top:0;" v-if="pageloader">
   <div class="line"></div>
   <div class="subline inc"></div>
@@ -62,16 +71,18 @@ body {
 
      
 </div>
+<!-- ends -->
 
 
     
       
      
 
-     
+   <!-- the global search component-->  
       <search v-if="showSearchControl"></search>
+    <!-- ends -->
 
-            
+     <!-- the header bar of the page -->
 <div class="col-lg-10 col-12 offset-lg-1 py-0 " style="display:fixed; top:0%;height:auto;border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; background:white; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; " v-show="showHeader"> 
     <div class="row">
     <div class="col-4 d-flex  py-1" style="border-bottom:1px solid #e6e6e6;  align-items:center; ">
@@ -101,12 +112,15 @@ body {
     </div>
 </div>
  
+ <!-- ends -->
 
 
-
+<!-- The space component, this is where all other vue components are pulled in  -->
 <space></space>
+<!-- ends -->
 
 
+<!-- This is the language modal, for switching btw languages -->
 <div   v-if="showLangOption" @click="showLangOption = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="showLangOption = true" style="position:absolute; height:auto; width:90%; bottom:50%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
@@ -132,14 +146,15 @@ body {
            </div>
          </div>
 
+<!-- ends -->
 
-
+<!-- The large(system view)  rigth side navigator-->
 <div class=" d-none d-md-none d-lg-block mx-2  py-2 "  v-if="!itIsHomePage"
  style="border-radius:7px; height:80%; position:fixed; width:15%;top:10%; right:8.30%; background:transparent; border:1px solid transparent;" >
 
   
       
-         <div  color="#ffffff"  class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px; cursor:pointer;"  @click="showNavLink('library')">
+         <div  color="#ffffff"  class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:10px; cursor:pointer;"  @click="showNavLink('library')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-inbox-full-outline</v-icon>
@@ -149,7 +164,7 @@ body {
             </div>
            </div>
          </div>
-         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card"  style="border:1px solid transparent; border-radius:30px; cursor:pointer;"  @click="showNavLink('account_settings')">
+         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card"  style="border:1px solid transparent; border-radius:10px; cursor:pointer;"  @click="showNavLink('account_settings')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-account-cog-outline</v-icon>
@@ -159,7 +174,7 @@ body {
             </div>
            </div>
          </div>
-         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px; cursor:pointer;"  @click="showNavLink('privacy')">
+         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:10px; cursor:pointer;"  @click="showNavLink('privacy')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon>mdi-account-tie-outline</v-icon>
@@ -169,7 +184,7 @@ body {
             </div>
            </div>
          </div>
-         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px;cursor:pointer;"  @click="showNavLink('help')">
+         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:10px;cursor:pointer;"  @click="showNavLink('help')">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon>mdi-comment-question-outline</v-icon>
@@ -185,7 +200,7 @@ body {
       
 
         
-      <div  color="#ffffff" v-if="isLogged"  @click="logout"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; cursor:pointer; border-radius:30px; position:absolute;bottom:0%;">
+      <div  color="#ffffff" v-if="isLogged"  @click="logout"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; cursor:pointer; border-radius:10px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-logout-variant</v-icon>
@@ -196,7 +211,7 @@ body {
            </div>
       </div>
   
-    <div  v-else color="#ffffff"  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; cursor:pointer; border-radius:30px; position:absolute;bottom:0%;">
+    <div  v-else color="#ffffff"  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2 card" style="border:1px solid transparent; cursor:pointer; border-radius:10px; position:absolute;bottom:0%;">
            <div class="row py-0">
             <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
                 <v-icon >mdi-login-variant</v-icon>
@@ -210,7 +225,10 @@ body {
 
 </div>
 
+<!-- ends -->
 
+
+<!-- The navigator drawer for medium and small screen devices -->
 <div class="col-12 px-0 py-0 d-lg-none d-block" style="background:transparent; z-index:1999; font-family:BodyText; bottom:0;" v-if="drawer">
  <v-navigation-drawer
       v-model="drawer"
@@ -334,45 +352,47 @@ body {
     </v-navigation-drawer>
 </div>
 
-<form id="logout-form" action="/logout" method="POST" style="display: none;">
-@csrf
-                                              </form>
+<!-- ends -->
 
+<!-- This includes the global navigation tabs, fixed on the left for large screens and fixed to bottom for smaller screens -->
  <div v-if="!drawer">
  @include('shared.tabs')
  </div>
-
+<!-- ends -->
 
 </div>
  @endsection
 
  @section('scripts')
 
- 
+ <!-- WebRTC scripts, third party scripts for real time communications -->
  <script src="{{ asset('js/RTCMultiConnection.min.js') }}"></script>
-
-
 
  <script src="{{ asset('js/getHTMLMediaElement.js?v=0.5') }}"></script>
 
+ <script src="https://cdn.webrtc-experiment.com/hark.js"></script>
 
 
- <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
   
+<!-- ends -->
+
+<!-- Video player and streaming, third-party scripts -->
   <script src="{{ asset('js/shaka-player.compiled.js') }}"></script>
 
-   <!-- Shaka Player ui compiled library: -->
    <script src="{{ asset('js/shaka-player.ui.js') }}"></script>
 
-   <!-- Chromecast SDK  -->
    <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
 
-   <script src="https://cdn.webrtc-experiment.com/hark.js"></script>
+   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 
-   <script src="https://unpkg.com/marked@0.3.6"></script>
+<!-- ends -->
 
+ <!-- Third-party script for markdown formating -->
+  <script src="https://unpkg.com/marked@0.3.6"></script>
+<!-- ends -->
 
- <script src="{{ asset('js/space.js?v=6.59') }}"></script>
- 
+<!-- The main compiled script for this page  -->
+ <script src="{{ asset('js/space.js?v=6.79') }}"></script>
+ <!-- ends -->
      
  @endsection

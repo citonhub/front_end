@@ -116,7 +116,7 @@
 
           <div class="col-1 py-0 my-0 px-0 text-right"  style="" v-if="this.$root.selectedSpace.type == 'Bot'">
                
-               <v-btn icon @click="gotToBotChannel()"><v-icon color="#ffffff">mdi-account-supervisor-outline</v-icon></v-btn>
+               <v-btn icon @click="gotToBotChannel($data._this.$root.selectedSpace.bot_data.bot_channel)"><v-icon color="#ffffff">mdi-account-supervisor-outline</v-icon></v-btn>
               
          </div>
 
@@ -276,7 +276,7 @@ export default {
              
     },
     methods:{
-      gotToBotChannel: function(){
+      gotToBotChannel: function(botChannel){
           
           if(this.$root.selectedSpace.bot_data.bot_channel){
 
@@ -303,8 +303,16 @@ export default {
         this.$root.SpaceUsers = [];
          this.$root.selectedSpace = [];
 
+            
 
-             this.$router.push({ path: '/space/'  +   this.$root.selectedSpace.bot_data.bot_channel  +  '/channel/content' + '/user' });
+
+
+             this.$router.push({ path: '/space/'  +  botChannel  +  '/channel/content/new' + '/user' });
+
+                this.$root.channelContentComponent.fetchMessages();
+
+           this.$root.channelContentComponent.makeSpaceConnetion();
+                         
 
           }
       },

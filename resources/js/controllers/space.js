@@ -67,7 +67,7 @@ import ChannelContent from "../components/space/ChannelContent.vue"
 import SubSpace from "../components/space/SubSpace.vue"
 import ChannelProjects from "../components/space/ChannelProjects.vue"
 import ChannelBoard from "../components/space/ChannelBoard.vue"
-import ImageEditor from "../components/home/ImageEditor.vue"
+import ImageEditor from "../components/hub/ImageEditor.vue"
 import ChannelMembers from "../components/space/ChannelMembers.vue"
 import ChannelShare from "../components/space/ChannelShare.vue"
 import ChannelEdit from "../components/space/EditSpace.vue"
@@ -278,6 +278,11 @@ const routes = [
     {
     // content 
     path: 'content/:referral',
+     component: ChannelContent, 
+   },
+   {
+    // content duplicate
+    path: 'content/new/:referral',
      component: ChannelContent, 
    },
    {
@@ -1079,13 +1084,19 @@ console.log(err)
               messages.id = messages.message_id
               messages.index_count = this.$root.returnLastIndex() + 1;
 
-              this.$root.Messages.push(messages);
+              if(!this.$root.checkIfMessageExist(messages)){
+
+                 this.$root.Messages.push(messages);
 
                this.$root.sortChatList();
 
            this.$root.scrollToBottom(); 
 
            this.$root.updateSpaceTracker(space.space_id);
+
+              }
+
+             
 
            
 
@@ -1592,7 +1603,7 @@ console.log(err)
 
        // update to localStorage
        
-       this.$root.spaceFullData[0] = this.$root.returnedMessages;
+       this.$root.spaceFullData[0] = this.Messages;
 
 
                
@@ -2059,6 +2070,19 @@ imageStyle:function(dimension,authProfile){
          return;
       }
      },
+     showHomePage:function(frompage){
+
+        if(this.checkauthroot == 'noauth'){
+        this.LocalStore('route_tracker',[this.$router.currentRoute.path]);
+       
+        if(this.$route.params.referral != null){
+          this.referralUser = this.$route.params.referral;
+         }
+       this.$router.push({ path: '/auth/' + frompage });
+        return;
+      } 
+
+     },
       checkIfUserIsLoggedIn: function(frompage){
       if(this.checkauthroot == 'noauth'){
         this.LocalStore('route_tracker',[this.$router.currentRoute.path]);
@@ -2066,7 +2090,7 @@ imageStyle:function(dimension,authProfile){
         if(this.$route.params.referral != null){
           this.referralUser = this.$route.params.referral;
          }
-       this.$router.push({ path: '/auth/' + frompage });
+         this.$router.push({ path: '/login' });
         return;
       } 
    },
