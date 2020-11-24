@@ -53,7 +53,7 @@
          
       </div>
 
-       <div  class=" col-12 " style="margin-top:250px;">
+       <div  class=" col-12 " style="margin-top:160px;">
 
         
 
@@ -690,7 +690,7 @@
        
 
       
-       <span style="position:fixed; top:73%; right:3%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type != 'Bot'">
+       <span style="position:fixed; top:79%; right:4%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type != 'Bot'">
 
             <div style="position:absolute;bottom:120%; right:17%; z-index:2;" v-if="showCodeBoxInfo" >
                     <info-dialog :buttonText="'Ok'" :content="codeBoxContent" :type="'infobottom'" :next="'liveContent'"></info-dialog>
@@ -728,7 +728,7 @@
 
 
 
-      <span style="position:fixed; top:79%; right:3%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type == 'Bot'">
+      <span style="position:fixed; top:79%; right:4%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type == 'Bot'">
 
           
           <v-btn
@@ -761,7 +761,7 @@
      </span>
 
 
- <span style="position:fixed; top:73%; left:3%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="this.$root.showMsgDelete">
+ <span style="position:fixed; top:79%; left:4%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="this.$root.showMsgDelete">
           <v-btn
                 color="#3E8893"
                 x-small
