@@ -14,14 +14,15 @@
              <span  style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Create New Shelve</span>
          </div>
          <div class="col-2 py-0 my-0  text-right"  style="border-bottom:2px solid #4495a2; " >
-             
+
          </div>
       </div>
      </div>
 
+ 
       <div class="col-12 py-1 my-0 " >
             <v-form class="row my-2 py-2 px-2 " ref="form" v-model="formstate">
-           
+
            <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:13px;"
@@ -39,7 +40,7 @@
              <div class="col-12 py-2 my-0 px-2 text-center">
                   <v-btn rounded small :loading="loading" color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" @click="saveShelve">Create</v-btn>
              </div>
-              
+
           </v-form>
         </div>
          </div>
@@ -56,10 +57,10 @@
        style="font-size:13px;"
        height="auto"
       border="left"
-     
+
       elevation="2"
       colored-border
-     
+
     >
       {{alertMsg}}
     </v-alert>
@@ -86,7 +87,7 @@ export default {
         }
     },
     components: {
-   
+
   },
    mounted(){
       this.$root.showTabs=true;
@@ -100,7 +101,7 @@ export default {
         this.Alert = true;
         this.alertMsg = text;
         let _this = this;
-     
+
      setTimeout(function(){
         _this.Alert = false;
      },duration);
@@ -110,30 +111,30 @@ export default {
     this.$router.push({ path: '/shelve' });
    },
    goBack() {
-          
+
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
     saveShelve:function(){
-       
+
      if( this.$refs.form.validate()){
           this.loading = true;
          axios.post( '/save-shelve',{
                 shelveName: this.shelveName
                   })
           .then(response => {
-             
-            
-            
+
+
+
              if (response.status == 200) {
-                
+
                 this.$root.reloadShelves = true;
                this.$router.push({ path: '/library' });
-            
+
             }
-              
-            
-           
-            
+
+
+
+
           })
           .catch(error => {
               this.showAlert(5000,'Failed- ' + error);
@@ -142,9 +143,9 @@ export default {
       }
 
     }
-   
+
     },
-   
+
 }
 </script>
 <style>

@@ -7,7 +7,7 @@
 
         
 
-     
+     <!-- loader shows during bot setup -->
            
             <div  class="col-12 py-1 my-0 d-flex" style="align-items:center; justify-content:center; position:absolute; width:100%; height:90%;" >
                 <div>
@@ -18,6 +18,8 @@
                 </div>
                
       </div>
+
+      <!-- ends -->
 
             
              

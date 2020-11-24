@@ -14,7 +14,7 @@
     id="messageContainer" 
    class="col-12 py-2 px-2" 
      
-        style="position:absolute; width:100%; height:95%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;"
+        style="position:absolute; width:100%; height:100%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -53,7 +53,7 @@
          
       </div>
 
-       <div  class=" col-12 " style="margin-top:160px;">
+       <div  class=" col-12 " style="margin-top:170px;">
 
         
 

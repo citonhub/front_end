@@ -3,7 +3,9 @@
 
        <div class=" col-lg-6 offset-lg-3 py-0 px-0 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;  position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
+     
 
+     <!-- top bar -->
 
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
@@ -19,13 +21,12 @@
       </div>
      </div>
 
+     <!-- ends -->
+
+
+   <!-- add web route form -->
       <div class="col-12 py-1 my-0 " >
             <v-form class="row my-2 py-2 px-2 " ref="form" v-model="formstate">
-           
-           
-
-
-            
                <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2">
                   <v-select
           v-model="RouteType"
@@ -101,6 +102,8 @@
              </div>
               
           </v-form>
+
+        <!-- ends -->
         </div>
          </div>
        </div>

@@ -6,10 +6,17 @@
       <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;  position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
+
+     <!-- Channel fixed top component -->
          <v-card tile  class="col-12 py-0 my-0 " style="position:absolute;z-index:9999999999900; background:#3E8893;left:0;" >
           <channel-top></channel-top>
          
         </v-card>
+    <!-- ends -->
+
+
+    <!--full image viewer component-->
+
          <div v-if="this.$root.fullImageViewer" class="col-12 py-0 my-0 px-0 d-md-block d-none" style="position:absolute;z-index:20;left:0; top:5%;  z-index:9999999999987664736568;">
             <full-image-viewer></full-image-viewer>
           </div>
@@ -17,13 +24,18 @@
             <full-image-viewer></full-image-viewer>
           </div>
 
+      <!-- ends -->
 
 
+
+   <!--  share media component -->
         
             <channel-share  v-if="this.$root.sharePage" class="col-12 py-0 my-0 px-0 d-md-block d-none" style="position:absolute;z-index:20;left:0; top:5%;  z-index:9999999999987664736568;"></channel-share>
 
              <channel-share  v-if="this.$root.sharePage" class="col-12 py-0 my-0 px-0 d-md-none d-block" style="position:absolute;z-index:20;left:0; top:7%;  z-index:9999999999999987664736568;"></channel-share>
-         
+    <!-- ends -->
+
+    
 
           <div v-if="this.$root.voiceRecorder" class="col-12  py-0 my-0 px-0" style="position:absolute;z-index:20;left:0; top:7%;  z-index:987664736;">
             <voice-recorder></voice-recorder>
