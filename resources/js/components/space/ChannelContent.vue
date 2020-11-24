@@ -1,6 +1,8 @@
 <template>
     <div style="background:#edf6f7; position:absolute; height:100%; width:100%; overflow-y:hidden;left:0; overflow-x:hidden; border-right:1px solid #e6e6e6;" >
 
+
+  <!-- full message view session -->
        <div v-if="this.$root.Messages != null">
       
      
@@ -14,7 +16,7 @@
     id="messageContainer" 
    class="col-12 py-2 px-2" 
      
-        style="position:absolute; width:100%; height:95%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;"
+        style="position:absolute; width:100%; height:100%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -53,7 +55,7 @@
          
       </div>
 
-       <div  class=" col-12 " style="margin-top:160px;">
+       <div  class=" col-12 " style="margin-top:170px;">
 
         
 
@@ -72,6 +74,8 @@
 
 
        </div>
+
+      <!-- ends -->
        
 
      <div class="col-12 py-0 my-0 d-flex"  v-if=" this.errorLoadingMessage == false && !this.messageIsReady" style=" align-item:center;justify-content:center;position:absolute; background:white; width:100%; z-index:3455699; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">
@@ -2080,7 +2084,9 @@ export default {
      
      updateLocalStorage: function(){
 
-          axios.get( '/fetch-space-messages-' + this.$route.params.spaceId )
+        setTimeout(() => {
+
+            axios.get( '/fetch-space-messages-' + this.$route.params.spaceId )
       .then(response => {
       
       if (response.status == 200) {
@@ -2150,6 +2156,10 @@ export default {
      .catch(error => {
     
      }) 
+          
+        }, 5000);
+
+        
 
 
      },

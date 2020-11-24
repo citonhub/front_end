@@ -1,11 +1,11 @@
 <template>
  <div>
-<div style="position:absolute; height:100%; width:100%; overflow-y:hidden;left:0;top:0%;" v-if="showCode"> 
+<div style="position:absolute; height:100%; width:100%; overflow-y:hidden;left:0;top:0%;" v-if="showCode">
 
 
         <div class="col-12 py-1 my-0 fixed-top" style="position:sticky; background:white;">
-      
-         
+
+         <!-- top bar, contains editor language selection, and editor user settings -->
          <div class="col-12 py-0 my-0 px-0" >
              <div class="row py-0 my-0">
                   <div class="col-2 py-0 my-0 px-2 d-flex" style="text-align:center; justify-content:center;">
@@ -19,25 +19,29 @@
                     <div class="col-1 py-0 my-0 px-2 text-right">
                     <v-btn icon color="#4495a2" @click="copyText" v-if="!this.$root.codeIsLive"><v-icon>mdi-content-copy mdi-18px</v-icon></v-btn>
 
-                    
+
                     <v-btn icon color="#4495a2" @click="showAdminUsers()" v-else><v-icon>mdi-account-cog mdi-18px</v-icon></v-btn>
                    </div>
                    <div class="col-2 py-1 my-0 px-2 text-right">
                      <v-btn   x-small color="#3E8893 "  @click="sendMessage" ><span style="color:#ffffff; font-weight:bolder; font-size:10px;">send</span></v-btn>
                    </div>
              </div>
-               
-               
+
+
 
          </div>
-        
+
+         <!-- ends -->
+
       </div>
 
+
+    <!-- Code editor (powered using the codemirrior component) -->
        <div class="col-12 py-0 my-0" style="position:absolute; height:95.5%;width:100%; overflow-y:hidden; overflow-x:hidden;">
          <div class="row my-0 py-0 px-0 ">
-             
+
               <div class="codeboxnew1">
-              
+
          <codemirror
         v-model="code"
         :options="cmOption"
@@ -53,6 +57,11 @@
          </div>
        </div>
 
+    <!-- ends -->
+
+
+
+   <!-- fixed button to  close code editor -->
          <span style="position:absolute; top:85%; left:5%;z-index:1000;"  v-if="!this.$root.codeIsLive">
            <v-btn
                 color="#35747e"
@@ -63,8 +72,12 @@
               >
                 <v-icon color="#ffffff">mdi-close mdi-18px</v-icon>
             </v-btn>
-         
+
      </span>
+
+    <!-- ends -->
+
+  <!-- Mute/Unmute microphone during life coding sessions -->
 
       <span style="position:absolute; top:85%; left:5%;z-index:1000;"  v-else>
            <v-btn
@@ -79,7 +92,7 @@
             </v-btn>
 
              <v-btn
-               
+
                 small
                 @click="unmuteAudio"
                 v-else
@@ -88,8 +101,13 @@
               >
                 <v-icon >mdi-microphone mdi-18px</v-icon>
             </v-btn>
-         
+
      </span>
+
+    <!-- ends -->
+
+
+    <!-- fixed butoon to run code -->
 
      <span style="position:absolute; top:85%; right:5%;z-index:1000;" >
            <v-btn
@@ -102,14 +120,19 @@
               >
                 <v-icon color="#ffffff">mdi-play</v-icon>
             </v-btn>
-         
-     </span>
-          
 
-    
+     </span>
+
+     <!-- ends -->
+
+
+
     </div>
 
+  <!-- code/page viewer -->
       <div style="position:absolute; height:100%; width:100%; overflow-y:hidden;left:0;top:0%;background:white;"  v-else>
+
+        <!-- page loader/viewer top bar -->
          <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
          <div class="col-3 py-0 my-0 text-left px-1" style="border-bottom:2px solid #4495a2;" >
@@ -118,22 +141,32 @@
          <div class="col-6 py-0 my-0 d-flex px-0"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
              <span   style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Page Loader</span>
          </div>
-        
+
          <div class="col-3 py-1 my-0 px-2 text-right"  style="border-bottom:2px solid #4495a2; " >
                      <v-btn   x-small color="#3E8893 "  @click="sendMessage" ><span style="color:#ffffff; font-weight:bolder; font-size:10px;">send</span></v-btn>
           </div>
       </div>
-     </div> 
+     </div>
+
+     <!-- ends -->
+
+     <!-- page viewer for HTML codes -->
           <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
-   :srcdoc="ResultCode" 
+   :srcdoc="ResultCode"
     style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%;" v-if="selectedLangId == 0"></iframe>
 
+<!-- ends -->
+
+
+    <!-- code viewer for non-web codes -->
     <textarea  readonly v-else v-model="ResultCode"  style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%; font-size:13px;" class="px-2 py-2">
-       
+
     </textarea>
 
+  <!-- ends -->
 
-   
+
+    <!-- fixed button to go bact to editor view -->
       <span style="position:absolute; top:85%; right:5%;z-index:1000;">
            <v-btn
                 color="#35747e"
@@ -144,37 +177,44 @@
               >
                 <v-icon color="#ffffff">mdi-xml</v-icon>
             </v-btn>
-         
+
      </span>
 
-        </div>
+    <!-- ends -->
 
+        </div>
+      <!-- ends -->
+
+
+      <!-- switch editor admin user (modal) -->
           <div    v-if="showAdminOptions" @click="showAdminOptions = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="showAdminOptions = true" style="position:absolute; height:auto; width:90%; top:30%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
              <v-card style="border-radius:10px;"
        height="auto"
-      
+
        class="py-2 px-1" >
 
              <div class="text-center">
                <h6>Admin</h6>
              </div>
-           
-             <v-card tile flat  @click.stop="makeUserMaster(admin)" :color="admin.master_user ? '#b7dbe1': '#ffffff'" class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" v-for="(admin, index) in adminMembers" 
+
+             <v-card tile flat  @click.stop="makeUserMaster(admin)" :color="admin.master_user ? '#b7dbe1': '#ffffff'" class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" v-for="(admin, index) in adminMembers"
              :key="index">
         <span style="font-size:13px;" v-if="!checkIfUser(admin.user_id)">{{admin.username}}</span>
          <span style="font-size:13px;" v-else>You</span>
             </v-card>
-            
-           
+
+
 
              </v-card>
 
            </div>
          </div>
+
+        <!-- ends -->
  </div>
-    
+
 </template>
 <script>
 
@@ -207,7 +247,7 @@ import dedent from 'dedent'
   import 'codemirror/mode/haskell/haskell.js'
 
 
-  
+
 
 
   // active-line.js
@@ -245,19 +285,19 @@ import 'codemirror/addon/scroll/simplescrollbars.css'
 
 export default {
       mounted(){
-       
+
         this.detectchange(this.language);
         this.$root.codeBoxOpened = true;
         this.setCodeContent();
         this.updateCodeMaster();
          this.$root.codeboxComponent = this;
-       
+
         this.$root.codeBoxOpened = true;
-       
+
       },
      components: {
       codemirror,
-      
+
     },
      computed: {
     codemirror() {
@@ -288,117 +328,117 @@ export default {
           if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
         }
           },
-          
+
         },
          selectedLangId:0,
         items: [
           {
             "id": 0,
-            "name": 'HTML' 
+            "name": 'HTML'
           },
           {
             "id": null,
-            "name": 'CSS' 
+            "name": 'CSS'
           },
           {
             "id": 26,
-            "name": 'JAVASCRIPT(Node)' 
+            "name": 'JAVASCRIPT(Node)'
           },
           {
             "id": 35,
-            "name": 'PHP' 
+            "name": 'PHP'
           },
           {
             "id": 39,
-            "name": 'PYTHON(3.8.1)' 
+            "name": 'PYTHON(3.8.1)'
           },
           {
             "id": 100,
-            "name": 'PYTHON For ML(3.7.7)' 
+            "name": 'PYTHON For ML(3.7.7)'
           },
           {
             "id": 38,
-            "name": 'PYTHON(2.7.17)' 
+            "name": 'PYTHON(2.7.17)'
           },
           {
             "id": 44,
-            "name": 'SQL' 
+            "name": 'SQL'
           },
           {
             "id": 4,
-            "name": 'C' 
+            "name": 'C'
           },
           {
             "id": 11,
-            "name": 'C++' 
+            "name": 'C++'
           },
           {
             "id": 25,
-            "name": 'JAVA' 
+            "name": 'JAVA'
           },
           {
             "id": 13,
-            "name": 'C#' 
+            "name": 'C#'
           },
           {
             "id": 18,
-            "name": 'ERLANG' 
+            "name": 'ERLANG'
           },
           {
             "id": 14,
-            "name": 'COBOL' 
+            "name": 'COBOL'
           },
           {
             "id": 27,
-            "name": 'KOTLIN' 
+            "name": 'KOTLIN'
           },
           {
             "id": 21,
-            "name": 'FOTRAN' 
+            "name": 'FOTRAN'
           },
           {
             "id": 34,
-            "name": 'PERL' 
+            "name": 'PERL'
           },
           {
             "id": 40,
-            "name": 'R' 
+            "name": 'R'
           },
           {
             "id": 41,
-            "name": 'RUBY' 
+            "name": 'RUBY'
           },
           {
             "id": 22,
-            "name": 'GO' 
+            "name": 'GO'
           },
           {
             "id": 24,
-            "name": 'HASKELL' 
+            "name": 'HASKELL'
           },
           {
             "id": 28,
-            "name": 'LUA' 
+            "name": 'LUA'
           },
           {
             "id": 33,
-            "name": 'PASCAL' 
+            "name": 'PASCAL'
           },
           {
             "id": 42,
-            "name": 'RUST' 
+            "name": 'RUST'
           },
           {
             "id": 43,
-            "name": 'SCALA' 
+            "name": 'SCALA'
           },
           {
             "id": 45,
-            "name": 'SWIFT' 
+            "name": 'SWIFT'
           },
           {
             "id": 46,
-            "name": 'TYPESCRIPT' 
+            "name": 'TYPESCRIPT'
           }
         ],
         language: this.$root.fullCodeLanguage,
@@ -408,15 +448,15 @@ export default {
          showAdminOptions:false,
          adminMembers:[],
          recheckCodeBox: true,
-         
+
     }
-   
+
 },
 methods:{
   muteAudio:function(){
 
-         
-         
+
+
 
            this.$root.localAudioMuted = true;
 
@@ -427,7 +467,7 @@ methods:{
       },
       unmuteAudio: function(){
 
-      
+
            this.$root.localAudioMuted = false;
 
              var localStream = this.$root.audioconnection.attachStreams[0];
@@ -448,15 +488,15 @@ methods:{
            space_id: this.$root.selectedSpace.space_id
          })
       .then(response => {
-      
+
       if (response.status == 200) {
 
           this.adminMembers.forEach((member)=>{
-            
+
              member.master_user = false;
 
           });
-        
+
          this.adminMembers.map((member)=>{
            if(member.memberId == response.data){
 
@@ -466,7 +506,7 @@ methods:{
          })
 
           this.$root.selectedSpaceMembers.forEach((member)=>{
-            
+
              member.master_user = false;
 
           });
@@ -479,29 +519,29 @@ methods:{
            }
          })
 
-         
+
         this.setCodeContent();
 
         this.liveChanges(response.data,'new_master');
       }
-       
-     
+
+
      })
      .catch(error => {
 
-       
-    
-     }) 
+
+
+     })
 
       },
       setNewUser: function(memberId){
-       
+
        this.adminMembers.forEach((member)=>{
-            
+
              member.master_user = false;
 
           });
-        
+
          this.adminMembers.map((member)=>{
            if(member.memberId == memberId){
 
@@ -511,7 +551,7 @@ methods:{
          })
 
           this.$root.selectedSpaceMembers.forEach((member)=>{
-            
+
              member.master_user = false;
 
           });
@@ -524,21 +564,21 @@ methods:{
            }
          })
 
-         
+
         this.setCodeContent();
 
         this.$root.newMasterId = null;
 
       },
       updateCodeMaster: function(){
-         
+
          let interval = null;
 
           interval = setInterval(()=>{
 
-             
+
              if(this.$root.codeIsLive == false){
-            
+
             clearInterval(interval);
 
           }
@@ -547,7 +587,7 @@ methods:{
 
               this.setNewUser(this.$root.newMasterId);
 
-               
+
 
           }
 
@@ -555,20 +595,20 @@ methods:{
       },
       showAdminUsers:function(){
 
-        
-         
+
+
          this.showAdminOptions = true;
          this.adminMembers = this.$root.selectedSpaceMembers.filter((member)=>{
            return member.is_admin == true;
          });
-         
+
 
       },
-       
+
       checkIfMaster: function(){
-     
+
       let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
-   
+
              return members.user_id == this.$root.user_temp_id;
            });
 
@@ -588,7 +628,7 @@ methods:{
             }else{
               return false;
             }
-            
+
          },
       setCodeContent:function(){
 
@@ -596,26 +636,26 @@ methods:{
     let userState = this.checkIfMaster();
 
           this.$root.intervalCheckLive = null;
-       
-      
+
+
 
           if(this.$root.codeIsLive && !userState){
-            
-            
-             
+
+
+
              this.cmOption.readOnly = 'nocursor';
 
              this.$root.selfStopTrigger = false;
-             
 
-            
-         
-        
-          
+
+
+
+
+
            this.code = this.$root.FullcodeContent;
            this.language = this.$root.fullCodeLanguage;
            this.detectchange(this.$root.fullCodeLanguage);
-           
+
 
            if(this.$root.liveShowCode){
                this.showCode = true;
@@ -623,40 +663,40 @@ methods:{
 
            this.showCode = false;
            this.ResultCode = this.$root.CodeResult;
-           
+
            }
-              
+
           if(this.$root.codeIsLive == false){
-            
+
             clearInterval(this.$root.intervalCheckLive);
 
           }
 
-          
 
-     
 
-          
 
-    
+
+
+
+
 
          }else{
 
 
            this.$root.selfStopTrigger = true;
-            
-        
+
+
            this.cmOption.readOnly = undefined;
 
          }
-          
-        
-      
+
+
+
       },
       checkIfisOwner: function(){
 
            let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
-   
+
              return members.user_id == this.$root.user_temp_id;
            });
 
@@ -667,7 +707,7 @@ methods:{
            }else{
               return false
            }
-         
+
        },
        returnToCode:function(){
 
@@ -677,9 +717,9 @@ methods:{
 
            if(this.$root.codeIsLive && userState){
 
-              
+
               this.liveChanges(true,'returnToCode');
-            
+
 
           }
 
@@ -687,7 +727,7 @@ methods:{
        },
       copyText () {
           let spacelink = document.querySelector('#codeBoxContent')
-          spacelink.setAttribute('type', 'text')  
+          spacelink.setAttribute('type', 'text')
           spacelink.select()
 
           try {
@@ -696,14 +736,14 @@ methods:{
               if(msg == 'successful'){
 
                 this.showAlert(5000,'Copied!')
-                
+
               }else{
 
                  this.showAlert(5000,'Oops! unable to copy')
-                
+
               }
           } catch (err) {
-           
+
           }
 
           /* unselect the range */
@@ -715,7 +755,7 @@ methods:{
         this.$root.AlertRoot = true;
         this.$root.AlertMsgRoot = text;
         let _this = this;
-     
+
      setTimeout(function(){
         _this.$root.AlertRoot = false;
      },duration);
@@ -723,7 +763,7 @@ methods:{
     },
 
        goBack() {
-          
+
        this.$root.showCodeBox = false;
         this.$root.showChatBottom = true;
         this.$root.codeBoxOpened = false;
@@ -756,7 +796,7 @@ methods:{
        progressValue:0,
        space_id:this.$root.selectedSpace.space_id,
         tagged:false,
-        type:msgType,    
+        type:msgType,
         user_id:this.$root.user_temp_id,
         username:this.$root.username,
         video:{},
@@ -766,7 +806,7 @@ methods:{
         file:{}
 
     };
-   
+
    if (msgType == 'image') {
       NewMessage.image = data;
    }
@@ -791,42 +831,42 @@ methods:{
 
  },
            sendMessage: function(){
-              
+
                this.$root.showChatBottom = true;
-             
-              
+
+
               let Data = [];
               this.$root.NewMsg = this.makeMessage('code',Data);
-              
+
                console.log()
 
-              
+
                this.$root.Messages.push(this.$root.NewMsg);
 
               this.$root.spaceFullData[0] =  this.$root.Messages;
-         
+
            let fullData = [];
                     fullData.push(this.$root.spaceFullData[0]);
                 fullData.push(this.$root.spaceFullData[1]);
 
                  let thirdData = [];
-                    
+
                     thirdData.push(this.$root.spaceFullData[2][0])
 
                 fullData.push(thirdData);
 
-               
+
 
 
               this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
 
-                 
 
-              
+
+
                this.goBack();
 
                  this.$root.scrollToBottom();
-                
+
                 let postData = {
               content: '',
               space_id: this.$root.selectedSpace.space_id,
@@ -840,12 +880,12 @@ methods:{
               temp_id:  this.$root.NewMsg.message_id,
                device_id: this.$root.userDeviceId
             };
-            
+
          this.$root.updateSpaceTracker(this.$root.selectedSpace.space_id);
        this.$root.sendCodeMessage(postData);
-         
+
       },
-       
+
       onCmReady(codemirror) {
 
         console.debug('onCmReady', codemirror)
@@ -857,14 +897,14 @@ methods:{
         console.debug('onCmBlur', codemirror)
       },
       onCmCodeChange:function(codemirror){
-       
-       
+
+
 
             this.liveChanges(codemirror,'typing');
 
-            
 
-        
+
+
 
       },
        liveChanges:function(data,action) {
@@ -880,17 +920,17 @@ methods:{
           }
 
 
-          
+
         },
       runCode:function(){
-        
-       
+
+
 
            this.showCode = false;
 
             if(this.selectedLangId == 0 || this.language == 'HTML'){
 
-              this.ResultCode = this.code; 
+              this.ResultCode = this.code;
               this.sendCodeRunning();
 
             }else{
@@ -903,22 +943,22 @@ methods:{
 
             }
 
-            
 
 
-          
 
-       
+
+
+
       },
       sendCodeRunning:function(){
-   
+
         let userState = this.checkIfisOwner();
 
            if(this.$root.codeIsLive && userState){
 
-              
+
               this.liveChanges(this.ResultCode,'codeRun');
-            
+
 
           }
       },
@@ -926,28 +966,28 @@ methods:{
 
         let _this = this;
 
-      
+
                 axios.post( '/check-for-submission',{
                token: token,
                 langId: _this.selectedLangId
                   })
           .then(response => {
-             
-          
+
+
           if(response.status == 200){
 
-            
 
-            
+
+
 
               if(response.data[0].status.description == 'Accepted'){
 
-                 
+
 
                   _this.ResultCode =  response.data[0].stdout;
 
-                  
-                 
+
+
 
 
               }else if(response.data[0].status.description == 'In Queue'){
@@ -966,39 +1006,39 @@ methods:{
 
                  _this.ResultCode =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr ;
 
-               
+
 
               }
 
 
               if(_this.$root.codeBoxOpened == false){
-                
+
               }
 
-              
+
 
          _this.sendCodeRunning();
 
-         
-             
+
+
 
           }
 
-          
-            
+
+
           })
           .catch(error => {
 
-             
-             
+
+
                _this.ResultCode = 'An issue occured,unable to run on sandbox...';
 
                  _this.sendCodeRunning();
-             
+
           })
 
 
-        
+
 
       },
       runCodeOnSandbox: function(){
@@ -1009,21 +1049,21 @@ methods:{
                 messageId: this.$root.codeMessageId
                   })
           .then(response => {
-             
-          
+
+
           if(response.status == 200){
 
-            
+
 
              let token = response.data[0].token;
 
-        
+
               if(response.data[0].status.description == 'Accepted'){
 
                   this.ResultCode =  response.data[0].stdout ;
 
-                
-                
+
+
 
               }else if(response.data[0].status.description == 'In Queue'){
 
@@ -1038,7 +1078,7 @@ methods:{
 
               }else{
 
-                
+
 
                 this.ResultCode =  response.data[0].stdout + '\n Error: \n' + response.data[0].stderr ;
 
@@ -1046,35 +1086,35 @@ methods:{
 
               this.sendCodeRunning();
 
-           
-             
 
-                
 
-              
 
-             
+
+
+
+
+
 
           }
-            
+
           })
           .catch(error => {
 
-            
-             
+
+
                this.ResultCode = 'An issue occured,unable to run on sandbox...';
 
                 this.sendCodeRunning();
-              
+
           })
 
-          
+
       },
        detectchange:  function(languageFull){
 
-         
-         
-          
+
+
+
           let language = '';
          if(typeof languageFull == 'object' ){
             language = languageFull.name
@@ -1082,7 +1122,7 @@ methods:{
          }else{
            language = languageFull
 
-           
+
 
             let languageArray = this.items.filter((item)=>{
       return   item.name == languageFull;
@@ -1091,29 +1131,29 @@ methods:{
 
           this.selectedLangId = languageArray[0].id;
        }
-            
+
          }
 
           let userState = this.checkIfisOwner();
 
            if(this.$root.codeIsLive && userState){
 
-              
+
               this.liveChanges(language,'codeChange');
 
-            
-            
+
+
 
           }
 
 
 
-          
+
 
        this.$root.fullCodeLanguage = language;
-          
 
-  
+
+
          if(language == 'HTML'){
             this.cmOption.mode = 'text/html';
          }
@@ -1121,7 +1161,7 @@ methods:{
          this.cmOption.mode = 'text/css';
          }
           if(language == 'PYTHON(3.8.1)'){
-           
+
 
 
            this.cmOption.mode = 'text/x-python';
@@ -1129,12 +1169,12 @@ methods:{
        if(!this.$root.codeIsLive && !this.$root.codeFromChat){
        this.code = "print(\"hello, world\")";
        }
-         
+
 
          }
 
          if(language == 'PYTHON For ML(3.7.7)'){
-           
+
 
 
            this.cmOption.mode = 'text/x-python';
@@ -1148,7 +1188,7 @@ methods:{
 "\n" +
 "print(\"hello, world\")";
        }
-         
+
 
          }
 
@@ -1164,7 +1204,7 @@ methods:{
           if(language == 'PHP'){
            this.cmOption.mode = 'text/x-php';
 
-          
+
      if(!this.$root.codeIsLive && !this.$root.codeFromChat){
        this.code = "<?php \n " +
 "print(\"hello, world\n\"); \n " +
@@ -1178,7 +1218,7 @@ methods:{
         if(!this.$root.codeIsLive && !this.$root.codeFromChat){
        this.code = "console.log(\"hello, world\");";
        }
-            
+
          }
           if(language == 'SQL'){
            this.cmOption.mode = 'text/x-sql';
@@ -1193,7 +1233,7 @@ methods:{
 "LIMIT 4; ";
 
        }
-             
+
          }
           if(language == 'C'){
            this.cmOption.mode = 'text/x-csrc';
@@ -1207,7 +1247,7 @@ methods:{
 "}";
        }
 
-          
+
          }
           if(language == 'C++'){
            this.cmOption.mode = 'text/x-c++src';
@@ -1220,7 +1260,7 @@ methods:{
 "    return 0;  \n " +
 "}";
        }
-           
+
          }
           if(language == 'JAVA'){
            this.cmOption.mode = 'text/x-java';
@@ -1233,7 +1273,7 @@ methods:{
 "}";
        }
 
-          
+
          }
           if(language == 'C#'){
            this.cmOption.mode = 'text/x-csharp';
@@ -1246,7 +1286,7 @@ methods:{
 "}";
        }
 
-           
+
          }
           if(language == 'ERLANG'){
            this.cmOption.mode = 'text/x-erlang';
@@ -1256,7 +1296,7 @@ methods:{
  "   io:fwrite(\"hello, world\n\").";
        }
 
-          
+
          }
           if(language == 'KOTLIN'){
            this.cmOption.mode = 'x-shader/x-fragment';
@@ -1266,7 +1306,7 @@ methods:{
  "   println(\"hello, world\") \n " +
 "}";
        }
-          
+
          }
           if(language == 'FOTRAN'){
            this.cmOption.mode = 'text/x-fortran';
@@ -1277,7 +1317,7 @@ methods:{
 "end";
        }
 
-           
+
          }
           if(language == 'PERL'){
            this.cmOption.mode = 'text/x-perl';
@@ -1287,7 +1327,7 @@ methods:{
 "print \"hello, $name\"";
        }
 
-         
+
          }
           if(language == 'R'){
            this.cmOption.mode = 'text/x-rsrc';
@@ -1296,7 +1336,7 @@ methods:{
       this.code = "cat(\"hello, world\n\")";
        }
 
-           
+
          }
          if(language == 'GO'){
            this.cmOption.mode = 'text/x-go';
@@ -1311,7 +1351,7 @@ methods:{
 "}";
        }
 
-           
+
          }
          if(language == 'HASKELL'){
            this.cmOption.mode = 'text/x-haskell';
@@ -1320,7 +1360,7 @@ methods:{
        this.code ="main = putStrLn \"hello, world\"";
        }
 
-          
+
          }
           if(language == 'RUBY'){
            this.cmOption.mode = 'text/x-ruby';
@@ -1329,17 +1369,17 @@ methods:{
         this.code = "puts \"hello, world\"";
        }
 
-          
+
          }
          if(language == 'LUA'){
-           
+
             this.cmOption.mode = 'text/x-lua';
 
              if(!this.$root.codeIsLive && !this.$root.codeFromChat){
        this.code = "print(\"hello, world\")";
        }
 
-            
+
 
          }
          if(language == 'PASCAL'){
@@ -1352,7 +1392,7 @@ methods:{
  "   writeln ('hello, world') \n " +
 "end. \n ";
        }
-            
+
 
          }
          if(language == 'RUST'){
@@ -1365,10 +1405,10 @@ methods:{
 "}";
        }
 
-            
+
          }
          if(language == 'SCALA'){
-           
+
              this.cmOption.mode = 'text/x-scala';
 
               if(!this.$root.codeIsLive && !this.$root.codeFromChat){
@@ -1381,7 +1421,7 @@ methods:{
 
        }
 
-            
+
 
          }
          if(language == 'SWIFT'){
@@ -1394,11 +1434,11 @@ methods:{
 "print(\"hello, \(name!)\")";
        }
 
-          
+
 
          }
          if(language  == 'TYPESCRIPT'){
-           
+
 
              this.cmOption.mode = 'text/javascript';
 
@@ -1406,10 +1446,10 @@ methods:{
        this.code = "console.log(\"hello, world\");";
        }
 
-           
+
 
          }
-         
+
       },
 }
 }
@@ -1423,7 +1463,7 @@ methods:{
     .pre {
       width: 100%;
       margin: 0;
-     
+
        display: block;
       font-size: 14px;
       line-height: 1.6;
@@ -1437,7 +1477,7 @@ methods:{
        border: 1px solid #e6e6e6;
         position:absolute;
         width:100%;
-       
+
         overflow-x: hidden;
         overflow-y:hidden;
     }
