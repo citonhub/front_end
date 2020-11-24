@@ -1,3 +1,5 @@
+
+
 <template>
     <div>
         <div class="row"  v-for="(notification, index) in Notifications" :key="index" >
@@ -17,7 +19,7 @@
 
                </div>
                
-            
+            <!-- comment replied-->
                 <div class="d-inline-block ml-2 mt-1">
                   <span  class="d-block titleText"><b>{{notification.dataArray[0].username }} replied your comment </b></span>
                    <span style="font-size:11px; color:grey;" class="d-block"><b>{{formatDate(notification.created_at)}} at {{formatTime(notification.created_at)}}</b></span>
@@ -63,7 +65,7 @@
 
 
 
-              <!-- post comment -->
+              <!-- post commented -->
                <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"   @click="handleNotify(notification)" 
                    v-if="notification.type == 'post_comment'  && notification.post_data != null"  
                       >

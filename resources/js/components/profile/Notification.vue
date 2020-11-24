@@ -1,3 +1,4 @@
+<!--component displaying a user's notifications-->
 <template>
      <div style="background:transparent; font-family:BodyText;">
         <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
@@ -19,6 +20,7 @@
 
       <div class="py-1 my-0 scrollerStyle" style="position:absolute; top:5%; height:95%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; padding-bottom:100px !important;">
         
+        <!-- user's notification list-->
        <div class="col-12 py-2 my-0 " v-if="Notifications != null" >
             <notify-list :Notifications="Notifications" v-if="Notifications.length != 0"></notify-list>
 
