@@ -3,7 +3,9 @@
 
        <div class=" col-lg-6 offset-lg-3 py-0 px-0 my-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
+ 
 
+      <!-- top bar -->
 
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
@@ -19,6 +21,10 @@
       </div>
      </div>
 
+   <!-- ends -->
+  
+
+   <!-- image croppper component -->
        <div class="py-1 my-0" style="position:absolute; top:5%; height:100%;width:100%; left:0; overflow-y:auto; overflow-x:hidden; ">
         
       <image-cropper :img="this.imagepath" :componentType="cropType" :stencilProps="cropProp" class=" d-flex col-12 " ref="cropper"
@@ -26,6 +32,7 @@
         
               
         </div>
+   <!-- ends -->
 
         <div class="d-flex" style="position:fixed;left:0; bottom:10%;width:100%;height:auto;align-items:center;justify-content:center;">
                    

@@ -4,7 +4,7 @@
        <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
-
+      <!-- top bar -->
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
          <div class="col-2 py-0 my-0 text-left" style="border-bottom:2px solid #4495a2;" >
@@ -19,6 +19,8 @@
       </div>
      </div>
 
+     <!-- ends -->
+  <!-- organization content view -->
       <div class="col-12 py-1 my-0 " >
             <div class="row my-2 py-2 px-2 " v-if="organizations !=  null">
           
@@ -84,9 +86,13 @@
 
             </div>
         </div>
+    <!-- ends -->
          </div>
        </div>
 
+
+
+<!-- Organization members views-->
         <div  v-if="showmembers" @click="showmembers = false"  style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div   style="position:absolute; height:auto; width:90%; top:20%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
@@ -98,6 +104,8 @@
        class="py-2 px-1 col-8 offset-2 col-md-6 offset-md-3 mb-2 text-center ">
            <span style="font-size:13px;font-family:headerText;">Members</span>
              </v-card>
+
+           <!-- organization members views -->
 
              <v-card style="border-radius:10px; overflow-y:auto;overflow-x:hidden;"
        height="300px"
@@ -188,13 +196,14 @@
 
              </v-card>
 
+            <!-- ends -->
+
 
             </div>
             
            </div>
          </div>
-
-      
+          <!-- ends -->
      </v-app>
 </template>
 <script>

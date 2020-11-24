@@ -8,6 +8,8 @@
           
                <div style="height:auto; width:100%; ">
                    <div class="col-12 py-0 my-0 px-0" >
+
+                    <!-- top bar -->
            <div class="row py-1 my-0 px-0" >
          <div class="col-2 py-0 my-0 text-left" style="border-bottom:2px solid #4495a2;" >
              <v-btn icon left @click="goToDuels"><v-icon color="#4495a2">mdi-arrow-left</v-icon></v-btn>
@@ -20,7 +22,10 @@
                 <v-btn icon left @click.stop="editDuel()" v-if="this.$root.username == this.selectedDuel.username"><v-icon color="#4495a2">mdi-playlist-edit</v-icon></v-btn>
          </div>
                </div>
+              <!-- ends -->
               </div> 
+
+            <!-- top board, contains the timer and other components -->
                <div class="col-12 py-0 my-0 topboard"  >
                  <div class="row py-0 my-0">
                     <div class="col-4 text-left my-0 py-0">
@@ -47,7 +52,9 @@
                         <span class="statusnew" v-if="checkDuelStatus(this.selectedDuel) == 'Ended'">{{$t('duels.ended')}} </span>
                         <span class="statusnew" v-if="checkDuelStatus(this.selectedDuel) == 'Voting'">{{$t('duels.voting')}} </span>
                     </div>
+                 
 
+                 <!-- participants scroller -->
                     <div class="col-12 py-0 my-0">
                       <div class="row">
                         <div class="py-0 col-12 text-center">
@@ -82,11 +89,16 @@
                         </div>
                       </div>
                     </div>
+                  <!-- ends -->
                  </div>
                </div>
 
-               </div>
+               <!-- ends -->
 
+               </div>
+     
+
+     <!-- session for likes, making comments, starting/ joining a duel -->
               <div style="width:100%; height:auto;">
           
             <div class="col-12 my-0 py-0 px-2" style="border-bottom:1px solid #c5c5c5;">
@@ -121,8 +133,10 @@
            
             </div>
 
-         
+        <!-- ends -->
 
+         
+    <!-- duel comments component is pulled in here -->
              <div
 
              class="py-1 px-0 scrollerStyle"
@@ -140,6 +154,7 @@
         </div>
      
        </div>  
+    <!-- ends -->
 
               <div class="row my-0 py-0">
 

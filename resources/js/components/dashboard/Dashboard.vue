@@ -1,11 +1,13 @@
 <template>
 <div>
 
-  
-     
+
+
      <div class="  col-lg-6 offset-lg-3 py-1 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
-        
+
         <div style="position:fixed; width:100%; left:0; height:5%;z-index:999999999999;" class="col-lg-6 offset-lg-3 py-0 my-0">
+
+          <!-- fixed top for larger screens -->
           <div class="col-12 d-md-block d-none py-0 my-0">
 
             <div class="row py-0 my-0">
@@ -26,13 +28,16 @@
                     <info-dialog :buttonText="'Ok'" :content="orgContent" :type="'inforight'" :next="'panelShowSwitch'"></info-dialog>
                       </div>
 
-                      
+
                 <v-btn x-small color="#3E8893" @click="showOrgList" style="color:white; font-size:12px; text-transform:capitalize;">communities</v-btn>
                </div>
             </div>
 
           </div>
+          <!-- ends -->
 
+
+   <!-- fixed top for smaller screens -->
           <div class="col-12 d-md-none d-block py-0 my-0 px-1">
 
             <div class="row py-0 my-0">
@@ -57,13 +62,16 @@
             </div>
 
           </div>
-        </div>  
+
+    <!-- ends -->
+        </div>
 
 
+     <!-- Channel and team session -->
 
-        <div style="position:fixed; width:100%; left:0; top:13%; height:25%;" class="col-lg-6 offset-lg-3 py-0 my-0 px-1"> 
-       
-            
+        <div style="position:fixed; width:100%; left:0; top:13%; height:25%;" class="col-lg-6 offset-lg-3 py-0 my-0 px-1">
+
+              <!-- session name , info bars and add buttons -->
                 <div class=" py-2 px-4 d-md-block d-none" style="position:absolute; width:100%; top:2%; left:2%;">
                   <div style="position:absolute;top:28%; left:24%;z-index:999999999999;" class=" text-left" v-if="showAddSpaceInfo">
                     <info-dialog :buttonText="'Ok'" :content="spaceContent" :type="'infoleft'" :next="'panelBot'"></info-dialog>
@@ -77,17 +85,30 @@
                       </div>
                 <span style="font-size:13px; ">Channels and teams</span> <v-btn icon class="d-inline-block" :disabled="checkifnotowner()" style="z-index:235464563;"  @click="createSpace()"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
                 </div>
+              <!-- ends -->
+
+              <!-- large screen prev button -->
 
                 <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:60%; left:0;">
                     <v-btn icon small @click="circulateData('channel','decr')"> <v-icon>mdi-chevron-left</v-icon></v-btn>
                 </div>
 
+            <!-- ends -->
+
+
+        <!-- large screen next button -->
+             <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute;  width:10%; top:60%; right:0;">
+                    <v-btn icon small @click="circulateData('channel','incr')"> <v-icon>mdi-chevron-right</v-icon></v-btn>
+                </div>
+        <!-- ends -->
+
+            <!-- larger screen channel/team view -->
                 <div class="d-md-block d-none py-1" style="align-items:center; justify-content:center; position:absolute;  width:80%; height:90%; top:18%; left:10%;">
 
                   <div v-if="ChannelTeamDataLg != null">
 
-        
-                     <div 
+
+                     <div
         v-for="(spaces,index) in ChannelTeamDataLg" :key="'lg_space'+ index"
     >
         <div class="col-12  d-md-block d-none">
@@ -100,42 +121,42 @@
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
                         <div class="py-1">
    <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
-                        </div>    
+                        </div>
                     </div>
                      <div class="py-0 my-0 d-flex col-9" style="align-items:center;">
                        <div>
                       <span class="titleTextNew d-block">{{shortenContent(space.name,20)}}</span>
                          <span class=" d-block" style="font-size:12px; color:gray;" v-html="shortenContent(space.description,30)" ></span>
                        </div>
-                        
+
                     </div>
-                   
+
                 </div>
              </v-card>
            </div>
-          
-         
+
+
 
          </div>
-             
+
         </div>
 
-     
-        
-        
+
+
+
     </div>
 
        <div v-if="ChannelTeamDataLg[0].length == 0" style="height:100%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
 
          <span style="font-size:13px; color:gray;">No Channel or team created yet</span>
-           
+
        </div>
 
 
                   </div>
 
               <div v-else>
-                
+
                  <div class="col-12  d-md-block d-none">
 
          <div class="row py-0 my-0">
@@ -155,23 +176,27 @@
            <div class="col-6 ">
             <v-skeleton-loader height="60px"  type="image"></v-skeleton-loader>
            </div>
-          
-         
+
+
 
          </div>
-             
+
         </div>
 
               </div>
 
-                
 
-              
+
+
             </div>
+
+        <!-- ends -->
+
+    <!-- smaller screen view for channel/team -->
 
              <div class="d-md-none d-block pt-3 px-2 " v-if="ChannelTeamData != null" style="white-space:nowrap;  overflow-y:hidden; position:absolute; overflow-x:auto; width:90%; height:80%; top:20%; left:5%;">
 
-               
+
               <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "
               v-for="(space,index) in ChannelTeamData " :key="'sm_space'+index">
 
@@ -182,31 +207,31 @@
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
                         <div class="py-1">
 <v-img  :background-color="space.background_color" :src="space.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ space.image_name +'.' + space.image_extension " height="38" width="38" class="avatarImg"></v-img>
-                        </div>    
+                        </div>
                     </div>
                      <div class="py-0 my-0 d-flex col-9" style="align-items:center;">
                        <div>
                       <span class="titleTextNew d-block">{{shortenContent(space.name,20)}}</span>
                          <span class=" d-block" style="font-size:12px; color:gray;" v-html="shortenContent(space.description,25)"  ></span>
                        </div>
-                        
+
                     </div>
-                   
+
                 </div>
 
                </div>
-               
+
              </v-card>
 
                </div>
-             
+
 
              <div v-if="ChannelTeamData.length == 0" style="height:70%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
 
          <span style="font-size:13px; color:gray;">No Channel or team created yet</span>
-           
+
        </div>
-              
+
 
              </div>
 
@@ -215,25 +240,34 @@
 
               <v-skeleton-loader height="68px"  type="image"></v-skeleton-loader>
 
-             
+
                </div>
 
                <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "  >
 
               <v-skeleton-loader height="68px"  type="image"></v-skeleton-loader>
 
-             
+
                </div>
              </div>
 
-             <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute;  width:10%; top:60%; right:0;">
-                    <v-btn icon small @click="circulateData('channel','incr')"> <v-icon>mdi-chevron-right</v-icon></v-btn>
-                </div>
+             <!-- ends -->
+
+
         </div>
 
-      <div style="position:fixed; width:100%; left:0; top:37%; height:25%;" class="col-lg-6 offset-lg-3 py-0 my-0 px-1"> 
-       
-            
+
+<!-- ends -->
+
+
+<!-- teaching bot session -->
+
+      <div style="position:fixed; width:100%; left:0; top:37%; height:25%;" class="col-lg-6 offset-lg-3 py-0 my-0 px-1">
+
+
+
+          <!-- session name , info bars and add buttons -->
+
                 <div class=" py-2 px-4 d-md-block d-none" style="position:absolute; width:100%; top:2%; left:2%;">
                    <div style="position:absolute;top:28%; left:19%;z-index:999999999999;" class=" text-left" v-if="showBotInfo">
                     <info-dialog :buttonText="'Ok'" :content="botInfoContent" :type="'infoleft'" :next="'panelChallenges'"></info-dialog>
@@ -248,16 +282,31 @@
                 <span style="font-size:13px; ">Teaching Bots</span> <v-btn icon class="d-inline-block" :disabled="!isBetatester" style="z-index:235464563;" @click="gotToBotCreate"  color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
                 </div>
 
+                    <!-- ends -->
+
+                    <!-- prev button for larger screens -->
                 <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:60%; left:0;">
                     <v-btn icon small @click="circulateData('bots','decr')"> <v-icon>mdi-chevron-left</v-icon></v-btn>
                 </div>
 
+                <!-- ends -->
+
+                <!-- next button for larger screens -->
+                    <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute;  width:10%; top:60%; right:0;">
+                    <v-btn icon small @click="circulateData('bots','incr')"> <v-icon>mdi-chevron-right</v-icon></v-btn>
+                </div>
+                <!-- ends -->
+
+
+
+
+         <!-- data view for larger screens -->
                 <div class="d-md-block d-none py-1" style="align-items:center; justify-content:center; position:absolute;  width:80%; height:90%; top:18%; left:10%;">
 
                   <div v-if="botDataLg != null">
 
-        
-                     <div 
+
+                     <div
         v-for="(botArray,index) in botDataLg" :key="'lg_bot'+ index"
     >
         <div class="col-12  d-md-block d-none">
@@ -270,42 +319,42 @@
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
                         <div class="py-1">
    <v-img  :background-color="bot.background_color" :src="bot.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ bot.image_name +'.' + bot.image_extension " height="38" width="38" class="avatarImg"></v-img>
-                        </div>    
+                        </div>
                     </div>
                      <div class="py-0 my-0 d-flex col-9" style="align-items:center;">
                        <div>
                       <span class="titleTextNew d-block">{{shortenContent(bot.name,20)}}</span>
                          <span class=" d-block" style="font-size:12px; color:gray;" v-html="shortenContent(bot.description,30)" ></span>
                        </div>
-                        
+
                     </div>
-                   
+
                 </div>
              </v-card>
            </div>
-          
-         
+
+
 
          </div>
-             
+
         </div>
 
-     
-        
-        
+
+
+
     </div>
 
        <div v-if="botDataLg[0].length == 0" style="height:100%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
 
          <span style="font-size:13px; color:gray;">Teaching bot in beta, coming soon.<a href="https://blog.citonhub.com/save-time-and-stress-by-automating-how-you-teach-code-with-citonhub">Read more</a> </span>
-           
+
        </div>
 
 
                   </div>
 
               <div v-else>
-                
+
                  <div class="col-12  d-md-block d-none">
 
          <div class="row py-0 my-0">
@@ -325,23 +374,27 @@
            <div class="col-6 ">
             <v-skeleton-loader height="60px"  type="image"></v-skeleton-loader>
            </div>
-          
-         
+
+
 
          </div>
-             
+
         </div>
 
               </div>
 
-                
 
-              
+
+
             </div>
+
+      <!-- ends -->
+
+      <!-- data view for smaller screens -->
 
              <div class="d-md-none d-block pt-3 px-2 " v-if="botData != null" style="white-space:nowrap; overflow-y:hidden;  position:absolute; overflow-x:auto; width:90%; height:80%; top:20%; left:5%;">
 
-               
+
               <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "
               v-for="(bot,index) in botData " :key="'sm_bot'+index">
 
@@ -352,64 +405,68 @@
                     <div class="py-0 my-0 d-flex col-3" style="align-items:center;justify-content:center; ">
                         <div class="py-1">
 <v-img  :background-color="bot.background_color" :src="bot.image_name == null ? 'imgs/team.png' : '/imgs/space/'+ bot.image_name +'.' + bot.image_extension " height="38" width="38" class="avatarImg"></v-img>
-                        </div>    
+                        </div>
                     </div>
                      <div class="py-0 my-0 d-flex col-9" style="align-items:center;">
                        <div>
                       <span class="titleTextNew d-block">{{shortenContent(bot.name,20)}}</span>
                          <span class=" d-block" style="font-size:12px; color:gray;" v-html="shortenContent(bot.description,25)"  ></span>
                        </div>
-                        
+
                     </div>
-                   
+
                 </div>
 
                </div>
-               
+
              </v-card>
 
                </div>
-             
+
 
              <div v-if="botData.length == 0" style="height:70%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
 
          <span style="font-size:13px; color:gray;">Teaching bot in beta, coming soon. <a href="https://blog.citonhub.com/save-time-and-stress-by-automating-how-you-teach-code-with-citonhub">Read more</a></span>
-           
+
        </div>
-              
+
 
              </div>
+
+        <!-- ends -->
 
              <div class="d-md-none d-block pt-3 px-2 " v-else style="white-space:nowrap;  position:absolute; overflow-x:auto; width:90%; height:80%; top:20%; left:5%;">
                  <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "  >
 
               <v-skeleton-loader height="68px"  type="image"></v-skeleton-loader>
 
-             
+
                </div>
 
                <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "  >
 
               <v-skeleton-loader height="68px"  type="image"></v-skeleton-loader>
 
-             
+
                </div>
              </div>
 
-             <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute;  width:10%; top:60%; right:0;">
-                    <v-btn icon small @click="circulateData('bots','incr')"> <v-icon>mdi-chevron-right</v-icon></v-btn>
-                </div>
+
         </div>
-        
-     
+
+    <!-- ends -->
+
+     <!-- coding challenges session -->
      <div style="position:fixed; width:100%; left:0; top:61%; height:25%;" class="col-lg-6 offset-lg-3 py-0 my-0">
+
+          <!-- session name , info bars and add buttons -->
          <div class=" py-2 px-4 d-md-block d-none" style="position:absolute; width:100%; top:2%; left:2%;">
            <div style="position:absolute;top:28%; left:22%;z-index:999999999999;" class=" text-left" v-if="showChallengesInfo">
                     <info-dialog :buttonText="'Ok'" :content="challengesContent" :type="'infoleft'" :next="'panelFinal'"></info-dialog>
                       </div>
                 <span style="font-size:14px; ">Coding Challenges</span> <v-btn icon class="d-inline-block" :disabled="checkifnotowner()" style="z-index:235464563;" @click="gotToChallengeCreate" color="#3E8893"><v-icon>mdi-plus-box </v-icon></v-btn>
 
-                 
+
                 </div>
 
              <div class=" py-2 px-2 d-md-none d-block" style="position:absolute; width:100%; top:4%; left:1%;">
@@ -421,10 +478,26 @@
                 <span style="font-size:13px; ">Coding Challenges</span> <v-btn icon class="d-inline-block" :disabled="checkifnotowner()" style="z-index:235464563;"  @click="gotToChallengeCreate" color="#3E8893"><v-icon>mdi-plus-box mdi-18px</v-icon></v-btn>
                 </div>
 
+                <!-- ends -->
+
+                <!-- prev button -->
+
                 <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute; width:10%; top:60%; left:0;">
                     <v-btn icon small @click="circulateData('challenges','decr')"> <v-icon>mdi-chevron-left</v-icon></v-btn>
                 </div>
-                
+
+                <!-- ends -->
+              
+              <!-- next button -->
+             
+             <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute;  width:10%; top:60%; right:0;">
+                    <v-btn icon small @click="circulateData('challenges','incr')"> <v-icon>mdi-chevron-right</v-icon></v-btn>
+                </div>
+
+              <!-- ends -->
+
+     
+     <!-- data view for larger screens -->
 
                 <div class="d-md-block d-none py-1" style="align-items:center; justify-content:center; position:absolute;  width:80%; height:90%; top:18%; left:10%;">
 
@@ -442,21 +515,21 @@
             <each-duel :source="challenge"></each-duel>
            </div>
 
-           
+
 
          </div>
-             
+
         </div>
 
-     
-        
-        
+
+
+
     </div>
 
      <div v-if="challengesDataLg[0].length == 0" style="height:100%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
 
          <span style="font-size:13px; color:gray;">No challenges created yet</span>
-           
+
        </div>
 
 
@@ -464,7 +537,7 @@
                   </div>
 
                   <div v-else>
-                
+
                  <div class="col-12  d-md-block d-none">
 
          <div class="row py-0 my-0">
@@ -484,36 +557,40 @@
            <div class="col-6 ">
             <v-skeleton-loader height="60px"  type="image"></v-skeleton-loader>
            </div>
-          
-         
+
+
 
          </div>
-             
+
         </div>
 
               </div>
 
-                
 
-              
+
+
             </div>
 
+        <!-- ends -->
+
+        <!-- data view for smaller screens -->
+
              <div class="d-md-none d-block pt-3 px-2 " v-if="challengesData != null" style="white-space:nowrap;  overflow-y:hidden; position:absolute; overflow-x:auto; width:90%; height:80%; top:20%; left:5%;">
-              
+
               <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "
                v-for="(challenge,index) in challengesData" :key="'sm_challenge'+index">
                 <each-duel :source="challenge"></each-duel>
-               
+
              </div>
 
 
              <div v-if="challengesData.length == 0" style="height:70%; width:100%; position:absolute; justify-content:center; align-items:center;" class="d-flex">
 
-         <span style="font-size:13px; color:gray;">No challenges created yet</span>
-           
-       </div>
+           <span style="font-size:13px; color:gray;">No challenges created yet</span>
 
-             
+            </div>
+
+
              </div>
 
              <div class="d-md-none d-block pt-3 px-2 " v-else style="white-space:nowrap;  position:absolute; overflow-x:auto; width:90%; height:80%; top:20%; left:5%;">
@@ -522,34 +599,34 @@
 
               <v-skeleton-loader height="68px"  type="image"></v-skeleton-loader>
 
-             
+
                </div>
 
                <div color="#ffffff"  class="d-inline-block mr-1 pr-1  px-0 col-11 "  >
 
               <v-skeleton-loader height="68px"  type="image"></v-skeleton-loader>
 
-             
+
                </div>
 
              </div>
+             <!-- ends -->
 
-             <div class=" px-1  d-md-flex d-none" style="align-items:center; justify-content:center; position:absolute;  width:10%; top:60%; right:0;">
-                    <v-btn icon small @click="circulateData('challenges','incr')"> <v-icon>mdi-chevron-right</v-icon></v-btn>
-                </div>
-        </div>  
+        </div>
 
-         
-     
+         <!-- ends -->
+
+         <!-- modal for  switching btw organizations -->
+
          <div   v-if="showUserOrgBoard"  @click="showUserOrgBoard = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999999999999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div @click.stop="showUserOrgBoard = true"  style="position:absolute; height:auto; width:90%; bottom:45%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
              <v-card style="border-radius:10px;"
        height="auto"
-      
+
        class="py-2 px-1 col-12 col-lg-8 offset-lg-2 " >
 
-           
+
              <v-card tile :color="that.$route.params.orgId == 'user' ? '#b7dbe1': '#ffffff'" flat class="text-center py-2" style="border-radius:0px;" @click.stop="selectOrg('user')" >
         <span style="font-size:13px;  color:#173236; font-family:headerText;">You</span>
             </v-card>
@@ -557,25 +634,26 @@
         <span style="font-size:13px;  color:#173236; font-family:headerText;">{{org.name}}</span>
             </v-card>
 
-            
-            
+
+
 
              </v-card>
 
            </div>
          </div>
+        <!-- ends -->
 
-    
-      
-     </div> 
 
-     
-    
-    
-     
-          
+
+     </div>
+
+
+
+
+
+
 </div>
-     
+
 </template>
 <script>
 
@@ -614,13 +692,13 @@ export default {
       spaceContent:'Click here to create new channels and teams',
       botInfoContent:'Click here to create new teaching bots',
       challengesContent:'Click here to create new challenges'
-         
+
       }
     },
-     components: { 
-    
+     components: {
+
       },
-      
+
     mounted(){
 
       this.$root.checkIfUserIsLoggedIn('duels')
@@ -630,7 +708,7 @@ export default {
          this.$root.mainPanelComponent = this;
          this.handleInfoSession();
        this.getPanelFullData();
-      
+
     },
     methods:{
        handleInfoSession:function(){
@@ -638,10 +716,10 @@ export default {
 
            axios.get('/fetch-user-onboarding')
       .then(response => {
-      
+
       if (response.status == 200 || response.status == 201) {
 
-          
+
        let storedInfo = this.$root.getLocalStore('panelinfo'+ this.$root.username);
 
         storedInfo.then((result)=>{
@@ -652,15 +730,15 @@ export default {
 
 
      }
-       
-     
+
+
      })
      .catch(error => {
-       
-       
+
+
      })
 
-      
+
       },
       checkifnotowner:function(){
 
@@ -684,7 +762,7 @@ export default {
 
          if(orgId == this.$route.params.orgId) return;
 
-          this.botData = null 
+          this.botData = null
        this.challengesData = null
        this.botDataLg = null;
        this.challengesDataLg = null;
@@ -693,7 +771,7 @@ export default {
        this.ChannelTeamData = null;
 
        this.$route.params.orgId = orgId;
-      
+
        this.getPanelFullData();
 
        this.showUserOrgBoard = false;
@@ -704,7 +782,7 @@ export default {
                  this.$router.push({ path: '/panel/main/new/' + this.$root.orgIdRoot });
             }
 
-       
+
 
       },
        showSpace:function(space){
@@ -715,38 +793,38 @@ export default {
 
          axios.get('get-user-organizations')
           .then(response => {
-             
-            
-            
+
+
+
 
             if(response.status == 200){
 
-            
+
                this.organizations = response.data;
 
-               
-             
+
+
             }
-              
-            
-           
-            
+
+
+
+
           })
           .catch(error => {
               console.log(error)
-            
+
           })
 
       },
        gotToBot:function(bot){
-              
+
               if(bot.user_id == this.$root.user_temp_id){
                  this.$root.selectedBot = bot;
           this.$router.push({ path: '/panel/bot/setup/' + bot.bot_id });
               }else{
                 window.location = '/space#/bot-engine/' + bot.bot_id + '/user';
               }
-          
+
 
        },
        circulateData: function(type,action){
@@ -754,16 +832,16 @@ export default {
            function paginate(array, page_size, page_number) {
              return array.slice((page_number - 1) * page_size, page_number * page_size);
            }
-         
+
          if(type == 'bots'){
-              
+
               if(this.botScroller >= this.botCountLength){
                  this.botScroller = 1;
               }else{
 
                  if(action == 'incr'){
                this.botScroller += 1;
-              
+
 
              }else{
                   if( this.botScroller <= 0){
@@ -774,23 +852,23 @@ export default {
              }
 
               }
-             
+
               this.botDataLg = [paginate(this.botData,4,this.botScroller)];
 
-              
+
 
          }
 
 
           if(type == 'challenges'){
-              
+
               if(this.challengeScroller >= this.challengeCountLength){
                  this.challengeScroller = 1;
               }else{
 
                  if(action == 'incr'){
                this.challengeScroller += 1;
-              
+
 
              }else{
                  if( this.challengeScroller <= 0){
@@ -798,25 +876,25 @@ export default {
                  }else{
                    this.challengeScroller -= 1;
                  }
-                
+
              }
 
               }
-             
+
 
               this.challengesDataLg = [paginate(this.challengesData,4,this.challengeScroller)];
 
          }
 
          if(type == 'channel'){
-              
+
               if(this.TeamScroller >= this.channelCountLength){
                  this.TeamScroller = 1;
               }else{
 
                  if(action == 'incr'){
                this.TeamScroller += 1;
-              
+
 
              }else{
                  if( this.TeamScroller <= 0){
@@ -824,20 +902,20 @@ export default {
                  }else{
                    this.TeamScroller -= 1;
                  }
-                
+
              }
 
               }
-             
+
 
               this.ChannelTeamDataLg = [paginate(this.ChannelTeamData,4,this.TeamScroller)];
 
          }
 
-        
-       
+
+
        },
-       
+
        handleData:function(data){
 
           this.botData = data.bots;
@@ -845,13 +923,13 @@ export default {
 
               this.ChannelTeamData = data.channels.concat(data.teams);
 
-                
+
                this.returnedChannel =  this.splitData(this.ChannelTeamData);
 
                this.channelCountLength =  this.returnedChannel[1];
 
                this.ChannelTeamDataLg = [this.returnedChannel[0][0]];
-              
+
               this.returnedBot = this.splitData(data.bots);
               this.botDataLg = [this.returnedBot[0][0]];
 
@@ -872,7 +950,7 @@ export default {
             function paginate(array, page_size, page_number) {
              return array.slice((page_number - 1) * page_size, page_number * page_size);
            }
-            
+
             let arrayFullLength = data.length;
 
             let countLength = 0;
@@ -881,7 +959,7 @@ export default {
 
              if(arrayFullLength % 4 == 0){
 
-                
+
                  countLength = arrayFullLength / 4;
 
                  let ArrayCounter = Array(countLength);
@@ -892,7 +970,7 @@ export default {
                  }
 
              }else{
-                
+
                 let remainder = arrayFullLength % 4;
 
                 countLength = (arrayFullLength - remainder) / 4;
@@ -903,15 +981,15 @@ export default {
                      let normalizedIndex = index + 1;
                      finalArray.push(paginate(data,4,normalizedIndex));
                  }
-               
+
                 finalArray.push(paginate(data,remainder,ArrayCounter + 1));
                countLength += 1;
              }
 
              return [finalArray,countLength];
-            
 
-             
+
+
          }
       },
       shortenContent: function(content,limit){
@@ -925,20 +1003,20 @@ export default {
              }
 
              }
-             
+
         },
    getPanelFullData:function(){
           let orgId = this.$route.params.orgId
 
-           
+
 
            this.$root.orgIdRoot = this.$route.params.orgId;
 
        axios.get('get-panel-data/'+ orgId)
           .then(response => {
-             
-            
-            
+
+
+
 
             if(response.status == 200){
 
@@ -959,19 +1037,19 @@ export default {
               }
 
              this.$root.selectedOrg = response.data.organization;
-     
+
             }
-              
-            
-           
-            
+
+
+
+
           })
           .catch(error => {
               console.log(error)
-            
+
           })
 
-   }, 
+   },
     gotToBotCreate:function(){
         this.$router.push({ path: '/panel/bot/create' });
     },
@@ -981,14 +1059,14 @@ export default {
     showOrgList:function(){
         this.$router.push({ path: '/panel/organizations' });
     }
-      
+
     }
 }
 </script>
 <style scoped>
  .titleTextNew{
-    font-size:13px; 
-    font-family:HeaderText; 
+    font-size:13px;
+    font-family:HeaderText;
     color:#35747e;
 }
 
@@ -1013,18 +1091,18 @@ export default {
 .mybadgenew{
      font-size:10px;
      color:#2d646c;
-     font-family:HeaderText; 
-     border:1px solid #2d646c; 
-     border-radius:10px; 
+     font-family:HeaderText;
+     border:1px solid #2d646c;
+     border-radius:10px;
      padding: 2px 4px;
      background:#ffffff;
      font-weight: bolder;
- } 
+ }
   .statusnew{
     font-size:10px;
       color:#173236;
-     border:2px solid #dbedf0; 
-     border-radius:9px; 
+     border:2px solid #dbedf0;
+     border-radius:9px;
      padding: 2px 4px;
      background:#dbedf0;
      font-weight: bolder;

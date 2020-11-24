@@ -4,7 +4,8 @@
       <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
         <div style="overflow-y:auto;position:absolute;left:0; width:100%; height:100%; overflow-x:hidden;" class="scrollerStyle">
          <div class="row my-0 py-0 px-2" >
-
+   
+   <!-- top bar -->
          <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-0" >
          <div class="col-4 py-0 my-0 text-left" style="border-bottom:2px solid #4495a2;" >
@@ -18,18 +19,26 @@
          </div>
       </div>
      </div>
-
+    <!-- ends -->
+    
+    <!-- shows when voting is in progress -->
       <div  class="col-12 py-1 my-0 d-flex" style="align-items:center; justify-content:center; position:absolute; width:100%; height:90%;" v-if="this.checkDuelStatus(duel) == 'Voting'">
           <v-icon color="grey">mdi-lock</v-icon>  <span style="font-size:14px; color:grey;"> {{ $t('duels.voting_progress') }} </span>
       </div>
-
+    <!-- ends -->
+    
+  <!-- shows when panel is loading -->
       <div  class="col-12 py-1 my-0 d-flex" style="align-items:center; justify-content:center; position:absolute; width:100%; height:90%;" v-if="!panelsettingsChecked">
        <span style="font-size:14px; color:grey;">{{ $t('panel.loading') }}...</span>
       </div>
 
+  <!-- ends -->
+
       <div class="col-12 py-1 my-0"  v-if="panelsettingsChecked" >
          <div class="row my-0 py-1 px-0 mx-1">
+      
 
+      <!-- top session  -->
              <div class="col-12 py-0 px-1 " v-if="this.$route.params.panelId == undefined">
                 <div class="row py-0 my-0">
                    <div class="col-6 py-0 my-0 px-2 text-left">
@@ -45,6 +54,9 @@
                 </div>  
              </div>
 
+      <!-- ends -->
+
+      <!-- toggles the front end panel -->
 
               <div class="col-12 py-0 px-1 my-1 "  v-if="panelIsWeb"  @click="handleCatFolder('front-end')" style="background:#c9e4e8; border:1px solid transparent; border-radius:12px; cursor:pointer;">
              <div class="row px-2 py-0">
@@ -62,12 +74,17 @@
                
              </div>
 
-             <v-expansion-panels
+      <!-- ends -->
+
+            <!-- front-end panel  -->
+          <v-expansion-panels
          v-model="panel"
           dense
           v-if="showFront && panelIsWeb"
           class="my-2 col-lg-8 offset-lg-2 px-0"
          >
+
+           <!-- view files -->
       <v-expansion-panel>
         <v-expansion-panel-header class="header">{{ $t('panel.view_files') }}
 
@@ -78,6 +95,8 @@
         </v-expansion-panel-header>
         <v-expansion-panel-content class="px-0">       
         
+
+        <!-- add new code files and extensions -->
             <div class="col-12 py-0 my-0 mx-0 px-0 text-right">
                  <div class="row py-0 my-0"  v-if="this.$route.params.panelId == undefined">
                 <div class="col-6 py-0 my-0 text-left" >
@@ -90,6 +109,9 @@
               </div>
               
             </div>
+        <!-- ends -->
+
+        <!-- HTNL files -->
             <div class="py-0 my-0 col-12 px-0"   v-for="(file,index) in this.$root.frontEndFiles" :key="index">
 
                <v-card tile flat class="col-12 py-1 my-0 "   v-if="file.language_type == 'HTML' || file.language_type == 'VUE' || file.language_type == 'MD'" @click="showEditor(file,'front-end')" style="border-bottom:1px solid #c5c5c5; background:#edf6f7;" 
@@ -107,6 +129,10 @@
              </v-card>
             </div>
 
+        <!-- ends -->
+
+
+   <!-- styles folder -->
              <div  class="col-12 py-1 my-0 mt-2" @click="stylesShow ? stylesShow = false : stylesShow = true" style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
                 <div class="row my-0 py-0">
                   <div class="col-2 text-center py-0 my-0 ">
@@ -135,6 +161,10 @@
                   </div>
              </v-slide-y-transition>
               </div>
+
+        <!-- ends -->
+
+        <!-- scripts folder -->
 
               <div  class="col-12 py-1 my-0 mt-2 "  @click="scriptsShow ? scriptsShow = false : scriptsShow = true" style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
                 <div class="row my-0 py-0"> 
@@ -165,13 +195,16 @@
                   </div>
              </v-slide-y-transition>
               </div>
+          <!-- ends -->
 
         </v-expansion-panel-content>
       </v-expansion-panel>
-
-
+    
+  <!-- ends -->
      
 
+
+<!-- resources panel -->
 
         <v-expansion-panel  v-if="panelIsWeb" >
         <v-expansion-panel-header class="header">{{ $t('panel.resources') }}
@@ -182,6 +215,8 @@
           
         </v-expansion-panel-header>
        <v-expansion-panel-content class="px-0">      
+
+         <!-- frameworks folder -->
 
          <div  class="col-12 py-1 my-0 mt-2 " @click="frameworkShow ? frameworkShow = false : frameworkShow = true"  style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
                 <div class="row my-0 py-0"> 
@@ -196,8 +231,7 @@
                 </div>
                 </div>
              </div> 
-
-
+           
               <div class="py-0 my-0 col-12"   v-for="(file,index) in this.$root.panelResources" :key="'framework' + index">
              <v-slide-y-transition>
                   <div class="col-12 py-0 my-0 px-0" v-show="frameworkShow">
@@ -217,7 +251,9 @@
              </v-slide-y-transition>
               </div>
 
+              <!-- ends -->
 
+       <!-- Images folder -->
         
             <div  class="col-12 py-1 my-0 mt-2 "  @click="imagesShow ? imagesShow = false : imagesShow = true" style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
                 <div class="row my-0 py-0"> 
@@ -252,7 +288,9 @@
              </v-slide-y-transition>
               </div>
 
+   <!-- ends -->
 
+   <!-- Audios folder -->
           
            <div  class="col-12 py-1 my-0 mt-2 " @click="audioShow ? audioShow = false : audioShow = true" style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
                 <div class="row my-0 py-0"> 
@@ -288,8 +326,10 @@
              </v-slide-y-transition>
               </div>
 
+    <!-- ends -->
+ 
 
-
+ <!-- Videos folder -->
            <div  class="col-12 py-1 my-0 mt-2 " @click="videoShow ? videoShow = false : videoShow = true" style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
                 <div class="row my-0 py-0"> 
                   <div class="col-2 text-center py-0 my-0 ">
@@ -324,8 +364,9 @@
              </v-slide-y-transition>
               </div>
 
+          <!-- ends -->
 
-          
+      <!-- Files folder -->
            <div  class="col-12 py-1 my-0 mt-2 " @click="fileShow ? fileShow = false : fileShow = true" style="border-bottom:1px solid #c5c5c5; background:#f2f2f2;" >
                 <div class="row my-0 py-0"> 
                   <div class="col-2 text-center py-0 my-0 ">
@@ -359,7 +400,7 @@
                   </div>
              </v-slide-y-transition>
               </div>
-
+       <!-- ends -->
             
 
             
@@ -367,9 +408,13 @@
         </v-expansion-panel-content>
       </v-expansion-panel>
 
-
+<!-- ends -->
 
     </v-expansion-panels>
+
+ <!-- ends -->
+
+    <!-- Back-end panel toggle -->
 
           <div class="col-12 py-0 px-1 my-1 "  v-if="panelIsWeb" @click="handleCatFolder('back-end')" style="background:#c9e4e8; border:1px solid transparent; border-radius:12px; cursor:pointer;">
              <div class="row px-2 py-0">
@@ -387,12 +432,18 @@
                
              </div>
 
+            <!-- ends -->
+
+
+ <!-- backend panel -->
      <v-expansion-panels
       v-model="panelBack"
            v-if="showBack && panelIsWeb"
           dense
           class="my-2 col-lg-8 offset-lg-2 px-0">
         
+
+        <!-- controller session -->
           <v-expansion-panel>
         <v-expansion-panel-header class="header">Controllers
 
@@ -419,13 +470,13 @@
                 </div>
              </v-card>
 
-
-
-            
-      
         </v-expansion-panel-content>
       </v-expansion-panel>
 
+    <!-- ends -->
+
+
+    <!-- web router session -->
            <v-expansion-panel > 
         <v-expansion-panel-header class="header">{{ $t('panel.web_routes') }}
 
@@ -458,12 +509,12 @@
       
         </v-expansion-panel-content>
       </v-expansion-panel>
-
+   <!-- ends -->
 
 
 
      
-
+  <!-- database session -->
        <v-expansion-panel>
        <v-expansion-panel-header class="header">{{ $t('panel.DB_table') }}
 
@@ -491,12 +542,14 @@
       
         </v-expansion-panel-content>
       </v-expansion-panel>
-
+  <!-- ends -->
 
 
      </v-expansion-panels>
+ <!-- ends -->
 
 
+<!-- code files panels (for non-web) application-->
    <v-expansion-panels v-if="!panelIsWeb"
        class="mt-2" 
        v-model="panel">
@@ -574,6 +627,8 @@
 
       </v-expansion-panels>
 
+  <!-- ends -->
+
          </div>
          <div class="my-5 py-3 "   style="padding-top:120px !important;">
 
@@ -588,7 +643,8 @@
          </div>
       
         
-
+   
+   <!-- add extensions modal -->
 
          <div  @click="closeExtension"  v-if="!closeExtesionBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-12  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="preventClose"  style="position:absolute; height:60%; width:100%; top:40%; left:0%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto">
@@ -662,11 +718,12 @@
 
            </div>
          </div>
+
+      <!-- ends -->
       </div>
 
 
-
-
+    <!-- fixed comment button for teams -->
         <span style="position:absolute; top:76%; left:3%; z-index:10;"  class="d-md-none d-inline-block" v-if="duel.user_type == 'team'">
           <v-btn
                 color="#35747e"
@@ -693,6 +750,11 @@
                 <v-icon color="#ffffff">mdi-comment-text-outline mdi-18px</v-icon>
               </v-btn>
      </span>
+
+     <!-- ends -->
+
+
+     <!-- fixed button to run codes -->
 
         <span style="position:absolute; top:76%; right:3%; z-index:10;"  class="d-md-none d-inline-block sliderfullBtn">
           <v-btn
@@ -721,7 +783,9 @@
               </v-btn>
      </span>
 
+  <!-- ends -->
 
+       <!-- create duel team modal -->
     
               <div  style="position:absolute; width:100%;  background:rgba(38, 82, 89,0.6); height:100%; align-items:center;justify-content:center; top:0; z-index:53566;"  @click="makeTeam = false" class="d-flex" v-if="makeTeam">
               <div @click.stop="stopProp">
@@ -750,10 +814,13 @@
              </v-card>
               </div>  
         </div>
+
+      <!-- ends -->
        
 
       </div>
 
+<!-- alert -->
       <v-fade-transition>
               <div  style="position:absolute; width:100%; height:auto: align-items:center;justify-content:center;bottom:16%; z-index:123453566;"  class="d-flex">
              <v-alert
@@ -773,6 +840,7 @@
     </v-alert>
         </div>
         </v-fade-transition>
+  <!-- ends -->
        
     </v-app>
 </template>
