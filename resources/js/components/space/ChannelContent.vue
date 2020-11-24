@@ -14,7 +14,7 @@
     id="messageContainer" 
    class="col-12  px-2" 
      
-        style="position:absolute; width:100%; height:90%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:80px !important;"
+        style="position:absolute; width:100%; height:87%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:120px !important;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -721,7 +721,7 @@
 
 
 
-      <span style="position:fixed; top:73%; right:3%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type == 'Bot'">
+      <span style="position:fixed; top:79%; right:3%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type == 'Bot'">
 
           
           <v-btn
