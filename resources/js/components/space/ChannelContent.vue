@@ -1,5 +1,5 @@
 <template>
-    <div style="background:#edf6f7; position:absolute; height:92%; width:100%; overflow-y:hidden;left:0; overflow-x:hidden; border-right:1px solid #e6e6e6;" >
+    <div style="background:#edf6f7; position:absolute; height:100%; width:100%; overflow-y:hidden;left:0; overflow-x:hidden; border-right:1px solid #e6e6e6;" >
 
        <div v-if="this.$root.Messages != null">
       
@@ -14,7 +14,7 @@
     id="messageContainer" 
    class="col-12 py-2 px-2" 
      
-        style="position:absolute; width:100%; height:95%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:220px !important;"
+        style="position:absolute; width:100%; height:95%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -33,6 +33,7 @@
     </template>
 
     <template #after>
+     
      <div  class=" col-12 mt-2 py-1 text-left" v-if="that.$root.botIsLoading" >
 
         <v-card class="py-0 px-1 text-center" style="border-radius:30px;" width="100px" >
@@ -43,13 +44,19 @@
 
       <div  class=" col-10 offset-2 col-lg-4 offset-lg-8 col-md-6 offset-md-6 mt-3 py-1 text-center" v-if="!that.$root.botIsLoading && that.$root.botSuggestionArray.length != 0">
 
-          
+
            <v-btn  v-for="(pattern,index) in that.$root.botSuggestionArray" :key="index"
            rounded color="#3E8893" @click="initiateMessageCtl(pattern.pattern_content)" class="ma-1" style="color:white; text-transform:capitalize; border:2px solid white;" small > {{pattern.pattern_content}}</v-btn>
          
         <v-btn rounded color="#3E8893" class="ma-1" style="color:white; text-transform:capitalize; border:2px solid white;" small @click="initiateMessageCtl(that.$root.botSuggestionArray[0].pattern_content)" > Continue</v-btn>
 
          
+      </div>
+
+       <div  class=" col-12 " style="margin-top:250px;">
+
+        
+
       </div>
   </template>
 
