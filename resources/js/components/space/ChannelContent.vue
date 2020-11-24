@@ -12,9 +12,9 @@
     ref="messageContainer"
     :buffer="5000"
     id="messageContainer" 
-   class="col-12 py-2 px-2" 
+   class="col-12  px-2" 
      
-        style="position:absolute; width:100%; height:100%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:210px !important;"
+        style="position:absolute; width:100%; height:90%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;padding-bottom:80px !important;"
   >
 
     <template v-slot="{ item, index, active }">
