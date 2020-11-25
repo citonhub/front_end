@@ -2373,12 +2373,12 @@ export default {
 
                 if(finalResultunsent.length == 0){
 
-               this.updateLocalStorage();
+              // this.updateLocalStorage();
 
               }
 
               }else{
-                 this.updateLocalStorage();
+              //   this.updateLocalStorage();
 
               }
 

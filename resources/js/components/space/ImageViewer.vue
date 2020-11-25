@@ -1,5 +1,8 @@
 <template>
     <div>
+      
+      
+        
         <v-carousel v-model="sliderState"
          height="200"
         
