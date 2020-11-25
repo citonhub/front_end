@@ -9,7 +9,8 @@
          :next-icon="false"
          :show-arrows="false">
 
-         <v-carousel-item @click.stop="viewFullImage(imageData)" style="cursor:pointer;" v-for="(imageData,index) in imageArray" :key="index">
+        <v-carousel-item @click.stop="viewFullImage(imageData)" style="cursor:pointer;" v-for="(imageData,index) in imageArray" :key="index">
+             <!-- image loader imported from imageLoader.vue-->
              <image-loader :externalUrl="'imgs/posts/' + imageData.image_name + '.' + imageData.image_extension" :backgroundColor="imageData.background_color" ></image-loader>
          </v-carousel-item>
 

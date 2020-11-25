@@ -1,3 +1,5 @@
+<!-- Component displaying user library content-->
+
 <template>
      <v-app style="background:transparent; font-family:BodyText;">
 
@@ -8,6 +10,7 @@
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
          <div class="col-2 py-0 my-0 text-left" style="border-bottom:2px solid #4495a2;" >
+           <!-- button navigating back to the hub tab-->
             <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-8 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
@@ -25,18 +28,23 @@
        
 <div v-if="post_data != null">
 
+  <!-- loop through shelves to display saved posts-->
+
    <div id="postContainerShelve" 
       class=" my-0 postScroll"
       
       v-if="post_data.length != 0"
       
       style="background:transparent; font-family:BodyText;position:fixed;left:0;  width:100%; height:100% ; overflow-y:auto;overflow-x:hidden; padding-top:50px;padding-bottom:250px;">
-
+<!-- public component imported from public.vue-->
        <public v-for="(post,index) in post_data" :key="index" :index="post.id" :source="post"></public>
       
 </div> 
 
+
+<!-- section cotaining text displayed if shelf contains no post-->
    <div v-if="post_data.length == 0" style="background:transparent; top:6%; font-family:BodyText;position:fixed;left:0; width:100%; height:100% ; overflow-y:auto; overflow-x:hidden; " class="text-center">
+       
        <span style="color:gray; font-size:12px;">No post found</span>
    </div>
 
