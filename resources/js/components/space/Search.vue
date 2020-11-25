@@ -5,7 +5,7 @@
         >
          <div class="row my-0 py-0 px-2">
 
-          
+       <!-- top search bar -->
        <div class="col-12 col-lg-4 offset-lg-4 my-1 text-center py-1 fixed-top">
            <div class="py-1 pb-0 px-1" height="auto" style="border-radius:10px;">
 
@@ -28,10 +28,11 @@
            </div>
         
        </div>
-
+     <!-- ends -->
 
        <div class="col-12 col-lg-8 offset-lg-2 my-1  py-1 " style="margin-top:55px !important;" >
 
+    <!-- channel data -->
          <div class="col-12  py-2" v-if="channelData.length != 0">
            <span style="font-size:13px; color:#ffffff;">Channels</span>
          </div>
@@ -53,8 +54,11 @@
                    
                 </div>
              </v-card>
+      
+      <!-- ends -->
+   
 
-
+    <!-- bots data -->
              <div class="col-12  py-2" v-if="botData.length != 0">
            <span style="font-size:13px; color:#ffffff;">Learning Bots</span>
          </div>
@@ -76,7 +80,10 @@
                    
                 </div>
              </v-card>
+      <!-- ends -->
+     
 
+     <!-- users/people data -->
          <div class="col-12  py-2" v-if="userData.length != 0">
            <span style="font-size:13px; color:#ffffff;"> People</span>
          </div>
@@ -104,6 +111,11 @@
                    
                 </div>
               </v-card>
+
+      <!-- ends -->
+
+
+      <!-- project data -->
          
           <div class="col-12  py-2" v-if="projectData.length != 0" >
            <span style="font-size:13px; color:#ffffff;">Projects</span>
@@ -138,6 +150,8 @@
               
             </div>
            </v-card>
+
+      <!-- ends -->
 
        </div>
 

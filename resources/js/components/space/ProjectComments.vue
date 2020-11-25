@@ -3,7 +3,8 @@
 
        <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:hidden; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
-
+  
+    <!-- top bar -->
 
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
@@ -19,6 +20,10 @@
       </div>
      </div>
 
+   <!-- ends -->
+ 
+
+ <!-- project comments view, loops through the comments -->
       <div class="col-12 py-1 my-0 scrollerStyle" style="position:absolute; height:90%; width:100%;overflow-y:auto; padding-top:35px !important;">
             <div class="row my-2 py-2 "  >
            
@@ -65,8 +70,11 @@
                    </div>
          </div>
        </div>
+    
+    <!-- ends -->
+       
 
-      
+       <!-- textarea for sending and replying comments -->
 
        <div  class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2 my-0 px-0 fixed-bottom " style="z-index:66; height:auto;background:#c5c5c5;" >
 
@@ -116,6 +124,8 @@
           
 
        </div>
+
+      <!-- ends -->
          </div>
 
         

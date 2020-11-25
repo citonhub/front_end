@@ -3,7 +3,8 @@
 
        <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0 scrollerStyle" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;  position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
-
+     
+     <!-- top bar -->
 
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
@@ -23,6 +24,11 @@
       </div>
      </div>
 
+    <!-- ends --> 
+
+
+    <!-- shows when page content is loading -->
+
         <v-app class="col-12 py-0 my-0" v-if="pageContent == ''">
       <div 
        
@@ -31,21 +37,28 @@
        </div>
     </v-app>
 
+  <!-- ends -->
+   
+
+   <!-- page content view -->
      <div class="col-12 py-1 my-0 px-0" v-else>
           
+          <!-- for HTML contents -->
              <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" v-if="projectData.is_web"
    :srcdoc="pageContent" 
     style="border: 0; height:91%; position:fixed;left:0; top:6%;" class="  col-lg-6 offset-lg-3 px-1 py-0" ></iframe>
-
-  
+       <!-- ends -->
+    <!-- for non-web content -->
    <textarea  readonly v-else v-model="pageContent"  style="border: 0; height:91%; position:fixed;left:0; top:6%; font-size:14px; " class="  col-lg-6 offset-lg-3 px-3 py-3" >
        
     </textarea>
 
-
+     <!-- ends -->
         </div>
 
+   <!-- ends -->
 
+     <!-- project stars -->
        <div style="position:fixed; top:93%; left:0%;z-index:1000;  height:7%; background:rgba(38, 82, 89,0.8);align-items:center; justify-content:center;"
                  class="d-flex   col-lg-6 offset-lg-3 py-2"  v-if="UserStar.length != 0 && userLoggedIn">
                    <div class="row py-0 my-0">
@@ -82,6 +95,10 @@
 
          </div>
 
+      <!-- ends -->
+
+      <!-- show code panel buttons -->
+
           <span style="position:fixed; top:81.5%; left:3%; z-index:10;"  class="d-md-none d-inline-block">
           <v-btn
                 color="#35747e"
@@ -110,7 +127,9 @@
      </span>
 
 
+    <!-- ends -->
 
+    <!-- show comments buttons -->
       <span style="position:fixed; top:81.5%; right:3%; z-index:999999999999910;"  class="d-md-none d-inline-block">
          <v-badge
           color="#36848C"
@@ -179,7 +198,7 @@
               </v-btn>
               
      </span>
-
+    <!-- ends -->
        </div>
 
         <v-fade-transition>

@@ -3,7 +3,8 @@
 
        <div class="   col-lg-6 offset-lg-3 py-0 px-0 my-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;  position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
-
+        
+        <!-- top bar -->
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
          <div class="col-2 py-0 my-0 text-left" style="border-bottom:2px solid #4495a2;" >
@@ -18,6 +19,9 @@
       </div>
      </div>
 
+     <!-- ends -->
+   
+    <!-- create project form -->
       <div class="col-12 py-1 my-0" style=" height:100%;width:100%; overflow-y:auto; overflow-x:hidden; ">
          <v-form class="row my-2 py-2 px-2 "  ref="form" v-model="formstate">
               
@@ -70,6 +74,8 @@
         </div>
          </div>
        </div>
+
+      <!-- ends -->
 
          <v-fade-transition>
               <div  style="position:absolute; width:100%; height:auto: align-items:center;justify-content:center;bottom:16%; z-index:123453566;"  class="d-flex">

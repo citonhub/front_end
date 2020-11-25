@@ -4,6 +4,8 @@
            <div class="  col-lg-6 offset-lg-3 py-0 px-0 my-0" style="border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
 
+           <!-- top bar -->
+
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-0" >
          <div class="col-4 py-0 my-0 text-left" style="border-bottom:2px solid #4495a2;" >
@@ -20,6 +22,10 @@
       </div>
      </div>
 
+     <!-- ends -->
+   
+
+   <!-- comment form -->
       <div class="col-12 py-1 my-0" >
          <v-form class="row my-2 py-2 px-2 ">
               
@@ -62,6 +68,8 @@
               
           </v-form>
         </div>
+
+    <!-- ends -->
          </div>
            </div>
 

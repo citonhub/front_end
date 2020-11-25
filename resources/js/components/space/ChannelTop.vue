@@ -1,6 +1,9 @@
 <template>
      <div class="row py-1 my-0 px-1" style="cursor:pointer;" >
 
+
+        <!-- info/onboarding dialogues -->
+
         <div style="position:absolute;top:120%; right:1%; z-index:2;" class="d-none d-md-block" v-if="showLiveInfo && this.$root.selectedSpace.type != 'Bot'">
                     <info-dialog :buttonText="'Ok'" :content="liveCodingContent" :type="'infotop'"  :next="'subSpace'"></info-dialog>
                       </div>
@@ -52,11 +55,13 @@
                       <div style="position:absolute;top:120%; right:40%; z-index:2;" class="d-md-none d-block" v-if="showCustomizerInfo && this.$root.selectedSpace.type == 'Bot'">
                     <info-dialog :buttonText="'Ok'" :content="botInfoContentTop" :type="'infotop'" :next="'finalTop'" ></info-dialog>
                       </div>
-
+        <!-- ends -->
 
          <div class="col-1 py-0 my-0 d-flex" style="align-items:center; justify-content:center;">
                <v-btn icon @click.stop="goBack"><v-icon color="white">mdi-arrow-left</v-icon></v-btn>
          </div>
+
+         <!-- space Image -->
          <div class="col-2 py-0 my-0 d-flex" style="align-items:center; justify-content:center;" >
             <div v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
                 
@@ -78,6 +83,9 @@
 
             </div>  
          </div>
+        <!-- ends -->
+
+        <!-- space name, members and other info show here -->
          <div class="col-6 py-0 my-0 pt-1 text-center"  @click="showSpaceInfo">
            <div>
               
@@ -113,6 +121,9 @@
            </div>
              
          </div>
+         <!-- ends -->
+
+         <!-- bot channel -->
 
           <div class="col-1 py-0 my-0 px-0 text-right"  style="" v-if="this.$root.selectedSpace.type == 'Bot'">
                
@@ -120,6 +131,9 @@
               
          </div>
 
+         <!-- ends -->
+
+         <!-- subchannels/teams button -->
           <div class="col-1 py-0 my-0 px-0 text-right"  style="" v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
                
                <v-btn icon @click="subSpaceBoard"><v-icon color="#ffffff">mdi-pound</v-icon></v-btn>
@@ -132,7 +146,10 @@
               
          </div>
 
+
+        <!-- ends -->
          
+        <!-- RTC/ live communication controls -->
           <div class="col-2 py-0 my-0 px-0 text-right"  style="" >
               <v-menu bottom left v-if="this.$root.selectedSpace.type != 'Bot'"
                 transition="slide-y-transition" dense
@@ -158,6 +175,8 @@
               </v-btn>
             </template>
 
+            <!-- Live coding -->
+
            <v-card tile flat class="py-2 text-left px-4" style="width:auto;  background:white;" @click="liveCoding()">
               
               <v-badge
@@ -173,6 +192,9 @@
 
 
            </v-card>
+           <!-- ends -->
+
+           <!-- screen sharing -->
            <v-card  tile flat class="py-2 text-left px-4" style="width:auto; background:white;" @click="screenSharing()">
              
 
@@ -189,6 +211,10 @@
 
              <span style="font-size:12px;"><span v-if="checkIfMaster()" >{{ $t('general.start') }}</span><span v-else >{{ $t('general.join') }}</span> {{ $t('space.screen_sharing') }}</span>
            </v-card>
+
+           <!-- ends -->
+
+           <!-- voice chat -->
             <v-card  tile flat class="py-2 text-left px-4" style="width:auto; background:white;" @click="initaiteAudioConf()">
                  
 
@@ -205,8 +231,10 @@
              
               <span style="font-size:12px;"><span v-if="checkIfMaster()" >{{ $t('general.start') }}</span><span v-else >{{ $t('general.join') }}</span> {{ $t('space.voice_chat') }}</span>
            </v-card>
-
-
+     
+     <!-- ends -->
+    
+       <!-- administrators -->
             <v-card  tile flat class="py-2 text-left px-4" style="width:auto; background:white;" @click="showAdminUsers()" v-if="checkIfisOwner()">
                  
 
@@ -217,15 +245,17 @@
              
               <span style="font-size:12px;">{{ $t('space.admin') }}</span>
            </v-card>
-           
+        <!-- ends -->
           </v-menu>
 
            <v-btn v-else icon   @click="showbotAuthor" ><v-icon color="#ffffff">mdi-comment-question-outline</v-icon></v-btn>
               
          </div>
         
-        
- 
+          <!-- ends -->
+  
+
+      <!-- RTC/ live communication media containers -->
          <div  class="col-12 " style=" position:absolute;top:100%; z-index:99899898999988;" v-show="this.$root.showVideoScreen">
 
                <div style="height:auto;align-items:center;justify-content:center; " class="d-flex col-12 col-md-8 offset-md-2  col-lg-8 offset-lg-2" >
@@ -238,6 +268,8 @@
                </div>
               
          </div>
+
+        <!-- ends -->
       </div>
 
 </template>

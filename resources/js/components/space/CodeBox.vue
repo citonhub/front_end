@@ -1,5 +1,7 @@
 <template>
   <div class="py-2">
+
+    <!-- code box powered by codemirror -->
     <div class=" codeboxnew" >
          <codemirror
         v-model="codeContent"
@@ -22,6 +24,8 @@
         </div>
     </div>
     </div>
+
+  <!-- ends -->
   </div>
    
 </template>

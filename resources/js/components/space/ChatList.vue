@@ -17,10 +17,13 @@
          <div class="row my-0 py-0 px-2 "  >
 
           
+           <!-- project tab -->
 
                <div class="col-12 py-0 px-0 my-1 mt-2 mb-2"  @click="showTab('project')"  >
 
                   <v-card style="cursor:pointer;border-radius:20px;" >
+
+                  <!-- project info dialogue -->
 
                    <div style="position:absolute;top:30%; right:8%; z-index:2;" class="d-none d-md-block" v-if="showProjectInfo">
                     <info-dialog :buttonText="'Ok'" :content="projectContent" :type="'inforight'" :next="'searchInfo'"></info-dialog>
@@ -29,6 +32,8 @@
                       <div style="position:absolute;top:34%; right:17%; z-index:2;" class="d-md-none d-block" v-if="showProjectInfo">
                     <info-dialog :buttonText="'Ok'" :content="projectContent" :type="'inforight'" :next="'searchInfo'"></info-dialog>
                       </div>
+
+                  <!-- ends -->
                  
                  <div class="row py-0 my-0 px-2">
                     <div class="py-1 my-0 d-flex col-2"  >
@@ -51,10 +56,10 @@
              </v-card>
 
                </div>
-               
+            <!-- ends  -->
 
               
-
+            <!-- project view, loops through user projects -->
               
               <div class="col-12 py-1 my-0 mx-0 project" v-if="this.$root.showProject" style="max-height:160px; height:auto; overflow-x:hidden; overflow-y:auto; border-bottom:1px solid #5fb0b9;" >
 
@@ -131,7 +136,11 @@
   
               </div>
               </div>
+
+        <!-- ends -->
              
+
+             <!-- channel tab -->
 
             <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('channel')">
 
@@ -178,10 +187,9 @@
              </v-card>
 
             </div>
-            
+        <!-- ends -->
              
-
-              
+          <!-- channel view, loops through user channels -->
               <div class="col-12 py-1 my-0 mx-0 channelSpace" v-if="this.$root.showChannel" style="max-height:160px; height:auto; overflow-x:hidden; overflow-y:auto;border-bottom:1px solid #5fb0b9;" >
                 <div  v-if="channelSpace != null">
                     <div class="row my-0 my-0 px-2"  v-if="channelSpace.length != 0">
@@ -253,8 +261,10 @@
               </div>
               </div>
              
+        <!-- ends -->
+ 
 
-
+       <!-- team tab -->
              <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('team')" >
 
                <v-card style="cursor:pointer;border-radius:20px;">
@@ -287,8 +297,9 @@
              </v-card>
 
              </div>
-                
+             <!-- ends -->
             
+            <!-- team view, loops through the user teams -->
               <div class="col-12 py-1 my-0 mx-0 teamSpace"  v-if="this.$root.showTeams" style="max-height:160px; height:auto; overflow-x:hidden; overflow-y:auto;border-bottom:1px solid #5fb0b9;"  >
                  <div  v-if="teamSpace != null">
                  <div class="row my-0 my-0 px-2"  v-if="teamSpace.length != 0">
@@ -356,7 +367,9 @@
   
               </div>
               </div>
-              
+        <!-- ends -->
+
+        <!-- direct messages tab -->
               <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('direct')">
 
                  <v-card  style="cursor:pointer;border-radius:20px;">
@@ -386,8 +399,10 @@
                 </v-card>
 
               </div>
-               
+
+               <!-- ends -->
             
+          <!-- Direct messages view, loops through user direct messages -->
               <div class="col-12 py-1 my-0 mx-0 directSpace"   v-if="this.$root.showDirect" style="max-height:160px; height:auto; overflow-x:hidden; overflow-y:auto;border-bottom:1px solid #5fb0b9;" >
                   <div  v-if="channelDirect != null">
                     <div class="row my-0 my-0 px-2"  v-if="channelDirect.length != 0">
@@ -458,6 +473,9 @@
               </div>
               </div>
 
+            <!-- ends -->
+  
+  <!-- Bot tab -->
               <div class="col-12 py-0 px-0 my-1 mb-2" @click="showTab('bots')">
 
                   <v-card  style="cursor:pointer;border-radius:20px;">
@@ -479,9 +497,10 @@
                 </v-card>
 
               </div >
-
+    <!-- ends -->
              
-
+    
+    <!-- Bot view, loops through the user bots-->
                  <div class="col-12 py-1 my-0 mx-0 directSpace"   v-if="this.$root.showBots" style="max-height:160px; height:auto; overflow-x:hidden; overflow-y:auto;border-bottom:1px solid #5fb0b9;" >
                   <div  v-if="this.$root.ChatList[6] != null">
                     <div class="row my-0 my-0 px-2"  v-if="this.$root.ChatList[6].length != 0">
@@ -551,7 +570,7 @@
   
               </div>
               </div>
-             
+             <!-- ends -->
               
              
             
@@ -565,6 +584,8 @@
      
          </div>
 
+      <!-- PWA installer -->
+
          <div style="z-index:1345005;  bottom:13%; justify-content:center; align-items:center;"  class=" fixed-bottom d-flex col-lg-6 offset-lg-3"  v-if="ShowappInstaller">
 
           <v-card class="py-2 px-2 text-center" style="border-radius:10px;" color="#ffffff" width="150px" @click="installApp">
@@ -575,6 +596,10 @@
            
          </div>
 
+      <!-- ends -->
+   
+
+       <!-- global search button -->
     <span style="left:85%;z-index:134500045; bottom:13%;"  class="d-md-none d-inline-block fixed-bottom">
        
 
@@ -607,6 +632,8 @@
                 <v-icon color="#ffffff">mdi-magnify</v-icon>
               </v-btn>
      </span>
+
+    <!-- ends -->
 
  </v-app>
   

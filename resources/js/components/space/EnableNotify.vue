@@ -24,7 +24,9 @@
               </span>
 
                 </div>
+   
 
+   <!-- control button -->
                
                 <div class="col-12 py-1 mt-2 text-center">
                   <div class="row py-0 my-0">
@@ -42,7 +44,7 @@
                 </div>
                 
              
-                 
+         <!-- ends -->
         
 
          

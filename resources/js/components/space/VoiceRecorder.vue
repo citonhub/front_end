@@ -7,7 +7,7 @@
          <div style="position:absolute; height:100%; width:100%; overflow-y:auto;left:0;top:0%;background:rgba(38, 82, 89,0.6);"> 
 
 
-      
+      <!-- audio player after recording is done -->
 
        <div class="col-12 py-0 my-0 px-0 d-flex" style="position:absolute; height:100%;width:100%; overflow-y:auto; overflow-x:hidden; align-items:center; justify-content:center;">
           <v-btn icon color="#ffffff" @click="goBack" style="position:absolute;background:#3E8893;top:3%; left:3%;" 
@@ -22,12 +22,10 @@
               </div>
                 </div>
               
-            
-
-             
-     
         
        </div>
+
+       <!-- ends -->
               
 
    

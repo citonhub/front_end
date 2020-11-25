@@ -10,7 +10,7 @@
 
        <div @click.stop="preventClose" class="py-1 my-0" style=" background-color:white;position:absolute;bottom:0%; height:60%; width:100%; left:0; overflow-y:hidden; overflow-x:hidden; ">
            
-          
+           <!-- main invitation control -->
            <div class="col-12 py-1" >
         <div class="row"  v-if="!selectedExtraOptions">
            
@@ -146,10 +146,15 @@
             
         </div>
 
+     <!-- ends -->
+
+     <!-- send mail and invitation session -->
         <v-app class="row" style="background:transparent; font-family:BodyText;  " v-else>
               <v-form class="col-12 py-2 my-0 text-center" ref="emailform" v-model="Emailformstate" v-if="purpose == 'mail'">
                  <div class="row py-0 my-0">
+       
 
+         <!-- send mail session -->
                    <div class="col-12 py-2 my-0 px-2">
                <v-combobox
           v-model="mails"
@@ -175,7 +180,8 @@
                   {{ $t('general.invite') }}
                   </v-btn>
              </div>
-                   
+
+           <!-- ends -->
               
                  </div>
                    
@@ -183,7 +189,9 @@
 
 
               </v-form>
+          
 
+          <!-- send to connections -->
                <v-form class="col-12 py-2 my-0 text-center" ref="connectionform" v-model="connectionformstate" v-if="purpose == 'connection'">
                  <div class="row py-0 my-0">
 
@@ -203,12 +211,7 @@
           color="#3E8893"
           chips
         ></v-combobox>
-
-          
-
              </div>
-       
-
         <div class="col-12 py-1 my-0 px-2 text-center">
                   <v-btn rounded :loading="loadingEmail" small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
                  @click.stop="sendToConnection" >
@@ -218,12 +221,12 @@
                    
               
                  </div>
-                   
-
-
-
               </v-form>
+
+          <!-- ends -->
         </v-app>
+
+      <!-- ends -->
      </div>
      
      <v-fade-transition>

@@ -2,7 +2,8 @@
      <div style="background:transparent; font-family:BodyText;">
         <div class="card col-lg-6 offset-lg-3 py-0 px-0 my-0" style=" border-radius:0;position:absolute; background:white; height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
-
+     
+     <!-- top bar -->
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
          <div class="col-2 py-0 my-0 text-left px-1" style="border-bottom:2px solid #4495a2;" >
@@ -17,6 +18,10 @@
       </div>
      </div>
 
+     <!-- ends -->
+
+      <!-- cropper component -->
+
       <div class="py-1 my-0" style="position:absolute; top:5%; height:300px;width:100%; left:0; overflow-y:auto; overflow-x:hidden; ">
         
       <image-cropper :img="this.$root.imagepath" :componentType="cropType" :stencilProps="cropProp" class=" d-flex col-12 " ref="cropper"
@@ -24,6 +29,8 @@
         
               
         </div>
+
+      <!-- ends -->
 
         <div class="d-flex" style="position:fixed;left:0; bottom:10%;width:100%;height:auto;align-items:center;justify-content:center;">
                    
