@@ -5,6 +5,8 @@
          <div class="row my-0 py-0 px-2">
 
 
+       <!-- top bar -->
+
          <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
          <div class="col-4 py-0 my-0 text-left" style="border-bottom:2px solid #4495a2;" >
@@ -19,6 +21,9 @@
       </div>
      </div>
 
+    <!-- ends -->
+    
+    <!-- table header -->
       <div class="col-12 py-1 my-0" style=" height:100%; overflow-y:auto; overflow-x:hidden; ">
          <div class="row my-0 py-0 px-2">
              <div class="col-12 py-1 my-0 mt-1 " >
@@ -47,6 +52,10 @@
                       </div> 
                       
         </div>
+      
+      <!-- ends -->
+
+    <!-- table main content -->
     <v-data-table
     style="background:#edf6f7;" 
       :headers="dbFields"
@@ -75,6 +84,8 @@
         
         
     </v-data-table>
+
+  <!-- ends -->
          </div>
 
          <div class="col-12 py-5 my-5" style="padding-top:100px !important;">

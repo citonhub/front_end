@@ -3,6 +3,8 @@
 
          <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white; padding-top:45px !important;">
        <div class="row py-1 my-0 px-1" >
+
+         <!-- Top bar -->
          <div class="col-2 py-0 my-0 text-left px-0" style="border-bottom:2px solid #3E8893;" >
            <v-btn icon color="#3E8893" @click="goBack"><v-icon>mdi-close mdi-18px</v-icon></v-btn>
          </div>
@@ -44,12 +46,16 @@
           <v-btn icon color="#3E8893" @click="closeAddBoard = false" v-if="checkIfisOwner()"  ><v-icon>mdi-plus-circle-outline mdi-18px</v-icon></v-btn>
          </div>
 
+         <!-- ends -->
+
          </div>
          </div>
 
          <div class="col-12 py-0 my-0" >
+           <!-- Sub space view -->
          <div class="row my-0 py-0 px-2"  v-if="subSpaces.length != 0">
-
+         
+         <!-- general space -->
            <v-card flat tile color="#c9e4e8" class="col-12 py-1 px-1 mb-1" v-if="this.$route.params.channelType == 'SubSpace'" @click.stop="gotoGeneral">
               <div class="row py-0 my-0">
                   <div class="col-2 py-0 my-0">
@@ -64,8 +70,10 @@
                     </div>
               </div>
            </v-card>
-         
 
+          <!-- ends -->
+         
+         <!-- loops through all subspaces -->
            <v-card flat tile color="#c9e4e8" class="col-12 py-1 px-1 mb-1" v-for="(space,index) in subSpaces" :key="index" @click.stop="selectSubSpace(space)">
               <div class="row py-0 my-0">
                   <div class="col-2 py-0 my-0">
@@ -81,7 +89,11 @@
               </div>
            </v-card>
 
+          <!-- ends -->
+
          </div>
+
+       
 
           <div class="col-12 text-center" v-else>
       
@@ -104,10 +116,12 @@
           </span>
          
          </div>
-
+    <!-- ends -->
          
          </div>
+  
 
+   <!-- Add new sub space session -->
       <div  @click="closeAddBoard =  true"  v-if="!closeAddBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="col-md-8 offset-md-2  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="preventClose"  style="position:absolute; height:60%; width:100%; top:40%; left:0%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto">
 
@@ -118,6 +132,8 @@
 
 
        <v-app class="row" style="background:transparent; font-family:BodyText;  ">
+
+          <!-- add subspace form -->
               <v-form class="col-12 py-2 my-0 text-center" ref="subSpace" v-model="subSpaceState">
                  <div class="row py-0 my-0 px-2">
 
@@ -152,8 +168,6 @@
         ></v-select>
              </div>
 
-       
-
         <div class="col-12 py-1 my-0 px-2 text-center">
                   <v-btn rounded :loading="loadingSubSpace"  small color="#3E8893" 
                   style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
@@ -164,22 +178,19 @@
                    
               
                  </div>
-                   
-
-
 
               </v-form>
 
-             
+            <!-- ends -->
+
         </v-app>
 
-
-
-            
              </v-card>
 
            </div>
          </div>
+
+        <!-- ends -->
 
            <v-fade-transition>
               <div  style="position:absolute; width:100%; height:auto: align-items:center;justify-content:center;bottom:16%; z-index:123453566;"  class="d-flex">

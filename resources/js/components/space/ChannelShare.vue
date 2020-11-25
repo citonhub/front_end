@@ -1,6 +1,7 @@
 <template>
-       <div style="position:absolute; background:white; top:0%; left:0%; height:95%; overflow-y:auto; overflow-x:hidden; z-index:987664736568; width:100%;" class="scrollerStyle"> 
+       <div style="position:absolute; background:white; top:0%; left:0%; height:95%; overflow-y:auto; overflow-x:hidden; z-index:987664736568; width:100%;" class="scrollerStyle">
 
+     <!-- top bar -->
          <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
          <div class="col-2 py-0 my-0 text-left px-1" style="border-bottom:2px solid #3E8893;">
@@ -8,20 +9,23 @@
          </div>
          <div class="col-8 py-0 my-0 d-flex" style="border-bottom:2px solid #3E8893; align-items:center;justify-content:center;">
           <span  style="font-size:12px; color:#3E8893; font-weight:bolder;font-family:HeaderText;">Share</span>
-         
+
          </div>
          <div class="col-2 py-0 my-0 text-right px-1"  style="border-bottom:2px solid #3E8893;">
-          
+
          </div>
          </div>
          </div>
+
+       <!-- ends -->
+
 
          <div class="col-12 py-0 my-0" >
            <div class="row my-0 py-0 px-2">
-
+         <!-- media type controllers -->
               <div class="col-12 py-1 my-0 text-center">
                  <v-btn icon color="#3E8893" @click="showShareProject ? showShareProject = false : showShareProject = true" style="background:#edf6f7;border:1px solid #3E8893;" class="mx-1"><v-icon>mdi-plus-network-outline</v-icon></v-btn>
-                 
+
                 <v-btn icon color="#3E8893" style="background:#edf6f7;border:1px solid #3E8893;" class="mx-1"><v-icon>mdi-image</v-icon>
                  <input type="file" multiple
                 @change="crophandler" style="opacity:0;width:100%; height:100%; overflow:hidden; position:absolute; z-index:10;"
@@ -41,16 +45,16 @@
                 </v-btn>
                 <v-btn icon color="#3E8893" style="background:#edf6f7;border:1px solid #3E8893;" class="mx-1"><v-icon>mdi-file-document</v-icon>
                   <input type="file" @change="filehandler"
-               style="opacity:0;width:100%; height:100%; overflow:hidden; position:absolute; z-index:10;" 
+               style="opacity:0;width:100%; height:100%; overflow:hidden; position:absolute; z-index:10;"
            />
                 </v-btn>
-                
+
               </div>
 
 
              <div class="col-12 py-2 my-0 px-2" v-if="showShareProject">
                   <v-select
-         
+
           :items="projectArray"
           label="Select Project"
           style="font-size:12px;"
@@ -66,19 +70,21 @@
              </div>
 
 
-                
+            <!-- ends -->
 
-          
-             
+           <!-- media type views -->
+
             <div class="col-12 col-lg-8 offset-lg-2 py-2 my-0 px-2 text-center">
                  <div class="row py-0 my-0">
+
+                    <!-- images -->
                        <div class="col-6 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="image1 != ''">
                             <div @click="editImage('image1')" :style="'border:2px solid #3E8893; border-radius:10px; height:120px; background-image:url('+ image1 +');width:100%; background-size:cover;'" >
                              <div style="position:absolute; height:auto; width:auto; right:10%; top:10%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;">
                                <v-btn icon  @click.stop="image1 = ''"><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
                              </div>
-                              
-                              </div> 
+
+                              </div>
                        </div>
 
                         <div class="col-6 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="image2 != ''">
@@ -86,47 +92,51 @@
                              <div style="position:absolute; height:auto; width:auto; right:10%; top:10%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;">
                                <v-btn icon @click.stop="image2 = ''"><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
                              </div>
-                              
-                              </div> 
+
+                              </div>
                        </div>
                         <div class="col-6 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="image3 != ''">
                             <div @click="editImage('image3')" :style="'border:2px solid #3E8893; border-radius:10px; height:120px; background-image:url('+ image3 +');width:100%; background-size:cover;'" >
                              <div style="position:absolute; height:auto; width:auto; right:10%; top:10%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;">
                                <v-btn icon @click.stop="image3 = ''"><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
                              </div>
-                              
-                              </div> 
+
+                              </div>
                        </div>
                         <div class="col-6 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="image4 != ''">
                             <div @click="editImage('image4')" :style="'border:2px solid #3E8893; border-radius:10px; height:120px; background-image:url('+ image4 +');width:100%; background-size:cover;'" >
                              <div style="position:absolute; height:auto; width:auto; right:10%; top:10%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;">
                                <v-btn icon @click.stop="image4 = ''"><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
                              </div>
-                              
-                              </div> 
-                       </div>
 
+                              </div>
+                       </div>
+                            <!-- ends -->
+
+                            <!-- video -->
                         <div class="col-12 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="videoUrl != ''">
                             <div  style="border:2px solid #3E8893; border-radius:10px; height:100%;width:100%; " >
                               <video-player :videoUrl="videoUrl" :backgroundColor="VideoBackground" :backgroundImg="VideoImgBackground"></video-player>
                              <div style="position:absolute; height:auto; width:auto; right:10%; top:10%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;">
                                <v-btn icon @click.stop="videoUrl = ''"><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
                              </div>
-                              
-                              </div> 
+
+                              </div>
                        </div>
 
+                       <!-- ends -->
 
+                       <!-- audio -->
                        <div class="col-lg-8 offset-lg-2 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="audioUrl != ''">
                             <div  style=" height:100%;width:100%; " >
-                             
-                                  
+
+
                                    <v-card class="py-1 px-2" >
                                   <div class="col-12 py-1 px-0">
                      <div class="row py-0 my-0">
                      <div class="col-3 py-1 my-0 text-center">
                      <span style="background:#c9e4e8; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#1f4247">mdi-music mdi-18px</v-icon></span>
-                 
+
                      </div>
                      <div class="col-6 py-1 my-0 text-left px-0">
                       <span class="msgText">{{ audioName }}</span>
@@ -134,19 +144,23 @@
                       <div class="col-3 py-0 my-0  d-flex px-1" style="align-items:center; justify-content:center;">
                      <span class="msgText" style="font-size:10px;">{{audioSize}}</span>
                      </div>
-                     
+
                   </div>
                    </div>
-           
+
                               </v-card>
-           
-                            
+
+
                              <div style="position:absolute; height:auto; width:auto; right:2%; top:-10%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;">
                                <v-btn icon @click.stop="audioUrl = ''"><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
                              </div>
-                              
-                              </div> 
+
+                              </div>
                        </div>
+
+                       <!-- ends -->
+
+                       <!-- files -->
 
                          <div class="col-12 d-flex py-2 px-4" style="align-items:center;justify-content:center;" v-if="fileUrl != ''">
                             <div  style=" height:100%;width:100%; " >
@@ -155,7 +169,7 @@
                      <div class="row py-0 my-0">
                      <div class="col-3 py-1 my-0 text-center">
                      <span style="background:#c9e4e8; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#1f4247">mdi-file mdi-18px</v-icon></span>
-                 
+
                      </div>
                      <div class="col-6 py-1 my-0 text-left px-0">
                       <span class="msgText">{{ documentName }}</span>
@@ -163,48 +177,54 @@
                       <div class="col-3 py-0 my-0  d-flex px-1" style="align-items:center; justify-content:center;">
                      <span class="msgText" style="font-size:10px;">{{documentSize}}</span>
                      </div>
-                     
+
                   </div>
                    </div>
-           
+
                               </v-card>
                              <div style="position:absolute; height:auto; width:auto; right:2%; top:-10%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;">
                                <v-btn icon @click.stop="fileUrl = ''"><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
                              </div>
-                              
-                              </div> 
+
+                              </div>
                        </div>
 
+                      <!-- ends -->
+
+                    <!-- code -->
                        <div class="col-12 py-2" v-if="codeContent != ''">
                             <div  style="height:100%;width:100%; "  class="px-4">
-                              
+
                               <code-box  :filename="CodeFileName" :codeContent="codeContent" :codeLanguage="codeLanguage" class="text-left" :codeViewerType="viewerType"></code-box>
 
                              <div style="position:absolute; height:auto; width:auto; right:10%; bottom:10%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:12345676;">
                                <v-btn icon @click.stop="codeContent = ''"><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
                              </div>
-                              
-                              </div> 
-                       </div>
 
-                     
+                              </div>
+                       </div>
+                    <!-- ends -->
+
+
 
                  </div>
              </div>
-           
-           
+
+           <!-- ends -->
 
             </div>
 
-           
+
          </div>
 
+     <!-- fixed send button -->
+
            <div class="text-right px-3" style="position:absolute;left:0; bottom:20%;width:100%;height:auto;align-items:center;justify-content:center; z-index:123453566;" >
-                   
+
                   <v-btn fab small color="#3E8893" :disabled="editFeild" style="color:white;"
                    @click="sendMessage" :loading="loading"><v-icon color="#ffffff">mdi-send</v-icon></v-btn>
              </div>
-         
+     <!-- ends -->
 
      <v-fade-transition>
               <div  style="position:absolute; width:100%; height:auto: align-items:center;justify-content:center;bottom:15%; z-index:123453566;"  class="d-flex">
@@ -217,10 +237,10 @@
        style="font-size:13px;background:#dbedf0;"
        height="auto"
       border="left"
-     
+
       elevation="2"
       colored-border
-     
+
     >
       {{alertMsg}}
     </v-alert>
@@ -234,7 +254,7 @@
 export default {
      data(){
         return{
-        
+
            imagepath:'',
         Alert:false,
         alertMsg:'',
@@ -285,15 +305,15 @@ export default {
           loadingProjects:false,
           showShareProject:false,
           selectedProject:'',
-          
+
         }
     },
      components: {
-   
+
   },
     mounted(){
       this.$root.is_reply = false;
-     
+
       this.getAllProjects();
     },
     methods:{
@@ -304,29 +324,29 @@ export default {
             this.loadingProjects = true;
              axios.get( '/fetch-user-projects')
       .then(response => {
-      
+
       if (response.status == 200) {
-        
+
         this.loadingProjects = false;
-     
+
        this.projectArray = response.data
-       
+
      }
-       
-     
+
+
      })
      .catch(error => {
-    
-     }) 
+
+     })
           }
       },
        goBack() {
 
            this.$root.showChatBottom = true;
-          
+
        this.$root.sharePage = false;
         },
-      
+
         memberHandler: function(){
 
         },
@@ -348,7 +368,7 @@ export default {
             this.image3 = '';
             this.image4 = '';
             this.videoUrl = '';
-           
+
     this.$router.push({ path: '/code-editor' });
    },
    bytesToSize:function(bytes) {
@@ -360,7 +380,7 @@ export default {
    audiohandler:function(e){
         this.clearData();
           const files = e.target.files
-            
+
             this.AudioBlob = files[0];
            	const fr = new FileReader ()
         fr.readAsDataURL(files[0])
@@ -370,7 +390,7 @@ export default {
            if(fileSize <= 40000000){
               fr.addEventListener('load', () => {
           this.audioUrl = fr.result;
-          
+
         });
            }else{
               this.showAlert(5000,'Video size cannot be more than 400MB')
@@ -380,18 +400,18 @@ export default {
    filehandler:function(e){
        this.clearData();
           const files = e.target.files
-            
+
             this.FileBlob = files[0];
            	const fr = new FileReader ()
         fr.readAsDataURL(files[0])
          let fileSize = files[0].size;
-             
+
              this.documentSize =  this.bytesToSize(files[0].size);
              this.documentName = files[0].name;
            if(fileSize <= 400000000){
               fr.addEventListener('load', () => {
           this.fileUrl = fr.result;
-          
+
         });
            }else{
               this.showAlert(5000,'File size cannot be more than 400MB')
@@ -402,7 +422,7 @@ export default {
         this.Alert = true;
         this.alertMsg = text;
         let _this = this;
-     
+
      setTimeout(function(){
         _this.Alert = false;
      },duration);
@@ -438,7 +458,7 @@ var block = imageString.split(";");
 var contentType = block[0].split(":")[1];// In this case "image/gif"
 
  var imgType = contentType.slice(6);
- 
+
 // get the real base64 content of the file
 var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
 
@@ -468,7 +488,7 @@ var blob = this.b64toBlob(realData, contentType);
        progressValue:0,
        space_id:this.$root.selectedSpace.space_id,
         tagged:false,
-        type:msgType,    
+        type:msgType,
         user_id:this.$root.user_temp_id,
         username:this.$root.username,
         video:{},
@@ -478,7 +498,7 @@ var blob = this.b64toBlob(realData, contentType);
         file:{}
 
     };
-   
+
    if (msgType == 'image') {
       NewMessage.image = data;
    }
@@ -516,15 +536,15 @@ var blob = this.b64toBlob(realData, contentType);
         this.loading = true;
 
           this.$root.showChatBottom = true;
-          
+
           let formData = new FormData();
-         
+
 
         if(this.image1 != '' || this.image2 != '' || this.image3 != ''|| this.image4 != ''){
-                 
-                
+
+
                 let Data = null;
-          
+
              this.$root.NewMsg = this.makeMessage('image',Data);
 
                this.attachment_type = 'image';
@@ -536,9 +556,9 @@ var blob = this.b64toBlob(realData, contentType);
                      var data1 = this.handleBlob(this.image1);
                        formData.append('image1',data1[0]);
                        formData.append('imageType1',data1[1]);
-                      
+
                    }
-              
+
                }
 
                 if(this.image2 != ''){
@@ -550,7 +570,7 @@ var blob = this.b64toBlob(realData, contentType);
                        formData.append('imageType2',data2[1]);
 
                    }
-              
+
                }
 
                 if(this.image3 != ''){
@@ -562,7 +582,7 @@ var blob = this.b64toBlob(realData, contentType);
                   formData.append('image3',data3[0]);
                        formData.append('imageType3',data3[1]);
                    }
-              
+
                }
                 if(this.image4 != ''){
                    if(this.$root.imageCanvas4 == ''){
@@ -573,17 +593,17 @@ var blob = this.b64toBlob(realData, contentType);
                   formData.append('image4',data4[0]);
                        formData.append('imageType4',data4[1]);
                    }
-              
-               }
-               
-              
-            
-      
-            
-                
 
-            
-            
+               }
+
+
+
+
+
+
+
+
+
 
            // height
              formData.append('imageHeight1',this.imageHeight1);
@@ -599,9 +619,9 @@ var blob = this.b64toBlob(realData, contentType);
         }
 
          if(this.codeContent != ''){
-            
+
              let Data = null;
-          
+
           this.$root.NewMsg = this.makeMessage('code',Data);
 
             this.attachment_type = 'code';
@@ -609,38 +629,38 @@ var blob = this.b64toBlob(realData, contentType);
             formData.append('code',this.codeContent);
              formData.append('file_name',this.CodeFileName);
              formData.append('language_type',this.codeLanguage);
-            
+
         }
 
          if(this.videoUrl != ''){
 
            let Data = null;
-          
+
           this.$root.NewMsg = this.makeMessage('video',Data);
             this.attachment_type = 'video';
 
             formData.append('video',this.VideoBlob);
             formData.append('display_name',this.VideoName);
-            
+
         }
 
          if(this.audioUrl != ''){
-             
+
            let Data =null;
-          
+
           this.$root.NewMsg = this.makeMessage('audio',Data);
-           
+
             this.attachment_type = 'audio';
 
             formData.append('audio',this.AudioBlob);
             formData.append('display_name',this.audioName);
-            
+
         }
 
         if(this.fileUrl != ''){
-           
+
             let Data =null;
-          
+
           this.$root.NewMsg = this.makeMessage('file',Data);
 
             this.attachment_type = 'file';
@@ -648,18 +668,18 @@ var blob = this.b64toBlob(realData, contentType);
             formData.append('file',this.FileBlob);
             formData.append('display_name',this.documentName);
              formData.append('file_size',this.documentSize);
-            
+
         }
 
         if(this.showShareProject == true){
 
            let Data =null;
-          
+
           this.$root.NewMsg = this.makeMessage('project',Data);
 
            let projectData = this.projectArray.filter((project)=>{
               return project.project_slug == this.selectedProject;
-              
+
            });
 
            this.$root.NewMsg.project = projectData[0];
@@ -668,55 +688,55 @@ var blob = this.b64toBlob(realData, contentType);
 
             this.attachment_type = 'project';
 
-            
+
         }
 
 
-        
+
 
           this.$root.Messages.push(this.$root.NewMsg);
-          
+
            this.$root.spaceFullData[0] =  this.$root.Messages;
-         
+
            let fullData = [];
                     fullData.push(this.$root.spaceFullData[0]);
                 fullData.push(this.$root.spaceFullData[1]);
 
                  let thirdData = [];
-                    
+
                     thirdData.push(this.$root.spaceFullData[2][0])
 
                 fullData.push(thirdData);
 
-               
+
 
 
              this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
 
-           
-         
-           
+
+
+
          this.$root.sharePage = false;
 
          this.$root.scrollToBottom();
-           
-         
+
+
          if(this.$root.SpaceUsers.length == 0){
-        
+
           formData.append('current_user','empty');
 
          }else{
-           
+
            formData.append('current_user',JSON.stringify(this.$root.SpaceUsers ));
          }
-      
-        
+
+
         formData.append('is_reply',this.$root.is_reply);
         formData.append('attachment_type',this.attachment_type);
         formData.append('space_id',this.$root.selectedSpace.space_id);
         formData.append('temp_id', this.$root.NewMsg.message_id)
          formData.append('device_id',this.$root.userDeviceId)
-        
+
         this.ChangeDataToDefaults();
 
          this.$root.updateSpaceTracker(this.$root.selectedSpace.space_id);
@@ -730,19 +750,19 @@ var blob = this.b64toBlob(realData, contentType);
          this.codeContent='';
            // Reference to the DOM input element
 			var input = e.target;
-            // Ensure that you have a file before attempting to read it  
-             
+            // Ensure that you have a file before attempting to read it
+
               var filesLength = input.files.length;
               if(filesLength > 4){
                  this.showAlert(5000,'Selected images cannot be more than 4')
                 return;
               }
 
-              
+
 
           if(filesLength <= 4){
-             
-            
+
+
            const files = e.target.files
 
            this.imageTemp1 = files[0];
@@ -754,13 +774,13 @@ var blob = this.b64toBlob(realData, contentType);
            this.$root.imageTemp2 = files[1];
            this.$root.imageTemp3 = files[2];
            this.$root.imageTemp4 = files[3];
-             
+
            	const fr = new FileReader ()
 				fr.readAsDataURL(files[0])
 				fr.addEventListener('load', () => {
           this.image1 = fr.result;
         });
-        
+
           if(files[1]){
             const fr2 = new FileReader ()
 				fr2.readAsDataURL(files[1])
@@ -768,7 +788,7 @@ var blob = this.b64toBlob(realData, contentType);
           this.image2 = fr2.result;
         });
           }
-           	
+
 
         if(files[2]){
            	const fr3 = new FileReader ()
@@ -786,13 +806,13 @@ var blob = this.b64toBlob(realData, contentType);
           this.image4 = fr4.result;
         });
          }
-        
-			
-       
-              
+
+
+
+
           }
-                   
-			
+
+
         },
         editImage:function(imageNumber){
            this.codeContent='';
@@ -805,7 +825,7 @@ var blob = this.b64toBlob(realData, contentType);
 
           this.$root.currentImage = 'image1'
 
-          
+
           }
 
           if(imageNumber == 'image2'){
@@ -837,15 +857,15 @@ var blob = this.b64toBlob(realData, contentType);
 
           this.$root.currentImage = 'image4'
           }
-            this.$root.postContent = this.contentInWord; 
+            this.$root.postContent = this.contentInWord;
 
           this.$router.push({ path: '/image-editor' });
-          
+
         },
         vidoehandler:function(e){
            this.clearData();
           const files = e.target.files
-            
+
             this.VideoBlob = files[0];
            	const fr = new FileReader ()
         fr.readAsDataURL(files[0])
@@ -855,15 +875,15 @@ var blob = this.b64toBlob(realData, contentType);
            if(fileSize <= 100000000){
               fr.addEventListener('load', () => {
           this.videoUrl = fr.result;
-          
+
         });
            }else{
               this.showAlert(5000,'Video size cannot be more than 100MB')
                 return;
            }
-				
+
         }
-  
+
   },
 }
 </script>
@@ -886,15 +906,15 @@ var blob = this.b64toBlob(realData, contentType);
 .newbadge{
      font-size:11px;
       color:rgb(38, 82, 89);
-     font-family:HeaderText; 
-     border:1px solid #3E8893; 
-     border-radius:9px; 
+     font-family:HeaderText;
+     border:1px solid #3E8893;
+     border-radius:9px;
      padding: 2px 4px;
      background:#edf6f7;
      font-weight: bolder;
- } 
+ }
  .messagesBadges{
-    
+
     color: #ffffff;
     background: #3e868e;
     font-size: 11px;

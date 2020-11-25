@@ -3,7 +3,7 @@
 
       
   
-
+    <!-- top bar -->
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
          <div class="col-2 py-0 my-0 text-left px-1" style="border-bottom:2px solid #4495a2;" >
@@ -31,6 +31,9 @@
       </div>
      </div>
 
+    <!-- ends -->
+   
+   <!-- edit space form -->
       <div class="col-12 py-1 my-0" >
          <v-form class="row my-2 py-2 px-2 ">
 
@@ -123,6 +126,8 @@
               
           </v-form>
         </div>
+
+       <!-- ends -->
 
          <input :value="$t('space.channel_desc')" type="hidden" id="descSpace">
 

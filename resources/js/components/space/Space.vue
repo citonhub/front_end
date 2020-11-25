@@ -1,22 +1,23 @@
 <template>
 <div class="fixed-layout">
- 
-     <share v-if="this.$root.showShare"></share>
 
-    
+
+   <!-- other modal component -->
+     <share v-if="this.$root.showShare"></share>
 
      <file-upload  :UploadType="this.$root.UploadType"  :UploadMessage="this.$root.UploadMessage" v-if="this.$root.UploadResources"></file-upload>
 
      <enable-notify v-if="this.$root.shownotificationboard"></enable-notify>
 
-    
+    <!-- ends -->
 
    <div style="width:100%; height:auto; overflow-y:hidden; overflow-x:hidden; ">
 
-     
+     <!-- entry point for vue-router -->
       
       <router-view></router-view>
 
+     <!-- ends -->
    </div>
 
 </div>
