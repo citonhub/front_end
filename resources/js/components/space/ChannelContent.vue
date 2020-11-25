@@ -1,11 +1,11 @@
-<template>
+ends<template>
     <div style="background:#edf6f7; position:absolute; height:100%; width:100%; overflow-y:hidden;left:0; overflow-x:hidden; border-right:1px solid #e6e6e6;" >
 
 
   <!-- full message view session -->
        <div v-if="this.$root.Messages != null">
-      
-     
+
+
       <DynamicScroller
     :items="this.$root.Messages"
      v-if="this.$root.Messages.length != 0"
@@ -13,9 +13,9 @@
     :min-item-size="36"
     ref="messageContainer"
     :buffer="5000"
-    id="messageContainer" 
-   class="col-12 py-2 px-2" 
-     
+    id="messageContainer"
+   class="col-12 py-2 px-2"
+
         style="position:absolute; width:100%; height:100%; top:0%;left:0%; overflow-y:auto;  overflow-x:hidden; padding-top:60px !important;"
   >
 
@@ -30,12 +30,12 @@
       >
 
        <channel-messages :source="item"  ></channel-messages>
-       
+
       </DynamicScrollerItem>
     </template>
 
     <template #after>
-     
+
      <div  class=" col-12 mt-2 py-1 text-left" v-if="that.$root.botIsLoading" >
 
         <v-card class="py-0 px-1 text-center" style="border-radius:30px;" width="100px" >
@@ -49,64 +49,80 @@
 
            <v-btn  v-for="(pattern,index) in that.$root.botSuggestionArray" :key="index"
            rounded color="#3E8893" @click="initiateMessageCtl(pattern.pattern_content)" class="ma-1" style="color:white; text-transform:capitalize; border:2px solid white;" small > {{pattern.pattern_content}}</v-btn>
-         
+
         <v-btn rounded color="#3E8893" class="ma-1" style="color:white; text-transform:capitalize; border:2px solid white;" small @click="initiateMessageCtl(that.$root.botSuggestionArray[0].pattern_content)" > Continue</v-btn>
 
-         
+
       </div>
 
        <div  class=" col-12 " style="margin-top:170px;">
 
-        
+
 
       </div>
   </template>
 
-  </DynamicScroller> 
+  </DynamicScroller>
 
-  
+
 
 
       <div v-show="this.$root.Messages.length == 0" class="col-12 my-2 py-0 px-0 mx-1 text-center"  style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;" >
        <span style="color:gray; font-size:12px; font-family:BodyText;"  class="d-block"> {{ $t('space.no_messages') }}</span>
-              
+
          </div>
 
 
        </div>
 
       <!-- ends -->
-       
 
+
+     <!-- shows when message is loading -->
      <div class="col-12 py-0 my-0 d-flex"  v-if=" this.errorLoadingMessage == false && !this.messageIsReady" style=" align-item:center;justify-content:center;position:absolute; background:white; width:100%; z-index:3455699; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">
 
          <div class=" py-0 my-0 px-1 text-center" style="top:40%;position:absolute; height:50%; width:100%;">
-            
+
           <span style="font-size:13px; color:grey;">Loading messages...</span>
          </div>
 
 
-       
 
-       
 
-         
+
+
+
       </div>
+ <!-- ends -->
+
+ <!-- shows up when messages fails to load -->
+
+  <div class="col-12 py-0 my-0 text-center"  v-if="this.$root.Messages == null && this.errorLoadingMessage == true" style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">
+
+           <div style="color:gray; font-size:12px;" class="mb-2">{{ $t('space.error_message_load') }}</div>
+
+           <v-btn fab color="#3E8893" small @click="fetchMessages"> <v-icon color="#ffffff">mdi-reload</v-icon> </v-btn>
 
 
+       </div>
+ <!-- ends -->
+
+ <!-- user info board , fixed to the bottom -->
 
  <div  @click="closeUserInfoBoard"   v-if="this.$root.showUserInfo" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
-    
-       <div @click.stop="preventCloseBoard" style="position:absolute; height:auto; width:90%; bottom:5%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
-  
 
-          <v-card  
+       <div @click.stop="preventCloseBoard" style="position:absolute; height:auto; width:90%; bottom:5%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
+
+
+          <v-card
       style="border-radius:20px;"
        height="auto"
-         
+
        class="pt-2 pb-0 col-12 col-lg-8 offset-lg-2"
   >
    <div class="row py-0 my-0"  v-if="this.$root.userBasicInfo.length != 0" >
+
+      <!-- user connections -->
 
      <div class="col-4 d-flex py-0 my-0" style="align-items:center; justify-content:center;">
 
@@ -118,54 +134,63 @@
 
                   <span class=" px-1 d-block" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.connections}}</span>
 
-             
+
 
               </div>
 
-             
+
      </div>
 
+     <!-- ends -->
+
+   <!-- user profile imnage -->
       <div class="col-4 d-flex py-0 my-0" style="align-items:center; justify-content:center;">
 
         <div>
            <v-img  @click="viewFullImage()"
-                   :style="this.$root.userBasicInfo.background_color != null ?  'background-color:'   + this.$root.userBasicInfo.background_color + ';' : 'background-color:#ffffff;'" 
+                   :style="this.$root.userBasicInfo.background_color != null ?  'background-color:'   + this.$root.userBasicInfo.background_color + ';' : 'background-color:#ffffff;'"
                    :src="this.$root.userBasicInfo.image_name != null ? 'imgs/profile/' + this.$root.userBasicInfo.image_name + '.' + this.$root.userBasicInfo.image_extension : 'imgs/usernew.png'" height="90" width="90" class="avatarImg" style="border:3px solid #3E8893;border-radius:50%;"></v-img>
 
-                   
+
 
      </div>
 
     </div>
+    <!-- ends -->
 
+  <!-- users coin, would be changed later to stars -->
 
       <div class="col-4 d-flex py-0 my-0" style="align-items:center; justify-content:center;">
               <div class="text-center">
-                  <img src="imgs/coins.png" height="30"  class="d-block" > 
+                  <img src="imgs/coins.png" height="30"  class="d-block" >
                   <span class=" px-1 d-block" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.coins}}</span>
 
-              
+
 
               </div>
 
      </div>
 
+     <!-- ends -->
+
+    <!-- user name and username -->
       <div class="col-12 d-flex py-0 my-1" style="align-items:center; justify-content:center;">
               <div class="text-center">
-                
+
                   <span class=" px-1 d-block" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.userData.name}}</span>
 
                    <span class=" px-1 d-block" style="color: #2d626c; font-size:12px; ">@{{this.$root.userBasicInfo.userData.username}}</span>
 
-              
+
 
               </div>
           </div>
+   <!-- ends -->
 
-      
+      <!-- users team, channels and projects -->
        <div class="col-12 py-0 my-0" >
               <div class="row my-0 py-0">
-                
+
                   <div class="col-4 text-center d-flex py-0 my-1" style="align-items:center; justify-content:center;">
 
                      <div>
@@ -176,17 +201,17 @@
      style="color:#ffffff;background:#3E8893; font-size:11px;"
       >
       {{ $t('space.channels') }}
-      </v-chip>  
+      </v-chip>
 
        <span class=" px-1 d-block py-1" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.channels}}</span>
                      </div>
-                      
-                  
+
+
 
                   </div>
-                  
+
                    <div class="col-4 text-center d-flex py-0 my-1" style="align-items:center; justify-content:center;">
-               
+
 
                <div>
          <v-chip
@@ -196,18 +221,18 @@
      style="color:#ffffff;background:#3E8893; font-size:11px;"
       >
        {{ $t('space.projects') }}
-      </v-chip>  
+      </v-chip>
 
       <span class=" px-1 d-block py-1" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.projects}}</span>
                </div>
-                      
+
 
                   </div>
 
                    <div class="col-4 text-center d-flex py-0 my-1" style="align-items:center; justify-content:center;">
 
                       <div>
-                        
+
                           <v-chip
       small
       class="d-block"
@@ -215,23 +240,25 @@
      style="color:#ffffff;background:#3E8893; font-size:11px;"
       >
        {{ $t('space.teams') }}
-      </v-chip>  
+      </v-chip>
 
       <span class=" px-1 d-block py-1" style="color: #2d626c; font-size:12px; font-family:HeaderText;">{{this.$root.userBasicInfo.teams}}</span>
                       </div>
 
-                     
+
 
                   </div>
 
               </div>
 
      </div>
+   <!-- ends -->
 
+     <!-- bottom button controls -->
 
       <div class="col-12  py-2 my-1 mb-0 pb-2"  style="background:#4497a2; border:1px solid #4497a2; border-radius:18px ;" >
               <div class="row py-0 my-0">
-                
+
                   <div class="col-6 text-center py-0 px-0">
                     <v-btn  rounded color="#ffffff" small :loading="loadingMessage" @click.stop="messageSpace" ><span style="font-size:12px; font-family:HeaderText; color:#1e4348; text-transform:capitalize;">Message</span></v-btn>
                   </div>
@@ -247,31 +274,32 @@
                    <div class="col-6 text-center py-0 px-0" v-if="this.$root.userBasicInfo.user_connected == 'connected'">
                     <v-btn  rounded color="#ffffff" small  ><span style="font-size:12px; color:#1e4348; font-family:HeaderText;  text-transform:capitalize;">{{ $t('general.connected') }}</span></v-btn>
                   </div>
-                 
+
 
               </div>
           </div>
+        <!-- ends -->
 
 
-      
-       
 
-    
 
-      
+
+
+
+
 
    </div>
 
 
-
+  <!-- loader when user info is loading -->
 
    <div class="row py-0 my-0" v-else >
-       
+
         <v-skeleton-loader
            class="mx-auto my-2 col-12"
            height="90"
            width="100%"
-          
+
          type="image"
           ></v-skeleton-loader>
 
@@ -279,33 +307,36 @@
               <span class=" px-1 d-block" style="color: #2d626c; font-size:12px;">{{ this.$root.infoLoaderText}}</span>
           </div>
         </div>
+<!-- ends -->
 
 
-  
 
-    
 
-    
-    
-    
+
+
+
+
 
   </v-card>
 
 
        </div>
-        
+
 
       </div>
 
+<!-- ends -->
 
+
+<!-- modal for user to send message to bot author -->
  <div   v-if="showBotAuthorBoard" @click="showBotAuthorBoard = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="showBotAuthorBoard = true" style="position:absolute; height:auto; width:90%; bottom:20%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
              <v-card style="border-radius:10px;"
               height="auto"
-      
+
               class="py-2 px-1 col-12 col-lg-8 offset-lg-2 " >
-         
+
          <div class="row py-0 my-0 px-2">
               <div class="col-12  pt-2 pb-1 my-0 px-2 text-center">
                   <v-textarea
@@ -316,12 +347,12 @@
             label="Send my author a message"
              filled
              append-icon="mdi-send"
-             dense    
+             dense
            height="100px"
            v-model="messageContent"
               counter="200"
              color="#4495a2"
-            
+
              ></v-textarea>
              </div>
 
@@ -329,29 +360,30 @@
                  <span style="color:grey; font-size:12px;">Do you wish to own a bot too? </span>  <span style="font-size:12px;" class="ml-1">No</span><v-switch class="d-inline-block mx-1 mr-0" v-model="botInterest" @change="saveUserInterest" color="#3E8893"></v-switch> <span style="font-size:12px;" >Yes</span>
              </div>
 
-              <div class="col-3  py-0 my-0 px-2 text-right">
-
-           
-                 
-             </div>
+              
 
          </div>
-            
+
 
              </v-card>
 
            </div>
          </div>
-     
+   <!-- ends -->
 
+
+
+<!-- modal shows up during live communications (voice chat) -->
       <div v-if="this.$root.liveIsOn" @click="closeLiveBoard" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; left:0%; top:%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
-    
+
 
 
 
 
        <div  @click.stop="preventCloseBoard" style="position:absolute; height:auto; width:90%; top:45%; left:5%; overflow-y:hidden; " class="mx-auto pb-2">
+    
 
+     <!-- shows when RTC is connection -->
 
         <div class="col-12 text-center"    v-if="this.$root.connectingToSocket == true">
 
@@ -365,11 +397,11 @@
           <span style="font-size:14px; color:white;">{{ $t('space.wait_for_admin') }}</span>
            </div>
 
-           
+
 
 
            </div>
-            
+
             <div v-if="!this.$root.roomNotExist">
 
                <div class="py-2">
@@ -381,11 +413,14 @@
            </div>
 
             </div>
-          
 
-         
+
+
         </div>
+    <!-- ends -->
+   
 
+     <!-- show when user is disconnected -->
         <div class="col-12 text-center"    v-if="this.$root.connectingToSocket == 'disconnected'">
 
            <div>
@@ -398,26 +433,28 @@
           <span style="font-size:14px; color:white;">{{ $t('space.disconnected_info') }}</span>
            </div>
 
-           
+
 
 
            </div>
-            
-          
 
-         
+
+
+
         </div>
 
+        <!-- ends -->
 
-  
 
-          <v-card  
+
+    <!-- top bar of the board, containers the member count and the leave button -->
+          <v-card
        v-if="this.$root.connectingToSocket == false"
        class="col-12 col-lg-8 offset-lg-2 py-1 px-1"
   >
     <v-card
       color="#3E8893"
-      
+
       class="px-1 py-2"
     >
 
@@ -425,17 +462,17 @@
 
       <div class="row py-0 my-0">
 
-         
 
-        <div style="color:white; font-size:13px; font-family:HeaderText;" class="col-7 py-0 my-1 px-1"> 
-         
+
+        <div style="color:white; font-size:13px; font-family:HeaderText;" class="col-7 py-0 my-1 px-1">
+
              <v-icon color="#ffffff"  >mdi-close mdi-18px</v-icon>
-     
-      {{ $t('space.active_members') }} <span class="ml-1 py-1 px-1" 
+
+      {{ $t('space.active_members') }} <span class="ml-1 py-1 px-1"
         style="color:#ffffff; ">({{ this.$root.allAudioParticipant.length + 1 }})</span></div>
 
       <div class="col-5 py-0 my-0 text-right">
-       
+
         <div>
            <v-btn x-small color="#ffffff" @click="closeConnections" v-if="!this.$root.connectingToSocket && !this.$root.userIsReconnecting">
         <span style="color:#265259; font-size:10px;font-family:HeaderText; ">{{ $t('space.leave') }}</span>
@@ -449,16 +486,20 @@
        {{ $t('general.reconnecting') }}...
       </span>
         </div>
-        
-      </div>
 
       </div>
 
-      
+      </div>
+
+
 
     </div>
 
     </v-card>
+
+    <!-- ends -->
+
+    <!-- loops through the connected members -->
     <v-list  class="pb-3 scrollerStyle" style=" height:220px;width:100%; overflow-y:auto;">
 
       <v-list-item
@@ -473,27 +514,27 @@
         </v-list-item-content>
 
         <v-list-item-icon >
-          
+
            <v-btn icon @click="muteAudio" v-if="!this.$root.localAudioMuted">
 
              <v-icon color="#3E8893">mdi-microphone </v-icon>
 
-             
+
 
            </v-btn>
             <v-btn icon @click="unmuteAudio" v-else>
 
-              
+
         <v-icon >mdi-microphone-off </v-icon>
            </v-btn>
 
-          
-         
+
+
         </v-list-item-icon>
       </v-list-item>
 
        <v-list-item v-for="(user,index) in this.$root.allAudioParticipant" :key="index"
-       style="border-bottom:1px solid #c5c5c5;" 
+       style="border-bottom:1px solid #c5c5c5;"
       >
         <v-list-item-avatar>
           <v-img :src="user[0].profile.image_name == null ? '/imgs/usernew.png' : '/imgs/profile/' + user[0].profile.image_name + '.' + user[0].profile.image_extension"></v-img>
@@ -504,25 +545,25 @@
         </v-list-item-content>
 
         <v-list-item-icon >
-          
-          <div style="position:relative; height:40px; width:40px; background:#666666; 
+
+          <div style="position:relative; height:40px; width:40px; background:#666666;
                border:1px solid transparent; border-radius:50%;" v-if="user[0].speaking == false"
-        class="outerbox d-flex">     
+        class="outerbox d-flex">
    <div :style="'width:' + user[0].volume + '%; height:' + user[0].volume  +'%;'"
      class="innerBoxnewFade">
-  
+
      </div>
      </div>
 
-     <div style="position:relative; height:40px; width:40px; background:#35747e; 
+     <div style="position:relative; height:40px; width:40px; background:#35747e;
                border:1px solid transparent; border-radius:50%;" v-else
-        class="outerbox d-flex">     
+        class="outerbox d-flex">
    <div :style="'width:' + animateVolume + '%; height:' + animateVolume  +'%;'"
      class="innerBoxnew">
-  
+
      </div>
      </div>
-         
+
         </v-list-item-icon>
       </v-list-item>
 
@@ -532,79 +573,74 @@
 
 
 
-      
-     
-       
 
 
-      
+
+
+
+
     </v-list>
 
-    
+   <!-- ends -->
   </v-card>
 
 
        </div>
-        
+
 
       </div>
+<!-- ends -->
 
-
-
+    <!-- modal to switch btw administrators -->
        <div    v-if="this.$root.showAdminOptions" @click="that.$root.showAdminOptions = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="that.$root.showAdminOptions = true" style="position:absolute; height:auto; width:90%; top:30%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
              <v-card style="border-radius:10px;"
        height="auto"
-      
+
        class="py-2 px-1" >
 
              <div class="text-center">
                <h6>Administrators</h6>
              </div>
-           
-             <v-card tile flat  @click.stop="makeUserMaster(admin)" :color="admin.master_user ? '#b7dbe1': '#ffffff'" class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" v-for="(admin, index) in this.$root.adminMembers" 
+
+             <v-card tile flat  @click.stop="makeUserMaster(admin)" :color="admin.master_user ? '#b7dbe1': '#ffffff'" class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" v-for="(admin, index) in this.$root.adminMembers"
              :key="index">
         <span style="font-size:13px;" v-if="!checkIfUser(admin.user_id)">{{admin.username}}</span>
          <span style="font-size:13px;" v-else>You</span>
             </v-card>
-            
-           
+
+
 
              </v-card>
 
            </div>
          </div>
 
-
-        <div class="col-12 py-0 my-0 text-center"  v-if="this.$root.Messages == null && this.errorLoadingMessage == true" style="position:absolute; width:100%; height:100%; overflow-y:auto; overflow-x:hidden; padding-top:60px !important;padding-bottom:150px !important;">
-
-           <div style="color:gray; font-size:12px;" class="mb-2">{{ $t('space.error_message_load') }}</div>
-
-           <v-btn fab color="#3E8893" small @click="fetchMessages"> <v-icon color="#ffffff">mdi-reload</v-icon> </v-btn>
+<!-- ends -->
        
-         
-       </div>
-      
 
+  <!-- bottom session of the chat -->
          <div   class="  col-lg-6 offset-lg-3 py-0 my-0 px-0 fixed-bottom " style="z-index:66; " >
+
+            <!-- shows up when replaying a message -->
                 <div class="px-2" v-if="this.$root.showRootReply">
 
                   <div class=" py-2 px-2  text-left mb-1"  style="background:#3E8893; border:1px solid transparent; border-radius:8px;" >
 
                      <div class="col-12 py-1 px-1  text-right" v-if="this.$root.replyMessage.type == null">
                   <span class="msgTextReplynew text-left d-block" style="color:white;" v-html="shortenContent(this.$root.replyMessage.content ,50)" ></span>
-                 
+
               </div>
 
                <div class="col-12 py-1 px-1  text-right" v-if="this.$root.replyMessage.type == 'action'">
                   <span class="msgTextReplynew text-left d-block" style="color:white;" v-html="shortenContent(this.$root.replyMessage.content ,50)" ></span>
-                 
+
               </div>
-              
+
                  <div class="row py-0 my-0" v-if="this.$root.replyMessage.type == 'image'">
                      <div class="col-3 py-0 my-0">
-                   <v-img width="50" :src="'/imgs/space/' + this.$root.replyMessage.image[0].image_name  + '.' + this.$root.replyMessage.image[0].image_extension" class="d-inline-block "> 
+                   <v-img width="50" :src="'/imgs/space/' + this.$root.replyMessage.image[0].image_name  + '.' + this.$root.replyMessage.image[0].image_extension" class="d-inline-block ">
 
                  </v-img>
                      </div>
@@ -612,7 +648,7 @@
                  <span class="msgTextReplynew" style="color:white;">{{this.$root.replyMessage.image.length}} Images</span>
                      </div>
                      <div class="col-3 py-0 my-0 text-center px-0">
-                 
+
                      </div>
                   </div>
 
@@ -620,13 +656,13 @@
                    <div class="row py-0 my-0" v-if="this.$root.replyMessage.type == 'project'">
                      <div class="col-3 py-0 my-0">
                 <span style="background:whitesmoke; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#3E8893">mdi-plus-network-outline mdi-18px</v-icon></span>
-                
+
                      </div>
                      <div class="col-6 py-1 my-0 text-center px-0">
                  <span class="msgTextReplynew" style="color:white;">{{shortenContent(this.$root.replyMessage.project.title ,30)}}</span>
                      </div>
                      <div class="col-3 py-0 my-0 text-center px-0">
-                 
+
                      </div>
                   </div>
 
@@ -634,45 +670,45 @@
                    <div class="row py-0 my-0" v-if="this.$root.replyMessage.type == 'video'">
                      <div class="col-3 py-0 my-0 text-center">
                     <span style="background:whitesmoke; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#3E8893">mdi-video mdi-18px</v-icon></span>
-                 
+
                      </div>
                      <div class="col-9 py-0 my-0 text-left px-0">
                  <span class="msgTextReplynew" style="color:white;">{{ shortenContent(this.$root.replyMessage.video.display_name ,30)}}</span>
                      </div>
-                     
+
                   </div>
 
                   <div class="row py-0 my-0" v-if="this.$root.replyMessage.type == 'audio'">
                      <div class="col-3 py-0 my-0 text-center">
                     <span style="background:whitesmoke; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#3E8893">mdi-music mdi-18px</v-icon></span>
-                 
+
                      </div>
                      <div class="col-9 py-0 my-0 text-left px-0">
                  <span class="msgTextReplynew" style="color:white;">{{ shortenContent(this.$root.replyMessage.audio.display_name ,30)}}</span>
                      </div>
-                     
+
                   </div>
 
-                  <div class="row py-0 my-0"  v-if="this.$root.replyMessage.type == 'file'"> 
+                  <div class="row py-0 my-0"  v-if="this.$root.replyMessage.type == 'file'">
                      <div class="col-3 py-0 my-0 text-center">
                     <span style="background:whitesmoke; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#3E8893">mdi-file mdi-18px</v-icon></span>
-                 
+
                      </div>
                      <div class="col-9 py-0 my-0 text-left px-0">
                  <span class="msgTextReplynew" style="color:white;">{{ shortenContent(this.$root.replyMessage.file.display_name ,30)}}</span>
                      </div>
-                     
+
                   </div>
 
                   <div class="row py-0 my-0" v-if="this.$root.replyMessage.type == 'code'">
                      <div class="col-3 py-0 my-0 text-center">
                     <span style="background:whitesmoke; border:1px solid transparent; border-radius:50%;" class="px-1 py-1"><v-icon color="#3E8893">mdi-file mdi-18px</v-icon></span>
-                 
+
                      </div>
                      <div class="col-9 py-0 my-0 text-left px-0">
                  <span class="msgTextReplynew" style="color:white;">{{ this.$root.replyMessage.code.name + '.' + languageExtensions(this.$root.replyMessage.code.language_type)}}</span>
                      </div>
-                     
+
                   </div>
               <span class="text-right label d-block " style="color:white;">{{this.$root.replyMessage.username}}</span>
               </div>
@@ -680,20 +716,27 @@
                                <v-btn icon @click="closeReply"><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
                              </div>
                 </div>
+                
+              <!-- ends -->
 
-           
+            <!-- the chat bottom components is pulled in -->
+
             <div  style="background:#ffffff; border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6;" class="px-2 py-1">
           <channel-bottom ref="channelBottom"></channel-bottom>
         </div>
-         </div>
-         
-         
-      
-      <div v-if="this.$root.ShowButton">
-       
-       
 
-      
+         <!-- ends -->
+         </div>
+
+     <!-- ends -->
+   
+
+   <!-- All fixed floating  button -->
+      <div v-if="this.$root.ShowButton">
+
+
+
+    <!-- codebox button -->
        <span style="position:fixed; top:79%; right:4%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type != 'Bot'">
 
             <div style="position:absolute;bottom:120%; right:17%; z-index:2;" v-if="showCodeBoxInfo" >
@@ -710,7 +753,7 @@
                 <v-icon color="#ffffff">mdi-xml</v-icon>
               </v-btn>
      </span>
-     
+
 
       <span style="position:absolute; top:85%; right:3%;  z-index:98757;" class="d-none d-md-inline-block"  v-if=" this.$root.selectedSpace.type != 'Bot'">
 
@@ -730,15 +773,17 @@
               </v-btn>
      </span>
 
-
+  <!-- ends -->
+   
+   <!-- share button for bots -->
 
       <span style="position:fixed; top:79%; right:4%; z-index:98757;"  class="d-md-none d-inline-block" v-if=" this.$root.selectedSpace.type == 'Bot'">
 
-          
+
           <v-btn
                 color="#3E8893"
                 small
-               
+
                  @click="shareBot()"
                 class="d-block"
                 fab
@@ -746,24 +791,26 @@
                 <v-icon color="#ffffff">mdi-share-variant mdi-18px</v-icon>
               </v-btn>
      </span>
-     
+
 
       <span style="position:absolute; top:85%; right:3%;  z-index:98757;" class="d-none d-md-inline-block"  v-if=" this.$root.selectedSpace.type == 'Bot'">
 
-      
+
 
           <v-btn
                 color="#3E8893"
                 small
               @click="shareBot()"
                 class="d-block"
-               
+
                 fab
               >
                 <v-icon color="#ffffff">mdi-share-variant mdi-18px</v-icon>
               </v-btn>
      </span>
+ <!-- ends -->
 
+ <!-- delete message  -->
 
  <span style="position:fixed; top:79%; left:4%; z-index:999998757;"  class="d-md-none d-inline-block" v-if="this.$root.showMsgDelete">
           <v-btn
@@ -788,11 +835,11 @@
                 <v-icon color="#ffffff">mdi-delete mdi-18px</v-icon>
               </v-btn>
      </span>
-
+  <!-- ends -->
 
       </div>
-       
-      
+  <!-- ends -->
+
 
     </div>
 </template>
@@ -862,14 +909,14 @@ export default {
               background_color:'#c5c5c5'
             },
           ]
-          
+
         }
     },
      components: {
-   
+
   },
    computed:{
-     
+
 
    },
     mounted(){
@@ -879,29 +926,29 @@ export default {
         this.$root.initialPushMangerReg();
 
          this.$root.typing = false;
-       
+
        this.$root.chatisOpen = true;
-       
+
          this.$root.closeNotification(this.$route.params.spaceId);
        this.fetchMessages();
 
        if(this.$root.projectData.length != 0){
-              
+
               this.$root.localChannel = [];
              window.Echo.leave('panel.' + this.$root.projectData.project_slug);
 
           }
-          
-       
+
+
 
        this.$root.channelContentComponent = this;
-       
+
        this.makeSpaceConnetion();
        this.$root.forceListReload = false;
 
        this.resendMessages();
 
-        
+
 
        this.animateVolumeControl();
 
@@ -911,11 +958,11 @@ export default {
 
        }
 
-    
-    
-     
-       
-      
+
+
+
+
+
     },
     methods:{
       shareBot:function(){
@@ -933,17 +980,17 @@ export default {
  saveUserInterest:function(){
     axios.post('/save-user-onboarding-bot_interest')
       .then(response => {
-      
+
       if (response.status == 200) {
 
-       
+
      }
-       
-     
+
+
      })
      .catch(error => {
-       
-       
+
+
      })
  },
       sendAuthorMessage:function(){
@@ -966,32 +1013,32 @@ export default {
 
         axios.post('/send-bot-author-message',postData)
          .then(response => {
-      
+
       if (response.status == 200) {
-    
+
 
     this.messageContent = '';
 
      this.loadingAuthorMessage = false;
-        
+
       }
-       
-     
+
+
      })
      .catch(error => {
 
-       
-    
-     }) 
+
+
+     })
 
       },
-       initiateMessageCtl: function(message){       
+       initiateMessageCtl: function(message){
 
-        
+
           this.$root.channelBottomComp.contentInWord = message;
 
            this.$root.channelBottomComp.input = message;
-            
+
             let refocus = false;
           this.$root.channelBottomComp.sendMessage(refocus);
 
@@ -1005,11 +1052,11 @@ export default {
            axios.get('/fetch-user-onboarding')
       .then(response => {
 
-         
-      
+
+
       if (response.status == 200 || response.status == 201) {
 
-          
+
         if(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team'){
 
            let storedInfo = this.$root.getLocalStore('channelcontentinfoChannel'+ this.$root.username);
@@ -1047,20 +1094,20 @@ export default {
         })
 
          }
-       
+
 
      }
-       
-     
+
+
      })
      .catch(error => {
-       
-       
+
+
      })
 
-        
 
-      
+
+
 
       },
        checkIfUser:function(userId){
@@ -1069,16 +1116,16 @@ export default {
             }else{
               return false;
             }
-            
+
          },
          checkIfisOwner: function(){
 
            let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
-   
+
              return members.user_id == this.$root.user_temp_id;
            });
 
-           
+
            if(userMemberData.length != 0){
 
              return userMemberData[0].is_admin;
@@ -1086,41 +1133,41 @@ export default {
            }else{
               return false
            }
-         
+
        },
-     
+
          autoMakeuserMaster:function(){
-                     
-                     
-   
+
+
+
 
             if(this.checkIfisOwner()){
-           
-             
-           
+
+
+
            let master = this.$root.selectedSpaceMembers.filter((member)=>{
-               
+
               return member.master_user == true;
 
             });
-        
-      
 
-            
+
+
+
             let userMember = this.$root.selectedSpaceMembers.filter((member)=>{
-               
+
               return member.user_id == this.$root.user_temp_id;
 
             });
 
             if(master.length == 0){
 
-              
+
 
                this.makeUserMaster(userMember[0]);
 
             }
-           
+
 
             }
 
@@ -1133,15 +1180,15 @@ export default {
            space_id: this.$route.params.spaceId
          })
       .then(response => {
-      
+
       if (response.status == 200) {
 
           this.$root.adminMembers.forEach((member)=>{
-            
+
              member.master_user = false;
 
           });
-        
+
           this.$root.adminMembers.map((member)=>{
            if(member.memberId == response.data){
 
@@ -1151,7 +1198,7 @@ export default {
          })
 
           this.$root.selectedSpaceMembers.forEach((member)=>{
-            
+
              member.master_user = false;
 
           });
@@ -1164,27 +1211,27 @@ export default {
            }
          })
 
-         
-    
+
+
 
         this.liveChanges(response.data,'new_master');
       }
-       
-     
+
+
      })
      .catch(error => {
 
-       
-    
-     }) 
+
+
+     })
 
       },
        liveChanges:function(data,action) {
 
-      
+
       let channel =  window.Echo.join('space.' + this.$route.params.spaceId);
-   
-      
+
+
 
          channel.whisper('liveCoding', {
           data:data,
@@ -1193,27 +1240,27 @@ export default {
         });
 
 
-       
 
-         
-     
-          
+
+
+
+
         },
        fetchSpaceInfo: function(){
 
             axios.get( '/fetch-space-info-'+ this.$route.params.spaceId)
    .then(response => {
-   
+
    if (response.status == 200) {
 
-    
+
 
        this.$root.selectedSpace = response.data;
 
         if(this.$root.ChatList[0] != undefined){
 
            this.$root.ChatList[1].map((chat)=>{
-          
+
            if(chat.space_id == this.$route.params.spaceId){
 
               chat.name = this.$root.selectedSpace.name;
@@ -1252,28 +1299,28 @@ export default {
 
        this.$root.reloadSpaceInfo = false;
   }
-    
-  
+
+
   })
   .catch(error => {
- 
-  }) 
 
- 
+  })
+
+
         },
       animateVolumeControl: function(){
-         
+
          let volumeInterval = null;
 
          volumeInterval = setInterval(() => {
-            
+
 
             if(!this.$root.chatisOpen){
                 clearInterval(volumeInterval);
             }else{
 
                if(this.$root.audioconnection != null){
-                  
+
                   if(this.animateVolume == 90){
                       this.animateVolume = 30;
                   }else{
@@ -1282,14 +1329,14 @@ export default {
                }
             }
 
-           
+
          }, 300);
       },
-      
+
        checkIfMaster: function(){
-     
+
       let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
-   
+
              return members.user_id == this.$root.user_temp_id;
            });
 
@@ -1304,14 +1351,14 @@ export default {
 
       },
       resendMessages:function(){
-        
-       
-          
+
+
+
           let resendInterval = null;
 
           resendInterval = setInterval(() => {
-             
-             
+
+
 
               let unsentMsg = this.$root.getLocalStore('unsentnew' + this.$route.params.spaceId  + this.$root.username );
 
@@ -1320,40 +1367,40 @@ export default {
            if(result != null){
 
             let finalResult = JSON.parse(result);
-              
-                
+
+
 
                 if(finalResult.length == 0){
 
                   this.unsentMessagesPresent = false;
 
                 }else{
-                  
+
                 this.unsentMessagesPresent = true;
 
                   if(!this.$root.sendingMessage){
                       for (let index = 0; index < finalResult.length; index++) {
 
                       if(this.$route.params.spaceId == finalResult[index].space_id){
-                  
-                      
-                        
+
+
+
                          this.$root.sendTextMessage(finalResult[index]);
-                        
-  
+
+
                       }
- 
+
                         }
 
                   }
 
-                  
-                
-                 
+
+
+
                 }
 
-              
-               
+
+
 
            }else{
 
@@ -1361,8 +1408,8 @@ export default {
            }
 
 
-          
-        
+
+
          });
 
         if(!this.$root.chatisOpen){
@@ -1374,28 +1421,28 @@ export default {
          }, 5000);
 
       },
-     
+
       connectToUser:function(){
            this.connectionLoading = true;
          axios.get( '/connect-user-'+ this.$root.userBasicInfo.userData.username)
       .then(response => {
-      
+
       if (response.status == 200) {
-          
-          
-          
-             
+
+
+
+
           this.$root.userBasicInfo.user_connected = 'connected';
             this.connectionLoading = false;
-          
-          
+
+
      }
-       
-     
+
+
      })
      .catch(error => {
-    
-     }) 
+
+     })
 
       },
        viewFullImage:function(){
@@ -1410,14 +1457,14 @@ export default {
           this.$root.showUserInfo = false;
 
           this.$root.userBasicInfo = [];
-        
+
       },
       viewProfile: function(){
-        
+
 
         this.$root.pageloader = true;
         window.location = '/view-profile#/profile/channels/'+ this.$root.selectedMember.username;
-         
+
       },
        messageSpace: function(){
 
@@ -1431,31 +1478,31 @@ export default {
         }
 
         if(member.direct_present){
-         
+
          this.$root.Messages = null;
         this.$root.selectedSpace = [];
 
         this.$root.forceListReload = true;
-      
+
       this.$root.ChatList = [];
           this.$router.push({ path: '/space/'  +  member.space_id  +  '/channel/content/new' + '/user' });
 
           this.$root.showUserInfo = false;
-          
+
           this.fetchMessages();
 
           this.makeSpaceConnetion();
-        
+
 
           return;
-      
+
         }
         if(this.loading){
             return;
         }
 
         this.loading = true;
-           
+
           axios.post( '/create-space',{
                 name: '',
                 limit: 2,
@@ -1463,7 +1510,7 @@ export default {
                 type: 'Direct'
                   })
           .then(response => {
-             
+
              if (response.status == 200) {
 
                this.$root.Messages = null;
@@ -1474,19 +1521,19 @@ export default {
 
          if(this.$root.ChatList.length != 0){
            this.$root.ChatList[4].unshift(response.data);
-           
+
             this.$root.LocalStore('ChatListNew' + this.$root.username,this.$root.ChatList);
         this.$root.forceListReload = true;
          }
-       
-         
+
+
 
                this.$router.push({ path: '/space/'  +  response.data.space_id  +  '/channel/content/new' + '/user' });
 
                  this.fetchMessages();
 
           this.makeSpaceConnetion();
-                         
+
             }
 
           })
@@ -1495,7 +1542,7 @@ export default {
 
                this.loadingMessage = false;
 
-             
+
           })
 
       },
@@ -1505,7 +1552,7 @@ export default {
       preventCloseBoard: function(){
 
       },
-      
+
        initaiteAudioConf: function(){
 
             this.$root.liveIsOn = true;
@@ -1519,15 +1566,15 @@ export default {
           this.$root.sendLiveSignal();
 
             this.$root.screenSharingOn = true;
-          
+
     }else{
-       this.$root.screenSharingOn = true; 
+       this.$root.screenSharingOn = true;
         this.$root.checkAudioRoomState();
     }
 
-        
+
         },
-    
+
       deleteMessage:function(){
        this.$root.deleteMessage(this.$root.messageIdToDelete)
       },
@@ -1535,7 +1582,7 @@ export default {
         this.$root.AlertRoot = true;
         this.$root.AlertMsgRoot = text;
         let _this = this;
-     
+
      setTimeout(function(){
         _this.$root.AlertRoot = false;
      },duration);
@@ -1543,7 +1590,7 @@ export default {
     },
     muteAudio:function(){
 
-         
+
            var localStream = this.$root.audioconnection.attachStreams[0];
             localStream.mute('audio');
          this.$root.localAudioMuted = true;
@@ -1553,17 +1600,17 @@ export default {
 
    var localStream = this.$root.audioconnection.attachStreams[0];
             localStream.unmute('audio');
-         
+
     this.$root.localAudioMuted = false;
       },
       muteUserAudio:function(userId){
-      
-       
+
+
       },
       unMuteUserAudio:function(userId){
-     
 
-       
+
+
       },
       closeConnections:function(){
 
@@ -1571,9 +1618,9 @@ export default {
 
          if(this.$root.audioconnection != undefined){
 
-         
-          
-        
+
+
+
 
         // disconnect with all users
     this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
@@ -1591,7 +1638,7 @@ export default {
    this.$root.dataconnection.closeSocket();
 
 
-           
+
          }
 
           if(this.$root.connection != undefined){
@@ -1612,8 +1659,8 @@ export default {
 
           this.$root.connection.closeSocket();
           }
-       
-        
+
+
 
         this.$root.connection = undefined;
         this.$root.audioconnection = undefined;
@@ -1643,40 +1690,40 @@ export default {
          this.$root.selectedPage  = this.$root.userPageTrack.filter((page)=>{
             return page.page_name == 'space_content';
           });
-         
+
           if(this.$root.selectedPage.length != 0){
-               
+
               if(this.$root.selectedPage[0].status == 0){
                  this.$root.showBoard = true;
          this.$root.boardContent = 'Hello';
          this.$root.boardBtnLabel = 'Okay Got It';
 
               }
-               
+
           }
-        
-         
+
+
       },
         trackUser: function(){
-      
+
 
          axios.get( '/fetch-profile-'+ this.$root.username)
    .then(response => {
-   
+
    if (response.status == 200) {
 
         this.$root.userPageTrack = response.data[2];
 
         this.activateBot();
   }
-    
-  
+
+
   })
   .catch(error => {
- 
-  }) 
 
-      
+  })
+
+
    },
       generateUnreadMessage: function(){
           if(this.$root.selectedSpace.unread != 0 && this.$root.selectedSpace.unread != undefined){
@@ -1684,7 +1731,7 @@ export default {
              content: 'You have ' + this.$root.selectedSpace.unread + ' unread messages',
         created_at: moment().subtract(1,'hours'),
          message_id: this.makeUUID(),
-        type:'unread', 
+        type:'unread',
              };
           let msgCount = this.$root.Messages.length;
 
@@ -1692,11 +1739,11 @@ export default {
 
             this.$root.Messages.splice(msgIndex,0,newUnreadMsg);
 
-            
+
 
           }
       },
-    
+
       makeUUID:function(){
      var id = "id" + Math.random().toString(16).slice(2);
      return id;
@@ -1707,7 +1754,7 @@ export default {
              this.$root.showCodeBox = true;
              this.$router.push({ path: '/code-viewer'});
 
-              
+
 
         },
          closeReply:function(){
@@ -1715,9 +1762,9 @@ export default {
         this.$root.replyMessage = [];
         this.$root.is_reply = false;
         },
-        
+
       scrollToMessage: function(messageid){
-           
+
              this.$root.Messages.map((message)=>{
                 if(message.message_id == messageid){
                   message.tagged = true;
@@ -1725,7 +1772,7 @@ export default {
              });
 
              setTimeout(()=>{
-               
+
                 this.$root.Messages.map((message)=>{
                 if(message.message_id == messageid){
                   message.tagged = false;
@@ -1733,19 +1780,19 @@ export default {
              });
 
              },2000)
-             
-          
+
+
          setTimeout(() => {
-         
+
            var container = document.querySelector('#messageContainer');
-           
+
         var element =  document.querySelector('#message' + messageid);
-       
+
         var top = element.offsetTop - 120;
         container.scrollTo(0 , top);
         },500)
-      
-        
+
+
 
       },
       scrollToBottom:function(){
@@ -1756,39 +1803,39 @@ export default {
         this.$root.AlertRoot = true;
         this.$root.AlertMsgRoot = text;
         let _this = this;
-     
+
      setTimeout(function(){
         _this.$root.AlertRoot = false;
      },duration);
 
     },
       makeSpaceConnetion: function(){
-        
-     
+
+
          if(this.$root.channel == null){
 
-      
-            
-           
+
+
+
              this.$root.channel =   window.Echo.join('space.' + this.$route.params.spaceId)
       .here((users) => {
 
-         
-        
+
+
       this.$root.SpaceUsers = users;
 
-       
+
 
     })
     .joining((user) => {
 
-       
-    
+
+
 
     this.$root.SpaceUsers.push(user);
 
-   
-    
+
+
     })
     .leaving((user) => {
        let newList = this.$root.SpaceUsers.filter((eachuser)=>{
@@ -1796,25 +1843,25 @@ export default {
        });
     this.$root.SpaceUsers = newList;
 
-    
-     
-    
+
+
+
     })
     .listen('.SpaceChannel',(e) => {
-             
+
             if(e.actionType == 'new-message'){
 
-               
 
-            
-                
+
+
+
 
                  if(!this.$root.checkIfMessageExist(e.data)){
 
                      e.data.index_count = this.$root.returnLastIndex() + 1;
                       e.data.id =  e.data.message_id;
                       e.data.initialSize = 200;
-                      
+
 
                  this.$root.Messages.push(e.data);
 
@@ -1824,35 +1871,35 @@ export default {
 
                 this.$root.sortChatList();
 
-                  this.scrollToBottom(); 
+                  this.scrollToBottom();
 
                   this.$root.clearUnreadMessageRemote(e.data.message_id);
 
                  }
-              
-               
-               
+
+
+
 
             }
-                        
+
             })
             .listenForWhisper('typing', (e) => {
-              
-                
+
+
               this.$root.typinguser = e.user;
                this.$root.typing = e.typing;
                this.$root.typingSpace = e.spaceId;
-                
-              
-              
+
+
+
                  })
               .listenForWhisper('liveCoding', (e) => {
 
-                 
+
                  if(this.$route.params.spaceId == e.spaceId){
 
 
-                   
+
 
                   if(e.action == 'liveIsOn'){
 
@@ -1869,7 +1916,7 @@ export default {
 
                       }
                       if(e.data == 'code'){
-    
+
                         this.$root.remoteCode  = true;
                       }
 
@@ -1885,11 +1932,11 @@ export default {
                  }
 
 
-             
+
                  });
          }
-         
-   
+
+
       },
       checkForUnreadMessagesDisconnected:function(){
 
@@ -1897,7 +1944,7 @@ export default {
 
         let interval = setInterval(check,5000);
 
-        
+
         function check() {
 
 
@@ -1912,29 +1959,29 @@ export default {
             window.Echo.connector.socket.on('reconnecting', function(attemptNumber){
                  _this.isConnected = false
               });
-            
 
-          
-     
-         
+
+
+
+
 
           if(_this.isConnected == false && _this.$root.chatisOpen){
 
                 if(_this.$root.chatisOpen){
 
-            
-                 
-               
-                   
-                   
+
+
+
+
+
                  }else{
                   clearInterval(interval);
                  }
-               
+
 
               }else{
-                 
-                
+
+
                 return;
               }
 
@@ -1950,11 +1997,11 @@ export default {
 
               }
            });
-           
-          
+
+
         }
 
-        
+
 
       },
       getMemberUpdates: function(spaceId){
@@ -1962,20 +2009,20 @@ export default {
 
       axios.get( '/fetch-space-members-' + spaceId )
       .then(response => {
-      
+
       if (response.status == 200) {
-        
-     
+
+
        this.$root.selectedSpaceMembers = response.data;
 
-        
+
      }
-       
-     
+
+
      })
      .catch(error => {
-    
-     }) 
+
+     })
 
 
       },
@@ -1988,10 +2035,10 @@ export default {
 
          }
 
-         
 
-         
-           
+
+
+
           axios.post( '/check-for-unread-messages-clean',{
                 spaceId: this.$route.params.spaceId,
                 existingMsg: result,
@@ -1999,56 +2046,56 @@ export default {
                  device_id: this.$root.userDeviceId
                   })
           .then(response => {
-             
-            
-            
+
+
+
              if (response.status == 200) {
 
-                
+
                 if(response.data[0].length > 0){
 
-                 
-           
+
+
              for (let index = 0; index < response.data[0].length; index++) {
-               
-               
+
+
 
                      response.data[0][index].index_count = this.$root.returnLastIndex() + 1;
                       response.data[0][index].id =  response.data[0][index].message_id;
                       response.data[0][index].initialSize =  200;
-                      
-                 
+
+
 
                      this.$root.Messages.push(response.data[0][index]);
                   this.$root.pushDataToLocal(response.data[0][index]);
 
                   this.scrollToBottom();
 
-                
-                      
-                  
 
 
-                
-                  
-                
-                  
-              
+
+
+
+
+
+
+
+
                 }
 
 
              }
-          
 
-        
-            
+
+
+
             }
 
           })
           .catch(error => {
 
-            
-             
+
+
           })
 
       },
@@ -2058,47 +2105,47 @@ export default {
 
       handleResults(messageArray){
 
-        
-       
+
+
 
 
           this.$root.returnedMessages = messageArray;
 
            let intialCount = 0;
-          
+
            this.$root.returnedMessages.map((msg)=>{
                msg.id = msg.message_id
                msg.initialSize = 200
                msg.index_count = intialCount++;
 
 
-              
+
            });
 
-         
-         
+
+
          return this.$root.returnedMessages;
-          
+
       },
 
-     
+
      updateLocalStorage: function(){
 
         setTimeout(() => {
 
             axios.get( '/fetch-space-messages-' + this.$route.params.spaceId )
       .then(response => {
-      
+
       if (response.status == 200) {
-          
-    
-           
+
+
+
       if( response.data[1].space_id == this.$route.params.spaceId ){
 
 
-        
-         
-         
+
+
+
 
            let unsentMsg = this.$root.getLocalStore('unsentnew' + this.$root.selectedSpace  + this.$root.username );
 
@@ -2107,13 +2154,13 @@ export default {
            if(result != null){
 
             let finalResult = JSON.parse(result);
-              
-                
+
+
 
                 if(finalResult.length > 0){
-                  
 
-                  
+
+
 
                 }else{
                    this.$root.LocalStore(this.$route.params.spaceId + this.$root.username,response.data);
@@ -2123,54 +2170,54 @@ export default {
             let returnedData = this.handleResults(response.data[0]);
                 }
 
-              
-               
+
+
 
            }else{
 
                this.$root.LocalStore(this.$route.params.spaceId + this.$root.username,response.data);
- 
+
          this.$root.LocalStore('unread' + this.$route.params.spaceId + this.$root.username,[]);
 
          let returnedData = this.handleResults(response.data[0]);
            }
 
 
-          
-        
+
+
          });
-       
-         
-  
+
+
+
 
       }
-         
-       
-          
-   
-       
+
+
+
+
+
      }
-       
-     
+
+
      })
      .catch(error => {
-    
-     }) 
-          
+
+     })
+
         }, 5000);
 
-        
+
 
 
      },
-     
+
       fetchMessages: function(){
-        
+
           this.$root.Messages = null;
           this.errorLoadingMessage = false;
-           
+
          if(this.$root.checkauthroot == 'auth'){
-           
+
 
            this.$root.markSpaceRead(this.$route.params.spaceId);
 
@@ -2180,43 +2227,43 @@ export default {
 
           let storedMsg = this.$root.getLocalStore(this.$route.params.spaceId + this.$root.username);
 
-          
-           
-                
+
+
+
             storedMsg.then((result)=>{
 
-              
-               
-                
+
+
+
                if(result != null ){
-                
 
 
-               
+
+
                let finalResult = JSON.parse(result);
 
             this.$root.spaceFullData = finalResult;
 
-           
+
 
                let returnedData = this.handleResults(finalResult[0]);
-        
+
        this.Messages = returnedData;
        this.$root.Messages = returnedData;
 
         this.$root.selectedSpace  = [];
 
-       
+
         this.generateUnreadMessage();
-        
+
            this.$root.selectedSpace = finalResult[1];
 
               if(finalResult[1].type == 'SubSpace'){
 
-                 
+
                  let generalSpace = finalResult[1].gen_space;
-                 
-                  
+
+
                     this.$root.selectedGenSpaceType = finalResult[1].gen_space.type;
 
                   generalSpace.space_id =  finalResult[1].space_id;
@@ -2231,26 +2278,26 @@ export default {
 
 
               let subSpaceData = finalResult[1].sub_space_data;
-                 
 
-                  
+
+
 
              this.$root.selectedSubSpaceName = finalResult[1].name;
 
              this.$root.selectedSubSpaceType = subSpaceData.type;
 
-             
+
 
                generalSpace.sub_spaces = finalResult[1].sub_spaces;
 
-              
+
 
                this.$root.selectedSpace = generalSpace;
 
 
-               
 
-               
+
+
 
 
 
@@ -2258,22 +2305,22 @@ export default {
 
            this.$root.TrackLastSubSpace.push(  this.$root.selectedSpace.general_spaceId, this.$route.params.spaceId);
 
-              
-        
-        
-               
-               
-           
-      
+
+
+
+
+
+
+
 
        this.$root.selectedSpaceMembers = finalResult[2];
 
            this.autoMakeuserMaster();
 
-            
+
              this.$root.msgScrollComponent = this.$refs;
 
-            
+
        setTimeout(() => {
 
          if( this.$root.selectedSpace.type == 'Bot' || this.$root.selectedSpace.type == 'Direct' ){
@@ -2283,9 +2330,9 @@ export default {
          this.$root.msgScrollComponent.messageContainer.scrollToItem(this.$root.Messages.length);
 
       }
-          
 
-          
+
+
 
         },500);
 
@@ -2295,9 +2342,9 @@ export default {
 
            },1500);
 
-        
-           
-          
+
+
+
 
 
              let unreadStoredMsg = this.$root.getLocalStore('unread' + this.$route.params.spaceId  + this.$root.username);
@@ -2311,10 +2358,10 @@ export default {
                  this.periodicUpdate(finalResultUnread);
 
               }
-              
+
            });
 
-           
+
 
             let unsentStoredMsg = this.$root.getLocalStore('unsentnew' + this.$route.params.spaceId  + this.$root.username);
 
@@ -2334,57 +2381,57 @@ export default {
                  this.updateLocalStorage();
 
               }
-              
-              
-              
+
+
+
            });
 
-    
-          
-             
-              
-                
+
+
+
+
+
                }else{
-                  
+
                     axios.get( '/fetch-space-messages-' + this.$route.params.spaceId )
       .then(response => {
-      
-      if (response.status == 200) {
-           
 
-           
+      if (response.status == 200) {
+
+
+
 
 
      if( response.data[1].space_id == this.$route.params.spaceId ){
-     
+
        this.$root.spaceFullData = response.data;
-         
-       
-         
-      
+
+
+
+
 
       this.$root.LocalStore(this.$route.params.spaceId  + this.$root.username,response.data);
 
       this.$root.LocalStore('unread' + this.$route.params.spaceId  + this.$root.username,[]);
 
        let returnedData = this.handleResults(response.data[0]);
-        
+
        this.Messages = returnedData;
        this.$root.Messages = returnedData;
 
-      
-        
-     
+
+
+
 
 
                this.$root.selectedSpace = response.data[1];
 
               if(response.data[1].type == 'SubSpace'){
 
-                 
+
                  let generalSpace = response.data[1].gen_space;
-                 
-                  
+
+
                     this.$root.selectedGenSpaceType = response.data[1].gen_space.type;
 
                   generalSpace.space_id =  response.data[1].space_id;
@@ -2395,27 +2442,27 @@ export default {
 
 
 
-               
+
 
               let subSpaceData = response.data[1].sub_space_data;
-                 
 
-                  
+
+
 
              this.$root.selectedSubSpaceName = response.data[1].name;
 
              this.$root.selectedSubSpaceType = subSpaceData.type;
 
-             
+
 
                generalSpace.sub_spaces = response.data[1].sub_spaces;
 
-              
+
 
                this.$root.selectedSpace = generalSpace;
 
 
-             
+
 
 
 
@@ -2435,7 +2482,7 @@ export default {
 
        this.$root.msgScrollComponent = this.$refs;
 
-         
+
       setTimeout(() => {
 
            if( this.$root.selectedSpace.type == 'Bot' || this.$root.selectedSpace.type == 'Direct' ){
@@ -2445,10 +2492,10 @@ export default {
          this.$root.msgScrollComponent.messageContainer.scrollToItem(this.$root.Messages.length);
 
       }
-         
-           
 
-          
+
+
+
 
         },500);
 
@@ -2461,31 +2508,31 @@ export default {
 
 
      }
-         
-       
+
+
       this.$root.AlertRoot = false;
-          
-   
-       
+
+
+
      }
-       
-     
+
+
      })
      .catch(error => {
 
        this.errorLoadingMessage = true;
-    
-     }) 
+
+     })
 
                }
 
-      
+
     if( this.$root.selectedSpace.type == 'Bot'){
       setTimeout(() => {
             this.botMessager();
       }, 2000);
 
-      
+
 
       }
 
@@ -2498,31 +2545,31 @@ export default {
           }
 
                 });
-           
-          
-           
+
+
+
 
 
          }
 
-        
-        
+
+
       this.checkForUnreadMessagesDisconnected();
 
-     
-      
 
-       
 
-       
+
+
+
+
         },
         botMessager:function(){
-                      
-                    
-          
+
+
+
               if(this.$root.Messages.length == 0){
-               
-              
+
+
 
               }else{
 
@@ -2531,21 +2578,21 @@ export default {
            storedSuggestions.then((result)=>{
 
               let finalResultUnread = JSON.parse(result);
- 
+
                        if(finalResultUnread != null){
 
                           this.$root.botSuggestionArray = finalResultUnread;
 
                        }
-                
 
-             
-              
+
+
+
            });
               }
 
-        
-           
+
+
         },
          showMoreHandler(message){
            if(message.showReply){
@@ -2554,7 +2601,7 @@ export default {
               this.$root.Messages.map((message)=>{
                  message.showReply = false;
               });
-               
+
              message.showReply = true;
            }
         },
@@ -2564,9 +2611,9 @@ export default {
           this.$root.showRootReply = true;
 
            message.showReply = false;
-         
+
       },
-       
+
         checkOwner: function(message_user_id){
             if(this.$root.user_temp_id == message_user_id){
               return true;
@@ -2576,7 +2623,7 @@ export default {
 
         },
         shortenContent: function(content,limit){
-             
+
              if(content.length > limit){
                 let shortcontent = content.slice(0,limit);
                  return shortcontent + '...';
@@ -2599,15 +2646,15 @@ export default {
       covertDate: function(date){
            var realTimeHour = moment(date).format('l');
 
-          
-               
+
+
             if(moment().format('l') == realTimeHour){
                  return 'Today';
             }
              if(moment().subtract(1,'days').format('l') == realTimeHour){
                  return 'Yesterday';
             }
-           
+
                return moment(realTimeHour).format("MMMM Do");
       },
        languageExtensions: function(language){
@@ -2689,7 +2736,7 @@ export default {
             return 'rb';
          }
          if(language == 'LUA'){
-           
+
              return 'lua';
 
          }
@@ -2702,7 +2749,7 @@ export default {
              return 'rs';
          }
          if(language == 'SCALA'){
-           
+
               return 'scala';
 
          }
@@ -2718,7 +2765,7 @@ export default {
          }
 
       },
-  
+
   },
 
 }
@@ -2749,22 +2796,22 @@ export default {
   color: #4d4d4d;
 }
 .DateBadge{
- background:#ffffff; 
+ background:#ffffff;
  color:#3E8893;
-  border-radius:20px; 
+  border-radius:20px;
   border:2px solid #3E8893;
 }
 
   #messageContainer::-webkit-scrollbar {
   width: 5px;
 }
- 
+
 #messageContainer::-webkit-scrollbar-track {
   box-shadow: inset 0 0 6px rgba(111, 181, 195, 0.8);
   border:1px solid transparent;
   border-radius:6px;
 }
- 
+
 #messageContainer::-webkit-scrollbar-thumb {
   background-color: #6fb8c3;
   outline: 1px solid #6fb8c3;
@@ -2778,9 +2825,9 @@ export default {
   background: #6fb8c3;
   position: absolute;
 
-  
-  
-  
+
+
+
 }
 
 .innerBoxnewFade{
