@@ -1,7 +1,7 @@
 <template>
        <div style="position:absolute; height:92%; width:100%; overflow-y:auto;left:0;top:8%;"> 
 
-
+     <!-- top bar, shows the number of members -->
          <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
        <div class="row py-1 my-0 px-1" >
          <div class="col-2 py-0 my-0 text-left px-1" style="border-bottom:2px solid #3E8893;">
@@ -23,6 +23,8 @@
 
          <div class="col-12 py-0 my-0">
          <div class="row my-0 py-0 pb-5 px-2 scrollerStyle">
+
+            <!-- the members view,loops through the members data -->
 
               <v-card tile flat class="col-12 py-1 px-2" color="#edf6f7"  @click="createSpace(member,false)"  style="border-bottom:1px solid #5fb0b9;" v-for="(member, index) in Members" :key="index">
                <div class="row py-0 my-0 px-0">
@@ -57,12 +59,12 @@
                 </div>
               </v-card>
              
-
+        <!-- ends -->
 
             </div>
          </div>
 
-
+    <!-- Fixed modal for admin members -->
          <div   v-if="showAdminOptions" @click="showAdminOptions = false" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="showAdminOptions = true" style="position:absolute; height:auto; width:90%; bottom:30%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
@@ -95,7 +97,9 @@
 
            </div>
          </div>
+     <!-- ends -->
 
+     <!-- User info board -->
           <div  @click="closeUserInfoBoard"   v-if="this.$root.showUserInfo" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-4 offset-lg-4 py-2 my-0 px-0 d-flex ">
     
        <div @click.stop="preventCloseBoard" style="position:absolute; height:auto; width:90%; bottom:5%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
@@ -291,7 +295,7 @@
 
 
        </div>
-        
+  <!-- ends -->        
 
       </div>
 
