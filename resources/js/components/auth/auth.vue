@@ -367,7 +367,7 @@
 
 
 <!-- larger screens -->
-   <span style="position:fixed; height:auto; width:auto; right:3%; bottom:5%; z-index:25;" class="d-lg-block d-none">
+   <span style="position:fixed; height:auto; width:auto; right:3%; bottom:5%; z-index:999999999999;" class="d-lg-block d-none">
      <v-btn fab style="background:#ffffff; border:2px solid #3E8893;" class="sliderfullBtn" @click="viewType = 'gettingStarted'"  v-if="viewType == 'main'">
        <v-icon color="#26535a" >mdi-arrow-down</v-icon>
      </v-btn>
@@ -426,6 +426,8 @@ export default {
     },
     methods:{
        checkIfLogin:function(){
+      
+      // checks it the user is logged in , if yes, redirect to the right route
 
           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'space'){
              this.$router.push({ path: '/space' });

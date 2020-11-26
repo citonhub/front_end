@@ -154,6 +154,8 @@ export default {
 
     },
     closeBackground:function(){
+
+       // closes the modal background, but prevent closing when file upload is on going
         if(this.loading){
           return;
         }else{
@@ -166,9 +168,12 @@ export default {
 
     },
     fileHandler:function(e){
+
+       // gets the uploade file
       
       const files = e.target.files
             
+         // get the file and read through the file using Js fileReader
             this.FileBlob = files[0];
            	const fr = new FileReader ()
         fr.readAsDataURL(files[0])
@@ -176,6 +181,9 @@ export default {
              
              this.fileSize =  this.bytesToSize(files[0].size);
              this.fileName = files[0].name;
+        
+
+      // checks it the file size does not exceeds 10 MB, if it does, raise an alert
            if(fileSize <= 10000000){
               fr.addEventListener('load', () => {
           this.fileUrl = fr.result;
@@ -187,6 +195,8 @@ export default {
            }
     },
      bytesToSize:function(bytes) {
+
+        // handles making the file size humanly readable
       var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
       if (bytes == 0) return '0 Byte';
       var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
@@ -194,13 +204,16 @@ export default {
      },
 
       uploadeFile: function(){
+
+         // start up the loader
         this.loading = true;
           
+
+        // create a new Js formdata
           let formData = new FormData();
-         
+    
 
-
-
+    //  append the uploaded file into the form
          if(this.fileUrl != ''){
           
 
@@ -209,12 +222,16 @@ export default {
             
         }
 
+        // append all other data
+
         formData.append('type',this.UploadType);
         formData.append('file_name',this.fileName);
         formData.append('project_slug',this.$route.params.projectSlug);
         formData.append('duel_id',this.$route.params.duelId);
+
        axios.post('/upload-panel-file',formData,
          {
+            // define the header type to allow for file upload,and monitor the upload
              headers:{
               'Content-Type':'multipart/form-data'
              },
@@ -230,7 +247,7 @@ export default {
                 this.loading = false;
                    
                   
-
+              // push new files into the code file list
                     this.$root.CodeFilesData[4].push(response.data)
 
                   if(this.$route.params.projectSlug != undefined){
@@ -243,7 +260,8 @@ export default {
                  this.$root.LocalStore('panel'+ this.$route.params.duelId,this.$root.CodeFilesData);
                  
                   }
-
+             // close background
+             
                this.closeBackground();
             }else{
               

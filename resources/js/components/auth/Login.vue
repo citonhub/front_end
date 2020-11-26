@@ -206,6 +206,8 @@ export default {
         },
       checkIfLogin:function(){
 
+         // check if user is logged in , if yes redirect
+
           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'space'){
              this.$router.push({ path: '/space' });
           } 
@@ -238,6 +240,9 @@ export default {
 
     },
     loginuser: function(){
+
+      // this log in the user, save the user details and token on the browser. 
+      // it is manage using VueX (vue state management system)
             this.errorState = false;
       if(this.$refs.loginform.validate()){
           this.loading = true;

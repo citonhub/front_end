@@ -70,19 +70,9 @@
           
              </div>
 
-             
-
-         
                <div class="col-12 py-1 my-0 px-2 text-center">
                   <v-btn rounded  type="submit" small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" :loading="loading" @click.prevent="checkemail">Verify</v-btn>
              </div>
-
-
-           
-             
-
-              
-               
 
           </v-form>
             </div>
@@ -90,12 +80,6 @@
             
        </div>
 
-
-
-          
-
-       
-         
        </div>
 
     </div>
@@ -161,7 +145,8 @@ export default {
     },
     methods:{
         setEmail: function(){
-        
+          
+          // check if the user email has been lost, if yes.. Load it from the local storage
          let storedEmail = this.$root.getLocalStore('user_temp_email');
               
               storedEmail.then((result)=>{
@@ -181,6 +166,8 @@ export default {
           
       },
        checkIfLogin:function(){
+
+           // check if the user is logged in, if yes.. then redirect
 
           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'space'){
              this.$router.push({ path: '/space' });
@@ -215,6 +202,8 @@ export default {
     },
    
    checkemail: function(){
+
+      // this check if user mail exists
             this.emailExist= false;
            this.$refs.password.validate();
            
@@ -230,6 +219,9 @@ export default {
           .then(response => {
             
             if (response.status == 200) {
+
+               // if the request was successful and the eamil exist.. rediect to the verification page
+               // else show alert that mail does not exist
                  
             if(response.data == 'exist'){
 
