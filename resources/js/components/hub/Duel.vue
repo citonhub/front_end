@@ -1,5 +1,7 @@
-<template>
+<!-- duel feature component-->
 
+<template>
+<!-- button to access duel board-->
 <v-card  class="py-2 px-2"  @click.stop="showDuelBoard">
                 <div class="row">
                    <div class="py-0 col-12 text-center d-md-block d-none">
@@ -9,6 +11,7 @@
                    </div>
                     <div class="py-0 col-12 text-center d-block d-md-none" >
                         <div style="background-color:#b9dcdf; border-radius:4px; border:1px solid transparent;">
+                          <!--duel title-->
                            <span style="font-size:12px;color:#0f2024;">{{shortenContent(duelData.title,40)}}</span>
                         </div>
                         
@@ -20,7 +23,7 @@
 
                    <div class="col-4 py-1 text-center">
 
-                           
+                           <!-- duel status display-->
                         <span class="statusnew" v-if="checkDuelStatus(duelData) == 'Active'">{{$t('duels.active')}} </span>
                        <span class="statusnew" v-if="checkDuelStatus(duelData) == 'Pending'">{{$t('duels.pending')}} </span>
                         <span class="statusnew" v-if="checkDuelStatus(duelData) == 'Ended'">{{$t('duels.ended')}} </span>

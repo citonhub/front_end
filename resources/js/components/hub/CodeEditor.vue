@@ -22,6 +22,7 @@
                    </div>
                    
                    <div class="col-2 py-1 my-0 px-2 text-right" v-if="!this.$root.codeFromView">
+                     <!--button to save code to be posted on the hub-->
                      <v-btn   x-small color="#3E8893 "  @click="saveFile = true" ><span style="color:#ffffff; font-weight:bolder; font-size:10px;">save</span></v-btn>
                    </div>
              </div>
