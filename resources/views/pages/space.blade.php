@@ -392,7 +392,7 @@ body {
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/space.js?v=6.83') }}"></script>
+ <script src="{{ asset('js/space.js?v=6.84') }}"></script>
  <!-- ends -->
      
  @endsection

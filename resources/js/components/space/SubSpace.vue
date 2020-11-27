@@ -74,7 +74,9 @@
           <!-- ends -->
          
          <!-- loops through all subspaces -->
-           <v-card flat tile color="#c9e4e8" class="col-12 py-1 px-1 mb-1" v-for="(space,index) in subSpaces" :key="index" @click.stop="selectSubSpace(space)">
+         <div v-if="subSpaces != null">
+
+            <v-card flat tile color="#c9e4e8" class="col-12 py-1 px-1 mb-1" v-for="(space,index) in subSpaces" :key="index" @click.stop="selectSubSpace(space)">
               <div class="row py-0 my-0">
                   <div class="col-2 py-0 my-0">
                     <v-icon color="#1e4148" v-if="space.type == 'Public'">mdi-pound mdi-18px</v-icon>
@@ -88,6 +90,12 @@
                     </div>
               </div>
            </v-card>
+
+         </div>
+          <div v-else style="text-center" class="col-12">
+            <span style="font-size:13px; color:grey;">Loading...</span>
+          </div>   
+          
 
           <!-- ends -->
 
@@ -238,7 +246,7 @@ export default {
         closeAddBoard: true,
         Alert: false,
         alertMsg: false,
-        subSpaces:[],
+        subSpaces:null,
 
         }
     },
@@ -250,7 +258,7 @@ export default {
        window.Echo.leave('space.' + this.$root.selectedSpace.space_id);
 
       
-      this.setSubSpaces();
+     
 
       this.fetchSubSpaces();
     
@@ -260,13 +268,14 @@ export default {
 
         },
         fetchSubSpaces: function(){
-         
+           
+           this.loadingSubSpace  = true;
            axios.get( '/fetch-sub-spaces-' + this.$root.selectedSpace.general_spaceId + '-' + this.$root.userDeviceId )
       .then(response => {
       
       if (response.status == 200) {
         
-     
+       this.loadingSubSpace = false;
      
         if(this.checkIfisOwner()){
 
@@ -284,12 +293,16 @@ export default {
           
 
              this.checkForUnread();
+
+        
        
      }
        
      
      })
      .catch(error => {
+
+        this.loadingSubSpace = false;
     
      }) 
        
@@ -480,8 +493,7 @@ export default {
 
           
 
-             this.checkForUnread();
-
+            
         },
        goBack() {
         this.$router.push({ path: '/space/' + this.$route.params.spaceId +'/channel/content'  + '/user'});
