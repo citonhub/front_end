@@ -74,9 +74,9 @@
           <!-- ends -->
          
          <!-- loops through all subspaces -->
-         <div v-if="subSpaces != null">
+         <div v-if="subSpaces != null"  class="col-12 py-1 px-1 mb-1">
 
-            <v-card flat tile color="#c9e4e8" class="col-12 py-1 px-1 mb-1" v-for="(space,index) in subSpaces" :key="index" @click.stop="selectSubSpace(space)">
+            <v-card flat tile color="#c9e4e8" v-for="(space,index) in subSpaces" :key="index" @click.stop="selectSubSpace(space)">
               <div class="row py-0 my-0">
                   <div class="col-2 py-0 my-0">
                     <v-icon color="#1e4148" v-if="space.type == 'Public'">mdi-pound mdi-18px</v-icon>
@@ -92,7 +92,7 @@
            </v-card>
 
          </div>
-          <div v-else style="text-center" class="col-12">
+          <div v-else style="text-center" class="col-12 mt-5">
             <span style="font-size:13px; color:grey;">Loading...</span>
           </div>   
           
