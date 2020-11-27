@@ -1084,7 +1084,7 @@ console.log(err)
               messages.id = messages.message_id
               messages.index_count = this.$root.returnLastIndex() + 1;
 
-              if(!this.$root.checkIfMessageExist(messages)){
+              
 
                  this.$root.Messages.push(messages);
 
@@ -1094,7 +1094,7 @@ console.log(err)
 
            this.$root.updateSpaceTracker(space.space_id);
 
-              }
+           
 
              
 
