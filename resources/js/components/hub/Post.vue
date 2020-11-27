@@ -1,3 +1,5 @@
+<!-- component for viewing a post in detail-->
+
 <template>
      <div style="overflow-y:hidden;">
 
