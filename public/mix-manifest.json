@@ -1,6 +1,4 @@
 {
-    "/js/dashboard.js": "/js/dashboard.js",
-    "/js/hub.js": "/js/hub.js",
-    "/js/profile.js": "/js/profile.js",
-    "/js/space.js": "/js/space.js"
+    "/js/app.js": "/js/app.js",
+    "/js/dashboard.js": "/js/dashboard.js"
 }
