@@ -73,7 +73,7 @@
 .contact{
 display:flex;
 margin-bottom:20px;
-width:50%;
+width:52%;
 margin-right:25%;
 padding:5px 10px;
 
@@ -94,6 +94,11 @@ padding:5px 10px;
 .contact:active{
   border:3px solid #3c87cd;
 }
+
+.contact i{
+  font-size:1.5rem;
+  color:#3c87cd;
+}
 /*socials*/
 
 .socials{
@@ -104,8 +109,12 @@ width:50%;
 
 }
 
+.circle-border i{
+font-size:1.2rem;
+}
+
 .circle-border{
-  padding: 5px 10px;
+  padding: 8px 10px;
 }
 
 
