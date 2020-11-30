@@ -30,21 +30,108 @@
   <!-- Line awesome icon: -->
   <link rel="stylesheet" type="text/css" href="/css/line-awesome.min.css">
   <!-- ends -->
+
+  
   
 
 <style>
 
+/*first column*/
+.first{
+  
+  margin-top:40px;
+  margin-left:5%;
+  color:white;
+
+}
+
+.get{
+  font-weight:bold;
+
+}
+
+.first .fill{
+  font-size:1rem;
+  color:lightgrey;
+  margin-bottom:80px;
+}
+
+
+/* second column*/
+
+.second{
+  background-color:white;
+  margin-left:20%;
+  margin-top:40px;
+
+  height:500px;
+  border-radius:20px;
+}
  </style>
+
+
   
  @endsection
 
  @section('content')
 
+ <div style="width:100%;height:550px;background-color:#10273d; margin-top:80px;" class="row">
+
+ <div class="col-4  first">
+ <h1 class="h1 get">Get In Touch</h1>
+ <p class="fill">Fill the form and our team will get back to you within 24 hours.</p>
+ <div class="container">
+
+<p class="number">+0123 4567 8910</p>
+ </div>
+ <div class="container">
+ <p class="mail">
+ mail@citonhub.com
+ </p></div>
+ <div class="container">
+ <p class="adress">102 street 2714 bodija</p></div>
+
+ <div class="container"><div class="icons8-twitter"></div></div>
+
  
+ </div>
+
+ <div class="col-4 second">
+
+<form action="
+">
+
+<div style="margin-top:30px;" class="form-group">
+<label for=""> Your Name</label>
+
+<input type="text" class="form-control">
+</div>
+
+<div class="form-group">
+<label for="">Mail</label>
+
+<input type="text" class="form-control">
+</div>
+
+<div class="form-group">
+<label for="">Message</label>
+
+<textarea class="form-control" name="" id="" cols="30" rows="8"></textarea>
+</div>
+</form>
+ </div>
+
+ </div>
  @endsection
+ 
 
  @section('scripts')
 
-
+ 
      
  @endsection
+
+
+ 
+
+ 
