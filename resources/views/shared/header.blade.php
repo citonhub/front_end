@@ -10,9 +10,9 @@
  <div class="col-8 text-right pt-1">
  <a href="https://blog.citonhub.com" class="linkStyle mx-2 d-none d-md-inline-block">Blog</a>
 
- <a href="/dashboard" class="linkStyle mx-2"> Sign In</a>
+ <a href="/dashboard" class="linkStyle mx-2">Login</a>
  
- <button class="homeButton mx-2 px-3 py-2">Register</button>
+ <button class="homeButton mx-2 px-3 py-2">Sign Up</button>
 
  </div>
 </div>
