@@ -53,7 +53,7 @@
 
 .first .fill{
   font-size:1rem;
-  color:lightgrey;
+  color:#4d4d4d;
   margin-bottom:80px;
 }
 
@@ -74,7 +74,7 @@
 .contact{
 display:flex;
 margin-bottom:20px;
-width:52%;
+width:54%;
 margin-right:25%;
 padding:5px 10px;
 
@@ -163,20 +163,12 @@ background-color:#3c87cd;
  <p class="adress">102 street 2714 bodija</p>
  </div>
 
- <div class=" socials">
- <div class="circle-border"><i class="lab la-facebook"></i></div>
- <div class="circle-border"><i class="lab la-instagram"></i></div>
- <div class="circle-border"><i class="lab la-twitter"></i></div>
  
- 
- 
- 
- </div>
 
 
 </div>
 
-<div class="col-4 second">
+<div class="col-4 card second">
 
 <form action="
 ">
