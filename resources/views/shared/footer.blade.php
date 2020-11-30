@@ -1,5 +1,5 @@
 
-<div class="col-12" style="height:400px;">
+<div class="col-12" style="height:200px;">
 <!-- bottom text -->
 <div class="col-12 d-lg-block d-none" style="position:absolute; left:0; right:0%; height:auto; bottom:3%; z-index:83;">
    
@@ -93,11 +93,11 @@
 
 
 <!-- bottom background image -->
-<div style="position:absolute;width:100%; height:50%; bottom:0; left:0; z-index:20;" class="d-lg-block d-none">
+<div style="position:absolute;width:100%; height:80%; bottom:0; left:0; z-index:20;" class="d-lg-block d-none">
 <img src="imgs/bottomLg.png" height="100%" width="100%">
 </div>
 
-<div  style="position:absolute;width:100%; height:35%; bottom:0; left:0; z-index:20;" class="d-lg-none d-block">
+<div  style="position:absolute;width:100%; height:60%; bottom:0; left:0; z-index:20;" class="d-lg-none d-block">
 <img src="imgs/bottomSm.png" height="100%" width="100%">
 </div>
 <!-- ends -->
