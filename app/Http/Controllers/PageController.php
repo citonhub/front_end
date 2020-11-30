@@ -222,35 +222,34 @@ class PageController extends Controller
     }
 
 
-    public function hub(){
+    public function home(){
 
-        $tablabel = 'hub';
-        return view('pages.hub',compact('tablabel'));
+        return view('pages.home');
     }
 
    
 
-    public function space(){
+    public function terms(){
       
-       
-        $tablabel = 'space';
-        return view('pages.space',compact('tablabel'));
+        return view('pages.terms');
+    }
+
+
+    public function dashboard(){
+
+        return view('pages.dashboard');
     }
 
 
 
+    public function privacy(){
 
-    public function panel(){
-
-        $tablabel = 'dashboard';
-        return view('pages.dashboard',compact('tablabel'));
+        return view('pages.privacy');
     }
 
 
+    public function contact(){
 
-    public function profile(){
-
-        $tablabel = 'profile';
-        return view('pages.profile',compact('tablabel'));
+      return view('pages.contact');
     }
 }

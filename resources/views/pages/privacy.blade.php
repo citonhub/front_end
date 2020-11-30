@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title')
 
-    <title>CitonHub-Privacy policy</title>
+    <title>CitonHub: Privacy policy</title>
 
  @endsection
  @section('meta') 
@@ -27,7 +27,10 @@
  @endsection
  @section('css')
  
- 
+  <!-- Line awesome icon: -->
+  <link rel="stylesheet" type="text/css" href="/css/line-awesome.min.css">
+  <!-- ends -->
+  
 
 <style>
 
@@ -42,8 +45,5 @@
 
  @section('scripts')
 
-<!-- The main compiled script for this page  -->
- <script src="{{ asset('js/app.js?v=0.01') }}"></script>
- <!-- ends -->
      
  @endsection

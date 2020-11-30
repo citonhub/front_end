@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.home')
 @section('title')
 
     <title>CitonHub-Home</title>
@@ -27,7 +27,10 @@
  @endsection
  @section('css')
  
- 
+  <!-- Line awesome icon: -->
+  <link rel="stylesheet" type="text/css" href="/css/line-awesome.min.css">
+  <!-- ends -->
+  
 
 <style>
 

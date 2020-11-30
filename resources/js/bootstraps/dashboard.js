@@ -23,16 +23,51 @@ import Vue from 'vue'
 
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
-import '@mdi/font/css/materialdesignicons.css'
 
 
  window.customLocation = 'https://api.citonhub.com';
 
 Vue.use(Vuetify);
 
+const MY_ICONS = {
+    complete: 'las la-check-circle',
+    cancel: 'las la-times',
+    close: 'las la-times-circle',
+    delete: 'las la-times-circle', // delete (e.g. v-chip close)
+    clear: 'las la-times-circle',
+    success: 'las la-check-circle',
+    info: 'las la-exclamation',
+    warning: 'las la-exclamation-triangle',
+    error: 'las la-exclamation-circle',
+    prev: 'las la-angle-left',
+    next: 'las la-angle-right',
+    checkboxOn: 'las la-check-square',
+    checkboxOff: 'las la-minus-square',
+    checkboxIndeterminate: 'las la-minus-square',
+    delimiter: 'las la-dot-circle', // for carousel
+    sort: 'las la-sort',
+    expand: 'las la-expand-arrows-alt',
+    menu: 'las la-bars',
+    subgroup: 'las la-th-list',
+    dropdown: 'las la-chevron-down',
+    radioOn: 'las la-toggle-on',
+    radioOff: 'las la-toggle-off',
+    edit: 'las la-edit',
+    ratingEmpty: 'lar la-star',
+    ratingFull: 'las la-star',
+    ratingHalf: 'las la-star-half-alt',
+    loading: 'las la-sync',
+    first: 'las la-sort-amount-up',
+    last: 'las la-sort-amount-down-alt',
+    unfold: '...',
+    file: 'las la-file',
+  }
+
+
 const vuetify = new Vuetify({
     icons: {
-        iconfont: 'mdi'
+        iconfont: 'la',
+        values:MY_ICONS
     }
 });
 import moment from 'moment'

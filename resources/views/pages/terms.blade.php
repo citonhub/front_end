@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title')
 
-    <title>CitonHub: Dashboard</title>
+    <title>CitonHub: Terms of use</title>
 
  @endsection
  @section('meta') 
@@ -27,20 +27,10 @@
  @endsection
  @section('css')
  
- <!-- WebRTC default css file -->
-  <link rel="stylesheet" type="text/css" href="/css/getHTMLMediaElement.css?v=1.2">
-
-<!-- ends -->
-
- <!-- Shaka Player ui compiled library default CSS: -->
-    <link rel="stylesheet" type="text/css" href="/css/controls.css">
+  <!-- Line awesome icon: -->
+  <link rel="stylesheet" type="text/css" href="/css/line-awesome.min.css">
   <!-- ends -->
   
-   <!-- Line awesome icon: -->
-   <link rel="stylesheet" type="text/css" href="/css/line-awesome.min.css">
-  <!-- ends -->
-  
-
 
 <style>
 
@@ -55,34 +45,6 @@
 
  @section('scripts')
 
- <!-- WebRTC scripts, third party scripts for real time communications -->
- <script src="{{ asset('js/RTCMultiConnection.min.js') }}"></script>
 
- <script src="{{ asset('js/getHTMLMediaElement.js?v=0.5') }}"></script>
-
- <script src="https://cdn.webrtc-experiment.com/hark.js"></script>
-
-
-  
-<!-- ends -->
-
-<!-- Video player and streaming, third-party scripts -->
-  <script src="{{ asset('js/shaka-player.compiled.js') }}"></script>
-
-   <script src="{{ asset('js/shaka-player.ui.js') }}"></script>
-
-   <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
-
-   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-
-<!-- ends -->
-
- <!-- Third-party script for markdown formating -->
-  <script src="https://unpkg.com/marked@0.3.6"></script>
-<!-- ends -->
-
-<!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=0.01') }}"></script>
- <!-- ends -->
      
  @endsection
