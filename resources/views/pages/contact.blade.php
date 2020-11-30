@@ -127,8 +127,9 @@ mail@citonhub.com
 
 </div>
 
+<!-- Footer component -->
  @include('shared.footer')
-
+<!-- ends -->
 
 
  @endsection
