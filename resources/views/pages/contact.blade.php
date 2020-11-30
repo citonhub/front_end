@@ -75,28 +75,32 @@
 
  @section('content')
 
- <div style="width:100%;height:550px;background-color:#10273d; margin-top:80px;" class="row">
-
- <div class="col-4  first">
- <h1 class="h1 get">Get In Touch</h1>
- <p class="fill">Fill the form and our team will get back to you within 24 hours.</p>
- <div class="container">
-
-<p class="number">+0123 4567 8910</p>
- </div>
- <div class="container">
- <p class="mail">
- mail@citonhub.com
- </p></div>
- <div class="container">
- <p class="adress">102 street 2714 bodija</p></div>
-
- <div class="container"><div class="icons8-twitter"></div></div>
-
+ <div>
  
  </div>
 
- <div class="col-4 second">
+ <div style="width:100%;height:550px;background-color:#10273d; margin-top:80px; " class="row">
+
+<div class="col-4  first">
+<h1 class="h1 get">Get In Touch</h1>
+<p class="fill">Fill the form and our team will get back to you within 24 hours.</p>
+<div class="container">
+
+<p class="number">+0123 4567 8910</p>
+</div>
+<div class="container">
+<p class="mail">
+mail@citonhub.com
+</p></div>
+<div class="container">
+<p class="adress">102 street 2714 bodija</p></div>
+
+<div class="container"><div class="icons8-twitter"></div></div>
+
+
+</div>
+
+<div class="col-4 second">
 
 <form action="
 ">
@@ -119,9 +123,14 @@
 <textarea class="form-control" name="" id="" cols="30" rows="8"></textarea>
 </div>
 </form>
- </div>
+</div>
 
- </div>
+</div>
+
+ @include('shared.footer')
+
+
+
  @endsection
  
 
