@@ -8,7 +8,7 @@
 
   <!-- Sign up, register button -->
   <div class="col-8 text-right pt-1 d-lg-block d-none" >
- <a href="https://blog.citonhub.com" class="linkStyle mx-3 " style="color:#000000;">Blog</a>
+ <a href="https://blog.citonhub.com" class="linkStyle mx-3 " target="_blank" style="color:#000000;">Blog</a>
 
  <a href="/dashboard" class="linkStyle mx-3"  style="color:#000000;"> Login</a>
  
