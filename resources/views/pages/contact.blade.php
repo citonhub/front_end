@@ -41,13 +41,14 @@
   
   margin-top:40px;
   margin-left:5%;
-  color:white;
+  color:black;
+  font-family: BodyFont;
 
 }
 
-.get{
+.first .get{
   font-weight:bold;
-
+  font-family: HeaderFont;
 }
 
 .first .fill{
@@ -66,7 +67,7 @@
 
   height:500px;
   border-radius:20px;
-
+  font-family: BodyFont;
 }
 
 /* contact*/
@@ -137,25 +138,19 @@ background-color:#3c87cd;
  
  </div>
 
- <div style="width:100%;height:550px;background-color:#10273d; margin-top:80px; " class="row">
+ <div style="width:100%;height:500px; " class="row">
 
 <div class="col-4  first">
 <h1 class="h1 get">Get In Touch</h1>
 <p class="fill">Fill the form and our team will get back to you within 24 hours.</p>
-<div class="container">
+
 
  <div class="contact">
  <i class="las la-phone"></i>
 <p class="number">+0123 4567 8910</p>
-</div>
-<div class="container">
-<p class="mail">
-mail@citonhub.com
-</p></div>
-<div class="container">
-<p class="adress">102 street 2714 bodija</p></div>
 
-<div class="container"><div class="icons8-twitter"></div></div>
+
+
  </div>
 
  <div class=" contact">
