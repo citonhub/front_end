@@ -126,6 +126,8 @@ border-radius:50%;
 background-color:#3c87cd;
 }
 
+
+
  </style>
 
 
@@ -176,19 +178,26 @@ background-color:#3c87cd;
 <div style="margin-top:30px;" class="form-group">
 <label for=""> Your Name</label>
 
-<input type="text" class="form-control">
+<div class="form-control field" style="display:flex; height:45px;">
+<i  style="font-size:1.7rem;"   class="las la-user"></i>
+<input style="border:none; outline:none;" type="text" >
+</div>
 </div>
 
 <div class="form-group">
 <label for="">Mail</label>
 
-<input type="text" class="form-control">
+<div class="form-control field" style="display:flex; height:45px;">
+<i style="font-size:1.7rem;" class="las la-envelope-open"></i>
+<input style="border:none; outline:none;" type="text" >
 </div>
+</div>
+
 
 <div class="form-group">
 <label for="">Message</label>
 
-<textarea class="form-control" name="" id="" cols="30" rows="6"></textarea>
+<textarea class="form-control" name="" id="" cols="30" rows="6" placeholder="message" ></textarea>
 </div>
 
 <button class="btn btn-large btn-primary" type="submit">Send Message</button>
