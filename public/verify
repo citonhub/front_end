@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["verify?v=0.10"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["verify?v=0.40"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/Verify.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************!*\
@@ -9,6 +9,29 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -226,11 +249,57 @@ var render = function() {
   return _c(
     "div",
     { staticStyle: { position: "absolute", width: "100%", height: "100%" } },
-    [_c("headerTab"), _vm._v(" "), _c("bottom")],
+    [_c("headerTab"), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("bottom")],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row my-5 py-5" }, [
+      _c("div", { staticClass: "col-md-7" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-5 p-5" }, [
+        _c("div", { staticClass: "card shadow" }, [
+          _c("div", { staticClass: "card-body p-5 text-center" }, [
+            _c("h1", [_vm._v("Verify Email")]),
+            _vm._v(" "),
+            _c("small", [
+              _vm._v("Enter the 6-digit code sent to your email, user_name")
+            ]),
+            _vm._v(" "),
+            _c("form", { staticClass: "mt-3" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("input", {
+                  staticClass: "form-control",
+                  attrs: { type: "number", placeholder: "Enter Code..." }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-group" }, [
+                _c(
+                  "button",
+                  { staticClass: "homeButton px-3 py-2 btn-block mb-2" },
+                  [_vm._v("Next")]
+                ),
+                _vm._v(" "),
+                _c("small", [
+                  _vm._v("Haven't recieved a mail yet? Check your spam or "),
+                  _c("button", { staticClass: "homeButton px-2 py-1" }, [
+                    _vm._v("Resend")
+                  ]),
+                  _vm._v(" 11 secs")
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

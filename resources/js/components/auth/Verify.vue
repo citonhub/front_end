@@ -6,6 +6,29 @@
  <headerTab></headerTab>
  <!-- ends -->
 
+ <!-- Zubs start -->
+ <div class="row my-5 py-5">
+   <div class="col-md-7"></div>
+   <div class="col-md-5 p-5">
+     <div class="card shadow">
+       <div class="card-body p-5 text-center">
+         <h1>Verify Email</h1>
+         <small>Enter the 6-digit code sent to your email, user_name</small>
+         <form class="mt-3">
+           <div class="form-group">
+             <input type="number" class="form-control" placeholder="Enter Code...">
+           </div>
+           <div class="form-group">
+             <button class="homeButton px-3 py-2 btn-block mb-2">Next</button>
+             <small>Haven't recieved a mail yet? Check your spam or <button class="homeButton px-2 py-1">Resend</button> 11 secs</small>
+           </div>
+         </form>
+       </div>
+     </div>
+   </div>
+ </div>
+ <!-- Zubs end -->
+
    <!-- bottom component -->
  <bottom></bottom>
  <!-- ends -->

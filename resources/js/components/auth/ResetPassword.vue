@@ -6,6 +6,30 @@
  <headerTab></headerTab>
  <!-- ends -->
 
+ <!-- Zubs start -->
+ <div class="row my-5 py-5">
+   <div class="col-md-7"></div>
+   <div class="col-md-5 p-5">
+     <div class="card shadow">
+       <div class="card-body p-5 text-center">
+         <h1>Reset Password</h1>
+         <form class="mt-3">
+           <div class="form-group">
+             <input type="password" class="form-control" placeholder="New Password...">
+           </div>
+           <div class="form-group">
+             <input type="password" class="form-control" placeholder="Confirm New Password...">
+           </div>
+           <div class="form-group">
+             <button class="homeButton px-3 py-2 btn-block">Next</button>
+           </div>
+         </form>
+       </div>
+     </div>
+   </div>
+ </div>
+ <!-- Zubs end -->
+
    <!-- bottom component -->
  <bottom></bottom>
  <!-- ends -->
