@@ -15,7 +15,7 @@
      
      @yield('content')
 
-    
+   
      @include('shared.scripts')
 
 

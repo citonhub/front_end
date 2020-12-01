@@ -22,6 +22,20 @@
        border-radius:6px;
        color:white;
        font-family:BodyFont;
-    }    
+    }
+    .homeButtonOutline{
+        
+      border:2px solid #3AC3A9;
+       background:#ffffff;
+       border-radius:6px;
+       color:#3AC3A9;
+       font-family:BodyFont;
+    }
+
+    .paragraphTextStyle{
+      font-size:14px;
+       font-family:BodyFont;
+       color:black;
+    }
         
 </style>
