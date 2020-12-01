@@ -141,71 +141,123 @@ background-color:#3c87cd;
    
    </div>
 
- <div style="width:100%;height:500px; " class="row">
+   <div class="col-12">
 
-<div class="col-lg-4 col-md-10  first">
-<h1 class="h1 get">Get In Touch</h1>
-<p class="fill">Fill the form and our team will get back to you within 24 hours.</p>
+   <div class="row">
 
-
- <div class="contact">
- <i class="las la-phone"></i>
-<p class="number">+0123 4567 8910</p>
+<!-- Get in touch text -->
+<div class="col-lg-6 text-center d-flex mt-3" style="align-items:center; justify-content:center;">
+<div class="d-md-block d-none">
 
 
+<h1 class="h1 get" style="font-family:HeaderFont; font-size:40px;" >Get In Touch</h1>
+<p class="fill" style="font-family:BodyFont; font-size:20px; color:grey;">Fill the form and our team will get back to you within 24 hours.</p>
 
- </div>
+</div> 
 
- <div class=" contact">
- <i class="las la-envelope-open"></i>
- <p class="mail">mail@citonhub.com</p>
- </div>
+<div class="d-md-none d-block">
 
- <div class=" contact">
- <i class="las la-map-marker-alt"></i>
- <p class="adress">102 street 2714 bodija</p>
- </div>
 
- 
+<h1 class="h1 get" style="font-family:HeaderFont; font-size:30px;" >Get In Touch</h1>
+<p class="fill" style="font-family:BodyFont; font-size:15px; color:grey;">Fill the form and our team will get back to you within 24 hours.</p>
 
+</div> 
 
 </div>
 
-<div class="col-lg-4 col-md-6 mb-md-4  card second">
+<!-- ends -->
 
-<form action="
-">
 
-<div style="margin-top:30px;" class="form-group">
-<label for=""> Your Name</label>
+<div class="col-lg-6 text-center mt-5">
+
+<form action="" class="row px-2 " style="font-family:BodyFont;">
+
+ <div class="col-md-8 offset-md-2  px-3 py-3" style="border-radius:14px; border:1px solid #c5c5c5;">
+ <div class="form-group text-left">
+<label for="" > Your Name</label>
 
 <div class="form-control field" style="display:flex; height:45px;">
-<i  style="font-size:1.7rem;"   class="las la-user"></i>
+<i  style="font-size:1.7rem;color:#3AC3A9;"   class="las la-user"></i>
 <input style="border:none; outline:none;" type="text" >
 </div>
 </div>
 
-<div class="form-group">
-<label for="">Mail</label>
+<div class="form-group text-left" >
+<label for="" >E-Mail</label>
 
 <div class="form-control field" style="display:flex; height:45px;">
-<i style="font-size:1.7rem;" class="las la-envelope-open"></i>
+<i style="font-size:1.7rem;color:#3AC3A9;" class="las la-envelope-open"></i>
 <input style="border:none; outline:none;" type="text" >
 </div>
 </div>
 
 
-<div class="form-group">
+<div class="form-group text-left">
 <label for="">Message</label>
 
-<textarea class="form-control" name="" id="" cols="30" rows="6" placeholder="message" ></textarea>
+<textarea class="form-control" name="" id="" cols="30" rows="6" placeholder="Let's hear you out!" ></textarea>
 </div>
 
-<button class="btn btn-large btn-primary" type="submit">Send Message</button>
+<div>
+<button class="homeButton mx-2 px-5 py-3" style="font-size:13px; ">Send Message</button>
+</div>
+
+ </div>
+
 </form>
 </div>
 
+<div class="col-12 d-md-block d-none mt-5 pt-5" style="font-family:BodyFont;">
+
+ <div class="row">
+   <div class="col-4 text-center">
+ 
+<i class="la la-phone" style="font-size:26px;color:#3AC3A9;"></i>
+<p class="number">+234 812 635 1468</p>
+
+   </div>
+   <div class="col-4 text-center">
+   
+<i class="la la-envelope-open" style="font-size:26px;color:#3AC3A9;"></i>
+<p class="mail">admin@citonhub.com</p>
+
 </div>
+<div class="col-4 text-center">
+
+<i class="la la-map-marker-alt" style="font-size:26px;color:#3AC3A9;"></i>
+<p class="adress">Lagos, Nigeria</p>
+
+</div>
+ </div>
+</div>
+
+<div class="col-12 d-md-none d-block mt-5 pt-5" style="font-family:BodyFont;">
+<div class="row ">
+   <div class="col-6 text-center">
+ 
+<i class="la la-phone" style="font-size:20px;color:#3AC3A9;"></i>
+<p class="number" style="font-size:14px;">+234 812 635 1468</p>
+
+   </div>
+   <div class="col-6 text-center">
+   
+<i class="la la-envelope-open" style="font-size:20px;color:#3AC3A9;"></i>
+<p class="mail" style="font-size:14px;">admin@citonhub.com</p>
+
+</div>
+<div class="col-12 text-center">
+
+<i class="la la-map-marker-alt" style="font-size:20px;color:#3AC3A9;"></i>
+<p class="adress" style="font-size:14px;">Lagos, Nigeria</p>
+
+</div>
+ </div>
+
+</div>
+
+</div>
+
+   </div>
 
 <!-- Footer component -->
  @include('shared.footer')

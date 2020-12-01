@@ -230,7 +230,7 @@
 
 
 <!-- bottom background image -->
-<div style="position:fixed;width:100%; height:30%; bottom:0; z-index:20;" class="d-lg-block d-none">
+<div style="position:fixed;width:100%; height:22%; bottom:0; z-index:20;" class="d-lg-block d-none">
 <img src="imgs/bottomLg.png" height="100%" width="100%">
 </div>
 
