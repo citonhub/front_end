@@ -1,16 +1,175 @@
 <template>
 
-<div style="position:absolute; width:100%; height:100%; ">
+<v-app style="position:absolute; width:100%; height:100%; ">
 
    <!-- header component -->
  <headerTab></headerTab>
  <!-- ends -->
 
+ <!-- quote -->
+  <div class="d-none col-lg-5 text-center  d-lg-flex"  style="z-index:99999999; align-items:center; justify-content:center; position:fixed; height:70%; top:10%;">
+    
+ 
+     
+<div style="" class="px-5 col-8 offset-2">
+
+
+<blockquote class="fill" style="font-family:BodyFont; font-size:25px; color:black;">Knowing is not enough; we must apply. Wishing is not enough; we must do.</blockquote>
+ 
+ <p class="text-center" style="font-family:HeaderFont;font-size:25px;">
+   - Rob Siltanen
+ </p>
+       </div>
+
+  </div>
+
+<div class="d-lg-none col-12 text-center  d-flex"  style="z-index:999999999; align-items:center; justify-content:center; position:fixed; height:20%; bottom:2%;">
+    
+ 
+     
+<div  class="px-5">
+
+
+<blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">Knowing is not enough; we must apply. Wishing is not enough; we must do.</blockquote>
+  <p class="text-center" style="font-family:HeaderFont;font-size:16px;">
+   - Rob Siltanen
+ </p>
+
+       </div>
+       
+</div>
+
+
+<!-- ends -->
+
+<!-- form goes here -->
+
+
+ <!-- for for larger screen  -->
+       <div class=" col-lg-7 offset-lg-5 px-5  d-none d-lg-flex "  style="z-index:99999999; align-items:center; justify-content:center; position:fixed; height:70%; top:10%;">
+     
+<div style="" class="col-7 ">
+     
+      <v-card class="py-1 pt-2 px-2 row" style="border-radius:10px;">
+             <div class="col-2 px-1">
+             <span>
+               
+             </span>
+            </div>
+
+            <div class="col-8 px-0 d-flex" style="align-items:center;justify-content:center;">
+             <h4  style=" font-family:HeaderFont">
+                 Enter Your Email
+             </h4>
+            </div>
+
+            <div class="col-2 text-center">
+            
+            </div>
+           
+
+            <div class="col-12 text-center py-1" style="font-family:BodyFont;">
+              <v-form class="row my-2 py-2 px-2 " ref="password" v-model="formstate">
+              
+                
+              <div class="col-12 py-2 my-0 px-2">
+              <v-text-field
+                style="font-size:13px;"
+                label="Email"
+                outlined
+             v-model="email"
+            :rules="emailRule"
+            prepend-inner-icon="las la-envelope"
+             :error="emailExist"
+             type="email"
+             color="#3C87CD"
+             ></v-text-field>
+
+             </div>
+
+            
+        
+               <div class="col-12 py-1 my-0 px-2 text-center">
+                  <v-btn  :loading="loading" type="submit" medium color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
+                 @click.prevent="checkemail">
+                 Verify
+                  </v-btn>
+             </div>
+
+             
+
+          </v-form>
+            </div>
+        </v-card>
+
+       </div>
+
+  </div>
+
+ <!-- ends -->
+
+ <!-- form for smaller screens -->
+  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="z-index:9999999999999; align-items:center; justify-content:center; left:0; position:fixed; height:80%; ">
+    
+ 
+    
+     
+      <v-card class="py-1 px-2 row" flat color="transparent">
+             
+            <div class="col-12 px-0 py-1 my-2 d-flex" style="align-items:center;justify-content:center;">
+             <h5  style=" font-family:HeaderFont">
+                   Enter Your Email
+             </h5>
+            </div>
+
+
+
+            <div class="col-12 text-center py-1" style="font-family:BodyFont;">
+              <v-form class="row my-1 py-2 px-2 " ref="password" v-model="formstate">
+              
+                
+
+           <div class="col-12 py-2 my-0 px-2">
+              <v-text-field
+                style="font-size:12px;"
+                label="Email"
+             v-model="email"
+             outlined
+            :rules="emailRule"
+            prepend-inner-icon="las la-envelope"
+             :error="emailExist"
+             type="email"
+             color="#3C87CD"
+             ></v-text-field>
+
+             </div>
+
+            
+        
+               <div class="col-12 py-1 my-0 px-2 text-center">
+                  <v-btn  :loading="loading" type="submit" small color="#3AC3A9" style="font-size:12px; font-weight:bolder; color:white;font-family:BodyFont;" 
+                 @click.prevent="checkemail">
+                 Verify
+                  </v-btn>
+             </div>
+
+
+             
+          </v-form>
+            </div>
+        </v-card>
+
+       
+</div>
+<!-- ends -->
+
+<!-- ends -->
+
    <!-- bottom component -->
  <bottom></bottom>
  <!-- ends -->
 
-  </div>
+  </v-app>
 
   
 </template>
@@ -32,11 +191,10 @@ export default {
       }
     },
      mounted(){
-      this.$root.showTabs=false;
-       this.$root.showHeader = false;
-       this.setEmail();
-        this.$root.itIsHomePage = true;
-       this.checkIfLogin();
+     
+     //  this.setEmail();
+       
+      // this.checkIfLogin();
     },
     methods:{
         setEmail: function(){

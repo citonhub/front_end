@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["login?v=0.91"],{
-=======
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["login?v=0.12"],{
->>>>>>> d9a5b0d8262fca7a8ddf70a3e65a07f6d22d64a3
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/Login.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************!*\
@@ -480,7 +476,7 @@ var render = function() {
                   "font-size": "25px"
                 }
               },
-              [_vm._v("\r\n   - William James\r\n ")]
+              [_vm._v("\n   - William James\n ")]
             )
           ])
         ]
@@ -523,7 +519,7 @@ var render = function() {
                   "font-size": "16px"
                 }
               },
-              [_vm._v("\r\n   - William James\r\n ")]
+              [_vm._v("\n   - William James\n ")]
             )
           ])
         ]
@@ -569,7 +565,7 @@ var render = function() {
                       _c(
                         "h4",
                         { staticStyle: { "font-family": "HeaderFont" } },
-                        [_vm._v("\r\n                 Login\r\n             ")]
+                        [_vm._v("\n                 Login\n             ")]
                       )
                     ]
                   ),
@@ -681,7 +677,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\r\n                 Login\r\n                  "
+                                    "\n                 Login\n                  "
                                   )
                                 ]
                               )
@@ -785,7 +781,7 @@ var render = function() {
                 },
                 [
                   _c("h5", { staticStyle: { "font-family": "HeaderFont" } }, [
-                    _vm._v("\r\n                 Login\r\n             ")
+                    _vm._v("\n                 Login\n             ")
                   ])
                 ]
               ),
@@ -893,7 +889,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\r\n                 Login\r\n                  "
+                                "\n                 Login\n                  "
                               )
                             ]
                           )

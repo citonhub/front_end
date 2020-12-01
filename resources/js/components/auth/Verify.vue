@@ -31,7 +31,7 @@
 
 <blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">The only impossible journey is the one you never begin.</blockquote>
  
- <p class="text-center" style="font-family:HeaderFont;font-size:25px;">
+ <p class="text-center" style="font-family:HeaderFont;font-size:16px;">
    - Anthony Robbins
  </p>
 
@@ -156,7 +156,7 @@
             
         
                <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn  :loading="loading" type="submit" medium color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
+                  <v-btn  :loading="loading" type="submit" small color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
                  @click.prevent="verify">
                  Verify
                   </v-btn>
