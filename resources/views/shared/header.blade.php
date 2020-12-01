@@ -1,9 +1,14 @@
-<div class="col-12 py-3 px-md-4 px-3" style="border-bottom:1px solid #c5c5c5;">
+<div class="col-12 py-3 px-md-4 px-3 fixed-top" style="border-bottom:1px solid #c5c5c5; background:white;">
 <div class="row">
 
 <!-- Logo -->
  <div class="col-4 text-left">
- <a href="/"><img alt="citonhub logo" src="/imgs/citonhub.png" height="40px"></a>
+ <a href="/">
+ <img alt="citonhub logo" class="d-lg-block d-none" src="/imgs/citonhub.png" height="40px">
+
+ <img alt="citonhub logo" class="d-lg-none d-block" src="/imgs/citonhub.png" height="35px">
+ </a>
+ 
  </div>
 
   <!-- Sign up, register button -->

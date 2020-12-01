@@ -40,7 +40,12 @@
 
  @section('content')
 
- <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 py-1"  style="margin-top:18px;">
+ <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 py-1" >
+
+
+ <div class="mt-5 pt-5">
+   
+   </div>
         <div >
             <h3 class="text-center mb-3 mb-lg-5" style="font-family:HeaderFont;">Privacy Policy</h3>
             <p class="paragraphTextStyle">
