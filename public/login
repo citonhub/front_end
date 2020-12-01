@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["login?v=0.90"],{
+=======
+<<<<<<< HEAD
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["login?v=0.91"],{
+=======
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["login?v=0.12"],{
+>>>>>>> d9a5b0d8262fca7a8ddf70a3e65a07f6d22d64a3
+>>>>>>> d2e5bba00aae2ea3ce0af751bbfd6ead6b45a20a
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/Login.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************!*\
@@ -663,7 +671,6 @@ var render = function() {
                                     "font-family": "BodyFont"
                                   },
                                   attrs: {
-                                    flat: "",
                                     loading: _vm.loading,
                                     type: "submit",
                                     medium: "",
@@ -876,7 +883,6 @@ var render = function() {
                                 "font-family": "BodyFont"
                               },
                               attrs: {
-                                flat: "",
                                 loading: _vm.loading,
                                 type: "submit",
                                 small: "",
