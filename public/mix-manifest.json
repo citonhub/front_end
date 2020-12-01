@@ -1,4 +1,11 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/js/dashboard.js": "/js/dashboard.js"
+    "/js/dashboard.js": "/js/dashboard.js",
+    "/login?v=0.12.js": "/login?v=0.12.js",
+    "/register.js": "/register.js",
+    "/verify.js": "/verify.js",
+    "/register?v=0.10.js": "/register?v=0.10.js",
+    "/verify?v=0.10.js": "/verify?v=0.10.js",
+    "/ForgotPassword?v=0.10.js": "/ForgotPassword?v=0.10.js",
+    "/ResetPassword?v=0.10.js": "/ResetPassword?v=0.10.js",
+    "/SetUsername?v=0.10.js": "/SetUsername?v=0.10.js"
 }

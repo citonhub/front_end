@@ -1,90 +1,62 @@
 <template>
     <div>
-         <div class="col-lg-10 offset-lg-1  d-md-block d-none" style="position:fixed; height:auto;  left:0%; bottom:0%; z-index:26;">
-
-      <div class="row">
-         <div class="col-md-4 text-center">
-   
-     <a href="https://blog.citonhub.com/a-new-way-to-teach-a-million-people-how-to-code-1"><span style="color:rgb(174,221,228); font-size:14px;" class="mx-2"> About</span></a> 
-
-     <a href="https://blog.citonhub.com"><span style="color:rgb(174,221,228); font-size:14px;" class="mx-2"> Blog</span></a> 
-
-      <a href="#"><span style="color:rgb(174,221,228); font-size:14px;" class="mx-2"> Terms of Use</span></a> 
-
-       <a href="#"><span style="color:rgb(174,221,228); font-size:14px;" class="mx-2">Privacy Policy</span></a>
-
-        
-
-         </div>
-
-         <div class="col-md-4 text-center "> 
-         <v-btn fab outlined small color="rgb(174,221,228)" class="mx-1" tag="a" href="https://mobile.twitter.com/citonhub" ><v-icon>mdi-twitter</v-icon></v-btn>
-
-           <v-btn fab outlined small color="rgb(174,221,228)"  class="mx-1" tag="a" href="https://www.youtube.com/channel/UCODtu7pKNlZiIZM9-ZByC4g" ><v-icon>mdi-youtube</v-icon></v-btn>
-
-            <v-btn fab outlined small color="rgb(174,221,228)"  class="mx-1" tag="a" href="https://www.linkedin.com/company/citonhub/" ><v-icon>mdi-linkedin</v-icon></v-btn>
-         </div>
-
-         <div class="col-md-4 text-center"> 
-          <span style="color:rgb(174,221,228); font-size:13px;" class="mx-2" >Copyright &copy; 2020 CitonHub</span>
-         </div>
-
          
-       
-      </div>
 
-    </div>
-
-    <div class="col-12  d-md-none d-block" style="position:fixed; height:auto;  left:0%; bottom:0%; z-index:26;">
-
-      <div class="row">
-        
-
-         <div class="col-6 text-center pb-1 pt-0 my-0"> 
-         <v-btn fab outlined x-small color="rgb(174,221,228)" class="mx-1" tag="a" href="https://mobile.twitter.com/citonhub" ><v-icon>mdi-twitter</v-icon></v-btn>
-
-           <v-btn fab outlined x-small color="rgb(174,221,228)"  class="mx-1" tag="a" href="https://www.youtube.com/channel/UCODtu7pKNlZiIZM9-ZByC4g" ><v-icon>mdi-youtube</v-icon></v-btn>
-
-            <v-btn fab outlined x-small color="rgb(174,221,228)"  class="mx-1"  tag="a" href="https://www.linkedin.com/company/citonhub/" ><v-icon>mdi-linkedin</v-icon></v-btn>
-         </div>
-
-         <div class="col-6 text-center pb-1 pt-0 my-0"> 
-          <span style="color:rgb(174,221,228); font-size:11px;"  >Copyright &copy; 2020 CitonHub</span>
-         </div>
-
-          <div class="col-12 py-0 my-0 text-center">
+<!-- bottom text -->
+<div class="col-12 d-lg-block d-none" style="position:fixed; right:0%; height:auto; bottom:3%; z-index:83;">
    
-     <a href="https://blog.citonhub.com/a-new-way-to-teach-a-million-people-how-to-code-1"><span style="color:rgb(174,221,228); font-size:11px;" class="mx-1"> About</span></a> 
-
-     <a href="https://blog.citonhub.com"><span style="color:rgb(174,221,228); font-size:11px;" class="mx-1"> Blog</span></a> 
-
-      <a href="#"><span style="color:rgb(174,221,228); font-size:11px;" class="mx-1"> Terms of Use</span></a> 
-
-       <a href="#"><span style="color:rgb(174,221,228); font-size:11px;" class="mx-1">Privacy Policy</span></a>
-
-        
-
-         </div>
-
-         
-       
-      </div>
-
-    </div>
-
-    <img style="position:fixed; height:35%; width:25%; left:-8%; bottom:-5%; z-index:23;" class="d-lg-block d-none" src="/imgs/side2.png">
-
-
   
+  <div class="row">
+     <div class="col-4 pl-4 pt-2 text-center">
 
+     <span  class="linkStyle mx-2"  style="color:#ffffff;"> &copy; CitonHub 2020</span>
+       
+     </div>
 
+      <div class="col-4 pl-4 py-2 text-center">
 
-     <img style="position:fixed; height:40%; width:15%; right:-2%; bottom:-12%;z-index:23;" class="d-lg-block d-none" src="/imgs/side1.png">
+      <a href="https://twitter.com/citonhub" target="_blank" class="linkStyle mx-2"  style="color:#ffffff;"><i style="font-size:35px;" class="lab la-twitter"></i></a>
 
+     <a href="https://www.youtube.com/channel/UCODtu7pKNlZiIZM9-ZByC4g" target="_blank" class="linkStyle mx-2 "  style="color:#ffffff;"><i style="font-size:35px;" class="lab la-youtube"></i></a>
+       
+     </div>
+
+     <div class="col-4 text-center pt-2">
+    
     
 
-      <img style="position:fixed; height:40%; width:100%;  bottom:0%;"  class="d-md-block d-none" src="/imgs/bottom.png">
 
-      <img style="position:fixed; height:50%; width:100%;  bottom:0%;"  class="d-md-none d-block" src="/imgs/bottom.png">
+     <a href="/contact-us" class="linkStyle mx-3"  style="color:#ffffff;"> Contact Us</a>
+
+     <a href="/terms-of-use" class="linkStyle mx-3"  style="color:#ffffff;"> Terms of Use</a>
+
+     <a href="/privacy-policy" class="linkStyle mx-3"  style="color:#ffffff;"> Privacy Policy</a>
+
+     </div>
+  </div>
+  
+
+</div>
+
+<!-- ends -->
+
+
+<!-- bottom background image -->
+<div style="position:fixed;width:100%; height:30%; bottom:0; z-index:20;" class="d-lg-block d-none">
+<img src="imgs/bottomLg.png" height="100%" width="100%">
+</div>
+
+<!-- ends -->
+
+<!-- Main background image -->
+<div style="position:fixed;width:100%; height:100%;opacity: 0.5;" class="d-lg-block d-none">
+<img src="imgs/backgroundHome.png" height="100%" width="100%">
+</div>
+
+<div style="position:fixed;width:100%; height:100%; left:-425px; top:-5px; opacity: 0.5;" class="d-lg-none d-block">
+<img src="imgs/backgroundHome.png" height="817px" width="1226px">
+</div>
+<!-- ends -->
+
     </div>
 </template>
