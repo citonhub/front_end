@@ -81,14 +81,14 @@ const i18n = new VueI18n({
 })
 
 const app = new Vue({
-  router: router,
-   store,
-    el: '#dashboard',
-    vuetify: new Vuetify(),
-    i18n,
-    data:{
+     router: router,
+     store,
+     el: '#dashboard',
+     vuetify: new Vuetify(),
+     i18n,
+     data:{
      
-    },
+     },
      mounted: function () {
       
     },
@@ -98,8 +98,7 @@ const app = new Vue({
     created(){
      
     },
+    methods:{
    
-  methods:{
-   
-}
+    }
 });
