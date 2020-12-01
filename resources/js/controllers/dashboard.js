@@ -62,7 +62,7 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const Login = () => import(/* webpackChunkName: "login?v=0.12" */ '../components/auth/Login.vue');
+const Login = () => import(/* webpackChunkName: "login?v=0.90" */ '../components/auth/Login.vue');
 const Register = () => import(/* webpackChunkName: "register?v=0.10" */ '../components/auth/Register.vue');
 const Verify = () => import(/* webpackChunkName: "verify?v=0.10" */ '../components/auth/Verify.vue');
 const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword?v=0.10" */ '../components/auth/ForgotPassword.vue');
