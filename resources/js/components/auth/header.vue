@@ -1,7 +1,7 @@
 <template>
    
         <!-- Headers -->
- <div class="col-12 fixed-top py-3 px-md-4 px-3" style=" z-index:99999;" >
+ <div class="col-12 fixed-top py-3 px-md-4 px-3" style=" z-index:99999999999999999;" >
 <div class="row">
 
 <!-- Logo -->

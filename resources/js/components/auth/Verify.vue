@@ -120,7 +120,7 @@
  <!-- ends -->
 
  <!-- form for smaller screens -->
-  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="z-index:9999999999999; align-items:center; justify-content:center; left:0; position:fixed; height:80%; ">
+  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="z-index:9999999; align-items:center; justify-content:center; left:0; position:fixed; height:80%; ">
     
  
     
