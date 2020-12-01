@@ -663,7 +663,6 @@ var render = function() {
                                     "font-family": "BodyFont"
                                   },
                                   attrs: {
-                                    flat: "",
                                     loading: _vm.loading,
                                     type: "submit",
                                     medium: "",
@@ -876,7 +875,6 @@ var render = function() {
                                 "font-family": "BodyFont"
                               },
                               attrs: {
-                                flat: "",
                                 loading: _vm.loading,
                                 type: "submit",
                                 small: "",

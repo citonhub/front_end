@@ -1,39 +1,193 @@
 <template>
-
-<div style="position:absolute; width:100%; height:100%; ">
+<v-app style="position:absolute; width:100%; height:100%; ">
 
    <!-- header component -->
  <headerTab></headerTab>
  <!-- ends -->
 
- <!-- Zubs start -->
- <div class="row my-5 py-5">
-   <div class="col-md-7"></div>
-   <div class="col-md-5 p-5">
-     <div class="card shadow">
-       <div class="card-body p-5 text-center">
-         <h1>Verify Email</h1>
-         <small>Enter the 6-digit code sent to your email, user_name</small>
-         <form class="mt-3">
-           <div class="form-group">
-             <input type="number" class="form-control" placeholder="Enter Code...">
-           </div>
-           <div class="form-group">
-             <button class="homeButton px-3 py-2 btn-block mb-2">Next</button>
-             <small>Haven't recieved a mail yet? Check your spam or <button class="homeButton px-2 py-1">Resend</button> 11 secs</small>
-           </div>
-         </form>
+ <!-- quote -->
+  <div class="d-none col-lg-5 text-center  d-lg-flex"  style="z-index:99999999; align-items:center; justify-content:center; position:fixed; height:70%; top:10%;">
+    
+ 
+     
+<div style="" class="px-5 col-8 offset-2">
+
+
+<blockquote class="fill" style="font-family:BodyFont; font-size:25px; color:black;">The only impossible journey is the one you never begin.</blockquote>
+ 
+ <p class="text-center" style="font-family:HeaderFont;font-size:25px;">
+   - Anthony Robbins
+ </p>
        </div>
-     </div>
-   </div>
- </div>
- <!-- Zubs end -->
+
+  </div>
+
+<div class="d-lg-none col-12 text-center  d-flex"  style="z-index:999999999; align-items:center; justify-content:center; position:fixed; height:20%; bottom:2%;">
+    
+ 
+     
+<div  class="px-5">
+
+
+<blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">The only impossible journey is the one you never begin.</blockquote>
+ 
+ <p class="text-center" style="font-family:HeaderFont;font-size:25px;">
+   - Anthony Robbins
+ </p>
+
+       </div>
+       
+</div>
+
+
+<!-- ends -->
+
+<!-- form goes here -->
+
+
+ <!-- for for larger screen  -->
+       <div class=" col-lg-7 offset-lg-5 px-5  d-none d-lg-flex "  style="z-index:99999999; align-items:center; justify-content:center; position:fixed; height:70%; top:10%;">
+     
+<div style="" class="col-7 ">
+     
+      <v-card class="py-1 pt-2 px-2 row" style="border-radius:10px;">
+             <div class="col-2 px-1">
+             <span>
+               
+             </span>
+            </div>
+
+            <div class="col-8 px-0 d-flex" style="align-items:center;justify-content:center;">
+             <h4  style=" font-family:HeaderFont">
+                Verify Your Email
+             </h4>
+            </div>
+
+            <div class="col-2 text-center">
+            
+            </div>
+            
+             <div class="col-12 py-2 text-center ">
+              <span  style="font-size:14px; font-family:BodyFont;"  class=" px-4">
+               {{ $t('general.enter_digit') }},<span style="color:#3C87CD;"> {{this.$root.userEmail}}</span> 
+             </span>
+            </div>
+
+            <div class="col-12 text-center py-1" style="font-family:BodyFont;">
+              <v-form class="row my-2 py-2 px-2 " ref="verify" v-model="formstate">
+              
+                
+
+              <div class="col-8 offset-2 py-2 my-0 px-2">
+              <v-text-field
+                 style="font-size:13px;"
+                :placeholder="$t('general.enter_code') + '...'"
+            :label="$t('general.verification_code')"
+              outlined
+            v-model="verifyCode"
+             type="tel"
+             color="#3C87CD"
+             ></v-text-field>
+
+             </div>
+
+            
+        
+               <div class="col-12 py-1 my-0 px-2 text-center">
+                  <v-btn  :loading="loading" type="submit" medium color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
+                 @click.prevent="verify">
+                 Verify
+                  </v-btn>
+             </div>
+              
+               <div class="col-12 py-1 my-0 mt-2 px-2 text-center">
+
+                <span   style="font-size:13px; font-family:BodyFont; color:#3C87CD;"
+                > {{$t('general.mail_received')}} <v-btn color="#3C87CD" x-small  
+                style="text-decoration:underline;font-size:13px; font-family:BodyFont; color:#ffffff; text-transform:lowercase;" @click="resendMail" :disabled="!showResend" :loading="loadingResend">{{$t('general.resend')}}</v-btn> <span v-if="timer > 0">  {{timer}} sec</span></span>
+                
+            </div>
+             
+
+          </v-form>
+            </div>
+        </v-card>
+
+       </div>
+
+  </div>
+
+ <!-- ends -->
+
+ <!-- form for smaller screens -->
+  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="z-index:9999999999999; align-items:center; justify-content:center; left:0; position:fixed; height:80%; ">
+    
+ 
+    
+     
+      <v-card class="py-1 px-2 row" flat color="transparent">
+             
+            <div class="col-12 px-0 py-1 my-2 d-flex" style="align-items:center;justify-content:center;">
+             <h5  style=" font-family:HeaderFont">
+                  Reset password
+             </h5>
+            </div>
+
+
+
+            <div class="col-12 text-center py-1" style="font-family:BodyFont;">
+              <v-form class="row my-1 py-2 px-2 " ref="verify" v-model="formstate">
+              
+                
+
+           <div class="col-12 py-2 my-0 px-2">
+              <v-text-field
+                 style="font-size:13px;"
+                :placeholder="$t('general.enter_code') + '...'"
+            :label="$t('general.verification_code')"
+              outlined
+            v-model="verifyCode"
+             type="tel"
+             color="#3C87CD"
+             ></v-text-field>
+
+             </div>
+
+            
+        
+               <div class="col-12 py-1 my-0 px-2 text-center">
+                  <v-btn  :loading="loading" type="submit" medium color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
+                 @click.prevent="verify">
+                 Verify
+                  </v-btn>
+             </div>
+
+
+             <div class="col-12 py-1 my-0 mt-2 px-2 text-center">
+
+                <span   style="font-size:12px; font-family:BodyFont; color:#3C87CD;"
+                > {{$t('general.mail_received')}} <v-btn color="#3C87CD" x-small  
+                style="text-decoration:underline;font-size:13px; font-family:BodyFont; color:#ffffff; text-transform:lowercase;" @click="resendMail" :disabled="!showResend" :loading="loadingResend">{{$t('general.resend')}}</v-btn> <span v-if="timer > 0">  {{timer}} sec</span></span>
+                
+            </div>
+
+
+             
+          </v-form>
+            </div>
+        </v-card>
+
+       
+</div>
+<!-- ends -->
+
+<!-- ends -->
 
    <!-- bottom component -->
  <bottom></bottom>
  <!-- ends -->
 
-  </div>
+  </v-app>
 
 
 </template>
@@ -46,15 +200,14 @@ export default {
         Alert:false,
         alertMsg:'',
         loadingResend:false,
+        formstate:false,
         timer:30,
         showResend:false,
       }
     },
      mounted(){
-      this.$root.showTabs=false;
-       this.$root.itIsHomePage = true;
-       this.$root.showHeader = false;
-       this.setEmail();
+     
+       // this.setEmail();
     },
     methods:{
       setEmail: function(){
