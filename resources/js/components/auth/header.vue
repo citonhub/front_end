@@ -5,7 +5,7 @@
 <div class="row">
 
 <!-- Logo -->
- <div class="col-4 text-left">
+ <div class="col-4 text-left" style="z-index:99999999999999999;">
  <a href="/">
 <img alt="citonhub logo" class="d-lg-block d-none" src="/imgs/citonhub.png" height="40px">
 
