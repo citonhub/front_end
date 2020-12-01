@@ -6,6 +6,18 @@
    <!-- header component -->
  <headerTab></headerTab>
  <!-- ends -->
+<div class="col-lg-4 ml-4">
+  <p>Teach.
+    Learn.
+    Connect. <span>with other developers.</span></p>
+
+<button class="start">GET STARTED</button>
+</div>
+
+<!-- sign up form-->
+
+di
+
 
    <!-- bottom component -->
  <bottom></bottom>
