@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["register?v=0.70"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["register?v=1.90"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/Register.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************!*\
@@ -11,6 +11,31 @@
 __webpack_require__.r(__webpack_exports__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -353,156 +378,191 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-lg-4" },
+            {
+              staticClass: "col-lg-4 mb-4 sign-form",
+              staticStyle: {
+                "z-index": "2",
+                "align-items": "center",
+                "justify-content": "center",
+                height: "70%"
+              }
+            },
             [
-              _c("validation-observer", {
-                ref: "observer",
-                scopedSlots: _vm._u([
+              _c("v-card", { staticClass: "col-12" }, [
+                _c("h4", { staticStyle: { "font-family": "HeaderFont" } }, [
+                  _vm._v("\r\n                 Register\r\n             ")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
                   {
-                    key: "default",
-                    fn: function() {
-                      return [
+                    staticClass: "col-12",
+                    staticStyle: { "font-family": "BodyFont" }
+                  },
+                  [
+                    _c(
+                      "v-form",
+                      {
+                        staticClass: "row my-2 py-2 px-2 ",
+                        model: {
+                          value: _vm.formstate,
+                          callback: function($$v) {
+                            _vm.formstate = $$v
+                          },
+                          expression: "formstate"
+                        }
+                      },
+                      [
                         _c(
-                          "form",
+                          "div",
+                          { staticClass: "col-12  py-2 my-0 px-2" },
                           [
-                            _c("validation-provider", {
-                              attrs: { name: "Name", rules: "required|max:10" },
-                              scopedSlots: _vm._u([
-                                {
-                                  key: "default",
-                                  fn: function(ref) {
-                                    var errors = ref.errors
-                                    return [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          counter: 10,
-                                          "error-messages": errors,
-                                          label: "Name",
-                                          required: ""
-                                        },
-                                        model: {
-                                          value: _vm.name,
-                                          callback: function($$v) {
-                                            _vm.name = $$v
-                                          },
-                                          expression: "name"
-                                        }
-                                      })
-                                    ]
-                                  }
-                                }
-                              ])
-                            }),
-                            _vm._v(" "),
-                            _c("validation-provider", {
-                              attrs: { name: "email", rules: "required|email" },
-                              scopedSlots: _vm._u([
-                                {
-                                  key: "default",
-                                  fn: function(ref) {
-                                    var errors = ref.errors
-                                    return [
-                                      _c("v-text-field", {
-                                        attrs: {
-                                          "error-messages": errors,
-                                          label: "E-mail",
-                                          required: ""
-                                        },
-                                        model: {
-                                          value: _vm.email,
-                                          callback: function($$v) {
-                                            _vm.email = $$v
-                                          },
-                                          expression: "email"
-                                        }
-                                      })
-                                    ]
-                                  }
-                                }
-                              ])
-                            }),
-                            _vm._v(" "),
-                            _c("validation-provider", {
-                              attrs: { name: "select", rules: "required" },
-                              scopedSlots: _vm._u([
-                                {
-                                  key: "default",
-                                  fn: function(ref) {
-                                    var errors = ref.errors
-                                    return [
-                                      _c("v-select", {
-                                        attrs: {
-                                          items: _vm.items,
-                                          "error-messages": errors,
-                                          label: "Select",
-                                          "data-vv-name": "select",
-                                          required: ""
-                                        },
-                                        model: {
-                                          value: _vm.select,
-                                          callback: function($$v) {
-                                            _vm.select = $$v
-                                          },
-                                          expression: "select"
-                                        }
-                                      })
-                                    ]
-                                  }
-                                }
-                              ])
-                            }),
-                            _vm._v(" "),
-                            _c("validation-provider", {
-                              attrs: { rules: "required", name: "checkbox" },
-                              scopedSlots: _vm._u([
-                                {
-                                  key: "default",
-                                  fn: function() {
-                                    return [
-                                      _c("v-checkbox", {
-                                        attrs: {
-                                          "error-messages": _vm.errors,
-                                          value: "1",
-                                          label: "Option",
-                                          type: "checkbox",
-                                          required: ""
-                                        },
-                                        model: {
-                                          value: _vm.checkbox,
-                                          callback: function($$v) {
-                                            _vm.checkbox = $$v
-                                          },
-                                          expression: "checkbox"
-                                        }
-                                      })
-                                    ]
-                                  },
-                                  proxy: true
-                                }
-                              ])
-                            }),
-                            _vm._v(" "),
+                            _c("v-text-field", {
+                              staticStyle: { "font-size": "13px" },
+                              attrs: {
+                                placeholder: "Full Name",
+                                label: "Full Name",
+                                "prepend-inner-icon": "las la-user",
+                                rules: _vm.nameRule,
+                                outlined: "",
+                                type: "text",
+                                color: "#3C87CD"
+                              },
+                              model: {
+                                value: _vm.name,
+                                callback: function($$v) {
+                                  _vm.name = $$v
+                                },
+                                expression: "name"
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-12  py-2 my-0 px-2" },
+                          [
+                            _c("v-text-field", {
+                              staticStyle: { "font-size": "13px" },
+                              attrs: {
+                                placeholder: "Email Address",
+                                label: "Email Address",
+                                "prepend-inner-icon": "la la-envelope-open",
+                                rules: _vm.emailRule,
+                                outlined: "",
+                                type: "email",
+                                color: "#3C87CD"
+                              },
+                              model: {
+                                value: _vm.email,
+                                callback: function($$v) {
+                                  _vm.email = $$v
+                                },
+                                expression: "email"
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-12  py-2 my-0 px-2" },
+                          [
+                            _c("v-text-field", {
+                              staticStyle: { "font-size": "13px" },
+                              attrs: {
+                                placeholder: "Password",
+                                label: "Password",
+                                "prepend-inner-icon": "las la-lock",
+                                rules: _vm.passwordRule,
+                                outlined: "",
+                                type: "password",
+                                color: "#3C87CD"
+                              },
+                              model: {
+                                value: _vm.password,
+                                callback: function($$v) {
+                                  _vm.password = $$v
+                                },
+                                expression: "password"
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-12  py-2 my-0 px-2" },
+                          [
+                            _c("v-text-field", {
+                              staticStyle: { "font-size": "13px" },
+                              attrs: {
+                                placeholder: "Confirm Password",
+                                label: "Confirm Password",
+                                "prepend-inner-icon": "las la-lock",
+                                rules: _vm.comfirmPasswordRule,
+                                outlined: "",
+                                type: "password",
+                                color: "#3C87CD"
+                              },
+                              model: {
+                                value: _vm.passwordConfirm,
+                                callback: function($$v) {
+                                  _vm.passwordConfirm = $$v
+                                },
+                                expression: "passwordConfirm"
+                              }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "col-12 py-1 my-0 px-2 text-center" },
+                          [
                             _c(
                               "v-btn",
                               {
-                                staticClass: "mr-4",
-                                on: { click: _vm.submit }
+                                staticStyle: {
+                                  "font-size": "13px",
+                                  "font-weight": "bolder",
+                                  color: "white",
+                                  "font-family": "BodyFont"
+                                },
+                                attrs: {
+                                  flat: "",
+                                  loading: _vm.loading,
+                                  type: "submit",
+                                  medium: "",
+                                  color: "#3AC3A9"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.register($event)
+                                  }
+                                }
                               },
-                              [_vm._v("\r\n        submit\r\n      ")]
-                            ),
-                            _vm._v(" "),
-                            _c("v-btn", { on: { click: _vm.clear } }, [
-                              _vm._v("\r\n        clear\r\n      ")
-                            ])
+                              [
+                                _vm._v(
+                                  "\r\n                 Register\r\n                  "
+                                )
+                              ]
+                            )
                           ],
                           1
                         )
                       ]
-                    },
-                    proxy: true
-                  }
-                ])
-              })
+                    )
+                  ],
+                  1
+                )
+              ])
             ],
             1
           )
@@ -522,20 +582,37 @@ var staticRenderFns = [
     return _c(
       "div",
       {
-        staticClass: "col-lg-4 ml-4 mt-6",
-        staticStyle: { "margin-top": "20px" }
+        staticClass: "col-lg-5 ml-4 mt-6 mr-4",
+        staticStyle: { "margin-top": "20px", "font-family": "BodyFont" }
       },
       [
-        _c("p", { staticStyle: { "font-size": "3rem", color: "#3E8893" } }, [
-          _vm._v("Teach. "),
-          _c("br"),
-          _vm._v("\r\n    Learn. "),
-          _c("br"),
-          _vm._v("\r\n    Connect. "),
-          _c("span", [_vm._v("with other developers.")])
-        ]),
-        _vm._v(" "),
-        _c("button", { staticClass: "start" }, [_vm._v("GET STARTED")])
+        _c("div", { staticClass: "px-5 mt-4 col-10 offset-2" }, [
+          _c(
+            "blockquote",
+            {
+              staticClass: "fill",
+              staticStyle: {
+                "font-family": "BodyFont",
+                "font-size": "25px",
+                color: "black"
+              }
+            },
+            [
+              _vm._v(
+                " People who are crazy enough to think they can change the world, are the ones who do."
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "p",
+            {
+              staticClass: "text-center",
+              staticStyle: { "font-family": "HeaderFont", "font-size": "25px" }
+            },
+            [_vm._v("\r\n   – Rob Siltanen\r\n ")]
+          )
+        ])
       ]
     )
   }

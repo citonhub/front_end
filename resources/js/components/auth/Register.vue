@@ -8,84 +8,109 @@
  <!-- ends -->
 
  <div style="position:fixed;top:5%;" class="row">
-<div style="margin-top:20px"  class="col-lg-4 ml-4 mt-6">
-  <p style="font-size:3rem;color:#3E8893">Teach. <br>
-    Learn. <br>
-    Connect. <span>with other developers.</span></p>
+<div style="margin-top:20px; font-family:BodyFont;"  class="col-lg-5 ml-4 mt-6 mr-4">
 
-<button class="start">GET STARTED</button>
+  <div style="" class="px-5 mt-4 col-10 offset-2">
+
+
+<blockquote class="fill" style="font-family:BodyFont; font-size:25px; color:black;"> People who are crazy enough to think they can change the world, are the ones who do.</blockquote>
+ 
+ <p class="text-center" style="font-family:HeaderFont;font-size:25px;">
+   – Rob Siltanen
+ </p>
+       </div>
+
 </div>
 
-<div class="col-lg-4"><validation-observer
-    ref="observer"
-    v-slot=""
-  >
-    <form>
-      <validation-provider
-        v-slot="{ errors }"
-        name="Name"
-        rules="required|max:10"
-      >
-        <v-text-field
-          v-model="name"
-          :counter="10"
-          :error-messages="errors"
-          label="Name"
-          required
-        ></v-text-field>
-      </validation-provider>
-      <validation-provider
-        v-slot="{ errors }"
-        name="email"
-        rules="required|email"
-      >
-        <v-text-field
-          v-model="email"
-          :error-messages="errors"
-          label="E-mail"
-          required
-        ></v-text-field>
-      </validation-provider>
-      <validation-provider
-        v-slot="{ errors }"
-        name="select"
-        rules="required"
-      >
-        <v-select
-          v-model="select"
-          :items="items"
-          :error-messages="errors"
-          label="Select"
-          data-vv-name="select"
-          required
-        ></v-select>
-      </validation-provider>
-      <validation-provider
-        v-slot=""
-        rules="required"
-        name="checkbox"
-      >
-        <v-checkbox
-          v-model="checkbox"
-          :error-messages="errors"
-          value="1"
-          label="Option"
-          type="checkbox"
-          required
-        ></v-checkbox>
-      </validation-provider>
+<div class="col-lg-4 mb-4 sign-form"  style="z-index:2; align-items:center; justify-content:center; height:70%; ">
 
-      <v-btn
-        class="mr-4"
-        @click="submit"
-      >
-        submit
-      </v-btn>
-      <v-btn @click="clear">
-        clear
-      </v-btn>
-    </form>
-  </validation-observer></div>
+ 
+
+<v-card class="col-12">
+  <h4  style=" font-family:HeaderFont">
+                 Register
+             </h4>
+<div style="font-family:BodyFont" class="col-12">
+  <v-form class="row my-2 py-2 px-2 " v-model="formstate">
+
+    <div class="col-12  py-2 my-0 px-2">
+ <v-text-field
+                style="font-size:13px;"
+                
+                 placeholder="Full Name"
+            label="Full Name"
+             v-model="name"
+            prepend-inner-icon="las la-user"
+            :rules="nameRule"
+           
+             outlined
+             type="text"
+             color="#3C87CD"
+             ></v-text-field>
+             </div>
+
+             <div class="col-12  py-2 my-0 px-2">
+  <v-text-field
+                style="font-size:13px;"
+                
+                 placeholder="Email Address"
+            label="Email Address"
+             v-model="email"
+            prepend-inner-icon="la la-envelope-open"
+            :rules="emailRule"
+           
+             outlined
+             type="email"
+             color="#3C87CD"
+             ></v-text-field>
+             </div>
+
+              <div class="col-12  py-2 my-0 px-2"> 
+<v-text-field
+                style="font-size:13px;"
+                
+                 placeholder="Password"
+            label="Password"
+             v-model="password"
+            prepend-inner-icon="las la-lock"
+            :rules="passwordRule"
+           
+             outlined
+             type="password"
+             color="#3C87CD"
+             ></v-text-field>
+
+              </div>
+
+               <div class="col-12  py-2 my-0 px-2"> 
+<v-text-field
+                style="font-size:13px;"
+                
+                 placeholder="Confirm Password"
+            label="Confirm Password"
+             v-model="passwordConfirm"
+            prepend-inner-icon="las la-lock"
+            :rules="comfirmPasswordRule"
+           
+             outlined
+             type="password"
+             color="#3C87CD"
+             ></v-text-field>
+
+              </div>
+
+               <div class="col-12 py-1 my-0 px-2 text-center">
+                  <v-btn flat :loading="loading" type="submit" medium color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
+                  @click.prevent="register">
+                 Register
+                  </v-btn>
+             </div>
+
+  </v-form>
+</div>
+</v-card>
+
+</div>
  </div>
 
 
