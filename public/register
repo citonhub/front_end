@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["register?v=0.10"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["register?v=0.20"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/Register.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************!*\
@@ -11,6 +11,18 @@
 __webpack_require__.r(__webpack_exports__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -200,7 +212,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.morebackground4{\n     position: absolute;\n     width:100%; \n     top: 0;\n     left: 0;\n     height:100%; \n     align-items: center;\n     justify-content: center;\n     background:#ffffff;\n     z-index:100000;\n}\n.login{\n     color: #1e4248;\n     font-size:13px;\n}\n.forgot{\n     cursor: pointer;\n     text-decoration: underline;\n     color: #4494a2;\n     font-size:12px;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.morebackground4{\r\n     position: absolute;\r\n     width:100%; \r\n     top: 0;\r\n     left: 0;\r\n     height:100%; \r\n     align-items: center;\r\n     justify-content: center;\r\n     background:#ffffff;\r\n     z-index:100000;\n}\n.login{\r\n     color: #1e4248;\r\n     font-size:13px;\n}\n.forgot{\r\n     cursor: pointer;\r\n     text-decoration: underline;\r\n     color: #4494a2;\r\n     font-size:12px;\n}\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -255,11 +267,33 @@ var render = function() {
   return _c(
     "div",
     { staticStyle: { position: "absolute", width: "100%", height: "100%" } },
-    [_c("headerTab"), _vm._v(" "), _c("bottom")],
+    [
+      _c("headerTab"),
+      _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
+      _vm._v("\r\n\r\ndi\r\n\r\n\r\n   "),
+      _vm._v(" "),
+      _c("bottom")
+    ],
     1
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-lg-4 ml-4" }, [
+      _c("p", [
+        _vm._v("Teach.\r\n    Learn.\r\n    Connect. "),
+        _c("span", [_vm._v("with other developers.")])
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "start" }, [_vm._v("GET STARTED")])
+    ])
+  }
+]
 render._withStripped = true
 
 
