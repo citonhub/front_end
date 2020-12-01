@@ -6,17 +6,92 @@
    <!-- header component -->
  <headerTab></headerTab>
  <!-- ends -->
-<div class="col-lg-4 ml-4">
-  <p>Teach.
-    Learn.
+
+ <div style="position:fixed;top:5%;" class="row">
+<div style="margin-top:20px"  class="col-lg-4 ml-4 mt-6">
+  <p style="font-size:3rem;color:#3E8893">Teach. <br>
+    Learn. <br>
     Connect. <span>with other developers.</span></p>
 
 <button class="start">GET STARTED</button>
 </div>
 
+<div class="col-lg-4"><validation-observer
+    ref="observer"
+    v-slot=""
+  >
+    <form>
+      <validation-provider
+        v-slot="{ errors }"
+        name="Name"
+        rules="required|max:10"
+      >
+        <v-text-field
+          v-model="name"
+          :counter="10"
+          :error-messages="errors"
+          label="Name"
+          required
+        ></v-text-field>
+      </validation-provider>
+      <validation-provider
+        v-slot="{ errors }"
+        name="email"
+        rules="required|email"
+      >
+        <v-text-field
+          v-model="email"
+          :error-messages="errors"
+          label="E-mail"
+          required
+        ></v-text-field>
+      </validation-provider>
+      <validation-provider
+        v-slot="{ errors }"
+        name="select"
+        rules="required"
+      >
+        <v-select
+          v-model="select"
+          :items="items"
+          :error-messages="errors"
+          label="Select"
+          data-vv-name="select"
+          required
+        ></v-select>
+      </validation-provider>
+      <validation-provider
+        v-slot=""
+        rules="required"
+        name="checkbox"
+      >
+        <v-checkbox
+          v-model="checkbox"
+          :error-messages="errors"
+          value="1"
+          label="Option"
+          type="checkbox"
+          required
+        ></v-checkbox>
+      </validation-provider>
+
+      <v-btn
+        class="mr-4"
+        @click="submit"
+      >
+        submit
+      </v-btn>
+      <v-btn @click="clear">
+        clear
+      </v-btn>
+    </form>
+  </validation-observer></div>
+ </div>
+
+
 <!-- sign up form-->
 
-di
+
 
 
    <!-- bottom component -->

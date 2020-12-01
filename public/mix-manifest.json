@@ -6,5 +6,9 @@
     "/login?v=0.12.js": "/login?v=0.12.js",
     "/register?v=0.20.js": "/register?v=0.20.js",
     "/verify?v=0.10.js": "/verify?v=0.10.js",
-    "/register?v=0.30.js": "/register?v=0.30.js"
+    "/register?v=0.30.js": "/register?v=0.30.js",
+    "/register?v=0.40.js": "/register?v=0.40.js",
+    "/register?v=0.50.js": "/register?v=0.50.js",
+    "/register?v=0.60.js": "/register?v=0.60.js",
+    "/register?v=0.70.js": "/register?v=0.70.js"
 }
