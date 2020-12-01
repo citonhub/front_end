@@ -46,18 +46,28 @@
 
 <!-- Logo -->
  <div class="col-4 text-left">
- <img alt="citonhub logo" src="/imgs/citonhub.png" height="40px">
+ 
+ <img alt="citonhub logo" class="d-lg-block d-none" src="/imgs/citonhub.png" height="40px">
+
+ <img alt="citonhub logo" class="d-lg-none d-block" src="/imgs/citonhub.png" height="35px">
  </div>
 
  <!-- Sign up, register button -->
- <div class="col-8 text-right pt-1">
- <a href="https://blog.citonhub.com" class="linkStyle mx-2 d-none d-md-inline-block" style="color:#000000;">Blog</a>
+ <div class="col-8 text-right pt-1 d-lg-block d-none" >
+ <a href="https://blog.citonhub.com"  target="_blank" class="linkStyle mx-3 " style="color:#000000;">Blog</a>
 
- <a href="/dashboard" class="linkStyle mx-2"  style="color:#000000;"> Login</a>
+ <a href="/dashboard" class="linkStyle mx-3"  style="color:#000000;"> Login</a>
  
  <button class="homeButton mx-2 px-3 py-2">Sign Up</button>
 
  </div>
+
+ <div class="col-8 text-right pt-1 d-lg-none d-block pr-1" >
+
+
+ </div>
+
+
 </div>
 </div>
 <!-- ends -->
@@ -87,7 +97,7 @@
 
 </div>
 
-<div class="d-lg-none d-block col-12 " style="position:fixed; left:0%; height:60%; top:15%; z-index:80;">
+<div class="d-lg-none d-block col-12 " style="position:fixed; left:0%; height:60%; top:10%; z-index:80;">
 <div class=" text-center">
      <span style="font-family:HeaderFont; font-size:36px;">Teach.</span>
      <span style="font-family:HeaderFont; font-size:36px;">Learn.</span>
@@ -95,11 +105,11 @@
      <span style="font-family:BodyFont; font-size:18px;">With other developers.</span>
 
     
-      <div class="my-3">
+      <div class="mt-3">
 
-      <button class="homeButtonOutline  px-3 py-2 mx-1" style="font-size:13px;">Login</button>
+      <button class="homeButtonOutline  px-4 py-2 mx-1" style="font-size:13px;">Login</button>
 
-       <button class="homeButton  px-3 py-2 mx-1" style="font-size:13px;">Sign Up</button>
+       <button class="homeButton  px-4 py-2 mx-1" style="font-size:13px;">Sign Up</button>
      
        
       </div>
@@ -123,9 +133,9 @@
 
       <div class="col-4 pl-4 py-2 text-center">
 
-      <a href="https://twitter.com/citonhub" class="linkStyle mx-2"  style="color:#ffffff;"><i style="font-size:35px;" class="lab la-twitter"></i></a>
+      <a href="https://twitter.com/citonhub" target="_blank" class="linkStyle mx-2"  style="color:#ffffff;"><i style="font-size:35px;" class="lab la-twitter"></i></a>
 
-     <a href="https://www.youtube.com/channel/UCODtu7pKNlZiIZM9-ZByC4g" class="linkStyle mx-2 "  style="color:#ffffff;"><i style="font-size:35px;" class="lab la-youtube"></i></a>
+     <a href="https://www.youtube.com/channel/UCODtu7pKNlZiIZM9-ZByC4g" target="_blank" class="linkStyle mx-2 "  style="color:#ffffff;"><i style="font-size:35px;" class="lab la-youtube"></i></a>
        
      </div>
 
@@ -156,7 +166,7 @@
       
       </div>
       <div class="col-6">
-      <a href="https://blog.citonhub.com" class="linkStyle mx-1"  style="color:#ffffff; font-size:13px;"> Blog</a>
+      <a href="https://blog.citonhub.com" target="_blank" class="linkStyle mx-1"  style="color:#ffffff; font-size:13px;"> Blog</a>
       </div>
 
    <!-- ends -->
@@ -174,9 +184,9 @@
     <!-- layer 3 -->
     <div class="col-6">
 
-    <a href="https://twitter.com/citonhub" class="linkStyle mx-1 "  style="color:#ffffff;"><i style="font-size:20px;" class="lab la-twitter"></i></a>
+    <a href="https://twitter.com/citonhub" target="_blank" class="linkStyle mx-1 "  style="color:#ffffff;"><i style="font-size:20px;" class="lab la-twitter"></i></a>
 
-    <a href="https://www.youtube.com/channel/UCODtu7pKNlZiIZM9-ZByC4g" class="linkStyle mx-1 "  style="color:#ffffff;"><i style="font-size:20px;" class="lab la-youtube"></i></a>
+    <a href="https://www.youtube.com/channel/UCODtu7pKNlZiIZM9-ZByC4g" target="_blank" class="linkStyle mx-1 "  style="color:#ffffff;"><i style="font-size:20px;" class="lab la-youtube"></i></a>
       </div>
       <div class="col-6">
       <a href="/terms-of-use" class="linkStyle mx-1"  style="color:#ffffff;font-size:13px;"> Terms of Use</a>

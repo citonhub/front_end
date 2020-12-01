@@ -136,9 +136,10 @@ background-color:#3c87cd;
 
  @section('content')
 
- <div>
- 
- </div>
+
+ <div class="mt-5 pt-5">
+   
+   </div>
 
  <div style="width:100%;height:500px; " class="row">
 

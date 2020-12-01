@@ -31,5 +31,11 @@
        color:#3AC3A9;
        font-family:BodyFont;
     }
+
+    .paragraphTextStyle{
+      font-size:14px;
+       font-family:BodyFont;
+       color:black;
+    }
         
 </style>
