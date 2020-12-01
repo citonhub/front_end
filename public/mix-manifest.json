@@ -20,5 +20,6 @@
     "/ResetPassword?v=1.30.js": "/ResetPassword?v=1.30.js",
     "/verify?v=0.20.js": "/verify?v=0.20.js",
     "/verify?v=0.30.js": "/verify?v=0.30.js",
-    "/verify?v=0.40.js": "/verify?v=0.40.js"
+    "/verify?v=0.40.js": "/verify?v=0.40.js",
+    "/ResetPassword?v=1.40.js": "/ResetPassword?v=1.40.js"
 }

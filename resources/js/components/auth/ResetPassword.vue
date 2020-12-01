@@ -12,16 +12,16 @@
    <div class="col-md-5 p-5">
      <div class="card shadow">
        <div class="card-body p-5 text-center">
-         <h1>Test</h1>
-         <form>
+         <h1>Reset Password</h1>
+         <form class="mt-3">
            <div class="form-group">
-             <input type="text" class="form-control">
+             <input type="password" class="form-control" placeholder="New Password...">
            </div>
            <div class="form-group">
-             <input type="text" class="form-control">
+             <input type="password" class="form-control" placeholder="Confirm New Password...">
            </div>
            <div class="form-group">
-             <button class="homeButton px-3 py-2 btn-block">Reset Password?</button>
+             <button class="homeButton px-3 py-2 btn-block">Next</button>
            </div>
          </form>
        </div>
