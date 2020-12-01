@@ -123,12 +123,12 @@
  <!-- ends -->
 
  <!-- form for smaller screens -->
-  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="z-index:999999; align-items:center; justify-content:center; left:0; position:fixed; height:80%; ">
+  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="z-index:99999999999; align-items:center; justify-content:center; left:0; position:fixed; height:70%; top:10%;">
     
  
     
      
-      <v-card class="py-1 px-2 row" flat color="transparent">
+      <v-card class="py-1 px-2 row" flat >
              
             <div class="col-12 px-0 py-1 my-2 d-flex" style="align-items:center;justify-content:center;">
              <h5  style=" font-family:HeaderFont">

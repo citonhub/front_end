@@ -63,12 +63,12 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 
-const Login = () => import(/* webpackChunkName: "login?v=0.94" */ '../components/auth/Login.vue');
-const Register = () => import(/* webpackChunkName: "register?v=0.38" */ '../components/auth/Register.vue');
-const Verify = () => import(/* webpackChunkName: "verify?v=0.50" */ '../components/auth/Verify.vue');
-const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword?v=0.13" */ '../components/auth/ForgotPassword.vue');
-const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=1.53" */ '../components/auth/ResetPassword.vue');
-const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.12" */ '../components/auth/SetUsername.vue');
+const Login = () => import(/* webpackChunkName: "login?v=0.96" */ '../components/auth/Login.vue');
+const Register = () => import(/* webpackChunkName: "register?v=0.48" */ '../components/auth/Register.vue');
+const Verify = () => import(/* webpackChunkName: "verify?v=0.52" */ '../components/auth/Verify.vue');
+const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword?v=0.15" */ '../components/auth/ForgotPassword.vue');
+const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=1.55" */ '../components/auth/ResetPassword.vue');
+const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.14" */ '../components/auth/SetUsername.vue');
 
 const routes = [
   { path: '/login', name: 'login', component: Login },

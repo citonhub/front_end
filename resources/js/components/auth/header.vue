@@ -1,11 +1,11 @@
 <template>
    
         <!-- Headers -->
- <div class="col-12 fixed-top py-3 px-md-4 px-3" style=" z-index:99999999999999999;" >
+ <div class="col-12 fixed-top py-3 px-md-4 px-3" style=" z-index:9999999;" >
 <div class="row">
 
 <!-- Logo -->
- <div class="col-4 text-left" style="z-index:99999999999999999;">
+ <div class="col-4 text-left" style="z-index:9999999;">
  <a href="/">
 <img alt="citonhub logo" class="d-lg-block d-none" src="/imgs/citonhub.png" height="40px">
  </a>
