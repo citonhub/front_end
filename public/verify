@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["verify?v=0.48"],{
+=======
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["verify?v=0.10"],{
+>>>>>>> d9a5b0d8262fca7a8ddf70a3e65a07f6d22d64a3
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/Verify.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************!*\
@@ -345,7 +349,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.morebackground4{\n     position: absolute;\n     width:100%; \n     top: 0;\n     left: 0;\n     height:100%; \n     align-items: center;\n     justify-content: center;\n     background:#ffffff;\n     z-index:100000;\n}\n.login{\n     color: #1e4248;\n     font-size:13px;\n}\n.forgot1{\n     cursor: pointer;\n    \n     color: #4494a2;\n     font-size:12px;\n}\n\n", ""]);
+exports.push([module.i, "\n.morebackground4{\r\n     position: absolute;\r\n     width:100%; \r\n     top: 0;\r\n     left: 0;\r\n     height:100%; \r\n     align-items: center;\r\n     justify-content: center;\r\n     background:#ffffff;\r\n     z-index:100000;\n}\n.login{\r\n     color: #1e4248;\r\n     font-size:13px;\n}\n.forgot1{\r\n     cursor: pointer;\r\n    \r\n     color: #4494a2;\r\n     font-size:12px;\n}\r\n\r\n", ""]);
 
 // exports
 

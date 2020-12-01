@@ -1,9 +1,22 @@
 {
     "/js/dashboard.js": "/js/dashboard.js",
     "/ForgotPassword?v=0.10.js": "/ForgotPassword?v=0.10.js",
+<<<<<<< HEAD
     "/ResetPassword?v=1.50.js": "/ResetPassword?v=1.50.js",
     "/SetUsername?v=0.10.js": "/SetUsername?v=0.10.js",
     "/login?v=0.91.js": "/login?v=0.91.js",
     "/register?v=0.10.js": "/register?v=0.10.js",
     "/verify?v=0.48.js": "/verify?v=0.48.js"
+=======
+    "/ResetPassword?v=0.10.js": "/ResetPassword?v=0.10.js",
+    "/SetUsername?v=0.10.js": "/SetUsername?v=0.10.js",
+    "/login?v=0.12.js": "/login?v=0.12.js",
+    "/register?v=0.20.js": "/register?v=0.20.js",
+    "/verify?v=0.10.js": "/verify?v=0.10.js",
+    "/register?v=0.30.js": "/register?v=0.30.js",
+    "/register?v=0.40.js": "/register?v=0.40.js",
+    "/register?v=0.50.js": "/register?v=0.50.js",
+    "/register?v=0.60.js": "/register?v=0.60.js",
+    "/register?v=0.70.js": "/register?v=0.70.js"
+>>>>>>> d9a5b0d8262fca7a8ddf70a3e65a07f6d22d64a3
 }
