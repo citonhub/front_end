@@ -12612,14 +12612,9 @@ __webpack_require__(/*! ./controllers/app */ "./resources/js/controllers/app.js"
   !*** ./resources/js/bootstraps/app.js ***!
   \****************************************/
 /*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
-// import vue
-
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/var/www/citonhubnew/resources/js/bootstraps/app.js'");
 
 /***/ }),
 
@@ -12630,7 +12625,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/var/www/citonhubnew/resources/js/components/app.js'");
 
 /***/ }),
 
@@ -12641,14 +12636,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var app = new Vue({
-  el: '#app',
-  data: {},
-  mounted: function mounted() {},
-  computed: {},
-  created: function created() {},
-  methods: {}
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/var/www/citonhubnew/resources/js/controllers/app.js'");
 
 /***/ }),
 

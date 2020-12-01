@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.dashboard')
 @section('title')
 
     <title>CitonHub: Dashboard</title>
@@ -49,7 +49,10 @@
  @endsection
 
  @section('content')
-
+  
+  <div id="dashboard">
+  <dashboard></dashboard>
+  </div>
  
  @endsection
 
@@ -82,7 +85,7 @@
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=0.01') }}"></script>
+ <script src="{{ asset('js/dashboard.js?v=0.02') }}"></script>
  <!-- ends -->
      
  @endsection

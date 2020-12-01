@@ -62,8 +62,23 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+const Login = () => import(/* webpackChunkName: "login?v=0.12" */ '../components/auth/Login.vue');
+const Register = () => import(/* webpackChunkName: "register?v=0.10" */ '../components/auth/Register.vue');
+const Verify = () => import(/* webpackChunkName: "verify?v=0.10" */ '../components/auth/Verify.vue');
+const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword?v=0.10" */ '../components/auth/ForgotPassword.vue');
+const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=0.10" */ '../components/auth/ResetPassword.vue');
+const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.10" */ '../components/auth/SetUsername.vue');
 
-const routes = [];
+const routes = [
+  { path: '/login', name: 'login', component: Login },
+  { path: '/sign-up', name: 'register', component: Register },
+  { path: '/verify', name: 'verify', component: Verify },
+  { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
+  { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
+  { path: '/set-username', name: 'SetUsername', component: SetUsername},
+];
+
+
 
 const router = new VueRouter({
   routes
@@ -81,14 +96,14 @@ const i18n = new VueI18n({
 })
 
 const app = new Vue({
-  router: router,
-   store,
-    el: '#dashboard',
-    vuetify: new Vuetify(),
-    i18n,
-    data:{
+     router: router,
+     store,
+     el: '#dashboard',
+     vuetify: new Vuetify(),
+     i18n,
+     data:{
      
-    },
+     },
      mounted: function () {
       
     },
@@ -98,8 +113,7 @@ const app = new Vue({
     created(){
      
     },
+    methods:{
    
-  methods:{
-   
-}
+    }
 });
