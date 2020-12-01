@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["login?v=0.90"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["login?v=0.12"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/Login.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************!*\
@@ -476,7 +476,7 @@ var render = function() {
                   "font-size": "25px"
                 }
               },
-              [_vm._v("\n   - William James\n ")]
+              [_vm._v("\r\n   - William James\r\n ")]
             )
           ])
         ]
@@ -519,7 +519,7 @@ var render = function() {
                   "font-size": "16px"
                 }
               },
-              [_vm._v("\n   - William James\n ")]
+              [_vm._v("\r\n   - William James\r\n ")]
             )
           ])
         ]
@@ -565,7 +565,7 @@ var render = function() {
                       _c(
                         "h4",
                         { staticStyle: { "font-family": "HeaderFont" } },
-                        [_vm._v("\n                 Login\n             ")]
+                        [_vm._v("\r\n                 Login\r\n             ")]
                       )
                     ]
                   ),
@@ -678,7 +678,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                 Login\n                  "
+                                    "\r\n                 Login\r\n                  "
                                   )
                                 ]
                               )
@@ -782,7 +782,7 @@ var render = function() {
                 },
                 [
                   _c("h5", { staticStyle: { "font-family": "HeaderFont" } }, [
-                    _vm._v("\n                 Login\n             ")
+                    _vm._v("\r\n                 Login\r\n             ")
                   ])
                 ]
               ),
@@ -891,7 +891,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                 Login\n                  "
+                                "\r\n                 Login\r\n                  "
                               )
                             ]
                           )

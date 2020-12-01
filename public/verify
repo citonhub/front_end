@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["verify?v=0.40"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["verify?v=0.10"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/Verify.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************!*\
