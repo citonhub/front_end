@@ -46,7 +46,10 @@
 
 <!-- Logo -->
  <div class="col-4 text-left">
- <img alt="citonhub logo" src="/imgs/citonhub.png" height="40px">
+ 
+ <img alt="citonhub logo" class="d-lg-block d-none" src="/imgs/citonhub.png" height="40px">
+
+ <img alt="citonhub logo" class="d-lg-none d-block" src="/imgs/citonhub.png" height="35px">
  </div>
 
  <!-- Sign up, register button -->
@@ -61,10 +64,6 @@
 
  <div class="col-8 text-right pt-1 d-lg-none d-block pr-1" >
 
-
- <a href="/dashboard" class="linkStyle mx-2"  style="color:#000000; font-size:13px;"> Login</a>
- 
- <button class="homeButton mx-2 px-2 py-2" style="font-size:13px;">Sign Up</button>
 
  </div>
 
@@ -98,7 +97,7 @@
 
 </div>
 
-<div class="d-lg-none d-block col-12 " style="position:fixed; left:0%; height:60%; top:15%; z-index:80;">
+<div class="d-lg-none d-block col-12 " style="position:fixed; left:0%; height:60%; top:10%; z-index:80;">
 <div class=" text-center">
      <span style="font-family:HeaderFont; font-size:36px;">Teach.</span>
      <span style="font-family:HeaderFont; font-size:36px;">Learn.</span>
@@ -106,11 +105,11 @@
      <span style="font-family:BodyFont; font-size:18px;">With other developers.</span>
 
     
-      <div class="my-3">
+      <div class="mt-3">
 
-      <button class="homeButtonOutline  px-3 py-2 mx-1" style="font-size:13px;">Login</button>
+      <button class="homeButtonOutline  px-4 py-2 mx-1" style="font-size:13px;">Login</button>
 
-       <button class="homeButton  px-3 py-2 mx-1" style="font-size:13px;">Sign Up</button>
+       <button class="homeButton  px-4 py-2 mx-1" style="font-size:13px;">Sign Up</button>
      
        
       </div>
