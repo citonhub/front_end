@@ -143,7 +143,7 @@ background-color:#3c87cd;
 
  <div style="width:100%;height:500px; " class="row">
 
-<div class="col-4  first">
+<div class="col-lg-4 col-md-10  first">
 <h1 class="h1 get">Get In Touch</h1>
 <p class="fill">Fill the form and our team will get back to you within 24 hours.</p>
 
@@ -171,7 +171,7 @@ background-color:#3c87cd;
 
 </div>
 
-<div class="col-4 card second">
+<div class="col-lg-4 col-md-6 mb-md-4  card second">
 
 <form action="
 ">
