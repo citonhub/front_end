@@ -133,7 +133,11 @@
              </h5>
             </div>
 
-
+           <div class="col-12 py-2 text-center ">
+              <span  style="font-size:13px; font-family:BodyFont;"  class=" px-4">
+               {{ $t('general.enter_digit') }},<span style="color:#3C87CD;"> {{this.$root.userEmail}}</span> 
+             </span>
+            </div>
 
             <div class="col-12 text-center py-1" style="font-family:BodyFont;">
               <v-form class="row my-1 py-2 px-2 " ref="verify" v-model="formstate">

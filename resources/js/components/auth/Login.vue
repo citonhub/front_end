@@ -15,10 +15,10 @@
 <div style="" class="px-5 col-8 offset-2">
 
 
-<blockquote class="fill" style="font-family:BodyFont; font-size:25px; color:black;">Act as if what you do makes a difference. It does.</blockquote>
+<blockquote class="fill" style="font-family:BodyFont; font-size:25px; color:black;">People who are crazy enough to think they can change the world, are the ones who do.</blockquote>
  
  <p class="text-center" style="font-family:HeaderFont;font-size:25px;">
-   - William James
+   - Rob Siltanen
  </p>
        </div>
 
@@ -31,10 +31,10 @@
 <div  class="px-5">
 
 
-<blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">Act as if what you do makes a difference. It does.</blockquote>
+<blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">People who are crazy enough to think they can change the world, are the ones who do.</blockquote>
  
  <p class="text-center" style="font-family:HeaderFont;font-size:16px;">
-   - William James
+   - Rob Siltanen
  </p>
        </div>
        

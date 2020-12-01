@@ -18,9 +18,9 @@
  <div class="col-8 text-right pt-1 d-lg-block d-none" >
  
 
- <a href="/dashboard" class="linkStyle mx-3"  style="color:#000000;"> Login</a>
+ <router-link to="/login" class="linkStyle mx-3"  style="color:#000000;"> Login</router-link>
  
- <button class="homeButton mx-2 px-3 py-2">Sign Up</button>
+ <button @click="showSignUp" class="homeButton mx-2 px-3 py-2">Sign Up</button>
 
  </div>
 
@@ -36,3 +36,12 @@
     </div>
 <!-- ends -->
 </template>
+<script>
+export default {
+     methods:{
+         showSignUp:function(){
+             this.$router.push({ path: '/sign-up' });
+         }
+     }
+}
+</script>

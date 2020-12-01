@@ -23,6 +23,14 @@
        color:white;
        font-family:BodyFont;
     }
+
+    .homeButton:hover{
+       border:1px solid #3C87CD;
+       background:#3C87CD;
+       border-radius:6px;
+       color:white;
+       font-family:BodyFont;
+    }
     .homeButtonOutline{
         
       border:2px solid #3AC3A9;
@@ -31,6 +39,15 @@
        color:#3AC3A9;
        font-family:BodyFont;
     }
+
+    .homeButtonOutline:hover{
+        
+        border:2px solid #3AC3A9;
+         background:#ffffff;
+         border-radius:6px;
+         color:#3AC3A9;
+         font-family:BodyFont;
+      }
 
     .paragraphTextStyle{
       font-size:14px;
