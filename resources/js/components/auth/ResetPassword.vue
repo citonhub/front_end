@@ -6,6 +6,30 @@
  <headerTab></headerTab>
  <!-- ends -->
 
+ <!-- Zubs start -->
+ <div class="row my-5 py-5">
+   <div class="col-md-7"></div>
+   <div class="col-md-5 p-5">
+     <div class="card shadow">
+       <div class="card-body p-5 text-center">
+         <h1>Test</h1>
+         <form>
+           <div class="form-group">
+             <input type="text" class="form-control">
+           </div>
+           <div class="form-group">
+             <input type="text" class="form-control">
+           </div>
+           <div class="form-group">
+             <button class="homeButton px-3 py-2 btn-block">Reset Password?</button>
+           </div>
+         </form>
+       </div>
+     </div>
+   </div>
+ </div>
+ <!-- Zubs end -->
+
    <!-- bottom component -->
  <bottom></bottom>
  <!-- ends -->
