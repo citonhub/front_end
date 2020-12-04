@@ -26,5 +26,8 @@
     "/register?v=1.60.js": "/register?v=1.60.js",
     "/register?v=1.70.js": "/register?v=1.70.js",
     "/register?v=1.80.js": "/register?v=1.80.js",
-    "/register?v=1.90.js": "/register?v=1.90.js"
+    "/register?v=1.90.js": "/register?v=1.90.js",
+    "/ResetPassword?v=1.50.js": "/ResetPassword?v=1.50.js",
+    "/login?v=0.91.js": "/login?v=0.91.js",
+    "/verify?v=0.48.js": "/verify?v=0.48.js"
 }

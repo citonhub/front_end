@@ -62,16 +62,10 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-<<<<<<< HEAD
 
 const Register = () => import(/* webpackChunkName: "register?v=1.90" */ '../components/auth/Register.vue');
-const Login = () => import(/* webpackChunkName: "login?v=0.90" */ '../components/auth/Login.vue');
-const Verify = () => import(/* webpackChunkName: "verify?v=0.40" */ '../components/auth/Verify.vue');
-=======
 const Login = () => import(/* webpackChunkName: "login?v=0.91" */ '../components/auth/Login.vue');
-const Register = () => import(/* webpackChunkName: "register?v=0.10" */ '../components/auth/Register.vue');
 const Verify = () => import(/* webpackChunkName: "verify?v=0.48" */ '../components/auth/Verify.vue');
->>>>>>> d2e5bba00aae2ea3ce0af751bbfd6ead6b45a20a
 const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword?v=0.10" */ '../components/auth/ForgotPassword.vue');
 const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=1.50" */ '../components/auth/ResetPassword.vue');
 const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.10" */ '../components/auth/SetUsername.vue');
