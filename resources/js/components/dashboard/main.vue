@@ -1,6 +1,11 @@
 <template>
 <div class="fixed-layout">
  
+ <!-- fixed loader -->
+ <div class="loader" v-if="this.$root.routeIsLoading">
+  <div class="bar"></div>
+</div>
+ <!-- ends -->
 
    <div style="width:100%; height:auto; overflow-y:hidden; overflow-x:hidden; ">
 

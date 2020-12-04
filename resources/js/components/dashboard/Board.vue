@@ -127,7 +127,7 @@
 
      <!-- ends -->
 
-      <div class="col-12 mt-2" style="position:absolute; top:7%; left:0; ">
+      <div class="col-12 mt-lg-2 mt-1" style="position:absolute; top:7%; left:0; ">
       <!-- entry point for vue router -->
       <router-view></router-view>
       <!-- ends -->

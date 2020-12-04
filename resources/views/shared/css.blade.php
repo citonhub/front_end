@@ -57,5 +57,36 @@
        font-family:BodyFont;
        color:black;
     }
+
+    @keyframes loader-animation {
+  0% {
+    left: -100%;
+  }
+  49% {
+    left: 100%;
+  }
+  50% {
+    left: 100%;
+  }
+  100% {
+    left: -100%;
+  }
+}
+.loader {
+  height: 3px;
+  width: 100%;
+}
+.loader .bar {
+  width: 100%;
+  position: fixed;
+  top:0;
+  z-index:9999999999999999;
+  height: 3px;
+  background-color: dodgerblue;
+  animation-name: loader-animation;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
         
 </style>

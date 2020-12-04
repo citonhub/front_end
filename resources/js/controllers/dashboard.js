@@ -71,13 +71,17 @@ const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=1.58" *
 const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.17" */ '../components/auth/SetUsername.vue');
 
 // dashboard routes
-const Board = () => import(/* webpackChunkName: "Board?v=2.39" */ '../components/dashboard/Board.vue');
-const Projects = () => import(/* webpackChunkName: "Projects?v=0.14" */ '../components/dashboard/Projects.vue');
-const Channels = () => import(/* webpackChunkName: "Channels?v=0.11" */ '../components/dashboard/Channels.vue');
-const Teams = () => import(/* webpackChunkName: "Teams?v=0.11" */ '../components/dashboard/Teams.vue');
-const DirectMessages = () => import(/* webpackChunkName: "DirectMessages?v=0.11" */ '../components/dashboard/DirectMessages.vue');
-const ContentBots = () => import(/* webpackChunkName: "ContentBots?v=0.11" */ '../components/dashboard/ContentBots.vue');
-const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.11" */ '../components/dashboard/Challenges.vue');
+const Board = () => import(/* webpackChunkName: "Board?v=2.41" */ '../components/dashboard/Board.vue');
+const Projects = () => import(/* webpackChunkName: "Projects?v=0.15" */ '../components/dashboard/Projects.vue');
+const Channels = () => import(/* webpackChunkName: "Channels?v=0.12" */ '../components/dashboard/Channels.vue');
+const Teams = () => import(/* webpackChunkName: "Teams?v=0.12" */ '../components/dashboard/Teams.vue');
+const DirectMessages = () => import(/* webpackChunkName: "DirectMessages?v=0.12" */ '../components/dashboard/DirectMessages.vue');
+const ContentBots = () => import(/* webpackChunkName: "ContentBots?v=0.12" */ '../components/dashboard/ContentBots.vue');
+const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.12" */ '../components/dashboard/Challenges.vue');
+
+// project routes
+const ProjectList = () => import(/* webpackChunkName: "ProjectList?v=0.10" */ '../components/projects/ProjectList.vue');
+const AddProject = () => import(/* webpackChunkName: "AddProject?v=0.10" */ '../components/projects/AddProject.vue');
 
 const routes = [
   { path: '/login', name: 'login', component: Login },
@@ -94,7 +98,19 @@ const routes = [
       {
         // projects
         path: 'projects',
-        component: Projects
+        component: Projects,
+        redirect: '/board/projects/list',
+        children: [
+     { // list
+      path: 'list',
+      component: ProjectList
+    },
+    {
+      // add project
+      path: 'add',
+      component: AddProject
+    }
+    ]
       },
       {
         // channels
@@ -125,11 +141,29 @@ const routes = [
   },
 ];
 
-
-
 const router = new VueRouter({
   routes
 });
+
+
+router.beforeEach((to, from, next) => {
+  // If this isn't an initial page load.
+  
+      // Start the route progress bar.
+      if(window.userRootState){
+        window.userRootState.routeIsLoading = true;
+      }
+  
+  next()
+})
+
+router.afterEach((to, from) => {
+  // Complete the animation of the route progress bar.
+  if(window.userRootState){
+    window.userRootState.routeIsLoading = false;
+  }
+})
+
 
 import VueI18n from 'vue-i18n'
 
@@ -150,6 +184,7 @@ const app = new Vue({
      i18n,
      data:{
       boardComponent:null,
+      routeIsLoading: false
      },
      mounted: function () {
       
@@ -158,7 +193,7 @@ const app = new Vue({
      
     },
     created(){
-     
+     window.userRootState = this;
     },
     methods:{
    
