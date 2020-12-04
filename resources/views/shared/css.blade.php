@@ -7,9 +7,12 @@
     @font-face {font-family:HeaderFont;
                    src:url( {{asset('fonts/Rubik-Bold.ttf')}} );}
 
-    @font-face {font-family:LigthFont;
-                   src:url( {{asset('fonts/Rubik-Light.ttf')}} );}
+    @font-face {font-family:MediumFont;
+                   src:url( {{asset('fonts/Rubik-Medium.ttf')}} );}
 
+    h1,h2,h3,h4,h5,h6 {
+       font-family:HeaderFont;
+    }
     .linkStyle{
        font-size:15px;
        font-family:BodyFont;

@@ -62,13 +62,22 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+// authentication routes
+const Login = () => import(/* webpackChunkName: "login?v=0.99" */ '../components/auth/Login.vue');
+const Register = () => import(/* webpackChunkName: "register?v=0.51" */ '../components/auth/Register.vue');
+const Verify = () => import(/* webpackChunkName: "verify?v=0.55" */ '../components/auth/Verify.vue');
+const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword?v=0.18" */ '../components/auth/ForgotPassword.vue');
+const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=1.58" */ '../components/auth/ResetPassword.vue');
+const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.17" */ '../components/auth/SetUsername.vue');
 
-const Login = () => import(/* webpackChunkName: "login?v=0.96" */ '../components/auth/Login.vue');
-const Register = () => import(/* webpackChunkName: "register?v=0.48" */ '../components/auth/Register.vue');
-const Verify = () => import(/* webpackChunkName: "verify?v=0.52" */ '../components/auth/Verify.vue');
-const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword?v=0.15" */ '../components/auth/ForgotPassword.vue');
-const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=1.55" */ '../components/auth/ResetPassword.vue');
-const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.14" */ '../components/auth/SetUsername.vue');
+// dashboard routes
+const Board = () => import(/* webpackChunkName: "Board?v=2.39" */ '../components/dashboard/Board.vue');
+const Projects = () => import(/* webpackChunkName: "Projects?v=0.14" */ '../components/dashboard/Projects.vue');
+const Channels = () => import(/* webpackChunkName: "Channels?v=0.11" */ '../components/dashboard/Channels.vue');
+const Teams = () => import(/* webpackChunkName: "Teams?v=0.11" */ '../components/dashboard/Teams.vue');
+const DirectMessages = () => import(/* webpackChunkName: "DirectMessages?v=0.11" */ '../components/dashboard/DirectMessages.vue');
+const ContentBots = () => import(/* webpackChunkName: "ContentBots?v=0.11" */ '../components/dashboard/ContentBots.vue');
+const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.11" */ '../components/dashboard/Challenges.vue');
 
 const routes = [
   { path: '/login', name: 'login', component: Login },
@@ -77,6 +86,43 @@ const routes = [
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
+  { path: '/board',
+     name: 'Board', 
+     component: Board,
+     redirect: '/board/projects',
+    children: [
+      {
+        // projects
+        path: 'projects',
+        component: Projects
+      },
+      {
+        // channels
+        path: 'channels',
+        component: Channels
+      },
+      {
+        // teams
+        path: 'teams',
+        component: Teams
+      },
+      {
+        // direct messages
+        path: 'direct-messages',
+        component: DirectMessages
+      },
+      {
+        // content bots
+        path: 'content-bots',
+        component: ContentBots
+      },
+      {
+        // challenges
+        path: 'challenges',
+        component: Challenges
+      }
+    ]
+  },
 ];
 
 
@@ -103,7 +149,7 @@ const app = new Vue({
      vuetify: new Vuetify(),
      i18n,
      data:{
-     
+      boardComponent:null,
      },
      mounted: function () {
       
