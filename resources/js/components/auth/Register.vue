@@ -1,130 +1,295 @@
 <template>
 
-
-<div style="position:absolute; width:100%; height:100%; ">
+ <!-- changed the div to v-app so the vuetify componenets can work well -->
+<v-app style="position:absolute; width:100%; height:100%; ">
 
    <!-- header component -->
  <headerTab></headerTab>
  <!-- ends -->
 
- <div style="position:fixed;top:5%;" class="row">
-<div style="margin-top:20px; font-family:BodyFont;"  class="col-lg-5 ml-4 mt-6 mr-4">
+ <!-- quote -->
 
-  <div style="" class="px-5 mt-4 col-10 offset-2">
+ <!-- use d-lg-flex to displsy flex for larger and d-none to hide for smaller screens 
+   the col-lg-5 is use to give the div a width.. the div is fixed itself and given an height 70% of the screen
+   all the content in the div is centralized using flexbox -->
+  <div class="d-none col-lg-5 text-center  d-lg-flex"  style="z-index:99999999; align-items:center; justify-content:center; position:fixed; height:70%; top:10%;">
+    
+ 
+     
+<div style="" class="px-5 col-8 offset-2">
 
 
-<blockquote class="fill" style="font-family:BodyFont; font-size:25px; color:black;"> People who are crazy enough to think they can change the world, are the ones who do.</blockquote>
+<blockquote class="fill" style="font-family:BodyFont; font-size:25px; color:black;">Act as if what you do makes a difference. It does.</blockquote>
  
  <p class="text-center" style="font-family:HeaderFont;font-size:25px;">
-   – Rob Siltanen
+   - William James
  </p>
        </div>
 
+  </div>
+
+<!-- this is for small screen, the same is done just like above.. but it fixed to the bottom instead.. using the bottom:1%;  in the style-->
+<div class="d-lg-none col-12 text-center  d-flex"  style="z-index:999999999; align-items:center; justify-content:center; position:fixed; height:20%; bottom:1%;">
+    
+ 
+     
+<div  class="px-5">
+
+
+<blockquote class="fill" style="font-family:BodyFont; font-size:14px; color:black;">Act as if what you do makes a difference. It does.</blockquote>
+ 
+ <p class="text-center" style="font-family:HeaderFont;font-size:14px;">
+   - William James
+ </p>
+
+       </div>
+       
 </div>
 
-<div class="col-lg-4 mb-4 sign-form"  style="z-index:2; align-items:center; justify-content:center; height:70%; ">
 
- 
+<!-- ends -->
 
-<v-card class="col-12">
-  <h4  style=" font-family:HeaderFont">
-                 Register
+<!-- form goes here -->
+
+
+ <!-- for for larger screen  -->
+
+ <!-- this is displayed only for larger screens.. It is fixed and given a height of 70% of the screen.. the content in it is centralize using flexbox
+   the col-lg-7 is use to give it a width and the offset-lg-5 is use to push it to the rigth i.e skiping the first 5 columns..
+   this will prevent it from overlaping with the quote above -->
+       <div class=" col-lg-7 offset-lg-5 px-5  d-none d-lg-flex "  style="z-index:9999999999; align-items:center; justify-content:center; position:fixed; height:70%; top:9%;">
+     
+<div style="" class="col-7 ">
+     
+      <v-card class="py-1 pt-2 px-2 row" style="border-radius:10px;">
+             <div class="col-2 px-1">
+             <span>
+               
+             </span>
+            </div>
+
+            <div class="col-8 px-0 d-flex" style="align-items:center;justify-content:center;">
+             <h4  style=" font-family:HeaderFont">
+                Create Your Account
              </h4>
-<div style="font-family:BodyFont" class="col-12">
-  <v-form class="row my-2 py-2 px-2 " v-model="formstate">
+            </div>
 
-    <div class="col-12  py-2 my-0 px-2">
- <v-text-field
-                style="font-size:13px;"
+            <div class="col-2 text-center">
+            
+            </div>
+            
+            
+
+            <div class="col-12 text-center py-1" style="font-family:BodyFont;">
+              <v-form class="row my-2 py-2 px-2 " ref="verify" v-model="formstate">
+              
                 
-                 placeholder="Full Name"
-            label="Full Name"
-             v-model="name"
-            prepend-inner-icon="las la-user"
+ <div class="col-12 py-1 my-0 px-2">
+              <v-text-field
+                 style="font-size:13px;"
+                 placeholder="name"
+            label="Your Name"
+            counter="80"
+            v-model="name"
+            outlined
+             prepend-inner-icon="las la-user"
             :rules="nameRule"
-           
-             outlined
-             type="text"
              color="#3C87CD"
              ></v-text-field>
+
              </div>
 
-             <div class="col-12  py-2 my-0 px-2">
-  <v-text-field
+              <div class="col-12 py-1 my-0 px-2">
+              <v-text-field
                 style="font-size:13px;"
                 
-                 placeholder="Email Address"
-            label="Email Address"
+                 placeholder="example@email.com"
+            label="Email"
              v-model="email"
-            prepend-inner-icon="la la-envelope-open"
+              prepend-inner-icon="las la-envelope"
+          
             :rules="emailRule"
-           
+             :error="emailExist"
              outlined
              type="email"
              color="#3C87CD"
              ></v-text-field>
+
              </div>
 
-              <div class="col-12  py-2 my-0 px-2"> 
-<v-text-field
-                style="font-size:13px;"
-                
-                 placeholder="Password"
-            label="Password"
-             v-model="password"
-            prepend-inner-icon="las la-lock"
+             <div class="col-12 py-1 my-0 px-2">
+              <v-text-field
+                 style="font-size:13px;"
+                 placeholder="password"
+            :label="$t('general.password')"
+              outlined
+              v-model="password"
+              @click:append="switchTxtView()"	
+              
+               prepend-inner-icon="las la-lock"
+               :append-icon="prependIconText"
             :rules="passwordRule"
-           
-             outlined
-             type="password"
+             :type="passwordState"
              color="#3C87CD"
              ></v-text-field>
 
-              </div>
+             </div>
 
-               <div class="col-12  py-2 my-0 px-2"> 
-<v-text-field
-                style="font-size:13px;"
+              <div class="col-12 py-1 my-0  px-2 text-center">
+
+                <span   style="font-size:13px; font-family:BodyFont; color:gray;"
+                > By click on sign up, you agree with our <a href="/terms-of-use">terms of use </a>and <a href="/privacy-policy">privacy policy</a>.
+                </span>
                 
-                 placeholder="Confirm Password"
-            label="Confirm Password"
-             v-model="passwordConfirm"
-            prepend-inner-icon="las la-lock"
-            :rules="comfirmPasswordRule"
-           
-             outlined
-             type="password"
-             color="#3C87CD"
-             ></v-text-field>
-
-              </div>
-
+            </div>
+        
                <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn flat :loading="loading" type="submit" medium color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
-                  @click.prevent="register">
-                 Register
+                  <v-btn  :loading="loading" type="submit" medium color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
+                 @click.prevent="checkemail">
+                 Sign Up
                   </v-btn>
              </div>
 
-  </v-form>
+              <div class="col-12 py-1 my-0 mt-1 px-2 text-center">
+
+                <span   style="font-size:13px; font-family:BodyFont; color:gray;"
+                >Do you have an account? <router-link  style="font-size:13px; font-family:BodyFont; color:#3C87CD;" to="/login">LOGIN</router-link>.
+                </span>
+                
+            </div>
+               
+               
+              
+             
+
+          </v-form>
+            </div>
+        </v-card>
+
+       </div>
+
+  </div>
+
+ <!-- ends -->
+
+ <!-- form for smaller screens -->
+ <!-- for smaller and medium screen..  -->
+  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="z-index:999999999999; align-items:center; justify-content:center; left:0; position:fixed; height:70%; top:10%; ">
+    
+ 
+    
+     
+      <v-card class="py-1 px-2 row" flat >
+             
+            <div class="col-12 px-0 py-1 my-0 d-flex" style="align-items:center;justify-content:center;">
+             <h5  style=" font-family:HeaderFont">
+                 Create Your Account
+             </h5>
+            </div>
+
+
+
+            <div class="col-12 text-center py-1" style="font-family:BodyFont;">
+              <v-form class="row my-1 py-2 px-2 " ref="verify" v-model="formstate">
+              
+                
+
+           <div class="col-12 py-0 my-0 px-2">
+              <v-text-field
+                 style="font-size:12px;"
+                 placeholder="name"
+            label="Your Name"
+            counter="80"
+            v-model="name"
+            dense
+            outlined
+             prepend-inner-icon="las la-user"
+            :rules="nameRule"
+             color="#3C87CD"
+             ></v-text-field>
+
+             </div>
+
+              <div class="col-12 py-0 my-0 px-2">
+              <v-text-field
+                style="font-size:12px;"
+                
+                 placeholder="example@email.com"
+            label="Email"
+             v-model="email"
+              prepend-inner-icon="las la-envelope"
+           dense
+            :rules="emailRule"
+             :error="emailExist"
+             outlined
+             type="email"
+             color="#3C87CD"
+             ></v-text-field>
+
+             </div>
+
+             <div class="col-12 py-0 my-0 px-2">
+              <v-text-field
+                 style="font-size:12px;"
+                 placeholder="password"
+            :label="$t('general.password')"
+              outlined
+              v-model="password"
+              @click:append="switchTxtView()"	
+               dense
+               prepend-inner-icon="las la-lock"
+               :append-icon="prependIconText"
+            :rules="passwordRule"
+             :type="passwordState"
+             color="#3C87CD"
+             ></v-text-field>
+
+             </div>
+
+            
+          <div class="col-12 py-0 my-0  px-2 text-center">
+
+                <span   style="font-size:12px; font-family:BodyFont; color:gray;"
+                > By click on sign up, you agree with our <a href="/terms-of-use">terms of use </a>and <a href="/privacy-policy">privacy policy</a>.
+                </span>
+                
+            </div>
+            
+               <div class="col-12 py-1 my-0 px-2 text-center">
+                  <v-btn  :loading="loading" type="submit" small color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
+                 @click.prevent="checkemail">
+                 Sign Up
+                  </v-btn>
+             </div>
+
+      
+
+            <div class="col-12 py-1 my-0  px-2 text-center">
+
+                <span   style="font-size:12px; font-family:BodyFont; color:gray;"
+                >Do you have an account? <router-link  style="font-size:12px; font-family:BodyFont; color:#3C87CD;" to="/login">LOGIN</router-link>.
+                </span>
+                
+            </div>
+            
+
+
+             
+          </v-form>
+            </div>
+        </v-card>
+
+       
 </div>
-</v-card>
+<!-- ends -->
 
-</div>
- </div>
-
-
-<!-- sign up form-->
-
-
-
+<!-- ends -->
 
    <!-- bottom component -->
  <bottom></bottom>
  <!-- ends -->
 
-  </div>
-
+  </v-app>
 
 </template>
 <script>
@@ -141,6 +306,8 @@ export default {
             passwordConfirm:'',
             alertMsg:'',
             password:'',
+            prependIconText:'las la-eye',
+           passwordState:'password',
             email:'',
              emailRule: [
             v => !!v || 'Email is required',
@@ -161,12 +328,27 @@ export default {
       }
     },
      mounted(){
-      this.$root.showTabs=false;
-       this.$root.showHeader = false;
-        this.$root.itIsHomePage = true;
-       this.checkIfLogin();
+    
+      // this.checkIfLogin();
     },
     methods:{
+       switchTxtView:function(){
+      
+         if(this.passwordState == 'password'){
+
+             this.passwordState = 'text';
+
+             this.prependIconText = 'las la-eye-slash'
+
+           
+         }else{
+            this.passwordState = 'password';
+
+             this.prependIconText = 'las la-eye'
+         }
+     
+
+      },
        checkIfLogin:function(){
 
           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'space'){

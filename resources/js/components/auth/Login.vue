@@ -15,10 +15,10 @@
 <div style="" class="px-5 col-8 offset-2">
 
 
-<blockquote class="fill" style="font-family:BodyFont; font-size:25px; color:black;">Act as if what you do makes a difference. It does.</blockquote>
+<blockquote class="fill" style="font-family:BodyFont; font-size:25px; color:black;">People who are crazy enough to think they can change the world, are the ones who do.</blockquote>
  
  <p class="text-center" style="font-family:HeaderFont;font-size:25px;">
-   - William James
+   - Rob Siltanen
  </p>
        </div>
 
@@ -31,10 +31,10 @@
 <div  class="px-5">
 
 
-<blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">Act as if what you do makes a difference. It does.</blockquote>
+<blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">People who are crazy enough to think they can change the world, are the ones who do.</blockquote>
  
  <p class="text-center" style="font-family:HeaderFont;font-size:16px;">
-   - William James
+   - Rob Siltanen
  </p>
        </div>
        
@@ -143,12 +143,12 @@
  <!-- ends -->
 
  <!-- form for smaller screens -->
-  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="z-index:9999999999999; align-items:center; justify-content:center; left:0; position:fixed; height:80%; ">
+  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="z-index:9999999999; align-items:center; justify-content:center; left:0; position:fixed; height:70%; top:10%; ">
     
  
     
      
-      <v-card class="py-1 px-2 row" flat color="transparent">
+      <v-card class="py-1 px-2 row" flat >
              
             <div class="col-12 px-0 py-1 my-2 d-flex" style="align-items:center;justify-content:center;">
              <h5  style=" font-family:HeaderFont">

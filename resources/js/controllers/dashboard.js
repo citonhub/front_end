@@ -62,13 +62,26 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-
+// authentication routes
 const Register = () => import(/* webpackChunkName: "register?v=1.90" */ '../components/auth/Register.vue');
 const Login = () => import(/* webpackChunkName: "login?v=0.91" */ '../components/auth/Login.vue');
-const Verify = () => import(/* webpackChunkName: "verify?v=0.48" */ '../components/auth/Verify.vue');
-const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword?v=0.10" */ '../components/auth/ForgotPassword.vue');
-const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=1.50" */ '../components/auth/ResetPassword.vue');
-const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.10" */ '../components/auth/SetUsername.vue');
+const Verify = () => import(/* webpackChunkName: "verify?v=0.55" */ '../components/auth/Verify.vue');
+const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword?v=0.18" */ '../components/auth/ForgotPassword.vue');
+const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=1.58" */ '../components/auth/ResetPassword.vue');
+const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.17" */ '../components/auth/SetUsername.vue');
+
+// dashboard routes
+const Board = () => import(/* webpackChunkName: "Board?v=2.41" */ '../components/dashboard/Board.vue');
+const Projects = () => import(/* webpackChunkName: "Projects?v=0.15" */ '../components/dashboard/Projects.vue');
+const Channels = () => import(/* webpackChunkName: "Channels?v=0.12" */ '../components/dashboard/Channels.vue');
+const Teams = () => import(/* webpackChunkName: "Teams?v=0.12" */ '../components/dashboard/Teams.vue');
+const DirectMessages = () => import(/* webpackChunkName: "DirectMessages?v=0.12" */ '../components/dashboard/DirectMessages.vue');
+const ContentBots = () => import(/* webpackChunkName: "ContentBots?v=0.12" */ '../components/dashboard/ContentBots.vue');
+const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.12" */ '../components/dashboard/Challenges.vue');
+
+// project routes
+const ProjectList = () => import(/* webpackChunkName: "ProjectList?v=0.10" */ '../components/projects/ProjectList.vue');
+const AddProject = () => import(/* webpackChunkName: "AddProject?v=0.10" */ '../components/projects/AddProject.vue');
 
 const routes = [
   { path: '/login', name: 'login', component: Login },
@@ -77,13 +90,80 @@ const routes = [
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
+  { path: '/board',
+     name: 'Board', 
+     component: Board,
+     redirect: '/board/projects',
+    children: [
+      {
+        // projects
+        path: 'projects',
+        component: Projects,
+        redirect: '/board/projects/list',
+        children: [
+     { // list
+      path: 'list',
+      component: ProjectList
+    },
+    {
+      // add project
+      path: 'add',
+      component: AddProject
+    }
+    ]
+      },
+      {
+        // channels
+        path: 'channels',
+        component: Channels
+      },
+      {
+        // teams
+        path: 'teams',
+        component: Teams
+      },
+      {
+        // direct messages
+        path: 'direct-messages',
+        component: DirectMessages
+      },
+      {
+        // content bots
+        path: 'content-bots',
+        component: ContentBots
+      },
+      {
+        // challenges
+        path: 'challenges',
+        component: Challenges
+      }
+    ]
+  },
 ];
-
-
 
 const router = new VueRouter({
   routes
 });
+
+
+router.beforeEach((to, from, next) => {
+  // If this isn't an initial page load.
+  
+      // Start the route progress bar.
+      if(window.userRootState){
+        window.userRootState.routeIsLoading = true;
+      }
+  
+  next()
+})
+
+router.afterEach((to, from) => {
+  // Complete the animation of the route progress bar.
+  if(window.userRootState){
+    window.userRootState.routeIsLoading = false;
+  }
+})
+
 
 import VueI18n from 'vue-i18n'
 
@@ -103,7 +183,8 @@ const app = new Vue({
      vuetify: new Vuetify(),
      i18n,
      data:{
-     
+      boardComponent:null,
+      routeIsLoading: false
      },
      mounted: function () {
       
@@ -112,7 +193,7 @@ const app = new Vue({
      
     },
     created(){
-     
+     window.userRootState = this;
     },
     methods:{
    

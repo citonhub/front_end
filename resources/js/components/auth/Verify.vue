@@ -31,7 +31,7 @@
 
 <blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">The only impossible journey is the one you never begin.</blockquote>
  
- <p class="text-center" style="font-family:HeaderFont;font-size:25px;">
+ <p class="text-center" style="font-family:HeaderFont;font-size:16px;">
    - Anthony Robbins
  </p>
 
@@ -120,12 +120,12 @@
  <!-- ends -->
 
  <!-- form for smaller screens -->
-  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="z-index:9999999999999; align-items:center; justify-content:center; left:0; position:fixed; height:80%; ">
+  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="z-index:99999999999; align-items:center; justify-content:center; left:0; position:fixed; height:70%; top:10%; ">
     
  
     
      
-      <v-card class="py-1 px-2 row" flat color="transparent">
+      <v-card class="py-1 px-2 row" flat >
              
             <div class="col-12 px-0 py-1 my-2 d-flex" style="align-items:center;justify-content:center;">
              <h5  style=" font-family:HeaderFont">
@@ -133,7 +133,11 @@
              </h5>
             </div>
 
-
+           <div class="col-12 py-2 text-center ">
+              <span  style="font-size:13px; font-family:BodyFont;"  class=" px-4">
+               {{ $t('general.enter_digit') }},<span style="color:#3C87CD;"> {{this.$root.userEmail}}</span> 
+             </span>
+            </div>
 
             <div class="col-12 text-center py-1" style="font-family:BodyFont;">
               <v-form class="row my-1 py-2 px-2 " ref="verify" v-model="formstate">
@@ -156,7 +160,7 @@
             
         
                <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn  :loading="loading" type="submit" medium color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
+                  <v-btn  :loading="loading" type="submit" small color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
                  @click.prevent="verify">
                  Verify
                   </v-btn>

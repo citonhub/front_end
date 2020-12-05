@@ -56,9 +56,9 @@
  <div class="col-8 text-right pt-1 d-lg-block d-none" >
  <a href="https://blog.citonhub.com"  target="_blank" class="linkStyle mx-3 " style="color:#000000;">Blog</a>
 
- <a href="/dashboard" class="linkStyle mx-3"  style="color:#000000;"> Login</a>
+ <a href="/dashboard#/login"  class="linkStyle mx-3"  style="color:#000000;"> Login</a>
  
- <button class="homeButton mx-2 px-3 py-2">Sign Up</button>
+ <a href="/dashboard#/sign-up" class="homeButton mx-2 px-3 py-2">Sign Up</a>
 
  </div>
 
@@ -79,15 +79,15 @@
    <div class="pl-5 ">
      <h1 style="font-family:HeaderFont; font-size:72px;">Teach.</h1>
      <h1 style="font-family:HeaderFont; font-size:72px;">Learn.</h1>
-     <h1 style="font-family:HeaderFont; font-size:72px;">Connect.</h1>
+     <h1 style="font-family:HeaderFont; font-size:72px;">Connect</h1>
      <span style="font-family:BodyFont; font-size:36px;">With other developers.</span>
 
      <div class="py-2 px-0 mt-3 col-12">
       <div class="row">
 
-      <button class="homeButtonOutline mx-3 px-5 py-3">Login</button>
+      <a href="/dashboard#/login" class="homeButtonOutline mx-3 px-5 py-3">Login</a>
       
-       <button class="homeButton mx-3 px-5 py-2">Sign Up</button>
+       <a href="/dashboard#/sign-up" class="homeButton mx-3 px-5 py-3">Sign Up</a>
      
       
       </div>
@@ -101,15 +101,15 @@
 <div class=" text-center">
      <span style="font-family:HeaderFont; font-size:36px;">Teach.</span>
      <span style="font-family:HeaderFont; font-size:36px;">Learn.</span>
-     <span style="font-family:HeaderFont; font-size:36px;">Connect.</span> <br> 
+     <span style="font-family:HeaderFont; font-size:36px;">Connect</span> <br> 
      <span style="font-family:BodyFont; font-size:18px;">With other developers.</span>
 
     
       <div class="mt-3">
 
-      <button class="homeButtonOutline  px-4 py-2 mx-1" style="font-size:13px;">Login</button>
+      <a href="/dashboard#/login" class="homeButtonOutline  px-4 py-2 mx-1" style="font-size:13px;">Login</a>
 
-       <button class="homeButton  px-4 py-2 mx-1" style="font-size:13px;">Sign Up</button>
+       <a href="/dashboard#/sign-up" class="homeButton  px-4 py-2 mx-1" style="font-size:13px;">Sign Up</a>
      
        
       </div>

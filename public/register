@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["register?v=1.90"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["register?v=0.51"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/Register.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************!*\
@@ -11,6 +11,171 @@
 __webpack_require__.r(__webpack_exports__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -157,6 +322,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       passwordConfirm: '',
       alertMsg: '',
       password: '',
+      prependIconText: 'las la-eye',
+      passwordState: 'password',
       email: '',
       emailRule: [function (v) {
         return !!v || 'Email is required';
@@ -177,13 +344,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       loading: false
     }, _defineProperty(_ref, "alertMsg", ''), _defineProperty(_ref, "emailAlert", false), _ref;
   },
-  mounted: function mounted() {
-    this.$root.showTabs = false;
-    this.$root.showHeader = false;
-    this.$root.itIsHomePage = true;
-    this.checkIfLogin();
+  mounted: function mounted() {// this.checkIfLogin();
   },
   methods: {
+    switchTxtView: function switchTxtView() {
+      if (this.passwordState == 'password') {
+        this.passwordState = 'text';
+        this.prependIconText = 'las la-eye-slash';
+      } else {
+        this.passwordState = 'password';
+        this.prependIconText = 'las la-eye';
+      }
+    },
     checkIfLogin: function checkIfLogin() {
       if (this.$root.checkauthroot == 'auth' && this.$root.frompage == 'space') {
         this.$router.push({
@@ -312,7 +484,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.morebackground4{\r\n     position: absolute;\r\n     width:100%; \r\n     top: 0;\r\n     left: 0;\r\n     height:100%; \r\n     align-items: center;\r\n     justify-content: center;\r\n     background:#ffffff;\r\n     z-index:100000;\n}\n.login{\r\n     color: #1e4248;\r\n     font-size:13px;\n}\n.forgot{\r\n     cursor: pointer;\r\n     text-decoration: underline;\r\n     color: #4494a2;\r\n     font-size:12px;\n}\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\n.morebackground4{\n     position: absolute;\n     width:100%; \n     top: 0;\n     left: 0;\n     height:100%; \n     align-items: center;\n     justify-content: center;\n     background:#ffffff;\n     z-index:100000;\n}\n.login{\n     color: #1e4248;\n     font-size:13px;\n}\n.forgot{\n     cursor: pointer;\n     text-decoration: underline;\n     color: #4494a2;\n     font-size:12px;\n}\n\n\n", ""]);
 
 // exports
 
@@ -365,208 +537,631 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "v-app",
     { staticStyle: { position: "absolute", width: "100%", height: "100%" } },
     [
       _c("headerTab"),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "row", staticStyle: { position: "fixed", top: "5%" } },
+        {
+          staticClass: "d-none col-lg-5 text-center  d-lg-flex",
+          staticStyle: {
+            "z-index": "99999999",
+            "align-items": "center",
+            "justify-content": "center",
+            position: "fixed",
+            height: "70%",
+            top: "10%"
+          }
+        },
         [
-          _vm._m(0),
-          _vm._v(" "),
+          _c("div", { staticClass: "px-5 col-8 offset-2" }, [
+            _c(
+              "blockquote",
+              {
+                staticClass: "fill",
+                staticStyle: {
+                  "font-family": "BodyFont",
+                  "font-size": "25px",
+                  color: "black"
+                }
+              },
+              [_vm._v("Act as if what you do makes a difference. It does.")]
+            ),
+            _vm._v(" "),
+            _c(
+              "p",
+              {
+                staticClass: "text-center",
+                staticStyle: {
+                  "font-family": "HeaderFont",
+                  "font-size": "25px"
+                }
+              },
+              [_vm._v("\n   - William James\n ")]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "d-lg-none col-12 text-center  d-flex",
+          staticStyle: {
+            "z-index": "999999999",
+            "align-items": "center",
+            "justify-content": "center",
+            position: "fixed",
+            height: "20%",
+            bottom: "1%"
+          }
+        },
+        [
+          _c("div", { staticClass: "px-5" }, [
+            _c(
+              "blockquote",
+              {
+                staticClass: "fill",
+                staticStyle: {
+                  "font-family": "BodyFont",
+                  "font-size": "14px",
+                  color: "black"
+                }
+              },
+              [_vm._v("Act as if what you do makes a difference. It does.")]
+            ),
+            _vm._v(" "),
+            _c(
+              "p",
+              {
+                staticClass: "text-center",
+                staticStyle: {
+                  "font-family": "HeaderFont",
+                  "font-size": "14px"
+                }
+              },
+              [_vm._v("\n   - William James\n ")]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: " col-lg-7 offset-lg-5 px-5  d-none d-lg-flex ",
+          staticStyle: {
+            "z-index": "9999999999",
+            "align-items": "center",
+            "justify-content": "center",
+            position: "fixed",
+            height: "70%",
+            top: "9%"
+          }
+        },
+        [
           _c(
             "div",
-            {
-              staticClass: "col-lg-4 mb-4 sign-form",
-              staticStyle: {
-                "z-index": "2",
-                "align-items": "center",
-                "justify-content": "center",
-                height: "70%"
-              }
-            },
+            { staticClass: "col-7 " },
             [
-              _c("v-card", { staticClass: "col-12" }, [
-                _c("h4", { staticStyle: { "font-family": "HeaderFont" } }, [
-                  _vm._v("\r\n                 Register\r\n             ")
-                ]),
-                _vm._v(" "),
+              _c(
+                "v-card",
+                {
+                  staticClass: "py-1 pt-2 px-2 row",
+                  staticStyle: { "border-radius": "10px" }
+                },
+                [
+                  _c("div", { staticClass: "col-2 px-1" }, [_c("span")]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-8 px-0 d-flex",
+                      staticStyle: {
+                        "align-items": "center",
+                        "justify-content": "center"
+                      }
+                    },
+                    [
+                      _c(
+                        "h4",
+                        { staticStyle: { "font-family": "HeaderFont" } },
+                        [
+                          _vm._v(
+                            "\n                Create Your Account\n             "
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-2 text-center" }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-12 text-center py-1",
+                      staticStyle: { "font-family": "BodyFont" }
+                    },
+                    [
+                      _c(
+                        "v-form",
+                        {
+                          ref: "verify",
+                          staticClass: "row my-2 py-2 px-2 ",
+                          model: {
+                            value: _vm.formstate,
+                            callback: function($$v) {
+                              _vm.formstate = $$v
+                            },
+                            expression: "formstate"
+                          }
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "col-12 py-1 my-0 px-2" },
+                            [
+                              _c("v-text-field", {
+                                staticStyle: { "font-size": "13px" },
+                                attrs: {
+                                  placeholder: "name",
+                                  label: "Your Name",
+                                  counter: "80",
+                                  outlined: "",
+                                  "prepend-inner-icon": "las la-user",
+                                  rules: _vm.nameRule,
+                                  color: "#3C87CD"
+                                },
+                                model: {
+                                  value: _vm.name,
+                                  callback: function($$v) {
+                                    _vm.name = $$v
+                                  },
+                                  expression: "name"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-12 py-1 my-0 px-2" },
+                            [
+                              _c("v-text-field", {
+                                staticStyle: { "font-size": "13px" },
+                                attrs: {
+                                  placeholder: "example@email.com",
+                                  label: "Email",
+                                  "prepend-inner-icon": "las la-envelope",
+                                  rules: _vm.emailRule,
+                                  error: _vm.emailExist,
+                                  outlined: "",
+                                  type: "email",
+                                  color: "#3C87CD"
+                                },
+                                model: {
+                                  value: _vm.email,
+                                  callback: function($$v) {
+                                    _vm.email = $$v
+                                  },
+                                  expression: "email"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "col-12 py-1 my-0 px-2" },
+                            [
+                              _c("v-text-field", {
+                                staticStyle: { "font-size": "13px" },
+                                attrs: {
+                                  placeholder: "password",
+                                  label: _vm.$t("general.password"),
+                                  outlined: "",
+                                  "prepend-inner-icon": "las la-lock",
+                                  "append-icon": _vm.prependIconText,
+                                  rules: _vm.passwordRule,
+                                  type: _vm.passwordState,
+                                  color: "#3C87CD"
+                                },
+                                on: {
+                                  "click:append": function($event) {
+                                    return _vm.switchTxtView()
+                                  }
+                                },
+                                model: {
+                                  value: _vm.password,
+                                  callback: function($$v) {
+                                    _vm.password = $$v
+                                  },
+                                  expression: "password"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "col-12 py-1 my-0  px-2 text-center"
+                            },
+                            [
+                              _c(
+                                "span",
+                                {
+                                  staticStyle: {
+                                    "font-size": "13px",
+                                    "font-family": "BodyFont",
+                                    color: "gray"
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    " By click on sign up, you agree with our "
+                                  ),
+                                  _c(
+                                    "a",
+                                    { attrs: { href: "/terms-of-use" } },
+                                    [_vm._v("terms of use ")]
+                                  ),
+                                  _vm._v("and "),
+                                  _c(
+                                    "a",
+                                    { attrs: { href: "/privacy-policy" } },
+                                    [_vm._v("privacy policy")]
+                                  ),
+                                  _vm._v(".\n                ")
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "col-12 py-1 my-0 px-2 text-center"
+                            },
+                            [
+                              _c(
+                                "v-btn",
+                                {
+                                  staticStyle: {
+                                    "font-size": "13px",
+                                    "font-weight": "bolder",
+                                    color: "white",
+                                    "font-family": "BodyFont"
+                                  },
+                                  attrs: {
+                                    loading: _vm.loading,
+                                    type: "submit",
+                                    medium: "",
+                                    color: "#3AC3A9"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      $event.preventDefault()
+                                      return _vm.checkemail($event)
+                                    }
+                                  }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                 Sign Up\n                  "
+                                  )
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "col-12 py-1 my-0 mt-1 px-2 text-center"
+                            },
+                            [
+                              _c(
+                                "span",
+                                {
+                                  staticStyle: {
+                                    "font-size": "13px",
+                                    "font-family": "BodyFont",
+                                    color: "gray"
+                                  }
+                                },
+                                [
+                                  _vm._v("Do you have an account? "),
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticStyle: {
+                                        "font-size": "13px",
+                                        "font-family": "BodyFont",
+                                        color: "#3C87CD"
+                                      },
+                                      attrs: { to: "/login" }
+                                    },
+                                    [_vm._v("LOGIN")]
+                                  ),
+                                  _vm._v(".\n                ")
+                                ],
+                                1
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                ]
+              )
+            ],
+            1
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "d-lg-none col-md-8 offset-md-2 px-2  d-flex",
+          staticStyle: {
+            "z-index": "999999999999",
+            "align-items": "center",
+            "justify-content": "center",
+            left: "0",
+            position: "fixed",
+            height: "70%",
+            top: "10%"
+          }
+        },
+        [
+          _c("v-card", { staticClass: "py-1 px-2 row", attrs: { flat: "" } }, [
+            _c(
+              "div",
+              {
+                staticClass: "col-12 px-0 py-1 my-0 d-flex",
+                staticStyle: {
+                  "align-items": "center",
+                  "justify-content": "center"
+                }
+              },
+              [
+                _c("h5", { staticStyle: { "font-family": "HeaderFont" } }, [
+                  _vm._v(
+                    "\n                 Create Your Account\n             "
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-12 text-center py-1",
+                staticStyle: { "font-family": "BodyFont" }
+              },
+              [
                 _c(
-                  "div",
+                  "v-form",
                   {
-                    staticClass: "col-12",
-                    staticStyle: { "font-family": "BodyFont" }
+                    ref: "verify",
+                    staticClass: "row my-1 py-2 px-2 ",
+                    model: {
+                      value: _vm.formstate,
+                      callback: function($$v) {
+                        _vm.formstate = $$v
+                      },
+                      expression: "formstate"
+                    }
                   },
                   [
                     _c(
-                      "v-form",
-                      {
-                        staticClass: "row my-2 py-2 px-2 ",
-                        model: {
-                          value: _vm.formstate,
-                          callback: function($$v) {
-                            _vm.formstate = $$v
+                      "div",
+                      { staticClass: "col-12 py-0 my-0 px-2" },
+                      [
+                        _c("v-text-field", {
+                          staticStyle: { "font-size": "12px" },
+                          attrs: {
+                            placeholder: "name",
+                            label: "Your Name",
+                            counter: "80",
+                            dense: "",
+                            outlined: "",
+                            "prepend-inner-icon": "las la-user",
+                            rules: _vm.nameRule,
+                            color: "#3C87CD"
                           },
-                          expression: "formstate"
-                        }
-                      },
+                          model: {
+                            value: _vm.name,
+                            callback: function($$v) {
+                              _vm.name = $$v
+                            },
+                            expression: "name"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12 py-0 my-0 px-2" },
+                      [
+                        _c("v-text-field", {
+                          staticStyle: { "font-size": "12px" },
+                          attrs: {
+                            placeholder: "example@email.com",
+                            label: "Email",
+                            "prepend-inner-icon": "las la-envelope",
+                            dense: "",
+                            rules: _vm.emailRule,
+                            error: _vm.emailExist,
+                            outlined: "",
+                            type: "email",
+                            color: "#3C87CD"
+                          },
+                          model: {
+                            value: _vm.email,
+                            callback: function($$v) {
+                              _vm.email = $$v
+                            },
+                            expression: "email"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12 py-0 my-0 px-2" },
+                      [
+                        _c("v-text-field", {
+                          staticStyle: { "font-size": "12px" },
+                          attrs: {
+                            placeholder: "password",
+                            label: _vm.$t("general.password"),
+                            outlined: "",
+                            dense: "",
+                            "prepend-inner-icon": "las la-lock",
+                            "append-icon": _vm.prependIconText,
+                            rules: _vm.passwordRule,
+                            type: _vm.passwordState,
+                            color: "#3C87CD"
+                          },
+                          on: {
+                            "click:append": function($event) {
+                              return _vm.switchTxtView()
+                            }
+                          },
+                          model: {
+                            value: _vm.password,
+                            callback: function($$v) {
+                              _vm.password = $$v
+                            },
+                            expression: "password"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12 py-0 my-0  px-2 text-center" },
                       [
                         _c(
-                          "div",
-                          { staticClass: "col-12  py-2 my-0 px-2" },
+                          "span",
+                          {
+                            staticStyle: {
+                              "font-size": "12px",
+                              "font-family": "BodyFont",
+                              color: "gray"
+                            }
+                          },
                           [
-                            _c("v-text-field", {
-                              staticStyle: { "font-size": "13px" },
-                              attrs: {
-                                placeholder: "Full Name",
-                                label: "Full Name",
-                                "prepend-inner-icon": "las la-user",
-                                rules: _vm.nameRule,
-                                outlined: "",
-                                type: "text",
-                                color: "#3C87CD"
-                              },
-                              model: {
-                                value: _vm.name,
-                                callback: function($$v) {
-                                  _vm.name = $$v
-                                },
-                                expression: "name"
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
+                            _vm._v(" By click on sign up, you agree with our "),
+                            _c("a", { attrs: { href: "/terms-of-use" } }, [
+                              _vm._v("terms of use ")
+                            ]),
+                            _vm._v("and "),
+                            _c("a", { attrs: { href: "/privacy-policy" } }, [
+                              _vm._v("privacy policy")
+                            ]),
+                            _vm._v(".\n                ")
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12 py-1 my-0 px-2 text-center" },
+                      [
                         _c(
-                          "div",
-                          { staticClass: "col-12  py-2 my-0 px-2" },
-                          [
-                            _c("v-text-field", {
-                              staticStyle: { "font-size": "13px" },
-                              attrs: {
-                                placeholder: "Email Address",
-                                label: "Email Address",
-                                "prepend-inner-icon": "la la-envelope-open",
-                                rules: _vm.emailRule,
-                                outlined: "",
-                                type: "email",
-                                color: "#3C87CD"
-                              },
-                              model: {
-                                value: _vm.email,
-                                callback: function($$v) {
-                                  _vm.email = $$v
-                                },
-                                expression: "email"
+                          "v-btn",
+                          {
+                            staticStyle: {
+                              "font-size": "13px",
+                              "font-weight": "bolder",
+                              color: "white",
+                              "font-family": "BodyFont"
+                            },
+                            attrs: {
+                              loading: _vm.loading,
+                              type: "submit",
+                              small: "",
+                              color: "#3AC3A9"
+                            },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.checkemail($event)
                               }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "col-12  py-2 my-0 px-2" },
+                            }
+                          },
                           [
-                            _c("v-text-field", {
-                              staticStyle: { "font-size": "13px" },
-                              attrs: {
-                                placeholder: "Password",
-                                label: "Password",
-                                "prepend-inner-icon": "las la-lock",
-                                rules: _vm.passwordRule,
-                                outlined: "",
-                                type: "password",
-                                color: "#3C87CD"
-                              },
-                              model: {
-                                value: _vm.password,
-                                callback: function($$v) {
-                                  _vm.password = $$v
-                                },
-                                expression: "password"
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
+                            _vm._v(
+                              "\n                 Sign Up\n                  "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12 py-1 my-0  px-2 text-center" },
+                      [
                         _c(
-                          "div",
-                          { staticClass: "col-12  py-2 my-0 px-2" },
+                          "span",
+                          {
+                            staticStyle: {
+                              "font-size": "12px",
+                              "font-family": "BodyFont",
+                              color: "gray"
+                            }
+                          },
                           [
-                            _c("v-text-field", {
-                              staticStyle: { "font-size": "13px" },
-                              attrs: {
-                                placeholder: "Confirm Password",
-                                label: "Confirm Password",
-                                "prepend-inner-icon": "las la-lock",
-                                rules: _vm.comfirmPasswordRule,
-                                outlined: "",
-                                type: "password",
-                                color: "#3C87CD"
-                              },
-                              model: {
-                                value: _vm.passwordConfirm,
-                                callback: function($$v) {
-                                  _vm.passwordConfirm = $$v
-                                },
-                                expression: "passwordConfirm"
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "col-12 py-1 my-0 px-2 text-center" },
-                          [
+                            _vm._v("Do you have an account? "),
                             _c(
-                              "v-btn",
+                              "router-link",
                               {
                                 staticStyle: {
-                                  "font-size": "13px",
-                                  "font-weight": "bolder",
-                                  color: "white",
-                                  "font-family": "BodyFont"
+                                  "font-size": "12px",
+                                  "font-family": "BodyFont",
+                                  color: "#3C87CD"
                                 },
-                                attrs: {
-                                  flat: "",
-                                  loading: _vm.loading,
-                                  type: "submit",
-                                  medium: "",
-                                  color: "#3AC3A9"
-                                },
-                                on: {
-                                  click: function($event) {
-                                    $event.preventDefault()
-                                    return _vm.register($event)
-                                  }
-                                }
+                                attrs: { to: "/login" }
                               },
-                              [
-                                _vm._v(
-                                  "\r\n                 Register\r\n                  "
-                                )
-                              ]
-                            )
+                              [_vm._v("LOGIN")]
+                            ),
+                            _vm._v(".\n                ")
                           ],
                           1
                         )
                       ]
                     )
-                  ],
-                  1
+                  ]
                 )
-              ])
-            ],
-            1
-          )
-        ]
+              ],
+              1
+            )
+          ])
+        ],
+        1
       ),
       _vm._v(" "),
       _c("bottom")
@@ -574,49 +1169,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "col-lg-5 ml-4 mt-6 mr-4",
-        staticStyle: { "margin-top": "20px", "font-family": "BodyFont" }
-      },
-      [
-        _c("div", { staticClass: "px-5 mt-4 col-10 offset-2" }, [
-          _c(
-            "blockquote",
-            {
-              staticClass: "fill",
-              staticStyle: {
-                "font-family": "BodyFont",
-                "font-size": "25px",
-                color: "black"
-              }
-            },
-            [
-              _vm._v(
-                " People who are crazy enough to think they can change the world, are the ones who do."
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "p",
-            {
-              staticClass: "text-center",
-              staticStyle: { "font-family": "HeaderFont", "font-size": "25px" }
-            },
-            [_vm._v("\r\n   – Rob Siltanen\r\n ")]
-          )
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
