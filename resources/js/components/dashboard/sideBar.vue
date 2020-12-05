@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="col-12  py-2 mb-lg-5 md-3">
+        <div class="col-12  py-2 mb-lg-3 md-3">
     
 
       <div class="row">
@@ -150,6 +150,7 @@ export default {
              if(this.$router.currentRoute.path.indexOf('projects') >= 0){
                 
                this.selectedTab = 'projects';
+               this.$root.searchType = 'projects';
 
               
             }
@@ -157,6 +158,7 @@ export default {
             if(this.$router.currentRoute.path.indexOf('channels') >= 0){
                 
                this.selectedTab = 'channels';
+                this.$root.searchType = 'channels';
 
               
             }
@@ -165,12 +167,16 @@ export default {
                 
                this.selectedTab = 'content-bots';
 
+                this.$root.searchType = 'content-bots';
+
               
             }
 
             if(this.$router.currentRoute.path.indexOf('challenges') >= 0){
                 
                this.selectedTab = 'challenges';
+
+                this.$root.searchType = 'Challenges'
 
               
             }
@@ -179,6 +185,8 @@ export default {
                 
                this.selectedTab = 'teams';
 
+                this.$root.searchType = 'teams';
+
               
             }
 
@@ -186,7 +194,7 @@ export default {
                 
                this.selectedTab = 'direct-messages';
 
-              
+                 this.$root.searchType = 'direct-messages';
             }
 
         },
@@ -195,6 +203,7 @@ export default {
              this.$router.push({ path: '/board/' + page });
 
                this.selectedTab = page;
+                this.$root.searchType = page;
 
              this.$root.boardComponent.showSideBar = false;
         

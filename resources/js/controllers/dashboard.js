@@ -71,8 +71,8 @@ const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=1.58" *
 const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.17" */ '../components/auth/SetUsername.vue');
 
 // dashboard routes
-const Board = () => import(/* webpackChunkName: "Board?v=2.41" */ '../components/dashboard/Board.vue');
-const Projects = () => import(/* webpackChunkName: "Projects?v=0.15" */ '../components/dashboard/Projects.vue');
+const Board = () => import(/* webpackChunkName: "Board?v=2.67" */ '../components/dashboard/Board.vue');
+const Projects = () => import(/* webpackChunkName: "Projects?v=0.16" */ '../components/dashboard/Projects.vue');
 const Channels = () => import(/* webpackChunkName: "Channels?v=0.12" */ '../components/dashboard/Channels.vue');
 const Teams = () => import(/* webpackChunkName: "Teams?v=0.12" */ '../components/dashboard/Teams.vue');
 const DirectMessages = () => import(/* webpackChunkName: "DirectMessages?v=0.12" */ '../components/dashboard/DirectMessages.vue');
@@ -80,8 +80,10 @@ const ContentBots = () => import(/* webpackChunkName: "ContentBots?v=0.12" */ '.
 const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.12" */ '../components/dashboard/Challenges.vue');
 
 // project routes
-const ProjectList = () => import(/* webpackChunkName: "ProjectList?v=0.10" */ '../components/projects/ProjectList.vue');
+const ProjectList = () => import(/* webpackChunkName: "ProjectList?v=1.55" */ '../components/projects/ProjectList.vue');
 const AddProject = () => import(/* webpackChunkName: "AddProject?v=0.10" */ '../components/projects/AddProject.vue');
+const ProjectPanel = () => import(/* webpackChunkName: "ProjectPanel?v=1.42" */ '../components/projects/ProjectPanel.vue');
+const CodeEditor = () => import(/* webpackChunkName: "CodeEditor?v=0.62" */ '../components/projects/CodeEditor.vue');
 
 const routes = [
   { path: '/login', name: 'login', component: Login },
@@ -101,15 +103,27 @@ const routes = [
         component: Projects,
         redirect: '/board/projects/list',
         children: [
-     { // list
-      path: 'list',
-      component: ProjectList
+        { // list
+        path: 'list',
+        component: ProjectList
+        },
+        {
+        // add project
+        path: 'add',
+        component: AddProject
+        },
+        {
+         // project panel
+        path: 'panel',
+        component: ProjectPanel,
+        children:[
+                 {
+                 // code editor
+                 path: 'editor',
+                  component: CodeEditor
+                  },
+               ]
     },
-    {
-      // add project
-      path: 'add',
-      component: AddProject
-    }
     ]
       },
       {
@@ -184,7 +198,8 @@ const app = new Vue({
      i18n,
      data:{
       boardComponent:null,
-      routeIsLoading: false
+      routeIsLoading: false,
+      searchType:'',
      },
      mounted: function () {
       

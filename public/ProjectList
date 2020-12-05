@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectList?v=0.10"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectList?v=1.55"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/ProjectList.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************!*\
@@ -9,6 +9,161 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -43,16 +198,529 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-lg-10 offset-lg-1 py-1 col-md-10 offset-md-1 px-2" },
+      [
+        _c("div", { staticClass: "row text-center" }, [
+          _c(
+            "div",
+            {
+              staticClass: "col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2",
+              staticStyle: { height: "200px" }
+            },
+            [
+              _vm._m(2),
+              _vm._v(" "),
+              _c(
+                "v-card",
+                {
+                  staticClass: "py-2 px-2",
+                  staticStyle: {
+                    position: "absolute",
+                    width: "94%",
+                    height: "auto",
+                    left: "3%",
+                    bottom: "0",
+                    "border-radius": "0px",
+                    "border-bottom-left-radius": "20px",
+                    "border-bottom-right-radius": "20px"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "col-12 py-0 my-0 text-left" }, [
+                    _c("div", { staticClass: "row py-0 my-0" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "col-10 py-0 my-0 d-flex",
+                          staticStyle: { "align-items": "center" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticStyle: {
+                                "font-family": "MediumFont",
+                                "font-size": "13px"
+                              }
+                            },
+                            [_vm._v("Project title 1")]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-2 text-right py-0 my-0" }, [
+                        _c("i", {
+                          staticClass: "lab la-python",
+                          staticStyle: { "font-size": "25px" }
+                        })
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2",
+              staticStyle: { height: "200px" }
+            },
+            [
+              _vm._m(3),
+              _vm._v(" "),
+              _c(
+                "v-card",
+                {
+                  staticClass: "py-2 px-2",
+                  staticStyle: {
+                    position: "absolute",
+                    width: "94%",
+                    height: "auto",
+                    left: "3%",
+                    bottom: "0",
+                    "border-radius": "0px",
+                    "border-bottom-left-radius": "20px",
+                    "border-bottom-right-radius": "20px"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "col-12 py-0 my-0 text-left" }, [
+                    _c("div", { staticClass: "row py-0 my-0" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "col-10 py-0 my-0 d-flex",
+                          staticStyle: { "align-items": "center" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticStyle: {
+                                "font-family": "MediumFont",
+                                "font-size": "13px"
+                              }
+                            },
+                            [_vm._v("Project title 2 ")]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-2 text-right py-0 my-0" }, [
+                        _c("i", {
+                          staticClass: "lab la-html5",
+                          staticStyle: { "font-size": "25px" }
+                        })
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "col-lg-4  col-md-6 px-0 mb-2 pt-1 pt-md-2",
+              staticStyle: { height: "200px" }
+            },
+            [
+              _vm._m(4),
+              _vm._v(" "),
+              _c(
+                "v-card",
+                {
+                  staticClass: "py-2 px-2",
+                  staticStyle: {
+                    position: "absolute",
+                    width: "94%",
+                    height: "auto",
+                    left: "3%",
+                    bottom: "0",
+                    "border-radius": "0px",
+                    "border-bottom-left-radius": "20px",
+                    "border-bottom-right-radius": "20px"
+                  }
+                },
+                [
+                  _c("div", { staticClass: "col-12 py-0 my-0 text-left" }, [
+                    _c("div", { staticClass: "row py-0 my-0" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "col-10 py-0 my-0 d-flex",
+                          staticStyle: { "align-items": "center" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticStyle: {
+                                "font-family": "MediumFont",
+                                "font-size": "13px"
+                              }
+                            },
+                            [_vm._v("Project title 3")]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-2 text-right py-0 my-0" }, [
+                        _c("i", {
+                          staticClass: "lab la-js-square",
+                          staticStyle: { "font-size": "25px" }
+                        })
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            ],
+            1
+          )
+        ])
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "col-12 " }, [_c("h5", [_vm._v("Projects")])])
-    ])
+    return _c(
+      "div",
+      {
+        staticClass: "col-12 d-md-block d-none fixed-top",
+        staticStyle: { position: "sticky", background: "#F5F5FB" }
+      },
+      [_c("h5", [_vm._v("Projects")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: " px-0 col-12 py-1 d-md-none d-block fixed-top",
+        staticStyle: { position: "sticky", background: "#F5F5FB" }
+      },
+      [_c("h6", { staticStyle: { "font-size": "17px" } }, [_vm._v("Projects")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticStyle: {
+          height: "185px",
+          position: "absolute",
+          width: "94%",
+          left: "3%",
+          border: "1px solid #c5c5c5",
+          "border-radius": "20px",
+          "box-shadow": "0px 0px 8px -2px rgba(60, 135, 205, 0.25)",
+          background: "url(/imgs/projectImg.jpg)",
+          "background-size": "cover"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "py-2 px-2 d-flex",
+            staticStyle: {
+              height: "auto",
+              position: "absolute",
+              bottom: "16%",
+              width: "auto",
+              right: "0%",
+              border: "1px solid transparent",
+              "align-items": "center",
+              "justify-content": "center",
+              background: "rgba(27, 27, 30, 0.4)"
+            }
+          },
+          [
+            _c("div", [
+              _c("span", { staticClass: "d-inline-block mx-1" }, [
+                _c("i", {
+                  staticClass: "lar la-heart",
+                  staticStyle: { "font-size": "20px", color: "white" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      "font-family": "MediumFont",
+                      "font-size": "12px",
+                      color: "white"
+                    }
+                  },
+                  [_vm._v("231")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "d-inline-block mx-1" }, [
+                _c("i", {
+                  staticClass: "las la-comment",
+                  staticStyle: { "font-size": "20px", color: "white" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      "font-family": "MediumFont",
+                      "font-size": "12px",
+                      color: "white"
+                    }
+                  },
+                  [_vm._v("32")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "d-inline-block mx-1" }, [
+                _c("i", {
+                  staticClass: "las la-eye",
+                  staticStyle: { "font-size": "20px", color: "white" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      "font-family": "MediumFont",
+                      "font-size": "12px",
+                      color: "white"
+                    }
+                  },
+                  [_vm._v("200")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticStyle: {
+          height: "185px",
+          position: "absolute",
+          width: "94%",
+          left: "3%",
+          border: "1px solid #c5c5c5",
+          "border-radius": "20px",
+          "box-shadow": "0px 0px 8px -2px rgba(60, 135, 205, 0.25)",
+          background: "url(/imgs/projectImg.jpg)",
+          "background-size": "cover"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "py-2 px-2 d-flex",
+            staticStyle: {
+              height: "auto",
+              position: "absolute",
+              bottom: "16%",
+              width: "auto",
+              right: "0%",
+              border: "1px solid transparent",
+              "align-items": "center",
+              "justify-content": "center",
+              background: "rgba(27, 27, 30, 0.4)"
+            }
+          },
+          [
+            _c("div", [
+              _c("span", { staticClass: "d-inline-block mx-1" }, [
+                _c("i", {
+                  staticClass: "lar la-heart",
+                  staticStyle: { "font-size": "20px", color: "white" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      "font-family": "MediumFont",
+                      "font-size": "12px",
+                      color: "white"
+                    }
+                  },
+                  [_vm._v("231")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "d-inline-block mx-1" }, [
+                _c("i", {
+                  staticClass: "las la-comment",
+                  staticStyle: { "font-size": "20px", color: "white" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      "font-family": "MediumFont",
+                      "font-size": "12px",
+                      color: "white"
+                    }
+                  },
+                  [_vm._v("32")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "d-inline-block mx-1" }, [
+                _c("i", {
+                  staticClass: "las la-eye",
+                  staticStyle: { "font-size": "20px", color: "white" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      "font-family": "MediumFont",
+                      "font-size": "12px",
+                      color: "white"
+                    }
+                  },
+                  [_vm._v("200")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticStyle: {
+          height: "185px",
+          position: "absolute",
+          width: "94%",
+          left: "3%",
+          border: "1px solid #c5c5c5",
+          "border-radius": "20px",
+          "box-shadow": "0px 0px 8px -2px rgba(60, 135, 205, 0.25)",
+          background: "url(/imgs/projectImg.jpg)",
+          "background-size": "cover"
+        }
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "py-2 px-2 d-flex",
+            staticStyle: {
+              height: "auto",
+              position: "absolute",
+              bottom: "16%",
+              width: "auto",
+              right: "0%",
+              border: "1px solid transparent",
+              "align-items": "center",
+              "justify-content": "center",
+              background: "rgba(27, 27, 30, 0.4)"
+            }
+          },
+          [
+            _c("div", [
+              _c("span", { staticClass: "d-inline-block mx-1" }, [
+                _c("i", {
+                  staticClass: "lar la-heart",
+                  staticStyle: { "font-size": "20px", color: "white" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      "font-family": "MediumFont",
+                      "font-size": "12px",
+                      color: "white"
+                    }
+                  },
+                  [_vm._v("231")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "d-inline-block mx-1" }, [
+                _c("i", {
+                  staticClass: "las la-comment",
+                  staticStyle: { "font-size": "20px", color: "white" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      "font-family": "MediumFont",
+                      "font-size": "12px",
+                      color: "white"
+                    }
+                  },
+                  [_vm._v("32")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "d-inline-block mx-1" }, [
+                _c("i", {
+                  staticClass: "las la-eye",
+                  staticStyle: { "font-size": "20px", color: "white" }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      "font-family": "MediumFont",
+                      "font-size": "12px",
+                      color: "white"
+                    }
+                  },
+                  [_vm._v("200")]
+                )
+              ])
+            ])
+          ]
+        )
+      ]
+    )
   }
 ]
 render._withStripped = true

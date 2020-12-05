@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["Board?v=2.41"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["Board?v=2.67"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Board.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************!*\
@@ -160,7 +160,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      showSideBar: false
+      showSideBar: false,
+      searchType: '',
+      that: this
     };
   },
   mounted: function mounted() {
@@ -393,7 +395,8 @@ var render = function() {
                             _c("v-text-field", {
                               staticStyle: { "font-size": "13px" },
                               attrs: {
-                                placeholder: "Search CitonHub",
+                                placeholder:
+                                  "Search " + _vm.that.$root.searchType,
                                 filled: "",
                                 dense: "",
                                 "append-icon": "las la-search",
@@ -515,7 +518,8 @@ var render = function() {
                   position: "absolute",
                   top: "0",
                   left: "0",
-                  "font-family": "BodyFont"
+                  "font-family": "BodyFont",
+                  "z-index": "99999999999"
                 }
               },
               [
@@ -581,7 +585,8 @@ var render = function() {
                                   "font-size": "13px"
                                 },
                                 attrs: {
-                                  placeholder: "Search CitonHub",
+                                  placeholder:
+                                    "Search " + _vm.that.$root.searchType,
                                   type: "search"
                                 }
                               })
@@ -649,7 +654,7 @@ var render = function() {
               {
                 staticClass: "d-lg-none",
                 staticStyle: {
-                  "z-index": "999999999",
+                  "z-index": "99999999",
                   position: "fixed",
                   bottom: "3%",
                   right: "3%"
@@ -674,8 +679,15 @@ var render = function() {
             _c(
               "div",
               {
-                staticClass: "col-12 mt-lg-2 mt-1",
-                staticStyle: { position: "absolute", top: "7%", left: "0" }
+                staticClass: "col-12 mt-lg-2 py-0 pb-3 px-0",
+                staticStyle: {
+                  position: "absolute",
+                  top: "10%",
+                  left: "0%",
+                  height: "90%",
+                  "overflow-y": "auto",
+                  "overflow-x": "hidden"
+                }
               },
               [_c("router-view")],
               1

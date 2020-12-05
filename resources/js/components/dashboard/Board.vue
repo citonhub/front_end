@@ -51,7 +51,7 @@
                      <v-text-field
                 style="font-size:13px;"
                 
-                 placeholder="Search CitonHub"
+                 :placeholder="'Search ' + that.$root.searchType"
               filled
               dense
             append-icon="las la-search"
@@ -90,7 +90,7 @@
 
      <!-- top bar smaller screen -->
 
-       <div class="col-12 d-block d-md-none py-2 " style="position:absolute; top:0; left:0; font-family:BodyFont;">
+       <div class="col-12 d-block d-md-none py-2 " style="position:absolute; top:0; left:0; font-family:BodyFont; z-index:99999999999;">
 
          <div class="row px-2">
              <v-card  style="border-radius:7px;" class="col-12 py-2 px-1">
@@ -100,7 +100,7 @@
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
 
-             <input style="width:100%;heigth:100%;font-size:13px;" placeholder="Search CitonHub" class="py-2 px-2" type="search" >       
+             <input style="width:100%;heigth:100%;font-size:13px;"  :placeholder="'Search ' + that.$root.searchType" class="py-2 px-2" type="search" >       
          
             </div>
              <div class="col-2 text-center py-0">
@@ -119,7 +119,7 @@
 
      <!-- floating button hub for medium and small screen -->
 
-     <v-btn medium fab color="#3C87CD" class="d-lg-none"  style="z-index:999999999;  position:fixed;  bottom:3%; right:3%; ">
+     <v-btn medium fab color="#3C87CD" class="d-lg-none"  style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
 
          <span style="font-family:MediumFont; font-size:12px;color:white;"> Hub</span>
          
@@ -127,7 +127,7 @@
 
      <!-- ends -->
 
-      <div class="col-12 mt-lg-2 mt-1" style="position:absolute; top:7%; left:0; ">
+      <div class="col-12 mt-lg-2 py-0 pb-3 px-0" style="position:absolute; top:10%; left:0%; height:90%; overflow-y:auto; overflow-x:hidden; ">
       <!-- entry point for vue router -->
       <router-view></router-view>
       <!-- ends -->
@@ -150,7 +150,9 @@
  export default {
     data () {
       return {
-       showSideBar:false
+       showSideBar:false,
+       searchType:'',
+       that:this
       }
     },
     mounted(){
