@@ -1,11 +1,13 @@
 {
     "/js/dashboard.js": "/js/dashboard.js",
-    "/Board?v=2.40.js": "/Board?v=2.40.js",
+    "/AddProject?v=0.10.js": "/AddProject?v=0.10.js",
+    "/Board?v=2.41.js": "/Board?v=2.41.js",
     "/Challenges?v=0.12.js": "/Challenges?v=0.12.js",
     "/Channels?v=0.12.js": "/Channels?v=0.12.js",
     "/ContentBots?v=0.12.js": "/ContentBots?v=0.12.js",
     "/DirectMessages?v=0.12.js": "/DirectMessages?v=0.12.js",
     "/ForgotPassword?v=0.18.js": "/ForgotPassword?v=0.18.js",
+    "/ProjectList?v=0.10.js": "/ProjectList?v=0.10.js",
     "/Projects?v=0.15.js": "/Projects?v=0.15.js",
     "/ResetPassword?v=1.58.js": "/ResetPassword?v=1.58.js",
     "/SetUsername?v=0.17.js": "/SetUsername?v=0.17.js",
@@ -13,7 +15,6 @@
     "/login?v=0.99.js": "/login?v=0.99.js",
     "/register?v=0.51.js": "/register?v=0.51.js",
     "/verify?v=0.55.js": "/verify?v=0.55.js",
-    "/Board?v=2.41.js": "/Board?v=2.41.js",
-    "/AddProject?v=0.10.js": "/AddProject?v=0.10.js",
-    "/ProjectList?v=0.10.js": "/ProjectList?v=0.10.js"
+    "/AddNewFile?v=0.10.js": "/AddNewFile?v=0.10.js",
+    "/AddDatabase?v=0.10.js": "/AddDatabase?v=0.10.js"
 }
