@@ -63,8 +63,8 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 // authentication routes
-const Login = () => import(/* webpackChunkName: "login?v=0.99" */ '../components/auth/Login.vue');
-const Register = () => import(/* webpackChunkName: "register?v=0.51" */ '../components/auth/Register.vue');
+const Register = () => import(/* webpackChunkName: "register?v=1.90" */ '../components/auth/Register.vue');
+const Login = () => import(/* webpackChunkName: "login?v=0.91" */ '../components/auth/Login.vue');
 const Verify = () => import(/* webpackChunkName: "verify?v=0.55" */ '../components/auth/Verify.vue');
 const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword?v=0.18" */ '../components/auth/ForgotPassword.vue');
 const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=1.58" */ '../components/auth/ResetPassword.vue');
@@ -82,8 +82,13 @@ const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.12" */ '../
 // project routes
 const ProjectList = () => import(/* webpackChunkName: "ProjectList?v=1.55" */ '../components/projects/ProjectList.vue');
 const AddProject = () => import(/* webpackChunkName: "AddProject?v=0.10" */ '../components/projects/AddProject.vue');
+<<<<<<< HEAD
 const ProjectPanel = () => import(/* webpackChunkName: "ProjectPanel?v=1.42" */ '../components/projects/ProjectPanel.vue');
 const CodeEditor = () => import(/* webpackChunkName: "CodeEditor?v=0.62" */ '../components/projects/CodeEditor.vue');
+=======
+const AddNewFile = () => import(/* webpackChunkName: "AddNewFile?v=0.10" */ '../components/projects/AddNewFile.vue');
+const AddDatabase = () => import(/* webpackChunkName: "AddDatabase?v=0.10" */ '../components/projects/AddDatabase.vue');
+>>>>>>> 8217938483ba20c28a002159426999267b8b88f7
 
 const routes = [
   { path: '/login', name: 'login', component: Login },
@@ -124,6 +129,24 @@ const routes = [
                   },
                ]
     },
+<<<<<<< HEAD
+=======
+    {
+      // add project
+      path: 'add',
+      component: AddProject
+    },
+    {
+      // Add Code File
+      path: 'add-new-file',
+      component: AddNewFile
+    },
+    {
+      // Add DataBase
+      path: 'create-db-table',
+      component: AddDatabase
+    }
+>>>>>>> 8217938483ba20c28a002159426999267b8b88f7
     ]
       },
       {

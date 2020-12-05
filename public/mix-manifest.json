@@ -1,16 +1,25 @@
 {
     "/js/dashboard.js": "/js/dashboard.js",
     "/AddProject?v=0.10.js": "/AddProject?v=0.10.js",
+<<<<<<< HEAD
     "/Board?v=2.67.js": "/Board?v=2.67.js",
+=======
+    "/Board?v=2.41.js": "/Board?v=2.41.js",
+>>>>>>> 8217938483ba20c28a002159426999267b8b88f7
     "/Challenges?v=0.12.js": "/Challenges?v=0.12.js",
     "/Channels?v=0.12.js": "/Channels?v=0.12.js",
     "/CodeEditor?v=0.62.js": "/CodeEditor?v=0.62.js",
     "/ContentBots?v=0.12.js": "/ContentBots?v=0.12.js",
     "/DirectMessages?v=0.12.js": "/DirectMessages?v=0.12.js",
     "/ForgotPassword?v=0.18.js": "/ForgotPassword?v=0.18.js",
+<<<<<<< HEAD
     "/ProjectList?v=1.55.js": "/ProjectList?v=1.55.js",
     "/ProjectPanel?v=1.34.js": "/ProjectPanel?v=1.34.js",
     "/Projects?v=0.16.js": "/Projects?v=0.16.js",
+=======
+    "/ProjectList?v=0.10.js": "/ProjectList?v=0.10.js",
+    "/Projects?v=0.15.js": "/Projects?v=0.15.js",
+>>>>>>> 8217938483ba20c28a002159426999267b8b88f7
     "/ResetPassword?v=1.58.js": "/ResetPassword?v=1.58.js",
     "/SetUsername?v=0.17.js": "/SetUsername?v=0.17.js",
     "/Teams?v=0.12.js": "/Teams?v=0.12.js",
@@ -19,6 +28,7 @@
     "/register?v=0.51.js": "/register?v=0.51.js",
     "/vendors~CodeEditor?v=0.62.js": "/vendors~CodeEditor?v=0.62.js",
     "/verify?v=0.55.js": "/verify?v=0.55.js",
+<<<<<<< HEAD
     "/ProjectPanel?v=1.35.js": "/ProjectPanel?v=1.35.js",
     "/ProjectPanel?v=1.36.js": "/ProjectPanel?v=1.36.js",
     "/ProjectPanel?v=1.37.js": "/ProjectPanel?v=1.37.js",
@@ -28,4 +38,10 @@
     "/ProjectPanel?v=1.41.js": "/ProjectPanel?v=1.41.js",
     "/panel-side?v=0.19.js": "/panel-side?v=0.19.js",
     "/ProjectPanel?v=1.42.js": "/ProjectPanel?v=1.42.js"
+=======
+    "/AddNewFile?v=0.10.js": "/AddNewFile?v=0.10.js",
+    "/AddDatabase?v=0.10.js": "/AddDatabase?v=0.10.js",
+    "/login?v=0.91.js": "/login?v=0.91.js",
+    "/register?v=1.90.js": "/register?v=1.90.js"
+>>>>>>> 8217938483ba20c28a002159426999267b8b88f7
 }
