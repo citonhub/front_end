@@ -16,5 +16,7 @@
     "/register?v=0.51.js": "/register?v=0.51.js",
     "/verify?v=0.55.js": "/verify?v=0.55.js",
     "/AddNewFile?v=0.10.js": "/AddNewFile?v=0.10.js",
-    "/AddDatabase?v=0.10.js": "/AddDatabase?v=0.10.js"
+    "/AddDatabase?v=0.10.js": "/AddDatabase?v=0.10.js",
+    "/login?v=0.91.js": "/login?v=0.91.js",
+    "/register?v=1.90.js": "/register?v=1.90.js"
 }
