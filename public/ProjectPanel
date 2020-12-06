@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectPanel?v=1.71"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectPanel?v=1.74"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/ProjectPanel.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************!*\
@@ -109,6 +109,11 @@ var panelSide = function panelSide() {
     closePanel: function closePanel() {
       this.$router.push({
         path: '/board/projects/list'
+      });
+    },
+    openSettings: function openSettings() {
+      this.$router.push({
+        path: '/board/projects/panel/set-panel'
       });
     }
   }
@@ -243,7 +248,14 @@ var render = function() {
                 [
                   _c(
                     "v-btn",
-                    { attrs: { icon: "" } },
+                    {
+                      attrs: { icon: "" },
+                      on: {
+                        click: function($event) {
+                          return _vm.openSettings()
+                        }
+                      }
+                    },
                     [
                       _c("v-icon", { staticStyle: { "font-size": "25px" } }, [
                         _vm._v("las la-cog")

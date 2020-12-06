@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddProject?v=0.36"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddProject?v=0.37"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/AddProject.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************!*\
@@ -230,7 +230,12 @@ var render = function() {
                       "font-family": "HeaderFont",
                       "margin-left": "40%"
                     },
-                    attrs: { small: "", rounded: "", color: "#3AC3A9" },
+                    attrs: {
+                      type: "submit",
+                      small: "",
+                      rounded: "",
+                      color: "#3AC3A9"
+                    },
                     on: {
                       click: function($event) {
                         return _vm.createProject()

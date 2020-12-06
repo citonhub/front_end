@@ -50,7 +50,7 @@
         </v-select>
 </div>
 
-<v-btn @click="createProject()" small rounded  class="mt-4" color="#3AC3A9" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont; margin-left:40%;" >Create</v-btn>
+<v-btn type="submit" @click="createProject()" small rounded  class="mt-4" color="#3AC3A9" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont; margin-left:40%;" >Create</v-btn>
 
 </v-form>
 
