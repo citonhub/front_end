@@ -2,13 +2,13 @@
 <v-app>
  
    <div class="col-12 ">
-    <h5>Add Project</h5 ><v-btn>Create Project</v-btn>
+    <h5>Add Project</h5 >
    </div>
  
 <v-card>
    <div class="col-lg-12">
 
-<v-form class="col-lg-8">
+<v-form  class="col-lg-8 ml-4">
   <div class="col-12 py-1 my-0 px-2">
               <v-text-field
                  style="font-size:13px;"
@@ -50,6 +50,8 @@
         </v-select>
 </div>
 
+<v-btn @click="createProject()" small rounded  class="mt-4" color="#3AC3A9" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont; margin-left:40%;" >Create</v-btn>
+
 </v-form>
 
    <div class=" px-0 col-12 py-1 d-md-none d-block fixed-top" style="position:sticky; background:#F5F5FB;">
@@ -75,8 +77,8 @@
     data () {
       return {
         titleRule:[
-             v = !!v || 'Project title is required',
-           v=  v.length < 30 || 'Title must be less than 80 characters'
+             v =>!!v || 'Project title is required',
+           v =>  v.length < 30 || 'Title must be less than 80 characters'
             ],
             title:'',
             owner:'',
@@ -109,6 +111,12 @@
                 "SWIFT"]
       }
     },
+
+    methods:{
+       createProject() {
+           this.$router.push({ path: '/board/projects/panel' });
+       }
+    }
   }
 </script>
 <style >

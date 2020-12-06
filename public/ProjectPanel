@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectPanel?v=1.68"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectPanel?v=1.71"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/ProjectPanel.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************!*\
@@ -104,6 +104,13 @@ var panelSide = function panelSide() {
   },
   components: {
     panelSide: panelSide
+  },
+  methods: {
+    closePanel: function closePanel() {
+      this.$router.push({
+        path: '/board/projects/list'
+      });
+    }
   }
 });
 
@@ -121,7 +128,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.scroller[data-v-e8448e76]::-webkit-scrollbar {\n  width: 6px;\n}\n.scroller[data-v-e8448e76]::-webkit-scrollbar-thumb {\n  background-color: darkgrey;\n  outline: 1px solid slategrey;\n}\n", ""]);
+exports.push([module.i, "\n.scroller[data-v-e8448e76]::-webkit-scrollbar {\r\n  width: 6px;\n}\n.scroller[data-v-e8448e76]::-webkit-scrollbar-thumb {\r\n  background-color: darkgrey;\r\n  outline: 1px solid slategrey;\n}\r\n", ""]);
 
 // exports
 
@@ -209,7 +216,14 @@ var render = function() {
                 [
                   _c(
                     "v-btn",
-                    { attrs: { icon: "" } },
+                    {
+                      attrs: { icon: "" },
+                      on: {
+                        click: function($event) {
+                          return _vm.closePanel()
+                        }
+                      }
+                    },
                     [
                       _c("v-icon", { staticStyle: { "font-size": "25px" } }, [
                         _vm._v("las la-times")

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddProject?v=0.12"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddProject?v=0.36"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/AddProject.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************!*\
@@ -81,16 +81,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      titleRule: [v = !!v || 'Project title is required', v = v.length < 30 || 'Title must be less than 80 characters'],
+      titleRule: [function (v) {
+        return !!v || 'Project title is required';
+      }, function (v) {
+        return v.length < 30 || 'Title must be less than 80 characters';
+      }],
       title: '',
       owner: '',
       owners: ['You', 'CitonHub'],
       app: '',
       languages: ["Web app with NodeJs", "Web app with PHP", "JAVASCRIPT(Node)", "PYTHON(3.8.1)", "PYTHON FOR ML(3.7.7)", "SQL", "C", "C++", "JAVA", "C#", "ERLANG", "COBOL", "KOTLIN", "FOTRAN", "PERL", "R", "RUBY", "GO", "HASKELL", "LUA", "PASCAL", "RUST", "SCALA", "SWIFT"]
     };
+  },
+  methods: {
+    createProject: function createProject() {
+      this.$router.push({
+        path: '/board/projects/panel'
+      });
+    }
   }
 });
 
@@ -114,101 +127,121 @@ var render = function() {
   return _c(
     "v-app",
     [
-      _c(
-        "div",
-        { staticClass: "col-12 " },
-        [
-          _c("h5", [_vm._v("Add Project")]),
-          _c("v-btn", [_vm._v("Create Project")])
-        ],
-        1
-      ),
+      _c("div", { staticClass: "col-12 " }, [
+        _c("h5", [_vm._v("Add Project")])
+      ]),
       _vm._v(" "),
       _c("v-card", [
         _c(
           "div",
           { staticClass: "col-lg-12" },
           [
-            _c("v-form", { staticClass: "col-lg-8" }, [
-              _c(
-                "div",
-                { staticClass: "col-12 py-1 my-0 px-2" },
-                [
-                  _c("v-text-field", {
-                    staticStyle: { "font-size": "13px" },
-                    attrs: {
-                      placeholder: "Project Title",
-                      label: "Title",
-                      counter: "30",
-                      outlined: "",
-                      "prepend-inner-icon": "las la-project-diagram",
-                      rules: _vm.titleRule,
-                      color: "#3C87CD"
-                    },
-                    model: {
-                      value: _vm.title,
-                      callback: function($$v) {
-                        _vm.title = $$v
+            _c(
+              "v-form",
+              { staticClass: "col-lg-8 ml-4" },
+              [
+                _c(
+                  "div",
+                  { staticClass: "col-12 py-1 my-0 px-2" },
+                  [
+                    _c("v-text-field", {
+                      staticStyle: { "font-size": "13px" },
+                      attrs: {
+                        placeholder: "Project Title",
+                        label: "Title",
+                        counter: "30",
+                        outlined: "",
+                        "prepend-inner-icon": "las la-project-diagram",
+                        rules: _vm.titleRule,
+                        color: "#3C87CD"
                       },
-                      expression: "title"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-12 py-1 my-0 px-2 form-group" },
-                [
-                  _c("v-select", {
-                    attrs: {
-                      items: _vm.owners,
-                      "menu-props": "auto",
-                      label: "Project Owner",
-                      "hide-details": "",
-                      "prepend-icon": "las la-list",
-                      "single-line": ""
-                    },
-                    model: {
-                      value: _vm.owner,
-                      callback: function($$v) {
-                        _vm.owner = $$v
+                      model: {
+                        value: _vm.title,
+                        callback: function($$v) {
+                          _vm.title = $$v
+                        },
+                        expression: "title"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-12 py-1 my-0 px-2 form-group" },
+                  [
+                    _c("v-select", {
+                      attrs: {
+                        items: _vm.owners,
+                        "menu-props": "auto",
+                        label: "Project Owner",
+                        "hide-details": "",
+                        "prepend-icon": "las la-list",
+                        "single-line": ""
                       },
-                      expression: "owner"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c("br"),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-12 py-1 my-0 px-2 form-group" },
-                [
-                  _c("v-select", {
-                    attrs: {
-                      items: _vm.languages,
-                      "menu-props": "auto",
-                      label: "Application Type",
-                      "hide-details": "",
-                      "prepend-icon": "las la-list",
-                      "single-line": ""
-                    },
-                    model: {
-                      value: _vm.app,
-                      callback: function($$v) {
-                        _vm.app = $$v
+                      model: {
+                        value: _vm.owner,
+                        callback: function($$v) {
+                          _vm.owner = $$v
+                        },
+                        expression: "owner"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("br"),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col-12 py-1 my-0 px-2 form-group" },
+                  [
+                    _c("v-select", {
+                      attrs: {
+                        items: _vm.languages,
+                        "menu-props": "auto",
+                        label: "Application Type",
+                        "hide-details": "",
+                        "prepend-icon": "las la-list",
+                        "single-line": ""
                       },
-                      expression: "app"
+                      model: {
+                        value: _vm.app,
+                        callback: function($$v) {
+                          _vm.app = $$v
+                        },
+                        expression: "app"
+                      }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-btn",
+                  {
+                    staticClass: "mt-4",
+                    staticStyle: {
+                      "font-size": "12px",
+                      "font-weight": "bolder",
+                      color: "white",
+                      "font-family": "HeaderFont",
+                      "margin-left": "40%"
+                    },
+                    attrs: { small: "", rounded: "", color: "#3AC3A9" },
+                    on: {
+                      click: function($event) {
+                        return _vm.createProject()
+                      }
                     }
-                  })
-                ],
-                1
-              )
-            ]),
+                  },
+                  [_vm._v("Create")]
+                )
+              ],
+              1
+            ),
             _vm._v(" "),
             _c(
               "div",
