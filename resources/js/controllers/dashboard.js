@@ -81,7 +81,7 @@ const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.12" */ '../
 
 // project routes
 const ProjectList = () => import(/* webpackChunkName: "ProjectList?v=0.10" */ '../components/projects/ProjectList.vue');
-const AddProject = () => import(/* webpackChunkName: "AddProject?v=0.10" */ '../components/projects/AddProject.vue');
+const AddProject = () => import(/* webpackChunkName: "AddProject?v=0.22" */ '../components/projects/AddProject.vue');
 const AddNewFile = () => import(/* webpackChunkName: "AddNewFile?v=0.10" */ '../components/projects/AddNewFile.vue');
 const AddDatabase = () => import(/* webpackChunkName: "AddDatabase?v=0.10" */ '../components/projects/AddDatabase.vue');
 
