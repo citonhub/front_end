@@ -464,7 +464,11 @@ var render = function() {
                   color: "black"
                 }
               },
-              [_vm._v("Act as if what you do makes a difference. It does.")]
+              [
+                _vm._v(
+                  "People who are crazy enough to think they can change the world, are the ones who do."
+                )
+              ]
             ),
             _vm._v(" "),
             _c(
@@ -476,7 +480,7 @@ var render = function() {
                   "font-size": "25px"
                 }
               },
-              [_vm._v("\r\n   - William James\r\n ")]
+              [_vm._v("\r\n   - Rob Siltanen\r\n ")]
             )
           ])
         ]
@@ -507,7 +511,11 @@ var render = function() {
                   color: "black"
                 }
               },
-              [_vm._v("Act as if what you do makes a difference. It does.")]
+              [
+                _vm._v(
+                  "People who are crazy enough to think they can change the world, are the ones who do."
+                )
+              ]
             ),
             _vm._v(" "),
             _c(
@@ -519,7 +527,7 @@ var render = function() {
                   "font-size": "16px"
                 }
               },
-              [_vm._v("\r\n   - William James\r\n ")]
+              [_vm._v("\r\n   - Rob Siltanen\r\n ")]
             )
           ])
         ]
@@ -754,205 +762,199 @@ var render = function() {
         {
           staticClass: "d-lg-none col-md-8 offset-md-2 px-2  d-flex",
           staticStyle: {
-            "z-index": "9999999999999",
+            "z-index": "9999999999",
             "align-items": "center",
             "justify-content": "center",
             left: "0",
             position: "fixed",
-            height: "80%"
+            height: "70%",
+            top: "10%"
           }
         },
         [
-          _c(
-            "v-card",
-            {
-              staticClass: "py-1 px-2 row",
-              attrs: { flat: "", color: "transparent" }
-            },
-            [
-              _c(
-                "div",
-                {
-                  staticClass: "col-12 px-0 py-1 my-2 d-flex",
-                  staticStyle: {
-                    "align-items": "center",
-                    "justify-content": "center"
-                  }
-                },
-                [
-                  _c("h5", { staticStyle: { "font-family": "HeaderFont" } }, [
-                    _vm._v("\r\n                 Login\r\n             ")
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "col-12 text-center py-1",
-                  staticStyle: { "font-family": "BodyFont" }
-                },
-                [
-                  _c(
-                    "v-form",
-                    {
-                      ref: "loginform",
-                      staticClass: "row my-1 py-2 px-2 ",
-                      model: {
-                        value: _vm.formstate,
-                        callback: function($$v) {
-                          _vm.formstate = $$v
-                        },
-                        expression: "formstate"
-                      }
-                    },
-                    [
-                      _c(
-                        "div",
-                        { staticClass: "col-12 py-2 my-0 px-2" },
-                        [
-                          _c("v-text-field", {
-                            staticStyle: { "font-size": "13px" },
-                            attrs: {
-                              placeholder: "username",
-                              label: "Username",
-                              "prepend-inner-icon": "las la-user",
-                              rules: _vm.UsernameRule,
-                              outlined: "",
-                              type: "email",
-                              color: "#3C87CD"
+          _c("v-card", { staticClass: "py-1 px-2 row", attrs: { flat: "" } }, [
+            _c(
+              "div",
+              {
+                staticClass: "col-12 px-0 py-1 my-2 d-flex",
+                staticStyle: {
+                  "align-items": "center",
+                  "justify-content": "center"
+                }
+              },
+              [
+                _c("h5", { staticStyle: { "font-family": "HeaderFont" } }, [
+                  _vm._v("\r\n                 Login\r\n             ")
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-12 text-center py-1",
+                staticStyle: { "font-family": "BodyFont" }
+              },
+              [
+                _c(
+                  "v-form",
+                  {
+                    ref: "loginform",
+                    staticClass: "row my-1 py-2 px-2 ",
+                    model: {
+                      value: _vm.formstate,
+                      callback: function($$v) {
+                        _vm.formstate = $$v
+                      },
+                      expression: "formstate"
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "col-12 py-2 my-0 px-2" },
+                      [
+                        _c("v-text-field", {
+                          staticStyle: { "font-size": "13px" },
+                          attrs: {
+                            placeholder: "username",
+                            label: "Username",
+                            "prepend-inner-icon": "las la-user",
+                            rules: _vm.UsernameRule,
+                            outlined: "",
+                            type: "email",
+                            color: "#3C87CD"
+                          },
+                          model: {
+                            value: _vm.usernameValue,
+                            callback: function($$v) {
+                              _vm.usernameValue = $$v
                             },
-                            model: {
-                              value: _vm.usernameValue,
-                              callback: function($$v) {
-                                _vm.usernameValue = $$v
-                              },
-                              expression: "usernameValue"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-12 py-2 my-0 px-2" },
-                        [
-                          _c("v-text-field", {
-                            staticStyle: { "font-size": "13px" },
-                            attrs: {
-                              placeholder: "password",
-                              label: _vm.$t("general.password"),
-                              "prepend-inner-icon": "las la-lock",
-                              outlined: "",
-                              rules: _vm.passwordRule,
-                              type: "password",
-                              color: "#3C87CD"
+                            expression: "usernameValue"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12 py-2 my-0 px-2" },
+                      [
+                        _c("v-text-field", {
+                          staticStyle: { "font-size": "13px" },
+                          attrs: {
+                            placeholder: "password",
+                            label: _vm.$t("general.password"),
+                            "prepend-inner-icon": "las la-lock",
+                            outlined: "",
+                            rules: _vm.passwordRule,
+                            type: "password",
+                            color: "#3C87CD"
+                          },
+                          model: {
+                            value: _vm.password,
+                            callback: function($$v) {
+                              _vm.password = $$v
                             },
-                            model: {
-                              value: _vm.password,
-                              callback: function($$v) {
-                                _vm.password = $$v
-                              },
-                              expression: "password"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-12 py-1 my-0 px-2 text-center" },
-                        [
-                          _c(
-                            "v-btn",
-                            {
-                              staticStyle: {
-                                "font-size": "13px",
-                                "font-weight": "bolder",
-                                color: "white",
-                                "font-family": "BodyFont"
-                              },
-                              attrs: {
-                                loading: _vm.loading,
-                                type: "submit",
-                                small: "",
-                                color: "#3AC3A9"
-                              },
-                              on: {
-                                click: function($event) {
-                                  $event.preventDefault()
-                                  return _vm.loginuser($event)
-                                }
+                            expression: "password"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12 py-1 my-0 px-2 text-center" },
+                      [
+                        _c(
+                          "v-btn",
+                          {
+                            staticStyle: {
+                              "font-size": "13px",
+                              "font-weight": "bolder",
+                              color: "white",
+                              "font-family": "BodyFont"
+                            },
+                            attrs: {
+                              loading: _vm.loading,
+                              type: "submit",
+                              small: "",
+                              color: "#3AC3A9"
+                            },
+                            on: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.loginuser($event)
                               }
-                            },
-                            [
-                              _vm._v(
-                                "\r\n                 Login\r\n                  "
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "col-12 py-1 my-0 px-2 text-center" },
-                        [
-                          _c("div", { staticClass: "row" }, [
-                            _c("div", { staticClass: "col-6" }, [
-                              _c(
-                                "a",
-                                {
-                                  staticStyle: {
-                                    "font-size": "12px",
-                                    "text-decoration": "underline",
-                                    color: "#3C87CD",
-                                    "font-family": "BodyFont"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.showRegister($event)
-                                    }
-                                  }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\r\n                 Login\r\n                  "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "col-12 py-1 my-0 px-2 text-center" },
+                      [
+                        _c("div", { staticClass: "row" }, [
+                          _c("div", { staticClass: "col-6" }, [
+                            _c(
+                              "a",
+                              {
+                                staticStyle: {
+                                  "font-size": "12px",
+                                  "text-decoration": "underline",
+                                  color: "#3C87CD",
+                                  "font-family": "BodyFont"
                                 },
-                                [_vm._v(" Create an account")]
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-6" }, [
-                              _c(
-                                "a",
-                                {
-                                  staticStyle: {
-                                    "font-size": "12px",
-                                    "text-decoration": "underline",
-                                    color: "#3C87CD",
-                                    "font-family": "BodyFont"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      $event.preventDefault()
-                                      return _vm.showForgot($event)
-                                    }
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.showRegister($event)
                                   }
+                                }
+                              },
+                              [_vm._v(" Create an account")]
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "col-6" }, [
+                            _c(
+                              "a",
+                              {
+                                staticStyle: {
+                                  "font-size": "12px",
+                                  "text-decoration": "underline",
+                                  color: "#3C87CD",
+                                  "font-family": "BodyFont"
                                 },
-                                [_vm._v("Forgot password?")]
-                              )
-                            ])
+                                on: {
+                                  click: function($event) {
+                                    $event.preventDefault()
+                                    return _vm.showForgot($event)
+                                  }
+                                }
+                              },
+                              [_vm._v("Forgot password?")]
+                            )
                           ])
-                        ]
-                      )
-                    ]
-                  )
-                ],
-                1
-              )
-            ]
-          )
+                        ])
+                      ]
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          ])
         ],
         1
       ),
