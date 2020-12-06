@@ -15,11 +15,18 @@
 
             <div class="row px-md-4 px-4">
               <!-- header -->
-            <div class="col-12 px-0 pb-1 " style="border-bottom:1px solid #263238;z-index:99999999999999;" >
+            <div class="col-lg-6 px-0 pb-1 " style="border-bottom:1px solid #263238;z-index:99999999999999;" >
 
                <h3 class="d-none d-md-block">Hub</h3>
 
                 <h5 class="d-block d-md-none" >Hub</h5>
+            </div>
+
+            <div class="col-lg-6 px-0 pb-1 text-right d-none d-lg-block" style="border-bottom:1px solid #263238;z-index:99999999999999;" >
+
+                <v-btn  small rounded  color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:HeaderFont;">
+             Add new <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
+           </v-btn>
             </div>
 
             
@@ -31,11 +38,7 @@
 
              <!-- floating add button -->
 
-        <v-btn medium fab color="#3AC3A9"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:3%; right:-1%; ">
-
-        <v-icon style="font-size:25px; color:white;">las la-plus</v-icon>
-         
-     </v-btn>
+       
 
      <v-btn  fab color="#3AC3A9"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
 
@@ -54,7 +57,7 @@
                <div class="col-lg-10 offset-lg-1 col-12 py-0" >
 
                    <div class="row">
-                      <div class="col-lg-3 col-md-4 px-0 mb-5 pt-1 pt-md-2" style="height:200px;">
+                      <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2" style="height:200px;">
              <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
           border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/projectImg.jpg);background-size:cover;">
 
@@ -123,7 +126,7 @@
           </div>
 
 
-          <div class="col-lg-3 col-md-4 px-0 mb-5 pt-1 pt-md-2" style="height:200px;">
+          <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2" style="height:200px;">
              <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
           border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/projectImg.jpg);background-size:cover;">
 
@@ -192,7 +195,7 @@
           </div>
 
 
-          <div class="col-lg-3 col-md-4 px-0 mb-5 pt-1 pt-md-2" style="height:200px;">
+          <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2" style="height:200px;">
              <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
           border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/projectImg.jpg);background-size:cover;">
 

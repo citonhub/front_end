@@ -53,7 +53,7 @@
 
      <!-- ends -->
 
-      <div class="col-12 mt-lg-2 py-0 pb-3 px-0" style="position:absolute; top:10%; left:0%; height:90%; overflow-y:auto; overflow-x:hidden; ">
+      <div class="col-12 mt-lg-2 py-0 pb-3 px-0 scroller" style="position:absolute; top:10%; left:0%; height:90%; overflow-y:auto; overflow-x:hidden; ">
       <!-- entry point for vue router -->
       <router-view></router-view>
       <!-- ends -->
@@ -95,6 +95,14 @@
     overflow-y: auto;
    
   }
+.scroller::-webkit-scrollbar {
+  width: 6px;
+}
 
+ 
+.scroller::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
   
 </style>

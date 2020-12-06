@@ -41,7 +41,7 @@
   <!-- ends -->
 
    <!-- font awesome icon: -->
-   <link rel="stylesheet" type="text/css" href="/css/all.min.css">
+   <link rel="stylesheet" type="text/css" href="/css/materialdesignicons.min.css">
   <!-- ends -->
   
 
@@ -89,7 +89,7 @@
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=0.27') }}"></script>
+ <script src="{{ asset('js/dashboard.js?v=0.28') }}"></script>
  <!-- ends -->
      
  @endsection

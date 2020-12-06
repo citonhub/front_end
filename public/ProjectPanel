@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectPanel?v=1.71"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectPanel?v=1.72"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/ProjectPanel.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************!*\
@@ -104,6 +104,13 @@ var panelSide = function panelSide() {
   },
   components: {
     panelSide: panelSide
+  },
+  methods: {
+    closePanel: function closePanel() {
+      this.$router.push({
+        path: '/board/projects/list'
+      });
+    }
   }
 });
 
@@ -209,7 +216,14 @@ var render = function() {
                 [
                   _c(
                     "v-btn",
-                    { attrs: { icon: "" } },
+                    {
+                      attrs: { icon: "" },
+                      on: {
+                        click: function($event) {
+                          return _vm.closePanel()
+                        }
+                      }
+                    },
                     [
                       _c("v-icon", { staticStyle: { "font-size": "25px" } }, [
                         _vm._v("las la-times")

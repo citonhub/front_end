@@ -10,7 +10,7 @@
       <div class="col-12 py-0 fixed-top" style="position:fixed;width:100%;border-bottom:2px solid #3C87CD; border-radius:0px; background:white; z-index:99999999999;">
         <div class="row py-1 my-0">
            <div class="col-2 py-0 my-0 text-left">
-           <v-btn icon><v-icon style="font-size:25px;">las la-times</v-icon> </v-btn>
+           <v-btn @click="closePanel()" icon><v-icon style="font-size:25px;">las la-times</v-icon> </v-btn>
            </div>
             <div class="col-8 py-0 my-0 d-flex" style="align-items:center;justify-content:center;">
                 <div style="font-family:MediumFont; font-size:13px;" >Project title 1 </div>
@@ -94,6 +94,12 @@
     },
     components: {
         panelSide
+    },
+
+    methods:{
+      closePanel() {
+         this.$router.push({ path: '/board/projects/list' });
+      }
     }
   }
 </script>

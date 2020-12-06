@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["Board?v=2.70"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["Board?v=2.74"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Board.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************!*\
@@ -110,7 +110,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.fixed-layout[data-v-5296f690]{\n  position: fixed;\n  height: 100%;\n  width: 100%;\n  overflow-x: hidden;\n  overflow-y: auto;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.fixed-layout[data-v-5296f690]{\n    position: fixed;\n    height: 100%;\n    width: 100%;\n    overflow-x: hidden;\n    overflow-y: auto;\n}\n.scroller[data-v-5296f690]::-webkit-scrollbar {\n  width: 6px;\n}\n.scroller[data-v-5296f690]::-webkit-scrollbar-thumb {\n  background-color: darkgrey;\n  outline: 1px solid slategrey;\n}\n  \n", ""]);
 
 // exports
 
@@ -293,7 +293,7 @@ var render = function() {
             _c(
               "div",
               {
-                staticClass: "col-12 mt-lg-2 py-0 pb-3 px-0",
+                staticClass: "col-12 mt-lg-2 py-0 pb-3 px-0 scroller",
                 staticStyle: {
                   position: "absolute",
                   top: "10%",

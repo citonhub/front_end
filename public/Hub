@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["Hub?v=1.38"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["Hub?v=1.44"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Hub/Hub.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************!*\
@@ -9,6 +9,9 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -412,29 +415,44 @@ var render = function() {
           staticStyle: { position: "absolute", height: "92%", top: "8%" }
         },
         [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "v-btn",
-            {
-              staticClass: "d-lg-inline-block d-none",
-              staticStyle: {
-                "z-index": "99999999",
-                position: "absolute",
-                bottom: "3%",
-                right: "-1%"
+          _c("div", { staticClass: "row px-md-4 px-4" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "col-lg-6 px-0 pb-1 text-right d-none d-lg-block",
+                staticStyle: {
+                  "border-bottom": "1px solid #263238",
+                  "z-index": "99999999999999"
+                }
               },
-              attrs: { medium: "", fab: "", color: "#3AC3A9" }
-            },
-            [
-              _c(
-                "v-icon",
-                { staticStyle: { "font-size": "25px", color: "white" } },
-                [_vm._v("las la-plus")]
-              )
-            ],
-            1
-          ),
+              [
+                _c(
+                  "v-btn",
+                  {
+                    staticStyle: {
+                      "font-size": "13px",
+                      "font-weight": "bolder",
+                      color: "white",
+                      "font-family": "HeaderFont"
+                    },
+                    attrs: { small: "", rounded: "", color: "#3AC3A9" }
+                  },
+                  [
+                    _vm._v("\n          Add new "),
+                    _c(
+                      "v-icon",
+                      { staticStyle: { "font-size": "24px", color: "white" } },
+                      [_vm._v("las la-plus")]
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ]),
           _vm._v(" "),
           _c(
             "v-btn",
@@ -479,7 +497,7 @@ var render = function() {
               _c(
                 "div",
                 {
-                  staticClass: "col-lg-3 col-md-4 px-0 mb-5 pt-1 pt-md-2",
+                  staticClass: "col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2",
                   staticStyle: { height: "200px" }
                 },
                 [
@@ -582,7 +600,7 @@ var render = function() {
               _c(
                 "div",
                 {
-                  staticClass: "col-lg-3 col-md-4 px-0 mb-5 pt-1 pt-md-2",
+                  staticClass: "col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2",
                   staticStyle: { height: "200px" }
                 },
                 [
@@ -685,7 +703,7 @@ var render = function() {
               _c(
                 "div",
                 {
-                  staticClass: "col-lg-3 col-md-4 px-0 mb-5 pt-1 pt-md-2",
+                  staticClass: "col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2",
                   staticStyle: { height: "200px" }
                 },
                 [
@@ -850,23 +868,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row px-md-4 px-4" }, [
-      _c(
-        "div",
-        {
-          staticClass: "col-12 px-0 pb-1 ",
-          staticStyle: {
-            "border-bottom": "1px solid #263238",
-            "z-index": "99999999999999"
-          }
-        },
-        [
-          _c("h3", { staticClass: "d-none d-md-block" }, [_vm._v("Hub")]),
-          _vm._v(" "),
-          _c("h5", { staticClass: "d-block d-md-none" }, [_vm._v("Hub")])
-        ]
-      )
-    ])
+    return _c(
+      "div",
+      {
+        staticClass: "col-lg-6 px-0 pb-1 ",
+        staticStyle: {
+          "border-bottom": "1px solid #263238",
+          "z-index": "99999999999999"
+        }
+      },
+      [
+        _c("h3", { staticClass: "d-none d-md-block" }, [_vm._v("Hub")]),
+        _vm._v(" "),
+        _c("h5", { staticClass: "d-block d-md-none" }, [_vm._v("Hub")])
+      ]
+    )
   },
   function() {
     var _vm = this
