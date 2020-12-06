@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectPanel?v=1.68"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectPanel?v=1.71"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/ProjectPanel.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************!*\
@@ -93,7 +93,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 var panelSide = function panelSide() {
-  return __webpack_require__.e(/*! import() | panel-side?v=0.19 */ "panel-side?v=0.19").then(__webpack_require__.bind(null, /*! ./PanelSide.vue */ "./resources/js/components/projects/PanelSide.vue"));
+  return __webpack_require__.e(/*! import() | panel-side?v=0.21 */ "panel-side?v=0.21").then(__webpack_require__.bind(null, /*! ./PanelSide.vue */ "./resources/js/components/projects/PanelSide.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -274,31 +274,33 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "col-10 scroller py-1 ",
-                      staticStyle: {
-                        "overflow-x": "auto",
-                        "white-space": "nowrap"
-                      }
-                    },
-                    [
-                      _c(
-                        "v-chip",
+                  this.$router.currentRoute.path.indexOf("editor") >= 0
+                    ? _c(
+                        "div",
                         {
-                          attrs: {
-                            close: "",
-                            small: "",
-                            outlined: "",
-                            color: "#3C87CD"
+                          staticClass: "col-10 scroller py-1 ",
+                          staticStyle: {
+                            "overflow-x": "auto",
+                            "white-space": "nowrap"
                           }
                         },
-                        [_vm._v("index.html ")]
+                        [
+                          _c(
+                            "v-chip",
+                            {
+                              attrs: {
+                                close: "",
+                                small: "",
+                                outlined: "",
+                                color: "#3C87CD"
+                              }
+                            },
+                            [_vm._v("index.html ")]
+                          )
+                        ],
+                        1
                       )
-                    ],
-                    1
-                  )
+                    : _vm._e()
                 ]
               )
             ])

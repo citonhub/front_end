@@ -26,7 +26,7 @@
                        <v-btn icon @click="showSideBar = true" ><v-icon style="font-size:20px;">las la-bars</v-icon> </v-btn>
                   </div>
 
-                  <div class="col-10 scroller py-1 " style="overflow-x:auto; white-space:nowrap;">
+                  <div class="col-10 scroller py-1 " style="overflow-x:auto; white-space:nowrap;" v-if="this.$router.currentRoute.path.indexOf('editor') >= 0">
                       <v-chip  close small  outlined color="#3C87CD">index.html </v-chip>  
 
                   </div>
@@ -83,7 +83,7 @@
 
 <script>
   const panelSide = () => import(
-    /* webpackChunkName: "panel-side?v=0.19" */ './PanelSide.vue'
+    /* webpackChunkName: "panel-side?v=0.21" */ './PanelSide.vue'
   );
 
  export default {

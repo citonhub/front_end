@@ -5,7 +5,7 @@
      <div class="col-12 d-none d-md-block py-0" style="position:absolute; top:0; left:0; font-family:BodyFont;">
 
          <div class="row">
-            <div class="col-lg-5 col-md-1  text-center">
+            <div class="col-lg-5 col-md-1  text-left">
                  <v-btn icon @click="that.$root.showSideBar = true" class="mt-2 d-lg-none "><v-icon style="font-size:25px;color:black;" >las la-bars</v-icon></v-btn>
             </div>
              <div class="col-lg-7 col-md-10 offset-md-1 offset-lg-0">

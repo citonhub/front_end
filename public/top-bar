@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["top-bar?v=0.19"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["top-bar?v=0.40"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Hub/TopBar.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************!*\
@@ -9,6 +9,9 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -126,7 +129,7 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "col-12 d-none d-md-block py-0",
+        staticClass: "col-12 d-none d-md-block py-0 px-2",
         staticStyle: {
           position: "absolute",
           top: "0",
@@ -138,12 +141,12 @@ var render = function() {
         _c("div", { staticClass: "row" }, [
           _c(
             "div",
-            { staticClass: "col-lg-5 col-md-1  text-center" },
+            { staticClass: "col-lg-5 col-md-1 pb-0  text-left px-lg-4" },
             [
               _c(
                 "v-btn",
                 {
-                  staticClass: "mt-2 d-lg-none ",
+                  staticClass: "mt-2  ",
                   attrs: { icon: "" },
                   on: {
                     click: function($event) {
@@ -166,17 +169,17 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-lg-7 col-md-10 offset-md-1 offset-lg-0" },
+            { staticClass: "col-lg-7 pb-0 col-md-10 offset-md-1 offset-lg-0" },
             [
               _c("div", { staticClass: "row" }, [
                 _c(
                   "div",
-                  { staticClass: "col-lg-6 col-md-5 text-center" },
+                  { staticClass: "col-lg-6 col-md-5 pb-1 text-center" },
                   [
                     _c("v-text-field", {
                       staticStyle: { "font-size": "13px" },
                       attrs: {
-                        placeholder: "Search " + _vm.that.$root.searchType,
+                        placeholder: "Search Projects and People",
                         filled: "",
                         dense: "",
                         "append-icon": "las la-search",
@@ -189,7 +192,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "col-lg-2 col-md-2 text-right" },
+                  { staticClass: "col-lg-2 pb-1 col-md-2 text-right" },
                   [
                     _c(
                       "v-btn",
@@ -212,7 +215,7 @@ var render = function() {
                 _c(
                   "div",
                   {
-                    staticClass: "col-lg-4 col-md-5 py-1 d-flex",
+                    staticClass: "col-lg-4 pb-1 col-md-5 py-1 d-flex",
                     staticStyle: {
                       "justify-content": "center",
                       "align-items": "center"
@@ -355,10 +358,10 @@ var render = function() {
                         staticStyle: {
                           width: "100%",
                           heigth: "100%",
-                          "font-size": "13px"
+                          "font-size": "12px"
                         },
                         attrs: {
-                          placeholder: "Search " + _vm.that.$root.searchType,
+                          placeholder: "Search Projects and People",
                           type: "search"
                         }
                       })

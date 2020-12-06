@@ -39,6 +39,10 @@
    <!-- Line awesome icon: -->
    <link rel="stylesheet" type="text/css" href="/css/line-awesome.min.css">
   <!-- ends -->
+
+   <!-- font awesome icon: -->
+   <link rel="stylesheet" type="text/css" href="/css/all.min.css">
+  <!-- ends -->
   
 
 
@@ -85,7 +89,7 @@
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=0.25') }}"></script>
+ <script src="{{ asset('js/dashboard.js?v=0.27') }}"></script>
  <!-- ends -->
      
  @endsection

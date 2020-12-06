@@ -3,15 +3,8 @@
 
 <!-- large and medium screens -->
 
-          <div class="col-12 my-0 d-md-block py-1 d-none " style="position:absolute; height:6%; left:0;background:#F3F8FC; ">
-                <div class="row">
-
-                  <div class="col-12 scroller  pt-2" style="overflow-x:auto; white-space:nowrap;">
-                      <v-chip  close small  outlined color="#3C87CD">index.html </v-chip>  
-
-                  </div>
-
-                </div>
+          <div class="col-12 my-0 d-md-block py-1  pt-3 d-none scroller " style="position:absolute; overflow-x:auto; white-space:nowrap; top:0%; height:6%; left:0;background:#F3F8FC; ">
+                <v-chip  close small  outlined color="#3C87CD">index.html </v-chip>  
               </div>
    <!-- ends -->
 

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["panel-side?v=0.19"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["panel-side?v=0.21"],{
 
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/PanelSide.vue?vue&type=style&index=0&id=b6149ede&scoped=true&lang=css&":
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************!*\
@@ -72,7 +72,7 @@ var render = function() {
         "div",
         {
           staticClass: "col-12 pt-md-4 pt-0  fixed-top",
-          staticStyle: { position: "sticky", background: "white" }
+          staticStyle: { position: "sticky", background: "white", top: "-2%" }
         },
         [
           _c("div", { staticClass: "row" }, [

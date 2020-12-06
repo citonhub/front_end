@@ -755,13 +755,7 @@ var render = function() {
               },
               [
                 _c("h5", { staticStyle: { "font-family": "HeaderFont" } }, [
-<<<<<<< HEAD
                   _vm._v("\n                  Reset password\n             ")
-=======
-                  _vm._v(
-                    "\r\n                  Reset password\r\n             "
-                  )
->>>>>>> 4b6d8a21816583ee33c8fef10a27c2d4a8163573
                 ])
               ]
             ),
@@ -778,11 +772,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-<<<<<<< HEAD
                     "\n               " +
-=======
-                    "\r\n               " +
->>>>>>> 4b6d8a21816583ee33c8fef10a27c2d4a8163573
                       _vm._s(_vm.$t("general.enter_digit")) +
                       ","
                   ),
@@ -867,11 +857,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-<<<<<<< HEAD
                               "\n                 Verify\n                  "
-=======
-                              "\r\n                 Verify\r\n                  "
->>>>>>> 4b6d8a21816583ee33c8fef10a27c2d4a8163573
                             )
                           ]
                         )

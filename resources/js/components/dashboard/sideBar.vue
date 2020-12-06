@@ -89,7 +89,7 @@
           </div>
 
 
-           <div class="col-12  px-0 py-1 py-md-2 mt-3 d-lg-block d-none" >
+           <div class="col-12  px-0 py-1 py-md-2 mt-3 d-lg-block d-none" v-if="this.$router.currentRoute.path.indexOf('hub') <= 0">
                 <div class="row">
                 <div class="col-12 py-1 text-center">
                   
@@ -227,5 +227,6 @@ export default {
 
   .sideBar:hover{
       background: #F3F8FC;
+      border-right:4px solid #3C87CD !important;
   }
 </style>

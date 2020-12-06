@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["CodeEditor?v=1.58"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["CodeEditor?v=1.63"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/CodeEditor.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************!*\
@@ -53,13 +53,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var codemirror_addon_scroll_simplescrollbars_js__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(codemirror_addon_scroll_simplescrollbars_js__WEBPACK_IMPORTED_MODULE_20__);
 /* harmony import */ var codemirror_addon_scroll_simplescrollbars_css__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! codemirror/addon/scroll/simplescrollbars.css */ "./node_modules/codemirror/addon/scroll/simplescrollbars.css");
 /* harmony import */ var codemirror_addon_scroll_simplescrollbars_css__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(codemirror_addon_scroll_simplescrollbars_css__WEBPACK_IMPORTED_MODULE_21__);
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -739,40 +732,25 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "col-12 my-0 d-md-block py-1 d-none ",
+        staticClass: "col-12 my-0 d-md-block py-1  pt-3 d-none scroller ",
         staticStyle: {
           position: "absolute",
+          "overflow-x": "auto",
+          "white-space": "nowrap",
+          top: "0%",
           height: "6%",
           left: "0",
           background: "#F3F8FC"
         }
       },
       [
-        _c("div", { staticClass: "row" }, [
-          _c(
-            "div",
-            {
-              staticClass: "col-12 scroller  pt-2",
-              staticStyle: { "overflow-x": "auto", "white-space": "nowrap" }
-            },
-            [
-              _c(
-                "v-chip",
-                {
-                  attrs: {
-                    close: "",
-                    small: "",
-                    outlined: "",
-                    color: "#3C87CD"
-                  }
-                },
-                [_vm._v("index.html ")]
-              )
-            ],
-            1
-          )
-        ])
-      ]
+        _c(
+          "v-chip",
+          { attrs: { close: "", small: "", outlined: "", color: "#3C87CD" } },
+          [_vm._v("index.html ")]
+        )
+      ],
+      1
     ),
     _vm._v(" "),
     _c(

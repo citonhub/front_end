@@ -2,19 +2,19 @@
     <div>
         <!-- large and medium screen top bar -->
     
-     <div class="col-12 d-none d-md-block py-0" style="position:absolute; top:0; left:0; font-family:BodyFont;">
+     <div class="col-12 d-none d-md-block py-0 px-2" style="position:absolute; top:0; left:0; font-family:BodyFont;">
 
          <div class="row">
-            <div class="col-lg-5 col-md-1  text-center">
-                 <v-btn icon @click="that.$root.showSideBar = true" class="mt-2 d-lg-none "><v-icon style="font-size:25px;color:black;" >las la-bars</v-icon></v-btn>
+            <div class="col-lg-5 col-md-1 pb-0  text-left px-lg-4">
+                 <v-btn icon @click="that.$root.showSideBar = true" class="mt-2  "><v-icon style="font-size:25px;color:black;" >las la-bars</v-icon></v-btn>
             </div>
-             <div class="col-lg-7 col-md-10 offset-md-1 offset-lg-0">
+             <div class="col-lg-7 pb-0 col-md-10 offset-md-1 offset-lg-0">
                 <div class="row">
-                  <div class="col-lg-6 col-md-5 text-center">
+                  <div class="col-lg-6 col-md-5 pb-1 text-center">
                      <v-text-field
                 style="font-size:13px;"
                 
-                 :placeholder="'Search ' + that.$root.searchType"
+                 placeholder="Search Projects and People"
               filled
               dense
             append-icon="las la-search"
@@ -24,10 +24,10 @@
              
                   </div>
 
-                <div class="col-lg-2 col-md-2 text-right">
+                <div class="col-lg-2 pb-1 col-md-2 text-right">
                         <v-btn icon ><v-icon style="font-size:25px;color:black;" >las la-bell</v-icon></v-btn>
                 </div>
-                  <div class="col-lg-4 col-md-5 py-1 d-flex" style="justify-content:center; align-items:center;"> 
+                  <div class="col-lg-4 pb-1 col-md-5 py-1 d-flex" style="justify-content:center; align-items:center;"> 
                      
                           <div class="mb-5">
                                 <v-card elevation-2 class=" d-flex   py-1 px-2" style="border-radius:30px; justify-content:center; align-items:center;"> 
@@ -47,6 +47,9 @@
                   </div>
                 </div>
             </div>
+        
+       
+
          </div>
 
      </div>
@@ -63,7 +66,7 @@
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
 
-             <input style="width:100%;heigth:100%;font-size:13px;"  :placeholder="'Search ' + that.$root.searchType" class="py-2 px-2" type="search" >       
+             <input style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search Projects and People" class="py-2 px-2" type="search" >       
          
             </div>
              <div class="col-2 text-center py-0">
