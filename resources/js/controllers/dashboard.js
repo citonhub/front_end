@@ -71,7 +71,7 @@ const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=1.58" *
 const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.17" */ '../components/auth/SetUsername.vue');
 
 // dashboard routes
-const Board = () => import(/* webpackChunkName: "Board?v=2.67" */ '../components/dashboard/Board.vue');
+const Board = () => import(/* webpackChunkName: "Board?v=2.70" */ '../components/dashboard/Board.vue');
 const Projects = () => import(/* webpackChunkName: "Projects?v=0.16" */ '../components/dashboard/Projects.vue');
 const Channels = () => import(/* webpackChunkName: "Channels?v=0.12" */ '../components/dashboard/Channels.vue');
 const Teams = () => import(/* webpackChunkName: "Teams?v=0.12" */ '../components/dashboard/Teams.vue');
@@ -80,15 +80,17 @@ const ContentBots = () => import(/* webpackChunkName: "ContentBots?v=0.12" */ '.
 const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.12" */ '../components/dashboard/Challenges.vue');
 
 // project routes
-const ProjectList = () => import(/* webpackChunkName: "ProjectList?v=1.55" */ '../components/projects/ProjectList.vue');
-const AddProject = () => import(/* webpackChunkName: "AddProject?v=0.10" */ '../components/projects/AddProject.vue');
-<<<<<<< HEAD
-const ProjectPanel = () => import(/* webpackChunkName: "ProjectPanel?v=1.42" */ '../components/projects/ProjectPanel.vue');
-const CodeEditor = () => import(/* webpackChunkName: "CodeEditor?v=0.62" */ '../components/projects/CodeEditor.vue');
-=======
-const AddNewFile = () => import(/* webpackChunkName: "AddNewFile?v=0.10" */ '../components/projects/AddNewFile.vue');
-const AddDatabase = () => import(/* webpackChunkName: "AddDatabase?v=0.10" */ '../components/projects/AddDatabase.vue');
->>>>>>> 8217938483ba20c28a002159426999267b8b88f7
+const ProjectList = () => import(/* webpackChunkName: "ProjectList?v=1.72" */ '../components/projects/ProjectList.vue');
+const ProjectPanel = () => import(/* webpackChunkName: "ProjectPanel?v=1.68" */ '../components/projects/ProjectPanel.vue');
+const CodeEditor = () => import(/* webpackChunkName: "CodeEditor?v=1.58" */ '../components/projects/CodeEditor.vue');
+const AddProject = () => import(/* webpackChunkName: "AddProject?v=0.12" */ '../components/projects/AddProject.vue');
+const AddNewFile = () => import(/* webpackChunkName: "AddNewFile?v=0.25" */ '../components/projects/AddNewFile.vue');
+const AddDatabase = () => import(/* webpackChunkName: "AddDatabase?v=0.15" */ '../components/projects/AddDatabase.vue');
+const ResourceUpload = () => import(/* webpackChunkName: "ResourceUpload?v=0.16" */ '../components/projects/ResourceUpload.vue');
+const PanelLoader = () => import(/* webpackChunkName: "PanelLoader?v=0.17" */ '../components/projects/PanelLoader.vue');
+
+// Hub routes
+const Hub = () => import(/* webpackChunkName: "Hub?v=0.10" */ '../components/Hub/Hub.vue');
 
 const routes = [
   { path: '/login', name: 'login', component: Login },
@@ -97,6 +99,11 @@ const routes = [
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
+  {
+    path:'/hub',
+    naem:'Hub',
+    component: Hub
+  },
   { path: '/board',
      name: 'Board', 
      component: Board,
@@ -127,26 +134,35 @@ const routes = [
                  path: 'editor',
                   component: CodeEditor
                   },
+                  {
+                    // Add Code File
+                    path: 'add-new-file',
+                    component: AddNewFile
+                  },
+                  {
+                    // Add DataBase
+                    path: 'create-db-table',
+                    component: AddDatabase
+                  },
+                  {
+                    // resource upload
+                    path: 'resource-upload',
+                    component: ResourceUpload
+                  },
+                  {
+                    // panel loader
+                    path: 'panel-loader',
+                    component: PanelLoader
+                  },
+                 
                ]
     },
-<<<<<<< HEAD
-=======
     {
       // add project
       path: 'add',
       component: AddProject
     },
-    {
-      // Add Code File
-      path: 'add-new-file',
-      component: AddNewFile
-    },
-    {
-      // Add DataBase
-      path: 'create-db-table',
-      component: AddDatabase
-    }
->>>>>>> 8217938483ba20c28a002159426999267b8b88f7
+  
     ]
       },
       {
@@ -220,8 +236,9 @@ const app = new Vue({
      vuetify: new Vuetify(),
      i18n,
      data:{
-      boardComponent:null,
+      TopBarComponent:null,
       routeIsLoading: false,
+      showSideBar:false,
       searchType:'',
      },
      mounted: function () {

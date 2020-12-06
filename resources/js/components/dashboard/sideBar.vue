@@ -205,7 +205,7 @@ export default {
                this.selectedTab = page;
                 this.$root.searchType = page;
 
-             this.$root.boardComponent.showSideBar = false;
+             this.$root.showSideBar = false;
         
         },
         
