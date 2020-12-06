@@ -1,15 +1,15 @@
 <template>
-<v-app>
+<v-app style="background:transparent; font-family:BodyFont;padding-top:20px;">
    <div class="col-12">
 
        <div class="col-lg-8 offset-lg-2">
 
 
 
-           <v-form class="col-10 mt-4  ">
+           <v-form class="col-10" style="margin-bottom:60px"  >
 
 
-               <div class="col-10 py-1 mb-4 px-2 form-group">
+               <div class="col-10 py-1 px-2 form-group" style="margin-bottom:35px">
 
 <v-select
           v-model="app"
@@ -69,6 +69,7 @@ export default {
         return{
              title:'',
              contributor:'',
+             app:'',
              contributors:['raymond','zubair'],
              languages:["Web app with NodeJs",
                 "Web app with PHP",

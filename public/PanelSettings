@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["PanelSettings?v=0.23"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["PanelSettings?v=0.28"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/PanelSettings.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************!*\
@@ -79,6 +79,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       title: '',
       contributor: '',
+      app: '',
       contributors: ['raymond', 'zubair'],
       languages: ["Web app with NodeJs", "Web app with PHP", "JAVASCRIPT(Node)", "PYTHON(3.8.1)", "PYTHON FOR ML(3.7.7)", "SQL", "C", "C++", "JAVA", "C#", "ERLANG", "COBOL", "KOTLIN", "FOTRAN", "PERL", "R", "RUBY", "GO", "HASKELL", "LUA", "PASCAL", "RUST", "SCALA", "SWIFT"]
     };
@@ -102,108 +103,128 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-app", [
-    _c("div", { staticClass: "col-12" }, [
-      _c(
-        "div",
-        { staticClass: "col-lg-8 offset-lg-2" },
-        [
-          _c("v-form", { staticClass: "col-10 mt-4  " }, [
+  return _c(
+    "v-app",
+    {
+      staticStyle: {
+        background: "transparent",
+        "font-family": "BodyFont",
+        "padding-top": "20px"
+      }
+    },
+    [
+      _c("div", { staticClass: "col-12" }, [
+        _c(
+          "div",
+          { staticClass: "col-lg-8 offset-lg-2" },
+          [
             _c(
-              "div",
-              { staticClass: "col-10 py-1 mb-4 px-2 form-group" },
+              "v-form",
+              {
+                staticClass: "col-10",
+                staticStyle: { "margin-bottom": "60px" }
+              },
               [
-                _c("v-select", {
-                  attrs: {
-                    items: _vm.languages,
-                    "menu-props": "auto",
-                    label: "Application Type",
-                    outlined: "",
-                    "hide-details": "",
-                    "prepend-inner-icon": "las la-list"
+                _c(
+                  "div",
+                  {
+                    staticClass: "col-10 py-1 px-2 form-group",
+                    staticStyle: { "margin-bottom": "35px" }
                   },
-                  model: {
-                    value: _vm.app,
-                    callback: function($$v) {
-                      _vm.app = $$v
-                    },
-                    expression: "app"
-                  }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-12 py-1 mt-4 px-2 d-flex" },
-              [
-                _c("v-text-field", {
-                  staticStyle: { "font-size": "13px" },
-                  attrs: {
-                    placeholder: "Project Title",
-                    label: "Title",
-                    counter: "30",
-                    outlined: "",
-                    "prepend-inner-icon": "las la-project-diagram",
-                    rules: _vm.titleRule,
-                    color: "#3C87CD"
-                  },
-                  model: {
-                    value: _vm.title,
-                    callback: function($$v) {
-                      _vm.title = $$v
-                    },
-                    expression: "title"
-                  }
-                }),
+                  [
+                    _c("v-select", {
+                      attrs: {
+                        items: _vm.languages,
+                        "menu-props": "auto",
+                        label: "Application Type",
+                        outlined: "",
+                        "hide-details": "",
+                        "prepend-inner-icon": "las la-list"
+                      },
+                      model: {
+                        value: _vm.app,
+                        callback: function($$v) {
+                          _vm.app = $$v
+                        },
+                        expression: "app"
+                      }
+                    })
+                  ],
+                  1
+                ),
                 _vm._v(" "),
-                _c("i", {
-                  staticClass: "las la-save mt-2",
-                  staticStyle: { "font-size": "2rem", color: "#3C87CD:" }
-                })
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-12 py-1 mt-4 px-2 d-flex" },
-              [
-                _c("v-select", {
-                  staticStyle: { "font-size": "13px" },
-                  attrs: {
-                    placeholder: "Add Contributors",
-                    "menu-props": "auto",
-                    items: _vm.contributors,
-                    label: "Contributors",
-                    counter: "30",
-                    outlined: "",
-                    "prepend-inner-icon": "las la-users",
-                    color: "#3C87CD"
-                  },
-                  model: {
-                    value: _vm.contributor,
-                    callback: function($$v) {
-                      _vm.contributor = $$v
-                    },
-                    expression: "contributor"
-                  }
-                }),
+                _c(
+                  "div",
+                  { staticClass: "col-12 py-1 mt-4 px-2 d-flex" },
+                  [
+                    _c("v-text-field", {
+                      staticStyle: { "font-size": "13px" },
+                      attrs: {
+                        placeholder: "Project Title",
+                        label: "Title",
+                        counter: "30",
+                        outlined: "",
+                        "prepend-inner-icon": "las la-project-diagram",
+                        rules: _vm.titleRule,
+                        color: "#3C87CD"
+                      },
+                      model: {
+                        value: _vm.title,
+                        callback: function($$v) {
+                          _vm.title = $$v
+                        },
+                        expression: "title"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("i", {
+                      staticClass: "las la-save mt-2",
+                      staticStyle: { "font-size": "2rem", color: "#3C87CD:" }
+                    })
+                  ],
+                  1
+                ),
                 _vm._v(" "),
-                _c("i", {
-                  staticClass: "las la-save mt-2",
-                  staticStyle: { "font-size": "2rem", color: "#3C87CD:" }
-                })
-              ],
-              1
+                _c(
+                  "div",
+                  { staticClass: "col-12 py-1 mt-4 px-2 d-flex" },
+                  [
+                    _c("v-select", {
+                      staticStyle: { "font-size": "13px" },
+                      attrs: {
+                        placeholder: "Add Contributors",
+                        "menu-props": "auto",
+                        items: _vm.contributors,
+                        label: "Contributors",
+                        counter: "30",
+                        outlined: "",
+                        "prepend-inner-icon": "las la-users",
+                        color: "#3C87CD"
+                      },
+                      model: {
+                        value: _vm.contributor,
+                        callback: function($$v) {
+                          _vm.contributor = $$v
+                        },
+                        expression: "contributor"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("i", {
+                      staticClass: "las la-save mt-2",
+                      staticStyle: { "font-size": "2rem", color: "#3C87CD:" }
+                    })
+                  ],
+                  1
+                )
+              ]
             )
-          ])
-        ],
-        1
-      )
-    ])
-  ])
+          ],
+          1
+        )
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

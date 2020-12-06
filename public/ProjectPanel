@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectPanel?v=1.74"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectPanel?v=1.78"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/ProjectPanel.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************!*\
