@@ -317,7 +317,8 @@ var TopBar = function TopBar() {
     };
   },
   components: {
-    TopBar: TopBar
+    TopBar: TopBar,
+    AddProject: AddProject
   }
 });
 

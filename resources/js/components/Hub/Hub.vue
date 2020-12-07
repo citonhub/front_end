@@ -299,6 +299,8 @@
  const TopBar = () => import(
     /* webpackChunkName: "top-bar?v=0.40" */ './TopBar.vue'
   );
+
+  
 export default {
      data () {
       return {
@@ -306,7 +308,8 @@ export default {
       }
     },
     components: {
-        TopBar
+        TopBar,
+        AddProject
     }
 }
 </script>
