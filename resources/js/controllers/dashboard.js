@@ -71,7 +71,7 @@ const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=1.58" *
 const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.17" */ '../components/auth/SetUsername.vue');
 
 // dashboard routes
-const Board = () => import(/* webpackChunkName: "Board?v=2.74" */ '../components/dashboard/Board.vue');
+const Board = () => import(/* webpackChunkName: "Board?v=2.75" */ '../components/dashboard/Board.vue');
 const Projects = () => import(/* webpackChunkName: "Projects?v=0.16" */ '../components/dashboard/Projects.vue');
 const Channels = () => import(/* webpackChunkName: "Channels?v=0.12" */ '../components/dashboard/Channels.vue');
 const Teams = () => import(/* webpackChunkName: "Teams?v=0.12" */ '../components/dashboard/Teams.vue');
