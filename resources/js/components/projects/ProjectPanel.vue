@@ -16,7 +16,7 @@
                 <div style="font-family:MediumFont; font-size:13px;" >Project title 1 </div>
            </div>
             <div class="col-2 py-0 my-0 text-right">
-           <v-btn icon><v-icon style="font-size:25px;">las la-cog</v-icon> </v-btn>
+           <v-btn icon @click="openSettings()"><v-icon style="font-size:25px;">las la-cog</v-icon> </v-btn>
            </div>
 
         </div>
@@ -99,6 +99,10 @@
     methods:{
       closePanel() {
          this.$router.push({ path: '/board/projects/list' });
+      },
+
+      openSettings(){
+        this.$router.push({ path: '/board/projects/panel/set-panel' });
       }
     }
   }

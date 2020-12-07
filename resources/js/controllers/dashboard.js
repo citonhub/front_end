@@ -87,7 +87,9 @@ const AddProject = () => import(/* webpackChunkName: "AddProject?v=0.67" */ '../
 const AddNewFile = () => import(/* webpackChunkName: "AddNewFile?v=0.25" */ '../components/projects/AddNewFile.vue');
 const AddDatabase = () => import(/* webpackChunkName: "AddDatabase?v=0.15" */ '../components/projects/AddDatabase.vue');
 const ResourceUpload = () => import(/* webpackChunkName: "ResourceUpload?v=0.16" */ '../components/projects/ResourceUpload.vue');
-const PanelLoader = () => import(/* webpackChunkName: "PanelLoader?v=0.17" */ '../components/projects/PanelLoader.vue');
+const PanelLoader = () => import(/* webpackChunkName: "PanelLoader?v=0.18" */ '../components/projects/PanelLoader.vue');
+const PanelSettings = () => import(/* webpackChunkName: "PanelSettings?v=0.29" */ '../components/projects/PanelSettings.vue');
+const AddWebroute= () => import(/* webpackChunkName: "AddWebroute?v=0.29" */ '../components/projects/AddWebroute.vue');
 
 // Hub routes
 const Hub = () => import(/* webpackChunkName: "Hub?v=1.44" */ '../components/Hub/Hub.vue');
@@ -138,6 +140,16 @@ const routes = [
                     // Add Code File
                     path: 'add-new-file',
                     component: AddNewFile
+                  },
+                  {
+                    // alter panel settings
+                    path:"set-panel",
+                    component:PanelSettings
+                  },
+                  {
+                    // add web route
+                    path:"web-route",
+                    component:AddWebroute
                   },
                   {
                     // Add DataBase

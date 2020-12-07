@@ -281,7 +281,7 @@
                    <span style="font-size:13px;font-family:MediumFont;">Web routes</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
-                       <v-btn icon small><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
+                       <v-btn icon small @click="addRoute()"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
                   </div>
                </div>
               </div>
@@ -303,6 +303,16 @@
              
            </div>
 </template>
+
+<script>
+export default {
+  methods:{
+    addRoute() {
+      this.$router.push({ path: '/board/projects/panel/web-route'});
+    }
+  }
+}
+</script>
 <style scoped>
  
  .codeFile:hover{

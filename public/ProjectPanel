@@ -110,6 +110,11 @@ var panelSide = function panelSide() {
       this.$router.push({
         path: '/board/projects/list'
       });
+    },
+    openSettings: function openSettings() {
+      this.$router.push({
+        path: '/board/projects/panel/set-panel'
+      });
     }
   }
 });
@@ -243,7 +248,14 @@ var render = function() {
                 [
                   _c(
                     "v-btn",
-                    { attrs: { icon: "" } },
+                    {
+                      attrs: { icon: "" },
+                      on: {
+                        click: function($event) {
+                          return _vm.openSettings()
+                        }
+                      }
+                    },
                     [
                       _c("v-icon", { staticStyle: { "font-size": "25px" } }, [
                         _vm._v("las la-cog")
