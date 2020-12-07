@@ -316,7 +316,7 @@ var render = function() {
                     },
                     attrs: { small: "", rounded: "", color: "#3AC3A9" }
                   },
-                  [_vm._v("\n             Create\n           ")]
+                  [_vm._v("\r\n             Create\r\n           ")]
                 )
               ],
               1
@@ -365,7 +365,7 @@ var render = function() {
                     },
                     attrs: { small: "", rounded: "", color: "#3AC3A9" }
                   },
-                  [_vm._v("\n             Create\n           ")]
+                  [_vm._v("\r\n             Create\r\n           ")]
                 )
               ],
               1

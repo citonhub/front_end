@@ -126,21 +126,8 @@ var render = function() {
                     dense: "",
                     placeholder: "path...",
                     outlined: "",
-<<<<<<< HEAD
                     color: "#3C87CD",
                     label: "Path"
-=======
-                    "prepend-inner-icon": "las la-slash",
-                    rules: _vm.titleRule,
-                    color: "#3C87CD"
-                  },
-                  model: {
-                    value: _vm.path,
-                    callback: function($$v) {
-                      _vm.path = $$v
-                    },
-                    expression: "path"
->>>>>>> 38f815a26e80bee2a6f8a126d99e52ed5107cf9d
                   }
                 })
               ],
@@ -159,19 +146,7 @@ var render = function() {
                     placeholder: "select...",
                     dense: "",
                     outlined: "",
-<<<<<<< HEAD
                     color: "#3C87CD"
-=======
-                    "hide-details": "",
-                    "prepend-inner-icon": "las la-file"
-                  },
-                  model: {
-                    value: _vm.controller,
-                    callback: function($$v) {
-                      _vm.controller = $$v
-                    },
-                    expression: "controller"
->>>>>>> 38f815a26e80bee2a6f8a126d99e52ed5107cf9d
                   }
                 })
               ],
