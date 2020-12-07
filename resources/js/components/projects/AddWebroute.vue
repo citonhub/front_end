@@ -27,7 +27,7 @@
             counter="20"
             v-model="path"
             outlined
-             prepend-inner-icon="las la-project-diagram"
+             prepend-inner-icon="las la-slash"
             :rules="titleRule"
              color="#3C87CD">
              </v-text-field>
@@ -44,7 +44,7 @@
           label="Controller File"
           outlined
           hide-details
-          prepend-inner-icon="las la-list"
+          prepend-inner-icon="las la-file"
           >
         </v-select>
 </div>

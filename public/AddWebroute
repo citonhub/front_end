@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddWebroute?v=0.27"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddWebroute?v=0.29"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/AddWebroute.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************!*\
@@ -169,7 +169,7 @@ var render = function() {
                     label: "Path",
                     counter: "20",
                     outlined: "",
-                    "prepend-inner-icon": "las la-project-diagram",
+                    "prepend-inner-icon": "las la-slash",
                     rules: _vm.titleRule,
                     color: "#3C87CD"
                   },
@@ -199,7 +199,7 @@ var render = function() {
                     label: "Controller File",
                     outlined: "",
                     "hide-details": "",
-                    "prepend-inner-icon": "las la-list"
+                    "prepend-inner-icon": "las la-file"
                   },
                   model: {
                     value: _vm.controller,
