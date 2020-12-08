@@ -19,7 +19,10 @@
 <v-card style="height:100%" class="col-12">
     <p class="col-4 text-left">Project Thumbnail</p>
       <div class="col-lg-4 offset-lg-4">
-         <div style="background:#3C87CD;border:1px solid white;height:100px;" class=" col-5 project-img"></div>
+         <div style="background:#3C87CD;border:1px solid white;height:100px;" class=" col-5 text-center d-flex project-img">
+            <i style="color:white;" class="las la-plus mt-4 ml-3"></i>
+            <i style="font-size:1.8rem;color:white;" class="las la-camera mt-4"></i>
+         </div>
       </div>
 
       <div class="col-12 py-2 my-0 px-2">
