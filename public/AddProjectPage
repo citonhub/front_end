@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddProjectPage?v=0.45"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddProjectPage?v=0.52"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Hub/AddProjectPage.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
@@ -9,6 +9,10 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
 //
 //
 //
@@ -198,7 +202,7 @@ var render = function() {
         "div",
         {
           staticClass: "col-lg-8 offset-lg-2",
-          staticStyle: { "margin-top": "100px", height: "850px" }
+          staticStyle: { "margin-top": "100px", height: "900px" }
         },
         [
           _c(
@@ -317,19 +321,41 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "col-6 offset-1 py-1 px-1" },
+                { staticClass: "col-6 py-1 px-1" },
                 [
                   _c("v-textarea", {
                     staticClass: "mt-4",
                     attrs: {
                       label: "Project Description",
-                      counter: "50",
-                      "background-color": "grey",
+                      counter: "100",
+                      "background-color": "lightgrey",
                       rows: "3",
                       clearable: "",
                       "clear-icon": "las la-times-circle"
                     }
                   })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-12 py-1 mt-4 px-2 text-center" },
+                [
+                  _c(
+                    "v-btn",
+                    {
+                      staticStyle: {
+                        "font-size": "12px",
+                        "font-weight": "bolder",
+                        color: "white",
+                        "font-family": "HeaderFont",
+                        width: "40%"
+                      },
+                      attrs: { type: "submit", large: "", color: "#3C87CD" }
+                    },
+                    [_vm._v("Add")]
+                  )
                 ],
                 1
               )

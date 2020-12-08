@@ -2,18 +2,20 @@
     <v-app style="background:transparent;font-family:BodyFont;padding-top:20px;">
 <TopBar></TopBar>
 
+<!-- Select Method page markup-->
+
   <!--<div class="col-lg-8 offset-lg-2" style="margin-top:100px;height:250px;">
 
 <v-card style="height:100%" class="col-12 d-flex">
-<v-btn style="background:#3C87CD;color:white" class="mt-4 col-2 offset-2 py-2 px-2" elevation="2">Add a Link</v-btn>
+<v-btn style="background:c;color:white" class="mt-4 col-2 offset-2 py-2 px-2" elevation="2">Add a Link</v-btn>
 <v-btn style="background:#3C87CD;color:white" class="mt-4 col-4 offset-2 py-2 px-2" elevation="2">Select From Project</v-btn>
 </v-card>
 
      </div>!-->
 
     
-
-      <div class="col-lg-8 offset-lg-2" style="margin-top:100px;height:850px;">
+<!-- add link tab markup-->
+      <div class="col-lg-8 offset-lg-2" style="margin-top:100px;height:900px;">
 <v-card style="height:100%" class="col-12">
     <p class="col-4 text-left">Project Thumbnail</p>
       <div class="col-lg-4 offset-lg-4">
@@ -52,14 +54,16 @@
                  
              </div> 
 
-             <div class="col-6 offset-1 py-1 px-1">
+             <div class="col-6 py-1 px-1">
 
-             <v-textarea label="Project Description" counter="50" background-color="grey" rows="3" clearable clear-icon="las la-times-circle" class="mt-4">
+             <v-textarea label="Project Description" counter="100" background-color="lightgrey" rows="3" clearable clear-icon="las la-times-circle" class="mt-4">
                  
                  </v-textarea>     
 
                  </div> 
-
+	<div class="col-12 py-1 mt-4 px-2 text-center">
+    				<v-btn  type="submit" large color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;width:40%;">Add</v-btn>
+             </div>
 </v-card>
 
    </div>
