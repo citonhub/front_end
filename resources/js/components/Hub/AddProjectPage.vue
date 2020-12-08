@@ -15,7 +15,7 @@
 
     
 <!-- add link tab markup-->
-      <div class="col-lg-8 offset-lg-2" style="margin-top:100px;height:900px;">
+  <!--    <div class="col-lg-8 offset-lg-2" style="margin-top:100px;height:900px;">
 <v-card style="height:100%" class="col-12">
     <p class="col-4 text-left">Project Thumbnail</p>
       <div class="col-lg-4 offset-lg-4">
@@ -69,7 +69,43 @@
              </div>
 </v-card>
 
-   </div>
+   </div>-->
+
+   <!-- project link tab-->
+
+
+  
+    <div class="col-lg-8 offset-lg-2" style="margin-top:100px;height:550px;">
+<v-card style="height:100%" class="col-12">
+
+ <p class="col-4 text-left">Upload Project Thumbnail</p>
+      <div class="col-lg-4 offset-lg-4">
+         <div style="background:#3C87CD;border:1px solid white;height:100px;" class=" col-5 text-center d-flex project-img">
+            <i style="color:white;" class="las la-plus mt-4 ml-3"></i>
+            <i style="font-size:1.8rem;color:white;" class="las la-camera mt-4"></i>
+         </div>
+      </div>
+
+
+
+
+ <div class="col-12 py-2 my-0 px-2">
+    				<v-select :items="projects" label="Select Project" placeholder="select..." dense outlined style="font-size:13px;"  color="#3C87CD"></v-select>
+    			</div>
+
+               <div class="col-6 py-1 px-1">
+
+             <v-textarea label="Project Description" counter="100" background-color="lightgrey" rows="3" clearable clear-icon="las la-times-circle" class="mt-4">
+                 
+                 </v-textarea>     
+
+                 </div> 
+	<div class="col-12 py-1 mt-4 px-2 text-center">
+    				<v-btn  type="submit" large color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;width:30%;">Add</v-btn>
+             </div>
+
+</v-card>
+</div>
 
     </v-app>
 </template>
@@ -212,6 +248,11 @@ export default {
                },
 
             ],
+
+            projects:[
+               'Quizapp',
+               'BookFinder'
+            ]
         }
     }
 }

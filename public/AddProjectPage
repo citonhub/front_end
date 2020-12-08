@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddProjectPage?v=0.62"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddProjectPage?v=0.65"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Hub/AddProjectPage.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
@@ -9,6 +9,42 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -167,7 +203,8 @@ var TopBar = function TopBar() {
       }, {
         name: 'Scala',
         icon: 'las la-code'
-      }]
+      }],
+      projects: ['Quizapp', 'BookFinder']
     };
   }
 });
@@ -205,7 +242,7 @@ var render = function() {
         "div",
         {
           staticClass: "col-lg-8 offset-lg-2",
-          staticStyle: { "margin-top": "100px", height: "900px" }
+          staticStyle: { "margin-top": "100px", height: "550px" }
         },
         [
           _c(
@@ -213,7 +250,7 @@ var render = function() {
             { staticClass: "col-12", staticStyle: { height: "100%" } },
             [
               _c("p", { staticClass: "col-4 text-left" }, [
-                _vm._v("Project Thumbnail")
+                _vm._v("Upload Project Thumbnail")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "col-lg-4 offset-lg-4" }, [
@@ -245,95 +282,19 @@ var render = function() {
                 "div",
                 { staticClass: "col-12 py-2 my-0 px-2" },
                 [
-                  _c("v-text-field", {
+                  _c("v-select", {
                     staticStyle: { "font-size": "13px" },
                     attrs: {
+                      items: _vm.projects,
+                      label: "Select Project",
+                      placeholder: "select...",
                       dense: "",
-                      placeholder: "Project Title...",
                       outlined: "",
-                      color: "#3C87CD",
-                      label: "Project Title"
+                      color: "#3C87CD"
                     }
                   })
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-12 py-1 my-2 px-2 text-left" }, [
-                _c(
-                  "span",
-                  {
-                    staticStyle: {
-                      "font-size": "13px",
-                      "font-family": "BodyFont"
-                    }
-                  },
-                  [_vm._v("Choose application type")]
-                )
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "row" },
-                _vm._l(_vm.languageIcon, function(app, index) {
-                  return _c(
-                    "div",
-                    {
-                      key: index,
-                      staticClass: "  col-2 col-lg-2 ml-4 px-2 my-0 py-2 "
-                    },
-                    [
-                      _c(
-                        "v-card",
-                        {
-                          staticClass: "px-1 py-1 appBox",
-                          staticStyle: {
-                            height: "50px",
-                            border: "1px solid #263238",
-                            "border-radius": "7px"
-                          }
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass: "d-flex",
-                              staticStyle: {
-                                height: "100%",
-                                "align-items": "center",
-                                "justify-content": "center",
-                                width: "100%"
-                              }
-                            },
-                            [
-                              _c("div", { staticClass: "text-center" }, [
-                                _c("i", {
-                                  class: app.icon,
-                                  staticStyle: { "font-size": "20px" }
-                                }),
-                                _vm._v(" "),
-                                _c("div", [
-                                  _c(
-                                    "span",
-                                    {
-                                      staticStyle: {
-                                        "font-size": "13px",
-                                        "font-family": "BodyFont"
-                                      }
-                                    },
-                                    [_vm._v(_vm._s(app.name))]
-                                  )
-                                ])
-                              ])
-                            ]
-                          )
-                        ]
-                      )
-                    ],
-                    1
-                  )
-                }),
-                0
               ),
               _vm._v(" "),
               _c(
@@ -367,7 +328,7 @@ var render = function() {
                         "font-weight": "bolder",
                         color: "white",
                         "font-family": "HeaderFont",
-                        width: "40%"
+                        width: "30%"
                       },
                       attrs: { type: "submit", large: "", color: "#3C87CD" }
                     },
