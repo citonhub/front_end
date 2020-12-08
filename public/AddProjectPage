@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddProjectPage?v=0.19"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddProjectPage?v=0.45"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Hub/AddProjectPage.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
@@ -9,7 +9,66 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -23,11 +82,86 @@ var TopBar = function TopBar() {
   return __webpack_require__.e(/*! import() | top-bar?v=0.40 */ "top-bar?v=0.40").then(__webpack_require__.bind(null, /*! ./TopBar.vue */ "./resources/js/components/Hub/TopBar.vue"));
 };
 
-
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     TopBar: TopBar
+  },
+  data: function data() {
+    return {
+      languageIcon: [{
+        name: 'Web app NodeJs',
+        icon: 'lab la-node-js'
+      }, {
+        name: 'Web app PHP',
+        icon: 'lab la-php'
+      }, {
+        name: 'JavaScript',
+        icon: 'lab la-js-square'
+      }, {
+        name: 'PHP',
+        icon: 'lab la-php'
+      }, {
+        name: 'Python 3.81',
+        icon: 'lab la-python'
+      }, {
+        name: 'Python for ML(3.7.7)',
+        icon: 'lab la-python'
+      }, {
+        name: 'C',
+        icon: 'mdi mdi-language-c'
+      }, {
+        name: 'C++',
+        icon: 'mdi mdi-language-cpp'
+      }, {
+        name: 'Java',
+        icon: 'lab la-java'
+      }, {
+        name: 'C#',
+        icon: 'mdi mdi-language-csharp'
+      }, {
+        name: 'Erlang',
+        icon: 'lab la-erlang'
+      }, {
+        name: 'Kotlin',
+        icon: 'mdi mdi-language-kotlin'
+      }, {
+        name: 'Fortran',
+        icon: 'mdi mdi-language-fortran'
+      }, {
+        name: 'Perl',
+        icon: 'las la-code'
+      }, {
+        name: 'R',
+        icon: 'mdi mdi-language-r'
+      }, {
+        name: 'Ruby',
+        icon: 'mdi mdi-language-ruby'
+      }, {
+        name: 'Go',
+        icon: 'mdi mdi-language-go'
+      }, {
+        name: 'Hashkell',
+        icon: 'mdi mdi-language-haskell'
+      }, {
+        name: 'Lua',
+        icon: 'mdi mdi-language-lua'
+      }, {
+        name: 'Pascal',
+        icon: 'las la-code'
+      }, {
+        name: 'TypeScript',
+        icon: 'mdi mdi-language-typescript'
+      }, {
+        name: 'Rust',
+        icon: 'las la-code'
+      }, {
+        name: 'Swift',
+        icon: 'lab la-swift'
+      }, {
+        name: 'Scala',
+        icon: 'las la-code'
+      }]
+    };
   }
 });
 
@@ -57,7 +191,154 @@ var render = function() {
         "padding-top": "20px"
       }
     },
-    [_c("TopBar"), _vm._v(" "), _c("router-view")],
+    [
+      _c("TopBar"),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "col-lg-8 offset-lg-2",
+          staticStyle: { "margin-top": "100px", height: "850px" }
+        },
+        [
+          _c(
+            "v-card",
+            { staticClass: "col-12", staticStyle: { height: "100%" } },
+            [
+              _c("p", { staticClass: "col-4 text-left" }, [
+                _vm._v("Project Thumbnail")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-4 offset-lg-4" }, [
+                _c("div", {
+                  staticClass: " col-5 project-img",
+                  staticStyle: {
+                    background: "#3C87CD",
+                    border: "1px solid white",
+                    height: "100px"
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-12 py-2 my-0 px-2" },
+                [
+                  _c("v-text-field", {
+                    staticStyle: { "font-size": "13px" },
+                    attrs: {
+                      dense: "",
+                      placeholder: "Project Title...",
+                      outlined: "",
+                      color: "#3C87CD",
+                      label: "Project Title"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-lg-12 py-1 my-2 px-2 text-left" }, [
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      "font-size": "13px",
+                      "font-family": "BodyFont"
+                    }
+                  },
+                  [_vm._v("Choose application type")]
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "row" },
+                _vm._l(_vm.languageIcon, function(app, index) {
+                  return _c(
+                    "div",
+                    {
+                      key: index,
+                      staticClass: "  col-2 col-lg-2 ml-4 px-2 my-0 py-2 "
+                    },
+                    [
+                      _c(
+                        "v-card",
+                        {
+                          staticClass: "px-1 py-1 appBox",
+                          staticStyle: {
+                            height: "50px",
+                            border: "1px solid #263238",
+                            "border-radius": "7px"
+                          }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "d-flex",
+                              staticStyle: {
+                                height: "100%",
+                                "align-items": "center",
+                                "justify-content": "center",
+                                width: "100%"
+                              }
+                            },
+                            [
+                              _c("div", { staticClass: "text-center" }, [
+                                _c("i", {
+                                  class: app.icon,
+                                  staticStyle: { "font-size": "20px" }
+                                }),
+                                _vm._v(" "),
+                                _c("div", [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticStyle: {
+                                        "font-size": "13px",
+                                        "font-family": "BodyFont"
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(app.name))]
+                                  )
+                                ])
+                              ])
+                            ]
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  )
+                }),
+                0
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-6 offset-1 py-1 px-1" },
+                [
+                  _c("v-textarea", {
+                    staticClass: "mt-4",
+                    attrs: {
+                      label: "Project Description",
+                      counter: "50",
+                      "background-color": "grey",
+                      rows: "3",
+                      clearable: "",
+                      "clear-icon": "las la-times-circle"
+                    }
+                  })
+                ],
+                1
+              )
+            ]
+          )
+        ],
+        1
+      )
+    ],
     1
   )
 }

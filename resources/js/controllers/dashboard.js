@@ -90,7 +90,7 @@ const ResourceUpload = () => import(/* webpackChunkName: "ResourceUpload?v=0.16"
 const PanelLoader = () => import(/* webpackChunkName: "PanelLoader?v=0.18" */ '../components/projects/PanelLoader.vue');
 const PanelSettings = () => import(/* webpackChunkName: "PanelSettings?v=0.29" */ '../components/projects/PanelSettings.vue');
 const AddWebroute= () => import(/* webpackChunkName: "AddWebroute?v=0.29" */ '../components/projects/AddWebroute.vue');
-const AddProjectPage= () => import(/* webpackChunkName: "AddProjectPage?v=0.19" */ '../components/Hub/AddProjectPage.vue');
+const AddProjectPage= () => import(/* webpackChunkName: "AddProjectPage?v=0.45" */ '../components/Hub/AddProjectPage.vue');
 // Hub routes
 const Hub = () => import(/* webpackChunkName: "Hub?v=1.44" */ '../components/Hub/Hub.vue');
 
