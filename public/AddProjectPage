@@ -19,13 +19,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 var TopBar = function TopBar() {
   return __webpack_require__.e(/*! import() | top-bar?v=0.40 */ "top-bar?v=0.40").then(__webpack_require__.bind(null, /*! ./TopBar.vue */ "./resources/js/components/Hub/TopBar.vue"));
 };
@@ -64,46 +57,7 @@ var render = function() {
         "padding-top": "20px"
       }
     },
-    [
-      _c("TopBar"),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "col-lg-8 offset-lg-2",
-          staticStyle: { "margin-top": "100px", height: "250px" }
-        },
-        [
-          _c(
-            "v-card",
-            { staticClass: "col-12 d-flex", staticStyle: { height: "100%" } },
-            [
-              _c(
-                "v-btn",
-                {
-                  staticClass: "mt-4 col-2 offset-2 py-2 px-2",
-                  staticStyle: { background: "#3C87CD", color: "white" },
-                  attrs: { elevation: "2" }
-                },
-                [_vm._v("Add a Link")]
-              ),
-              _vm._v(" "),
-              _c(
-                "v-btn",
-                {
-                  staticClass: "mt-4 col-4 offset-2 py-2 px-2",
-                  staticStyle: { background: "#3C87CD", color: "white" },
-                  attrs: { elevation: "2" }
-                },
-                [_vm._v("Select From Project")]
-              )
-            ],
-            1
-          )
-        ],
-        1
-      )
-    ],
+    [_c("TopBar"), _vm._v(" "), _c("router-view")],
     1
   )
 }
