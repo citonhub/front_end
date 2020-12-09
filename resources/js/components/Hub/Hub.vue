@@ -367,13 +367,15 @@
 
        <!-- ends -->
 
-      
+     
     </div>
 </template>
 <script>
  const TopBar = () => import(
     /* webpackChunkName: "top-bar?v=0.40" */ './TopBar.vue'
   );
+
+  
 
   
 export default {
