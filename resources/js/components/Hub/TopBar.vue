@@ -33,7 +33,7 @@
                                 <v-card elevation-2 class=" d-flex   py-1 px-2" style="border-radius:30px; justify-content:center; align-items:center;"> 
                          
                             
-                            <div  class="d-inline-block mr-2"   style="border-radius:50%;height:30px;width:30px;background-color:#3C87CD;background-size:contain;border:1px solid transparent;"></div>
+                            <div  class="d-inline-block mr-2"   style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size:100%;border:1px solid transparent;"></div>
                               
                               
                               <span style="font-family:MediumFont; font-size:13px;color:black;" >Akinola Dray</span>
@@ -73,7 +73,7 @@
                 <v-btn icon ><v-icon style="font-size:25px;color:#263238;" >las la-bell</v-icon></v-btn>
             </div>
              <div class="col-2 d-flex px-1 py-0" style="justify-content:center; align-items:center;">
-                 <div style="border-radius:50%;height:32px;width:32px;background-color:#3C87CD;background-size:contain;border:1px solid transparent;"></div>
+                 <div style="border-radius:50%;height:32px;width:32px;background-color:#c5c5c5; background-image:url(/imgs/img3.jpg); background-size:100%;border:1px solid transparent;"></div>
             </div>
                    </div>
              </v-card>

@@ -11,7 +11,7 @@
 
        <!-- hub content -->
        
-        <div class="col-lg-10 offset-lg-1 col-12 px-0" style=" position:absolute; height:92%; top:8%; " >
+        <div class="col-lg-10 offset-lg-1 col-12 px-0 d-md-block d-none" style="background:#F5F5FB; position:absolute; height:92%; top:8%; " >
 
             <div class="row px-md-4 px-4">
               <!-- header -->
@@ -24,7 +24,7 @@
 
             <div class="col-lg-6 px-0 pb-1 text-right d-none d-lg-block" style="border-bottom:1px solid #263238;z-index:99999999999999;" >
 
-                <v-btn  small rounded  color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:HeaderFont;">
+                <v-btn  small rounded  color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:HeaderFont;">
              Add new <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
            </v-btn>
             </div>
@@ -36,11 +36,15 @@
             </div>
 
 
-             <!-- floating add button -->
+            
+        </div>
+
+
+         <!-- floating add button -->
 
        
 
-     <v-btn  fab color="#3C87CD"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
+     <v-btn  fab color="#3AC3A9"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:2%; ">
 
         <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
          
@@ -49,12 +53,11 @@
 
        <!-- ends -->
 
-        </div>
        
-        <div class=" col-12 scroller" style=" position:absolute; height:82%; top:17%; overflow-y:auto; padding-bottom:60px;" >
+        <div class=" col-12 scroller" style=" position:absolute; height:90%; top:10%; overflow-y:auto; padding-bottom:60px;" >
 
           
-               <div class="col-lg-10 offset-lg-1 col-12 py-0" >
+               <div class="col-lg-10 offset-lg-1 col-12 py-0 pt-md-5 mt-md-3" >
 
                    <div class="row">
                       <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2" style="height:200px;">
@@ -90,7 +93,7 @@
                 <div class="row py-0 my-0">
                     <div class="col-2 py-0 my-0 d-flex px-0" style="align-items:center; justify-content:center;">
                         <span  class="d-inline-block"  
-                             style="border-radius:50%;height:30px;width:30px;background-color:#3C87CD;background-size:contain;border:1px solid transparent;"></span>
+                             style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5; background-image:url(/imgs/img3.jpg);background-size:100%;border:1px solid transparent;"></span>
                     </div>
                    <div class="col-8 py-0 my-0 d-flex" style="align-items:center;">
                        <div> 
@@ -159,7 +162,7 @@
                 <div class="row py-0 my-0">
                     <div class="col-2 py-0 my-0 d-flex px-0" style="align-items:center; justify-content:center;">
                         <span  class="d-inline-block"  
-                             style="border-radius:50%;height:30px;width:30px;background-color:#3C87CD;background-size:contain;border:1px solid transparent;"></span>
+                             style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5; background-image:url(/imgs/img3.jpg);background-size:100%;border:1px solid transparent;"></span>
                     </div>
                    <div class="col-8 py-0 my-0 d-flex" style="align-items:center;">
                        <div> 
@@ -228,7 +231,7 @@
                 <div class="row py-0 my-0">
                     <div class="col-2 py-0 my-0 d-flex px-0" style="align-items:center; justify-content:center;">
                         <span  class="d-inline-block"  
-                             style="border-radius:50%;height:30px;width:30px;background-color:#3C87CD;background-size:contain;border:1px solid transparent;"></span>
+                             style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5; background-image:url(/imgs/img3.jpg);background-size:100%;border:1px solid transparent;"></span>
                     </div>
                    <div class="col-8 py-0 my-0 d-flex" style="align-items:center;">
                        <div> 
@@ -297,7 +300,7 @@
 </template>
 <script>
  const TopBar = () => import(
-    /* webpackChunkName: "top-bar?v=0.40" */ './TopBar.vue'
+    /* webpackChunkName: "top-bar?v=0.4" */ './TopBar.vue'
   );
 export default {
      data () {

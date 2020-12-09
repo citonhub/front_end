@@ -45,9 +45,9 @@
 
      <!-- floating button hub for medium and small screen -->
 
-     <v-btn medium fab color="#3C87CD" class="d-lg-none"  style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
+     <v-btn medium fab color="#3AC3A9" class="d-lg-none"  style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
 
-         <span style="font-family:MediumFont; font-size:12px;color:white;"> Hub</span>
+         <span style="font-family:MediumFont; font-size:12px;color:white; text-transform:capitalize;"> Hub</span>
          
      </v-btn>
 

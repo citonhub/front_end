@@ -33,35 +33,13 @@
                 </div>
           </div>
 
-          <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'channels' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('channels')">
+          <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'chats' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('chats')">
                 <div class="row">
                 <div class="col-4 py-1 text-center">
-                  <v-icon style="font-size:30px;" :color="selectedTab == 'channels' ? '#3C87CD' : '#A4A4A5'">las la-comments</v-icon>
+                  <v-icon style="font-size:30px;" :color="selectedTab == 'chats' ? '#3C87CD' : '#A4A4A5'">las la-comments</v-icon>
                 </div>
-                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'channels' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div style="font-family:MediumFont; font-size:14px;" >Channels</div>
-                </div>
-                </div>
-          </div>
-
-            <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'teams' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('teams')">
-                <div class="row">
-                <div class="col-4 py-1 text-center">
-                  <v-icon style="font-size:30px;" :color="selectedTab == 'teams' ? '#3C87CD' : '#A4A4A5'">las la-user-friends</v-icon>
-                </div>
-                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'teams'  ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div style="font-family:MediumFont; font-size:14px;" >Teams</div>
-                </div>
-                </div>
-          </div>
-
-            <div class="col-12  px-0 py-1 mt-1 py-md-2 sideBar"  :style="selectedTab == 'direct-messages' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('direct-messages')">
-                <div class="row">
-                <div class="col-4 py-1 text-center">
-                  <v-icon style="font-size:30px;" :color="selectedTab == 'direct-messages' ? '#3C87CD' : '#A4A4A5'">las la-user</v-icon>
-                </div>
-                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'direct-messages' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div style="font-family:MediumFont; font-size:14px;" >Direct Messages</div>
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'chats' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
+                  <div style="font-family:MediumFont; font-size:14px;" >Chats</div>
                 </div>
                 </div>
           </div>
@@ -155,10 +133,10 @@ export default {
               
             }
 
-            if(this.$router.currentRoute.path.indexOf('channels') >= 0){
+            if(this.$router.currentRoute.path.indexOf('chats') >= 0){
                 
-               this.selectedTab = 'channels';
-                this.$root.searchType = 'channels';
+               this.selectedTab = 'chats';
+                this.$root.searchType = 'chats';
 
               
             }
@@ -181,24 +159,15 @@ export default {
               
             }
 
-            if(this.$router.currentRoute.path.indexOf('teams') >= 0){
-                
-               this.selectedTab = 'teams';
 
-                this.$root.searchType = 'teams';
-
-              
-            }
-
-            if(this.$router.currentRoute.path.indexOf('direct-messages') >= 0){
-                
-               this.selectedTab = 'direct-messages';
-
-                 this.$root.searchType = 'direct-messages';
-            }
 
         },
         goToPage:function(page){
+
+           if(page == 'chats'){
+       this.$router.push({ path: '/chats' });
+        return;
+           }
 
              this.$router.push({ path: '/board/' + page });
 
@@ -214,7 +183,7 @@ export default {
 </script>
 <style scoped>
 .btnStyle{
-    background: #3C87CD;
+    background: #3AC3A9;
     color: white;
     border-radius: 30px;
     font-family: MediumFont;

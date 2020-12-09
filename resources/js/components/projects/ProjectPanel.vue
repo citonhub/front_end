@@ -5,7 +5,7 @@
   
   <!-- small and medium screen -->
     
-     <div class="col-12   px-0 d-block  py-0" style="position:fixed; left:0; top:0%; height:100%;background:white; z-index:99990999999999;">
+     <div class="col-12   px-0 d-block  py-0" style="position:fixed; left:0; height:100%; top:0%; background:white; z-index:99990999999999;">
 
       <div class="col-12 py-0 fixed-top" style="position:fixed;width:100%;border-bottom:2px solid #3C87CD; border-radius:0px; background:white; z-index:99999999999;">
         <div class="row py-1 my-0">
@@ -40,7 +40,7 @@
       <div class="col-12 py-1 px-0" style="position:absolute;width:100%;height:100%; background:white;">
          <!-- side bar -->
           
-          <div class="col-lg-2 col-md-3  scroller d-md-block d-none" style="position:absolute;height:98%; background:#ffffff; border-right:1px solid #c5c5c5; top:0; padding-top:30px; overflow-y:auto; overflow-x:hidden;">
+          <div class="col-lg-2 col-md-4  scroller d-md-block d-none" style="position:absolute;height:98%; background:#ffffff; border-right:1px solid #c5c5c5; top:0; padding-top:30px; overflow-y:auto; overflow-x:hidden;">
            
              <panel-side></panel-side>
        
@@ -65,7 +65,7 @@
 
    <!-- panel viewer -->
 
-      <div  class=" col-lg-10 offset-lg-2  col-md-9 offset-md-3 "  style=" position:absolute;height:95%; background:#F3F8FC; top:5%;">
+      <div  class=" col-lg-10 offset-lg-2  col-md-8 offset-md-4 "  style=" position:absolute;height:95%; background:#F3F8FC; top:5%;">
        
        <router-view></router-view>
 
@@ -83,7 +83,7 @@
 
 <script>
   const panelSide = () => import(
-    /* webpackChunkName: "panel-side?v=0.21" */ './PanelSide.vue'
+    /* webpackChunkName: "panel-side?v=0.23" */ './PanelSide.vue'
   );
 
  export default {

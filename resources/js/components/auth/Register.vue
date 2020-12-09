@@ -29,22 +29,6 @@
   </div>
 
 <!-- this is for small screen, the same is done just like above.. but it fixed to the bottom instead.. using the bottom:1%;  in the style-->
-<div class="d-lg-none col-12 text-center  d-flex"  style="z-index:999999999; align-items:center; justify-content:center; position:fixed; height:20%; bottom:1%;">
-    
- 
-     
-<div  class="px-5">
-
-
-<blockquote class="fill" style="font-family:BodyFont; font-size:14px; color:black;">Act as if what you do makes a difference. It does.</blockquote>
- 
- <p class="text-center" style="font-family:HeaderFont;font-size:14px;">
-   - William James
- </p>
-
-       </div>
-       
-</div>
 
 
 <!-- ends -->
@@ -135,6 +119,15 @@
 
              </div>
 
+             
+        
+               <div class="col-12 py-1 my-0 px-2 text-center">
+                  <v-btn  :loading="loading" type="submit" medium color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
+                 @click.prevent="checkemail">
+                 Sign Up
+                  </v-btn>
+             </div>
+
               <div class="col-12 py-1 my-0  px-2 text-center">
 
                 <span   style="font-size:13px; font-family:BodyFont; color:gray;"
@@ -142,13 +135,6 @@
                 </span>
                 
             </div>
-        
-               <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn  :loading="loading" type="submit" medium color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
-                 @click.prevent="checkemail">
-                 Sign Up
-                  </v-btn>
-             </div>
 
               <div class="col-12 py-1 my-0 mt-1 px-2 text-center">
 
@@ -246,28 +232,26 @@
 
              </div>
 
-            
-          <div class="col-12 py-0 my-0  px-2 text-center">
+
+               <div class="col-12 py-1 my-0 px-2 text-center">
+                  <v-btn  :loading="loading" type="submit" small color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
+                 @click.prevent="checkemail">
+                 Sign Up
+                  </v-btn>
+             </div>
+
+             <div class="col-12 py-0 my-0  px-2 text-center">
 
                 <span   style="font-size:12px; font-family:BodyFont; color:gray;"
                 > By click on sign up, you agree with our <a href="/terms-of-use">terms of use </a>and <a href="/privacy-policy">privacy policy</a>.
                 </span>
                 
             </div>
-            
-               <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn  :loading="loading" type="submit" small color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
-                 @click.prevent="checkemail">
-                 Sign Up
-                  </v-btn>
-             </div>
-
-      
 
             <div class="col-12 py-1 my-0  px-2 text-center">
 
                 <span   style="font-size:12px; font-family:BodyFont; color:gray;"
-                >Do you have an account? <router-link  style="font-size:12px; font-family:BodyFont; color:#3C87CD;" to="/login">LOGIN</router-link>.
+                >Have an account already?<router-link  style="font-size:12px; font-family:BodyFont; color:#3C87CD;" to="/login">LOGIN</router-link>.
                 </span>
                 
             </div>

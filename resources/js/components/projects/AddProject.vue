@@ -8,7 +8,7 @@
         </div>
 
          <div class="col-6 py-0 my-0 text-right">
-             <v-btn  small rounded  color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;">
+             <v-btn  small rounded  color="#3AC3A9" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;">
              Create
            </v-btn>
         </div>
@@ -22,7 +22,7 @@
            <h6 style="font-size:17px;"><v-btn  @click="goToProjectList" icon><v-icon>las la-arrow-left</v-icon></v-btn>Create a project</h6>
         </div>
          <div class="col-4 py-0 my-0 text-right">
-          <v-btn small rounded  color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;">
+          <v-btn small rounded  color="#3AC3A9" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;">
              Create
            </v-btn>
         </div>

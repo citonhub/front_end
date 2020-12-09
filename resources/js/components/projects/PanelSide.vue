@@ -4,7 +4,7 @@
              <div class="col-12 pt-md-4 pt-0  fixed-top" style="position:sticky;background:white; top:-2%;">
                 <div class="row">
                   <div class="col-6 d-flex py-0 " style="align-items:center;">
-                     <v-btn x-small color="#3C87CD"> <span style="font-family:HeaderFont;font-size:11px; text-transform:capitalize; color:white;" >Guide</span> </v-btn>
+                     <v-btn x-small color="#3AC3A9"> <span style="font-family:HeaderFont;font-size:11px; text-transform:capitalize; color:white;" >Guide</span> </v-btn>
                   </div>
 
                   <div class="col-6 text-right py-0">

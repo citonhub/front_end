@@ -25,7 +25,7 @@
     			</div>
     			
     			<div class="col-12 py-1 my-0 px-2 text-center">
-    				<v-btn  type="submit" small color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;">Add</v-btn>
+    				<v-btn  type="submit" small color="#3AC3A9" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;">Add</v-btn>
              </div>
     		</v-form>
     	
