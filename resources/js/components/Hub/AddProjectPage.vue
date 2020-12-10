@@ -1,5 +1,5 @@
 <template>
-    <v-app style="background:transparent;font-family:BodyFont;padding-top:20px;">
+    <v-app style="font-family:BodyFont;padding-top:20px;position:absolute;top:0;color:black;z-index:1;">
 
 
 <!-- Select Method page markup-->

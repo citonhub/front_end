@@ -24,7 +24,7 @@
 
             <div class="col-lg-6 px-0 pb-1 text-right d-none d-lg-block" style="border-bottom:1px solid #263238;z-index:99999999999999;" >
 
-                <v-btn  small rounded  color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:HeaderFont;">
+                <v-btn @click="modal = !modal"   small rounded  color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:HeaderFont;">
              Add new <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
            </v-btn>
             </div>
@@ -367,16 +367,19 @@
 
        <!-- ends -->
 
-     
+       <div v-if="modal" style="position:absolute;top:0;background:rgba(255,255,255,0.6);height:100%;z-index:1;" class="col-12">
+        <addPage></addPage>
+
+
+     </div>
     </div>
 </template>
 <script>
  const TopBar = () => import(
-    /* webpackChunkName: "top-bar?v=0.40" */ './TopBar.vue'
+    /* webpackChunkName: "top-bar?v=0.41" */ './TopBar.vue'
   );
 
-  
-
+const addPage = () => import(/*webpackChunkName: "addPage?v=0.17"*/ './AddProjectPage.vue')
   
 export default {
      data () {
@@ -386,11 +389,12 @@ export default {
         opacity: 0.4,
         overlay: false,
         zIndex: 1,
+        modal:false,
       }
     },
     components: {
         TopBar,
-        AddProject
+      addPage
     }
 }
 </script>

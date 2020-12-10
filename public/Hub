@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["Hub?v=1.48"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["Hub?v=1.95"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Hub/Hub.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************!*\
@@ -381,8 +381,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var TopBar = function TopBar() {
-  return __webpack_require__.e(/*! import() | top-bar?v=0.40 */ "top-bar?v=0.40").then(__webpack_require__.bind(null, /*! ./TopBar.vue */ "./resources/js/components/Hub/TopBar.vue"));
+  return __webpack_require__.e(/*! import() | top-bar?v=0.41 */ "top-bar?v=0.41").then(__webpack_require__.bind(null, /*! ./TopBar.vue */ "./resources/js/components/Hub/TopBar.vue"));
+};
+
+var addPage = function addPage() {
+  return __webpack_require__.e(/*! import() | addPage?v=0.17 */ "addPage?v=0.17").then(__webpack_require__.bind(null, /*! ./AddProjectPage.vue */ "./resources/js/components/Hub/AddProjectPage.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -392,12 +400,13 @@ var TopBar = function TopBar() {
       absolute: true,
       opacity: 0.4,
       overlay: false,
-      zIndex: 1
+      zIndex: 1,
+      modal: false
     };
   },
   components: {
     TopBar: TopBar,
-    AddProject: AddProject
+    addPage: addPage
   }
 });
 
@@ -517,7 +526,12 @@ var render = function() {
                       color: "white",
                       "font-family": "HeaderFont"
                     },
-                    attrs: { small: "", rounded: "", color: "#3AC3A9" }
+                    attrs: { small: "", rounded: "", color: "#3AC3A9" },
+                    on: {
+                      click: function($event) {
+                        _vm.modal = !_vm.modal
+                      }
+                    }
                   },
                   [
                     _vm._v("\n          Add new "),
@@ -1196,7 +1210,25 @@ var render = function() {
               ]
             )
           : _vm._e()
-      ])
+      ]),
+      _vm._v(" "),
+      _vm.modal
+        ? _c(
+            "div",
+            {
+              staticClass: "col-12",
+              staticStyle: {
+                position: "absolute",
+                top: "0",
+                background: "rgba(255,255,255,0.6)",
+                height: "100%",
+                "z-index": "1"
+              }
+            },
+            [_c("addPage")],
+            1
+          )
+        : _vm._e()
     ],
     1
   )

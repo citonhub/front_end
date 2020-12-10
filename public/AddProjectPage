@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddProjectPage?v=0.65"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddProjectPage?v=6.7"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Hub/AddProjectPage.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
@@ -121,10 +121,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var TopBar = function TopBar() {
-  return __webpack_require__.e(/*! import() | top-bar?v=0.40 */ "top-bar?v=0.40").then(__webpack_require__.bind(null, /*! ./TopBar.vue */ "./resources/js/components/Hub/TopBar.vue"));
-};
-
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     TopBar: TopBar
@@ -236,114 +234,43 @@ var render = function() {
       }
     },
     [
-      _c("TopBar"),
-      _vm._v(" "),
       _c(
         "div",
         {
           staticClass: "col-lg-8 offset-lg-2",
-          staticStyle: { "margin-top": "100px", height: "550px" }
+          staticStyle: { "margin-top": "100px", height: "250px" }
         },
         [
           _c(
             "v-card",
-            { staticClass: "col-12", staticStyle: { height: "100%" } },
+            { staticClass: "col-12 d-flex", staticStyle: { height: "100%" } },
             [
-              _c("p", { staticClass: "col-4 text-left" }, [
-                _vm._v("Upload Project Thumbnail")
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-4 offset-lg-4" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass: " col-5 text-center d-flex project-img",
-                    staticStyle: {
-                      background: "#3C87CD",
-                      border: "1px solid white",
-                      height: "100px"
-                    }
-                  },
-                  [
-                    _c("i", {
-                      staticClass: "las la-plus mt-4 ml-3",
-                      staticStyle: { color: "white" }
-                    }),
-                    _vm._v(" "),
-                    _c("i", {
-                      staticClass: "las la-camera mt-4",
-                      staticStyle: { "font-size": "1.8rem", color: "white" }
-                    })
-                  ]
-                )
-              ]),
-              _vm._v(" "),
               _c(
-                "div",
-                { staticClass: "col-12 py-2 my-0 px-2" },
-                [
-                  _c("v-select", {
-                    staticStyle: { "font-size": "13px" },
-                    attrs: {
-                      items: _vm.projects,
-                      label: "Select Project",
-                      placeholder: "select...",
-                      dense: "",
-                      outlined: "",
-                      color: "#3C87CD"
-                    }
-                  })
-                ],
-                1
+                "v-btn",
+                {
+                  staticClass: "mt-4 col-2 offset-2 py-2 px-2",
+                  staticStyle: { background: "c", color: "white" },
+                  attrs: { elevation: "2" }
+                },
+                [_vm._v("Add a Link")]
               ),
               _vm._v(" "),
               _c(
-                "div",
-                { staticClass: "col-6 py-1 px-1" },
-                [
-                  _c("v-textarea", {
-                    staticClass: "mt-4",
-                    attrs: {
-                      label: "Project Description",
-                      counter: "100",
-                      "background-color": "lightgrey",
-                      rows: "3",
-                      clearable: "",
-                      "clear-icon": "las la-times-circle"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "col-12 py-1 mt-4 px-2 text-center" },
-                [
-                  _c(
-                    "v-btn",
-                    {
-                      staticStyle: {
-                        "font-size": "12px",
-                        "font-weight": "bolder",
-                        color: "white",
-                        "font-family": "HeaderFont",
-                        width: "30%"
-                      },
-                      attrs: { type: "submit", large: "", color: "#3C87CD" }
-                    },
-                    [_vm._v("Add")]
-                  )
-                ],
-                1
+                "v-btn",
+                {
+                  staticClass: "mt-4 col-4 offset-2 py-2 px-2",
+                  staticStyle: { background: "#3C87CD", color: "white" },
+                  attrs: { elevation: "2" }
+                },
+                [_vm._v("Select From Project")]
               )
-            ]
+            ],
+            1
           )
         ],
         1
       )
-    ],
-    1
+    ]
   )
 }
 var staticRenderFns = []

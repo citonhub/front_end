@@ -91,7 +91,7 @@ const PanelLoader = () => import(/* webpackChunkName: "PanelLoader?v=0.18" */ '.
 const PanelSettings = () => import(/* webpackChunkName: "PanelSettings?v=0.29" */ '../components/projects/PanelSettings.vue');
 const AddWebroute= () => import(/* webpackChunkName: "AddWebroute?v=0.29" */ '../components/projects/AddWebroute.vue');
 // Hub routes
-const Hub = () => import(/* webpackChunkName: "Hub?v=1.48" */ '../components/Hub/Hub.vue');
+const Hub = () => import(/* webpackChunkName: "Hub?v=1.95" */ '../components/Hub/Hub.vue');
 
 const routes = [
   { path: '/login', name: 'login', component: Login },
