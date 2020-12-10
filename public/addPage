@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["addPage?v=0.31"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["addPage?v=1.59"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Hub/AddProjectPage.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
@@ -124,9 +124,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  //  components:{
-  //      TopBar
-  //  },
+  components: {},
   data: function data() {
     return {
       languageIcon: [{
@@ -204,12 +202,17 @@ __webpack_require__.r(__webpack_exports__);
       }],
       projects: ['Quizapp', 'BookFinder'],
       addlink: false,
-      select: false
+      select: true,
+      addprojectlink: false
     };
   },
   methods: {
     displayTab: function displayTab() {
       this.addlink = !this.addlink;
+      this.select = !this.select;
+    },
+    displayTab2: function displayTab2() {
+      this.addprojectlink = !this.addprojectlink;
       this.select = !this.select;
     }
   }
@@ -265,11 +268,11 @@ var render = function() {
                     "v-btn",
                     {
                       staticClass: "mt-4 col-2 offset-2 py-2 px-2",
-                      staticStyle: { color: "white" },
+                      staticStyle: { color: "white", background: "#3C87CD" },
                       attrs: { elevation: "2" },
                       on: {
                         click: function($event) {
-                          return _vm.displayTab()
+                          return _vm.displayTab2()
                         }
                       }
                     },
@@ -281,7 +284,12 @@ var render = function() {
                     {
                       staticClass: "mt-4 col-4 offset-2 py-2 px-2",
                       staticStyle: { background: "#3C87CD", color: "white" },
-                      attrs: { elevation: "2" }
+                      attrs: { elevation: "2" },
+                      on: {
+                        click: function($event) {
+                          return _vm.displayTab()
+                        }
+                      }
                     },
                     [_vm._v("Select From Project")]
                   )
@@ -293,7 +301,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.addlink
+      _vm.addprojectlink
         ? _c(
             "div",
             {
@@ -465,6 +473,113 @@ var render = function() {
                             color: "white",
                             "font-family": "HeaderFont",
                             width: "40%"
+                          },
+                          attrs: { type: "submit", large: "", color: "#3C87CD" }
+                        },
+                        [_vm._v("Add")]
+                      )
+                    ],
+                    1
+                  )
+                ]
+              )
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.addlink
+        ? _c(
+            "div",
+            {
+              staticClass: "col-lg-8 offset-lg-2",
+              staticStyle: { "margin-top": "20px", height: "550px" }
+            },
+            [
+              _c(
+                "v-card",
+                { staticClass: "col-12", staticStyle: { height: "100%" } },
+                [
+                  _c("p", { staticClass: "col-4 text-left" }, [
+                    _vm._v("Upload Project Thumbnail")
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-lg-4 offset-lg-4" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass: " col-5 text-center d-flex project-img",
+                        staticStyle: {
+                          background: "#3C87CD",
+                          border: "1px solid white",
+                          height: "100px"
+                        }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "las la-plus mt-4 ml-3",
+                          staticStyle: { color: "white" }
+                        }),
+                        _vm._v(" "),
+                        _c("i", {
+                          staticClass: "las la-camera mt-4",
+                          staticStyle: { "font-size": "1.8rem", color: "white" }
+                        })
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-12 py-2 my-0 px-2" },
+                    [
+                      _c("v-select", {
+                        staticStyle: { "font-size": "13px" },
+                        attrs: {
+                          items: _vm.projects,
+                          label: "Select Project",
+                          placeholder: "select...",
+                          dense: "",
+                          outlined: "",
+                          color: "#3C87CD"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-6 py-1 px-1" },
+                    [
+                      _c("v-textarea", {
+                        staticClass: "mt-4",
+                        attrs: {
+                          label: "Project Description",
+                          counter: "100",
+                          "background-color": "lightgrey",
+                          rows: "3",
+                          clearable: "",
+                          "clear-icon": "las la-times-circle"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-12 py-1 mt-4 px-2 text-center" },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          staticStyle: {
+                            "font-size": "12px",
+                            "font-weight": "bolder",
+                            color: "white",
+                            "font-family": "HeaderFont",
+                            width: "30%"
                           },
                           attrs: { type: "submit", large: "", color: "#3C87CD" }
                         },

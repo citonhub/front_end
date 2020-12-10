@@ -7,8 +7,8 @@
   <div v-if="select" class="col-lg-8 offset-lg-2" style="margin-top:100px;height:250px;">
 
 <v-card style="height:100%" class="col-12 d-flex">
-<v-btn @click="displayTab()"  style="color:white" class="mt-4 col-2 offset-2 py-2 px-2" elevation="2">Add a Link</v-btn>
-<v-btn style="background:#3C87CD;color:white" class="mt-4 col-4 offset-2 py-2 px-2" elevation="2">Select From Project</v-btn>
+<v-btn @click="displayTab2()"  style="color:white;background:#3C87CD;" class="mt-4 col-2 offset-2 py-2 px-2" elevation="2">Add a Link</v-btn>
+<v-btn @click="displayTab()" style="background:#3C87CD;color:white" class="mt-4 col-4 offset-2 py-2 px-2" elevation="2">Select From Project</v-btn>
 </v-card>
 
      </div>
@@ -16,7 +16,7 @@
     
 <!-- add link tab-->
 
-   <div  v-if="addlink" class="col-lg-8 offset-lg-2" style="margin-top:100px;height:900px;">
+   <div v-if="addprojectlink"  class="col-lg-8 offset-lg-2" style="margin-top:100px;height:900px;">
 <v-card style="height:100%" class="col-12">
     <p class="col-4 text-left">Project Thumbnail</p>
       <div class="col-lg-4 offset-lg-4">
@@ -77,7 +77,7 @@
 
 
   
-  <!--  <div class="col-lg-8 offset-lg-2" style="margin-top:100px;height:550px;">
+    <div  v-if="addlink" class="col-lg-8 offset-lg-2" style="margin-top:20px;height:550px;">
 <v-card style="height:100%" class="col-12">
 
  <p class="col-4 text-left">Upload Project Thumbnail</p>
@@ -107,7 +107,7 @@
              </div>
 
 </v-card>
-</div>-->
+</div>
 
     </div>
 </template>
@@ -117,9 +117,9 @@
 
 
 export default {
-   //  components:{
-   //      TopBar
-   //  },
+    components:{
+         
+     },
 
     data(){
         return{
@@ -252,13 +252,18 @@ export default {
                'BookFinder'
             ],
             addlink:false,
-            select:false
+            select:true,
+            addprojectlink:false,
         }
     },
 
     methods:{
        displayTab() {
           this.addlink = !this.addlink
+          this.select = !this.select
+       },
+       displayTab2() {
+          this.addprojectlink= !this.addprojectlink
           this.select = !this.select
        }
     }

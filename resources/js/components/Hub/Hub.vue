@@ -370,7 +370,7 @@
 
        <!-- ends -->
 
-       <div v-if="modal" style="position:fixed;top:0;background:rgba(0,0,0,0.6);height:100%;z-index:199999999999;width:100%;" >
+       <div v-if="modal" style="position:fixed;top:0;background:rgba(0,0,0,0.4);height:100%;z-index:199999999999;width:100%;" >
         <addPage></addPage>
 
 
@@ -378,11 +378,12 @@
     </div>
 </template>
 <script>
+
  const TopBar = () => import(
-    /* webpackChunkName: "top-bar?v=0.42" */ './TopBar.vue'
+    /* webpackChunkName: "top-bar?v=0.47" */ './TopBar.vue'
   );
 
-const addPage = () => import(/*webpackChunkName: "addPage?v=0.31"*/ './AddProjectPage.vue');
+const addPage = () => import(/*webpackChunkName: "addPage?v=1.59"*/ './AddProjectPage.vue');
   
 export default {
      data () {

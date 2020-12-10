@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["Hub?v=1.75"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["Hub?v=1.94"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Hub/Hub.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************!*\
@@ -389,11 +389,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 var TopBar = function TopBar() {
-  return __webpack_require__.e(/*! import() | top-bar?v=0.42 */ "top-bar?v=0.42").then(__webpack_require__.bind(null, /*! ./TopBar.vue */ "./resources/js/components/Hub/TopBar.vue"));
+  return __webpack_require__.e(/*! import() | top-bar?v=0.47 */ "top-bar?v=0.47").then(__webpack_require__.bind(null, /*! ./TopBar.vue */ "./resources/js/components/Hub/TopBar.vue"));
 };
 
 var addPage = function addPage() {
-  return __webpack_require__.e(/*! import() | addPage?v=0.31 */ "addPage?v=0.31").then(__webpack_require__.bind(null, /*! ./AddProjectPage.vue */ "./resources/js/components/Hub/AddProjectPage.vue"));
+  return __webpack_require__.e(/*! import() | addPage?v=1.59 */ "addPage?v=1.59").then(__webpack_require__.bind(null, /*! ./AddProjectPage.vue */ "./resources/js/components/Hub/AddProjectPage.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1253,7 +1253,7 @@ var render = function() {
               staticStyle: {
                 position: "fixed",
                 top: "0",
-                background: "rgba(0,0,0,0.6)",
+                background: "rgba(0,0,0,0.4)",
                 height: "100%",
                 "z-index": "199999999999",
                 width: "100%"

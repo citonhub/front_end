@@ -74,7 +74,7 @@ const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.24" */ '.
 const Board = () => import(/* webpackChunkName: "Board?v=2.87" */ '../components/dashboard/Board.vue');
 const Projects = () => import(/* webpackChunkName: "Projects?v=0.23" */ '../components/dashboard/Projects.vue');
 const ContentBots = () => import(/* webpackChunkName: "ContentBots?v=0.19" */ '../components/dashboard/ContentBots.vue');
-const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.19" */ '../components/dashboard/Challenges.vue');
+const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.50" */ '../components/dashboard/Challenges.vue');
 
 // project routes
 const ProjectList = () => import(/* webpackChunkName: "ProjectList?v=1.88" */ '../components/projects/ProjectList.vue');
@@ -92,7 +92,7 @@ const AddWebroute= () => import(/* webpackChunkName: "AddWebroute?v=0.36" */ '..
 const Chats = () => import(/* webpackChunkName: "Chats?v=5.73" */ '../components/chats/Chats.vue');
 
 // Hub routes
-const Hub = () => import(/* webpackChunkName: "Hub?v=1.75" */ '../components/Hub/Hub.vue');
+const Hub = () => import(/* webpackChunkName: "Hub?v=1.94" */ '../components/Hub/Hub.vue');
 
 const routes = [
   { path: '/login', name: 'login', component: Login },
