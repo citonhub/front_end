@@ -2,7 +2,7 @@
   <div class="col-12 py-1 my-0 ">
 
        <div class="row">
-        <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
+        <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky;background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
             <div class=" mr-1 col-2 py-0">
               <v-btn icon >
                       <v-icon>las la-arrow-left</v-icon>

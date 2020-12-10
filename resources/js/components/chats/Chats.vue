@@ -13,7 +13,7 @@
 
          <!-- large screens -->
 
-        <div class=" col-lg-10 py-0 px-0 offset-lg-1 d-lg-block d-none card " style=" position:absolute; height:86%; top:10%; overflow-y:auto; overflow-x:hidden; background:white;" >
+        <div class=" col-lg-10 py-0 px-0 offset-lg-1 d-lg-block d-none card " style=" overflow-y:hidden;position:absolute; height:86%; top:10%; overflow-y:auto; overflow-x:hidden; background:white;" >
 
 
 
@@ -22,7 +22,8 @@
 
                          <div class="row  px-2">
 
-                           <div class="col-12 py-1 pb-0 mb-0 text-center d-flex flex-row">
+                     
+                        <div class="col-12 py-1 pb-0 mb-0 text-center d-flex flex-row">
 
                               <v-text-field
                        style="font-size:13px;"
@@ -40,12 +41,23 @@
                                      <chat-list></chat-list>
                            </div>
 
+                            <!-- code editor -->
+
+                            <div v-if="false" class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
+                                  <create-channel></create-channel>
+                            </div>
+
+                            <!-- ends -->
+                         
+                       
                          </div>
+
+                         
 
 
                    </div>
 
-                   <div class="  px-0 py-0" style="height:100%; width:72%; left:28%; position:absolute;">
+                   <div class="  px-0 py-0" style="height:100%; width:72%; left:28%; position:absolute; overflow-y:hidden;">
 
                       <div class="row py-0">
                             <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:absolute; top:0%;z-index:999999999999;" >
@@ -80,19 +92,34 @@
 
                             <!-- ends -->
 
-                              <!-- channel info -->
+                              <!-- channel sidebar -->
 
-                               <div   class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                               <div v-if="false" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
                                    <div style="position:absolute; height:100%; width:70%; left:30%;" >
 
-                                    <div class="scrollerinfo offset-lg-6" style="background:white;height:100%; overflow-y:auto;" >
-                                      <channel-info></channel-info>
+                                    <div class="scrollerinfo offset-lg-6" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
+                                     
+                                    
+                                        <channel-info  v-if="false"></channel-info>
+                                    
+                                        <channel-edit v-if="false"></channel-edit>
+                                        
+                                        <sub-channels></sub-channels>
+                                    
                                    </div>
 
                                      </div>
                                </div>
 
-                            <!-- channel info -->
+                            <!-- channel sidebar -->
+
+                            <!-- live session -->
+
+                            <div class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                                    <live-session></live-session>
+                               </div>
+
+                            <!-- ends -->
                       </div>
 
                            <v-btn medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
@@ -229,7 +256,7 @@
   );
 
   const ChatMessages = () => import(
-    /* webpackChunkName: "ChatMessages?v=1.83" */ './ChatMessages.vue'
+    /* webpackChunkName: "ChatMessages?v=1.84" */ './ChatMessages.vue'
   );
   
   const CodeEditorChat = () => import(
@@ -241,7 +268,23 @@
   );
 
     const ChannelInfo = () => import(
-    /* webpackChunkName: "ChannelInfo?v=0.57" */ './ChannelInfo.vue'
+    /* webpackChunkName: "ChannelInfo?v=0.58" */ './ChannelInfo.vue'
+  );
+
+    const ChannelEdit = () => import(
+    /* webpackChunkName: "ChannelEdit?v=0.17" */ './ChannelEdit.vue'
+  );
+
+     const SubChannels = () => import(
+    /* webpackChunkName: "SubChannels?v=0.16" */ './SubChannels.vue'
+  );
+
+   const CreateChannel = () => import(
+    /* webpackChunkName: "CreateChannel?v=0.19" */ './CreateChannel.vue'
+  );
+
+  const LiveSession = () => import(
+    /* webpackChunkName: "LiveSession?v=0.53" */ './LiveSession.vue'
   );
 export default {
      data () {
@@ -260,7 +303,11 @@ export default {
         ChatMessages,
         CodeEditorChat,
         ImageViewer,
-        ChannelInfo
+        ChannelInfo,
+        ChannelEdit,
+        SubChannels,
+        CreateChannel,
+        LiveSession
     },
 
 }

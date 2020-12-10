@@ -105,7 +105,7 @@
 
                   <!-- comment -->
                    <div class="text-left py-2 px-1" style="border-left:3px solid #3C87CD; background:#d6e6f5;">
-                          <span style="font-size:13px;">Lorem, ipsum dolor sit amet consectetur adipisicing met consectetur adipisicing met consectetur adipisicing </span>
+                          <span style="font-size:13px;">Lorem, ipsum dolor sit amet consectetur</span>
                   </div>
 
                   <!-- ends -->
@@ -129,7 +129,7 @@
                   <v-card elevation-1 class="py-1 px-2 mr-2" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                      <!-- comment -->
                    <div class="text-left py-2 px-1" style="border-left:3px solid #ffffff; border-radius:0px; background:#d6e6f5;">
-                          <span style="font-size:13px;">Lorem, ipsum dolor sit amet consectetur adipisicing met consectetur adipisicing met consectetur adipisicing </span>
+                          <span style="font-size:13px;">Lorem, ipsum dolor sit amet consectetur  </span>
                   </div>
 
                   <!-- ends -->
