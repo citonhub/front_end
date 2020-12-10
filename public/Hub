@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["Hub?v=1.63"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["Hub?v=1.69"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Hub/Hub.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************!*\
@@ -309,18 +309,107 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var TopBar = function TopBar() {
-  return __webpack_require__.e(/*! import() | top-bar?v=0.4 */ "top-bar?v=0.4").then(__webpack_require__.bind(null, /*! ./TopBar.vue */ "./resources/js/components/Hub/TopBar.vue"));
+  return __webpack_require__.e(/*! import() | top-bar?v=0.41 */ "top-bar?v=0.41").then(__webpack_require__.bind(null, /*! ./TopBar.vue */ "./resources/js/components/Hub/TopBar.vue"));
+};
+
+var addPage = function addPage() {
+  return __webpack_require__.e(/*! import() | addPage?v=0.20 */ "addPage?v=0.20").then(__webpack_require__.bind(null, /*! ./AddProjectPage.vue */ "./resources/js/components/Hub/AddProjectPage.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      that: this
+      that: this,
+      absolute: true,
+      opacity: 0.4,
+      overlay: false,
+      zIndex: 1,
+      modal: false
     };
   },
   components: {
-    TopBar: TopBar
+    TopBar: TopBar,
+    addPage: addPage
   }
 });
 
@@ -445,7 +534,12 @@ var render = function() {
                       color: "white",
                       "font-family": "HeaderFont"
                     },
-                    attrs: { small: "", rounded: "", color: "#3C87CD" }
+                    attrs: { small: "", rounded: "", color: "#3C87CD" },
+                    on: {
+                      click: function($event) {
+                        _vm.modal = !_vm.modal
+                      }
+                    }
                   },
                   [
                     _vm._v("\n          Add new "),
@@ -510,7 +604,12 @@ var render = function() {
                   "div",
                   {
                     staticClass: "col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2",
-                    staticStyle: { height: "200px" }
+                    staticStyle: { height: "200px" },
+                    on: {
+                      click: function($event) {
+                        _vm.overlay = !_vm.overlay
+                      }
+                    }
                   },
                   [
                     _vm._m(1),
@@ -841,6 +940,259 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
+      _c(
+        "v-overlay",
+        {
+          staticClass: "row",
+          attrs: {
+            absolute: _vm.absolute,
+            opacity: _vm.opacity,
+            value: _vm.overlay,
+            "z-index": _vm.zIndex
+          }
+        },
+        [
+          _c(
+            "v-card",
+            {
+              staticClass:
+                "col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-10 offset-sm-1 col-xs-10 offset-xs-1",
+              attrs: { color: "white p-5" }
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "row py-0 my-0" },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-2 py-0 my-0 d-flex px-0",
+                      staticStyle: {
+                        "align-items": "center",
+                        "justify-content": "center"
+                      }
+                    },
+                    [
+                      _c("span", {
+                        staticClass: "d-inline-block",
+                        staticStyle: {
+                          "border-radius": "50%",
+                          height: "30px",
+                          width: "30px",
+                          "background-color": "#3C87CD",
+                          "background-size": "contain",
+                          border: "1px solid transparent"
+                        }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-8 py-0 my-0 d-flex",
+                      staticStyle: { "align-items": "center" }
+                    },
+                    [
+                      _c("div", [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "d-inline-block",
+                            staticStyle: {
+                              "font-family": "MediumFont",
+                              "font-size": "13px",
+                              color: "black"
+                            }
+                          },
+                          [_vm._v("Akinola Dray")]
+                        )
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "col-2 text-right py-0 my-0" },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { icon: "" },
+                          on: {
+                            click: function($event) {
+                              _vm.overlay = !_vm.overlay
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "v-icon",
+                            {
+                              staticStyle: {
+                                "font-size": "25px",
+                                color: "black"
+                              }
+                            },
+                            [_vm._v("las la-close")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("img", {
+                    staticClass: "col-12",
+                    attrs: {
+                      src: "/imgs/projectImg.jpg",
+                      alt: "",
+                      width: "100%",
+                      height: "200px"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "p",
+                    { staticClass: "col-12", staticStyle: { color: "black" } },
+                    [
+                      _vm._v(
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, recusandae eius? Molestiae et eum est tenetur labore corrupti ex sequi. Amet officiis facere eum quia quisquam eveniet neque qui magni."
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-toolbar",
+                    { attrs: { light: "", flat: "" } },
+                    [
+                      _c("v-toolbar-title", [_vm._v("Comments")]),
+                      _vm._v(" "),
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        { attrs: { icon: "" } },
+                        [_c("v-icon", [_vm._v("mdi-comment")])],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list",
+                    {
+                      staticClass: "col-12",
+                      attrs: { "two-line": "", light: "" }
+                    },
+                    [
+                      _c(
+                        "v-list-item-group",
+                        { attrs: { multiple: "" } },
+                        [
+                          [
+                            _c(
+                              "v-list-item",
+                              [
+                                [
+                                  _c(
+                                    "v-list-item-content",
+                                    [
+                                      _c("v-list-item-title", [
+                                        _vm._v("Test List")
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("v-list-item-subtitle", [
+                                        _vm._v(
+                                          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam nisi, hic assumenda harum. Repudiandae"
+                                        )
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-item-action",
+                                    [
+                                      _c("v-list-item-action-text", [
+                                        _vm._v("15min")
+                                      ])
+                                    ],
+                                    1
+                                  )
+                                ]
+                              ],
+                              2
+                            )
+                          ],
+                          _vm._v(" "),
+                          [
+                            _c(
+                              "v-list-item",
+                              [
+                                [
+                                  _c(
+                                    "v-list-item-content",
+                                    [
+                                      _c("v-list-item-title", [
+                                        _vm._v("Test List")
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("v-list-item-subtitle", [
+                                        _vm._v(
+                                          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam nisi, hic assumenda harum. Repudiandae"
+                                        )
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-list-item-action",
+                                    [
+                                      _c("v-list-item-action-text", [
+                                        _vm._v("15min")
+                                      ])
+                                    ],
+                                    1
+                                  )
+                                ]
+                              ],
+                              2
+                            )
+                          ]
+                        ],
+                        2
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-btn",
+                {
+                  attrs: { color: "#3AC3A9" },
+                  on: {
+                    click: function($event) {
+                      _vm.overlay = !_vm.overlay
+                    }
+                  }
+                },
+                [_vm._v("\n           Hide Overlay\n         ")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c("v-slide-x-transition", [
         _vm.that.$root.showSideBar
           ? _c(
@@ -892,7 +1244,25 @@ var render = function() {
               ]
             )
           : _vm._e()
-      ])
+      ]),
+      _vm._v(" "),
+      _vm.modal
+        ? _c(
+            "div",
+            {
+              staticStyle: {
+                position: "fixed",
+                top: "0",
+                background: "rgba(0,0,0,0.6)",
+                height: "100%",
+                "z-index": "199999999999",
+                width: "100%"
+              }
+            },
+            [_c("addPage")],
+            1
+          )
+        : _vm._e()
     ],
     1
   )
@@ -911,11 +1281,7 @@ var staticRenderFns = [
           "z-index": "99999999999999"
         }
       },
-      [
-        _c("h3", { staticClass: "d-none d-md-block" }, [_vm._v("Hub")]),
-        _vm._v(" "),
-        _c("h5", { staticClass: "d-block d-md-none" }, [_vm._v("Hub")])
-      ]
+      [_c("h3", { staticClass: "d-none d-md-block" }, [_vm._v("Hub")])]
     )
   },
   function() {

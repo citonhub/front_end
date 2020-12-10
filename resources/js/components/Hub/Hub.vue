@@ -19,12 +19,12 @@
 
                <h3 class="d-none d-md-block">Hub</h3>
 
-                <h5 class="d-block d-md-none" >Hub</h5>
+              
             </div>
 
             <div class="col-lg-6 px-0 pb-1 text-right d-none d-lg-block" style="border-bottom:1px solid #263238;z-index:99999999999999;" >
 
-                <v-btn  small rounded  color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:HeaderFont;">
+                <v-btn @click="modal = !modal"   small rounded  color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:HeaderFont;">
              Add new <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
            </v-btn>
             </div>
@@ -60,7 +60,7 @@
                <div class="col-lg-10 offset-lg-1 col-12 py-0 pt-md-5 mt-md-3" >
 
                    <div class="row">
-                      <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2" style="height:200px;">
+                      <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2" style="height:200px;" @click="overlay = !overlay">
              <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
           border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/projectImg.jpg);background-size:cover;">
 
@@ -272,6 +272,81 @@
 
         </div>
 
+        <!-- Overlay -->
+        <v-overlay
+          :absolute="absolute"
+          :opacity="opacity"
+          :value="overlay"
+          :z-index="zIndex"
+          class="row"
+        >
+          <v-card color="white p-5" class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 col-sm-10 offset-sm-1 col-xs-10 offset-xs-1">
+            <div class="row py-0 my-0">
+                <div class="col-2 py-0 my-0 d-flex px-0" style="align-items:center; justify-content:center;">
+                    <span  class="d-inline-block"  
+                         style="border-radius:50%;height:30px;width:30px;background-color:#3C87CD;background-size:contain;border:1px solid transparent;"></span>
+                </div>
+                <div class="col-8 py-0 my-0 d-flex" style="align-items:center;">
+                   <div> 
+                      <span   class="d-inline-block"  style="font-family:MediumFont; font-size:13px; color: black;" >Akinola Dray</span>
+                   </div>
+               </div>
+               <div class="col-2 text-right py-0 my-0">
+                    <v-btn icon @click="overlay = !overlay"><v-icon style="font-size:25px; color:black">las la-close</v-icon></v-btn>
+                 </div>
+               <img src="/imgs/projectImg.jpg" alt="" width="100%" height="200px" class="col-12">
+               <p style="color: black;" class="col-12">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit, recusandae eius? Molestiae et eum est tenetur labore corrupti ex sequi. Amet officiis facere eum quia quisquam eveniet neque qui magni.</p>
+               <v-toolbar light flat>
+                <v-toolbar-title>Comments</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <v-btn icon>
+                  <v-icon>mdi-comment</v-icon>
+                </v-btn>
+              </v-toolbar>
+               <v-list class="col-12" two-line light>
+                 <v-list-item-group multiple>
+
+                   <!-- Single Comment -->
+                   <template>
+                     <v-list-item>
+                       <template>
+                         <v-list-item-content>
+                           <v-list-item-title>Test List</v-list-item-title>
+                           <v-list-item-subtitle>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam nisi, hic assumenda harum. Repudiandae</v-list-item-subtitle>
+                         </v-list-item-content>
+                         <v-list-item-action>
+                           <v-list-item-action-text>15min</v-list-item-action-text>
+                         </v-list-item-action>
+                       </template>
+                     </v-list-item>
+                   </template>
+
+                   <!-- Single Comment -->
+                   <template>
+                     <v-list-item>
+                       <template>
+                         <v-list-item-content>
+                           <v-list-item-title>Test List</v-list-item-title>
+                           <v-list-item-subtitle>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam nisi, hic assumenda harum. Repudiandae</v-list-item-subtitle>
+                         </v-list-item-content>
+                         <v-list-item-action>
+                           <v-list-item-action-text>15min</v-list-item-action-text>
+                         </v-list-item-action>
+                       </template>
+                     </v-list-item>
+                   </template>
+                 </v-list-item-group>
+               </v-list>
+            </div>
+            <v-btn
+              color="#3AC3A9"
+              @click="overlay = !overlay"
+            >
+              Hide Overlay
+            </v-btn>
+          </v-card>
+        </v-overlay>
+
 
 
        <!-- ends -->
@@ -295,21 +370,34 @@
 
        <!-- ends -->
 
-      
+       <div v-if="modal" style="position:fixed;top:0;background:rgba(0,0,0,0.6);height:100%;z-index:199999999999;width:100%;" >
+        <addPage></addPage>
+
+
+     </div>
     </div>
 </template>
 <script>
  const TopBar = () => import(
-    /* webpackChunkName: "top-bar?v=0.4" */ './TopBar.vue'
+    /* webpackChunkName: "top-bar?v=0.41" */ './TopBar.vue'
   );
+
+const addPage = () => import(/*webpackChunkName: "addPage?v=0.20"*/ './AddProjectPage.vue')
+  
 export default {
      data () {
       return {
-        that:this
+        that:this,
+        absolute: true,
+        opacity: 0.4,
+        overlay: false,
+        zIndex: 1,
+        modal:false,
       }
     },
     components: {
-        TopBar
+        TopBar,
+      addPage
     }
 }
 </script>

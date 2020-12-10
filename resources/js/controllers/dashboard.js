@@ -92,7 +92,7 @@ const AddWebroute= () => import(/* webpackChunkName: "AddWebroute?v=0.36" */ '..
 const Chats = () => import(/* webpackChunkName: "Chats?v=5.73" */ '../components/chats/Chats.vue');
 
 // Hub routes
-const Hub = () => import(/* webpackChunkName: "Hub?v=1.63" */ '../components/Hub/Hub.vue');
+const Hub = () => import(/* webpackChunkName: "Hub?v=1.69" */ '../components/Hub/Hub.vue');
 
 const routes = [
   { path: '/login', name: 'login', component: Login },
@@ -121,6 +121,7 @@ const routes = [
         // projects
         path: 'projects',
         component: Projects,
+
         redirect: '/board/projects/list',
         children: [
         { // list
