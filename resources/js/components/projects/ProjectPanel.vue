@@ -83,7 +83,7 @@
 
 <script>
   const panelSide = () => import(
-    /* webpackChunkName: "panel-side?v=0.23" */ './PanelSide.vue'
+    /* webpackChunkName: "panel-side?v=0.24" */ './PanelSide.vue'
   );
 
  export default {
@@ -115,6 +115,6 @@
  
 .scroller::-webkit-scrollbar-thumb {
   background-color: darkgrey;
-  outline: 1px solid slategrey;
+  outline: 1px solid darkgrey;
 }
 </style>

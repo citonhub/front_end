@@ -3,18 +3,18 @@
         
           <div class="col-12 py-0 my-1" >
            <div class="row py-0 my-0">
-                <div class="col-2 d-flex py-1" style="align-items:center;justify-content:center;">
+                <div class="col-2 d-flex py-0 my-0" style="align-items:center;justify-content:center;">
                    <span class="px-1 py-1" style="border:1px solid transparent;border-radius:50%;" ><v-icon :color="colorBase">las la-microphone</v-icon></span>
 				   
 				    
                 </div>
-                <div class="col-10 d-flex py-1 px-1 pr-3" style="align-items:center;justify-content:center;">
+                <div class="col-10 d-flex py-0 px-1 my-0 pr-3" style="align-items:center;justify-content:center;">
                       <span :style="'font-size:12px; color:' + colorBase + ';'" class="px-1"> {{ durationTime }}</span> 
 
                 <v-progress-linear rounded :value="percentComplete" height="7" :color="colorBase" v-model="audioProgress" @change="seek"></v-progress-linear>
                  <audio :loop="innerLoop" ref="audiofile" :src="fileurl" preload="auto" style="display: none;" :id="'audio'+playerId" ></audio>
                    <v-btn icon v-on:click.stop="togglePlay" :color="colorBase" class="mx-0">
-                          <v-progress-circular v-if="loading" indeterminate :color="colorBase" class="px-2 py-2" ><v-icon :color="colorBase">mdi mdi-play </v-icon></v-progress-circular>
+                          <v-progress-circular v-if="loading" indeterminate :color="colorBase" class="px-2 py-1" ><v-icon :color="colorBase">mdi mdi-play </v-icon></v-progress-circular>
 						 <v-icon v-if="!playing && !loading " :color="colorBase">mdi mdi-play </v-icon>
 						<v-icon v-if="playing && percentComplete < 100" :color="colorBase"> mdi mdi-pause</v-icon>
 						<v-icon v-if="percentComplete == 100" :color="colorBase">mdi mdi-play</v-icon>

@@ -177,7 +177,7 @@ background-color:#3c87cd;
 <label for="" > Your Name</label>
 
 <div class="form-control field" style="display:flex; height:45px;">
-<i  style="font-size:1.7rem;color:#3AC3A9;"   class="las la-user"></i>
+<i  style="font-size:1.7rem;color:#3C87CD;"   class="las la-user"></i>
 <input style="border:none; outline:none;" type="text" >
 </div>
 </div>
@@ -186,7 +186,7 @@ background-color:#3c87cd;
 <label for="" >E-Mail</label>
 
 <div class="form-control field" style="display:flex; height:45px;">
-<i style="font-size:1.7rem;color:#3AC3A9;" class="las la-envelope-open"></i>
+<i style="font-size:1.7rem;color:#3C87CD;" class="las la-envelope-open"></i>
 <input style="border:none; outline:none;" type="text" >
 </div>
 </div>
@@ -212,19 +212,19 @@ background-color:#3c87cd;
  <div class="row">
    <div class="col-4 text-center">
  
-<i class="la la-phone" style="font-size:26px;color:#3AC3A9;"></i>
+<i class="la la-phone" style="font-size:26px;color:#3C87CD;"></i>
 <p class="number">+234 812 635 1468</p>
 
    </div>
    <div class="col-4 text-center">
    
-<i class="la la-envelope-open" style="font-size:26px;color:#3AC3A9;"></i>
+<i class="la la-envelope-open" style="font-size:26px;color:#3C87CD;"></i>
 <p class="mail">admin@citonhub.com</p>
 
 </div>
 <div class="col-4 text-center">
 
-<i class="la la-map-marker-alt" style="font-size:26px;color:#3AC3A9;"></i>
+<i class="la la-map-marker-alt" style="font-size:26px;color:#3C87CD;"></i>
 <p class="adress">Lagos, Nigeria</p>
 
 </div>
@@ -235,19 +235,19 @@ background-color:#3c87cd;
 <div class="row ">
    <div class="col-6 text-center">
  
-<i class="la la-phone" style="font-size:20px;color:#3AC3A9;"></i>
+<i class="la la-phone" style="font-size:20px;color:#3C87CD;"></i>
 <p class="number" style="font-size:14px;">+234 812 635 1468</p>
 
    </div>
    <div class="col-6 text-center">
    
-<i class="la la-envelope-open" style="font-size:20px;color:#3AC3A9;"></i>
+<i class="la la-envelope-open" style="font-size:20px;color:#3C87CD;"></i>
 <p class="mail" style="font-size:14px;">admin@citonhub.com</p>
 
 </div>
 <div class="col-12 text-center">
 
-<i class="la la-map-marker-alt" style="font-size:20px;color:#3AC3A9;"></i>
+<i class="la la-map-marker-alt" style="font-size:20px;color:#3C87CD;"></i>
 <p class="adress" style="font-size:14px;">Lagos, Nigeria</p>
 
 </div>

@@ -9,7 +9,7 @@
   <meta name="keywords" content="Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
-  <meta name="og:image" content="https://citonhub.com/imgs/CitonHub.png"/>
+  <meta name="og:image" content="https://citonhub.com/imgs/logo.png"/>
   <!--Metadata for Apple-->
   <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="white">
@@ -20,7 +20,7 @@
     <meta name="msapplication-TileColor" content="#4495a2">
     <meta property="og:description" content="A teaching platform for developers. Chat, share codes, live code and build projects in your Space. Create an account or log in to get started" />
     <meta property='twitter:title' content="Citonhub:A teaching platform for developers"/>
-<meta property='twitter:image' content="https://citonhub.com/imgs/CitonHub.png"/>
+<meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 
 
@@ -47,9 +47,9 @@
 <!-- Logo -->
  <div class="col-4 text-left">
  
- <img alt="citonhub logo" class="d-lg-block d-none" src="/imgs/citonhub.png" height="40px">
+ <img alt="citonhub logo" class="d-lg-block d-none" src="/imgs/logo.png" height="40px">
 
- <img alt="citonhub logo" class="d-lg-none d-block" src="/imgs/citonhub.png" height="35px">
+ <img alt="citonhub logo" class="d-lg-none d-block" src="/imgs/logo.png" height="35px">
  </div>
 
  <!-- Sign up, register button -->
@@ -214,7 +214,7 @@
 <div class="col-lg-6 d-lg-block d-none" style="position:fixed; right:0%; height:65%; top:17%; z-index:80;">
    
   
-   <img src="imgs/developer.png" height="100%" width="80%">
+   <img src="imgs/homemain.png" height="100%" width="80%">
   
 
 </div>
@@ -222,7 +222,7 @@
 <div class="col-lg-6 d-lg-none d-block text-center" style="position:fixed; right:0%; left:0%; height:58%; bottom:0%; z-index:70;">
    
   
-   <img src="imgs/developer.png" height="70%" width="80%">
+   <img src="imgs/homemain.png" height="70%" width="80%">
   
 
 </div>

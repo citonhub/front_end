@@ -94,7 +94,7 @@
             
         
                <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn  :loading="loading" type="submit" medium color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
+                  <v-btn  :loading="loading" type="submit" medium color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
                  @click.prevent="verify">
                  Verify
                   </v-btn>
@@ -160,7 +160,7 @@
             
         
                <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn  :loading="loading" type="submit" small color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
+                  <v-btn  :loading="loading" type="submit" small color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
                  @click.prevent="verify">
                  Verify
                   </v-btn>

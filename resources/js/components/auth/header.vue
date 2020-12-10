@@ -7,13 +7,11 @@
 <!-- Logo -->
  <div class="col-4 text-left" style="z-index:9999999;">
  <a href="/">
-<img alt="citonhub logo" class="d-lg-block d-none" src="/imgs/citonhub.png" height="40px">
+<img alt="citonhub logo" class="d-lg-block d-none" src="/imgs/logo.png" height="40px">
  </a>
 
- <a href="/"> <img alt="citonhub logo" class="d-lg-none d-block" src="/imgs/citonhub.png" height="35px"></a>
+ <a href="/"> <img alt="citonhub logo" class="d-lg-none d-block" src="/imgs/logo.png" height="35px"></a>
 
-
- 
  </div>
 
  <!-- Sign up, register button -->

@@ -5,32 +5,35 @@
         <div class="col-12 py-0 fixed-top" style="position:sticky;width:100%;height:auto; ">
          <top-bar></top-bar>
         </div>
-     
+
 
        <!-- ends -->
 
        <!-- chat content -->
-         
+
          <!-- large screens -->
-        
+
         <div class=" col-lg-10 py-0 px-0 offset-lg-1 d-lg-block d-none card " style=" position:absolute; height:86%; top:10%; overflow-y:auto; overflow-x:hidden; background:white;" >
-           
-         
-             
-            
+
+
+
+
                    <div class="py-2"  style="height:100%; width:28%; left:0%; position:absolute; border-right:1px solid #c5c5c5;">
-                         
+
                          <div class="row  px-2">
 
-                           <div class="col-12 py-1 pb-0 mb-0 text-center">
+                           <div class="col-12 py-1 pb-0 mb-0 text-center d-flex flex-row">
+
                               <v-text-field
                        style="font-size:13px;"
                       placeholder="Search Chats"
                       filled
                       dense
-                     append-icon="las la-search"
+
                      rounded
                      ></v-text-field>
+
+                        <v-btn icon><v-icon>mdi mdi-chat-plus-outline</v-icon></v-btn>
                            </div>
 
                            <div class="col-12 mt-n3 px-3 py-0">
@@ -38,8 +41,8 @@
                            </div>
 
                          </div>
-                          
-                      
+
+
                    </div>
 
                    <div class="  px-0 py-0" style="height:100%; width:72%; left:28%; position:absolute;">
@@ -53,25 +56,55 @@
 
                               <chat-messages></chat-messages>
 
-                               
-                        
+
+
                             </div>
 
                              <div class="col-12 py-1" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; bottom:0%;z-index:999999999999;" >
                                   <chat-bottom></chat-bottom>
                             </div>
+
+                            <!-- code editor -->
+
+                               <div  v-if="false"  class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                                  <code-editor-chat></code-editor-chat>
+                            </div>
+
+                            <!-- ends -->
+
+                             <!-- image viewer -->
+
+                               <div  v-if="false" class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                                  <image-viewer></image-viewer>
+                            </div>
+
+                            <!-- ends -->
+
+                              <!-- channel info -->
+
+                               <div   class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                                   <div style="position:absolute; height:100%; width:70%; left:30%;" >
+
+                                    <div class="scrollerinfo offset-lg-6" style="background:white;height:100%; overflow-y:auto;" >
+                                      <channel-info></channel-info>
+                                   </div>
+
+                                     </div>
+                               </div>
+
+                            <!-- channel info -->
                       </div>
 
-                      <v-btn medium fab color="#3AC3A9"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
+                           <v-btn medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
 
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
-         
-                              </v-btn>
-                      
-                   </div>
-           
 
-        
+                              </v-btn>
+
+                   </div>
+
+
+
 
         </div>
 
@@ -84,10 +117,73 @@
                 <div style="position:absolute; width:100%; height:92%;top:8%;left:0;" class="pt-2 pt-md-0">
                   <div class="col-12 px-3">
                     <chat-list></chat-list>
-                  </div>   
+                  </div>
                 </div>
-                  
+
                 <!-- ends -->
+
+            <!-- chat content -->
+
+               <div class="row py-0">
+                            <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:fixed; top:0%;z-index:999999999999;" >
+                              <chat-top></chat-top>
+                            </div>
+                            <div class="col-12 scroller px-1" style="background:#E1F0FC;  height:100%; left:0; position:fixed; z-index:999999999; top:0%;padding-top:80px; padding-bottom:130px;  overflow-y:auto;" >
+
+
+                              <chat-messages></chat-messages>
+
+
+
+                            </div>
+
+                             <div class="col-12 py-1 px-2" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:fixed; bottom:0%;z-index:999999999999;" >
+                                  <chat-bottom></chat-bottom>
+                            </div>
+
+
+                           <!-- code editor -->
+
+                               <div v-if="false" class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
+                                  <code-editor-chat></code-editor-chat>
+                            </div>
+
+                            <!-- ends -->
+
+
+
+                                <!-- image viewer -->
+
+                               <div v-if="false" class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
+                                  <image-viewer></image-viewer>
+                            </div>
+
+                            <!-- ends -->
+
+                              <v-btn v-if="false" fab color="#3C87CD"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:14%; right:2%; ">
+
+                               <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
+
+                              </v-btn>
+                  </div>
+
+                
+
+             <!-- ends -->
+
+
+        <!-- floating add button -->
+
+
+
+     <v-btn  fab color="#3C87CD"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
+
+        <v-icon style="font-size:24px; color:white;">mdi mdi-chat-plus-outline</v-icon>
+
+     </v-btn>
+
+
+       <!-- ends -->
 
         </div>
          <!-- ends -->
@@ -113,27 +209,39 @@
 
        <!-- ends -->
 
-      
+
     </div>
 </template>
 <script>
-  
+
  const TopBar = () => import(
-    /* webpackChunkName: "top-bar-chat?v=0.13" */ './TopBar.vue'
+    /* webpackChunkName: "top-bar-chat?v=0.16" */ './TopBar.vue'
   );
   const ChatTop = () => import(
-    /* webpackChunkName: "ChatTop?v=0.28" */ './ChatTop.vue'
+    /* webpackChunkName: "ChatTop?v=0.51" */ './ChatTop.vue'
   );
   const ChatBottom = () => import(
-    /* webpackChunkName: "ChatBottom?v=0.46" */ './ChatBottom.vue'
+    /* webpackChunkName: "ChatBottom?v=0.52" */ './ChatBottom.vue'
   );
 
   const ChatList = () => import(
-    /* webpackChunkName: "ChatList?v=1.14" */ './ChatList.vue'
+    /* webpackChunkName: "ChatList?v=1.15" */ './ChatList.vue'
   );
 
   const ChatMessages = () => import(
-    /* webpackChunkName: "ChatMessages?v=1.22" */ './ChatMessages.vue'
+    /* webpackChunkName: "ChatMessages?v=1.83" */ './ChatMessages.vue'
+  );
+  
+  const CodeEditorChat = () => import(
+    /* webpackChunkName: "CodeEditorChat?v=0.22" */ './CodeEditorChat.vue'
+  );
+  
+  const ImageViewer = () => import(
+    /* webpackChunkName: "ImageViewer?v=0.26" */ './ImageViewer.vue'
+  );
+
+    const ChannelInfo = () => import(
+    /* webpackChunkName: "ChannelInfo?v=0.57" */ './ChannelInfo.vue'
   );
 export default {
      data () {
@@ -149,9 +257,12 @@ export default {
         ChatTop,
         ChatBottom,
         ChatList,
-        ChatMessages
+        ChatMessages,
+        CodeEditorChat,
+        ImageViewer,
+        ChannelInfo
     },
-    
+
 }
 </script>
 <style scoped>
@@ -159,9 +270,18 @@ export default {
   width: 6px;
 }
 
- 
+
 .scroller::-webkit-scrollbar-thumb {
   background-color: #3C87CD;
   outline: 1px solid #3C87CD;
+}
+.scrollerinfo::-webkit-scrollbar {
+  width: 6px;
+}
+
+
+.scrollerinfo::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+  outline: 1px solid darkgrey;
 }
 </style>

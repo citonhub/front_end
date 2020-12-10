@@ -18,7 +18,7 @@
                       filled
                       class="d-lg-none"
                       dense
-                     append-icon="las la-search"
+                     
                      rounded
                      ></v-text-field>
              

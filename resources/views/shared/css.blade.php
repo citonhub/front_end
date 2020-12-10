@@ -36,19 +36,19 @@
     }
     .homeButtonOutline{
         
-      border:2px solid #3AC3A9;
+      border:2px solid #3C87CD;
        background:#ffffff;
        border-radius:6px;
-       color:#3AC3A9;
+       color:#3C87CD;
        font-family:BodyFont;
     }
 
     .homeButtonOutline:hover{
         
-        border:2px solid #3AC3A9;
+        border:2px solid #3C87CD;
          background:#ffffff;
          border-radius:6px;
-         color:#3AC3A9;
+         color:#3C87CD;
          font-family:BodyFont;
       }
 

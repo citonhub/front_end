@@ -73,7 +73,7 @@ export default {
 .messagesBadges{
     
     color: #ffffff;
-    background: #3AC3A9;
+    background: #3C87CD;
     font-size: 11px;
     font-family: BodyFont;
     font-weight: bolder;

@@ -30,13 +30,13 @@
         />
               </div>
 
-    <v-btn medium fab color="#3AC3A9"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:3%; right:3%; ">
+    <v-btn medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:25px; color:white;">las la-play</v-icon>
          
      </v-btn>
 
-     <v-btn  fab color="#3AC3A9"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
+     <v-btn  fab color="#3C87CD"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:24px; color:white;">las la-play</v-icon>
          

@@ -24,7 +24,7 @@
 
             <div class="col-lg-6 px-0 pb-1 text-right d-none d-lg-block" style="border-bottom:1px solid #263238;z-index:99999999999999;" >
 
-                <v-btn  small rounded  color="#3AC3A9" style="font-size:13px; font-weight:bolder; color:white;font-family:HeaderFont;">
+                <v-btn  small rounded  color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:HeaderFont;">
              Add new <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
            </v-btn>
             </div>
@@ -44,7 +44,7 @@
 
        
 
-     <v-btn  fab color="#3AC3A9"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:2%; ">
+     <v-btn  fab color="#3C87CD"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:2%; ">
 
         <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
          

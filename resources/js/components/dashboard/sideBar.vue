@@ -5,12 +5,12 @@
 
       <div class="row">
           <div class="col-12 text-center px-0 d-lg-block d-none">
-                <img alt="citonhub logo" class="d-inline-block mr-1 mb-2" src="/imgs/citonhub.png" height="38px">
+                <img alt="citonhub logo" class="d-inline-block mr-1 mb-2" src="/imgs/logo.png" height="38px">
                    <div style="font-family:HeaderFont; font-size:19px;"  class="d-inline-block mt-2" >CitonHub</div>
           </div>
 
           <div class="col-12 text-center px-0 d-block d-lg-none">
-                <img alt="citonhub logo" class="d-inline-block mr-1 mb-2" src="/imgs/citonhub.png" height="30px">
+                <img alt="citonhub logo" class="d-inline-block mr-1 mb-2" src="/imgs/logo.png" height="30px">
                    <div style="font-family:HeaderFont; font-size:15px;"  class="d-inline-block mt-2" >CitonHub</div>
           </div>
       </div>
@@ -183,7 +183,7 @@ export default {
 </script>
 <style scoped>
 .btnStyle{
-    background: #3AC3A9;
+    background: #3C87CD;
     color: white;
     border-radius: 30px;
     font-family: MediumFont;

@@ -63,36 +63,36 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 // authentication routes
-const Register = () => import(/* webpackChunkName: "register?v=1.96" */ '../components/auth/Register.vue');
-const Login = () => import(/* webpackChunkName: "login?v=0.97" */ '../components/auth/Login.vue');
-const Verify = () => import(/* webpackChunkName: "verify?v=0.60" */ '../components/auth/Verify.vue');
-const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword?v=0.23" */ '../components/auth/ForgotPassword.vue');
-const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=1.63" */ '../components/auth/ResetPassword.vue');
-const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.22" */ '../components/auth/SetUsername.vue');
+const Register = () => import(/* webpackChunkName: "register?v=1.98" */ '../components/auth/Register.vue');
+const Login = () => import(/* webpackChunkName: "login?v=1.00" */ '../components/auth/Login.vue');
+const Verify = () => import(/* webpackChunkName: "verify?v=0.62" */ '../components/auth/Verify.vue');
+const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword?v=0.25" */ '../components/auth/ForgotPassword.vue');
+const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=1.65" */ '../components/auth/ResetPassword.vue');
+const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.24" */ '../components/auth/SetUsername.vue');
 
 // dashboard routes
-const Board = () => import(/* webpackChunkName: "Board?v=2.85" */ '../components/dashboard/Board.vue');
-const Projects = () => import(/* webpackChunkName: "Projects?v=0.22" */ '../components/dashboard/Projects.vue');
-const ContentBots = () => import(/* webpackChunkName: "ContentBots?v=0.18" */ '../components/dashboard/ContentBots.vue');
-const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.18" */ '../components/dashboard/Challenges.vue');
+const Board = () => import(/* webpackChunkName: "Board?v=2.87" */ '../components/dashboard/Board.vue');
+const Projects = () => import(/* webpackChunkName: "Projects?v=0.23" */ '../components/dashboard/Projects.vue');
+const ContentBots = () => import(/* webpackChunkName: "ContentBots?v=0.19" */ '../components/dashboard/ContentBots.vue');
+const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.19" */ '../components/dashboard/Challenges.vue');
 
 // project routes
-const ProjectList = () => import(/* webpackChunkName: "ProjectList?v=1.86" */ '../components/projects/ProjectList.vue');
-const ProjectPanel = () => import(/* webpackChunkName: "ProjectPanel?v=1.87" */ '../components/projects/ProjectPanel.vue');
-const CodeEditor = () => import(/* webpackChunkName: "CodeEditor?v=1.72" */ '../components/projects/CodeEditor.vue');
-const AddProject = () => import(/* webpackChunkName: "AddProject?v=0.73" */ '../components/projects/AddProject.vue');
-const AddNewFile = () => import(/* webpackChunkName: "AddNewFile?v=0.31" */ '../components/projects/AddNewFile.vue');
-const AddDatabase = () => import(/* webpackChunkName: "AddDatabase?v=0.21" */ '../components/projects/AddDatabase.vue');
-const ResourceUpload = () => import(/* webpackChunkName: "ResourceUpload?v=0.22" */ '../components/projects/ResourceUpload.vue');
-const PanelLoader = () => import(/* webpackChunkName: "PanelLoader?v=0.24" */ '../components/projects/PanelLoader.vue');
-const PanelSettings = () => import(/* webpackChunkName: "PanelSettings?v=0.36" */ '../components/projects/PanelSettings.vue');
-const AddWebroute= () => import(/* webpackChunkName: "AddWebroute?v=0.35" */ '../components/projects/AddWebroute.vue');
+const ProjectList = () => import(/* webpackChunkName: "ProjectList?v=1.88" */ '../components/projects/ProjectList.vue');
+const ProjectPanel = () => import(/* webpackChunkName: "ProjectPanel?v=1.88" */ '../components/projects/ProjectPanel.vue');
+const CodeEditor = () => import(/* webpackChunkName: "CodeEditor?v=1.73" */ '../components/projects/CodeEditor.vue');
+const AddProject = () => import(/* webpackChunkName: "AddProject?v=0.74" */ '../components/projects/AddProject.vue');
+const AddNewFile = () => import(/* webpackChunkName: "AddNewFile?v=0.32" */ '../components/projects/AddNewFile.vue');
+const AddDatabase = () => import(/* webpackChunkName: "AddDatabase?v=0.22" */ '../components/projects/AddDatabase.vue');
+const ResourceUpload = () => import(/* webpackChunkName: "ResourceUpload?v=0.23" */ '../components/projects/ResourceUpload.vue');
+const PanelLoader = () => import(/* webpackChunkName: "PanelLoader?v=0.25" */ '../components/projects/PanelLoader.vue');
+const PanelSettings = () => import(/* webpackChunkName: "PanelSettings?v=0.37" */ '../components/projects/PanelSettings.vue');
+const AddWebroute= () => import(/* webpackChunkName: "AddWebroute?v=0.36" */ '../components/projects/AddWebroute.vue');
 
 // chats routes
-const Chats = () => import(/* webpackChunkName: "Chats?v=3.74" */ '../components/chats/Chats.vue');
+const Chats = () => import(/* webpackChunkName: "Chats?v=5.73" */ '../components/chats/Chats.vue');
 
 // Hub routes
-const Hub = () => import(/* webpackChunkName: "Hub?v=1.62" */ '../components/Hub/Hub.vue');
+const Hub = () => import(/* webpackChunkName: "Hub?v=1.63" */ '../components/Hub/Hub.vue');
 
 const routes = [
   { path: '/login', name: 'login', component: Login },
@@ -244,7 +244,31 @@ const app = new Vue({
       routeIsLoading: false,
       showSideBar:false,
       searchType:'',
-      codemirrorComponent:''
+      codemirrorComponent:'',
+      fullImageColor:'',
+      imageViewPath:'',
+      imageArrayView:[
+        {
+          image_name:'space_image_1_128',
+          image_extension:'png',
+          background_color:'#c5c5c5'
+        },
+        {
+         image_name:'space_image_1_129',
+         image_extension:'png',
+         background_color:'#c5c5c5'
+        },
+        {
+          image_name:'space_image_1_130',
+         image_extension:'jpg',
+         background_color:'#c5c5c5'
+        },
+         {
+           image_name:'space_image_1_131',
+         image_extension:'jpeg',
+         background_color:'#c5c5c5'
+        }
+      ]
      },
      mounted: function () {
       
