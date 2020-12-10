@@ -379,10 +379,10 @@
 </template>
 <script>
  const TopBar = () => import(
-    /* webpackChunkName: "top-bar?v=0.41" */ './TopBar.vue'
+    /* webpackChunkName: "top-bar?v=0.42" */ './TopBar.vue'
   );
 
-const addPage = () => import(/*webpackChunkName: "addPage?v=0.20"*/ './AddProjectPage.vue')
+const addPage = () => import(/*webpackChunkName: "addPage?v=0.31"*/ './AddProjectPage.vue');
   
 export default {
      data () {

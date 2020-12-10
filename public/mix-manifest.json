@@ -18,7 +18,7 @@
     "/CodeEditorChat?v=0.22.js": "/CodeEditorChat?v=0.22.js",
     "/ContentBots?v=0.19.js": "/ContentBots?v=0.19.js",
     "/ForgotPassword?v=0.25.js": "/ForgotPassword?v=0.25.js",
-    "/Hub?v=1.69.js": "/Hub?v=1.69.js",
+    "/Hub?v=1.73.js": "/Hub?v=1.73.js",
     "/ImageLoader?v=0.10.js": "/ImageLoader?v=0.10.js",
     "/ImageViewer?v=0.26.js": "/ImageViewer?v=0.26.js",
     "/Images?v=0.32.js": "/Images?v=0.32.js",
@@ -31,7 +31,7 @@
     "/ResourceUpload?v=0.23.js": "/ResourceUpload?v=0.23.js",
     "/SetUsername?v=0.24.js": "/SetUsername?v=0.24.js",
     "/VideoPlayer?v=0.13.js": "/VideoPlayer?v=0.13.js",
-    "/addPage?v=0.20.js": "/addPage?v=0.20.js",
+    "/addPage?v=0.25.js": "/addPage?v=0.25.js",
     "/login?v=1.00.js": "/login?v=1.00.js",
     "/panel-side?v=0.24.js": "/panel-side?v=0.24.js",
     "/register?v=1.98.js": "/register?v=1.98.js",
@@ -40,5 +40,13 @@
     "/vendors~CodeBox?v=0.41~CodeEditor?v=1.73.js": "/vendors~CodeBox?v=0.41~CodeEditor?v=1.73.js",
     "/vendors~CodeBox?v=0.41~CodeEditor?v=1.73~CodeEditorChat?v=0.22.js": "/vendors~CodeBox?v=0.41~CodeEditor?v=1.73~CodeEditorChat?v=0.22.js",
     "/vendors~VideoPlayer?v=0.13.js": "/vendors~VideoPlayer?v=0.13.js",
-    "/verify?v=0.62.js": "/verify?v=0.62.js"
+    "/verify?v=0.62.js": "/verify?v=0.62.js",
+    "/addPage?v=0..js": "/addPage?v=0..js",
+    "/addPage?v=0.30.js": "/addPage?v=0.30.js",
+    "/Hub?v=1.7.js": "/Hub?v=1.7.js",
+    "/Hub?v=1.74.js": "/Hub?v=1.74.js",
+    "/top-bar?v=0.42.js": "/top-bar?v=0.42.js",
+    "/addPage?v=0.3.js": "/addPage?v=0.3.js",
+    "/addPage?v=0.31.js": "/addPage?v=0.31.js",
+    "/Hub?v=1.75.js": "/Hub?v=1.75.js"
 }
