@@ -74,7 +74,7 @@ const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.24" */ '.
 const Board = () => import(/* webpackChunkName: "Board?v=2.87" */ '../components/dashboard/Board.vue');
 const Projects = () => import(/* webpackChunkName: "Projects?v=0.23" */ '../components/dashboard/Projects.vue');
 const ContentBots = () => import(/* webpackChunkName: "ContentBots?v=0.19" */ '../components/dashboard/ContentBots.vue');
-const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.50" */ '../components/dashboard/Challenges.vue');
+const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.51" */ '../components/dashboard/Challenges.vue');
 
 // project routes
 const ProjectList = () => import(/* webpackChunkName: "ProjectList?v=1.88" */ '../components/projects/ProjectList.vue');

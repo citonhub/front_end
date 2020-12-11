@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["addPage?v=1.59"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["addPage?v=1.60"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Hub/AddProjectPage.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
@@ -306,7 +306,7 @@ var render = function() {
             "div",
             {
               staticClass: "col-lg-8 offset-lg-2",
-              staticStyle: { "margin-top": "100px", height: "900px" }
+              staticStyle: { "margin-top": "20px", height: "900px" }
             },
             [
               _c(

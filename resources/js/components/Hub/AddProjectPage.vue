@@ -16,7 +16,7 @@
     
 <!-- add link tab-->
 
-   <div v-if="addprojectlink"  class="col-lg-8 offset-lg-2" style="margin-top:100px;height:900px;">
+   <div v-if="addprojectlink"  class="col-lg-8 offset-lg-2" style="margin-top:20px;height:900px;">
 <v-card style="height:100%" class="col-12">
     <p class="col-4 text-left">Project Thumbnail</p>
       <div class="col-lg-4 offset-lg-4">

@@ -383,7 +383,7 @@
     /* webpackChunkName: "top-bar?v=0.47" */ './TopBar.vue'
   );
 
-const addPage = () => import(/*webpackChunkName: "addPage?v=1.59"*/ './AddProjectPage.vue');
+const addPage = () => import(/*webpackChunkName: "addPage?v=1.60"*/ './AddProjectPage.vue');
   
 export default {
      data () {

@@ -393,7 +393,7 @@ var TopBar = function TopBar() {
 };
 
 var addPage = function addPage() {
-  return __webpack_require__.e(/*! import() | addPage?v=1.59 */ "addPage?v=1.59").then(__webpack_require__.bind(null, /*! ./AddProjectPage.vue */ "./resources/js/components/Hub/AddProjectPage.vue"));
+  return __webpack_require__.e(/*! import() | addPage?v=1.60 */ "addPage?v=1.60").then(__webpack_require__.bind(null, /*! ./AddProjectPage.vue */ "./resources/js/components/Hub/AddProjectPage.vue"));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
