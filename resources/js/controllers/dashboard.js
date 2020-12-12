@@ -94,6 +94,9 @@ const Chats = () => import(/* webpackChunkName: "Chats?v=7.05" */ '../components
 // Hub routes
 const Hub = () => import(/* webpackChunkName: "Hub?v=3.37" */ '../components/Hub/Hub.vue');
 
+// profile routes
+ const ProfilePage= () => import(/* webpackChunkName:"ProfilePage?v=0.92"*/ '../components/Profile/ProfilePage.vue');
+
 const routes = [
   { path: '/login', name: 'login', component: Login },
   { path: '/sign-up', name: 'register', component: Register },
@@ -101,6 +104,9 @@ const routes = [
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
+  {
+    path:'/profile-page', name:'ProfilePage', component:ProfilePage
+  },
   {
     path:'/hub',
     name:'Hub',

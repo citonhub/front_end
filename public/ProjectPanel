@@ -133,7 +133,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.scroller[data-v-e8448e76]::-webkit-scrollbar {\n  width: 6px;\n}\n.scroller[data-v-e8448e76]::-webkit-scrollbar-thumb {\n  background-color: darkgrey;\n  outline: 1px solid darkgrey;\n}\n", ""]);
+exports.push([module.i, "\n.scroller[data-v-e8448e76]::-webkit-scrollbar {\r\n  width: 6px;\n}\n.scroller[data-v-e8448e76]::-webkit-scrollbar-thumb {\r\n  background-color: darkgrey;\r\n  outline: 1px solid darkgrey;\n}\r\n", ""]);
 
 // exports
 
