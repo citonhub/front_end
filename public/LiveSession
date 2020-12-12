@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["LiveSession?v=0.53"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["LiveSession?v=0.67"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chats/LiveSession.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
@@ -9,6 +9,66 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -211,8 +271,8 @@ var render = function() {
           staticStyle: {
             position: "absolute",
             background: "#3C87CD",
-            top: "4%",
-            left: "3%",
+            top: "2%",
+            left: "2%",
             "z-index": "990679797879"
           },
           attrs: { icon: "", color: "#ffffff" },
@@ -343,7 +403,7 @@ var render = function() {
           staticClass: "text-center",
           staticStyle: {
             position: "absolute",
-            bottom: "5%",
+            bottom: "3%",
             left: "0",
             width: "100%"
           }
@@ -397,6 +457,77 @@ var staticRenderFns = [
         },
         [_vm._v("Akinola Babs")]
       )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-8 py-0" }, [
+      _c(
+        "span",
+        { staticStyle: { "font-size": "13px", "font-family": "MediumFont" } },
+        [_vm._v("Active Members")]
+      ),
+      _vm._v(" ("),
+      _c("span", { staticStyle: { "font-size": "12px" } }, [_vm._v("23")]),
+      _vm._v(")\n                        ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-3 mr-2 py-0" }, [
+      _c("div", {
+        staticStyle: {
+          "border-radius": "50%",
+          height: "40px",
+          width: "40px",
+          "background-color": "#c5c5c5",
+          "background-image": "url(/imgs/img3.jpg)",
+          "background-size": "cover",
+          "background-repeat": "no-repeat"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-7 py-0" }, [
+      _c("span", { staticStyle: { "font-size": "13px" } }, [
+        _vm._v("Abisola James ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-3 mr-2 py-0" }, [
+      _c("div", {
+        staticStyle: {
+          "border-radius": "50%",
+          height: "40px",
+          width: "40px",
+          "background-color": "#c5c5c5",
+          "background-image": "url(/imgs/img3.jpg)",
+          "background-size": "cover",
+          "background-repeat": "no-repeat"
+        }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-7 py-0" }, [
+      _c("span", { staticStyle: { "font-size": "13px" } }, [
+        _vm._v("Abisola James ")
+      ])
     ])
   }
 ]

@@ -29,7 +29,7 @@
               
 
             
-                   <v-app class="col-12 py-2 my-0 px-2" style="height:70px;">
+                   <v-app class="col-lg-12 col-md-6 offset-md-3 py-2 my-0 px-2" style="height:70px;">
               <v-text-field
                 style="font-size:13px;"
                  placeholder="channel name"

@@ -1,115 +1,240 @@
 <template>
-    <div style="font-family:BodyFont;padding-top:20px;position:absolute;top:0;color:white;height:500px; width:100%;">
 
 
-<!-- Select Method page markup-->
+    <v-app class="row" style="font-family:BodyFont;background:transparent;">
 
-  <div class="col-lg-8 offset-lg-2" style="margin-top:100px;height:250px;">
+     <!-- top bar -->
 
-<v-card style="height:100%" class="col-12 d-flex">
-<v-btn style="color:white" class="mt-4 col-2 offset-2 py-2 px-2" elevation="2">Add a Link</v-btn>
-<v-btn style="background:#3C87CD;color:white" class="mt-4 col-4 offset-2 py-2 px-2" elevation="2">Select From Project</v-btn>
-</v-card>
+ 
 
-     </div>
+          <div class="col-12  py-1 pt-0 d-flex flex-row mt-2 fixed-top px-md-2 px-lg-5 px-0" style="align-items:center;position:sticky; background:white;">
+           
+            <div class="col-6 text-center px-0" style="background:#3C87CD; ">
+              <span style="font-size:13px; color:#ffffff; font-family:MediumFont;">Add a link</span>
 
-    
-<!-- add link tab markup-->
+               
+            </div>
 
-   <!--<div class="col-lg-8 offset-lg-2" style="margin-top:100px;height:900px;">
-<v-card style="height:100%" class="col-12">
-    <p class="col-4 text-left">Project Thumbnail</p>
-      <div class="col-lg-4 offset-lg-4">
-         <div style="background:#3C87CD;border:1px solid white;height:100px;" class=" col-5 text-center d-flex project-img">
-            <i style="color:white;" class="las la-plus mt-4 ml-3"></i>
-            <i style="font-size:1.8rem;color:white;" class="las la-camera mt-4"></i>
-         </div>
-      </div>
+            <div class="col-6 text-center px-0" style="background:whitesmoke;">
+               <span style="font-size:13px;color:grey; font-family:MediumFont;">Select from projects</span>
+            </div>
+          
+        </div>
 
-      <div class="col-12 py-2 my-0 px-2">
-    				<v-text-field  style="font-size:13px;"  dense placeholder="Project Title..."  outlined color="#3C87CD" label="Project Title"></v-text-field>
-    			</div>
+      <!-- ends -->
 
-                <div class="col-lg-12 py-1 my-2 px-2 text-left">
+    <!-- contents  -->
+         <div class="col-12 px-2 py-2 pt-0 mt-4 text-left" style="height:auto !important; font-family:BodyFont; background:transparent !important;" >
+           
+           <div class="row">
 
-                <span style="font-size:13px; font-family:BodyFont;">Choose application type</span>
-             
+               <!-- project title -->
+ 
+                    <div  class=" col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 my-0 px-2" style="font-family:BodyFont;">
+              <v-text-field
+                 style="font-size:13px;"
+                 outlined
+              label="Project Title"
+            
+            counter="80"
+            placeholder="title"
+            persistent-hint
+             hint="What are you building?"
+             prepend-inner-icon="las la-laptop-code"
+            
+             color="#3C87CD">
+             </v-text-field>
+
              </div>
 
+             <!-- ends -->
 
-         <div class="row">
-                 <div class="  col-2 col-lg-2 ml-4 px-2 my-0 py-2 " v-for="(app,index) in languageIcon" :key="index">
-                     <v-card class="px-1 py-1 appBox" style="height:50px; border:1px solid #263238; border-radius:7px;">
-                        <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
-                                   <div class="text-center">
-                                      <i style="font-size:20px;" :class="app.icon"></i>
-                                      <div>
-                                         <span style="font-size:13px; font-family:BodyFont;">{{app.name}}</span>
-                                      </div>
-                                   </div>
-                        </div>
-                     </v-card>
-                 </div>
+             <!-- select project -->
 
+              <div v-if="false" class=" col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 my-0 px-2" style="font-family:BodyFont;">
+              <v-select
+                 style="font-size:13px;"
+                 outlined
+              label="Project"
+      
+            placeholder="select"
+            persistent-hint
+   
+             prepend-inner-icon="las la-laptop-code"
+            
+             color="#3C87CD">
+             </v-select>
 
+             </div>
 
+             <!-- ends -->
+            
+            <!-- project URL -->
+
+            <div  class=" col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 my-0 mt-2 px-2" style="font-family:BodyFont;">
+              <v-text-field
+                 style="font-size:13px;"
+                 outlined
+              label="Project URL"
+               placeholder="link to project"
+             prepend-inner-icon="las la-link"
+            
+             color="#3C87CD">
+             </v-text-field>
+
+             </div>
+
+             <!-- ends -->
+         
+
+           <!-- Project thumbnail -->
+
+              <div class="col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 my-0 mt-n3 px-2">
+             <span style="font-size:13px;">Upload Thumbnail</span>
+             <span style="font-size:12px; color:grey;" class="mx-1">(give your project an identity)</span><br>
+
+               <v-sheet
+              elevation="0"
+              height="100"
+              width="120"
+              :style="'background-image:url('+ imageUrl + ');border-radius:10px;cursor:pointer;background-size:contain;'"
+              class="py-0  px-0 mt-2 sheetbackImg"
+              color="whitesmoke">
+
+               <input type="file" id="settingsimage" ref="settingsimage" 
+                @change="crophandler" style="opacity:0;width:100%; height:10px; overflow:hidden; position:absolute; z-index:10;"
+                 accept="image/x-png,image/jpeg,image/jpg"/>
+               <v-sheet
+               
+              
+               elevation="0"
+               height="100%"
+               width="100%"
+               style="border-radius:10px;background:#c5c5c5;"
+               class="py-auto px-auto d-flex"
+               >
                   
+                 <v-icon class="mx-auto white-text">mdi-camera-plus</v-icon>
+                
+               </v-sheet>
+              </v-sheet>
+    
+                <div style="font-size:13px;" class="mt-3">Or select from defaults</div>
 
-                 
-             </div> 
+               <div class="d-flex flex-row mt-3" >
+                       <div    class="mr-2"
+    style="border-radius:10px;height:80px;width:80px;background-color:#c5c5c5;background-image:url(/imgs/imgproj3.jpeg);background-size: cover;
+  background-repeat: no-repeat; border:1px solid #c5c5c5;">
+  </div> 
 
-             <div class="col-6 py-1 px-1">
+    <div    class="mr-2"
+    style="border-radius:10px;height:80px;width:80px;background-color:#c5c5c5;background-image:url(/imgs/imgproj2.jpeg);background-size: cover;
+  background-repeat: no-repeat;border:1px solid #c5c5c5;">
+  </div> 
 
-             <v-textarea label="Project Description" counter="100" background-color="lightgrey" rows="3" clearable clear-icon="las la-times-circle" class="mt-4">
-                 
-                 </v-textarea>     
+     <div    class="mr-2"
+    style="border-radius:10px;height:80px;width:80px;background-color:#c5c5c5;background-image:url(/imgs/imgproj1.jpeg);background-size: cover;
+  background-repeat: no-repeat; border:1px solid #c5c5c5;">
+  </div> 
+              </div>
 
-                 </div> 
-	<div class="col-12 py-1 mt-4 px-2 text-center">
-    				<v-btn  type="submit" large color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;width:40%;">Add</v-btn>
-             </div>
-</v-card>
+              </div>
 
-   </div>-->
-  
+           <!-- ends -->
+             
+         <div class="col-12 py-1">
 
-   <!-- project link tab-->
-
-
-  
-  <!--  <div class="col-lg-8 offset-lg-2" style="margin-top:100px;height:550px;">
-<v-card style="height:100%" class="col-12">
-
- <p class="col-4 text-left">Upload Project Thumbnail</p>
-      <div class="col-lg-4 offset-lg-4">
-         <div style="background:#3C87CD;border:1px solid white;height:100px;" class=" col-5 text-center d-flex project-img">
-            <i style="color:white;" class="las la-plus mt-4 ml-3"></i>
-            <i style="font-size:1.8rem;color:white;" class="las la-camera mt-4"></i>
          </div>
-      </div>
 
+           <!-- add tags -->
+                <div  class=" col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 mt-5 my-0 px-2 pt-3" style="height:auto;font-family:BodyFont;">
+              <v-combobox
+                 style="font-size:13px;"
+              dense
+              label="Tags"
+            counter="10"
+            placeholder="add tags"
+            hint="e.g php, nodejs, html5"
+            persistent-hint
+            chips
+            multiple
+             item-value="name"
+             item-text="name"
+             :items="languageIcon"
+            
+             color="#3C87CD">
 
+              <template v-slot:selection="data">
+            <v-chip
+              :key="JSON.stringify(data.item)"
+              v-bind="data.attrs"
+              :input-value="data.selected"
+              color="#3C87CD"
+              dense
+              class="my-1"
+              style="font-size:12px; font-family:BodyFont;"
+              outlined
+              :disabled="data.disabled"
+          
+            >
+             
+              {{ data.item.name }}
+            </v-chip>
 
+              </template>
+             </v-combobox>
 
- <div class="col-12 py-2 my-0 px-2">
-    				<v-select :items="projects" label="Select Project" placeholder="select..." dense outlined style="font-size:13px;"  color="#3C87CD"></v-select>
-    			</div>
-
-               <div class="col-6 py-1 px-1">
-
-             <v-textarea label="Project Description" counter="100" background-color="lightgrey" rows="3" clearable clear-icon="las la-times-circle" class="mt-4">
-                 
-                 </v-textarea>     
-
-                 </div> 
-	<div class="col-12 py-1 mt-4 px-2 text-center">
-    				<v-btn  type="submit" large color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;width:30%;">Add</v-btn>
              </div>
 
-</v-card>
-</div>-->
+         <!-- ends -->
 
-    </div>
+         <div class="col-12 py-4">
+
+         </div>
+
+         <!-- project description -->
+             <div class="col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 pt-3 my-0 px-2">
+                
+                <v-textarea
+                 style="font-size:14px;"
+                 filled
+                 height="100px"
+                 counter="100"
+                 
+                 placeholder="A short description of your project"
+                >
+
+                </v-textarea>
+             </div>
+            
+            <!-- ends -->
+
+            <!-- add project button -->
+             <div class=" text-center col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 mt-4 my-0 px-2">
+                 <v-btn  medium rounded  color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;">
+               Add
+               </v-btn>
+             </div>
+
+             <!-- ends -->
+
+
+
+             <!-- ends -->
+
+           </div>
+
+
+           
+          
+        </div>
+
+
+     <!-- ends -->
+
+
+    </v-app>
+    
 </template>
 
 <script>
@@ -123,6 +248,7 @@ export default {
 
     data(){
         return{
+           imageUrl:'',
              languageIcon:[
                {
                   name:'Web app NodeJs',

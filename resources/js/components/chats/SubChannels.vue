@@ -1,11 +1,11 @@
 <template>
-  <v-app style="background:transparent;">
+  <div style="background:transparent;">
    <div class="col-12 py-1 my-0 ">
     <div class="row">
         <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky; background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
             <div class=" mr-1 col-2 py-0">
               <v-btn icon >
-                      <v-icon>las la-arrow-left</v-icon>
+                      <v-icon>mdi mdi-close</v-icon>
                     </v-btn>
             </div>
           
@@ -35,7 +35,7 @@
                        <span  style="font-size:13px; color:#1e4148; font-family:MediumFont;"> General</span>
                   </div>
                   <div class="py-0 my-0 d-flex col-2" style="align-items:center;" >
-                          <span class="messagesBadges d-flex ml-lg-0 ml-md-5 ml-0" >5</span>
+                          <span class="messagesBadges d-flex ml-lg-0 ml-0" >5</span>
                     </div>
               </div>
            </v-card>
@@ -50,7 +50,7 @@
                        <span  style="font-size:13px; color:#1e4148; font-family:MediumFont;"> Rules</span>
                   </div>
                   <div class="py-0 my-0 d-flex col-2" style="align-items:center;" >
-                          <span class="messagesBadges d-flex ml-lg-0 ml-md-5 ml-0" >5</span>
+                          <span class="messagesBadges d-flex ml-lg-0 ml-0" >5</span>
                     </div>
               </div>
            </v-card>
@@ -95,7 +95,7 @@
     </div>
    </div>
 
-  </v-app>
+  </div>
    
 </template>
 

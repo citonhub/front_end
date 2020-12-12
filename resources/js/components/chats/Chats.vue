@@ -41,7 +41,7 @@
                                      <chat-list></chat-list>
                            </div>
 
-                            <!-- code editor -->
+                            <!-- create channel -->
 
                             <div v-if="false" class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                   <create-channel></create-channel>
@@ -94,17 +94,17 @@
 
                               <!-- channel sidebar -->
 
-                               <div v-if="false" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                               <div  v-if="false" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
                                    <div style="position:absolute; height:100%; width:70%; left:30%;" >
 
                                     <div class="scrollerinfo offset-lg-6" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
                                      
                                     
-                                        <channel-info  v-if="false"></channel-info>
+                                        <channel-info ></channel-info>
                                     
                                         <channel-edit v-if="false"></channel-edit>
                                         
-                                        <sub-channels></sub-channels>
+                                        <sub-channels  v-if="false"></sub-channels>
                                     
                                    </div>
 
@@ -115,7 +115,7 @@
 
                             <!-- live session -->
 
-                            <div class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                            <div v-if="false" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
                                     <live-session></live-session>
                                </div>
 
@@ -148,6 +148,15 @@
                 </div>
 
                 <!-- ends -->
+                 
+                   <!-- create channel -->
+
+                            <div v-if="false" class="col-12 py-0 px-0" style="background:#ffffff; left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
+                                  <create-channel></create-channel>
+                            </div>
+
+                      <!-- ends -->
+
 
             <!-- chat content -->
 
@@ -159,6 +168,15 @@
 
 
                               <chat-messages></chat-messages>
+
+
+
+                             <v-btn  fab color="#3C87CD"  style="z-index:9999999999;  position:fixed;  bottom:12%; right:2%; ">
+
+                               <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
+
+                              </v-btn>
+
 
 
 
@@ -184,6 +202,36 @@
                                <div v-if="false" class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
                                   <image-viewer></image-viewer>
                             </div>
+
+                            <!-- ends -->
+
+
+                              <!-- channel sidebar -->
+
+                               <div v-if="false" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32);  left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
+                                   <div style="position:absolute; height:100%; width:100%; left:0%;" >
+
+                                    <div class="scrollerinfo col-md-6 offset-md-6 px-0 py-0 pb-2" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
+                                     
+                                    
+                                        <channel-info  v-if="false"></channel-info>
+                                    
+                                        <channel-edit v-if="false"></channel-edit>
+                                        
+                                        <sub-channels   ></sub-channels>
+                                    
+                                   </div>
+
+                                     </div>
+                               </div>
+                                
+                            <!-- channel sidebar -->
+
+                             <!-- live session -->
+
+                            <div v-if="false" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
+                                    <live-session></live-session>
+                               </div>
 
                             <!-- ends -->
 
@@ -268,7 +316,7 @@
   );
 
     const ChannelInfo = () => import(
-    /* webpackChunkName: "ChannelInfo?v=0.58" */ './ChannelInfo.vue'
+    /* webpackChunkName: "ChannelInfo?v=0.59" */ './ChannelInfo.vue'
   );
 
     const ChannelEdit = () => import(
@@ -276,15 +324,15 @@
   );
 
      const SubChannels = () => import(
-    /* webpackChunkName: "SubChannels?v=0.16" */ './SubChannels.vue'
+    /* webpackChunkName: "SubChannels?v=0.19" */ './SubChannels.vue'
   );
 
    const CreateChannel = () => import(
-    /* webpackChunkName: "CreateChannel?v=0.19" */ './CreateChannel.vue'
+    /* webpackChunkName: "CreateChannel?v=0.20" */ './CreateChannel.vue'
   );
 
   const LiveSession = () => import(
-    /* webpackChunkName: "LiveSession?v=0.53" */ './LiveSession.vue'
+    /* webpackChunkName: "LiveSession?v=0.67" */ './LiveSession.vue'
   );
 export default {
      data () {

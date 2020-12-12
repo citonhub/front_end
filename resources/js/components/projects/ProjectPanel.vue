@@ -3,7 +3,7 @@
  
  
   
-  <!-- small and medium screen -->
+  <!-- small and medium and large screen -->
     
      <div class="col-12   px-0 d-block  py-0" style="position:fixed; left:0; height:100%; top:0%; background:white; z-index:99990999999999;">
 

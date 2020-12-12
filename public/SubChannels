@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["SubChannels?v=0.16"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["SubChannels?v=0.19"],{
 
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chats/SubChannels.vue?vue&type=style&index=0&id=7418bd3e&scoped=true&lang=css&":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
@@ -64,7 +64,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("v-app", { staticStyle: { background: "transparent" } }, [
+  return _c("div", { staticStyle: { background: "transparent" } }, [
     _c("div", { staticClass: "col-12 py-1 my-0 " }, [
       _c("div", { staticClass: "row" }, [
         _c(
@@ -87,25 +87,14 @@ var render = function() {
                 _c(
                   "v-btn",
                   { attrs: { icon: "" } },
-                  [_c("v-icon", [_vm._v("las la-arrow-left")])],
+                  [_c("v-icon", [_vm._v("mdi mdi-close")])],
                   1
                 )
               ],
               1
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-8 py-0" }, [
-              _c(
-                "span",
-                {
-                  staticStyle: {
-                    "font-size": "14px",
-                    "font-family": "MediumFont"
-                  }
-                },
-                [_vm._v("Sub Channels")]
-              )
-            ]),
+            _vm._m(0),
             _vm._v(" "),
             _c(
               "div",
@@ -174,10 +163,7 @@ var render = function() {
                       [
                         _c(
                           "span",
-                          {
-                            staticClass:
-                              "messagesBadges d-flex ml-lg-0 ml-md-5 ml-0"
-                          },
+                          { staticClass: "messagesBadges d-flex ml-lg-0 ml-0" },
                           [_vm._v("5")]
                         )
                       ]
@@ -229,10 +215,7 @@ var render = function() {
                       [
                         _c(
                           "span",
-                          {
-                            staticClass:
-                              "messagesBadges d-flex ml-lg-0 ml-md-5 ml-0"
-                          },
+                          { staticClass: "messagesBadges d-flex ml-lg-0 ml-0" },
                           [_vm._v("5")]
                         )
                       ]
@@ -332,7 +315,20 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-8 py-0" }, [
+      _c(
+        "span",
+        { staticStyle: { "font-size": "14px", "font-family": "MediumFont" } },
+        [_vm._v("Sub Channels")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 

@@ -88,5 +88,62 @@
   animation-iteration-count: infinite;
   animation-timing-function: ease-in-out;
 }
-        
+
+.sliderfullBtn{
+   -webkit-animation: beatBtn .50s infinite alternate;
+	-moz-animation: beatBtn .50s infinite alternate;
+	-ms-animation: beatBtn .50s infinite alternate;
+	-o-animation: beatBtn .50s infinite alternate;
+	animation: beatBtn .50s infinite alternate;
+
+	-webkit-transform-origin: center;
+	-moz-transform-origin: center;
+	-o-transform-origin: center;
+	-ms-transform-origin: center;
+	transform-origin: center;
+ }
+
+
+ @keyframes "beatBtn" {
+ to {
+    -webkit-transform: scale(1.1);
+   	-moz-transform: scale(1.1);
+   	-o-transform: scale(1.1);
+   	-ms-transform: scale(1.1);
+   	transform: scale(1.1);
+ }
+
+}
+
+@-moz-keyframes beatBtn {
+ to {
+   -moz-transform: scale(1.1);
+   transform: scale(1.1);
+ }
+
+}
+
+@-webkit-keyframes "beatBtn" {
+ to {
+   -webkit-transform: scale(1.1);
+   transform: scale(1.1);
+ }
+
+}
+
+@-ms-keyframes "beatBtn" {
+ to {
+   -ms-transform: scale(1.1);
+   transform: scale(1.1);
+ }
+
+}
+
+@-o-keyframes "beatBtn" {
+ to {
+   -o-transform: scale(1.1);
+   transform: scale(1.1);
+ }
+
+} */   
 </style>

@@ -1,7 +1,7 @@
 <template>
     <div style="position:absolute; height:100%; width:100%; left:0%;" class="d-flex flex-row">
    
-   <v-btn icon color="#ffffff" @click="goBack" style="position:absolute;background:#3C87CD;top:4%; left:3%; z-index:990679797879;" 
+   <v-btn icon color="#ffffff" @click="goBack" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
 
     <div class="px-2 py-1 appBox" style="background:white; position:absolute;top:0;right:0;z-index:89999999999;">
@@ -61,7 +61,7 @@
                                       </template>
 
                             <div class="text-center">
-                              <div    
+                              <div     
                         style="border-radius:50%;height:120px;width:120px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
                           background-repeat: no-repeat; border:5px solid #3C87CD; margin-top:-50px;">
                            </div> 
@@ -74,8 +74,68 @@
 
                               
                               <!-- side info bar -->
-                                    <div v-if="false" class="scrollerinfo offset-lg-8 col-lg-4" style="background:white;height:100%; overflow-y:auto; z-index:9999999999; position:absolute; overflow-x:hidden;" >
-                                     
+                                    <div v-if="false" class="scrollerinfo offset-lg-8 col-lg-4 py-0 pb-2" style=" border-left:1px solid #c5c5c5;background:white;height:100%; overflow-y:auto; z-index:9999999999; position:absolute; overflow-x:hidden;" >
+                                      
+                                      <div class="row">
+
+                                          <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky;background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
+                         <div class=" mr-1 col-2 py-0">
+                           <v-btn icon >
+                            <v-icon>mdi mdi-close</v-icon>
+                               </v-btn>
+                             </div>
+          
+                            <div class="col-8 py-0">
+                            <span style="font-size:13px; font-family:MediumFont;">Active Members</span> (<span style="font-size:12px;">23</span>)
+                           </div>
+              
+                               <div class="col-2 py-0  text-right">
+                             
+                            </div>
+          
+                          </div> 
+
+                             
+                               <div class="col-12 py-2 d-flex flex-row" style="align-items:center; border-bottom:1px solid #c5c5c5;">
+                                  <div class="col-3 mr-2 py-0">
+                                <div    
+                               style="border-radius:50%;height:40px;width:40px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
+                                background-repeat: no-repeat;">
+                                </div> 
+                                  </div>
+                                
+                              <div class="col-7 py-0">
+                            <span style="font-size:13px;">Abisola James </span>
+                                    </div>
+
+                                    <div class="col-2 text-right py-0">
+                                   <v-icon>las la-microphone</v-icon>
+                                    </div>
+                              </div>
+                              
+
+                                <div v-if="false" class="col-12 py-2 d-flex flex-row" style="align-items:center; border-bottom:1px solid #c5c5c5;">
+                                  <div class="col-3 mr-2 py-0">
+                                <div    
+                               style="border-radius:50%;height:40px;width:40px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
+                                background-repeat: no-repeat;">
+                                </div> 
+                                  </div>
+                                
+                              <div class="col-7 py-0">
+                            <span style="font-size:13px;">Abisola James </span>
+                                    </div>
+
+                                    <div class="col-2 text-right py-0">
+                                   <v-icon>las la-microphone-slash</v-icon>
+                                    </div>
+                              </div>
+                              
+
+
+                             
+
+                                      </div>
                                     
                                        
                                     
@@ -106,7 +166,7 @@
                               <!-- ends -->
 
                               <!-- hang up btn -->
-                              <div class="text-center" style="position:absolute;bottom:5%; left:0; width:100%;" >
+                              <div class="text-center" style="position:absolute;bottom:3%; left:0; width:100%;" >
                                  <v-btn fab color="#3C87CD" style=" z-index:999999999999;"><v-icon color="#ffffff">mdi mdi-phone-hangup</v-icon></v-btn>
                               </div>
                               
