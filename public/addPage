@@ -249,9 +249,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  //  components:{
-  //      TopBar
-  //  },
+  components: {},
   data: function data() {
     return {
       imageUrl: '',
@@ -328,8 +326,21 @@ __webpack_require__.r(__webpack_exports__);
         name: 'Scala',
         icon: 'las la-code'
       }],
-      projects: ['Quizapp', 'BookFinder']
+      projects: ['Quizapp', 'BookFinder'],
+      addlink: false,
+      select: true,
+      addprojectlink: false
     };
+  },
+  methods: {
+    displayTab: function displayTab() {
+      this.addlink = !this.addlink;
+      this.select = !this.select;
+    },
+    displayTab2: function displayTab2() {
+      this.addprojectlink = !this.addprojectlink;
+      this.select = !this.select;
+    }
   }
 });
 

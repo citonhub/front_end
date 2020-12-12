@@ -242,9 +242,9 @@
 
 
 export default {
-   //  components:{
-   //      TopBar
-   //  },
+    components:{
+         
+     },
 
     data(){
         return{
@@ -376,8 +376,22 @@ export default {
             projects:[
                'Quizapp',
                'BookFinder'
-            ]
+            ],
+            addlink:false,
+            select:true,
+            addprojectlink:false,
         }
+    },
+
+    methods:{
+       displayTab() {
+          this.addlink = !this.addlink
+          this.select = !this.select
+       },
+       displayTab2() {
+          this.addprojectlink= !this.addprojectlink
+          this.select = !this.select
+       }
     }
 }
 </script>

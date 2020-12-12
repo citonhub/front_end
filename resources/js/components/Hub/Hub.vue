@@ -414,8 +414,9 @@
     </div>
 </template>
 <script>
+
  const TopBar = () => import(
-    /* webpackChunkName: "top-bar?v=0.41" */ './TopBar.vue'
+    /* webpackChunkName: "top-bar?v=0.47" */ './TopBar.vue'
   );
 
 const addPage = () => import(/*webpackChunkName: "addPage?v=1.16"*/ './AddProjectPage.vue')

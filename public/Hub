@@ -425,7 +425,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 var TopBar = function TopBar() {
-  return __webpack_require__.e(/*! import() | top-bar?v=0.41 */ "top-bar?v=0.41").then(__webpack_require__.bind(null, /*! ./TopBar.vue */ "./resources/js/components/Hub/TopBar.vue"));
+  return __webpack_require__.e(/*! import() | top-bar?v=0.47 */ "top-bar?v=0.47").then(__webpack_require__.bind(null, /*! ./TopBar.vue */ "./resources/js/components/Hub/TopBar.vue"));
 };
 
 var addPage = function addPage() {
