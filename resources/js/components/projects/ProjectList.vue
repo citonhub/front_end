@@ -52,7 +52,7 @@
             </span>
 
              <span class="d-inline-block mx-1" >
-                <i class="las la-eye" style="font-size:20px;color:white;" ></i> 
+                <i class="las la-thumbtack" style="font-size:20px;color:white;" ></i> 
                 <span style="font-family:MediumFont; font-size:12px; color:white;">200</span>
             </span>
              
@@ -98,7 +98,7 @@
             </span>
 
              <span class="d-inline-block mx-1" >
-                <i class="las la-eye" style="font-size:20px;color:white;" ></i> 
+                <i class="las la-thumbtack" style="font-size:20px;color:white;" ></i> 
                 <span style="font-family:MediumFont; font-size:12px; color:white;">200</span>
             </span>
              
@@ -145,7 +145,7 @@
             </span>
 
              <span class="d-inline-block mx-1" >
-                <i class="las la-eye" style="font-size:20px;color:white;" ></i> 
+                <i class="las la-thumbtack" style="font-size:20px;color:white;" ></i> 
                 <span style="font-family:MediumFont; font-size:12px; color:white;">200</span>
             </span>
              
@@ -192,7 +192,7 @@
             </span>
 
              <span class="d-inline-block mx-1" >
-                <i class="las la-eye" style="font-size:20px;color:white;" ></i> 
+                <i class="las la-thumbtack" style="font-size:20px;color:white;" ></i> 
                 <span style="font-family:MediumFont; font-size:12px; color:white;">200</span>
             </span>
              
@@ -238,7 +238,7 @@
             </span>
 
              <span class="d-inline-block mx-1" >
-                <i class="las la-eye" style="font-size:20px;color:white;" ></i> 
+                <i class="las la-thumbtack" style="font-size:20px;color:white;" ></i> 
                 <span style="font-family:MediumFont; font-size:12px; color:white;">200</span>
             </span>
              
@@ -284,7 +284,7 @@
             </span>
 
              <span class="d-inline-block mx-1" >
-                <i class="las la-eye" style="font-size:20px;color:white;" ></i> 
+                <i class="las la-thumbtack" style="font-size:20px;color:white;" ></i> 
                 <span style="font-family:MediumFont; font-size:12px; color:white;">200</span>
             </span>
              

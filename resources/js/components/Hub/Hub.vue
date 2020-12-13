@@ -416,7 +416,7 @@
 <script>
 
  const TopBar = () => import(
-    /* webpackChunkName: "top-bar?v=0.48" */ './TopBar.vue'
+    /* webpackChunkName: "top-bar?v=0.49" */ './TopBar.vue'
   );
 
 const addPage = () => import(/*webpackChunkName: "addPage?v=1.17"*/ './AddProjectPage.vue')

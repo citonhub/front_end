@@ -22,7 +22,7 @@
     "/ContentBots?v=0.20.js": "/ContentBots?v=0.20.js",
     "/CreateChannel?v=0.21.js": "/CreateChannel?v=0.21.js",
     "/ForgotPassword?v=0.26.js": "/ForgotPassword?v=0.26.js",
-    "/Hub?v=4.36.js": "/Hub?v=4.36.js",
+    "/Hub?v=4.37.js": "/Hub?v=4.37.js",
     "/ImageLoader?v=0.10.js": "/ImageLoader?v=0.10.js",
     "/ImageViewer?v=0.27.js": "/ImageViewer?v=0.27.js",
     "/Images?v=0.32.js": "/Images?v=0.32.js",
@@ -30,7 +30,7 @@
     "/PanelLoader?v=0.26.js": "/PanelLoader?v=0.26.js",
     "/PanelSettings?v=0.38.js": "/PanelSettings?v=0.38.js",
     "/ProfilePage?v=0.93.js": "/ProfilePage?v=0.93.js",
-    "/ProjectList?v=1.93.js": "/ProjectList?v=1.93.js",
+    "/ProjectList?v=1.94.js": "/ProjectList?v=1.94.js",
     "/ProjectPanel?v=1.92.js": "/ProjectPanel?v=1.92.js",
     "/ProjectView?v=1.00.js": "/ProjectView?v=1.00.js",
     "/Projects?v=0.24.js": "/Projects?v=0.24.js",
@@ -44,7 +44,7 @@
     "/panel-side?v=0.24.js": "/panel-side?v=0.24.js",
     "/register?v=1.99.js": "/register?v=1.99.js",
     "/top-bar-chat?v=0.17.js": "/top-bar-chat?v=0.17.js",
-    "/top-bar?v=0.48.js": "/top-bar?v=0.48.js",
+    "/top-bar?v=0.49.js": "/top-bar?v=0.49.js",
     "/top-bar?v=0.50.js": "/top-bar?v=0.50.js",
     "/verify?v=0.63.js": "/verify?v=0.63.js"
 }
