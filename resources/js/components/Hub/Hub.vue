@@ -378,17 +378,7 @@
      style="background:white; height:93%; top:7%; 
      border:1px solid white;border-radius:0px;border-top-left-radius:10px;  overflow-y:auto;overflow-x:hidden;" @click.stop="viewProjectModal = true">
 
-     <!-- header -->
-                
-
-     <div class="col-12 px-md-2 px-0 py-2 pt-0 fixed-top d-flex flex-row" style=" left:0; position:sticky;background:white; top:0%;align-items:center;">
-           
-            
-             
-          
-        </div>
-      <!-- ends -->
-
+   
       <!-- add project page -->
       <div class="col-12 px-3 px-md-3 py-2 pt-0">
 
@@ -416,7 +406,7 @@
 <script>
 
  const TopBar = () => import(
-    /* webpackChunkName: "top-bar?v=0.49" */ './TopBar.vue'
+    /* webpackChunkName: "top-bar?v=0.50" */ './TopBar.vue'
   );
 
 const addPage = () => import(/*webpackChunkName: "addPage?v=1.17"*/ './AddProjectPage.vue')
