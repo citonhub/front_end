@@ -9,7 +9,7 @@
 
 <div  v-for="ch in challenges" :key="ch.number" style="border-radius:10px;background:rgba(125,179,229,0.1);font-family:BodyFont;font-size:1.1rem;font-weight:500;line-height:21px;" class="challenge mb-4 ">
     <div  class="row ">
-      <div style="font-size:1.3rem;font-weight:500;color:#1B1B1E;" class="col-lg-4 offset-lg-1">Challenge <span>{{ch.number}}</span> </div>
+      <div style="font-size:1.3rem;font-weight:500;color:#1B1B1E;" class="col-lg-4 offset-lg-1 rounded-circle">Challenge <span>{{ch.number}}</span> </div>
  <div class="col-lg-4 offset-lg-3">Duration: <span>{{ch.duration}}hours</span></div>
     </div>
 

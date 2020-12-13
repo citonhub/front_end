@@ -29,6 +29,7 @@
     "/LiveSession?v=0.67.js": "/LiveSession?v=0.67.js",
     "/PanelLoader?v=0.25.js": "/PanelLoader?v=0.25.js",
     "/PanelSettings?v=0.37.js": "/PanelSettings?v=0.37.js",
+    "/ProfilePage?v=0.92.js": "/ProfilePage?v=0.92.js",
     "/ProjectList?v=1.92.js": "/ProjectList?v=1.92.js",
     "/ProjectPanel?v=1.91.js": "/ProjectPanel?v=1.91.js",
     "/ProjectView?v=0.99.js": "/ProjectView?v=0.99.js",
@@ -44,5 +45,6 @@
     "/register?v=1.98.js": "/register?v=1.98.js",
     "/top-bar-chat?v=0.16.js": "/top-bar-chat?v=0.16.js",
     "/top-bar?v=0.47.js": "/top-bar?v=0.47.js",
+    "/top-bar?v=0.50.js": "/top-bar?v=0.50.js",
     "/verify?v=0.62.js": "/verify?v=0.62.js"
 }
