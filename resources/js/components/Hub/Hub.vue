@@ -390,7 +390,7 @@
       <!-- ends -->
 
       <!-- add project page -->
-      <div class="col-12 px-3 px-md-3 py-2">
+      <div class="col-12 px-3 px-md-3 py-2 pt-0">
 
        <project-view></project-view>
 
@@ -416,13 +416,13 @@
 <script>
 
  const TopBar = () => import(
-    /* webpackChunkName: "top-bar?v=0.47" */ './TopBar.vue'
+    /* webpackChunkName: "top-bar?v=0.48" */ './TopBar.vue'
   );
 
-const addPage = () => import(/*webpackChunkName: "addPage?v=1.16"*/ './AddProjectPage.vue')
+const addPage = () => import(/*webpackChunkName: "addPage?v=1.17"*/ './AddProjectPage.vue')
 
  const ProjectView = () => import(
-    /* webpackChunkName: "ProjectView?v=0.99" */ './ProjectView.vue'
+    /* webpackChunkName: "ProjectView?v=1.00" */ './ProjectView.vue'
   );
 
 export default {

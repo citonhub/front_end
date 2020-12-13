@@ -92,7 +92,7 @@ const AddWebroute= () => import(/* webpackChunkName: "AddWebroute?v=0.37" */ '..
 const Chats = () => import(/* webpackChunkName: "Chats?v=7.06" */ '../components/chats/Chats.vue');
 
 // Hub routes
-const Hub = () => import(/* webpackChunkName: "Hub?v=4.35" */ '../components/Hub/Hub.vue');
+const Hub = () => import(/* webpackChunkName: "Hub?v=4.36" */ '../components/Hub/Hub.vue');
 
 // profile routes
  const ProfilePage= () => import(/* webpackChunkName:"ProfilePage?v=0.93"*/ '../components/Profile/ProfilePage.vue');
