@@ -2,7 +2,7 @@
     <div  style="position:fixed;height:100%;background:#F5F5FB; width:100%;">
 
         <!-- top bar -->
-        <div class="col-12 py-0 fixed-top" style="position:sticky;width:100%;height:auto; ">
+        <div class="col-12 py-0 fixed-top" style="position:sticky;width:100%;height:auto;z-index:999999999999999999; ">
          <top-bar></top-bar>
         </div>
      
