@@ -62,7 +62,7 @@
                    <div class="row">
                       <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;" >
              <div @click="viewProjectModal = true"   style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
-          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/projectImg.jpg);background-size:cover;">
+          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background1.jpg);background-size:cover;">
 
               <div class="pt-3 px-2  pl-3" style=" position:absolute; width:100%; height:35%; left:0; bottom:0%; border-radius:0px; border-bottom-left-radius:20px;
           border-bottom-right-radius:20px; background: linear-gradient(180deg, rgba(60, 135, 205, 0.0053) 0%, rgba(0, 0, 0, 0.53) 100%);">
@@ -131,7 +131,7 @@
 
           <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;">
              <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
-          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/projectImg.jpg);background-size:cover;">
+          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background3.jpg);background-size:cover;">
 
               <div class="pt-3 px-2  pl-3" style=" position:absolute; width:100%; height:35%; left:0; bottom:0%; border-radius:0px; border-bottom-left-radius:20px;
           border-bottom-right-radius:20px; background: linear-gradient(180deg, rgba(60, 135, 205, 0.0053) 0%, rgba(0, 0, 0, 0.53) 100%);">
@@ -200,7 +200,7 @@
 
           <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;">
              <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
-          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/projectImg.jpg);background-size:cover;">
+          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background1.jpg);background-size:cover;">
 
               <div class="pt-3 px-2  pl-3" style=" position:absolute; width:100%; height:35%; left:0; bottom:0%; border-radius:0px; border-bottom-left-radius:20px;
           border-bottom-right-radius:20px; background: linear-gradient(180deg, rgba(60, 135, 205, 0.0053) 0%, rgba(0, 0, 0, 0.53) 100%);">
@@ -305,7 +305,7 @@
 
      <div class="col-lg-6 col-md-10 offset-lg-3 offset-md-1 pt-0 pb-3 scrollerAddProject px-md-2 px-0" 
      style="background:white; height:100%; top:0%; 
-     border:1px solid white;border-radius:0px;  overflow-y:auto;overflow-x:hidden;" @click.stop="addProjectModal = true">
+     border:1px solid white;border-radius:0px;border-top-left-radius:10px;  overflow-y:auto;overflow-x:hidden;" @click.stop="addProjectModal = true">
 
      <!-- header -->
                 
@@ -390,9 +390,9 @@
       <!-- ends -->
 
       <!-- add project page -->
-      <div class="col-12 px-3 px-md-1 py-2">
+      <div class="col-12 px-3 px-md-3 py-2">
 
-       
+       <project-view></project-view>
 
       </div>
         
@@ -421,7 +421,10 @@
 
 const addPage = () => import(/*webpackChunkName: "addPage?v=1.16"*/ './AddProjectPage.vue')
 
-  
+ const ProjectView = () => import(
+    /* webpackChunkName: "ProjectView?v=0.99" */ './ProjectView.vue'
+  );
+
 export default {
      data () {
       return {
@@ -436,7 +439,8 @@ export default {
     },
     components: {
         TopBar,
-      addPage
+      addPage,
+      ProjectView
     }
 }
 </script>

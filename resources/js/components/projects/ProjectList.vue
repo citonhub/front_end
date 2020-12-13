@@ -36,7 +36,7 @@
       <div class="row text-center ">
           <div class="col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2" style="height:200px;">
              <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
-          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/projectImg.jpg);background-size:cover;">
+          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background3.jpg);background-size:cover;">
 
            <div class="py-2 px-2 text-right" style="height:auto; position:absolute; bottom:16%; width:auto; 
            right:0%;  border:1px solid transparent; border-top-left-radius:8px; align-items:center; justify-content:center;background: rgba(27, 27, 30, 0.4);">
@@ -82,7 +82,7 @@
 
           <div class="col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2" style="height:200px;">
              <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
-          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/projectImg.jpg);background-size:cover;">
+          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background1.jpg);background-size:cover;">
 
            <div class="py-2 px-2 text-right" style="height:auto; position:absolute; bottom:16%; width:auto; 
            right:0%;  border:1px solid transparent; border-top-left-radius:8px; align-items:center; justify-content:center;background: rgba(27, 27, 30, 0.4);">
@@ -129,7 +129,7 @@
 
           <div class="col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2" style="height:200px;">
              <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
-          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/projectImg.jpg);background-size:cover;">
+          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background3.jpg);background-size:cover;">
 
            <div class="py-2 px-2 text-right" style="height:auto; position:absolute; bottom:16%; width:auto; 
            right:0%;  border:1px solid transparent; border-top-left-radius:8px; align-items:center; justify-content:center;background: rgba(27, 27, 30, 0.4);">
@@ -176,7 +176,7 @@
 
            <div class="col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2" style="height:200px;">
              <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
-          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/projectImg.jpg);background-size:cover;">
+          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background1.jpg);background-size:cover;">
 
            <div class="py-2 px-2 text-right" style="height:auto; position:absolute; bottom:16%; width:auto; 
            right:0%;  border:1px solid transparent; border-top-left-radius:8px; align-items:center; justify-content:center;background: rgba(27, 27, 30, 0.4);">
@@ -222,7 +222,7 @@
 
            <div class="col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2" style="height:200px;">
              <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
-          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/projectImg.jpg);background-size:cover;">
+          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background3.jpg);background-size:cover;">
 
            <div class="py-2 px-2 text-right" style="height:auto; position:absolute; bottom:16%; width:auto; 
            right:0%;  border:1px solid transparent; border-top-left-radius:8px; align-items:center; justify-content:center;background: rgba(27, 27, 30, 0.4);">
@@ -268,7 +268,7 @@
 
            <div class="col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2" style="height:200px;">
              <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
-          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/projectImg.jpg);background-size:cover;">
+          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background1.jpg);background-size:cover;">
 
            <div class="py-2 px-2 text-right" style="height:auto; position:absolute; bottom:16%; width:auto; 
            right:0%;  border:1px solid transparent; border-top-left-radius:8px; align-items:center; justify-content:center;background: rgba(27, 27, 30, 0.4);">
