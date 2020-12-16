@@ -82,5 +82,8 @@
     "/EditProfile?v=0.09.js": "/EditProfile?v=0.09.js",
     "/EditProfile?v=0.10.js": "/EditProfile?v=0.10.js",
     "/EditProfile?v=0.11.js": "/EditProfile?v=0.11.js",
-    "/EditProfile?v=0.12.js": "/EditProfile?v=0.12.js"
+    "/EditProfile?v=0.12.js": "/EditProfile?v=0.12.js",
+    "/ProjectView?v=0.99.js": "/ProjectView?v=0.99.js",
+    "/Hub?v=4.34.js": "/Hub?v=4.34.js",
+    "/ProjectList?v=1.92.js": "/ProjectList?v=1.92.js"
 }

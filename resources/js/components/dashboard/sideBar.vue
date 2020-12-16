@@ -67,7 +67,7 @@
           </div>
 
 
-           <div class="col-12  px-0 py-1 py-md-2 mt-3 d-lg-block d-none" v-if="this.$router.currentRoute.path.indexOf('hub') <= 0">
+           <div @click.stop="goToPage('hub')"  class="col-12  px-0 py-1 py-md-2 mt-3 d-lg-block d-none" v-if="this.$router.currentRoute.path.indexOf('hub') <= 0">
                 <div class="row">
                 <div class="col-12 py-1 text-center">
                   
@@ -75,7 +75,17 @@
 
                 </div>
                 </div>
-          </div>
+           </div>
+
+           <div @click.stop="goToPage('hub')"  class="col-12  px-0 py-1 py-md-2 mt-3 d-lg-none d-block" v-if="this.$router.currentRoute.path.indexOf('chat') >= 0">
+                <div class="row">
+                <div class="col-12 py-1 text-center">
+                  
+                  <button class="btnStyle py-2 px-4">Hub</button>
+
+                </div>
+                </div>
+           </div>
 
 
           
@@ -130,7 +140,6 @@ export default {
                this.selectedTab = 'projects';
                this.$root.searchType = 'projects';
 
-              
             }
 
             if(this.$router.currentRoute.path.indexOf('chats') >= 0){
@@ -166,6 +175,16 @@ export default {
 
            if(page == 'chats'){
        this.$router.push({ path: '/chats' });
+
+       this.$root.showSideBar = false;
+        return;
+           }
+
+           if(page == 'hub'){
+       this.$router.push({ path: '/hub' });
+       
+       this.$root.showSideBar = false;
+       
         return;
            }
 
