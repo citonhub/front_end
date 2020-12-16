@@ -95,8 +95,8 @@ const Chats = () => import(/* webpackChunkName: "Chats?v=7.05" */ '../components
 const Hub = () => import(/* webpackChunkName: "Hub?v=3.37" */ '../components/Hub/Hub.vue');
 
 // profile routes
- const ProfilePage= () => import(/* webpackChunkName:"ProfilePage?v=0.92"*/ '../components/Profile/ProfilePage.vue');
-
+ const ProfilePage= () => import(/* webpackChunkName:"ProfilePage?v=1.13"*/ '../components/Profile/ProfilePage.vue');
+ const EditProfile= () => import(/* webpackChunkName: "EditProfile?v=0.12"*/ '../components/Profile/EditProfile.vue')
 const routes = [
   { path: '/login', name: 'login', component: Login },
   { path: '/sign-up', name: 'register', component: Register },
@@ -107,6 +107,7 @@ const routes = [
   {
     path:'/profile-page', name:'ProfilePage', component:ProfilePage
   },
+  {path:'/edit-profile', name:'EditProfile', component:EditProfile},
   {
     path:'/hub',
     name:'Hub',

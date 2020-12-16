@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProfilePage?v=0.92"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProfilePage?v=1.13"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Profile/ProfilePage.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************!*\
@@ -9,9 +9,6 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
 //
 //
 //
@@ -182,27 +179,33 @@ var render = function() {
           _c(
             "div",
             {
-              staticClass: "col-lg-6 offset-lg-1 col-sm-11",
+              staticClass: "col-lg-6 offset-lg-1 col-sm-12",
               staticStyle: { "font-weight": "500", "line-height": "1rem" }
             },
-            [_vm._v("A fullstack developer based in Lagos, Nigeria.")]
+            [
+              _vm._v("A fullstack developer based in Lagos, Nigeria. "),
+              _c(
+                "button",
+                {
+                  staticClass: "edit btn btn-primary ",
+                  staticStyle: { "border-radius": "15px", height: "40px" }
+                },
+                [_vm._v("Edit Profile")]
+              )
+            ]
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "row ml-4" }, [
-            _c(
-              "div",
-              { staticClass: "col-lg-1 col-md-3  offset-lg-1 d-flex" },
-              [
-                _c("i", {
-                  staticClass: "las la-medal",
-                  staticStyle: { "font-size": "1.3rem" }
-                }),
-                _vm._v(" "),
-                _c("p", [_vm._v("Junior")])
-              ]
-            ),
+          _c("div", { staticClass: "col-11 offset-lg-1  d-flex" }, [
+            _c("div", { staticClass: " col-lg-2 col-md-3   d-flex" }, [
+              _c("i", {
+                staticClass: "las la-medal",
+                staticStyle: { "font-size": "1.3rem" }
+              }),
+              _vm._v(" "),
+              _c("p", [_vm._v("Junior")])
+            ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-1 col-md-3 d-flex" }, [
+            _c("div", { staticClass: " col-lg-2 col-md-3 d-flex" }, [
               _c("i", {
                 staticClass: "las la-chart-bar",
                 staticStyle: { "font-size": "1.3rem" }
@@ -236,37 +239,8 @@ var render = function() {
                 staticStyle: { "font-size": "1.1rem" }
               })
             ]
-          ),
-          _vm._v(" "),
-          _vm._l(_vm.projects, function(project) {
-            return _c(
-              "div",
-              { key: project.id, staticClass: "p d-flex col-md-12" },
-              [
-                _c("div", {
-                  staticClass: "dot rounded-circle mt-4 offset-lg-1 ",
-                  staticStyle: {
-                    width: "1%",
-                    background: "rgba(60,135,205,1)",
-                    height: "15px"
-                  }
-                }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "projects col-8  pb-1 ",
-                    staticStyle: {
-                      "border-bottom": "1px solid rgba(38,50,56,0.74)"
-                    }
-                  },
-                  [_c("p", [_vm._v(_vm._s(project.type))])]
-                )
-              ]
-            )
-          })
-        ],
-        2
+          )
+        ]
       )
     ]
   )
