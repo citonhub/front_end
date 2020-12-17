@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["EditProfile?v=0.12"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["EditProfile?v=0.17"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Profile/EditProfile.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************!*\
@@ -9,6 +9,25 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -173,6 +192,24 @@ var render = function() {
                 label: "Name",
                 placeholder: "Full Name",
                 "prepend-inner-icon": "las la-user",
+                color: "#3C87CD"
+              }
+            })
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-lg-6 offset-lg-3  py-2 my-0 px-2" },
+          [
+            _c("v-textarea", {
+              staticStyle: { "font-size": "13px" },
+              attrs: {
+                outlined: "",
+                label: "Description",
+                placeholder: "Describe Yourself",
+                clearable: "",
                 color: "#3C87CD"
               }
             })

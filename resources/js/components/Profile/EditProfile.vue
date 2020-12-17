@@ -47,6 +47,25 @@
              color="#3C87CD">
              </v-text-field>   
              </div>
+
+
+               <div class="col-lg-6 offset-lg-3  py-2 my-0 px-2">
+
+              <v-textarea
+                 style="font-size:13px;"
+                 outlined
+              label="Description"
+            
+          
+            placeholder="Describe Yourself"
+           
+            clearable
+
+            
+            
+             color="#3C87CD">
+             </v-textarea>   
+             </div>
 </div>
 
 
