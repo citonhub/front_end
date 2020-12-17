@@ -96,6 +96,7 @@ const Hub = () => import(/* webpackChunkName: "Hub?v=4.67" */ '../components/Hub
 
 // profile routes
  const ProfilePage= () => import(/* webpackChunkName:"ProfilePage?v=0.93"*/ '../components/Profile/ProfilePage.vue');
+ const EditProfile= () => import(/* webpackChunkName: "EditProfile?v=0.12"*/ '../components/Profile/EditProfile.vue')
 
 // challenges routes
 const ChallengesList= () => import(/* webpackChunkName: "ChallengesList?v=0.52" */ '../components/challenges/ChallengesList.vue');
@@ -120,6 +121,7 @@ const routes = [
   {
     path:'/profile-page', name:'ProfilePage', component:ProfilePage
   },
+  {path:'/edit-profile', name:'EditProfile', component:EditProfile},
   {
     path:'/hub',
     name:'Hub',
