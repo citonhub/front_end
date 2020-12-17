@@ -200,7 +200,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.scrollerinfo[data-v-7c1a338a]::-webkit-scrollbar {\n  width: 6px;\n}\n.scrollerinfo[data-v-7c1a338a]::-webkit-scrollbar-thumb {\n    background-color: darkgrey;\n  outline: 1px solid darkgrey;\n}\n.appBox[data-v-7c1a338a]{\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.scrollerinfo[data-v-7c1a338a]::-webkit-scrollbar {\r\n  width: 6px;\n}\n.scrollerinfo[data-v-7c1a338a]::-webkit-scrollbar-thumb {\r\n    background-color: darkgrey;\r\n  outline: 1px solid darkgrey;\n}\n.appBox[data-v-7c1a338a]{\r\n    cursor: pointer;\n}\r\n", ""]);
 
 // exports
 

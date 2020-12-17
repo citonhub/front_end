@@ -66,6 +66,12 @@
              color="#3C87CD">
              </v-textarea>   
              </div>
+
+           <div class=" text-center col-12 py-1 mt-4 my-0 px-2">
+                 <v-btn @click="save()" medium   color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;">
+               Save
+               </v-btn>
+             </div>
 </div>
 
 
@@ -77,6 +83,12 @@
 
 <script>
 export default {
+
+  methods:{
+    save(){
+      this.$router.push({name:'ProfilePage'})
+    }
+  }
  
 }
 </script>
