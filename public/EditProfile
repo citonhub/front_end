@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["EditProfile?v=0.17"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["EditProfile?v=0.46"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Profile/EditProfile.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************!*\
@@ -114,29 +114,29 @@ var render = function() {
           "div",
           {
             staticClass:
-              "col-lg-8 offset-lg-3 offset-md-1 col-md-10 py-1 my-0 px-2"
+              "col-lg-2 offset-lg-5 offset-md-4 col-md-4 py-1 my-0 px-2"
           },
           [
-            _c("span", { staticStyle: { "font-size": "1.8rem" } }, [
-              _vm._v("Profile Image")
-            ]),
+            _c(
+              "span",
+              {
+                staticClass: "text-center mb-2",
+                staticStyle: { "font-size": "1.3rem" }
+              },
+              [_vm._v("Profile Image")]
+            ),
             _vm._v(" "),
             _c("br"),
             _vm._v(" "),
             _c(
-              "v-sheet",
+              "div",
               {
-                staticClass: "py-0  px-0 mt-2 sheetbackImg ",
+                staticClass: "rounded-circle",
                 style:
                   "background-image:url(" +
                   _vm.imageUrl +
-                  ");cursor:pointer;border-radius:50%;background-size:contain;",
-                attrs: {
-                  elevation: "0",
-                  height: "100",
-                  width: "120",
-                  color: "whitesmoke"
-                }
+                  ");cursor:pointer;background-size:contain;height:130px;width:130px;border-radius:70%;",
+                attrs: { color: "whitesmoke" }
               },
               [
                 _c("input", {
@@ -177,8 +177,7 @@ var render = function() {
               ],
               1
             )
-          ],
-          1
+          ]
         ),
         _vm._v(" "),
         _c(

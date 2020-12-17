@@ -96,7 +96,7 @@ const Hub = () => import(/* webpackChunkName: "Hub?v=4.34" */ '../components/Hub
 
 // profile routes
  const ProfilePage= () => import(/* webpackChunkName:"ProfilePage?v=1.13"*/ '../components/Profile/ProfilePage.vue');
- const EditProfile= () => import(/* webpackChunkName: "EditProfile?v=0.17"*/ '../components/Profile/EditProfile.vue')
+ const EditProfile= () => import(/* webpackChunkName: "EditProfile?v=0.46"*/ '../components/Profile/EditProfile.vue')
 const routes = [
   { path: '/login', name: 'login', component: Login },
   { path: '/sign-up', name: 'register', component: Register },
