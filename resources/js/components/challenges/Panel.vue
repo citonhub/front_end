@@ -51,7 +51,7 @@
                                <v-icon class="mx-1" style="font-size:8px;color:#ffffff;">mdi-record</v-icon> 
 
                                 <div style="font-size:13px;font-family:BodyFont;color:#ffffff;" class="d-md-block d-none">2331 Participants </div>
-                              <div style="font-size:12px;font-family:BodyFont;color:#ffffff;" class="d-md-none d-block"> <v-icon style="font-size:17px;">las la-user-friend</v-icon> 2331 </div>
+                              <div style="font-size:12px;font-family:BodyFont;color:#ffffff;" class="d-md-none d-block"> <v-icon style="font-size:17px;">las la-user-friends</v-icon> 2331 </div>
 
                                    </div>
 

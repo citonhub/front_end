@@ -4,7 +4,7 @@
     <div class="col-lg-10 offset-lg-1 py-1 mb-0 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky; background:#F5F5FB; border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0">
-          <h5>My Pets</h5>
+          <h5>Pets</h5>
         </div>
          <div class="col-6  py-0 my-0 text-right">
            <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;">
@@ -17,7 +17,7 @@
    <div class=" px-0 col-12 py-1 d-md-none d-block fixed-top" style="position:sticky; background:#F5F5FB; border-bottom:1px solid #c5c5c5;">
      <div class="row">
         <div class="col-6 py-0 my-0">
-           <h6 style="font-size:17px;">My Pets</h6>
+           <h6 style="font-size:17px;">Pets</h6>
         </div>
          <div class="col-6 mb-1 py-0 my-0 text-right">
            <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;">
@@ -27,12 +27,123 @@
       </div>
    </div>
 
-    <!-- project list view -->
+    <!--pets list view -->
 
   <div class="col-lg-10 offset-lg-1 pb-1 pt-0 col-md-10 offset-md-1 px-2 ">
 
-        <div class="row text-center ">
+        <div class="row ">
+          
 
+            <div class="col-lg-4 col-md-6 px-2 mb-2 py-2" >
+          
+          <v-card class="py-2 px-1"  style="border-radius:10px;">
+            
+            <div class="col-12 py-0 my-0 d-flex flex-row">
+                 <div     class="mr-2 py-2"> 
+
+                   <div
+                    style="border-radius:50%;height:50px;width:50px;background-color:#c5c5c5;background-image:url(/imgs/background1.jpg);background-size: cover;
+                    background-repeat: no-repeat; ">
+                    </div> 
+
+                 </div>
+
+                  <div class="text-left d-flex  py-1" style="overflow-x:hidden; width:100%;align-items:center;">
+               <div style="font-size:13px;font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1">Pet name</div>
+              
+                </div>
+
+                 <div class=" d-flex flex-row-reverse ml-1" style="overflow-x:hidden;align-items:center;width:100%;">
+
+                   <div class="d-flex flex-column" style="align-items:center; justify-content:center;">
+
+                   <div> <v-icon style="font-size:22px;" class="pr-1">las la-user-friends</v-icon></div>
+
+                     <div style="font-size:12px;font-family:BodyFont;" > 2,331 </div>
+
+                   </div>
+                  
+                </div>
+            </div>
+          </v-card>
+
+          
+
+          </div>
+
+           <div class="col-lg-4 col-md-6 px-2 mb-2 py-2" >
+          
+          <v-card class="py-2 px-1"  style="border-radius:10px;">
+            
+            <div class="col-12 py-0 my-0 d-flex flex-row">
+                 <div     class="mr-2 py-2"> 
+
+                   <div
+                    style="border-radius:50%;height:50px;width:50px;background-color:#c5c5c5;background-image:url(/imgs/background3.jpg);background-size: cover;
+                    background-repeat: no-repeat; ">
+                    </div> 
+
+                 </div>
+
+                  <div class="text-left d-flex  py-1" style="overflow-x:hidden; width:100%;align-items:center;">
+               <div style="font-size:13px;font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1">Pet name 2</div>
+              
+                </div>
+
+                 <div class=" d-flex flex-row-reverse ml-1" style="overflow-x:hidden;align-items:center;width:100%;">
+
+                   <div class="d-flex flex-column" style="align-items:center; justify-content:center;">
+
+                   <div> <v-icon style="font-size:22px;" class="pr-1">las la-user-friends</v-icon></div>
+
+                     <div style="font-size:12px;font-family:BodyFont;" > 2.5M </div>
+
+                   </div>
+                  
+                </div>
+            </div>
+          </v-card>
+
+          
+
+          </div>
+
+           <div class="col-lg-4 col-md-6 px-2 mb-2 py-2" >
+          
+          <v-card class="py-2 px-1"  style="border-radius:10px;">
+            
+            <div class="col-12 py-0 my-0 d-flex flex-row">
+                 <div     class="mr-2 py-2"> 
+
+                   <div
+                    style="border-radius:50%;height:50px;width:50px;background-color:#c5c5c5;background-image:url(/imgs/background1.jpg);background-size: cover;
+                    background-repeat: no-repeat; ">
+                    </div> 
+
+                 </div>
+
+                  <div class="text-left d-flex  py-1" style="overflow-x:hidden; width:100%;align-items:center;">
+               <div style="font-size:13px;font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1">Pet name 3</div>
+              
+                </div>
+
+                 <div class=" d-flex flex-row-reverse ml-1" style="overflow-x:hidden;align-items:center;width:100%;">
+
+                   <div class="d-flex flex-column" style="align-items:center; justify-content:center;">
+
+                   <div> <v-icon style="font-size:22px;" class="pr-1">las la-user-friends</v-icon></div>
+
+                     <div style="font-size:12px;font-family:BodyFont;" > 200 </div>
+
+                   </div>
+                  
+                </div>
+            </div>
+          </v-card>
+
+          
+
+          </div>
           
 
       

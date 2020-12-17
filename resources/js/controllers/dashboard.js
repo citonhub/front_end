@@ -89,7 +89,7 @@ const PanelSettings = () => import(/* webpackChunkName: "PanelSettings?v=0.39" *
 const AddWebroute= () => import(/* webpackChunkName: "AddWebroute?v=0.38" */ '../components/projects/AddWebroute.vue');
 
 // chats routes
-const Chats = () => import(/* webpackChunkName: "Chats?v=7.15" */ '../components/chats/Chats.vue');
+const Chats = () => import(/* webpackChunkName: "Chats?v=7.20" */ '../components/chats/Chats.vue');
 
 // Hub routes
 const Hub = () => import(/* webpackChunkName: "Hub?v=4.67" */ '../components/Hub/Hub.vue');
@@ -109,7 +109,8 @@ const ChallengeDiscussions= () => import(/* webpackChunkName: "ChallengeDiscussi
 const ChallengeRules= () => import(/* webpackChunkName: "ChallengeRules?v=0.13" */ '../components/challenges/Rules.vue');
 
 // Pets routes
-const PetList= () => import(/* webpackChunkName: "PetList?v=0.12" */ '../components/pets/PetList.vue');
+const PetList= () => import(/* webpackChunkName: "PetList?v=0.42" */ '../components/pets/PetList.vue');
+const PetBoard= () => import(/* webpackChunkName: "PetBoard?v=0.18" */ '../components/pets/Board.vue');
 
 const routes = [
   { path: '/login', name: 'login', component: Login },
@@ -216,6 +217,11 @@ const routes = [
             // list
             path:'list',
             component:PetList
+          },
+          {
+            // board
+            path:'board',
+            component:PetBoard
           }
         ]
       },

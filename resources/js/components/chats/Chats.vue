@@ -304,7 +304,7 @@
   );
 
   const ChatMessages = () => import(
-    /* webpackChunkName: "ChatMessages?v=1.90" */ './ChatMessages.vue'
+    /* webpackChunkName: "ChatMessages?v=1.94" */ './ChatMessages.vue'
   );
   
   const CodeEditorChat = () => import(

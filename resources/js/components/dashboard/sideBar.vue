@@ -50,7 +50,7 @@
                   <v-icon style="font-size:30px;" :color="selectedTab == 'pets' ? '#3C87CD' : '#A4A4A5'">las la-paw</v-icon>
                 </div>
                 <div class="  py-1 col-8 d-flex" :style="selectedTab == 'pets' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div style="font-family:MediumFont; font-size:14px;" >My Pets</div>
+                  <div style="font-family:MediumFont; font-size:14px;" >Pets</div>
                 </div>
                 </div>
           </div>
