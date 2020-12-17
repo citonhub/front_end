@@ -1,46 +1,25 @@
 <template>
 
 
-    <v-app class="row" style="font-family:BodyFont;background:transparent;">
-
-     <!-- top bar -->
-
- 
-
-          <div class="col-12  py-1 pt-0 d-flex flex-row mt-2 fixed-top px-md-2 px-lg-5 px-0" style="align-items:center;position:sticky; background:white;">
-           
-            <div class="col-6 text-center px-0" style="background:#3C87CD; ">
-              <span style="font-size:13px; color:#ffffff; font-family:MediumFont;">Add a link</span>
-
-               
-            </div>
-
-            <div class="col-6 text-center px-0" style="background:whitesmoke;">
-               <span style="font-size:13px;color:grey; font-family:MediumFont;">Select from projects</span>
-            </div>
-          
-        </div>
-
-      <!-- ends -->
+    <div class="row" style="font-family:BodyFont;background:transparent;">
 
     <!-- contents  -->
-         <div class="col-12 px-2 py-2 pt-0 mt-4 text-left" style="height:auto !important; font-family:BodyFont; background:transparent !important;" >
+         <div class="col-12 px-md-4 px-3 py-2 pt-0 mt-4 text-left" style="height:auto !important; font-family:BodyFont; background:transparent !important;" >
            
-           <div class="row">
+           <v-app class="row">
 
                <!-- project title -->
  
-                    <div  class=" col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 my-0 px-2" style="font-family:BodyFont;">
+                    <div  class=" col-12 py-1 my-0 px-2" style="font-family:BodyFont;">
               <v-text-field
                  style="font-size:13px;"
-                 outlined
+                 rounded
               label="Project Title"
-            
+               filled
             counter="80"
             placeholder="title"
             persistent-hint
              hint="What are you building?"
-             prepend-inner-icon="las la-laptop-code"
             
              color="#3C87CD">
              </v-text-field>
@@ -51,45 +30,26 @@
 
              <!-- select project -->
 
-              <div v-if="false" class=" col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 my-0 px-2" style="font-family:BodyFont;">
-              <v-select
+              <div class=" col-12 py-1 my-0 px-2" style="font-family:BodyFont;">
+              <v-combobox
                  style="font-size:13px;"
-                 outlined
-              label="Project"
+                 rounded
+                 filled
+              label="Select Project or paste project link"
       
             placeholder="select"
             persistent-hint
-   
-             prepend-inner-icon="las la-laptop-code"
+
             
              color="#3C87CD">
-             </v-select>
+             </v-combobox>
 
              </div>
 
              <!-- ends -->
             
-            <!-- project URL -->
-
-            <div  class=" col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 my-0 mt-2 px-2" style="font-family:BodyFont;">
-              <v-text-field
-                 style="font-size:13px;"
-                 outlined
-              label="Project URL"
-               placeholder="link to project"
-             prepend-inner-icon="las la-link"
-            
-             color="#3C87CD">
-             </v-text-field>
-
-             </div>
-
-             <!-- ends -->
-         
-
-           <!-- Project thumbnail -->
-
-              <div class="col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 my-0 mt-n3 px-2">
+           
+              <div class="col-12 py-1 my-0 mt-n3 px-2 pl-3">
              <span style="font-size:13px;">Upload Thumbnail</span>
              <span style="font-size:12px; color:grey;" class="mx-1">(give your project an identity)</span><br>
 
@@ -119,21 +79,21 @@
                </v-sheet>
               </v-sheet>
     
-                <div style="font-size:13px;" class="mt-3">Or select from defaults</div>
+                <div style="font-size:13px;color:grey;" class="mt-3">Or select from defaults</div>
 
                <div class="d-flex flex-row mt-3" >
                        <div    class="mr-2"
-    style="border-radius:10px;height:80px;width:80px;background-color:#c5c5c5;background-image:url(/imgs/imgproj3.jpeg);background-size: cover;
+    style="border-radius:10px;height:60px;width:60px;background-color:#c5c5c5;background-image:url(/imgs/imgproj3.jpeg);background-size: cover;
   background-repeat: no-repeat; border:1px solid #c5c5c5;">
   </div> 
 
     <div    class="mr-2"
-    style="border-radius:10px;height:80px;width:80px;background-color:#c5c5c5;background-image:url(/imgs/imgproj2.jpeg);background-size: cover;
+    style="border-radius:10px;height:60px;width:60px;background-color:#c5c5c5;background-image:url(/imgs/imgproj2.jpeg);background-size: cover;
   background-repeat: no-repeat;border:1px solid #c5c5c5;">
   </div> 
 
      <div    class="mr-2"
-    style="border-radius:10px;height:80px;width:80px;background-color:#c5c5c5;background-image:url(/imgs/imgproj1.jpeg);background-size: cover;
+    style="border-radius:10px;height:60px;width:60px;background-color:#c5c5c5;background-image:url(/imgs/imgproj1.jpeg);background-size: cover;
   background-repeat: no-repeat; border:1px solid #c5c5c5;">
   </div> 
               </div>
@@ -147,7 +107,7 @@
          </div>
 
            <!-- add tags -->
-                <div  class=" col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 mt-5 my-0 px-2 pt-3" style="height:auto;font-family:BodyFont;">
+                <div  class=" col-12 py-1 mt-5 my-0 px-2 pt-3" style="height:auto;font-family:BodyFont;">
               <v-combobox
                  style="font-size:13px;"
               dense
@@ -158,6 +118,8 @@
             persistent-hint
             chips
             multiple
+            rounded
+            filled
              item-value="name"
              item-text="name"
              :items="languageIcon"
@@ -193,7 +155,7 @@
          </div>
 
          <!-- project description -->
-             <div class="col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 pt-3 my-0 px-2">
+             <div class="col-12 py-1 pt-3 my-0 px-2">
                 
                 <v-textarea
                  style="font-size:14px;"
@@ -210,7 +172,7 @@
             <!-- ends -->
 
             <!-- add project button -->
-             <div class=" text-center col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 mt-4 my-0 px-2">
+             <div class=" text-center col-12 py-1 mt-4 my-0 px-2">
                  <v-btn  medium rounded  color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;">
                Add
                </v-btn>
@@ -222,7 +184,7 @@
 
              <!-- ends -->
 
-           </div>
+           </v-app>
 
 
            
@@ -233,7 +195,7 @@
      <!-- ends -->
 
 
-    </v-app>
+    </div>
     
 </template>
 

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ChatBottom?v=0.52"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ChatBottom?v=0.53"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chats/ChatBottom.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************!*\
@@ -36,7 +36,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\ntextarea[data-v-ae2a2dfc] {\r\n    font-size:13px; \r\n    background:whitesmoke;\r\n    width:100%; \r\n    height: 50px;\r\n    max-height: 75px;\r\n    padding: 6px 6px;\r\n    resize:none; \r\n    overflow-x: hidden;\r\n     overflow-y: auto;\r\n    border:1px solid #e6e6e6; \r\n    border-radius:2px;\n}\r\n", ""]);
+exports.push([module.i, "\ntextarea[data-v-ae2a2dfc] {\n    font-size:13px; \n    background:whitesmoke;\n    width:100%; \n    height: 50px;\n    max-height: 75px;\n    padding: 6px 6px;\n    resize:none; \n    overflow-x: hidden;\n     overflow-y: auto;\n    border:1px solid #e6e6e6; \n    border-radius:2px;\n}\n", ""]);
 
 // exports
 

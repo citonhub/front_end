@@ -171,7 +171,7 @@
 
 
 
-                             <v-btn  fab color="#3C87CD"  style="z-index:9999999999;  position:fixed;  bottom:12%; right:2%; ">
+                             <v-btn  fab color="#3C87CD"  style="z-index:9999999999;  position:fixed;  bottom:15%; right:2%; ">
 
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
 
@@ -290,49 +290,49 @@
 <script>
 
  const TopBar = () => import(
-    /* webpackChunkName: "top-bar-chat?v=0.16" */ './TopBar.vue'
+    /* webpackChunkName: "top-bar-chat?v=0.17" */ './TopBar.vue'
   );
   const ChatTop = () => import(
-    /* webpackChunkName: "ChatTop?v=0.51" */ './ChatTop.vue'
+    /* webpackChunkName: "ChatTop?v=0.52" */ './ChatTop.vue'
   );
   const ChatBottom = () => import(
-    /* webpackChunkName: "ChatBottom?v=0.52" */ './ChatBottom.vue'
+    /* webpackChunkName: "ChatBottom?v=0.53" */ './ChatBottom.vue'
   );
 
   const ChatList = () => import(
-    /* webpackChunkName: "ChatList?v=1.15" */ './ChatList.vue'
+    /* webpackChunkName: "ChatList?v=1.16" */ './ChatList.vue'
   );
 
   const ChatMessages = () => import(
-    /* webpackChunkName: "ChatMessages?v=1.84" */ './ChatMessages.vue'
+    /* webpackChunkName: "ChatMessages?v=1.90" */ './ChatMessages.vue'
   );
   
   const CodeEditorChat = () => import(
-    /* webpackChunkName: "CodeEditorChat?v=0.22" */ './CodeEditorChat.vue'
+    /* webpackChunkName: "CodeEditorChat?v=0.30" */ './CodeEditorChat.vue'
   );
   
   const ImageViewer = () => import(
-    /* webpackChunkName: "ImageViewer?v=0.26" */ './ImageViewer.vue'
+    /* webpackChunkName: "ImageViewer?v=0.27" */ './ImageViewer.vue'
   );
 
     const ChannelInfo = () => import(
-    /* webpackChunkName: "ChannelInfo?v=0.59" */ './ChannelInfo.vue'
+    /* webpackChunkName: "ChannelInfo?v=0.60" */ './ChannelInfo.vue'
   );
 
     const ChannelEdit = () => import(
-    /* webpackChunkName: "ChannelEdit?v=0.17" */ './ChannelEdit.vue'
+    /* webpackChunkName: "ChannelEdit?v=0.18" */ './ChannelEdit.vue'
   );
 
      const SubChannels = () => import(
-    /* webpackChunkName: "SubChannels?v=0.19" */ './SubChannels.vue'
+    /* webpackChunkName: "SubChannels?v=0.20" */ './SubChannels.vue'
   );
 
    const CreateChannel = () => import(
-    /* webpackChunkName: "CreateChannel?v=0.20" */ './CreateChannel.vue'
+    /* webpackChunkName: "CreateChannel?v=0.21" */ './CreateChannel.vue'
   );
 
   const LiveSession = () => import(
-    /* webpackChunkName: "LiveSession?v=0.67" */ './LiveSession.vue'
+    /* webpackChunkName: "LiveSession?v=0.68" */ './LiveSession.vue'
   );
 export default {
      data () {

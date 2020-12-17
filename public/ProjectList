@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectList?v=1.92"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectList?v=1.96"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/ProjectList.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************!*\
@@ -370,7 +370,11 @@ var render = function() {
       {
         staticClass:
           "col-lg-10 offset-lg-1 py-1 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top",
-        staticStyle: { position: "sticky", background: "#F5F5FB" }
+        staticStyle: {
+          position: "sticky",
+          background: "#F5F5FB",
+          "border-bottom": "1px solid #c5c5c5"
+        }
       },
       [
         _c("div", { staticClass: "row" }, [
@@ -412,7 +416,11 @@ var render = function() {
       "div",
       {
         staticClass: " px-0 col-12 py-1 d-md-none d-block fixed-top",
-        staticStyle: { position: "sticky", background: "#F5F5FB" }
+        staticStyle: {
+          position: "sticky",
+          background: "#F5F5FB",
+          "border-bottom": "1px solid #c5c5c5"
+        }
       },
       [
         _c("div", { staticClass: "row" }, [
@@ -917,7 +925,7 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("span", { staticClass: "d-inline-block mx-1" }, [
                 _c("i", {
-                  staticClass: "las la-eye",
+                  staticClass: "las la-thumbtack",
                   staticStyle: { "font-size": "20px", color: "white" }
                 }),
                 _vm._v(" "),
@@ -1018,7 +1026,7 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("span", { staticClass: "d-inline-block mx-1" }, [
                 _c("i", {
-                  staticClass: "las la-eye",
+                  staticClass: "las la-thumbtack",
                   staticStyle: { "font-size": "20px", color: "white" }
                 }),
                 _vm._v(" "),
@@ -1119,7 +1127,7 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("span", { staticClass: "d-inline-block mx-1" }, [
                 _c("i", {
-                  staticClass: "las la-eye",
+                  staticClass: "las la-thumbtack",
                   staticStyle: { "font-size": "20px", color: "white" }
                 }),
                 _vm._v(" "),
@@ -1220,7 +1228,7 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("span", { staticClass: "d-inline-block mx-1" }, [
                 _c("i", {
-                  staticClass: "las la-eye",
+                  staticClass: "las la-thumbtack",
                   staticStyle: { "font-size": "20px", color: "white" }
                 }),
                 _vm._v(" "),
@@ -1321,7 +1329,7 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("span", { staticClass: "d-inline-block mx-1" }, [
                 _c("i", {
-                  staticClass: "las la-eye",
+                  staticClass: "las la-thumbtack",
                   staticStyle: { "font-size": "20px", color: "white" }
                 }),
                 _vm._v(" "),
@@ -1422,7 +1430,7 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("span", { staticClass: "d-inline-block mx-1" }, [
                 _c("i", {
-                  staticClass: "las la-eye",
+                  staticClass: "las la-thumbtack",
                   staticStyle: { "font-size": "20px", color: "white" }
                 }),
                 _vm._v(" "),

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddWebroute?v=0.36"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["AddWebroute?v=0.38"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/AddWebroute.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************!*\

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["SubChannels?v=0.19"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["SubChannels?v=0.20"],{
 
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chats/SubChannels.vue?vue&type=style&index=0&id=7418bd3e&scoped=true&lang=css&":
 /*!***********************************************************************************************************************************************************************************************************************************************************************************************************!*\
@@ -12,7 +12,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.messagesBadges[data-v-7418bd3e]{\r\n    \r\n    color: #ffffff;\r\n    background: #3C87CD;\r\n    font-size: 11px;\r\n    font-family: BodyFont;\r\n    font-weight: bolder;\r\n    align-items: center;\r\n    justify-content: center;\r\n    height:20px;\r\n    width:20px;\r\n    border-radius:50%;\n}\n.messageBox[data-v-7418bd3e]:hover{\r\n    background:whitesmoke;\r\n    cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\n.messagesBadges[data-v-7418bd3e]{\n    \n    color: #ffffff;\n    background: #3C87CD;\n    font-size: 11px;\n    font-family: BodyFont;\n    font-weight: bolder;\n    align-items: center;\n    justify-content: center;\n    height:20px;\n    width:20px;\n    border-radius:50%;\n}\n.messageBox[data-v-7418bd3e]:hover{\n    background:whitesmoke;\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 

@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["addPage?v=1.16"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["addPage?v=1.31"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Hub/AddProjectPage.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
@@ -9,44 +9,6 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -362,7 +324,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "v-app",
+    "div",
     {
       staticClass: "row",
       staticStyle: { "font-family": "BodyFont", background: "transparent" }
@@ -371,63 +333,7 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass:
-            "col-12  py-1 pt-0 d-flex flex-row mt-2 fixed-top px-md-2 px-lg-5 px-0",
-          staticStyle: {
-            "align-items": "center",
-            position: "sticky",
-            background: "white"
-          }
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass: "col-6 text-center px-0",
-              staticStyle: { background: "#3C87CD" }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticStyle: {
-                    "font-size": "13px",
-                    color: "#ffffff",
-                    "font-family": "MediumFont"
-                  }
-                },
-                [_vm._v("Add a link")]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "col-6 text-center px-0",
-              staticStyle: { background: "whitesmoke" }
-            },
-            [
-              _c(
-                "span",
-                {
-                  staticStyle: {
-                    "font-size": "13px",
-                    color: "grey",
-                    "font-family": "MediumFont"
-                  }
-                },
-                [_vm._v("Select from projects")]
-              )
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "col-12 px-2 py-2 pt-0 mt-4 text-left",
+          staticClass: "col-12 px-md-4 px-3 py-2 pt-0 mt-4 text-left",
           staticStyle: {
             height: "auto !important",
             "font-family": "BodyFont",
@@ -435,25 +341,24 @@ var render = function() {
           }
         },
         [
-          _c("div", { staticClass: "row" }, [
+          _c("v-app", { staticClass: "row" }, [
             _c(
               "div",
               {
-                staticClass:
-                  " col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 my-0 px-2",
+                staticClass: " col-12 py-1 my-0 px-2",
                 staticStyle: { "font-family": "BodyFont" }
               },
               [
                 _c("v-text-field", {
                   staticStyle: { "font-size": "13px" },
                   attrs: {
-                    outlined: "",
+                    rounded: "",
                     label: "Project Title",
+                    filled: "",
                     counter: "80",
                     placeholder: "title",
                     "persistent-hint": "",
                     hint: "What are you building?",
-                    "prepend-inner-icon": "las la-laptop-code",
                     color: "#3C87CD"
                   }
                 })
@@ -461,25 +366,21 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            false
-              ? undefined
-              : _vm._e(),
-            _vm._v(" "),
             _c(
               "div",
               {
-                staticClass:
-                  " col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 my-0 mt-2 px-2",
+                staticClass: " col-12 py-1 my-0 px-2",
                 staticStyle: { "font-family": "BodyFont" }
               },
               [
-                _c("v-text-field", {
+                _c("v-combobox", {
                   staticStyle: { "font-size": "13px" },
                   attrs: {
-                    outlined: "",
-                    label: "Project URL",
-                    placeholder: "link to project",
-                    "prepend-inner-icon": "las la-link",
+                    rounded: "",
+                    filled: "",
+                    label: "Select Project or paste project link",
+                    placeholder: "select",
+                    "persistent-hint": "",
                     color: "#3C87CD"
                   }
                 })
@@ -489,10 +390,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              {
-                staticClass:
-                  "col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 my-0 mt-n3 px-2"
-              },
+              { staticClass: "col-12 py-1 my-0 mt-n3 px-2 pl-3" },
               [
                 _c("span", { staticStyle: { "font-size": "13px" } }, [
                   _vm._v("Upload Thumbnail")
@@ -565,7 +463,10 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "mt-3", staticStyle: { "font-size": "13px" } },
+                  {
+                    staticClass: "mt-3",
+                    staticStyle: { "font-size": "13px", color: "grey" }
+                  },
                   [_vm._v("Or select from defaults")]
                 ),
                 _vm._v(" "),
@@ -574,8 +475,8 @@ var render = function() {
                     staticClass: "mr-2",
                     staticStyle: {
                       "border-radius": "10px",
-                      height: "80px",
-                      width: "80px",
+                      height: "60px",
+                      width: "60px",
                       "background-color": "#c5c5c5",
                       "background-image": "url(/imgs/imgproj3.jpeg)",
                       "background-size": "cover",
@@ -588,8 +489,8 @@ var render = function() {
                     staticClass: "mr-2",
                     staticStyle: {
                       "border-radius": "10px",
-                      height: "80px",
-                      width: "80px",
+                      height: "60px",
+                      width: "60px",
                       "background-color": "#c5c5c5",
                       "background-image": "url(/imgs/imgproj2.jpeg)",
                       "background-size": "cover",
@@ -602,8 +503,8 @@ var render = function() {
                     staticClass: "mr-2",
                     staticStyle: {
                       "border-radius": "10px",
-                      height: "80px",
-                      width: "80px",
+                      height: "60px",
+                      width: "60px",
                       "background-color": "#c5c5c5",
                       "background-image": "url(/imgs/imgproj1.jpeg)",
                       "background-size": "cover",
@@ -621,8 +522,7 @@ var render = function() {
             _c(
               "div",
               {
-                staticClass:
-                  " col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 mt-5 my-0 px-2 pt-3",
+                staticClass: " col-12 py-1 mt-5 my-0 px-2 pt-3",
                 staticStyle: { height: "auto", "font-family": "BodyFont" }
               },
               [
@@ -637,6 +537,8 @@ var render = function() {
                     "persistent-hint": "",
                     chips: "",
                     multiple: "",
+                    rounded: "",
+                    filled: "",
                     "item-value": "name",
                     "item-text": "name",
                     items: _vm.languageIcon,
@@ -690,10 +592,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              {
-                staticClass:
-                  "col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 pt-3 my-0 px-2"
-              },
+              { staticClass: "col-12 py-1 pt-3 my-0 px-2" },
               [
                 _c("v-textarea", {
                   staticStyle: { "font-size": "14px" },
@@ -710,10 +609,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              {
-                staticClass:
-                  " text-center col-lg-8 offset-lg-2 offset-md-1 col-md-10 py-1 mt-4 my-0 px-2"
-              },
+              { staticClass: " text-center col-12 py-1 mt-4 my-0 px-2" },
               [
                 _c(
                   "v-btn",
@@ -731,7 +627,8 @@ var render = function() {
               1
             )
           ])
-        ]
+        ],
+        1
       )
     ]
   )

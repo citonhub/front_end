@@ -180,7 +180,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.player-slider {\r\n  width: 10px;\r\n  height: 30px;\n}\r\n", ""]);
+exports.push([module.i, "\n.player-slider {\n  width: 10px;\n  height: 30px;\n}\n", ""]);
 
 // exports
 

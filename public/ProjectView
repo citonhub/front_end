@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectView?v=0.99"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectView?v=1.05"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Hub/ProjectView.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************************!*\
@@ -219,7 +219,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\ntextarea[data-v-529f7189] {\r\n    font-size:13px; \r\n    background:whitesmoke;\r\n    width:100%; \r\n    height: 60px;\r\n    max-height: 75px;\r\n    padding: 6px 6px;\r\n    resize:none; \r\n    overflow-x: hidden;\r\n     overflow-y: auto;\r\n    border:1px solid #e6e6e6; \r\n    border-radius:2px;\n}\r\n", ""]);
+exports.push([module.i, "\ntextarea[data-v-529f7189] {\n    font-size:13px; \n    background:whitesmoke;\n    width:100%; \n    height: 60px;\n    max-height: 75px;\n    padding: 6px 6px;\n    resize:none; \n    overflow-x: hidden;\n     overflow-y: auto;\n    border:1px solid #e6e6e6; \n    border-radius:2px;\n}\n.scroller[data-v-529f7189]::-webkit-scrollbar-thumb {\n  background-color: #3C87CD;\n  outline: 1px solid #3C87CD;\n}\n.scrollerinfo[data-v-529f7189]::-webkit-scrollbar {\n  width: 6px;\n}\n", ""]);
 
 // exports
 
@@ -271,7 +271,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "row" }, [
+  return _c("div", { staticClass: "row px-2" }, [
     _c(
       "div",
       {
@@ -374,7 +374,7 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "col-lg-6 offset-lg-3 px-0 mt-3 text-right" },
+      { staticClass: "col-lg-6 offset-lg-3 px-2 mt-3 text-right" },
       [
         _c(
           "v-btn",
@@ -406,8 +406,15 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "col-lg-6 offset-lg-3 px-2 px-md-3 ",
-        staticStyle: { background: "whitesmoke", "font-family": "BodyFont" }
+        staticClass: "col-lg-6 offset-lg-3 px-2 px-md-3 scroller",
+        staticStyle: {
+          background: "#E1F0FC",
+          "font-family": "BodyFont",
+          "min-height": "200px",
+          "max-height": "500px",
+          "overflow-y": "auto",
+          "overflow-x": "hidden"
+        }
       },
       [
         _c("div", { staticClass: "row" }, [
@@ -588,7 +595,7 @@ var render = function() {
     _c(
       "div",
       {
-        staticClass: "col-lg-6 offset-lg-3 px-2 mt-3 ",
+        staticClass: "col-lg-6 offset-lg-3 px-2 py-1",
         staticStyle: {
           "z-index": "999999999999",
           background: "white",

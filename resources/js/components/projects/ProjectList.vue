@@ -1,7 +1,7 @@
 <template>
 <div > 
 
-   <div class="col-lg-10 offset-lg-1 py-1 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky; background:#F5F5FB;">
+   <div class="col-lg-10 offset-lg-1 py-1 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky; background:#F5F5FB; border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0">
           <h5>Projects</h5>
@@ -14,7 +14,7 @@
       </div>
    </div>
 
-   <div class=" px-0 col-12 py-1 d-md-none d-block fixed-top" style="position:sticky; background:#F5F5FB;">
+   <div class=" px-0 col-12 py-1 d-md-none d-block fixed-top" style="position:sticky; background:#F5F5FB; border-bottom:1px solid #c5c5c5;">
   
 
      <div class="row">
@@ -52,7 +52,7 @@
             </span>
 
              <span class="d-inline-block mx-1" >
-                <i class="las la-eye" style="font-size:20px;color:white;" ></i> 
+                <i class="las la-thumbtack" style="font-size:20px;color:white;" ></i> 
                 <span style="font-family:MediumFont; font-size:12px; color:white;">200</span>
             </span>
              
@@ -98,7 +98,7 @@
             </span>
 
              <span class="d-inline-block mx-1" >
-                <i class="las la-eye" style="font-size:20px;color:white;" ></i> 
+                <i class="las la-thumbtack" style="font-size:20px;color:white;" ></i> 
                 <span style="font-family:MediumFont; font-size:12px; color:white;">200</span>
             </span>
              
@@ -145,7 +145,7 @@
             </span>
 
              <span class="d-inline-block mx-1" >
-                <i class="las la-eye" style="font-size:20px;color:white;" ></i> 
+                <i class="las la-thumbtack" style="font-size:20px;color:white;" ></i> 
                 <span style="font-family:MediumFont; font-size:12px; color:white;">200</span>
             </span>
              
@@ -192,7 +192,7 @@
             </span>
 
              <span class="d-inline-block mx-1" >
-                <i class="las la-eye" style="font-size:20px;color:white;" ></i> 
+                <i class="las la-thumbtack" style="font-size:20px;color:white;" ></i> 
                 <span style="font-family:MediumFont; font-size:12px; color:white;">200</span>
             </span>
              
@@ -238,7 +238,7 @@
             </span>
 
              <span class="d-inline-block mx-1" >
-                <i class="las la-eye" style="font-size:20px;color:white;" ></i> 
+                <i class="las la-thumbtack" style="font-size:20px;color:white;" ></i> 
                 <span style="font-family:MediumFont; font-size:12px; color:white;">200</span>
             </span>
              
@@ -284,7 +284,7 @@
             </span>
 
              <span class="d-inline-block mx-1" >
-                <i class="las la-eye" style="font-size:20px;color:white;" ></i> 
+                <i class="las la-thumbtack" style="font-size:20px;color:white;" ></i> 
                 <span style="font-family:MediumFont; font-size:12px; color:white;">200</span>
             </span>
              

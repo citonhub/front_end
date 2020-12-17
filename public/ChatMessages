@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ChatMessages?v=1.84"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ChatMessages?v=1.90"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chats/ChatMessages.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************!*\
@@ -469,7 +469,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 var CodeBox = function CodeBox() {
-  return Promise.all(/*! import() | CodeBox?v=0.41 */[__webpack_require__.e("vendors~CodeBox?v=0.41~CodeEditor?v=1.73~CodeEditorChat?v=0.22"), __webpack_require__.e("vendors~CodeBox?v=0.41~CodeEditor?v=1.73"), __webpack_require__.e("CodeBox?v=0.41")]).then(__webpack_require__.bind(null, /*! ./CodeBox.vue */ "./resources/js/components/chats/CodeBox.vue"));
+  return Promise.all(/*! import() | CodeBox?v=0.46 */[__webpack_require__.e("vendors~CodeBox?v=0.46~CodeEditor?v=1.80~CodeEditorChat?v=0.30"), __webpack_require__.e("CodeBox?v=0.46")]).then(__webpack_require__.bind(null, /*! ./CodeBox.vue */ "./resources/js/components/chats/CodeBox.vue"));
 };
 
 var VideoPlayer = function VideoPlayer() {

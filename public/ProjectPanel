@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectPanel?v=1.91"],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ProjectPanel?v=1.93"],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/projects/ProjectPanel.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************************************************************************************!*\
@@ -133,7 +133,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.scroller[data-v-e8448e76]::-webkit-scrollbar {\r\n  width: 6px;\n}\n.scroller[data-v-e8448e76]::-webkit-scrollbar-thumb {\r\n  background-color: darkgrey;\r\n  outline: 1px solid darkgrey;\n}\r\n", ""]);
+exports.push([module.i, "\n.scroller[data-v-e8448e76]::-webkit-scrollbar {\n  width: 6px;\n}\n.scroller[data-v-e8448e76]::-webkit-scrollbar-thumb {\n  background-color: darkgrey;\n  outline: 1px solid darkgrey;\n}\n", ""]);
 
 // exports
 

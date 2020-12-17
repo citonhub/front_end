@@ -211,7 +211,7 @@
 <!-- ends -->
 
 <!-- programmer illustration -->
-<div class="col-lg-6 d-lg-block d-none" style="position:fixed; right:0%; height:65%; top:17%; z-index:80;">
+<div class="col-lg-6 d-lg-block d-none" style="position:fixed; right:0%; height:68%; top:16%; z-index:80;">
    
   
    <img src="imgs/homemain.png" height="100%" width="80%">
@@ -230,7 +230,7 @@
 
 
 <!-- bottom background image -->
-<div style="position:fixed;width:100%; height:22%; bottom:0; z-index:20;" class="d-lg-block d-none">
+<div style="position:fixed;width:100%; height:26%; bottom:0; z-index:20;" class="d-lg-block d-none">
 <img src="imgs/bottomLg.png" height="100%" width="100%">
 </div>
 

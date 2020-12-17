@@ -2,7 +2,7 @@
     <div  style="position:fixed;height:100%;background:#F5F5FB; width:100%;">
 
         <!-- top bar -->
-        <div class="col-12 py-0 fixed-top" style="position:sticky;width:100%;height:auto; ">
+        <div class="col-12 py-0 fixed-top" style="position:sticky;width:100%;height:auto;z-index:999999999999999999; ">
          <top-bar></top-bar>
         </div>
      
@@ -295,25 +295,29 @@
 
        <!-- add new projects -->
 
-       
+      <v-slide-x-reverse-transition>
+
+     
    <div class="col-12  py-0 px-0" style="position:fixed; left:0; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);" @click="addProjectModal = false" v-if="addProjectModal">
 
-   <div style="position:absolute; height:100%; width:100%; left:0;background:transparent;overflow-y:auto; overflow-x:hidden;" class="py-md-5" >
+   <div style="position:absolute; height:100%; width:100%; left:0;background:transparent;overflow-y:auto; overflow-x:hidden;"  >
    
 
       <!-- large and medium screens -->
 
-     <div class="col-lg-6 col-md-10 offset-lg-3 offset-md-1 pt-0 pb-3 scrollerAddProject px-md-2 px-0" 
-     style="background:white; height:100%; top:0%; 
-     border:1px solid white;border-radius:0px;border-top-left-radius:10px;  overflow-y:auto;overflow-x:hidden;" @click.stop="addProjectModal = true">
+     <div class="col-lg-4 col-md-6 offset-lg-8 offset-md-6 pt-0 pb-3 scrollerAddProject px-md-2 px-0 " 
+     style=" height:100%; top:0%;  position:absolute; background:white;
+     border:1px solid white;border-radius:0px;border-radius:0px;  overflow-y:auto;overflow-x:hidden;" @click.stop="addProjectModal = true">
 
      <!-- header -->
                 
-
+    
      <div class="col-12 px-md-2 px-0 py-2 pt-0 fixed-top d-flex flex-row" style="border-top-left-radius:10px; border-top-right-radius:10px; left:0; position:sticky;background:white; top:0%; border-bottom:1px solid #c5c5c5;align-items:center;">
            
              <div class=" col-2 py-0 ">
-             
+              <v-btn icon @click.stop="addProjectModal = false" >
+                      <v-icon>mdi mdi-close</v-icon>
+                    </v-btn>
             </div>
              <div class="col-8 text-center py-0">
              <span style="font-size:17px; font-family:HeaderFont;" class="d-md-block d-none">Add Your Project</span>
@@ -322,17 +326,15 @@
           </div>
               
                <div class="px-1 py-0 col-2 text-right ">
-              <v-btn icon @click.stop="addProjectModal = false" >
-                      <v-icon>mdi mdi-close</v-icon>
-                    </v-btn>
-            </div>
+             
+             </div>
              
           
         </div>
       <!-- ends -->
 
       <!-- add project page -->
-      <div class="col-12 px-3 px-md-1 py-2">
+      <div class="col-12 px-3 px-md-1 py-1">
 
         <addPage></addPage>
 
@@ -350,7 +352,7 @@
    </div>
 
      </div>
-  
+     </v-slide-x-reverse-transition>
 
      <!-- ends -->
 
@@ -378,19 +380,9 @@
      style="background:white; height:93%; top:7%; 
      border:1px solid white;border-radius:0px;border-top-left-radius:10px;  overflow-y:auto;overflow-x:hidden;" @click.stop="viewProjectModal = true">
 
-     <!-- header -->
-                
-
-     <div class="col-12 px-md-2 px-0 py-2 pt-0 fixed-top d-flex flex-row" style=" left:0; position:sticky;background:white; top:0%;align-items:center;">
-           
-            
-             
-          
-        </div>
-      <!-- ends -->
-
-      <!-- add project page -->
-      <div class="col-12 px-3 px-md-3 py-2">
+   
+      <!-- project view page -->
+      <div class="col-12  py-2 pt-0">
 
        <project-view></project-view>
 
@@ -401,9 +393,6 @@
      </div>
 
      <!-- ends -->
-
-
-   
 
    </div>
 
@@ -416,13 +405,13 @@
 <script>
 
  const TopBar = () => import(
-    /* webpackChunkName: "top-bar?v=0.47" */ './TopBar.vue'
+    /* webpackChunkName: "top-bar?v=0.50" */ './TopBar.vue'
   );
 
-const addPage = () => import(/*webpackChunkName: "addPage?v=1.16"*/ './AddProjectPage.vue')
+const addPage = () => import(/*webpackChunkName: "addPage?v=1.31"*/ './AddProjectPage.vue')
 
  const ProjectView = () => import(
-    /* webpackChunkName: "ProjectView?v=0.99" */ './ProjectView.vue'
+    /* webpackChunkName: "ProjectView?v=1.05" */ './ProjectView.vue'
   );
 
 export default {

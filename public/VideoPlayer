@@ -170,7 +170,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.alignContent[data-v-bfb96f26]{\r\n  align-items: center;\r\n  justify-content: center;\n}\r\n", ""]);
+exports.push([module.i, "\n.alignContent[data-v-bfb96f26]{\n  align-items: center;\n  justify-content: center;\n}\n", ""]);
 
 // exports
 
