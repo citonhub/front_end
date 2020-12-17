@@ -171,7 +171,7 @@
 
 
 
-                             <v-btn  fab color="#3C87CD"  style="z-index:9999999999;  position:fixed;  bottom:12%; right:2%; ">
+                             <v-btn  fab color="#3C87CD"  style="z-index:9999999999;  position:fixed;  bottom:15%; right:2%; ">
 
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
 
@@ -304,11 +304,11 @@
   );
 
   const ChatMessages = () => import(
-    /* webpackChunkName: "ChatMessages?v=1.85" */ './ChatMessages.vue'
+    /* webpackChunkName: "ChatMessages?v=1.90" */ './ChatMessages.vue'
   );
   
   const CodeEditorChat = () => import(
-    /* webpackChunkName: "CodeEditorChat?v=0.23" */ './CodeEditorChat.vue'
+    /* webpackChunkName: "CodeEditorChat?v=0.30" */ './CodeEditorChat.vue'
   );
   
   const ImageViewer = () => import(

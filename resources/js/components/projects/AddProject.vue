@@ -1,7 +1,7 @@
 <template>
 <v-app style="background:transparent;" class="px-0" >
  
-    <div class="col-lg-10 offset-lg-1 py-1 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky;z-index:9999999999;background:#F5F5FB;">
+    <div class="col-lg-10 offset-lg-1 py-1 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky;z-index:9999999999;background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0">
           <h5> <v-btn @click="goToProjectList" icon><v-icon>las la-arrow-left</v-icon></v-btn> Create a project</h5>
@@ -16,7 +16,7 @@
       </div>
    </div>
 
-   <div class=" px-0 col-12 py-1 d-md-none d-block fixed-top" style="position:sticky; background:#F5F5FB;">
+   <div class=" px-0 col-12 py-1 d-md-none d-block fixed-top" style="position:sticky; background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
      <div class="row">
         <div class="col-8 py-0 my-0">
            <h6 style="font-size:17px;"><v-btn  @click="goToProjectList" icon><v-icon>las la-arrow-left</v-icon></v-btn>Create a project</h6>

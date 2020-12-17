@@ -1,1 +1,14 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[20],{387:function(t,n,e){"use strict";e.r(n);var s={data:function(){return{}}},i=e(2),c=Object(i.a)(s,(function(){var t=this.$createElement;this._self._c;return this._m(0)}),[function(){var t=this.$createElement,n=this._self._c||t;return n("div",[n("div",{staticClass:"col-12 "},[n("h5",[this._v("Content Bots")])])])}],!1,null,null,null);n.default=c.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ContentBots?v=0.21"],{
+
+/***/ "./resources/js/components/dashboard/ContentBots.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/dashboard/ContentBots.vue ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/vue-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/var/www/citonhubnew/resources/js/components/dashboard/ContentBots.vue'");
+
+/***/ })
+
+}]);

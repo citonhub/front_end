@@ -1,5 +1,5 @@
 <template>
- <div class="row">
+ <div class="row px-2">
       <!-- top bar -->
 
       <div class="col-lg-6 offset-lg-3 py-2 fixed-top d-flex flex-row px-1"
@@ -62,7 +62,7 @@
       
 
       <!-- view source -->
-         <div class="col-lg-6 offset-lg-3 px-0 mt-3 text-right">
+         <div class="col-lg-6 offset-lg-3 px-2 mt-3 text-right">
         <v-btn color="#3C87CD" small style="text-transform:capitalize;color:white;font-size:12px;font-family:BodyFont;">View Source <v-icon class="ml-1">mdi-launch mdi-18px</v-icon></v-btn>
       </div>
       <!-- ends -->
@@ -85,7 +85,7 @@
       <!-- ends -->
 
        <!-- comment list -->
-         <div class="col-lg-6 offset-lg-3 px-2 px-md-3 " style="background:whitesmoke;font-family:BodyFont;">
+         <div class="col-lg-6 offset-lg-3 px-2 px-md-3 scroller" style="background:#E1F0FC;font-family:BodyFont;min-height:200px;max-height:500px;overflow-y:auto;overflow-x:hidden;">
          <div class="row">
            
             <div elevation-1 class="col-11 py-0 mt-2">
@@ -148,7 +148,7 @@
       <!-- ends -->
 
         <!-- comment textarea -->
-         <div class="col-lg-6 offset-lg-3 px-2 mt-3 " style="z-index:999999999999;background:white;font-family:BodyFont;">
+         <div class="col-lg-6 offset-lg-3 px-2 py-1" style="z-index:999999999999;background:white;font-family:BodyFont;">
          
           <div class="row px-md-3 py-0">
            <div class="col-12 py-1 my-0 d-flex px-md-2 px-2 flex-row" style="align-items:center; justify-content:center;">
@@ -211,5 +211,13 @@ textarea {
      overflow-y: auto;
     border:1px solid #e6e6e6; 
     border-radius:2px;
+}
+
+.scroller::-webkit-scrollbar-thumb {
+  background-color: #3C87CD;
+  outline: 1px solid #3C87CD;
+}
+.scrollerinfo::-webkit-scrollbar {
+  width: 6px;
 }
 </style>

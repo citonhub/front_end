@@ -1,1 +1,126 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[9],{259:function(t,a,s){var i=s(327);"string"==typeof i&&(i=[[t.i,i,""]]);var n={hmr:!0,transform:void 0,insertInto:void 0};s(16)(i,n);i.locals&&(t.exports=i.locals)},326:function(t,a,s){"use strict";var i=s(259);s.n(i).a},327:function(t,a,s){(t.exports=s(15)(!1)).push([t.i,"\nspan[data-v-7073cab3]{\n\n   color: #3C87CD;\n   font-weight: bold;\nline-height:21px;\n}\n  \n",""])},388:function(t,a,s){"use strict";s.r(a);var i={data:function(){return{challenges:[{number:1,duration:36,participant:4,type:"PHP"},{number:2,duration:48,participant:8,type:"C++"},{number:3,duration:72,participant:8,type:"HTML"},{number:4,duration:24,participant:8,type:"Javascript"},{number:5,duration:36,participant:5,type:"Laravel"}]}}},n=(s(326),s(2)),e=Object(n.a)(i,(function(){var t=this,a=t.$createElement,s=t._self._c||a;return s("div",[s("div",{staticClass:"col-12  "},[t._m(0),t._v(" "),t._l(t.challenges,(function(a){return s("div",{key:a.number,staticClass:"challenge mb-4 ",staticStyle:{"border-radius":"10px",background:"rgba(125,179,229,0.1)","font-family":"BodyFont","font-size":"1.1rem","font-weight":"500","line-height":"21px"}},[s("div",{staticClass:"row "},[s("div",{staticClass:"col-lg-4 offset-lg-1 rounded-circle",staticStyle:{"font-size":"1.3rem","font-weight":"500",color:"#1B1B1E"}},[t._v("Challenge "),s("span",[t._v(t._s(a.number))])]),t._v(" "),s("div",{staticClass:"col-lg-4 offset-lg-3"},[t._v("Duration: "),s("span",[t._v(t._s(a.duration)+"hours")])])]),t._v(" "),s("div",{staticClass:"row"},[s("div",{staticClass:"col-lg-4 offset-lg-1"},[t._v("No. of Participants: "),s("span",[t._v(t._s(a.participant))])]),t._v(" "),s("div",{staticClass:"col-lg-4 offset-lg-3"},[t._v("Application Type:  "),s("span",[t._v(t._s(a.type))])])])])})),t._v(" "),s("div",{staticClass:"col-4 offset-lg-7"},[s("v-btn",{attrs:{small:"",rounded:"",fab:""}},[s("v-icon",[s("i",{staticClass:"las la-plus",staticStyle:{color:"black","font-size":"1rem"}})])],1)],1)],2)])}),[function(){var t=this.$createElement,a=this._self._c||t;return a("div",{staticClass:"col-4 d-flex",staticStyle:{"font-family":"BodyFont"}},[a("i",{staticClass:"las la-trophy ",staticStyle:{"font-size":"1.9rem"}}),this._v(" "),a("p",{staticClass:"h3"},[this._v("Challenges")])])}],!1,null,"7073cab3",null);a.default=e.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["Challenges?v=0.55"],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Challenges.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/Challenges.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Challenges.vue?vue&type=template&id=5079e394&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/dashboard/Challenges.vue?vue&type=template&id=5079e394& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "col-12 " }, [_c("router-view")], 1)
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard/Challenges.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/dashboard/Challenges.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Challenges_vue_vue_type_template_id_5079e394___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Challenges.vue?vue&type=template&id=5079e394& */ "./resources/js/components/dashboard/Challenges.vue?vue&type=template&id=5079e394&");
+/* harmony import */ var _Challenges_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Challenges.vue?vue&type=script&lang=js& */ "./resources/js/components/dashboard/Challenges.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Challenges_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Challenges_vue_vue_type_template_id_5079e394___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Challenges_vue_vue_type_template_id_5079e394___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/dashboard/Challenges.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard/Challenges.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/dashboard/Challenges.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Challenges_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Challenges.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Challenges.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Challenges_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/dashboard/Challenges.vue?vue&type=template&id=5079e394&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/dashboard/Challenges.vue?vue&type=template&id=5079e394& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Challenges_vue_vue_type_template_id_5079e394___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Challenges.vue?vue&type=template&id=5079e394& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/dashboard/Challenges.vue?vue&type=template&id=5079e394&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Challenges_vue_vue_type_template_id_5079e394___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Challenges_vue_vue_type_template_id_5079e394___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

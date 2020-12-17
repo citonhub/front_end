@@ -44,13 +44,13 @@
                 </div>
           </div>
 
-          <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'content-bots' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''"  @click.stop="goToPage('content-bots')">
+          <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'pets' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''"  @click.stop="goToPage('pets')">
                 <div class="row">
                 <div class="col-4 py-1 text-center">
-                  <v-icon style="font-size:30px;" :color="selectedTab == 'content-bots' ? '#3C87CD' : '#A4A4A5'">las la-file-alt</v-icon>
+                  <v-icon style="font-size:30px;" :color="selectedTab == 'pets' ? '#3C87CD' : '#A4A4A5'">las la-paw</v-icon>
                 </div>
-                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'content-bots' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div style="font-family:MediumFont; font-size:14px;" >Content Bots</div>
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'pets' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
+                  <div style="font-family:MediumFont; font-size:14px;" >My Pets</div>
                 </div>
                 </div>
           </div>
@@ -150,11 +150,11 @@ export default {
               
             }
 
-            if(this.$router.currentRoute.path.indexOf('content-bots') >= 0){
+            if(this.$router.currentRoute.path.indexOf('pets') >= 0){
                 
-               this.selectedTab = 'content-bots';
+               this.selectedTab = 'pets';
 
-                this.$root.searchType = 'content-bots';
+                this.$root.searchType = 'pets';
 
               
             }

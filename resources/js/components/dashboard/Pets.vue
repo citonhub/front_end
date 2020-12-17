@@ -2,7 +2,7 @@
 <div>
  
    <div class="col-12 ">
-    <h5>Content Bots</h5>
+    <router-view></router-view>
    </div>
 
 </div>

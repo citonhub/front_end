@@ -460,7 +460,7 @@
 <script>
 
   const CodeBox = () => import(
-    /* webpackChunkName: "CodeBox?v=0.41" */ './CodeBox.vue'
+    /* webpackChunkName: "CodeBox?v=0.46" */ './CodeBox.vue'
   );
 
    const VideoPlayer = () => import(
