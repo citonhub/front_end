@@ -2,10 +2,10 @@
     <div>
        
        <!-- large screens -->
-        <div style="position:fixed;height:100%;left:0;top:0;z-index:9999999999999999;overflow-y:auto;" class="col-lg-10 offset-lg-2 py-0 px-0">
+        <div style="position:fixed;height:88%;left:0;top:10%;z-index:9999999999999999;overflow-y:auto;" class="col-lg-10 offset-lg-2 py-0 px-0">
 
              <div class="col-lg-10 offset-lg-1 py-1 mb-0 col-md-10 offset-md-1 px-2 d-md-block d-none py-0 px-0"
-              style="position:absolute; left:0%; top:10%; height:85%;  background:#ffffff;border:1px solid #c5c5c5; border-radius:6px;">
+              style="position:absolute; left:0%; top:0%; height:98%; background:#ffffff;border:1px solid #c5c5c5; border-radius:6px;">
      
               <!-- top session -->
                  <div style="position:absolute;height:35%;top:0; left:0;width:100%;border-bottom:1px solid #c5c5c5;
@@ -136,9 +136,14 @@
               
            </div>
 
-              <!-- smaller screens -->
+            
+
+        </div>
+
+
+          <!-- smaller screens -->
                 <div class="col-lg-10 offset-lg-1 py-1 mb-0 col-md-10 offset-md-1 px-2 d-md-none d-block py-0 px-0"
-              style="position:absolute; left:0%; top:0%; height:100%;  background:#ffffff;">
+              style="position:fixed; z-index:999999999999999999; left:0%; top:0%; height:100%;  background:#ffffff;">
 
               <!-- close button -->
                  <v-btn icon color="#ffffff" style="position:fixed;background:#3C87CD;top:1%; right:2%; z-index:990679797879;" 
@@ -284,8 +289,6 @@
 
 
            
-
-        </div>
      <!-- ends -->
        
     </div>

@@ -35,7 +35,7 @@
  <!-- ends -->
     
 <!-- Main board -->
-<div class=" col-lg-10  offset-lg-2 "  style="z-index:99999999; background:#F5F5FB; align-items:center; justify-content:center; position:fixed; height:100%; top:0%;">
+<div class=" col-lg-10  offset-lg-2 "  style="z-index:99999999999999999; background:#F5F5FB;  align-items:center; justify-content:center; position:fixed; height:100%; top:0%;">
 
     <!-- top bar component -->
     
@@ -43,15 +43,6 @@
 
      <!-- ends -->
 
-     <!-- floating button hub for medium and small screen -->
-
-     <v-btn medium fab color="#3C87CD" class="d-lg-none"  style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
-
-         <span style="font-family:MediumFont; font-size:12px;color:white; text-transform:capitalize;"> Hub</span>
-         
-     </v-btn>
-
-     <!-- ends -->
 
       <div class="col-12 mt-lg-2 py-0 pb-3 px-0 scroller" style="position:absolute; top:10%; left:0%; height:90%; overflow-y:auto; overflow-x:hidden; ">
       <!-- entry point for vue router -->
@@ -63,6 +54,17 @@
    
 
   </div>
+
+
+     <!-- floating button hub for medium and small screen -->
+
+     <v-btn medium fab color="#3C87CD" class="d-lg-none"  style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
+
+         <span style="font-family:MediumFont; font-size:12px;color:white; text-transform:capitalize;"> Hub</span>
+         
+     </v-btn>
+
+     <!-- ends -->
      
 <!-- ends -->
      

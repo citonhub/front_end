@@ -132,8 +132,7 @@
 
              <div class="col-lg-12 py-1 my-2 px-2 text-left">
 
-              <v-md-editor v-model="text" height="400px" mode="edit" placeholder="Describe this challenge, its aim and objective" 
-        left-toolbar="h bold italic strikethrough quote ul ol  hr image link code"  right-toolbar="preview"></v-md-editor>
+              <v-press-editor :placeholder="'Describe this challenge, its aim and objective'"></v-press-editor>
              
              </div>
              
@@ -268,18 +267,9 @@
 <script>
 
 
-import Vue from 'vue';
-import VueMarkdownEditor from '@kangc/v-md-editor';
-import '@kangc/v-md-editor/lib/style/base-editor.css';
-import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
-
-VueMarkdownEditor.use(vuepressTheme);
-
-Vue.use(VueMarkdownEditor);
-
-import enUS from '@kangc/v-md-editor/lib/lang/en-US';
-
-VueMarkdownEditor.lang.use('en-US', enUS);
+ const VPressEditor = () => import(
+    /* webpackChunkName: "VPressEditor?v=0.12" */ './Editor.vue'
+  );
 
 
 
@@ -344,6 +334,9 @@ export default {
         input:''
       };
     },
+    components:{
+      VPressEditor
+    }
   };
 </script>
 <style scoped>

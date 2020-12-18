@@ -2,7 +2,7 @@
     <div>
         <!-- large and medium screen top bar -->
     
-     <div class="col-12 d-none d-md-block py-0" style="position:absolute; top:0; left:0; font-family:BodyFont;z-index:99999999999999;">
+     <div class="col-12 d-none d-md-block py-0" style="position:absolute; top:0; left:0; font-family:BodyFont;z-index:99999999999999999999;">
 
          <div class="row">
             <div class="col-lg-5 col-md-1  text-left">

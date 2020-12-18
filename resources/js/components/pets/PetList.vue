@@ -34,7 +34,7 @@
         <div class="row ">
           
 
-            <div class="col-lg-4 col-md-6 px-2 mb-2 py-2" >
+            <div class="col-lg-4 col-md-6 px-2 mb-1 py-2" >
           
           <v-card class="py-2 px-1"  style="border-radius:10px;">
             
@@ -71,7 +71,7 @@
 
           </div>
 
-           <div class="col-lg-4 col-md-6 px-2 mb-2 py-2" >
+           <div class="col-lg-4 col-md-6 px-2 mb-1 py-2" >
           
           <v-card class="py-2 px-1"  style="border-radius:10px;">
             
@@ -174,12 +174,7 @@
   }
 </script>
 <style scoped>
- span{
 
-   color: #3C87CD;
-   font-weight: bold;
-line-height:21px;
- }
 
  .challengeBox{
    background:#ffffff !important;

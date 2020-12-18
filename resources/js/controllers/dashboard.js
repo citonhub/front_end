@@ -99,9 +99,9 @@ const Hub = () => import(/* webpackChunkName: "Hub?v=4.68" */ '../components/Hub
  const EditProfile= () => import(/* webpackChunkName: "EditProfile?v=0.13"*/ '../components/Profile/EditProfile.vue')
 
 // challenges routes
-const ChallengesList= () => import(/* webpackChunkName: "ChallengesList?v=0.53" */ '../components/challenges/ChallengesList.vue');
-const ChallengesCreate= () => import(/* webpackChunkName: "ChallengesCreate?v=0.64" */ '../components/challenges/Create.vue');
-const ChallengePanel= () => import(/* webpackChunkName: "ChallengePanel?v=1.36" */ '../components/challenges/Panel.vue');
+const ChallengesList= () => import(/* webpackChunkName: "ChallengesList?v=0.61" */ '../components/challenges/ChallengesList.vue');
+const ChallengesCreate= () => import(/* webpackChunkName: "ChallengesCreate?v=0.69" */ '../components/challenges/Create.vue');
+const ChallengePanel= () => import(/* webpackChunkName: "ChallengePanel?v=1.38" */ '../components/challenges/Panel.vue');
 const ChallengeDescription= () => import(/* webpackChunkName: "ChallengeDescription?v=0.19" */ '../components/challenges/Description.vue');
 const ChallengeJudges= () => import(/* webpackChunkName: "ChallengeJudges?v=0.26" */ '../components/challenges/Judges.vue');
 const ChallengeLeaderboard= () => import(/* webpackChunkName: "ChallengeLeaderboard?v=0.29" */ '../components/challenges/Leaderboard.vue');
@@ -109,8 +109,10 @@ const ChallengeDiscussions= () => import(/* webpackChunkName: "ChallengeDiscussi
 const ChallengeRules= () => import(/* webpackChunkName: "ChallengeRules?v=0.14" */ '../components/challenges/Rules.vue');
 
 // Pets routes
-const PetList= () => import(/* webpackChunkName: "PetList?v=0.43" */ '../components/pets/PetList.vue');
-const PetBoard= () => import(/* webpackChunkName: "PetBoard?v=0.19" */ '../components/pets/Board.vue');
+const PetList= () => import(/* webpackChunkName: "PetList?v=0.45" */ '../components/pets/PetList.vue');
+const PetBoard= () => import(/* webpackChunkName: "PetBoard?v=1.13" */ '../components/pets/Board.vue');
+const PetContent= () => import(/* webpackChunkName: "PetContent?v=0.24" */ '../components/pets/PetContent.vue');
+const AddGem= () => import(/* webpackChunkName: "AddGem?v=1.25" */ '../components/pets/AddGem.vue');
 
 const routes = [
   { path: '/login', name: 'login', component: Login },
@@ -221,7 +223,20 @@ const routes = [
           {
             // board
             path:'board',
-            component:PetBoard
+            component:PetBoard,
+            redirect:'/board/pets/board/content',
+            children:[
+              {
+                // content
+                path:'content',
+                component:PetContent
+              },
+              {
+                // add new gem
+                path:'add-gem',
+                component:AddGem
+              }
+            ]
           }
         ]
       },
