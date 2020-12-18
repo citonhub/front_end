@@ -349,7 +349,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.morebackground4{\n     position: absolute;\n     width:100%; \n     top: 0;\n     left: 0;\n     height:100%; \n     align-items: center;\n     justify-content: center;\n     background:#ffffff;\n     z-index:100000;\n}\n.login{\n     color: #1e4248;\n     font-size:13px;\n}\n.forgot1{\n     cursor: pointer;\n    \n     color: #4494a2;\n     font-size:12px;\n}\n\n", ""]);
+exports.push([module.i, "\n.morebackground4{\r\n     position: absolute;\r\n     width:100%; \r\n     top: 0;\r\n     left: 0;\r\n     height:100%; \r\n     align-items: center;\r\n     justify-content: center;\r\n     background:#ffffff;\r\n     z-index:100000;\n}\n.login{\r\n     color: #1e4248;\r\n     font-size:13px;\n}\n.forgot1{\r\n     cursor: pointer;\r\n    \r\n     color: #4494a2;\r\n     font-size:12px;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -448,7 +448,7 @@ var render = function() {
                   "font-size": "25px"
                 }
               },
-              [_vm._v("\n   - Anthony Robbins\n ")]
+              [_vm._v("\r\n   - Anthony Robbins\r\n ")]
             )
           ])
         ]
@@ -495,7 +495,7 @@ var render = function() {
                   "font-size": "16px"
                 }
               },
-              [_vm._v("\n   - Anthony Robbins\n ")]
+              [_vm._v("\r\n   - Anthony Robbins\r\n ")]
             )
           ])
         ]
@@ -543,7 +543,7 @@ var render = function() {
                         { staticStyle: { "font-family": "HeaderFont" } },
                         [
                           _vm._v(
-                            "\n                Verify Your Email\n             "
+                            "\r\n                Verify Your Email\r\n             "
                           )
                         ]
                       )
@@ -564,7 +564,7 @@ var render = function() {
                       },
                       [
                         _vm._v(
-                          "\n               " +
+                          "\r\n               " +
                             _vm._s(_vm.$t("general.enter_digit")) +
                             ","
                         ),
@@ -652,7 +652,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                 Verify\n                  "
+                                    "\r\n                 Verify\r\n                  "
                                   )
                                 ]
                               )
@@ -755,7 +755,9 @@ var render = function() {
               },
               [
                 _c("h5", { staticStyle: { "font-family": "HeaderFont" } }, [
-                  _vm._v("\n                  Reset password\n             ")
+                  _vm._v(
+                    "\r\n                  Reset password\r\n             "
+                  )
                 ])
               ]
             ),
@@ -772,7 +774,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n               " +
+                    "\r\n               " +
                       _vm._s(_vm.$t("general.enter_digit")) +
                       ","
                   ),
@@ -857,7 +859,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                 Verify\n                  "
+                              "\r\n                 Verify\r\n                  "
                             )
                           ]
                         )

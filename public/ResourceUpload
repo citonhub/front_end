@@ -262,7 +262,7 @@ var render = function() {
                           attrs: {
                             type: "file",
                             accept:
-                              "application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,\n              text/plain, application/pdf"
+                              "application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint,\r\n              text/plain, application/pdf"
                           },
                           on: { change: _vm.fileHandler }
                         })

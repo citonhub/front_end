@@ -9,6 +9,19 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+<<<<<<< HEAD
+=======
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _kangc_v_md_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @kangc/v-md-editor */ "./node_modules/@kangc/v-md-editor/lib/base-editor.js");
+/* harmony import */ var _kangc_v_md_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_kangc_v_md_editor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _kangc_v_md_editor_lib_style_base_editor_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @kangc/v-md-editor/lib/style/base-editor.css */ "./node_modules/@kangc/v-md-editor/lib/style/base-editor.css");
+/* harmony import */ var _kangc_v_md_editor_lib_style_base_editor_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_kangc_v_md_editor_lib_style_base_editor_css__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _kangc_v_md_editor_lib_theme_vuepress_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @kangc/v-md-editor/lib/theme/vuepress.js */ "./node_modules/@kangc/v-md-editor/lib/theme/vuepress.js");
+/* harmony import */ var _kangc_v_md_editor_lib_theme_vuepress_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_kangc_v_md_editor_lib_theme_vuepress_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _kangc_v_md_editor_lib_lang_en_US__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @kangc/v-md-editor/lib/lang/en-US */ "./node_modules/@kangc/v-md-editor/lib/lang/en-US.js");
+/* harmony import */ var _kangc_v_md_editor_lib_lang_en_US__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_kangc_v_md_editor_lib_lang_en_US__WEBPACK_IMPORTED_MODULE_5__);
+>>>>>>> 9ef2786c27ab999b7404f71e6efae85e105e3828
 //
 //
 //
@@ -275,10 +288,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+<<<<<<< HEAD
 var VPressEditor = function VPressEditor() {
   return Promise.all(/*! import() | VPressEditor?v=0.12 */[__webpack_require__.e("vendors~VPressEditor?v=0.12"), __webpack_require__.e("VPressEditor?v=0.12")]).then(__webpack_require__.bind(null, /*! ./Editor.vue */ "./resources/js/components/challenges/Editor.vue"));
 };
 
+=======
+//
+
+
+
+
+_kangc_v_md_editor__WEBPACK_IMPORTED_MODULE_2___default.a.use(_kangc_v_md_editor_lib_theme_vuepress_js__WEBPACK_IMPORTED_MODULE_4___default.a);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_kangc_v_md_editor__WEBPACK_IMPORTED_MODULE_2___default.a);
+
+_kangc_v_md_editor__WEBPACK_IMPORTED_MODULE_2___default.a.lang.use('en-US', _kangc_v_md_editor_lib_lang_en_US__WEBPACK_IMPORTED_MODULE_5___default.a);
+>>>>>>> 9ef2786c27ab999b7404f71e6efae85e105e3828
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -404,7 +429,7 @@ var render = function() {
                     },
                     attrs: { small: "", rounded: "", color: "#3C87CD" }
                   },
-                  [_vm._v("\n             Create\n           ")]
+                  [_vm._v("\r\n             Create\r\n           ")]
                 )
               ],
               1
@@ -457,7 +482,7 @@ var render = function() {
                     },
                     attrs: { small: "", rounded: "", color: "#3C87CD" }
                   },
-                  [_vm._v("\n             Create\n           ")]
+                  [_vm._v("\r\n             Create\r\n           ")]
                 )
               ],
               1
@@ -765,9 +790,9 @@ var render = function() {
                               ),
                               [
                                 _vm._v(
-                                  "\n             \n              " +
+                                  "\r\n             \r\n              " +
                                     _vm._s(data.item.name) +
-                                    "\n            "
+                                    "\r\n            "
                                 )
                               ]
                             )

@@ -96,7 +96,7 @@ const Hub = () => import(/* webpackChunkName: "Hub?v=4.68" */ '../components/Hub
 
 // profile routes
  const ProfilePage= () => import(/* webpackChunkName:"ProfilePage?v=0.94"*/ '../components/Profile/ProfilePage.vue');
- const EditProfile= () => import(/* webpackChunkName: "EditProfile?v=0.13"*/ '../components/Profile/EditProfile.vue')
+ const EditProfile= () => import(/* webpackChunkName: "EditProfile?v=0.14"*/ '../components/Profile/EditProfile.vue')
 
 // challenges routes
 const ChallengesList= () => import(/* webpackChunkName: "ChallengesList?v=0.61" */ '../components/challenges/ChallengesList.vue');

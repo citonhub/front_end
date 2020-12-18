@@ -112,7 +112,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\ntextarea[data-v-e47edae8] {\n    font-size:13px; \n    background:white;\n    width:100%; \n    height: 60px;\n    max-height: 75px;\n    padding: 6px 6px;\n    resize:none; \n    overflow-x: hidden;\n    border-radius:7px;\n     overflow-y: auto;\n    border:1px solid #e6e6e6; \n    border-radius:2px;\n}\n.scroller[data-v-e47edae8]::-webkit-scrollbar-thumb {\n  background-color: #3C87CD;\n  outline: 1px solid #3C87CD;\n}\n.scrollerinfo[data-v-e47edae8]::-webkit-scrollbar {\n  width: 6px;\n}\n", ""]);
+exports.push([module.i, "\ntextarea[data-v-e47edae8] {\r\n    font-size:13px; \r\n    background:white;\r\n    width:100%; \r\n    height: 60px;\r\n    max-height: 75px;\r\n    padding: 6px 6px;\r\n    resize:none; \r\n    overflow-x: hidden;\r\n    border-radius:7px;\r\n     overflow-y: auto;\r\n    border:1px solid #e6e6e6; \r\n    border-radius:2px;\n}\n.scroller[data-v-e47edae8]::-webkit-scrollbar-thumb {\r\n  background-color: #3C87CD;\r\n  outline: 1px solid #3C87CD;\n}\n.scrollerinfo[data-v-e47edae8]::-webkit-scrollbar {\r\n  width: 6px;\n}\r\n", ""]);
 
 // exports
 
