@@ -86,6 +86,9 @@
 </template>
 <script>
 export default {
+   mounted(){
+      this.$root.showMobileHub = false;
+    },
 
   methods:{
   

@@ -1,15 +1,15 @@
 <template>
     <v-app style="background:transparent;font-size:BodyFont;">
-        <div class="col-12 px-2 px-md-2 scroller" style="position:absolute;height:95%;top:0%;left:0%;overflow-y:auto;overflow-x:hidden;padding-bottom:150px !important;">
+        <div class="col-12 px-3 px-md-2 scroller" style="position:absolute;height:95%;top:0%;left:0%;overflow-y:auto;overflow-x:hidden;padding-bottom:150px !important;">
         
         <div class="row">
 
             <div class="col-md-6 offset-md-1 py-0 my-0 pl-md-3 text-left">
-          <h5 style="font-size:18px;" class="d-md-block d-none"> Create a Knowledge Gem</h5>
-         <h5 class="d-md-none d-block"> Create a Knowledge Gem</h5>
+          <h5 style="font-size:18px;" class="d-md-block d-none"> Add a Gem</h5>
+         <h5 class="d-md-none d-block"> Add a Gem</h5>
         </div>
 
-         <div class="col-lg-6 offset-lg-1">
+         <div class="col-lg-6 offset-lg-1 mb-2">
 
               <v-text-field
                  style="font-size:13px;"
@@ -18,19 +18,20 @@
             counter="60"
             persistent-hint     
              hint="Something V18 can do e.g tell a joke,teach java"
-             
+             placeholder="action"
               dense
              color="#3C87CD">
              </v-text-field>
 
          </div>
 
-         <div class="col-lg-6 offset-lg-1">
+         <div class="col-lg-6 offset-lg-1 mb-2">
              <v-combobox
                  style="font-size:13px;"
               dense
               label="Triggers"
             counter="80"
+             placeholder="triggers"
             hint="words or sentences that can triggers the above action"
             persistent-hint
             chips
@@ -406,8 +407,8 @@ export default {
       };
     }
   },
-    mounted(){
-      
+     mounted(){
+      this.$root.showMobileHub = false;
     },
     methods:{
        

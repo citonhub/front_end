@@ -340,6 +340,7 @@ const app = new Vue({
       searchType:'',
       codemirrorComponent:'',
       fullImageColor:'',
+      showMobileHub:true,
       imageViewPath:'',
       imageArrayView:[
         {

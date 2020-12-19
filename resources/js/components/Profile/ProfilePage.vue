@@ -314,6 +314,9 @@ components:{
 TopBar,
 EditProfile
 },
+ mounted(){
+      this.$root.showMobileHub = false;
+    },
 
     data(){
 
