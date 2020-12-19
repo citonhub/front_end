@@ -460,19 +460,19 @@
 <script>
 
   const CodeBox = () => import(
-    /* webpackChunkName: "CodeBox?v=0.50" */ './CodeBox.vue'
+    /* webpackChunkName: "CodeBox" */ './CodeBox.vue'
   );
 
    const VideoPlayer = () => import(
-    /* webpackChunkName: "VideoPlayer?v=0.13" */ './VideoPlayer.vue'
+    /* webpackChunkName: "VideoPlayer" */ './VideoPlayer.vue'
   );
 
   const AudioPlayer = () => import(
-    /* webpackChunkName: "AudioPlayer?v=0.20" */ './AudioPlayer.vue'
+    /* webpackChunkName: "AudioPlayer" */ './AudioPlayer.vue'
   );
 
   const Images = () => import(
-    /* webpackChunkName: "Images?v=0.32" */ './Images.vue'
+    /* webpackChunkName: "Images" */ './Images.vue'
   );
 
 

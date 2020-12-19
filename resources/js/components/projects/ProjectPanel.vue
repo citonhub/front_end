@@ -83,7 +83,7 @@
 
 <script>
   const panelSide = () => import(
-    /* webpackChunkName: "panel-side?v=0.24" */ './PanelSide.vue'
+    /* webpackChunkName: "panel-side" */ './PanelSide.vue'
   );
 
  export default {
@@ -93,7 +93,7 @@
       }
     },
     components: {
-        panelSide
+        panelSide 
     },
 
     methods:{

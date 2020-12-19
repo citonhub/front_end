@@ -1,5 +1,4 @@
 const mix = require('laravel-mix');
-
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -12,3 +11,10 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/dashboard.js', 'public/js'); 
+
+
+mix.webpackConfig({
+    output: {
+        chunkFilename: 'js/chunks/[name].[chunkhash].js',//replace with your path
+    },
+});

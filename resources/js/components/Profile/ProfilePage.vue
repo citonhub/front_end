@@ -302,11 +302,11 @@
 
 <script>
 const TopBar = () => import(
-   /* webpackChunkName: "top-bar-profile?v=0.13" */ './TopBar.vue'
+   /* webpackChunkName: "top-bar-profile" */ './TopBar.vue'
   );
 
 const EditProfile = () => import(
-   /* webpackChunkName: "EditProfile?v=0.14" */ './EditProfile.vue'
+   /* webpackChunkName: "EditProfile" */ './EditProfile.vue'
   );
 export default {
 
