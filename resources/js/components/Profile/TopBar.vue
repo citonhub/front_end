@@ -14,7 +14,7 @@
                      <v-text-field
                 style="font-size:13px;"
                 
-                 placeholder="Search Projects and People"
+                 placeholder="Search for People"
               filled
               dense
             append-icon="las la-search"
@@ -56,7 +56,7 @@
 
      <!-- top bar smaller screen -->
 
-       <div class="col-12 d-block d-md-none py-2 " style="position:absolute; top:0; left:0; font-family:BodyFont; z-index:99999999999;">
+       <div class="col-12  d-md-none d-block py-2 " style="position:absolute; top:0; left:0; font-family:BodyFont; z-index:99999999999999;">
 
          <div class="row px-2">
              <v-card  style="border-radius:7px;" class="col-12 py-2 px-1">
@@ -66,7 +66,7 @@
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
 
-             <input style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search Projects and People" class="py-2 px-2" type="search" >       
+             <input style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search for People" class="py-2 px-2" type="search" >       
          
             </div>
              <div class="col-2 text-center py-0">

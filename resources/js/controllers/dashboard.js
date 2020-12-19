@@ -71,48 +71,47 @@ const ResetPassword = () => import(/* webpackChunkName: "ResetPassword?v=1.66" *
 const SetUsername = () => import(/* webpackChunkName: "SetUsername?v=0.25" */ '../components/auth/SetUsername.vue');
 
 // dashboard routes
-const Board = () => import(/* webpackChunkName: "Board?v=2.92" */ '../components/dashboard/Board.vue');
-const Projects = () => import(/* webpackChunkName: "Projects?v=0.26" */ '../components/dashboard/Projects.vue');
-const Pets = () => import(/* webpackChunkName: "Pets?v=0.11" */ '../components/dashboard/Pets.vue');
-const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.56" */ '../components/dashboard/Challenges.vue');
+const Board = () => import(/* webpackChunkName: "Board?v=2.93" */ '../components/dashboard/Board.vue');
+const Projects = () => import(/* webpackChunkName: "Projects?v=0.27" */ '../components/dashboard/Projects.vue');
+const Pets = () => import(/* webpackChunkName: "Pets?v=0.12" */ '../components/dashboard/Pets.vue');
+const Challenges = () => import(/* webpackChunkName: "Challenges?v=0.57" */ '../components/dashboard/Challenges.vue');
 
 // project routes
-const ProjectList = () => import(/* webpackChunkName: "ProjectList?v=1.97" */ '../components/projects/ProjectList.vue');
-const ProjectPanel = () => import(/* webpackChunkName: "ProjectPanel?v=1.94" */ '../components/projects/ProjectPanel.vue');
-const CodeEditor = () => import(/* webpackChunkName: "CodeEditor?v=1.81" */ '../components/projects/CodeEditor.vue');
-const AddProject = () => import(/* webpackChunkName: "AddProject?v=0.78" */ '../components/projects/AddProject.vue');
-const AddNewFile = () => import(/* webpackChunkName: "AddNewFile?v=0.35" */ '../components/projects/AddNewFile.vue');
-const AddDatabase = () => import(/* webpackChunkName: "AddDatabase?v=0.25" */ '../components/projects/AddDatabase.vue');
-const ResourceUpload = () => import(/* webpackChunkName: "ResourceUpload?v=0.26" */ '../components/projects/ResourceUpload.vue');
-const PanelLoader = () => import(/* webpackChunkName: "PanelLoader?v=0.28" */ '../components/projects/PanelLoader.vue');
-const PanelSettings = () => import(/* webpackChunkName: "PanelSettings?v=0.40" */ '../components/projects/PanelSettings.vue');
-const AddWebroute= () => import(/* webpackChunkName: "AddWebroute?v=0.39" */ '../components/projects/AddWebroute.vue');
+const ProjectList = () => import(/* webpackChunkName: "ProjectList?v=1.98" */ '../components/projects/ProjectList.vue');
+const ProjectPanel = () => import(/* webpackChunkName: "ProjectPanel?v=1.95" */ '../components/projects/ProjectPanel.vue');
+const CodeEditor = () => import(/* webpackChunkName: "CodeEditor?v=1.82" */ '../components/projects/CodeEditor.vue');
+const AddProject = () => import(/* webpackChunkName: "AddProject?v=0.79" */ '../components/projects/AddProject.vue');
+const AddNewFile = () => import(/* webpackChunkName: "AddNewFile?v=0.36" */ '../components/projects/AddNewFile.vue');
+const AddDatabase = () => import(/* webpackChunkName: "AddDatabase?v=0.26" */ '../components/projects/AddDatabase.vue');
+const ResourceUpload = () => import(/* webpackChunkName: "ResourceUpload?v=0.27" */ '../components/projects/ResourceUpload.vue');
+const PanelLoader = () => import(/* webpackChunkName: "PanelLoader?v=0.29" */ '../components/projects/PanelLoader.vue');
+const PanelSettings = () => import(/* webpackChunkName: "PanelSettings?v=0.41" */ '../components/projects/PanelSettings.vue');
+const AddWebroute= () => import(/* webpackChunkName: "AddWebroute?v=0.40" */ '../components/projects/AddWebroute.vue');
 
 // chats routes
-const Chats = () => import(/* webpackChunkName: "Chats?v=7.21" */ '../components/chats/Chats.vue');
+const Chats = () => import(/* webpackChunkName: "Chats?v=7.22" */ '../components/chats/Chats.vue');
 
 // Hub routes
-const Hub = () => import(/* webpackChunkName: "Hub?v=4.68" */ '../components/Hub/Hub.vue');
+const Hub = () => import(/* webpackChunkName: "Hub?v=4.67" */ '../components/Hub/Hub.vue');
 
 // profile routes
- const ProfilePage= () => import(/* webpackChunkName:"ProfilePage?v=0.94"*/ '../components/Profile/ProfilePage.vue');
- const EditProfile= () => import(/* webpackChunkName: "EditProfile?v=0.14"*/ '../components/Profile/EditProfile.vue')
+ const ProfilePage= () => import(/* webpackChunkName:"ProfilePage?v=1.99"*/ '../components/Profile/ProfilePage.vue');
 
 // challenges routes
-const ChallengesList= () => import(/* webpackChunkName: "ChallengesList?v=0.61" */ '../components/challenges/ChallengesList.vue');
-const ChallengesCreate= () => import(/* webpackChunkName: "ChallengesCreate?v=0.69" */ '../components/challenges/Create.vue');
-const ChallengePanel= () => import(/* webpackChunkName: "ChallengePanel?v=1.38" */ '../components/challenges/Panel.vue');
-const ChallengeDescription= () => import(/* webpackChunkName: "ChallengeDescription?v=0.19" */ '../components/challenges/Description.vue');
-const ChallengeJudges= () => import(/* webpackChunkName: "ChallengeJudges?v=0.26" */ '../components/challenges/Judges.vue');
-const ChallengeLeaderboard= () => import(/* webpackChunkName: "ChallengeLeaderboard?v=0.29" */ '../components/challenges/Leaderboard.vue');
-const ChallengeDiscussions= () => import(/* webpackChunkName: "ChallengeDiscussions?v=0.31" */ '../components/challenges/Discussion.vue');
+const ChallengesList= () => import(/* webpackChunkName: "ChallengesList?v=0.62" */ '../components/challenges/ChallengesList.vue');
+const ChallengesCreate= () => import(/* webpackChunkName: "ChallengesCreate?v=0.70" */ '../components/challenges/Create.vue');
+const ChallengePanel= () => import(/* webpackChunkName: "ChallengePanel?v=1.39" */ '../components/challenges/Panel.vue');
+const ChallengeDescription= () => import(/* webpackChunkName: "ChallengeDescription?v=0.20" */ '../components/challenges/Description.vue');
+const ChallengeJudges= () => import(/* webpackChunkName: "ChallengeJudges?v=0.27" */ '../components/challenges/Judges.vue');
+const ChallengeLeaderboard= () => import(/* webpackChunkName: "ChallengeLeaderboard?v=0.30" */ '../components/challenges/Leaderboard.vue');
+const ChallengeDiscussions= () => import(/* webpackChunkName: "ChallengeDiscussions?v=0.32" */ '../components/challenges/Discussion.vue');
 const ChallengeRules= () => import(/* webpackChunkName: "ChallengeRules?v=0.14" */ '../components/challenges/Rules.vue');
 
 // Pets routes
-const PetList= () => import(/* webpackChunkName: "PetList?v=0.45" */ '../components/pets/PetList.vue');
-const PetBoard= () => import(/* webpackChunkName: "PetBoard?v=1.13" */ '../components/pets/Board.vue');
-const PetContent= () => import(/* webpackChunkName: "PetContent?v=0.24" */ '../components/pets/PetContent.vue');
-const AddGem= () => import(/* webpackChunkName: "AddGem?v=1.25" */ '../components/pets/AddGem.vue');
+const PetList= () => import(/* webpackChunkName: "PetList?v=0.46" */ '../components/pets/PetList.vue');
+const PetBoard= () => import(/* webpackChunkName: "PetBoard?v=1.14" */ '../components/pets/Board.vue');
+const PetContent= () => import(/* webpackChunkName: "PetContent?v=0.25" */ '../components/pets/PetContent.vue');
+const AddGem= () => import(/* webpackChunkName: "AddGem?v=1.26" */ '../components/pets/AddGem.vue');
 
 const routes = [
   { path: '/login', name: 'login', component: Login },
@@ -122,9 +121,8 @@ const routes = [
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
   {
-    path:'/profile-page', name:'ProfilePage', component:ProfilePage
+    path:'/profile', name:'ProfilePage', component:ProfilePage
   },
-  {path:'/edit-profile', name:'EditProfile', component:EditProfile},
   {
     path:'/hub',
     name:'Hub',

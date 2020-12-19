@@ -405,13 +405,13 @@
 <script>
 
  const TopBar = () => import(
-    /* webpackChunkName: "top-bar?v=0.51" */ './TopBar.vue'
+    /* webpackChunkName: "top-bar?v=0.52" */ './TopBar.vue'
   );
 
-const addPage = () => import(/*webpackChunkName: "addPage?v=1.32"*/ './AddProjectPage.vue')
+const addPage = () => import(/*webpackChunkName: "addPage?v=1.33"*/ './AddProjectPage.vue')
 
  const ProjectView = () => import(
-    /* webpackChunkName: "ProjectView?v=1.06" */ './ProjectView.vue'
+    /* webpackChunkName: "ProjectView?v=1.07" */ './ProjectView.vue'
   );
 
 export default {

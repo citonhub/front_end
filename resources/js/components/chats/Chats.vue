@@ -290,49 +290,49 @@
 <script>
 
  const TopBar = () => import(
-    /* webpackChunkName: "top-bar-chat?v=0.18" */ './TopBar.vue'
+    /* webpackChunkName: "top-bar-chat?v=0.19" */ './TopBar.vue'
   );
   const ChatTop = () => import(
-    /* webpackChunkName: "ChatTop?v=0.53" */ './ChatTop.vue'
+    /* webpackChunkName: "ChatTop?v=0.54" */ './ChatTop.vue'
   );
   const ChatBottom = () => import(
-    /* webpackChunkName: "ChatBottom?v=0.54" */ './ChatBottom.vue'
+    /* webpackChunkName: "ChatBottom?v=0.55" */ './ChatBottom.vue'
   );
 
   const ChatList = () => import(
-    /* webpackChunkName: "ChatList?v=1.17" */ './ChatList.vue'
+    /* webpackChunkName: "ChatList?v=1.18" */ './ChatList.vue'
   );
 
   const ChatMessages = () => import(
-    /* webpackChunkName: "ChatMessages?v=1.95" */ './ChatMessages.vue'
+    /* webpackChunkName: "ChatMessages?v=1.96" */ './ChatMessages.vue'
   );
   
   const CodeEditorChat = () => import(
-    /* webpackChunkName: "CodeEditorChat?v=0.31" */ './CodeEditorChat.vue'
+    /* webpackChunkName: "CodeEditorChat?v=0.32" */ './CodeEditorChat.vue'
   );
   
   const ImageViewer = () => import(
-    /* webpackChunkName: "ImageViewer?v=0.28" */ './ImageViewer.vue'
+    /* webpackChunkName: "ImageViewer?v=0.29" */ './ImageViewer.vue'
   );
 
     const ChannelInfo = () => import(
-    /* webpackChunkName: "ChannelInfo?v=0.61" */ './ChannelInfo.vue'
+    /* webpackChunkName: "ChannelInfo?v=0.62" */ './ChannelInfo.vue'
   );
 
     const ChannelEdit = () => import(
-    /* webpackChunkName: "ChannelEdit?v=0.17" */ './ChannelEdit.vue'
+    /* webpackChunkName: "ChannelEdit?v=0.18" */ './ChannelEdit.vue'
   );
 
      const SubChannels = () => import(
-    /* webpackChunkName: "SubChannels?v=0.21" */ './SubChannels.vue'
+    /* webpackChunkName: "SubChannels?v=0.22" */ './SubChannels.vue'
   );
 
    const CreateChannel = () => import(
-    /* webpackChunkName: "CreateChannel?v=0.23" */ './CreateChannel.vue'
+    /* webpackChunkName: "CreateChannel?v=0.24" */ './CreateChannel.vue'
   );
 
   const LiveSession = () => import(
-    /* webpackChunkName: "LiveSession?v=0.69" */ './LiveSession.vue'
+    /* webpackChunkName: "LiveSession?v=0.70" */ './LiveSession.vue'
   );
 export default {
      data () {
