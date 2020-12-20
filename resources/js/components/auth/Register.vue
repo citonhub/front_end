@@ -160,13 +160,21 @@
 
  <!-- form for smaller screens -->
  <!-- for smaller and medium screen..  -->
-  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style=" overflow-y:auto; z-index:99999999; align-items:center; justify-content:center; left:0; position:fixed; height:90%; top:10%; ">
-    
- 
+  <div class="d-lg-none col-md-8 offset-md-2 px-2  "  style=" overflow-y:auto; z-index:99999999;  left:0; position:fixed; height:100%; top:0%; ">
     
      
-      <v-card class="py-1 px-2 row" flat style="background:transparent;">
-             
+
+     <div class="col-12 py-1 px-1">
+
+          <a href="/"> <img alt="citonhub logo" class="d-lg-none d-block" src="/imgs/logo.png" height="35px"></a>
+
+        </div>
+    
+     
+      <v-card class="py-1 px-2 col-12" flat style="background:transparent;align-items:center; justify-content:center;">
+
+         <div class="row">
+
             <div class="col-12 px-0 py-1  my-0 mt-4 d-flex" style="align-items:center;justify-content:center;">
              <h5  style=" font-family:HeaderFont">
                  Create Your Account
@@ -264,6 +272,10 @@
              
           </v-form>
             </div>
+
+         </div>
+             
+           
         </v-card>
 
        

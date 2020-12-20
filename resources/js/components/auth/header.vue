@@ -1,7 +1,7 @@
 <template>
    
         <!-- Headers -->
- <div class="col-12 fixed-top py-3 px-md-4 px-3" style=" z-index:999999999999999; background:white;" >
+ <div class="col-12 fixed-top d-lg-block d-none py-3 px-md-4 px-3" style=" z-index:999999999999999; background:white;" >
 <div class="row">
 
 <!-- Logo -->
@@ -10,7 +10,7 @@
 <img alt="citonhub logo" class="d-lg-block d-none" src="/imgs/logo.png" height="40px">
  </a>
 
- <a href="/"> <img alt="citonhub logo" class="d-lg-none d-block" src="/imgs/logo.png" height="35px"></a>
+
 
  </div>
 
