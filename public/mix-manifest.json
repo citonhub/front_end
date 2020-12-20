@@ -29,6 +29,7 @@
     "/js/chunks/CreateChannel.66340e5623775bf529e4.js": "/js/chunks/CreateChannel.66340e5623775bf529e4.js",
     "/js/chunks/EditProfile.ed54877c486711787210.js": "/js/chunks/EditProfile.ed54877c486711787210.js",
     "/js/chunks/ForgotPassword.0e633008bf63c97a39c0.js": "/js/chunks/ForgotPassword.0e633008bf63c97a39c0.js",
+    "/js/chunks/GetPet.68b513b0285ba421d89a.js": "/js/chunks/GetPet.68b513b0285ba421d89a.js",
     "/js/chunks/Hub.e1a542a79149f2eda935.js": "/js/chunks/Hub.e1a542a79149f2eda935.js",
     "/js/chunks/ImageLoader?v=0.10.4f83cc08fc326f9f98de.js": "/js/chunks/ImageLoader?v=0.10.4f83cc08fc326f9f98de.js",
     "/js/chunks/ImageViewer.2633f1678e6da17f017b.js": "/js/chunks/ImageViewer.2633f1678e6da17f017b.js",
@@ -51,7 +52,7 @@
     "/js/chunks/SubChannels.8a14e6e204689f3c56b6.js": "/js/chunks/SubChannels.8a14e6e204689f3c56b6.js",
     "/js/chunks/VPressEditor?v=0.12.a523e994dc57116d8d75.js": "/js/chunks/VPressEditor?v=0.12.a523e994dc57116d8d75.js",
     "/js/chunks/VideoPlayer.8a1add097b9fb159340e.js": "/js/chunks/VideoPlayer.8a1add097b9fb159340e.js",
-    "/js/chunks/addPage.1691773e076869ab08ff.js": "/js/chunks/addPage.1691773e076869ab08ff.js",
+    "/js/chunks/addPage.375f7ff72b18f9e10620.js": "/js/chunks/addPage.375f7ff72b18f9e10620.js",
     "/js/chunks/login.58b47b2303d25bb71df5.js": "/js/chunks/login.58b47b2303d25bb71df5.js",
     "/js/chunks/panel-side.749a0ea8a416d76be4fd.js": "/js/chunks/panel-side.749a0ea8a416d76be4fd.js",
     "/js/chunks/register.d4c2ddc6269cd946e8e6.js": "/js/chunks/register.d4c2ddc6269cd946e8e6.js",
@@ -62,7 +63,5 @@
     "/js/chunks/vendors~CodeBox~CodeEditor~CodeEditorChat.8d34d3deb01e8855b707.js": "/js/chunks/vendors~CodeBox~CodeEditor~CodeEditorChat.8d34d3deb01e8855b707.js",
     "/js/chunks/vendors~VPressEditor?v=0.12.9bb3b5a343417f1e7630.js": "/js/chunks/vendors~VPressEditor?v=0.12.9bb3b5a343417f1e7630.js",
     "/js/chunks/vendors~VideoPlayer.8992c579db9657cf556a.js": "/js/chunks/vendors~VideoPlayer.8992c579db9657cf556a.js",
-    "/js/chunks/verify.28f914638cfca85eb114.js": "/js/chunks/verify.28f914638cfca85eb114.js",
-    "/js/chunks/addPage.f9b2f2b972c88c992a05.js": "/js/chunks/addPage.f9b2f2b972c88c992a05.js",
-    "/js/chunks/addPage.375f7ff72b18f9e10620.js": "/js/chunks/addPage.375f7ff72b18f9e10620.js"
+    "/js/chunks/verify.28f914638cfca85eb114.js": "/js/chunks/verify.28f914638cfca85eb114.js"
 }
