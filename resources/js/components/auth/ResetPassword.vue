@@ -21,19 +21,6 @@
 
   </div>
 
-<div class="d-lg-none col-12 text-center  d-flex"  style="z-index:999999999; align-items:center; justify-content:center; position:fixed; height:20%; bottom:2%;">
-    
- 
-     
-<div  class="px-5">
-
-
-<blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">Its a new day and a new chance to try again.</blockquote>
- 
-
-       </div>
-       
-</div>
 
 
 <!-- ends -->
@@ -123,7 +110,7 @@
  <!-- ends -->
 
  <!-- form for smaller screens -->
-  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="z-index:99999999999; align-items:center; justify-content:center; left:0; position:fixed; height:70%; top:10%;">
+  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="overflow-y:auto;z-index:99999999999; align-items:center; justify-content:center; left:0; position:fixed; height:90%; top:10%;">
     
  
     
@@ -183,6 +170,22 @@
                  Reset
                   </v-btn>
              </div>
+
+               <!-- qoutes -->
+             <div class="col-12 text-center mt-3 d-flex"  style="z-index:999999999; align-items:center; justify-content:center;">
+
+
+
+<div  class="px-5">
+
+
+<blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">Its a new day and a new chance to try again.</blockquote>
+
+       </div>
+
+</div>
+
+ <!-- ends -->
 
 
              

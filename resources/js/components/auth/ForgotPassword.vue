@@ -23,21 +23,6 @@
 
   </div>
 
-<div class="d-lg-none col-12 text-center  d-flex"  style="z-index:999999999; align-items:center; justify-content:center; position:fixed; height:20%; bottom:2%;">
-    
- 
-     
-<div  class="px-5">
-
-
-<blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">Knowing is not enough; we must apply. Wishing is not enough; we must do.</blockquote>
-  <p class="text-center" style="font-family:HeaderFont;font-size:16px;">
-   - Rob Siltanen
- </p>
-
-       </div>
-       
-</div>
 
 
 <!-- ends -->
@@ -109,14 +94,14 @@
  <!-- ends -->
 
  <!-- form for smaller screens -->
-  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="z-index:999999999999; align-items:center; justify-content:center; left:0; position:fixed; height:70%; top:10%; ">
+  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="overflow-y:auto;z-index:999999999999; align-items:center; justify-content:center; left:0; position:fixed; height:90%; top:10%; ">
     
  
     
      
       <v-card class="py-1 px-2 row" flat style="background:transparent;">
              
-            <div class="col-12 px-0 py-1 my-2 d-flex" style="align-items:center;justify-content:center;">
+            <div class="col-12 px-0 py-1 mt-4 my-2 d-flex" style="align-items:center;justify-content:center;">
              <h5  style=" font-family:HeaderFont">
                    Enter Your Email
              </h5>
@@ -152,6 +137,25 @@
                  Verify
                   </v-btn>
              </div>
+
+               <!-- qoutes -->
+             <div class="col-12 text-center mt-3 d-flex"  style="z-index:999999999; align-items:center; justify-content:center;">
+
+
+
+<div  class="px-5">
+
+
+<blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">Knowing is not enough; we must apply. Wishing is not enough; we must do.</blockquote>
+
+ <p class="text-center" style="font-family:HeaderFont;font-size:16px;">
+   - Rob Siltanen
+ </p>
+       </div>
+
+</div>
+
+ <!-- ends -->
 
 
              

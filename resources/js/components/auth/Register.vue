@@ -160,14 +160,14 @@
 
  <!-- form for smaller screens -->
  <!-- for smaller and medium screen..  -->
-  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="z-index:999999999999; align-items:center; justify-content:center; left:0; position:fixed; height:90%; top:10%; ">
+  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style=" overflow-y:auto; z-index:999999999999; align-items:center; justify-content:center; left:0; position:fixed; height:90%; top:10%; ">
     
  
     
      
       <v-card class="py-1 px-2 row" flat style="background:transparent;">
              
-            <div class="col-12 px-0 py-1 my-0 d-flex" style="align-items:center;justify-content:center;">
+            <div class="col-12 px-0 py-1  my-0 mt-4 d-flex" style="align-items:center;justify-content:center;">
              <h5  style=" font-family:HeaderFont">
                  Create Your Account
              </h5>
@@ -187,7 +187,7 @@
             label="Your Name"
             counter="80"
             v-model="name"
-            dense
+            
             outlined
              prepend-inner-icon="las la-user"
             :rules="nameRule"
@@ -204,7 +204,7 @@
             label="Email"
              v-model="email"
               prepend-inner-icon="las la-envelope"
-           dense
+           
             :rules="emailRule"
              :error="emailExist"
              outlined
@@ -222,7 +222,7 @@
               outlined
               v-model="password"
               @click:append="switchTxtView()"	
-               dense
+               
                prepend-inner-icon="las la-lock"
                :append-icon="prependIconText"
             :rules="passwordRule"
@@ -255,6 +255,9 @@
                 </span>
                 
             </div>
+
+
+           
             
 
 

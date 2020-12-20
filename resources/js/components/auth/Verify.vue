@@ -22,22 +22,7 @@
 
   </div>
 
-<div class="d-lg-none col-12 text-center  d-flex"  style="z-index:999999999; align-items:center; justify-content:center; position:fixed; height:20%; bottom:2%;">
-    
- 
-     
-<div  class="px-5">
 
-
-<blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">The only impossible journey is the one you never begin.</blockquote>
- 
- <p class="text-center" style="font-family:HeaderFont;font-size:16px;">
-   - Anthony Robbins
- </p>
-
-       </div>
-       
-</div>
 
 
 <!-- ends -->
@@ -120,14 +105,14 @@
  <!-- ends -->
 
  <!-- form for smaller screens -->
-  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="z-index:99999999999; align-items:center; justify-content:center; left:0; position:fixed; height:70%; top:10%; ">
+  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style="overflow-y:auto; z-index:99999999999; align-items:center; justify-content:center; left:0; position:fixed; height:90%; top:10%; ">
     
  
     
      
       <v-card class="py-1 px-2 row" flat >
              
-            <div class="col-12 px-0 py-1 my-2 d-flex" style="align-items:center;justify-content:center;">
+            <div class="col-12 px-0 py-1 mt-4 my-2 d-flex" style="align-items:center;justify-content:center;">
              <h5  style=" font-family:HeaderFont">
                   Reset password
              </h5>
@@ -174,6 +159,25 @@
                 style="text-decoration:underline;font-size:13px; font-family:BodyFont; color:#ffffff; text-transform:lowercase;" @click="resendMail" :disabled="!showResend" :loading="loadingResend">{{$t('general.resend')}}</v-btn> <span v-if="timer > 0">  {{timer}} sec</span></span>
                 
             </div>
+
+            <!-- qoutes -->
+             <div class="col-12 text-center mt-3 d-flex"  style="z-index:999999999; align-items:center; justify-content:center;">
+
+
+
+<div  class="px-5">
+
+
+<blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">The only impossible journey is the one you never begin.</blockquote>
+
+ <p class="text-center" style="font-family:HeaderFont;font-size:16px;">
+  - Anthony Robbins
+ </p>
+       </div>
+
+</div>
+
+ <!-- ends -->
 
 
              
