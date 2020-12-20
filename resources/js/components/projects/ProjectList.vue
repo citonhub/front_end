@@ -8,7 +8,7 @@
         </div>
          <div class="col-6  py-0 my-0 text-right">
            <v-btn small rounded @click="addProject" color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;">
-             <v-icon style="font-size:20px;">las la-plus</v-icon> <span>Add</span> 
+             <v-icon style="font-size:20px;">las la-plus</v-icon> <span>Create</span> 
            </v-btn>
         </div>
       </div>

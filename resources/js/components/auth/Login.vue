@@ -148,9 +148,9 @@
  
     
      
-      <v-card class="py-1 px-2 row" flat >
+      <v-card class="py-1 px-2 row" flat style="background:transparent;">
              
-            <div class="col-12 px-0 py-1 my-2 d-flex" style="align-items:center;justify-content:center;">
+            <div class="col-12 px-0 py-1 my-1 mb-0 d-flex" style="align-items:center;justify-content:center;">
              <h5  style=" font-family:HeaderFont">
                  Login
              </h5>
@@ -158,8 +158,8 @@
 
 
 
-            <div class="col-12 text-center py-1" style="font-family:BodyFont;">
-              <v-form class="row my-1 py-2 px-2 " ref="loginform" v-model="formstate">
+            <div class="col-12 text-center py-0" style="font-family:BodyFont;">
+              <v-form class="row my-1 py-1 px-2 " ref="loginform" v-model="formstate">
               
                 
 

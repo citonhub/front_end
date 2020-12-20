@@ -113,6 +113,8 @@ const PetBoard= () => import(/* webpackChunkName: "PetBoard" */ '../components/p
 const PetContent= () => import(/* webpackChunkName: "PetContent" */ '../components/pets/PetContent.vue');
 const AddGem= () => import(/* webpackChunkName: "AddGem" */ '../components/pets/AddGem.vue');
 const GetPet= () => import(/* webpackChunkName: "GetPet" */ '../components/pets/GetPet.vue');
+
+
 const routes = [
   { path: '/login', name: 'login', component: Login },
   { path: '/sign-up', name: 'register', component: Register },
@@ -200,7 +202,7 @@ const routes = [
     },
     {
       // add project
-      path: 'add',
+      path: 'create',
       component: AddProject
     },
   
@@ -241,7 +243,7 @@ const routes = [
               // get new pet
               {
                 path:'get-pet',
-component:GetPet
+                component:GetPet
               }
         ]
       },
