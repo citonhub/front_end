@@ -112,7 +112,7 @@ const PetList= () => import(/* webpackChunkName: "PetList" */ '../components/pet
 const PetBoard= () => import(/* webpackChunkName: "PetBoard" */ '../components/pets/Board.vue');
 const PetContent= () => import(/* webpackChunkName: "PetContent" */ '../components/pets/PetContent.vue');
 const AddGem= () => import(/* webpackChunkName: "AddGem" */ '../components/pets/AddGem.vue');
-
+const GetPet= () => import(/* webpackChunkName: "GetPet" */ '../components/pets/GetPet.vue');
 const routes = [
   { path: '/login', name: 'login', component: Login },
   { path: '/sign-up', name: 'register', component: Register },
@@ -216,7 +216,8 @@ const routes = [
           {
             // list
             path:'list',
-            component:PetList
+            component:PetList,
+            
           },
           {
             // board
@@ -236,6 +237,12 @@ const routes = [
               }
             ]
           }
+          ,
+              // get new pet
+              {
+                path:'get-pet',
+component:GetPet
+              }
         ]
       },
       {
