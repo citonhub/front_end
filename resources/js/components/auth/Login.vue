@@ -129,7 +129,7 @@
  <!-- ends -->
 
  <!-- form for smaller screens -->
-  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style=" overflow-y:auto; align-items:center; justify-content:center; left:0; position:fixed; height:90%; top:10%; ">
+  <div class="d-lg-none col-md-8 offset-md-2 px-2  d-flex"  style=" z-index:99999999; overflow-y:auto; align-items:center; justify-content:center; left:0; position:fixed; height:90%; top:10%; ">
 
 
 

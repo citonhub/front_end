@@ -31,7 +31,7 @@
 
 
  <!-- for for larger screen  -->
-       <div class=" col-lg-7 offset-lg-5 px-5  d-none d-lg-flex "  style="z-index:99999999; align-items:center; justify-content:center; position:fixed; height:70%; top:10%;">
+       <div class=" col-lg-7 offset-lg-5 px-5  d-none d-lg-flex "  style=" z-index:99999999; align-items:center; justify-content:center; position:fixed; height:70%; top:10%;">
      
 <div style="" class="col-7 ">
      
