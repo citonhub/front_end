@@ -77,7 +77,7 @@
                 </div>
            </div>
 
-           <div @click.stop="goToPage('hub')"  class="col-12  px-0 py-1 py-md-2 mt-3 d-lg-none d-block" v-if="this.$router.currentRoute.path.indexOf('chat') >= 0 || this.$router.currentRoute.path.indexOf('profile') >= 0">
+           <div @click.stop="goToPage('hub')"  class="col-12  px-0 py-1 py-md-2 mt-3 d-lg-none d-block" v-if="this.$router.currentRoute.path.indexOf('hub') <= 0">
                 <div class="row">
                 <div class="col-12 py-1 text-center">
                   

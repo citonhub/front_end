@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="col-12 px-2 px-md-2 scroller" style="position:absolute;height:91%;top:6%;left:0%;overflow-y:auto;overflow-x:hidden;">
+        <div class="col-12 px-2 px-md-2 scroller" style="position:absolute;height:92%;top:6%;left:0%;overflow-y:auto;overflow-x:hidden;">
 
               <!-- pet profile view -->
 
@@ -61,7 +61,7 @@
 
             <div class="py-2 pb-0 px-0 px-md-2  col-12 d-flex flex-row" style="align-items:center;">
              
-             <div  class="ml-3 d-flex flex-row" style="width:100%;align-items:center;">
+             <div  class="ml-1 ml-md-3 d-flex flex-row" style="width:100%;align-items:center;">
                 <h5 class="pt-1">Knowledge Gems</h5> 
               <v-btn icon class="mx-1"><v-icon style="font-size:25px;">las la-plus</v-icon></v-btn>
              </div>
@@ -75,7 +75,7 @@
 
           
                <draggable
-        class="col-12 px-0 px-md-2 py-0 d-flex flex-row flex-wrap"
+        class="col-12  px-md-3  px-0 py-0 d-flex flex-row flex-wrap"
         tag="div"
         v-model="list"
         handle=".handle"
@@ -85,7 +85,7 @@
       >
        
           <div
-            class="col-md-6 col-lg-4"
+            class="col-md-6 col-lg-4 px-1"
             v-for="element in list"
             :key="element.order"
           >

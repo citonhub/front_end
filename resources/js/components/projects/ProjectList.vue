@@ -14,20 +14,15 @@
       </div>
    </div>
 
-   <div class=" px-0 col-12 py-1 d-md-none d-block fixed-top" style="position:sticky; background:#F5F5FB; border-bottom:1px solid #c5c5c5;">
-  
+   <!-- fab for smaller screen -->
 
-     <div class="row">
-        <div class="col-6 py-0 my-0">
-           <h6 style="font-size:17px;">Projects</h6>
-        </div>
-         <div class="col-6 mb-1 py-0 my-0 text-right">
-           <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;">
-             <v-icon style="font-size:20px;">las la-plus</v-icon>
-           </v-btn>
-        </div>
-      </div>
-   </div>
+    <v-btn  fab color="#3C87CD"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
+
+        <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
+
+     </v-btn>
+
+<!-- ends -->
 
  <!-- project list view -->
 

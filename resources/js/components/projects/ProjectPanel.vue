@@ -5,9 +5,9 @@
   
   <!-- small and medium and large screen -->
     
-     <div class="col-12   px-0 d-block  py-0" style="position:fixed; left:0; height:100%; top:0%; background:white; z-index:99990999999999;">
+     <div class="col-12   px-0 d-block  py-0" style="position:fixed; left:0; height:100%; top:0%; background:white; z-index:99999999999999999999;">
 
-      <div class="col-12 py-0 fixed-top" style="position:fixed;width:100%;border-bottom:2px solid #3C87CD; border-radius:0px; background:white; z-index:99999999999;">
+      <div class="col-12 py-0 fixed-top" style="position:fixed;width:100%;border-bottom:2px solid #3C87CD; border-radius:0px; background:white; z-index:9999999999999999999;">
         <div class="row py-1 my-0">
            <div class="col-2 py-0 my-0 text-left">
            <v-btn @click="closePanel()" icon><v-icon style="font-size:25px;">las la-times</v-icon> </v-btn>

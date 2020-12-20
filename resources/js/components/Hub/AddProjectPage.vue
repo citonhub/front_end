@@ -4,7 +4,7 @@
     <div class="row" style="font-family:BodyFont;background:transparent;">
 
     <!-- contents  -->
-         <div class="col-12 px-md-4 px-3 py-2 pt-0 mt-4 text-left" style="height:auto !important; font-family:BodyFont; background:transparent !important;" >
+         <div class="col-12 px-md-4 px-3 py-2 pt-0 mt-1 text-left" style="height:auto !important; font-family:BodyFont; background:transparent !important;" >
            
            <v-app class="row">
 
@@ -35,7 +35,7 @@
                  style="font-size:13px;"
                  rounded
                  filled
-              label="Select Project or paste project link"
+              label="Select project or Paste project link"
       
             placeholder="select"
             persistent-hint
