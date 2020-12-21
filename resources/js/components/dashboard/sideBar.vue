@@ -22,6 +22,17 @@
     
 
       <div class="row px-0">
+         <div class="col-12  px-0 py-1 py-md-2 sideBar" :style="selectedTab == 'hub' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('hub')">
+                <div class="row">
+                <div class="col-4 py-1 text-center">
+                  <v-icon style="font-size:30px;" :color="selectedTab == 'hub' ? '#3C87CD' : '#A4A4A5'">las la-home</v-icon>
+                </div>
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'hub' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
+                  <div style="font-family:MediumFont; font-size:14px;" >Hub</div>
+                </div>
+                </div>
+          </div>
+
           <div class="col-12  px-0 py-1 py-md-2 sideBar" :style="selectedTab == 'projects' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('projects')">
                 <div class="row">
                 <div class="col-4 py-1 text-center">
@@ -67,26 +78,7 @@
           </div>
 
 
-           <div @click.stop="goToPage('hub')"  class="col-12  px-0 py-1 py-md-2 mt-3 d-lg-block d-none" v-if="this.$router.currentRoute.path.indexOf('hub') <= 0">
-                <div class="row">
-                <div class="col-12 py-1 text-center">
-                  
-                  <button class="btnStyle py-3 px-5">Hub</button>
-
-                </div>
-                </div>
-           </div>
-
-           <div @click.stop="goToPage('hub')"  class="col-12  px-0 py-1 py-md-2 mt-3 d-lg-none d-block" v-if="this.$router.currentRoute.path.indexOf('hub') <= 0">
-                <div class="row">
-                <div class="col-12 py-1 text-center">
-                  
-                  <button class="btnStyle py-2 px-4" style="font-size:13px;">Hub</button>
-
-                </div>
-                </div>
-           </div>
-
+          
 
           
 
@@ -163,7 +155,16 @@ export default {
                 
                this.selectedTab = 'challenges';
 
-                this.$root.searchType = 'Challenges'
+                this.$root.searchType = 'challenges'
+
+              
+            }
+
+            if(this.$router.currentRoute.path.indexOf('hub') >= 0){
+                
+               this.selectedTab = 'hub';
+
+                this.$root.searchType = 'hub'
 
               
             }

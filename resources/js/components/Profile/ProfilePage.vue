@@ -301,6 +301,7 @@
 </template>
 
 <script>
+import '../../bootstraps/globalPackage'
 const TopBar = () => import(
    /* webpackChunkName: "top-bar-profile" */ './TopBar.vue'
   );

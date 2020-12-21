@@ -25,6 +25,8 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 
 
+
+
  window.customLocation = 'https://api.citonhub.com';
 
 Vue.use(Vuetify);

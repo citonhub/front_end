@@ -292,6 +292,9 @@
 
 </template>
 <script>
+
+import '../../bootstraps/globalPackage'
+
 export default {
      data () {
       return {

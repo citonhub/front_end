@@ -50,7 +50,7 @@
 
       <div  class="col-lg-6 offset-lg-3 py-2 px-0 pt-1 mt-1" style="height:450px;">
         <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" 
-   src="https://www.citonhub.com/run-panel/645703307" 
+   src="https://8l1y3mn8rl.csb.app" 
    class="col-12 " style="position:absolute; height:100%;  background:white;border:1px solid #c5c5c5; border-radius:7px;"  ></iframe>
 
      <v-btn icon color="#ffffff" style="border-radius:0px; border-top-right-radius:7px;position:absolute;background: rgba(27, 27, 30, 0.4); right:0%; z-index:879;" 
@@ -63,7 +63,7 @@
 
       <!-- view source -->
          <div class="col-lg-6 offset-lg-3 px-2 mt-3 text-right">
-        <v-btn color="#3C87CD" small style="text-transform:capitalize;color:white;font-size:12px;font-family:BodyFont;">View Source <v-icon class="ml-1">mdi-launch mdi-18px</v-icon></v-btn>
+        <v-btn color="#3C87CD" small style="text-transform:none;color:white;font-size:12px;font-family:BodyFont;">View source <v-icon class="ml-1">mdi-launch mdi-18px</v-icon></v-btn>
       </div>
       <!-- ends -->
 

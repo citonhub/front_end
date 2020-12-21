@@ -173,8 +173,8 @@
 
             <!-- add project button -->
              <div class=" text-center col-12 py-1 mt-4 my-0 px-2">
-                 <v-btn  medium rounded  color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;">
-               Add
+                 <v-btn  medium rounded  color="#3C87CD" style="font-size:13px; font-family:BodyFont; font-weight:bolder;text-transform:none; color:white;">
+               Send
                </v-btn>
              </div>
 

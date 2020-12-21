@@ -8,7 +8,7 @@
         </div>
 
          <div class="col-6 py-0 my-0 text-right">
-             <v-btn  small rounded  color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;">
+             <v-btn  small rounded  color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:BodyFont;">
              Done
            </v-btn>
         </div>
@@ -22,7 +22,7 @@
            <h6 style="font-size:17px;"><v-btn  icon><v-icon>las la-arrow-left</v-icon></v-btn>Get a pet</h6>
         </div>
          <div class="col-4 py-0 my-0 text-right">
-          <v-btn small rounded  color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;">
+          <v-btn small rounded  color="#3C87CD" style="font-size:12px; font-weight:bolder; text-transform:none; color:white;font-family:BodyFont;">
              Done
            </v-btn>
         </div>

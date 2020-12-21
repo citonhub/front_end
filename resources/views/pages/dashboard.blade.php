@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 @section('title')
 
-    <title>CitonHub: Dashboard</title>
+    <title>CitonHub</title>
 
  @endsection
  @section('meta') 
@@ -89,7 +89,7 @@
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=0.97') }}"></script>
+ <script src="{{ asset('js/dashboard.js?v=0.99') }}"></script>
  <!-- ends -->
      
  @endsection

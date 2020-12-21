@@ -7,8 +7,8 @@
           <h5>Challenges</h5>
         </div>
          <div class="col-6  py-0 my-0 text-right">
-           <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;">
-             <v-icon style="font-size:20px;">las la-plus</v-icon> <span style="color:white;">Create</span> 
+           <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:BodyFont;">
+             <v-icon style="font-size:20px;">las la-plus</v-icon> <span style="color:white;text-transform:none;">Create a challenge</span> 
            </v-btn>
         </div>
       </div>
@@ -131,6 +131,8 @@
 </template>
 
 <script>
+
+
  export default {
     data () {
       return {

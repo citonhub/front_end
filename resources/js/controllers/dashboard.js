@@ -126,6 +126,10 @@ const routes = [
     path:'/profile', name:'ProfilePage', component:ProfilePage
   },
   {
+    path:'/',
+    redirect:'/hub',
+  },
+  {
     path:'/hub',
     name:'Hub',
     component: Hub

@@ -6,7 +6,7 @@
       
          <!-- large screens -->
              <div class="col-lg-10 offset-lg-1 py-1 mb-0 col-md-10 offset-md-1 px-0 d-md-block d-none py-0 pb-3 px-0 "
-              style="position:absolute; left:0%; top:0%; height:98%;  background:#ffffff;border:1px solid #c5c5c5; border-radius:6px;overflow-y:hidden;overflow-x:hidden;">
+              style="position:absolute; left:0%; top:0%; height:100%;  background:#ffffff;border:1px solid #c5c5c5; border-radius:6px;overflow-y:hidden;overflow-x:hidden;">
       
         <!-- top bar -->
                 <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row " style="z-index:99999999999999999;position:sticky;background:white; top:-1%; border-bottom:1px solid #c5c5c5;align-items:center;">
@@ -21,12 +21,12 @@
           </div>
               
               <div class="col-3 py-0 px-1 text-right">
-                  <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+                  <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:BodyFont;">
                        <template v-if="this.$router.currentRoute.path.indexOf('add-gem') >= 0">
-                          <span style="color:white;text-transform:capitalize;">Create</span> 
+                          <span style="color:white;text-transform:none;">Create</span> 
                        </template>
                        <template v-else>
-                         <span style="color:white;text-transform:capitalize;">Train</span> 
+                         <span style="color:white;text-transform:none;">Train</span> 
                        </template>
                         
                   </v-btn>
@@ -70,8 +70,8 @@
           </div>
               
               <div class="col-3 py-0 px-1 text-right">
-                  <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
-                       <span style="color:white;text-transform:capitalize;">Train</span> 
+                  <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:BodyFont;">
+                       <span style="color:white;text-transform:none;">Train</span> 
                   </v-btn>
               </div>
           

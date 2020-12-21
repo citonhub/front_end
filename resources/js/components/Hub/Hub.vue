@@ -24,8 +24,8 @@
 
             <div class="col-lg-6 px-0 pb-1 text-right d-none d-lg-block" style="border-bottom:1px solid #263238;z-index:99999999999999;" >
 
-                <v-btn @click="addProjectModal = true"   small rounded  color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:HeaderFont;">
-             Add new <v-icon style="font-size:19px; color:white;">las la-plus</v-icon>
+                <v-btn @click="addProjectModal = true"   small rounded  color="#3C87CD" style="font-size:13px; text-transform:none; font-weight:bolder; color:white;font-family:BodyFont;">
+            Post your project <v-icon style="font-size:19px; color:white;">las la-plus</v-icon>
            </v-btn>
             </div>
 
@@ -320,9 +320,9 @@
                     </v-btn>
             </div>
              <div class="col-8 text-center py-0">
-             <span style="font-size:17px; font-family:HeaderFont;" class="d-md-block d-none">Add Your Project</span>
+             <span style="font-size:17px; font-family:HeaderFont;" class="d-md-block d-none">Post your project</span>
 
-               <span style="font-size:15px; font-family:HeaderFont;" class="d-md-none d-block">Add Your Project</span>
+               <span style="font-size:15px; font-family:HeaderFont;" class="d-md-none d-block">Post your project</span>
           </div>
               
                <div class="px-1 py-0 col-2 text-right ">
@@ -403,6 +403,7 @@
     </div>
 </template>
 <script>
+import '../../bootstraps/globalPackage'
 
  const TopBar = () => import(
     /* webpackChunkName: "top-bar" */ './TopBar.vue'
