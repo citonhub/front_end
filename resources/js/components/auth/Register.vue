@@ -391,7 +391,7 @@ export default {
     },
     checkemail: function(){
             this.emailExist= false;
-           this.$refs.register.validate();
+           this.$refs.verify.validate();
            
            if(this.formstate){
 

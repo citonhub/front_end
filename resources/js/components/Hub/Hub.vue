@@ -431,6 +431,10 @@ export default {
         TopBar,
       addPage,
       ProjectView
+    },
+
+    methods:{
+      
     }
 }
 </script>
