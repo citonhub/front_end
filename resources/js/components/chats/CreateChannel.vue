@@ -5,7 +5,7 @@
         
         <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky; background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
             <div class=" mr-1 col-2 py-0">
-              <v-btn icon >
+              <v-btn icon @click="close">
                       <v-icon>las la-arrow-left</v-icon>
                     </v-btn>
             </div>
@@ -29,7 +29,7 @@
               
 
             
-                   <v-app class="col-lg-12 col-md-6 offset-md-3 py-2 my-0 px-2" style="height:70px;">
+                   <v-app class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 my-0 px-2" style="height:70px;width:100%;">
               <v-text-field
                 style="font-size:13px;"
                  placeholder="channel name"
@@ -82,6 +82,7 @@ export default {
         ],
         type:'',
         Alert:false,
+        that:this,
         alertMsg:'',
         spaceType:[
          'Channel'
@@ -109,10 +110,12 @@ export default {
       
     },
     methods:{
-       goBack() {
-         
-        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
-        },
+      
+        close:function(){
+
+             window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+        this.$root.chatComponent.chatbarContent = 'chat_list'
+        },  
           showAlert:function(duration,text){
         this.Alert = true;
         this.alertMsg = text;

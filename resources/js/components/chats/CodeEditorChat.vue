@@ -695,21 +695,14 @@ methods:{
      setTimeout(function(){
         _this.$root.AlertRoot = false;
      },duration);
-
+  
     },
 
        goBack() {
+    
+    window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+         this.$root.chatComponent.chatInnerConent = '';
 
-       this.$root.showCodeBox = false;
-        this.$root.showChatBottom = true;
-        this.$root.codeBoxOpened = false;
-
-        this.$root.codeIsLive = false;
-
-        this.$root.codeFromChat= false;
-        this.$root.codeBoxOpened = false;
-
-         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
 
         },
         makeUUID:function(){

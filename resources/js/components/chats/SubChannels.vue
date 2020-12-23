@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky; background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
             <div class=" mr-1 col-2 py-0">
-              <v-btn icon >
+              <v-btn icon @click.stop="close">
                       <v-icon>mdi mdi-close</v-icon>
                     </v-btn>
             </div>
@@ -14,7 +14,7 @@
           </div>
               
               <div class="col-2 py-0 mr-1 text-right">
-                 <v-btn icon >
+                 <v-btn icon @click.stop="addSubChannel">
                       <v-icon>las la-plus-circle</v-icon>
                     </v-btn>
               </div>
@@ -98,7 +98,28 @@
   </div>
    
 </template>
+<script>
+export default {
+  methods:{
+    close:function(){
+             window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+        this.$root.chatComponent.chatInnerSideBar = false;
+   },  
+   addSubChannel:function(){
 
+       this.$root.chatComponent.innerSideBarContent = '';
+             setTimeout(() => {
+
+            this.$root.chatComponent.innerSideBarContent = 'add_sub_channel';
+                
+             },500);
+           this.$router.push({ path: '/channels/space_id/add_sub_channel' });
+
+     
+   }
+  }
+}
+</script>
 <style scoped>
 .messagesBadges{
     

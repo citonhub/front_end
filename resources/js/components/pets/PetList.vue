@@ -7,7 +7,7 @@
           <h5>Pets</h5>
         </div>
          <div class="col-6  py-0 my-0 text-right">
-           <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:BodyFont;">
+           <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
              <v-icon style="font-size:20px;">las la-plus</v-icon> <span style="color:white;text-transform:none;">Get a pet</span> 
            </v-btn>
         </div>

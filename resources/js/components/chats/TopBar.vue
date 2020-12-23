@@ -14,7 +14,7 @@
                     
                      <v-text-field
                        style="font-size:13px;"
-                      placeholder="Search Chats"
+                      placeholder="Search"
                       filled
                       class="d-lg-none"
                       dense

@@ -7,7 +7,7 @@
           <h5>Projects</h5>
         </div>
          <div class="col-6  py-0 my-0 text-right">
-           <v-btn small rounded @click="addProject" color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:BodyFont;">
+           <v-btn small rounded @click="addProject" color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
              <v-icon style="font-size:20px;">las la-plus</v-icon> <span style="text-transform:none;">Create a project</span> 
            </v-btn>
         </div>

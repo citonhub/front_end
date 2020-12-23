@@ -1,6 +1,6 @@
 <template>
     <div class="row px-1">
-       <div class="col-12 px-1 d-flex flex-row py-0 messageBox" style="align-items:center; justify-content:center; background:whitesmoke;" >
+       <div class="col-12 px-1 d-flex flex-row py-0 messageBox" style="align-items:center; justify-content:center; background:whitesmoke;" @click="openChat" >
            
                    <div  class=" mr-2 py-3" 
                      style="border-radius:50%;height:40px;width:40px;background-color:#c5c5c5;background-image:url(/imgs/imgproj3.jpeg);background-size: cover;
@@ -66,7 +66,15 @@
 </template>
 <script>
 export default {
-    
+    methods:{
+       openChat:function(){
+             
+            this.$router.push({ path: '/channels/space_id/content' });
+
+           this.$root.chatComponent.chatIsOpen = true;
+
+       }
+    }
 }
 </script>
 <style scoped>

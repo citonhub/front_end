@@ -12,7 +12,7 @@
         @focus="onCmFocus"
         @blur="onCmBlur"
       />
-     <v-btn icon :style="'position:absolute; top:' + topMargin + '%; right:3%;z-index:999;'">
+     <v-btn  @click="showCodeEditor" icon :style="'position:absolute; top:' + topMargin + '%; right:3%;z-index:999;'">
             <v-icon color="#ffffff">las la-expand</v-icon>
      </v-btn>
     <div style="position:absolute; width:100%;" class="py-2 px-2 d-flex flex-row">
@@ -96,23 +96,10 @@ methods:{
       onCmBlur(codemirror) {
         console.debug('onCmBlur', codemirror)
       },
-      showEditor: function(codeViewerType){
-            
-            this.$root.fullCodeLanguage = this.language;
-            this.$root.FullcodeContent = this.code;
-
-             this.$root.codeMessageId = this.messageId;
-           
-             this.$root.showCodeBox = true;
-
-             this.$root.codeFromChat = true;
-
-             this.$root.showChatBottom = false;
-
-              this.$router.push({ path: '/code-viewer'});
-            
-            
-      },
+      showCodeEditor:function(){
+         this.$root.chatComponent.chatInnerConent = 'code_editor';
+        },
+     
        detectchange: function(language){
         if(language == 'HTML'){
             this.cmOption.mode = 'text/html';
@@ -205,7 +192,8 @@ methods:{
 
          }
       }
-}
+},
+
 }
 </script>
 <style lang="scss" scoped>
