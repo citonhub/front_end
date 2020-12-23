@@ -33,35 +33,24 @@
                 </div>
           </div>
 
-          <div class="col-12  px-0 py-1 py-md-2 sideBar" :style="selectedTab == 'projects' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('projects')">
+            <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'channels' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('channels')">
+                <div class="row">
+                <div class="col-4 py-1 text-center">
+                  <v-icon style="font-size:30px;" :color="selectedTab == 'channels' ? '#3C87CD' : '#A4A4A5'">las la-comments</v-icon>
+                </div>
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'channels' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
+                  <div style="font-family:MediumFont; font-size:14px;" >Channels</div>
+                </div>
+                </div>
+          </div>
+
+          <div class="col-12  px-0 py-1 py-md-2 sideBar mt-1 " :style="selectedTab == 'projects' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('projects')">
                 <div class="row">
                 <div class="col-4 py-1 text-center">
                   <v-icon style="font-size:30px;" :color="selectedTab == 'projects' ? '#3C87CD' : '#A4A4A5'">las la-laptop-code</v-icon>
                 </div>
                 <div class="  py-1 col-8 d-flex" :style="selectedTab == 'projects' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
                   <div style="font-family:MediumFont; font-size:14px;" >Projects</div>
-                </div>
-                </div>
-          </div>
-
-          <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'chats' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('chats')">
-                <div class="row">
-                <div class="col-4 py-1 text-center">
-                  <v-icon style="font-size:30px;" :color="selectedTab == 'chats' ? '#3C87CD' : '#A4A4A5'">las la-comments</v-icon>
-                </div>
-                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'chats' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div style="font-family:MediumFont; font-size:14px;" >Chats</div>
-                </div>
-                </div>
-          </div>
-
-          <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'pets' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''"  @click.stop="goToPage('pets')">
-                <div class="row">
-                <div class="col-4 py-1 text-center">
-                  <v-icon style="font-size:30px;" :color="selectedTab == 'pets' ? '#3C87CD' : '#A4A4A5'">las la-paw</v-icon>
-                </div>
-                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'pets' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div style="font-family:MediumFont; font-size:14px;" >Pets</div>
                 </div>
                 </div>
           </div>
@@ -73,6 +62,18 @@
                 </div>
                 <div class="  py-1 col-8 d-flex" :style="selectedTab == 'challenges'  ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
                   <div style="font-family:MediumFont; font-size:14px;" >Challenges</div>
+                </div>
+                </div>
+          </div>
+
+
+          <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'pets' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''"  @click.stop="goToPage('pets')">
+                <div class="row">
+                <div class="col-4 py-1 text-center">
+                  <v-icon style="font-size:30px;" :color="selectedTab == 'pets' ? '#3C87CD' : '#A4A4A5'">las la-paw</v-icon>
+                </div>
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'pets' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
+                  <div style="font-family:MediumFont; font-size:14px;" >Pets</div>
                 </div>
                 </div>
           </div>
@@ -134,10 +135,10 @@ export default {
 
             }
 
-            if(this.$router.currentRoute.path.indexOf('chats') >= 0){
+            if(this.$router.currentRoute.path.indexOf('channels') >= 0){
                 
-               this.selectedTab = 'chats';
-                this.$root.searchType = 'chats';
+               this.selectedTab = 'channels';
+                this.$root.searchType = 'channels';
 
               
             }
@@ -174,8 +175,8 @@ export default {
         },
         goToPage:function(page){
 
-           if(page == 'chats'){
-       this.$router.push({ path: '/chats' });
+           if(page == 'channels'){
+       this.$router.push({ path: '/channels' });
 
        this.$root.showSideBar = false;
         return;

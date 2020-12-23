@@ -18,7 +18,7 @@
 <blockquote class="fill" style="font-family:BodyFont; font-size:25px; color:black;">People who are crazy enough to think they can change the world, are the ones who do.</blockquote>
 
  <p class="text-center" style="font-family:HeaderFont;font-size:25px;">
-   - Rob Siltanen
+   - Steve Jobs
  </p>
        </div>
 
@@ -228,7 +228,7 @@
 <blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">People who are crazy enough to think they can change the world, are the ones who do.</blockquote>
 
  <p class="text-center" style="font-family:HeaderFont;font-size:16px;">
-   - Rob Siltanen
+   - Steve Jobs
  </p>
        </div>
 
@@ -263,7 +263,12 @@
 
 </template>
 <script>
-import '../../bootstraps/globalPackage'
+// alert
+
+import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+
+
 export default {
      data () {
       return {
@@ -285,7 +290,7 @@ export default {
     },
      mounted(){
 
-      // this.checkIfLogin();
+       this.checkIfLogin();
     },
     methods:{
        showRegister: function(){
@@ -296,21 +301,76 @@ export default {
         },
       checkIfLogin:function(){
 
-         // check if user is logged in , if yes redirect
+       
+        if(this.$root.isLogged){
+            this.$router.push({ path: '/hub' });
+        }
 
        },
 
-        goBack: function(){
-      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
-   },
-    showAlert:function(duration,text){
-        this.Alert = true;
-        this.alertMsg = text;
-        let _this = this;
+       
+    showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
 
-     setTimeout(function(){
-        _this.Alert = false;
-     },duration);
+          iziToast.info(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'topRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'topRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'topRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'topRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'question'){
+
+       }
+     
 
     },
     loginuser: function(){
@@ -339,13 +399,11 @@ export default {
 
     }
 
+    
+
       this.$root.checkauthroot = 'auth';
 
-      if(this.$root.frompage == 'space'){
-        this.$root.checkUserDevice();
-
-      }
-
+     
       this.$root.fetchUserDetails();
        this.$root.setEcho();
 
@@ -357,12 +415,12 @@ export default {
         if(result != null ){
             let finalResult = JSON.parse(result);
        this.$router.push({ path: finalResult[0] });
-        this.$root.itIsHomePage = false;
+       
 
         }else{
           this.checkIfLogin()
 
-           this.$root.itIsHomePage = false;
+          
 
         }
 
@@ -372,8 +430,8 @@ export default {
 
         })
         .catch(err => {
-          this.showAlert(5000,  '😬 ' + 'Unable to login, please check your login details');
-              this.loading = false;
+          this.loading = false;
+          this.showAlert('Oops!','Wrong details, give it another shot.','error')
         })
 
       }

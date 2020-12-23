@@ -135,11 +135,522 @@ const routes = [
     component: Hub
   },
   {
-    // chats
-    path: '/chats',
+    // channels
+    path: '/channels',
     component: Chats,
-    name:'Chats',
+    name:'Channels',
+    meta: {
+      twModalView: true
+    },
+    beforeEnter: (to, from, next) => {
+
+      if(window.thisUserState != undefined){
+  
+        thisUserState.$root.chatComponent.chatIsOpen = false;
+        thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+        thisUserState.$root.chatComponent.chatbarContent = 'chat_list';
+            
+       
+
+       }
+   
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+
+      
+       
+    next()
+  }
   },
+
+  // channel content 
+  { path: '/channels/:space_id/content',
+   name: 'Content',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+  
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatIsOpen = true;
+          
+     
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// create channel
+{ path: '/channels/create',
+   name: 'CreateChannel',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+      
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatbarContent = 'create_channel';
+          
+     
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// sub channels
+{ path: '/channels/:space_id/sub_channels',
+   name: 'SubChannels',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+  
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.innerSideBarContent = '';
+    setTimeout(() => {
+
+      thisUserState.$root.chatComponent.chatInnerSideBar = true;
+      thisUserState.$root.chatComponent.innerSideBarContent = 'sub_channels';
+       
+    },500);
+          
+     
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+
+// channel info
+{ path: '/channels/:space_id/channel_info',
+   name: 'ChannelInfo',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+    
+      thisUserState.$root.chatComponent.innerSideBarContent = '';
+    setTimeout(() => {
+
+      thisUserState.$root.chatComponent.chatInnerSideBar = true;
+      thisUserState.$root.chatComponent.innerSideBarContent = 'channel_info';
+       
+    },500);
+          
+     
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// channel edit
+{ path: '/channels/:space_id/channel_edit',
+   name: 'ChannelEdit',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+  
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.innerSideBarContent = '';
+    setTimeout(() => {
+
+      thisUserState.$root.chatComponent.chatInnerSideBar = true;
+      thisUserState.$root.chatComponent.innerSideBarContent = 'channel_edit';
+       
+    },500);
+          
+     
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+
+// add sub channel
+{ path: '/channels/:space_id/add_sub_channel',
+   name: 'AddSubChannel',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+  
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.innerSideBarContent = '';
+    setTimeout(() => {
+
+      thisUserState.$root.chatComponent.chatInnerSideBar = true;
+      thisUserState.$root.chatComponent.innerSideBarContent = 'add_sub_channel';
+       
+    },500);
+          
+     
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+
+// live session
+{ path: '/channels/:space_id/live_session',
+   name: 'LiveSession',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+  
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+
+      thisUserState.$root.chatComponent.chatInnerConent = false;
+      thisUserState.$root.chatComponent.chatInnerSideBar = false;
+
+      setTimeout(() => {
+        thisUserState.$root.chatComponent.liveSessionIsOpen = true;
+      }, 500);
+  
+     
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// editor
+{ path: '/channels/:space_id/editor',
+   name: 'editor',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+  
+      thisUserState.$root.chatComponent.chatInnerConent = 'code_editor';
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// image viewer
+{ path: '/channels/:space_id/image_viewer',
+   name: 'ImageViewer',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+  
+      thisUserState.$root.chatComponent.chatInnerConent = 'image_viewer';
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
   { path: '/board',
      name: 'Board', 
      component: Board,
@@ -355,6 +866,12 @@ const app = new Vue({
       fullImageColor:'',
       showMobileHub:true,
       imageViewPath:'',
+      chatComponent:undefined,
+      username: '',
+      user_temp_id:0,
+      returnedToken:'',
+      checkauthroot:'',
+      authProfile:[],
       imageArrayView:[
         {
           image_name:'space_image_1_128',
@@ -379,15 +896,171 @@ const app = new Vue({
       ]
      },
      mounted: function () {
-      
+      window.thisUserState = this;
+      window.routerData = this.$router;
+      if(this.isLogged){
+        this.fetchUserDetails();
+       }
+      this.connectToChannel();
     },
     computed: {
-     
+      ...mapGetters([
+        'isLogged'
+      ])
     },
     created(){
-     window.userRootState = this;
-    },
-    methods:{
    
+      // set default 'this' data
+     window.thisUserState = this;
+      window.routerData = this.$router;
+
+      // get user info from local storage if logged in
+      const userInfo = localStorage.getItem('user')
+    if (userInfo) {
+      const userData = JSON.parse(userInfo)
+
+        this.username = userData.user.username;
+        this.user_temp_id = userData.user.id;
+
+        this.returnedToken = userData.token;
+        this.$store.commit('setUserData', userData)
+
+        // set laravel echo config
+        this.setEcho();
+      
+     
+    }
+
+    axios.interceptors.response.use(
+      response => response,
+      error => {
+        if (error.response.status === 401) {
+          this.$store.dispatch('logout')
+        }
+        return Promise.reject(error)
+      }
+    );
+    
+    // set user login state
+    if(this.isLogged){
+       this.checkauthroot = 'auth';
+    }else{
+      this.checkauthroot = 'noauth';
+    }
+
+
+  },
+    methods:{
+      // sets up laravel echo for live sockets
+      setEcho:function(){
+        if (typeof io !== 'undefined') {
+          window.Echo = new Echo({
+              broadcaster: 'socket.io', 
+             host: window.customLocation + ':6001',
+             transports: ['websocket', 'polling', 'flashsocket'] ,// Fix CORS error!
+             auth:
+                 {
+                     headers:
+                     {
+                         'Authorization': 'Bearer ' + this.returnedToken
+                     }
+                 }
+          });}
+         
+          
+      },
+    // fetches the logged in user details
+      fetchUserDetails: function(){
+      
+
+        axios.get('/fetch-profile-'+ this.username)
+  .then(response => {
+  
+  if (response.status == 200) {
+       
+       let userProfile = response.data[1];
+       let user = response.data[0];
+
+       this.notificationCount = response.data[3];
+
+       this.notificationCountSpace = response.data[4];
+       
+       
+      let userDetails = {
+      'username':user.username,
+      'name': user.name,
+      'coin': userProfile.coins,
+      'image_name': userProfile.image_name,
+      'image_extension': userProfile.image_extension,
+      'about': userProfile.about,
+      'Interests': userProfile.interestsArray,
+      'connections': userProfile.connections,
+      'background_color': userProfile.background_color
+      };
+        
+
+      
+    this.$root.authProfile = userDetails;
+    
+   
+    
+    
+ }
+   
+ 
+ })
+ .catch(error => {
+
+ }) 
+
+     
+  },
+  // connect user to a global private socket
+  connectToChannel: function(){
+
+
+
+    if(this.checkauthroot == 'auth'){
+      window.Echo.private('user.' + this.username)
+      .listen('.UserChannel',(e) => {
+        
+       
+
+     });
+
+    }
+       
+  },
+
+  // check user login state
+  checkIfUserIsLoggedIn: function(){
+    if(this.checkauthroot == 'noauth'){
+      this.LocalStore('route_tracker',[this.$router.currentRoute.path]);
+     
+       this.$router.push({ path: '/login' });
+      return;
+    } 
+ },
+ // local storage
+ LocalStore:function(key,data){ 
+     
+  localforage.setItem(key,JSON.stringify(data)).then(function () {
+    return localforage.getItem(key);
+  }).then(function (value) {
+    // we got our value
+   
+  }).catch(function (err) {
+    console.log(err)
+    // we got an error
+  });
+
+  },
+  getLocalStore:function(key){
+    let result = localforage.getItem(key);
+      
+    return result;
+    
+  
+  },
     }
 });

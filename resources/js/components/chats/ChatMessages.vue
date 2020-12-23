@@ -148,7 +148,7 @@
         </div>
 
 
-          <div class="col-11 py-0 offset-1">
+          <div class="col-10 py-0 offset-2">
            <div class="row">
              <div class="col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
                   <div
@@ -173,7 +173,7 @@
         </div>
 
 
-         <div class="col-11 py-0 ">
+         <div class="col-10 py-0 ">
            <div class="row">
              <div class="col-lg-5 col-md-6  d-flex flex-row">
                   <div
@@ -199,7 +199,7 @@
         </div>
 
 
-         <div class="col-11 py-0 offset-1">
+         <div class="col-10 py-0 offset-2">
            <div class="row">
              <div class="col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
                   <div
@@ -224,7 +224,7 @@
         </div>
 
 
-          <div class="col-11 py-0 ">
+          <div class="col-10 py-0 ">
            <div class="row">
              <div class="col-lg-5 col-md-6  d-flex flex-row">
                   <div
@@ -251,7 +251,7 @@
            </div>
         </div>
 
-         <div class="col-11 py-0 offset-1">
+         <div class="col-10 py-0 offset-2">
            <div class="row">
              <div class="col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
                   <div
@@ -275,7 +275,7 @@
         </div>
 
 
-         <div class="col-11 py-0 ">
+         <div class="col-10 py-0 ">
            <div class="row">
              <div class="col-lg-5 col-md-6  d-flex flex-row">
                   <div
@@ -286,7 +286,7 @@
                     <div class="text-left my-0 py-0">
                          <span style="font-size:13px;font-weight:bold; ">Bisola23</span>
                   </div>
-                   <audio-player class="mt-n1" :file="'/audio/space_audio_2666.mp3'" :playerId="'394'" :colorBase="'#000000'"></audio-player>
+                   <audio-player class="mt-n1" :file="'/audio/space_audio_2666.mp3'" :playerId="'394'" :colorBase="'#333333'"></audio-player>
                   <!-- time -->
                   
                          <span style="color:grey;font-size:11px; position:absolute; right:2%; top:9%;">3:14 PM</span>
@@ -299,7 +299,7 @@
            </div>
         </div>
 
-         <div class="col-11 py-0 offset-1">
+         <div class="col-10 py-0 offset-2">
            <div class="row">
              <div class="col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
                   <div
@@ -323,7 +323,7 @@
         </div>
 
 
-         <div class="col-11 py-0 ">
+         <div class="col-10 py-0 ">
            <div class="row">
              <div class="col-lg-5 col-md-6  d-flex flex-row">
                   <div
@@ -348,7 +348,7 @@
         </div>
 
 
-         <div class="col-11 py-0 offset-1">
+         <div class="col-10 py-0 offset-2">
            <div class="row">
              <div class="col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
                   <div
@@ -382,7 +382,7 @@
            </div>
         </div>
 
-      <div class="col-11 py-0 ">
+      <div class="col-10 py-0 ">
            <div class="row">
              <div class="col-lg-5 col-md-6  d-flex flex-row">
                   <div
@@ -420,7 +420,7 @@
         </div>
 
 
-         <div class="col-11 py-0 offset-1">
+         <div class="col-10 py-0 offset-2">
            <div class="row">
              <div class="col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
                   <div
@@ -433,12 +433,12 @@
                       <div class="col-2 text-center d-flex py-1" style="align-items:center; justify-content:center;">
                         <v-icon color="#ffffff">las la-file-alt</v-icon>
                       </div>
-                      <div class="col-7 d-flex py-1"  style="align-items:center;">
+                      <div class="col-8 d-flex py-1"  style="align-items:center;">
                            <span style="color:white; font-size:13px;">my_document.pdf</span>
                       </div>
 
-                       <div class="col-3 text-right py-1"  style="align-items:center;">
-                           <span style="color:white; font-size:11px;">345 KB</span>
+                       <div class="col-2 text-center py-1 d-flex"  style="align-items:center; justify-content:center;">
+                          <v-icon color="#ffffff">mdi mdi-cloud-download</v-icon>
                       </div>
                    </div>
                         

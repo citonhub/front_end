@@ -4,7 +4,7 @@
    <v-btn icon color="#ffffff" @click="goBack" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
 
-    <div class="px-2 py-1 appBox" style="background:white; position:absolute;top:0;right:0;z-index:89999999999;">
+    <div v-if="!showMemberBoard" class="px-2 py-1 appBox" style="background:white; position:absolute;top:0;right:0;z-index:89999999999;">
         <v-btn icon class="mx-1" >
                          <v-badge
                dot
@@ -17,7 +17,7 @@
 
                                      <div class=" d-flex flex-row" style="align-items:center; justify-content:center;background:transparent;height:100%; width:100%; overflow-y:auto; overflow-x:hidden;" >
                                       
-                                      <template v-if="false">
+                                      <template v-if="liveBoardContent == 'action_list'">
                                           
                                           <div class=" col-4 col-lg-2 px-2 my-0 py-2 ">
                           <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px; background:white;">
@@ -60,7 +60,10 @@
 
                                       </template>
 
-                            <div class="text-center">
+
+                                 <template v-if="liveBoardContent == 'audio_speaker'">
+
+                                         <div class="text-center">
                               <div     
                         style="border-radius:50%;height:120px;width:120px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
                           background-repeat: no-repeat; border:5px solid #3C87CD; margin-top:-50px;">
@@ -68,13 +71,17 @@
 
                            <div style="font-size:14px; color:white;" class="mt-2">Akinola Babs</div>
                             </div>
+
+                                 </template>
+
+                       
                                     
    
                                    </div>
 
                               
                               <!-- side info bar -->
-                                    <div v-if="false" class="scrollerinfo offset-lg-8 col-lg-4 py-0 pb-2" style=" border-left:1px solid #c5c5c5;background:white;height:100%; overflow-y:auto; z-index:9999999999; position:absolute; overflow-x:hidden;" >
+                                    <div v-if="showMemberBoard" class="scrollerinfo offset-lg-8 col-lg-4 py-0 pb-2" style=" border-left:1px solid #c5c5c5;background:white;height:100%; overflow-y:auto; z-index:9999999999; position:absolute; overflow-x:hidden;" >
                                       
                                       <div class="row">
 
@@ -175,7 +182,20 @@
 </template>
 <script>
 export default {
-    
+   data(){
+        return{
+          liveBoardContent:'action_list',
+          showMemberBoard:false,
+          
+        }
+    },
+    methods:{
+       goBack:function(){
+            window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+
+          this.$root.chatComponent.liveSessionIsOpen = false;
+       }
+    }
 }
 </script>
 <style scoped>

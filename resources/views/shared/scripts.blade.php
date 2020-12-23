@@ -17,7 +17,5 @@
         });
       }
 
-document.addEventListener('touchstart', touchstartHandler, {passive: false});
-document.addEventListener('touchmove', touchmoveHandler, {passive: false});
 
 </script>

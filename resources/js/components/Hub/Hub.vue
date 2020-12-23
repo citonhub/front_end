@@ -24,7 +24,7 @@
 
             <div class="col-lg-6 px-0 pb-1 text-right d-none d-lg-block" style="border-bottom:1px solid #263238;z-index:99999999999999;" >
 
-                <v-btn @click="addProjectModal = true"   small rounded  color="#3C87CD" style="font-size:13px; text-transform:none; font-weight:bolder; color:white;font-family:BodyFont;">
+                <v-btn @click="addProjectModal = true"   small rounded  color="#3C87CD" style="font-size:13px; text-transform:none; font-weight:bolder; color:white;font-family:MediumFont;">
             Post your project <v-icon style="font-size:19px; color:white;">las la-plus</v-icon>
            </v-btn>
             </div>
