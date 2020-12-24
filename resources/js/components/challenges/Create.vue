@@ -129,7 +129,6 @@
                 <span style="font-size:14px; font-family:BodyFont;">Description</span>
              
              </div>
-
              <div class="col-lg-12 py-1 my-2 px-2 text-left">
 
               <v-press-editor v-model="descriptionContent"  :placeholder="'Describe this challenge, its aim and objective'"></v-press-editor>
