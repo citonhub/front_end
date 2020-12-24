@@ -22,7 +22,8 @@
            <div style="font-size:16px; font-family:HeaderFont;"><v-btn  icon><v-icon>las la-arrow-left</v-icon></v-btn>Create a challenge</div>
         </div>
          <div class="col-4 py-0 my-0 text-right">
-          <v-btn small rounded  color="#3C87CD" style="font-size:12px; text-transform:none; font-weight:bolder; color:white;font-family:MediumFont;">
+      
+          <v-btn @click="createChallenge" small rounded  color="#3C87CD" style="font-size:12px; text-transform:none; font-weight:bolder; color:white;font-family:MediumFont;">
              Create
            </v-btn>
         </div>
@@ -63,6 +64,7 @@
                  counter="100"
                 label="Summary"
                  placeholder="What is this challenge about?"
+                 v-model="summary"
                 >
 
                 </v-textarea>
@@ -123,6 +125,21 @@
 
               </div>
 
+              <div class=" col-lg-12 py-1 my-0 px-2" >
+
+                    <div class="col-lg-8 px-0" >
+<v-select
+label="Promgramming Language"
+:items="languages"
+v-model="language"
+>
+
+</v-select>
+
+                    </div>
+
+              </div>
+
             
         <div class="col-lg-12 py-1 my-2 px-2 text-left">
 
@@ -131,7 +148,7 @@
              </div>
              <div class="col-lg-12 py-1 my-2 px-2 text-left">
 
-              <v-press-editor v-model="descriptionContent"  :placeholder="'Describe this challenge, its aim and objective'"></v-press-editor>
+              <v-press-editor v-model="description"  :placeholder="'Describe this challenge, its aim and objective'"></v-press-editor>
              
              </div>
 
@@ -163,21 +180,25 @@
         outlined
        class="d-inline-block mr-1"
        style="font-size:13px;"
-        color="#3C87CD"
+              color="#3C87CD"
+@click="disableEvery"
     >Everyone</v-chip>
 
      <v-chip
-        
+       
        class="d-inline-block mr-1"
        style="font-size:13px;color:white;"
         color="#3C87CD"
+        :disabled="everyone"
+        
+    @click="custom=!custom"
     >Custom Judges</v-chip>
              
              </div>
 
-              <div class=" col-lg-12 py-1 my-0 px-2">
+              <div class=" col-lg-12 py-1 my-0 px-2" v-if="custom" >
 
-                    <div class="col-lg-8 px-0">
+                    <div class="col-lg-8 px-0" >
 
                          <v-combobox
                  style="font-size:13px;"
@@ -190,7 +211,8 @@
             chips
             multiple
             
-             color="#3C87CD">
+             color="#3C87CD"
+            >
 
               <template v-slot:selection="data">
             <v-chip
@@ -293,10 +315,11 @@ export default {
     data() {
       return {
          text: '',
+         everyone:false,
+         custom:false,
          selectJudgeType:0,
          switch2:true,
          switch1:false,
-         descriptionContent:'',
          rulesContent:'',
           titleRule:[
              v => !!v || 'Title is required',
@@ -339,6 +362,7 @@ export default {
          'FOTRAN','SWIFT','PERL','R','RUBY','HASKELL','LUA','GO','PASCAL','RUST'
         ],
         title:'',
+        summary:'',
         max_participant:'4',
         durationValue:'2',
         description:'',
@@ -349,11 +373,50 @@ export default {
         loadingDelete:false,
         durationValueDay:0,
         durationValueHr:2,
-        input:''
+        input:'',
+        language:'',
+        image:''
       };
     },
     components:{
       VPressEditor
+    },
+    methods:{
+      disableEvery(){
+this.everyone = !this.everyone
+ this.custom=false
+      },
+
+      setDuration( durationValue){
+    durationValue=(( this.durationValueDay * 24) + this.durationValueHr)
+    console.log(durationValue)
+      },
+
+      createChallenge(){
+        axios.post('/save-challenge',{
+          title:this.title,
+          summary:this.summary,
+          description:this.description,
+          rules:this.rulesContent,
+          duration:this.durationValue,
+          challenge_language:this.language,
+image:this.image
+        }
+
+        ).then(
+          response => {
+            
+           if (response.status == 200) {
+             console.log('success!')
+           }else{
+             console.log(response.status)
+           }
+           
+           }
+        ).catch((error)=>{
+          console.log(error)
+        })
+      }
     }
   };
 </script>
