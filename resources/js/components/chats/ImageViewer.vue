@@ -81,7 +81,7 @@ export default {
           imageUrl1:'imgs/public.jpg',
           color:'#c5c5c5',
            that:this,
-       sliderState:0
+       sliderState:this.$root.imageSlidestate
          
     }
 },

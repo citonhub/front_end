@@ -222,7 +222,7 @@
 export default {
       mounted(){
 
-        // this.detectchange(this.language);
+         this.detectchange(this.language);
         // this.$root.codeBoxOpened = true;
         // this.setCodeContent();
         // this.updateCodeMaster();

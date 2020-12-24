@@ -318,7 +318,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-       position: 'topRight',
+       position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -332,7 +332,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-       position: 'topRight',
+       position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -346,7 +346,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-       position: 'topRight',
+       position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -360,7 +360,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-       position: 'topRight',
+       position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -399,7 +399,7 @@ export default {
 
     }
 
-    
+      this.$root.checkUserDevice();
 
       this.$root.checkauthroot = 'auth';
 

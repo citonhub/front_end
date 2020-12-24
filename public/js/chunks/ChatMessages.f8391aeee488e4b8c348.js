@@ -1,0 +1,2458 @@
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["ChatMessages"],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chats/ChatMessages.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chats/ChatMessages.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_virtual_scroller__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-virtual-scroller */ "./node_modules/vue-virtual-scroller/dist/vue-virtual-scroller.esm.js");
+/* harmony import */ var vue_virtual_scroller_dist_vue_virtual_scroller_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-virtual-scroller/dist/vue-virtual-scroller.css */ "./node_modules/vue-virtual-scroller/dist/vue-virtual-scroller.css");
+/* harmony import */ var vue_virtual_scroller_dist_vue_virtual_scroller_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_virtual_scroller_dist_vue_virtual_scroller_css__WEBPACK_IMPORTED_MODULE_1__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var CodeBox = function CodeBox() {
+  return Promise.all(/*! import() | CodeBox */[__webpack_require__.e("vendors~CodeBox~CodeEditor~CodeEditorChat"), __webpack_require__.e("CodeBox")]).then(__webpack_require__.bind(null, /*! ./CodeBox.vue */ "./resources/js/components/chats/CodeBox.vue"));
+};
+
+var VideoPlayer = function VideoPlayer() {
+  return Promise.all(/*! import() | VideoPlayer */[__webpack_require__.e("vendors~VideoPlayer"), __webpack_require__.e("VideoPlayer")]).then(__webpack_require__.bind(null, /*! ./VideoPlayer.vue */ "./resources/js/components/chats/VideoPlayer.vue"));
+};
+
+var AudioPlayer = function AudioPlayer() {
+  return __webpack_require__.e(/*! import() | AudioPlayer */ "AudioPlayer").then(__webpack_require__.bind(null, /*! ./AudioPlayer.vue */ "./resources/js/components/chats/AudioPlayer.vue"));
+};
+
+var Images = function Images() {
+  return __webpack_require__.e(/*! import() | Images */ "Images").then(__webpack_require__.bind(null, /*! ./Images.vue */ "./resources/js/components/chats/Images.vue"));
+};
+
+
+
+Vue.component('DynamicScroller', vue_virtual_scroller__WEBPACK_IMPORTED_MODULE_0__["DynamicScroller"]);
+Vue.component('DynamicScrollerItem', vue_virtual_scroller__WEBPACK_IMPORTED_MODULE_0__["DynamicScrollerItem"]);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      imageArray: [{
+        image_name: 'space_image_1_128',
+        image_extension: 'png',
+        background_color: '#c5c5c5'
+      }, {
+        image_name: 'space_image_1_129',
+        image_extension: 'png',
+        background_color: '#c5c5c5'
+      }, {
+        image_name: 'space_image_1_130',
+        image_extension: 'jpg',
+        background_color: '#c5c5c5'
+      }, {
+        image_name: 'space_image_1_131',
+        image_extension: 'jpeg',
+        background_color: '#c5c5c5'
+      }],
+      viewerType: '',
+      loading: false,
+      clicks: 0,
+      delay: 400,
+      timer: '',
+      username: this.$root.username
+    };
+  },
+  mounted: function mounted() {},
+  components: {
+    CodeBox: CodeBox,
+    VideoPlayer: VideoPlayer,
+    AudioPlayer: AudioPlayer,
+    Images: Images
+  },
+  methods: {
+    handelMessageContent: function handelMessageContent(message) {
+      return this.shortenContent(message.content, 200);
+    },
+    showFullMsg: function showFullMsg(message) {
+      document.getElementById('moreContentbtn' + message.message_id).style.visibility = 'hidden';
+      document.getElementById('shortContent' + message.message_id).style.display = 'none';
+      document.getElementById('fullContent' + message.message_id).style.display = 'inline-block';
+    },
+    createSpace: function createSpace(member) {
+      var _this = this;
+
+      this.$root.showUserInfo = true;
+      this.$root.selectedMember = member;
+      axios.get('/fetch-user-info/' + member.username).then(function (response) {
+        if (response.status == 200) {
+          _this.$root.userBasicInfo = response.data[0];
+        }
+      })["catch"](function (error) {
+        _this.$root.infoLoaderText = 'unable to load user info';
+      });
+    },
+    handleAction: function handleAction(message) {
+      if (message.action.type == 'custom') {
+        this.$router.push({
+          path: '/space/' + this.$route.params.spaceId + '/channel/board'
+        });
+      }
+
+      if (message.action.type == 'inner') {
+        window.location = '/trends#/trends/connect';
+      }
+    },
+    handleResults: function handleResults(messageArray) {
+      this.$root.returnedMessages = messageArray;
+      var MsgLenght = messageArray.length;
+      var startCount = MsgLenght - this.$root.messageInitialLimit;
+
+      if (startCount <= 0) {
+        startCount = 0;
+      }
+
+      var sliedMsg = this.$root.returnedMessages.slice(startCount, MsgLenght);
+      this.$root.messageStoreTop = this.$root.returnedMessages.slice(0, startCount);
+      var finalMessage = sliedMsg;
+      return finalMessage;
+    },
+    generateUnreadMessage: function generateUnreadMessage() {
+      if (this.$root.selectedSpace.unread != 0 && this.$root.selectedSpace.unread != undefined) {
+        var newUnreadMsg = {
+          content: 'You have ' + this.$root.selectedSpace.unread + ' unread messages',
+          created_at: moment().subtract(1, 'hours'),
+          message_id: this.makeUUID(),
+          type: 'unread'
+        };
+        var msgCount = this.$root.Messages.length;
+        var msgIndex = msgCount - this.$root.selectedSpace.unread;
+        this.$root.Messages.splice(msgIndex, 0, newUnreadMsg);
+        this.$root.selectedSpace.unread = 0;
+      }
+    },
+    fetchMessages: function fetchMessages() {
+      var _this2 = this;
+
+      axios.get('/fetch-space-messages-' + this.$route.params.spaceId).then(function (response) {
+        if (response.status == 200) {
+          var returnedData = _this2.handleResults(response.data[0]);
+
+          _this2.$root.Messages = returnedData;
+
+          _this2.generateUnreadMessage();
+
+          _this2.$root.selectedSpace = response.data[1];
+          setTimeout(function () {
+            var container = document.querySelector('#messageContainer');
+            var element = document.querySelector('#messagebottomDiv');
+            var top = element.offsetTop - 120;
+            container.scrollTo(0, top);
+          }, 500);
+        }
+      })["catch"](function (error) {});
+    },
+    showProject: function showProject(projectSlug) {
+      this.$router.push({
+        path: '/' + projectSlug + '/panel'
+      });
+    },
+    downloader: function downloader(message) {
+      window.url = '/download-file-' + message.message_id;
+    },
+    scrollToMessage: function scrollToMessage(messageid) {
+      var _this3 = this;
+
+      this.$root.Messages.map(function (message) {
+        if (message.message_id == messageid) {
+          message.tagged = true;
+        }
+      });
+      setTimeout(function () {
+        _this3.$root.Messages.map(function (message) {
+          if (message.message_id == messageid) {
+            message.tagged = false;
+          }
+        });
+      }, 2000);
+      setTimeout(function () {
+        var messageData = _this3.$root.Messages.filter(function (message) {
+          return message.message_id == messageid;
+        });
+
+        var msgIndex = messageData[0].index_count;
+
+        _this3.$root.msgScrollComponent.messageContainer.scrollToItem(msgIndex - 2);
+      }, 200);
+    },
+    showMoreHandler: function showMoreHandler(message) {
+      this.clicks++;
+
+      if (this.clicks === 1) {
+        var self = this;
+        this.timer = setTimeout(function () {
+          if (message.tagged == false) {
+            if (message.showReply) {
+              message.showReply = false;
+            } else {
+              self.$root.Messages.map(function (message) {
+                message.showReply = false;
+              });
+              message.showReply = true;
+            }
+          }
+
+          message.tagged = false;
+          self.clicks = 0;
+        }, this.delay);
+        this.$root.showMsgDelete = false;
+      } else {
+        clearTimeout(this.timer);
+
+        if (this.checkOwner(message.user_id)) {
+          message.showReply = false;
+          message.tagged = true;
+          this.$root.messageIdToDelete = message.message_id;
+          this.$root.showMsgDelete = true;
+        }
+
+        this.clicks = 0;
+      }
+    },
+    replyMsg: function replyMsg(message) {
+      this.$root.replyMessage = message;
+      this.$root.is_reply = true;
+      this.$root.showRootReply = true;
+      message.showReply = false;
+      this.$root.bottomEditorValue.focus();
+    },
+    checkOwner: function checkOwner(message_user_id) {
+      if (this.$root.user_temp_id == message_user_id) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    shortenContent: function shortenContent(content, limit) {
+      if (content.length > limit) {
+        var shortcontent = content.slice(0, limit);
+        return shortcontent + '...';
+      } else {
+        return content;
+      }
+    },
+    checkDatereal: function checkDatereal(date) {
+      var realTimeHour = moment(date).add(1, 'hours');
+      var aWeekAgo = moment().subtract(7, 'days');
+
+      if (moment(realTimeHour) >= aWeekAgo) {
+        return moment(realTimeHour).format("h:mm a");
+      } else {
+        return moment(realTimeHour).format("h:mm a");
+      }
+    },
+    covertDate: function covertDate(date) {
+      var realTimeHour = moment(date).format('l');
+
+      if (moment().format('l') == realTimeHour) {
+        return 'Today';
+      }
+
+      if (moment().subtract(1, 'days').format('l') == realTimeHour) {
+        return 'Yesterday';
+      }
+
+      return moment(realTimeHour).format("MMMM Do");
+    },
+    languageExtensions: function languageExtensions(language) {
+      if (language == 'HTML') {
+        return 'html';
+      }
+
+      if (language == 'CSS') {
+        return 'css';
+      }
+
+      if (language == 'PYTHON(3.8.1)') {
+        return 'py';
+      }
+
+      if (language == 'PYTHON For ML(3.7.7)') {
+        return 'py';
+      }
+
+      if (language == 'PYTHON(2.7.17)') {
+        return 'py';
+      }
+
+      if (language == 'PHP') {
+        return 'php';
+      }
+
+      if (language == 'JAVASCRIPT(Node)') {
+        return 'js';
+      }
+
+      if (language == 'SQL') {
+        return 'sql';
+      }
+
+      if (language == 'C') {
+        return 'c';
+      }
+
+      if (language == 'C++') {
+        return 'cpp';
+      }
+
+      if (language == 'JAVA') {
+        return 'java';
+      }
+
+      if (language == 'C#') {
+        return 'cs';
+      }
+
+      if (language == 'ERLANG') {
+        return 'erl';
+      }
+
+      if (language == 'KOTLIN') {
+        return 'kt';
+      }
+
+      if (language == 'FOTRAN') {
+        return 'for';
+      }
+
+      if (language == 'PERL') {
+        return 'pl';
+      }
+
+      if (language == 'R') {
+        return 'r';
+      }
+
+      if (language == 'GO') {
+        return 'go';
+      }
+
+      if (language == 'HASKELL') {
+        return 'hs';
+      }
+
+      if (language == 'RUBY') {
+        return 'rb';
+      }
+
+      if (language == 'LUA') {
+        return 'lua';
+      }
+
+      if (language == 'PASCAL') {
+        return 'pas';
+      }
+
+      if (language == 'RUST') {
+        return 'rs';
+      }
+
+      if (language == 'SCALA') {
+        return 'scala';
+      }
+
+      if (language == 'SWIFT') {
+        return 'swift';
+      }
+
+      if (language == 'TYPESCRIPT') {
+        return 'ts';
+      }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chats/ChatMessages.vue?vue&type=template&id=f257383a&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chats/ChatMessages.vue?vue&type=template&id=f257383a&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticStyle: { "font-family": "BodyFont" } }, [
+    _vm.source.showDate != undefined
+      ? _c(
+          "div",
+          {
+            staticClass: "col-12  text-center",
+            attrs: { id: "message" + _vm.source.id }
+          },
+          [
+            _c(
+              "v-btn",
+              {
+                staticClass: " py-1 px-2",
+                staticStyle: { "font-size": "10px", "text-transform": "none" },
+                attrs: { small: "", rounded: "", color: "#3C87CD" }
+              },
+              [_vm._v(_vm._s(_vm.covertDate(_vm.source.showDate)))]
+            )
+          ],
+          1
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.source.type == "join"
+      ? _c(
+          "div",
+          {
+            staticClass: "col-12  text-center",
+            attrs: { id: "message" + _vm.source.id }
+          },
+          [
+            _c(
+              "v-btn",
+              {
+                staticClass: " py-1 px-2",
+                staticStyle: { "font-size": "10px", "text-transform": "none" },
+                attrs: { small: "", rounded: "", color: "#3C87CD" }
+              },
+              [_vm._v(_vm._s(_vm.source.username) + " joined")]
+            ),
+            _vm._v(" "),
+            _c(
+              "v-btn",
+              {
+                staticClass: " py-1 px-2",
+                staticStyle: { "font-size": "10px", "text-transform": "none" },
+                attrs: { small: "", rounded: "", color: "#3C87CD" }
+              },
+              [_vm._v("You joined")]
+            )
+          ],
+          1
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.source.type == "unread"
+      ? _c(
+          "div",
+          {
+            staticClass: "col-12  text-center",
+            attrs: { id: "message" + _vm.source.id }
+          },
+          [
+            _c(
+              "v-btn",
+              {
+                staticClass: " py-1 px-2",
+                staticStyle: { "font-size": "10px", "text-transform": "none" },
+                attrs: { small: "", rounded: "", color: "#3C87CD" }
+              },
+              [_vm._v(_vm._s(_vm.source.content))]
+            )
+          ],
+          1
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    ((_vm.source.type == null && _vm.source.is_reply != "1") ||
+      (_vm.source.type == "text" && _vm.source.is_reply != "1")) &&
+    _vm.checkOwner(_vm.source.user_id)
+      ? _c(
+          "div",
+          { staticClass: "col-11 py-0 offset-1", attrs: { "elevation-1": "" } },
+          [
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-lg-7 col-md-8  offset-lg-5 offset-md-4 d-flex flex-row-reverse"
+                },
+                [
+                  _c("div", {
+                    staticStyle: {
+                      "border-radius": "50%",
+                      height: "30px",
+                      width: "30px",
+                      "background-color": "#c5c5c5",
+                      "background-image": "url(/imgs/img3.jpg)",
+                      "background-size": "cover",
+                      "background-repeat": "no-repeat",
+                      border: "1px solid transparent"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "v-card",
+                    {
+                      staticClass: "py-1 px-2 mr-2",
+                      staticStyle: {
+                        "max-width": "80%",
+                        border: "1px solid transparent",
+                        "min-width": "150px",
+                        background: "#3C87CD",
+                        "border-radius": "7px",
+                        "border-bottom-right-radius": "0px"
+                      },
+                      attrs: { "elevation-1": "" }
+                    },
+                    [
+                      _vm.checkIfMsgIsLong()
+                        ? [
+                            _c("span", {
+                              staticStyle: {
+                                color: "white",
+                                "font-size": "13px"
+                              },
+                              attrs: { id: "shortContent" },
+                              domProps: {
+                                innerHTML: _vm._s(
+                                  _vm.shortContent(_vm.source.content, 200)
+                                )
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "span",
+                              {
+                                staticClass: "mx-1 px-1 py-1",
+                                staticStyle: {
+                                  color: "#3C87CD",
+                                  "font-size": "13px",
+                                  background: "white",
+                                  border: "1px solid transparent",
+                                  "border-radius": "8px"
+                                },
+                                attrs: { id: "moreContentbtn" },
+                                on: { click: _vm.showFullMsg }
+                              },
+                              [_vm._v("more")]
+                            ),
+                            _vm._v(" "),
+                            _c("span", {
+                              staticStyle: {
+                                color: "white",
+                                "font-size": "13px",
+                                display: "none"
+                              },
+                              attrs: { id: "fullContent" },
+                              domProps: {
+                                innerHTML: _vm._s(_vm.source.content)
+                              }
+                            })
+                          ]
+                        : [
+                            _c("span", {
+                              staticStyle: {
+                                color: "white",
+                                "font-size": "13px"
+                              },
+                              domProps: {
+                                innerHTML: _vm._s(_vm.source.content)
+                              }
+                            })
+                          ],
+                      _vm._v(" "),
+                      _c("div", { staticClass: "text-right" }, [
+                        _c(
+                          "span",
+                          {
+                            staticStyle: { color: "white", "font-size": "11px" }
+                          },
+                          [
+                            _vm._v(
+                              _vm._s(_vm.checkDatereal(_vm.source.created_at))
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.source.loading == false
+                          ? _c(
+                              "span",
+                              { staticClass: "ml-1" },
+                              [
+                                _c(
+                                  "v-icon",
+                                  {
+                                    staticStyle: { "font-size": "20px" },
+                                    attrs: { color: "#ffffff" }
+                                  },
+                                  [_vm._v("las la-clock")]
+                                )
+                              ],
+                              1
+                            )
+                          : _c(
+                              "span",
+                              { staticClass: "ml-1" },
+                              [
+                                _c(
+                                  "v-icon",
+                                  {
+                                    staticStyle: { "font-size": "20px" },
+                                    attrs: { color: "#ffffff" }
+                                  },
+                                  [_vm._v("las la-check-double")]
+                                )
+                              ],
+                              1
+                            )
+                      ])
+                    ],
+                    2
+                  )
+                ],
+                1
+              )
+            ])
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    ((_vm.source.type == null && _vm.source.is_reply != "1") ||
+      (_vm.source.type == "text" && _vm.source.is_reply != "1")) &&
+    _vm.checkOwner(_vm.source.user_id) == false
+      ? _c(
+          "div",
+          { staticClass: "col-11 py-0 mt-2", attrs: { "elevation-1": "" } },
+          [
+            _c("div", { staticClass: "row" }, [
+              _c(
+                "div",
+                { staticClass: "col-lg-7 col-md-8   d-flex flex-row" },
+                [
+                  _c("div", {
+                    staticStyle: {
+                      "border-radius": "50%",
+                      height: "30px",
+                      width: "30px",
+                      "background-color": "#c5c5c5",
+                      "background-image": "url(/imgs/img2.jpg)",
+                      "background-size": "cover",
+                      "background-repeat": "no-repeat",
+                      border: "1px solid transparent"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "v-card",
+                    {
+                      staticClass: "py-1 px-2 ml-2",
+                      staticStyle: {
+                        "max-width": "80%",
+                        border: "1px solid transparent",
+                        "min-width": "150px",
+                        background: "#ffffff",
+                        "border-radius": "7px",
+                        "border-bottom-left-radius": "0px"
+                      },
+                      attrs: { "elevation-1": "" }
+                    },
+                    [
+                      _c("div", { staticClass: "text-left" }, [
+                        _c(
+                          "span",
+                          {
+                            staticStyle: {
+                              "font-size": "13px",
+                              "font-weight": "bold"
+                            }
+                          },
+                          [_vm._v("Bisola23")]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticStyle: { "font-size": "13px" } }, [
+                        _vm._v("Lorem ipsum dolor sit amet consectetur ")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "text-right" }, [
+                        _c(
+                          "span",
+                          {
+                            staticStyle: { "font-size": "11px", color: "grey" }
+                          },
+                          [_vm._v("3:14 PM")]
+                        )
+                      ])
+                    ]
+                  )
+                ],
+                1
+              )
+            ])
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-11 py-0 mt-2", attrs: { "elevation-1": "" } },
+      [
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-lg-7 col-md-8   d-flex flex-row" },
+            [
+              _c("div", {
+                staticStyle: {
+                  "border-radius": "50%",
+                  height: "30px",
+                  width: "30px",
+                  "background-color": "#c5c5c5",
+                  "background-image": "url(/imgs/img2.jpg)",
+                  "background-size": "cover",
+                  "background-repeat": "no-repeat",
+                  border: "1px solid transparent"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "v-card",
+                {
+                  staticClass: "py-1 px-2 ml-2",
+                  staticStyle: {
+                    "max-width": "80%",
+                    border: "1px solid transparent",
+                    "min-width": "150px",
+                    background: "#ffffff",
+                    "border-radius": "7px",
+                    "border-bottom-left-radius": "0px"
+                  },
+                  attrs: { "elevation-1": "" }
+                },
+                [
+                  _c("div", { staticClass: "text-left" }, [
+                    _c(
+                      "span",
+                      {
+                        staticStyle: {
+                          "font-size": "13px",
+                          "font-weight": "bold"
+                        }
+                      },
+                      [_vm._v("Bisola23")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticStyle: { "font-size": "13px" } }, [
+                    _vm._v(
+                      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur numquam dignissimos ipsam sunt magnam ab earum, aliquam beatae. Perferendis quis nesciunt illum sed, natus consectetur eius repellat sunt et nam. "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "text-right" }, [
+                    _c(
+                      "span",
+                      { staticStyle: { "font-size": "11px", color: "grey" } },
+                      [_vm._v("3:14 PM")]
+                    )
+                  ])
+                ]
+              )
+            ],
+            1
+          )
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-11 py-0 offset-1", attrs: { "elevation-1": "" } },
+      [
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "col-lg-7 col-md-8  offset-lg-5 offset-md-4 d-flex flex-row-reverse"
+            },
+            [
+              _c("div", {
+                staticStyle: {
+                  "border-radius": "50%",
+                  height: "30px",
+                  width: "30px",
+                  "background-color": "#c5c5c5",
+                  "background-image": "url(/imgs/img3.jpg)",
+                  "background-size": "cover",
+                  "background-repeat": "no-repeat",
+                  border: "1px solid transparent"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "v-card",
+                {
+                  staticClass: "py-1 px-2 mr-2",
+                  staticStyle: {
+                    "max-width": "80%",
+                    border: "1px solid transparent",
+                    "min-width": "150px",
+                    background: "#3C87CD",
+                    "border-radius": "7px",
+                    "border-bottom-right-radius": "0px"
+                  },
+                  attrs: { "elevation-1": "" }
+                },
+                [
+                  _c(
+                    "span",
+                    { staticStyle: { color: "white", "font-size": "13px" } },
+                    [_vm._v("Hello")]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "text-right" }, [
+                    _c(
+                      "span",
+                      { staticStyle: { color: "white", "font-size": "11px" } },
+                      [_vm._v("3:14 PM")]
+                    )
+                  ])
+                ]
+              )
+            ],
+            1
+          )
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-11 py-0 mt-2", attrs: { "elevation-1": "" } },
+      [
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-lg-7 col-md-8   d-flex flex-row" },
+            [
+              _c("div", {
+                staticStyle: {
+                  "border-radius": "50%",
+                  height: "30px",
+                  width: "30px",
+                  "background-color": "#c5c5c5",
+                  "background-image": "url(/imgs/img2.jpg)",
+                  "background-size": "cover",
+                  "background-repeat": "no-repeat",
+                  border: "1px solid transparent"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "v-card",
+                {
+                  staticClass: "py-1 px-2 ml-2",
+                  staticStyle: {
+                    "max-width": "80%",
+                    border: "1px solid transparent",
+                    "min-width": "150px",
+                    background: "#ffffff",
+                    "border-radius": "7px",
+                    "border-bottom-left-radius": "0px"
+                  },
+                  attrs: { "elevation-1": "" }
+                },
+                [
+                  _c("div", { staticClass: "text-left" }, [
+                    _c(
+                      "span",
+                      {
+                        staticStyle: {
+                          "font-size": "13px",
+                          "font-weight": "bold"
+                        }
+                      },
+                      [_vm._v("Bisola23")]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "text-left py-2 px-1",
+                      staticStyle: {
+                        "border-left": "3px solid #3C87CD",
+                        background: "#d6e6f5"
+                      }
+                    },
+                    [
+                      _c("span", { staticStyle: { "font-size": "13px" } }, [
+                        _vm._v("Lorem, ipsum dolor sit amet consectetur")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass: "pt-1",
+                      staticStyle: { "font-size": "13px" }
+                    },
+                    [
+                      _vm._v(
+                        "Lorem, ipsum dolor sit amet consectetur adipisicing elit "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "text-right" }, [
+                    _c(
+                      "span",
+                      { staticStyle: { "font-size": "11px", color: "grey" } },
+                      [_vm._v("3:14 PM")]
+                    )
+                  ])
+                ]
+              )
+            ],
+            1
+          )
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-11 py-0 offset-1", attrs: { "elevation-1": "" } },
+      [
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "col-lg-7 col-md-8  offset-lg-5 offset-md-4 d-flex flex-row-reverse"
+            },
+            [
+              _c("div", {
+                staticStyle: {
+                  "border-radius": "50%",
+                  height: "30px",
+                  width: "30px",
+                  "background-color": "#c5c5c5",
+                  "background-image": "url(/imgs/img3.jpg)",
+                  "background-size": "cover",
+                  "background-repeat": "no-repeat",
+                  border: "1px solid transparent"
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "v-card",
+                {
+                  staticClass: "py-1 px-2 mr-2",
+                  staticStyle: {
+                    "max-width": "80%",
+                    border: "1px solid transparent",
+                    "min-width": "150px",
+                    background: "#3C87CD",
+                    "border-radius": "7px",
+                    "border-bottom-right-radius": "0px"
+                  },
+                  attrs: { "elevation-1": "" }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "text-left py-2 px-1",
+                      staticStyle: {
+                        "border-left": "3px solid #ffffff",
+                        "border-radius": "0px",
+                        background: "#d6e6f5"
+                      }
+                    },
+                    [
+                      _c("span", { staticStyle: { "font-size": "13px" } }, [
+                        _vm._v("Lorem, ipsum dolor sit amet consectetur  ")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    { staticStyle: { color: "white", "font-size": "13px" } },
+                    [
+                      _vm._v(
+                        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor itaque perferendis unde beatae provident ea inventore quaerat, cum cumque vero facilis dolorum a iusto voluptatibus esse corporis eaque pariatur? Voluptas."
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "text-right" }, [
+                    _c(
+                      "span",
+                      { staticStyle: { color: "white", "font-size": "11px" } },
+                      [_vm._v("3:14 PM")]
+                    )
+                  ])
+                ]
+              )
+            ],
+            1
+          )
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-10 py-0 offset-2" }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse"
+          },
+          [
+            _c("div", {
+              staticStyle: {
+                "border-radius": "50%",
+                height: "30px",
+                width: "30px",
+                "background-color": "#c5c5c5",
+                "background-image": "url(/imgs/img3.jpg)",
+                "background-size": "cover",
+                "background-repeat": "no-repeat",
+                border: "1px solid transparent"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "v-card",
+              {
+                staticClass: "py-1 px-2 mr-2",
+                staticStyle: {
+                  width: "90%",
+                  border: "1px solid transparent",
+                  "min-width": "150px",
+                  background: "#3C87CD",
+                  "border-radius": "7px",
+                  "border-bottom-right-radius": "0px"
+                },
+                attrs: { "elevation-1": "" }
+              },
+              [
+                _c("code-box", {
+                  attrs: {
+                    color: "#ffffff",
+                    codeContent: "Hello world",
+                    topMargin: 5,
+                    filename: "index.php",
+                    codeLanguage: "PHP"
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-right" }, [
+                  _c(
+                    "span",
+                    { staticStyle: { color: "white", "font-size": "11px" } },
+                    [_vm._v("3:14 PM")]
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-10 py-0 " }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-lg-5 col-md-6  d-flex flex-row" },
+          [
+            _c("div", {
+              staticStyle: {
+                "border-radius": "50%",
+                height: "30px",
+                width: "30px",
+                "background-color": "#c5c5c5",
+                "background-image": "url(/imgs/img3.jpg)",
+                "background-size": "cover",
+                "background-repeat": "no-repeat",
+                border: "1px solid transparent"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "v-card",
+              {
+                staticClass: "py-1 px-2 ml-2",
+                staticStyle: {
+                  width: "100%",
+                  border: "1px solid transparent",
+                  "min-width": "150px",
+                  background: "#ffffff",
+                  "border-radius": "7px",
+                  "border-bottom-right-radius": "0px"
+                },
+                attrs: { "elevation-1": "" }
+              },
+              [
+                _c("div", { staticClass: "text-left" }, [
+                  _c(
+                    "span",
+                    {
+                      staticStyle: {
+                        "font-size": "13px",
+                        "font-weight": "bold"
+                      }
+                    },
+                    [_vm._v("Bisola23")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("code-box", {
+                  attrs: {
+                    color: "#000000",
+                    codeContent: "Hello world",
+                    topMargin: 13,
+                    filename: "index.php",
+                    codeLanguage: "PHP"
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-right" }, [
+                  _c(
+                    "span",
+                    { staticStyle: { color: "grey", "font-size": "11px" } },
+                    [_vm._v("3:14 PM")]
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-10 py-0 offset-2" }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse"
+          },
+          [
+            _c("div", {
+              staticStyle: {
+                "border-radius": "50%",
+                height: "30px",
+                width: "30px",
+                "background-color": "#c5c5c5",
+                "background-image": "url(/imgs/img3.jpg)",
+                "background-size": "cover",
+                "background-repeat": "no-repeat",
+                border: "1px solid transparent"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "v-card",
+              {
+                staticClass: "py-1 px-2 mr-2",
+                staticStyle: {
+                  width: "100%",
+                  border: "1px solid transparent",
+                  "min-width": "150px",
+                  background: "#3C87CD",
+                  "border-radius": "7px",
+                  "border-bottom-right-radius": "0px"
+                },
+                attrs: { "elevation-1": "" }
+              },
+              [
+                _c("video-player", {
+                  staticStyle: { width: "100%" },
+                  attrs: {
+                    videoUrl: "sample.mpd",
+                    backgroundColor: "#c5c5c5",
+                    backgroundImg: "/imgs/video.jpeg",
+                    playerId: "small56"
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-right" }, [
+                  _c(
+                    "span",
+                    { staticStyle: { color: "white", "font-size": "11px" } },
+                    [_vm._v("3:14 PM")]
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-10 py-0 " }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-lg-5 col-md-6  d-flex flex-row" },
+          [
+            _c("div", {
+              staticStyle: {
+                "border-radius": "50%",
+                height: "30px",
+                width: "30px",
+                "background-color": "#c5c5c5",
+                "background-image": "url(/imgs/img3.jpg)",
+                "background-size": "cover",
+                "background-repeat": "no-repeat",
+                border: "1px solid transparent"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "v-card",
+              {
+                staticClass: "py-1 px-2 ml-2",
+                staticStyle: {
+                  width: "100%",
+                  border: "1px solid transparent",
+                  "min-width": "150px",
+                  background: "#ffffff",
+                  "border-radius": "7px",
+                  "border-bottom-right-radius": "0px"
+                },
+                attrs: { "elevation-1": "" }
+              },
+              [
+                _c("div", { staticClass: "text-left" }, [
+                  _c(
+                    "span",
+                    {
+                      staticStyle: {
+                        "font-size": "13px",
+                        "font-weight": "bold"
+                      }
+                    },
+                    [_vm._v("Bisola23")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("video-player", {
+                  staticStyle: { width: "100%" },
+                  attrs: {
+                    videoUrl: "sample.mpd",
+                    backgroundColor: "#c5c5c5",
+                    backgroundImg: "/imgs/video.jpeg",
+                    playerId: "small56"
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-right" }, [
+                  _c(
+                    "span",
+                    { staticStyle: { color: "grey", "font-size": "11px" } },
+                    [_vm._v("3:14 PM")]
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-10 py-0 offset-2" }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse"
+          },
+          [
+            _c("div", {
+              staticStyle: {
+                "border-radius": "50%",
+                height: "30px",
+                width: "30px",
+                "background-color": "#c5c5c5",
+                "background-image": "url(/imgs/img3.jpg)",
+                "background-size": "cover",
+                "background-repeat": "no-repeat",
+                border: "1px solid transparent"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "v-card",
+              {
+                staticClass: "py-2 pt-3 px-2 mr-2",
+                staticStyle: {
+                  width: "100%",
+                  border: "1px solid transparent",
+                  "min-width": "150px",
+                  background: "#3C87CD",
+                  "border-radius": "7px",
+                  "border-bottom-right-radius": "0px"
+                },
+                attrs: { "elevation-1": "" }
+              },
+              [
+                _c("audio-player", {
+                  attrs: {
+                    file: "/audio/space_audio_2666.mp3",
+                    playerId: "34",
+                    colorBase: "#ffffff"
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      color: "white",
+                      "font-size": "11px",
+                      position: "absolute",
+                      right: "2%",
+                      top: "9%"
+                    }
+                  },
+                  [_vm._v("3:14 PM")]
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-10 py-0 " }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-lg-5 col-md-6  d-flex flex-row" },
+          [
+            _c("div", {
+              staticStyle: {
+                "border-radius": "50%",
+                height: "30px",
+                width: "30px",
+                "background-color": "#c5c5c5",
+                "background-image": "url(/imgs/img3.jpg)",
+                "background-size": "cover",
+                "background-repeat": "no-repeat",
+                border: "1px solid transparent"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "v-card",
+              {
+                staticClass: "py-1 pb-2 px-2 ml-2",
+                staticStyle: {
+                  width: "100%",
+                  border: "1px solid transparent",
+                  "min-width": "150px",
+                  background: "#ffffff",
+                  "border-radius": "7px",
+                  "border-bottom-right-radius": "0px"
+                },
+                attrs: { "elevation-1": "" }
+              },
+              [
+                _c("div", { staticClass: "text-left my-0 py-0" }, [
+                  _c(
+                    "span",
+                    {
+                      staticStyle: {
+                        "font-size": "13px",
+                        "font-weight": "bold"
+                      }
+                    },
+                    [_vm._v("Bisola23")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("audio-player", {
+                  staticClass: "mt-n1",
+                  attrs: {
+                    file: "/audio/space_audio_2666.mp3",
+                    playerId: "394",
+                    colorBase: "#333333"
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      color: "grey",
+                      "font-size": "11px",
+                      position: "absolute",
+                      right: "2%",
+                      top: "9%"
+                    }
+                  },
+                  [_vm._v("3:14 PM")]
+                )
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-10 py-0 offset-2" }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse"
+          },
+          [
+            _c("div", {
+              staticStyle: {
+                "border-radius": "50%",
+                height: "30px",
+                width: "30px",
+                "background-color": "#c5c5c5",
+                "background-image": "url(/imgs/img3.jpg)",
+                "background-size": "cover",
+                "background-repeat": "no-repeat",
+                border: "1px solid transparent"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "v-card",
+              {
+                staticClass: "py-1 px-2 mr-2",
+                staticStyle: {
+                  width: "100%",
+                  border: "1px solid transparent",
+                  "min-width": "150px",
+                  background: "#3C87CD",
+                  "border-radius": "7px",
+                  "border-bottom-right-radius": "0px"
+                },
+                attrs: { "elevation-1": "" }
+              },
+              [
+                _c("images", { attrs: { imageArray: _vm.imageArray } }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-right" }, [
+                  _c(
+                    "span",
+                    { staticStyle: { color: "white", "font-size": "11px" } },
+                    [_vm._v("3:14 PM")]
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-10 py-0 " }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-lg-5 col-md-6  d-flex flex-row" },
+          [
+            _c("div", {
+              staticStyle: {
+                "border-radius": "50%",
+                height: "30px",
+                width: "30px",
+                "background-color": "#c5c5c5",
+                "background-image": "url(/imgs/img3.jpg)",
+                "background-size": "cover",
+                "background-repeat": "no-repeat",
+                border: "1px solid transparent"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "v-card",
+              {
+                staticClass: "py-1 pb-2 px-2 ml-2",
+                staticStyle: {
+                  width: "100%",
+                  border: "1px solid transparent",
+                  "min-width": "150px",
+                  background: "#ffffff",
+                  "border-radius": "7px",
+                  "border-bottom-right-radius": "0px"
+                },
+                attrs: { "elevation-1": "" }
+              },
+              [
+                _c("div", { staticClass: "text-left my-0 py-0" }, [
+                  _c(
+                    "span",
+                    {
+                      staticStyle: {
+                        "font-size": "13px",
+                        "font-weight": "bold"
+                      }
+                    },
+                    [_vm._v("Bisola23")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("images", { attrs: { imageArray: _vm.imageArray } }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-right" }, [
+                  _c(
+                    "span",
+                    { staticStyle: { color: "grey", "font-size": "11px" } },
+                    [_vm._v("3:14 PM")]
+                  )
+                ])
+              ],
+              1
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-10 py-0 offset-2" }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse"
+          },
+          [
+            _c("div", {
+              staticStyle: {
+                "border-radius": "50%",
+                height: "30px",
+                width: "30px",
+                "background-color": "#c5c5c5",
+                "background-image": "url(/imgs/img3.jpg)",
+                "background-size": "cover",
+                "background-repeat": "no-repeat",
+                border: "1px solid transparent"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "v-card",
+              {
+                staticClass: "py-2 pt-3 px-2 mr-2",
+                staticStyle: {
+                  width: "100%",
+                  border: "1px solid transparent",
+                  "min-width": "150px",
+                  background: "#3C87CD",
+                  "border-radius": "7px",
+                  "border-bottom-right-radius": "0px"
+                },
+                attrs: { "elevation-1": "" }
+              },
+              [
+                _c("div", { staticClass: "row" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-2 text-center d-flex py-1",
+                      staticStyle: {
+                        "align-items": "center",
+                        "justify-content": "center"
+                      }
+                    },
+                    [
+                      _c("v-icon", { attrs: { color: "#ffffff" } }, [
+                        _vm._v("las la-laptop-code")
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-7 d-flex py-1",
+                      staticStyle: { "align-items": "center" }
+                    },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticStyle: { color: "white", "font-size": "13px" }
+                        },
+                        [_vm._v("Java calculator")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-3 text-right py-1",
+                      staticStyle: { "align-items": "center" }
+                    },
+                    [
+                      _c(
+                        "v-btn",
+                        { attrs: { icon: "", color: "#ffffff" } },
+                        [_c("v-icon", [_vm._v("las la-arrow-circle-right")])],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      color: "white",
+                      "font-size": "11px",
+                      position: "absolute",
+                      right: "2%",
+                      top: "9%"
+                    }
+                  },
+                  [_vm._v("3:14 PM")]
+                )
+              ]
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-10 py-0 " }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          { staticClass: "col-lg-5 col-md-6  d-flex flex-row" },
+          [
+            _c("div", {
+              staticStyle: {
+                "border-radius": "50%",
+                height: "30px",
+                width: "30px",
+                "background-color": "#c5c5c5",
+                "background-image": "url(/imgs/img3.jpg)",
+                "background-size": "cover",
+                "background-repeat": "no-repeat",
+                border: "1px solid transparent"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "v-card",
+              {
+                staticClass: "py-1 pb-2 px-2 ml-2",
+                staticStyle: {
+                  width: "100%",
+                  border: "1px solid transparent",
+                  "min-width": "150px",
+                  background: "#ffffff",
+                  "border-radius": "7px",
+                  "border-bottom-right-radius": "0px"
+                },
+                attrs: { "elevation-1": "" }
+              },
+              [
+                _c("div", { staticClass: "text-left my-0 py-0" }, [
+                  _c(
+                    "span",
+                    {
+                      staticStyle: {
+                        "font-size": "13px",
+                        "font-weight": "bold"
+                      }
+                    },
+                    [_vm._v("Bisola23")]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-2 text-center d-flex py-1",
+                      staticStyle: {
+                        "align-items": "center",
+                        "justify-content": "center"
+                      }
+                    },
+                    [_c("v-icon", [_vm._v("las la-laptop-code")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-7 d-flex py-1",
+                      staticStyle: { "align-items": "center" }
+                    },
+                    [
+                      _c("span", { staticStyle: { "font-size": "13px" } }, [
+                        _vm._v("Java calculator")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-3 text-right py-1",
+                      staticStyle: { "align-items": "center" }
+                    },
+                    [
+                      _c(
+                        "v-btn",
+                        { attrs: { icon: "" } },
+                        [_c("v-icon", [_vm._v("las la-arrow-circle-right")])],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      color: "grey",
+                      "font-size": "11px",
+                      position: "absolute",
+                      right: "2%",
+                      top: "9%"
+                    }
+                  },
+                  [_vm._v("3:14 PM")]
+                )
+              ]
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-10 py-0 offset-2" }, [
+      _c("div", { staticClass: "row" }, [
+        _c(
+          "div",
+          {
+            staticClass:
+              "col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse"
+          },
+          [
+            _c("div", {
+              staticStyle: {
+                "border-radius": "50%",
+                height: "30px",
+                width: "30px",
+                "background-color": "#c5c5c5",
+                "background-image": "url(/imgs/img3.jpg)",
+                "background-size": "cover",
+                "background-repeat": "no-repeat",
+                border: "1px solid transparent"
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "v-card",
+              {
+                staticClass: "py-2 pt-3 px-2 mr-2",
+                staticStyle: {
+                  width: "100%",
+                  border: "1px solid transparent",
+                  "min-width": "150px",
+                  background: "#3C87CD",
+                  "border-radius": "7px",
+                  "border-bottom-right-radius": "0px"
+                },
+                attrs: { "elevation-1": "" }
+              },
+              [
+                _c("div", { staticClass: "row py-1" }, [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-2 text-center d-flex py-1",
+                      staticStyle: {
+                        "align-items": "center",
+                        "justify-content": "center"
+                      }
+                    },
+                    [
+                      _c("v-icon", { attrs: { color: "#ffffff" } }, [
+                        _vm._v("las la-file-alt")
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-8 d-flex py-1",
+                      staticStyle: { "align-items": "center" }
+                    },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticStyle: { color: "white", "font-size": "13px" }
+                        },
+                        [_vm._v("my_document.pdf")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "col-2 text-center py-1 d-flex",
+                      staticStyle: {
+                        "align-items": "center",
+                        "justify-content": "center"
+                      }
+                    },
+                    [
+                      _c("v-icon", { attrs: { color: "#ffffff" } }, [
+                        _vm._v("mdi mdi-cloud-download")
+                      ])
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticStyle: {
+                      color: "white",
+                      "font-size": "11px",
+                      position: "absolute",
+                      right: "2%",
+                      top: "9%"
+                    }
+                  },
+                  [_vm._v("3:14 PM")]
+                )
+              ]
+            )
+          ],
+          1
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/chats/ChatMessages.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/chats/ChatMessages.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ChatMessages_vue_vue_type_template_id_f257383a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ChatMessages.vue?vue&type=template&id=f257383a&scoped=true& */ "./resources/js/components/chats/ChatMessages.vue?vue&type=template&id=f257383a&scoped=true&");
+/* harmony import */ var _ChatMessages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ChatMessages.vue?vue&type=script&lang=js& */ "./resources/js/components/chats/ChatMessages.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ChatMessages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ChatMessages_vue_vue_type_template_id_f257383a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ChatMessages_vue_vue_type_template_id_f257383a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "f257383a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/chats/ChatMessages.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/chats/ChatMessages.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/chats/ChatMessages.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ChatMessages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ChatMessages.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chats/ChatMessages.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ChatMessages_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/chats/ChatMessages.vue?vue&type=template&id=f257383a&scoped=true&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/chats/ChatMessages.vue?vue&type=template&id=f257383a&scoped=true& ***!
+  \***************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChatMessages_vue_vue_type_template_id_f257383a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ChatMessages.vue?vue&type=template&id=f257383a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chats/ChatMessages.vue?vue&type=template&id=f257383a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChatMessages_vue_vue_type_template_id_f257383a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ChatMessages_vue_vue_type_template_id_f257383a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ })
+
+}]);

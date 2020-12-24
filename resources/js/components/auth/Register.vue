@@ -65,7 +65,7 @@
             
 
             <div class="col-12 text-center py-1" style="font-family:BodyFont;">
-              <v-form class="row my-2 py-2 px-2 " ref="verify" v-model="formstate">
+              <v-form class="row my-2 py-2 px-2 " ref="register" v-model="formstate">
               
                 
  <div class="col-12 py-1 my-0 px-2">
@@ -184,7 +184,7 @@
 
 
             <div class="col-12 text-center py-1" style="font-family:BodyFont;">
-              <v-form class="row my-1 py-2 px-2 " ref="verify" v-model="formstate">
+              <v-form class="row my-1 py-2 px-2 " ref="register" v-model="formstate">
               
                 
 

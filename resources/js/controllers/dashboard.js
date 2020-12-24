@@ -8,7 +8,7 @@ window.io = require('socket.io-client');
 
 Vue.use(Vuex)
 
-axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
+axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
 
 const store = new Vuex.Store({
   state: {
@@ -145,10 +145,14 @@ const routes = [
     beforeEnter: (to, from, next) => {
 
       if(window.thisUserState != undefined){
+
+         if( thisUserState.$root.chatComponent){
+          thisUserState.$root.chatComponent.chatIsOpen = false;
+          thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+          thisUserState.$root.chatComponent.chatbarContent = 'chat_list';
+         }
   
-        thisUserState.$root.chatComponent.chatIsOpen = false;
-        thisUserState.$root.chatComponent.liveSessionIsOpen = false;
-        thisUserState.$root.chatComponent.chatbarContent = 'chat_list';
+       
             
        
 
@@ -166,7 +170,7 @@ const routes = [
   },
 
   // channel content 
-  { path: '/channels/:space_id/content',
+  { path: '/channels/:spaceId/content',
    name: 'Content',
    meta: {
     twModalView: true
@@ -177,9 +181,10 @@ const routes = [
 
     if(window.thisUserState != undefined){
   
+      if( thisUserState.$root.chatComponent){
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.chatIsOpen = true;
-          
+      }
      
 
      }
@@ -228,9 +233,10 @@ const routes = [
 
     if(window.thisUserState != undefined){
       
+      if( thisUserState.$root.chatComponent){
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.chatbarContent = 'create_channel';
-          
+      }
      
 
      }
@@ -268,7 +274,7 @@ const routes = [
   }
 },
 // sub channels
-{ path: '/channels/:space_id/sub_channels',
+{ path: '/channels/:spaceId/sub_channels',
    name: 'SubChannels',
    meta: {
     twModalView: true
@@ -278,6 +284,8 @@ const routes = [
 
 
     if(window.thisUserState != undefined){
+
+      if( thisUserState.$root.chatComponent){
   
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
@@ -287,7 +295,7 @@ const routes = [
       thisUserState.$root.chatComponent.innerSideBarContent = 'sub_channels';
        
     },500);
-          
+     }
      
 
      }
@@ -326,7 +334,7 @@ const routes = [
 },
 
 // channel info
-{ path: '/channels/:space_id/channel_info',
+{ path: '/channels/:spaceId/channel_info',
    name: 'ChannelInfo',
    meta: {
     twModalView: true
@@ -336,6 +344,7 @@ const routes = [
 
 
     if(window.thisUserState != undefined){
+      if( thisUserState.$root.chatComponent){
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
     
       thisUserState.$root.chatComponent.innerSideBarContent = '';
@@ -346,7 +355,7 @@ const routes = [
        
     },500);
           
-     
+     }
 
      }
 
@@ -383,7 +392,7 @@ const routes = [
   }
 },
 // channel edit
-{ path: '/channels/:space_id/channel_edit',
+{ path: '/channels/:spaceId/channel_edit',
    name: 'ChannelEdit',
    meta: {
     twModalView: true
@@ -393,6 +402,8 @@ const routes = [
 
 
     if(window.thisUserState != undefined){
+
+      if( thisUserState.$root.chatComponent){
   
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
@@ -403,6 +414,7 @@ const routes = [
        
     },500);
           
+      }
      
 
      }
@@ -441,7 +453,7 @@ const routes = [
 },
 
 // add sub channel
-{ path: '/channels/:space_id/add_sub_channel',
+{ path: '/channels/:spaceId/add_sub_channel',
    name: 'AddSubChannel',
    meta: {
     twModalView: true
@@ -451,6 +463,8 @@ const routes = [
 
 
     if(window.thisUserState != undefined){
+
+      if( thisUserState.$root.chatComponent){
   
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
@@ -461,7 +475,7 @@ const routes = [
        
     },500);
           
-     
+      }
 
      }
 
@@ -499,7 +513,7 @@ const routes = [
 },
 
 // live session
-{ path: '/channels/:space_id/live_session',
+{ path: '/channels/:spaceId/live_session',
    name: 'LiveSession',
    meta: {
     twModalView: true
@@ -510,6 +524,7 @@ const routes = [
 
     if(window.thisUserState != undefined){
   
+      if( thisUserState.$root.chatComponent){
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
 
       thisUserState.$root.chatComponent.chatInnerConent = false;
@@ -519,7 +534,7 @@ const routes = [
         thisUserState.$root.chatComponent.liveSessionIsOpen = true;
       }, 500);
   
-     
+       }
 
      }
 
@@ -556,7 +571,7 @@ const routes = [
   }
 },
 // editor
-{ path: '/channels/:space_id/editor',
+{ path: '/channels/:spaceId/editor',
    name: 'editor',
    meta: {
     twModalView: true
@@ -566,9 +581,10 @@ const routes = [
 
 
     if(window.thisUserState != undefined){
+      if( thisUserState.$root.chatComponent){
   
       thisUserState.$root.chatComponent.chatInnerConent = 'code_editor';
-
+      }
      }
 
     if (!twModalView) {
@@ -604,7 +620,7 @@ const routes = [
   }
 },
 // image viewer
-{ path: '/channels/:space_id/image_viewer',
+{ path: '/channels/:spaceId/image_viewer',
    name: 'ImageViewer',
    meta: {
     twModalView: true
@@ -614,9 +630,9 @@ const routes = [
 
 
     if(window.thisUserState != undefined){
-  
+      if( thisUserState.$root.chatComponent){
       thisUserState.$root.chatComponent.chatInnerConent = 'image_viewer';
-
+      }
      }
 
     if (!twModalView) {
@@ -872,28 +888,32 @@ const app = new Vue({
       returnedToken:'',
       checkauthroot:'',
       authProfile:[],
-      imageArrayView:[
-        {
-          image_name:'space_image_1_128',
-          image_extension:'png',
-          background_color:'#c5c5c5'
-        },
-        {
-         image_name:'space_image_1_129',
-         image_extension:'png',
-         background_color:'#c5c5c5'
-        },
-        {
-          image_name:'space_image_1_130',
-         image_extension:'jpg',
-         background_color:'#c5c5c5'
-        },
-         {
-           image_name:'space_image_1_131',
-         image_extension:'jpeg',
-         background_color:'#c5c5c5'
-        }
-      ]
+      userDeviceId:'',
+      ChatList:[],
+      selectedSpace:[],
+      Messages:[],
+      baseImageUrl:'http//citonhubnew.com',
+      selectedGenSpaceType:'',
+      selectedSubSpaceName:'',
+      selectedSubSpaceType:'',
+      TrackLastSubSpace:[],
+      selectedSpaceMembers:[],
+      adminMembers:[],
+      msgScrollComponent:undefined,
+      returnedMessages:'',
+      sendingMessage:false,
+      replyMessage:[],
+      botIsLoading:false,
+      isConnected:false,
+      botSuggestionArray:[],
+      fullCodeLanguage:'',
+      FullcodeContent:'',
+      imageSlidestate:0,
+      imageArrayView:[],
+      typinguser:'',
+      typingSpace:'',
+      typing:false,
+      globalUsers:[],
      },
      mounted: function () {
       window.thisUserState = this;
@@ -906,7 +926,31 @@ const app = new Vue({
     computed: {
       ...mapGetters([
         'isLogged'
-      ])
+      ]),
+      socketState:function () {
+        window.Echo.connector.socket.on('connect', ()=>{
+          this.isConnected = true
+      })
+
+  window.Echo.connector.socket.on('disconnect', ()=> {
+          this.isConnected = false
+      })
+
+  window.Echo.connector.socket.on('reconnecting', function(attemptNumber){
+       this.isConnected = false
+    });
+
+      if(!this.isConnected){
+
+        if(this.chatComponent){
+           this.chatComponent.checkForUnreadMessagesDisconnected();
+        }
+
+      }
+
+    return this.isConnected;
+        }
+        
     },
     created(){
    
@@ -944,6 +988,7 @@ const app = new Vue({
     // set user login state
     if(this.isLogged){
        this.checkauthroot = 'auth';
+       this.checkUserDevice();
     }else{
       this.checkauthroot = 'noauth';
     }
@@ -951,6 +996,88 @@ const app = new Vue({
 
   },
     methods:{
+
+      // user device tracker
+      checkUserDevice: function(){
+         
+
+        let storedInfo = this.$root.getLocalStore('user_device_id_' + this.$root.username);
+  
+         storedInfo.then((result)=>{
+           if(result != null){
+           
+  
+            let finalResult = JSON.parse(result);
+  
+            this.userDeviceId = finalResult[0];
+  
+            this.saveDeviceInfo(this.userDeviceId);
+  
+  
+           }else{
+  
+            var deviceId = "device_" + Math.random().toString(36).slice(2);
+  
+            this.userDeviceId = deviceId;
+  
+            this.$root.LocalStore('user_device_id_' + this.$root.username,[deviceId]);
+  
+            this.saveDeviceInfo(deviceId);
+  
+  
+           }
+  
+          
+         })
+  
+  
+        },
+        saveDeviceInfo:function(deviceId){
+  
+          axios.post('/save-user-device',{
+            deviceId: deviceId,
+            device_name: navigator.appName,
+            device_platform: navigator.platform
+              })
+      .then(response => {
+        
+       if (response.status == 200) {
+          
+    
+        
+        }else{
+          console.log(response.status);
+        }
+        
+        
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  
+        },
+        markSpaceRead:function(spaceId){
+
+          if(this.ChatList != undefined){
+           
+            this.ChatList.map((space)=>{
+                 
+              if(space.space_id == spaceId){
+    
+                
+                space.unread = 0;
+              }
+      
+            });
+      
+            
+          
+          }
+    
+    
+          this.$root.LocalStore('unread_messages_' + spaceId  + this.$root.username,[]);
+          
+        },
       // sets up laravel echo for live sockets
       setEcho:function(){
         if (typeof io !== 'undefined') {
@@ -1041,6 +1168,24 @@ const app = new Vue({
       return;
     } 
  },
+ // save space data to local storage
+ pushDataToLocal:function(data){
+
+  localforage.getItem('full_' + data.space_id + this.$root.username).then((result)=> {
+
+   if(result != null){
+    
+    
+    let finalResult = JSON.parse(result);
+        finalResult[0].push(data);
+      
+        this.LocalStore('full_' + data.space_id  + this.$root.username,finalResult);
+      
+   }
+
+  });
+   
+ },
  // local storage
  LocalStore:function(key,data){ 
      
@@ -1062,5 +1207,570 @@ const app = new Vue({
     
   
   },
+  removeLocalStorage: function(key){
+    localforage.removeItem(key).then(()=> {
+      // Run this code once the key has been removed.
+    
+     
+     
+  }).catch(function(err) {
+      // This code runs if there were any errors
+      console.log(err);
+  });
+  },
+  // sort chat list
+  sortArray: function(arrayValue){
+    arrayValue.sort(function(a, b){ 
+    
+      return new Date(b.message_track) - new Date(a.message_track); 
+  }); 
+
+  },
+  sortChatList: function(){
+    if(this.ChatList != undefined){
+
+     
+     
+      this.sortArray(this.ChatList);
+  
+
     }
+   
+},
+updateSpaceMessages: function(){
+
+  axios.get( '/check-for-new-space-messages/' + this.$root.userDeviceId)
+ .then(response => {
+ 
+ if (response.status == 200) {
+
+    let returnData = response.data;
+      
+      this.handleSpaceData(returnData);
+
+  
+
+}
+
+ 
+  
+
+})
+.catch(error => {
+  
+ 
+})
+
+},
+
+handleSpaceData: function(returnData){
+
+  returnData.forEach(space => {
+
+    if( this.$root.selectedSpace.space_id != space.space_id){
+
+       // if the space is not currently opened
+         let storedMsg = this.$root.getLocalStore('full_' + space.space_id  + this.$root.username);
+   
+    storedMsg.then((result)=>{
+  
+      if(result != null){
+
+         // update space messages
+       let parsedResult = JSON.parse(result);
+
+       let MessagesFull = parsedResult;
+
+       let newMessages = space.new_messages;
+            
+        // update unread in chatlist
+
+        this.ChatList.map((chatspace)=>{
+          if(chatspace.space_id == space.space_id){
+            chatspace.unread = newMessages.length;
+          } 
+        });
+
+        newMessages.forEach((messages)=>{
+
+          MessagesFull[0].push(messages);
+
+          // update into local storage
+            this.$root.LocalStore('full_' + space.space_id  + this.$root.username,MessagesFull);
+
+         
+
+             // update unread messages into local storage
+
+      let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + space.space_id + this.$root.username);
+
+   unreadStoredMsg.then((result)=>{
+
+     let finalResultUnread = JSON.parse(result);
+
+      finalResultUnread.push(messages)
+
+
+      localforage.setItem('unread_messages_' + space.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
+        
+
+       }).then(function (value) {
+       // we got our value
+
+       }).catch(function (err) {
+      console.log(err)
+      // we got an error   
+       });
+
+      });
+
+        });
+
+         
+      }else{
+   
+        // if this space does not exist the user database yet
+     
+
+        // save unread in local storage
+       localforage.setItem('unread_messages_' + space.space_id + this.$root.username,JSON.stringify(returnData)).then( ()=> {
+
+
+       }).then(function (value) {
+      // we got our value
+
+     }).catch(function (err) {
+     console.log(err)
+      // we got an error
+      });
+
+     // update unread in chatlist
+
+     this.ChatList.map((chatspace)=>{
+      if(chatspace.space_id == space.space_id){
+        chatspace.unread = returnData.length;
+      } 
+    });
+
+      }
+
+
+    });
+
+    }else{
+
+      // if the space is opened
+       let storedMsg = this.$root.getLocalStore('full_' + space.space_id  + this.$root.username);
+   
+    storedMsg.then((result)=>{
+
+     
+          
+      if(result != null){
+
+        // update space local storage and show message to user
+       
+       let parsedResult = JSON.parse(result);
+
+       let MessagesFull = parsedResult;
+
+       let newMessages = space.new_messages;
+            
+        newMessages.forEach((messages)=>{
+
+          MessagesFull[0].push(messages);
+
+            this.$root.LocalStore('full_' + space.space_id  + this.$root.username,MessagesFull);
+
+            messages.initialSize = 200
+            messages.id = messages.message_id
+            messages.index_count = this.$root.returnLastIndex() + 1;
+
+               this.$root.Messages.push(messages);
+
+               this.$root.updateSpaceTracker(space.space_id);
+
+       this.$root.scrollToBottom(); 
+
+        });
+
+         
+      }
+    });
+      
+
+    }
+
+  
+});
+
+ },
+ updateSpaceTracker: function(spaceId){
+     
+  if(this.ChatList != undefined){
+   
+    this.ChatList.map((space)=>{
+         
+      if(space.space_id == spaceId){
+        space.message_track = new Date();
+      }
+
+    });
+
+    this.$root.sortChatList();
+   
+  }
+  
+
+},
+scrollToBottom: function(){
+
+   
+
+  if(this.$root.msgScrollComponent){
+
+    setTimeout(() => {
+       
+      this.$root.msgScrollComponent.messageContainer.scrollToBottom();
+   },200)
+
+  }
+  
+
+
+},
+
+botMessager:function(message){
+
+          
+  this.botIsLoading = true;
+    axios.post('initiate-bot-chat',{
+      bot_id: this.$root.selectedSpace.bot_id,
+      device_id: this.$root.userDeviceId,
+      message: message,
+      space_id: this.$root.selectedSpace.space_id
+    })
+ .then(response => {
+    
+   this.botIsLoading = false;
+   if(response.status == 200){
+  
+    let fullMessages = response.data[0];
+
+     
+    
+    for (let index = 0; index < fullMessages.length; index++) {
+
+       let message = fullMessages[index];
+           
+           
+
+       message.index_count = this.$root.returnLastIndex() + 1;
+       message.id =  message.message_id;
+       message.initialSize = 200
+
+       
+
+  this.$root.Messages.push(message);
+
+
+
+
+
+          this.$root.spaceFullData[0] = this.$root.Messages;
+
+
+          
+
+            let fullData = [];
+               fullData.push(this.$root.spaceFullData[0]);
+           fullData.push(this.$root.spaceFullData[1]);
+
+            let thirdData = [];
+               
+               thirdData.push(this.$root.spaceFullData[2][0])
+
+           fullData.push(thirdData);
+
+          
+
+
+        this.$root.LocalStore('full_' + this.$root.selectedSpace.space_id  + this.$root.username,fullData);
+
+ this.$root.updateSpaceTracker(message.space_id);
+
+ this.$root.sortChatList();
+ 
+   
+
+ }
+   
+    
+    this.botSuggestionArray = response.data[1];
+
+     this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data[1]);
+    
+
+   }
+
+ })
+ .catch(error => {
+
+  
+     console.log(error)
+     this.botIsLoading = false;
+   
+ })
+
+
+  
+},
+updateSentMessage:function(postData){
+      
+  let unsentMsg = this.$root.getLocalStore('unsent_messages_' + postData.space_id  + this.$root.username);
+
+  unsentMsg.then((result)=>{
+
+    if(result != null){
+
+     let finalResult = JSON.parse(result);
+       
+       
+
+     let remainingMsg = finalResult.filter((message)=>{
+       return message.temp_id != postData.temp_id;
+    });
+
+
+    this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,remainingMsg);
+
+        
+    this.sendingMessage = false;
+
+    }else{
+      this.sendingMessage = false;
+    }
+
+    
+
+   
+ 
+  });
+
+
+},
+storeUnsentMessages:function(postData){
+
+  let unsentMsg = this.$root.getLocalStore('unsent_messages_' + postData.space_id  + this.$root.username);
+
+   unsentMsg.then((result)=>{
+
+     if(result != null){
+
+      let finalResult = JSON.parse(result);
+        
+        
+
+      let messageData = finalResult.filter((message)=>{
+        return message.temp_id == postData.temp_id;
+     });
+
+
+          
+         if(messageData.length == 0){
+
+          finalResult.push(postData);
+          this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,finalResult);
+
+         }
+
+         
+         
+
+     }else{
+
+      
+        this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,[postData]);
+
+     }
+
+     if(this.chatComponent != undefined){
+      this.chatComponent.resendMessages();
+     }
+
+    
+  
+   });
+  
+ 
+
+},
+sendTextMessage: function(postData){
+  this.sendingMessage = true;
+axios.post('/send-message',postData)
+ .then(response => {
+this.is_reply = false;
+if (response.status == 200) {
+
+
+
+let messageId = response.data[0].temp_id;
+   let messageType = this.NewMsg.type;
+  this.Messages.map((message)=>{
+     if(messageId == message.message_id){
+        message.loading = false;
+        message.message_id = response.data[0].message_id; 
+        message.id = response.data[0].message_id; 
+       
+
+        
+     }
+  });
+
+  if(this.selectedSpace.type == 'Bot'){
+   this.botMessager(response.data[0].content);
+  }
+
+
+
+
+
+this.replyMessage = [];
+
+this.scrollToBottom();
+
+
+this.updateSentMessage(postData);
+
+this.sendingMessage = false;
+
+
+}
+
+
+})
+.catch(error => {
+
+this.sendingMessage = false;
+
+this.storeUnsentMessages(postData);
+
+}) 
+},
+sendCodeMessage: function(postData){
+this.sendingMessage = true;
+axios.post('/send-message',postData)
+.then(response => {
+
+if (response.status == 200) {
+
+
+
+let messageId = response.data[0].temp_id;
+ let messageType = this.NewMsg.type;
+this.Messages.map((message)=>{
+   if(messageId == message.message_id){
+      message.loading = false;
+      message.message_id = response.data[0].message_id; 
+      message.id = response.data[0].message_id; 
+       message.code = response.data[0].code;
+       
+   }
+});
+
+
+
+this.scrollToBottom();
+this.updateSentMessage(postData);
+this.sendingMessage = false;
+
+
+}
+
+
+})
+.catch(error => {
+this.sendingMessage = false;
+
+
+
+}) 
+
+},
+sendShareMessage: function(formData){
+
+
+this.sendingMessage = true;
+axios.post('/send-message',formData,
+  {
+      headers:{
+       'Content-Type':'multipart/form-data'
+      },
+      onUploadProgress: (progressEvent)=>{
+         let messageId = this.NewMsg.message_id;
+        this.Messages.map((message)=>{
+           if(messageId == message.message_id){
+              message.progressValue = this.progressvalue = parseInt(Math.round(
+            (progressEvent.loaded / progressEvent.total) * 100
+             ))
+           }
+        });
+      
+    }
+    })
+   .then(response => {
+
+      
+     
+    if (response.status == 200) {
+        
+    
+         let messageId = response.data[0].temp_id;
+         let messageType = this.NewMsg.type;
+        this.Messages.map((message)=>{
+           if(messageId == message.message_id){
+              message.loading = false;
+              message.message_id = response.data[0].message_id;
+              message.id = response.data[0].message_id; 
+             
+              if(messageType == 'image'){
+                message.image = response.data[0].image;
+              }
+              if(messageType == 'file'){
+                message.file = response.data[0].file;
+              }
+              if(messageType == 'video'){
+                message.video = response.data[0].video;
+              }
+              if(messageType == 'audio'){
+                message.audio = response.data[0].audio;
+              }
+              if(messageType == 'code'){
+                message.code = response.data[0].code;
+              }
+           }
+        });
+
+        this.sendingMessage = false;
+
+        
+     }else{
+       
+     }
+
+     this.scrollToBottom();
+
+  
+      
+     
+   })
+   .catch(error => {
+    
+     this.sendingMessage = false;
+    
+   })
+},
+    },
+    
+  
 });

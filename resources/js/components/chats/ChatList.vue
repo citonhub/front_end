@@ -1,79 +1,172 @@
 <template>
-    <div class="row px-1">
-       <div class="col-12 px-1 d-flex flex-row py-0 messageBox" style="align-items:center; justify-content:center; background:whitesmoke;" @click="openChat" >
+   
+   <!-- chat list view -->
+       <div  
+       
+        class="col-12 px-1 d-flex flex-row py-0 messageBox"
+         :style="source.space_id == that.$route.params.spaceId ? 'align-items:center; justify-content:center; background:whitesmoke;' : 'align-items:center; justify-content:center;'" 
+         @click="openChat(source)" >
            
-                   <div  class=" mr-2 py-3" 
-                     style="border-radius:50%;height:40px;width:40px;background-color:#c5c5c5;background-image:url(/imgs/imgproj3.jpeg);background-size: cover;
-                    background-repeat: no-repeat; border:1px solid transparent;"></div> 
+                   <div  class=" mr-2 py-3" v-if="source.type == 'Channel' || source.type == 'Team'"
+                     :style="imageStyle(40,source,'channel')"></div> 
+                      <div  class=" mr-2 py-3" v-if="source.type == 'Bot' && source.bot_data != null"
+                     :style="imageStyle(40,source.bot_data,'bot')"></div> 
+                      <div  class=" mr-2 py-3" v-if="source.type == 'Direct' && source.userInfo != null"
+                     :style="imageStyle(40,source.userInfo,'direct')"></div> 
+                   
                      <div class="px-0 py-3" style="width:85%;border-bottom:1px solid #e6e6e6;" >
-                                 <div class="pr-1">
-                                    <div class="row py-0 my-0 px-0">
-                                       <div class="col-8 py-0 my-0 ">
-                                               <span style="font-size:14px; font-family:BodyFont;">Channel Name 1</span>
+                                 <div class="pr-1 d-flex flex-row" style="align-items:center;">
+                                   
+                                       <div class="px-0 py-0 my-0 d-flex col-8 flex-row" style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
+                                               <span v-if="source.type == 'Team' || source.type == 'Channel'" style="font-size:14px; font-family:BodyFont;">{{ source.name }}</span>
+                                             <span v-if="source.type == 'Bot' && source.bot_data != null" style="font-size:14px; font-family:BodyFont;">{{ source.bot_data.name }}</span>
+                                             <span v-if="source.type == 'Direct'" style="font-size:14px; font-family:BodyFont;">{{ source.userInfo.username }}</span>
                                        </div>
-                                        <div class="col-4 py-0 my-0  text-right">
-                                             <span  style="font-size:11px; font-family:BodyFont;color:gray; margin-right:0px;" >2:12 PM</span>  
+                                        <div class="px-1 py-0 my-0 col-4 d-flex flex-row-reverse">
+                                             <span  v-if="source.last_message" style="font-size:11px; font-family:BodyFont;color:gray; margin-right:0px;" >{{checkDatereal(source.last_message.created_at)}}</span> 
+                                           
                                        </div>
-                                    </div>
+                                   
                                  </div>
 
-                                <div class=" ">
-                                    <div class="row py-0 my-0 px-0">
-                                       <div class="col-10 py-0 my-0  ">
-                                             <div style="font-size:13px; color:grey; font-family:BodyFont;">adekunle:great i would love to see you </div>
+                                <div class=" d-flex flex-row" style="align-items:center;">
+                                   
+                                       <div class=" px-0 py-0 my-0 pr-1  " style="width:100%;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;font-size:13px; color:grey; font-family:BodyFont;">
+                                             
+                                             <span v-if="source.last_message.length != 0">{{ source.last_message[0].username }}: {{ generateMessageString(source.last_message) }}</span>
+                                             <span v-else><i>Send a message to start chat</i></span>
                                        </div>
-                                        <div class="col-2  py-0 my-0 text-right">
-                                              <span class="messagesBadges d-flex ml-lg-0 ml-md-5 ml-0" >5</span>
+                                        <div class=" px-1 py-0 my-0 text-right ">
+                                              <span v-if="source.unread > 0" class="messagesBadges d-flex ml-lg-0 ml-md-5 ml-0" >{{source.unread}}</span>
                                        </div>
-                                    </div>
+                                    
                                  </div>          
                      </div>      
        </div>
 
+       <!-- ends -->
 
-        <div class="col-12 px-1 d-flex flex-row py-0 messageBox" style="align-items:center; justify-content:center;" >
-           
-                   <div  class=" mr-2 py-3" 
-                     style="border-radius:50%;height:40px;width:40px;background-color:#c5c5c5;background-image:url(/imgs/imgproj3.jpeg);background-size: cover;
-                   background-repeat: no-repeat; border:1px solid transparent;"></div> 
-                     <div class="px-0 py-3" style="width:85%;border-bottom:1px solid #e6e6e6;" >
-                                 <div class="pr-1">
-                                    <div class="row py-0 my-0 px-0">
-                                       <div class="col-8 py-0 my-0 ">
-                                               <span style="font-size:14px; font-family:BodyFont;">Channel Name 1</span>
-                                       </div>
-                                        <div class="col-4 py-0 my-0  text-right">
-                                             <span  style="font-size:11px; font-family:BodyFont;color:gray; margin-right:0px;" >2:12 PM</span>  
-                                       </div>
-                                    </div>
-                                 </div>
-
-                                <div class=" ">
-                                    <div class="row py-0 my-0 px-0">
-                                       <div class="col-10 py-0 my-0 ">
-                                             <div style="font-size:13px; color:grey; font-family:BodyFont;">adekunle:great i would love to see you</div>
-                                       </div>
-                                        <div class="col-2 py-0 my-0  text-right">
-                                              <span class="messagesBadges d-flex ml-lg-0 ml-md-5 ml-0" >5</span>
-                                       </div>
-                                    </div>
-                                 </div>          
-                     </div>      
-       </div>
 
        
-    </div>
+    
 </template>
 <script>
-export default {
-    methods:{
-       openChat:function(){
-             
-            this.$router.push({ path: '/channels/space_id/content' });
 
+const { htmlToText } = require('html-to-text');
+
+export default {
+   props:['source'],
+    data () {
+      return {
+       that: this,
+      }
+    },
+   mounted(){
+     
+   },
+    methods:{
+
+       openChat:function(space){
+             
+            this.$router.push({ path: '/channels/' + space.space_id +'/content' });
+              
+              this.$root.chatComponent.fetchMessages(space.space_id);
            this.$root.chatComponent.chatIsOpen = true;
 
-       }
+       },
+     
+       generateMessageString: function(Lastmessage){
+
+          let finalString = '';
+
+          let message = Lastmessage[0];
+
+          if(message.type == null || message.type == 'action'){
+
+          finalString =  htmlToText(message.content, {
+             wordwrap: 100
+            });
+
+          }
+
+           if(message.type == 'image'){
+
+          finalString = 'sent an images'
+
+          }
+
+        if(message.type == 'join'){
+
+          finalString = 'joined'
+
+          }
+
+          if(message.type == 'code'){
+
+          finalString = 'shared a code'
+
+          }
+
+          if(message.type == 'video'){
+
+          finalString = 'sent a video'
+
+          }
+
+          if(message.type == 'audio'){
+
+          finalString = 'sent an audio'
+
+          }
+
+           if(message.type == 'project'){
+
+          finalString = 'share a project'
+
+          }
+
+          return finalString;
+
+       },
+         checkDatereal: function(date){
+
+            var realTimeHour = moment(date).add(1,'hours');
+
+            var aWeekAgo = moment().subtract(7,'days');
+
+            if (moment(realTimeHour) >= aWeekAgo) {
+              return moment(realTimeHour).format("h:mm a");
+            }else{
+               return moment(realTimeHour).format("h:mm a");
+            }
+      },
+        imageStyle:function(dimension,data,type){
+      
+
+      if(data.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
+         if(type == 'channel'){
+              styleString += 'background-color:#ffffff; background-image:url(imgs/channel.png);';
+         }else{
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
+         }
+         
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
+         let imgLink = data.image_name + '.' + data.image_extension;
+          if(type == 'channel' || type== 'bot'){
+              styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
+         }else{
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+         }
+         
+          return styleString;
+      }
+
+      
+
+  },
     }
 }
 </script>

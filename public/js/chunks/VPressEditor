@@ -34,10 +34,24 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_kangc_v_md_editor__WEBPACK_IMPOR
 
 _kangc_v_md_editor__WEBPACK_IMPORTED_MODULE_1___default.a.lang.use('en-US', _kangc_v_md_editor_lib_lang_en_US__WEBPACK_IMPORTED_MODULE_4___default.a);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['placeholder'],
+  props: ['placeholder', 'content'],
+  model: {
+    prop: 'content',
+    event: 'textChange'
+  },
+  computed: {
+    listLocal: {
+      get: function get() {
+        return this.content;
+      },
+      set: function set(value) {
+        this.$emit('textChange', value);
+      }
+    }
+  },
   data: function data() {
     return {
-      text: ''
+      text: this.content
     };
   }
 });
@@ -72,11 +86,11 @@ var render = function() {
           "right-toolbar": "preview"
         },
         model: {
-          value: _vm.text,
+          value: _vm.listLocal,
           callback: function($$v) {
-            _vm.text = $$v
+            _vm.listLocal = $$v
           },
-          expression: "text"
+          expression: "listLocal"
         }
       })
     ],

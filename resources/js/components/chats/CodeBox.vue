@@ -97,7 +97,10 @@ methods:{
         console.debug('onCmBlur', codemirror)
       },
       showCodeEditor:function(){
-         this.$root.chatComponent.chatInnerConent = 'code_editor';
+
+           this.$root.fullCodeLanguage = this.codeLanguage
+           this.$root.FullcodeContent = this.codeContent
+         this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id +'/editor' });
         },
      
        detectchange: function(language){
