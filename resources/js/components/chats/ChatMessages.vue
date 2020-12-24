@@ -1,18 +1,56 @@
 <template>
-    <div class="row">
-        <div elevation-1 class="col-11 py-0 offset-1">
+    <div style="font-family:BodyFont;">
+
+       <!-- date time -->
+        
+         <div class="col-12  text-center" v-if="source.showDate != undefined" :id="'message'+ source.id">
+            <v-btn small rounded color="#3C87CD" class=" py-1 px-2" style="font-size:11px;text-transform:none;color:white;">{{covertDate(source.showDate)}}</v-btn>
+         </div>
+
+         <!-- ends -->
+
+            <!-- user joined -->
+        
+         <div class="col-12  text-center" v-if="source.type == 'join'"  :id="'message'+ source.id">
+            <v-btn small rounded color="#3C87CD" class=" py-1 px-2" style="font-size:11px;text-transform:none;color:white;" v-if="source.username != that.$root.username">{{source.username}} joined</v-btn>
+             <v-btn small rounded color="#3C87CD" class=" py-1 px-2" style="font-size:11px;text-transform:none;color:white;" v-else>You joined</v-btn>
+         </div>
+
+
+          <!--unread messages -->
+        
+         <div class="col-12  text-center" v-if="source.type == 'unread'"  :id="'message'+ source.id">
+
+               <v-btn small rounded color="#3C87CD" class=" py-1 px-2" style="font-size:11px;text-transform:none;color:white;">{{source.content}}</v-btn>
+         </div>
+
+         <!-- text message -->
+        <div elevation-1 class="col-11 py-0 offset-1"  v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1') && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-7 col-md-8  offset-lg-5 offset-md-4 d-flex flex-row-reverse">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-  background-repeat: no-repeat; ;border:1px solid transparent;"></div>
+             <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse">
+                 
 
                   <v-card elevation-1 class="py-1 px-2 mr-2" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
-                      <span style="color:white;font-size:13px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor itaque perferendis unde beatae provident ea inventore quaerat, cum cumque vero facilis dolorum a iusto voluptatibus esse corporis eaque pariatur? Voluptas.</span>
+                     
+                     <template v-if="checkIfMsgIsLong(source)">
+                       <span style="color:white;font-size:13px;" v-html="shortContent(source.content,300)" :id="'shortContent' + source.message_id"> </span>
+                       <span :id="'moreContentbtn' + source.message_id" @click="showFullMsg" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
+                         <span style="color:white;font-size:13px;display:none;" :id="'fullContent' + source.message_id" v-html="source.content" > </span>
+                     </template>
+                     <template v-else>
+                       <span style="color:white;font-size:13px;" v-html="source.content" > </span>
+                     </template>
+                      
                        
                   <!-- time -->
                   <div class="text-right">
-                         <span style="color:white;font-size:11px; ">3:14 PM</span>
+                         <span style="color:white;font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                         <span class="ml-1"  v-if="source.loading">
+                           <v-icon color="#ffffff" style="font-size:20px;">las la-clock</v-icon>
+                         </span>
+                         <span class="ml-1" v-else>
+                             <v-icon color="#ffffff" style="font-size:20px;">las la-check-double</v-icon>
+                         </span>
                   </div>
                   <!-- ends -->
                   </v-card> 
@@ -23,63 +61,81 @@
         </div>
 
 
-         <div elevation-1 class="col-11 py-0 mt-2">
+         <div elevation-1 class="col-11 py-0 mt-2"  v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1') && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-7 col-md-8   d-flex flex-row">
+             <div class="col-lg-7 col-md-8  px-1 px-md-2  d-flex flex-row">
                   <div
                      style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img2.jpg);background-size: cover;
                            background-repeat: no-repeat; border:1px solid transparent;"></div>
 
-                  <v-card elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
+                  <v-card elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
                     <div class="text-left">
-                         <span style="font-size:13px;font-weight:bold; ">Bisola23</span>
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
                   </div>
-                      <span style="font-size:13px;">Lorem ipsum dolor sit amet consectetur </span>
-                       <div class="text-right">
-                         <span style="font-size:11px; color:grey;">3:14 PM</span>
+                      <template v-if="checkIfMsgIsLong(source)">
+                       <span style="font-size:13px;" v-html="shortContent(source.content,300)" :id="'shortContent' + source.message_id"> </span>
+                       <span :id="'moreContentbtn' + source.message_id" @click="showFullMsg" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
+                         <span style="font-size:13px;display:none;" :id="'fullContent' + source.message_id" v-html="source.content" > </span>
+                     </template>
+                     <template v-else>
+                       <span style="font-size:13px;" v-html="source.content" > </span>
+                     </template>
+
+
+                       <!-- time -->
+                  <div class="text-right">
+                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                        
+                      
                   </div>
+                  <!-- ends -->
                   </v-card> 
              </div>
            </div>
         </div>
 
+        <!-- ends -->
 
-        <div elevation-1 class="col-11 py-0 mt-2">
+    <!-- message reply -->
+       
+
+
+        <div elevation-1 class="col-11 py-0 offset-1"  v-if="(source.replied_message != undefined && source.is_reply == '1') && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-7 col-md-8   d-flex flex-row">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img2.jpg);background-size: cover;
-                           background-repeat: no-repeat; border:1px solid transparent;"></div>
+             <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse">
+                 
+                  <v-card elevation-1 class="py-1 px-2 mr-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                     <!-- comment -->
 
-                  <v-card elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
-
-                    <div class="text-left">
-                         <span style="font-size:13px;font-weight:bold; ">Bisola23</span>
+                   <div class="d-flex flex-column py-2 px-1" style="border-left:3px solid #ffffff; border-radius:0px; background:#d6e6f5;">
+                          <div style="font-size:13px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{ getReplyMsg(source.replied_message) }}</div>
+                          <div class="text-right">
+                               <span style="color:gray;font-size:11px;">{{source.replied_message.username}}</span>
+                          </div>
                   </div>
-                      <span style="font-size:13px;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur numquam dignissimos ipsam sunt magnam ab earum, aliquam beatae. Perferendis quis nesciunt illum sed, natus consectetur eius repellat sunt et nam. </span>
-                       <div class="text-right">
-                         <span style="font-size:11px; color:grey;">3:14 PM</span>
-                  </div>
-                  </v-card> 
-             </div>
-           </div>
-        </div>
 
+                  <!-- ends -->
 
-        <div elevation-1 class="col-11 py-0 offset-1">
-           <div class="row">
-             <div class="col-lg-7 col-md-8  offset-lg-5 offset-md-4 d-flex flex-row-reverse">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                     background-repeat: no-repeat; ;border:1px solid transparent;"></div>
-
-                  <v-card elevation-1 class="py-1 px-2 mr-2" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
-                      <span style="color:white;font-size:13px;">Hello</span>
+                 <template v-if="checkIfMsgIsLong(source)">
+                       <span style="color:white;font-size:13px;" v-html="shortContent(source.content,300)" :id="'shortContent' + source.message_id"> </span>
+                       <span :id="'moreContentbtn' + source.message_id" @click="showFullMsg" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
+                         <span style="color:white;font-size:13px;display:none;" :id="'fullContent' + source.message_id" v-html="source.content" > </span>
+                     </template>
+                     <template v-else>
+                       <span style="color:white;font-size:13px;" v-html="source.content" > </span>
+                     </template>
+                      
                        
                   <!-- time -->
                   <div class="text-right">
-                         <span style="color:white;font-size:11px; ">3:14 PM</span>
+                         <span style="color:white;font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                         <span class="ml-1"  v-if="source.loading">
+                           <v-icon color="#ffffff" style="font-size:20px;">las la-clock</v-icon>
+                         </span>
+                         <span class="ml-1" v-else>
+                             <v-icon color="#ffffff" style="font-size:20px;">las la-check-double</v-icon>
+                         </span>
                   </div>
                   <!-- ends -->
                   </v-card> 
@@ -90,79 +146,90 @@
         </div>
 
 
-        <div elevation-1 class="col-11 py-0 mt-2">
+
+         <div elevation-1 class="col-11 py-0 mt-2" v-if="(source.replied_message != undefined && source.is_reply == '1') && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-7 col-md-8   d-flex flex-row">
+             <div class="col-lg-7 col-md-8 px-1 px-md-2  d-flex flex-row">
                   <div
                      style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img2.jpg);background-size: cover;
                            background-repeat: no-repeat; border:1px solid transparent;"></div>
 
-                  <v-card elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
+                  <v-card elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
                     <div class="text-left">
-                         <span style="font-size:13px;font-weight:bold; ">Bisola23</span>
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
                   </div>
 
                   <!-- comment -->
-                   <div class="text-left py-2 px-1" style="border-left:3px solid #3C87CD; background:#d6e6f5;">
-                          <span style="font-size:13px;">Lorem, ipsum dolor sit amet consectetur</span>
+                   <div class="d-flex flex-column py-2 px-1" style="border-left:3px solid #3C87CD; background:#d6e6f5;">
+                          <div style="font-size:13px;white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{ getReplyMsg(source.replied_message) }}</div>
+                          <div class="text-right">
+                               <span style="color:gray;font-size:11px;">{{source.replied_message.username}}</span>
+                          </div>
                   </div>
+                  <!-- ends -->
 
                   <!-- ends -->
-                      <span class="pt-1" style="font-size:13px;">Lorem, ipsum dolor sit amet consectetur adipisicing elit </span>
-                       <div class="text-right">
-                         <span style="font-size:11px;color:grey; ">3:14 PM</span>
-                  </div>
-                  </v-card> 
-             </div>
-           </div>
-        </div>
+                      <template v-if="checkIfMsgIsLong(source)">
+                       <span style="font-size:13px;" v-html="shortContent(source.content,300)" :id="'shortContent' + source.message_id"> </span>
+                       <span :id="'moreContentbtn' + source.message_id" @click="showFullMsg" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
+                         <span style="font-size:13px;display:none;" :id="'fullContent' + source.message_id" v-html="source.content" > </span>
+                     </template>
+                     <template v-else>
+                       <span style="font-size:13px;" v-html="source.content" > </span>
+                     </template>
 
-
-        <div elevation-1 class="col-11 py-0 offset-1">
-           <div class="row">
-             <div class="col-lg-7 col-md-8  offset-lg-5 offset-md-4 d-flex flex-row-reverse">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                   background-repeat: no-repeat; ;border:1px solid transparent;"></div>
-
-                  <v-card elevation-1 class="py-1 px-2 mr-2" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
-                     <!-- comment -->
-                   <div class="text-left py-2 px-1" style="border-left:3px solid #ffffff; border-radius:0px; background:#d6e6f5;">
-                          <span style="font-size:13px;">Lorem, ipsum dolor sit amet consectetur  </span>
-                  </div>
-
-                  <!-- ends -->
-                      <span style="color:white;font-size:13px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor itaque perferendis unde beatae provident ea inventore quaerat, cum cumque vero facilis dolorum a iusto voluptatibus esse corporis eaque pariatur? Voluptas.</span>
-                        
-                  <!-- time -->
+                        <!-- time -->
                   <div class="text-right">
-                         <span style="color:white;font-size:11px; ">3:14 PM</span>
+                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                         
                   </div>
                   <!-- ends -->
                   </v-card> 
-
-                 
              </div>
            </div>
         </div>
 
+      <!-- ends -->
 
-          <div class="col-10 py-0 offset-2">
+     <!-- code message -->
+          <div class="col-10 py-0 offset-2" v-if="source.type == 'code' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                   background-repeat: no-repeat; ;border:1px solid transparent;"></div>
+             <div class="col-lg-5 px-0 px-md-2 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+                
 
                   <v-card elevation-1 class="py-1 px-2 mr-2" style=" width:90%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                      
                      
-                   <code-box color="#ffffff" :codeContent="'Hello world'" :topMargin="5"  :filename="'index.php'" :codeLanguage="'PHP'" ></code-box>
+                   <code-box color="#ffffff" v-if="source.loading == false"  :topMargin="5"  
+                   :codeContent="source.code.content" 
+                   :messageId="source.message_id" 
+                   :filename="source.code.name + '.' + languageExtensions(source.code.language_type)" 
+                   :codeLanguage="source.code.language_type"></code-box>
+
+                    <div class="col-12 py-1 px-1"  v-if="source.loading" >
+                  <div class="row py-0 my-0">
+                     <div class="col-3 py-0 my-0 text-center">
+                         <v-icon color="#ffffff" >mdi-xml mdi-18px</v-icon>
+                     </div>
+                     <div class="col-9 py-0 my-0 d-flex px-0" style="align-items:center;justify-content:center; ">
+                       
+
+                        <v-progress-linear color="#ffffff"  height="6px" indeterminate></v-progress-linear>
+                     </div>
+            
+                  </div>
+              </div>
                         
-                  <!-- time -->
+                <!-- time -->
                   <div class="text-right">
-                         <span style="color:white;font-size:11px; ">3:14 PM</span>
+                         <span style="color:white;font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                         <span class="ml-1"  v-if="source.loading">
+                           <v-icon color="#ffffff" style="font-size:20px;">las la-clock</v-icon>
+                         </span>
+                         <span class="ml-1" v-else>
+                             <v-icon color="#ffffff" style="font-size:20px;">las la-check-double</v-icon>
+                         </span>
                   </div>
                   <!-- ends -->
                   </v-card> 
@@ -173,22 +240,30 @@
         </div>
 
 
-         <div class="col-10 py-0 ">
+         <div class="col-10 py-0 "  v-if="source.type == 'code' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 col-md-6  d-flex flex-row">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row">
                   <div
                      style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
                    background-repeat: no-repeat; ;border:1px solid transparent;"></div>
 
                   <v-card elevation-1 class="py-1 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                      <div class="text-left">
-                         <span style="font-size:13px;font-weight:bold; ">Bisola23</span>
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
                   </div>
-                   <code-box color="#000000" :codeContent="'Hello world'" :topMargin="13" :filename="'index.php'" :codeLanguage="'PHP'" ></code-box>
-                        
+
+                   <code-box color="#333333" v-if="source.loading == false"  :topMargin="13"  
+                   :codeContent="source.code.content" 
+                   :messageId="source.message_id" 
+                   :filename="source.code.name + '.' + languageExtensions(source.code.language_type)" 
+                   :codeLanguage="source.code.language_type"></code-box>
+
+                   
+
                   <!-- time -->
                   <div class="text-right">
-                         <span style="color:grey;font-size:11px; ">3:14 PM</span>
+                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                        
                   </div>
                   <!-- ends -->
                   </v-card> 
@@ -198,22 +273,65 @@
            </div>
         </div>
 
+      <!-- ends -->
 
-         <div class="col-10 py-0 offset-2">
+
+   <!-- video message -->
+         <div class="col-10 py-0 offset-2" v-if="source.type == 'video' && checkOwner(source.user_id) ">
            <div class="row">
-             <div class="col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                   background-repeat: no-repeat; ;border:1px solid transparent;"></div>
+             <div class="col-lg-5 px-0 px-md-2 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+                 
 
                   <v-card elevation-1 class="py-1 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
-                    <video-player  :videoUrl="'sample.mpd'" :backgroundColor="'#c5c5c5'" style="width:100%;"
-               :backgroundImg="'/imgs/video.jpeg'" :playerId="'small56'" > </video-player>
+
+                     <div class="col-12 py-1 px-1"  v-if="source.loading || source.video == null" >
+                  <div class="row py-0 my-0">
+                     <div class="col-3 py-0 my-0 text-center">
+                         <v-icon color="#ffffff" style="font-size:23px;">las la-video</v-icon>
+                     </div>
+
+                     <template v-if="source.progressValue < 100">
+
+                       <div class="col-6 py-0 my-0 d-flex px-0" style="align-items:center;justify-content:center; ">
+                       
+
+                        <v-progress-linear color="#ffffff" height="5" rounded :value="source.progressValue"></v-progress-linear>
+                     </div>
+
+                      <div class="col-3 py-0 my-0 text-center">
+                           <span style="font-size:10px;color:#ffffff;" >{{ source.progressValue}}%</span>
+                     </div>
+
+                     </template>
+
+                     <template v-else>
+
+                       <div class="col-9 py-0 my-0 d-flex flex-column px-0" style="align-items:center;justify-content:center; ">
+
+                        <v-progress-linear color="#ffffff" height="5" rounded indeterminate></v-progress-linear>
+                         <span style="font-size:10px;color:#ffffff;" >processing...</span>
+                     </div>
+
+                     
+                     </template>
+                     
+            
+                  </div>
+                 </div>
+
+                <video-player v-else :videoUrl="'/videos/' + source.video.video_name + '.mpd'" :backgroundColor="source.video.background_color" style="width:100%;"
+               :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.message_id" > </video-player>
                         
-                  <!-- time -->
+                 <!-- time -->
                   <div class="text-right">
-                         <span style="color:white;font-size:11px; ">3:14 PM</span>
+                         <span style="color:white;font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                         <span class="ml-1"  v-if="source.loading">
+                           <v-icon color="#ffffff" style="font-size:20px;">las la-clock</v-icon>
+                         </span>
+                         <span class="ml-1" v-else>
+                             <v-icon color="#ffffff" style="font-size:20px;">las la-check-double</v-icon>
+                         </span>
                   </div>
                   <!-- ends -->
                   </v-card> 
@@ -224,24 +342,27 @@
         </div>
 
 
-          <div class="col-10 py-0 ">
+          <div class="col-10 py-0 " v-if="source.type == 'video' && checkOwner(source.user_id) == false ">
            <div class="row">
-             <div class="col-lg-5 col-md-6  d-flex flex-row">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row">
                   <div
                      style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
                    background-repeat: no-repeat; ;border:1px solid transparent;"></div>
 
                   <v-card elevation-1 class="py-1 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                     <div class="text-left">
-                         <span style="font-size:13px;font-weight:bold; ">Bisola23</span>
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
                   </div>
-                  <video-player  :videoUrl="'sample.mpd'" :backgroundColor="'#c5c5c5'" style="width:100%;"
-               :backgroundImg="'/imgs/video.jpeg'" :playerId="'small56'" > </video-player>
+
+
+                   <video-player  :videoUrl="'/videos/' + source.video.video_name + '.mpd'" :backgroundColor="source.video.background_color" style="width:100%;"
+               :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.message_id" > </video-player>
                         
                         
-                  <!-- time -->
+                 <!-- time -->
                   <div class="text-right">
-                         <span style="color:grey;font-size:11px; ">3:14 PM</span>
+                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                        
                   </div>
                   <!-- ends -->
                   </v-card> 
@@ -251,21 +372,66 @@
            </div>
         </div>
 
-         <div class="col-10 py-0 offset-2">
+    <!-- ends -->
+
+
+    <!-- audio message -->
+         <div class="col-10 py-0 offset-2" v-if="(source.type == 'audio' &&  source.audio != null) && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                   background-repeat: no-repeat; ;border:1px solid transparent;"></div>
+             <div class="col-lg-6 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+                
 
                   <v-card elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
-                   <audio-player  :file="'/audio/space_audio_2666.mp3'" :playerId="'34'" :colorBase="'#ffffff'"></audio-player>
+
+
+                     <div class="col-12 py-1 px-1"  v-if="source.loading" >
+                  <div class="row py-0 my-0">
+                     <div class="col-3 py-0 my-0 text-center">
+                         <v-icon color="#ffffff" style="font-size:23px;">las la-microphone</v-icon>
+                     </div>
+
+                     <template v-if="source.progressValue < 100">
+
+                       <div class="col-6 py-0 my-0 d-flex px-0" style="align-items:center;justify-content:center; ">
+                       
+
+                        <v-progress-linear color="#ffffff" height="5" rounded :value="source.progressValue"></v-progress-linear>
+                     </div>
+
+                      <div class="col-3 py-0 my-0 text-center">
+                           <span style="font-size:10px;color:#ffffff;" >{{ source.progressValue}}%</span>
+                     </div>
+
+                     </template>
+
+                     <template v-else>
+
+                       <div class="col-9 py-0 my-0 d-flex flex-column px-0" style="align-items:center;justify-content:center; ">
+
+                        <v-progress-linear color="#ffffff" height="5" rounded indeterminate></v-progress-linear>
+                         <span style="font-size:10px;color:#ffffff;" >processing...</span>
+                     </div>
+
+                     
+                     </template>
+                     
+            
+                  </div>
+                 </div>
+
+                  <audio-player class="mt-n1" v-else :file="'/audio/' + source.audio.audio_name + '.' + source.audio.audio_extension" :playerId="source.message_id"  :colorBase="'#ffffff'"></audio-player>
                         
-                   <!-- time -->
-                  
-                         <span style="color:white;font-size:11px; position:absolute; right:2%; top:9%;">3:14 PM</span>
-                  
+                    <!-- time -->
+                  <div class="text-right">
+                         <span style="color:white;font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                         <span class="ml-1"  v-if="source.loading">
+                           <v-icon color="#ffffff" style="font-size:20px;">las la-clock</v-icon>
+                         </span>
+                         <span class="ml-1" v-else>
+                             <v-icon color="#ffffff" style="font-size:20px;">las la-check-double</v-icon>
+                         </span>
+                  </div>
                   <!-- ends -->
                   </v-card> 
 
@@ -275,22 +441,24 @@
         </div>
 
 
-         <div class="col-10 py-0 ">
+         <div class="col-10 py-0 " v-if="(source.type == 'audio' &&  source.audio != null) && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 col-md-6  d-flex flex-row">
+             <div class="col-lg-6 col-md-6 px-1 px-md-2 d-flex flex-row">
                   <div
                      style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
                    background-repeat: no-repeat; ;border:1px solid transparent;"></div>
 
                   <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                     <div class="text-left my-0 py-0">
-                         <span style="font-size:13px;font-weight:bold; ">Bisola23</span>
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
                   </div>
-                   <audio-player class="mt-n1" :file="'/audio/space_audio_2666.mp3'" :playerId="'394'" :colorBase="'#333333'"></audio-player>
+                   <audio-player class="mt-n1"  :file="'/audio/' + source.audio.audio_name + '.' + source.audio.audio_extension" :playerId="source.message_id"  :colorBase="'#333333'"></audio-player>
+                 
                   <!-- time -->
-                  
-                         <span style="color:grey;font-size:11px; position:absolute; right:2%; top:9%;">3:14 PM</span>
-                  
+                  <div class="text-right">
+                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                         
+                  </div>
                   <!-- ends -->
                   </v-card> 
 
@@ -299,20 +467,62 @@
            </div>
         </div>
 
-         <div class="col-10 py-0 offset-2">
+      <!-- ends -->
+
+       <!-- image message -->
+
+         <div class="col-10 py-0 offset-2"  v-if="source.type == 'image' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                   background-repeat: no-repeat; ;border:1px solid transparent;"></div>
+             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+               
 
                   <v-card elevation-1 class="py-1 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
-                  <images :imageArray="imageArray" ></images>
+                     <div class="col-12 py-1 px-1"  v-if="source.loading" >
+                  <div class="row py-0 my-0">
+                     <div class="col-3 py-0 my-0 text-center">
+                         <v-icon color="#ffffff" style="font-size:23px;">las la-image</v-icon>
+                     </div>
+
+                     <template v-if="source.progressValue < 100">
+
+                       <div class="col-6 py-0 my-0 d-flex px-0" style="align-items:center;justify-content:center; ">
+                       
+
+                        <v-progress-linear color="#ffffff" height="5" rounded :value="source.progressValue"></v-progress-linear>
+                     </div>
+
+                      <div class="col-3 py-0 my-0 text-center">
+                           <span style="font-size:10px;color:#ffffff;" >{{ source.progressValue}}%</span>
+                     </div>
+
+                     </template>
+
+                     <template v-else>
+
+                       <div class="col-9 py-0 my-0 d-flex flex-column px-0" style="align-items:center;justify-content:center; ">
+
+                        <v-progress-linear color="#ffffff" height="5" rounded indeterminate></v-progress-linear>
+                         <span style="font-size:10px;color:#ffffff;" >processing...</span>
+                     </div>
+
+                     
+                     </template>
+                     
+            
+                  </div>
+                 </div>
+                  <images  :imageArray="source.image" v-else></images>
                         
-                  <!-- time -->
+                   <!-- time -->
                   <div class="text-right">
-                         <span style="color:white;font-size:11px; ">3:14 PM</span>
+                         <span style="color:white;font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                         <span class="ml-1"  v-if="source.loading">
+                           <v-icon color="#ffffff" style="font-size:20px;">las la-clock</v-icon>
+                         </span>
+                         <span class="ml-1" v-else>
+                             <v-icon color="#ffffff" style="font-size:20px;">las la-check-double</v-icon>
+                         </span>
                   </div>
                   <!-- ends -->
                   </v-card> 
@@ -323,21 +533,23 @@
         </div>
 
 
-         <div class="col-10 py-0 ">
+         <div class="col-10 py-0 " v-if="source.type == 'image' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 col-md-6  d-flex flex-row">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2  d-flex flex-row">
                   <div
                      style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
                    background-repeat: no-repeat; ;border:1px solid transparent;"></div>
 
                   <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                     <div class="text-left my-0 py-0">
-                         <span style="font-size:13px;font-weight:bold; ">Bisola23</span>
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
                   </div>
-                     <images :imageArray="imageArray" ></images>
-                   <!-- time -->
+                     <images :imageArray="source.image" ></images>
+
+                  <!-- time -->
                   <div class="text-right">
-                         <span style="color:grey;font-size:11px; ">3:14 PM</span>
+                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                       
                   </div>
                   <!-- ends -->
                   </v-card> 
@@ -347,14 +559,14 @@
            </div>
         </div>
 
+        <!-- ends -->
 
-         <div class="col-10 py-0 offset-2">
+
+   <!-- project message -->
+         <div class="col-10 py-0 offset-2" v-if="source.type == 'project' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                   background-repeat: no-repeat; ;border:1px solid transparent;"></div>
-
+             <div class="col-lg-6 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+                  
                   <v-card elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
                    <div class="row">
@@ -362,7 +574,7 @@
                         <v-icon color="#ffffff">las la-laptop-code</v-icon>
                       </div>
                       <div class="col-7 d-flex py-1"  style="align-items:center;">
-                           <span style="color:white; font-size:13px;">Java calculator</span>
+                           <span style="color:white; font-size:13px;white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{source.project.title}}</span>
                       </div>
 
                        <div class="col-3 text-right py-1"  style="align-items:center;">
@@ -371,9 +583,15 @@
                    </div>
                         
                    <!-- time -->
-                  
-                         <span style="color:white;font-size:11px; position:absolute; right:2%; top:9%;">3:14 PM</span>
-                  
+                  <div class="text-right">
+                         <span style="color:white;font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                         <span class="ml-1"  v-if="source.loading">
+                           <v-icon color="#ffffff" style="font-size:20px;">las la-clock</v-icon>
+                         </span>
+                         <span class="ml-1" v-else>
+                             <v-icon color="#ffffff" style="font-size:20px;">las la-check-double</v-icon>
+                         </span>
+                  </div>
                   <!-- ends -->
                   </v-card> 
 
@@ -382,16 +600,16 @@
            </div>
         </div>
 
-      <div class="col-10 py-0 ">
+      <div class="col-10 py-0 " v-if="source.type == 'project' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 col-md-6  d-flex flex-row">
+             <div class="col-lg-6 col-md-6 px-1 px-md-2 d-flex flex-row">
                   <div
                      style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
                    background-repeat: no-repeat; ;border:1px solid transparent;"></div>
 
                   <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                     <div class="text-left my-0 py-0">
-                         <span style="font-size:13px;font-weight:bold; ">Bisola23</span>
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
                   </div>
 
                    <div class="row">
@@ -399,7 +617,7 @@
                         <v-icon >las la-laptop-code</v-icon>
                       </div>
                       <div class="col-7 d-flex py-1"  style="align-items:center;">
-                           <span style=" font-size:13px;">Java calculator</span>
+                           <span style=" font-size:13px;white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{source.project.title}}</span>
                       </div>
 
                        <div class="col-3 text-right py-1"  style="align-items:center;">
@@ -407,10 +625,11 @@
                       </div>
                    </div>
 
-                  <!-- time -->
-                  
-                         <span style="color:grey;font-size:11px; position:absolute; right:2%; top:9%;">3:14 PM</span>
-                  
+                 <!-- time -->
+                  <div class="text-right">
+                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                        
+                  </div>
                   <!-- ends -->
                   </v-card> 
 
@@ -419,22 +638,57 @@
            </div>
         </div>
 
+    <!-- ends -->
 
-         <div class="col-10 py-0 offset-2">
+
+         <div class="col-10 py-0 offset-2"  v-if="source.type == 'file' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                   background-repeat: no-repeat; ;border:1px solid transparent;"></div>
+             <div class="col-lg-6 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+                 
 
                   <v-card elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
-                   <div class="row py-1" >
+                     <div class="col-12 py-1 px-1"  v-if="source.loading" >
+                  <div class="row py-0 my-0">
+                     <div class="col-3 py-0 my-0 text-center">
+                         <v-icon color="#ffffff" style="font-size:23px;">las la-file-alt</v-icon>
+                     </div>
+
+                     <template v-if="source.progressValue < 100">
+
+                       <div class="col-6 py-0 my-0 d-flex px-0" style="align-items:center;justify-content:center; ">
+                       
+
+                        <v-progress-linear color="#ffffff" height="5" rounded :value="source.progressValue"></v-progress-linear>
+                     </div>
+
+                      <div class="col-3 py-0 my-0 text-center">
+                           <span style="font-size:10px;color:#ffffff;" >{{ source.progressValue}}%</span>
+                     </div>
+
+                     </template>
+
+                     <template v-else>
+
+                       <div class="col-9 py-0 my-0 d-flex flex-column px-0" style="align-items:center;justify-content:center; ">
+
+                        <v-progress-linear color="#ffffff" height="5" rounded indeterminate></v-progress-linear>
+                         <span style="font-size:10px;color:#ffffff;" >processing...</span>
+                     </div>
+
+                     
+                     </template>
+                     
+            
+                  </div>
+                 </div>
+
+                   <div class="row py-1"  v-else>
                       <div class="col-2 text-center d-flex py-1" style="align-items:center; justify-content:center;">
                         <v-icon color="#ffffff">las la-file-alt</v-icon>
                       </div>
                       <div class="col-8 d-flex py-1"  style="align-items:center;">
-                           <span style="color:white; font-size:13px;">my_document.pdf</span>
+                           <span style="color:white; font-size:13px;white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{source.file.display_name}}</span>
                       </div>
 
                        <div class="col-2 text-center py-1 d-flex"  style="align-items:center; justify-content:center;">
@@ -443,9 +697,53 @@
                    </div>
                         
                    <!-- time -->
-                  
-                         <span style="color:white;font-size:11px; position:absolute; right:2%; top:9%;">3:14 PM</span>
-                  
+                  <div class="text-right">
+                         <span style="color:white;font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                         <span class="ml-1"  v-if="source.loading">
+                           <v-icon color="#ffffff" style="font-size:20px;">las la-clock</v-icon>
+                         </span>
+                         <span class="ml-1" v-else>
+                             <v-icon color="#ffffff" style="font-size:20px;">las la-check-double</v-icon>
+                         </span>
+                  </div>
+                  <!-- ends -->
+                  </v-card> 
+
+                 
+             </div>
+           </div>
+        </div>
+
+         <div class="col-10 py-0 " v-if="source.type == 'file' && checkOwner(source.user_id) == false">
+           <div class="row">
+             <div class="col-lg-6 px-1 px-md-2 col-md-6  d-flex flex-row">
+                  <div
+                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
+                   background-repeat: no-repeat; ;border:1px solid transparent;"></div>
+
+                  <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                    <div class="text-left my-0 py-0">
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+                  </div>
+
+                   <div class="row">
+                      <div class="col-2 text-center d-flex py-1" style="align-items:center; justify-content:center;">
+                        <v-icon >las la-file-alt</v-icon>
+                      </div>
+                      <div class="col-7 d-flex py-1"  style="align-items:center;">
+                           <span style=" font-size:13px;white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{source.file.display_name}}</span>
+                      </div>
+
+                       <div class="col-3 text-right py-1"  style="align-items:center;">
+                           <v-btn icon > <v-icon>mdi mdi-cloud-download</v-icon></v-btn>
+                      </div>
+                   </div>
+
+                 <!-- time -->
+                  <div class="text-right">
+                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                        
+                  </div>
                   <!-- ends -->
                   </v-card> 
 
@@ -476,39 +774,496 @@
   );
 
 
+const { htmlToText } = require('html-to-text');
 export default {
+   props:['source','username'],
    data(){
         return{      
-             imageArray:[
-               {
-                 image_name:'space_image_1_128',
-                 image_extension:'png',
-                 background_color:'#c5c5c5'
-               },
-               {
-                image_name:'space_image_1_129',
-                image_extension:'png',
-                background_color:'#c5c5c5'
-               },
-               {
-                 image_name:'space_image_1_130',
-                image_extension:'jpg',
-                background_color:'#c5c5c5'
-               },
-                {
-                  image_name:'space_image_1_131',
-                image_extension:'jpeg',
-                background_color:'#c5c5c5'
-               }
-             ]
+            that:this,
+              viewerType:'',
+         loading:false,
+         clicks: 0,
+         delay:400,
+         timer:'',
+        
         }
+    },
+    mounted(){
+
     },
     components:{
       CodeBox,
       VideoPlayer,
       AudioPlayer,
       Images
+    },
+    methods:{
+
+       handelMessageContent: function(message){
+
+       return this.shortenContent(message.content,200);
+    
+    },
+    showFullMsg:function(message){
+
+       document.getElementById('moreContentbtn'+ message.message_id).style.visibility='hidden' ;
+        document.getElementById('shortContent' + message.message_id).style.display = 'none';
+       document.getElementById('fullContent'+ message.message_id).style.display = 'inline-block';
+
+
+
+    },
+    getReplyMsg: function(replymessage){
+        let finalString = '';
+
+          let message = replymessage;
+
+          if(message.type == null || message.type == 'action'){
+
+          finalString =  htmlToText(message.content, {
+             wordwrap: 100
+            });
+
+          }
+
+           if(message.type == 'image'){
+
+          finalString = 'sent an images'
+
+          }
+
+        if(message.type == 'join'){
+
+          finalString = 'joined'
+
+          }
+
+          if(message.type == 'code'){
+
+          finalString = 'shared a code'
+
+          }
+
+          if(message.type == 'video'){
+
+          finalString = 'sent a video'
+
+          }
+
+          if(message.type == 'audio'){
+
+          finalString = 'sent an audio'
+
+          }
+
+           if(message.type == 'project'){
+
+          finalString = 'share a project'
+
+          }
+
+          return finalString;
+    },
+    checkIfMsgIsLong:function(message){
+
+      let messageString = htmlToText(message.content, {
+             wordwrap: null
+            });
+
+         if(messageString.length > 300){
+           return true; 
+         }else{
+           return false;
+         }
+
+    },
+    createSpace:function(member){
+           
+           this.$root.showUserInfo = true;
+          
+            this.$root.selectedMember = member;
+            
+      axios.get('/fetch-user-info/'  + member.username )
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         
+         this.$root.userBasicInfo = response.data[0];
+
+         
+       
+      }
+       
+     
+     })
+     .catch(error => {
+
+        this.$root.infoLoaderText = 'unable to load user info'
+    
+     }) 
+
+
+      },
+
+      
+      handleAction:function(message){
+           
+         
+         if(message.action.type == 'custom'){
+          
+           this.$router.push({ path: '/space/'  + this.$route.params.spaceId  +  '/channel/board' });
+
+         }
+         if(message.action.type == 'inner'){
+         window.location = '/trends#/trends/connect';
+         } 
+      },
+     
+       handleResults(messageArray){
+
+
+          this.$root.returnedMessages = messageArray;
+          
+          let MsgLenght = messageArray.length;
+
+         
+             let startCount = MsgLenght - this.$root.messageInitialLimit;
+
+             if(startCount <= 0){
+               startCount = 0;
+             }
+
+          
+  
+          let sliedMsg = this.$root.returnedMessages.slice(startCount,MsgLenght);
+
+         
+         this.$root.messageStoreTop = this.$root.returnedMessages.slice(0,startCount);
+
+         var finalMessage = sliedMsg;
+
+         
+         
+         return finalMessage;
+          
+      },
+       generateUnreadMessage: function(){
+          if(this.$root.selectedSpace.unread != 0 && this.$root.selectedSpace.unread != undefined){
+             let newUnreadMsg = {
+             content: 'You have ' + this.$root.selectedSpace.unread + ' unread messages',
+        created_at: moment().subtract(1,'hours'),
+         message_id: this.makeUUID(),
+        type:'unread', 
+             };
+          let msgCount = this.$root.Messages.length;
+
+           let msgIndex = msgCount - this.$root.selectedSpace.unread;
+
+            this.$root.Messages.splice(msgIndex,0,newUnreadMsg);
+             this.$root.selectedSpace.unread = 0;
+          }
+      },
+        fetchMessages: function(){
+           
+           
+             
+             axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
+      .then(response => {
+      
+      if (response.status == 200) {
+
+
+
+       let returnedData = this.handleResults(response.data[0]);
+        
+     
+       this.$root.Messages = returnedData;
+
+       
+       
+       this.generateUnreadMessage();
+        
+       this.$root.selectedSpace = response.data[1]
+
+       setTimeout(() => {
+         
+           var container = document.querySelector('#messageContainer');
+           
+        var element =  document.querySelector('#messagebottomDiv');
+       
+        var top = element.offsetTop - 120;
+        container.scrollTo(0 , top);
+        },500)
+
+   
+          
+   
+       
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+           
+           
+
+        },
+
+      showProject:function(projectSlug){
+        this.$router.push({ path: '/' + projectSlug +'/panel' });
+      },
+      downloader:function(message){
+          window.url = '/download-file-' + message.message_id;
+      },
+        scrollToMessage: function(messageid){
+           
+             this.$root.Messages.map((message)=>{
+                if(message.message_id == messageid){
+                  message.tagged = true;
+                }
+             });
+
+             setTimeout(()=>{
+               
+                this.$root.Messages.map((message)=>{
+                if(message.message_id == messageid){
+                  message.tagged = false;
+                }
+             });
+
+             },2000)
+             
+          
+         setTimeout(() => {
+         
+          let messageData =this.$root.Messages.filter((message)=>{
+               return message.message_id == messageid;
+             });
+
+          let msgIndex = messageData[0].index_count;
+
+        
+  
+          this.$root.msgScrollComponent.messageContainer.scrollToItem(msgIndex - 2);
+        },200)
+      
+        
+
+      },
+      
+  
+      showMoreHandler(message){
+
+       
+        
+            
+            this.clicks++ 
+          if(this.clicks === 1) {
+             
+            var self = this
+            this.timer = setTimeout(function() {
+              if(message.tagged == false){
+                 if(message.showReply){
+                
+              message.showReply = false;
+              }else{
+              self.$root.Messages.map((message)=>{
+               
+                 message.showReply = false;
+                 
+              });
+               
+             message.showReply = true;
+           }
+              }
+             message.tagged = false;
+             
+               
+              self.clicks = 0
+            }, this.delay);
+         
+         this.$root.showMsgDelete = false;
+              
+          } else{
+             clearTimeout(this.timer); 
+
+             if(this.checkOwner(message.user_id)){
+
+                message.showReply = false;
+
+              message.tagged = true;
+             
+             this.$root.messageIdToDelete = message.message_id;
+          
+            this.$root.showMsgDelete = true;
+
+             } 
+
+            
+           
+            
+             this.clicks = 0;
+          }   
+
+          
+        },
+      replyMsg: function(message){
+          this.$root.replyMessage = message;
+           this.$root.is_reply = true;
+          this.$root.showRootReply = true;
+
+           message.showReply = false;
+
+           this.$root.bottomEditorValue.focus();
+         
+      },
+       
+        checkOwner: function(message_user_id){
+            if(this.$root.user_temp_id == message_user_id){
+              return true;
+            }else{
+              return false;
+            }
+
+        },
+        shortenContent: function(content,limit){
+             
+             if(content.length > limit){
+                let shortcontent = content.slice(0,limit);
+                  
+                 return shortcontent + '...';
+             }else{
+               return content;
+             }
+        },
+         checkDatereal: function(date){
+
+            var realTimeHour = moment(date).add(1,'hours');
+
+            var aWeekAgo = moment().subtract(7,'days');
+
+            if (moment(realTimeHour) >= aWeekAgo) {
+              return moment(realTimeHour).format("h:mm a");
+            }else{
+               return moment(realTimeHour).format("h:mm a");
+            }
+      },
+      covertDate: function(date){
+           var realTimeHour = moment(date).format('l');
+
+          
+               
+            if(moment().format('l') == realTimeHour){
+                 return 'Today';
+            }
+             if(moment().subtract(1,'days').format('l') == realTimeHour){
+                 return 'Yesterday';
+            }
+           
+               return moment(realTimeHour).format("MMMM Do");
+      },
+       languageExtensions: function(language){
+
+
+           if(language == 'HTML'){
+             return 'html';
+         }
+         if(language == 'CSS'){
+          return 'css';
+         }
+          if(language == 'PYTHON(3.8.1)'){
+           return 'py';
+         }
+
+         if(language == 'PYTHON For ML(3.7.7)'){
+           return 'py';
+         }
+
+         if(language == 'PYTHON(2.7.17)'){
+           return 'py';
+         }
+          if(language == 'PHP'){
+            return 'php';
+         }
+          if(language == 'JAVASCRIPT(Node)'){
+           return 'js';
+         }
+          if(language == 'SQL'){
+            return 'sql';
+         }
+          if(language == 'C'){
+            return 'c';
+         }
+          if(language == 'C++'){
+           return 'cpp';
+         }
+          if(language == 'JAVA'){
+            return 'java';
+         }
+          if(language == 'C#'){
+           return 'cs';
+         }
+          if(language == 'ERLANG'){
+            return 'erl';
+         }
+          if(language == 'KOTLIN'){
+         return 'kt';
+         }
+          if(language == 'FOTRAN'){
+          return 'for';
+         }
+          if(language == 'PERL'){
+           return 'pl';
+         }
+          if(language == 'R'){
+            return 'r';
+         }
+         if(language == 'GO'){
+            return 'go';
+         }
+         if(language == 'HASKELL'){
+           return 'hs';
+         }
+          if(language == 'RUBY'){
+            return 'rb';
+         }
+         if(language == 'LUA'){
+           
+             return 'lua';
+
+         }
+         if(language == 'PASCAL'){
+
+             return 'pas';
+         }
+         if(language == 'RUST'){
+
+             return 'rs';
+         }
+         if(language == 'SCALA'){
+           
+              return 'scala';
+
+         }
+         if(language == 'SWIFT'){
+
+               return 'swift';
+
+         }
+         if(language  == 'TYPESCRIPT'){
+
+             return 'ts';
+
+         }
+
+      }
     }
+
+    
 }
 </script>
 <style scoped>

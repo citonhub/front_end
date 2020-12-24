@@ -67,5 +67,21 @@
     "/js/chunks/vendors~VPressEditor?v=0.12.9bb3b5a343417f1e7630.js": "/js/chunks/vendors~VPressEditor?v=0.12.9bb3b5a343417f1e7630.js",
     "/js/chunks/vendors~VideoPlayer.8992c579db9657cf556a.js": "/js/chunks/vendors~VideoPlayer.8992c579db9657cf556a.js",
     "/js/chunks/vendors~login.4246d724a8963d2cf05e.js": "/js/chunks/vendors~login.4246d724a8963d2cf05e.js",
-    "/js/chunks/verify.9f6ac1ff92db25a0c3ff.js": "/js/chunks/verify.9f6ac1ff92db25a0c3ff.js"
+    "/js/chunks/verify.9f6ac1ff92db25a0c3ff.js": "/js/chunks/verify.9f6ac1ff92db25a0c3ff.js",
+    "/js/chunks/ChallengesCreate.58f0bb395b64d78f1c15.js": "/js/chunks/ChallengesCreate.58f0bb395b64d78f1c15.js",
+    "/js/chunks/ChatList.bb2ff1497b9d4afbd744.js": "/js/chunks/ChatList.bb2ff1497b9d4afbd744.js",
+    "/js/chunks/ChatMessages.9b31610b2920039075bd.js": "/js/chunks/ChatMessages.9b31610b2920039075bd.js",
+    "/js/chunks/ChatTop.d36308da70353d873b9a.js": "/js/chunks/ChatTop.d36308da70353d873b9a.js",
+    "/js/chunks/Chats.c69bac3fb4828c16331f.js": "/js/chunks/Chats.c69bac3fb4828c16331f.js",
+    "/js/chunks/CodeBox.8d08003d837ed66aec34.js": "/js/chunks/CodeBox.8d08003d837ed66aec34.js",
+    "/js/chunks/CodeEditorChat.f44388385035fe70ea11.js": "/js/chunks/CodeEditorChat.f44388385035fe70ea11.js",
+    "/js/chunks/ImageViewer.095bca7dd887569bd999.js": "/js/chunks/ImageViewer.095bca7dd887569bd999.js",
+    "/js/chunks/Images.fd0effc505d6a77faf10.js": "/js/chunks/Images.fd0effc505d6a77faf10.js",
+    "/js/chunks/VPressEditor?v=0.12.e851f4893cb38b8d313e.js": "/js/chunks/VPressEditor?v=0.12.e851f4893cb38b8d313e.js",
+    "/js/chunks/login.930bb7eb2f76d64b2f3e.js": "/js/chunks/login.930bb7eb2f76d64b2f3e.js",
+    "/js/chunks/register.f75079c72d8395c7dc0a.js": "/js/chunks/register.f75079c72d8395c7dc0a.js",
+    "/js/chunks/top-bar-chat.c632a9b7d19b1b117449.js": "/js/chunks/top-bar-chat.c632a9b7d19b1b117449.js",
+    "/js/chunks/vendors~Board~ForgotPassword~Hub~ProfilePage~ResetPassword~SetUsername~login~register~verify.3ccfcb8a9f17f8789966.js": "/js/chunks/vendors~Board~ForgotPassword~Hub~ProfilePage~ResetPassword~SetUsername~login~register~verify.3ccfcb8a9f17f8789966.js",
+    "/js/chunks/vendors~Board~ForgotPassword~Hub~ProfilePage~ResetPassword~SetUsername~register~verify.0103c9b68a910111c26b.js": "/js/chunks/vendors~Board~ForgotPassword~Hub~ProfilePage~ResetPassword~SetUsername~register~verify.0103c9b68a910111c26b.js",
+    "/js/chunks/vendors~Chats.84271ee0910bb50a93fa.js": "/js/chunks/vendors~Chats.84271ee0910bb50a93fa.js"
 }

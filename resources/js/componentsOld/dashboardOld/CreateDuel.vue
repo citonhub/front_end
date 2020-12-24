@@ -481,7 +481,7 @@ export default {
               orgId = this.$root.orgIdRoot;
           }
 
-        this.durationValue = (this.durationValueDay * 24) + parseInt(this.durationValueHr);
+         (this.durationValueDay * 24) + parseInt(this.durationValueHr);
       axios.post('/save-duel',{
                 title: this.title,
                 duel_languages: this.programmingLanguage,

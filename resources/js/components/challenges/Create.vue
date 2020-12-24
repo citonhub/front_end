@@ -8,7 +8,7 @@
         </div>
 
          <div class="col-6 py-0 my-0 text-right">
-             <v-btn  small rounded  color="#3C87CD" style="font-size:12px; text-transform:none; font-weight:bolder; color:white;font-family:BodyFont;">
+             <v-btn  small rounded  color="#3C87CD" style="font-size:12px; text-transform:none; font-weight:bolder; color:white;font-family:MediumFont;">
              Create
            </v-btn>
         </div>
@@ -16,17 +16,17 @@
       </div>
    </div>
 
-   <div class=" px-0 col-12 py-1 d-md-none d-block fixed-top" style="position:sticky; background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
-     <div class="row">
+   <div class=" px-0 col-12 py-0 d-md-none d-block fixed-top d-flex flex-row" style="position:sticky; background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
+   
         <div class="col-8 py-0 my-0">
-           <h6 style="font-size:17px;"><v-btn  icon><v-icon>las la-arrow-left</v-icon></v-btn>Create a challenge</h6>
+           <div style="font-size:16px; font-family:HeaderFont;"><v-btn  icon><v-icon>las la-arrow-left</v-icon></v-btn>Create a challenge</div>
         </div>
          <div class="col-4 py-0 my-0 text-right">
-          <v-btn small rounded  color="#3C87CD" style="font-size:12px; text-transform:none; font-weight:bolder; color:white;font-family:BodyFont;">
+          <v-btn small rounded  color="#3C87CD" style="font-size:12px; text-transform:none; font-weight:bolder; color:white;font-family:MediumFont;">
              Create
            </v-btn>
         </div>
-      </div>
+     
    </div>
 
 
@@ -80,12 +80,12 @@
               elevation="0"
               height="100"
               width="120"
-              :style="'background-image:url('+ imageUrl + ');border-radius:10px;cursor:pointer;background-size:contain;'"
+              :style="'background-image:url('+ '' + ');border-radius:10px;cursor:pointer;background-size:contain;'"
               class="py-0  px-0 mt-2 sheetbackImg"
               color="whitesmoke">
 
                <input type="file" id="settingsimage" ref="settingsimage" 
-                @change="crophandler" style="opacity:0;width:100%; height:10px; overflow:hidden; position:absolute; z-index:10;"
+                style="opacity:0;width:100%; height:10px; overflow:hidden; position:absolute; z-index:10;"
                  accept="image/x-png,image/jpeg,image/jpg"/>
                <v-sheet
                
@@ -129,10 +129,24 @@
                 <span style="font-size:14px; font-family:BodyFont;">Description</span>
              
              </div>
+             <div class="col-lg-12 py-1 my-2 px-2 text-left">
+
+              <v-press-editor v-model="descriptionContent"  :placeholder="'Describe this challenge, its aim and objective'"></v-press-editor>
+             
+             </div>
+
+
+
+
+               <div class="col-lg-12 py-1 my-2 px-2 text-left">
+
+                <span style="font-size:14px; font-family:BodyFont;">Rules</span>
+             
+             </div>
 
              <div class="col-lg-12 py-1 my-2 px-2 text-left">
 
-              <v-press-editor :placeholder="'Describe this challenge, its aim and objective'"></v-press-editor>
+              <v-press-editor v-model="rulesContent"  :placeholder="'What are the dos and do not'"></v-press-editor>
              
              </div>
              
@@ -157,7 +171,7 @@
        class="d-inline-block mr-1"
        style="font-size:13px;color:white;"
         color="#3C87CD"
-    >Custom Judge</v-chip>
+    >Custom Judges</v-chip>
              
              </div>
 
@@ -282,6 +296,8 @@ export default {
          selectJudgeType:0,
          switch2:true,
          switch1:false,
+         descriptionContent:'',
+         rulesContent:'',
           titleRule:[
              v => !!v || 'Title is required',
            v => v.length <= 50 || 'Name must be less than 50 characters'
