@@ -400,7 +400,7 @@ this.everyone = !this.everyone
           rules:this.rulesContent,
           duration:this.durationValue,
           challenge_language:this.language,
-image:this.image
+
         }
 
         ).then(
