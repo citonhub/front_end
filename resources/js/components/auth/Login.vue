@@ -367,10 +367,7 @@ export default {
       )
        }
 
-       if(type == 'question'){
-
-       }
-     
+       
 
     },
     loginuser: function(){

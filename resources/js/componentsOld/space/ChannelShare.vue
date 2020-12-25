@@ -696,27 +696,17 @@ var blob = this.b64toBlob(realData, contentType);
 
           this.$root.Messages.push(this.$root.NewMsg);
 
-           this.$root.spaceFullData[0] =  this.$root.Messages;
+           this.$root.spaceFullData.messages =  this.$root.Messages;
 
-           let fullData = [];
-                    fullData.push(this.$root.spaceFullData[0]);
-                fullData.push(this.$root.spaceFullData[1]);
+          
 
-                 let thirdData = [];
 
-                    thirdData.push(this.$root.spaceFullData[2][0])
-
-                fullData.push(thirdData);
+             this.$root.LocalStore('full_'+this.$root.selectedSpace.space_id  + this.$root.username,this.$root.spaceFullData);
 
 
 
 
-             this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
-
-
-
-
-         this.$root.sharePage = false;
+        
 
          this.$root.scrollToBottom();
 
@@ -739,7 +729,8 @@ var blob = this.b64toBlob(realData, contentType);
 
         this.ChangeDataToDefaults();
 
-         this.$root.updateSpaceTracker(this.$root.selectedSpace.space_id);
+          this.$root.updateSpaceTracker(this.$root.selectedSpace.space_id,this.$root.NewMsg);
+
        this.$root.sendShareMessage(formData);
     },
      crophandler:function(e){

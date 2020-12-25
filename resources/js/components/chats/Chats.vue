@@ -48,7 +48,7 @@
     :buffer="5000"
     id="ChatContainer"
       class="col-12 px-1  chatListScroller" 
-       style="position:absolute; overflow-y:auto; top:0%; height:100%;left:0%;padding-top:63px;"
+       style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;"
         >
 
     <template v-slot="{ item, index, active }">
@@ -100,7 +100,7 @@
 
                            <!-- chat view -->
                            <template v-if="chatIsOpen && that.$root.Messages != null">
-                              <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:absolute; top:0%;z-index:999999999999;" >
+                              <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:absolute; top:0%;z-index:9999999;" >
                               <chat-top></chat-top>
                             </div>
 
@@ -115,7 +115,7 @@
   class="col-12 scroller" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:100%; left:0; position:absolute; z-index:999999; top:0%;padding-top:80px; padding-bottom:130px;  overflow-y:auto;"
+            background-repeat: no-repeat; height:94%; left:0; position:absolute; z-index:99999; top:0%;padding-top:80px; padding-bottom:130px;  overflow-y:auto;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -134,7 +134,7 @@
 
     <template #after>
 
-       <div  class=" col-12 " style="margin-top:170px;">
+       <div  class=" col-12 " style="margin-top:70px;">
 
 
 
@@ -144,16 +144,22 @@
   </DynamicScroller>
                          
 
-                             <div class="col-12 py-1" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; bottom:0%;z-index:999999999999;" >
-                                  <chat-bottom></chat-bottom>
+                             <div class="col-12 py-0 px-0" style=" left:0; position:absolute; bottom:0%;z-index:99999999;" >
+                               <div class="col-12  py-1" v-if="that.$root.showEmojiBox">
+                            <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
+                                 </div>
+
+                                  <div class="px-2 py-1" style="background:#ffffff; border-top:1px solid #c5c5c5;">
+                                <chat-bottom ref="bottomLg"></chat-bottom>
+                                 </div>
                             </div>
                            </template>
                       
                             <!-- ends -->
                             <!-- chat side board -->
-                            <template v-else >
+                            <template v-if="!chatIsOpen" >
 
-                            <div class="col-12 d-flex flex-column" style="background:#ffffff; z-index:9999999999999999999; overflow-x:hidden; align-items:center;justify-content:center;  height:100%; left:0; position:absolute; z-index:99; top:0%;" >
+                            <div v-if="messageIsDone" class="col-12 d-flex flex-column" style="background:#ffffff; z-index:9999999999999999999; overflow-x:hidden; align-items:center;justify-content:center;  height:100%; left:0; position:absolute; z-index:99; top:0%;" >
 
                                 <img src="/imgs/chat_side.svg" height="250px">
 
@@ -163,6 +169,31 @@
                             <p class="text-center" style="font-family:HeaderFont;font-size:15px;">
                                  - Rob Siltanen
                               </p>
+                                </div>
+
+                            </div>
+
+                               
+                           </template>
+
+                            <template v-if="!messageIsDone" >
+
+                            
+
+                             <div class="col-12 d-flex flex-column" style="background:#ffffff; z-index:9999999999999999999; overflow-x:hidden; align-items:center;justify-content:center;  height:100%; left:0; position:absolute; top:0%;" >
+
+                                <img src="/imgs/chat_side.svg" height="250px">
+
+                                <div class="d-flex flex-column mt-5 px-5" style="align-items:center;justify-content:center;">
+                                    <blockquote class="fill" style="font-family:BodyFont; font-size:15px; color:black;">Knowing is not enough; we must apply. Wishing is not enough; we must do.</blockquote>
+                                 
+                                
+                                 
+                            <p class="text-center" style="font-family:HeaderFont;font-size:15px;">
+                                 - Rob Siltanen
+                              </p>
+
+                               <v-progress-linear indeterminate height="4px"  color="#3C87CD" class="mb-2" rounded></v-progress-linear>
                                 </div>
 
                             </div>
@@ -242,6 +273,23 @@
                                </v-fade-transition>
 
                             <!-- ends -->
+
+                               <!-- share -->
+
+                            <div  v-if="chatIsOpen && !chatInnerSideBar && chatShareIsOpen"  class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;"  >
+                                    <chat-share></chat-share>
+                               </div>
+
+                            <!-- ends -->
+
+                              <!-- crop image -->
+
+                            <div v-if="chatIsOpen && !chatInnerSideBar && imageCropperIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;">
+                                    <image-cropper></image-cropper>
+                               </div>
+
+                            <!-- ends -->
+
                       </div>
 
                            <v-btn  @click="showCodeEditor" v-if="chatIsOpen" medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
@@ -318,18 +366,22 @@
 
               
                <!-- chat side board -->
-                            <template v-if="that.$root.Messages == null" >
+                            <template v-if="!messageIsDone" >
 
-                            <div class="col-12 d-flex flex-column" style="background:#ffffff; z-index:9999999999999999999; overflow-x:hidden; align-items:center;justify-content:center;  height:100%; left:0; position:fixed;  top:0%;" >
+                            <div class="col-12 d-flex flex-column" style="background:#ffffff; z-index:999999999999999999999; overflow-x:hidden; align-items:center;justify-content:center;  height:100%; left:0; position:fixed;  top:0%;" >
 
                                 <img src="/imgs/chat_side.svg" height="150px">
 
                                 <div class="d-flex flex-column mt-5 px-5" style="align-items:center;justify-content:center;">
                                     <blockquote class="fill" style="font-family:BodyFont; font-size:14px; color:black;">Knowing is not enough; we must apply. Wishing is not enough; we must do.</blockquote>
- 
+                                  
+                                
+
                             <p class="text-center" style="font-family:HeaderFont;font-size:14px;">
                                  - Rob Siltanen
                               </p>
+
+                                 <v-progress-linear indeterminate height="4px"  color="#3C87CD" class="mb-2" rounded></v-progress-linear>
                                 </div>
 
                             </div>
@@ -347,7 +399,7 @@
                    <template v-if="chatIsOpen && that.$root.Messages != null">
 
               <div class="row py-0">
-                            <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:fixed; top:0%;z-index:999999999999999;" >
+                            <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:fixed; top:0%;z-index:999999999;" >
                               <chat-top></chat-top>
                             </div>
 
@@ -379,10 +431,11 @@
     
       </DynamicScrollerItem>
     </template>
+    
 
     <template #after>
 
-       <div  class=" col-12 " style="margin-top:120px;">
+       <div  class=" col-12 " style="margin-top:70px;">
 
 
 
@@ -392,14 +445,20 @@
   </DynamicScroller>
                       
 
-                             <v-btn @click="showCodeEditor" v-if="chatIsOpen"   fab color="#3C87CD"  style="z-index:9999999999;  position:fixed;  bottom:15%; right:2%; ">
+                             <v-btn @click="showCodeEditor" v-if="chatIsOpen"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
 
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
 
                               </v-btn>
 
-                             <div class="col-12 py-1 px-2" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:fixed; bottom:0%;z-index:9999999999;" >
-                                  <chat-bottom></chat-bottom>
+                             <div class="col-12 py-0 px-0" style=" left:0; position:fixed; bottom:0%;z-index:999999999;" >
+                                <div class="col-12  py-1"  v-if="that.$root.showEmojiBox">
+                            <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
+                                 </div>
+                                 <div class="px-2 py-1" style="background:#ffffff; border-top:1px solid #c5c5c5;">
+                                <chat-bottom ref="bottomSm"></chat-bottom>
+                                 </div>
+                                 
                             </div>
 
 
@@ -467,6 +526,22 @@
 
                             <!-- ends -->
 
+                               <!-- share -->
+
+                            <div v-if="chatIsOpen && !chatInnerSideBar && chatShareIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
+                                    <chat-share></chat-share>
+                               </div>
+
+                            <!-- ends -->
+
+                                <!-- crop image -->
+
+                            <div v-if="chatIsOpen && !chatInnerSideBar && imageCropperIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
+                                    <image-cropper></image-cropper>
+                               </div>
+
+                            <!-- ends -->
+
                               
                   </div>
               
@@ -526,6 +601,13 @@ import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 Vue.component('DynamicScroller', DynamicScroller)
 Vue.component('DynamicScrollerItem', DynamicScrollerItem)
 
+
+import { ObserveVisibility } from 'vue-observe-visibility'
+
+Vue.directive('observe-visibility', ObserveVisibility)
+
+import { VEmojiPicker } from 'v-emoji-picker';
+
  const TopBar = () => import(
     /* webpackChunkName: "top-bar-chat" */ './TopBar.vue'
   );
@@ -575,6 +657,14 @@ Vue.component('DynamicScrollerItem', DynamicScrollerItem)
   const AddSubChannel = () => import(
     /* webpackChunkName: "AddSubChannel" */ './AddSubChannel.vue'
   );
+
+   const ChatShare = () => import(
+    /* webpackChunkName: "ChatShare" */ './Share.vue'
+  );
+
+    const ImageCropper = () => import(
+    /* webpackChunkName: "ImageCropper" */ './ImageCropper.vue'
+  );
 export default {
      data () {
       return {
@@ -586,6 +676,10 @@ export default {
         innerSideBarContent:'',
        chatInnerConent:'',
        errorLoadingMessage:false,
+        counter:0,
+        messageIsDone: true,
+        chatShareIsOpen:false,
+        imageCropperIsOpen:false,
       }
     },
     mounted(){
@@ -608,9 +702,30 @@ export default {
         SubChannels,
         CreateChannel,
         LiveSession,
-        AddSubChannel
+        AddSubChannel,
+        VEmojiPicker,
+        ChatShare,
+        ImageCropper
     },
      methods:{
+        selectEmoji(emoji) {
+     
+
+     // small screens
+           this.$refs.bottomSm.input =  this.$refs.bottomSm.input + emoji.data
+            this.$refs.bottomSm.contentInWord = this.$refs.bottomSm.compiledMarkdown;
+       // large screen
+            this.$refs.bottomLg.input =  this.$refs.bottomLg.input + emoji.data
+              this.$refs.bottomLg.contentInWord = this.$refs.bottomLg.compiledMarkdown;
+             
+    
+    },   
+       TopIsVisible:function(isVisible, entry){
+           if(isVisible){
+           
+              
+           }
+       },
        controlChatPath:function(){
            if(this.$route.params.spaceId != undefined){
 
@@ -638,7 +753,7 @@ export default {
         },
         showCodeEditor:function(){
        
-            this.$router.push({ path: '/channels/space_id/editor' });
+            this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id +'/editor' });
         },
          fetchChatList: function(){
 
@@ -654,6 +769,7 @@ export default {
                  if(result != null ){
 
                     let finalResult = JSON.parse(result);
+                      this.$root.baseChatList = finalResult;
 
                      let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
 
@@ -678,6 +794,9 @@ export default {
       if (response.status == 200) {
          
           let responseList = response.data;
+
+
+          this.$root.baseChatList = response.data;
           this.$root.ChatList = responseList.channels.concat(responseList.direct_messages, responseList.pet_spaces);
 
            this.$root.LocalStore('user_chat_list' + this.$root.username,response.data);
@@ -970,9 +1089,11 @@ export default {
 
            });
 
+       
 
+      
 
-         return this.$root.returnedMessages;
+         return  this.$root.returnedMessages ;
 
       },
 
@@ -981,7 +1102,8 @@ export default {
          // set messages to null
           this.$root.Messages = null;
           this.errorLoadingMessage = false;
-
+         
+         this.messageIsDone = false;
          // proceed if user is logged in
          if(this.$root.checkauthroot == 'auth'){
 
@@ -1076,9 +1198,15 @@ export default {
         
            this.$root.msgScrollComponent.messageContainer.scrollToBottom();
            this.$refs.messageContainersmall.scrollToBottom();
-    
+        
+            
+        },2000);
 
-        },1500);
+         setTimeout(() => {
+            this.messageIsDone = true;
+         }, 2500);
+
+       
 
 
 
@@ -1221,9 +1349,15 @@ export default {
            this.$root.msgScrollComponent.messageContainer.scrollToBottom();
           
               this.$refs.messageContainersmall.scrollToBottom();
-      
+         
+          
+        },2000);
 
-        },1000);
+          setTimeout(() => {
+            this.messageIsDone = true;
+         }, 2500);
+
+       
 
     }
 

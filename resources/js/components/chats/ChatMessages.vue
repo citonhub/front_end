@@ -64,9 +64,11 @@
          <div elevation-1 class="col-11 py-0 mt-2"  v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1') && checkOwner(source.user_id) == false">
            <div class="row">
              <div class="col-lg-7 col-md-8  px-1 px-md-2  d-flex flex-row">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img2.jpg);background-size: cover;
-                           background-repeat: no-repeat; border:1px solid transparent;"></div>
+                 
+
+                         <div 
+                     :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
+
 
                   <v-card elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
@@ -150,9 +152,8 @@
          <div elevation-1 class="col-11 py-0 mt-2" v-if="(source.replied_message != undefined && source.is_reply == '1') && checkOwner(source.user_id) == false">
            <div class="row">
              <div class="col-lg-7 col-md-8 px-1 px-md-2  d-flex flex-row">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img2.jpg);background-size: cover;
-                           background-repeat: no-repeat; border:1px solid transparent;"></div>
+                   <div 
+                     :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
@@ -212,7 +213,7 @@
                      <div class="col-3 py-0 my-0 text-center">
                          <v-icon color="#ffffff" >mdi-xml mdi-18px</v-icon>
                      </div>
-                     <div class="col-9 py-0 my-0 d-flex px-0" style="align-items:center;justify-content:center; ">
+                     <div class="col-9 py-0 my-0 d-flex pt-2" style="align-items:center;justify-content:center; ">
                        
 
                         <v-progress-linear color="#ffffff"  height="6px" indeterminate></v-progress-linear>
@@ -243,9 +244,8 @@
          <div class="col-10 py-0 "  v-if="source.type == 'code' && checkOwner(source.user_id) == false">
            <div class="row">
              <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                   background-repeat: no-repeat; ;border:1px solid transparent;"></div>
+                   <div 
+                     :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                      <div class="text-left">
@@ -307,7 +307,7 @@
 
                      <template v-else>
 
-                       <div class="col-9 py-0 my-0 d-flex flex-column px-0" style="align-items:center;justify-content:center; ">
+                       <div class="col-9 py-0 my-0 d-flex flex-column pt-2" style="align-items:center;justify-content:center; ">
 
                         <v-progress-linear color="#ffffff" height="5" rounded indeterminate></v-progress-linear>
                          <span style="font-size:10px;color:#ffffff;" >processing...</span>
@@ -345,9 +345,8 @@
           <div class="col-10 py-0 " v-if="source.type == 'video' && checkOwner(source.user_id) == false ">
            <div class="row">
              <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                   background-repeat: no-repeat; ;border:1px solid transparent;"></div>
+                   <div 
+                     :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                     <div class="text-left">
@@ -407,7 +406,7 @@
 
                      <template v-else>
 
-                       <div class="col-9 py-0 my-0 d-flex flex-column px-0" style="align-items:center;justify-content:center; ">
+                       <div class="col-9 py-0 my-0 d-flex flex-column pt-2" style="align-items:center;justify-content:center; ">
 
                         <v-progress-linear color="#ffffff" height="5" rounded indeterminate></v-progress-linear>
                          <span style="font-size:10px;color:#ffffff;" >processing...</span>
@@ -444,9 +443,8 @@
          <div class="col-10 py-0 " v-if="(source.type == 'audio' &&  source.audio != null) && checkOwner(source.user_id) == false">
            <div class="row">
              <div class="col-lg-6 col-md-6 px-1 px-md-2 d-flex flex-row">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                   background-repeat: no-repeat; ;border:1px solid transparent;"></div>
+                   <div 
+                     :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                     <div class="text-left my-0 py-0">
@@ -500,7 +498,7 @@
 
                      <template v-else>
 
-                       <div class="col-9 py-0 my-0 d-flex flex-column px-0" style="align-items:center;justify-content:center; ">
+                       <div class="col-9 py-0 my-0 d-flex pt-2 flex-column pr-2" style="align-items:center;justify-content:center; ">
 
                         <v-progress-linear color="#ffffff" height="5" rounded indeterminate></v-progress-linear>
                          <span style="font-size:10px;color:#ffffff;" >processing...</span>
@@ -536,9 +534,8 @@
          <div class="col-10 py-0 " v-if="source.type == 'image' && checkOwner(source.user_id) == false">
            <div class="row">
              <div class="col-lg-5 col-md-6 px-1 px-md-2  d-flex flex-row">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                   background-repeat: no-repeat; ;border:1px solid transparent;"></div>
+                   <div 
+                     :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                     <div class="text-left my-0 py-0">
@@ -603,9 +600,8 @@
       <div class="col-10 py-0 " v-if="source.type == 'project' && checkOwner(source.user_id) == false">
            <div class="row">
              <div class="col-lg-6 col-md-6 px-1 px-md-2 d-flex flex-row">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                   background-repeat: no-repeat; ;border:1px solid transparent;"></div>
+                   <div 
+                     :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                     <div class="text-left my-0 py-0">
@@ -670,7 +666,7 @@
 
                      <template v-else>
 
-                       <div class="col-9 py-0 my-0 d-flex flex-column px-0" style="align-items:center;justify-content:center; ">
+                       <div class="col-9 py-0 my-0 d-flex flex-column pt-2" style="align-items:center;justify-content:center; ">
 
                         <v-progress-linear color="#ffffff" height="5" rounded indeterminate></v-progress-linear>
                          <span style="font-size:10px;color:#ffffff;" >processing...</span>
@@ -717,9 +713,8 @@
          <div class="col-10 py-0 " v-if="source.type == 'file' && checkOwner(source.user_id) == false">
            <div class="row">
              <div class="col-lg-6 px-1 px-md-2 col-md-6  d-flex flex-row">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                   background-repeat: no-repeat; ;border:1px solid transparent;"></div>
+                   <div 
+                     :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                     <div class="text-left my-0 py-0">
@@ -813,6 +808,28 @@ export default {
 
 
     },
+     imageStyle:function(dimension,data,type){
+      
+
+      if(data.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
+         
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
+        
+         
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
+         let imgLink = data.image_name + '.' + data.image_extension;
+          if(type == 'bot'){
+              styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
+         }else{
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+         }
+         
+          return styleString;
+      }
+     },
     getReplyMsg: function(replymessage){
         let finalString = '';
 
@@ -828,7 +845,7 @@ export default {
 
            if(message.type == 'image'){
 
-          finalString = 'sent an images'
+          finalString = 'sent an image'
 
           }
 
@@ -964,55 +981,7 @@ export default {
              this.$root.selectedSpace.unread = 0;
           }
       },
-        fetchMessages: function(){
-           
-           
-             
-             axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
-      .then(response => {
-      
-      if (response.status == 200) {
-
-
-
-       let returnedData = this.handleResults(response.data[0]);
-        
-     
-       this.$root.Messages = returnedData;
-
        
-       
-       this.generateUnreadMessage();
-        
-       this.$root.selectedSpace = response.data[1]
-
-       setTimeout(() => {
-         
-           var container = document.querySelector('#messageContainer');
-           
-        var element =  document.querySelector('#messagebottomDiv');
-       
-        var top = element.offsetTop - 120;
-        container.scrollTo(0 , top);
-        },500)
-
-   
-          
-   
-       
-     }
-       
-     
-     })
-     .catch(error => {
-    
-     }) 
-
-           
-           
-
-        },
-
       showProject:function(projectSlug){
         this.$router.push({ path: '/' + projectSlug +'/panel' });
       },

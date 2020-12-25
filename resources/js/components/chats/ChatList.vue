@@ -17,13 +17,17 @@
                      <div class="px-0 py-3" style="width:85%;border-bottom:1px solid #e6e6e6;" >
                                  <div class="pr-1 d-flex flex-row" style="align-items:center;">
                                    
-                                       <div class="px-0 py-0 my-0 d-flex col-8 flex-row" style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
+                                       <div class="px-0 py-0 my-0 " style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
                                                <span v-if="source.type == 'Team' || source.type == 'Channel'" style="font-size:14px; font-family:BodyFont;">{{ source.name }}</span>
                                              <span v-if="source.type == 'Bot' && source.bot_data != null" style="font-size:14px; font-family:BodyFont;">{{ source.bot_data.name }}</span>
                                              <span v-if="source.type == 'Direct'" style="font-size:14px; font-family:BodyFont;">{{ source.userInfo.username }}</span>
                                        </div>
-                                        <div class="px-1 py-0 my-0 col-4 d-flex flex-row-reverse">
-                                             <span  v-if="source.last_message" style="font-size:11px; font-family:BodyFont;color:gray; margin-right:0px;" >{{checkDatereal(source.last_message.created_at)}}</span> 
+                                        <div class="px-1 py-0 my-0 text-right ml-auto" >
+                                             <span  v-if="source.last_message" style="font-size:11px; font-family:BodyFont;color:gray; margin-right:0px;" >
+                                               <span v-if="source.last_message[0]">
+                                                  {{checkDatereal(source.last_message[0].created_at)}}
+                                                 </span>
+                                               </span> 
                                            
                                        </div>
                                    
@@ -33,7 +37,7 @@
                                    
                                        <div class=" px-0 py-0 my-0 pr-1  " style="width:100%;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;font-size:13px; color:grey; font-family:BodyFont;">
                                              
-                                             <span v-if="source.last_message.length != 0">{{ source.last_message[0].username }}: {{ generateMessageString(source.last_message) }}</span>
+                                             <span v-if="source.last_message.length != 0 && source.last_message[0]">{{ source.last_message[0].username }}: {{ generateMessageString(source.last_message) }}</span>
                                              <span v-else><i>Send a message to start chat</i></span>
                                        </div>
                                         <div class=" px-1 py-0 my-0 text-right ">
@@ -65,12 +69,13 @@ export default {
      
    },
     methods:{
-
+      
        openChat:function(space){
              
             this.$router.push({ path: '/channels/' + space.space_id +'/content' });
               
               this.$root.chatComponent.fetchMessages(space.space_id);
+              this.$root.chatComponent.messageIsDone = false;
            this.$root.chatComponent.chatIsOpen = true;
 
        },
@@ -91,7 +96,7 @@ export default {
 
            if(message.type == 'image'){
 
-          finalString = 'sent an images'
+          finalString = 'sent an image'
 
           }
 
@@ -134,10 +139,20 @@ export default {
 
             var aWeekAgo = moment().subtract(7,'days');
 
+            var anHourAgo = moment().subtract(1,'hours');
+
             if (moment(realTimeHour) >= aWeekAgo) {
+
+               if(moment(realTimeHour) >= anHourAgo){
+
+                    return moment(realTimeHour).fromNow();
+                  
+               } 
+
               return moment(realTimeHour).format("h:mm a");
+             
             }else{
-               return moment(realTimeHour).format("h:mm a");
+                return moment(realTimeHour).format("MMM DD");
             }
       },
         imageStyle:function(dimension,data,type){

@@ -8,20 +8,20 @@
                    
                  
 
-                   <div  class="d-inline-block mr-2"   v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team'"
+                   <div  class="d-inline-block mx-2"   v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team'"
                      :style="imageStyle(40,this.$root.selectedSpace,'channel')"   @click="showSideBar('channel_info')" ></div> 
-                      <div  class="d-inline-block mr-2"   v-if="this.$root.selectedSpace.type == 'Bot' && this.$root.selectedSpace.bot_data != null"
+                      <div  class="d-inline-block mx-2"   v-if="this.$root.selectedSpace.type == 'Bot' && this.$root.selectedSpace.bot_data != null"
                      :style="imageStyle(40,this.$root.selectedSpace.bot_data,'bot')"  @click="showSideBar('channel_info')"></div> 
-                      <div  class="d-inline-block mr-2"   v-if="this.$root.selectedSpace.type == 'Direct' && this.$root.selectedSpace.userInfo != null"
+                      <div  class="d-inline-block mx-2"   v-if="this.$root.selectedSpace.type == 'Direct' && this.$root.selectedSpace.userInfo != null"
                      :style="imageStyle(40,this.$root.selectedSpace.userInfo,'direct')"  @click="showSideBar('channel_info')"></div> 
                      <div class="d-inline-block">
                         
 
                              <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
-                                <span style="font-size:14px; font-family:BodyFont;cursor:pointer;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.selectedSpace.name}}</span>
-              <span style="font-size:14px; font-family:BodyFont;cursor:pointer;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'" @click.stop="viewUser()">{{this.$root.selectedSpace.userInfo.username}}</span>
+                                <span style="font-size:14px; font-family:BodyFont;cursor:pointer;font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.selectedSpace.name}}</span>
+              <span style="font-size:14px; font-family:BodyFont;cursor:pointer;font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'" @click.stop="viewUser()">{{this.$root.selectedSpace.userInfo.username}}</span>
 
-                 <span style="font-size:14px; font-family:BodyFont;cursor:pointer;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type == 'Bot'"> {{this.$root.selectedSpace.bot_data.name}}</span>
+                 <span style="font-size:14px; font-family:BodyFont;cursor:pointer;font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type == 'Bot'"> {{this.$root.selectedSpace.bot_data.name}}</span>
         
                               
                              </div>
@@ -92,8 +92,8 @@
            
             <div class="col-9 py-0 d-flex  flex-row d-md-none px-1" style="align-items:center;"  >
               
-                    <v-btn icon class="d-lg-none d-inline-block mr-1"  @click.stop="goback">
-                      <v-icon>las la-arrow-left</v-icon>
+                    <v-btn icon class="d-lg-none d-inline-block"  @click.stop="goback">
+                      <v-icon style="font-size:24px;">las la-arrow-left</v-icon>
                     </v-btn>
                  
 
@@ -110,10 +110,10 @@
                         
 
                             <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
-                                <span style="font-size:13px; font-family:BodyFont;cursor:pointer;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.selectedSpace.name}}</span>
-              <span style="font-size:13px; font-family:BodyFont;cursor:pointer;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'" @click.stop="viewUser()">{{this.$root.selectedSpace.userInfo.username}}</span>
+                                <span style="font-size:13px; font-family:BodyFont;cursor:pointer; font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.selectedSpace.name}}</span>
+              <span style="font-size:13px; font-family:BodyFont;cursor:pointer; font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'" @click.stop="viewUser()">{{this.$root.selectedSpace.userInfo.username}}</span>
 
-               <span style="font-size:13px; font-family:BodyFont;cursor:pointer;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type == 'Bot'"> {{this.$root.selectedSpace.bot_data.name}}</span>
+               <span style="font-size:13px; font-family:BodyFont;cursor:pointer;font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type == 'Bot'"> {{this.$root.selectedSpace.bot_data.name}}</span>
              
                              </div>
 

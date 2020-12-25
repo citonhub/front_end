@@ -149,6 +149,9 @@ const routes = [
          if( thisUserState.$root.chatComponent){
           thisUserState.$root.chatComponent.chatIsOpen = false;
           thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+          thisUserState.$root.chatComponent.messageIsDone = true;
+          thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+          thisUserState.$root.chatComponent.chatShareIsOpen = false;
           thisUserState.$root.chatComponent.chatbarContent = 'chat_list';
          }
   
@@ -183,7 +186,10 @@ const routes = [
   
       if( thisUserState.$root.chatComponent){
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
       thisUserState.$root.chatComponent.chatIsOpen = true;
+      thisUserState.$root.chatComponent.messageIsDone = true;
       }
      
 
@@ -235,6 +241,8 @@ const routes = [
       
       if( thisUserState.$root.chatComponent){
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
       thisUserState.$root.chatComponent.chatbarContent = 'create_channel';
       }
      
@@ -288,7 +296,9 @@ const routes = [
       if( thisUserState.$root.chatComponent){
   
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
     setTimeout(() => {
 
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
@@ -346,7 +356,8 @@ const routes = [
     if(window.thisUserState != undefined){
       if( thisUserState.$root.chatComponent){
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
-    
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
     setTimeout(() => {
 
@@ -404,8 +415,9 @@ const routes = [
     if(window.thisUserState != undefined){
 
       if( thisUserState.$root.chatComponent){
-  
+        thisUserState.$root.chatComponent.imageCropperIsOpen = false;
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
     setTimeout(() => {
 
@@ -468,6 +480,7 @@ const routes = [
   
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
     setTimeout(() => {
 
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
@@ -526,12 +539,130 @@ const routes = [
   
       if( thisUserState.$root.chatComponent){
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
-
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
       thisUserState.$root.chatComponent.chatInnerConent = false;
       thisUserState.$root.chatComponent.chatInnerSideBar = false;
 
       setTimeout(() => {
         thisUserState.$root.chatComponent.liveSessionIsOpen = true;
+      }, 500);
+  
+       }
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// chat share
+{ path: '/channels/:spaceId/share',
+   name: 'ChatShare',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+  
+      if( thisUserState.$root.chatComponent){
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+      thisUserState.$root.chatComponent.chatInnerConent = false;
+      thisUserState.$root.chatComponent.chatInnerSideBar = false;
+
+      setTimeout(() => {
+        thisUserState.$root.chatComponent.chatShareIsOpen = true;
+      }, 500);
+  
+       }
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+
+// crop image
+{ path: '/channels/:spaceId/crop-image',
+   name: 'ChatShare',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+  
+      if( thisUserState.$root.chatComponent){
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.chatInnerConent = false;
+      thisUserState.$root.chatComponent.chatInnerSideBar = false;
+
+      setTimeout(() => {
+        thisUserState.$root.chatComponent.imageCropperIsOpen = true;
       }, 500);
   
        }
@@ -914,6 +1045,38 @@ const app = new Vue({
       typingSpace:'',
       typing:false,
       globalUsers:[],
+      messageSlicePosition:30,
+      showRootReply:false,
+      is_reply:false,
+      NewMsg:[],
+      replyMessage:[],
+      SpaceUsers:[],
+      showEmojiBox:false,
+      imageHeight1: '',
+       imageHeight2: '',
+       imageHeight3: '',
+       imageHeight4: '',
+       imageWidth1: '',
+       imageWidth2: '',
+       imageWidth3: '',
+       imageWidth4: '',
+       imageCanvas1:'',
+       imageCanvas2:'',
+       imageCanvas3:'',
+       imageCanvas4:'',
+      imageTemp1:'',
+      imageTemp2:'',
+      imageTemp3:'',
+      selectedSpaceId:'',
+      imageTemp4:'',
+      imageViewPath:'',
+      currentImage:'',
+      imagepath:'',
+      imagepath1:'',
+      imagepath2:'',
+      imagepath3:'',
+      imagepath4:'',
+      baseChatList:[],
      },
      mounted: function () {
       window.thisUserState = this;
@@ -1405,7 +1568,34 @@ handleSpaceData: function(returnData){
 });
 
  },
- updateSpaceTracker: function(spaceId){
+ updateLocalStorage: function(){
+
+  this.$root.spaceFullData.messages = this.Messages;
+
+  this.$root.LocalStore('full_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
+ },
+ returnLastIndex:function(){
+
+  let msgIndex = 0;
+   
+   if(this.$root.Messages.length == 0){
+
+      msgIndex = 0;
+
+   }else{
+
+     let lastMsg = this.$root.Messages[this.$root.Messages.length - 1];
+
+   msgIndex = lastMsg.index_count;
+
+   }
+ 
+  
+
+      
+  return msgIndex;
+},
+ updateSpaceTracker: function(spaceId,message){
      
   if(this.ChatList != undefined){
    
@@ -1413,9 +1603,42 @@ handleSpaceData: function(returnData){
          
       if(space.space_id == spaceId){
         space.message_track = new Date();
+        space.last_message = [message];
       }
 
     });
+
+    // save into local storage
+
+     this.baseChatList.channels.map((space)=>{
+         
+      if(space.space_id == spaceId){
+        space.message_track = new Date();
+        space.last_message = [message];
+      }
+
+    });
+
+    this.baseChatList.direct_messages.map((space)=>{
+         
+      if(space.space_id == spaceId){
+        space.message_track = new Date();
+        space.last_message = [message];
+      }
+
+    });
+
+    this.baseChatList.pet_spaces.map((space)=>{
+         
+      if(space.space_id == spaceId){
+        space.message_track = new Date();
+        space.last_message = [message];
+      }
+
+    });
+
+  
+    this.$root.LocalStore('user_chat_list' + this.$root.username,this.baseChatList);
 
     this.$root.sortChatList();
    
@@ -1432,6 +1655,7 @@ scrollToBottom: function(){
     setTimeout(() => {
        
       this.$root.msgScrollComponent.messageContainer.scrollToBottom();
+      this.$root.msgScrollComponent.messageContainersmall.scrollToBottom();
    },200)
 
   }
@@ -1526,6 +1750,8 @@ botMessager:function(message){
   
 },
 updateSentMessage:function(postData){
+
+  
       
   let unsentMsg = this.$root.getLocalStore('unsent_messages_' + postData.space_id  + this.$root.username);
 
@@ -1615,15 +1841,12 @@ if (response.status == 200) {
 
 
 let messageId = response.data[0].temp_id;
-   let messageType = this.NewMsg.type;
   this.Messages.map((message)=>{
      if(messageId == message.message_id){
         message.loading = false;
         message.message_id = response.data[0].message_id; 
         message.id = response.data[0].message_id; 
-       
 
-        
      }
   });
 
@@ -1631,8 +1854,9 @@ let messageId = response.data[0].temp_id;
    this.botMessager(response.data[0].content);
   }
 
+  this.$root.spaceFullData.messages = this.Messages;
 
-
+  this.$root.LocalStore('full_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
 
 
 this.replyMessage = [];
@@ -1678,6 +1902,10 @@ this.Messages.map((message)=>{
    }
 });
 
+
+this.$root.spaceFullData.messages = this.Messages;
+
+  this.$root.LocalStore('full_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
 
 
 this.scrollToBottom();
@@ -1751,13 +1979,18 @@ axios.post('/send-message',formData,
            }
         });
 
+        this.$root.spaceFullData.messages = this.Messages;
+
+  this.$root.LocalStore('full_'+  response.data[0].space_id  + this.$root.username,this.$root.spaceFullData);
+
         this.sendingMessage = false;
 
         
      }else{
        
      }
-
+  
+     this.updateSentMessage(postData);
      this.scrollToBottom();
 
   
