@@ -309,7 +309,7 @@ export default {
        },
 
        
-    showAlert:function(title='',message,type){
+  showAlert:function(title='',message,type){
        
        if(type == 'info'){
 
@@ -318,7 +318,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-       position: 'bottomRight',
+       position: 'bottomRigh  t',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
