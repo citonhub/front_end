@@ -413,9 +413,7 @@ this.everyone = !this.everyone
            }
            
            }
-        ).catch((error)=>{
-          console.log(error)
-        })
+        )
       }
     }
   };
