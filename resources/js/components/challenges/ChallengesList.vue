@@ -155,7 +155,7 @@
           response=>{
             if(response.status == 200){
               console.log('fetched!');
-              this.challenges.push(response.data);
+              this.challenges= response.data;
             }else{
                console.log(response.status)
             }
