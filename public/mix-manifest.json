@@ -99,5 +99,11 @@
     "/js/chunks/LiveSession.5a4dda0a4fbf702c6fa3.js": "/js/chunks/LiveSession.5a4dda0a4fbf702c6fa3.js",
     "/js/chunks/LiveSession.630baee4a928a47ac7b3.js": "/js/chunks/LiveSession.630baee4a928a47ac7b3.js",
     "/js/chunks/LiveSession.f20cb0ab4bee20ef4f7b.js": "/js/chunks/LiveSession.f20cb0ab4bee20ef4f7b.js",
-    "/js/chunks/CodeEditorChat.ca0b8cde67c40451a883.js": "/js/chunks/CodeEditorChat.ca0b8cde67c40451a883.js"
+    "/js/chunks/CodeEditorChat.ca0b8cde67c40451a883.js": "/js/chunks/CodeEditorChat.ca0b8cde67c40451a883.js",
+    "/js/chunks/ChallengesCreate.ed27294497180f4238ea.js": "/js/chunks/ChallengesCreate.ed27294497180f4238ea.js",
+    "/js/chunks/ChallengesList.6eb096076501f7f74471.js": "/js/chunks/ChallengesList.6eb096076501f7f74471.js",
+    "/js/chunks/login.da247925d3675fa0f912.js": "/js/chunks/login.da247925d3675fa0f912.js",
+    "/js/chunks/ChallengesCreate.3c7dc98c5924c20b2c7e.js": "/js/chunks/ChallengesCreate.3c7dc98c5924c20b2c7e.js",
+    "/js/chunks/vendors~Board~ChallengesCreate~Chats~ForgotPassword~Hub~ProfilePage~ResetPassword~SetUsername~login~~42659ef9.72447f57b28019f33d28.js": "/js/chunks/vendors~Board~ChallengesCreate~Chats~ForgotPassword~Hub~ProfilePage~ResetPassword~SetUsername~login~~42659ef9.72447f57b28019f33d28.js",
+    "/js/chunks/vendors~ChallengesCreate~Chats~login.6ea726b9548210e3d6f7.js": "/js/chunks/vendors~ChallengesCreate~Chats~login.6ea726b9548210e3d6f7.js"
 }

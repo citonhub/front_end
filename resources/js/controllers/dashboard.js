@@ -8,7 +8,7 @@ window.io = require('socket.io-client');
 
 Vue.use(Vuex)
 
-axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
+axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
 
 const store = new Vuex.Store({
   state: {

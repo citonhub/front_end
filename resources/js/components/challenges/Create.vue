@@ -307,11 +307,11 @@ v-model="language"
     /* webpackChunkName: "VPressEditor?v=0.12" */ './Editor.vue'
   );
 
-  
-
-
+  import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 
 export default {
+
     data() {
       return {
          text: '',
@@ -391,6 +391,70 @@ this.everyone = !this.everyone
     durationValue=(( this.durationValueDay * 24) + this.durationValueHr)
     console.log(durationValue)
       },
+      showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRigh  t',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'question'){
+
+       }
+     
+
+    },
 
       createChallenge(){
         axios.post('/save-challenge',{
@@ -399,7 +463,8 @@ this.everyone = !this.everyone
           description:this.description,
           rules:this.rulesContent,
           duration:this.durationValue,
-          challenge_language:this.language
+          challenge_language:this.language,
+
         }
 
         ).then(
@@ -407,14 +472,16 @@ this.everyone = !this.everyone
             
            if (response.status == 200) {
              console.log('success!')
+             this.showAlert('Welldone!',' Challenge created sucessfully!','success')
+        
+              this.$router.push({ path: '/board/challenges/list' });
+
            }else{
              console.log(response.status)
            }
            
            }
-        ).catch((error)=>{
-          console.log(error)
-        })
+        )
       }
     }
   };
