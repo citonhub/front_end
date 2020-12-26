@@ -8,7 +8,7 @@
                    
                  
 
-                   <div  class="d-inline-block mx-2"   v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team'"
+                   <div  class="d-inline-block mx-2"   v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' || this.$root.selectedSpace.type == 'SubSpace'"
                      :style="imageStyle(40,this.$root.selectedSpace,'channel')"   @click="showSideBar('channel_info')" ></div> 
                       <div  class="d-inline-block mx-2"   v-if="this.$root.selectedSpace.type == 'Bot' && this.$root.selectedSpace.bot_data != null"
                      :style="imageStyle(40,this.$root.selectedSpace.bot_data,'bot')"  @click="showSideBar('channel_info')"></div> 
@@ -97,7 +97,7 @@
                     </v-btn>
                  
 
-                      <div  class="d-inline-block mr-1"   v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team'"
+                      <div  class="d-inline-block mr-1"   v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' || this.$root.selectedSpace.type == 'SubSpace'"
                      :style="imageStyle(38,this.$root.selectedSpace,'channel')"   @click="showSideBar('channel_info')" ></div> 
                       <div  class="d-inline-block mr-1"   v-if="this.$root.selectedSpace.type == 'Bot' && this.$root.selectedSpace.bot_data != null"
                      :style="imageStyle(38,this.$root.selectedSpace.bot_data,'bot')"  @click="showSideBar('channel_info')"></div> 
@@ -129,7 +129,7 @@
             
             <v-icon v-if="this.$root.selectedSubSpaceType == 'Public'" color="#333333"   class="d-inline-block" style="font-size:12px;">mdi-pound </v-icon>
             <v-icon v-if="this.$root.selectedSubSpaceType == 'Private'" color="#333333"  class="d-inline-block" style="font-size:12px;"> mdi-lock </v-icon>
-            <span class="px-1">  {{this.$root.selectedSubSpaceName}}</span>
+            <span >  {{this.$root.selectedSubSpaceName}}</span>
           </span>
 
           <span class="typingTextSm d-block" v-if="this.$root.selectedSpace.type == 'Bot' ">
@@ -232,13 +232,19 @@ export default {
           }
       },
        showSideBar: function(type){
-
-            this.$router.push({ path: '/channels/space_id/' + type });
             
+             if( this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team'  || this.$root.selectedSpace.type == 'SubSpace'){
+
+                this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/' + type });
+            
+
+             }
+
+           
          
        },
        openLiveSession:function(){
-               this.$router.push({ path: '/channels/space_id/live_session' });
+               this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id +'/live_session' });
             
        },
         checkIfOnline: function(user_id){
@@ -276,8 +282,9 @@ export default {
         return onlineUserList.length;
        },
        goback: function(){
-
-           window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+          
+             this.$router.push({ path: '/channels'});
+          
            this.$root.chatComponent.chatIsOpen = false;
        },
         imageStyle:function(dimension,data,type){

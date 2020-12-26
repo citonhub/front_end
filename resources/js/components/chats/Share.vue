@@ -17,24 +17,30 @@
            </v-card>
 
             <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
-                   <v-btn title="Add a video" icon > <v-icon style="font-size:26px;">las la-video</v-icon></v-btn>
-                    <input type="file"
-                @change="vidoehandler" style="opacity:0;width:100%; height:100%; overflow:hidden; position:absolute; z-index:10;"
-                 accept="video/mp4,video/x-m4v,video/*"/>
-           </v-card>
-
-            <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
-                   <v-btn icon title="Add an audio" > <v-icon style="font-size:26px;">las la-music</v-icon></v-btn>
+                   <v-btn title="Add a video" icon > <v-icon style="font-size:26px;">las la-video</v-icon>
                      <input type="file"
-                @change="audiohandler" style="opacity:0;width:100%; height:100%; overflow:hidden; position:absolute; z-index:10;"
-                 accept="audio/*"/>
+                @change="vidoehandler" style="opacity:0;width:100%; height:100%; left:0; overflow:hidden; position:absolute; z-index:10;"
+                 accept="video/mp4,video/x-m4v,video/*"/>
+                   </v-btn>
+                  
            </v-card>
 
             <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
-                   <v-btn icon title="Add a code"> <v-icon style="font-size:26px;">las la-file-alt</v-icon></v-btn>
-                    <input type="file" @change="filehandler"
+                   <v-btn icon title="Add an audio" > <v-icon style="font-size:26px;">las la-music</v-icon>
+                     <input type="file"
+                @change="audiohandler" style="opacity:0;width:100%; height:100%; left:0; overflow:hidden; position:absolute; z-index:10;"
+                 accept="audio/*"/>
+                   </v-btn>
+                   
+           </v-card>
+
+            <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
+                   <v-btn icon title="Add a code"> <v-icon style="font-size:26px;">las la-file-alt</v-icon>
+                     <input type="file" @change="filehandler"
                style="opacity:0;width:100%; height:100%; overflow:hidden; position:absolute; z-index:10;"
            />
+                   </v-btn>
+                  
            </v-card>
 
            <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
@@ -235,8 +241,9 @@ export default {
 
         });
        
-       // send message
-         this.sendMessage();
+        setTimeout(() => {
+           this.sendMessage()
+        }, 1500);
            }else{
               
                this.showAlert('Oops!','Audio size cannot be more than 40MB','error')
@@ -435,7 +442,7 @@ var blob = this.b64toBlob(realData, contentType);
     sendMessage: function(){
         this.loading = true;
 
-          this.$root.showChatBottom = true;
+      
 
           let formData = new FormData();
 

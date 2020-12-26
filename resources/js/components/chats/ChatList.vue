@@ -4,7 +4,7 @@
        <div  
        
         class="col-12 px-1 d-flex flex-row py-0 messageBox"
-         :style="source.space_id == that.$route.params.spaceId ? 'align-items:center; justify-content:center; background:whitesmoke;' : 'align-items:center; justify-content:center;'" 
+         :style="spaceSelected(source) ? 'align-items:center; justify-content:center; background:whitesmoke;' : 'align-items:center; justify-content:center;'" 
          @click="openChat(source)" >
            
                    <div  class=" mr-2 py-3" v-if="source.type == 'Channel' || source.type == 'Team'"
@@ -37,7 +37,8 @@
                                    
                                        <div class=" px-0 py-0 my-0 pr-1  " style="width:100%;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;font-size:13px; color:grey; font-family:BodyFont;">
                                              
-                                             <span v-if="source.last_message.length != 0 && source.last_message[0]">{{ source.last_message[0].username }}: {{ generateMessageString(source.last_message) }}</span>
+                                             <span v-if="source.last_message.length != 0 && source.last_message[0]">
+                                               <span v-if="that.$root.username != source.last_message[0].username">{{ source.last_message[0].username }}:</span >{{ generateMessageString(source.last_message) }}</span>
                                              <span v-else><i>Send a message to start chat</i></span>
                                        </div>
                                         <div class=" px-1 py-0 my-0 text-right ">
@@ -71,12 +72,36 @@ export default {
     methods:{
       
        openChat:function(space){
-             
-            this.$router.push({ path: '/channels/' + space.space_id +'/content' });
+
+          if(this.$root.selectedSpace.general_spaceId != space.space_id ){
+
+             if(this.$root.TrackLastSubSpace.length != 0 && space.space_id == this.$root.TrackLastSubSpace[0]){
+
+                     this.$router.push({ path: '/channels/' + this.$root.TrackLastSubSpace[1]  +'/content' });
+              
+              this.$root.chatComponent.fetchMessages(this.$root.TrackLastSubSpace[1] );
+              this.$root.chatComponent.messageIsDone = false;
+           this.$root.chatComponent.chatIsOpen = true;
+                 
+
+                     return;
+
+             }else{
+
+               
+
+                this.$router.push({ path: '/channels/' + space.space_id +'/content' });
               
               this.$root.chatComponent.fetchMessages(space.space_id);
               this.$root.chatComponent.messageIsDone = false;
            this.$root.chatComponent.chatIsOpen = true;
+
+             }
+
+          }
+               
+                 
+           
 
        },
      
@@ -131,6 +156,30 @@ export default {
           }
 
           return finalString;
+
+       },
+       spaceSelected: function(space){
+
+          if(space.type == 'Channel' || space.type == 'Team'){
+
+             if(space.space_id == this.$root.selectedSpace.general_spaceId){
+
+                return true
+
+             }
+
+             return false;
+
+          }else{
+              
+               if(space.space_id == this.$root.selectedSpace.space_id){
+
+                return true;
+
+             }
+             return false;
+             
+          }
 
        },
          checkDatereal: function(date){

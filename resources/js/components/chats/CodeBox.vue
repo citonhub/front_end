@@ -19,7 +19,7 @@
 
         <div class="mr-2"><v-icon style="font-size:19px;" :color="color" >las la-code</v-icon></div>
           <div class="ml-3">
-              <span :style="'color:' + color +' ;font-size:13px;'">Index.php</span>
+              <span :style="'color:' + color +' ;font-size:13px;'">{{filename}}</span>
               </div>
 
        

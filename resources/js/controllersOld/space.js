@@ -2792,7 +2792,7 @@ this.$root.connection.onMediaError = function(e) {
 
 
        },
-       setAudioConnection(){
+    setAudioConnection(){
         
         let _this = this;
 
@@ -3120,57 +3120,7 @@ this.$root.audioconnection.onstreamended = function(event) {
            
        
        },
-       rejoinScreen:function(master){
 
-
-        let _this = this;
-
-
-        if(this.$root.connection != undefined){
-
-       // disconnect with all users
-   this.$root.connection.getAllParticipants().forEach(function(pid) {
-       _this.$root.connection.disconnectWith(pid);
-   });
-
-   // stop all local cameras
-   this.$root.connection.attachStreams.forEach(function(localStream) {
-       localStream.stop();
-   });
-
-   // close socket.io connection
-  this.$root.connection.closeSocket();
-
-
-          
-        }
-
-      
-   
-     this.$root.connection = undefined;
-
-     this.$root.screenSharingOn = false;
-      
-       this.$root.showVideoScreen = false;
-       
-      
-      
-       this.$root.connection = undefined;
-
-
-        this.$root.setSreenShareConnection();
-
-       
-
-         if(master){
-
-                 this.$root.checkScreenRoomState(true);
-
-              }else{
-                 this.$root.checkScreenRoomState(false);
-              }
-
-       }, 
        rejoinAudio: function(master){
 
          let _this = this;

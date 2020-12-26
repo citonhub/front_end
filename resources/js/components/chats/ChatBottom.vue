@@ -2,8 +2,9 @@
     <div class="row px-md-3 py-0">
            
            <div class="col-12 py-1 my-0 d-flex px-md-2 px-2 flex-row" style="align-items:center; justify-content:center;">
-               
-               <v-btn icon class="mx-md-1 mr-1" @click="toggleEmoji"><v-icon>las la-grin</v-icon> </v-btn>
+                  <template v-if="!recording">
+
+                     <v-btn icon class="mx-md-1 mr-1" @click="toggleEmoji"><v-icon>las la-grin</v-icon> </v-btn>
                 <v-btn icon class="mx-md-1" v-if="showAttachment" @click="showShareBoard"> <v-icon>las la-paperclip</v-icon> </v-btn>
                
                   <textarea ref="textBottom" :value="input" @input="update"  @keydown="handelkeyAct" @focus="focusEditor"  @blur="blurEditor"  style="font-size:13px;"  :placeholder="$t('general.type_here')"  ></textarea>
@@ -13,8 +14,30 @@
 
                   <!-- ends -->
 
+                     <v-btn icon class="mx-md-1" @click="startrecord"><v-icon>las la-microphone</v-icon> </v-btn>
+
+                  </template>
+              
+
                   <!-- microphone -->
-                  <v-btn icon class="mx-md-1" v-else><v-icon>las la-microphone</v-icon> </v-btn>
+
+                  <template  v-else>
+
+                     <div class="ml-auto d-flex flex-row" style="align-items:center; justify-content:center;" >
+
+                     <v-btn icon class="bg-danger" @click="stoprecord('cancle')"><v-icon color="#ffffff">mdi-close</v-icon></v-btn>
+
+                      <div style="font-size:14px;color:gray;font-family:BodyFont;" class="mx-3 ">{{timer}}</div>
+
+                       <v-btn icon class="bg-success" @click="stoprecord('send')"><v-icon color="#ffffff">mdi-check</v-icon></v-btn>
+
+
+                      <v-btn icon class="mx-1"><v-icon>las la-microphone</v-icon> </v-btn>
+                  </div>
+                
+
+                  </template>
+                 
                   <!-- ends -->
            </div>
             
@@ -39,8 +62,12 @@ export default {
       contentInWord:'',
       NewMsg:'',
       input:'',
+      timer:'0:00',
       shiftIsPressed: false,
       showAttachment:true,
+      seconds:0,
+      minute:0,
+      recorderInterval:null,
 
         }
     },
@@ -148,6 +175,8 @@ export default {
        }
     },
     startrecord: function(){
+
+       this.recording = true;
      
       this.$root.recordUrl = '';
       this.audioChunks = [];
@@ -156,9 +185,12 @@ export default {
        this.mediaRecorder = new MediaRecorder(stream)
       this.mediaRecorder.start();
 
+         this.startCounter();
+
      this.audioChunks = [];
 
     this.mediaRecorder.addEventListener("dataavailable", event => {
+
       this.audioChunks.push(event.data);
     });
 
@@ -167,22 +199,79 @@ export default {
            this.audioBlob = new Blob(this.audioChunks);
 
             this.$root.recorderBlob = new Blob(this.audioChunks);
+
+            
      
          this.$root.recordUrl = URL.createObjectURL(this.audioBlob);
+
+      
      
     });
 
-   this.showAlert(5000,'Recording Started')
+    
 
   });
     },
-   
-       stoprecord: function(){
-       
-        this.mediaRecorder.stop();
-         this.$root.voiceRecorder = true;
+     startCounter:function(){  
 
-         this.$root.showChatBottom = false;
+        this.recorderInterval = null
+
+        
+         
+          this.recorderInterval = setInterval(() => {
+
+         this.seconds++
+
+          let secondsString = '';
+
+          if(this.seconds < 10){
+
+              secondsString = '0' +  this.seconds;
+            
+          }else{
+
+             if(this.seconds == 60){
+                this.seconds = 0;
+                this.minute++
+                 secondsString =  '00'; 
+             }else{
+
+             secondsString =  this.seconds; 
+
+             }
+
+          }
+
+            this.timer = this.minute + ':' + secondsString;
+
+   
+         }, 1000);
+
+     },
+       stoprecord: function(type){
+         
+          
+           this.mediaRecorder.stop();
+           clearInterval(this.recorderInterval);
+
+           this.recording = false;
+
+           this.seconds = 0;
+           this.minute = 0;
+           this.timer = '0:00';
+
+            setTimeout(() => {
+
+              if(type == 'send'){
+
+               this.sendRecord();
+
+            }
+              
+            }, 1500);
+
+            
+          
        
     },
     makeUUID:function(){
@@ -273,6 +362,60 @@ export default {
     
           
         },
+        sendRecord:function(){
+
+          let formData = new FormData();
+         
+
+        
+             
+           let Data =null;
+          
+          this.$root.NewMsg = this.makeMessage('audio',Data,null,[]);
+           
+            this.attachment_type = 'voiceRecord';
+
+            formData.append('audio',this.$root.recorderBlob);
+            formData.append('display_name','Voice Record');
+            
+         
+         
+         
+               this.$root.Messages.push(this.$root.NewMsg);
+
+              
+             
+               this.$root.spaceFullData.messages = this.$root.Messages;
+
+
+               
+
+             this.$root.LocalStore('full_'+ this.$route.params.spaceId  + this.$root.username,this.$root.spaceFullData);
+               
+
+               this.$root.scrollToBottom();
+
+           if(this.$root.SpaceUsers.length == 0){
+        
+          formData.append('current_user','empty');
+
+         }else{
+           
+           formData.append('current_user',JSON.stringify(this.$root.SpaceUsers ));
+         }
+         
+        formData.append('is_reply',this.$root.is_reply);
+        formData.append('attachment_type',this.attachment_type);
+        formData.append('space_id',this.$route.params.spaceId);
+        formData.append('temp_id', this.$root.NewMsg.message_id);
+         formData.append('device_id',this.$root.userDeviceId);
+
+         this.$root.updateSpaceTracker(this.$root.selectedSpace.space_id,this.$root.NewMsg);
+
+        
+        this.$root.sendShareMessage(formData);
+
+        },
       sendMessage: function(refocus = true){
 
           if( this.input.length == 0) return;
@@ -330,7 +473,7 @@ export default {
 
             
             
-             this.$root.updateSpaceTracker(this.$route.params.spaceId,this.$root.NewMsg);
+             this.$root.updateSpaceTracker(this.$root.selectedSpace.space_id,this.$root.NewMsg);
 
                
 

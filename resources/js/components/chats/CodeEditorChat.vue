@@ -3,7 +3,7 @@
 <div style="position:absolute; height:100%; width:100%; overflow-y:hidden;left:0;top:0%;" v-if="showCode">
 
 
-        <div class="col-12 py-1 my-0 fixed-top" style="position:sticky; background:white;">
+        <div class="col-12 py-1 my-0 fixed-top px-0 px-md-2" style="position:sticky; background:white;">
 
          <!-- top bar, contains editor language selection, and editor user settings -->
          <div class="col-12 py-0 my-0 px-1 d-flex flew-row" >
@@ -26,10 +26,10 @@
                      <v-btn class="mx-1 ml-2 mt-2"  x-small color="#3C87CD "  @click="sendMessage" ><span style="color:#ffffff; font-weight:bolder; font-size:10px;">send</span></v-btn>
                  
           
-                     <v-btn class="mx-1" icon @click="copyText" v-if="false"><v-icon>mdi-content-copy mdi-18px</v-icon></v-btn>
+                     <v-btn class="mx-1" icon @click="copyText" v-if="!that.$root.codeIsLive"><v-icon>mdi-content-copy mdi-18px</v-icon></v-btn>
 
 
-                    <v-btn icon class="mx-1"  @click="showAdminUsers()">
+                    <v-btn icon class="mx-1"  @click="showAdminUsers()"  v-if="that.$root.codeIsLive">
                          <v-badge
                dot
                 color="green">
@@ -77,7 +77,7 @@
 
   <!-- Mute/Unmute microphone during life coding sessions -->
 
-      <span style="position:absolute; top:85%; left:5%;z-index:1000;" >
+      <span style="position:absolute; top:85%; left:5%;z-index:1000;" v-if="that.$root.codeIsLive">
            <v-btn
                 color="#3C87CD"
                 small
@@ -107,12 +107,28 @@
 
     <!-- fixed butoon to run code -->
 
-     <span style="position:absolute; top:85%; right:5%;z-index:1000;" >
+     <span style="position:absolute; top:85%; right:5%;z-index:1000;"   class="d-inline-block d-md-none" v-if="!that.$root.codeIsLive" >
            <v-btn
                 color="#3C87CD"
                 small
                  @click="runCode"
-                class="d-inline-block "
+              
+                fab
+                v-if="this.selectedLangId != null"
+              >
+                <v-icon color="#ffffff">mdi-play</v-icon>
+            </v-btn>
+
+          
+
+     </span>
+
+     <span style="position:absolute; top:86%; right:3%;z-index:1000;"  class="d-none d-md-inline-block"  v-if="!that.$root.codeIsLive" >
+          <v-btn
+                color="#3C87CD"
+                
+                 @click="runCode"
+               
                 fab
                 v-if="this.selectedLangId != null"
               >
@@ -120,6 +136,8 @@
             </v-btn>
 
      </span>
+
+     
 
      <!-- ends -->
 
@@ -131,17 +149,17 @@
       <div style="position:absolute; height:100%; width:100%; overflow-y:hidden;left:0;top:0%;background:white;"  v-else>
 
         <!-- page loader/viewer top bar -->
-         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;">
+         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;border-bottom:2px solid #3C87CD;" >
        <div class="row py-1 my-0 px-1" >
-         <div class="col-3 py-0 my-0 text-left px-1" style="border-bottom:2px solid #4495a2;" >
-            <v-btn icon color="#4495a2" @click="goBack"><v-icon>mdi-close</v-icon></v-btn>
+         <div class="col-3 py-0 my-0 text-left px-1">
+            <v-btn icon color="#3C87CD" @click="goBack"><v-icon>mdi-close</v-icon></v-btn>
          </div>
-         <div class="col-6 py-0 my-0 d-flex px-0"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
-             <span   style="font-size:12px; color:#4495a2; font-weight:bolder;font-family:HeaderText;">Page Loader</span>
+         <div class="col-6 py-0 my-0 d-flex px-0"  style=" align-items:center; justify-content:center;" >
+             <span   style="font-size:13px; color:#3C87CD; font-family:MediumFont;">Page Loader</span>
          </div>
 
-         <div class="col-3 py-1 my-0 px-2 text-right"  style="border-bottom:2px solid #4495a2; " >
-                     <v-btn   x-small color="#3E8893 "  @click="sendMessage" ><span style="color:#ffffff; font-weight:bolder; font-size:10px;">send</span></v-btn>
+         <div class="col-3 py-1 my-0 px-2 text-right"   >
+                     <v-btn   x-small color="#3C87CD "  @click="sendMessage" ><span style="color:#ffffff; font-weight:bolder; font-size:10px;">send</span></v-btn>
           </div>
       </div>
      </div>
@@ -157,7 +175,7 @@
 
 
     <!-- code viewer for non-web codes -->
-    <textarea  readonly v-else v-model="ResultCode"  style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%; font-size:13px;" class="px-2 py-2">
+    <textarea  readonly v-else v-model="ResultCode"  style="border: 0; background:whitesmoke; height:95%; position:absolute; width:100%; left:0; top:6%; font-size:14px;" class="px-2 py-2">
 
     </textarea>
 
@@ -165,18 +183,34 @@
 
 
     <!-- fixed button to go bact to editor view -->
-      <span style="position:absolute; top:85%; right:5%;z-index:1000;">
+      <span style="position:absolute; top:85%; right:5%;z-index:1000;"  class="d-inline-block d-md-none"  >
            <v-btn
                 color="#3C87CD"
                 small
                  @click="returnToCode"
-                class="d-inline-block "
+               
                 fab
               >
                 <v-icon color="#ffffff">mdi-xml</v-icon>
             </v-btn>
 
      </span>
+
+
+      <span style="position:absolute; top:86%; right:3%;z-index:1000;"  class="d-none d-md-inline-block"  >
+           <v-btn
+                color="#3C87CD"
+                
+                 @click="returnToCode"
+              
+                fab
+              >
+                <v-icon color="#ffffff">mdi-xml</v-icon>
+            </v-btn>
+
+     </span>
+
+     
 
     <!-- ends -->
 
@@ -223,12 +257,11 @@ export default {
       mounted(){
 
          this.detectchange(this.language);
-        // this.$root.codeBoxOpened = true;
-        // this.setCodeContent();
-        // this.updateCodeMaster();
-        //  this.$root.codeboxComponent = this;
+      
+        this.setCodeContent();
+      //  this.updateCodeMaster();
+      this.$root.codeEditorComponent = this;
 
-        // this.$root.codeBoxOpened = true;
 
       },
      components: {
@@ -244,6 +277,7 @@ export default {
         return{
              cmOption: {
           tabSize: 4,
+         
           foldGutter: true,
           filepath:'',
           NewMsg:'',
@@ -266,6 +300,7 @@ export default {
           },
 
         },
+         that:this,
          selectedLangId:0,
         items: [
           {
@@ -389,7 +424,7 @@ export default {
 
 },
 methods:{
-  muteAudio:function(){
+      muteAudio:function(){
 
 
 
@@ -569,11 +604,9 @@ methods:{
       setCodeContent:function(){
 
 
-    let userState = this.checkIfMaster();
+        let userState = this.checkIfMaster();
 
-          this.$root.intervalCheckLive = null;
-
-
+      
 
           if(this.$root.codeIsLive && !userState){
 
@@ -582,11 +615,6 @@ methods:{
              this.cmOption.readOnly = 'nocursor';
 
              this.$root.selfStopTrigger = false;
-
-
-
-
-
 
            this.code = this.$root.FullcodeContent;
            this.language = this.$root.fullCodeLanguage;
@@ -602,24 +630,12 @@ methods:{
 
            }
 
-          if(this.$root.codeIsLive == false){
-
-            clearInterval(this.$root.intervalCheckLive);
-
-          }
-
-
-
-
-
-
-
-
+         
 
          }else{
 
 
-           this.$root.selfStopTrigger = true;
+          // this.$root.selfStopTrigger = true;
 
 
            this.cmOption.readOnly = undefined;
@@ -671,11 +687,11 @@ methods:{
             var msg = successful ? 'successful' : 'unsuccessful';
               if(msg == 'successful'){
 
-                this.showAlert(5000,'Copied!')
+                this.$root.chatComponent.showAlert('','Link copied','success');
 
               }else{
 
-                 this.showAlert(5000,'Oops! unable to copy')
+                 this.$root.chatComponent.showAlert('','Unable link copied','error');
 
               }
           } catch (err) {
@@ -761,38 +777,19 @@ methods:{
  },
            sendMessage: function(){
 
-               this.$root.showChatBottom = true;
-
+              
 
               let Data = [];
               this.$root.NewMsg = this.makeMessage('code',Data);
 
-               console.log()
-
-
+              
                this.$root.Messages.push(this.$root.NewMsg);
 
-              this.$root.spaceFullData[0] =  this.$root.Messages;
+              this.$root.spaceFullData.messages =  this.$root.Messages;
 
-           let fullData = [];
-                    fullData.push(this.$root.spaceFullData[0]);
-                fullData.push(this.$root.spaceFullData[1]);
+         
+              this.$root.LocalStore('full_'+this.$root.selectedSpace.space_id  + this.$root.username,this.$root.spaceFullData);
 
-                 let thirdData = [];
-
-                    thirdData.push(this.$root.spaceFullData[2][0])
-
-                fullData.push(thirdData);
-
-
-
-
-              this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
-
-
-
-
-               this.goBack();
 
                  this.$root.scrollToBottom();
 
@@ -810,8 +807,11 @@ methods:{
                device_id: this.$root.userDeviceId
             };
 
-         this.$root.updateSpaceTracker(this.$root.selectedSpace.space_id);
-       this.$root.sendCodeMessage(postData);
+          this.$root.updateSpaceTracker(this.$root.selectedSpace.space_id,this.$root.NewMsg);
+
+        this.$root.sendCodeMessage(postData);
+
+         this.goBack();
 
       },
 
@@ -975,7 +975,7 @@ methods:{
           axios.post( '/run-code-on-sandbox',{
                 langId: this.selectedLangId,
                 code: this.code,
-                messageId: this.$root.codeMessageId
+                messageId: 77
                   })
           .then(response => {
 

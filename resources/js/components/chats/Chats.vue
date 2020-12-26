@@ -115,7 +115,7 @@
   class="col-12 scroller" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:94%; left:0; position:absolute; z-index:99999; top:0%;padding-top:80px; padding-bottom:130px;  overflow-y:auto;"
+            background-repeat: no-repeat; height:93%; left:0; position:absolute; z-index:99999; top:0%;padding-top:80px; padding-bottom:130px;  overflow-y:auto;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -132,9 +132,22 @@
       </DynamicScrollerItem>
     </template>
 
+
+     <template #before>
+
+       <div  class=" col-12 text-center" style="margin-top:70px;">
+     
+        <span v-if="that.$root.selectedSpace.type == 'SubSpace'" style="font-size:13px;font-family:BodyFont;">
+           {{ that.$root.selectedSpace.description }}
+        </span>
+
+
+      </div>
+  </template>
+
     <template #after>
 
-       <div  class=" col-12 " style="margin-top:70px;">
+       <div  class=" col-12 " style="margin-top:20px;">
 
 
 
@@ -431,11 +444,23 @@
     
       </DynamicScrollerItem>
     </template>
+
+     <template #before>
+
+        <div  class=" col-12 text-center" style="margin-top:10px;">
+     
+        <span v-if="that.$root.selectedSpace.type == 'SubSpace'" style="font-size:12px;font-family:BodyFont;">
+           {{ that.$root.selectedSpace.description }}
+        </span>
+
+
+      </div>
+  </template>
     
 
     <template #after>
 
-       <div  class=" col-12 " style="margin-top:70px;">
+       <div  class=" col-12 " style="margin-top:60px;">
 
 
 
@@ -606,6 +631,10 @@ import { ObserveVisibility } from 'vue-observe-visibility'
 
 Vue.directive('observe-visibility', ObserveVisibility)
 
+import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+
+
 import { VEmojiPicker } from 'v-emoji-picker';
 
  const TopBar = () => import(
@@ -684,7 +713,7 @@ export default {
     },
     mounted(){
      this.$root.showSideBar = false;
-     this.$root.chatComponent = this;
+    this.$root.chatComponent = this;
 
      this.controlChatPath();
       this.fetchChatList();
@@ -708,6 +737,67 @@ export default {
         ImageCropper
     },
      methods:{
+        showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       
+
+    },
         selectEmoji(emoji) {
      
 
@@ -729,7 +819,15 @@ export default {
        controlChatPath:function(){
            if(this.$route.params.spaceId != undefined){
 
-             this.chatIsOpen = true;
+            
+      this.liveSessionIsOpen = false;
+      this.chatShareIsOpen = false;
+      this.imageCropperIsOpen = false;
+      this.chatIsOpen = true;
+     this.fetchMessages(this.$route.params.spaceId);
+        this.messageIsDone = false;
+
+       
 
            }
        },
@@ -823,7 +921,7 @@ export default {
        },
          SetUnread: function(){
 
-            this.$root.ChatList.forEach((space)=>{
+            this.$root.ChatList.map((space)=>{
 
                let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + space.space_id +  this.$root.username);
   
@@ -1151,6 +1249,8 @@ export default {
 
                   generalSpace.type = finalResult.space.type;
 
+                   generalSpace.description = finalResult.space.description;
+
 
 
                 generalSpace.general_spaceId = finalResult.space.general_spaceId;
@@ -1195,9 +1295,20 @@ export default {
 
        setTimeout(() => {
 
-        
-           this.$root.msgScrollComponent.messageContainer.scrollToBottom();
+          if( this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team'  ){
+
+                  this.$root.msgScrollComponent.messageContainer.scrollToBottom();
            this.$refs.messageContainersmall.scrollToBottom();
+
+          }else{
+
+              this.$root.msgScrollComponent.messageContainer.scrollToBottom();
+           this.$refs.messageContainersmall.scrollToBottom();
+
+          }
+
+        
+         
         
             
         },2000);
@@ -1298,9 +1409,12 @@ export default {
 
                   generalSpace.type =  response.data.space.type;
 
+
+                    generalSpace.description = response.data.space.description;
+
                   generalSpace.general_spaceId =  response.data.space.general_spaceId;
 
-
+            
 
 
 

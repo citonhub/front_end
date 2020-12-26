@@ -216,7 +216,7 @@
                      <div class="col-9 py-0 my-0 d-flex pt-2" style="align-items:center;justify-content:center; ">
                        
 
-                        <v-progress-linear color="#ffffff"  height="6px" indeterminate></v-progress-linear>
+                        <v-progress-linear color="#ffffff" rounded height="5" indeterminate></v-progress-linear>
                      </div>
             
                   </div>
@@ -375,16 +375,16 @@
 
 
     <!-- audio message -->
-         <div class="col-10 py-0 offset-2" v-if="(source.type == 'audio' &&  source.audio != null) && checkOwner(source.user_id)">
+         <div class="col-10 py-0 offset-2" v-if="(source.type == 'audio') && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-6 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
                 
 
                   <v-card elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
 
 
-                     <div class="col-12 py-1 px-1"  v-if="source.loading" >
+                     <div class="col-12 py-1 px-1"  v-if="source.loading &&  source.audio == null" >
                   <div class="row py-0 my-0">
                      <div class="col-3 py-0 my-0 text-center">
                          <v-icon color="#ffffff" style="font-size:23px;">las la-microphone</v-icon>

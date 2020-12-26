@@ -12,7 +12,8 @@ axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
 
 const store = new Vuex.Store({
   state: {
-    user: null
+    user: null,
+    isConnected: false,
   },
 
   mutations: {
@@ -25,6 +26,30 @@ const store = new Vuex.Store({
     clearUserData () {
       localStorage.removeItem('user')
       location.reload()
+    },
+
+    setSocketState(state){
+
+      window.Echo.connector.socket.on('connect', ()=>{
+        state.isConnected = true
+    })
+
+window.Echo.connector.socket.on('disconnect', ()=> {
+  state.isConnected = false
+    })
+
+window.Echo.connector.socket.on('reconnecting', function(attemptNumber){
+  state.isConnected = false
+  });
+
+    if(!state.isConnected){
+
+      if(thisUserState.chatComponent){
+        thisUserState.chatComponent.checkForUnreadMessagesDisconnected();
+      }
+
+    }
+
     }
   },
 
@@ -152,6 +177,7 @@ const routes = [
           thisUserState.$root.chatComponent.messageIsDone = true;
           thisUserState.$root.chatComponent.imageCropperIsOpen = false;
           thisUserState.$root.chatComponent.chatShareIsOpen = false;
+          thisUserState.selectedSpace = [];
           thisUserState.$root.chatComponent.chatbarContent = 'chat_list';
          }
   
@@ -190,6 +216,7 @@ const routes = [
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
       thisUserState.$root.chatComponent.chatIsOpen = true;
       thisUserState.$root.chatComponent.messageIsDone = true;
+        
       }
      
 
@@ -645,7 +672,7 @@ const routes = [
 
 // crop image
 { path: '/channels/:spaceId/crop-image',
-   name: 'ChatShare',
+   name: 'CropImage',
    meta: {
     twModalView: true
   },
@@ -1035,10 +1062,10 @@ const app = new Vue({
       sendingMessage:false,
       replyMessage:[],
       botIsLoading:false,
-      isConnected:false,
+      isConnected:true,
       botSuggestionArray:[],
-      fullCodeLanguage:'',
-      FullcodeContent:'',
+      fullCodeLanguage:'HTML',
+      FullcodeContent:'<p>write your code</p>',
       imageSlidestate:0,
       imageArrayView:[],
       typinguser:'',
@@ -1077,6 +1104,24 @@ const app = new Vue({
       imagepath3:'',
       imagepath4:'',
       baseChatList:[],
+      codeIsLive:false,
+      codeEditorComponent:undefined,
+      recordUrl:'',
+      recorderBlob:'',
+      dataconnection:undefined,
+      connection:undefined,
+      audioconnection:undefined,
+      CodeResult:'',
+      liveShowCode:false,
+      newMasterId:0,
+      allAudioParticipant:[],
+      connectingToSocket:false,
+      roomNotExist:false,
+      roomCheckingInitaited:false,
+      screenIsConnecting:false,
+      screenSharingOn:false,
+      showVideoScreen:false,
+      
      },
      mounted: function () {
       window.thisUserState = this;
@@ -1091,6 +1136,7 @@ const app = new Vue({
         'isLogged'
       ]),
       socketState:function () {
+
         window.Echo.connector.socket.on('connect', ()=>{
           this.isConnected = true
       })
@@ -1111,9 +1157,15 @@ const app = new Vue({
 
       }
 
-    return this.isConnected;
+     return this.isConnected;
         }
         
+    },
+    watch: {
+      // whenever question changes, this function will run
+      isConnected: function (value) {
+         console.log(value)
+      }
     },
     created(){
    
@@ -1392,10 +1444,7 @@ const app = new Vue({
   sortChatList: function(){
     if(this.ChatList != undefined){
 
-     
-     
       this.sortArray(this.ChatList);
-  
 
     }
    
@@ -1410,13 +1459,8 @@ updateSpaceMessages: function(){
     let returnData = response.data;
       
       this.handleSpaceData(returnData);
-
-  
-
 }
 
- 
-  
 
 })
 .catch(error => {
@@ -1920,7 +1964,7 @@ this.sendingMessage = false;
 .catch(error => {
 this.sendingMessage = false;
 
-
+this.storeUnsentMessages(postData);
 
 }) 
 
@@ -1985,14 +2029,16 @@ axios.post('/send-message',formData,
 
         this.sendingMessage = false;
 
+        this.updateSentMessage(postData);
+        this.scrollToBottom();
+   
+
         
      }else{
        
      }
   
-     this.updateSentMessage(postData);
-     this.scrollToBottom();
-
+    
   
       
      
@@ -2003,6 +2049,912 @@ axios.post('/send-message',formData,
     
    })
 },
+
+ // webRTC configs
+ setDataConnection:function(){
+
+  let _this = this;
+
+    this.$root.dataconnection = new RTCMultiConnection();
+
+      this.$root.dataconnection.enableLogs = false;
+
+// by default, socket.io server is assumed to be deployed on your own URL
+this.$root.dataconnection.socketURL = 'https://live.citonhub.com:9001/';
+
+
+
+this.$root.dataconnection.socketMessageEvent = 'data-channel';
+
+this.$root.dataconnection.extra = {
+   profile: this.$root.authProfile,
+  joinedAt: (new Date).toISOString(),
+  volume: 80.00,
+  speaking: false
+     };
+
+     this.$root.dataconnection.socketCustomParameters = '&extra=' + JSON.stringify(this.$root.dataconnection.extra);
+
+this.$root.dataconnection.session = {
+audio: false,
+video: false,
+data: true
+
+};
+
+this.$root.dataconnection.mediaConstraints = {
+audio: true,
+video: false
+};
+
+this.$root.dataconnection.sdpConstraints.mandatory = {
+OfferToReceiveAudio: false,
+OfferToReceiveVideo: false
+};
+
+
+
+// first step, ignore default STUN+TURN servers
+this.$root.dataconnection.iceServers = [];
+
+// second step, set STUN url
+this.$root.dataconnection.iceServers.push({
+ urls: 'stun:165.227.152.44:3478'  
+});
+
+// last step, set TURN url (recommended)
+
+this.$root.dataconnection.iceServers.push({
+urls: 'turn:165.227.152.44:3478',
+credential: '15Raymond',
+username: 'ILoveCitonHubPort'
+});
+
+
+
+this.$root.dataconnection.onmessage = (event) => {
+
+
+
+if(event.data.action == 'typing' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+this.$root.FullcodeContent = event.data.data;
+
+ this.codeboxComponent.setCodeContent();
+ 
+}
+
+if(event.data.action == 'codeChange' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+this.$root.fullCodeLanguage = event.data.data;
+
+this.codeboxComponent.setCodeContent();
+ 
+}
+
+if(event.data.action == 'codeRun' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+        this.$root.liveShowCode = false;
+
+               this.$root.CodeResult = event.data.data;
+               this.codeboxComponent.setCodeContent();
+ 
+}
+
+if(event.data.action == 'returnToCode' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+this.$root.liveShowCode = true;
+
+this.codeboxComponent.setCodeContent();
+ 
+}
+
+if(event.data.action == 'neutral' ){
+
+if(this.$root.allAudioParticipant.length != 0){
+  this.$root.allAudioParticipant.map((user)=>{
+
+    if(user[1] == event.data.data.userid){
+
+        
+    
+      user[0].speaking = event.data.data.speaking;
+       
+    }
+
+     });
+ }
+ 
+}
+
+if(event.data.action == 'new_master' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+this.$root.newMasterId = event.data.data;
+
+              
+
+this.$root.adminMembers.forEach((member)=>{
+
+member.master_user = false;
+
+});
+
+this.$root.adminMembers.map((member)=>{
+if(member.memberId ==  this.$root.newMasterId){
+
+member.master_user = true;
+
+}
+})
+
+this.$root.selectedSpaceMembers.forEach((member)=>{
+
+member.master_user = false;
+
+});
+
+this.$root.selectedSpaceMembers.map((member)=>{
+if(member.memberId ==  this.$root.newMasterId){
+
+member.master_user = true;
+
+}
+})
+this.codeboxComponent.setCodeContent();
+}
+};
+
+
+},
+
+// screen sharing 
+setSreenShareConnection:function(){
+          
+
+  let _this = this;
+
+   this.$root.connection = new RTCMultiConnection();
+
+    this.$root.connection.enableLogs = false;
+
+   this.$root.connection.socketURL = 'https://live.citonhub.com:9001/';
+
+   this.$root.connection.socketMessageEvent = 'screen-sharing';
+
+    this.$root.connection.extra = {
+  profile: this.$root.authProfile,
+ joinedAt: (new Date).toISOString()
+    };
+
+    this.$root.connection.socketCustomParameters = '&extra=' + JSON.stringify( this.$root.connection.extra);
+
+     this.$root.connection.session = {
+      screen: true,
+      oneway: true
+       };
+
+   
+   this.$root.connection.sdpConstraints.mandatory = {
+OfferToReceiveAudio: false,
+OfferToReceiveVideo: false
+        };
+
+
+      
+
+  // first step, ignore default STUN+TURN servers
+  this.$root.connection.iceServers = [];
+
+// second step, set STUN url
+this.$root.connection.iceServers.push({
+urls: 'stun:165.227.152.44:3478'  
+});
+
+// last step, set TURN url (recommended)
+
+    
+ this.$root.connection.iceServers.push({
+  urls: 'turn:165.227.152.44:3478',
+  credential: '15Raymond',
+  username: 'ILoveCitonHubPort'
+ });
+
+
+
+
+ this.$root.connection.videosContainer = document.getElementById('videos-container');
+
+
+
+
+ this.$root.connection.onstream = function(event) {
+var existing = document.getElementById(event.streamid);
+if(existing && existing.parentNode) {
+ existing.parentNode.removeChild(existing);
+}
+
+event.mediaElement.removeAttribute('src');
+event.mediaElement.removeAttribute('srcObject');
+event.mediaElement.muted = true;
+event.mediaElement.volume = 0;
+
+var video = document.createElement('video');
+
+try {
+   video.setAttributeNode(document.createAttribute('autoplay'));
+   video.setAttributeNode(document.createAttribute('playsinline'));
+} catch (e) {
+   video.setAttribute('autoplay', true);
+   video.setAttribute('playsinline', true);
+}
+
+
+if(event.type === 'local') {
+ video.volume = 0;
+ try {
+     video.setAttributeNode(document.createAttribute('muted'));
+ } catch (e) {
+     video.setAttribute('muted', true);
+ }
+}
+video.srcObject = event.stream;
+
+var width = innerWidth - 80;
+var mediaElement = getHTMLMediaElement(video, {
+   title: event.userid,
+   buttons: ['full-screen'],
+   showOnMouseEnter: false,
+ 
+});
+
+_this.$root.connection.videosContainer.appendChild(mediaElement);
+
+
+setTimeout(function() {
+   mediaElement.media.play();
+}, 5000);
+
+mediaElement.id = event.streamid;
+
+
+
+
+ 
+
+};
+
+this.$root.connection.onstreamended = function(event) {
+var mediaElement = document.getElementById(event.streamid);
+if (mediaElement) {
+   mediaElement.parentNode.removeChild(mediaElement);
+
+   if(event.userid === _this.$root.connection.sessionid && !_this.$root.connection.isInitiator) {
+     alert('Broadcast is ended. We will reload this page to clear the cache.');
+     location.reload();
+   }
+}
+};
+
+this.$root.connection.onMediaError = function(e) {
+if (e.message === 'Concurrent mic process limit.') {
+   if (DetectRTC.audioInputDevices.length <= 1) {
+       alert('Please select external microphone');
+       return;
+   }
+
+   var secondaryMic = DetectRTC.audioInputDevices[1].deviceId;
+   _this.$root.connection.mediaConstraints.audio = {
+       deviceId: secondaryMic
+   };
+
+   _this.$root.connection.join(_this.$root.connection.sessionid);
+}
+};
+
+
+   },
+
+   // audio connection
+
+   setAudioConnection(){
+        
+    let _this = this;
+
+    this.$root.audioconnection = new RTCMultiConnection();
+
+      this.$root.audioconnection.enableLogs = false;
+
+// by default, socket.io server is assumed to be deployed on your own URL
+this.$root.audioconnection.socketURL = 'https://live.citonhub.com:9001/';
+
+this.$root.audioconnection.bandwidth = {
+audio: 128
+};
+
+
+this.$root.audioconnection.socketMessageEvent = 'audio-conference';
+
+this.$root.audioconnection.extra = {
+   profile: this.$root.authProfile,
+  joinedAt: (new Date).toISOString(),
+  volume: 80.00,
+  speaking: false
+     };
+
+     this.$root.audioconnection.socketCustomParameters = '&extra=' + JSON.stringify(this.$root.audioconnection.extra);
+
+this.$root.audioconnection.session = {
+audio: true,
+video: false,
+data: true
+
+};
+
+this.$root.audioconnection.mediaConstraints = {
+audio: true,
+video: false
+};
+
+this.$root.audioconnection.sdpConstraints.mandatory = {
+OfferToReceiveAudio: true,
+OfferToReceiveVideo: false
+};
+
+
+
+// first step, ignore default STUN+TURN servers
+this.$root.audioconnection.iceServers = [];
+
+// second step, set STUN url
+this.$root.audioconnection.iceServers.push({
+ urls: 'stun:165.227.152.44:3478'  
+});
+
+// last step, set TURN url (recommended)
+
+this.$root.audioconnection.iceServers.push({
+urls: 'turn:165.227.152.44:3478',
+credential: '15Raymond',
+username: 'ILoveCitonHubPort'
+});
+
+this.$root.audioconnection.audiosContainer = document.getElementById('audios-container');
+
+
+
+
+
+this.$root.audioconnection.onstream = function(event) {
+
+
+
+var width = parseInt(_this.$root.audioconnection.audiosContainer.clientWidth / 2) - 20;
+var mediaElement = getHTMLMediaElement(event.mediaElement, {
+  title: event.userid,
+  width: width,
+  showOnMouseEnter: false
+});
+
+
+
+
+
+if(event.type === 'local') {
+event.mediaElement.muted = true;
+delete event.mediaElement;
+}
+
+_this.$root.audioconnection.audiosContainer.appendChild(mediaElement);
+
+setTimeout(function() {
+  mediaElement.media.play();
+}, 2000);
+
+mediaElement.id = event.streamid;
+
+
+};
+
+this.$root.audioconnection.onmute = function(e) {
+if (!e.mediaElement) {
+  return;
+}
+
+if (e.muteType === 'both' || e.muteType === 'video') {
+  e.mediaElement.src = null;
+  e.mediaElement.pause();
+} else if (e.muteType === 'audio') {
+  e.mediaElement.muted = true;
+}
+};
+
+this.$root.audioconnection.onunmute = function(e) {
+if (!e.mediaElement) {
+  return;
+}
+
+if (e.unmuteType === 'both' || e.unmuteType === 'video') {
+  e.mediaElement.poster = null;
+  e.mediaElement.src = URL.createObjectURL(e.stream);
+  e.mediaElement.play();
+} else if (e.unmuteType === 'audio') {
+  e.mediaElement.muted = false;
+}
+};
+
+
+this.$root.audioconnection.onleave = this.$root.audioconnection.onclose = (event) =>{
+
+
+let newusers = this.$root.allAudioParticipant.filter((user)=>{
+
+return user[1] != event.userid;
+
+});
+
+
+
+this.$root.allAudioParticipant = newusers;
+
+
+};
+
+
+this.$root.audioconnection.multiPeersHandler.onPeerStateChanged = (state)=> {
+
+let connection = this.$root.audioconnection;
+if (state.iceConnectionState.search(/disconnected|closed|failed/gi) === -1) {
+  
+  
+
+  var peer = connection.peers[state.userid].peer;
+
+  
+
+   
+
+   let userState = state.iceConnectionState;
+
+   let newInfo = this.$root.allAudioParticipant.filter((user)=>{
+
+    return user[1] == state.userid;
+
+  });
+
+
+
+   if(newInfo.length == 0  && state.extra.profile.username != this.username){
+
+    this.$root.allAudioParticipant.push([state.extra,state.userid])
+
+   }
+
+
+
+
+ 
+  return;
+}else{
+
+
+     let newusers = this.$root.allAudioParticipant.filter((user)=>{
+
+       return user[1] != state.userid;
+
+     });
+
+     
+      
+     this.$root.allAudioParticipant = newusers;
+
+}
+};
+
+this.$root.audioconnection.onstreamended = function(event) {
+var mediaElement = document.getElementById(event.streamid);
+if (mediaElement) {
+    mediaElement.parentNode.removeChild(mediaElement);
+}
+
+
+};
+
+
+  },
+
+  // manage audio connection
+
+  checkAudioRoomState: function(master){
+      
+      
+    if(this.$root.audioconnection != undefined){
+
+     
+
+      this.$root.connectingToSocket = true;
+
+      this.$root.audioconnection.DetectRTC.load(()=> {
+
+     
+        if (this.$root.audioconnection.DetectRTC.hasMicrophone === true) {
+            // enable microphone
+            this.$root.audioconnection.mediaConstraints.audio = true;
+            this.$root.audioconnection.session.audio = true;
+           
+
+        }
+      
+        if (this.$root.audioconnection.DetectRTC.hasMicrophone === false ) {
+      
+          alert('Please attach a microphone device.');
+      
+          
+        }
+      
+        if (this.$root.audioconnection.DetectRTC.hasSpeakers === false) { // checking for "false"
+            alert('Please attach a speaker device. You will be unable to hear incoming audios.');
+
+        }
+      
+      
+        let _this = this;
+
+          this.$root.audioconnection.checkPresence('audio' + this.$root.selectedSpace.space_id, function(isRoomExist, roomid) {
+          
+
+                 
+            if (isRoomExist === true) {
+             _this.joinAudioRoom();
+             _this.dataconnection.join('data' + _this.$root.selectedSpace.space_id)
+          } else {
+
+              
+            if(master){
+              _this.openAudioRoom();
+              _this.dataconnection.open('data' + _this.$root.selectedSpace.space_id)
+            }else{
+
+              _this.roomNotExist = true;
+
+              _this.roomCheckingInitaited = true;
+
+              
+                _this.rejoinAudio(master);
+
+              return;
+            }
+
+            
+          }
+
+
+    _this.checkIfUserIsReconnecting(master)
+
+    
+   
+    _this.$root.localAudioMuted = false;
+    _this.$root.connectingToSocket = false;
+    _this.userIsReconnecting = false;
+    });
+
+      });
+   
+    }       
+    
+   
+   },
+
+   rejoinAudio: function(master){
+
+    let _this = this;
+
+
+    if(this.$root.audioconnection != undefined){
+
+   // disconnect with all users
+this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
+   _this.$root.audioconnection.disconnectWith(pid);
+});
+
+// stop all local cameras
+this.$root.audioconnection.attachStreams.forEach(function(localStream) {
+   localStream.stop();
+});
+
+// close socket.io connection
+this.$root.audioconnection.closeSocket();
+    }
+  this.$root.audioconnection = undefined;
+    this.$root.setAudioConnection();
+     if(master){
+
+             this.$root.checkAudioRoomState(true);
+
+          }else{
+             this.$root.checkAudioRoomState(false);
+          }
+
+ },
+   openAudioRoom: function(){  
+    
+    let _this = this;
+  
+    this.$root.audioconnection.open('audio' + this.$root.selectedSpace.space_id, () =>{
+
+        
+      _this.$root.connectingToSocket = false;
+      _this.userIsReconnecting = false;
+});
+
+  },
+  joinAudioRoom: function(){    
+     
+       
+    let _this = this;
+    
+     this.$root.audioconnection.join('audio' + this.$root.selectedSpace.space_id);
+
+     _this.$root.connectingToSocket = false;
+     _this.userIsReconnecting = false;
+
+  },
+
+  // manage screen connection
+  checkScreenRoomState: function(master){
+      
+    let _this = this;
+
+       this.screenIsConnecting = true;
+
+       this.$root.connection.checkPresence('screen' + this.$root.selectedSpace.space_id, function(isRoomExist, roomid) {
+     
+         _this.$root.screenSharingOn = true;
+   
+         _this.$root.showVideoScreen = true;
+
+
+         if (isRoomExist === true) {
+           _this.joinScreenRoom();
+           _this.screenIsConnecting = false;
+        } else {
+
+            
+          if(master){
+            _this.openScreenRoom();
+            _this.screenIsConnecting = false;
+          }else{
+
+            return;
+          }
+
+          
+        }
+ 
+   });
+ 
+
+   },
+
+     openScreenRoom: function(){    
+
+        let _this = this;
+      
+        this.$root.connection.sdpConstraints.mandatory = {
+           OfferToReceiveAudio: false,
+           OfferToReceiveVideo: true
+       };
+      
+     this.$root.connection.open('screen' + this.$root.selectedSpace.space_id, function() {
+      
+    });
+
+    this.screenIsConnecting = false;
+
+      },
+      joinScreenRoom: function(){    
+         
+           
+        let _this = this;
+      
+     this.$root.connection.sdpConstraints.mandatory = {
+        OfferToReceiveAudio: false,
+        OfferToReceiveVideo: true
+    };
+
+    this.screenIsConnecting = false;
+
+    this.$root.connection.join('screen' + this.$root.selectedSpace.space_id);
+   
+      },
+      rejoinScreen:function(master){
+
+
+        let _this = this;
+
+
+        if(this.$root.connection != undefined){
+
+       // disconnect with all users
+   this.$root.connection.getAllParticipants().forEach(function(pid) {
+       _this.$root.connection.disconnectWith(pid);
+   });
+
+   // stop all local cameras
+   this.$root.connection.attachStreams.forEach(function(localStream) {
+       localStream.stop();
+   });
+
+   // close socket.io connection
+  this.$root.connection.closeSocket();
+   
+        }
+
+     this.$root.connection = undefined;
+
+     this.$root.screenSharingOn = false;
+      
+       this.$root.showVideoScreen = false;
+
+       this.$root.connection = undefined;
+
+        this.$root.setSreenShareConnection();
+
+         if(master){
+
+                 this.$root.checkScreenRoomState(true);
+
+              }else{
+                 this.$root.checkScreenRoomState(false);
+              }
+
+       }, 
+
+      // maintaining RTC state
+      checkIfUserIsReconnecting: function(master){     
+
+           if(!this.$root.liveIsOn){
+            
+            clearInterval(interval);
+
+            return;
+           }
+
+
+         // this.setUserSpeaker();
+
+          // screen connections
+
+           if(this.$root.connection != undefined){
+
+            var socketScreen = this.$root.connection.socket;
+
+            if(socketScreen){
+
+              socketScreen.on('connect', ()=>{
+                
+                this.userIsReconnectingScreen = false;
+  
+            })
+  
+            socketScreen.on('disconnect', ()=> {
+             
+            this.userIsReconnectingScreen = true;
+
+            
+
+  
+            let _this = this;
+  
+            })
+  
+            socketScreen.on('reconnecting', (attemptNumber)=>{
+           
+            this.userIsReconnectingScreen = true;
+
+            
+  
+          });
+              
+
+            }
+            
+           }
+
+
+           if(this.userIsReconnectingScreen){
+
+            this.reconnectionCountScreen++
+
+            if(this.reconnectionCountScreen == 1){
+
+              this.reconnectionCountScreen = 0;
+              
+
+            
+            
+              if(!this.screenIsConnecting){
+
+                this.rejoinScreen(master);
+
+              }
+
+            
+              
+            
+
+            }
+
+          }
+
+          
+          
+          var socket = this.$root.audioconnection.socket;
+          
+           
+          
+         
+         
+         if(socket != undefined){
+
+         
+
+
+          socket.on('connect', ()=>{
+            this.userIsReconnecting = false;
+
+        })
+
+       socket.on('disconnect', ()=> {
+         
+        this.userIsReconnecting = true;
+
+        let _this = this;
+
+        })
+
+      socket.on('reconnecting', (attemptNumber)=>{
+       
+        this.userIsReconnecting = true;
+
+      });
+
+         }
+          
+
+          if(this.userIsReconnecting){
+
+             this.reconnectionCount++
+
+             if(this.reconnectionCount == 2){
+
+               this.reconnectionCount = 0;
+
+               this.connectingToSocket = 'disconnected';
+
+
+             
+                this.rejoinAudio(master);
+             
+
+             }
+
+
+             
+
+
+         
+
+
+          }else{
+
+            this.connectingToSocket = false;
+          }
+           
+
+     
+         
+
+       },
     },
     
   

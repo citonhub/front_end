@@ -5,7 +5,7 @@
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
 
     <div v-if="!showMemberBoard" class="px-2 py-1 appBox" style="background:white; position:absolute;top:0;right:0;z-index:89999999999;">
-        <v-btn icon class="mx-1" >
+        <v-btn icon class="mx-1" @click="showMemberBoard = true" >
                          <v-badge
                dot
                 color="green">
@@ -20,7 +20,7 @@
                                       <template v-if="liveBoardContent == 'action_list'">
                                           
                                           <div class=" col-4 col-lg-2 px-2 my-0 py-2 ">
-                          <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px; background:white;">
+                          <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px; background:white;" @click="selectAction('voice_chat')">
                               <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                       <i style="font-size:30px;" class="las la-phone"></i>
@@ -33,7 +33,7 @@
                             </div>
 
                                      <div class=" col-4 col-lg-2 px-2 my-0 py-2 " >
-                          <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px;margin-top:-150px;background:white;">
+                          <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px;margin-top:-150px;background:white;" @click="selectAction('live_coding')">
                               <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                       <i style="font-size:30px;" class="las la-terminal"></i>
@@ -46,7 +46,7 @@
                             </div>
 
                              <div class=" col-4 col-lg-2 px-2 my-0 py-2 ">
-                          <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px;background:white;">
+                          <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px;background:white;" @click="selectAction('screen_sharing')">
                               <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                       <i style="font-size:30px;" class="las la-laptop-code"></i>
@@ -81,13 +81,14 @@
 
                               
                               <!-- side info bar -->
+                              <v-slide-x-reverse-transition>
                                     <div v-if="showMemberBoard" class="scrollerinfo offset-lg-8 col-lg-4 py-0 pb-2" style=" border-left:1px solid #c5c5c5;background:white;height:100%; overflow-y:auto; z-index:9999999999; position:absolute; overflow-x:hidden;" >
                                       
                                       <div class="row">
 
                                           <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky;background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
-                         <div class=" mr-1 col-2 py-0">
-                           <v-btn icon >
+                         <div class=" mr-1 col-2 px-1 py-0">
+                           <v-btn icon @click="showMemberBoard = false" >
                             <v-icon>mdi mdi-close</v-icon>
                                </v-btn>
                              </div>
@@ -147,6 +148,7 @@
                                        
                                     
                                    </div>
+                              </v-slide-x-reverse-transition>
 
                               <!-- ends -->
 
@@ -194,6 +196,9 @@ export default {
             window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
 
           this.$root.chatComponent.liveSessionIsOpen = false;
+       },
+       selectAction:function(type){
+
        }
     }
 }
