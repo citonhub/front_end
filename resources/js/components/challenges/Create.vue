@@ -310,6 +310,9 @@ v-model="language"
   import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 
+import moment from 'moment'
+moment().format()
+
 export default {
 
     data() {
@@ -375,7 +378,8 @@ export default {
         durationValueHr:2,
         input:'',
         language:'',
-        image:''
+        image:'',
+        countdown:''
       };
     },
     components:{
@@ -390,6 +394,10 @@ this.everyone = !this.everyone
       setDuration( durationValue){
     durationValue=(( this.durationValueDay * 24) + this.durationValueHr)
     console.log(durationValue)
+      },
+
+      setDurationCountdown(durationValue){
+this.countdown=moment.duration(durationValue, 'hours');
       },
       showAlert:function(title='',message,type){
        
