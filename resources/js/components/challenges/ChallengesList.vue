@@ -61,9 +61,10 @@
           <!-- ends -->
           <div class="d-flex flex-row pr-2" style="align-items:center;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
              <div style="font-size:12px;font-family:BodyFont;">{{box.languages}} </div> <v-icon class="mx-1" style="font-size:12px;">mdi-record</v-icon> 
-             <div style="font-size:12px;font-family:BodyFont;">18 hours to go</div> <v-icon class="mx-1" style="font-size:12px;">mdi-record</v-icon> 
+             <div style="font-size:12px;font-family:BodyFont;" v-if="pending">Pending</div> <v-icon class="mx-1" style="font-size:12px;">mdi-record</v-icon> 
              <div style="font-size:12px;font-family:BodyFont;" class="d-md-block d-none">2331 Participants </div>
              <div style="font-size:12px;font-family:BodyFont;" class="d-md-none d-block"> <v-icon style="font-size:17px;">las la-user-friends</v-icon> 2331 </div>
+        
           </div>
 
         </div>
@@ -88,11 +89,14 @@
 
 <script>
 
+import moment from 'moment'
+moment().format()
 
  export default {
     data () {
       return {
-       challenges:[]
+       challenges:[],
+       pending:true
       }
     },
 

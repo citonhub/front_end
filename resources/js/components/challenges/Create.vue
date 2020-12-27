@@ -181,6 +181,7 @@ v-model="language"
        class="d-inline-block mr-1"
        style="font-size:13px;"
               color="#3C87CD"
+           
 @click="disableEvery"
     >Everyone</v-chip>
 
@@ -188,8 +189,8 @@ v-model="language"
        
        class="d-inline-block mr-1"
        style="font-size:13px;color:white;"
-        color="#3C87CD"
-        :disabled="everyone"
+       color="#3C87CD"
+         :disabled="everyone"
         
     @click="custom=!custom"
     >Custom Judges</v-chip>
@@ -310,8 +311,6 @@ v-model="language"
   import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 
-import moment from 'moment'
-moment().format()
 
 export default {
 
@@ -379,7 +378,7 @@ export default {
         input:'',
         language:'',
         image:'',
-        countdown:''
+       
       };
     },
     components:{
@@ -396,9 +395,7 @@ this.everyone = !this.everyone
     console.log(durationValue)
       },
 
-      setDurationCountdown(durationValue){
-this.countdown=moment.duration(durationValue, 'hours');
-      },
+      
       showAlert:function(title='',message,type){
        
        if(type == 'info'){
@@ -495,5 +492,7 @@ this.countdown=moment.duration(durationValue, 'hours');
   };
 </script>
 <style scoped>
-
+.disabled{
+  background-color:red ;
+}
 </style>
