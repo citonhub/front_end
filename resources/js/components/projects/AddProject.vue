@@ -1,5 +1,12 @@
 <template>
 <v-app style="background:transparent;" class="px-0" >
+
+    <!-- spacer -->
+    <div class="my-lg-3 my-md-3 py-0 py-md-2 col-12 " style="background:#F5F5FB;">
+
+    </div>
+  
+  <!-- ends -->
  
     <div class="col-lg-10 offset-lg-1 py-1 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky;z-index:9999999999;background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
       <div class="row">
@@ -16,10 +23,10 @@
       </div>
    </div>
 
-   <div class=" px-0 col-12 py-1 d-md-none d-block fixed-top" style="position:sticky; background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
+   <div class=" px-1 col-12 py-2 d-md-none d-block fixed-top" style="position:sticky; background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
      <div class="row">
         <div class="col-8 py-0 my-0">
-           <h6 style="font-size:17px;"><v-btn  @click="goToProjectList" icon><v-icon>las la-arrow-left</v-icon></v-btn>Create a project</h6>
+            <v-btn  @click="goToProjectList" icon><v-icon>las la-arrow-left</v-icon></v-btn>  <h6 class="d-inline-block" >Create a project</h6>
         </div>
          <div class="col-4 py-0 my-0 text-right">
           <v-btn small rounded  color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;">
@@ -30,7 +37,7 @@
    </div>
 
 
-   <div class="col-lg-8 offset-lg-2 py-1 col-md-10 offset-md-1 px-2 ">
+   <div class="col-lg-8 offset-lg-2 py-1 col-md-10 offset-md-1 px-4 px-md-2 ">
 
       <div class="row text-center">
          
@@ -251,7 +258,9 @@
                 "SWIFT"]
       }
     },
-
+    mounted(){
+     this.$root.showTopBar = false;
+    },
     methods:{
        createProject() {
            this.$router.push({ path: '/board/projects/panel' });

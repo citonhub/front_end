@@ -67,13 +67,13 @@
           </div>
 
 
-          <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'pets' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''"  @click.stop="goToPage('pets')">
+          <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'diary' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''"  @click.stop="goToPage('diary')">
                 <div class="row">
                 <div class="col-4 py-1 text-center">
-                  <v-icon style="font-size:30px;" :color="selectedTab == 'pets' ? '#3C87CD' : '#A4A4A5'">las la-paw</v-icon>
+                  <v-icon style="font-size:30px;" :color="selectedTab == 'diary' ? '#3C87CD' : '#A4A4A5'">mdi-book-multiple-outline</v-icon>
                 </div>
-                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'pets' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div style="font-family:MediumFont; font-size:14px;" >Pets</div>
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'diary' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
+                  <div style="font-family:MediumFont; font-size:14px;" >Diary</div>
                 </div>
                 </div>
           </div>
@@ -143,11 +143,11 @@ export default {
               
             }
 
-            if(this.$router.currentRoute.path.indexOf('pets') >= 0){
+            if(this.$router.currentRoute.path.indexOf('diary') >= 0){
                 
-               this.selectedTab = 'pets';
+               this.selectedTab = 'diary';
 
-                this.$root.searchType = 'pets';
+                this.$root.searchType = 'diary';
 
               
             }

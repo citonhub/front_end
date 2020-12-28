@@ -1,7 +1,13 @@
 <template>
-<div > 
+<div> 
 
-   <div class="col-lg-10 offset-lg-1 py-1 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky; background:#F5F5FB; border-bottom:1px solid #c5c5c5;">
+  <!-- spacer -->
+    <div class="my-lg-2 mt-md-1 mb-md-2 mt-4 mb-3 col-12" style="background:#F5F5FB;">
+
+    </div>
+  <!-- ends -->
+
+   <div class="col-lg-10 offset-lg-1 py-1  px-2 d-md-block d-none fixed-top" style="position:sticky; background:#F5F5FB; border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0">
           <h5>Projects</h5>
@@ -26,11 +32,11 @@
 
  <!-- project list view -->
 
-  <div class="col-lg-10 offset-lg-1 py-1 col-md-10 offset-md-1 px-2 ">
+  <div class="col-lg-10 offset-lg-1 py-1 px-2 ">
 
       <div class="row text-center ">
           <div class="col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2" style="height:200px;">
-             <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
+             <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;background-repeat: no-repeat;
           border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background3.jpg);background-size:cover;">
 
            <div class="py-2 px-2 text-right" style="height:auto; position:absolute; bottom:16%; width:auto; 
@@ -76,7 +82,7 @@
           </div>
 
           <div class="col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2" style="height:200px;">
-             <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
+             <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;background-repeat: no-repeat;
           border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background1.jpg);background-size:cover;">
 
            <div class="py-2 px-2 text-right" style="height:auto; position:absolute; bottom:16%; width:auto; 
@@ -124,7 +130,7 @@
 
 
           <div class="col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2" style="height:200px;">
-             <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
+             <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;background-repeat: no-repeat;
           border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background3.jpg);background-size:cover;">
 
            <div class="py-2 px-2 text-right" style="height:auto; position:absolute; bottom:16%; width:auto; 
@@ -171,7 +177,7 @@
 
 
            <div class="col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2" style="height:200px;">
-             <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
+             <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;background-repeat: no-repeat;
           border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background1.jpg);background-size:cover;">
 
            <div class="py-2 px-2 text-right" style="height:auto; position:absolute; bottom:16%; width:auto; 
@@ -218,7 +224,7 @@
           </div>
 
            <div class="col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2" style="height:200px;">
-             <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
+             <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;background-repeat: no-repeat;
           border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background3.jpg);background-size:cover;">
 
            <div class="py-2 px-2 text-right" style="height:auto; position:absolute; bottom:16%; width:auto; 
@@ -266,7 +272,7 @@
           </div>
 
            <div class="col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2" style="height:200px;">
-             <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
+             <div  style="height:185px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;background-repeat: no-repeat;
           border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background1.jpg);background-size:cover;">
 
            <div class="py-2 px-2 text-right" style="height:auto; position:absolute; bottom:16%; width:auto; 
@@ -328,6 +334,9 @@
       return {
 
       }
+    },
+    mounted(){
+     this.$root.showTopBar = true;
     },
     methods:{
       addProject:function(){

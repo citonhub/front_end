@@ -15,7 +15,18 @@
                         </v-btn>
     </div>
 
+       <!-- video screen -->
+
+
+             <div  id="videos-container"  style="position:absolute;top:2%; left:2%; height:96%; width:96%; "></div>
+
+                            <!-- ends -->
+
+     
+
                                      <div class=" d-flex flex-row" style="align-items:center; justify-content:center;background:transparent;height:100%; width:100%; overflow-y:auto; overflow-x:hidden;" >
+
+                                    
                                       
                                       <template v-if="liveBoardContent == 'action_list'">
                                           
@@ -63,13 +74,86 @@
 
                                  <template v-if="liveBoardContent == 'audio_speaker'">
 
-                                         <div class="text-center">
-                              <div     
+                                   
+
+                                       <!-- shows when RTC is connecting -->
+
+                   <div class="col-12 text-center"    v-if="this.$root.connectingToSocket == true">
+
+                 <div v-if="this.$root.roomNotExist && this.$root.roomCheckingInitaited">
+
+               <div class="py-2">
+               <v-progress-circular indeterminate color="#3C87CD"></v-progress-circular>
+                   </div>
+
+                 <div>
+                 <span style="font-size:14px; color:white;">{{ $t('space.wait_for_admin') }}</span>
+                 </div>
+
+                  </div>
+
+                   <div v-if="!this.$root.roomNotExist">
+
+                  <div class="py-2">
+                      <v-progress-circular indeterminate color="#3C87CD"></v-progress-circular>
+                   </div>
+
+                   <div>
+                    <span style="font-size:14px; color:white;">{{ $t('general.connecting') }}...</span>
+                       </div>
+
+                            </div>
+
+
+
+                              </div>
+                            <!-- ends -->
+
+
+                               <!-- show when user is disconnected -->
+               <div class="col-12 text-center"    v-if="this.$root.connectingToSocket == 'disconnected'">
+
+               <div>
+
+               <div class="py-2">
+              <v-progress-circular indeterminate color="#3C87CD"></v-progress-circular>
+               </div>
+
+                 <div>
+               <span style="font-size:14px; color:white;">{{ $t('space.disconnected_info') }}</span>
+                 </div>
+
+
+
+
+               </div>
+
+
+
+
+                 </div>
+
+        <!-- ends -->
+
+
+
+                              <div class="text-center"    v-if="this.$root.connectingToSocket == false && !this.$root.showVideoScreen">
+                              <div     class="circle-ripple "
                         style="border-radius:50%;height:120px;width:120px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
                           background-repeat: no-repeat; border:5px solid #3C87CD; margin-top:-50px;">
                            </div> 
+                           
 
-                           <div style="font-size:14px; color:white;" class="mt-2">Akinola Babs</div>
+                           <div style="font-size:14px; color:white;" class="mt-2"> Akinola Babs </div>
+                         <!-- audio container -->
+                               <div  id="audios-container" v-show="false"></div>
+                              <!-- ends -->
+                            </div>
+
+
+                             <div class="text-center"    v-show="this.$root.connectingToSocket == false && this.$root.showVideoScreen">
+                            
+                                
                             </div>
 
                                  </template>
@@ -109,6 +193,9 @@
                                 <div    
                                style="border-radius:50%;height:40px;width:40px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
                                 background-repeat: no-repeat;">
+
+                                    
+
                                 </div> 
                                   </div>
                                 
@@ -176,7 +263,7 @@
 
                               <!-- hang up btn -->
                               <div class="text-center" style="position:absolute;bottom:3%; left:0; width:100%;" >
-                                 <v-btn fab color="#3C87CD" style=" z-index:999999999999;"><v-icon color="#ffffff">mdi mdi-phone-hangup</v-icon></v-btn>
+                                 <v-btn fab style=" z-index:999999999999;background:white;"><v-icon color="#df4759">mdi mdi-phone-hangup</v-icon></v-btn>
                               </div>
                               
                              <!-- ends -->
@@ -185,12 +272,18 @@
 <script>
 export default {
    data(){
+      
         return{
           liveBoardContent:'action_list',
           showMemberBoard:false,
           
         }
     },
+     computed:{
+         
+        
+     
+       },
     methods:{
        goBack:function(){
             window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
@@ -199,11 +292,133 @@ export default {
        },
        selectAction:function(type){
 
-       }
+           if(type == 'voice_chat'){
+              
+              this.liveBoardContent = 'audio_speaker';
+              this.connectAudio();
+
+           }
+
+            if(type == 'screen_sharing'){
+                  this.liveBoardContent = 'audio_speaker';
+                  this.connectScreen();
+            }
+
+       },
+       checkIfMaster: function(){
+     
+      let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
+   
+             return members.user_id == this.$root.user_temp_id;
+           });
+
+           if(userMemberData.length != 0){
+
+             return userMemberData[0].master_user;
+
+           }else{
+              return false
+           }
+
+
+      },
+      connectAudio:function(){
+           this.$root.remoteLiveHappening = true;
+
+            this.$root.remoteAudio = true;
+
+            this.$root.liveIsOn = true;
+
+    if(this.$root.audioconnection == undefined){
+
+        this.$root.setAudioConnection();
+        this.$root.setDataConnection();
+
+          if(this.checkIfMaster()){
+
+                  this.$root.checkAudioRoomState(true);
+
+               }else{
+                  this.$root.checkAudioRoomState(false);
+               }
+               
+
+        //  this.$root.sendLiveSignal('audio');
+
+           
+          
+        }else{
+
+      //    this.$root.sendLiveSignal('audio');
+
+      //  this.$root.screenSharingOn = true; 
+
+      
+        
+    }
+
+    
+      },
+      connectScreen:function(){
+
+           if(this.$root.connection == undefined){
+
+
+             this.$root.setSreenShareConnection();
+
+             this.$root.remoteLiveHappening = true;
+
+             this.$root.remoteScreen = true;
+
+          
+         
+
+           if(this.checkIfMaster()){
+
+                  this.$root.checkScreenRoomState(true);
+                  
+                 
+
+               }else{
+                  this.$root.checkScreenRoomState(false);
+                   
+               }
+
+          this.$root.showVideoScreen = true;
+
+           //this.$root.sendLiveSignal('screen');
+
+          this.$root.screenSharingOn = true;
+          
+          this.$root.liveIsOn = true;
+          
+
+          
+
+           }else{
+             
+             this.$root.screenSharingOn = true; 
+
+             this.$root.remoteLiveHappening = true;
+            
+             this.$root.showVideoScreen = true;
+
+          // this.$root.sendLiveSignal('screen');
+
+             this.$root.remoteScreen = true;
+               this.$root.liveIsOn = true;
+
+            
+           }
+
+         
+         this.connectAudio();
+
+      }
     }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
 .scrollerinfo::-webkit-scrollbar {
   width: 6px;
 }
@@ -215,5 +430,24 @@ export default {
 }
 .appBox{
     cursor: pointer;
+}
+$color: #3C87CD;
+.circle-ripple {
+  background-color: #3C87CD;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  animation: ripple 0.7s linear infinite;
+}
+
+@keyframes ripple {
+  0% {
+    box-shadow: 0 0 0 0 rgba($color, 0.3),
+                0 0 0 1em rgba($color, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 0 1em rgba($color, 0.3),
+                0 0 0 3em rgba($color, 0.3);
+  }
 }
 </style>

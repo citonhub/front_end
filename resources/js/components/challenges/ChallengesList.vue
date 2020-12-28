@@ -1,7 +1,13 @@
 <template>
 <div>
+
+   <!-- spacer -->
+    <div class="my-lg-2 mt-md-1 mb-md-2 mt-4 mb-4 col-12" style="background:#F5F5FB;">
+
+    </div>
+  <!-- ends -->
  
-    <div class="col-lg-10 offset-lg-1 py-1 mb-0 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky; background:#F5F5FB; border-bottom:1px solid #c5c5c5;">
+    <div class="col-lg-10 offset-lg-1 py-1 mb-0 px-2 d-md-block d-none fixed-top" style="position:sticky; background:#F5F5FB; border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0">
           <h5>Challenges</h5>
@@ -26,31 +32,31 @@
 
     <!-- project list view -->
 
-  <div class="col-lg-10 offset-lg-1 pb-1 pt-0 col-md-10 offset-md-1 px-2 ">
+  <div class="col-lg-10 offset-lg-1 pb-1 pt-0   ">
 
-        <div class="row text-center ">
+        <div class="row text-center px-1 mt-2">
 
-              <div class="col-12 py-0 px-md-0 px-1 d-flex flex-row challengeBox">
+              <v-card class="col-12 py-0 px-md-0 px-1 mb-2 d-flex flex-row " style="border-radius:10px;">
                  
                  <div     class="mx-2 py-3 d-md-block d-none"> 
 
                    <div
-                    style="border-radius:8px;height:100%;width:70px;background-color:#c5c5c5;background-image:url(/imgs/background1.jpg);background-size: cover;
+                    style="border-radius:10px;height:100%;width:70px;background-color:#c5c5c5;background-image:url(/imgs/background1.jpg);background-size: cover;
                     background-repeat: no-repeat; ">
                     </div> 
 
                  </div>
 
-                  <div     class="mr-1 py-2 d-block d-md-none"> 
+                  <div     class="mx-1 py-2 d-block d-md-none"> 
 
                    <div
-                    style="border-radius:8px;height:70px;width:70px;background-color:#c5c5c5;background-image:url(/imgs/background1.jpg);background-size: cover;
+                    style="border-radius:10px;height:50px;width:50px;background-color:#c5c5c5;background-image:url(/imgs/background1.jpg);background-size: cover;
                     background-repeat: no-repeat; ">
                     </div> 
 
                  </div>
         
-        <div class="text-left d-flex flex-column py-md-3 py-2" style="overflow-x:hidden; width:100%;border-bottom:1px solid #c5c5c5;">
+        <div class="text-left d-flex flex-column py-md-3 py-2" style="overflow-x:hidden; width:100%;">
           <!-- large screen -->
           <div style="font-size:14px;font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1 d-md-block d-none">Create a gift cards with HTML and CSS</div>
           <div style="font-size:12px;font-family:BodyFont; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1  d-md-block d-none">Using pure CSS, design the most beautiful card and win </div>
@@ -72,29 +78,29 @@
 
          </div>
 
-       </div>
+       </v-card>
 
-        <div class="col-12 py-0 px-md-0 px-1 d-flex flex-row challengeBox">
+        <v-card class="col-12 py-0 px-md-0 px-1 d-flex mb-2 flex-row "  style="border-radius:10px;">
                  
                 <div     class="mx-2 py-3 d-md-block d-none"> 
 
                    <div
-                    style="border-radius:8px;height:100%;width:70px;background-color:#c5c5c5;background-image:url(/imgs/background3.jpg);background-size: cover;
+                    style="border-radius:10px;height:100%;width:70px;background-color:#c5c5c5;background-image:url(/imgs/background3.jpg);background-size: cover;
                     background-repeat: no-repeat; ">
                     </div> 
 
                  </div>
 
-                  <div     class="mr-1 py-2 d-block d-md-none"> 
+                  <div     class="mx-1 py-2 d-block d-md-none"> 
 
                    <div
-                    style="border-radius:8px;height:70px;width:70px;background-color:#c5c5c5;background-image:url(/imgs/background3.jpg);background-size: cover;
+                    style="border-radius:10px;height:50px;width:50px;background-color:#c5c5c5;background-image:url(/imgs/background3.jpg);background-size: cover;
                     background-repeat: no-repeat; ">
                     </div> 
 
                  </div>
         
-        <div class="text-left d-flex flex-column py-md-3 py-2" style="overflow-x:hidden; width:100%;border-bottom:1px solid #c5c5c5;">
+        <div class="text-left d-flex flex-column py-md-3 py-2" style="overflow-x:hidden; width:100%;">
           <!-- larger screens -->
           <div style="font-size:14px;font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1  d-md-block d-none">Build a game app with NodeJS</div>
           <div style="font-size:12px;font-family:BodyFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1  d-md-block d-none">Using nodejs gamer extension, built a simple game </div>
@@ -118,7 +124,7 @@
 
          </div>
 
-       </div>
+       </v-card>
         
       </div>
 
@@ -147,7 +153,10 @@
     },
 
     created(){
+       
 
+     
+     
        
         axios.get('/get-challenges')
 
@@ -166,6 +175,9 @@
       
     
     },
+   mounted(){
+     this.$root.showTopBar = true;
+    },
 
   
   }
@@ -179,7 +191,7 @@ line-height:21px;
  }
 
  .challengeBox{
-   background:#ffffff !important;
+   background:transparent !important;
    cursor: pointer;
  }
 

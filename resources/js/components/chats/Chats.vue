@@ -112,7 +112,7 @@
     ref="messageContainer"
     :buffer="2000"
     id="messageContainer"
-  class="col-12 scroller" 
+  class="col-12 px-0 scroller" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
             background-repeat: no-repeat; height:93%; left:0; position:absolute; z-index:99999; top:0%;padding-top:80px; padding-bottom:130px;  overflow-y:auto;"

@@ -35,7 +35,7 @@
  <!-- ends -->
     
 <!-- Main board -->
-<div class=" col-lg-10  offset-lg-2 "  style="z-index:999999; background:#F5F5FB;  align-items:center; justify-content:center; position:fixed; height:100%; top:0%;">
+<div class=" col-lg-10  offset-lg-2 d-flex flex-column"  style="z-index:999999; background:#F5F5FB;  align-items:center; justify-content:center; position:fixed; height:100%; top:0%;">
 
     <!-- top bar component -->
     
@@ -44,7 +44,7 @@
      <!-- ends -->
 
 
-      <div class="col-12 mt-lg-2 py-0 pb-3 px-0 scroller" style="position:absolute; top:10%; left:0%; height:90%; overflow-y:auto; overflow-x:hidden; ">
+      <div class="col-12 mt-lg-2 py-0 pb-3 px-0 " style="position:absolute; left:0%; height:100%; overflow-y:hidden; overflow-x:hidden; ">
       <!-- entry point for vue router -->
       <router-view></router-view>
       <!-- ends -->

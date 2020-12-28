@@ -142,6 +142,7 @@ export default {
             }
           }
         });
+        
         //Update current audio position when user drags progress slider
         this.$watch("playbackTime",function() {
           
@@ -150,9 +151,10 @@ export default {
         
           //Throttle synchronization to prevent infinite loop between playback listener and this watcher
           if(diff>0.01) {
-			  var audio = document.querySelector('#audio'+ this.playerId);
+			    var audio = document.querySelector('#audio'+ this.playerId);
             audio.currentTime=this.playbackTime;
           }
+
         });
 
         

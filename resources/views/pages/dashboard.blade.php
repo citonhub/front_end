@@ -28,7 +28,7 @@
  @section('css')
  
  <!-- WebRTC default css file -->
-  <link rel="stylesheet" type="text/css" href="/css/getHTMLMediaElement.css?v=1.2">
+  <link rel="stylesheet" type="text/css" href="/css/getHTMLMediaElement.css?v=1.22">
 
 <!-- ends -->
 
@@ -65,7 +65,7 @@
  <!-- WebRTC scripts, third party scripts for real time communications -->
  <script src="{{ asset('js/RTCMultiConnection.min.js') }}"></script>
 
- <script src="{{ asset('js/getHTMLMediaElement.js?v=0.5') }}"></script>
+ <script src="{{ asset('js/getHTMLMediaElement.js?v=0.51') }}"></script>
 
  <script src="https://cdn.webrtc-experiment.com/hark.js"></script>
 
@@ -89,7 +89,7 @@
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=1.19') }}"></script>
+ <script src="{{ asset('js/dashboard.js?v=1.22') }}"></script>
  <!-- ends -->
      
  @endsection

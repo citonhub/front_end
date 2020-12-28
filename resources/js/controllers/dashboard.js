@@ -8,12 +8,12 @@ window.io = require('socket.io-client');
 
 Vue.use(Vuex)
 
-axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
+
+axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
 
 const store = new Vuex.Store({
   state: {
-    user: null,
-    isConnected: false,
+    user: null
   },
 
   mutations: {
@@ -26,30 +26,6 @@ const store = new Vuex.Store({
     clearUserData () {
       localStorage.removeItem('user')
       location.reload()
-    },
-
-    setSocketState(state){
-
-      window.Echo.connector.socket.on('connect', ()=>{
-        state.isConnected = true
-    })
-
-window.Echo.connector.socket.on('disconnect', ()=> {
-  state.isConnected = false
-    })
-
-window.Echo.connector.socket.on('reconnecting', function(attemptNumber){
-  state.isConnected = false
-  });
-
-    if(!state.isConnected){
-
-      if(thisUserState.chatComponent){
-        thisUserState.chatComponent.checkForUnreadMessagesDisconnected();
-      }
-
-    }
-
     }
   },
 
@@ -98,7 +74,7 @@ const SetUsername = () => import(/* webpackChunkName: "SetUsername" */ '../compo
 // dashboard routes
 const Board = () => import(/* webpackChunkName: "Board" */ '../components/dashboard/Board.vue');
 const Projects = () => import(/* webpackChunkName: "Projects" */ '../components/dashboard/Projects.vue');
-const Pets = () => import(/* webpackChunkName: "Pets" */ '../components/dashboard/Pets.vue');
+const Diary = () => import(/* webpackChunkName: "Diary" */ '../components/dashboard/Diary.vue');
 const Challenges = () => import(/* webpackChunkName: "Challenges" */ '../components/dashboard/Challenges.vue');
 
 // project routes
@@ -132,12 +108,12 @@ const ChallengeLeaderboard= () => import(/* webpackChunkName: "ChallengeLeaderbo
 const ChallengeDiscussions= () => import(/* webpackChunkName: "ChallengeDiscussions" */ '../components/challenges/Discussion.vue');
 const ChallengeRules= () => import(/* webpackChunkName: "ChallengeRules" */ '../components/challenges/Rules.vue');
 
-// Pets routes
-const PetList= () => import(/* webpackChunkName: "PetList" */ '../components/pets/PetList.vue');
-const PetBoard= () => import(/* webpackChunkName: "PetBoard" */ '../components/pets/Board.vue');
-const PetContent= () => import(/* webpackChunkName: "PetContent" */ '../components/pets/PetContent.vue');
-const AddGem= () => import(/* webpackChunkName: "AddGem" */ '../components/pets/AddGem.vue');
-const GetPet= () => import(/* webpackChunkName: "GetPet" */ '../components/pets/GetPet.vue');
+// Diary routes
+const DiaryList= () => import(/* webpackChunkName: "DiaryList" */ '../components/diary/DiaryList.vue');
+const DiaryBoard= () => import(/* webpackChunkName: "DiaryBoard" */ '../components/diary/Board.vue');
+const DiaryContent= () => import(/* webpackChunkName: "DiaryContent" */ '../components/diary/DiaryContent.vue');
+const AddGem= () => import(/* webpackChunkName: "AddGem" */ '../components/diary/AddGem.vue');
+const GetDiary= () => import(/* webpackChunkName: "GetDiary" */ '../components/diary/GetDiary.vue');
 
 
 const routes = [
@@ -900,39 +876,39 @@ const routes = [
     
       {
         // content bots
-        path: 'pets',
-        component: Pets,
-        redirect:'/board/pets/list',
+        path: 'diary',
+        component: Diary,
+        redirect:'/board/diary/list',
         children:[
           {
             // list
             path:'list',
-            component:PetList,
+            component:DiaryList,
             
           },
           {
             // board
             path:'board',
-            component:PetBoard,
-            redirect:'/board/pets/board/content',
+            component:DiaryBoard,
+            redirect:'/board/diary/board/content',
             children:[
               {
                 // content
                 path:'content',
-                component:PetContent
+                component:DiaryContent
               },
               {
                 // add new gem
-                path:'add-gem',
+                path:'add-note',
                 component:AddGem
               }
             ]
           }
           ,
-              // get new pet
+              // create diary
               {
-                path:'get-pet',
-                component:GetPet
+                path:'create-diary',
+                component:GetDiary
               }
         ]
       },
@@ -1062,7 +1038,6 @@ const app = new Vue({
       sendingMessage:false,
       replyMessage:[],
       botIsLoading:false,
-      isConnected:true,
       botSuggestionArray:[],
       fullCodeLanguage:'HTML',
       FullcodeContent:'<p>write your code</p>',
@@ -1121,7 +1096,19 @@ const app = new Vue({
       screenIsConnecting:false,
       screenSharingOn:false,
       showVideoScreen:false,
-      
+      socketEcho:undefined,
+      audioSocket:undefined,
+      screenSocket:undefined,
+      dataSocket:undefined,
+      reconnectionCount:0,
+      isMaster:false,
+      localAudioMuted:false,
+      userIsReconnecting:false,
+      remoteLiveHappening:false,
+      remoteAudio:false,
+      liveIsOn:false,
+      remoteScreen:false,
+      showTopBar:true,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -1135,36 +1122,84 @@ const app = new Vue({
       ...mapGetters([
         'isLogged'
       ]),
-      socketState:function () {
-
-        window.Echo.connector.socket.on('connect', ()=>{
-          this.isConnected = true
-      })
-
-  window.Echo.connector.socket.on('disconnect', ()=> {
-          this.isConnected = false
-      })
-
-  window.Echo.connector.socket.on('reconnecting', function(attemptNumber){
-       this.isConnected = false
-    });
-
-      if(!this.isConnected){
-
-        if(this.chatComponent){
-           this.chatComponent.checkForUnreadMessagesDisconnected();
+      isConnected:function(){
+         if(this.socketEcho){
+          return this.socketEcho.connector.socket.connected;
+         }
+        return 'empty';
+      },
+      isConnectedAudio:function(){
+        if(this.audioSocket){
+         return this.audioSocket.connected;
         }
-
+       return 'empty';
+     },
+     isConnectedScreen:function(){
+      if(this.screenSocket){
+       return this.screenSocket.connected;
       }
-
-     return this.isConnected;
-        }
-        
+     return 'empty';
+     },
+     isConnectedData:function(){
+      if(this.dataSocket){
+       return this.dataSocket.connected;
+      }
+     return 'empty';
+     },
     },
     watch: {
-      // whenever question changes, this function will run
-      isConnected: function (value) {
-         console.log(value)
+      // whenever isConnected changes, this function will run
+      isConnected: function (newValue, oldValue) {
+
+        if(!newValue){
+
+            this.updateSpaceMessages();
+
+            }
+         
+      },
+      // whenever isConnectedAudio changes, this function will run
+      isConnectedAudio: function (newValue, oldValue) {
+
+
+        if(!newValue){
+
+       
+
+          this.connectingToSocket = 'disconnected';
+
+          this.rejoinAudio(this.isMaster);
+
+
+       }else{
+
+         this.connectingToSocket = false;
+       }
+   
+      },
+      // whenever isConnectedScreen changes, this function will run
+      isConnectedScreen: function (newValue, oldValue) {
+
+        if(!newValue){
+
+        
+          if(!this.screenIsConnecting){
+
+            this.rejoinScreen(this.isMaster);
+
+          }
+
+         
+
+        }
+
+       
+    },
+      // whenever isConnectedData changes, this function will run
+      isConnectedData: function (newValue, oldValue) {
+
+          console.log(newValue);
+          
       }
     },
     created(){
@@ -1212,6 +1247,8 @@ const app = new Vue({
   },
     methods:{
 
+      
+        
       // user device tracker
       checkUserDevice: function(){
          
@@ -1308,6 +1345,8 @@ const app = new Vue({
                      }
                  }
           });}
+
+          this.socketEcho = window.Echo;
          
           
       },
@@ -1363,12 +1402,35 @@ const app = new Vue({
 
 
     if(this.checkauthroot == 'auth'){
-      window.Echo.private('user.' + this.username)
-      .listen('.UserChannel',(e) => {
+     
+      window.Echo.join('global')
+      .here((users) => {
+ 
+         
         
+      this.$root.globalUsers = users;
+ 
        
+ 
+    })
+    .joining((user) => {
+ 
+       
+    
+     
+    this.$root.globalUsers.push(user);
+ 
+   
+    
+    })
+    .leaving((user) => {
+       let newList = this.$root.globalUsers.filter((eachuser)=>{
+           return eachuser.id != user.id
+       });
 
-     });
+     this.$root.globalUsers = newList;
+ 
+    })
 
     }
        
@@ -2110,6 +2172,9 @@ credential: '15Raymond',
 username: 'ILoveCitonHubPort'
 });
 
+setTimeout(() => {
+    this.dataSocket = this.$root.dataconnection.socket;
+}, 2000);
 
 
 this.$root.dataconnection.onmessage = (event) => {
@@ -2263,6 +2328,8 @@ urls: 'stun:165.227.152.44:3478'
 
 
  this.$root.connection.videosContainer = document.getElementById('videos-container');
+
+  console.log(this.$root.connection.videosContainer)
 
 
 
@@ -2452,6 +2519,8 @@ setTimeout(function() {
 
 mediaElement.id = event.streamid;
 
+   _this.setUserSpeaker();
+
 
 };
 
@@ -2569,8 +2638,8 @@ if (mediaElement) {
       
     if(this.$root.audioconnection != undefined){
 
-     
-
+       this.isMaster = master;
+         
       this.$root.connectingToSocket = true;
 
       this.$root.audioconnection.DetectRTC.load(()=> {
@@ -2628,9 +2697,9 @@ if (mediaElement) {
           }
 
 
-    _this.checkIfUserIsReconnecting(master)
+   //  _this.checkIfUserIsReconnecting(master)
 
-    
+     _this.audioSocket = _this.$root.audioconnection.socket;
    
     _this.$root.localAudioMuted = false;
     _this.$root.connectingToSocket = false;
@@ -2704,6 +2773,9 @@ this.$root.audioconnection.closeSocket();
       
     let _this = this;
 
+    this.isMaster = master;
+
+
        this.screenIsConnecting = true;
 
        this.$root.connection.checkPresence('screen' + this.$root.selectedSpace.space_id, function(isRoomExist, roomid) {
@@ -2729,6 +2801,8 @@ this.$root.audioconnection.closeSocket();
 
           
         }
+
+         _this.screenSocket = _this.$root.connection.socket;
  
    });
  
@@ -2809,152 +2883,76 @@ this.$root.audioconnection.closeSocket();
 
        }, 
 
-      // maintaining RTC state
-      checkIfUserIsReconnecting: function(master){     
-
-           if(!this.$root.liveIsOn){
-            
-            clearInterval(interval);
-
-            return;
-           }
-
-
-         // this.setUserSpeaker();
-
-          // screen connections
-
-           if(this.$root.connection != undefined){
-
-            var socketScreen = this.$root.connection.socket;
-
-            if(socketScreen){
-
-              socketScreen.on('connect', ()=>{
-                
-                this.userIsReconnectingScreen = false;
-  
-            })
-  
-            socketScreen.on('disconnect', ()=> {
-             
-            this.userIsReconnectingScreen = true;
-
-            
-
-  
-            let _this = this;
-  
-            })
-  
-            socketScreen.on('reconnecting', (attemptNumber)=>{
-           
-            this.userIsReconnectingScreen = true;
-
-            
-  
-          });
-              
-
-            }
-            
-           }
-
-
-           if(this.userIsReconnectingScreen){
-
-            this.reconnectionCountScreen++
-
-            if(this.reconnectionCountScreen == 1){
-
-              this.reconnectionCountScreen = 0;
-              
-
-            
-            
-              if(!this.screenIsConnecting){
-
-                this.rejoinScreen(master);
-
-              }
-
-            
-              
-            
-
-            }
-
-          }
-
-          
-          
-          var socket = this.$root.audioconnection.socket;
-          
-           
-          
-         
-         
-         if(socket != undefined){
-
-         
-
-
-          socket.on('connect', ()=>{
-            this.userIsReconnecting = false;
-
-        })
-
-       socket.on('disconnect', ()=> {
-         
-        this.userIsReconnecting = true;
+      // detect speaker
+      setUserSpeaker: function(){
 
         let _this = this;
 
-        })
+        if(this.$root.audioconnection == undefined){
+            
+         
+        }else{
+        
+            
+         if(this.$root.allAudioParticipant.length > 0){
+            // work on local streams
+         var localStream = this.$root.audioconnection.attachStreams[0];
 
-      socket.on('reconnecting', (attemptNumber)=>{
-       
-        this.userIsReconnecting = true;
+         var options = {};
+       var speechEvents = hark(localStream, options);
 
+
+     speechEvents.on('speaking', function() {
+
+      if(_this.$root.audioconnection != undefined && _this.$root.selectedSpace.space_id != undefined){
+
+      
+      
+        let data = {
+          userid: _this.$root.audioconnection.userid,
+          speaking: true
+      };
+
+      _this.$root.dataconnection.send({
+        action:'neutral',
+        data: data,
+        space_id: _this.$root.selectedSpace.space_id
       });
+  
+      }
+       
+        
+    });
 
+    speechEvents.on('stopped_speaking', function() {
+    
+        if(_this.$root.audioconnection != undefined && _this.$root.selectedSpace.space_id != undefined){
+
+        
+        
+          let data = {
+            userid: _this.$root.audioconnection.userid,
+            speaking: false
+        };
+    
+        _this.$root.dataconnection.send({
+          action:'neutral',
+          data: data,
+          space_id: _this.$root.selectedSpace.space_id
+        });
+    
+    
+    
+        }
+    });
+  
          }
-          
 
-          if(this.userIsReconnecting){
+        }
 
-             this.reconnectionCount++
+    },
 
-             if(this.reconnectionCount == 2){
-
-               this.reconnectionCount = 0;
-
-               this.connectingToSocket = 'disconnected';
-
-
-             
-                this.rejoinAudio(master);
-             
-
-             }
-
-
-             
-
-
-         
-
-
-          }else{
-
-            this.connectingToSocket = false;
-          }
-           
-
-     
-         
-
-       },
+   
     },
     
   

@@ -2,7 +2,7 @@
     <div>
         <!-- large and medium screen top bar -->
     
-     <div class="col-12 d-none d-md-block py-0" style="position:absolute; top:0; left:0; font-family:BodyFont;z-index:9999999999;">
+     <div class="col-12 d-none d-md-block py-0" style="position:absolute; background:#F5F5FB;height:70px;  top:0; left:0; font-family:BodyFont;z-index:9999999999;">
 
          <div class="row">
             <div class="col-lg-5 col-md-1  text-left">
@@ -13,7 +13,7 @@
                   <div class="col-lg-6 col-md-5 text-center">
                      <v-text-field
                 style="font-size:13px;"
-                
+                  
                  :placeholder="'Search ' + that.$root.searchType"
               filled
               dense
@@ -53,7 +53,7 @@
 
      <!-- top bar smaller screen -->
 
-       <div class="col-12 d-block d-md-none py-2 " style="position:absolute; top:0; left:0; font-family:BodyFont; z-index:99999999999;">
+       <div class="col-12 d-block d-md-none py-2 " style="position:absolute; background:#F5F5FB; top:0; left:0; font-family:BodyFont; z-index:99999999999;" v-if="that.$root.showTopBar">
 
          <div class="row px-2">
              <v-card  style="border-radius:7px;" class="col-12 py-2 px-1">

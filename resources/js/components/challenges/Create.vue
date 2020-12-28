@@ -1,7 +1,14 @@
 <template>
 <v-app style="background:transparent;font-family:BodyFont;" class="px-0" >
+
+    <!-- spacer -->
+    <div class="my-lg-3 my-md-3 py-0 py-md-2 col-12 " style="background:#F5F5FB;">
+
+    </div>
+  
+  <!-- ends -->
  
-    <div class="col-lg-10 offset-lg-1 py-1 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky;z-index:9999999999;background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
+    <div class="col-lg-10 offset-lg-1 py-2 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky;z-index:9999999999;background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0">
           <h5> <v-btn icon><v-icon>las la-arrow-left</v-icon></v-btn> Create a challenge</h5>
@@ -16,12 +23,12 @@
       </div>
    </div>
 
-   <div class=" px-0 col-12 py-0 d-md-none d-block fixed-top d-flex flex-row" style="position:sticky; background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
+   <div class=" px-0 col-12 py-1 pt-2 d-md-none d-block fixed-top d-flex flex-row" style="position:sticky; background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
    
-        <div class="col-8 py-0 my-0">
+        <div class="col-8 py-0 my-0 px-0">
            <div style="font-size:16px; font-family:HeaderFont;"><v-btn  icon><v-icon>las la-arrow-left</v-icon></v-btn>Create a challenge</div>
         </div>
-         <div class="col-4 py-0 my-0 text-right">
+         <div class="col-4 py-0 my-0 text-right px-0">
       
           <v-btn @click="createChallenge" small rounded  color="#3C87CD" style="font-size:12px; text-transform:none; font-weight:bolder; color:white;font-family:MediumFont;">
              Create
@@ -377,6 +384,9 @@ export default {
         language:'',
         image:''
       };
+    },
+    mounted(){
+     this.$root.showTopBar = false;
     },
     components:{
       VPressEditor

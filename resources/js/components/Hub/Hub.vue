@@ -54,7 +54,7 @@
        <!-- ends -->
 
        
-        <div class=" col-12 scroller" style=" position:absolute; height:90%; top:10%; overflow-y:auto; padding-bottom:60px;" >
+        <div class=" col-12 scroller" style=" position:absolute; height:90%; top:10%; overflow-y:auto; padding-bottom:60px; padding-top:20px; " >
 
           
                <div class="col-lg-10 offset-lg-1 col-12 py-0 pt-md-5 mt-md-3" >
@@ -62,7 +62,7 @@
                    <div class="row">
                       <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;" >
              <div @click="viewProjectModal = true"   style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
-          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background1.jpg);background-size:cover;">
+          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background1.jpg);background-size:cover;background-repeat: no-repeat;">
 
               <div class="pt-3 px-2  pl-3" style=" position:absolute; width:100%; height:35%; left:0; bottom:0%; border-radius:0px; border-bottom-left-radius:20px;
           border-bottom-right-radius:20px; background: linear-gradient(180deg, rgba(60, 135, 205, 0.0053) 0%, rgba(0, 0, 0, 0.53) 100%);">
@@ -93,7 +93,8 @@
                 <div class="row py-0 my-0">
                     <div class="col-2 py-0 my-0 d-flex px-0" style="align-items:center; justify-content:center;">
                         <span  class="d-inline-block"  
-                             style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5; background-image:url(/imgs/img3.jpg);background-size:100%;border:1px solid transparent;"></span>
+                             style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;
+                             background-repeat: no-repeat; background-image:url(/imgs/img3.jpg);background-size:100%;border:1px solid transparent;"></span>
                     </div>
                    <div class="col-8 py-0 my-0 d-flex" style="align-items:center;">
                        <div> 
@@ -130,7 +131,7 @@
 
 
           <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;">
-             <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
+             <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5; background-repeat: no-repeat;
           border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background3.jpg);background-size:cover;">
 
               <div class="pt-3 px-2  pl-3" style=" position:absolute; width:100%; height:35%; left:0; bottom:0%; border-radius:0px; border-bottom-left-radius:20px;
@@ -199,7 +200,7 @@
 
 
           <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;">
-             <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
+             <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;background-repeat: no-repeat;
           border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background1.jpg);background-size:cover;">
 
               <div class="pt-3 px-2  pl-3" style=" position:absolute; width:100%; height:35%; left:0; bottom:0%; border-radius:0px; border-bottom-left-radius:20px;
