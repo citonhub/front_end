@@ -96,7 +96,8 @@ moment().format()
     data () {
       return {
        challenges:[],
-       pending:true
+       pending:true,
+       selected:{}
       }
     },
 
@@ -122,6 +123,21 @@ moment().format()
       
     
     },
+
+    methods:{
+      startChallenge(box){
+      
+    return this.selected.duel_id== box.duel_id
+       
+       
+     
+      },
+
+    setDuration(box){
+      moment.duration(box.duration, 'hours');
+    
+    }
+    }
 
   
   }
