@@ -69,7 +69,7 @@
 
              <div class="row">
                  <div class="  col-4 col-lg-2 px-2 my-0 py-2 " v-for="(app,index) in languageIcon" :key="index">
-                     <v-card class="px-1 py-1 appBox" style="height:100px; border:1px solid #263238; border-radius:7px;">
+                     <v-card @click="selectLang(app)" :color="app.background" class="px-1 py-1 appBox" :style="'height:100px; border:1px solid ' + app.border_color + '; border-radius:7px;'">
                         <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                       <i style="font-size:30px;" :class="app.icon"></i>
@@ -111,122 +111,170 @@
             languageIcon:[
                {
                   name:'Web app NodeJs',
-                  icon:'lab la-node-js'
+                  icon:'lab la-node-js',
+                  border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'Web app PHP',
-                  icon:'lab la-php'
+                  icon:'lab la-php',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'JavaScript',
-                  icon:'lab la-js-square'
+                  icon:'lab la-js-square',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'PHP',
-                  icon:'lab la-php'
+                  icon:'lab la-php',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'Python 3.81',
-                  icon:'lab la-python'
+                  icon:'lab la-python',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'Python for ML(3.7.7)',
-                  icon:'lab la-python'
+                  icon:'lab la-python',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'C',
-                  icon:'mdi mdi-language-c'
+                  icon:'mdi mdi-language-c',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'C++',
-                  icon:'mdi mdi-language-cpp'
+                  icon:'mdi mdi-language-cpp',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'Java',
-                  icon:'lab la-java'
+                  icon:'lab la-java',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'C#',
-                  icon:'mdi mdi-language-csharp'
+                  icon:'mdi mdi-language-csharp',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'Erlang',
-                  icon:'lab la-erlang'
+                  icon:'lab la-erlang',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'Kotlin',
-                  icon:'mdi mdi-language-kotlin'
+                  icon:'mdi mdi-language-kotlin',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'Fortran',
-                  icon:'mdi mdi-language-fortran'
+                  icon:'mdi mdi-language-fortran',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'Perl',
-                  icon:'las la-code'
+                  icon:'las la-code',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'R',
-                  icon:'mdi mdi-language-r'
+                  icon:'mdi mdi-language-r',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'Ruby',
-                  icon:'mdi mdi-language-ruby'
+                  icon:'mdi mdi-language-ruby',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'Go',
-                  icon:'mdi mdi-language-go'
+                  icon:'mdi mdi-language-go',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'Hashkell',
-                  icon:'mdi mdi-language-haskell'
+                  icon:'mdi mdi-language-haskell',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'Lua',
-                  icon:'mdi mdi-language-lua'
+                  icon:'mdi mdi-language-lua',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'Pascal',
-                  icon:'las la-code'
+                  icon:'las la-code',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'TypeScript',
-                  icon:'mdi mdi-language-typescript'
+                  icon:'mdi mdi-language-typescript',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'Rust',
-                  icon:'las la-code'
+                  icon:'las la-code',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                {
                   name:'Swift',
-                  icon:'lab la-swift'
+                  icon:'lab la-swift',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
                 {
                   name:'Scala',
-                  icon:'las la-code'
+                  icon:'las la-code',
+                   border_color:'#263238',
+                  background:'#ffffff'
                
                },
 
@@ -262,6 +310,18 @@
      this.$root.showTopBar = false;
     },
     methods:{
+       selectLang:function(lang){
+           this.languageIcon.map((app)=>{
+                
+                if(lang.name == app.name){
+                  app.border_color = '#3C87CD';
+                  app.background = '#F3F8FC';
+                }else{
+                   app.border_color = '#263238';
+                  app.background = '#ffffff';
+                }
+           })
+       },
        createProject() {
            this.$router.push({ path: '/board/projects/panel' });
        },

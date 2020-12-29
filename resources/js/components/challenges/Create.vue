@@ -188,6 +188,7 @@ v-model="language"
        class="d-inline-block mr-1"
        style="font-size:13px;"
               color="#3C87CD"
+           
 @click="disableEvery"
     >Everyone</v-chip>
 
@@ -195,8 +196,8 @@ v-model="language"
        
        class="d-inline-block mr-1"
        style="font-size:13px;color:white;"
-        color="#3C87CD"
-        :disabled="everyone"
+       color="#3C87CD"
+         :disabled="everyone"
         
     @click="custom=!custom"
     >Custom Judges</v-chip>
@@ -317,6 +318,7 @@ v-model="language"
   import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 
+
 export default {
 
     data() {
@@ -382,7 +384,8 @@ export default {
         durationValueHr:2,
         input:'',
         language:'',
-        image:''
+        image:'',
+       
       };
     },
     mounted(){
@@ -401,6 +404,8 @@ this.everyone = !this.everyone
     durationValue=(( this.durationValueDay * 24) + this.durationValueHr)
     console.log(durationValue)
       },
+
+      
       showAlert:function(title='',message,type){
        
        if(type == 'info'){
@@ -497,5 +502,7 @@ this.everyone = !this.everyone
   };
 </script>
 <style scoped>
-
+.disabled{
+  background-color:red ;
+}
 </style>

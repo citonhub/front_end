@@ -32,7 +32,7 @@
 
  <!-- project list view -->
 
-  <div class="col-lg-10 offset-lg-1 py-1 px-2 ">
+  <div class="col-md-10 offset-md-1 py-1 px-2 ">
 
       <div class="row text-center ">
           <div class="col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2" style="height:200px;">
