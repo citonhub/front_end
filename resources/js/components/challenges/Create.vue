@@ -184,22 +184,22 @@ v-model="language"
              <div class="col-lg-12 py-0 my-0 px-2 text-left">
 
                <v-chip
-        outlined
+        :outlined="judgeType !='everyone'"
        class="d-inline-block mr-1"
-       style="font-size:13px;"
+    :style="judgeType != 'everyone' ? 'font-size:13px;cursor:pointer;' : 'font-size:13px;cursor:pointer;color:white;'"
               color="#3C87CD"
            
-@click="disableEvery"
+@click="enableEvery"
     >Everyone</v-chip>
 
      <v-chip
-       
+       :outlined="judgeType !='custom'"
        class="d-inline-block mr-1"
-       style="font-size:13px;color:white;"
+        :style="judgeType != 'custom' ? 'font-size:13px;cursor:pointer;' : 'font-size:13px;cursor:pointer;color:white;'"
        color="#3C87CD"
-         :disabled="everyone"
+       
         
-    @click="custom=!custom"
+    @click="disableEvery"
     >Custom Judges</v-chip>
              
              </div>
@@ -355,6 +355,7 @@ export default {
              'Teams'
         ],
         searchUsername:'',
+        judgeType:'everyone',
         JudgesItems:[
           
         ],
@@ -395,9 +396,14 @@ export default {
       VPressEditor
     },
     methods:{
-      disableEvery(){
-this.everyone = !this.everyone
+      enableEvery(){
+this.judgeType='everyone';
  this.custom=false
+      },
+
+      disableEvery(){
+        this.judgeType='custom';
+        this.custom='true'
       },
 
       setDuration( durationValue){
