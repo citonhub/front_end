@@ -72,8 +72,11 @@
 
                   <v-card elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
-                    <div class="text-left">
+                    <div class="text-left my-0 py-0 d-flex flex-row">
                          <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+
+                          <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
+
                   </div>
                       <template v-if="checkIfMsgIsLong(source)">
                        <span style="font-size:13px;" v-html="shortContent(source.content,300)" :id="'shortContent' + source.message_id"> </span>
@@ -85,13 +88,7 @@
                      </template>
 
 
-                       <!-- time -->
-                  <div class="text-right">
-                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
-                        
-                      
-                  </div>
-                  <!-- ends -->
+                    
                   </v-card> 
              </div>
            </div>
@@ -157,8 +154,11 @@
 
                   <v-card elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
-                    <div class="text-left">
+                    <div class="text-left my-0 py-0 d-flex flex-row">
                          <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+
+                          <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
+
                   </div>
 
                   <!-- comment -->
@@ -180,12 +180,7 @@
                        <span style="font-size:13px;" v-html="source.content" > </span>
                      </template>
 
-                        <!-- time -->
-                  <div class="text-right">
-                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
-                         
-                  </div>
-                  <!-- ends -->
+                     
                   </v-card> 
              </div>
            </div>
@@ -248,8 +243,9 @@
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                     <div class="text-left">
+                      <div class="text-left">
                          <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+
                   </div>
 
                    <code-box color="#333333" v-if="source.loading == false"  :topMargin="13"  
@@ -258,14 +254,14 @@
                    :filename="source.code.name + '.' + languageExtensions(source.code.language_type)" 
                    :codeLanguage="source.code.language_type"></code-box>
 
-                   
-
-                  <!-- time -->
+                     <!-- time -->
                   <div class="text-right">
-                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
-                        
+                         <span style="color:#333333;font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
+                         
                   </div>
                   <!-- ends -->
+
+                  
                   </v-card> 
 
                  
@@ -349,8 +345,11 @@
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                    <div class="text-left">
+                     <div class="text-left my-0 py-0 d-flex flex-row">
                          <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+
+                          <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
+
                   </div>
 
 
@@ -358,12 +357,7 @@
                :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.message_id" > </video-player>
                         
                         
-                 <!-- time -->
-                  <div class="text-right">
-                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
-                        
-                  </div>
-                  <!-- ends -->
+               
                   </v-card> 
 
                  
@@ -447,17 +441,15 @@
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                    <div class="text-left my-0 py-0">
+                    <div class="text-left my-0 py-0 d-flex flex-row">
                          <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+
+                          <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
+
                   </div>
                    <audio-player class="mt-n1"  :file="'/audio/' + source.audio.audio_name + '.' + source.audio.audio_extension" :playerId="source.message_id"  :colorBase="'#333333'"></audio-player>
                  
-                  <!-- time -->
-                  <div class="text-right">
-                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
-                         
-                  </div>
-                  <!-- ends -->
+                
                   </v-card> 
 
                  
@@ -538,17 +530,15 @@
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                    <div class="text-left my-0 py-0">
+                    <div class="text-left my-0 py-0 d-flex flex-row">
                          <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+
+                          <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
+
                   </div>
                      <images :imageArray="source.image" ></images>
 
-                  <!-- time -->
-                  <div class="text-right">
-                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
-                       
-                  </div>
-                  <!-- ends -->
+                 
                   </v-card> 
 
                  
@@ -604,8 +594,11 @@
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                    <div class="text-left my-0 py-0">
+                    <div class="text-left my-0 py-0 d-flex flex-row">
                          <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+
+                          <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
+
                   </div>
 
                    <div class="row">
@@ -621,12 +614,7 @@
                       </div>
                    </div>
 
-                 <!-- time -->
-                  <div class="text-right">
-                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
-                        
-                  </div>
-                  <!-- ends -->
+                
                   </v-card> 
 
                  
@@ -717,8 +705,11 @@
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                    <div class="text-left my-0 py-0">
+                    <div class="text-left my-0 py-0 d-flex flex-row">
                          <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+
+                          <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
+
                   </div>
 
                    <div class="row">
@@ -734,12 +725,7 @@
                       </div>
                    </div>
 
-                 <!-- time -->
-                  <div class="text-right">
-                         <span style="font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
-                        
-                  </div>
-                  <!-- ends -->
+                
                   </v-card> 
 
                  

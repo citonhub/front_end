@@ -1087,7 +1087,7 @@ const app = new Vue({
       connection:undefined,
       audioconnection:undefined,
       CodeResult:'',
-      liveShowCode:false,
+      liveShowCode:true,
       newMasterId:0,
       allAudioParticipant:[],
       connectingToSocket:false,
@@ -1109,6 +1109,12 @@ const app = new Vue({
       liveIsOn:false,
       remoteScreen:false,
       showTopBar:true,
+      speakingUser:[],
+      manuallyClosed:false,
+      liveBoardContent:'action_list',
+      fromLiveSession:false,
+      codeboxComponent:undefined,
+      showMemberBoard:false,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -1167,8 +1173,13 @@ const app = new Vue({
        
 
           this.connectingToSocket = 'disconnected';
+        
+          if(!this.manuallyClosed){
 
-          this.rejoinAudio(this.isMaster);
+            this.rejoinAudio(this.isMaster);
+
+          }
+         
 
 
        }else{
@@ -1185,7 +1196,13 @@ const app = new Vue({
         
           if(!this.screenIsConnecting){
 
-            this.rejoinScreen(this.isMaster);
+             if(!this.manuallyClosed){
+
+              this.rejoinScreen(this.isMaster);
+
+             }
+
+            
 
           }
 
@@ -1198,7 +1215,18 @@ const app = new Vue({
       // whenever isConnectedData changes, this function will run
       isConnectedData: function (newValue, oldValue) {
 
-          console.log(newValue);
+        if(!newValue){
+
+        
+       
+             if(!this.manuallyClosed){
+
+              this.rejoinData(this.isMaster);
+
+             }
+
+
+        }
           
       }
     },
@@ -2124,7 +2152,11 @@ axios.post('/send-message',formData,
 // by default, socket.io server is assumed to be deployed on your own URL
 this.$root.dataconnection.socketURL = 'https://live.citonhub.com:9001/';
 
+// set user as default speaker
+let userSpeakerData =  this.authProfile;
+     userSpeakerData.speaking = false;    
 
+this.speakingUser = userSpeakerData; 
 
 this.$root.dataconnection.socketMessageEvent = 'data-channel';
 
@@ -2216,18 +2248,11 @@ this.codeboxComponent.setCodeContent();
 
 if(event.data.action == 'neutral' ){
 
+
 if(this.$root.allAudioParticipant.length != 0){
-  this.$root.allAudioParticipant.map((user)=>{
-
-    if(user[1] == event.data.data.userid){
-
-        
     
-      user[0].speaking = event.data.data.speaking;
-       
-    }
-
-     });
+  this.speakingUser = event.data.data.userProfile;
+  
  }
  
 }
@@ -2329,16 +2354,21 @@ urls: 'stun:165.227.152.44:3478'
 
  this.$root.connection.videosContainer = document.getElementById('videos-container');
 
-  console.log(this.$root.connection.videosContainer)
 
 
 
 
  this.$root.connection.onstream = function(event) {
 var existing = document.getElementById(event.streamid);
+var existingSm = document.getElementById(event.streamid + 'small');
+
 if(existing && existing.parentNode) {
  existing.parentNode.removeChild(existing);
 }
+
+if(existingSm && existingSm.parentNode) {
+  existingSm.parentNode.removeChild(existingSm);
+ }
 
 event.mediaElement.removeAttribute('src');
 event.mediaElement.removeAttribute('srcObject');
@@ -2383,6 +2413,46 @@ setTimeout(function() {
 
 mediaElement.id = event.streamid;
 
+// smaller screens
+var videoSm = document.createElement('video');
+
+try {
+  videoSm.setAttributeNode(document.createAttribute('autoplay'));
+  videoSm.setAttributeNode(document.createAttribute('playsinline'));
+} catch (e) {
+  videoSm.setAttribute('autoplay', true);
+  videoSm.setAttribute('playsinline', true);
+}
+
+
+if(event.type === 'local') {
+  videoSm.volume = 0;
+ try {
+  videoSm.setAttributeNode(document.createAttribute('muted'));
+ } catch (e) {
+  videoSm.setAttribute('muted', true);
+ }
+}
+videoSm.srcObject = event.stream;
+
+var mediaElementSm = getHTMLMediaElement(videoSm, {
+   title: event.userid + 'small',
+   buttons: ['full-screen'],
+   showOnMouseEnter: false,
+ 
+});
+
+document.querySelector('#videos-container-sm').appendChild(mediaElementSm);
+
+
+setTimeout(function() {
+  mediaElementSm.media.play();
+}, 5000);
+
+mediaElementSm.id = event.streamid + 'small';
+
+
+
 
 
 
@@ -2400,7 +2470,22 @@ if (mediaElement) {
      location.reload();
    }
 }
+
+var mediaElementSm = document.getElementById(event.streamid + 'small');
+if (mediaElementSm) {
+  mediaElementSm.parentNode.removeChild(mediaElementSm);
+
+   if(event.userid === _this.$root.connection.sessionid && !_this.$root.connection.isInitiator) {
+     alert('Broadcast is ended. We will reload this page to clear the cache.');
+     location.reload();
+   }
+}
+
 };
+
+// for smaller screen
+
+
 
 this.$root.connection.onMediaError = function(e) {
 if (e.message === 'Concurrent mic process limit.') {
@@ -2496,15 +2581,12 @@ this.$root.audioconnection.onstream = function(event) {
 
 
 var width = parseInt(_this.$root.audioconnection.audiosContainer.clientWidth / 2) - 20;
+
 var mediaElement = getHTMLMediaElement(event.mediaElement, {
   title: event.userid,
   width: width,
   showOnMouseEnter: false
 });
-
-
-
-
 
 if(event.type === 'local') {
 event.mediaElement.muted = true;
@@ -2513,11 +2595,32 @@ delete event.mediaElement;
 
 _this.$root.audioconnection.audiosContainer.appendChild(mediaElement);
 
+
 setTimeout(function() {
   mediaElement.media.play();
 }, 2000);
 
 mediaElement.id = event.streamid;
+
+// for smaller screens
+var mediaElementSm = getHTMLMediaElement(event.mediaElement, {
+  title: event.userid,
+  width: width,
+  showOnMouseEnter: false
+});
+
+if(event.type === 'local') {
+event.mediaElement.muted = true;
+delete event.mediaElement;
+}
+
+document.querySelector('#audios-container-sm').appendChild(mediaElementSm);
+
+setTimeout(function() {
+  mediaElementSm.media.play();
+}, 2000);
+
+mediaElementSm.id = event.streamid + 'small';
 
    _this.setUserSpeaker();
 
@@ -2744,6 +2847,37 @@ this.$root.audioconnection.closeSocket();
           }
 
  },
+ rejoinData: function(master){
+
+  let _this = this;
+
+
+  if(this.$root.dataconnection != undefined){
+
+ // disconnect with all users
+this.$root.dataconnection.getAllParticipants().forEach(function(pid) {
+ _this.$root.dataconnection.disconnectWith(pid);
+});
+
+// stop all local cameras
+this.$root.dataconnection.attachStreams.forEach(function(localStream) {
+ localStream.stop();
+});
+
+// close socket.io connection
+this.$root.dataconnection.closeSocket();
+  }
+this.$root.dataconnection = undefined;
+  this.$root.setDataConnection();
+   if(master){
+
+    this.dataconnection.openOrJoin('data' + this.$root.selectedSpace.space_id)
+
+        }else{
+          this.dataconnection.join('data' + this.$root.selectedSpace.space_id)
+        }
+
+},
    openAudioRoom: function(){  
     
     let _this = this;
@@ -2906,11 +3040,16 @@ this.$root.audioconnection.closeSocket();
 
       if(_this.$root.audioconnection != undefined && _this.$root.selectedSpace.space_id != undefined){
 
-      
+         
+       
+
+         let userSpeakerData =  _this.authProfile;
+     userSpeakerData.speaking = true;    
+
       
         let data = {
           userid: _this.$root.audioconnection.userid,
-          speaking: true
+          userProfile: userSpeakerData,
       };
 
       _this.$root.dataconnection.send({
@@ -2928,11 +3067,15 @@ this.$root.audioconnection.closeSocket();
     
         if(_this.$root.audioconnection != undefined && _this.$root.selectedSpace.space_id != undefined){
 
-        
+          let userSpeakerData =  _this.authProfile;
+     userSpeakerData.speaking = false;    
+
+
         
           let data = {
             userid: _this.$root.audioconnection.userid,
-            speaking: false
+            userProfile: userSpeakerData,
+           
         };
     
         _this.$root.dataconnection.send({

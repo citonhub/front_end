@@ -281,6 +281,21 @@
                              <v-fade-transition>
 
                             <div v-if="chatIsOpen && !chatInnerSideBar && liveSessionIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                                      <!-- rtc screen -->
+
+
+                 <div   style="position:absolute;top:10%; left:0%; height:80%; width:100%; z-index:9999;" class="d-flex ">
+
+               <div  id="videos-container" ></div>
+
+                 <!-- audio container -->
+                               <div  id="audios-container" v-show="false"></div>
+                              <!-- ends -->
+               </div>
+
+                            <!-- ends -->
+
+     
                                     <live-session></live-session>
                                </div>
                                </v-fade-transition>
@@ -546,6 +561,21 @@
                              <!-- live session -->
 
                             <div v-if="chatIsOpen && !chatInnerSideBar && liveSessionIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
+                                    <!-- rtc screen -->
+
+
+             <div   style="position:absolute;top:0%; left:0%; height:70%; width:100%; align-items:center;z-index:9999;" class="d-flex ">
+
+               <div  id="videos-container-sm" ></div>
+
+                 <!-- audio container -->
+                               <div  id="audios-container-sm" v-show="false"></div>
+                              <!-- ends -->
+             </div>
+
+                            <!-- ends -->
+
+     
                                     <live-session></live-session>
                                </div>
 

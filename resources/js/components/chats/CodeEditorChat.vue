@@ -29,7 +29,7 @@
                      <v-btn class="mx-1" icon @click="copyText" v-if="!that.$root.codeIsLive"><v-icon>mdi-content-copy mdi-18px</v-icon></v-btn>
 
 
-                    <v-btn icon class="mx-1"  @click="showAdminUsers()"  v-if="that.$root.codeIsLive">
+                    <v-btn icon class="mx-1"  @click="showActiveUsers()"  v-if="that.$root.codeIsLive">
                          <v-badge
                dot
                 color="green">
@@ -107,7 +107,7 @@
 
     <!-- fixed butoon to run code -->
 
-     <span style="position:absolute; top:85%; right:5%;z-index:1000;"   class="d-inline-block d-md-none" v-if="!that.$root.codeIsLive" >
+     <span style="position:absolute; top:85%; right:5%;z-index:1000;"   class="d-inline-block d-md-none">
            <v-btn
                 color="#3C87CD"
                 small
@@ -123,7 +123,7 @@
 
      </span>
 
-     <span style="position:absolute; top:86%; right:3%;z-index:1000;"  class="d-none d-md-inline-block"  v-if="!that.$root.codeIsLive" >
+     <span style="position:absolute; top:86%; right:3%;z-index:1000;"  class="d-none d-md-inline-block"   >
           <v-btn
                 color="#3C87CD"
                 
@@ -259,8 +259,8 @@ export default {
          this.detectchange(this.language);
       
         this.setCodeContent();
-      //  this.updateCodeMaster();
-      this.$root.codeEditorComponent = this;
+      
+      this.$root.codeboxComponent = this;
 
 
       },
@@ -558,21 +558,16 @@ methods:{
 
               this.setNewUser(this.$root.newMasterId);
 
-
-
           }
 
           },1000)
       },
-      showAdminUsers:function(){
+      showActiveUsers:function(){
 
-
-
-         this.showAdminOptions = true;
-         this.adminMembers = this.$root.selectedSpaceMembers.filter((member)=>{
-           return member.is_admin == true;
-         });
-
+            this.$root.showMemberBoard = true;
+            
+            this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id +'/live_session' });
+        
 
       },
 
@@ -603,12 +598,13 @@ methods:{
          },
       setCodeContent:function(){
 
+     
 
         let userState = this.checkIfMaster();
 
       
 
-          if(this.$root.codeIsLive && !userState){
+          if(this.$root.codeIsLive && !userState && this.$root.fromLiveSession){
 
 
 
@@ -637,7 +633,7 @@ methods:{
 
           // this.$root.selfStopTrigger = true;
 
-
+         
            this.cmOption.readOnly = undefined;
 
          }
@@ -715,10 +711,12 @@ methods:{
     },
 
        goBack() {
+
+          this.$root.fromLiveSession = false;
     
     window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
          this.$root.chatComponent.chatInnerConent = '';
-
+ 
 
         },
         makeUUID:function(){
@@ -856,6 +854,7 @@ methods:{
 
 
            this.showCode = false;
+           this.$root.liveShowCode = false;
 
             if(this.selectedLangId == 0 || this.language == 'HTML'){
 

@@ -4,8 +4,8 @@
    <v-btn icon color="#ffffff" @click="goBack" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
 
-    <div v-if="!showMemberBoard" class="px-2 py-1 appBox" style="background:white; position:absolute;top:0;right:0;z-index:89999999999;">
-        <v-btn icon class="mx-1" @click="showMemberBoard = true" >
+    <div v-if="!that.$root.showMemberBoard && that.$root.liveIsOn" class="px-2 py-1 appBox" style="background:white; position:absolute;top:0;right:0;z-index:89999999999;">
+        <v-btn icon class="mx-1" @click="that.$root.showMemberBoard = true" >
                          <v-badge
                dot
                 color="green">
@@ -15,22 +15,14 @@
                         </v-btn>
     </div>
 
-       <!-- video screen -->
-
-
-             <div  id="videos-container"  style="position:absolute;top:2%; left:2%; height:96%; width:96%; "></div>
-
-                            <!-- ends -->
-
-     
 
                                      <div class=" d-flex flex-row" style="align-items:center; justify-content:center;background:transparent;height:100%; width:100%; overflow-y:auto; overflow-x:hidden;" >
 
                                     
                                       
-                                      <template v-if="liveBoardContent == 'action_list'">
+                                      <template v-if="this.$root.liveBoardContent == 'action_list'">
                                           
-                                          <div class=" col-4 col-lg-2 px-2 my-0 py-2 ">
+                                          <div class=" col-4 col-lg-2 px-2 my-0 py-2 " style="z-index:9999999;">
                           <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px; background:white;" @click="selectAction('voice_chat')">
                               <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
@@ -43,7 +35,7 @@
                           </v-card>
                             </div>
 
-                                     <div class=" col-4 col-lg-2 px-2 my-0 py-2 " >
+                                     <div class=" col-4 col-lg-2 px-2 my-0 py-2 " style="z-index:9999999;">
                           <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px;margin-top:-150px;background:white;" @click="selectAction('live_coding')">
                               <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
@@ -56,7 +48,7 @@
                           </v-card>
                             </div>
 
-                             <div class=" col-4 col-lg-2 px-2 my-0 py-2 ">
+                             <div class=" col-4 col-lg-2 px-2 my-0 py-2 " style="z-index:9999999;">
                           <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px;background:white;" @click="selectAction('screen_sharing')">
                               <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
@@ -72,7 +64,7 @@
                                       </template>
 
 
-                                 <template v-if="liveBoardContent == 'audio_speaker'">
+                                 <template v-if="this.$root.liveBoardContent == 'audio_speaker'">
 
                                    
 
@@ -137,24 +129,15 @@
 
 
 
-                              <div class="text-center"    v-if="this.$root.connectingToSocket == false && !this.$root.showVideoScreen">
-                              <div     class="circle-ripple "
-                        style="border-radius:50%;height:120px;width:120px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                          background-repeat: no-repeat; border:5px solid #3C87CD; margin-top:-50px;">
+                              <div class="text-center"    v-if="this.$root.connectingToSocket == false && this.$root.liveIsOn">
+                              <div     :class="that.$root.speakingUser.speaking ? 'circle-ripple' : '' " :style="imageStyleExtra(120,that.$root.speakingUser)">
                            </div> 
                            
 
-                           <div style="font-size:14px; color:white;" class="mt-2"> Akinola Babs </div>
-                         <!-- audio container -->
-                               <div  id="audios-container" v-show="false"></div>
-                              <!-- ends -->
+                           <div style="font-size:14px; color:white;" class="mt-2"> {{that.$root.speakingUser.name}} </div>
+                       
                             </div>
 
-
-                             <div class="text-center"    v-show="this.$root.connectingToSocket == false && this.$root.showVideoScreen">
-                            
-                                
-                            </div>
 
                                  </template>
 
@@ -166,19 +149,19 @@
                               
                               <!-- side info bar -->
                               <v-slide-x-reverse-transition>
-                                    <div v-if="showMemberBoard" class="scrollerinfo offset-lg-8 col-lg-4 py-0 pb-2" style=" border-left:1px solid #c5c5c5;background:white;height:100%; overflow-y:auto; z-index:9999999999; position:absolute; overflow-x:hidden;" >
+                                    <div v-if="that.$root.showMemberBoard" class="scrollerinfo offset-lg-8 col-lg-4 py-0 pb-2" style=" border-left:1px solid #c5c5c5;background:white;height:100%; overflow-y:auto; z-index:9999999999; position:absolute; overflow-x:hidden;" >
                                       
                                       <div class="row">
 
                                           <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky;background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
                          <div class=" mr-1 col-2 px-1 py-0">
-                           <v-btn icon @click="showMemberBoard = false" >
+                           <v-btn icon @click="that.$root.showMemberBoard = false" >
                             <v-icon>mdi mdi-close</v-icon>
                                </v-btn>
                              </div>
           
-                            <div class="col-8 py-0">
-                            <span style="font-size:13px; font-family:MediumFont;">Active Members</span> (<span style="font-size:12px;">23</span>)
+                            <div class="col-8 py-0 text-center">
+                            <span style="font-size:13px; font-family:MediumFont;">Active Members</span> (<span style="font-size:12px;">{{this.$root.allAudioParticipant.length + 1 }}</span>)
                            </div>
               
                                <div class="col-2 py-0  text-right">
@@ -190,17 +173,12 @@
                              
                                <div class="col-12 py-2 d-flex flex-row" style="align-items:center; border-bottom:1px solid #c5c5c5;">
                                   <div class="col-3 mr-2 py-0">
-                                <div    
-                               style="border-radius:50%;height:40px;width:40px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                                background-repeat: no-repeat;">
-
-                                    
-
+                                <div    :style="imageStyle(40,that.$root.authProfile)">
                                 </div> 
                                   </div>
                                 
                               <div class="col-7 py-0">
-                            <span style="font-size:13px;">Abisola James </span>
+                            <span style="font-size:13px;">{{that.$root.authProfile.name}}</span>
                                     </div>
 
                                     <div class="col-2 text-right py-0">
@@ -209,20 +187,18 @@
                               </div>
                               
 
-                                <div v-if="false" class="col-12 py-2 d-flex flex-row" style="align-items:center; border-bottom:1px solid #c5c5c5;">
+                                <div  v-for="(user,index) in this.$root.allAudioParticipant" :key="index" class="col-12 py-2 d-flex flex-row" style="align-items:center; border-bottom:1px solid #c5c5c5;">
                                   <div class="col-3 mr-2 py-0">
-                                <div    
-                               style="border-radius:50%;height:40px;width:40px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-                                background-repeat: no-repeat;">
+                               <div    :style="imageStyle(40,user[0].profile)">
                                 </div> 
                                   </div>
                                 
                               <div class="col-7 py-0">
-                            <span style="font-size:13px;">Abisola James </span>
+                            <span style="font-size:13px;">{{user[0].profile.name}}</span>
                                     </div>
 
                                     <div class="col-2 text-right py-0">
-                                   <v-icon>las la-microphone-slash</v-icon>
+                                   <v-icon>las la-microphone</v-icon>
                                     </div>
                               </div>
                               
@@ -241,7 +217,7 @@
 
                               <!-- bottom bar -->
 
-                               <div  class="col-12 py-2 d-flex flex-row" style="background:white;height:60px; overflow-y:auto; z-index:999999999; left:0; bottom:0; position:absolute; overflow-x:hidden;" >
+                               <div v-if="this.$root.liveIsOn" class="col-12 py-2 d-flex flex-row" style="background:white;height:60px; overflow-y:auto; z-index:999999999; left:0; bottom:0; position:absolute; overflow-x:hidden;" >
                                      
                                     <div class="col-4 py-0">
 
@@ -253,7 +229,7 @@
                                     </div>
                                      <div class="col-4 py-0 text-right">
                                   
-                                        <v-btn icon style="z-index:999999999999999;" ><v-icon>mdi-apps</v-icon></v-btn>
+                                        <v-btn @click.stop="toggleView" icon style="z-index:999999999999999;" ><v-icon>mdi-apps</v-icon></v-btn>
                                     </div>
   
                                     
@@ -262,8 +238,8 @@
                               <!-- ends -->
 
                               <!-- hang up btn -->
-                              <div class="text-center" style="position:absolute;bottom:3%; left:0; width:100%;" >
-                                 <v-btn fab style=" z-index:999999999999;background:white;"><v-icon color="#df4759">mdi mdi-phone-hangup</v-icon></v-btn>
+                              <div class="text-center" v-if="this.$root.liveIsOn" style="position:absolute;bottom:3%; left:0; width:100%;" >
+                                 <v-btn @click="closeConnections" fab style=" z-index:999999999999;background:white;"><v-icon color="#df4759">mdi mdi-phone-hangup</v-icon></v-btn>
                               </div>
                               
                              <!-- ends -->
@@ -276,6 +252,7 @@ export default {
         return{
           liveBoardContent:'action_list',
           showMemberBoard:false,
+          that:this,
           
         }
     },
@@ -284,24 +261,195 @@ export default {
         
      
        },
+       mounted(){
+      
+      if(this.$root.liveIsOn){
+
+         this.$root.liveBoardContent = 'audio_speaker'
+
+      }else{
+        this.$root.liveBoardContent = 'action_list'
+      }
+       },
     methods:{
        goBack:function(){
             window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
 
           this.$root.chatComponent.liveSessionIsOpen = false;
        },
+       toggleView:function(){
+          
+          if(this.$root.liveBoardContent == 'action_list'){
+             if(this.$root.liveIsOn){
+
+                this.$root.liveBoardContent = 'audio_speaker';
+
+             }else{
+               this.$root.liveBoardContent == 'action_list'
+             }
+          }else{
+            this.$root.liveBoardContent = 'action_list' 
+          }
+       },
+        closeConnections:function(){
+
+
+
+        let _this = this;
+
+         if(this.$root.audioconnection != undefined){
+
+
+
+
+
+        // disconnect with all users
+    this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
+        _this.$root.audioconnection.disconnectWith(pid);
+    });
+
+    // stop all local cameras
+    this.$root.audioconnection.attachStreams.forEach(function(localStream) {
+        localStream.stop();
+    });
+
+    // close socket.io connection
+   this.$root.audioconnection.closeSocket();
+
+   this.$root.dataconnection.closeSocket();
+
+
+
+         }
+
+          if(this.$root.connection != undefined){
+
+
+              // disconnect with all users
+    this.$root.connection.getAllParticipants().forEach(function(pid) {
+        _this.$root.connection.disconnectWith(pid);
+    });
+
+
+
+    // stop all local cameras
+    this.$root.connection.attachStreams.forEach(function(localStream) {
+        localStream.stop();
+    });
+
+
+          this.$root.connection.closeSocket();
+          }
+
+
+
+        this.$root.connection = undefined;
+        this.$root.audioconnection = undefined;
+
+        this.$root.dataconnection = undefined;
+
+        this.$root.screenSharingOn = false;
+        this.$root.liveIsOn = false;
+        this.$root.showVideoScreen = false;
+        this.$root.codeIsLive = false;
+        this.$root.liveInitiated = false;
+          this.$root.presentRoomId = null;
+
+        this.$root.remoteLiveHappening = false;
+        this.$root.remoteCode = false;
+         this.$root.remoteScreen = false;
+          this.$root.remoteAudio= false;
+          this.$root.connectingToSocket = false;
+          this.$root.allAudioParticipant = [];
+          this.$root.roomNotExist =false;
+          this.$root.localAudioMuted = false;
+        this.$root.roomCheckingInitaited = false;
+
+        this.$root.manuallyClosed = true;
+
+        this.goBack();
+      },
+        muteAudio:function(){
+
+
+           var localStream = this.$root.audioconnection.attachStreams[0];
+            localStream.mute('audio');
+         this.$root.localAudioMuted = true;
+
+      },
+      unmuteAudio: function(){
+
+   var localStream = this.$root.audioconnection.attachStreams[0];
+            localStream.unmute('audio');
+
+    this.$root.localAudioMuted = false;
+      },
+        imageStyle:function(dimension,data){
+      
+
+      if(data.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
+         
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
+       
+         
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
+         let imgLink = data.image_name + '.' + data.image_extension;
+         
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+       
+          return styleString;
+      }
+
+      
+
+  },
+   imageStyleExtra:function(dimension,data){
+      
+
+      if(data.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;  border:5px solid #3C87CD; margin-top:-50px;";
+         
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
+       
+         
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;  border:5px solid #3C87CD; margin-top:-50px;";
+         let imgLink = data.image_name + '.' + data.image_extension;
+         
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+       
+          return styleString;
+      }
+
+      
+
+  },
        selectAction:function(type){
+         this.$root.manuallyClosed = false;
 
            if(type == 'voice_chat'){
               
-              this.liveBoardContent = 'audio_speaker';
+              this.$root.liveBoardContent = 'audio_speaker';
               this.connectAudio();
 
            }
 
             if(type == 'screen_sharing'){
-                  this.liveBoardContent = 'audio_speaker';
+                  this.$root.liveBoardContent = 'audio_speaker';
                   this.connectScreen();
+            }
+
+             if(type == 'live_coding'){
+                  this.$root.liveBoardContent = 'audio_speaker';
+                   this.connectAudio();
+                   this.$root.fromLiveSession = true;
+                    this.$root.chatComponent.liveSessionIsOpen = false;
+                    this.$root.codeIsLive = true;
+                  this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id +'/editor' });
             }
 
        },

@@ -28,7 +28,7 @@
  @section('css')
  
  <!-- WebRTC default css file -->
-  <link rel="stylesheet" type="text/css" href="/css/getHTMLMediaElement.css?v=1.22">
+  <link rel="stylesheet" type="text/css" href="/css/getHTMLMediaElement.css?v=1.23">
 
 <!-- ends -->
 
@@ -89,7 +89,7 @@
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=1.22') }}"></script>
+ <script src="{{ asset('js/dashboard.js?v=1.25') }}"></script>
  <!-- ends -->
      
  @endsection
