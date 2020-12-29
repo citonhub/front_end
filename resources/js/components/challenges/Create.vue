@@ -11,7 +11,7 @@
     <div class="col-lg-10 offset-lg-1 py-2 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky;z-index:9999999999;background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0">
-          <h5> <v-btn icon><v-icon>las la-arrow-left</v-icon></v-btn> Create a challenge</h5>
+          <h5> <v-btn @click="goBack" icon><v-icon>las la-arrow-left</v-icon></v-btn> Create a challenge</h5>
         </div>
 
          <div class="col-6 py-0 my-0 text-right">
@@ -26,7 +26,7 @@
    <div class=" px-0 col-12 py-1 pt-2 d-md-none d-block fixed-top d-flex flex-row" style="position:sticky; background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
    
         <div class="col-8 py-0 my-0 px-0">
-           <div style="font-size:16px; font-family:HeaderFont;"><v-btn  icon><v-icon>las la-arrow-left</v-icon></v-btn>Create a challenge</div>
+           <div style="font-size:16px; font-family:HeaderFont;"><v-btn @click="goBack"  icon><v-icon>las la-arrow-left</v-icon></v-btn>Create a challenge</div>
         </div>
          <div class="col-4 py-0 my-0 text-right px-0">
       
@@ -404,6 +404,10 @@ this.judgeType='everyone';
       disableEvery(){
         this.judgeType='custom';
         this.custom='true'
+      },
+
+      goBack(){
+        this.$router.push({path:'/board/challenges/list'})
       },
 
       setDuration( durationValue){

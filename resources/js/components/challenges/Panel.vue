@@ -16,10 +16,10 @@
 
                         <div class="d-flex flex-row px-2 pt-2 " style="height:30%;z-index:99999999999999999 !important;">
 
-                            <v-btn   icon class="mr-2 mt-2" style="z-index:9999999999999999 !important;"><v-icon style="font-size:25px;color:#ffffff;">las la-arrow-left</v-icon></v-btn>
+                            <v-btn @click="goBack"   icon class="mr-2 mt-2" style="z-index:9999999999999999 !important;"><v-icon style="font-size:25px;color:#ffffff;">las la-arrow-left</v-icon></v-btn>
                             <div class="d-flex flex-column pt-1">
-                               <div style="font-size:18px;font-family:HeaderFont;color:#ffffff;" >Create a gift cards with HTML and CSS</div>  
-                                <div style="font-size:14px;font-family:BodyFont;color:#ffffff;" class="pt-1" >Using pure CSS, design the most beautiful card and win </div>  
+                               <div style="font-size:18px;font-family:HeaderFont;color:#ffffff;" >{{currentChallenge.title}}</div>  
+                                <div style="font-size:14px;font-family:BodyFont;color:#ffffff;" class="pt-1" >{{currentChallenge.summary}} </div>  
                             </div>
 
                         </div>
@@ -46,11 +46,11 @@
                                         <div  class="d-inline-block mx-2 "  
                      style="border-radius:50%;height:40px;width:40px;background-color:#c5c5c5;background-image:url(/imgs/imgproj3.jpeg);background-size: cover;
                     background-repeat: no-repeat; "></div> 
-                              <div style="font-size:13px;font-family:BodyFont;color:#ffffff;" >Akinola Dray </div>  
+                              <div style="font-size:13px;font-family:BodyFont;color:#ffffff;" >{{currentChallenge.username}} </div>  
 
                                <v-icon class="mx-1" style="font-size:8px;color:#ffffff;">mdi-record</v-icon> 
 
-                                <div style="font-size:13px;font-family:BodyFont;color:#ffffff;" class="d-md-block d-none">2331 Participants </div>
+                                <div style="font-size:13px;font-family:BodyFont;color:#ffffff;" class="d-md-block d-none">{{currentChallenge.current_participant}} </div>
                               <div style="font-size:12px;font-family:BodyFont;color:#ffffff;" class="d-md-none d-block"> <v-icon style="font-size:17px;">las la-user-friends</v-icon> 2331 </div>
 
                                    </div>
@@ -146,7 +146,7 @@
               style="position:fixed; z-index:999999999999999999; left:0%; top:0%; height:100%;  background:#ffffff;">
 
               <!-- close button -->
-                 <v-btn icon color="#ffffff" style="position:fixed;background:#3C87CD;top:1%; right:2%; z-index:990679797879;" 
+                 <v-btn @click="goBack" icon color="#ffffff" style="position:fixed;background:#3C87CD;top:1%; right:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
                  <!-- ends -->
                 <div style="position:absolute;height:250px;top:0; left:0;width:100%;border-bottom:1px solid #c5c5c5;
@@ -160,8 +160,8 @@
                         <div class="d-flex flex-row px-2 pt-2 " style="height:30%;">
 
                            <div class="d-flex flex-column pt-2 pr-2">
-                               <div style="font-size:14px;font-family:HeaderFont;color:#ffffff;" >Create a gift cards with HTML and CSS</div>  
-                                <div style="font-size:13px;font-family:BodyFont;color:#ffffff;" class="pt-1" >Using pure CSS, design the most beautiful card and win </div>  
+                               <div style="font-size:14px;font-family:HeaderFont;color:#ffffff;" >{{currentChallenge.title}}</div>  
+                                <div style="font-size:13px;font-family:BodyFont;color:#ffffff;" class="pt-1" >{{currentChallenge.summary}} </div>  
                             </div>
 
                         </div>
@@ -170,7 +170,7 @@
 
                              <div class="d-flex flex-column text-center">
 
-                                  <div style="font-size:22px;font-family:HeaderFont;color:#ffffff;" >19 : 09 : 23 : 23</div>  
+                                  <div style="font-size:22px;font-family:HeaderFont;color:#ffffff;" >00 : 00 : 00 : 00</div>  
                                   <div style="font-size:12px;font-family:BodyFont;color:#ffffff;" class="pt-1" >Days : Hours : Minutes : Seconds </div>  
                              </div>
 
@@ -188,12 +188,12 @@
                                         <div  class="d-inline-block mx-2 "  
                      style="border-radius:50%;height:40px;width:40px;background-color:#c5c5c5;background-image:url(/imgs/imgproj3.jpeg);background-size: cover;
                     background-repeat: no-repeat; "></div> 
-                              <div style="font-size:13px;font-family:BodyFont;color:#ffffff;" >Akinola Dray </div>  
+                              <div style="font-size:13px;font-family:BodyFont;color:#ffffff;" >{{currentChallenge.username}} </div>  
 
                                <v-icon class="mx-1" style="font-size:8px;color:#ffffff;">mdi-record</v-icon> 
 
-                                <div style="font-size:13px;font-family:BodyFont;color:#ffffff;" class="d-md-block d-none">2331 Participants </div>
-                              <div style="font-size:12px;font-family:BodyFont;color:#ffffff;" class="d-md-none d-block"> 2331 participants</div>
+                                <div style="font-size:13px;font-family:BodyFont;color:#ffffff;" class="d-md-block d-none"> {{currentChallenge.current_participant}}</div>
+                              <div style="font-size:12px;font-family:BodyFont;color:#ffffff;" class="d-md-none d-block"> {{currentChallenge.current_participant}}</div>
 
                                    </div>
 
@@ -299,7 +299,8 @@
 export default {
      data () {
       return {
-        selectedTab:''
+        selectedTab:'',
+        currentChallenge:''
       }
     },
     mounted(){
@@ -362,8 +363,21 @@ export default {
               
         
         },
+
+        goBack(){
+  this.$router.push({ path: '/board/challenges/list'  });
+        },
+
+      
         
-    } 
+    } ,
+
+    created(){
+      
+         this.currentChallenge=this.$root.selectedChallenge;
+          console.log( this.currentChallenge)
+       
+    }
 }
 </script>
 <style scoped>

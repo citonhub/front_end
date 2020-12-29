@@ -1115,6 +1115,7 @@ const app = new Vue({
       fromLiveSession:false,
       codeboxComponent:undefined,
       showMemberBoard:false,
+      selectedChallenge:'',
      },
      mounted: function () {
       window.thisUserState = this;
