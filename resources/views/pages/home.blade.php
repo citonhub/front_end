@@ -74,13 +74,13 @@
 
 <!-- Teach , learn and connect -->
 
-<div class="col-lg-6 d-lg-block d-none" style="position:fixed; left:7%; height:60%; top:20%; z-index:20;">
+<div class="col-lg-6  d-none d-lg-flex flex-column" style="position:fixed; align-items:center; justify-content:center;  height:75%; top:10%; z-index:20;">
    
-   <div class="pl-5 ">
-     <h1 style="font-family:HeaderFont; font-size:72px;">Teach.</h1>
-     <h1 style="font-family:HeaderFont; font-size:72px;">Learn.</h1>
-     <h1 style="font-family:HeaderFont; font-size:72px;">Connect</h1>
-     <span style="font-family:BodyFont; font-size:36px;">With other developers.</span>
+   <div>
+     <h1 style="font-family:HeaderFont; font-size:60px;">Teach.</h1>
+     <h1 style="font-family:HeaderFont; font-size:60px;">Learn.</h1>
+     <h1 style="font-family:HeaderFont; font-size:60px;">Connect</h1>
+     <span style="font-family:BodyFont; font-size:30px;">With other developers.</span>
 
      <div class="py-2 px-0 mt-3 col-12">
       <div class="row">
@@ -211,7 +211,7 @@
 <!-- ends -->
 
 <!-- programmer illustration -->
-<div class="col-lg-6 d-lg-block d-none" style="position:fixed; right:0%; height:68%; top:16%; z-index:80;">
+<div class="col-lg-6 d-lg-block d-none" style="position:fixed; right:0%; height:60%; top:20%; z-index:80;">
    
   
    <img src="imgs/homemain.png" height="100%" width="80%">

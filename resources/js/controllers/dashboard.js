@@ -824,7 +824,7 @@ const routes = [
         },
         {
          // project panel
-        path: 'panel',
+        path: 'panel/:project_slug',
         component: ProjectPanel,
         children:[
                  {
@@ -1115,6 +1115,17 @@ const app = new Vue({
       fromLiveSession:false,
       codeboxComponent:undefined,
       showMemberBoard:false,
+      projectList:[],
+      projectData:[],
+      selectedFileId:'',
+      SelectedCodeBox:[],
+      selectedFileCatType:'',
+      codeEditorContent:'',
+      EditorLanguage:'',
+      codeEditorArray:[],
+      codeEditorComponent:undefined,
+      editorSideComponent:undefined,
+      projectPanelComponent:undefined,
      },
      mounted: function () {
       window.thisUserState = this;

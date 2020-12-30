@@ -2,57 +2,7 @@
     <div>
         <!-- large and medium screen top bar -->
     
-     <div class="col-12 d-none d-md-block py-0 px-2" style="position:absolute; top:0; left:0; font-family:BodyFont;">
-
-         <div class="row">
-            <div class="col-lg-5 col-md-1 pb-0  text-left px-lg-4">
-                 <v-btn icon @click="that.$root.showSideBar = true" class="mt-2  "><v-icon style="font-size:25px;color:black;" >las la-bars</v-icon></v-btn>
-            </div>
-             <div class="col-lg-7 pb-0 col-md-10 offset-md-1 offset-lg-0">
-                <div class="row">
-                  <div class="col-lg-6 col-md-5 pb-1 text-center">
-                    
-                     <v-text-field
-                       style="font-size:13px;"
-                      placeholder="Search"
-                      filled
-                      class="d-lg-none"
-                      dense
-                     
-                     rounded
-                     ></v-text-field>
-             
-                  </div>
-
-                <div class="col-lg-2 pb-1 col-md-2 text-right">
-                        <v-btn icon ><v-icon style="font-size:25px;color:black;" >las la-bell</v-icon></v-btn>
-                </div>
-                  <div class="col-lg-4 pb-1 col-md-5 py-1 d-flex" style="justify-content:center; align-items:center;"> 
-                     
-                          <div class="mb-5">
-                                <v-card elevation-2 class=" d-flex   py-1 px-2" style="border-radius:30px; justify-content:center; align-items:center;"> 
-                         
-                            
-                            <div  class="d-inline-block mr-2"   style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size:100%;border:1px solid transparent;"></div>
-                              
-                              
-                              <span style="font-family:MediumFont; font-size:13px;color:black;" >Akinola Dray</span>
-                              <v-btn icon class="d-inline-block"><v-icon>las la-caret-down</v-icon></v-btn>
-                               
-                        
-                     </v-card>
-
-                          </div>
-                    
-                  </div>
-                </div>
-            </div>
-        
-       
-
-         </div>
-
-     </div>
+   
 
      <!-- top bar smaller screen -->
 
