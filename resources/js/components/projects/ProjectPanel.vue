@@ -7,15 +7,18 @@
     
      <div class="col-12   px-0 d-block  py-0" style="position:fixed; left:0; height:100%; top:0%; background:white; z-index:99999999999999999999;">
 
-      <div class="col-12 py-0 fixed-top" style="position:fixed;width:100%;border-bottom:2px solid #3C87CD; border-radius:0px; background:white; z-index:9999999999999999999;">
+      <div class="col-12 py-0 px-0 fixed-top" style="position:fixed;width:100%;border-bottom:2px solid #3C87CD; border-radius:0px; background:white; z-index:9999999999999999999;">
         
-         <div class="d-md-block d-none">
+         <div class="d-lg-block d-none">
               <div class="row py-1 my-0" >
            <div class="col-2 py-0 my-0 text-left">
            <v-btn @click="closePanel()" icon><v-icon style="font-size:25px;">las la-times</v-icon> </v-btn>
            </div>
             <div class="col-8 py-0 my-0 d-flex" style="align-items:center;justify-content:center;">
-                <div style="font-family:MediumFont; font-size:13px;" >Project title 1 </div>
+              <template>
+         <div style="font-family:MediumFont; font-size:13px;" >{{this.$root.projectData.project.title}} </div>
+              </template>
+               
            </div>
             <div class="col-2 py-0 my-0 text-right">
            <v-btn icon @click="openSettings()"><v-icon style="font-size:25px;">las la-cog</v-icon> </v-btn>
@@ -23,13 +26,19 @@
 
         </div>
          </div>
-          <div class="d-md-none d-block">
-              <div class="row py-1 my-0" v-if="this.$router.currentRoute.path.indexOf('editor') <= 0">
+          <div class="d-lg-none d-block">
+              <div class="row py-1 my-0" v-if="this.$router.currentRoute.path.indexOf('editor') <= 0 && this.$router.currentRoute.path.indexOf('panel-loader') <= 0">
            <div class="col-2 py-0 my-0 text-left">
            <v-btn @click="closePanel()" icon><v-icon style="font-size:25px;">las la-times</v-icon> </v-btn>
            </div>
             <div class="col-8 py-0 my-0 d-flex" style="align-items:center;justify-content:center;">
-                <div style="font-family:MediumFont; font-size:13px;" >Project title 1 </div>
+                <template>
+
+                     <div style="font-family:MediumFont; font-size:13px;" >{{this.$root.projectData.project.title}} </div>
+
+                </template>
+
+             
            </div>
             <div class="col-2 py-0 my-0 text-right">
            <v-btn icon @click="openSettings()"><v-icon style="font-size:25px;">las la-cog</v-icon> </v-btn>
@@ -38,13 +47,13 @@
         </div>
          </div>
        
-            <div class="d-md-none d-block" >
-                  <div class="row" style="background:#F3F8FC ">
-                  <div class="col-2  py-0 " >
+            <div class="d-lg-none d-flex flex-row py-1" style="background:#F3F8FC; align-items:center; " >
+                 
+                  <div class="mx-1 " >
                        <v-btn icon @click="showSideBar = true" ><v-icon style="font-size:20px;">las la-bars</v-icon> </v-btn>
                   </div>
 
-                  <div class="col-10  py-1 " style="overflow-x:auto; white-space:nowrap;" v-if="this.$router.currentRoute.path.indexOf('editor') >= 0">
+                  <div class=" " style="overflow-x:auto; white-space:nowrap;width:100%;" v-if="this.$router.currentRoute.path.indexOf('editor') >= 0">
                       <v-chip v-for="(file,index) in this.$root.codeEditorArray" :key="index"
       class="ma-1 mx-1 ml-0 fileText d-inline-block"
       close
@@ -58,7 +67,7 @@
 
                   </div>
 
-                </div>
+              
             </div>
                
               
@@ -67,20 +76,33 @@
       <div class="col-12 py-1 px-0" style="position:absolute;width:100%;height:100%; background:white;">
          <!-- side bar -->
           
-          <div class="col-lg-2 col-md-4  scroller d-md-block d-none" style="position:absolute;height:98%; background:#ffffff; border-right:1px solid #c5c5c5; top:0; padding-top:30px; overflow-y:auto; overflow-x:hidden;">
+          <div class="col-lg-2 col-md-4  scroller d-lg-block d-none" style="position:absolute;height:98%; background:#ffffff; border-right:1px solid #c5c5c5; top:0; padding-top:30px; overflow-y:auto; overflow-x:hidden;">
            
-             <panel-side></panel-side>
+           <template v-if="filesAreReady">
+
+              <panel-side></panel-side>
+
+           </template>
+           
+       
        
           </div>
 
 
           <v-slide-x-transition>
-   <div class="col-12 d-md-none  py-0 px-0" style="position:fixed; width:100%; top:0; height:100%; background: rgba(27, 27, 30, 0.32);z-index:9999999999999;" @click="showSideBar = false" v-if="showSideBar">
+   <div class="col-12 d-lg-none  py-0 px-0" style="position:fixed; width:100%; top:0; height:100%; background: rgba(27, 27, 30, 0.32);z-index:9999999999999;" @click="showSideBar = false" v-if="showSideBar">
 
    <div style="position:absolute; height:100%; width:70%; left:0;" >
 
-     <div class="col-md-6 pt-2 scroller" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden; "  @click.stop="showSideBar = true">
-         <panel-side></panel-side>
+     <div class="col-md-7 pt-2 scroller" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden; "  @click.stop="showSideBar = true">
+      
+         <template v-if="filesAreReady">
+
+              <panel-side></panel-side>
+
+           </template>
+           
+      
      </div>
 
    </div>
@@ -92,7 +114,7 @@
 
    <!-- panel viewer -->
 
-      <div  class=" col-lg-10 offset-lg-2  col-md-8 offset-md-4 "  style=" position:absolute;height:95%; background:#F3F8FC; top:5%;">
+      <div  class=" col-lg-10 offset-lg-2   "  style=" position:absolute;height:95%; background:#F3F8FC; top:5%;">
        
        <router-view></router-view>
 
@@ -122,14 +144,14 @@ import 'izitoast/dist/css/iziToast.min.css'
         showSideBar:false,
         that:this,
         loadingProject:false,
-        
+        filesAreReady: false,
       }
     },
     components: {
         panelSide 
     },
     mounted(){
-       this.$root.projectData = [];
+       
       this.$root.codeEditorArray= [];
       this.$root.codeEditorContent = '';
      this.fetchProjectData();
@@ -163,6 +185,10 @@ import 'izitoast/dist/css/iziToast.min.css'
          }
 
           if(language == 'PYTHON(3.8.1)'){
+           return 'py';
+         }
+    
+       if(language == 'PYTHON 3.81'){
            return 'py';
          }
 
@@ -330,6 +356,7 @@ import 'izitoast/dist/css/iziToast.min.css'
                    
  
                   this.loadingProject = false;
+                  this.filesAreReady = true;
 
                    if(this.$root.projectData.project.is_web){
 
@@ -355,6 +382,8 @@ import 'izitoast/dist/css/iziToast.min.css'
         
      
          this.$root.projectData = response.data;
+
+            this.filesAreReady = true;
         
           if(this.$root.projectData.project.is_web){
 
@@ -363,7 +392,7 @@ import 'izitoast/dist/css/iziToast.min.css'
                    }else{
                        this.showEditor(this.$root.projectData.project_files.code_files[0],'code-file');
                    }
-
+         
      
          this.loadingProject = false;
        

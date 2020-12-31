@@ -13,7 +13,7 @@
           <h5>Challenges</h5>
         </div>
          <div class="col-6  py-0 my-0 text-right">
-           <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+           <v-btn @click="createChallenge" small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
              <v-icon style="font-size:20px;">las la-plus</v-icon> <span style="color:white;text-transform:none;">Create a challenge</span> 
            </v-btn>
         </div>
@@ -22,7 +22,7 @@
 
    <!-- fab for smaller screen -->
 
-    <v-btn  fab color="#3C87CD"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
+    <v-btn  @click="createChallenge"   fab color="#3C87CD"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
 
@@ -36,7 +36,7 @@
 
         <div class="row text-center px-1 mt-2">
 
-              <v-card class="col-12 py-0 px-md-0 px-1 d-flex mb-2 flex-row " style="border-radius:10px;" v-for="box in challenges" :key="box.duel_id">
+              <v-card @click="startChallenge(box)" class="col-12 py-0 px-md-0 px-1 d-flex mb-2 flex-row " style="border-radius:10px;" v-for="(box,index) in challenges" :key="index">
                  
                  <div     class="mx-2 py-3 d-md-block d-none"> 
 
@@ -120,7 +120,7 @@ moment().format()
             if(response.status == 200){
               console.log('fetched!');
              
-           console.log(response.data.challenges);
+         
            this.challenges= response.data.challenges;
             }else{
                console.log(response.status)
@@ -137,10 +137,15 @@ moment().format()
     },
 
     methods:{
+
+      createChallenge(){
+        this.$router.push({path:'/board/challenges/create'})
+      },
       startChallenge(box){
+
+        this.$root.selectedChallenge=box;
       
-    return this.selected.duel_id== box.duel_id
-       
+    this.$router.push({path:'/board/challenges/panel/description'})
        
      
       },

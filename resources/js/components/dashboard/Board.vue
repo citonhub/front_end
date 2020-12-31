@@ -43,7 +43,7 @@
 
      <!-- ends -->
   
-      <div class="col-12 py-0 pb-3 px-0 " style="position:absolute; background:#F5F5FB; left:0%; height:100%; top:40px; overflow-y:hidden; overflow-x:hidden; ">
+      <div class="col-12 py-0 pb-3 px-0 mt-md-5" style="position:absolute; background:#F5F5FB; left:0%; top:0;  height:100%;overflow-y:hidden; overflow-x:hidden; ">
       <!-- entry point for vue router -->
       <router-view></router-view>
       <!-- ends -->

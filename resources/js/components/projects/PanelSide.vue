@@ -1,12 +1,12 @@
 <template>
     <div class="row">
 
-             <div class="col-12 pt-md-4 pt-0 px-0  fixed-top" style="position:sticky;background:white; top:-2%;">
+             <div class="col-12 pt-md-4 pt-0 px-0  fixed-top" style="position:sticky;background:white; top:0%;">
                 <div class="row">
                   <div class="col-6 d-flex py-0 " style="align-items:center;">
                      <template  >
                     <v-btn @click.stop="closePanel()"
-                    v-if="this.$router.currentRoute.path.indexOf('editor') >= 0" class="d-inline-block d-md-none" icon><v-icon style="font-size:20px;">las la-times</v-icon> </v-btn>
+                    v-if="this.$router.currentRoute.path.indexOf('editor') >= 0 || this.$router.currentRoute.path.indexOf('panel-loader') >= 0" class="d-inline-block d-lg-none" icon><v-icon style="font-size:20px;">las la-times</v-icon> </v-btn>
                      </template>
                      
                      <v-btn class="ml-1" x-small color="#3C87CD"> <span style="font-family:HeaderFont;font-size:11px; text-transform:capitalize; color:white;" >Guide</span> </v-btn>
@@ -21,7 +21,7 @@
 
                <template>
                
-                  <template v-if="that.$root.projectData.project">
+                
 
                   <template v-if="that.$root.projectData.project.is_web">
 
@@ -38,7 +38,7 @@
                    <span style="font-size:13px;font-family:MediumFont;">Views</span>
                   </div>
                   <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
-                       <v-btn icon small><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
+                       <v-btn icon small @click.stop="addNewFile('front_end')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
                   </div>
                </div>
               </div>
@@ -74,7 +74,7 @@
                    <span style="font-size:13px;font-family:MediumFont;">Styles</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
-                       <v-btn icon small><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
+                       <v-btn icon small  @click.stop="addNewFile('front_end')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
                   </div>
                </div>
               </div>
@@ -107,7 +107,7 @@
                    <span style="font-size:13px;font-family:MediumFont;">Scripts</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
-                       <v-btn icon small><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
+                       <v-btn icon small  @click.stop="addNewFile('front_end')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
                   </div>
                </div>
               </div>
@@ -141,7 +141,7 @@
                    <span style="font-size:13px;font-family:MediumFont;">Framework</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
-                       <v-btn icon small><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
+                       <v-btn icon small @click.stop="uploadResources('Framework')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
                   </div>
                </div>
               </div>
@@ -180,7 +180,7 @@
                    <span style="font-size:13px;font-family:MediumFont;">Images</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
-                       <v-btn icon small><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
+                       <v-btn icon small @click.stop="uploadResources('Images')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
                   </div>
                </div>
               </div>
@@ -217,7 +217,7 @@
                    <span style="font-size:13px;font-family:MediumFont;">Audios</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
-                       <v-btn icon small><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
+                       <v-btn icon small @click.stop="uploadResources('Audios')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
                   </div>
                </div>
               </div>
@@ -255,7 +255,7 @@
                    <span style="font-size:13px;font-family:MediumFont;">Videos</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
-                       <v-btn icon small><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
+                       <v-btn icon small @click.stop="uploadResources('Videos')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
                   </div>
                </div>
               </div>
@@ -294,7 +294,7 @@
                    <span style="font-size:13px;font-family:MediumFont;">Files</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
-                       <v-btn icon small><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
+                       <v-btn icon small @click.stop="uploadResources('Files')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
                   </div>
                </div>
               </div>
@@ -337,15 +337,15 @@
                    <span style="font-size:13px;font-family:MediumFont;">Controllers</span>
                   </div>
                   <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
-                       <v-btn icon small><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
+                       <v-btn icon small  @click.stop="addNewFile('back_end')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
                   </div>
                </div>
               </div>
               
               <template v-if="toggleControllers">
 
-                  <v-card tile flat  class="col-12 py-1 codeFile"  v-for="(file,index) in controllers"
-                :key="index"
+                  <v-card tile flat  class="col-12 py-1 codeFile" @click.stop="showEditor(file,'back-end')"  v-for="(file,index) in controllers"
+                :key="index + 'controller'"
                >
                <div class="row py-0 my-0">
                   <div class="col-2 text-left py-0 my-0 d-flex" style="align-items:center;">
@@ -374,7 +374,7 @@
                    <span style="font-size:13px;font-family:MediumFont;">Web routes</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
-                       <v-btn icon small @click="addRoute()"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
+                       <v-btn icon small @click.stop="addRoute()"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
                   </div>
                </div>
               </div>
@@ -383,7 +383,7 @@
             <template v-if="toggleRoutes">
 
                <v-card tile flat  class="col-12 py-1 codeFile"  v-for="(route,index) in that.$root.projectData.project_files.routes"
-                :key="index"
+                :key="index + 'route'"
                >
                <div class="row py-0 my-0">
                   <div class="col-2 text-left py-0 my-0 d-flex" style="align-items:center;">
@@ -410,17 +410,15 @@
                    <span style="font-size:13px;font-family:MediumFont;">Database</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
-                       <v-btn icon small><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
+                       <v-btn icon small @click.stop="createDb()"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
                   </div>
                </div>
               </div>
                
                <template v-if="toggleDatabases">
 
-               </template>
-
-               <v-card tile flat  class="col-12 py-1 codeFile"  v-for="(table,index) in that.$root.projectData.project_files.dbtables"
-                :key="index"
+                   <v-card tile flat  class="col-12 py-1 codeFile"  v-for="(table,index) in that.$root.projectData.project_files.dbtables"
+                :key="index + 'database'"
                >
                <div class="row py-0 my-0">
                   <div class="col-2 text-left py-0 my-0 d-flex" style="align-items:center;">
@@ -435,11 +433,15 @@
                </div>
               </v-card>
 
+               </template>
+
+              
+
                   </template>
                  
 
 
-                  </template>
+                 
 
                   <template v-else> 
                  <div class="col-12 py-0">
@@ -455,14 +457,14 @@
                    <span style="font-size:13px;font-family:MediumFont;">Files</span>
                   </div>
                   <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
-                       <v-btn icon small><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
+                       <v-btn icon small @click.stop="addNewFile('code_files')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
                   </div>
                </div>
               </div>
 
               <template v-if="toggleCodeFiles">
 
-                 <v-card tile flat :color="that.$root.selectedFileId == file.id ? '#f2f2f2' : ''"  class="col-12 py-1 codeFile"  @click.stop="showEditor(file,'code-file')" v-for="(file,index) in that.$root.projectData.project_files.code_files"
+                 <v-card tile  flat :color="that.$root.selectedFileId == file.id ? '#f2f2f2' : ''"  class="col-12 py-1 codeFile"  @click.stop="showEditor(file,'code_file')" v-for="(file,index) in that.$root.projectData.project_files.code_files"
                 :key="index"
                >
                <div class="row py-0 my-0">
@@ -678,14 +680,14 @@ export default {
           toggleViews:true,
           toggleStyles:true,
           toggleScripts:true,
-        toggleFrameworks:false,
-         toggleImages:false,
-         toggleAudios:false,
-         toggleVideos:false,
-         toggleFiles:false,
-         toggleControllers:false,
-         toggleRoutes:false,
-          toggleDatabases:false,
+        toggleFrameworks:true,
+         toggleImages:true,
+         toggleAudios:true,
+         toggleVideos:true,
+         toggleFiles:true,
+         toggleControllers:true,
+         toggleRoutes:true,
+          toggleDatabases:true,
         toggleCodeFiles:true
       }
     },
@@ -695,7 +697,24 @@ export default {
     },
   methods:{
     addRoute() {
-      this.$router.push({ path: '/board/projects/panel/web-route'});
+         this.$root.projectPanelComponent.showSideBar = false
+      this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/web-route'});
+    },
+     addNewFile(type) {
+
+          this.$root.projectPanelComponent.showSideBar = false
+
+      this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/add-new-file/' + type});
+    },
+    createDb() {
+         this.$root.projectPanelComponent.showSideBar = false
+
+      this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/create-db-table'});
+    },
+     uploadResources(type) {
+          this.$root.projectPanelComponent.showSideBar = false
+
+      this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/resource-upload/' + type });
     },
      showEditor: function(codeBox,catType){
 
@@ -800,6 +819,10 @@ export default {
            return 'py';
          }
 
+          if(language == 'PYTHON 3.81'){
+           return 'py';
+         }
+
          if(language == 'PYTHON For ML(3.7.7)'){
            return 'py';
          }
@@ -814,6 +837,10 @@ export default {
            return 'js';
          }
           if(language == 'JAVASCRIPT'){
+           return 'js';
+         }
+
+          if(language == 'js'){
            return 'js';
          }
           if(language == 'SQL'){

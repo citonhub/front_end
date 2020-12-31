@@ -1,12 +1,7 @@
 <template>
     <v-app style="background:transparent;font-family:BodyFont;" class="px-0">
   
-   <!-- spacer -->
-    <div class="my-lg-3 my-md-3 py-0 py-md-2 col-12 " style="background:#F5F5FB;">
-
-    </div>
   
-  <!-- ends -->
        <div class="col-lg-10 offset-lg-1 py-1 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky;z-index:9999999999;background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0">
@@ -177,9 +172,9 @@
               <v-textarea
                  style="font-size:13px;"
                 
-            label="What is this diary for?"
+            placeholder="What is this diary for?"
             counter="100"
-            placeholder="My pet is..."  
+          
             outlined
           
              color="#3C87CD">
@@ -209,6 +204,30 @@ export default {
     mounted(){
      this.$root.showTopBar = false;
     },
+    methods:{
+       fetchChannel: function(){
+          
+           axios.get('/fetch-user-channels-diary' )
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+       this.channeList = response.data;
+
+      
+       
+      
+       
+      }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+        },
+    }
 }
 </script>
 <style scoped>

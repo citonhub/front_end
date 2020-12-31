@@ -1,16 +1,17 @@
 <template>
-    <div class="row py-0 my0">
+    <div class="row py-0 ">
 
-   <!-- smaller screens -->
   
-   <!-- ends -->
 
    <!-- code editor -->
         <div class="col-12 px-0 py-0 mt-2 mt-md-0 d-flex flex-column" style="position:absolute;height:100%;top:0%; left:0;">
 
-            <!-- large and medium screens -->
+           
+                 <div class="codeboxnew " style="height:100%;">
 
-          <div class="col-12 my-0 py-2 d-md-flex  d-none scroller " style="overflow-x:auto; white-space:nowrap; height:60px;  left:0;background:#F3F8FC; ">
+                     <!-- large and medium screens -->
+
+          <div class="col-12 my-0 py-2 d-lg-flex  d-none scroller " style="overflow-x:auto; white-space:nowrap;  z-index:9999999999; left:0;background:#F3F8FC; ">
                 <v-chip v-for="(file,index) in this.$root.codeEditorArray" :key="index"
       class="ma-1 mx-1 ml-0 fileText d-inline-block"
       close
@@ -24,7 +25,6 @@
 
               </div>
    <!-- ends -->
-                 <div class="codeboxnew " style="height:100%;">
                    
          <codemirror
         v-model="code"
@@ -41,13 +41,13 @@
         />
               </div>
 
-    <v-btn medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:3%; right:3%; ">
+    <v-btn medium fab color="#3C87CD"  @click="loadPage" class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:25px; color:white;">las la-play</v-icon>
          
      </v-btn>
 
-     <v-btn  fab color="#3C87CD"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
+     <v-btn  fab color="#3C87CD"  @click="loadPage" class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:24px; color:white;">las la-play</v-icon>
          
@@ -205,7 +205,7 @@ methods:{
         console.debug('onCmCursorActivity', codemirror)
       },
          loadPage:function(){
-      this.$router.push({ path: '/' + this.$route.params.project_slug +   '/page-loader/user' });
+       this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/panel-loader'});
    },
     fetchProject: function(){
          
@@ -468,6 +468,11 @@ methods:{
            return 'py';
          }
 
+           if(language == 'PYTHON 3.81'){
+           return 'py';
+         }
+
+
          if(language == 'PYTHON For ML(3.7.7)'){
            return 'py';
          }
@@ -483,6 +488,9 @@ methods:{
          }
 
           if(language == 'JAVASCRIPT'){
+           return 'js';
+         }
+           if(language == 'js'){
            return 'js';
          }
           if(language == 'SQL'){
@@ -606,6 +614,16 @@ methods:{
 
          }
 
+         if(language == 'PYTHON 3.81'){
+           
+
+
+           this.cmOption.mode = 'text/x-python';
+
+         
+
+         }
+
 
          if(language == 'PYTHON(2.7.17)'){
            this.cmOption.mode = 'text/x-python';
@@ -632,6 +650,10 @@ methods:{
 
  
             
+         }
+          if(language == 'js'){
+            this.cmOption.mode = 'text/javascript';
+
          }
 
           if(language == 'SQL'){

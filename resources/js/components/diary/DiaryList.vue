@@ -1,10 +1,5 @@
 <template>
 <div>
-   <!-- spacer -->
-    <div class="my-lg-2 mt-md-1 mb-md-2 mt-4 mb-4 col-12" style="background:#F5F5FB;">
-
-    </div>
-  <!-- ends -->
  
     <div class="col-lg-10 offset-lg-1 py-1 mb-0  px-2 d-md-block d-none fixed-top" style="position:sticky; background:#F5F5FB; border-bottom:1px solid #c5c5c5;">
       <div class="row">
@@ -30,10 +25,16 @@
 <!-- ends -->
     <!--pets list view -->
 
-  <div class="col-lg-10 offset-lg-1 pb-1 pt-0 px-2 ">
+  <div class="col-lg-10 offset-lg-1 py-0 pb-2 px-2 ">
 
         <div class="row ">
-          
+
+            <!-- spacer -->
+         
+           <div class="col-12 mt-5 mt-md-0 d-md-none d-block"> 
+
+           </div>
+     <!-- ends -->
 
             <div class="col-lg-4 col-md-6 px-2 mb-1 py-1 pt-0 mt-md-2" >
           

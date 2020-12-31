@@ -834,7 +834,7 @@ const routes = [
                   },
                   {
                     // Add Code File
-                    path: 'add-new-file',
+                    path: 'add-new-file/:language_type',
                     component: AddNewFile
                   },
                   {
@@ -854,7 +854,7 @@ const routes = [
                   },
                   {
                     // resource upload
-                    path: 'resource-upload',
+                    path: 'resource-upload/:type',
                     component: ResourceUpload
                   },
                   {
@@ -1126,6 +1126,9 @@ const app = new Vue({
       codeEditorComponent:undefined,
       editorSideComponent:undefined,
       projectPanelComponent:undefined,
+      selectedChallenge:'',
+      is_route_edit:false,
+      selectedRoute:[],
      },
      mounted: function () {
       window.thisUserState = this;

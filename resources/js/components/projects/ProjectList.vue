@@ -22,7 +22,7 @@
 
    <!-- fab for smaller screen -->
 
-    <v-btn  fab color="#3C87CD"  class="d-md-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
+    <v-btn  fab color="#3C87CD" @click="addProject"  class="d-md-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
 
@@ -36,6 +36,12 @@
 
       <div class="row text-center ">
 
+       <!-- spacer -->
+         
+           <div class="col-12 mt-3 mt-md-0 d-md-none d-block"> 
+
+           </div>
+     <!-- ends -->
 
           <div class="col-lg-4 col-md-6 px-0 mb-2 pt-1 pt-md-2" @click="goToPanel(project)"  style="height:200px; cursor:pointer;" v-for="(project,index) in this.$root.projectList.user_projects"
            :key="index">
@@ -71,7 +77,7 @@
             <div class="col-12 py-0 my-0 text-left">
                 <div class="row py-0 my-0">
                    <div class="col-10 py-0 my-0 d-flex" style="align-items:center;">
-                      <div style="font-family:HeaderFont; font-size:14px;" >{{project.title}}</div>
+                      <div style="font-family:HeaderFont; font-size:13px;" >{{project.title}}</div>
                    </div>
                    <div class="col-2 text-right py-0 my-0">
                        <i :class="getProjectLanguage(project.panel)" style="font-size:25px;"></i>
@@ -141,7 +147,7 @@
             <div class="col-12 py-0 my-0 text-left">
                 <div class="row py-0 my-0">
                    <div class="col-10 py-0 my-0 d-flex" style="align-items:center;">
-                        <div style="font-family:HeaderFont; font-size:14px;" >{{project.title}}</div>
+                        <div style="font-family:HeaderFont; font-size:13px;" >{{project.title}}</div>
                    </div>
                    <div class="col-2 text-right py-0 my-0">
                        <i :class="getProjectLanguage(project.panel)" style="font-size:25px;"></i>
@@ -207,7 +213,7 @@
             <div class="col-12 py-0 my-0 text-left">
                 <div class="row py-0 my-0">
                    <div class="col-10 py-0 my-0 d-flex" style="align-items:center;">
-                       <div style="font-family:HeaderFont; font-size:14px;" >{{project.title}}</div>
+                       <div style="font-family:HeaderFont; font-size:13px;" >{{project.title}}</div>
                    </div>
                    <div class="col-2 text-right py-0 my-0">
                        <i :class="getProjectLanguage(project.panel)" style="font-size:25px;"></i>
