@@ -12,7 +12,7 @@
           <h5>Diary</h5>
         </div>
          <div class="col-6  py-0 my-0 text-right">
-           <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+           <v-btn @click="createDiary" small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
              <v-icon style="font-size:20px;">las la-plus</v-icon> <span style="color:white;text-transform:none;">Create a diary</span> 
            </v-btn>
         </div>
@@ -171,7 +171,14 @@
          {number:5, duration:36, participant:5, type:'Laravel'}
        ]
       }
+     
     },
+
+     methods:{
+        createDiary(){
+          this.$router.push({ path:'/board/diary/board/create-diary'})
+        }
+      },
       mounted(){
      this.$root.showTopBar = true;
     },
