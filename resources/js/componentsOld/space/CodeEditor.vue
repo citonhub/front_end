@@ -165,12 +165,9 @@ import 'codemirror/addon/scroll/simplescrollbars.css'
 
 export default {
       mounted(){
-       this.$root.showTabs=false;
-       this.$root.showHeader = false;
-       this.fetchProject();
+       
        this.detectchange(this.$root.EditorLanguage);
-       this.trackUser();
-       this.$root.pageLoaderOpened = false;
+       
       },
      components: {
       codemirror,
@@ -305,33 +302,7 @@ methods:{
          loadPage:function(){
       this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/page-loader/user' });
    },
-    fetchProject: function(){
-         
-         if( this.$root.projectData.length != 0){
-
-         }else{
-          
-          axios.get( '/fetch-project-' + this.$route.params.projectSlug)
-      .then(response => {
-      
-      if (response.status == 200) {
-        
-        
-       this.$root.projectData = response.data[0];
-
-       this.$root.ProjectMembers = response.data[2];
-
-     }
-       
-     
-     })
-     .catch(error => {
-    
-     }) 
-         }
-         
-
-        },
+  
         showAlert:function(duration,text){
         this.Alert = true;
         this.alertMsg = text;

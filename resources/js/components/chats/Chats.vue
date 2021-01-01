@@ -13,7 +13,7 @@
 
          <!-- large screens -->
 
-        <div class=" col-lg-10 py-0 px-0 offset-lg-1 d-lg-block d-none card " style=" overflow-y:hidden;position:absolute; height:86%; top:10%; overflow-y:hidden; overflow-x:hidden; background:white;" >
+        <div class="  py-0 px-0 d-lg-block d-none card " style=" overflow-y:hidden;position:absolute;width:96%; left:2%; height:94%; top:3%; overflow-y:hidden; overflow-x:hidden; background:white;" >
 
 
 
@@ -25,8 +25,8 @@
                        
                            <template v-if="chatbarContent == 'chat_list'">
 
-                             <div class="col-12 py-2 px-3 pb-0 mb-0 text-center d-flex flex-row fixed-top" style="left:0%;height:58px;position:sticky;background:white;top:-5%;">
-
+                             <div class="col-12 py-2 px-2 pb-0 mb-0 text-center d-flex flex-row fixed-top" style="left:0%;height:58px;position:sticky;background:white;top:-5%;">
+                         <v-btn  icon @click="that.$root.showSideBar = true"><v-icon style="font-size:22px;color:#263238;" >las la-bars</v-icon></v-btn>
                               <v-text-field
                        style="font-size:13px;"
                       placeholder="Search"

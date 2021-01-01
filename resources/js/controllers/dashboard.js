@@ -9,7 +9,7 @@ window.io = require('socket.io-client');
 Vue.use(Vuex)
 
 
-axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
+axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
 
 const store = new Vuex.Store({
   state: {
@@ -824,7 +824,7 @@ const routes = [
         },
         {
          // project panel
-        path: 'panel',
+        path: 'panel/:project_slug',
         component: ProjectPanel,
         children:[
                  {
@@ -834,7 +834,7 @@ const routes = [
                   },
                   {
                     // Add Code File
-                    path: 'add-new-file',
+                    path: 'add-new-file/:language_type',
                     component: AddNewFile
                   },
                   {
@@ -854,7 +854,7 @@ const routes = [
                   },
                   {
                     // resource upload
-                    path: 'resource-upload',
+                    path: 'resource-upload/:type',
                     component: ResourceUpload
                   },
                   {
@@ -1115,7 +1115,20 @@ const app = new Vue({
       fromLiveSession:false,
       codeboxComponent:undefined,
       showMemberBoard:false,
+      projectList:[],
+      projectData:[],
+      selectedFileId:'',
+      SelectedCodeBox:[],
+      selectedFileCatType:'',
+      codeEditorContent:'',
+      EditorLanguage:'',
+      codeEditorArray:[],
+      codeEditorComponent:undefined,
+      editorSideComponent:undefined,
+      projectPanelComponent:undefined,
       selectedChallenge:'',
+      is_route_edit:false,
+      selectedRoute:[],
      },
      mounted: function () {
       window.thisUserState = this;

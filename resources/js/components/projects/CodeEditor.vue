@@ -1,20 +1,31 @@
 <template>
-    <div class="row py-0 my0">
+    <div class="row py-0 ">
 
-<!-- large and medium screens -->
-
-          <div class="col-12 my-0 d-md-block py-1  pt-3 d-none scroller " style="position:absolute; overflow-x:auto; white-space:nowrap; top:0%; height:6%; left:0;background:#F3F8FC; ">
-                <v-chip  close small  outlined color="#3C87CD">index.html </v-chip>  
-              </div>
-   <!-- ends -->
-
-   <!-- smaller screens -->
-       
-   <!-- ends -->
+  
 
    <!-- code editor -->
-        <div class="col-12 px-0 py-0 mt-2 mt-md-0" style="position:absolute;height:94%;top:6%; left:0;">
-                 <div class="codeboxnew">
+        <div class="col-12 px-0 py-0 mt-2 mt-md-0 d-flex flex-column" style="position:absolute;height:100%;top:0%; left:0;">
+
+           
+                 <div class="codeboxnew " style="height:100%;">
+
+                     <!-- large and medium screens -->
+
+          <div class="col-12 my-0 py-2 d-lg-flex  d-none scroller " style="overflow-x:auto; white-space:nowrap;  z-index:9999999999; left:0;background:#F3F8FC; ">
+                <v-chip v-for="(file,index) in this.$root.codeEditorArray" :key="index"
+      class="ma-1 mx-1 ml-0 fileText d-inline-block"
+      close
+      small
+      @click:close="removeCode(file)"
+      @click="showCode(file)"
+   :style=" that.$root.selectedFileId == file.id ? 'color:white;background-color:#3C87CD;' : 'background:transparent;border:1px solid #3C87CD;'"
+      >
+      {{file.file_name + '.' + languageExtensions(file.language_type)}}
+    </v-chip>  
+
+              </div>
+   <!-- ends -->
+                   
          <codemirror
         v-model="code"
         :options="cmOption"
@@ -30,13 +41,13 @@
         />
               </div>
 
-    <v-btn medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:3%; right:3%; ">
+    <v-btn medium fab color="#3C87CD"  @click="loadPage" class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:25px; color:white;">las la-play</v-icon>
          
      </v-btn>
 
-     <v-btn  fab color="#3C87CD"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
+     <v-btn  fab color="#3C87CD"  @click="loadPage" class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:24px; color:white;">las la-play</v-icon>
          
@@ -54,14 +65,10 @@
 export default {
       mounted(){
 
-     /**
-      * 
-      *this.fetchProject();
+    
        this.detectchange(this.$root.EditorLanguage);
-       this.trackUser();
-       this.$root.pageLoaderOpened = false;
-      * 
-      */
+        this.$root.codeEditorComponent = this;
+       this.$root.projectPanelComponent.showAlert('Happy coding!','Your work is auto saved','info');
        
       },
      components: {
@@ -75,6 +82,7 @@ export default {
    },
     data(){
         return{
+          that:this,
              cmOption: {
           tabSize: 4,
           foldGutter: true,
@@ -99,8 +107,8 @@ export default {
           
         },
         items: ['HTML', 'CSS', 'JAVASCRIPT', 'PHP','PYTHON','SQL','VUEJS'],
-       /**
-        * language: this.$root.EditorLanguage,
+      
+        language: this.$root.EditorLanguage,
          code: this.$root.codeEditorContent,
          selectedFileId: this.$root.selectedFileId,
          Alert: false,
@@ -108,7 +116,7 @@ export default {
          loading: false,
          canChange: true,
 
-        *  */ 
+    
     }
 },
 methods:{
@@ -197,7 +205,7 @@ methods:{
         console.debug('onCmCursorActivity', codemirror)
       },
          loadPage:function(){
-      this.$router.push({ path: '/' + this.$route.params.projectSlug +   '/page-loader/user' });
+       this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/panel-loader'});
    },
     fetchProject: function(){
          
@@ -205,7 +213,7 @@ methods:{
 
          }else{
           
-          axios.get( '/fetch-project-' + this.$route.params.projectSlug)
+          axios.get( '/fetch-project-' + this.$route.params.project_slug)
       .then(response => {
       
       if (response.status == 200) {
@@ -260,7 +268,7 @@ methods:{
               
               this.$root.selectedFileCatType = 'front-end';
 
-              let codeData = this.$root.frontEndFiles.filter((file)=>{
+              let codeData = this.$root.projectData.project_files.code_files.filter((file)=>{
                return   file.id == this.$root.selectedFileId;
 
               })
@@ -275,7 +283,7 @@ methods:{
 
             this.$root.selectedFileCatType = 'back-end';
 
-             let codeData = this.$root.backEndFiles.filter((file)=>{
+             let codeData = this.$root.projectData.project_files.code_files.filter((file)=>{
            return   file.id == this.$root.selectedFileId;
 
            })
@@ -290,7 +298,7 @@ methods:{
 
             this.$root.selectedFileCatType = 'code_files';
 
-             let codeData = this.$root.codeFiles.filter((file)=>{
+             let codeData = this.$root.projectData.project_files.code_files.filter((file)=>{
            return   file.id == this.$root.selectedFileId;
 
            })
@@ -316,16 +324,9 @@ methods:{
 
          this.$root.codeEditorArray = newarray;
 
-         if(this.$root.codeEditorArray.length == 0){
-           this.goBack();
-         }
+        
       },
-       goBack() {
-           this.$root.forcePanelReload= true;
-           this.$root.showChatBottom = true;
-        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
-
-        },
+       
        saveFileContent: function(){
 
           if(this.checkIfOwner()){
@@ -335,7 +336,7 @@ methods:{
           }
           this.loading = true;
       axios.post( '/save-code-content-project',{
-                project_slug: this.$route.params.projectSlug,
+                project_slug: this.$route.params.project_slug,
                 file_id: this.$root.selectedFileId,
                 content: this.code,
                 code_category: this.$root.selectedFileCatType
@@ -360,7 +361,7 @@ methods:{
             if(this.$root.SelectedCodeBox.file_name == 'extensions'){
 
 
-            let indexFile =   this.$root.frontEndFiles.filter((codeFile)=>{
+            let indexFile =   this.$root.projectData.project_files.code_files.filter((codeFile)=>{
           
            return codeFile.file_name == 'index' && codeFile.language_type == 'HTML';
          })
@@ -386,7 +387,7 @@ methods:{
     handleIndexFile:function(indexFile){
 
        axios.post( '/save-code-content-project',{
-                project_slug: this.$route.params.projectSlug,
+                project_slug: this.$route.params.project_slug,
                 file_id: indexFile.id,
                 content: indexFile.content,
                 code_category: this.$root.selectedFileCatType
@@ -412,7 +413,7 @@ methods:{
       },
       onCmCodeChange:function(code){
         
-       this.$root.frontEndFiles.map((file)=>{
+       this.$root.projectData.project_files.code_files.map((file)=>{
           if(file.id == this.$root.selectedFileId){
 
              file.content = code;
@@ -420,27 +421,12 @@ methods:{
           }
        })
 
-        this.$root.backEndFiles.map((file)=>{
-          if(file.id == this.$root.selectedFileId){
-
-             file.content = code;
-
-          }
-       })
-
-
-        this.$root.CodeFilesData[0].map((file)=>{
-          if(file.id == this.$root.selectedFileId){
-
-             file.content = code;
-
-          }
-       })
-
+      
        this.$root.codeEditorContent = code;
 
        
-           this.$root.LocalStore(this.$route.params.projectSlug ,this.$root.CodeFilesData);
+    
+           this.$root.LocalStore('user_projects_data_' +  this.$route.params.project_slug + this.$root.username,this.$root.projectData);
 
           setTimeout(() => {
 
@@ -482,6 +468,11 @@ methods:{
            return 'py';
          }
 
+           if(language == 'PYTHON 3.81'){
+           return 'py';
+         }
+
+
          if(language == 'PYTHON For ML(3.7.7)'){
            return 'py';
          }
@@ -497,6 +488,9 @@ methods:{
          }
 
           if(language == 'JAVASCRIPT'){
+           return 'js';
+         }
+           if(language == 'js'){
            return 'js';
          }
           if(language == 'SQL'){
@@ -620,6 +614,16 @@ methods:{
 
          }
 
+         if(language == 'PYTHON 3.81'){
+           
+
+
+           this.cmOption.mode = 'text/x-python';
+
+         
+
+         }
+
 
          if(language == 'PYTHON(2.7.17)'){
            this.cmOption.mode = 'text/x-python';
@@ -646,6 +650,10 @@ methods:{
 
  
             
+         }
+          if(language == 'js'){
+            this.cmOption.mode = 'text/javascript';
+
          }
 
           if(language == 'SQL'){
