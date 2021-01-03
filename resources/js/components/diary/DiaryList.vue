@@ -111,7 +111,7 @@
           axios.get('/get-diary-data-'+diary.bot_id ).then(
             response=>{
               if(response.status==200){
-this.$router.push({path:'/diary/board/' + this.$route.params.bot_id+ '/content'})
+this.$router.push({path:'/board/diary/board/' + diary.bot_id+ '/content'})
               }
             }
           )

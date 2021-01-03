@@ -888,7 +888,7 @@ const routes = [
           },
           {
             // board
-            path:'board:/bot_id',
+            path:'board/:bot_id',
             component:DiaryBoard,
             //redirect:'/board/diary/board/content',
             children:[
