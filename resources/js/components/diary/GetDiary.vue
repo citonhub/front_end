@@ -5,11 +5,11 @@
        <div class="col-lg-10 offset-lg-1 py-1 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky;z-index:9999999999;background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0">
-          <h5> <v-btn icon><v-icon>las la-arrow-left</v-icon></v-btn> Create a diary</h5>
+          <h5> <v-btn @click="goback" icon><v-icon>las la-arrow-left</v-icon></v-btn> Create a diary</h5>
         </div>
 
          <div class="col-6 py-0 my-0 text-right">
-             <v-btn  small rounded  color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+             <v-btn @click="createDiary"  small rounded  color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
              Done
            </v-btn>
         </div>
@@ -20,10 +20,10 @@
    <div class=" px-0 col-12 pb-0 pt-2 d-md-none d-block fixed-top" style="position:sticky; background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
      <div class="row py-0">
         <div class="col-8 py-0 my-0">
-           <h6 style="font-size:17px;"><v-btn  icon><v-icon>las la-arrow-left</v-icon></v-btn>Create a diary</h6>
+           <h6 style="font-size:17px;"><v-btn  @click="goback"  icon><v-icon>las la-arrow-left</v-icon></v-btn>Create a diary</h6>
         </div>
          <div class="col-4 py-0 my-0 text-right">
-          <v-btn small rounded  color="#3C87CD" style="font-size:12px; font-weight:bolder; text-transform:none; color:white;font-family:MediumFont;">
+          <v-btn @click="createDiary"  small rounded  color="#3C87CD" style="font-size:12px; font-weight:bolder; text-transform:none; color:white;font-family:MediumFont;">
              Done
            </v-btn>
         </div>
@@ -44,7 +44,7 @@
              <div style="font-size:14px;"  class="mb-1">1.Name your diary</div>
               <v-text-field
                  style="font-size:13px;"
-                
+                v-model="diaryName"
             label="Diary name"
             counter="60"
             persistent-hint
@@ -73,7 +73,7 @@
               color="whitesmoke">
 
                <input type="file" id="settingsimage" ref="settingsimage" 
-                @change="crophandler" style="opacity:0;width:100%; height:10px; overflow:hidden; position:absolute; z-index:10;"
+                style="opacity:0;width:100%; height:10px; overflow:hidden; position:absolute; z-index:10;"
                  accept="image/x-png,image/jpeg,image/jpg"/>
                <v-sheet
                
@@ -130,9 +130,13 @@
             placeholder="select..."
             persistent-hint
             chips
-            
-            
+            :items="channelList"
+            item-value="space_id"
+            item-text="name"
+           
              color="#3C87CD">
+
+
 
               <template v-slot:selection="data">
             <v-chip
@@ -176,7 +180,7 @@
             counter="100"
           
             outlined
-          
+          v-model="description"
              color="#3C87CD">
              </v-textarea>
 
@@ -201,18 +205,28 @@
 </template>
 <script>
 export default {
+data(){
+  return{
+    diaryName:'',
+    channel:'',
+    description:'',
+    imageUrl:'',
+    channelList:[]
+  }
+}
+  ,
     mounted(){
      this.$root.showTopBar = false;
-    },
-    methods:{
-       fetchChannel: function(){
+
+     
           
            axios.get('/fetch-user-channels-diary' )
       .then(response => {
       
       if (response.status == 200) {
         
-       this.channeList = response.data;
+       this.channelList = response.data;
+
 
       
        
@@ -226,7 +240,33 @@ export default {
     
      }) 
 
-        },
+        
+    },
+    methods:{
+
+      goback(){
+        this.$router.push({path:'/board/diary/list'})
+      },
+
+       
+      
+         createDiary(){
+        
+          axios.post('/create-diary',{
+            name:this.diaryName,
+            description:this.description
+          })
+          .then(
+            response=>{
+              if(response.status==200){
+                console.log('posted')
+              }
+            }
+          )
+        }
+
+      
+       
     }
 }
 </script>
