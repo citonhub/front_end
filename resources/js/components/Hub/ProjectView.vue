@@ -63,7 +63,7 @@
 
       <!-- view source -->
          <div class="col-lg-6 offset-lg-3 px-2 mt-3 text-right">
-        <v-btn color="#3C87CD" small style="text-transform:none;color:white;font-size:12px;font-family:BodyFont;">View source <v-icon class="ml-1">mdi-launch mdi-18px</v-icon></v-btn>
+        <v-btn v-if="post.project" color="#3C87CD" small style="text-transform:none;color:white;font-size:12px;font-family:BodyFont;">View source {{ post.project }}<v-icon class="ml-1">mdi-launch mdi-18px</v-icon></v-btn>
       </div>
       <!-- ends -->
 

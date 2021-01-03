@@ -130,7 +130,7 @@
           </div> -->
 
 
-          <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;" v-for="post in posts" :key="post.id">
+          <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;" v-for="post in $root.posts" :key="post.id">
              <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5; background-repeat: no-repeat;
           border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background3.jpg);background-size:cover;" @click="showProject(post)">
 
@@ -447,7 +447,7 @@ export default {
       axios.get('/fetch-posts')
         .then((response) => {
           if (response.status == 200) {
-            this.posts = response.data.data
+            this.$root.posts = response.data.data
           }
         })
     }

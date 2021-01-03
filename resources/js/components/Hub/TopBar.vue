@@ -90,7 +90,7 @@
 export default {
      data () {
       return {
-       query: 'Test',
+       query: '',
        showSideBar:false,
        searchType:'',
        that:this
@@ -108,6 +108,7 @@ export default {
           .then((response) => {
             if (response.status == 200) {
               console.log(response);
+              this.$root.posts = response.data.data
             }
           })
       }

@@ -378,6 +378,13 @@ export default {
         .then((response) => {
           if (response.status == 201) {
             console.log(response);
+
+            axios.get('/fetch-posts')
+              .then((response) => {
+                if (response.status == 200) {
+                  this.$root.posts = response.data.data
+                }
+              })
           }
         })
        }
