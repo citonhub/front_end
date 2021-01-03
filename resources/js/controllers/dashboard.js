@@ -890,7 +890,7 @@ const routes = [
             // board
             path:'board:/bot_id',
             component:DiaryBoard,
-            redirect:'/board/diary/board/content',
+            //redirect:'/board/diary/board/content',
             children:[
               {
                 // content
