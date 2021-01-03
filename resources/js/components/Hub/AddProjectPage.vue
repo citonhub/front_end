@@ -12,6 +12,7 @@
  
                     <div  class=" col-12 py-1 my-0 px-2" style="font-family:BodyFont;">
               <v-text-field
+                v-model="post.title"
                  style="font-size:13px;"
                  rounded
               label="Project Title"
@@ -31,7 +32,12 @@
              <!-- select project -->
 
               <div class=" col-12 py-1 my-0 px-2" style="font-family:BodyFont;">
-              <v-combobox
+                <v-chip :outlined="postLink" @click="postLink = !postLink" class="d-inline-block mr-1" color="#3C87CD" :style="postLink ? 'font-size:13px;cursor:pointer;' : 'font-size:13px;cursor:pointer;color:white;'">Select Project</v-chip>
+                <v-chip :outlined="!postLink" @click="postLink = true" class="d-inline-block mr-1" color="#3C87CD" :style="postLink ? 'font-size:13px;cursor:pointer;color:white;' : 'font-size:13px;cursor:pointer;'">Add Link</v-chip>
+
+                <v-text-field v-if="postLink" label="Paste Project Link" v-model="post.project_url"></v-text-field>
+                <v-select v-else label="Select Project" v-model="post.project_slug"></v-select>
+              <!-- <v-combobox
                  style="font-size:13px;"
                  rounded
                  filled
@@ -42,7 +48,7 @@
 
             
              color="#3C87CD">
-             </v-combobox>
+             </v-combobox> -->
 
              </div>
 
@@ -61,9 +67,9 @@
               class="py-0  px-0 mt-2 sheetbackImg"
               color="whitesmoke">
 
-               <input type="file" id="settingsimage" ref="settingsimage" 
+               <!-- <input type="file" id="settingsimage" ref="settingsimage" 
                 @change="crophandler" style="opacity:0;width:100%; height:10px; overflow:hidden; position:absolute; z-index:10;"
-                 accept="image/x-png,image/jpeg,image/jpg"/>
+                 accept="image/x-png,image/jpeg,image/jpg"/> -->
                <v-sheet
                
               
@@ -123,7 +129,7 @@
              item-value="name"
              item-text="name"
              :items="languageIcon"
-            
+             v-model="post.tags"
              color="#3C87CD">
 
               <template v-slot:selection="data">
@@ -162,7 +168,7 @@
                  filled
                  height="100px"
                  counter="100"
-                 
+                 v-model="post.description"
                  placeholder="A short description of your project"
                 >
 
@@ -173,7 +179,7 @@
 
             <!-- add project button -->
              <div class=" text-center col-12 py-1 mt-4 my-0 px-2">
-                 <v-btn  medium rounded  color="#3C87CD" style="font-size:13px; font-family:BodyFont; font-weight:bolder;text-transform:none; color:white;">
+                 <v-btn  medium rounded  color="#3C87CD" style="font-size:13px; font-family:BodyFont; font-weight:bolder;text-transform:none; color:white;" @click="postData">
                Send
                </v-btn>
              </div>
@@ -342,6 +348,14 @@ export default {
             addlink:false,
             select:true,
             addprojectlink:false,
+            postLink: false,
+            post: {
+              title: '',
+              project_slug: '',
+              project_url: '',
+              tags: [],
+              description: ''
+            }
         }
     },
 
@@ -349,10 +363,23 @@ export default {
        displayTab() {
           this.addlink = !this.addlink
           this.select = !this.select
+
+          alert(this.addlink)
        },
        displayTab2() {
           this.addprojectlink= !this.addprojectlink
           this.select = !this.select
+       },
+
+       postData () {
+        console.log(this.post);
+
+        axios.post('/save-hub-post', this.post)
+        .then((response) => {
+          if (response.status == 201) {
+            console.log(response);
+          }
+        })
        }
     }
 }

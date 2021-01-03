@@ -12,6 +12,8 @@
                 <div class="row">
                   <div class="col-lg-6 col-md-5 pb-1 text-center">
                      <v-text-field
+                     @keyup.enter="send"
+                     v-model="query"
                 style="font-size:13px;"
                 
                  placeholder="Search Projects and People"
@@ -70,7 +72,7 @@
          
             </div>
              <div class="col-2 text-center py-0">
-                <v-btn icon ><v-icon style="font-size:25px;color:#263238;" >las la-bell</v-icon></v-btn>
+                <v-btn icon @click="send"><v-icon style="font-size:25px;color:#263238;" >las la-bell</v-icon></v-btn>
             </div>
              <div class="col-2 d-flex px-1 py-0" style="justify-content:center; align-items:center;">
                  <div style="border-radius:50%;height:32px;width:32px;background-color:#c5c5c5; background-image:url(/imgs/img3.jpg); background-size:100%;border:1px solid transparent;"></div>
@@ -88,11 +90,29 @@
 export default {
      data () {
       return {
+       query: 'Test',
        showSideBar:false,
        searchType:'',
        that:this
       }
     },
+
+    created () {
+      console.log('I am here');
+    },
+
+    methods: {
+      send () {
+        console.log(this.query);
+        axios.get(`/hub-search-${this.query}`)
+          .then((response) => {
+            if (response.status == 200) {
+              console.log(response);
+            }
+          })
+      }
+    },
+
     mounted(){
       this.$root.TopBarComponent = this;
     }

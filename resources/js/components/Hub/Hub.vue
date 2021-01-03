@@ -60,7 +60,7 @@
                <div class="col-lg-10 offset-lg-1 col-12 py-0 pt-md-5 mt-md-3" >
 
                    <div class="row">
-                      <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;" >
+                      <!-- <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;" >
              <div @click="viewProjectModal = true"   style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
           border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background1.jpg);background-size:cover;background-repeat: no-repeat;">
 
@@ -127,26 +127,24 @@
             </div>
 
           </div>
-          </div>
+          </div> -->
 
 
-          <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;">
+          <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;" v-for="post in posts" :key="post.id">
              <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5; background-repeat: no-repeat;
-          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background3.jpg);background-size:cover;">
+          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background3.jpg);background-size:cover;" @click="showProject(post)">
 
               <div class="pt-3 px-2  pl-3" style=" position:absolute; width:100%; height:35%; left:0; bottom:0%; border-radius:0px; border-bottom-left-radius:20px;
           border-bottom-right-radius:20px; background: linear-gradient(180deg, rgba(60, 135, 205, 0.0053) 0%, rgba(0, 0, 0, 0.53) 100%);">
                 
                  <div class="row">
                   <div class="col-8 py-0 my-0">
-                     <span   style="font-family:MediumFont; font-size:13px; color:white;" >Python calculator</span>
+                     <span   style="font-family:MediumFont; font-size:13px; color:white;" >{{ post.title }}</span>
     
                   </div>
                    <div class="col-4 py-0 my-0 text-right">
 
-                      <i class="lab la-python" style="font-size:25px; color:white;" ></i>
-
-                     <i class="lab la-html5" style="font-size:25px; color:white;"></i>
+                      <i :class="tag.icon" style="font-size:25px; color:white;" v-for="(tag, i) in post.tags" :key="i"></i>
 
                   </div>
                 </div>
@@ -185,12 +183,12 @@
                        
                        <span class="d-inline-block mx-1" >
                 <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> 
-                <span style="font-family:MediumFont; font-size:12px; color:#000000;">231</span>
+                <span style="font-family:MediumFont; font-size:12px; color:#000000;">{{ post.likes }}</span>
             </span>
 
              <span class="d-inline-block mx-1" >
                 <i class="las la-comment" style="font-size:20px;color:#3C87CD;" ></i> 
-                <span style="font-family:MediumFont; font-size:12px; color:#000000;">32</span>
+                <span style="font-family:MediumFont; font-size:12px; color:#000000;">{{ post.comments }}</span>
             </span>
                   </div>   
             </div>
@@ -199,7 +197,7 @@
           </div>
 
 
-          <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;">
+          <!-- <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;">
              <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;background-repeat: no-repeat;
           border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background1.jpg);background-size:cover;">
 
@@ -266,6 +264,8 @@
 
           </div>
           </div>
+
+           -->
                    </div>
             </div>
 
@@ -385,7 +385,7 @@
       <!-- project view page -->
       <div class="col-12  py-2 pt-0">
 
-       <project-view></project-view>
+       <project-view :post="project"></project-view>
 
       </div>
         
@@ -425,7 +425,9 @@ export default {
         overlay: false,
         zIndex: 1,
         addProjectModal:false,
-        viewProjectModal:false
+        viewProjectModal:false,
+        posts: [],
+        project: {}
       }
     },
     components: {
@@ -434,8 +436,20 @@ export default {
       ProjectView
     },
 
-    methods:{
-      
+    methods: {
+      showProject (project) {
+        this.project = project;
+        this.viewProjectModal = true;
+      }
+    },
+
+    created () {
+      axios.get('/fetch-posts')
+        .then((response) => {
+          if (response.status == 200) {
+            this.posts = response.data.data
+          }
+        })
     }
 }
 </script>

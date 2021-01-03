@@ -32,7 +32,7 @@
           <v-btn icon >
                        <i class="lar la-heart" style="font-size:25px;" ></i> 
                     </v-btn>
-             <span style="font-size:12px;color:grey;">2.4K</span>
+             <span style="font-size:12px;color:grey;">{{ post.likes / 1000 }}K</span>
         </div>
        
          
@@ -42,8 +42,8 @@
       <!-- ends -->
 
       <div class="col-lg-6 offset-lg-3 mt-2 px-0 text-center">
-        <span class="d-md-block d-none" style="font-size:17px; font-family:MediumFont;">My Portfolio</span>
-        <span class="d-md-none d-block" style="font-size:14px; font-family:MediumFont;">My Portfolio</span>
+        <span class="d-md-block d-none" style="font-size:17px; font-family:MediumFont;">{{ post.title }}</span>
+        <span class="d-md-none d-block" style="font-size:14px; font-family:MediumFont;">{{ post.title }}</span>
       </div>
 
       <!-- pages loader -->
@@ -71,7 +71,7 @@
        <!-- descriptions -->
          <div class="col-lg-6 offset-lg-3 px-2 mt-3 text-left">
           <p style="font-size:14px;font-family:BodyFont;">
-             Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus nisi quas saepe! Distinctio dolore aliquam laudantium laborum aperiam laboriosam illo dolor quo totam molestias. Voluptatibus ad non earum iure explicabo!
+             {{ post.description }}
           </p>
       </div>
       <!-- ends -->
@@ -174,7 +174,7 @@
             </div>
           
              <div class="col-8 py-0 text-center">
-             <span style="font-size:17px; font-family:MediumFont;">My Portfolio</span>
+             <span style="font-size:17px; font-family:MediumFont;">{{ post.title }}</span>
           </div>
               
               
@@ -194,7 +194,9 @@
 </template>
 <script>
 export default {
-    
+    props: [
+      'post'
+    ]
 }
 </script>
 <style scoped>
