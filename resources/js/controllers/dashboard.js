@@ -107,6 +107,7 @@ const ChallengeJudges= () => import(/* webpackChunkName: "ChallengeJudges" */ '.
 const ChallengeLeaderboard= () => import(/* webpackChunkName: "ChallengeLeaderboard" */ '../components/challenges/Leaderboard.vue');
 const ChallengeDiscussions= () => import(/* webpackChunkName: "ChallengeDiscussions" */ '../components/challenges/Discussion.vue');
 const ChallengeRules= () => import(/* webpackChunkName: "ChallengeRules" */ '../components/challenges/Rules.vue');
+const ChallengeResult= () => import(/* webpackChunkName: "ChallengeResult" */ '../components/challenges/Results.vue');
 
 // Diary routes
 const DiaryList= () => import(/* webpackChunkName: "DiaryList" */ '../components/diary/DiaryList.vue');
@@ -801,6 +802,54 @@ const routes = [
     next()
   }
 },
+// image cropper
+{ path: '/crop-image',
+   name: 'baseImageCropper',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+    
+    if(window.thisUserState != undefined){
+      
+      thisUserState.$root.showImageCropper = true;
+     
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Hub,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Hub
+      }
+    }
+
+    next()
+  }
+},
   { path: '/board',
      name: 'Board', 
      component: Board,
@@ -912,11 +961,17 @@ const routes = [
               }
         ]
       },
+
+   
+
       {
         // challenges
         path: 'challenges',
         component: Challenges,
         redirect: '/board/challenges/list',
+        meta: {
+          twModalView: true
+        },
         children:[
             { // list
             path: 'list',
@@ -928,16 +983,21 @@ const routes = [
             },
             {
               // panel
-              path:'panel',
+              path:'panel/:challenge_id',
               component:ChallengePanel,
-              redirect: '/board/challenges/panel/description',
               children:[
 
                 { // description
                   path: 'description',
                   component: ChallengeDescription
                   },
-                  {
+
+                  { // challengeResult
+                  path: 'results/:type',
+                  component: ChallengeResult
+                  },
+                     // challengeResult
+                   {
                     // judges
                     path:'judges',
                     component: ChallengeJudges
@@ -975,8 +1035,8 @@ router.beforeEach((to, from, next) => {
   // If this isn't an initial page load.
   
       // Start the route progress bar.
-      if(window.userRootState){
-        window.userRootState.routeIsLoading = true;
+      if(window.thisUserState){
+        thisUserState.routeIsLoading = true;
       }
   
   next()
@@ -984,8 +1044,8 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach((to, from) => {
   // Complete the animation of the route progress bar.
-  if(window.userRootState){
-    window.userRootState.routeIsLoading = false;
+  if(window.thisUserState){
+    thisUserState.routeIsLoading = false;
   }
 })
 
@@ -1126,9 +1186,16 @@ const app = new Vue({
       codeEditorComponent:undefined,
       editorSideComponent:undefined,
       projectPanelComponent:undefined,
-      selectedChallenge:'',
+      selectedChallenge:[],
       is_route_edit:false,
       selectedRoute:[],
+      croppedImage:'',
+      showImageCropper:false,
+      imageExist:false,
+      is_reply_comment:false,
+      replyCommentId:0,
+      showResultPage:false,
+      panelFromChallenges:false
      },
      mounted: function () {
       window.thisUserState = this;
@@ -2164,7 +2231,7 @@ axios.post('/send-message',formData,
       this.$root.dataconnection.enableLogs = false;
 
 // by default, socket.io server is assumed to be deployed on your own URL
-this.$root.dataconnection.socketURL = 'https://live.citonhub.com:9001/';
+this.$root.dataconnection.socketURL = 'https://rtc.citonhub.com:9001/';
 
 // set user as default speaker
 let userSpeakerData =  this.authProfile;
@@ -2207,13 +2274,13 @@ this.$root.dataconnection.iceServers = [];
 
 // second step, set STUN url
 this.$root.dataconnection.iceServers.push({
- urls: 'stun:165.227.152.44:3478'  
+ urls: 'stun:134.122.10.107:3478'  
 });
 
 // last step, set TURN url (recommended)
 
 this.$root.dataconnection.iceServers.push({
-urls: 'turn:165.227.152.44:3478',
+urls: 'turn:134.122.10.107:3478',
 credential: '15Raymond',
 username: 'ILoveCitonHubPort'
 });
@@ -2321,7 +2388,7 @@ setSreenShareConnection:function(){
 
     this.$root.connection.enableLogs = false;
 
-   this.$root.connection.socketURL = 'https://live.citonhub.com:9001/';
+   this.$root.connection.socketURL = 'https://rtc.citonhub.com:9001/';
 
    this.$root.connection.socketMessageEvent = 'screen-sharing';
 
@@ -2351,14 +2418,14 @@ OfferToReceiveVideo: false
 
 // second step, set STUN url
 this.$root.connection.iceServers.push({
-urls: 'stun:165.227.152.44:3478'  
+urls: 'stun:134.122.10.107:3478'  
 });
 
 // last step, set TURN url (recommended)
 
     
  this.$root.connection.iceServers.push({
-  urls: 'turn:165.227.152.44:3478',
+  urls: 'turn:134.122.10.107:3478',
   credential: '15Raymond',
   username: 'ILoveCitonHubPort'
  });
@@ -2531,7 +2598,7 @@ if (e.message === 'Concurrent mic process limit.') {
       this.$root.audioconnection.enableLogs = false;
 
 // by default, socket.io server is assumed to be deployed on your own URL
-this.$root.audioconnection.socketURL = 'https://live.citonhub.com:9001/';
+this.$root.audioconnection.socketURL = 'https://rtc.citonhub.com:9001/';
 
 this.$root.audioconnection.bandwidth = {
 audio: 128
@@ -2573,13 +2640,13 @@ this.$root.audioconnection.iceServers = [];
 
 // second step, set STUN url
 this.$root.audioconnection.iceServers.push({
- urls: 'stun:165.227.152.44:3478'  
+ urls: 'stun:134.122.10.107:3478'  
 });
 
 // last step, set TURN url (recommended)
 
 this.$root.audioconnection.iceServers.push({
-urls: 'turn:165.227.152.44:3478',
+urls: 'turn:134.122.10.107:3478',
 credential: '15Raymond',
 username: 'ILoveCitonHubPort'
 });

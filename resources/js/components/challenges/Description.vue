@@ -1,11 +1,10 @@
 <template>
     <div>
         <div class="col-lg-10 offset-lg-1 px-md-2 px-1">
-              <h5>Riiid AIEd Challenge 2020</h5>
-             
+            
 
         <p>
-            {{currentChallenge.description}}
+            {{that.$root.selectedChallenge.description}}
         </p>
         </div>
     </div>
@@ -14,16 +13,11 @@
 export default {
     data(){
         return{
-            currentChallenge:''
+             that:this
         }
     },
 
-    created(){
-      
-         this.currentChallenge=this.$root.selectedChallenge;
-       
-       
-    }
+   
 }
 </script>
 <style scoped>

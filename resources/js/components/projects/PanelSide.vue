@@ -913,7 +913,17 @@ export default {
 
       },
        closePanel() {
-         this.$router.push({ path: '/board/projects/list' });
+         if(this.$root.panelFromChallenges){
+
+           this.$root.panelFromChallenges = false;
+
+              this.$router.push({path:'/board/challenges/panel/' + this.$root.selectedChallenge.duel_id +  '/description' })
+
+         }else{
+
+             this.$router.push({ path: '/board/projects/list' });
+
+         }
       },
   },
   

@@ -360,7 +360,7 @@ import 'izitoast/dist/css/iziToast.min.css'
 
         this.loading = true;
          axios.post( '/create-project',{
-                project_slug: this.$route.params.project_slug,
+               
                 app_type: 'Multiple-pages',
                 title: this.title,
                 panel_language: this.selectLangValue.id,

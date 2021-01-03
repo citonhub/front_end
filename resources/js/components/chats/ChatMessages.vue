@@ -191,7 +191,7 @@
      <!-- code message -->
           <div class="col-10 py-0 offset-2" v-if="source.type == 'code' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 px-0 px-md-2 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+             <div class="col-lg-4 px-0 px-md-2 col-md-6  offset-lg-8 offset-md-6 d-flex flex-row-reverse">
                 
 
                   <v-card elevation-1 class="py-1 px-2 mr-2" style=" width:90%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
@@ -238,7 +238,7 @@
 
          <div class="col-10 py-0 "  v-if="source.type == 'code' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row">
+             <div class="col-lg-4 col-md-6 px-1 px-md-2 d-flex flex-row">
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
@@ -275,7 +275,7 @@
    <!-- video message -->
          <div class="col-10 py-0 offset-2" v-if="source.type == 'video' && checkOwner(source.user_id) ">
            <div class="row">
-             <div class="col-lg-5 px-0 px-md-2 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+             <div class="col-lg-4 px-0 px-md-2 col-md-6  offset-lg-8 offset-md-6 d-flex flex-row-reverse">
                  
 
                   <v-card elevation-1 class="py-1 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
@@ -340,7 +340,7 @@
 
           <div class="col-10 py-0 " v-if="source.type == 'video' && checkOwner(source.user_id) == false ">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row">
+             <div class="col-lg-4 col-md-6 px-1 px-md-2 d-flex flex-row">
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
@@ -436,7 +436,7 @@
 
          <div class="col-10 py-0 " v-if="(source.type == 'audio' &&  source.audio != null) && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-6 col-md-6 px-1 px-md-2 d-flex flex-row">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row">
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
@@ -463,7 +463,7 @@
 
          <div class="col-10 py-0 offset-2"  v-if="source.type == 'image' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+             <div class="col-lg-4 col-md-6 px-0 px-md-2 offset-lg-4 offset-md-6 d-flex flex-row-reverse">
                
 
                   <v-card elevation-1 class="py-1 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
@@ -525,7 +525,7 @@
 
          <div class="col-10 py-0 " v-if="source.type == 'image' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-1 px-md-2  d-flex flex-row">
+             <div class="col-lg-4 col-md-6 px-1 px-md-2  d-flex flex-row">
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
@@ -552,7 +552,7 @@
    <!-- project message -->
          <div class="col-10 py-0 offset-2" v-if="source.type == 'project' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-6 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
                   
                   <v-card elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
@@ -589,7 +589,7 @@
 
       <div class="col-10 py-0 " v-if="source.type == 'project' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-6 col-md-6 px-1 px-md-2 d-flex flex-row">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row">
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
@@ -627,7 +627,7 @@
 
          <div class="col-10 py-0 offset-2"  v-if="source.type == 'file' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-6 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
                  
 
                   <v-card elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
@@ -700,7 +700,7 @@
 
          <div class="col-10 py-0 " v-if="source.type == 'file' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-6 px-1 px-md-2 col-md-6  d-flex flex-row">
+             <div class="col-lg-5 px-1 px-md-2 col-md-6  d-flex flex-row">
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 

@@ -203,6 +203,7 @@
 export default {
     mounted(){
      this.$root.showTopBar = false;
+     this.fetchChannel();
     },
     methods:{
        fetchChannel: function(){
@@ -215,8 +216,7 @@ export default {
        this.channeList = response.data;
 
       
-       
-      
+
        
       }
        
