@@ -125,8 +125,61 @@ const routes = [
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
   {
-    path:'/profile', name:'ProfilePage', component:ProfilePage
+    path:'/profile',
+     name:'ProfilePage', 
+     component:ProfilePage,
+     meta: {
+      twModalView: true
+    }
   },
+    // edit profile
+{ path: '/profile/edit',
+name: 'EditProfile',
+meta: {
+ twModalView: true
+},
+beforeEnter: (to, from, next) => {
+ const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+  
+ if(window.thisUserState != undefined){
+   
+   thisUserState.$root.showProfileEditModal = true;
+  
+  }
+
+ if (!twModalView) {
+   //
+   // For direct access
+   //
+   to.matched[0].components = {
+     default: ProfilePage,
+     modal: false
+   }
+ }
+
+ if (twModalView) {
+   //
+   // For twModalView access
+   //
+   if (from.matched.length > 1) {
+     // copy nested router
+     const childrenView = from.matched.slice(1, from.matched.length)
+     for (let view of childrenView) {
+       to.matched.push(view)
+     }
+   }
+   if (to.matched[0].components) {
+     // Rewrite components for `default`
+     to.matched[0].components.default = from.matched[0].components.default
+     // Rewrite components for `modal`
+     to.matched[0].components.modal = ProfilePage
+   }
+ }
+
+ next()
+}
+},
   {
     path:'/',
     redirect:'/hub',
@@ -1256,6 +1309,7 @@ const app = new Vue({
       selectedDiary:[],
       showAddNewPost:false,
       posts:[],
+      showProfileEditModal:false,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -1528,12 +1582,10 @@ const app = new Vue({
   
   if (response.status == 200) {
        
-       let userProfile = response.data[1];
-       let user = response.data[0];
+       let userProfile = response.data.profile;
+       let user = response.data.user_data;
 
-       this.notificationCount = response.data[3];
-
-       this.notificationCountSpace = response.data[4];
+       
        
        
       let userDetails = {

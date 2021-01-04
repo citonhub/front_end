@@ -61,7 +61,7 @@
              
              <div  class="ml-1 ml-md-3 d-flex flex-row" style="width:100%;align-items:center;">
                 <h5 class="pt-1">Notes</h5> 
-              <v-btn icon class="mx-1"><v-icon style="font-size:25px;">las la-plus</v-icon></v-btn>
+              <v-btn icon class="mx-1" @click="addNote"><v-icon style="font-size:25px;">las la-plus</v-icon></v-btn>
              </div>
              
 
@@ -165,7 +165,11 @@ export default {
 
     },
     methods:{
+      addNote:function(){
 
+          this.$router.push({path:'/board/diary/board/' + this.$route.params.diary_id + '/add-note'});
+
+     },
       imageStyle: function(size,data){
 
          if(data.background_color == null){

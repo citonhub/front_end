@@ -17,7 +17,7 @@
             </div>
           
              <div class="col-6 py-0 text-center">
-             <span style="font-size:14px; font-family:MediumFont;">V18</span>
+             <span style="font-size:14px; font-family:MediumFont;"> {{this.$root.selectedDiary.name}}</span>
           </div>
               
               <div class="col-3 py-0 px-1 text-right">
@@ -66,7 +66,7 @@
             </div>
           
              <div class="col-6 py-0 text-center">
-             <span style="font-size:13px; font-family:MediumFont;">V18</span>
+             <span style="font-size:13px; font-family:MediumFont;"> {{this.$root.selectedDiary.name}}</span>
           </div>
               
               <div class="col-3 py-0 px-1 text-right">

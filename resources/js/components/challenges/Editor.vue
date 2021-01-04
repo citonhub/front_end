@@ -1,7 +1,7 @@
 <template>
     <div>
           <v-md-editor v-model="listLocal" height="400px" mode="edit" :placeholder="placeholder" 
-        left-toolbar="h bold italic strikethrough quote ul ol  hr image link code"  right-toolbar="preview"></v-md-editor>
+        left-toolbar="h bold italic strikethrough quote ul ol  hr image link"  right-toolbar="preview"></v-md-editor>
     </div>
 </template>
 <script>

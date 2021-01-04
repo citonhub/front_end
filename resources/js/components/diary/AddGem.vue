@@ -16,8 +16,9 @@
                 
             label="Subject"
             counter="60"
+            :rules="subjectRule"
             persistent-hint     
-           
+              v-model="note.subject"
              placeholder="What new thing do you learn today"
               dense
              color="#3C87CD">
@@ -25,53 +26,18 @@
 
          </div>
 
-         <div class="col-lg-6 offset-lg-1 mb-2">
-             <v-combobox
-                 style="font-size:13px;"
-              dense
-              label="Keywords"
-            counter="80"
-             placeholder="words or sentences that is related to the above topic"
-            persistent-hint
-            chips
-            multiple
-             color="#3C87CD">
-
-              <template v-slot:selection="data">
-            <v-chip
-              :key="JSON.stringify(data.item)"
-              v-bind="data.attrs"
-              :input-value="data.selected"
-              color="#3C87CD"
-              dense
-              class="my-1"
-               :items="items"
-              style="font-size:12px; color:#3C87CD; font-family:BodyFont;"
-              outlined
-              :disabled="data.disabled"
-          
-            >
-             
-              {{ data.item }}
-            </v-chip>
-
-              </template>
-             </v-combobox>
-         </div>
 
            <div class="col-lg-6 offset-lg-1 py-1">
            
-            <h5 style="font-size:15px;color:gray;" >Contents</h5>
+            <h5 style="font-size:15px;color:gray;" >Pages</h5>
             
          </div>
 
           <div class="col-lg-10 offset-lg-1 d-flex flex-row flex-wrap py-0" style="align-items:center;">
            
-            <v-chip close dense color="#3C87CD" class="mr-2 my-1"  style="font-size:13px; color:#ffffff; font-family:BodyFont;" >First content</v-chip>
+            <v-chip v-for="(content,index) in note.contents" @click="selectedContentId = index" :key="index" :outlined="index != selectedContentId" close dense color="#3C87CD" class="mr-2 my-1"  :style="index == selectedContentId ? 'font-size:13px; color:#ffffff; font-family:BodyFont;' : ''" >{{content.name}}</v-chip>
 
-              <v-chip close dense outlined color="#3C87CD" class="mx-r my-1"  style="font-size:13px;  font-family:BodyFont;" >Another content</v-chip>
-
-                <v-btn icon class="mx-1"><v-icon style="font-size:20px;">las la-plus</v-icon></v-btn>
+                <v-btn icon class="mx-1" @click="addNewContent"><v-icon style="font-size:20px;">las la-plus</v-icon></v-btn>
             
          </div>
 
@@ -79,27 +45,29 @@
 
               <v-text-field
                  style="font-size:13px;"
-                
-           v-model="selectedResponse"
             counter="60"
-             
+              v-model="note.contents[selectedContentId].name"
+              :rules="requiredRule"
               dense
              color="#3C87CD">
              </v-text-field>
 
          </div>
 
-         <div class="col-lg-10 py-1 offset-lg-1 d-flex px-0 flex-row" style="align-items:center;">
+         <div class="col-lg-10 py-1 offset-lg-1 d-flex flex-row" style="align-items:center;">
 
-              <v-btn icon class="mx-1"><v-icon style="font-size:20px;">las la-plus</v-icon></v-btn>
+            <span  style="font-size:13px;font-family:MediumFont;">Contents</span>  <v-btn icon class="mx-1" @click="addNewContentModal = true"><v-icon style="font-size:20px;">las la-plus</v-icon></v-btn>
 
          </div>
+    
+    <template v-if="note.contents[selectedContentId].contents.length > 0">
 
+   
           <draggable
         class="col-lg-10 py-1 offset-lg-1 px-0 px-md-2 py-0 d-flex flex-row flex-wrap"
         tag="div"
         style="background:#E1F0FC;"
-         v-model="list"
+         v-model="note.contents[selectedContentId].contents"
          handle=".handle"
         v-bind="dragOptions"
         @start="drag = true"
@@ -109,8 +77,9 @@
       
 
             <div
+           
               class="col-md-6 col-lg-4 px-1"
-            v-for="(element,index) in list"
+            v-for="(element,index) in note.contents[selectedContentId].contents"
             :key="index"
           >
             <div class="px-2 py-2">
@@ -256,40 +225,84 @@
     
       </draggable>
 
+    </template>
 
+         <div class="col-lg-11 offset-lg-1 mt-1">
+             <h6 style="color:gray;">Add Keywords</h6>
+         </div>
 
+         <div class="col-lg-6 offset-lg-1 mb-2 mt-0">
+             <v-combobox
+                 style="font-size:13px;"
+              dense
+              label="Keywords"
+              :rules="KeywordsRule"
+            counter="80"
+            v-model="note.keywords"
+             placeholder="words or sentences that is related to the above topic"
+            persistent-hint
+            chips
+            multiple
+             color="#3C87CD">
 
+              <template v-slot:selection="data">
+            <v-chip
+              :key="JSON.stringify(data.item)"
+              v-bind="data.attrs"
+              :input-value="data.selected"
+              color="#3C87CD"
+              dense
+              class="my-1"
+               :items="items"
+              style="font-size:12px; color:#3C87CD; font-family:BodyFont;"
+              outlined
+              :disabled="data.disabled"
+          
+            >
+             
+              {{ data.item }}
+            </v-chip>
+
+              </template>
+             </v-combobox>
+         </div>
         </div>   
       </div>
 
        <!-- add content -->
 
-        <div v-if="false" class="col-12" style="position:absolute;height:100%;z-index:9999999999999;background: rgba(27, 27, 30, 0.32); overflow-y:auto;overflow-x:hidden;"> 
-
+        <div v-if="addNewContentModal" class="col-12 " style="position:absolute;height:100%;z-index:9999999999999;background: rgba(27, 27, 30, 0.32); overflow-y:auto;overflow-x:hidden;"> 
+         
+           <v-btn icon style="position:absolute;top:1%; left:2%;" @click="closeAddContentModel"> <v-icon color="#ffffff">mdi mdi-close</v-icon> </v-btn>
+          
           <div class="d-flex flex-wrap mb-2" style="align-items:center; justify-content:center;">
            
-           <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
+           <v-card class="px-1 py-1 mx-1 my-2" :style="selectedContentType == 'text' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
                    <v-btn title="Add a text" icon > <v-icon style="font-size:26px;">las la-align-left</v-icon></v-btn>
            </v-card>
 
-            <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
+            <v-card class="px-1 py-1 mx-1 my-2" :style="selectedContentType == 'image' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
                    <v-btn title="Add images" icon > <v-icon style="font-size:26px;">las la-image</v-icon></v-btn>
            </v-card>
 
-            <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
+            <v-card class="px-1 py-1 mx-1 my-2" :style="selectedContentType == 'video' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
                    <v-btn title="Add a video" icon > <v-icon style="font-size:26px;">las la-video</v-icon></v-btn>
            </v-card>
 
-            <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
+            <v-card class="px-1 py-1 mx-1 my-2" :style="selectedContentType == 'audio' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
                    <v-btn icon title="Add an audio" > <v-icon style="font-size:26px;">las la-music</v-icon></v-btn>
            </v-card>
 
-            <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
+            <v-card class="px-1 py-1 mx-1 my-2" :style="selectedContentType == 'code' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
                    <v-btn icon title="Add a code"> <v-icon style="font-size:26px;">las la-code</v-icon></v-btn>
            </v-card>
 
-            <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
+            <v-card class="px-1 py-1 mx-1 my-2" :style="selectedContentType == 'record' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
                    <v-btn icon title="Start recording"> <v-icon style="font-size:26px;">las la-microphone</v-icon></v-btn>
+           </v-card>
+
+            <v-card class="px-1 py-1 mx-1 my-2" :style="selectedContentType == 'project' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
+                   <v-btn icon title="Add a project"> <v-icon style="font-size:26px;">las la-laptop-code</v-icon></v-btn>
            </v-card>
             
 
@@ -337,11 +350,30 @@
 export default {
      data () {
       return {
+          requiredRule: [
+         v => !!v || 'This feild is required',
+        ],
+        subjectRule: [
+         v => !!v || 'Add a subject to this note',
+        ],
+        KeywordsRule: [
+         v => !!v || 'Add atleast one keyword',
+        ],
+        selectedContentId:0,
+        addNewContentModal:false,
+        selectedContentType:'text',
        items:['cool','new'],
        text:'',
-       selectedResponse:'First response',
-        list: [
+       note:{
+
+          subject:'',
+         keywords:[],
+         contents:[
            {
+             id:0,
+             name:'New page',
+             contents:[
+               {
              type:'text',
              content:'Lorem ipsum dolor sit amet consectetur'
            },
@@ -382,8 +414,15 @@ export default {
            {
              type:'project'
            }
-        ],
+             ]
+           }
+         ]
+
+       },
+      
+        
       drag: false,
+     
      
       }
     },
@@ -409,7 +448,20 @@ export default {
       this.$root.showMobileHub = false;
     },
     methods:{
-       
+      closeAddContentModel:function(){
+
+         this.addNewContentModal = false;
+
+      },
+        addNewContent:function(){
+           let newContent = {
+             name:'Another page',
+             contents:[]
+           };
+
+           this.note.contents.push(newContent);
+        }
+
         
     } 
 }
