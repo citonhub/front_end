@@ -317,6 +317,7 @@ EditProfile
 },
  mounted(){
       this.$root.showMobileHub = false;
+      this.fetchProfileContent();
     },
 
     data(){
@@ -326,8 +327,27 @@ EditProfile
         projects:[
            {id:1, type: 'Ecommerce Website'},
             { id:2, type:'Social media website'}
-        ]
+        ],
+
+        username:''
         }
+    },
+
+    methods:{
+
+      getUserName(){
+this.username=this.$root.username
+
+      },
+      fetchProfileContent(username){
+        
+        axios.get('/fetch-profile-' + username)
+        .then(response=>{
+          if(response.status==200){
+            console.log('profile fetched')
+          }
+        })
+      }
     }
 }
 </script>
