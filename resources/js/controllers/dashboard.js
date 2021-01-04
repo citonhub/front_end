@@ -927,6 +927,9 @@ const routes = [
         // content bots
         path: 'diary',
         component: Diary,
+        meta: {
+          twModalView: true
+        },
         redirect:'/board/diary/list',
         children:[
           {
@@ -937,9 +940,9 @@ const routes = [
           },
           {
             // board
-            path:'board',
+            path:'board/:diary_id',
             component:DiaryBoard,
-            redirect:'/board/diary/board/content',
+            //redirect:'/board/diary/board/content',
             children:[
               {
                 // content
@@ -1195,7 +1198,9 @@ const app = new Vue({
       is_reply_comment:false,
       replyCommentId:0,
       showResultPage:false,
-      panelFromChallenges:false
+      panelFromChallenges:false,
+      diaryList:[],
+      selectedDiary:[]
      },
      mounted: function () {
       window.thisUserState = this;

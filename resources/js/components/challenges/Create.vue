@@ -100,7 +100,7 @@
                class="py-auto px-auto d-flex"
                >
                    <input type="file" id="settingsimage" ref="settingsimage" 
-                @change="crophandler" style="opacity:0;width:100px; height:100px; overflow:hidden; position:absolute; z-index:10;"
+                @change="crophandler" style="opacity:0;width:120px; height:100px; overflow:hidden; position:absolute; z-index:10;"
                  accept="image/x-png,image/jpeg,image/jpg"/>
                  <v-icon class="mx-auto white-text">mdi-camera-plus</v-icon>
                 
@@ -766,6 +766,7 @@ this.judgeType='everyone';
              let formData = new FormData();
 
               if(this.$root.imageExist){
+                
              var data1 = this.handleBlob(this.$root.croppedImage);
                     formData.append('image',data1[0]);
                        formData.append('image_ext',data1[1]);

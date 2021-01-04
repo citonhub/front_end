@@ -125,7 +125,7 @@
                       </div>
 
                       <div class="col-4 py-0 px-0 text-right">
-                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-align-center</v-icon>
+                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-list</v-icon>
                       </div>
                         
                   </div>
@@ -144,7 +144,7 @@
                       </div>
 
                       <div class="col-4 py-0 px-0 text-right">
-                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-align-center</v-icon>
+                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-list</v-icon>
                       </div>
                         
                   </div>
@@ -162,7 +162,7 @@
                       </div>
 
                       <div class="col-4 py-0 px-0 text-right">
-                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-align-center</v-icon>
+                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-list</v-icon>
                       </div>
                         
                   </div>
@@ -183,7 +183,7 @@
                       </div>
 
                       <div class="col-4 py-0 px-0 text-right">
-                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-align-center</v-icon>
+                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-list</v-icon>
                       </div>
                         
                   </div>
@@ -202,7 +202,7 @@
                       </div>
 
                       <div class="col-4 py-0 px-0 text-right">
-                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-align-center</v-icon>
+                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-list</v-icon>
                       </div>
                         
                   </div>
@@ -221,7 +221,7 @@
                       </div>
 
                       <div class="col-4 py-0 px-0 text-right">
-                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-align-center</v-icon>
+                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-list</v-icon>
                       </div>
                         
                   </div>
