@@ -273,44 +273,71 @@
 
         <div v-if="addNewContentModal" class="col-12 " style="position:absolute;height:100%;z-index:9999999999999;background: rgba(27, 27, 30, 0.32); overflow-y:auto;overflow-x:hidden;"> 
          
-           <v-btn icon style="position:absolute;top:1%; left:2%;" @click="closeAddContentModel"> <v-icon color="#ffffff">mdi mdi-close</v-icon> </v-btn>
+           <v-btn icon style="position:absolute;top:1%; left:1%;" @click="closeAddContentModel"> <v-icon color="#ffffff">mdi mdi-close</v-icon> </v-btn>
           
           <div class="d-flex flex-wrap mb-2" style="align-items:center; justify-content:center;">
-           
-           <v-card class="px-1 py-1 mx-1 my-2" :style="selectedContentType == 'text' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
+
+             <div class="py-1">
+
+                <v-card class="px-1 py-1 mx-1 typeBox" :style="selectedContentType == 'text' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
                    <v-btn title="Add a text" icon > <v-icon style="font-size:26px;">las la-align-left</v-icon></v-btn>
            </v-card>
 
-            <v-card class="px-1 py-1 mx-1 my-2" :style="selectedContentType == 'image' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
+             </div>
+           
+             <div class="py-1">
+
+                <v-card class="px-1 py-1 mx-1  typeBox" :style="selectedContentType == 'image' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
                    <v-btn title="Add images" icon > <v-icon style="font-size:26px;">las la-image</v-icon></v-btn>
            </v-card>
 
-            <v-card class="px-1 py-1 mx-1 my-2" :style="selectedContentType == 'video' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
+             </div>
+
+             <div class="py-1">
+
+                <v-card class="px-1 py-1 mx-1  typeBox" :style="selectedContentType == 'video' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
                    <v-btn title="Add a video" icon > <v-icon style="font-size:26px;">las la-video</v-icon></v-btn>
            </v-card>
 
-            <v-card class="px-1 py-1 mx-1 my-2" :style="selectedContentType == 'audio' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
+             </div>
+
+             <div class="py-1">
+
+                <v-card class="px-1 py-1 mx-1  typeBox" :style="selectedContentType == 'audio' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
                    <v-btn icon title="Add an audio" > <v-icon style="font-size:26px;">las la-music</v-icon></v-btn>
            </v-card>
 
-            <v-card class="px-1 py-1 mx-1 my-2" :style="selectedContentType == 'code' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
+             </div>
+
+             <div class="py-1">
+
+               <v-card class="px-1 py-1 mx-1  typeBox" :style="selectedContentType == 'code' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
                    <v-btn icon title="Add a code"> <v-icon style="font-size:26px;">las la-code</v-icon></v-btn>
            </v-card>
 
-            <v-card class="px-1 py-1 mx-1 my-2" :style="selectedContentType == 'record' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
+             </div>
+
+             <div class="py-1">
+
+                <v-card class="px-1 py-1 mx-1 typeBox" :style="selectedContentType == 'record' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
                    <v-btn icon title="Start recording"> <v-icon style="font-size:26px;">las la-microphone</v-icon></v-btn>
            </v-card>
 
-            <v-card class="px-1 py-1 mx-1 my-2" :style="selectedContentType == 'project' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
+             </div>
+
+             <div class="py-1">
+
+                <v-card class="px-1 py-4 mx-1 typeBox" :style="selectedContentType == 'project' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
                    <v-btn icon title="Add a project"> <v-icon style="font-size:26px;">las la-laptop-code</v-icon></v-btn>
            </v-card>
-            
+
+             </div>
 
           </div>
 
          <div class="col-lg-12 py-1 my-2 px-2 text-center">
 
-             <v-press-editor :placeholder="'Type here...'"></v-press-editor>
+             <v-press-editor :placeholder="'Type here...'" v-model="ContentValue" v-if="selectedContentType == 'text'"></v-press-editor>
              
              </div>
              
@@ -416,7 +443,8 @@ export default {
            }
              ]
            }
-         ]
+         ],
+         ContentValue:''
 
        },
       
@@ -483,6 +511,9 @@ export default {
   background: transparent;
 }
 
+.typeBox:hover{
+  background:#E1F0FC;
+}
 
 .scroller::-webkit-scrollbar-thumb {
   background-color:  #3C87CD;

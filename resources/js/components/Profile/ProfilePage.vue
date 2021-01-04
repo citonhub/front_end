@@ -360,7 +360,7 @@ const EditProfile = () => import(
   );
 
 const ImageCropperBoard = () => import(
-    /* webpackChunkName: "imageCropperBoard" */ './ImageCropper.vue'
+    /* webpackChunkName: "imageCropperBoard" */ '../dashboard/ImageCropper.vue'
   );
 
 

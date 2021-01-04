@@ -1,6 +1,8 @@
 <template>
     <div  style="position:fixed;height:100%;background:#F5F5FB; width:100%;">
 
+      
+
         <!-- top bar -->
         <div class="col-12 py-0 fixed-top" style="position:sticky;width:100%;height:auto;z-index:999999999999999999; ">
          <top-bar></top-bar>
@@ -261,7 +263,42 @@
 
    </div>
 
+   
+
      </div>
+  
+  
+    <!-- image cropper -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showImageCropper">
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+
+     <div class=" col-lg-6  pt-2 col-md-8  d-flex flex-column" style="background:white;height:100%;" >
+
+       <div class="text-center d-flex flex-row" style="align-items:center;">
+          
+          <div class="col-2 px-1 py-1 text-left">
+          <v-btn icon @click="closeCropper"><v-icon>mdi mdi-close</v-icon> </v-btn> 
+          </div>
+         
+          <div class="text-center col-8 py-1" style="width:100%;">
+            <h6>Crop Image</h6>
+          </div>
+
+           <div class="col-2 px-1 py-1">
+          
+          </div>
+       </div>
+        <image-cropper-board></image-cropper-board>
+     </div>
+
+   </div>
+
+ </div>
+
+ <!-- ends --
   
 
      <!-- ends -->
@@ -278,6 +315,9 @@ const addPage = () => import(/*webpackChunkName: "addPage"*/ './AddProjectPage.v
 
  const ProjectView = () => import(
     /* webpackChunkName: "ProjectView" */ './ProjectView.vue'
+  );
+const ImageCropperBoard = () => import(
+    /* webpackChunkName: "imageCropperBoard" */ '../dashboard/ImageCropper.vue'
   );
 
 export default {
@@ -297,7 +337,8 @@ export default {
     components: {
         TopBar,
       addPage,
-      ProjectView
+      ProjectView,
+      ImageCropperBoard
     },
     mounted(){
       this.fetchPost();
