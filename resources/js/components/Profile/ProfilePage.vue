@@ -36,7 +36,7 @@
             <v-slide-x-reverse-transition>
 
      
-   <div class="col-12  py-0 px-0" style="position:fixed; left:0; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);" v-if="false">
+   <div class="col-12  py-0 px-0" style="position:fixed; left:0; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);" v-if="this.$root.showProfileEditModal">
 
    <div style="position:absolute; height:100%; width:100%; left:0;background:transparent;overflow-y:auto; overflow-x:hidden;"  >
    
@@ -121,17 +121,21 @@
 
               <div class="row">
                 
-                <div class="col-6 py-0 d-flex"  style="align-items:center;justify-content:center;">
+                <div class="col-4 py-0 d-flex"  style="align-items:center;justify-content:center;">
                 
                 <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
                       <img src="/imgs/newbie.svg" height="40px"> 
                       <span style="font-family:MediumFont;font-size:12px;color:#333333;">Newbie</span>
                 </div>
-                 
 
                 </div>
 
-                 <div class="col-6  py-0 d-flex "  style="align-items:center;justify-content:center;">
+                 <div class="col-4 py-0 d-flex"  style="align-items:center;justify-content:center;">
+                      <span class="mx-1" style="font-family:MediumFont;font-size:12px;" >1,290 </span><span style="font-size:12px;">XP</span>
+                  </div>
+
+
+                 <div class="col-4  py-0 d-flex "  style="align-items:center;justify-content:center;">
 
                    <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
                      <img src="/imgs/junior.svg" height="40px"> 
@@ -166,6 +170,7 @@
                          <span style="font-family:MediumFont;font-size:13px;color:#333333;" class="mx-1">234</span> <span style="font-size:13px;font-family:BodyFont;">Following</span>
                 </div>
 
+              
                 <div class="col-6 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
 
                      <span style="font-family:MediumFont;font-size:13px;color:#333333;" class="mx-1">25k</span> <span style="font-size:13px;font-family:BodyFont;">Followers</span>
@@ -181,8 +186,19 @@
             </div>
 
             <div  class="col-lg-4 py-0 my-lg-0 px-1 d-flex text-center flex-row my-2" style="align-items:center;justify-content:center;">
+              <template v-if="true">
 
-               <div class="col-6 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
+                 <div class="col-12 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
+                      <v-btn @click="showEditProfile" small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
+                       <span style="text-transform:capitalize;">Edit profile</span> 
+                  </v-btn>
+                </div>
+
+              </template>
+
+              <template v-else>
+
+                 <div class="col-6 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
                       <v-btn small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
                        <span style="text-transform:capitalize;">Chat</span> 
                   </v-btn>
@@ -197,6 +213,9 @@
                 </div>
 
                 
+
+              </template>
+              
 
 
             </div>
@@ -295,7 +314,37 @@
 
        <!-- ends -->
 
+<!-- image cropper -->
 
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showImageCropper">
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+
+     <div class=" col-lg-6  pt-2 col-md-8  d-flex flex-column" style="background:white;height:100%;" >
+
+       <div class="text-center d-flex flex-row" style="align-items:center;">
+          
+          <div class="col-2 px-1 py-1 text-left">
+          <v-btn icon @click="closeCropper"><v-icon>mdi mdi-close</v-icon> </v-btn> 
+          </div>
+         
+          <div class="text-center col-8 py-1" style="width:100%;">
+            <h6>Crop Image</h6>
+          </div>
+
+           <div class="col-2 px-1 py-1">
+          
+          </div>
+       </div>
+        <image-cropper-board></image-cropper-board>
+     </div>
+
+   </div>
+
+ </div>
+
+ <!-- ends -->
 
    </div>
 </template>
@@ -309,11 +358,18 @@ const TopBar = () => import(
 const EditProfile = () => import(
    /* webpackChunkName: "EditProfile" */ './EditProfile.vue'
   );
+
+const ImageCropperBoard = () => import(
+    /* webpackChunkName: "imageCropperBoard" */ '../dashboard/ImageCropper.vue'
+  );
+
+
 export default {
 
 components:{
 TopBar,
-EditProfile
+EditProfile,
+ImageCropperBoard
 },
  mounted(){
       this.$root.showMobileHub = false;
@@ -328,6 +384,17 @@ EditProfile
             { id:2, type:'Social media website'}
         ]
         }
+    },
+    methods:{
+      closeCropper:function(){
+        this.$root.showImageCropper = false;
+         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+      },
+      showEditProfile:function(){
+
+         this.$router.push({ path:'/profile/edit'})
+
+      }
     }
 }
 </script>

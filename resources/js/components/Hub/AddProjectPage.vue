@@ -4,7 +4,7 @@
     <div class="row" style="font-family:BodyFont;background:transparent;">
 
     <!-- contents  -->
-         <div class="col-12 px-md-4 px-3 py-2 pt-0 mt-1 text-left" style="height:auto !important; font-family:BodyFont; background:transparent !important;" >
+         <v-form class="col-12 px-md-4 px-2 py-2 pt-0 mt-1 text-left" ref="addPost" v-model="formState" style="height:auto !important; font-family:BodyFont; background:transparent !important;" >
            
            <v-app class="row">
 
@@ -14,8 +14,9 @@
               <v-text-field
                 v-model="post.title"
                  style="font-size:13px;"
-                 rounded
+                
               label="Project Title"
+              :rules="titleRule"
                filled
             counter="80"
             placeholder="title"
@@ -31,25 +32,31 @@
 
              <!-- select project -->
 
-              <div class=" col-12 py-1 my-0 px-2" style="font-family:BodyFont;">
+              <div class=" col-12 py-1 my-0  " style="font-family:BodyFont;">
                 <v-chip :outlined="postLink" @click="postLink = !postLink" class="d-inline-block mr-1" color="#3C87CD" :style="postLink ? 'font-size:13px;cursor:pointer;' : 'font-size:13px;cursor:pointer;color:white;'">Select Project</v-chip>
                 <v-chip :outlined="!postLink" @click="postLink = true" class="d-inline-block mr-1" color="#3C87CD" :style="postLink ? 'font-size:13px;cursor:pointer;color:white;' : 'font-size:13px;cursor:pointer;'">Add Link</v-chip>
 
-                <v-text-field v-if="postLink" label="Paste Project Link" v-model="post.project_url"></v-text-field>
-                <v-select v-else label="Select Project" v-model="post.project_slug"></v-select>
-              <!-- <v-combobox
+                <v-text-field 
+                v-if="postLink" 
+                label="Paste Project Link"
+                class="mt-2"
+                style="font-size:13px;"
+                :rules="requiredRule"
+                 color="#3C87CD"
+                 placeholder="paste here"
+                 v-model="post.project_url">
+
+                </v-text-field>
+                <v-select v-else 
+                label="Select Project" 
                  style="font-size:13px;"
-                 rounded
-                 filled
-              label="Select project or Paste project link"
-      
-            placeholder="select"
-            persistent-hint
-
-            
-             color="#3C87CD">
-             </v-combobox> -->
-
+                 class="mt-2"
+                 color="#3C87CD"
+                    :rules="requiredRule"
+                 placeholder="select..."
+                v-model="post.project_slug">
+                </v-select>
+              
              </div>
 
              <!-- ends -->
@@ -124,7 +131,7 @@
             persistent-hint
             chips
             multiple
-            rounded
+               :rules="requiredRule"
             filled
              item-value="name"
              item-text="name"
@@ -167,7 +174,8 @@
                  style="font-size:14px;"
                  filled
                  height="100px"
-                 counter="100"
+                 counter="200"
+                    :rules="descriptionRule"
                  v-model="post.description"
                  placeholder="A short description of your project"
                 >
@@ -179,7 +187,7 @@
 
             <!-- add project button -->
              <div class=" text-center col-12 py-1 mt-4 my-0 px-2">
-                 <v-btn  medium rounded  color="#3C87CD" style="font-size:13px; font-family:BodyFont; font-weight:bolder;text-transform:none; color:white;" @click="postData">
+                 <v-btn  medium rounded type="submit" color="#3C87CD" style="font-size:13px; font-family:BodyFont; font-weight:bolder;text-transform:none; color:white;" @click.prevent="postData">
                Send
                </v-btn>
              </div>
@@ -195,7 +203,7 @@
 
            
           
-        </div>
+         </v-form>
 
 
      <!-- ends -->
@@ -217,6 +225,17 @@ export default {
     data(){
         return{
            imageUrl:'',
+            titleRule:[
+             v => !!v || 'Title is required',
+           v => v.length <= 80 || 'Title must be less than 80 characters'
+            ],
+        requiredRule: [
+         v => !!v || 'This feild is required',
+        ],
+        descriptionRule:[
+         v => !!v || 'description is required',
+           v => v.length <= 200 || 'description must be less than 200 characters'
+            ],
              languageIcon:[
                {
                   name:'Web app NodeJs',
@@ -341,14 +360,11 @@ export default {
 
             ],
 
-            projects:[
-               'Quizapp',
-               'BookFinder'
-            ],
             addlink:false,
             select:true,
             addprojectlink:false,
             postLink: false,
+            formState:false,
             post: {
               title: '',
               project_slug: '',

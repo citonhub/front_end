@@ -8,9 +8,7 @@
 
                 <div class="d-flex flex-column"  style="align-items:center; justify-content:center;">
 
-                    <div    
-              style="border-radius:50%;height:150px;width:150px;background-color:#c5c5c5;background-image:url(/imgs/imgproj3.jpeg);background-size: cover;
-              background-repeat: no-repeat; border:5px solid #3C87CD;">
+                    <div  :style="imageStyle(150,this.$root.selectedDiary)">
                 </div> 
 
                 <div class="d-flex flex-row mt-2" style="align-items:center;justify-content:center;">
@@ -30,7 +28,7 @@
                       <v-icon style="font-size:26px;">las la-user-friends</v-icon>
                     </div>
                     <div>
-                    <span style="font-size:12px;font-family:BodyFont;">  2331 </span>
+                    <span style="font-size:12px;font-family:BodyFont;">  {{this.$root.selectedDiary.users}} </span>
                     </div>
                   </div>
 
@@ -55,7 +53,7 @@
 
             <div class="col-md-8 px-3 px-md-2 offset-md-2 col-lg-6 offset-lg-3 py-0 text-center">
 
-              <p style="color:#333333;font-size:13px; font-family:BodyFont;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non architecto repellendus similique? Architecto excepturi accusamus voluptatem unde voluptas, officia</p>
+              <p style="color:#333333;font-size:13px; font-family:BodyFont;">{{ this.$root.selectedDiary.description }}</p>
 
             </div>
 
@@ -63,7 +61,7 @@
              
              <div  class="ml-1 ml-md-3 d-flex flex-row" style="width:100%;align-items:center;">
                 <h5 class="pt-1">Notes</h5> 
-              <v-btn icon class="mx-1"><v-icon style="font-size:25px;">las la-plus</v-icon></v-btn>
+              <v-btn icon class="mx-1" @click="addNote"><v-icon style="font-size:25px;">las la-plus</v-icon></v-btn>
              </div>
              
 
@@ -77,7 +75,7 @@
                <draggable
         class="col-12  px-md-3  px-0 py-0 d-flex flex-row flex-wrap"
         tag="div"
-        v-model="list"
+        v-model="that.$root.selectedDiary.notes"
         handle=".handle"
         v-bind="dragOptions"
         @start="drag = true"
@@ -86,16 +84,16 @@
        
           <div
             class="col-md-6 col-lg-4 px-1"
-            v-for="element in list"
-            :key="element.order"
+            v-for="element in that.$root.selectedDiary.notes"
+            :key="element.id"
           >
             <v-card class="px-2 py-2">
 
               <div class="d-flex flex-row">
 
                 <div class="d-flex flex-row" style="width:100%;align-items:center;">
-                   <v-icon style="font-size:25px;" color="#3C87CD" class="mr-2 handle">lar la-gem</v-icon>
-                   <div style="font-size:13px; font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" > {{ element.name }}</div>
+                   <v-icon style="font-size:25px;" color="#3C87CD" class="mr-2 handle">lar la-clipboard</v-icon>
+                   <div style="font-size:13px; font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" > {{ element.tag_name }}</div>
                 </div>
 
               <div class="d-flex flex-row-reverse" style="align-items:center;">
@@ -104,9 +102,15 @@
                   <v-btn icon><v-icon style="font-size:23px;">las la-ellipsis-v</v-icon></v-btn>
 
                     <div class="d-flex flex-row" style="align-items:center;justify-content:center;">
-                        <v-icon style="font-size:20px;">las la-eye</v-icon>
 
-                   <div class="px-1" style="font-size:12px;font-family:BodyFont;">234</div> 
+                       <i style="font-size:18px;color:grey;" class="lar la-heart"></i>
+
+                   <div class="px-1" style="font-size:12px;font-family:BodyFont;">{{element.likes}}</div> 
+
+
+                        <v-icon style="font-size:20px;color:grey;">las la-eye</v-icon>
+
+                   <div class="px-1" style="font-size:12px;font-family:BodyFont;">{{element.views}}</div> 
 
                 </div>
             
@@ -131,30 +135,14 @@
 
 import draggable from 'vuedraggable'
 
-const message = [
-  "vue.draggable",
-  "draggable",
-  "component",
-  "for",
-  "vue.js 2.0",
-  "based",
-  "on",
-  "Sortablejs",
-  "React actions",
-  "Working Fine",
-  "Hello search",
-  "Just jokes",
-  "My articles",
-  "Preparation"
-];
+
 
 export default {
      data () {
       return {
-       list: message.map((name, index) => {
-        return { name, order: index + 1 };
-      }),
-      drag: false
+      that:this,
+      drag: false,
+      loading:false
       }
     },
     components: {
@@ -172,8 +160,110 @@ export default {
   },
     mounted(){
       this.$root.showMobileHub = false;
+
+      this.getdiaryData();
+
     },
     methods:{
+      addNote:function(){
+
+          this.$router.push({path:'/board/diary/board/' + this.$route.params.diary_id + '/add-note'});
+
+     },
+      imageStyle: function(size,data){
+
+         if(data.background_color == null){
+        let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:50%;background-repeat: no-repeat; border:5px solid #3C87CD;";
+         if(data.image_name == null || data.image_name == '0'){
+              styleString += 'background-color:whitesmoke; background-image:url(imgs/background1.jpg);';
+         }else{
+            if(data.image_name == 'default_1'){
+
+               styleString += 'background-color:whitesmoke; background-image:url(/imgs/background3.jpg);';
+
+            }
+
+            if(data.image_name == 'default_2'){
+
+               styleString += 'background-color:whitesmoke; background-image:url(/imgs/background1.jpg);';
+
+            }
+
+              if(data.image_name == 'default_3'){
+
+               styleString += 'background-color:whitesmoke; background-image:url(/imgs/imgproj2.jpeg);';
+
+            }
+          
+         }
+         
+         return styleString;
+       }else{
+         let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:50%;background-repeat: no-repeat;border:5px solid #3C87CD; ";
+         let imgLink = data.image_name + '.' + data.image_extension;
+        
+        styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
+         
+          return styleString;
+
+      }
+      },
+
+      getdiaryData:function(){
+       
+        this.loading  = true;
+
+             let storedProjectData = this.$root.getLocalStore('user_diary_data_' +  this.$route.params.diary_id + this.$root.username);
+
+            storedProjectData.then((result)=>{
+                
+                 if(result != null ){
+
+                    let finalResult = JSON.parse(result);
+                     
+                      this.$root.selectedDiary = finalResult;
+
+                       
+                    
+                   
+ 
+                  this.loading = false;
+                
+                 
+
+              // this.checkForNewDiaryData();
+
+                 }else{
+            
+           
+            axios.get( 'get-diary-data/' + this.$route.params.diary_id)
+      .then(response => {
+      
+      if (response.status == 200) {
+
+          this.$root.LocalStore('user_diary_data_' +  this.$route.params.diary_id + this.$root.username,response.data.diary_data);
+        
+     
+         this.$root.selectedDiary = response.data.diary_data;
+
+           
+     
+         this.loading = false;
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+        this.loading = false;
+    
+     }) 
+
+                 }
+            })
+
+      }
        
         
     } 
@@ -192,7 +282,7 @@ export default {
 }
 
   .scroller::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 

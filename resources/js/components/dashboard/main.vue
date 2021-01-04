@@ -2,7 +2,7 @@
 <div class="fixed-layout">
  
  <!-- fixed loader -->
- <div class="loader" v-if="this.$root.routeIsLoading" style="background:#F5F5FB;">
+ <div class="loader" v-if="this.$root.routeIsLoading" style="background:#F5F5FB;position:fixed; top:0%;z-index:9999999999999999999999999;">
   <div class="bar"></div>
 </div>
  <!-- ends -->
