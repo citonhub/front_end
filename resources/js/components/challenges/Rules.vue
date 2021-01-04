@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="col-lg-10 offset-lg-1 px-md-2 px-1">
-              <h4>One account per participant</h4>
-              <p>{{currentChallenge.rules}}</p>
+              
+              <p>{{that.$root.selectedChallenge.rules}}</p>
              
         </div>
     </div>
@@ -11,16 +11,11 @@
 export default {
     data(){
         return{
-            currentChallenge:''
+            that:this
         }
     },
 
-    created(){
-      
-         this.currentChallenge=this.$root.selectedChallenge;
-       
-       
-    }
+  
 }
 </script>
 <style scoped>

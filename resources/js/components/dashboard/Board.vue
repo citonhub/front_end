@@ -33,6 +33,39 @@
 
 
  <!-- ends -->
+
+ <!-- image cropper -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showImageCropper">
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+
+     <div class=" col-lg-6  pt-2 col-md-8  d-flex flex-column" style="background:white;height:100%;" >
+
+       <div class="text-center d-flex flex-row" style="align-items:center;">
+          
+          <div class="col-2 px-1 py-1 text-left">
+          <v-btn icon @click="closeCropper"><v-icon>mdi mdi-close</v-icon> </v-btn> 
+          </div>
+         
+          <div class="text-center col-8 py-1" style="width:100%;">
+            <h6>Crop Image</h6>
+          </div>
+
+           <div class="col-2 px-1 py-1">
+          
+          </div>
+       </div>
+        <image-cropper-board></image-cropper-board>
+     </div>
+
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
     
 <!-- Main board -->
 <div class=" col-lg-10  offset-lg-2 "  style="z-index:999999; background:#F5F5FB;  align-items:center; justify-content:center; position:fixed; height:100%; top:0%;">
@@ -43,7 +76,7 @@
 
      <!-- ends -->
   
-      <div class="col-12 py-0 pb-3 px-0 mt-md-5" style="position:absolute; background:#F5F5FB; left:0%; top:0;  height:100%;overflow-y:hidden; overflow-x:hidden; ">
+      <div class="col-12 py-0 pb-3 px-0 mt-md-5" style="position:absolute; background:#F5F5FB; left:0%; top:0%;  height:100%;overflow-y:hidden; overflow-x:hidden; ">
       <!-- entry point for vue router -->
       <router-view></router-view>
       <!-- ends -->
@@ -66,7 +99,12 @@
 </template>
 
 <script>
-import '../../bootstraps/globalPackage'
+
+const ImageCropperBoard = () => import(
+    /* webpackChunkName: "imageCropperBoard" */ './ImageCropper.vue'
+  );
+
+
  export default {
     data () {
       return {
@@ -75,8 +113,17 @@ import '../../bootstraps/globalPackage'
        that:this
       }
     },
+    components:{
+     ImageCropperBoard
+    },
     mounted(){
       this.$root.boardComponent = this;
+    },
+    methods:{
+      closeCropper:function(){
+        this.$root.showImageCropper = false;
+         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+      }
     }
   }
 </script>

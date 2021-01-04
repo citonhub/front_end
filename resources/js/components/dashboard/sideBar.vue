@@ -33,6 +33,19 @@
                 </div>
           </div>
 
+             <div class="col-12  px-0 py-1 py-md-2 sideBar mt-1 " :style="selectedTab == 'projects' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('projects')">
+                <div class="row">
+                <div class="col-4 py-1 text-center">
+                  <v-icon style="font-size:30px;" :color="selectedTab == 'projects' ? '#3C87CD' : '#A4A4A5'">las la-laptop-code</v-icon>
+                </div>
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'projects' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
+                  <div style="font-family:MediumFont; font-size:14px;" >Projects</div>
+                </div>
+                </div>
+          </div>
+
+
+
             <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'channels' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('channels')">
                 <div class="row">
                 <div class="col-4 py-1 text-center">
@@ -44,17 +57,7 @@
                 </div>
           </div>
 
-          <div class="col-12  px-0 py-1 py-md-2 sideBar mt-1 " :style="selectedTab == 'projects' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('projects')">
-                <div class="row">
-                <div class="col-4 py-1 text-center">
-                  <v-icon style="font-size:30px;" :color="selectedTab == 'projects' ? '#3C87CD' : '#A4A4A5'">las la-laptop-code</v-icon>
-                </div>
-                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'projects' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div style="font-family:MediumFont; font-size:14px;" >Projects</div>
-                </div>
-                </div>
-          </div>
-
+          
            <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'challenges' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('challenges')">
                 <div class="row">
                 <div class="col-4 py-1 text-center">
@@ -66,6 +69,7 @@
                 </div>
           </div>
 
+       
 
           <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'diary' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''"  @click.stop="goToPage('diary')">
                 <div class="row">
