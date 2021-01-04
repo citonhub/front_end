@@ -68,11 +68,12 @@
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
 
-             <input style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search Projects and People" class="py-2 px-2" type="search" >       
+             <input style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search Projects and People" class="py-2 px-2" type="search" @keyup.enter="send"
+                     v-model="query">       
          
             </div>
              <div class="col-2 text-center py-0">
-                <v-btn icon @click="send"><v-icon style="font-size:25px;color:#263238;" >las la-bell</v-icon></v-btn>
+                <v-btn icon><v-icon style="font-size:25px;color:#263238;" >las la-bell</v-icon></v-btn>
             </div>
              <div class="col-2 d-flex px-1 py-0" style="justify-content:center; align-items:center;">
                  <div style="border-radius:50%;height:32px;width:32px;background-color:#c5c5c5; background-image:url(/imgs/img3.jpg); background-size:100%;border:1px solid transparent;"></div>

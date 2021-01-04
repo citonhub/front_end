@@ -443,7 +443,7 @@ export default {
       }
     },
 
-    created () {
+    mounted () {
       axios.get('/fetch-posts')
         .then((response) => {
           if (response.status == 200) {
