@@ -134,8 +134,61 @@ const routes = [
   {
     path:'/hub',
     name:'Hub',
+    meta: {
+      twModalView: true
+    },
     component: Hub
   },
+
+  // new post
+{ path: '/hub/new-post',
+name: 'NewPost',
+meta: {
+ twModalView: true
+},
+beforeEnter: (to, from, next) => {
+ const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+ 
+ if(window.thisUserState != undefined){
+   
+   thisUserState.$root.showAddNewPost = true;
+  
+  }
+
+ if (!twModalView) {
+   //
+   // For direct access
+   //
+   to.matched[0].components = {
+     default: Hub,
+     modal: false
+   }
+ }
+
+ if (twModalView) {
+   //
+   // For twModalView access
+   //
+   if (from.matched.length > 1) {
+     // copy nested router
+     const childrenView = from.matched.slice(1, from.matched.length)
+     for (let view of childrenView) {
+       to.matched.push(view)
+     }
+   }
+   if (to.matched[0].components) {
+     // Rewrite components for `default`
+     to.matched[0].components.default = from.matched[0].components.default
+     // Rewrite components for `modal`
+     to.matched[0].components.modal = Hub
+   }
+ }
+
+ next()
+}
+},
+  
   {
     // channels
     path: '/channels',
@@ -1200,7 +1253,9 @@ const app = new Vue({
       showResultPage:false,
       panelFromChallenges:false,
       diaryList:[],
-      selectedDiary:[]
+      selectedDiary:[],
+      showAddNewPost:false,
+      posts:[],
      },
      mounted: function () {
       window.thisUserState = this;
