@@ -194,9 +194,23 @@
 </template>
 <script>
 export default {
-    props: [
-      'post'
-    ]
+  data () {
+    return {
+      post: '',
+      id: this.$root.currentPost
+    }
+  },
+
+  mounted () {
+    axios.get(`/fetch-post/${this.id}`)
+      .then((response) => {
+        if (response.status == 200) {
+          this.post = response.data.data
+        }
+        console.log(response);
+        console.log(this.post);
+      })
+  }
 }
 </script>
 <style scoped>
