@@ -114,8 +114,8 @@
        </div> 
 
        
-            <span style="font-family:HeaderFont;font-size:16px;">Akinola Ayomide</span>
-            <span style="font-family:MediumFont;color:grey;font-size:14px;">@dray</span>
+            <span style="font-family:HeaderFont;font-size:16px;">{{userData[0].name}}</span>
+            <span style="font-family:MediumFont;color:grey;font-size:14px;">{{userData[0].username}}</span>
 
              <div class="col-lg-8 col-md-8 py-0 my-0 d-flex" style="align-items:center;justify-content:center;">
 
@@ -124,30 +124,30 @@
                 <div class="col-4 py-0 d-flex"  style="align-items:center;justify-content:center;">
                 
                 <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
-                      <img src="/imgs/newbie.svg" height="40px"> 
-                      <span style="font-family:MediumFont;font-size:12px;color:#333333;">Newbie</span>
+                      <img :src="pic1" height="40px"> 
+                      <span style="font-family:MediumFont;font-size:12px;color:#333333;">{{level}}</span>
                 </div>
 
                 </div>
 
                  <div class="col-4 py-0 d-flex"  style="align-items:center;justify-content:center;">
-                      <span class="mx-1" style="font-family:MediumFont;font-size:12px;" >1,290 </span><span style="font-size:12px;">XP</span>
+                      <span class="mx-1" style="font-family:MediumFont;font-size:12px;" >{{xp}} </span><span style="font-size:12px;">XP</span>
                   </div>
 
 
                  <div class="col-4  py-0 d-flex "  style="align-items:center;justify-content:center;">
 
                    <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
-                     <img src="/imgs/junior.svg" height="40px"> 
-                      <span style="font-family:MediumFont;font-size:12px;color:#333333;">Junior</span>
+                     <img :src="pic" height="40px"> 
+                      <span style="font-family:MediumFont;font-size:12px;color:#333333;">{{nextLevel}}</span>
                 </div>
                     
                 </div>
 
                 <div class=" col-12 py-1 pt-2 "   >
                      <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
-                     <v-progress-linear height="7px" width="100%" rounded color="#3C87CD" value="80"></v-progress-linear>
-                      <span style="font-family:BodyFont;font-size:12px;color:#333333;"><span style="font-family:MediumFont;">234</span> XP Points to Junior dev</span>
+                     <v-progress-linear height="7px" width="100%" rounded color="#3C87CD" :value="barValue"></v-progress-linear>
+                      <span style="font-family:BodyFont;font-size:12px;color:#333333;"><span style="font-family:MediumFont;">{{xpLeft}}</span> XP Points to {{nextLevel}} dev</span>
                 </div>
                 </div>
 
@@ -167,7 +167,7 @@
          <div class="col-lg-4 py-0 my-0 px-1 d-flex" style="align-items:center;justify-content:center;">
 
                 <div class="col-6 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
-                         <span style="font-family:MediumFont;font-size:13px;color:#333333;" class="mx-1">234</span> <span style="font-size:13px;font-family:BodyFont;">Following</span>
+                         <span style="font-family:MediumFont;font-size:13px;color:#333333;" class="mx-1">{{userData[1].connections}}</span> <span style="font-size:13px;font-family:BodyFont;">Following</span>
                 </div>
 
               
@@ -263,7 +263,7 @@
                     </div>
                    <div class="col-8 py-0 my-0 d-flex" style="align-items:center;">
                        <div> 
-                             <span   class="d-inline-block"  style="font-family:MediumFont; font-size:13px;" >Akinola Dray</span>
+                             <span   class="d-inline-block"  style="font-family:MediumFont; font-size:13px;" >{{userData[0].name}}</span>
                        </div>
                      
                    </div>
@@ -371,9 +371,11 @@ TopBar,
 EditProfile,
 ImageCropperBoard
 },
- mounted(){
+ async mounted(){
       this.$root.showMobileHub = false;
+     await this.setUsername();
       this.fetchProfileContent();
+      this.calculateLevel();
     },
 
     data(){
@@ -385,7 +387,15 @@ ImageCropperBoard
             { id:2, type:'Social media website'}
         ],
 
-        username:''
+        username:'',
+        userData:[],
+        xp:125,
+        xpLeft:'',
+        barValue:40,
+       level:'Newbie',
+       nextLevel:'Junior',
+       pic:'/imgs/junior.svg',
+       pic1:'/imgs/newbie.svg'
         }
     },
     methods:{
@@ -397,7 +407,71 @@ ImageCropperBoard
 
          this.$router.push({ path:'/profile/edit'})
 
-      }
+      },
+
+      setUsername(){
+        this.username=this.$root.username
+        console.log(this.username)
+      },
+fetchProfileContent(){
+axios.get('/fetch-profile-'+ this.username)
+.then(
+  response=>{
+    if(response.status==200){
+      console.log('profile received!', response.data)
+      this.userData= response.data
+    }
+  }
+)
+},
+
+calculateLevel(){
+  if(this.xp >= 50 && this.xp <= 99){
+this.level='Newbie';
+this.nextLevel='Junior';
+this.xpLeft=100-this.xp;
+this.barValue=(this.xp/100)*100;
+this.pic='/imgs/junior.svg'
+this.pic1='/imgs/newbie.svg'
+  }
+  else if(this.xp >= 100 && this.xp <= 999 ){ this.level='Junior';
+  this.nextLevel='Intermediate';
+  this.xpLeft=1000-this.xp;
+  this.barValue=(this.xp/1000)*100
+  this.pic='/imgs/intermediate.svg'
+this.pic1='/imgs/junior.svg'
+  }
+   else if(this.xp >= 1000 && this.xp <= 4999 ){ this.level='Intermediate';
+  this.nextLevel='Senior';
+  this.xpLeft=5000-this.xp;
+  this.barValue=(this.xp/5000)*100;
+   this.pic='/imgs/senior.svg'
+this.pic1='/imgs/intermediate.svg' }
+    else if(this.xp >= 5000 && this.xp <= 9999 ){ this.level='Senior';
+   this.nextLevel='Expert';
+   this.xpLeft=10000-this.xp;
+   this.barValue=(this.xp/10000)*100;
+   this.pic='/imgs/expert.svg'
+this.pic1='/imgs/senior.svg'
+   }
+ else if(this.xp >= 10000 && this.xp <= 14999 ){ this.level='Expert';
+ this.nextLevel='Super Dev';
+ this.xpLeft=15000-this.xp;
+ this.barValue=(this.xp/15000)*100;
+ this.pic='/imgs/super_dev.svg'
+this.pic1='/imgs/expert.svg'}
+  else if(this.xp >= 15000 && this.xp <= 100000 ){ this.level='Super Dev';
+  this.nextLevel='Super';
+  this.xpLeft=100000-this.xp;
+  this.barValue=(this.xp/100000)*100;
+  this.pic='';
+  this.pic1='/imgs/super_dev.svg'
+}
+
+}
+
+
+
     }
 }
 </script>
