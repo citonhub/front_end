@@ -66,18 +66,45 @@
              <span style="font-size:13px;">Upload Thumbnail</span>
              <span style="font-size:12px; color:grey;" class="mx-1">(give your project an identity)</span><br>
 
-               <v-sheet
+            <v-sheet
+              elevation="0"
+              height="100"
+              width="120"
+              :style="'background-image:url('+ this.$root.croppedImage + ');border-radius:10px;cursor:pointer;background-size:cover;'"
+              class="py-0  px-0 mt-2 sheetbackImg"
+            >  
+              <v-sheet 
+                color="rgba(15, 33, 36, 0.3)"
+                elevation="0"
+                height="100%"
+                width="100%"
+                style="border-radius:10px;"
+                class="py-auto px-auto d-flex"
+              >
+                <input 
+                  type="file" 
+                  id="settingsimage" 
+                  ref="settingsimage" 
+                  @change="crophandler" 
+                  style="opacity:0;width:120px; height:100px; overflow:hidden; position:absolute; z-index:10;"
+                  accept="image/x-png,image/jpeg,image/jpg"
+                />
+                <v-icon class="mx-auto white-text">mdi-camera-plus</v-icon>
+              </v-sheet>
+            </v-sheet>
+
+               <!-- <v-sheet
               elevation="0"
               height="100"
               width="120"
               :style="'background-image:url('+ imageUrl + ');border-radius:10px;cursor:pointer;background-size:contain;'"
               class="py-0  px-0 mt-2 sheetbackImg"
-              color="whitesmoke">
+              color="whitesmoke"> --> <!-- We move from here -->
 
                <!-- <input type="file" id="settingsimage" ref="settingsimage" 
                 @change="crophandler" style="opacity:0;width:100%; height:10px; overflow:hidden; position:absolute; z-index:10;"
                  accept="image/x-png,image/jpeg,image/jpg"/> -->
-               <v-sheet
+               <!-- <v-sheet
                
               
                elevation="0"
@@ -90,22 +117,22 @@
                  <v-icon class="mx-auto white-text">mdi-camera-plus</v-icon>
                 
                </v-sheet>
-              </v-sheet>
+              </v-sheet> -->
     
                 <div style="font-size:13px;color:grey;" class="mt-3">Or select from defaults</div>
 
                <div class="d-flex flex-row mt-3" >
-                       <div    class="mr-2"
+                       <div    class="mr-2" @click="selectDefaultImg('/imgs/imgproj3.jpeg',1)"
     style="border-radius:10px;height:60px;width:60px;background-color:#c5c5c5;background-image:url(/imgs/imgproj3.jpeg);background-size: cover;
   background-repeat: no-repeat; border:1px solid #c5c5c5;">
   </div> 
 
-    <div    class="mr-2"
+    <div    class="mr-2" @click="selectDefaultImg('/imgs/imgproj2.jpeg',2)"
     style="border-radius:10px;height:60px;width:60px;background-color:#c5c5c5;background-image:url(/imgs/imgproj2.jpeg);background-size: cover;
   background-repeat: no-repeat;border:1px solid #c5c5c5;">
   </div> 
 
-     <div    class="mr-2"
+     <div    class="mr-2" @click="selectDefaultImg('/imgs/imgproj1.jpeg',3)"
     style="border-radius:10px;height:60px;width:60px;background-color:#c5c5c5;background-image:url(/imgs/imgproj1.jpeg);background-size: cover;
   background-repeat: no-repeat; border:1px solid #c5c5c5;">
   </div> 
@@ -371,7 +398,8 @@ export default {
               project_url: '',
               tags: [],
               description: ''
-            }
+            },
+            imageDefault:0
         }
     },
 
@@ -387,23 +415,109 @@ export default {
           this.select = !this.select
        },
 
-       postData () {
-        console.log(this.post);
+        crophandler: function (event) {
+          this.imageDefault = 0;
+          
+          // Reference to the DOM input element
+          var input = event.target;
+          
+          // Ensure that you have a file before attempting to read it
+          if (input.files && input.files[0]) {
+          
+            // create a new FileReader to read this image and convert to base64 format
+            var reader = new FileReader();
+          
+            // Define a callback function to run, when FileReader finishes its job
+            reader.onload = (e) => {
+          
+              // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+              // Read image as base64 and set to imageData
+              this.$root.imagepath = e.target.result;
+              this.imagepath = e.target.result;              
+              this.$root.imageExist = true;  
+            };
+          
+            // Start the reader job - read file as a data url (base64 format)
+            reader.readAsDataURL(input.files[0]);
 
-        axios.post('/save-hub-post', this.post)
-        .then((response) => {
-          if (response.status == 201) {
-            console.log(response);
-
-            axios.get('/fetch-posts')
-              .then((response) => {
-                if (response.status == 200) {
-                  this.$root.posts = response.data.data
-                }
-              })
+            this.$router.push({ path: '/crop-image' });
           }
-        })
-       }
-    }
+        },
+
+        selectDefaultImg: function (image, number) {
+       
+          this.imageDefault = 'default_' + number;
+          this.$root.croppedImage = image;
+          this.$root.imageExist = false;
+        },
+
+        handleBlob: function (imageString) {
+          
+          // Split the base64 string in data and contentType
+          var block = imageString.split(";");
+
+          // Get the content type of the image
+          var contentType = block[0].split(":")[1];// In this case "image/gif"
+          var imgType = contentType.slice(6);
+
+          // get the real base64 content of the file
+          var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
+
+          // Convert it to a blob to upload
+          var blob = this.b64toBlob(realData, contentType);
+
+          return [blob, imgType];
+        },
+
+        b64toBlob: function (b64Data, contentType, sliceSize) {
+          contentType = contentType || '';
+          sliceSize = sliceSize || 512;
+
+          var byteCharacters = atob(b64Data);
+          var byteArrays = [];
+
+          for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            var slice = byteCharacters.slice(offset, offset + sliceSize);
+            var byteNumbers = new Array(slice.length);
+            
+            for (var i = 0; i < slice.length; i++) {
+              byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            var byteArray = new Uint8Array(byteNumbers);
+            byteArrays.push(byteArray);
+          }
+
+          var blob = new Blob(byteArrays, {type: contentType});
+          return blob;
+        },
+
+        postData () {
+          let formData = new FormData();
+
+          if (this.$root.imageExist) {      
+            var data1 = this.handleBlob(this.$root.croppedImage);
+            formData.append('image', data1[0]);
+            formData.append('image_ext', data1[1]);
+          } else { 
+            formData.append('image_default',this.imageDefault);
+          }
+
+          formData.append('title', this.post.title);
+          formData.append('project_slug', this.post.project_slug);
+          formData.append('project_url', this.post.project_url);
+          formData.append('description', this.post.description);
+          formData.append('tags', this.post.tags);
+
+          axios.post('/save-hub-post', formData, headers: {
+            'Content-Type':'multipart/form-data'
+          })
+            .then((response) => {
+              if (response.status == 201) {
+                console.log(response);
+              }
+            })
+        }
+      }
 }
 </script>

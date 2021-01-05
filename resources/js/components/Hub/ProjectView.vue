@@ -207,8 +207,6 @@ export default {
         if (response.status == 200) {
           this.post = response.data.data
         }
-        console.log(response);
-        console.log(this.post);
       })
   }
 }
