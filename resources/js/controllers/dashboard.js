@@ -125,7 +125,7 @@ const routes = [
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
   {
-    path:'/profile',
+    path:'/profile/:username',
      name:'ProfilePage', 
      component:ProfilePage,
      meta: {

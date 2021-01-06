@@ -414,7 +414,7 @@ ImageCropperBoard
         console.log(this.username)
       },
 fetchProfileContent(){
-axios.get('/fetch-profile-'+ this.username)
+axios.get('/fetch-profile-'+ this.$route.params.username)
 .then(
   response=>{
     if(response.status==200){
