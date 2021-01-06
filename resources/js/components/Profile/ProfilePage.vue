@@ -186,7 +186,7 @@
             </div>
 
             <div  class="col-lg-4 py-0 my-lg-0 px-1 d-flex text-center flex-row my-2" style="align-items:center;justify-content:center;">
-              <template v-if="true">
+              <template v-if="owner">
 
                  <div class="col-12 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
                       <v-btn @click="showEditProfile" small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
@@ -373,7 +373,7 @@ ImageCropperBoard
 },
  async mounted(){
       this.$root.showMobileHub = false;
-     await this.setUsername();
+     this.setUsername();
      this.fetchProfileContent();
       
     },
@@ -387,7 +387,7 @@ ImageCropperBoard
             { id:2, type:'Social media website'}
         ],
 
-        username:'',
+       
         userData:[],
         xp:'',
         xpLeft:'',
@@ -395,7 +395,8 @@ ImageCropperBoard
        level:'Newbie',
        nextLevel:'Junior',
        pic:'/imgs/junior.svg',
-       pic1:'/imgs/newbie.svg'
+       pic1:'/imgs/newbie.svg',
+       owner:true
         }
     },
     methods:{
@@ -405,13 +406,19 @@ ImageCropperBoard
       },
       showEditProfile:function(){
 
-         this.$router.push({ path:'/profile/edit'})
+         this.$router.push({ path:'/profile/'+this.$route.params.username+'/edit'})
 
       },
 
       setUsername(){
-        this.username=this.$root.username
-        console.log(this.username)
+        if(this.$route.params.username= this.$root.username){
+          this.owner=true;
+          console.log(this.$route.params.username)
+        }else if(this.$route.params.username =! this.$root.username){
+          this.owner=false;
+        }
+     
+       
       },
 fetchProfileContent(){
 axios.get('/fetch-profile-'+ this.$route.params.username)
@@ -478,7 +485,13 @@ this.pic1='/imgs/expert.svg'}
   this.pic1='/imgs/super_dev.svg'
 }
 
-}
+},
+
+goBack(){
+    this.router.push({
+      path:'/profile/'+this.$route.params.username
+    })
+  }
 
 
 
