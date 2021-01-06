@@ -76,6 +76,8 @@ const Board = () => import(/* webpackChunkName: "Board" */ '../components/dashbo
 const Projects = () => import(/* webpackChunkName: "Projects" */ '../components/dashboard/Projects.vue');
 const Diary = () => import(/* webpackChunkName: "Diary" */ '../components/dashboard/Diary.vue');
 const Challenges = () => import(/* webpackChunkName: "Challenges" */ '../components/dashboard/Challenges.vue');
+const Wallet = () => import(/* webpackChunkName: "Wallet" */ '../components/dashboard/Wallet.vue');
+  
 
 // project routes
 const ProjectList = () => import(/* webpackChunkName: "ProjectList" */ '../components/projects/ProjectList.vue');
@@ -1028,6 +1030,55 @@ beforeEnter: (to, from, next) => {
   
     ]
       },
+
+    // image cropper
+{ path: '/crop-image-diary',
+name: 'DiaryImageCropper',
+meta: {
+ twModalView: true
+},
+beforeEnter: (to, from, next) => {
+ const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+ 
+ if(window.thisUserState != undefined){
+   
+   thisUserState.$root.showImageCropperDiary = true;
+  
+  }
+
+ if (!twModalView) {
+   //
+   // For direct access
+   //
+   to.matched[0].components = {
+     default: DiaryList,
+     modal: false
+   }
+ }
+
+ if (twModalView) {
+   //
+   // For twModalView access
+   //
+   if (from.matched.length > 1) {
+     // copy nested router
+     const childrenView = from.matched.slice(1, from.matched.length)
+     for (let view of childrenView) {
+       to.matched.push(view)
+     }
+   }
+   if (to.matched[0].components) {
+     // Rewrite components for `default`
+     to.matched[0].components.default = from.matched[0].components.default
+     // Rewrite components for `modal`
+     to.matched[0].components.modal = DiaryList
+   }
+ }
+
+ next()
+}
+},
     
       {
         // content bots
@@ -1059,7 +1110,9 @@ beforeEnter: (to, from, next) => {
                 // add new gem
                 path:'add-note',
                 component:AddGem
-              }
+              },
+            
+
             ]
           }
           ,
@@ -1129,6 +1182,19 @@ beforeEnter: (to, from, next) => {
 
               ]
             }
+        ]
+      },
+      {
+        // wallet
+        path: 'wallet',
+        component: Wallet,
+      
+        meta: {
+          twModalView: true
+        },
+        children:[
+           
+             
         ]
       }
     ]
@@ -1308,8 +1374,13 @@ const app = new Vue({
       diaryList:[],
       selectedDiary:[],
       showAddNewPost:false,
+      noteContent:[],
+      diaryBoardComponent:undefined,
+      addDiaryContentComponent:undefined,
+      AddModalIsUp:false,
       posts:[],
       showProfileEditModal:false,
+      showImageCropperDiary:false,
      },
      mounted: function () {
       window.thisUserState = this;

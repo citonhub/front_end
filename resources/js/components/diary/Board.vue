@@ -23,7 +23,7 @@
               <div class="col-3 py-0 px-1 text-right">
                   <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
                        <template v-if="this.$router.currentRoute.path.indexOf('add-note') >= 0">
-                          <span style="color:white;text-transform:none;">Create</span> 
+                          <span style="color:white;text-transform:none;">Save</span> 
                        </template>
                        <template v-else>
                          <span style="color:white;text-transform:none;">Train</span> 
@@ -72,7 +72,7 @@
               <div class="col-3 py-0 px-1 text-right">
                   <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
                        <template v-if="this.$router.currentRoute.path.indexOf('add-note') >= 0">
-                          <span style="color:white;text-transform:none;">Create</span> 
+                          <span style="color:white;text-transform:none;">Save</span> 
                        </template>
                        <template v-else>
                          <span style="color:white;text-transform:none;">Train</span> 
@@ -100,13 +100,89 @@
     </div>
 </template>
 <script>
-
+  import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 
 export default {
+   mounted(){
+      this.$root.diaryBoardComponent = this;
+   },
    methods:{
      goBack:function(){
+        if(this.$root.AddModalIsUp){
+
+      this.$root.AddModalIsUp = false;
+           return;
+
+
+        }
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
-     }
+     },
+     showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRigh  t',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'question'){
+
+       }
+     
+
+
+    },
    }
 }
 </script>

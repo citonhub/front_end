@@ -38,7 +38,7 @@
 
             <div class="col-lg-4 col-md-6 px-2 mb-1 py-1 pt-0 mt-md-2" v-for="diary in this.$root.diaryList" :key="diary.id">
           
-          <v-card @click="getDiaryContent(diary)"  class="py-2 px-1"  style="border-radius:10px;" >
+          <v-card @click="getDiaryContent(diary)"  class="py-2 px-1"  style="border-radius:7px;" >
             
             <div class="col-12 py-0 my-0 d-flex flex-row">
                  <div     class="mr-2 py-2"> 

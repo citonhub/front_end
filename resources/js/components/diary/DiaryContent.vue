@@ -61,7 +61,7 @@
              
              <div  class="ml-1 ml-md-3 d-flex flex-row" style="width:100%;align-items:center;">
                 <h5 class="pt-1">Notes</h5> 
-              <v-btn icon class="mx-1" @click="addNote"><v-icon style="font-size:25px;">las la-plus</v-icon></v-btn>
+              <v-btn icon class="mx-1" @click="addNote" :loading="loadingAddNote"><v-icon style="font-size:25px;">las la-plus</v-icon></v-btn>
              </div>
              
 
@@ -142,7 +142,8 @@ export default {
       return {
       that:this,
       drag: false,
-      loading:false
+      loading:false,
+      loadingAddNote:false
       }
     },
     components: {
@@ -166,8 +167,31 @@ export default {
     },
     methods:{
       addNote:function(){
+      
+       this.loadingAddNote = true;
+           axios.get( '/add-new-note/' + this.$route.params.diary_id)
+      .then(response => {
+      
+      if (response.status == 200) {
 
-          this.$router.push({path:'/board/diary/board/' + this.$route.params.diary_id + '/add-note'});
+         this.$root.noteContent = response.data;
+        
+         this.loadingAddNote = false;
+
+           this.$router.push({path:'/board/diary/board/' + this.$route.params.diary_id + '/add-note'});
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+     this.$root.diaryBoardComponent.showAlert('Oops!','Unable to add note,please try again','error');
+        this.loadingAddNote = false;
+    
+     }) 
+
+      
 
      },
       imageStyle: function(size,data){
@@ -223,7 +247,7 @@ export default {
                      
                       this.$root.selectedDiary = finalResult;
 
-                       
+                      
                     
                    
  
@@ -231,7 +255,7 @@ export default {
                 
                  
 
-              // this.checkForNewDiaryData();
+               this.updateNotes();
 
                  }else{
             
@@ -262,6 +286,34 @@ export default {
 
                  }
             })
+
+      },
+
+      updateNotes: function(){
+
+            axios.get( 'get-diary-data/' + this.$route.params.diary_id)
+      .then(response => {
+      
+      if (response.status == 200) {
+
+          this.$root.LocalStore('user_diary_data_' +  this.$route.params.diary_id + this.$root.username,response.data.diary_data);
+        
+     
+         this.$root.selectedDiary = response.data.diary_data;
+
+           
+     
+         this.loading = false;
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+        this.loading = false;
+    
+     }) 
 
       }
        

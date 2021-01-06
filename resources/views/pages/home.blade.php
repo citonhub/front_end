@@ -5,8 +5,8 @@
 
  @endsection
  @section('meta') 
- <meta name="description" content="A teaching platform for developers. Chat, share codes, live code and build projects in your Space. Create an account or log in to get started." />
-  <meta name="keywords" content="Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
+ <meta name="description" content="Teach,build your community and connect with other developers" />
+  <meta name="keywords" content="Teach programming,Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
   <meta name="og:image" content="https://citonhub.com/imgs/logo.png"/>
@@ -18,8 +18,8 @@
     <!--Metadata for Microsoft-->
     <meta name="msapplication-TileImage" content="imagesNew/icons/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#4495a2">
-    <meta property="og:description" content="A teaching platform for developers. Chat, share codes, live code and build projects in your Space. Create an account or log in to get started" />
-    <meta property='twitter:title' content="Citonhub:A teaching platform for developers"/>
+    <meta property="og:description" content="Teach,build your community and connect with other developers" />
+    <meta property='twitter:title' content="Citonhub:Teach,build your community and connect with other developers"/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 
@@ -74,13 +74,13 @@
 
 <!-- Teach , learn and connect -->
 
-<div class="col-lg-6  d-none d-lg-flex flex-column" style="position:fixed; align-items:center; justify-content:center;  height:75%; top:10%; z-index:20;">
+<div class="col-lg-6  d-none d-lg-flex flex-column" style="position:fixed; align-items:center; justify-content:center;  height:75%; top:8%; z-index:20;">
    
    <div>
-     <h1 style="font-family:HeaderFont; font-size:60px;">Teach.</h1>
-     <h1 style="font-family:HeaderFont; font-size:60px;">Learn.</h1>
-     <h1 style="font-family:HeaderFont; font-size:60px;">Connect</h1>
-     <span style="font-family:BodyFont; font-size:30px;">With other developers.</span>
+     <h1 style="font-family:HeaderFont; font-size:50px;">Teach.</h1>
+     <h1 style="font-family:HeaderFont; font-size:50px;">Build your community.</h1>
+     <h1 style="font-family:HeaderFont; font-size:50px;">Connect,</h1>
+     <span style="font-family:BodyFont; font-size:25px;">with other developers.</span>
 
      <div class="py-2 px-0 mt-3 col-12">
       <div class="row">
@@ -97,12 +97,12 @@
 
 </div>
 
-<div class="d-lg-none d-block col-12 " style="position:fixed; left:0%; height:60%; top:10%; z-index:80;">
+<div class="d-lg-none d-block col-12 " style="position:fixed; left:0%; height:60%; top:11%; z-index:80;">
 <div class=" text-center">
-     <span style="font-family:HeaderFont; font-size:36px;">Teach.</span>
-     <span style="font-family:HeaderFont; font-size:36px;">Learn.</span>
-     <span style="font-family:HeaderFont; font-size:36px;">Connect</span> <br> 
-     <span style="font-family:BodyFont; font-size:18px;">With other developers.</span>
+     <div style="font-family:HeaderFont; font-size:25px;">Teach.</div>
+     <div style="font-family:HeaderFont; font-size:25px;">Build your community.</div>
+     <div style="font-family:HeaderFont; font-size:25px;">Connect,</div>
+     <span style="font-family:BodyFont; font-size:15px;">with other developers.</span>
 
     
       <div class="mt-3">
