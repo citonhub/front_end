@@ -493,30 +493,34 @@ export default {
         },
 
         postData () {
-          let formData = new FormData();
+          if (this.$refs.addPost.validate()) {
+            let formData = new FormData();
 
-          if (this.$root.imageExist) {      
-            var data1 = this.handleBlob(this.$root.croppedImage);
-            formData.append('image', data1[0]);
-            formData.append('image_ext', data1[1]);
-          } else { 
-            formData.append('image_default',this.imageDefault);
-          }
+            if (this.$root.imageExist) {      
+              var data1 = this.handleBlob(this.$root.croppedImage);
+              formData.append('image', data1[0]);
+              formData.append('image_ext', data1[1]);
+            } else { 
+              formData.append('image_default',this.imageDefault);
+            }
 
-          formData.append('title', this.post.title);
-          formData.append('project_slug', this.post.project_slug);
-          formData.append('project_url', this.post.project_url);
-          formData.append('description', this.post.description);
-          formData.append('tags', this.post.tags);
+            formData.append('title', this.post.title);
+            formData.append('project_slug', this.post.project_slug);
+            formData.append('project_url', this.post.project_url);
+            formData.append('description', this.post.description);
+            formData.append('tags', this.post.tags);
 
-          axios.post('/save-hub-post', formData, headers: {
-            'Content-Type':'multipart/form-data'
-          })
-            .then((response) => {
-              if (response.status == 201) {
-                console.log(response);
+            axios.post('/save-hub-post', formData, {
+              headers: {
+                'Content-Type':'multipart/form-data'
               }
             })
+              .then((response) => {
+                if (response.status == 201) {
+                  console.log(response);
+                }
+              })
+          }
         }
       }
 }
