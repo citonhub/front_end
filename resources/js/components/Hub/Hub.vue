@@ -66,7 +66,7 @@
 
           <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;" v-for="post in this.$root.posts" :key="post.id">
              <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5; background-repeat: no-repeat;
-          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background3.jpg);background-size:cover;" @click="showProject(post)">
+          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background3.jpg);background-size:cover;" @click="showProject(post.id, post.post_id)">
 
               <div class="pt-3 px-2  pl-3" style=" position:absolute; width:100%; height:35%; left:0; bottom:0%; border-radius:0px; border-bottom-left-radius:20px;
           border-bottom-right-radius:20px; background: linear-gradient(180deg, rgba(60, 135, 205, 0.0053) 0%, rgba(0, 0, 0, 0.53) 100%);">
@@ -228,7 +228,7 @@
        <!-- view full project -->
 
        
-   <div class="col-12  py-0 px-0" style="position:fixed; left:0; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);" @click="viewProjectModal = false" v-if="viewProjectModal">
+   <div class="col-12  py-0 px-0" style="position:fixed; left:0; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);" @click="viewProjectModal = false" v-if="this.$root.showViewPost">
 
    <div style="position:absolute; height:100%; width:100%; left:0;background:transparent;overflow-y:hidden; overflow-x:hidden;"  >
    
@@ -237,7 +237,7 @@
 
       <!-- close button -->
 
-       <v-btn icon @click.stop="viewProjectModal = false" color="#ffffff" style="position:absolute;top:1%;right:2%;">
+       <v-btn icon @click.stop="goBack" color="#ffffff" style="position:absolute;top:1%;right:2%;">
                       <v-icon>mdi mdi-close</v-icon>
                     </v-btn>
 
@@ -251,7 +251,7 @@
       <!-- project view page -->
       <div class="col-12  py-2 pt-0">
 
-       <project-view :post="project"></project-view>
+       <project-view :post="currentPost"></project-view>
 
       </div>
         
@@ -331,6 +331,7 @@ export default {
         addProjectModal:false,
         viewProjectModal:false,
         posts: [],
+        currentPost: this.$root.currentPost,
         project: {}
       }
     },
@@ -345,19 +346,30 @@ export default {
     },
 
     methods: {
-      showProject (project) {
-        this.project = project;
-        this.viewProjectModal = true;
+      showProject (id, postId) {
+        this.$router.push({ path: `/hub/post/${postId}` })
+        this.$root.currentPost = id
+        // this.project = project;
+         this.viewProjectModal = true;
       },
+
+      goBack() {
+        // this.viewProjectModal = false;
+        this.$root.showViewPost = false;
+        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+        },
+
       showAddPost: function(){
 
           this.$router.push({ path:'/hub/new-post'})
 
       },
+
       closeAddPost:function(){
      this.$root.showAddNewPost = false;
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
       },
+
       fetchPost: function(){
          axios.get('/fetch-posts')
         .then((response) => {
@@ -368,7 +380,10 @@ export default {
       }
     },
 
-}
+    mounted () {
+      this.fetchPost();    
+    }
+    }
 </script>
 <style scoped>
 .scroller::-webkit-scrollbar {

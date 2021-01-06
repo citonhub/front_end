@@ -8,8 +8,8 @@ window.io = require('socket.io-client');
 
 Vue.use(Vuex)
 
-
-axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
+// axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
+axios.defaults.baseURL = 'http://localhost:8000/api'
 
 const store = new Vuex.Store({
   state: {
@@ -240,6 +240,59 @@ beforeEnter: (to, from, next) => {
 
  next()
 }
+},
+
+// new post
+{
+  path: '/hub/post/:id',
+  name: 'ViewPost',
+  meta: {
+    twModalView: true
+  },
+  beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+  if (window.thisUserState != undefined) {
+    thisUserState.$root.showViewPost = true;
+  }
+
+  if (!twModalView) {
+   //
+   // For direct access
+   //
+    to.matched[0].components = {
+      default: Hub,
+      modal: false
+    }
+  }
+
+  if (twModalView) {
+   //
+   // For twModalView access
+   //
+    if (from.matched.length > 1) {
+      
+      // copy nested router
+      const childrenView = from.matched.slice(1, from.matched.length)
+      
+      for (let view of childrenView) {
+        to.matched.push(view)
+      }
+    }
+   
+    if (to.matched[0].components) {
+      
+      // Rewrite components for `default`
+      to.matched[0].components.default = from.matched[0].components.default
+      
+      // Rewrite components for `modal`
+      to.matched[0].components.modal = Hub
+    }
+  }
+
+  next()
+}
+
 },
   
   {
@@ -1308,8 +1361,10 @@ const app = new Vue({
       diaryList:[],
       selectedDiary:[],
       showAddNewPost:false,
+      showViewPost: false,
       posts:[],
       showProfileEditModal:false,
+      currentPost:null
      },
      mounted: function () {
       window.thisUserState = this;
