@@ -114,8 +114,8 @@
        </div> 
 
        
-            <span style="font-family:HeaderFont;font-size:16px;">{{userData[0].name}}</span>
-            <span style="font-family:MediumFont;color:grey;font-size:14px;">{{userData[0].username}}</span>
+            <span style="font-family:HeaderFont;font-size:16px;">{{userData.name}}</span>
+            <span style="font-family:MediumFont;color:grey;font-size:14px;">{{userData.username}}</span>
 
              <div class="col-lg-8 col-md-8 py-0 my-0 d-flex" style="align-items:center;justify-content:center;">
 
@@ -167,7 +167,7 @@
          <div class="col-lg-4 py-0 my-0 px-1 d-flex" style="align-items:center;justify-content:center;">
 
                 <div class="col-6 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
-                         <span style="font-family:MediumFont;font-size:13px;color:#333333;" class="mx-1">{{userData[1].connections}}</span> <span style="font-size:13px;font-family:BodyFont;">Following</span>
+                         <span style="font-family:MediumFont;font-size:13px;color:#333333;" class="mx-1">{{userData.connections}}</span> <span style="font-size:13px;font-family:BodyFont;">Following</span>
                 </div>
 
               
@@ -263,7 +263,7 @@
                     </div>
                    <div class="col-8 py-0 my-0 d-flex" style="align-items:center;">
                        <div> 
-                             <span   class="d-inline-block"  style="font-family:MediumFont; font-size:13px;" >{{userData[0].name}}</span>
+                             <span   class="d-inline-block"  style="font-family:MediumFont; font-size:13px;" >{{userData.name}}</span>
                        </div>
                      
                    </div>
@@ -374,8 +374,8 @@ ImageCropperBoard
  async mounted(){
       this.$root.showMobileHub = false;
      await this.setUsername();
-      this.fetchProfileContent();
-      this.calculateLevel();
+     this.fetchProfileContent();
+      
     },
 
     data(){
@@ -389,7 +389,7 @@ ImageCropperBoard
 
         username:'',
         userData:[],
-        xp:125,
+        xp:'',
         xpLeft:'',
         barValue:40,
        level:'Newbie',
@@ -418,14 +418,24 @@ axios.get('/fetch-profile-'+ this.username)
 .then(
   response=>{
     if(response.status==200){
-      console.log('profile received!', response.data)
-      this.userData= response.data
+      console.log('profile received!', response.data.user_data)
+      this.userData= response.data.user_data
+      this.profileData=response.data.profile
+    this.xp=this.profileData.points
+    this.calculateLevel();
+
+ 
+  
+  
+     
     }
   }
 )
 },
 
 calculateLevel(){
+console.log(this.xp)
+   
   if(this.xp >= 50 && this.xp <= 99){
 this.level='Newbie';
 this.nextLevel='Junior';
