@@ -46,11 +46,11 @@
               
 
               <div class="col-12 py-2 my-0 px-2">
-    				<v-text-field style="font-size:13px;" dense placeholder="name"  outlined color="#3C87CD" label="Name"></v-text-field>
+    				<v-text-field style="font-size:13px;" dense placeholder="name"  outlined color="#3C87CD" v-model="newName" label="Name"></v-text-field>
     			</div>
 
           <div class="col-12 py-2 my-0 px-2">
-    				<v-textarea style="font-size:13px;" dense placeholder="your bio"  outlined color="#3C87CD" label="Bio"></v-textarea>
+    				<v-textarea style="font-size:13px;" dense placeholder="your bio"  outlined color="#3C87CD" v-model="newBio" label="Bio"></v-textarea>
     			</div>
            
        
@@ -59,7 +59,7 @@
         
             <!-- add project button -->
              <div class=" text-center col-12 py-1 mt-4 my-0 px-2">
-                 <v-btn  medium rounded  color="#3C87CD" style="font-size:12px; font-family:MediumFont;font-weight:bolder; color:white;">
+                 <v-btn @click="editProfile"  medium rounded  color="#3C87CD" style="font-size:12px; font-family:MediumFont;font-weight:bolder; color:white;">
                Save
                </v-btn>
              </div>
@@ -86,12 +86,25 @@
 </template>
 <script>
 export default {
+
+  data(){
+return{
+newName:'',
+newBio:''
+}
+
+  },
    mounted(){
       this.$root.showMobileHub = false;
     },
 
   methods:{
-  
+  editProfile(){
+    axios.post('/update-profile',{
+      full_name:this.newName,
+      about:this.newBio
+    })
+  }
   }
  
 }

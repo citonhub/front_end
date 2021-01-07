@@ -53,7 +53,7 @@
      <div class="col-12 px-md-2 px-0 py-2 pt-0 fixed-top d-flex flex-row" style="border-top-left-radius:10px; border-top-right-radius:10px; left:0; position:sticky;background:white; top:0%; border-bottom:1px solid #c5c5c5;align-items:center;">
            
              <div class=" col-2 py-0 ">
-              <v-btn icon >
+              <v-btn @click="goBack" icon >
                       <v-icon>mdi mdi-close</v-icon>
                     </v-btn>
             </div>
@@ -114,8 +114,8 @@
        </div> 
 
        
-            <span style="font-family:HeaderFont;font-size:16px;">{{userData.user_data.name}}</span>
-            <span style="font-family:MediumFont;color:grey;font-size:14px;">{{userData.user_data.username}}</span>
+            <span style="font-family:HeaderFont;font-size:16px;">{{userData.name}}</span>
+            <span style="font-family:MediumFont;color:grey;font-size:14px;">{{userData.username}}</span>
 
              <div class="col-lg-8 col-md-8 py-0 my-0 d-flex" style="align-items:center;justify-content:center;">
 
@@ -167,7 +167,7 @@
          <div class="col-lg-4 py-0 my-0 px-1 d-flex" style="align-items:center;justify-content:center;">
 
                 <div class="col-6 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
-                         <span style="font-family:MediumFont;font-size:13px;color:#333333;" class="mx-1">{{userData.profile.connections}}</span> <span style="font-size:13px;font-family:BodyFont;">Following</span>
+                         <span style="font-family:MediumFont;font-size:13px;color:#333333;" class="mx-1">{{profileData.connections}}</span> <span style="font-size:13px;font-family:BodyFont;">Following</span>
                 </div>
 
               
@@ -186,7 +186,7 @@
             </div>
 
             <div  class="col-lg-4 py-0 my-lg-0 px-1 d-flex text-center flex-row my-2" style="align-items:center;justify-content:center;">
-              <template v-if="true">
+              <template v-if="owner">
 
                  <div class="col-12 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
                       <v-btn @click="showEditProfile" small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
@@ -263,7 +263,7 @@
                     </div>
                    <div class="col-8 py-0 my-0 d-flex" style="align-items:center;">
                        <div> 
-                             <span   class="d-inline-block"  style="font-family:MediumFont; font-size:13px;" >{{userData.user_data.name}}</span>
+                             <span   class="d-inline-block"  style="font-family:MediumFont; font-size:13px;" >{{userData.name}}</span>
                        </div>
                      
                    </div>
@@ -371,11 +371,12 @@ TopBar,
 EditProfile,
 ImageCropperBoard
 },
- async mounted(){
+  mounted(){
       this.$root.showMobileHub = false;
-     await this.setUsername();
-      this.fetchProfileContent();
-      this.calculateLevel();
+   
+     this.fetchProfileContent();
+     
+      
     },
 
     data(){
@@ -387,15 +388,17 @@ ImageCropperBoard
             { id:2, type:'Social media website'}
         ],
 
-        username:'',
+       
         userData:[],
-        xp:125,
+        xp:'',
         xpLeft:'',
         barValue:40,
        level:'Newbie',
        nextLevel:'Junior',
        pic:'/imgs/junior.svg',
-       pic1:'/imgs/newbie.svg'
+       pic1:'/imgs/newbie.svg',
+       owner:false,
+       profileData:[],
         }
     },
     methods:{
@@ -405,27 +408,41 @@ ImageCropperBoard
       },
       showEditProfile:function(){
 
-         this.$router.push({ path:'/profile/edit'})
+         this.$router.push({ path:'/profile/edit/'+this.$route.params.username})
 
       },
 
-      setUsername(){
-        this.username=this.$root.username
-        console.log(this.username)
-      },
+
 fetchProfileContent(){
 axios.get('/fetch-profile-'+ this.$route.params.username)
 .then(
   response=>{
     if(response.status==200){
-      console.log('profile received!', response.data)
-      this.userData  = response.data
+      console.log('profile received!', response.data.user_data)
+      this.userData= response.data.user_data
+      this.profileData=response.data.profile
+    this.xp=this.profileData.points
+    this.calculateLevel();
+
+ 
+   if(this.$route.params.username == this.$root.username){
+       // this should be true
+          this.owner=true;
+          console.log(this.$root.username)
+          console.log(this.$route.params.username)
+        }else if(this.$route.params.username =! this.$root.username){
+          this.owner=true;
+        }
+     console.log(this.owner)
+     
     }
   }
 )
 },
 
 calculateLevel(){
+console.log(this.xp)
+   
   if(this.xp >= 50 && this.xp <= 99){
 this.level='Newbie';
 this.nextLevel='Junior';
@@ -468,7 +485,15 @@ this.pic1='/imgs/expert.svg'}
   this.pic1='/imgs/super_dev.svg'
 }
 
-}
+},
+
+
+
+goBack(){
+    this.$router.push({
+      path:'/profile/'+this.$route.params.username
+    })
+  }
 
 
 
