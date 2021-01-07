@@ -181,7 +181,7 @@
 
             <div  class="col-lg-4 py-0 my-lg-1 px-1 d-flex text-center my-2" style="align-items:center;justify-content:center;">
                 <div style="font-family:BodyFont;font-size:13px;" class="mt-2">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil voluptatibus voluptate ea eum iste quam odio, reprehenderit, animi aliquid eligendi
+               {{profileData.about}}
             </div>
             </div>
 
@@ -390,6 +390,7 @@ ImageCropperBoard
 
        
         userData:[],
+        profileData:[],
         xp:'',
         xpLeft:'',
         barValue:40,
