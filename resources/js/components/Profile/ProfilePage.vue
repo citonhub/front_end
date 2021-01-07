@@ -423,16 +423,15 @@ axios.get('/fetch-profile-'+ this.$route.params.username)
     this.xp=this.profileData.points
     this.calculateLevel();
 
-  if(this.$route.params.username== this.$root.username){
-          this.owner=true;
+ 
+   if(this.$route.params.username== this.$root.username){
+          this.owner=false;
           console.log(this.$root.username)
           console.log(this.$route.params.username)
         }else if(this.$route.params.username =! this.$root.username){
-          this.owner=false;
+          this.owner=true;
         }
      console.log(this.owner)
-  
-  
      
     }
   }
@@ -485,6 +484,8 @@ this.pic1='/imgs/expert.svg'}
 }
 
 },
+
+
 
 goBack(){
     this.$router.push({
