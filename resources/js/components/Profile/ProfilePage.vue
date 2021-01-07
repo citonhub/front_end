@@ -53,7 +53,7 @@
      <div class="col-12 px-md-2 px-0 py-2 pt-0 fixed-top d-flex flex-row" style="border-top-left-radius:10px; border-top-right-radius:10px; left:0; position:sticky;background:white; top:0%; border-bottom:1px solid #c5c5c5;align-items:center;">
            
              <div class=" col-2 py-0 ">
-              <v-btn icon >
+              <v-btn @click="goBack" icon >
                       <v-icon>mdi mdi-close</v-icon>
                     </v-btn>
             </div>
@@ -371,10 +371,11 @@ TopBar,
 EditProfile,
 ImageCropperBoard
 },
- async mounted(){
+  mounted(){
       this.$root.showMobileHub = false;
-     this.setUsername();
+   
      this.fetchProfileContent();
+     
       
     },
 
@@ -396,7 +397,7 @@ ImageCropperBoard
        nextLevel:'Junior',
        pic:'/imgs/junior.svg',
        pic1:'/imgs/newbie.svg',
-       owner:true
+       owner:''
         }
     },
     methods:{
@@ -406,20 +407,11 @@ ImageCropperBoard
       },
       showEditProfile:function(){
 
-         this.$router.push({ path:'/profile/'+this.$route.params.username+'/edit'})
+         this.$router.push({ path:'/profile/edit/'+this.$route.params.username})
 
       },
 
-      setUsername(){
-        if(this.$route.params.username= this.$root.username){
-          this.owner=true;
-          console.log(this.$route.params.username)
-        }else if(this.$route.params.username =! this.$root.username){
-          this.owner=false;
-        }
-     
-       
-      },
+
 fetchProfileContent(){
 axios.get('/fetch-profile-'+ this.$route.params.username)
 .then(
@@ -431,7 +423,14 @@ axios.get('/fetch-profile-'+ this.$route.params.username)
     this.xp=this.profileData.points
     this.calculateLevel();
 
- 
+  if(this.$route.params.username== this.$root.username){
+          this.owner=true;
+          console.log(this.$root.username)
+          console.log(this.$route.params.username)
+        }else if(this.$route.params.username =! this.$root.username){
+          this.owner=false;
+        }
+     console.log(this.owner)
   
   
      
@@ -488,7 +487,7 @@ this.pic1='/imgs/expert.svg'}
 },
 
 goBack(){
-    this.router.push({
+    this.$router.push({
       path:'/profile/'+this.$route.params.username
     })
   }

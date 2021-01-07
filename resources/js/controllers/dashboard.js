@@ -133,7 +133,7 @@ const routes = [
     }
   },
     // edit profile
-{ path: '/profile/:user/edit',
+{ path: '/profile/edit/:username',
 name: 'EditProfile',
 meta: {
  twModalView: true
