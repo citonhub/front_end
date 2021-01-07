@@ -5,8 +5,8 @@
         <div class="row">
 
             <div class="col-md-6 offset-md-1 py-0 my-0 pl-md-3 text-left">
-          <h5 style="font-size:18px;" class="d-md-block d-none"> Add a Note</h5>
-         <h5 class="d-md-none d-block"> Add a Note</h5>
+          <h5 style="font-size:18px;" class="d-md-block d-none"> Make a Note</h5>
+         <h5 class="d-md-none d-block"> Make a Note</h5>
         </div>
 
          <div class="col-lg-6 offset-lg-1 mb-2">
@@ -18,7 +18,7 @@
             counter="60"
             :rules="subjectRule"
             persistent-hint     
-              v-model="that.$root.noteContent.subject.tag_name"
+              v-model="that.$root.noteContent.note.tag_name"
              placeholder="What new thing do you learn today"
               dense
               hint="What new thing do you learn today"
@@ -56,7 +56,7 @@
               dense
               class="my-1"
                :items="items"
-              style="font-size:12px; color:#3C87CD; font-family:BodyFont;"
+              style="font-size:12px; color:#3C87CD; font-family:MediumFont;"
               outlined
               :disabled="data.disabled"
           
@@ -78,9 +78,9 @@
 
           <div class="col-lg-10 offset-lg-1 d-flex flex-row flex-wrap py-0" style="align-items:center;">
            
-            <v-chip v-for="(content,index) in that.$root.noteContent.pages" @click="selectedContentId = index" :key="index" :outlined="index != selectedContentId" close dense color="#3C87CD" class="mr-2 my-1"  :style="index == selectedContentId ? 'font-size:13px; color:#ffffff; font-family:BodyFont;' : ''" >{{content.name}}</v-chip>
+            <v-chip v-for="(content,index) in that.$root.noteContent.pages" @click="selectedContentId = index"     @click:close="deletePage(content)" :key="index" :outlined="index != selectedContentId" close dense color="#3C87CD" class="mr-2 my-1"  :style="index == selectedContentId ? 'font-size:13px; color:#ffffff; font-family:BodyFont;' : ''" >{{content.name}}</v-chip>
 
-                <v-btn icon class="mx-1" @click="addNewContent"><v-icon style="font-size:20px;">las la-plus</v-icon></v-btn>
+                <v-btn icon class="mx-1" :loading="loadingAddPage" @click="addNewContent"><v-icon style="font-size:20px;">las la-plus</v-icon></v-btn>
             
          </div>
 
@@ -114,7 +114,7 @@
          handle=".handle"
         v-bind="dragOptions"
         @start="drag = true"
-        @end="drag = false"
+        @end="handleOnDrop"
       >
 
       
@@ -133,7 +133,7 @@
 
                     <div class="d-flex flex-row" style="align-items:center;">
                       <div class="col-8 py-0 px-0">
-                         <span style="font-size:13px;font-weight:bold; ">V18</span>
+                         <span style="font-size:13px;font-weight:bold; ">{{that.$root.selectedDiary.name}}</span>
                       </div>
 
                       <div class="col-4 py-0 px-0 text-right">
@@ -147,12 +147,12 @@
 
              </template>
 
-             <template v-if="element.type == 'images'">
+             <template v-if="element.type == 'image'">
 
                  <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                       <div class="d-flex flex-row" style="align-items:center;">
                       <div class="col-8 py-0 px-0">
-                         <span style="font-size:13px;font-weight:bold; ">V18</span>
+                         <span style="font-size:13px;font-weight:bold; ">{{that.$root.selectedDiary.name}}</span>
                       </div>
 
                       <div class="col-4 py-0 px-0 text-right">
@@ -160,7 +160,7 @@
                       </div>
                         
                   </div>
-                     <images :imageArray="element.imageArray" ></images>
+                     <images :imageArray="element.image" ></images>
                   </v-card> 
 
              </template>
@@ -170,7 +170,7 @@
                 <v-card elevation-1 class="py-1 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                      <div class="d-flex flex-row" style="align-items:center;">
                       <div class="col-8 py-0 px-0">
-                         <span style="font-size:13px;font-weight:bold; ">V18</span>
+                         <span style="font-size:13px;font-weight:bold; ">{{that.$root.selectedDiary.name}}</span>
                       </div>
 
                       <div class="col-4 py-0 px-0 text-right">
@@ -178,8 +178,8 @@
                       </div>
                         
                   </div>
-                  <video-player  :videoUrl="'sample.mpd'" :backgroundColor="'#c5c5c5'" style="width:100%;"
-               :backgroundImg="'/imgs/video.jpeg'" :playerId="'small56'" > </video-player>
+                  <video-player   :videoUrl="'/videos/' + element.video.video_name + '.mpd'" :backgroundColor="element.video.background_color" style="width:100%;"
+               :backgroundImg="'/videos/previewImage/'+ element.video.preview_image_url" :playerId="'small' + element.message_id"  > </video-player>
                         
                       
                   </v-card> 
@@ -191,7 +191,7 @@
                  <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                       <div class="d-flex flex-row" style="align-items:center;">
                       <div class="col-8 py-0 px-0">
-                         <span style="font-size:13px;font-weight:bold; ">V18</span>
+                         <span style="font-size:13px;font-weight:bold; ">{{that.$root.selectedDiary.name}}</span>
                       </div>
 
                       <div class="col-4 py-0 px-0 text-right">
@@ -199,7 +199,7 @@
                       </div>
                         
                   </div>
-                   <audio-player class="mt-n1" :file="'/audio/space_audio_2666.mp3'" :playerId="'394'" :colorBase="'#000000'"></audio-player>
+                   <audio-player class="mt-n1" :file="'/audio/' + element.audio.audio_name + '.' + element.audio.audio_extension" :playerId="element.message_id"  :colorBase="'#333333'"></audio-player>
                   
                   </v-card> 
 
@@ -210,7 +210,7 @@
                 <v-card elevation-1 class="py-1 px-2 pb-5 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                         <div class="d-flex flex-row" style="align-items:center;">
                       <div class="col-8 py-0 px-0">
-                         <span style="font-size:13px;font-weight:bold; ">V18</span>
+                         <span style="font-size:13px;font-weight:bold; ">{{that.$root.selectedDiary.name}}</span>
                       </div>
 
                       <div class="col-4 py-0 px-0 text-right">
@@ -218,7 +218,10 @@
                       </div>
                         
                   </div>
-                   <code-box color="#000000" :codeContent="'Hello world'" :topMargin="13" :filename="'index.php'" :codeLanguage="'PHP'" ></code-box>
+                   <code-box  :topMargin="13"   :codeContent="element.code.content" 
+                   :messageId="element.message_id" 
+                   :filename="element.code.name + '.' + languageExtensions(element.code.language_type)" 
+                   :codeLanguage="element.code.language_type" ></code-box>
                         
                   </v-card> 
 
@@ -229,7 +232,7 @@
                  <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                       <div class="d-flex flex-row" style="align-items:center;">
                       <div class="col-8 py-0 px-0">
-                         <span style="font-size:13px;font-weight:bold; ">V18</span>
+                         <span style="font-size:13px;font-weight:bold; ">{{that.$root.selectedDiary.name}}</span>
                       </div>
 
                       <div class="col-4 py-0 px-0 text-right">
@@ -243,7 +246,7 @@
                         <v-icon >las la-laptop-code</v-icon>
                       </div>
                       <div class="col-7 d-flex py-1"  style="align-items:center;">
-                           <span style=" font-size:13px;">Java calculator</span>
+                           <span style=" font-size:13px;">{{element.project.title}}</span>
                       </div>
 
                        <div class="col-3 text-right py-1"  style="align-items:center;">
@@ -370,15 +373,33 @@
 
           </div>
 
+           <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 px-1 px-md-2 text-center" v-if="progressvalue > 0" style="background:white;" >
+
+               <v-progress-linear color="#3C87CD" height="6"  :value="progressvalue" rounded v-if="progressvalue < 100">
+
+                          </v-progress-linear>
+                          <div style="font-size:13px;" v-else>Processing...</div>
+
+            </div>
+
          <div class="col-lg-12 py-1 my-2 px-2 text-center" v-if="selectedContentType == 'text'">
 
-             <v-press-editor :placeholder="'Type here...'" v-model="ContentValue" ></v-press-editor>
+             <v-press-editor :placeholder="'Type here...'" v-model="contentInWord" ></v-press-editor>
 
-
+       <div class="col-12 text-center">
+                           <v-btn small rounded color="#3C87CD" :loading="loadingSendMsg"   @click="sendMessage" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+            <span style="color:white;text-transform:none;">Send</span> 
+           </v-btn>
+                  </div>
              
          </div>
 
+
+
           <!-- image editing view -->
+
+           
+          
           <template  v-if="selectedContentType == 'image'">
 
                  
@@ -420,13 +441,43 @@
                        </div>
 
                   <div class="col-12 text-center" v-if="image1 != '' || image2 != '' || image3 != '' || image4 != ''">
-                           <v-btn small rounded color="#3C87CD"  @click="sendMessage" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+                           <v-btn small rounded color="#3C87CD" :loading="loadingSendMsg"  @click="sendMessage" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
             <span style="color:white;text-transform:none;">Send</span> 
            </v-btn>
                   </div>
                 </div>
 
           </template>
+
+          <!-- ends -->
+
+
+          <!-- voice recording view -->
+
+             <template  v-if="selectedContentType == 'record'">
+        
+             <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex flex-row flex-wrap px-1 px-md-2" style="background:white;" >
+
+               <div class="col-12 py-0 my-0 px-1 mb-2">
+
+                  <div class="ml-auto d-flex flex-row" style="align-items:center; justify-content:center;" >
+
+                     <v-btn icon class="bg-danger" @click="stoprecord('cancle')"><v-icon color="#ffffff">mdi-close</v-icon></v-btn>
+
+                      <div style="font-size:14px;color:gray;font-family:BodyFont;" class="mx-3 ">{{timer}}</div>
+
+                       <v-btn icon class="bg-success" @click="stoprecord('send')"><v-icon color="#ffffff">mdi-check</v-icon></v-btn>
+
+
+                    
+                  </div>
+
+               </div>
+
+             </div>
+
+
+             </template>
 
           <!-- ends -->
 
@@ -438,24 +489,11 @@
 
             <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex flex-row flex-wrap px-1 px-md-2" style="background:white;" >
 
-                       <div class="col-12 py-0 my-0 px-1">
+                       <div class="col-12 py-0 my-0 px-1 mb-2">
 
-                  <v-select
-           
-          :items="items"
-          label="Language"
-          style="font-size:13px;"
-          hide-selected
-          dense
-          outlined
-           @change="detectchange(languageCode)"  
-            v-model="languageCode"
-           item-text="name"
-           item-value="name"
-          placeholder="select..."
-          color="#3C87CD"
-          small-chips
-        ></v-select>
+          <select  style="font-size:13px !important; " placeholder="select language"  @change="detectchange(languageCode)"   v-model="languageCode" class="browser-default custom-select">
+                 <option v-for="(option,index)  in items" :value="option.name" :key="index">{{ option.name}}</option>
+                  </select>
                  
                </div>
 
@@ -496,10 +534,10 @@
       
        
 
-  <span style="position:absolute; bottom:13%; right:5%;z-index:100;" class="d-none d-md-inline-block">
+  <span style="position:absolute; bottom:10%; right:3%;z-index:100;" class="d-none d-md-inline-block">
            <v-btn
                 color="#3C87CD"
-                small
+                
                  @click="runCode"
                 class="d-inline-block "
                 fab
@@ -511,10 +549,10 @@
      </span>
 
 
-     <span style="position:absolute; bottom:10%; right:7%;z-index:100;"  class="d-inline-block d-md-none" >
+     <span style="position:absolute; bottom:10%; right:5%;z-index:100;"  class="d-inline-block d-md-none" >
            <v-btn
                 color="#3C87CD"
-                small
+                
                  @click="runCode"
                 class="d-inline-block "
                 fab
@@ -537,7 +575,7 @@
           
           <!-- HTML code runner -->
 
-                <div  v-if="selectedLangId == 0" @click="showCode = true" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class="  col-lg-6 offset-lg-3 py-2 my-0 px-0 d-flex ">
+                <div  v-if="selectedLangId == 0" @click="showCode = true" style="position:fixed;  height:100%; background:rgba(38, 82, 89,0.5); overflow-y:hidden; overflow-x:hidden; left:0%; top:0%; align-items:center; justify-content:center; z-index:99999;" class=" col-12 py-2 my-0 px-0 d-flex ">
            <div  @click.stop="selectedLangId = 0" style="position:absolute; height:80%; width:90%; bottom:10%; left:5%; overflow-y:hidden; overflow-x:hidden; " class="mx-auto pb-2">
 
              
@@ -546,16 +584,16 @@
    :srcdoc="ResultCode" 
     style="border: 1px solid #c5c5c5; height:100%; font-size:13px;  background:white; z-index:5757; width:100%; " ></iframe>
 
-              <span style="position:absolute; bottom:5%; right:5%;z-index:9000000890;" >
+              <span style="position:absolute; bottom:5%; right:2%;z-index:9000000890;" >
            <v-btn
                 color="#3C87CD"
-                small
+                
                  @click="showCode = true"
                 class="d-inline-block "
                 fab
                 v-if="this.selectedLangId != null"
               >
-                <v-icon color="#ffffff">mdi-xml</v-icon>
+                <v-icon color="#ffffff">las la-code</v-icon>
             </v-btn>
          
      </span>
@@ -571,31 +609,31 @@
        
     </textarea>
 
-    <span style="position:absolute; bottom:23%; right:5%;z-index:1000;" class="d-none d-md-inline-block">
+    <span style="position:absolute; bottom:10%; right:2%;z-index:1000;" class="d-none d-md-inline-block">
            <v-btn
                 color="#3C87CD"
-                small
+                
                  @click="showCode = true"
                 class="d-inline-block "
                 fab
                 v-if="this.selectedLangId != null"
               >
-                <v-icon color="#ffffff">mdi-xml</v-icon>
+                <v-icon color="#ffffff">las la-code</v-icon>
             </v-btn>
          
      </span>
 
 
-     <span style="position:absolute; bottom:20%; right:7%;z-index:1000;"  class="d-inline-block d-md-none" >
+     <span style="position:absolute; bottom:10%; right:5%;z-index:1000;"  class="d-inline-block d-md-none" >
            <v-btn
                 color="#3C87CD"
-                small
+                
                   @click="showCode = true"
                 class="d-inline-block "
                 fab
                 v-if="this.selectedLangId != null"
               >
-                <v-icon color="#ffffff">mdi-xml</v-icon>
+                <v-icon color="#ffffff">las la-code</v-icon>
             </v-btn>
          
      </span>
@@ -609,8 +647,8 @@
 <!-- ends -->
 
 
-                  <div class="col-12 text-center" v-if="false">
-                           <v-btn small rounded color="#3C87CD"  @click="sendMessage" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+                  <div class="col-12 text-center">
+                           <v-btn small rounded color="#3C87CD" :loading="loadingSendMsg"  @click="sendMessage" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
             <span style="color:white;text-transform:none;">Send</span> 
            </v-btn>
                   </div>
@@ -623,10 +661,51 @@
 
         </div>
 
+    
+
         <!-- ends -->
+
+         <!-- image cropper -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; top:0%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="this.$root.showImageCropperDiary">
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+
+     <div class=" col-lg-6  pt-2 col-md-8  d-flex flex-column" style="background:white;height:100%;" >
+
+       <div class="text-center d-flex flex-row" style="align-items:center;">
+          
+          <div class="col-2 px-1 py-1 text-left">
+          <v-btn icon @click="closeCropper"><v-icon>mdi mdi-close</v-icon> </v-btn> 
+          </div>
+         
+          <div class="text-center col-8 py-1" style="width:100%;">
+            <h6>Crop Image</h6>
+          </div>
+
+           <div class="col-2 px-1 py-1">
+          
+          </div>
+       </div>
+        <image-cropper-board></image-cropper-board>
+     </div>
+
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
     </v-app>
 </template>
 <script>
+
+const ImageCropperBoard = () => import(
+    /* webpackChunkName: "imageCropperBoardDiary" */ './ImageCropper.vue'
+  );
+
+
 import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 
@@ -694,6 +773,7 @@ export default {
        text:'',
         that:this,
       ContentValue:'', 
+      contentInWord:'',
       drag: false,
        editFeild:false,
          loading:false,
@@ -861,6 +941,15 @@ export default {
           }
         ],
         CodeFilename:'index',
+        loadingAddPage:false,
+         timer:'0:00',
+          seconds:0,
+      minute:0,
+      recorderInterval:null,
+     recording:false,
+      audioBlob:'',
+      mediaRecorder:null,
+      audioChunks:[],
      
       }
     },
@@ -870,6 +959,7 @@ export default {
       VideoPlayer,
       AudioPlayer,
       Images,
+       ImageCropperBoard,
       VPressEditor,
       codemirror
   },
@@ -893,6 +983,164 @@ export default {
          this.addNewContentModal = false;
 
       },
+       startrecord: function(){
+
+       this.recording = true;
+     
+      this.$root.recordUrl = '';
+      this.audioChunks = [];
+      navigator.mediaDevices.getUserMedia({ audio: true })
+      .then(stream => {
+       this.mediaRecorder = new MediaRecorder(stream)
+      this.mediaRecorder.start();
+
+         this.startCounter();
+
+     this.audioChunks = [];
+
+    this.mediaRecorder.addEventListener("dataavailable", event => {
+
+      this.audioChunks.push(event.data);
+    });
+
+    this.mediaRecorder.addEventListener("stop", () => {
+             
+           this.audioBlob = new Blob(this.audioChunks);
+
+            this.$root.recorderBlob = new Blob(this.audioChunks);
+
+            
+     
+         this.$root.recordUrl = URL.createObjectURL(this.audioBlob);
+
+      
+     
+    });
+
+    
+
+  });
+    },
+     startCounter:function(){  
+
+        this.recorderInterval = null
+
+        
+         
+          this.recorderInterval = setInterval(() => {
+
+         this.seconds++
+
+          let secondsString = '';
+
+          if(this.seconds < 10){
+
+              secondsString = '0' +  this.seconds;
+            
+          }else{
+
+             if(this.seconds == 60){
+                this.seconds = 0;
+                this.minute++
+                 secondsString =  '00'; 
+             }else{
+
+             secondsString =  this.seconds; 
+
+             }
+
+          }
+
+            this.timer = this.minute + ':' + secondsString;
+
+   
+         }, 1000);
+
+     },
+       stoprecord: function(type){
+         
+          
+           this.mediaRecorder.stop();
+           clearInterval(this.recorderInterval);
+
+           this.recording = false;
+
+           this.seconds = 0;
+           this.minute = 0;
+           this.timer = '0:00';
+
+            setTimeout(() => {
+
+              if(type == 'send'){
+
+               //this.sendRecord();
+
+            }
+              
+            }, 1000);
+
+            
+          
+       
+    },
+      closeCropper:function(){
+        this.$root.showImageCropperDiary = false;
+        
+      },
+       handleOnDrop:function(){
+         this.drag = false;
+         this.saveContentOrder();
+     },
+     saveContentOrder: function(showAlert = true){
+       
+       let ContentArray = [];
+
+        this.$root.noteContent.pages[this.selectedContentId].contents.forEach((message)=>{
+
+         ContentArray.push(message.message_id)
+   
+        });
+
+      axios.post( '/save-content-order',{
+        slug: this.$root.noteContent.pages[this.selectedContentId].slug,
+        contents: ContentArray
+      })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         if(showAlert){
+
+                this.$root.diaryBoardComponent.showAlert('Saved!','Your changes have been saved','success');
+
+         }
+
+      
+
+           this.$root.LocalStore('user_diary_data_' +  this.$route.params.diary_id + this.$root.username,this.$root.selectedDiary);
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+     this.$root.diaryBoardComponent.showAlert('Oops!','Unable to save changes,please try again','error');
+       
+    
+     }) 
+
+        
+        
+         
+     },
+     deletePage:function(page){
+
+         this.$root.pageToDelete = page.slug;
+
+            this.$root.diaryBoardComponent.showAlert('','','question');
+
+     },
       showAddModal:function(){
         this.addNewContentModal = true;
         this.$root.AddModalIsUp = true;
@@ -902,6 +1150,12 @@ export default {
           if( type == 'code'){
 
             this.detectchange(this.languageCode)
+
+          }
+
+          if(type == 'record'){
+
+            this.startrecord();
 
           }
      this.selectedContentType = type
@@ -1069,12 +1323,35 @@ export default {
           
       },
         addNewContent:function(){
-           let newContent = {
-             name:'Another page',
-             contents:[]
-           };
+            
+                this.loadingAddPage = true;
+           axios.get( '/add-new-page/' + this.$root.noteContent.note.tag_unique_id + '/' + this.$route.params.diary_id)
+      .then(response => {
+      
+      if (response.status == 200) {
 
-           this.note.contents.push(newContent);
+        
+
+         this.$root.noteContent.pages.push(response.data)
+        
+         this.loadingAddPage = false;
+
+         
+
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+     this.$root.diaryBoardComponent.showAlert('Oops!','Unable to add page,please try again','error');
+        this.loadingAddPage = false;
+    
+     }) 
+
+      
+
         },
 
       clearData: function(){
@@ -1086,6 +1363,7 @@ export default {
            this.audioUrl = '';
             this.fileUrl = '';
             this.codeContent = '';
+            this.contentInWord = '';
             this.showShareProject = false;
 
         },
@@ -1117,7 +1395,7 @@ export default {
        
         setTimeout(() => {
            this.sendMessage()
-        }, 1500);
+        }, 1000);
            }else{
               
                this.showAlert('Oops!','Audio size cannot be more than 40MB','error')
@@ -1365,7 +1643,7 @@ crophandler:function(e){
           this.$root.currentImage = 'image4'
           }
           
-      this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id +'/crop-image' });
+       this.$root.showImageCropperDiary = true;
         
 
         },
@@ -1532,9 +1810,9 @@ crophandler:function(e){
            
         
         formData.append('attachment_type',this.attachment_type);
-        formData.append('response_slug',this.contentData.response_slug);
-        formData.append('space_id',this.contentData.response_slug);
-        formData.append('bot_id',this.$route.params.botId);
+        formData.append('response_slug',this.$root.noteContent.pages[this.selectedContentId].slug);
+        formData.append('space_id',this.$root.noteContent.pages[this.selectedContentId].slug);
+        formData.append('bot_id',this.$route.params.diary_id);
       
       
        
@@ -1566,11 +1844,18 @@ crophandler:function(e){
            if (response.status == 200) {
                
            
-                let message = response.data.message[0];
+                let message = response.data.message;
+
+                this.$root.noteContent.pages[this.selectedContentId].contents.push(message);
+
+                  this.saveContentOrder(false);
+               
                 this.clearData();
-                this.responseContents.push(message)
+               
                 this.loadingSendMsg = false;
                 this.progressvalue = 0;
+
+                this.$root.AddModalIsUp = false;
                
             }
 
@@ -1702,6 +1987,101 @@ crophandler:function(e){
 
          }
       },
+      languageExtensions: function(language){
+
+
+           if(language == 'HTML'){
+             return 'html';
+         }
+         if(language == 'CSS'){
+          return 'css';
+         }
+          if(language == 'PYTHON(3.8.1)'){
+           return 'py';
+         }
+
+         if(language == 'PYTHON For ML(3.7.7)'){
+           return 'py';
+         }
+
+         if(language == 'PYTHON(2.7.17)'){
+           return 'py';
+         }
+          if(language == 'PHP'){
+            return 'php';
+         }
+          if(language == 'JAVASCRIPT(Node)'){
+           return 'js';
+         }
+          if(language == 'SQL'){
+            return 'sql';
+         }
+          if(language == 'C'){
+            return 'c';
+         }
+          if(language == 'C++'){
+           return 'cpp';
+         }
+          if(language == 'JAVA'){
+            return 'java';
+         }
+          if(language == 'C#'){
+           return 'cs';
+         }
+          if(language == 'ERLANG'){
+            return 'erl';
+         }
+          if(language == 'KOTLIN'){
+         return 'kt';
+         }
+          if(language == 'FOTRAN'){
+          return 'for';
+         }
+          if(language == 'PERL'){
+           return 'pl';
+         }
+          if(language == 'R'){
+            return 'r';
+         }
+         if(language == 'GO'){
+            return 'go';
+         }
+         if(language == 'HASKELL'){
+           return 'hs';
+         }
+          if(language == 'RUBY'){
+            return 'rb';
+         }
+         if(language == 'LUA'){
+           
+             return 'lua';
+
+         }
+         if(language == 'PASCAL'){
+
+             return 'pas';
+         }
+         if(language == 'RUST'){
+
+             return 'rs';
+         }
+         if(language == 'SCALA'){
+           
+              return 'scala';
+
+         }
+         if(language == 'SWIFT'){
+
+               return 'swift';
+
+         }
+         if(language  == 'TYPESCRIPT'){
+
+             return 'ts';
+
+         }
+
+      }
         
     } 
 }

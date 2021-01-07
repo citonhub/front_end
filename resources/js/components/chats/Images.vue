@@ -79,6 +79,12 @@ export default {
         
         showImageGallery:function(index){
 
+             if(this.$router.currentRoute.path.indexOf('edit-note') >= 0){
+
+                return;
+
+             }
+
                   this.$root.imageSlidestate= index;
                   this.$root.imageArrayView = this.imageArray;
                   

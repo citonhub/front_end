@@ -243,7 +243,7 @@ export default {
        
         setTimeout(() => {
            this.sendMessage()
-        }, 1500);
+        }, 1000);
            }else{
               
                this.showAlert('Oops!','Audio size cannot be more than 40MB','error')

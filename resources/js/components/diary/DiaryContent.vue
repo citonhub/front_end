@@ -35,7 +35,7 @@
 
                    <div class="px-2 d-flex flex-column mx-2" style="align-items:center;justify-content:center;">
                     <div>
-                      <v-icon style="font-size:26px;">lar la-heart</v-icon>
+                      <i style="font-size:26px;color:grey;" class="lar la-heart"></i>
                     </div>
                     <div>
                     <span style="font-size:12px;font-family:BodyFont;">  3.3 K </span>
@@ -79,7 +79,7 @@
         handle=".handle"
         v-bind="dragOptions"
         @start="drag = true"
-        @end="drag = false"
+        @end="handleOnDrop"
       >
        
           <div
@@ -87,13 +87,16 @@
             v-for="element in that.$root.selectedDiary.notes"
             :key="element.id"
           >
-            <v-card class="px-2 py-2">
+
+           <div  @click="showNote(element)" style="cursor:pointer;">
+
+              <v-card class="px-2 py-2">
 
               <div class="d-flex flex-row">
 
                 <div class="d-flex flex-row" style="width:100%;align-items:center;">
                    <v-icon style="font-size:25px;" color="#3C87CD" class="mr-2 handle">lar la-clipboard</v-icon>
-                   <div style="font-size:13px; font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" > {{ element.tag_name }}</div>
+                   <div style="font-size:13px; font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" > {{ element.note.tag_name }}</div>
                 </div>
 
               <div class="d-flex flex-row-reverse" style="align-items:center;">
@@ -105,12 +108,12 @@
 
                        <i style="font-size:18px;color:grey;" class="lar la-heart"></i>
 
-                   <div class="px-1" style="font-size:12px;font-family:BodyFont;">{{element.likes}}</div> 
+                   <div class="px-1" style="font-size:12px;font-family:BodyFont;">{{element.note.likes}}</div> 
 
 
                         <v-icon style="font-size:20px;color:grey;">las la-eye</v-icon>
 
-                   <div class="px-1" style="font-size:12px;font-family:BodyFont;">{{element.views}}</div> 
+                   <div class="px-1" style="font-size:12px;font-family:BodyFont;">{{element.note.views}}</div> 
 
                 </div>
             
@@ -123,6 +126,9 @@
              
                      
             </v-card>
+
+           </div>
+           
           
           </div>
     
@@ -175,10 +181,14 @@ export default {
       if (response.status == 200) {
 
          this.$root.noteContent = response.data;
+
+          this.$root.selectedDiary.notes.push(response.data)
         
          this.loadingAddNote = false;
 
-           this.$router.push({path:'/board/diary/board/' + this.$route.params.diary_id + '/add-note'});
+          this.saveNoteOrder(false);
+
+           this.$router.push({path:'/board/diary/board/' + this.$route.params.diary_id + '/edit-note/' + this.$root.noteContent.note.tag_unique_id});
        
      }
        
@@ -192,6 +202,61 @@ export default {
      }) 
 
       
+
+     },
+     handleOnDrop:function(){
+         this.drag = false;
+         this.saveNoteOrder();
+     },
+     saveNoteOrder: function(showAlert = true){
+       
+       let NoteArray = [];
+
+        this.$root.selectedDiary.notes.forEach((note)=>{
+
+         NoteArray.push(note.note.tag_unique_id)
+   
+        });
+
+      axios.post( '/save-note-order',{
+        bot_id: this.$route.params.diary_id,
+        notes: NoteArray
+      })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         if(showAlert){
+
+               this.$root.diaryBoardComponent.showAlert('Saved!','Your changes have been saved','success');
+
+         }
+
+       
+
+             this.$root.LocalStore('user_diary_data_' +  this.$route.params.diary_id + this.$root.username,this.$root.selectedDiary);
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+     this.$root.diaryBoardComponent.showAlert('Oops!','Unable to save changes,please try again','error');
+       
+    
+     }) 
+
+        
+        
+         
+     },
+     showNote:function(note){
+
+          this.$root.noteContent = note;
+
+          this.$router.push({path:'/board/diary/board/' + this.$route.params.diary_id + '/edit-note/' + this.$root.noteContent.note.tag_unique_id});
+
 
      },
       imageStyle: function(size,data){

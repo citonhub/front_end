@@ -180,6 +180,8 @@
                  <!-- ends -->
 
                   <template v-if="this.$root.selectedChallenge != []">
+
+
                 <div :style="imageStyle('250px',this.$root.selectedChallenge,'small')" >
 
                 
@@ -214,8 +216,11 @@
                                    
                                    <div class="col-12 py-0 px-0 d-flex flex-row" style="align-items:center;">
 
+                                     
                                         <div  class="d-inline-block mx-2 "   v-if="this.$root.selectedChallenge.owner_profile"
                               :style="imageStyleUser(40,this.$root.selectedChallenge.owner_profile)"></div> 
+
+
                               <div style="font-size:13px;font-family:BodyFont;color:#ffffff;" >{{this.$root.selectedChallenge.username}} </div>  
 
                                <v-icon class="mx-1" style="font-size:8px;color:#ffffff;">mdi-record</v-icon> 
@@ -989,7 +994,7 @@ export default {
         goBack(){
   this.$router.push({ path: '/board/challenges/list'  });
         },
-        imageStyleUser:function(dimension,data){
+      imageStyleUser:function(dimension,data){
       
 
       if(data.background_color == null){
@@ -1026,6 +1031,7 @@ export default {
          if(data.image_name == null || data.image_name == '0'){
               styleString += 'background-color:#ffffff; background-image:url(imgs/background1.jpg);';
          }else{
+            
             if(data.image_name == 'default_1'){
 
                styleString += 'background-color:#ffffff; background-image:url(/imgs/background3.jpg);';

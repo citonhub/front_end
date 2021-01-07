@@ -8,8 +8,8 @@ window.io = require('socket.io-client');
 
 Vue.use(Vuex)
 
-
 axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
+
 
 const store = new Vuex.Store({
   state: {
@@ -127,7 +127,7 @@ const routes = [
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
   {
-    path:'/profile',
+    path:'/profile/:username',
      name:'ProfilePage', 
      component:ProfilePage,
      meta: {
@@ -242,6 +242,59 @@ beforeEnter: (to, from, next) => {
 
  next()
 }
+},
+
+// new post
+{
+  path: '/hub/post/:id',
+  name: 'ViewPost',
+  meta: {
+    twModalView: true
+  },
+  beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+  if (window.thisUserState != undefined) {
+    thisUserState.$root.showViewPost = true;
+  }
+
+  if (!twModalView) {
+   //
+   // For direct access
+   //
+    to.matched[0].components = {
+      default: Hub,
+      modal: false
+    }
+  }
+
+  if (twModalView) {
+   //
+   // For twModalView access
+   //
+    if (from.matched.length > 1) {
+      
+      // copy nested router
+      const childrenView = from.matched.slice(1, from.matched.length)
+      
+      for (let view of childrenView) {
+        to.matched.push(view)
+      }
+    }
+   
+    if (to.matched[0].components) {
+      
+      // Rewrite components for `default`
+      to.matched[0].components.default = from.matched[0].components.default
+      
+      // Rewrite components for `modal`
+      to.matched[0].components.modal = Hub
+    }
+  }
+
+  next()
+}
+
 },
   
   {
@@ -1030,55 +1083,6 @@ beforeEnter: (to, from, next) => {
   
     ]
       },
-
-    // image cropper
-{ path: '/crop-image-diary',
-name: 'DiaryImageCropper',
-meta: {
- twModalView: true
-},
-beforeEnter: (to, from, next) => {
- const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
-
- 
- if(window.thisUserState != undefined){
-   
-   thisUserState.$root.showImageCropperDiary = true;
-  
-  }
-
- if (!twModalView) {
-   //
-   // For direct access
-   //
-   to.matched[0].components = {
-     default: DiaryList,
-     modal: false
-   }
- }
-
- if (twModalView) {
-   //
-   // For twModalView access
-   //
-   if (from.matched.length > 1) {
-     // copy nested router
-     const childrenView = from.matched.slice(1, from.matched.length)
-     for (let view of childrenView) {
-       to.matched.push(view)
-     }
-   }
-   if (to.matched[0].components) {
-     // Rewrite components for `default`
-     to.matched[0].components.default = from.matched[0].components.default
-     // Rewrite components for `modal`
-     to.matched[0].components.modal = DiaryList
-   }
- }
-
- next()
-}
-},
     
       {
         // content bots
@@ -1093,23 +1097,34 @@ beforeEnter: (to, from, next) => {
             // list
             path:'list',
             component:DiaryList,
-            
+            meta: {
+              twModalView: true
+             },
           },
           {
             // board
             path:'board/:diary_id',
             component:DiaryBoard,
             //redirect:'/board/diary/board/content',
+            meta: {
+              twModalView: true
+             },
             children:[
               {
                 // content
                 path:'content',
-                component:DiaryContent
+                component:DiaryContent,
+                meta: {
+                  twModalView: true
+                 },
               },
               {
                 // add new gem
-                path:'add-note',
-                component:AddGem
+                path:'edit-note/:note_id',
+                component:AddGem,
+                meta: {
+                  twModalView: true
+                 },
               },
             
 
@@ -1381,6 +1396,10 @@ const app = new Vue({
       posts:[],
       showProfileEditModal:false,
       showImageCropperDiary:false,
+      showViewPost: false,
+      showProfileEditModal:false,
+      currentPost:null,
+      pageToDelete:'',
      },
      mounted: function () {
       window.thisUserState = this;

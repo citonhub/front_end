@@ -102,6 +102,10 @@ __webpack_require__.r(__webpack_exports__);
       console.debug('onCmBlur', codemirror);
     },
     showCodeEditor: function showCodeEditor() {
+      if (this.$router.currentRoute.path.indexOf('edit-note') >= 0) {
+        return;
+      }
+
       this.$root.fullCodeLanguage = this.codeLanguage;
       this.$root.FullcodeContent = this.codeContent;
       this.$router.push({

@@ -77,9 +77,9 @@
 <div class="col-lg-6  d-none d-lg-flex flex-column" style="position:fixed; align-items:center; justify-content:center;  height:75%; top:8%; z-index:20;">
    
    <div>
-     <h1 style="font-family:HeaderFont; font-size:50px;">Teach.</h1>
-     <h1 style="font-family:HeaderFont; font-size:50px;">Build your community.</h1>
-     <h1 style="font-family:HeaderFont; font-size:50px;">Connect,</h1>
+     <h1 style="font-family:HeaderFont; font-size:50px;">Teach,</h1>
+     <h1 style="font-family:HeaderFont; font-size:50px;">build your community,</h1>
+     <h1 style="font-family:HeaderFont; font-size:50px;">and connect</h1>
      <span style="font-family:BodyFont; font-size:25px;">with other developers.</span>
 
      <div class="py-2 px-0 mt-3 col-12">
@@ -99,9 +99,9 @@
 
 <div class="d-lg-none d-block col-12 " style="position:fixed; left:0%; height:60%; top:11%; z-index:80;">
 <div class=" text-center">
-     <div style="font-family:HeaderFont; font-size:25px;">Teach.</div>
-     <div style="font-family:HeaderFont; font-size:25px;">Build your community.</div>
-     <div style="font-family:HeaderFont; font-size:25px;">Connect,</div>
+     <div style="font-family:HeaderFont; font-size:25px;">Teach,</div>
+     <div style="font-family:HeaderFont; font-size:25px;">build your community.</div>
+     <div style="font-family:HeaderFont; font-size:25px;">and connect</div>
      <span style="font-family:BodyFont; font-size:15px;">with other developers.</span>
 
     
