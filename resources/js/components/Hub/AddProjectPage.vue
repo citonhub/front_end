@@ -510,7 +510,7 @@ export default {
             formData.append('description', this.post.description);
             formData.append('tags', this.post.tags);
 
-            axios.post('/save-hub-post', formData, {
+            axios.post('/save-hub-post', formData, this.post.tags, {
               headers: {
                 'Content-Type':'multipart/form-data'
               }
@@ -520,6 +520,8 @@ export default {
                   console.log(response);
                 }
               })
+
+            this.goBack();
           }
         }
       }
