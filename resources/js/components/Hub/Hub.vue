@@ -65,8 +65,7 @@
                     
 
           <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;" v-for="post in this.$root.posts" :key="post.id">
-             <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5; background-repeat: no-repeat;
-          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background3.jpg);background-size:cover;" @click="showProject(post.id, post.post_id)">
+             <div :style="imageStyle(190, post)" @click="showProject(post.id, post.post_id)">
 
               <div class="pt-3 px-2  pl-3" style=" position:absolute; width:100%; height:35%; left:0; bottom:0%; border-radius:0px; border-bottom-left-radius:20px;
           border-bottom-right-radius:20px; background: linear-gradient(180deg, rgba(60, 135, 205, 0.0053) 0%, rgba(0, 0, 0, 0.53) 100%);">
@@ -359,10 +358,42 @@ export default {
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
 
-      showAddPost: function(){
+      showAddPost: function() {
 
           this.$router.push({ path:'/hub/new-post'})
 
+      },
+
+      imageStyle: function (width, data) {
+
+        if (data.image_extension == null) {
+          let styleString = "height: " + width +  "px; width: 94%; left: 3%; border: 1px solid #c5c5c5;  background-repeat: no-repeat; border-radius: 20px; box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25); background-size: cover;";
+          
+          if (data.image_name == null || data.image_name == '0') {
+            styleString += 'background-color: whitesmoke; background-image: url(imgs/background1.jpg);';
+          } else {
+            
+            if (data.image_name == 'default_1') {
+              styleString += 'background-color: whitesmoke; background-image: url(/imgs/background3.jpg);';
+            }
+
+            if (data.image_name == 'default_2') {
+              styleString += 'background-color: whitesmoke; background-image: url(/imgs/background1.jpg);';
+            }
+
+            if (data.image_name == 'default_3') {
+              styleString += 'background-color:whitesmoke; background-image: url(/imgs/imgproj2.jpeg);';
+            }
+          }
+         
+          return styleString;
+        } else {
+          let styleString = "height: " + width +  "px; width: 94%; left: 3%; border: 1px solid #c5c5c5;  background-repeat: no-repeat; border-radius: 20px; box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25); background-size: cover;";
+          let imgLink = data.image_name;
+          styleString += 'background-image:url(/imgs/posts/'  + imgLink  +  ');';
+         
+          return styleString;
+        }
       },
 
       closeAddPost:function(){
