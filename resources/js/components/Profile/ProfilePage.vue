@@ -491,7 +491,8 @@ this.pic1='/imgs/expert.svg'}
 goBack(){
     this.$router.push({
       path:'/profile/'+this.$route.params.username
-    })
+    });
+    this.$root.showProfileEditModal=false
   }
 
 
