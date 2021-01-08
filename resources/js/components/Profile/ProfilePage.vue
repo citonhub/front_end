@@ -181,7 +181,7 @@
 
             <div  class="col-lg-4 py-0 my-lg-1 px-1 d-flex text-center my-2" style="align-items:center;justify-content:center;">
                 <div style="font-family:BodyFont;font-size:13px;" class="mt-2">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil voluptatibus voluptate ea eum iste quam odio, reprehenderit, animi aliquid eligendi
+               {{profileData.about}}
             </div>
             </div>
 
@@ -390,6 +390,7 @@ ImageCropperBoard
 
        
         userData:[],
+        profileData:[],
         xp:'',
         xpLeft:'',
         barValue:40,
@@ -423,7 +424,8 @@ axios.get('/fetch-profile-'+ this.$route.params.username)
     this.xp=this.profileData.points
     this.calculateLevel();
 
-  if(this.$route.params.username== this.$root.username){
+ 
+   if(this.$route.params.username== this.$root.username){
           this.owner=true;
           console.log(this.$root.username)
           console.log(this.$route.params.username)
@@ -431,8 +433,6 @@ axios.get('/fetch-profile-'+ this.$route.params.username)
           this.owner=false;
         }
      console.log(this.owner)
-  
-  
      
     }
   }
@@ -485,6 +485,8 @@ this.pic1='/imgs/expert.svg'}
 }
 
 },
+
+
 
 goBack(){
     this.$router.push({
