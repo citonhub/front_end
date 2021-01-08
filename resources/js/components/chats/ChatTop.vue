@@ -29,7 +29,7 @@
 
 
                            
-                            <span class="typingText d-block" v-if="this.$root.typing && (this.$root.typingSpace == this.$root.selectedSpace.space_id)">{{this.$root.typinguser}} is typing... </span>
+                            <span class="typingText d-block" v-if="this.$root.typing && (this.$root.typingSpace == this.$root.selectedSpace.space_id)">  <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing... </span>
                 <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }} , {{generateOnlineUsers()}}  {{ $t('space.Online') }}</span>
 
           <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' ">
@@ -45,9 +45,13 @@
 
            <span class="typingText d-block" v-if="this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' && (this.$root.typingSpace == this.$root.selectedSpace.space_id) ">
             
-              {{this.$root.typinguser}} is typing... 
+                  <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing...  
             
           </span>
+
+          
+
+
 
               <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'Direct' && checkIfOnline(this.$root.selectedSpace.userInfo.id)">{{ $t('space.Online') }}</span>
 
@@ -77,7 +81,18 @@
 
 
             <template v-if=" this.$root.selectedSpace.type != 'Bot'">
-             <v-btn @click="openLiveSession" icon class="mr-2"> <v-icon>mdi-television-play</v-icon> </v-btn>
+             <v-btn @click="openLiveSession" icon class="mr-2"> 
+                  
+                    <v-badge
+               dot
+               v-if="that.$root.remoteLiveHappening"
+                color="green">
+              <v-icon>mdi-television-play</v-icon> 
+              </v-badge>
+
+              <v-icon v-else>mdi-television-play</v-icon> 
+
+                </v-btn>
             </template>
 
             <v-btn v-else icon  ><v-icon >mdi-comment-question-outline</v-icon></v-btn>
@@ -122,7 +137,7 @@
 
 
                            
-                            <span  class="typingTextSm d-block" v-if="this.$root.typing && (this.$root.typingSpace == this.$root.selectedSpace.space_id)">{{this.$root.typinguser}} is typing... </span>
+                            <span  class="typingTextSm d-block" v-if="this.$root.typing && (this.$root.typingSpace == this.$root.selectedSpace.space_id)">  <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing...  </span>
                 <span class="typingTextSm d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }} , {{generateOnlineUsers()}}  {{ $t('space.Online') }}</span>
 
           <span class="typingTextSm d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' ">
@@ -138,7 +153,7 @@
 
            <span class="typingTextSm d-block" v-if="this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' && (this.$root.typingSpace == this.$root.selectedSpace.space_id) ">
             
-              {{this.$root.typinguser}} is typing... 
+             <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing... 
             
           </span>
 
@@ -171,7 +186,18 @@
          <div class="col-2 py-0 px-0 text-right pt-1 d-md-none d-block" >
               
              <template v-if=" this.$root.selectedSpace.type != 'Bot'">
-             <v-btn @click="openLiveSession" icon class="mr-2"> <v-icon>mdi-television-play</v-icon> </v-btn>
+                
+             <v-btn @click="openLiveSession" icon class="mr-2"> 
+                 <v-badge
+               dot
+               v-if="that.$root.remoteLiveHappening"
+                color="green">
+              <v-icon>mdi-television-play</v-icon> 
+              </v-badge>
+
+              <v-icon v-else>mdi-television-play</v-icon> 
+               
+               </v-btn>
             </template>
 
             <v-btn v-else icon  ><v-icon >mdi-comment-question-outline</v-icon></v-btn>

@@ -12583,49 +12583,15 @@ module.exports = g;
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-// pulls in the dependencies in the of the script in the boostrap folder
-__webpack_require__(/*! ./bootstraps/app */ "./resources/js/bootstraps/app.js"); // ends
 // pulls in vue Js
-
-
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js"); // ends
 
-/**
-* We will require in our components.js file, which contains our
-* component files. Putting them in their own file reduces clutter.
-all global components can be found in the component folder
-*/
-
-__webpack_require__(/*! ./components/app */ "./resources/js/components/app.js");
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. all the app logic goes in here, and it serves as the root of the application
  */
 
-
 __webpack_require__(/*! ./controllers/app */ "./resources/js/controllers/app.js");
-
-/***/ }),
-
-/***/ "./resources/js/bootstraps/app.js":
-/*!****************************************!*\
-  !*** ./resources/js/bootstraps/app.js ***!
-  \****************************************/
-/*! no exports provided */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/var/www/citonhubnew/resources/js/bootstraps/app.js'");
-
-/***/ }),
-
-/***/ "./resources/js/components/app.js":
-/*!****************************************!*\
-  !*** ./resources/js/components/app.js ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/var/www/citonhubnew/resources/js/components/app.js'");
 
 /***/ }),
 
@@ -12636,7 +12602,20 @@ throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/var/www/citonhubnew/resources/js/controllers/app.js'");
+var app = new Vue({
+  el: '#home',
+  data: {},
+  mounted: function mounted() {},
+  computed: {},
+  created: function created() {
+    var loggedInUser = localStorage.getItem('user');
+
+    if (loggedInUser) {
+      window.location = '/dashboard';
+    }
+  },
+  methods: {}
+});
 
 /***/ }),
 

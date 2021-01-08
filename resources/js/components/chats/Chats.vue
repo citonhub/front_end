@@ -13,7 +13,7 @@
 
          <!-- large screens -->
 
-        <div class="  py-0 px-0 d-lg-block d-none card " style=" overflow-y:hidden;position:absolute;width:96%; left:2%; height:94%; top:3%; overflow-y:hidden; overflow-x:hidden; background:white;" >
+        <div class="  py-0 px-0 d-lg-block d-none card " style=" overflow-y:hidden;position:absolute;width:90%; left:5%; height:94%; top:3%; overflow-y:hidden; overflow-x:hidden; background:white;" >
 
 
 
@@ -38,7 +38,7 @@
 
                         <v-btn icon @click="showCreateChannel"><v-icon>mdi mdi-chat-plus-outline</v-icon></v-btn>
                            </div>
-                             <v-slide-x-reverse-transition>
+                            
 
                    <DynamicScroller
     :items="this.$root.ChatList"
@@ -70,7 +70,7 @@
                       
                           
 
-                            </v-slide-x-reverse-transition>
+                           
 
                            </template>
                         
@@ -79,11 +79,11 @@
 
                             <!-- create channel -->
                         
-                        <v-slide-x-reverse-transition>
+                       
                             <div v-if="chatbarContent == 'create_channel'" class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; overflow-x:hidden; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                   <create-channel></create-channel>
                             </div>
-                          </v-slide-x-reverse-transition>
+                        
                             <!-- ends -->
                          
                        
@@ -239,46 +239,37 @@
 
                               <!-- channel sidebar -->
 
-                               <v-slide-x-reverse-transition>
 
                                <div  v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" @click="goBack" style="overflow-x:hidden; background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
                                    <div style="position:absolute; height:100%; width:70%; left:30%;" >
 
                                     <div  @click.stop="chatInnerSideBar = true" class="scrollerinfo offset-lg-6" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
                                      
-                                      <v-slide-x-reverse-transition>
+                                     
                                         <channel-info v-if="innerSideBarContent == 'channel_info'" ></channel-info>
-                                      </v-slide-x-reverse-transition>
-
-                                         <v-slide-x-reverse-transition>
+                                     
                                     
                                         <channel-edit v-if="innerSideBarContent == 'channel_edit'"></channel-edit>
 
-                                         </v-slide-x-reverse-transition>
-
-                                          <v-slide-x-reverse-transition>
+                                        
                                         
                                         <sub-channels v-if="innerSideBarContent == 'sub_channels'"></sub-channels>
 
-                                          </v-slide-x-reverse-transition>
-
-                                           <v-slide-x-reverse-transition>
-
+                                         
                                         <add-sub-channel v-if="innerSideBarContent == 'add_sub_channel'"></add-sub-channel>
 
-                                           </v-slide-x-reverse-transition>
-                                    
+                                         
                                    </div>
 
                                      </div>
                                </div>
-                               </v-slide-x-reverse-transition>
+                              
 
                             <!-- channel sidebar -->
 
                             <!-- live session -->
 
-                             <v-fade-transition>
+                         
 
                             <div v-if="chatIsOpen && !chatInnerSideBar && liveSessionIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
                                       <!-- rtc screen -->
@@ -298,7 +289,7 @@
      
                                     <live-session></live-session>
                                </div>
-                               </v-fade-transition>
+                            
 
                             <!-- ends -->
 
@@ -341,7 +332,7 @@
              <template v-if="!chatIsOpen">
 
                 <!-- chat list component -->
-                 <v-slide-x-reverse-transition>
+              
 
                      <DynamicScroller
     :items="this.$root.ChatList"
@@ -371,18 +362,18 @@
 
                 </DynamicScroller>
 
-                 </v-slide-x-reverse-transition>
+              
 
                 <!-- ends -->
                  
                    <!-- create channel -->
 
-                       <v-slide-x-reverse-transition>
+                     
 
                             <div  v-if="chatbarContent == 'create_channel'" class="col-12 py-0 px-0" style="background:#ffffff; left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
                                   <create-channel></create-channel>
                             </div>
-                        </v-slide-x-reverse-transition>
+                      
 
                       <!-- ends -->
 
@@ -529,27 +520,19 @@
                                     <div class="scrollerinfo col-md-6 offset-md-6 px-0 py-0 pb-2" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
                                      
                                     
-                                         <v-slide-x-reverse-transition>
+                                        
                                         <channel-info v-if="innerSideBarContent == 'channel_info'" ></channel-info>
-                                      </v-slide-x-reverse-transition>
-
-                                         <v-slide-x-reverse-transition>
+                                     
                                     
                                         <channel-edit v-if="innerSideBarContent == 'channel_edit'"></channel-edit>
 
-                                         </v-slide-x-reverse-transition>
-
-                                          <v-slide-x-reverse-transition>
-                                        
+                                       
                                         <sub-channels v-if="innerSideBarContent == 'sub_channels'"></sub-channels>
 
-                                          </v-slide-x-reverse-transition>
-
-                                           <v-slide-x-reverse-transition>
-
+                                         
                                         <add-sub-channel v-if="innerSideBarContent == 'add_sub_channel'"></add-sub-channel>
 
-                                           </v-slide-x-reverse-transition>
+                                         
                                     
                                    </div>
 
@@ -628,7 +611,8 @@
        <!-- side bar -->
 
 
-   <v-slide-x-transition>
+    <v-slide-x-transition>
+    
    <div class="col-12  py-0 px-0" style="position:absolute; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);" @click="that.$root.showSideBar = false" v-if="that.$root.showSideBar">
 
    <div style="position:absolute; height:100%; width:70%; left:0;" >
@@ -640,7 +624,8 @@
    </div>
 
      </div>
-   </v-slide-x-transition>
+    </v-slide-x-transition>
+  
 
        <!-- ends -->
 
@@ -873,10 +858,9 @@ export default {
           this.chatbarContent = '';
           this.chatInnerConent = '';
 
-          setTimeout(() => {
+         
               this.chatbarContent = 'create_channel';
-          }, 500);
-           
+         
          
         },
         showCodeEditor:function(){
@@ -975,18 +959,23 @@ export default {
            
        },
        generateUnreadMessage: function(){
-          if(this.$root.selectedSpace.unread != 0 && this.$root.selectedSpace.unread != undefined){
-             let newUnreadMsg = {
-             content: 'You have ' + this.$root.selectedSpace.unread + ' unread messages',
-        created_at: moment().subtract(1,'hours'),
-         message_id: this.makeUUID(),
-        type:'unread',
-             };
-          let msgCount = this.$root.Messages.length;
+          if(this.$root.selectedSpace.unread != 0){
+        //      let newUnreadMsg = {
+        //      content: 'You have ' + this.$root.selectedSpace.unread + ' unread messages',
+        // created_at: moment().subtract(1,'hours'),
+        //  message_id: this.makeUUID(),
+        // type:'unread',
+        //      };
 
-           let msgIndex = msgCount - this.$root.selectedSpace.unread;
+        //       newUnreadMsg.initialSize = 200
+        //     newUnreadMsg.id = newUnreadMsg.message_id
+        //     newUnreadMsg.index_count = this.$root.returnLastIndex() + 1;
 
-            this.$root.Messages.splice(msgIndex,0,newUnreadMsg);
+        //   let msgCount = this.$root.Messages.length;
+
+        //    let msgIndex = msgCount - this.$root.selectedSpace.unread;
+
+        //     this.$root.Messages.splice(msgIndex,0,newUnreadMsg);
 
          // mark the space as read
            this.$root.markSpaceRead(this.$route.params.spaceId);

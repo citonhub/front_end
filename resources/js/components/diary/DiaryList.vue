@@ -72,6 +72,14 @@
 
           </div>
 
+          <!-- spacer -->
+
+          <div class="col-12 py-5 my-5">
+
+          </div>
+
+          <!-- ends -->
+
            
 
          
@@ -153,6 +161,33 @@
 
       }
       },
+      checkForNewDiary:function(){
+
+          axios.get( '/get-user-diary')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+          this.$root.LocalStore('user_diary_' + this.$root.username,response.data.user_diary);
+        
+     
+         this.$root.diaryList = response.data.user_diary;
+      
+     
+         this.loadingDiary = false;
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+        this.loadingDiary = false;
+    
+     }) 
+
+
+      },
         fetchUserDiary: function(){
 
            this.loadingDiary  = true;
@@ -171,7 +206,7 @@
  
                   this.loadingDiary = false;
 
-              // this.checkForNewDiary();
+              this.checkForNewDiary();
 
                  }else{
             

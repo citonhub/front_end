@@ -1069,11 +1069,13 @@ export default {
            this.minute = 0;
            this.timer = '0:00';
 
+           this.audioBlob = '';
+
             setTimeout(() => {
 
               if(type == 'send'){
 
-               //this.sendRecord();
+               this.sendMessage();
 
             }
               
@@ -1362,6 +1364,7 @@ export default {
             this.videoUrl = '';
            this.audioUrl = '';
             this.fileUrl = '';
+            this.audioBlob = '';
             this.codeContent = '';
             this.contentInWord = '';
             this.showShareProject = false;
@@ -1435,6 +1438,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
+         timeout: 5000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -1449,6 +1453,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
+         timeout: 5000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -1463,6 +1468,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
+         timeout: 5000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -1477,6 +1483,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
+         timeout: 5000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -1804,6 +1811,14 @@ crophandler:function(e){
 
             formData.append('content',this.contentInWord);
            
+        }
+
+        if(this.audioBlob != ''){
+         
+           this.attachment_type = 'voiceRecord';
+
+            formData.append('audio',this.$root.recorderBlob);
+              formData.append('display_name','Voice Record');
         }
 
        

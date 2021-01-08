@@ -601,14 +601,11 @@ var blob = this.b64toBlob(realData, contentType);
          this.$root.scrollToBottom();
 
 
-         if(this.$root.SpaceUsers.length == 0){
+        
 
-          formData.append('current_user','empty');
-
-         }else{
-
-           formData.append('current_user',JSON.stringify(this.$root.SpaceUsers ));
-         }
+           formData.append('current_user',JSON.stringify(this.generateOnlineUsersList()));
+       
+      
 
 
         formData.append('is_reply',this.$root.is_reply);
@@ -625,6 +622,24 @@ var blob = this.b64toBlob(realData, contentType);
 
        this.goBack();
     },
+     generateOnlineUsersList: function(){
+          let onlineUserList = [];
+
+          this.$root.selectedSpaceMembers.forEach(member => {
+             
+             let userData = this.$root.globalUsers.filter((user)=>{
+               return user.id == member.user_id;
+             })
+
+             if(userData.length != 0){
+               onlineUserList.push(userData[0])
+             }
+           
+            
+          });
+        
+        return onlineUserList;
+       },
      crophandler:function(e){
 
        this.clearData();

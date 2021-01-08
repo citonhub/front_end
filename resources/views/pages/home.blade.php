@@ -5,7 +5,7 @@
 
  @endsection
  @section('meta') 
- <meta name="description" content="Teach,build your community and connect with other developers" />
+ <meta name="description" content="Teach, mentor, and connect with other developers" />
   <meta name="keywords" content="Teach programming,Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
@@ -18,8 +18,8 @@
     <!--Metadata for Microsoft-->
     <meta name="msapplication-TileImage" content="imagesNew/icons/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#4495a2">
-    <meta property="og:description" content="Teach,build your community and connect with other developers" />
-    <meta property='twitter:title' content="Citonhub:Teach,build your community and connect with other developers"/>
+    <meta property="og:description" content="Teach, mentor, and connect with other developers" />
+    <meta property='twitter:title' content="Citonhub:Teach, mentor, and connect with other developers"/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 
@@ -39,6 +39,7 @@
  @endsection
 
  @section('content')
+<div id="home">
 
  <!-- Headers -->
  <div class="col-12 fixed-top py-3 px-md-4 px-3" >
@@ -76,11 +77,10 @@
 
 <div class="col-lg-6  d-none d-lg-flex flex-column" style="position:fixed; align-items:center; justify-content:center;  height:75%; top:8%; z-index:20;">
    
-   <div>
-     <h1 style="font-family:HeaderFont; font-size:50px;">Teach,</h1>
-     <h1 style="font-family:HeaderFont; font-size:50px;">build your community,</h1>
-     <h1 style="font-family:HeaderFont; font-size:50px;">and connect</h1>
-     <span style="font-family:BodyFont; font-size:25px;">with other developers.</span>
+   <div class="px-5 " style="width:80%;">
+     <h1 style="font-family:HeaderFont;" class="mb-3">Teach, mentor, and connect with other developers</h1>
+   
+     <p style="font-size:20px;color:grey;">CitonHub is where developers help each other grow.</p>
 
      <div class="py-2 px-0 mt-3 col-12">
       <div class="row">
@@ -97,12 +97,12 @@
 
 </div>
 
-<div class="d-lg-none d-block col-12 " style="position:fixed; left:0%; height:60%; top:11%; z-index:80;">
+<div class="d-lg-none d-block col-12 " style="position:fixed; left:0%; height:60%; top:13%; z-index:80;">
 <div class=" text-center">
-     <div style="font-family:HeaderFont; font-size:25px;">Teach,</div>
-     <div style="font-family:HeaderFont; font-size:25px;">build your community.</div>
-     <div style="font-family:HeaderFont; font-size:25px;">and connect</div>
-     <span style="font-family:BodyFont; font-size:15px;">with other developers.</span>
+
+<h5 style="font-family:HeaderFont;" class="mb-2">Teach, mentor, and connect with other developers</h5>
+   
+   <p style="font-size:15px;color:grey;" class="px-4">CitonHub is where developers help each other grow.</p>
 
     
       <div class="mt-3">
@@ -249,11 +249,16 @@
 </div>
 <!-- ends -->
 
+</div>
+
+
 
 
  @endsection
 
  @section('scripts')
 
-
+<!-- The main compiled script for this page  -->
+<script src="{{ asset('js/app.js?v=0.10') }}"></script>
+ <!-- ends -->
  @endsection

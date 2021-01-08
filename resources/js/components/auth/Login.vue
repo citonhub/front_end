@@ -56,7 +56,7 @@
 
 
             <div class="col-12 text-center py-1" style="font-family:BodyFont;">
-              <v-form class="row my-2 py-2 px-2 " ref="register" v-model="formstate">
+              <v-form class="row my-2 py-2 px-2 " ref="loginform" v-model="formstate">
 
 
 
@@ -151,7 +151,7 @@
 
 
             <div class="col-12 text-center py-0" style="font-family:BodyFont;">
-              <v-form class="row my-1 py-1 px-2 " ref="loginform" v-model="formstate">
+              <v-form class="row my-1 py-1 px-2 " ref="loginformSm" v-model="formstate">
 
 
 
@@ -316,6 +316,7 @@ export default {
           iziToast.info(
         { 
        title: title,
+         timeout: 5000,
        message: message,
        zindex:'9999999999',
        position: 'bottomRigh  t',
@@ -331,6 +332,7 @@ export default {
         { 
        title: title,
        message: message,
+         timeout: 5000,
        zindex:'9999999999',
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
@@ -344,6 +346,7 @@ export default {
           iziToast.warning(
         { 
        title: title,
+         timeout: 5000,
        message: message,
        zindex:'9999999999',
        position: 'bottomRight',
@@ -361,6 +364,7 @@ export default {
        message: message,
        zindex:'9999999999',
        position: 'bottomRight',
+         timeout: 5000,
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -375,7 +379,7 @@ export default {
       // this log in the user, save the user details and token on the browser.
       // it is manage using VueX (vue state management system)
             this.errorState = false;
-      if(this.$refs.loginform.validate()){
+      if(this.formstate){
           this.loading = true;
      this.$root.userPassword = this.password;
      this.$root.userEmail = this.usernameValue;
@@ -415,6 +419,7 @@ export default {
        
 
         }else{
+          
           this.checkIfLogin()
 
           

@@ -219,6 +219,9 @@
 
 import '../../bootstraps/globalPackage'
 
+import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+
 export default {
      data () {
       return {
@@ -243,9 +246,9 @@ export default {
     },
      mounted(){
      
-     //  this.setEmail();
+      this.setEmail();
        
-      // this.checkIfLogin();
+      this.checkIfLogin();
     },
     methods:{
       switchTxtView:function(){
@@ -265,6 +268,71 @@ export default {
      
 
       },
+       showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+         timeout: 5000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRigh  t',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+         timeout: 5000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+         timeout: 5000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+         timeout: 5000,
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       
+
+    },
         updatepassword: function(){
           this.loading = true;
          axios.post('/reset-password',{
@@ -282,7 +350,7 @@ export default {
               }
          })
          .catch(error => {
-            this.showAlert(5000,'Failed- ' + error);
+          this.showAlert('Oops!','Something went wrong, please try again.','error')
               this.loading = false;
           })
           
@@ -309,44 +377,23 @@ export default {
       },
        checkIfLogin:function(){
 
-          if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'space'){
-             this.$router.push({ path: '/space' });
-          } 
+        
+        if(this.$root.isLogged){
+            this.$router.push({ path: '/hub' });
+        }
 
-          if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'hub'){
-             this.$router.push({ path: '/hub' });
-          } 
-
-           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'profile'){
-             this.$router.push({ path: '/profile' });
-          } 
-
-           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'duels'){
-             this.$router.push({ path: '/panel' });
-          } 
 
        },
        
         goBack: function(){
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
    },
-    showAlert:function(duration,text){
-        this.Alert = true;
-        this.alertMsg = text;
-        let _this = this;
-     
-     setTimeout(function(){
-        _this.Alert = false;
-     },duration);
 
-    },
-   
   loginuser: function(){
-            
 
-     this.$store
+         this.$store
         .dispatch('login', {
-          username: this.$root.userEmail,
+            username: this.$root.userEmail,
           password: this.password
         })
         .then(() => {
@@ -357,45 +404,46 @@ export default {
         this.$root.username = userData.user.username;
         this.$root.user_temp_id = userData.user.id;
         this.$root.returnedToken = userData.token;
-    
+
     }
+
+      this.$root.checkUserDevice();
 
       this.$root.checkauthroot = 'auth';
 
+     
       this.$root.fetchUserDetails();
-      this.$root.setEcho();
-          if(this.$root.frompage == 'space'){
-        this.$root.checkUserDevice();
+       this.$root.setEcho();
 
-      }
-      
 
       let storedTracker = this.$root.getLocalStore('route_tracker');
 
       storedTracker.then((result)=>{
-        
+        this.$root.connectToChannel();
         if(result != null ){
             let finalResult = JSON.parse(result);
-            
        this.$router.push({ path: finalResult[0] });
-
-        this.$root.itIsHomePage = false;
-        }else{
-          this.checkIfLogin()
-           this.$root.itIsHomePage = false;
-        }
-      })
-
        
+
+        }else{
+          
+          this.checkIfLogin()
+
+          
+
+        }
+
+
+      })
 
 
         })
         .catch(err => {
-          this.showAlert(5000,  '😬 ' + 'Unable to login, please try again');
-              this.loading = false;
+          this.loading = false;
+          this.showAlert('Oops!','Wrong details, give it another shot.','error')
         })
-  
-    
+
+            
            
         },
      

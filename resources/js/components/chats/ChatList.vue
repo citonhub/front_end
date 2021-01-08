@@ -38,7 +38,7 @@
                                        <div class=" px-0 py-0 my-0 pr-1  " style="width:100%;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;font-size:13px; color:grey; font-family:BodyFont;">
                                              
                                              <span v-if="source.last_message.length != 0 && source.last_message[0]">
-                                               <span v-if="that.$root.username != source.last_message[0].username">{{ source.last_message[0].username }}: </span >{{ generateMessageString(source.last_message) }}</span>
+                                               <span v-if="that.$root.username != source.last_message[0].username && source.type != 'Direct' && source.type != 'Bot' ">{{ source.last_message[0].username }}: </span >{{ generateMessageString(source.last_message) }}</span>
                                              <span v-else><i>Send a message to start chat</i></span>
                                        </div>
                                         <div class=" px-1 py-0 my-0 text-right ">
@@ -201,7 +201,7 @@ export default {
               return moment(realTimeHour).format("h:mm a");
              
             }else{
-                return moment(realTimeHour).format("MMM DD");
+                return moment(realTimeHour).calendar();
             }
       },
         imageStyle:function(dimension,data,type){

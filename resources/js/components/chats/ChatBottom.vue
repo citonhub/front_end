@@ -14,7 +14,7 @@
 
                   <!-- ends -->
 
-                     <v-btn icon class="mx-md-1" @click="startrecord"><v-icon>las la-microphone</v-icon> </v-btn>
+                     <v-btn icon class="mx-md-1" @click="startrecord" v-else><v-icon>las la-microphone</v-icon> </v-btn>
 
                   </template>
               
@@ -153,8 +153,7 @@ export default {
 
          }else{
             this.showSend = false;
-            //  this.$root.ShowButton = true;
-            //  this.$root.showRootReply = false;
+            
              
          }
 
@@ -332,31 +331,31 @@ export default {
   isTyping:function() {
 
       
-    //   let channel =  window.Echo.join('space.' + this.$route.params.spaceId);
+       let channel =  window.Echo.join('global');
 
      
 
-    //     setTimeout(()=>{
+       setTimeout(()=>{
 
-    //    channel.whisper('typing', {
-    //       user: this.$root.username,
-    //         typing: true,
-    //         spaceId: this.$route.params.spaceId
-    //     });
+        channel.whisper('typing', {
+          user: this.$root.username,
+            typing: true,
+            spaceId: this.$route.params.spaceId
+        });
 
-    //   },1000)
+      },1000)
 
 
    
-    //   setTimeout(()=>{
+      setTimeout(()=>{
 
-    //      channel.whisper('typing', {
-    //       user: this.$root.username,
-    //         typing: false,
-    //         spaceId: this.$route.params.spaceId
-    //     });
+          channel.whisper('typing', {
+          user: this.$root.username,
+           typing: false,
+            spaceId: this.$route.params.spaceId
+        });
 
-    //   },5000)
+      },5000)
         
      
     
@@ -395,14 +394,10 @@ export default {
 
                this.$root.scrollToBottom();
 
-           if(this.$root.SpaceUsers.length == 0){
         
-          formData.append('current_user','empty');
-
-         }else{
            
-           formData.append('current_user',JSON.stringify(this.$root.SpaceUsers ));
-         }
+           formData.append('current_user',JSON.stringify(this.generateOnlineUsersList()));
+      
          
         formData.append('is_reply',this.$root.is_reply);
         formData.append('attachment_type',this.attachment_type);
@@ -416,6 +411,24 @@ export default {
         this.$root.sendShareMessage(formData);
 
         },
+         generateOnlineUsersList: function(){
+          let onlineUserList = [];
+
+          this.$root.selectedSpaceMembers.forEach(member => {
+             
+             let userData = this.$root.globalUsers.filter((user)=>{
+               return user.id == member.user_id;
+             })
+
+             if(userData.length != 0){
+               onlineUserList.push(userData[0])
+             }
+           
+            
+          });
+        
+        return onlineUserList;
+       },
       sendMessage: function(refocus = true){
 
           if( this.input.length == 0) return;
@@ -464,7 +477,7 @@ export default {
               content: this.contentInWord,
               space_id: this.$route.params.spaceId,
               is_reply: this.$root.is_reply,
-              current_user: JSON.stringify(this.$root.SpaceUsers),
+              current_user: JSON.stringify(this.generateOnlineUsersList()),
               replied_message_id: this.$root.replyMessage.message_id,
               attachment_type: null,
               temp_id:  this.$root.NewMsg.message_id,
@@ -499,7 +512,7 @@ textarea {
     font-size:13px; 
     background:whitesmoke;
     width:100%; 
-    height: 50px;
+    height: 55px;
     padding: 4px 6px;
     resize:none; 
     overflow-x: hidden;

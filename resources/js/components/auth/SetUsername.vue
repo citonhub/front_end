@@ -56,7 +56,7 @@
            
 
             <div class="col-12 text-center py-1" style="font-family:BodyFont;">
-              <v-form class="row my-2 py-2 px-2 " ref="password" v-model="formstate">
+              <v-form class="row my-2 py-2 px-2 " ref="username" v-model="formstate">
               
                 
               <div class="col-12 py-2 my-0 px-2">
@@ -66,6 +66,8 @@
                 outlined
              v-model="usernameValue"
             persistent-hint
+            :rules="UsernameRule"
+                counter="15"
             hint="What do you want us to call you?"
              :error="usernameExist"
             prepend-inner-icon="las la-user"
@@ -117,13 +119,15 @@
             </div>
 
             <div class="col-12 text-center py-1" style="font-family:BodyFont;">
-              <v-form class="row my-1 py-1 px-2 " ref="password" v-model="formstate">
+              <v-form class="row my-1 py-1 px-2 " ref="username" v-model="formstate">
               
            <div class="col-12 py-1 my-0 px-2">
               <v-text-field
                   style="font-size:12px;"
                 label="Username"
                 outlined
+                :rules="UsernameRule"
+                  counter="15"
              v-model="usernameValue"
             persistent-hint
              prepend-inner-icon="las la-user"
@@ -138,7 +142,7 @@
         
                <div class="col-12 py-1 my-0 px-2 text-center">
                   <v-btn  :loading="loading" type="submit" small color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:BodyFont;" 
-                 @click.prevent="checkemail">
+                 @click.prevent="setUsername">
                  Set
                   </v-btn>
              </div>
@@ -149,7 +153,7 @@
 
 
 
-<div  class="px-5">
+<div  class="px-5 mt-5">
 
 
 <blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">Knowing is not enough; we must apply. Wishing is not enough; we must do.</blockquote>
@@ -188,6 +192,9 @@
 <script>
 
 import '../../bootstraps/globalPackage'
+
+import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 export default {
      data () {
       return {
@@ -205,13 +212,77 @@ export default {
       }
     },
      mounted(){
-      // this.$root.showTabs=false;
-      //  this.$root.showHeader = false;
-      //  this.setEmail();
-      //  this.$root.itIsHomePage = true;
-      //  this.checkIfLogin();
+    
+      this.setEmail();
+     this.showVerifiedAlert();
+    
     },
     methods:{
+      showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+         timeout: 5000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRigh  t',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+         timeout: 5000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+         timeout: 5000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+         timeout: 5000,
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       
+
+    },
         setEmail: function(){
         
          let storedEmail = this.$root.getLocalStore('user_temp_email');
@@ -240,21 +311,10 @@ export default {
       },
        checkIfLogin:function(){
 
-          if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'space'){
-             this.$router.push({ path: '/space' });
-          } 
-
-          if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'hub'){
-             this.$router.push({ path: '/hub' });
-          } 
-
-           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'profile'){
-             this.$router.push({ path: '/profile' });
-          } 
-
-           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'duels'){
-             this.$router.push({ path: '/panel' });
-          } 
+        
+        if(this.$root.isLogged){
+            this.$router.push({ path: '/hub' });
+        }
 
        },
        viewPost: function(){
@@ -266,18 +326,9 @@ export default {
         goBack: function(){
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
    },
-    showAlert:function(duration,text){
-        this.Alert = true;
-        this.alertMsg = text;
-        let _this = this;
-     
-     setTimeout(function(){
-        _this.Alert = false;
-     },duration);
-
-    },
+   
     showVerifiedAlert:function (){
-     this.showAlert(5000,'Welcome your highness 🤴 👸 , my kingdoom awaits your awesome codes 🥰.')
+     this.showAlert('Nice!','Email verified','success')
     },
     setUsername: function(){
        this.usernameExist= false;
@@ -293,12 +344,14 @@ export default {
             
             if (response.status == 200) {
                  
-            if(response.data == 'exist'){
+            if(response.data.status == 'exist'){
                  
                this.loading = false;
               
                  this.usernameExist = true;
-                 this.showAlert(5000,'Username exists. please, change username and try again');
+               
+               
+                    this.showAlert('Oops!','Username exists, try again','error')
             }else{   
                 
                
@@ -311,17 +364,16 @@ export default {
             
           })
           .catch(error => {
-             this.showAlert(5000,'Failed- ' + '😬 ' + error );
+             this.showAlert('Oops!','Something went wrong, please try again.','error')
               this.loading = false;
           })
        }
     },
      loginuser: function(){
-            
 
-     this.$store
+         this.$store
         .dispatch('login', {
-          username: this.usernameValue,
+            username: this.usernameValue,
           password: this.$root.userPassword
         })
         .then(() => {
@@ -332,45 +384,46 @@ export default {
         this.$root.username = userData.user.username;
         this.$root.user_temp_id = userData.user.id;
         this.$root.returnedToken = userData.token;
-    
+
     }
+
+      this.$root.checkUserDevice();
 
       this.$root.checkauthroot = 'auth';
 
+     
       this.$root.fetchUserDetails();
-      this.$root.setEcho();
-        
-      if(this.$root.frompage == 'space'){
-        this.$root.checkUserDevice();
+       this.$root.setEcho();
 
-      }
-      
 
       let storedTracker = this.$root.getLocalStore('route_tracker');
 
       storedTracker.then((result)=>{
-        
+        this.$root.connectToChannel();
         if(result != null ){
             let finalResult = JSON.parse(result);
-            
        this.$router.push({ path: finalResult[0] });
-         this.$root.itIsHomePage = false;
+       
+
         }else{
+          
           this.checkIfLogin()
-            this.$root.itIsHomePage = false;
+
+          
+
         }
+
+
       })
 
-       
-    
 
         })
         .catch(err => {
-          this.showAlert(5000,  '😬 ' + 'Unable to login, please check your login details');
-              this.loading = false;
+          this.loading = false;
+          this.showAlert('Oops!','Wrong details, give it another shot.','error')
         })
-  
-    
+
+            
            
         },
     }
