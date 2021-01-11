@@ -8,8 +8,8 @@ window.io = require('socket.io-client');
 
 Vue.use(Vuex)
 
-axios.defaults.baseURL = 'http://localhost:8000/api'
-// axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
+//axios.defaults.baseURL = 'http://localhost:8000/api'
+ axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
 
 const store = new Vuex.Store({
   state: {
@@ -88,7 +88,7 @@ const ResourceUpload = () => import(/* webpackChunkName: "ResourceUpload" */ '..
 const PanelLoader = () => import(/* webpackChunkName: "PanelLoader" */ '../components/projects/PanelLoader.vue');
 const PanelSettings = () => import(/* webpackChunkName: "PanelSettings" */ '../components/projects/PanelSettings.vue');
 const AddWebroute= () => import(/* webpackChunkName: "AddWebroute" */ '../components/projects/AddWebroute.vue');
-
+const ProjectGuide = () => import(/* webpackChunkName: "ProjectGuide" */ '../components/projects/ProjectGuide.vue')
 // chats routes
 const Chats = () => import(/* webpackChunkName: "Chats" */ '../components/chats/Chats.vue');
 
@@ -1035,6 +1035,13 @@ beforeEnter: (to, from, next) => {
         path: 'panel/:project_slug',
         component: ProjectPanel,
         children:[
+
+
+          {
+//project guide
+            path:'guide',
+           component: ProjectGuide
+          },
                  {
                  // code editor
                  path: 'editor',
