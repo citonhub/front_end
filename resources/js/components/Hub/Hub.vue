@@ -59,17 +59,17 @@
         <div class=" col-12 scroller" style=" position:absolute; height:90%; top:10%; overflow-y:auto; padding-bottom:60px; padding-top:20px; " >
 
           
-               <div class="col-lg-10 offset-lg-1 col-12 py-0 pt-md-5 mt-md-3" >
+               <div class="col-lg-10 offset-lg-1 col-12 py-0 pt-md-5 mt-md-3 px-md-2 px-1" >
 
                    <div class="row">
                     
 
           <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;" v-for="post in this.$root.posts" :key="post.id">
-             <div  style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5; background-repeat: no-repeat;
-          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background3.jpg);background-size:cover;" @click="showProject(post.id, post.post_id)">
+
+             <div :style="imageStyle(190, post)" @click="showProject(post.id, post.post_id)">
 
               <div class="pt-3 px-2  pl-3" style=" position:absolute; width:100%; height:35%; left:0; bottom:0%; border-radius:0px; border-bottom-left-radius:20px;
-          border-bottom-right-radius:20px; background: linear-gradient(180deg, rgba(60, 135, 205, 0.0053) 0%, rgba(0, 0, 0, 0.53) 100%);">
+          border-bottom-right-radius:20px; background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);">
                 
                  <div class="row">
                   <div class="col-8 py-0 my-0">
@@ -78,7 +78,7 @@
                   </div>
                    <div class="col-4 py-0 my-0 text-right">
 
-                      <i :class="tag.icon" style="font-size:25px; color:white;" v-for="(tag, i) in post.tags" :key="i"></i>
+                      <i :class="tag.icon" style="font-size:25px; color:white;" v-for="(tag, i) in JSON.parse(post.tags)" :key="i"></i>
 
                   </div>
                 </div>
@@ -88,19 +88,19 @@
 
          </div>
 
-          <v-card class="py-1 px-2" style="position:absolute; width:94%; height:auto; left:3%; top:0; border-radius:0px; border-top-left-radius:20px;
+          <v-card class="py-1 px-1" style="position:absolute; width:94%; height:auto; left:3%; top:0; border-radius:0px; border-top-left-radius:20px;
           border-top-right-radius:20px;">
             
-            <div class="col-12 py-0 my-0 text-left">
+            <div class="col-12 py-0 my-0 px-1 text-left">
                 <div class="row py-0 my-0">
-                    <div class="col-2 py-0 my-0 d-flex px-0" style="align-items:center; justify-content:center;">
-                        <span  class="d-inline-block"  
-                             style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5; background-image:url(/imgs/img3.jpg);background-size:100%;border:1px solid transparent;"></span>
-                    </div>
-                   <div class="col-8 py-0 my-0 d-flex" style="align-items:center;">
-                       <div> 
-                             <span   class="d-inline-block"  style="font-family:MediumFont; font-size:13px;" >Akinola Dray</span>
-                       </div>
+                   
+                   <div class="col-10 py-0 my-0 d-flex flex-row" style="align-items:center;">
+                      
+                         <div  class="mr-1"  
+                           :style="imageStyleUser(30,post.user)"></div>
+                       
+                             <div    style="font-family:MediumFont; font-size:13px;" >{{post.user.username}}  <img :src="getUserLevel(post.user.points)" class="mx-1" height="22px"></div>
+                     
                      
                    </div>
                    <div class="col-2 text-right py-0 my-0">
@@ -165,7 +165,7 @@
       <v-slide-x-reverse-transition>
 
      
-   <div class="col-12  py-0 px-0" style="position:fixed; left:0; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);" @click="that.$root.showAddNewPost = false" v-if="that.$root.showAddNewPost">
+   <div class="col-12  py-0 px-0" style="position:fixed; left:0; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);" @click="closeAddPost" v-if="that.$root.showAddNewPost">
 
    <div style="position:absolute; height:100%; width:100%; left:0;background:transparent;overflow-y:auto; overflow-x:hidden;"  >
    
@@ -230,21 +230,24 @@
        
    <div class="col-12  py-0 px-0" style="position:fixed; left:0; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);" @click="viewProjectModal = false" v-if="this.$root.showViewPost">
 
-   <div style="position:absolute; height:100%; width:100%; left:0;background:transparent;overflow-y:hidden; overflow-x:hidden;"  >
+   <div style="position:absolute; height:100%; width:100%; left:0;background:transparent;overflow-y:hidden; overflow-x:hidden;" class="d-flex flex-column"  >
    
 
       <!-- small,large and medium screens -->
 
       <!-- close button -->
-
-       <v-btn icon @click.stop="goBack" color="#ffffff" style="position:absolute;top:1%;right:2%;">
+    
+      <div class="text-right">
+       <v-btn icon @click.stop="goBack" color="#ffffff">
                       <v-icon>mdi mdi-close</v-icon>
                     </v-btn>
+      </div>
+      
 
       <!-- ends -->
 
      <div class="col-12 pt-0 pb-3 scrollerViewProject px-md-2 px-0" 
-     style="background:white; height:93%; top:7%; 
+     style="background:white; height:100%;
      border:1px solid white;border-radius:0px;border-top-left-radius:10px;  overflow-y:auto;overflow-x:hidden;" @click.stop="viewProjectModal = true">
 
    
@@ -307,6 +310,10 @@
 <script>
 import '../../bootstraps/globalPackage'
 
+
+  import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+
  const TopBar = () => import(
     /* webpackChunkName: "top-bar" */ './TopBar.vue'
   );
@@ -317,7 +324,7 @@ const addPage = () => import(/*webpackChunkName: "addPage"*/ './AddProjectPage.v
     /* webpackChunkName: "ProjectView" */ './ProjectView.vue'
   );
 const ImageCropperBoard = () => import(
-    /* webpackChunkName: "imageCropperBoard" */ '../dashboard/ImageCropper.vue'
+    /* webpackChunkName: "imageCropperBoard" */ './ImageCropper.vue'
   );
 
 export default {
@@ -332,7 +339,8 @@ export default {
         viewProjectModal:false,
         posts: [],
         currentPost: this.$root.currentPost,
-        project: {}
+        project: {},
+        loadingPost:false,
       }
     },
     components: {
@@ -342,7 +350,16 @@ export default {
       ImageCropperBoard
     },
     mounted(){
+       
       this.fetchPost();
+
+       this.$root.hubComponents = this;
+
+        if(this.$route.params.post_id != undefined){
+
+           this.$root.showViewPost = true;
+
+        }
     },
 
     methods: {
@@ -353,16 +370,179 @@ export default {
          this.viewProjectModal = true;
       },
 
+       fetchPost:function(){
+
+          this.loadingPost = true;
+
+         axios.get( '/fetch-posts')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+       
+        
+           this.$root.posts = response.data.data;
+          
+        
+
+         this.loadingPost = false;
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+        this.loadingPost = false;
+         this.showAlert('Oops!','Unable to fetch posts,please try again','error')
+    
+     }) 
+
+       },
+         showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+         timeout: 5000,
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+         timeout: 5000,
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+         timeout: 5000,
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+         timeout: 5000,
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'question'){
+
+       }
+     
+
+
+    },
+
+
+
       goBack() {
         // this.viewProjectModal = false;
         this.$root.showViewPost = false;
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
+        closeCropper:function(){
 
-      showAddPost: function(){
+           this.$root.showImageCropper = false;
+           this.$root.imagepath = '';
+
+           window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+
+
+        },
+
+      showAddPost: function() {
 
           this.$router.push({ path:'/hub/new-post'})
 
+      },
+       imageStyleUser:function(dimension,data){
+      
+
+      if(data.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
+         
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
+        
+         
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
+         let imgLink = data.image_name + '.' + data.image_extension;
+         
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+         
+         
+          return styleString;
+      }
+     },
+
+      imageStyle: function (width, data) {
+
+        if (data.image_extension == null) {
+          let styleString = "height: " + width +  "px; width: 94%;  position:absolute; left: 3%; border: 1px solid #c5c5c5;  background-repeat: no-repeat; border-radius: 20px; box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25); background-size: cover;";
+          
+          if (data.image_name == null || data.image_name == '0') {
+            styleString += 'background-color: white; background-image: url(imgs/background1.jpg);';
+          } else {
+            
+            if (data.image_name == 'default_1') {
+              styleString += 'background-color: white; background-image: url(/imgs/background3.jpg);';
+            }
+
+            if (data.image_name == 'default_2') {
+              styleString += 'background-color: white; background-image: url(/imgs/background1.jpg);';
+            }
+
+            if (data.image_name == 'default_3') {
+              styleString += 'background-color:white; background-image: url(/imgs/imgproj2.jpeg);';
+            }
+          }
+         
+          return styleString;
+        } else {
+          let styleString = "height: " + width +  "px; width: 94%; left: 3%;  position:absolute; border: 1px solid #c5c5c5;  background-repeat: no-repeat; border-radius: 20px; box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25); background-size: cover;";
+          
+         let imgLink = data.image_name + '.' + data.image_extension;
+          styleString +=' background-color:' + data.background_color   +   ';background-image:url(/imgs/posts/'  + imgLink  +  ');';
+         
+          return styleString;
+        }
       },
 
       closeAddPost:function(){
@@ -370,19 +550,40 @@ export default {
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
       },
 
-      fetchPost: function(){
-         axios.get('/fetch-posts')
-        .then((response) => {
-          if (response.status == 200) {
-            this.$root.posts = response.data.data
-          }
-        })
-      }
+    getUserLevel: function(points){
+let imageUrl = '';
+          
+  if(points >= 0 && points <= 99){
+    imageUrl += '/imgs/newbie.svg'
+
+  }
+  else if(points >= 100 && points <= 999 ){
+
+   imageUrl +='/imgs/junior.svg'
+  }
+   else if(points >= 1000 && points <= 4999 ){ 
+   
+imageUrl += '/imgs/intermediate.svg' 
+}
+    else if(points >= 5000 && points <= 9999 ){ 
+
+imageUrl += '/imgs/senior.svg'
+   }
+ else if(points >= 10000 && points <= 14999 ){ 
+   
+imageUrl +='/imgs/expert.svg'
+}
+  else if(points >= 15000 && points <= 100000 ){ 
+      
+ imageUrl += '/imgs/super_dev.svg'
+}
+
+  return imageUrl;
+
+    }
     },
 
-    mounted () {
-      this.fetchPost();    
-    }
+  
     }
 </script>
 <style scoped>

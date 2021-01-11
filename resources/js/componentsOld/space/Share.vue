@@ -196,21 +196,15 @@
                  <div class="row py-0 my-0">
 
                    <div class="col-12 py-2 my-0 px-2">
-               <v-combobox
-          v-model="selectedConnections"
-          :items="Connections"
-          :label="$t('space.your_connections')"
-           style="font-size:13px;"
-          item-text="name"
-          item-value="username"
-          hide-selected
-           :loading="loadingConnection"
-          multiple
-          dense
-          :placeholder="$t('general.select') + '...'"
-          color="#3E8893"
-          chips
-        ></v-combobox>
+               <div>
+               <span style="font-size:13px;font-family:BodyFont:">Invite your followers</span>
+             </div>
+
+         <select  style="font-size:13px !important; "    v-model="selectedConnections" class="browser-default custom-select">
+                 <option v-for="(option,index)  in Connections" :value="option.username" :key="index">{{ option.name}}</option>
+                     </select>
+
+
              </div>
         <div class="col-12 py-1 my-0 px-2 text-center">
                   <v-btn rounded :loading="loadingEmail" small color="#3E8893" style="font-size:11px; font-weight:bolder; color:white;font-family: Headertext;" 
@@ -261,6 +255,9 @@
 <script>
 
 
+import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+
 export default {
     data(){
         return{
@@ -290,6 +287,71 @@ export default {
      
     },
     methods:{
+        showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+        timeout:5000,
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+        timeout:5000,
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+        timeout:5000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+        timeout:5000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       
+
+    },
       sendToConnections:function(){
         this.selectedExtraOptions = true;
 
@@ -324,7 +386,7 @@ export default {
                  
               this.loadingConnection = false;
 
-              this.showAlert(5000, 'Sent to Connections');
+              this.showAlert('Nice','Invitation sent','success');
           
             }
             
@@ -361,7 +423,7 @@ export default {
             
           })
           .catch(error => {
-             this.showAlert(5000, '😬 ' + 'Failed- ' + error);
+            this.showAlert('Oops!','Something went wrong,please try again','error')
               this.loadingEmail = false;
           })
        }
@@ -432,9 +494,10 @@ export default {
             var successful = document.execCommand('copy');
             var msg = successful ? 'successful' : 'unsuccessful';
               if(msg == 'successful'){
-                this.showAlert(5000,'Link Copied!')
+                  this.showAlert('Nice','Link copied','success');
+          
               }else{
-                 this.showAlert(5000,'Unable to Copy Link')
+                 this.showAlert('Oops','Unable to copy link','error');
               }
           } catch (err) {
            

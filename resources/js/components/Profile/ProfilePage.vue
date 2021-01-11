@@ -442,7 +442,7 @@ axios.get('/fetch-profile-'+ this.$route.params.username)
 },
 
 calculateLevel(){
-console.log(this.xp)
+
    
   if(this.xp >= 50 && this.xp <= 99){
 this.level='Newbie';
@@ -459,7 +459,8 @@ this.pic1='/imgs/newbie.svg'
   this.pic='/imgs/intermediate.svg'
 this.pic1='/imgs/junior.svg'
   }
-   else if(this.xp >= 1000 && this.xp <= 4999 ){ this.level='Intermediate';
+   else if(this.xp >= 1000 && this.xp <= 4999 ){ 
+     this.level='Intermediate';
   this.nextLevel='Senior';
   this.xpLeft=5000-this.xp;
   this.barValue=(this.xp/5000)*100;

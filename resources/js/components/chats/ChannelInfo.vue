@@ -3,7 +3,7 @@
 
        <div class="row">
         <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky;background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
-            <div class=" mr-1 col-2 py-0">
+            <div class=" mr-1 col-2 px-1 py-0">
               <v-btn icon  @click.stop="close">
                       <v-icon>mdi mdi-close</v-icon>
                     </v-btn>
@@ -13,8 +13,8 @@
              <span style="font-size:14px; font-family:MediumFont;">Channel Info</span>
           </div>
               
-              <div class="col-2 py-0 mr-1 text-right" >
-                  <v-btn icon @click.stop="EditChannel">
+              <div class="col-2 py-0 mr-1 text-right px-1" >
+                  <v-btn icon @click.stop="EditChannel"  v-if="checkIfisOwner()">
                       <v-icon>las la-edit</v-icon>
                     </v-btn>
               </div>
@@ -32,35 +32,38 @@
 
         <div class="col-12 text-left py-1">
            <span style="font-size:14px;font-family:MediumFont;">Description</span><br>
-           <span style="font-size:12px;" v-html="that.$root.selectedSpace.description"></span>
+
+              <template v-if="that.$root.selectedSpace.description">
+                 <span style="font-size:12px;" v-html="that.$root.selectedSpace.description"></span>
+
+              </template>
+
+              <template v-else>
+             
+
+                  <span style="font-size:12px; color:grey;">Here is this channel description</span>
+
+
+              </template>
+          
         </div>
            
-        <div class="col-12 py-0">
-           <span style="font-size:14px; font-family:MediumFont;">Invite</span>
-        </div>
-         <div class="col-12 d-flex flex-row py-1 " >
+        <div class="col-12 py-2">
+         <div class="row">
 
-              <div style="height:30px;width:30px; align-items:center; 
-              justify-content:center; border:1px solid transparent; cursor:pointer; 
-              border-radius:50%;background:#3C87CD;"  @click="copyLink" class="d-flex mr-2 py-auto px-auto" >
-              <v-icon style="font-size:20px;" color="#ffffff">las la-link</v-icon>
-              </div>
+           <div class="col-6 px-0 py-0">
 
-              <div style="height:30px;width:30px; align-items:center; 
-              justify-content:center; border:1px solid transparent; cursor:pointer;
-              border-radius:50%;background:#00acee;" @click="shareToTwitter" class="d-flex mr-2" >
-              <v-icon style="font-size:20px;" color="#ffffff">las la-twitter</v-icon>
-              </div>
+               <v-btn x-small color="#3C87CD"  v-if="checkIfisOwner()" @click.stop="showInvitation" style="color:white;text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Invite</v-btn>
 
-               <div style="height:30px;width:30px; align-items:center; 
-              justify-content:center; border:1px solid transparent; cursor:pointer;
-              border-radius:50%;background:#4FCE5D;" @click="shareToWhatsapp" class="d-flex mr-2" >
-              <v-icon style="font-size:20px;" color="#ffffff">las la-whatsapp</v-icon>
-              </div>
+           </div>
 
-             
-             <input type="hidden" id="spacelink" :value="'https://www.citonhub.com/link/space/' + this.$root.selectedSpace.space_id">
+           <div class="col-6 px-0 py-0 text-right">
+               <v-btn x-small color="#3C87CD" :loading="loadingLeave" @click="leaveSpace" outlined style="text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Leave</v-btn>
+           </div>
+
          </div>
+        </div>
+        
 
           <div class="col-12 py-2 d-flex flex-row mt-2" style="border-top:1px solid #c5c5c5; border-bottom:1px solid #c5c5c5;">
            <div class="col-7 py-0 px-0">
@@ -98,7 +101,7 @@ export default {
         return{
           
          that:this,
-     
+       loadingLeave:false,
        
         }
     },
@@ -109,14 +112,84 @@ export default {
    },  
    EditChannel:function(){
         this.$root.chatComponent.innerSideBarContent = '';
-             setTimeout(() => {
-
+          
             this.$root.chatComponent.innerSideBarContent = 'channel_edit';
                 
-             },500);
-           this.$router.push({ path: '/channels/space_id/channel_edit' });
+          
+           this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id + '/channel_edit' });
 
    },
+    leaveSpace: function(){
+         this.loadingLeave = true;
+        axios.post('/leave-space',{
+           'space_id':this.$route.params.spaceId
+        } )
+      .then(response => {
+
+      if (response.status == 200) {
+
+           let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+                   storedChat.then((result)=>{
+
+                       if(result != null ){
+
+                    let finalResult = JSON.parse(result);
+
+                       
+                       if(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' ){
+
+                          let remainingSpace = finalResult.channels.filter((space)=>{
+                         return    space.space_id != this.$route.params.spaceId
+                          });
+
+                          finalResult.channels = remainingSpace;
+
+                        }
+
+                         if(this.$root.selectedSpace.type == 'Bot'){
+
+                          let remainingSpace = finalResult.pet_spaces.filter((space)=>{
+                         return    space.space_id != this.$route.params.spaceId
+                          });
+
+                          finalResult.channels = remainingSpace;
+
+                        }
+                         
+
+                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+                     
+                   this.$root.ChatList = fullList;
+
+                     this.$root.sortChatList();
+
+                    
+                     
+                  
+                  this.$router.push({ path: '/channels' });
+                    
+
+                 }
+
+                   } )
+
+
+             
+
+
+     }
+
+
+     })
+     .catch(error => {
+          this.loadingLeave = false;
+       this.$root.chatComponent.showAlert('Oops!','Something went wrong,please try again','error')
+     })
+       },
     imageStyleSpace:function(dimension,data,type){
       
 
@@ -171,49 +244,26 @@ export default {
       
 
   },
-  copyLink () {
-        
-          let spacelink = document.querySelector('#spacelink')
-          spacelink.setAttribute('type', 'text')  
-          spacelink.select()
-
-          try {
-            var successful = document.execCommand('copy');
-            var msg = successful ? 'successful' : 'unsuccessful';
-              if(msg == 'successful'){
-                this.$root.chatComponent.showAlert('','Link copied','success');
-              }else{
-                 this.$root.chatComponent.showAlert('','Unable link copied','error');
-              }
-          } catch (err) {
-           
-          }
-
-          /* unselect the range */
-          spacelink.setAttribute('type', 'hidden')
-          window.getSelection().removeAllRanges()
+   showInvitation:function(){
+       
+            this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id + '/channel_invitation' });
         },
-    
-   shareToWhatsapp:function(){
-          let shareText = 'Join ' + this.$root.selectedSpace.name +  ' ' +  this.$root.selectedSpace.type  +' on Citonhub';
-       let shareLink =   'https://www.citonhub.com/link/space/'+ this.$root.selectedSpace.space_id;
+    checkIfisOwner: function(){
 
-        let link = 'whatsapp://send?text=' + shareText  + ' ' + shareLink + '.';
+           let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
 
-         var win = window.open(link, '_blank');
-          win.focus();
-        
-      },
-      shareToTwitter: function(){
-             let shareText = 'Join ' + this.$root.selectedSpace.name +  ' ' +  this.$root.selectedSpace.type  +' on Citonhub';
-       let shareLink =   'https://www.citonhub.com/link/space/'+ this.$root.selectedSpace.space_id;
+             return members.user_id == this.$root.user_temp_id;
+           });
 
-         let link = 'https://twitter.com/intent/tweet?text=' +  shareText  + '&url=' + shareLink ;
-        
-         var win = window.open(link, '_blank');
-          win.focus();
-        
-      },
+           if(userMemberData.length != 0){
+
+             return userMemberData[0].is_admin;
+
+           }else{
+              return false
+           }
+
+       },
     }
 }
 </script>

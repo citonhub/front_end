@@ -2,21 +2,28 @@
  <div class="row px-2">
       <!-- top bar -->
 
-      <div class="col-lg-6 offset-lg-3 py-2 fixed-top d-flex flex-row px-1"
+      <div class="col-lg-6 offset-lg-3 py-1 fixed-top d-flex flex-row px-1"
        style="position:sticky;background:white;z-index:99999999;border-bottom:1px solid #c5c5c5;top:0%;">
        
-        <div class="col-6 py-0 px-0 d-flex flew-row">
-           <div    class="mr-2"
-      style="border-radius:50%;height:40px;width:40px;background-color:#c5c5c5;background-image:url(/imgs/imgproj3.jpeg);background-size: cover;
-      background-repeat: no-repeat; border:3px solid #3C87CD;">
-     </div> 
+        <div class="col-6 py-0 px-0 d-flex flew-row" >
+           <template v-if="this.$root.selectedPost.user">
 
+              <div    class="mr-2" :style="imageStyleUser(35,this.$root.selectedPost.user)"
+            >
+     </div> 
+     
+
+           </template>
+          
        <div class="d-flex " style="align-items:center;">
 
-           <span style="font-size:14px; font-family:BodyFont;">
-              JsBuddy
+             <template v-if="this.$root.selectedPost.user">
+
+           <span style="font-size:14px; font-family:MediumFont;">
+              {{this.$root.selectedPost.user.username}}   <img :src="getUserLevel(this.$root.selectedPost.user.points)" class="mx-1" height="22px">
             </span>
-               <i class="las la-award" style="font-size:25px;color:#90BE6D;" ></i> 
+             </template>
+               
             
         </div>
         </div>
@@ -27,12 +34,12 @@
              <v-btn icon >
                       <v-icon style="font-size:25px;">las la-thumbtack</v-icon>
                     </v-btn>
-            <span style="font-size:12px;color:grey;">234</span>
+            <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.pinned}}</span>
 
           <v-btn icon >
                        <i class="lar la-heart" style="font-size:25px;" ></i> 
                     </v-btn>
-             <span style="font-size:12px;color:grey;">{{ post.likes / 1000 }}K</span>
+             <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.likes }}</span>
         </div>
        
          
@@ -42,18 +49,58 @@
       <!-- ends -->
 
       <div class="col-lg-6 offset-lg-3 mt-2 px-0 text-center">
-        <span class="d-md-block d-none" style="font-size:17px; font-family:MediumFont;">{{ post.title }}</span>
-        <span class="d-md-none d-block" style="font-size:14px; font-family:MediumFont;">{{ post.title }}</span>
+        <span class="d-md-block d-none" style="font-size:17px; font-family:MediumFont;">{{ this.$root.selectedPost.title }}</span>
+        <span class="d-md-none d-block" style="font-size:14px; font-family:MediumFont;">{{ this.$root.selectedPost.title }}</span>
       </div>
 
       <!-- pages loader -->
 
       <div  class="col-lg-6 offset-lg-3 py-2 px-0 pt-1 mt-1" style="height:450px;">
-        <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" 
-   src="https://8l1y3mn8rl.csb.app" 
-   class="col-12 " style="position:absolute; height:100%;  background:white;border:1px solid #c5c5c5; border-radius:7px;"  ></iframe>
 
-     <v-btn icon color="#ffffff" style="border-radius:0px; border-top-right-radius:7px;position:absolute;background: rgba(27, 27, 30, 0.4); right:0%; z-index:879;" 
+         <template v-if="this.$root.selectedPost.link">
+
+              <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" 
+         :src="this.$root.selectedPost.project_url" 
+   class="col-12 px-0 py-0" style="position:absolute; height:100%;  background:white;border:1px solid #c5c5c5; border-radius:7px;"  ></iframe>
+
+         </template>
+
+
+         <template v-else> 
+
+            <template v-if="pageContent == '' && loadingCode">
+
+               <div  class="col-12 d-flex " style="position:absolute; height:100%; align-items:center; justify-content:center;  background:white;border:1px solid #c5c5c5; border-radius:7px;">
+               <v-progress-circular color="#3C87CD" indeterminate width="3" size="28" ></v-progress-circular>
+               </div>
+
+            </template>
+
+           <template v-if="pageContent != '' && this.$root.selectedPost.project.is_web">
+
+            <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" 
+         :srcdoc="pageContent" 
+   class="col-12  px-0 py-0" style="position:absolute; height:100%;  background:white;border:1px solid #c5c5c5; border-radius:7px;"  ></iframe>
+
+           </template>
+
+           <template v-if="pageContent != '' && !this.$root.selectedPost.project.is_web">
+
+             <!-- for non-web content -->
+   <textarea  readonly class="col-12" style=" font-size:14px;position:absolute; height:100%;  background:white;border:1px solid #c5c5c5; border-radius:7px;"  >
+       
+    </textarea>
+
+     <!-- ends -->
+       
+           </template>
+
+         </template>
+
+     
+
+  
+     <v-btn icon color="#ffffff" @click="showFullLoader = true" style="border-radius:0px; border-top-right-radius:7px;position:absolute;background: rgba(27, 27, 30, 0.4); right:0%; z-index:879;" 
            class="d-inline-block  "><v-icon>las la-expand</v-icon></v-btn>
       </div>
       
@@ -63,7 +110,7 @@
 
       <!-- view source -->
          <div class="col-lg-6 offset-lg-3 px-2 mt-3 text-right">
-        <v-btn v-if="post.project" color="#3C87CD" small style="text-transform:none;color:white;font-size:12px;font-family:BodyFont;">View source {{ post.project }}<v-icon class="ml-1">mdi-launch mdi-18px</v-icon></v-btn>
+        <v-btn v-if="this.$root.selectedPost.project" color="#3C87CD" small style="text-transform:none;color:white;font-size:12px;font-family:BodyFont;">View source <v-icon class="ml-1">mdi-launch mdi-18px</v-icon></v-btn>
       </div>
       <!-- ends -->
 
@@ -71,7 +118,7 @@
        <!-- descriptions -->
          <div class="col-lg-6 offset-lg-3 px-2 mt-3 text-left">
           <p style="font-size:14px;font-family:BodyFont;">
-             {{ post.description }}
+             {{ this.$root.selectedPost.description }}
           </p>
       </div>
       <!-- ends -->
@@ -165,25 +212,79 @@
 
        <!-- full loader -->
 
-       <div v-if="false" style="position:fixed;z-index:999999999999999; height:100%;width:100%; top:0; left:0;background:white;">
-        <div class="col-12 px-1 py-1 pt-0  d-flex flex-row" style="position:absolute;background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
-            <div class=" mr-1 col-2 py-0">
-              <v-btn icon >
+       <div v-if="showFullLoader" style="position:fixed;z-index:999999999999999; height:100%;width:100%; top:0; left:0;background:white;">
+
+           <div  class="d-flex flex-column" style="position:absolute;width:100%;height:100%;">
+
+               
+        
+        <div style="height:100%;" class="col-12 px-0 py-0">
+
+           <div class="col-12 px-1 py-1 pt-0  d-flex flex-row" style="background:white; border-bottom:2px solid #c5c5c5;align-items:center;">
+            <div class=" mr-1 col-2 py-0 px-0">
+              <v-btn icon @click="showFullLoader = false">
                       <v-icon>mdi mdi-close</v-icon>
                     </v-btn>
             </div>
           
              <div class="col-8 py-0 text-center">
-             <span style="font-size:17px; font-family:MediumFont;">{{ post.title }}</span>
+             <span style="font-size:14px; font-family:MediumFont;">{{ this.$root.selectedPost.title }}</span>
           </div>
-              
-              
-          
+
         </div>
 
-         <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" 
-   src="https://www.citonhub.com/run-panel/645703307" 
-    style="position:absolute; height:92%; top:8%; background:white;width:100%;border:1px solid #c5c5c5;"  ></iframe>
+
+           <template v-if="this.$root.selectedPost.link">
+
+              <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" 
+         :src="this.$root.selectedPost.project_url" 
+   class="col-12 px-0 py-0" style=" height:100%;  background:white;border:1px solid #c5c5c5; "  ></iframe>
+
+         </template>
+
+
+         <template v-else> 
+
+            <template v-if="pageContent == '' && loadingCode">
+
+               <div  class="col-12 d-flex " style=" height:100%; align-items:center; justify-content:center;  background:white;border:1px solid #c5c5c5; border-radius:7px;">
+               <v-progress-circular color="#3C87CD" indeterminate width="3" size="28" ></v-progress-circular>
+               </div>
+
+            </template>
+
+           <template v-if="pageContent != '' && this.$root.selectedPost.project.is_web">
+
+            <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" 
+         :srcdoc="pageContent" 
+   class="col-12  px-0 py-0" style=" height:100%;  background:white;border:1px solid #c5c5c5; "  ></iframe>
+
+           </template>
+
+           <template v-if="pageContent != '' && !this.$root.selectedPost.project.is_web">
+
+             <!-- for non-web content -->
+   <textarea  readonly class="col-12" style=" font-size:14px; height:100%;  background:white;border:1px solid #c5c5c5; "  >
+       
+    </textarea>
+
+     <!-- ends -->
+       
+           </template>
+
+         </template>
+
+        </div>
+             
+    
+
+           </div>
+
+     
+
+   
+
+
       </div>
 
       <!-- ends -->
@@ -193,21 +294,374 @@
  </div>
 </template>
 <script>
+import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+
+
 export default {
   data () {
     return {
       post: '',
-      id: this.$root.currentPost
+      id: this.$root.currentPost,
+      loadingPost:false,
+      that: this,
+       pageContent:'',
+       loadingCode: false,
+      showFullLoader:false,
+       selectedLangId:'',
     }
   },
 
   mounted () {
-    axios.get(`/fetch-post/${this.id}`)
-      .then((response) => {
-        if (response.status == 200) {
-          this.post = response.data.data
-        }
-      })
+       this.fetchPost();
+  },
+  methods:{
+     showPage: function(){
+          this.pageContent = '';
+          this.loadingCode = true;
+         
+          this.selecetedPanelId = this.$root.selectedPost.project.panel_id;
+
+            if(this.$root.selectedPost.project.is_web){
+
+               this.loadPageContent(this.selecetedPanelId);
+
+            }else{
+
+                     this.runCodeOnSandbox();
+            }
+
+        },
+         loadPageContent: function(panelId){
+         axios.get( '/run-panel/' + panelId)
+      .then(response => {
+
+      if (response.status == 200) {
+
+        this.loadingCode = false;
+       this.pageContent = response.data;
+
+
+
+     }
+
+
+     })
+     .catch(error => {
+
+          this.showAlert('Oops!','Unable to load page content','error');
+
+     })
+     },
+       showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       timeout:5000,
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+        timeout:5000,
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+       message: message,
+        timeout:5000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+        timeout:5000,
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       
+
+    },
+     imageStyleUser:function(dimension,data){
+      
+
+      if(data.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
+         
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
+        
+         
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
+         let imgLink = data.image_name + '.' + data.image_extension;
+         
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+         
+         
+          return styleString;
+      }
+     },
+    checkResponse:function(token){
+
+        let _this = this;
+
+      
+                axios.post( '/check-for-submission',{
+               token: token,
+                langId: _this.selectedLangId
+                  })
+          .then(response => {
+             
+          
+          if(response.status == 200){
+
+            
+
+            
+
+              if(response.data[0].status.description == 'Accepted'){
+
+                 
+
+                  _this.pageContent =  response.data[0].stdout;
+
+                  
+                 
+
+
+              }else if(response.data[0].status.description == 'In Queue'){
+
+                 _this.pageContent = 'In Queue...';
+
+                   _this.checkResponse(response.data[0].token);
+
+              }else if(response.data[0].status.description == 'Processing'){
+
+                 _this.pageContent = 'Processing...';
+
+                   _this.checkResponse(response.data[0].token);
+
+              }else{
+
+                 _this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr ;
+
+               
+
+              }
+
+
+              if(_this.$root.codeBoxOpened == false){
+                
+              }
+
+              
+
+       
+
+         
+               _this.recheckCodeBox = true;
+
+          }
+
+          
+            
+          })
+          .catch(error => {
+
+             
+             
+               _this.pageContent = 'An issue occured,unable to run on sandbox...';
+
+               
+             
+          })
+
+
+        
+
+      },
+      runCodeOnSandbox: function(){
+
+          axios.post( '/run-code-on-sandbox-project',{
+                panel_id: this.selecetedPanelId,
+                  })
+          .then(response => {
+             
+          
+          if(response.status == 200){
+
+          
+             let token = response.data[0][0].token;
+
+        
+              if(response.data[0][0].status.description == 'Accepted'){
+
+                  this.pageContent =  response.data[0][0].stdout ;
+
+                
+                
+
+              }else if(response.data[0][0].status.description == 'In Queue'){
+
+                 this.pageContent = 'In Queue...';
+                 this.checkResponse(token,response.data[1]);
+
+              }else if(response.data[0][0].status.description == 'Processing'){
+
+                 this.pageContent = 'Processing...';
+
+                 this.checkResponse(token,response.data[1]);
+
+              }else{
+
+                
+
+                this.pageContent =  response.data[0][0].stdout + '\n Error: \n' + response.data[0][0].stderr ;
+
+              }
+
+
+          }
+            
+          })
+          .catch(error => {
+
+            
+             
+               this.pageContent = 'An issue occured,unable to run on sandbox...';
+
+                
+              
+          })
+
+          
+      },
+    fetchPost:function(){
+
+
+       this.loadingPost  = true;
+
+             let storedPostData = this.$root.getLocalStore('post_data_' +  this.$route.params.post_id + this.$root.username);
+
+            storedPostData.then((result)=>{
+                
+                 if(result != null ){
+
+                    let finalResult = JSON.parse(result);
+                     
+                      this.$root.selectedPost = finalResult;
+
+                       if(!this.$root.selectedPost.link){
+
+                         this.showPage();
+
+                       }
+                 
+                   this.loadingPost  = false;
+              // this.updatePost();
+
+                 }else{
+            
+           
+            axios.get( '/fetch-post/' + this.$route.params.post_id)
+      .then(response => {
+      
+      if (response.status == 200) {
+
+          this.$root.LocalStore('post_data_' +  this.$route.params.post_id + this.$root.username,response.data.data);
+        
+           this.$root.selectedPost = response.data.data;
+          
+           if(!this.$root.selectedPost.link){
+
+                         this.showPage();
+
+                       }
+
+         this.loadingPost = false;
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+        this.loadingPost = false;
+    
+     }) 
+
+                 }
+            })
+
+    },
+     getUserLevel: function(points){
+let imageUrl = '';
+          
+  if(points >= 0 && points <= 99){
+    imageUrl += '/imgs/newbie.svg'
+
+  }
+  else if(points >= 100 && points <= 999 ){
+
+   imageUrl +='/imgs/junior.svg'
+  }
+   else if(points >= 1000 && points <= 4999 ){ 
+   
+imageUrl += '/imgs/intermediate.svg' 
+}
+    else if(points >= 5000 && points <= 9999 ){ 
+
+imageUrl += '/imgs/senior.svg'
+   }
+ else if(points >= 10000 && points <= 14999 ){ 
+   
+imageUrl +='/imgs/expert.svg'
+}
+  else if(points >= 15000 && points <= 100000 ){ 
+      
+ imageUrl += '/imgs/super_dev.svg'
+}
+
+  return imageUrl;
+
+    }
   }
 }
 </script>

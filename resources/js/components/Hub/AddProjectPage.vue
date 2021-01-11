@@ -10,15 +10,16 @@
 
                <!-- project title -->
  
-                    <div  class=" col-12 py-1 my-0 px-2" style="font-family:BodyFont;">
+                    <div  class=" col-12 py-1 my-0 px-2 mb-1" style="font-family:BodyFont;">
               <v-text-field
                 v-model="post.title"
                  style="font-size:13px;"
                 
               label="Project Title"
               :rules="titleRule"
-               filled
+                dense
             counter="80"
+            outlined
             placeholder="title"
             persistent-hint
              hint="What are you building?"
@@ -39,7 +40,12 @@
                 <v-text-field 
                 v-if="postLink" 
                 label="Paste Project Link"
-                class="mt-2"
+                class="mt-4"
+               
+                outlined
+                
+                dense
+              
                 style="font-size:13px;"
                 :rules="requiredRule"
                  color="#3C87CD"
@@ -50,8 +56,15 @@
                 <v-select v-else 
                 label="Select Project" 
                  style="font-size:13px;"
-                 class="mt-2"
+                 class="mt-4"
+                 @change="setTagHandler"
                  color="#3C87CD"
+                   :items="projectArray"
+                  item-text="title"
+                item-value="project_slug"
+                 :loading="loadingProjects"
+                 dense
+                 outlined
                     :rules="requiredRule"
                  placeholder="select..."
                 v-model="post.project_slug">
@@ -93,47 +106,23 @@
               </v-sheet>
             </v-sheet>
 
-               <!-- <v-sheet
-              elevation="0"
-              height="100"
-              width="120"
-              :style="'background-image:url('+ imageUrl + ');border-radius:10px;cursor:pointer;background-size:contain;'"
-              class="py-0  px-0 mt-2 sheetbackImg"
-              color="whitesmoke"> --> <!-- We move from here -->
-
-               <!-- <input type="file" id="settingsimage" ref="settingsimage" 
-                @change="crophandler" style="opacity:0;width:100%; height:10px; overflow:hidden; position:absolute; z-index:10;"
-                 accept="image/x-png,image/jpeg,image/jpg"/> -->
-               <!-- <v-sheet
-               
-              
-               elevation="0"
-               height="100%"
-               width="100%"
-               style="border-radius:10px;background:#c5c5c5;"
-               class="py-auto px-auto d-flex"
-               >
-                  
-                 <v-icon class="mx-auto white-text">mdi-camera-plus</v-icon>
-                
-               </v-sheet>
-              </v-sheet> -->
+           
     
                 <div style="font-size:13px;color:grey;" class="mt-3">Or select from defaults</div>
 
                <div class="d-flex flex-row mt-3" >
-                       <div    class="mr-2" @click="selectDefaultImg('/imgs/imgproj3.jpeg',1)"
-    style="border-radius:10px;height:60px;width:60px;background-color:#c5c5c5;background-image:url(/imgs/imgproj3.jpeg);background-size: cover;
+                       <div    class="mr-2" @click="selectDefaultImg('/imgs/background3.jpg',1)"
+    style="border-radius:10px;height:60px;width:60px; cursor:pointer; background-color:#c5c5c5;background-image:url(/imgs/background3.jpg);background-size: cover;
   background-repeat: no-repeat; border:1px solid #c5c5c5;">
   </div> 
 
-    <div    class="mr-2" @click="selectDefaultImg('/imgs/imgproj2.jpeg',2)"
-    style="border-radius:10px;height:60px;width:60px;background-color:#c5c5c5;background-image:url(/imgs/imgproj2.jpeg);background-size: cover;
+    <div    class="mr-2"  @click="selectDefaultImg('/imgs/background1.jpg',2)"
+    style="border-radius:10px;height:60px;width:60px;cursor:pointer; background-color:#c5c5c5;background-image:url(/imgs/background1.jpg);background-size: cover;
   background-repeat: no-repeat;border:1px solid #c5c5c5;">
   </div> 
 
-     <div    class="mr-2" @click="selectDefaultImg('/imgs/imgproj1.jpeg',3)"
-    style="border-radius:10px;height:60px;width:60px;background-color:#c5c5c5;background-image:url(/imgs/imgproj1.jpeg);background-size: cover;
+     <div    class="mr-2"  @click="selectDefaultImg('/imgs/imgproj2.jpeg',3)"
+    style="border-radius:10px;height:60px;width:60px; cursor:pointer; background-color:#c5c5c5;background-image:url(/imgs/imgproj2.jpeg);background-size: cover;
   background-repeat: no-repeat; border:1px solid #c5c5c5;">
   </div> 
               </div>
@@ -148,20 +137,20 @@
 
            <!-- add tags -->
                 <div  class=" col-12 py-1 mt-5 my-0 px-2 pt-3" style="height:auto;font-family:BodyFont;">
-              <v-combobox
+              <v-select
                  style="font-size:13px;"
               dense
               label="Tags"
             counter="10"
             placeholder="add tags"
-            hint="e.g php, nodejs, html5"
-            persistent-hint
+           
             chips
             multiple
+            outlined
                :rules="requiredRule"
-            filled
-             item-value="name"
+             
              item-text="name"
+             item-value="name"
              :items="languageIcon"
              v-model="post.tags"
              color="#3C87CD">
@@ -184,7 +173,7 @@
             </v-chip>
 
               </template>
-             </v-combobox>
+             </v-select>
 
              </div>
 
@@ -195,11 +184,11 @@
          </div>
 
          <!-- project description -->
-             <div class="col-12 py-1 pt-3 my-0 px-2">
+             <div class="col-12 py-1 pt-0 my-0 px-2">
                 
                 <v-textarea
                  style="font-size:14px;"
-                 filled
+                 outlined
                  height="100px"
                  counter="200"
                     :rules="descriptionRule"
@@ -214,7 +203,7 @@
 
             <!-- add project button -->
              <div class=" text-center col-12 py-1 mt-4 my-0 px-2">
-                 <v-btn  medium rounded type="submit" color="#3C87CD" style="font-size:13px; font-family:BodyFont; font-weight:bolder;text-transform:none; color:white;" @click.prevent="postData">
+                 <v-btn  medium rounded type="submit" color="#3C87CD" :loading="loading" style="font-size:13px; font-family:MediumFont; font-weight:bolder;text-transform:none; color:white;" @click.prevent="postData">
                Send
                </v-btn>
              </div>
@@ -242,13 +231,11 @@
 
 <script>
 
-
+  import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 
 export default {
-    components:{
-         
-     },
-
+   
     data(){
         return{
            imageUrl:'',
@@ -263,128 +250,199 @@ export default {
          v => !!v || 'description is required',
            v => v.length <= 200 || 'description must be less than 200 characters'
             ],
-             languageIcon:[
+            languageIcon:[
                {
                   name:'Web app NodeJs',
-                  icon:'lab la-node-js'
+                  icon:'lab la-html5',
+                  border_color:'#263238',
+                  background:'#ffffff',
+                  id: 'NodeJs',
                
                },
                {
                   name:'Web app PHP',
-                  icon:'lab la-php'
+                  icon:'lab la-html5',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                   id:'PHP'
                
                },
                {
                   name:'JavaScript',
-                  icon:'lab la-js-square'
+                  icon:'lab la-js-square',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                  id:26
                
                },
                {
                   name:'PHP',
-                  icon:'lab la-php'
+                  icon:'lab la-php',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                   id: 35,
                
                },
                {
                   name:'Python 3.81',
-                  icon:'lab la-python'
+                  icon:'lab la-python',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                   id: 39,
                
                },
                {
                   name:'Python for ML(3.7.7)',
-                  icon:'lab la-python'
+                  icon:'lab la-python',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                   id: 100,
                
                },
                {
                   name:'C',
-                  icon:'mdi mdi-language-c'
+                  icon:'mdi mdi-language-c',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                  id: 4,
                
                },
                {
                   name:'C++',
-                  icon:'mdi mdi-language-cpp'
+                  icon:'mdi mdi-language-cpp',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                  id:11,
                
                },
                {
                   name:'Java',
-                  icon:'lab la-java'
+                  icon:'lab la-java',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                   id: 25,
                
                },
                {
                   name:'C#',
-                  icon:'mdi mdi-language-csharp'
+                  icon:'mdi mdi-language-csharp',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                  id: 13,
                
                },
                {
                   name:'Erlang',
-                  icon:'lab la-erlang'
+                  icon:'lab la-erlang',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                   id: 18,
                
                },
                {
                   name:'Kotlin',
-                  icon:'mdi mdi-language-kotlin'
+                  icon:'mdi mdi-language-kotlin',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                  id: 27,
                
                },
                {
                   name:'Fortran',
-                  icon:'mdi mdi-language-fortran'
+                  icon:'mdi mdi-language-fortran',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                  id:21,
                
                },
                {
                   name:'Perl',
-                  icon:'las la-code'
+                  icon:'las la-code',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                   id: 34,
                
                },
                {
                   name:'R',
-                  icon:'mdi mdi-language-r'
+                  icon:'mdi mdi-language-r',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                   id:40,
                
                },
                {
                   name:'Ruby',
-                  icon:'mdi mdi-language-ruby'
+                  icon:'mdi mdi-language-ruby',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                   id: 41,
                
                },
                {
                   name:'Go',
-                  icon:'mdi mdi-language-go'
+                  icon:'mdi mdi-language-go',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                  id: 22,
                
                },
                {
                   name:'Hashkell',
-                  icon:'mdi mdi-language-haskell'
+                  icon:'mdi mdi-language-haskell',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                  id: 24,
                
                },
                {
                   name:'Lua',
-                  icon:'mdi mdi-language-lua'
+                  icon:'mdi mdi-language-lua',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                   id: 28,
                
                },
                {
                   name:'Pascal',
-                  icon:'las la-code'
+                  icon:'las la-code',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                   id:33,
                
                },
                {
                   name:'TypeScript',
-                  icon:'mdi mdi-language-typescript'
+                  icon:'mdi mdi-language-typescript',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                   id: 46,
                
                },
                {
                   name:'Rust',
-                  icon:'las la-code'
+                  icon:'las la-code',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                   id:42,
                
                },
                {
                   name:'Swift',
-                  icon:'lab la-swift'
+                  icon:'lab la-swift',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                  id:45,
                
                },
                 {
                   name:'Scala',
-                  icon:'las la-code'
+                  icon:'las la-code',
+                   border_color:'#263238',
+                  background:'#ffffff',
+                  id: 43,
                
                },
-
             ],
 
             addlink:false,
@@ -399,10 +457,16 @@ export default {
               tags: [],
               description: ''
             },
-            imageDefault:0
+            imageDefault:0,
+            loadingProjects:false,
+            loading:false,
+            projectArray:[],
+            setTag:[],
         }
     },
-
+    mounted(){
+         this.getAllProjects();
+     },
     methods:{
        displayTab() {
           this.addlink = !this.addlink
@@ -410,10 +474,119 @@ export default {
 
           alert(this.addlink)
        },
+        goBack() {
+      
+        this.$root.showAddNewPost = false;
+        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+        },
        displayTab2() {
           this.addprojectlink= !this.addprojectlink
           this.select = !this.select
        },
+       setTagHandler:function(){
+
+         let selectedProject = this.projectArray.filter((project)=>{
+           return project.project_slug == this.post.project_slug;
+         })
+
+         let selectedTag = this.languageIcon.filter((language)=>{
+           return language.id == selectedProject[0].panel_language
+         })
+
+          this.post.tags = [selectedTag[0].name];
+         
+       },
+        getAllProjects:function(){
+         
+            this.loadingProjects = true;
+             axios.get( '/fetch-personal-projects')
+      .then(response => {
+
+      if (response.status == 200) {
+
+        this.loadingProjects = false;
+
+       this.projectArray = response.data.projects
+
+     }
+
+
+     })
+     .catch(error => {
+
+     })
+         
+      },
+         showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+         timeout: 5000,
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+         timeout: 5000,
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+         timeout: 5000,
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+         timeout: 5000,
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'question'){
+
+       }
+     
+
+
+    },
+
 
         crophandler: function (event) {
           this.imageDefault = 0;
@@ -494,6 +667,8 @@ export default {
 
         postData () {
           if (this.$refs.addPost.validate()) {
+
+             this.loading = true;
             let formData = new FormData();
 
             if (this.$root.imageExist) {      
@@ -508,7 +683,24 @@ export default {
             formData.append('project_slug', this.post.project_slug);
             formData.append('project_url', this.post.project_url);
             formData.append('description', this.post.description);
-            formData.append('tags', this.post.tags);
+
+             var languageList = this.post.tags;
+                 
+                 let finalLanguageArray = [];
+
+                languageList.forEach((lang)=>{
+
+                   let langData = this.languageIcon.filter((data)=>{
+                     return data.name == lang;
+                   })
+
+                   finalLanguageArray.push(langData[0]);
+
+                })
+               
+            formData.append('tags',JSON.stringify(finalLanguageArray));
+
+
 
             axios.post('/save-hub-post', formData, {
               headers: {
@@ -516,10 +708,21 @@ export default {
               }
             })
               .then((response) => {
-                if (response.status == 201) {
-                  console.log(response);
+                if (response.status == 200) {
+
+                  this.$root.posts.unshift(response.data.data);
+
+                 
+                 this.loading = false;
+                    this.goBack();
+                  
                 }
               })
+           .catch(error => {
+             this.showAlert('Oops!','Unable to save post,please try again','error')
+             this.loading = false;
+          })
+          
           }
         }
       }

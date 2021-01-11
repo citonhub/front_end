@@ -67,7 +67,7 @@ export default {
       }
     },
    mounted(){
-     
+        this.$root.chatListComponent = this;
    },
     methods:{
       

@@ -32,15 +32,20 @@
                       placeholder="Search"
                       filled
                       dense
-
+                      @input="searchChatList"
+                       v-model="searchValue"
                      rounded
                      ></v-text-field>
 
                         <v-btn icon @click="showCreateChannel"><v-icon>mdi mdi-chat-plus-outline</v-icon></v-btn>
+                       
+                     
+                        
                            </div>
                             
+           <template v-if="!this.$root.loadingChatList && !this.$root.loadingIsError">
 
-                   <DynamicScroller
+               <DynamicScroller
     :items="this.$root.ChatList"
      :keyField="'space_id'"
     :min-item-size="36"
@@ -67,6 +72,68 @@
              </template>
 
                 </DynamicScroller>
+             
+           </template>
+
+             <template v-if="searchValue != ''">
+
+
+                  <DynamicScroller
+    :items="this.$root.searchChatList"
+     :keyField="'space_id'"
+    :min-item-size="36"
+    v-if="this.$root.searchChatList.length > 0"
+    ref="ChatContainerSearch"
+    :buffer="5000"
+    id="ChatContainerSearch"
+      class="col-12 px-1  chatListScroller" 
+       style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;background:white;"
+        >
+
+    <template v-slot="{ item, index, active }">
+      <DynamicScrollerItem
+        :item="item"
+        :active="active"
+        :size-dependencies="[
+         item.content
+        ]"
+        :data-index="index"
+      >
+
+        <chat-list :source="item" ></chat-list>
+
+          </DynamicScrollerItem>
+             </template>
+
+                </DynamicScroller>
+
+            <div v-else  class="col-12 px-1 text-center chatListScroller"  style="position:absolute;background:white; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;">
+
+              <span style="font-size:13px;color:grey;">No result found</span>
+
+            </div>
+
+                     
+                       </template>
+
+            <template v-if="this.$root.loadingChatList && !this.$root.loadingIsError">
+
+                 <div  class="col-12 d-flex " style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;align-items:center; justify-content:center;  ">
+               <v-progress-circular color="#3C87CD" indeterminate width="3" size="28" ></v-progress-circular>
+               </div>
+
+            </template>
+
+        
+         <template v-if="!this.$root.loadingChatList && this.$root.loadingIsError">
+
+                 <div  class="col-12 d-flex flex-column" style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;align-items:center; justify-content:center;  ">
+                 <div style="font-size:13px;color:grey;">Something went wrong</div> 
+                   <v-btn  small color="#3C87CD" rounded style="text-transform:normal;font-family:BodyFont;font-size:13px;" @click="fetchChatList"> Retry </v-btn>
+               </div>
+
+            </template>
+                 
                       
                           
 
@@ -155,7 +222,22 @@
   </template>
 
   </DynamicScroller>
-                         
+            <template v-else>
+        <div  class="col-12 px-0 scroller" 
+
+        style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
+            background-repeat: no-repeat; height:93%; left:0; position:absolute; z-index:99999; top:0%;padding-top:80px; padding-bottom:130px;  overflow-y:auto;">
+
+            <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
+
+                <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'" :fromChat="true" :alertComponent="this"></invitation>
+
+            </template>
+
+            
+          
+        </div>
+     </template>
 
                              <div class="col-12 py-0 px-0" style=" left:0; position:absolute; bottom:0%;z-index:99999999;" >
                                <div class="col-12  py-1" v-if="that.$root.showEmojiBox">
@@ -226,6 +308,16 @@
                             </div>
 
                             
+
+                            <!-- ends -->
+
+                               <!-- channel invitation -->
+
+                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center " @click="goBack" style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                                 <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
+           class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
+                                  <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'" :fromChat="true" :alertComponent="this"></invitation>
+                            </div>
 
                             <!-- ends -->
 
@@ -333,6 +425,7 @@
 
                 <!-- chat list component -->
               
+           <template v-if="!this.$root.loadingChatList && !this.$root.loadingIsError">
 
                      <DynamicScroller
     :items="this.$root.ChatList"
@@ -361,6 +454,70 @@
              </template>
 
                 </DynamicScroller>
+           </template>
+
+              <template v-if="that.$root.TopBarComponent">
+                
+
+                          <template v-if="that.$root.TopBarComponent.searchValue != ''">
+
+                             <DynamicScroller
+    :items="this.$root.searchChatList"
+     :keyField="'space_id'"
+    :min-item-size="36"
+     v-if="this.$root.searchChatList.length > 0"
+    ref="ChatContainersmallSearch"
+    :buffer="5000"
+    id="ChatContainersmallSearch"
+      class="col-12 px-1 " 
+        style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto; background:white;" 
+        >
+
+    <template v-slot="{ item, index, active }">
+      <DynamicScrollerItem
+        :item="item"
+        :active="active"
+        :size-dependencies="[
+         item.content
+        ]"
+        :data-index="index"
+      >
+
+        <chat-list :source="item" ></chat-list>
+
+          </DynamicScrollerItem>
+             </template>
+
+                </DynamicScroller>
+
+              <div v-else  class="col-12 px-1 text-center chatListScroller pt-2"  style="position:absolute; width:100%; height:90%;top:10%;left:0;overflow-y:auto; background:white;" >
+
+              <span style="font-size:13px;color:grey;">No result found</span>
+
+            </div>
+                              
+                         </template>
+                    
+                    
+
+                       </template>
+
+                <template v-if="this.$root.loadingChatList && !this.$root.loadingIsError">
+
+                 <div  class="col-12 d-flex " style="position:absolute; overflow-y:auto;left:0%; height:92%;top:8%;align-items:center; justify-content:center;  ">
+               <v-progress-circular color="#3C87CD" indeterminate width="3" size="28" ></v-progress-circular>
+               </div>
+
+            </template>
+
+             <template v-if="!this.$root.loadingChatList && this.$root.loadingIsError">
+
+                 <div  class="col-12 d-flex flex-column" style="position:absolute; left:0%; overflow-y:auto; height:92%;top:8%;align-items:center; justify-content:center;  ">
+                 <div style="font-size:13px;color:grey;">Something went wrong</div> 
+                   <v-btn  small color="#3C87CD" rounded style="text-transform:normal;font-family:BodyFont;font-size:13px;" @click="fetchChatList"> Retry </v-btn>
+               </div>
+
+            </template>
 
               
 
@@ -474,6 +631,21 @@
   </template>
 
   </DynamicScroller>
+
+     <template v-else>
+        <div  class="col-12 scroller" 
+
+        style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
+            background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:9999999; top:0%;padding-top:80px; padding-bottom:130px;  overflow-y:auto;">
+
+              <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
+
+                <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'" :fromChat="true" :alertComponent="this"></invitation>
+
+            </template>
+          
+        </div>
+     </template>
                       
 
                              <v-btn @click="showCodeEditor" v-if="chatIsOpen"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
@@ -507,6 +679,16 @@
 
                                <div  v-if="chatIsOpen && chatInnerConent == 'image_viewer'"  class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
                                   <image-viewer></image-viewer>
+                            </div>
+
+                            <!-- ends -->
+
+                             <!-- channel invitation -->
+
+                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center " style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
+                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
+           class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
+                                  <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'" :fromChat="true" :alertComponent="this"></invitation>
                             </div>
 
                             <!-- ends -->
@@ -709,6 +891,10 @@ import { VEmojiPicker } from 'v-emoji-picker';
     const ImageCropper = () => import(
     /* webpackChunkName: "ImageCropper" */ './ImageCropper.vue'
   );
+
+     const Invitation = () => import(
+    /* webpackChunkName: "Invitation" */ './invitation.vue'
+  );
 export default {
      data () {
       return {
@@ -724,14 +910,18 @@ export default {
         messageIsDone: true,
         chatShareIsOpen:false,
         imageCropperIsOpen:false,
+       searchValue:'',
+     
       }
     },
     mounted(){
      this.$root.showSideBar = false;
     this.$root.chatComponent = this;
-
+    
      this.controlChatPath();
       this.fetchChatList();
+
+       this.setShareLink();
     },
     components: {
         TopBar,
@@ -748,6 +938,7 @@ export default {
         LiveSession,
         AddSubChannel,
         VEmojiPicker,
+        Invitation,
         ChatShare,
         ImageCropper
     },
@@ -761,6 +952,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
+        timeout:5000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -775,6 +967,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
+        timeout:5000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -787,6 +980,7 @@ export default {
           iziToast.warning(
         { 
        title: title,
+        timeout:5000,
        message: message,
        zindex:'9999999999',
        position: 'bottomRight',
@@ -802,6 +996,7 @@ export default {
         { 
        title: title,
        message: message,
+        timeout:5000,
        zindex:'9999999999',
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
@@ -811,6 +1006,12 @@ export default {
        }
 
        
+
+    },
+    setShareLink:function(){
+
+      this.$root.shareText = 'Join ' + this.$root.selectedSpace.name +  ' on Citonhub';
+       this.$root.shareLink =   'https://www.citonhub.com/link/space/'+ this.$route.params.spaceId;
 
     },
         selectEmoji(emoji) {
@@ -825,6 +1026,45 @@ export default {
              
     
     },   
+    searchChatList:function(){
+
+       let query = this.searchValue.toLowerCase;
+
+      let chatListResult = this.$root.ChatList.filter((chat)=>{
+
+          let nameValue = '';
+
+          if(chat.type == 'Team' || chat.type == 'Channel'){
+
+             nameValue = chat.name.toLowerCase();
+
+          }
+
+          if(chat.type == 'Bot' && chat.bot_data != null){
+             nameValue = chat.bot_data.name.toLowerCase();
+          }
+
+          if(chat.type == 'Direct'){
+
+            nameValue = chat.userInfo.username.toLowerCase()
+
+          }
+
+         
+         
+      return nameValue.includes(this.searchValue.toLowerCase());
+
+       
+
+                
+       });
+
+       
+
+      this.$root.searchChatList = chatListResult;
+
+      
+    },
        TopIsVisible:function(isVisible, entry){
            if(isVisible){
            
@@ -869,9 +1109,14 @@ export default {
         },
          fetchChatList: function(){
 
+           
+
           if(this.$root.checkauthroot == 'auth'){
 
              if(this.$root.ChatList.length == 0 ){
+
+                this.$root.loadingChatList = true;
+             this.$root.loadingIsError = false;
 
 
                 let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
@@ -896,6 +1141,8 @@ export default {
 
                       this.$root.updateSpaceMessages();
 
+                        this.$root.loadingChatList = false;
+
                  }else{
             
            
@@ -915,11 +1162,18 @@ export default {
 
          this.$root.sortChatList();
 
+             this.$root.loadingChatList = false;
+
      }
        
      
      })
      .catch(error => {
+
+        this.showAlert('Oops!','Unable to fetch channels','error');
+
+           this.loadingChatList = false;
+           this.loadingIsError = true;
        
       
      }) 
@@ -1315,14 +1569,38 @@ export default {
        setTimeout(() => {
 
           if( this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team'  ){
+               
 
-                  this.$root.msgScrollComponent.messageContainer.scrollToBottom();
-           this.$refs.messageContainersmall.scrollToBottom();
+                if(this.$refs.messageContainer){
+
+                       this.$refs.messageContainer.scrollToBottom();
+
+                }
+
+                if(  this.$refs.messageContainersmall){
+
+                     this.$refs.messageContainersmall.scrollToBottom();
+                  
+                }
+              
+             
+
+        
 
           }else{
 
-              this.$root.msgScrollComponent.messageContainer.scrollToBottom();
-           this.$refs.messageContainersmall.scrollToBottom();
+              if(this.$refs.messageContainer){
+
+                       this.$refs.messageContainer.scrollToBottom();
+
+                }
+
+                if(  this.$refs.messageContainersmall){
+
+                     this.$refs.messageContainersmall.scrollToBottom();
+                  
+                }
+         
 
           }
 
@@ -1385,7 +1663,7 @@ export default {
 
 
 
-
+               this.fetchSpaceInfo();
 
 
                }else{
@@ -1479,7 +1757,7 @@ export default {
       setTimeout(() => {
 
          
-           this.$root.msgScrollComponent.messageContainer.scrollToBottom();
+           this.$refs.messageContainer.scrollToBottom();
           
               this.$refs.messageContainersmall.scrollToBottom();
          
@@ -1517,20 +1795,15 @@ export default {
       }
 
 
-             if(this.$root.selectedSpace.general_spaceId != undefined){
-
-  //      this.getMemberUpdates(this.$root.selectedSpace.general_spaceId);
-
-          }
+            
 
                 });
          }
 
      
 
-       }
-     },
-     checkForUnreadMessagesDisconnected:function(){
+       },
+       checkForUnreadMessagesDisconnected:function(){
          
           if(this.chatIsOpen){
 
@@ -1551,28 +1824,136 @@ export default {
               }
     
       },
-     getMemberUpdates: function(spaceId){
+  
+        fetchSpaceInfo: function(){
+
+            axios.get('/fetch-space-info-'+ this.$route.params.spaceId)
+   .then(response => {
+
+   if (response.status == 200) {
+
+         let storedMsg = this.$root.getLocalStore('full_' + this.$route.params.spaceId + this.$root.username);
+       
+           storedMsg.then((result)=>{
+
+               if(result != null){
+
+                   let finalResult = JSON.parse(result);
+
+                    finalResult.space = response.data.space;
+                    this.$root.selectedSpace = response.data.space;
+
+                  
+                  finalResult.members = response.data.members;
+                   this.$root.selectedSpaceMembers = response.data.members;
+
+            this.$root.LocalStore('full_' +  this.$route.params.spaceId  + this.$root.username,finalResult);
+
+              
 
 
-      axios.get( '/fetch-space-members-' + spaceId )
-      .then(response => {
-
-      if (response.status == 200) {
+               }
 
 
-       this.$root.selectedSpaceMembers = response.data;
+
+              
+           });
+
+      
+            // update chatList
+
+             let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+            
+             storedChat.then((result)=>{
+
+               if(result != null){
+
+                   let finalResult = JSON.parse(result);   
+
+                 
+
+                     
+                
+
+                   if(response.data.space.type == 'Channel' || response.data.space.type == 'Team'){
+                        finalResult.channels.map((chat)=>{
+                          if(chat.space_id == this.$route.params.spaceId){
+
+                             chat.name =  response.data.space.name;
+
+                             chat.image_name = response.data.space.image_name;
+
+                             chat.image_extension = response.data.space.image_extension;
+
+                             chat.background_color = response.data.space.background_color;
+
+                          }
+                        })
+                   }
+
+                   if(response.data.space.type == 'Direct'){
+
+                      finalResult.direct_messages.map((chat)=>{
+                          if(chat.space_id == this.$route.params.spaceId){
+
+                             chat.name =  response.data.space.userInfo.name;
+
+                             chat.image_name = response.data.space.userInfo.image_name;
+
+                             chat.image_extension = response.data.space.userInfo.image_extension;
+
+                             chat.background_color = response.data.space.userInfo.background_color;
+
+                          }
+                        })
+
+                   }
+
+                   if(response.data.space.type == 'Bot'){
+
+                      finalResult.pet_spaces.map((chat)=>{
+                          if(chat.space_id == this.$route.params.spaceId){
+
+                             chat.name =  response.data.space.bot_data.name;
+
+                             chat.image_name = response.data.space.bot_data.image_name;
+
+                             chat.image_extension = response.data.space.bot_data.image_extension;
+
+                             chat.background_color = response.data.space.bot_data.background_color;
+
+                          }
+                        })
+
+                   }
+                      
+                    let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+                      this.$root.ChatList = fullList;
+
+                     this.$root.sortChatList();
+                    
+                      this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+              
 
 
-     }
+               }
 
 
-     })
-     .catch(error => {
 
-     })
+              
+           });
+  }
 
 
-      },
+  })
+  .catch(error => {
+
+  })
+
+
+        },
       botMessager:function(){
 
               if(this.$root.Messages.length == 0){
@@ -1597,11 +1978,13 @@ export default {
 
 
         },
+     },
+     
 }
 </script>
 <style scoped>
 .scroller::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 
@@ -1610,7 +1993,7 @@ export default {
   outline: 1px solid #3C87CD;
 }
 .scrollerinfo::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 

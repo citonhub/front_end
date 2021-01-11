@@ -16,7 +16,8 @@
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
 
-             <input style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search" class="py-2 px-2" type="search" >       
+             <input style="width:100%;heigth:100%;font-size:12px;"   @input="searchChatList"
+                       v-model="searchValue"  placeholder="Search" class="py-2 px-2" type="search" >       
          
             </div>
              <div class="col-2 text-center py-0">
@@ -40,11 +41,56 @@ export default {
       return {
        showSideBar:false,
        searchType:'',
-       that:this
+       that:this,
+       searchValue:'',
       }
     },
     mounted(){
       this.$root.TopBarComponent = this;
+    },
+    methods:{
+      searchChatList:function(){
+
+    
+
+       let chatListResult = this.$root.ChatList.filter((chat)=>{
+
+          let nameValue = '';
+
+          if(chat.type == 'Team' || chat.type == 'Channel'){
+
+             nameValue = chat.name.toLowerCase();
+
+          }
+
+          if(chat.type == 'Bot' && chat.bot_data != null){
+             nameValue = chat.bot_data.name.toLowerCase();
+          }
+
+          if(chat.type == 'Direct'){
+
+            nameValue = chat.userInfo.username.toLowerCase()
+
+          }
+
+        
+         
+      return nameValue.includes(this.searchValue.toLowerCase());
+
+       
+
+                
+       });
+
+       
+
+      this.$root.searchChatList = chatListResult;
+       
+        
+
+     
+
+    },
     }
 }
 </script>

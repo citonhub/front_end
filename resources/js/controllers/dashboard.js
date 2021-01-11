@@ -80,7 +80,11 @@ const Projects = () => import(/* webpackChunkName: "Projects" */ '../components/
 const Diary = () => import(/* webpackChunkName: "Diary" */ '../components/dashboard/Diary.vue');
 const Challenges = () => import(/* webpackChunkName: "Challenges" */ '../components/dashboard/Challenges.vue');
 const Wallet = () => import(/* webpackChunkName: "Wallet" */ '../components/dashboard/Wallet.vue');
+const Notifications = () => import(/* webpackChunkName: "Notifications" */ '../components/dashboard/Notifications.vue');
   
+
+// notifications list
+const NotificationsList = () => import(/* webpackChunkName: "NotificationsList" */ '../components/notifications/List.vue');
 
 // project routes
 const ProjectList = () => import(/* webpackChunkName: "ProjectList" */ '../components/projects/ProjectList.vue');
@@ -192,17 +196,31 @@ beforeEnter: (to, from, next) => {
   {
     path:'/hub',
     name:'Hub',
+    component:Hub,
     meta: {
       twModalView: true
     },
-    component: Hub
+    beforeEnter: (to, from, next) => {
+
+     
+      
+      if(window.thisUserState != undefined){
+        
+        thisUserState.$root.showAddNewPost = false;
+        thisUserState.$root.showViewPost = false;
+       
+       }
+     
+     
+      next()
+     }
   },
 
   // new post
 { path: '/hub/new-post',
 name: 'NewPost',
 meta: {
- twModalView: true
+  twModalView: true
 },
 beforeEnter: (to, from, next) => {
  const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
@@ -249,7 +267,7 @@ beforeEnter: (to, from, next) => {
 
 // new post
 {
-  path: '/hub/post/:id',
+  path: '/hub/post/:post_id',
   name: 'ViewPost',
   meta: {
     twModalView: true
@@ -355,8 +373,10 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.chatShareIsOpen = false;
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+      thisUserState.$root.chatComponent.chatInnerSideBar = false;
       thisUserState.$root.chatComponent.chatIsOpen = true;
       thisUserState.$root.chatComponent.messageIsDone = true;
+      
         
       }
      
@@ -525,6 +545,7 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.chatShareIsOpen = false;
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
+      thisUserState.$root.chatComponent.chatInnerConent = '';
    
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'channel_info';
@@ -925,7 +946,57 @@ beforeEnter: (to, from, next) => {
 
     if(window.thisUserState != undefined){
       if( thisUserState.$root.chatComponent){
+        thisUserState.$root.chatComponent.chatInnerSideBar = false;
       thisUserState.$root.chatComponent.chatInnerConent = 'image_viewer';
+      }
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// Channel invitation
+{ path: '/channels/:spaceId/channel_invitation',
+   name: 'ChannelInvitation',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+      if( thisUserState.$root.chatComponent){
+        thisUserState.$root.chatComponent.chatInnerSideBar = false;
+      thisUserState.$root.chatComponent.chatInnerConent = 'channel_invitation';
       }
      }
 
@@ -1209,6 +1280,22 @@ beforeEnter: (to, from, next) => {
            
              
         ]
+      },
+      {
+        // notifications
+        path: 'notifications',
+        component: Notifications,
+        redirect: '/board/notifications/list',
+        meta: {
+          twModalView: true
+        },
+        children:[
+            
+          { // list
+            path: 'list',
+            component: NotificationsList
+            },
+        ]
       }
     ]
   },
@@ -1400,6 +1487,15 @@ const app = new Vue({
       userEmail:'',
       userPassword:'',
       pageToDelete:'',
+      selectedPost:[],
+      hubComponents:undefined,
+      loadingChatList: false,
+      loadingIsError:false,
+      searchChatList:[],
+     chatListComponent:undefined,
+     shareText:'',
+     shareLink:'',
+     fromChannelEdit:false,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -1442,7 +1538,7 @@ const app = new Vue({
       // whenever isConnected changes, this function will run
       isConnected: function (newValue, oldValue) {
 
-        if(!newValue){
+        if(!newValue && this.$root.chatComponent){
 
             this.updateSpaceMessages();
 

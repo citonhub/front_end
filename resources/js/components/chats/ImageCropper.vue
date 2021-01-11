@@ -13,8 +13,21 @@
         </div>
         <div style="position:absolute;height:80%;left:0;top:7%;" class="col-lg-10 offset-lg-1">
 
-               <image-cropper :img="this.imagepath" :componentType="cropType" :stencilProps="cropProp" class=" d-flex col-12 " ref="cropper"
+             <template v-if="!this.$root.fromChannelEdit">
+
+                   <image-cropper :img="this.imagepath" :componentType="cropType" :stencilProps="cropProp" class=" d-flex col-12 " ref="cropper"
       style="align-items:center; justify-content:center;height:100%;" ></image-cropper>
+
+             </template>
+
+             <template v-else>
+
+                   <image-cropper :img="this.imagepath" :componentType="cropType" :stencilProps="cropPropEdit" class=" d-flex col-12 " ref="cropperEdit"
+      style="align-items:center; justify-content:center;height:100%;" ></image-cropper>
+
+             </template>
+
+             
 
         </div>
     </div>
@@ -33,6 +46,13 @@ export default {
            cropProp:{
                
          
+           },
+            cropPropEdit:{
+                handlers: {},
+	   	movable: true,
+         scalable: false,
+         aspectRatio: 1,
+         
            }
      
        
@@ -43,7 +63,9 @@ export default {
   },
    mounted(){
 
-      if(this.$root.currentImage == 'image1'){
+        if(!this.$root.fromChannelEdit){
+
+             if(this.$root.currentImage == 'image1'){
           
           this.imagepath = this.$root.imagepath1;
       }
@@ -60,13 +82,21 @@ export default {
           this.imagepath = this.$root.imagepath4;
       }
      
+            
+        }else{
+            this.imagepath = this.$root.imagepath
+            
+        }
+
+     
     },
     methods:{
       
   
     goBack() {
-          
-          this.$refs.cropper.crop();
+
+           if(!this.$root.fromChannelEdit){
+                this.$refs.cropper.crop();
 
        if(this.$root.currentImage == 'image1'){
             
@@ -101,6 +131,22 @@ export default {
 
           
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+           }else{
+        
+
+
+          this.$refs.cropperEdit.crop();
+            this.$root.croppedImage = null;
+          
+           this.$root.croppedImage = this.$refs.cropperEdit.image;
+
+             this.$root.showImageCropper = false
+
+        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+
+           }
+          
+        
         },
     },
    
