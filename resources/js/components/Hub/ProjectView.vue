@@ -37,7 +37,7 @@
             <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.pinned}}</span>
 
           <v-btn icon >
-                       <!-- <i :class="liked ? lar la-heart : lar la-heart-outline" style="font-size:25px;" @click="likePost"></i>  -->
+                       <i :class="this.$root.selectedPost.isLiked ? 'lar la-heart' : 'lar la-heart-outline'" style="font-size:25px;" @click="likePost"></i>
                     </v-btn>
              <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.likes }}</span>
         </div>
@@ -317,19 +317,39 @@ export default {
   },
   methods:{
      likePost(){
+      let formData = new FormData();
+      formData.append('post_id', this.root.currentPost.id)
 
-         axios.get(`user-liked-post/${this.id}`)
+         axios.post('/like-hub-post', formData)
       .then((response) => {
-        if (response.status == 200) {
-          if (response.data.liked == "liked") {
-            this.liked = true
+        if (response.status == 201) {
+          if (response.data == "liked") {
+            this.$root.selectedPost.isLiked = 1
           } else {
-            this.liked = false
+            this.$root.selectedPost.isLiked = 0
           }
         }
       })
 
      },
+
+     pinPost(){
+        let formData = new FormData();
+        formData.append('post_id', this.root.currentPost.id)
+
+         axios.post('/pin-hub-post', formData)
+      .then((response) => {
+        if (response.status == 201) {
+          if (response.data == "pinned") {
+            this.$root.selectedPost.isPinned = 1
+          } else {
+            this.$root.selectedPost.isPinned = 0
+          }
+        }
+      })
+
+     },
+
      showPage: function(){
           this.pageContent = '';
           this.loadingCode = true;
