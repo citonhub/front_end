@@ -37,7 +37,7 @@
             <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.pinned}}</span>
 
           <v-btn icon >
-                       <i class="lar la-heart" style="font-size:25px;" ></i> 
+                       <!-- <i :class="liked ? lar la-heart : lar la-heart-outline" style="font-size:25px;" @click="likePost"></i>  -->
                     </v-btn>
              <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.likes }}</span>
         </div>
@@ -316,6 +316,20 @@ export default {
        this.fetchPost();
   },
   methods:{
+     likePost(){
+
+         axios.get(`user-liked-post/${this.id}`)
+      .then((response) => {
+        if (response.status == 200) {
+          if (response.data.liked == "liked") {
+            this.liked = true
+          } else {
+            this.liked = false
+          }
+        }
+      })
+
+     },
      showPage: function(){
           this.pageContent = '';
           this.loadingCode = true;
@@ -662,6 +676,8 @@ imageUrl +='/imgs/expert.svg'
   return imageUrl;
 
     }
+   
+   
   }
 }
 </script>
