@@ -30,9 +30,9 @@
             <span style="font-size:12px;color:grey;">234</span>
 
           <v-btn icon >
-                       <i class="lar la-heart" style="font-size:25px;" ></i> 
+                       <i :class="liked ? lar la-heart : lar la-heart-outline" style="font-size:25px;" @click="likePost"></i> 
                     </v-btn>
-             <span style="font-size:12px;color:grey;">{{ post.likes / 1000 }}K</span>
+             <span style="font-size:12px;color:grey;">{{ post.likes > 1000 ? post.likes / 1000 : post.likes }}K</span>
         </div>
        
          
@@ -197,7 +197,19 @@ export default {
   data () {
     return {
       post: '',
-      id: this.$root.currentPost
+      id: this.$root.currentPost,
+      liked: false
+    }
+  },
+
+  methods: {
+    likePost () {
+      axios.get('/like-hub-post')
+        .then((response) => {
+          if (response.status == 201) {
+            this.liked = true
+          }
+        })
     }
   },
 
@@ -206,6 +218,17 @@ export default {
       .then((response) => {
         if (response.status == 200) {
           this.post = response.data.data
+        }
+      })
+
+    axios.get(`user-liked-post/${this.id}`)
+      .then((response) => {
+        if (response.status == 200) {
+          if (response.data.liked == "liked") {
+            this.liked = true
+          } else {
+            this.liked = false
+          }
         }
       })
   }
