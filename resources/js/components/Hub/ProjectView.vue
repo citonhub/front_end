@@ -37,7 +37,8 @@
             <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.pinned}}</span>
 
           <v-btn icon >
-                       <!-- <i :class="liked ? lar la-heart : lar la-heart-outline" style="font-size:25px;" @click="likePost"></i>  -->
+             
+                       <i :class="liked ? 'lar la-heart' : 'las la-heart'"  style="font-size:25px;" @click="likePost"></i> 
                     </v-btn>
              <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.likes }}</span>
         </div>

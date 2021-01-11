@@ -73,6 +73,19 @@ export default {
       
        openChat:function(space){
 
+           // handle random qoutes
+
+          function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+        this.$root.chatComponent.selectedQuoteId =  getRandomInt(0,9); 
+
+      // ends
+
+
           if(this.$root.selectedSpace.general_spaceId != space.space_id ){
 
              if(this.$root.TrackLastSubSpace.length != 0 && space.space_id == this.$root.TrackLastSubSpace[0]){

@@ -259,10 +259,10 @@
                                 <img src="/imgs/chat_side.svg" height="250px">
 
                                 <div class="d-flex flex-column mt-5 px-5" style="align-items:center;justify-content:center;">
-                                    <blockquote class="fill" style="font-family:BodyFont; font-size:15px; color:black;">Knowing is not enough; we must apply. Wishing is not enough; we must do.</blockquote>
+                                    <blockquote class="fill" style="font-family:BodyFont; font-size:15px; color:black;">{{qouteArray[selectedQuoteId].qoute}}</blockquote>
  
                             <p class="text-center" style="font-family:HeaderFont;font-size:15px;">
-                                 - Rob Siltanen
+                                 - {{qouteArray[selectedQuoteId].author}}
                               </p>
                                 </div>
 
@@ -280,12 +280,12 @@
                                 <img src="/imgs/chat_side.svg" height="250px">
 
                                 <div class="d-flex flex-column mt-5 px-5" style="align-items:center;justify-content:center;">
-                                    <blockquote class="fill" style="font-family:BodyFont; font-size:15px; color:black;">Knowing is not enough; we must apply. Wishing is not enough; we must do.</blockquote>
+                                    <blockquote class="fill" style="font-family:BodyFont; font-size:15px; color:black;">{{qouteArray[selectedQuoteId].qoute}}</blockquote>
                                  
                                 
                                  
                             <p class="text-center" style="font-family:HeaderFont;font-size:15px;">
-                                 - Rob Siltanen
+                                 - {{qouteArray[selectedQuoteId].author}}
                               </p>
 
                                <v-progress-linear indeterminate height="4px"  color="#3C87CD" class="mb-2" rounded></v-progress-linear>
@@ -549,12 +549,12 @@
                                 <img src="/imgs/chat_side.svg" height="150px">
 
                                 <div class="d-flex flex-column mt-5 px-5" style="align-items:center;justify-content:center;">
-                                    <blockquote class="fill" style="font-family:BodyFont; font-size:14px; color:black;">Knowing is not enough; we must apply. Wishing is not enough; we must do.</blockquote>
+                                    <blockquote class="fill" style="font-family:BodyFont; font-size:14px; color:black;">{{qouteArray[selectedQuoteId].qoute}}</blockquote>
                                   
                                 
 
                             <p class="text-center" style="font-family:HeaderFont;font-size:14px;">
-                                 - Rob Siltanen
+                                 - {{qouteArray[selectedQuoteId].author}}
                               </p>
 
                                  <v-progress-linear indeterminate height="4px"  color="#3C87CD" class="mb-2" rounded></v-progress-linear>
@@ -574,7 +574,7 @@
 
                    <template v-if="chatIsOpen && that.$root.Messages != null">
 
-              <div class="row py-0">
+              <v-app class="row py-0">
                             <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:fixed; top:0%;z-index:999999999;" >
                               <chat-top></chat-top>
                             </div>
@@ -763,7 +763,7 @@
                             <!-- ends -->
 
                               
-                  </div>
+                  </v-app>
               
             </template>
             
@@ -908,9 +908,52 @@ export default {
        errorLoadingMessage:false,
         counter:0,
         messageIsDone: true,
+        qouteArray:[
+          {
+            qoute:'Believe you can and you’re halfway there.',
+            author:'Theodore Roosevelt'
+          },
+          {
+            qoute:'Alone, we can do so little; together we can do so much.',
+            author:'Helen Keller'
+          },
+          {
+            qoute:'You can’t use up creativity. The more you use, the more you have.',
+            author:'Maya Angelou'
+          },
+          {
+            qoute:'If you want to lift yourself up, lift up someone else.',
+            author:'Booker T. Washington'
+          },
+          {
+            qoute:'You can change. And you can be an agent of change.',
+            author:'Laura Dern'
+          },
+          {
+            qoute:'One person can make a difference, and everyone should try.',
+            author:'John F. Kennedy'
+          },
+          {
+            qoute:'Whatever you do, always give 100%. Unless you\'re donating blood.',
+            author:'Bill Murray'
+          },
+          {
+            qoute:'Success is the sum of little efforts repeated day in day out.',
+            author:'Robert collier'
+          },
+          {
+            qoute:'Experience is not the best teacher. Evaluated experience is.',
+            author:'John Maxwell'
+          },
+          {
+            qoute:'Make each day your masterpiece.',
+            author:'John Wooden'
+          },
+        ],
         chatShareIsOpen:false,
         imageCropperIsOpen:false,
        searchValue:'',
+       selectedQuoteId:0
      
       }
     },

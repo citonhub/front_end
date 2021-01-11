@@ -53,6 +53,34 @@
                          </span>
                   </div>
                   <!-- ends -->
+
+                  <!-- more option -->
+
+                   <v-menu
+       
+      absolute
+      left
+      offset-y
+      style="max-width: 600px"
+    >
+      <template v-slot:activator="{ on, attrs }">
+
+          <v-btn icon   v-bind="attrs" v-on="on" style="border-radius:7px;position:absolute;background:white;right:0%;top:0%;padding:2px !important;"><v-icon style="font-size:17px;">las la-angle-down</v-icon> </v-btn>
+      </template>
+
+      <v-list>
+        <v-list-item
+          v-for="(item, index) in items"
+          :key="index"
+        >
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+
+                 
+
+                  <!-- ends -->
                   </v-card> 
 
                  
@@ -766,6 +794,12 @@ export default {
          clicks: 0,
          delay:400,
          timer:'',
+          items: [
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me' },
+        { title: 'Click Me 2' },
+        ],
         
         }
     },
