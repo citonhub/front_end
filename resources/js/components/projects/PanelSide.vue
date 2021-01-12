@@ -9,7 +9,7 @@
                     v-if="this.$router.currentRoute.path.indexOf('editor') >= 0 || this.$router.currentRoute.path.indexOf('panel-loader') >= 0" class="d-inline-block d-lg-none" icon><v-icon style="font-size:20px;">las la-times</v-icon> </v-btn>
                      </template>
                      
-                     <v-btn class="ml-1" x-small color="#3C87CD"> <span style="font-family:HeaderFont;font-size:11px; text-transform:capitalize; color:white;" >Guide</span> </v-btn>
+                     <v-btn @click="openGuide" class="ml-1" x-small color="#3C87CD"> <span style="font-family:HeaderFont;font-size:11px; text-transform:capitalize; color:white;" >Guide</span> </v-btn>
                   </div>
 
                   <div class="col-6 text-right py-0">
@@ -925,6 +925,9 @@ export default {
 
          }
       },
+      openGuide(){
+         this.$router.push({path: '/board/projects/panel/' + project.project_slug})
+      }
   },
   
   
