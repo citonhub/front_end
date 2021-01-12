@@ -171,9 +171,11 @@
                               <chat-top></chat-top>
                             </div>
 
-                             <DynamicScroller
+                          <v-app id="largeView"  v-if="that.$root.Messages.length != 0" style="position:absolute;width:100%;height:100%; left:0%;background:#E1F0FC;">
+
+                              <DynamicScroller
     :items="that.$root.Messages"
-     v-if="that.$root.Messages.length != 0"
+   
      :keyField="'index_count'"
     :min-item-size="36"
     ref="messageContainer"
@@ -194,7 +196,7 @@
         ]"
         :data-index="index"
       >
-     <chat-messages  :source="item" ></chat-messages>
+     <chat-messages :screenType="'large'" :source="item" ></chat-messages>
     
       </DynamicScrollerItem>
     </template>
@@ -222,6 +224,10 @@
   </template>
 
   </DynamicScroller>
+
+                          </v-app>
+
+                           
             <template v-else>
         <div  class="col-12 px-0 scroller" 
 
@@ -243,6 +249,17 @@
                                <div class="col-12  py-1" v-if="that.$root.showEmojiBox">
                             <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
                                  </div>
+
+
+                                  <!-- reply view -->
+
+                                  <div class="col-12  py-1" v-if="this.$root.showRootReply" >
+
+                                      <reply-view></reply-view>
+                                        
+                                 </div>
+
+                                  <!-- ends -->
 
                                   <div class="px-2 py-1" style="background:#ffffff; border-top:1px solid #c5c5c5;">
                                 <chat-bottom ref="bottomLg"></chat-bottom>
@@ -403,7 +420,7 @@
 
                       </div>
 
-                           <v-btn  @click="showCodeEditor" v-if="chatIsOpen" medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
+                           <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply" medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
 
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
 
@@ -549,7 +566,7 @@
                                 <img src="/imgs/chat_side.svg" height="150px">
 
                                 <div class="d-flex flex-column mt-5 px-5" style="align-items:center;justify-content:center;">
-                                    <blockquote class="fill" style="font-family:BodyFont; font-size:14px; color:black;">{{qouteArray[selectedQuoteId].qoute}}</blockquote>
+                                    <div class="fill text-center pb-2" style="font-family:BodyFont; font-size:14px; color:black;">{{qouteArray[selectedQuoteId].qoute}}</div>
                                   
                                 
 
@@ -574,7 +591,7 @@
 
                    <template v-if="chatIsOpen && that.$root.Messages != null">
 
-              <v-app class="row py-0">
+              <div  class="row py-0" :id="'smallView'" >
                             <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:fixed; top:0%;z-index:999999999;" >
                               <chat-top></chat-top>
                             </div>
@@ -603,7 +620,7 @@
         ]"
         :data-index="index"
       >
-     <chat-messages  :source="item" ></chat-messages>
+     <chat-messages :screenType="'small'" :source="item" ></chat-messages>
     
       </DynamicScrollerItem>
     </template>
@@ -648,7 +665,7 @@
      </template>
                       
 
-                             <v-btn @click="showCodeEditor" v-if="chatIsOpen"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
+                             <v-btn @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
 
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
 
@@ -658,6 +675,17 @@
                                 <div class="col-12  py-1"  v-if="that.$root.showEmojiBox">
                             <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
                                  </div>
+
+                                 <!-- reply view -->
+
+                                  <div class="col-12 px-1 py-1" v-if="this.$root.showRootReply" >
+
+                                      <reply-view></reply-view>
+                                        
+                                 </div>
+
+                                  <!-- ends -->
+
                                  <div class="px-2 py-1" style="background:#ffffff; border-top:1px solid #c5c5c5;">
                                 <chat-bottom ref="bottomSm"></chat-bottom>
                                  </div>
@@ -689,6 +717,16 @@
                                   <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
                                   <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'" :fromChat="true" :alertComponent="this"></invitation>
+                            </div>
+
+                            <!-- ends -->
+
+
+                             <!-- message options -->
+
+                               <div  v-if="chatIsOpen && showMoreOptions" @click="showMoreOptions = false" class="col-12 py-0 px-0 d-flex" style="align-items:center; justify-content:center; background: rgba(27, 27, 30, 0.1); position:fixed; height:100%; top:0%;z-index:999999999999;" >
+                                  
+                                  <more-options></more-options>
                             </div>
 
                             <!-- ends -->
@@ -763,7 +801,7 @@
                             <!-- ends -->
 
                               
-                  </v-app>
+                  </div>
               
             </template>
             
@@ -895,6 +933,16 @@ import { VEmojiPicker } from 'v-emoji-picker';
      const Invitation = () => import(
     /* webpackChunkName: "Invitation" */ './invitation.vue'
   );
+
+ const MoreOptions = () => import(
+    /* webpackChunkName: "MoreOptions" */ './MoreOptions.vue'
+  );
+
+
+ const ReplyView = () => import(
+    /* webpackChunkName: "ReplyView" */ './ReplyView.vue'
+  );
+
 export default {
      data () {
       return {
@@ -953,7 +1001,8 @@ export default {
         chatShareIsOpen:false,
         imageCropperIsOpen:false,
        searchValue:'',
-       selectedQuoteId:0
+       selectedQuoteId:0,
+       showMoreOptions:false,
      
       }
     },
@@ -983,9 +1032,12 @@ export default {
         VEmojiPicker,
         Invitation,
         ChatShare,
-        ImageCropper
+        ImageCropper,
+        MoreOptions,
+        ReplyView
     },
      methods:{
+     
         showAlert:function(title='',message,type){
        
        if(type == 'info'){
@@ -995,7 +1047,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-        timeout:5000,
+        timeout:2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -1010,7 +1062,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-        timeout:5000,
+        timeout:2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -1023,7 +1075,7 @@ export default {
           iziToast.warning(
         { 
        title: title,
-        timeout:5000,
+        timeout:2000,
        message: message,
        zindex:'9999999999',
        position: 'bottomRight',
@@ -1039,7 +1091,7 @@ export default {
         { 
        title: title,
        message: message,
-        timeout:5000,
+        timeout:2000,
        zindex:'9999999999',
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',

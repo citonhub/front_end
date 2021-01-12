@@ -37,8 +37,7 @@
             <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.pinned}}</span>
 
           <v-btn icon >
-             
-                       <i :class="liked ? 'lar la-heart' : 'las la-heart'"  style="font-size:25px;" @click="likePost"></i> 
+                       <i :class="this.$root.selectedPost.isLiked ? 'las la-heart' : 'lar la-heart'" style="font-size:25px;" @click="likePost"></i>
                     </v-btn>
              <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.likes }}</span>
         </div>
@@ -202,9 +201,9 @@
            <div class="col-12 py-1 my-0 d-flex px-md-2 px-2 flex-row" style="align-items:center; justify-content:center;">
                <v-btn icon class="mx-md-1"><v-icon>las la-grin</v-icon> </v-btn>
   
-                  <textarea ref="textBottom"  style="font-size:13px;"  placeholder="please,be nice"   ></textarea>
+                  <textarea ref="textBottom"  style="font-size:13px;" v-model="commentValue" placeholder="please,be nice"   :rules="commentRules"></textarea>
 
-                  <v-btn icon class="mx-md-1"><v-icon>las la-send</v-icon> </v-btn>
+                  <v-btn icon class="mx-md-1" @click="comment" @keyup:enter="comment"><v-icon>las la-send</v-icon> </v-btn>
            </div>
             
           </div>
@@ -303,6 +302,12 @@ export default {
   data () {
     return {
       post: '',
+      is_reply: false,
+      commentValue: '',
+      commentRules: [
+        v => !!v || 'Body is required',
+        v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
+      ],
       id: this.$root.currentPost,
       loadingPost:false,
       that: this,
@@ -317,20 +322,56 @@ export default {
        this.fetchPost();
   },
   methods:{
-     likePost(){
+     comment () {
+      if (this.$refs.textBottom.validate()) {
+        let formData = new FormData();
+        formData.append('post_id', this.$root.currentPost.id);
+        formData.append('comment', this.commentValue);
+        formData.append('is_reply', this.is_reply);
 
-         axios.get(`user-liked-post/${this.id}`)
+        axios.post('/', formData)
+          .then((response) => {
+            if (response.status == 201) {
+              console.log(response);
+            }
+          })
+      }
+     },
+
+     likePost(){
+      let formData = new FormData();
+      formData.append('post_id', this.$root.currentPost.id)
+
+         axios.post('/like-hub-post', formData)
       .then((response) => {
-        if (response.status == 200) {
-          if (response.data.liked == "liked") {
-            this.liked = true
+        if (response.status == 201) {
+          if (response.data == "liked") {
+            this.$root.selectedPost.isLiked = 1
           } else {
-            this.liked = false
+            this.$root.selectedPost.isLiked = 0
           }
         }
       })
 
      },
+
+     pinPost(){
+        let formData = new FormData();
+        formData.append('post_id', this.$root.currentPost.id)
+
+         axios.post('/pin-hub-post', formData)
+      .then((response) => {
+        if (response.status == 201) {
+          if (response.data == "pinned") {
+            this.$root.selectedPost.isPinned = 1
+          } else {
+            this.$root.selectedPost.isPinned = 0
+          }
+        }
+      })
+
+     },
+
      showPage: function(){
           this.pageContent = '';
           this.loadingCode = true;

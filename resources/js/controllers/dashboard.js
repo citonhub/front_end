@@ -1386,7 +1386,6 @@ const app = new Vue({
       showRootReply:false,
       is_reply:false,
       NewMsg:[],
-      replyMessage:[],
       SpaceUsers:[],
       showEmojiBox:false,
       imageHeight1: '',
@@ -1496,6 +1495,7 @@ const app = new Vue({
      shareText:'',
      shareLink:'',
      fromChannelEdit:false,
+     moreOptionComponent:undefined,
      },
      mounted: function () {
       window.thisUserState = this;
