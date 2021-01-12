@@ -173,7 +173,7 @@
          <div class="col-lg-4 py-0 my-0 px-1 d-flex" style="align-items:center;justify-content:center;">
 
                 <div class="col-6 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
-                         <span style="font-family:MediumFont;font-size:13px;color:#333333;" class="mx-1">{{userData.connections}}</span> <span style="font-size:13px;font-family:BodyFont;">Following</span>
+                         <span style="font-family:MediumFont;font-size:13px;color:#333333;" class="mx-1">{{profileData.connections}}</span> <span style="font-size:13px;font-family:BodyFont;">Following</span>
                 </div>
 
               
@@ -405,7 +405,8 @@ ImageCropperBoard
        nextLevel:'Junior',
        pic:'/imgs/junior.svg',
        pic1:'/imgs/newbie.svg',
-       owner:''
+       owner:false,
+       profileData:[],
         }
     },
     methods:{
@@ -432,7 +433,8 @@ axios.get('/fetch-profile-'+ this.$route.params.username)
     this.calculateLevel();
 
  
-   if(this.$route.params.username== this.$root.username){
+   if(this.$route.params.username == this.$root.username){
+       // this should be true
           this.owner=true;
           console.log(this.$root.username)
           console.log(this.$route.params.username)
@@ -447,7 +449,7 @@ axios.get('/fetch-profile-'+ this.$route.params.username)
 },
 
 calculateLevel(){
-console.log(this.xp)
+
    
   if(this.xp >= 50 && this.xp <= 99){
 this.level='Newbie';
@@ -464,7 +466,8 @@ this.pic1='/imgs/newbie.svg'
   this.pic='/imgs/intermediate.svg'
 this.pic1='/imgs/junior.svg'
   }
-   else if(this.xp >= 1000 && this.xp <= 4999 ){ this.level='Intermediate';
+   else if(this.xp >= 1000 && this.xp <= 4999 ){ 
+     this.level='Intermediate';
   this.nextLevel='Senior';
   this.xpLeft=5000-this.xp;
   this.barValue=(this.xp/5000)*100;

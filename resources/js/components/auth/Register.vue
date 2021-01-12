@@ -139,7 +139,7 @@
               <div class="col-12 py-1 my-0 mt-1 px-2 text-center">
 
                 <span   style="font-size:13px; font-family:BodyFont; color:gray;"
-                >Do you have an account? <router-link  style="font-size:13px; font-family:BodyFont; color:#3C87CD;" to="/login">LOGIN</router-link>.
+                >Have an account already? <router-link  style="font-size:13px; font-family:BodyFont; color:#3C87CD;" to="/login">LOGIN</router-link>.
                 </span>
                 
             </div>
@@ -295,6 +295,11 @@
 
 import '../../bootstraps/globalPackage'
 
+import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+
+
+
 export default {
      data () {
       return {
@@ -353,21 +358,11 @@ export default {
       },
        checkIfLogin:function(){
 
-          if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'space'){
-             this.$router.push({ path: '/space' });
-          } 
+        
+        if(this.$root.isLogged){
+            this.$router.push({ path: '/hub' });
+        }
 
-           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'hub'){
-             this.$router.push({ path: '/hub' });
-          } 
-
-           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'profile'){
-             this.$router.push({ path: '/profile' });
-          } 
-
-           if(this.$root.checkauthroot == 'auth' && this.$root.frompage == 'duels'){
-             this.$router.push({ path: '/panel' });
-          } 
 
        },
        viewPost: function(){
@@ -379,20 +374,74 @@ export default {
         goBack: function(){
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
    },
-    showAlert:function(duration,text){
-        this.emailAlert = true;
-        this.alertMsg = text;
-        let _this = this;
-     
-     setTimeout(function(){
-        _this.emailAlert = false;
-     },duration);
+    showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+         timeout: 5000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRigh  t',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+         timeout: 5000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+         timeout: 5000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+         timeout: 5000,
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       
 
     },
     checkemail: function(){
             this.emailExist= false;
-           this.$refs.verify.validate();
-           
+        
            if(this.formstate){
 
             
@@ -405,12 +454,12 @@ export default {
             
             if (response.status == 200) {
                  
-            if(response.data == 'exist'){
+            if(response.data.status == 'exist'){
                  
                this.loading = false;
               
                  this.emailExist = true;
-                 this.showAlert(5000,'Email exists,change email and try again');
+                 this.showAlert('Oops!','Email exists,please change email and try again','error');
             }else{   
                 
                
@@ -443,11 +492,7 @@ export default {
             
            if (response.status == 200) { 
                 
-                if(response.data == 'userNotExist'){
-                this.showAlert(5000,'Oops!, referral link seems to be broken');
-
-                 return;
-                }
+              
                this.$root.userEmail = this.email;
                 this.$root.userPassword = this.password;
               this.$router.push({ path: '/verify' });
@@ -459,7 +504,7 @@ export default {
             
           })
           .catch(error => {
-            this.showAlert(5000,  '😬 ' +'Failed- ' + error);
+              this.showAlert('Oops!','Something went wrong, please try again.','error')
               this.loading = false;
           })
 

@@ -4,13 +4,13 @@
     <div class="row">
         
         <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky; background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
-            <div class=" mr-1 col-2 py-0">
+            <div class=" mr-1 col-2 py-0 px-1">
               <v-btn icon @click="close">
                       <v-icon>las la-arrow-left</v-icon>
                     </v-btn>
             </div>
           
-             <div class="col-8 py-0">
+             <div class="col-8 py-0 text-center">
              <span style="font-size:14px; font-family:MediumFont;">Create a channel</span>
           </div>
               
@@ -131,35 +131,56 @@ export default {
       
      if( this.$refs.form.validate()){
         
-         let orgId = null;
-         
-          if(this.$root.orgIdRoot != 'user'){
-
-              orgId = this.$root.orgIdRoot;
-          }
+       
           this.loading = true;
          axios.post('/create-space',{
                 name: this.name,
                 limit: this.limit,
                 type: this.selectedType,
-                org_id: orgId
                   })
           .then(response => {
              
             
             
              if (response.status == 200) {
+
+
+                  let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+                   storedChat.then((result)=>{
+
+                       if(result != null ){
+
+                    let finalResult = JSON.parse(result);
+                      
+                         finalResult.channels.unshift(response.data.space);
+
+                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+                     
+                   this.$root.ChatList = fullList;
+
+                     this.$root.sortChatList();
+
+                     this.$root.chatListComponent.openChat(response.data.space)
+
+                  
+
+                    
+
+                 }
+
+                   } )
                
-              this.$router.push({ path: '/panel/main/' + this.$root.orgIdRoot });
             
-            }
-              
             
-           
+            }   
             
           })
           .catch(error => {
-              this.showAlert(5000,'Failed- ' + error);
+              this.$root.chatComponent.showAlert('Oops','Something went wrong,please try again','error');
               this.loading = false;
           })
       }

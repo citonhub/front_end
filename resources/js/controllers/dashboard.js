@@ -41,7 +41,10 @@ const store = new Vuex.Store({
             
             routerData.push({ path: '/verify' });
 
+             return;
+
            }
+           
 
           commit('setUserData', response.data)
         })
@@ -76,6 +79,12 @@ const Board = () => import(/* webpackChunkName: "Board" */ '../components/dashbo
 const Projects = () => import(/* webpackChunkName: "Projects" */ '../components/dashboard/Projects.vue');
 const Diary = () => import(/* webpackChunkName: "Diary" */ '../components/dashboard/Diary.vue');
 const Challenges = () => import(/* webpackChunkName: "Challenges" */ '../components/dashboard/Challenges.vue');
+const Wallet = () => import(/* webpackChunkName: "Wallet" */ '../components/dashboard/Wallet.vue');
+const Notifications = () => import(/* webpackChunkName: "Notifications" */ '../components/dashboard/Notifications.vue');
+  
+
+// notifications list
+const NotificationsList = () => import(/* webpackChunkName: "NotificationsList" */ '../components/notifications/List.vue');
 
 // project routes
 const ProjectList = () => import(/* webpackChunkName: "ProjectList" */ '../components/projects/ProjectList.vue');
@@ -187,17 +196,31 @@ beforeEnter: (to, from, next) => {
   {
     path:'/hub',
     name:'Hub',
+    component:Hub,
     meta: {
       twModalView: true
     },
-    component: Hub
+    beforeEnter: (to, from, next) => {
+
+     
+      
+      if(window.thisUserState != undefined){
+        
+        thisUserState.$root.showAddNewPost = false;
+        thisUserState.$root.showViewPost = false;
+       
+       }
+     
+     
+      next()
+     }
   },
 
   // new post
 { path: '/hub/new-post',
 name: 'NewPost',
 meta: {
- twModalView: true
+  twModalView: true
 },
 beforeEnter: (to, from, next) => {
  const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
@@ -244,7 +267,7 @@ beforeEnter: (to, from, next) => {
 
 // new post
 {
-  path: '/hub/post/:id',
+  path: '/hub/post/:post_id',
   name: 'ViewPost',
   meta: {
     twModalView: true
@@ -350,8 +373,10 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.chatShareIsOpen = false;
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+      thisUserState.$root.chatComponent.chatInnerSideBar = false;
       thisUserState.$root.chatComponent.chatIsOpen = true;
       thisUserState.$root.chatComponent.messageIsDone = true;
+      
         
       }
      
@@ -462,12 +487,10 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.chatShareIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
-    setTimeout(() => {
-
+    
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'sub_channels';
-       
-    },500);
+    
      }
      
 
@@ -522,12 +545,12 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.chatShareIsOpen = false;
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
-    setTimeout(() => {
-
+      thisUserState.$root.chatComponent.chatInnerConent = '';
+   
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'channel_info';
        
-    },500);
+  
           
      }
 
@@ -582,12 +605,11 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.chatShareIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
-    setTimeout(() => {
-
+    
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'channel_edit';
        
-    },500);
+  
           
       }
      
@@ -644,12 +666,11 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
-    setTimeout(() => {
-
+   
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'add_sub_channel';
        
-    },500);
+ 
           
       }
 
@@ -707,9 +728,9 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.chatInnerConent = false;
       thisUserState.$root.chatComponent.chatInnerSideBar = false;
 
-      setTimeout(() => {
+    
         thisUserState.$root.chatComponent.liveSessionIsOpen = true;
-      }, 500);
+      
   
        }
 
@@ -765,9 +786,9 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.chatInnerConent = false;
       thisUserState.$root.chatComponent.chatInnerSideBar = false;
 
-      setTimeout(() => {
+     
         thisUserState.$root.chatComponent.chatShareIsOpen = true;
-      }, 500);
+     
   
        }
 
@@ -824,9 +845,9 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.chatInnerConent = false;
       thisUserState.$root.chatComponent.chatInnerSideBar = false;
 
-      setTimeout(() => {
+    
         thisUserState.$root.chatComponent.imageCropperIsOpen = true;
-      }, 500);
+      
   
        }
 
@@ -925,7 +946,57 @@ beforeEnter: (to, from, next) => {
 
     if(window.thisUserState != undefined){
       if( thisUserState.$root.chatComponent){
+        thisUserState.$root.chatComponent.chatInnerSideBar = false;
       thisUserState.$root.chatComponent.chatInnerConent = 'image_viewer';
+      }
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// Channel invitation
+{ path: '/channels/:spaceId/channel_invitation',
+   name: 'ChannelInvitation',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+      if( thisUserState.$root.chatComponent){
+        thisUserState.$root.chatComponent.chatInnerSideBar = false;
+      thisUserState.$root.chatComponent.chatInnerConent = 'channel_invitation';
       }
      }
 
@@ -1102,24 +1173,37 @@ beforeEnter: (to, from, next) => {
             // list
             path:'list',
             component:DiaryList,
-            
+            meta: {
+              twModalView: true
+             },
           },
           {
             // board
             path:'board/:diary_id',
             component:DiaryBoard,
             //redirect:'/board/diary/board/content',
+            meta: {
+              twModalView: true
+             },
             children:[
               {
                 // content
                 path:'content',
-                component:DiaryContent
+                component:DiaryContent,
+                meta: {
+                  twModalView: true
+                 },
               },
               {
                 // add new gem
-                path:'add-note',
-                component:AddGem
-              }
+                path:'edit-note/:note_id',
+                component:AddGem,
+                meta: {
+                  twModalView: true
+                 },
+              },
+            
+
             ]
           }
           ,
@@ -1189,6 +1273,35 @@ beforeEnter: (to, from, next) => {
 
               ]
             }
+        ]
+      },
+      {
+        // wallet
+        path: 'wallet',
+        component: Wallet,
+      
+        meta: {
+          twModalView: true
+        },
+        children:[
+           
+             
+        ]
+      },
+      {
+        // notifications
+        path: 'notifications',
+        component: Notifications,
+        redirect: '/board/notifications/list',
+        meta: {
+          twModalView: true
+        },
+        children:[
+            
+          { // list
+            path: 'list',
+            component: NotificationsList
+            },
         ]
       }
     ]
@@ -1368,10 +1481,28 @@ const app = new Vue({
       diaryList:[],
       selectedDiary:[],
       showAddNewPost:false,
-      showViewPost: false,
+      noteContent:[],
+      diaryBoardComponent:undefined,
+      addDiaryContentComponent:undefined,
+      AddModalIsUp:false,
       posts:[],
       showProfileEditModal:false,
-      currentPost:null
+      showImageCropperDiary:false,
+      showViewPost: false,
+      showProfileEditModal:false,
+      currentPost:null,
+      userEmail:'',
+      userPassword:'',
+      pageToDelete:'',
+      selectedPost:[],
+      hubComponents:undefined,
+      loadingChatList: false,
+      loadingIsError:false,
+      searchChatList:[],
+     chatListComponent:undefined,
+     shareText:'',
+     shareLink:'',
+     fromChannelEdit:false,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -1414,7 +1545,7 @@ const app = new Vue({
       // whenever isConnected changes, this function will run
       isConnected: function (newValue, oldValue) {
 
-        if(!newValue){
+        if(!newValue && this.$root.chatComponent){
 
             this.updateSpaceMessages();
 
@@ -1679,6 +1810,28 @@ const app = new Vue({
 
      
   },
+  clearUnreadMessageRemote: function(messageId){
+
+
+    axios.post('/delete-unread-message',{
+      message_id:messageId,
+      device_id: this.$root.userDeviceId
+   })
+  .then(response => {
+  
+  if (response.status == 200) {
+   
+  
+  }
+  
+  
+  })
+  .catch(error => {  
+    
+  }) 
+     
+   
+   },
   // connect user to a global private socket
   connectToChannel: function(){
 
@@ -1714,9 +1867,150 @@ const app = new Vue({
      this.$root.globalUsers = newList;
  
     })
+    .listen('.GlobalChannel',(e) => {
+
+      if(e.actionType == 'new-message'){
+
+           if(!this.$root.checkIfMessageExist(e.data)){
+            
+            let messageData = {
+              space_id: e.data.space_id,
+              new_messages: [e.data]
+            };
+
+            this.handleSpaceData([messageData])
+            
+
+          this.$root.sortChatList();
+
+            this.scrollToBottom();
+
+           
+
+           }
+
+      }
+
+      })
+      .listenForWhisper('typing', (e) => {
+
+
+        this.$root.typinguser = e.user;
+         this.$root.typing = e.typing;
+         this.$root.typingSpace = e.spaceId;
+
+
+
+           })
+          .listenForWhisper('liveAction', (e) => {
+
+
+            if(this.$route.params.spaceId == e.spaceId){
+
+
+
+
+             if(e.action == 'liveIsOn'){
+
+                this.$root.remoteLiveHappening = true;
+
+                 if(e.data == 'audio'){
+
+                this.$root.remoteAudio = true;
+
+                 }
+                 if(e.data == 'screen'){
+
+                    this.$root.remoteScreen = true;
+
+                 }
+                 if(e.data == 'code'){
+
+                   this.$root.remoteCode  = true;
+                 }
+
+             }
+
+             if(e.action == 'liveIsOff'){
+
+               this.$root.remoteLiveHappening = false;
+
+             }
+
+
+            }
+
+
+
+            });
 
     }
        
+  },
+   sendLiveSignal:function(type){
+
+        
+
+        this.$root.liveInitiated = true;
+
+         let interval = null;
+
+          let _this = this;
+        
+          interval = setInterval(()=>{
+            if(_this.$root.liveInitiated){
+
+           _this.liveChanges(type,'liveIsOn')
+   
+           
+        }else{
+
+           _this.liveChanges(type,'liveIsOff')
+
+         clearInterval(interval);
+        }
+           
+      
+         },2000);
+
+         
+
+     
+
+     },
+     liveChanges:function(data,action) {
+
+   
+   let channel =  window.Echo.join('global');
+
+  
+
+      channel.whisper('liveAction', {
+       data:data,
+         action: action,
+         spaceId: this.$root.selectedSpace.space_id
+     });
+
+
+    
+
+      
+  
+       
+     },
+  checkIfMessageExist(data){
+
+    let messageData = this.$root.Messages.filter((message)=>{
+                 return message.message_id == data.message_id ||  message.temp_id == data.temp_id;
+              });
+
+              if(messageData.length == 0){
+
+                return false
+              }else{
+                return true
+              }
+
   },
 
   // check user login state
@@ -1839,17 +2133,20 @@ handleSpaceData: function(returnData){
 
         this.ChatList.map((chatspace)=>{
           if(chatspace.space_id == space.space_id){
-            chatspace.unread = newMessages.length;
+            chatspace.unread += newMessages.length;
           } 
         });
 
-        newMessages.forEach((messages)=>{
+        newMessages.forEach((message)=>{
 
-          MessagesFull[0].push(messages);
+          MessagesFull.messages.push(message);
 
           // update into local storage
             this.$root.LocalStore('full_' + space.space_id  + this.$root.username,MessagesFull);
 
+            this.$root.updateSpaceTracker(space.space_id,message);
+          
+            this.$root.clearUnreadMessageRemote(message.message_id);
          
 
              // update unread messages into local storage
@@ -1860,7 +2157,7 @@ handleSpaceData: function(returnData){
 
      let finalResultUnread = JSON.parse(result);
 
-      finalResultUnread.push(messages)
+      finalResultUnread.push(message)
 
 
       localforage.setItem('unread_messages_' + space.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
@@ -1900,7 +2197,7 @@ handleSpaceData: function(returnData){
 
      this.ChatList.map((chatspace)=>{
       if(chatspace.space_id == space.space_id){
-        chatspace.unread = returnData.length;
+        chatspace.unread += space.new_messages.length;
       } 
     });
 
@@ -1930,7 +2227,7 @@ handleSpaceData: function(returnData){
             
         newMessages.forEach((messages)=>{
 
-          MessagesFull[0].push(messages);
+          MessagesFull.messages.push(messages);
 
             this.$root.LocalStore('full_' + space.space_id  + this.$root.username,MessagesFull);
 
@@ -1940,14 +2237,19 @@ handleSpaceData: function(returnData){
 
                this.$root.Messages.push(messages);
 
-               this.$root.updateSpaceTracker(space.space_id);
+               this.$root.updateSpaceTracker(space.space_id,messages);
 
-       this.$root.scrollToBottom(); 
+
+            this.$root.clearUnreadMessageRemote(messages.message_id);
+
+            this.$root.scrollToBottom(); 
 
         });
 
          
       }
+
+
     });
       
 

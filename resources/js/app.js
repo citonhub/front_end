@@ -4,23 +4,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-// pulls in the dependencies in the of the script in the boostrap folder
-
-require('./bootstraps/app');
-
-// ends
 
 // pulls in vue Js
 window.Vue = require('vue');
 
 // ends
-
-/**
-* We will require in our components.js file, which contains our
-* component files. Putting them in their own file reduces clutter.
-all global components can be found in the component folder
-*/
-require('./components/app');
 
 
 /**

@@ -3,7 +3,7 @@
    <div class="col-12 py-1 my-0 ">
     <div class="row">
         <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky; background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
-            <div class=" mr-1 col-2 py-0">
+            <div class=" mr-1 col-2 py-0 px-1">
               <v-btn icon @click="goBack">
                       <v-icon>las la-arrow-left</v-icon>
                     </v-btn>
@@ -41,7 +41,7 @@
               class="py-0 px-0 sheetbackImg mx-auto"
               color="whitesmoke">
 
-               <input type="file" id="settingsimage" ref="settingsimage" 
+               <input type="file" 
                 @change="crophandler" style="opacity:0;width:100%; height:100%; overflow:hidden; position:absolute; z-index:10;"
                  accept="image/x-png,image/jpeg,image/jpg"/>
                <v-sheet
@@ -157,11 +157,11 @@ export default {
   },
     mounted(){
      
-    //     if(this.$root.selectedSpace.description == null){
-    //        this.contentInWord = document.querySelector("#descSpace").value;
-    //     }else{
-    //    this.contentInWord = this.$root.selectedSpace.description;
-    //     }
+       if(this.$root.selectedSpace.description == null){
+          this.contentInWord = '';
+      }else{
+     this.contentInWord = this.$root.selectedSpace.description;
+        }
 
       
        
@@ -171,33 +171,13 @@ export default {
               window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
 
              this.$root.chatComponent.innerSideBarContent = '';
-             setTimeout(() => {
+             
+              this.$root.fromChannelEdit = false;
 
             this.$root.chatComponent.innerSideBarContent = 'channel_info';
                 
-             },500);
-        },
-      fetchMessages: function(){
-          
-           axios.get('/fetch-space-messages-' + this.$route.params.spaceId )
-      .then(response => {
-      
-      if (response.status == 200) {
-        
-     
-       this.$root.selectedSpace = response.data[1]
-       
-     }
-       
-     
-     })
-     .catch(error => {
-    
-     }) 
-
-        },
-
-      
+           
+        }, 
     
       focusedText:function(){
       
@@ -221,7 +201,9 @@ export default {
 				// Start the reader job - read file as a data url (base64 format)
                 reader.readAsDataURL(input.files[0]);
                 
-            this.$router.push({ path: '/crop-image' });
+                this.$root.fromChannelEdit = true;
+
+             this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id +'/crop-image' });
         }
         
         },
@@ -249,16 +231,7 @@ export default {
       var blob = new Blob(byteArrays, {type: contentType});
       return blob;
 },
-  showAlert:function(duration,text){
-        this.Alert = true;
-        this.alertMsg = text;
-        let _this = this;
-     
-     setTimeout(function(){
-        _this.Alert = false;
-     },duration);
-
-    },
+  
  handleBlob: function(imageString){
   // Split the base64 string in data and contentType
 var block = imageString.split(";");
@@ -312,7 +285,7 @@ var blob = this.b64toBlob(realData, contentType);
            if (response.status == 200) {
                 this.loading = false;
                 this.$root.croppedImage= '';
-                this.$root.reloadSpaceInfo = true;
+                   this.$root.chatComponent.fetchSpaceInfo();
                  this.goBack();
             }else{
               
@@ -321,7 +294,7 @@ var blob = this.b64toBlob(realData, contentType);
             
           })
           .catch(error => {
-            this.showAlert(5000,'Failed- ' + error);
+             this.$root.chatComponent.showAlert('Oops','Something went wrong,please try again','error');
               this.loading = false;
           })
         

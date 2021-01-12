@@ -120,7 +120,7 @@
 
          <div class="col-12 px-0 py-1 mt-4 my-2 d-flex" style="align-items:center;justify-content:center;">
              <h5  style=" font-family:HeaderFont">
-                  Reset password
+                 Verify Your Email
              </h5>
             </div>
 
@@ -171,7 +171,7 @@
 
 
 
-<div  class="px-5">
+<div  class="px-5 mt-5">
 
 
 <blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">The only impossible journey is the one you never begin.</blockquote>
@@ -213,6 +213,10 @@
 <script>
 
 import '../../bootstraps/globalPackage'
+
+import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+
 export default {
      data () {
       return {
@@ -228,7 +232,7 @@ export default {
     },
      mounted(){
      
-       // this.setEmail();
+       this.setEmail();
     },
     methods:{
       setEmail: function(){
@@ -244,6 +248,7 @@ export default {
                     let finalResult = JSON.parse(result);
 
                     this.$root.userEmail = finalResult[0];
+                    this.$root.userPassword = finalResult[1];
 
                  }
 
@@ -284,14 +289,70 @@ export default {
         goBack: function(){
       window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
    },
-    showAlert:function(duration,text){
-        this.Alert = true;
-        this.alertMsg = text;
-        let _this = this;
-     
-     setTimeout(function(){
-        _this.Alert = false;
-     },duration);
+   
+     showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+         timeout: 5000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRigh  t',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+         timeout: 5000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+         timeout: 5000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+         timeout: 5000,
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       
 
     },
     resendMail: function(){
@@ -330,7 +391,7 @@ export default {
             
            if (response.status == 200) {
                
-               if(response.data == 'verified'){
+               if(response.data.status == 'verified'){
 
                   let storedTracker = this.$root.getLocalStore('is_forget_password');
 
@@ -354,7 +415,7 @@ export default {
                  
                }else{
                  this.loading = false; 
-               this.showAlert(5000,'Verification code is incorrect,please try again');
+              this.showAlert('Oops!','Wrong code, give it another shot.','error')
                }
             
             }else{
@@ -364,7 +425,7 @@ export default {
             
           })
           .catch(error => {
-            this.showAlert(5000,'Failed- ' + error);
+            this.showAlert('Oops!','Something went wrong, please try again.','error')
               this.loading = false;
           })
    }

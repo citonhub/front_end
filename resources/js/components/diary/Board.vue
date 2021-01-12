@@ -21,15 +21,27 @@
           </div>
               
               <div class="col-3 py-0 px-1 text-right">
-                  <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
-                       <template v-if="this.$router.currentRoute.path.indexOf('add-note') >= 0">
-                          <span style="color:white;text-transform:none;">Create</span> 
+                    <template v-if="this.$router.currentRoute.path.indexOf('edit-note') >= 0">
+                          <v-btn small rounded :loading="loadingSaveNote" color="#3C87CD" @click="saveNote" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+                       <template >
+                          <span style="color:white;text-transform:none;">Save</span> 
+                       </template>
+                      
+                        </v-btn>
+
+                         
                        </template>
                        <template v-else>
-                         <span style="color:white;text-transform:none;">Train</span> 
+
+                         <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+                       <template >
+                          <span style="color:white;text-transform:none;">Update</span> 
                        </template>
-                        
-                  </v-btn>
+                      
+                        </v-btn>
+
+                         
+                       </template>
               </div>
           
             </div>
@@ -70,14 +82,29 @@
           </div>
               
               <div class="col-3 py-0 px-1 text-right">
-                  <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
-                       <template v-if="this.$router.currentRoute.path.indexOf('add-note') >= 0">
-                          <span style="color:white;text-transform:none;">Create</span> 
+               
+                       <template v-if="this.$router.currentRoute.path.indexOf('edit-note') >= 0">
+                          <v-btn small :loading="loadingSaveNote" rounded color="#3C87CD" @click="saveNote" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+                       <template >
+                          <span style="color:white;text-transform:none;">Save</span> 
+                       </template>
+                      
+                        </v-btn>
+
+                         
                        </template>
                        <template v-else>
-                         <span style="color:white;text-transform:none;">Train</span> 
+
+                         <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+                       <template >
+                          <span style="color:white;text-transform:none;">Update</span> 
                        </template>
-                  </v-btn>
+                      
+                        </v-btn>
+
+                         
+                       </template>
+                  
 
                   
               </div>
@@ -100,13 +127,195 @@
     </div>
 </template>
 <script>
-
+  import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 
 export default {
+   data () {
+      return {
+      that:this,
+     
+      loadingSaveNote:false
+      }
+    },
+   mounted(){
+      this.$root.diaryBoardComponent = this;
+   },
    methods:{
      goBack:function(){
+        if(this.$root.AddModalIsUp){
+
+      this.$root.AddModalIsUp = false;
+           return;
+
+
+        }
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+     },
+     saveNote:function(){
+
+        this.loadingSaveNote = true;
+
+         let pagesArray = [];
+
+          this.$root.noteContent.pages.forEach((page)=>{
+               
+               let NewData = {
+                 name : page.name,
+                 slug: page.slug
+               };
+
+              pagesArray.push(NewData);
+
+          });
+
+        
+
+         axios.post( '/update-note-data',{
+                note: this.$root.noteContent.note,
+                keywords: this.$root.noteContent.keywords,
+                pages: pagesArray,
+                bot_id: this.$route.params.diary_id
+              
+                  })
+          .then(response => {
+
+             if (response.status == 200) {
+
+             
+              this.showAlert('Saved!','Please update diary to effect changes','success');
+
+               this.loadingSaveNote = false;
+
+               
+            }
+
+          })
+          .catch(error => {
+             this.showAlert('Oops!','Unable to update, please try again','error');
+              this.loadingSaveNote = false;
+          })
+
+    },
+     showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+       timeout: 2000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+        timeout: 2000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+       message: message,
+        timeout: 2000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+        timeout: 2000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'question'){
+
+         iziToast.question({
+    timeout: null,
+    close: false,
+    overlay: true,
+    displayMode: 'once',
+    id: 'question',
+    zindex: 999,
+    title: 'Hey',
+    message: 'Are you sure about that?',
+    position: 'center',
+    buttons: [
+        ['<button><b>YES</b></button>', (instance, toast) => {
+
+              axios.post( '/delete-intent-response/' + this.$root.pageToDelete)
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         let remainingPages = this.$root.noteContent.pages.filter((page)=>{
+           return page.slug != this.$root.pageToDelete;
+         })
+         
+         this.$root.noteContent.pages = remainingPages;
+
+          this.$root.LocalStore('user_diary_data_' +  this.$route.params.diary_id + this.$root.username,this.$root.selectedDiary);
+
+          this.$root.pageToDelete = '';
+
      }
+       
+     
+     })
+     .catch(error => {
+
+     this.$root.diaryBoardComponent.showAlert('Oops!','Unable to delete page','error');
+       
+    
+     }) 
+ 
+            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+ 
+        }, true],
+        ['<button>NO</button>', function (instance, toast) {
+ 
+            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+ 
+        }],
+    ]
+});
+
+       }
+     
+
+
+    },
    }
 }
 </script>

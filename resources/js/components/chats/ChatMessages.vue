@@ -25,7 +25,7 @@
          </div>
 
          <!-- text message -->
-        <div elevation-1 class="col-11 py-0 offset-1"  v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1') && checkOwner(source.user_id)">
+        <div elevation-1 class="col-11 py-0 offset-1"  v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1' || source.type == 'action') && checkOwner(source.user_id)">
            <div class="row">
              <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse">
                  
@@ -72,8 +72,8 @@
 
                   <v-card elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
-                    <div class="text-left my-0 py-0 d-flex flex-row">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+                    <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
 
@@ -154,8 +154,8 @@
 
                   <v-card elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
-                    <div class="text-left my-0 py-0 d-flex flex-row">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+                    <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>  <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
 
@@ -191,7 +191,7 @@
      <!-- code message -->
           <div class="col-10 py-0 offset-2" v-if="source.type == 'code' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-4 px-0 px-md-2 col-md-6  offset-lg-8 offset-md-6 d-flex flex-row-reverse">
+             <div class="col-lg-5 px-0 px-md-2 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
                 
 
                   <v-card elevation-1 class="py-1 px-2 mr-2" style=" width:90%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
@@ -238,13 +238,13 @@
 
          <div class="col-10 py-0 "  v-if="source.type == 'code' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-4 col-md-6 px-1 px-md-2 d-flex flex-row">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row">
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                      <div class="text-left">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+                      <div class="text-left d-flex" style="align-items:center:">
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                   </div>
 
@@ -275,7 +275,7 @@
    <!-- video message -->
          <div class="col-10 py-0 offset-2" v-if="source.type == 'video' && checkOwner(source.user_id) ">
            <div class="row">
-             <div class="col-lg-4 px-0 px-md-2 col-md-6  offset-lg-8 offset-md-6 d-flex flex-row-reverse">
+             <div class="col-lg-5 px-0 px-md-2 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
                  
 
                   <v-card elevation-1 class="py-1 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
@@ -340,13 +340,13 @@
 
           <div class="col-10 py-0 " v-if="source.type == 'video' && checkOwner(source.user_id) == false ">
            <div class="row">
-             <div class="col-lg-4 col-md-6 px-1 px-md-2 d-flex flex-row">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row">
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                     <div class="text-left my-0 py-0 d-flex flex-row">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+                         <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
 
@@ -441,8 +441,8 @@
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                    <div class="text-left my-0 py-0 d-flex flex-row">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+                       <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
 
@@ -463,7 +463,7 @@
 
          <div class="col-10 py-0 offset-2"  v-if="source.type == 'image' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-4 col-md-6 px-0 px-md-2 offset-lg-4 offset-md-6 d-flex flex-row-reverse">
+             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
                
 
                   <v-card elevation-1 class="py-1 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
@@ -525,13 +525,13 @@
 
          <div class="col-10 py-0 " v-if="source.type == 'image' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-4 col-md-6 px-1 px-md-2  d-flex flex-row">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2  d-flex flex-row">
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                    <div class="text-left my-0 py-0 d-flex flex-row">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+                       <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
 
@@ -565,7 +565,7 @@
                       </div>
 
                        <div class="col-3 text-right py-1"  style="align-items:center;">
-                           <v-btn icon color="#ffffff"> <v-icon>las la-arrow-circle-right</v-icon></v-btn>
+                           <v-btn icon color="#ffffff"  @click="goToProject(source)"> <v-icon>las la-arrow-circle-right</v-icon></v-btn>
                       </div>
                    </div>
                         
@@ -594,8 +594,8 @@
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                    <div class="text-left my-0 py-0 d-flex flex-row">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+                       <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
 
@@ -610,7 +610,7 @@
                       </div>
 
                        <div class="col-3 text-right py-1"  style="align-items:center;">
-                           <v-btn icon > <v-icon>las la-arrow-circle-right</v-icon></v-btn>
+                           <v-btn icon @click="goToProject(source)"> <v-icon>las la-arrow-circle-right</v-icon></v-btn>
                       </div>
                    </div>
 
@@ -705,8 +705,8 @@
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
                   <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                    <div class="text-left my-0 py-0 d-flex flex-row">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>
+                       <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
+                         <span style="font-size:13px;font-weight:bold; ">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
 
@@ -784,6 +784,28 @@ export default {
 
        return this.shortenContent(message.content,200);
     
+    },
+     checkIfAdmin: function(source){
+
+      let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
+
+             return (members.user_id == source.user_id)  && members.is_admin;
+           });
+
+           if(userMemberData.length != 0){
+
+             return true;
+
+           }else{
+              return false
+           }
+
+
+      },
+    goToProject:function(message){
+
+      this.$router.push({ path: '/board/projects/panel/' + message.project.project_slug });
+
     },
     showFullMsg:function(message){
 

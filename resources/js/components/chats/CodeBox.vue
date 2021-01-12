@@ -98,6 +98,12 @@ methods:{
       },
       showCodeEditor:function(){
 
+        if(this.$router.currentRoute.path.indexOf('edit-note') >= 0){
+
+                return;
+
+             }
+
            this.$root.fullCodeLanguage = this.codeLanguage
            this.$root.FullcodeContent = this.codeContent
          this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id +'/editor' });

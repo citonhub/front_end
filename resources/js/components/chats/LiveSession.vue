@@ -26,7 +26,15 @@
                           <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px; background:white;" @click="selectAction('voice_chat')">
                               <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
-                                      <i style="font-size:30px;" class="las la-phone"></i>
+                                       <v-badge
+               dot
+               v-if="that.$root.remoteAudio  && that.$root.remoteLiveHappening"
+                color="green">
+                <i style="font-size:30px;" class="las la-phone"></i>
+              </v-badge>
+
+                <i style="font-size:30px;" v-else class="las la-phone"></i>
+                                   
                                       <div>
                                          <span style="font-size:13px; font-family:BodyFont;">Voice Chat</span>
                                       </div>
@@ -39,7 +47,15 @@
                           <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px;margin-top:-150px;background:white;" @click="selectAction('live_coding')">
                               <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
-                                      <i style="font-size:30px;" class="las la-terminal"></i>
+                                      <v-badge
+               dot
+               v-if="that.$root.remoteCode  && that.$root.remoteLiveHappening"
+                color="green">
+                <i style="font-size:30px;" class="las la-terminal"></i>
+              </v-badge>
+
+                <i style="font-size:30px;" v-else class="las la-terminal"></i>
+                                     
                                       <div>
                                          <span style="font-size:13px; font-family:BodyFont;">Live Coding</span>
                                       </div>
@@ -52,7 +68,15 @@
                           <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px;background:white;" @click="selectAction('screen_sharing')">
                               <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
-                                      <i style="font-size:30px;" class="las la-laptop-code"></i>
+                                        <v-badge
+               dot
+               v-if="that.$root.remoteScreen && that.$root.remoteLiveHappening"
+                color="green">
+                <i style="font-size:30px;"  class="las la-laptop-code"></i>
+              </v-badge>
+
+                <i style="font-size:30px;" v-else  class="las la-laptop-code"></i>
+                                      
                                       <div>
                                          <span style="font-size:13px; font-family:BodyFont;">Screen Sharing</span>
                                       </div>
@@ -267,6 +291,29 @@ export default {
 
          this.$root.liveBoardContent = 'audio_speaker'
 
+          if(this.$root.remoteLiveHappening){
+
+              if(this.$root.remoteScreen){
+               
+                this.selectAction('screen_sharing')
+                
+              }
+
+              if(this.$root.remoteCode){
+               
+                this.selectAction('live_coding')
+                
+              }
+
+              if(this.$root.remoteAudio){
+           
+            this.selectAction('voice_chat')
+
+
+              }
+
+          }
+
       }else{
         this.$root.liveBoardContent = 'action_list'
       }
@@ -435,12 +482,16 @@ export default {
               
               this.$root.liveBoardContent = 'audio_speaker';
               this.connectAudio();
+              this.$root.sendLiveSignal('audio');
+              
 
            }
 
             if(type == 'screen_sharing'){
                   this.$root.liveBoardContent = 'audio_speaker';
                   this.connectScreen();
+
+                     this.$root.sendLiveSignal('screen');
             }
 
              if(type == 'live_coding'){
@@ -449,6 +500,7 @@ export default {
                    this.$root.fromLiveSession = true;
                     this.$root.chatComponent.liveSessionIsOpen = false;
                     this.$root.codeIsLive = true;
+                       this.$root.sendLiveSignal('code');
                   this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id +'/editor' });
             }
 

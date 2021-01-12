@@ -38,7 +38,7 @@
 
             <div class="col-lg-4 col-md-6 px-2 mb-1 py-1 pt-0 mt-md-2" v-for="diary in this.$root.diaryList" :key="diary.id">
           
-          <v-card @click="getDiaryContent(diary)"  class="py-2 px-1"  style="border-radius:10px;" >
+          <v-card @click="getDiaryContent(diary)"  class="py-2 px-1"  style="border-radius:7px;" >
             
             <div class="col-12 py-0 my-0 d-flex flex-row">
                  <div     class="mr-2 py-2"> 
@@ -71,6 +71,14 @@
           
 
           </div>
+
+          <!-- spacer -->
+
+          <div class="col-12 py-5 my-5">
+
+          </div>
+
+          <!-- ends -->
 
            
 
@@ -153,6 +161,33 @@
 
       }
       },
+      checkForNewDiary:function(){
+
+          axios.get( '/get-user-diary')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+          this.$root.LocalStore('user_diary_' + this.$root.username,response.data.user_diary);
+        
+     
+         this.$root.diaryList = response.data.user_diary;
+      
+     
+         this.loadingDiary = false;
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+        this.loadingDiary = false;
+    
+     }) 
+
+
+      },
         fetchUserDiary: function(){
 
            this.loadingDiary  = true;
@@ -171,7 +206,7 @@
  
                   this.loadingDiary = false;
 
-              // this.checkForNewDiary();
+              this.checkForNewDiary();
 
                  }else{
             

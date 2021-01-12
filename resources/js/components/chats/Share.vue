@@ -8,7 +8,7 @@
            
           
             <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
-                   <v-btn title="Add images" icon  >
+                   <v-btn title="Share images" icon  >
                             <v-icon style="font-size:26px;">las la-image</v-icon>
                  <input type="file" multiple
                 @change="crophandler" style="opacity:0;width:100%; height:100%; overflow:hidden; position:absolute; z-index:10;"
@@ -17,7 +17,7 @@
            </v-card>
 
             <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
-                   <v-btn title="Add a video" icon > <v-icon style="font-size:26px;">las la-video</v-icon>
+                   <v-btn title="Share a video" icon > <v-icon style="font-size:26px;">las la-video</v-icon>
                      <input type="file"
                 @change="vidoehandler" style="opacity:0;width:100%; height:100%; left:0; overflow:hidden; position:absolute; z-index:10;"
                  accept="video/mp4,video/x-m4v,video/*"/>
@@ -26,7 +26,7 @@
            </v-card>
 
             <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
-                   <v-btn icon title="Add an audio" > <v-icon style="font-size:26px;">las la-music</v-icon>
+                   <v-btn icon title="Share an audio" > <v-icon style="font-size:26px;">las la-music</v-icon>
                      <input type="file"
                 @change="audiohandler" style="opacity:0;width:100%; height:100%; left:0; overflow:hidden; position:absolute; z-index:10;"
                  accept="audio/*"/>
@@ -35,7 +35,7 @@
            </v-card>
 
             <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
-                   <v-btn icon title="Add a code"> <v-icon style="font-size:26px;">las la-file-alt</v-icon>
+                   <v-btn icon title="Share a file"> <v-icon style="font-size:26px;">las la-file-alt</v-icon>
                      <input type="file" @change="filehandler"
                style="opacity:0;width:100%; height:100%; overflow:hidden; position:absolute; z-index:10;"
            />
@@ -43,8 +43,8 @@
                   
            </v-card>
 
-           <v-card class="px-1 py-1 mx-1" style="border-radius:10px;">
-                   <v-btn icon title="Add a code"> <v-icon style="font-size:26px;">las la-laptop-code</v-icon></v-btn>
+           <v-card class="px-1 py-1 mx-1" style="border-radius:10px;" @click="selectProjectBtn">
+                   <v-btn icon title="Share a project"> <v-icon style="font-size:26px;">las la-laptop-code</v-icon></v-btn>
            </v-card>
 
 
@@ -97,6 +97,34 @@
            </v-btn>
                   </div>
                 </div>
+
+
+              <template v-if="showShareProject">
+
+                 <div class="px-2">
+
+                    <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex flex-row flex-wrap px-1 px-md-2" style="align-items:center; background:white;">
+
+                    
+             <div>
+               <span style="font-size:13px;font-family:BodyFont:">Select a project</span>
+             </div>
+         <select  style="font-size:13px !important; "    v-model="selectedProject" class="browser-default custom-select">
+                 <option v-for="(option,index)  in projectArray" :value="option.project_slug" :key="index">{{ option.title}}</option>
+                     </select>
+
+                  </div>
+
+                   <div class="col-12 text-center" v-if="selectedProject">
+                           <v-btn small rounded color="#3C87CD"   @click="sendMessage" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+            <span style="color:white;text-transform:none;">Send</span> 
+           </v-btn>
+
+                 </div>
+
+                 </div>
+
+              </template>
 
           </div>
 
@@ -169,6 +197,9 @@ export default {
      components: {
 
   },
+  mounted(){
+     this.getAllProjects();
+  },
     methods:{
              goBack:function(){
             window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
@@ -176,18 +207,16 @@ export default {
           this.$root.chatComponent.chatShareIsOpen = false;
        },
         getAllProjects:function(){
-          if(this.$root.ChatList.length != 0){
-            this.projectArray = this.$root.ChatList[3].data;
-          }else{
+         
             this.loadingProjects = true;
-             axios.get( '/fetch-user-projects')
+             axios.get( '/fetch-personal-projects')
       .then(response => {
 
       if (response.status == 200) {
 
         this.loadingProjects = false;
 
-       this.projectArray = response.data
+       this.projectArray = response.data.projects
 
      }
 
@@ -196,7 +225,7 @@ export default {
      .catch(error => {
 
      })
-          }
+       
       },
        clearData: function(){
            this.image1 = '';
@@ -243,7 +272,7 @@ export default {
        
         setTimeout(() => {
            this.sendMessage()
-        }, 1500);
+        }, 1000);
            }else{
               
                this.showAlert('Oops!','Audio size cannot be more than 40MB','error')
@@ -334,6 +363,11 @@ export default {
 
        
 
+    },
+    selectProjectBtn:function(){
+       this.clearData();
+
+       this.showShareProject = true;
     },
    b64toBlob: function(b64Data, contentType, sliceSize) {
         contentType = contentType || '';
@@ -601,14 +635,11 @@ var blob = this.b64toBlob(realData, contentType);
          this.$root.scrollToBottom();
 
 
-         if(this.$root.SpaceUsers.length == 0){
+        
 
-          formData.append('current_user','empty');
-
-         }else{
-
-           formData.append('current_user',JSON.stringify(this.$root.SpaceUsers ));
-         }
+           formData.append('current_user',JSON.stringify(this.generateOnlineUsersList()));
+       
+      
 
 
         formData.append('is_reply',this.$root.is_reply);
@@ -625,6 +656,24 @@ var blob = this.b64toBlob(realData, contentType);
 
        this.goBack();
     },
+     generateOnlineUsersList: function(){
+          let onlineUserList = [];
+
+          this.$root.selectedSpaceMembers.forEach(member => {
+             
+             let userData = this.$root.globalUsers.filter((user)=>{
+               return user.id == member.user_id;
+             })
+
+             if(userData.length != 0){
+               onlineUserList.push(userData[0])
+             }
+           
+            
+          });
+        
+        return onlineUserList;
+       },
      crophandler:function(e){
 
        this.clearData();

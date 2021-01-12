@@ -267,7 +267,8 @@ data(){
        title: title,
        message: message,
        zindex:'9999999999',
-       position: 'bottomRigh  t',
+       position: 'bottomRight',
+         timeout: 5000,
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -281,6 +282,7 @@ data(){
        title: title,
        message: message,
        zindex:'9999999999',
+         timeout: 5000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -295,6 +297,7 @@ data(){
        title: title,
        message: message,
        zindex:'9999999999',
+         timeout: 5000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -309,6 +312,7 @@ data(){
        title: title,
        message: message,
        zindex:'9999999999',
+         timeout: 5000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -444,8 +448,39 @@ var blob = this.b64toBlob(realData, contentType);
           .then(
             response=>{
               if(response.status == 200){
+                 
                 this.loading = false;
-                  
+
+                 let storedDiary = this.$root.getLocalStore('user_diary_'  + this.$root.username);
+
+            storedDiary.then((result)=>{
+                
+                 if(result != null ){
+
+                    let finalResult = JSON.parse(result);
+
+
+                     
+                      this.$root.diaryList = finalResult;
+
+                       this.$root.diaryList.unshift(response.data.dairy)
+
+
+                       
+
+                       this.$root.LocalStore('user_diary_' + this.$root.username,this.$root.diaryList);
+
+                        this.$router.push({ path:'/board/diary/list'})
+
+                      
+     
+                 }else{
+                    this.$router.push({ path:'/board/diary/list'})
+                 }
+            })
+
+             
+        
               }
             }
           )
