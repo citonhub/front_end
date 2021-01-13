@@ -5,9 +5,9 @@
   
   <!-- small and medium and large screen -->
     
-     <div class="col-12  px-0  d-block  py-0" style="position:fixed; left:0; height:100%; top:0%; background:white; z-index:99999999999999999999;">
+     <div class="col-12   px-0 d-block  py-0" style="position:fixed; left:0; height:100%; top:0%; background:white; z-index:99999999999999999999;">
 
-      <div class="col-12 py-0 px-0 px-md-2 fixed-top" style="position:fixed;width:100%;border-bottom:2px solid #3C87CD; border-radius:0px; background:white; z-index:9999999999999999999;">
+      <div class="col-12 py-0 px-0 fixed-top" style="position:fixed;width:100%;border-bottom:2px solid #3C87CD; border-radius:0px; background:white; z-index:9999999999999999999;">
         
          <div class="d-lg-block d-none">
               <div class="row py-1 my-0" >
@@ -15,7 +15,7 @@
            <v-btn @click="closePanel()" icon><v-icon style="font-size:25px;">las la-times</v-icon> </v-btn>
            </div>
             <div class="col-8 py-0 my-0 d-flex" style="align-items:center;justify-content:center;">
-              <template v-if="this.$root.projectData.project">
+              <template>
          <div style="font-family:MediumFont; font-size:13px;" >{{this.$root.projectData.project.title}} </div>
               </template>
                
@@ -29,10 +29,10 @@
           <div class="d-lg-none d-block">
               <div class="row py-1 my-0" v-if="this.$router.currentRoute.path.indexOf('editor') <= 0 && this.$router.currentRoute.path.indexOf('panel-loader') <= 0">
            <div class="col-2 py-0 my-0 text-left">
-           <v-btn @click="closePanel()" class="ml-1" icon><v-icon style="font-size:25px;">las la-times</v-icon> </v-btn>
+           <v-btn @click="closePanel()" icon><v-icon style="font-size:25px;">las la-times</v-icon> </v-btn>
            </div>
             <div class="col-8 py-0 my-0 d-flex" style="align-items:center;justify-content:center;">
-                <template v-if="this.$root.projectData.project">
+                <template>
 
                      <div style="font-family:MediumFont; font-size:13px;" >{{this.$root.projectData.project.title}} </div>
 
@@ -80,21 +80,9 @@
            
            <template v-if="filesAreReady">
 
-              <panel-side :fromDevice="'large'"></panel-side>
+              <panel-side></panel-side>
 
            </template>
-            <template v-else>
-
-           <div style="position:absolute; height:100%; width:100%; align-items:center; justify-content:center;" class="d-flex">
-
-          <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
-
-           </div>
-
-
-         </template>
-
-           
            
        
        
@@ -110,19 +98,9 @@
       
          <template v-if="filesAreReady">
 
-              <panel-side :fromDevice="'small'"></panel-side>
+              <panel-side></panel-side>
 
            </template>
-
-            <template v-else>
-             
-             <div style="position:absolute; height:100%; width:100%; align-items:center; justify-content:center;" class="d-flex">
-
-          <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
-
-           </div>
-
-         </template>
            
       
      </div>
@@ -132,38 +110,13 @@
  </div>
  </v-slide-x-transition>
 
-      
-          <!-- message options -->
-
-                             <div  v-if="showMoreOptions" @click="showMoreOptions = false" class="col-12 d-lg-none py-0 px-0 d-flex" style="align-items:center; justify-content:center; background: rgba(27, 27, 30, 0.1); position:fixed; height:100%; top:0%;z-index:999999999999;" >
-                                  
-                                  <more-options></more-options>
-                            </div>
-
-                            <!-- ends -->
-
          <!-- ends -->
 
    <!-- panel viewer -->
 
       <div  class=" col-lg-10 offset-lg-2   "  style=" position:absolute;height:95%; background:#F3F8FC; top:5%;">
-
-
-         <template v-if="loadingProject">
-           <div style="position:absolute; height:100%; width:100%; align-items:center; justify-content:center;" class="d-flex">
-
-          <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
-
-           </div>
-
-         </template>
-         <template v-else>
-
-            <router-view></router-view>
-
-         </template>
        
-      
+       <router-view></router-view>
 
          </div>
 
@@ -182,11 +135,6 @@
     /* webpackChunkName: "panel-side" */ './PanelSide.vue'
   );
 
-  const MoreOptions = () => import(
-    /* webpackChunkName: "MoreOptionsPanel" */ './MoreOptions.vue'
-  );
-
-
 import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 
@@ -197,12 +145,10 @@ import 'izitoast/dist/css/iziToast.min.css'
         that:this,
         loadingProject:false,
         filesAreReady: false,
-        showMoreOptions:false,
       }
     },
     components: {
-        panelSide,
-        MoreOptions
+        panelSide 
     },
     mounted(){
        
@@ -214,7 +160,6 @@ import 'izitoast/dist/css/iziToast.min.css'
     },
     methods:{
       showCode:function(codeBox){
-        
 
         this.$root.codeEditorComponent.showCode(codeBox);
 
@@ -341,7 +286,6 @@ import 'izitoast/dist/css/iziToast.min.css'
         { 
        title: title,
        message: message,
-       timeout:2000,
        zindex:'9999999999',
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
@@ -356,7 +300,6 @@ import 'izitoast/dist/css/iziToast.min.css'
         { 
        title: title,
        message: message,
-        timeout:2000,
        zindex:'9999999999',
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
@@ -370,7 +313,6 @@ import 'izitoast/dist/css/iziToast.min.css'
           iziToast.warning(
         { 
        title: title,
-        timeout:2000,
        message: message,
        zindex:'9999999999',
        position: 'bottomRight',
@@ -386,7 +328,6 @@ import 'izitoast/dist/css/iziToast.min.css'
         { 
        title: title,
        message: message,
-        timeout:2000,
        zindex:'9999999999',
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
@@ -412,7 +353,6 @@ import 'izitoast/dist/css/iziToast.min.css'
                      
                       this.$root.projectData = finalResult;
                     
-                      this.$root.ProjectMembers = finalResult.project_owner;
                    
  
                   this.loadingProject = false;
@@ -428,7 +368,7 @@ import 'izitoast/dist/css/iziToast.min.css'
 
                  
 
-              this.checkForNewProjectData();
+              // this.checkForNewProjectData();
 
                  }else{
             
@@ -442,8 +382,6 @@ import 'izitoast/dist/css/iziToast.min.css'
         
      
          this.$root.projectData = response.data;
-
-          this.$root.ProjectMembers = response.data.project_owner;
 
             this.filesAreReady = true;
         
@@ -471,30 +409,6 @@ import 'izitoast/dist/css/iziToast.min.css'
                  }
             })
 
-       },
-       checkForNewProjectData:function(){
-       
-        axios.get( '/fetch-project-data/' + this.$route.params.project_slug)
-      .then(response => {
-      
-      if (response.status == 200) {
-
-          this.$root.LocalStore('user_projects_data_' +  this.$route.params.project_slug + this.$root.username,response.data);
-        
-     
-         this.$root.projectData = response.data;
-
-          this.$root.ProjectMembers = response.data.project_owner;
-
-       
-     }
-       
-     
-     })
-     .catch(error => {
-
-       
-     }) 
        },
        showEditor: function(codeBox,catType){
    

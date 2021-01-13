@@ -14,11 +14,10 @@
                       <template v-if="this.$router.currentRoute.path.indexOf('notifications') <= 0">
                      <v-text-field
                 style="font-size:13px;"
-                   v-model="searchContent"
+                  
                  :placeholder="'Search ' + that.$root.searchType"
               filled
               dense
-              @input="triggerSearch"
             append-icon="las la-search"
             rounded
              ></v-text-field>
@@ -83,7 +82,7 @@
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
                 <template v-if="this.$router.currentRoute.path.indexOf('notifications') <= 0">
-             <input style="width:100%;heigth:100%;font-size:13px;"  @input="triggerSearch"  v-model="searchContent" :placeholder="'Search ' + that.$root.searchType" class="py-2 px-2" type="search" >   
+             <input style="width:100%;heigth:100%;font-size:13px;"  :placeholder="'Search ' + that.$root.searchType" class="py-2 px-2" type="search" >   
                 </template>    
          
             </div>
@@ -124,8 +123,7 @@ export default {
       return {
        showSideBar:false,
        searchType:'',
-       that:this,
-       searchContent:''
+       that:this
       }
     },
     mounted(){
@@ -138,79 +136,6 @@ export default {
            this.$router.push({ path:'/profile/' + this.$root.username});
 
       },
-      triggerSearch:function(){
-
-         if(this.$root.searchType == 'challenges'){
-      
-           
-            this.getChallenges(this.searchContent);
-
-         }
-
-         if(this.$root.searchType == 'projects'){
-      
-           
-            this.searchProject(this.searchContent);
-
-         }
-
-      },
-      searchProject:function(query){
-
-         let fullProjectList = this.$root.projectList.user_projects.concat(this.$root.projectList.contributor_projects,this.$root.projectList.pinned_projects);
-
-        let projectListResult = fullProjectList.filter((project)=>{
-
-          let nameValue = project.title.toLowerCase();
-
-           
-
-         
-      return nameValue.includes(query.toLowerCase());
-
-       
-
-                
-       });
-
-       
-
-      this.$root.projectSearchList = projectListResult;
-
-      },
-      getChallenges:_.debounce(function (query) {
-
-         
-
-            let finalString = '/' + query;
-
-              if(query.length == 0) {
-                 finalString = '';
-              }
-          this.$root.challengeListComponent.loadingSearchChallenges = true;
-  
-         axios.get('/get-challenges' + finalString)
-
-        .then(
-          response=>{
-            if(response.status == 200){
-             
-         
-           this.$root.challengeSearchList = response.data.challenges;  
-
-             this.$root.challengeListComponent.loadingSearchChallenges = false;
-
-            }
-          }
-        )
-     .catch(error => {
-
-          this.$root.challengeListComponent.loadingSearchChallenges = false;
-    
-     }) 
-
-      }, 500),
-      
       goToNotification: function(){
 
         this.$router.push({ path:'/board/notifications'});

@@ -100,9 +100,6 @@ export default {
           this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id +'/share' });
 
       },
-      reFocusEditor:function(){
-      this.$refs.textBottom.focus();
-      },
         toggleEmoji:function(){
 
              if(this.$root.showEmojiBox){
@@ -369,7 +366,7 @@ export default {
           let formData = new FormData();
          
 
-          
+        
              
            let Data =null;
           
@@ -439,7 +436,7 @@ export default {
              this.showSend = false;
 
             this.$root.showRootReply = false;
-       
+              this.$root.showRootReply = false;
   
       if(refocus){
     this.$refs.textBottom.focus();
@@ -487,7 +484,7 @@ export default {
               device_id: this.$root.userDeviceId
             };
 
-                this.$root.is_reply = false;
+            
             
              this.$root.updateSpaceTracker(this.$root.selectedSpace.space_id,this.$root.NewMsg);
 

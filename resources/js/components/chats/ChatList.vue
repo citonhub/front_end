@@ -36,20 +36,10 @@
                                 <div class=" d-flex flex-row" style="align-items:center;">
                                    
                                        <div class=" px-0 py-0 my-0 pr-1  " style="width:100%;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;font-size:13px; color:grey; font-family:BodyFont;">
-                                            
+                                             
                                              <span v-if="source.last_message.length != 0 && source.last_message[0]">
-                                                 <template v-if="source.last_message[0].deleted">
-                                                <span ><i>This message was deleted</i></span>
-                                                  </template>
-                                                <template v-else>
-
-                                                     <span v-if="that.$root.username != source.last_message[0].username && source.type != 'Direct' && source.type != 'Bot' ">{{ source.last_message[0].username }}:</span > {{ generateMessageString(source.last_message) }}
-                                             
-                                                   
-                                                </template>
-                                             </span>
+                                               <span v-if="that.$root.username != source.last_message[0].username && source.type != 'Direct' && source.type != 'Bot' ">{{ source.last_message[0].username }}: </span >{{ generateMessageString(source.last_message) }}</span>
                                              <span v-else><i>Send a message to start chat</i></span>
-                                             
                                        </div>
                                         <div class=" px-1 py-0 my-0 text-right ">
                                               <span v-if="source.unread > 0" class="messagesBadges d-flex ml-lg-0 ml-md-5 ml-0" >{{source.unread}}</span>
@@ -82,19 +72,6 @@ export default {
     methods:{
       
        openChat:function(space){
-
-           // handle random qoutes
-
-          function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
-
-        this.$root.chatComponent.selectedQuoteId =  getRandomInt(0,9); 
-
-      // ends
-
 
           if(this.$root.selectedSpace.general_spaceId != space.space_id ){
 
@@ -177,8 +154,6 @@ export default {
           finalString = 'share a project'
 
           }
-
-           
 
           return finalString;
 

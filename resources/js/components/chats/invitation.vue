@@ -7,7 +7,7 @@
 
                  <div class="col-12 py-1 text-center">
 
-                   <span style="font-family:MediumFont; font-size:13px;">{{infoText}}</span>
+                   <span style="font-family:BodyFont; font-size:13px;">{{infoText}}</span>
 
                  </div>
 
@@ -15,7 +15,7 @@
 
                        <div class="col-12 py-1 text-center">
 
-                   <span style="font-family:BodyFont; font-size:13px;color:grey;">{{extraInfo}}</span>
+                   <span style="font-family:BodyFont; font-size:13px;color:grey;">Now, invite others to your channel</span>
 
                  </div>
 
@@ -23,7 +23,7 @@
 
                    <div class="row">
 
-                  <v-card tile flat class="py-2 px-2 d-flex flex-row col-12" @click="copyLink" style="border-bottom:1px solid #c5c5c5;border-top:1px solid #c5c5c5;">
+                  <v-card tile flat class="py-2 px-2 d-flex flex-row col-12" @click.stop="copyLink" style="border-bottom:1px solid #c5c5c5;border-top:1px solid #c5c5c5;">
                      
                       <div class="mr-2">
 
@@ -37,7 +37,7 @@
 
                      </v-card>
 
-                     <v-card tile flat class="py-2 px-2 d-flex flex-row col-12"  @click="shareToTwitter" style="border-bottom:1px solid #c5c5c5;">
+                     <v-card tile flat class="py-2 px-2 d-flex flex-row col-12"  @click.stop="shareToTwitter" style="border-bottom:1px solid #c5c5c5;">
                      
                       <div class="mr-2">
 
@@ -53,7 +53,7 @@
 
                      </v-card>
 
-                      <v-card tile flat class="py-2 px-2 d-flex flex-row col-12" @click="shareToWhatsapp" :style="fromChat ? 'border-bottom:1px solid #c5c5c5;' :''">
+                      <v-card tile flat class="py-2 px-2 d-flex flex-row col-12" @click.stop="shareToWhatsapp" :style="fromChat ? 'border-bottom:1px solid #c5c5c5;' :''">
                      
                       <div class="mr-2">
 
@@ -260,7 +260,7 @@
 
 
 export default {
-    props:['infoText','fromChat','alertComponent','extraInfo'],
+    props:['infoText','fromChat','alertComponent'],
     data(){
         return{
            Alert:false,
