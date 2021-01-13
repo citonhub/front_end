@@ -31,13 +31,14 @@
   
         <div class="col-6 py-0 px-0 text-right">
 
-             <v-btn icon >
-                      <v-icon style="font-size:25px;">las la-thumbtack</v-icon>
+             <v-btn icon @click="pinPost">
+                      <v-icon style="font-size:25px;" v-if="this.$root.selectedPost.isPinned == 1">lar la-thumbtack</v-icon>
+                      <v-icon style="font-size:25px;" v-else>las la-thumbtack</v-icon>
                     </v-btn>
-            <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.pinned}}</span>
+            <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.pinned }}</span>
 
           <v-btn icon >
-                       <i :class="this.$root.selectedPost.isLiked ? 'las la-heart' : 'lar la-heart'" style="font-size:25px;" @click="likePost"></i>
+                       <i :class="this.$root.selectedPost.isLiked == 1 ? 'las la-heart' : 'lar la-heart'" :style="this.$root.selectedPost.isLiked ? 'font-size:25px; color: red;' : 'font-size: 25px;'" @click="likePost"></i>
                     </v-btn>
              <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.likes }}</span>
         </div>
@@ -201,9 +202,9 @@
            <div class="col-12 py-1 my-0 d-flex px-md-2 px-2 flex-row" style="align-items:center; justify-content:center;">
                <v-btn icon class="mx-md-1"><v-icon>las la-grin</v-icon> </v-btn>
   
-                  <textarea ref="textBottom"  style="font-size:13px;" v-model="commentValue" placeholder="please,be nice"   :rules="commentRules"></textarea>
+                  <textarea ref="textBottom"  style="font-size:13px;"  placeholder="please,be nice"   :rules="commentRules" v-model="commentValue"></textarea>
 
-                  <v-btn icon class="mx-md-1" @click="comment" @keyup:enter="comment"><v-icon>las la-send</v-icon> </v-btn>
+                  <v-btn icon class="mx-md-1" @click="postComment" @keyup.enter="postComment"><v-icon>las la-send</v-icon> </v-btn>
            </div>
             
           </div>
@@ -322,33 +323,39 @@ export default {
        this.fetchPost();
   },
   methods:{
-     comment () {
-      if (this.$refs.textBottom.validate()) {
-        let formData = new FormData();
-        formData.append('post_id', this.$root.currentPost.id);
-        formData.append('comment', this.commentValue);
+     postComment () {
+      if (this.commentValue != '') {
+          let formData = new FormData();
+        formData.append('post_id', this.$root.selectedPost.id);
+        formData.append('comment', this.comment);
         formData.append('is_reply', this.is_reply);
 
-        axios.post('/', formData)
+        axios.post('/comment-hub-post', formData)
           .then((response) => {
             if (response.status == 201) {
               console.log(response);
             }
           })
+      } else {
+        this.showAlert('Oops!', 'Comment Cannot be empty','error');
       }
      },
 
      likePost(){
       let formData = new FormData();
-      formData.append('post_id', this.$root.currentPost.id)
+      formData.append('post_id', this.$root.selectedPost.id)
 
          axios.post('/like-hub-post', formData)
       .then((response) => {
-        if (response.status == 201) {
+        if (response.status == 204) {
           if (response.data == "liked") {
             this.$root.selectedPost.isLiked = 1
-          } else {
-            this.$root.selectedPost.isLiked = 0
+          }
+        } else {
+          if (response.data == "Post Liked Already") {
+            this.showAlert('Oops!', response.data,'error');
+          } else if (response.data == "liked") {
+            this.$root.selectedPost.isLiked = 1
           }
         }
       })
@@ -357,15 +364,19 @@ export default {
 
      pinPost(){
         let formData = new FormData();
-        formData.append('post_id', this.$root.currentPost.id)
+        formData.append('post_id', this.$root.selectedPost.id)
 
          axios.post('/pin-hub-post', formData)
       .then((response) => {
         if (response.status == 201) {
           if (response.data == "pinned") {
             this.$root.selectedPost.isPinned = 1
-          } else {
-            this.$root.selectedPost.isPinned = 0
+          }
+        } else {
+          if (response.data == "Post Pinned Already") {
+            this.showAlert('Oops!', response.data,'error');
+          } else if (response.data == "pinned") {
+            this.$root.selectedPost.isPinned = 1
           }
         }
       })

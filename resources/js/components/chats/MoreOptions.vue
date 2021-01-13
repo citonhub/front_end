@@ -28,7 +28,7 @@
 
                                       </div>
 
-                                       <textarea type="hidden" style="visibility:invisible;" id="contentContainer" :value="contentValue"></textarea>
+                                       <textarea style="display:none;" class="contentContainer" :value="contentValue"></textarea>
 
                                    </v-card>
    
@@ -79,6 +79,8 @@ export default {
           if(message.type == 'code'){
          this.contentValue  = message.code.content;
           }
+
+          
         },
        replyMessage:function(){
 
@@ -90,8 +92,132 @@ export default {
           
            this.$root.channelBottomComp.reFocusEditor();
        },
-       
+       sendDeleteRequest:function(messageId){
+          axios.post('/delete-message',{
+       'message_id':messageId
+           } )
+       .then(response => {
+
+       if (response.status == 200) {
+ 
+
+      }
+
+
+      })
+     .catch(error => {  
+  
+       }) 
+       },
        deleteMessage:function(){
+
+        let  message = this.$root.replyMessage;
+
+         // remove from database
+
+          let storedMsg = this.$root.getLocalStore('full_' + message.space_id + this.$root.username);
+
+            storedMsg.then((result)=>{
+
+               if(result != null){
+
+                  let finalResult = JSON.parse(result);
+
+                   let remainingMessages = this.$root.Messages.filter((eachMessage)=>{
+                       return eachMessage.message_id != message.message_id;
+                   })
+
+                  finalResult.messages = remainingMessages;
+
+                   this.$root.Messages = remainingMessages;
+
+                    this.$root.LocalStore('full_' +  message.space_id   + this.$root.username,finalResult);
+
+               }
+
+            })
+
+            // update chatlist, check if message deleted is a last message
+
+          let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+           storedChat.then((result)=>{
+
+                       if(result != null ){
+
+                    let finalResult = JSON.parse(result);
+                      
+
+                          finalResult.channels.map((space)=>{
+         
+                  if(space.space_id == message.space_id){
+
+                   
+                      
+                       if(space.last_message[0].index_count == message.index_count ){
+
+                         
+
+                           space.last_message[0].deleted = true
+
+                          
+                       }
+                 
+                  
+                        }
+
+                           });
+
+                     finalResult.direct_messages.map((space)=>{
+                             if(space.space_id == message.space_id){
+
+                              
+                      
+                       if(space.last_message[0].index_count == message.index_count ){
+
+                          space.last_message[0].deleted = true
+
+                       }
+                 
+                  
+                        }
+   
+                       });
+
+                      finalResult.pet_spaces.map((space)=>{
+          
+                    if(space.space_id == message.space_id){
+
+                        
+                      
+                       if(space.last_message[0].index_count == message.index_count ){
+
+                           space.last_message[0].deleted = true
+
+                       }
+                 
+                  
+                        }
+
+                         });
+
+                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+                     
+                   this.$root.ChatList = fullList;
+
+                      this.$root.sortChatList();
+
+
+                 }
+
+                   } )
+
+
+         // send delete request to server
+         this.sendDeleteRequest(message.message_id);
 
        },
 
@@ -104,29 +230,25 @@ export default {
 
         },
          copyMessage () {
-          let spacelink = document.querySelector('#contentContainer')
-          spacelink.setAttribute('type', 'text')
-          spacelink.select()
 
-          try {
-            var successful = document.execCommand('copy');
-            var msg = successful ? 'successful' : 'unsuccessful';
-              if(msg == 'successful'){
 
-                this.$root.chatComponent.showAlert('Copied!','Copied to clipboard','success');
+            const copyToClipboard = str => {
+  const el = document.createElement('textarea');
+  el.value = str;
+  el.setAttribute('readonly', '');
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+};
 
-              }else{
+      copyToClipboard(this.contentValue);
 
-                this.$root.chatComponent.showAlert('Oops','Unable to copy content','error');
+        this.$root.chatComponent.showAlert('Copied!','Copied to clipboard','success');
 
-              }
-          } catch (err) {
-
-          }
-
-          /* unselect the range */
-          spacelink.setAttribute('type', 'hidden')
-          window.getSelection().removeAllRanges()
+         
         },
     }
 }

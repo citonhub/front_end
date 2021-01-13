@@ -108,10 +108,16 @@
 
              <div class="d-flex flex-column py-0 pb-1 col-lg-6 offset-lg-3 " style="align-items:center;justify-content:center;">
 
-                   <div    class="mb-2"
+               <!--    <div    class="mb-2"
          style="border-radius:50%;height:150px;width:150px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
          background-repeat: no-repeat; border:5px solid #3C87CD;">
-       </div> 
+       </div> -->
+
+       <div class="mb-2"  
+                   :style=" imageStyleUser(150,profileData)"
+                 
+                   
+                  ></div>
 
        
             <span style="font-family:HeaderFont;font-size:16px;">{{userData.name}}</span>
@@ -258,8 +264,9 @@
             <div class="col-12 py-0 my-0 text-left">
                 <div class="row py-0 my-0">
                     <div class="col-2 py-0 my-0 d-flex px-0" style="align-items:center; justify-content:center;">
-                        <span  class="d-inline-block"  
+                      <span  class="d-inline-block"  
                              style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5; background-image:url(/imgs/img3.jpg);background-size:100%;border:1px solid transparent;"></span>
+                 
                     </div>
                    <div class="col-8 py-0 my-0 d-flex" style="align-items:center;">
                        <div> 
@@ -494,8 +501,30 @@ this.pic1='/imgs/expert.svg'}
 goBack(){
     this.$router.push({
       path:'/profile/'+this.$route.params.username
-    })
-  }
+    });
+    this.$root.showProfileEditModal=false
+  },
+
+   imageStyleUser:function(dimension,data){
+      
+
+      if(data.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:5px solid #3C87CD;";
+         
+           styleString += 'background-color:#ffffff; border:5px solid #3C87CD;';
+        
+         
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:5px solid #3C87CD; ";
+         let imgLink = data.image_name + '.' + data.image_extension;
+         
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+         
+         
+          return styleString;
+      }
+     },
 
 
 

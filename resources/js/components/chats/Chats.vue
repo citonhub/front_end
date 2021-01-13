@@ -202,9 +202,9 @@
     </template>
 
 
-     <template #before>
+     <template #before >
 
-       <div  class=" col-12 text-center" style="margin-top:70px;">
+       <div  class=" col-12 text-center" style="margin-top:70px;" >
      
         <span v-if="that.$root.selectedSpace.type == 'SubSpace'" style="font-size:13px;font-family:BodyFont;">
            {{ that.$root.selectedSpace.description }}
@@ -216,7 +216,7 @@
 
     <template #after>
 
-       <div  class=" col-12 " style="margin-top:20px;">
+       <div  class=" col-12 " style="margin-top:20px;" v-observe-visibility="visibilityChanged">
 
 
 
@@ -236,7 +236,8 @@
 
             <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
 
-                <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'" :fromChat="true" :alertComponent="this"></invitation>
+               <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'"
+                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
 
             </template>
 
@@ -333,7 +334,8 @@
                                <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center " @click="goBack" style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                  <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'" :fromChat="true" :alertComponent="this"></invitation>
+                                  <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'"
+                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
                             </div>
 
                             <!-- ends -->
@@ -425,6 +427,16 @@
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
 
                               </v-btn>
+
+                               <!-- scroll to bottom button -->
+
+                              <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"   fab x-small color="#3C87CD" class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:14%; left:1%;">
+
+                               <v-icon style="font-size:20px; color:white;">las la-angle-double-down</v-icon>
+
+                              </v-btn>
+
+                              <!-- ends -->
 
                    </div>
 
@@ -640,7 +652,7 @@
 
     <template #after>
 
-       <div  class=" col-12 " style="margin-top:60px;">
+       <div  class=" col-12 " style="margin-top:60px;" v-observe-visibility="visibilityChanged">
 
 
 
@@ -657,7 +669,8 @@
 
               <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
 
-                <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'" :fromChat="true" :alertComponent="this"></invitation>
+              <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'"
+                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
 
             </template>
           
@@ -670,6 +683,16 @@
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
 
                               </v-btn>
+
+                               <!-- scroll to bottom button -->
+
+                              <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"   fab x-small color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:17%; left:2%; ">
+
+                               <v-icon style="font-size:20px; color:white;">las la-angle-double-down</v-icon>
+
+                              </v-btn>
+
+                              <!-- ends -->
 
                              <div class="col-12 py-0 px-0" style=" left:0; position:fixed; bottom:0%;z-index:999999999;" >
                                 <div class="col-12  py-1"  v-if="that.$root.showEmojiBox">
@@ -716,7 +739,8 @@
                                <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center " style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
                                   <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                  <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'" :fromChat="true" :alertComponent="this"></invitation>
+                                  <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'"
+                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
                             </div>
 
                             <!-- ends -->
@@ -838,7 +862,7 @@
    <div style="position:absolute; height:100%; width:70%; left:0;" >
 
      <div class="col-md-6 col-lg-3 pt-2" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
-        <sidebar></sidebar>
+        <side-bar></side-bar>
      </div>
 
    </div>
@@ -943,6 +967,10 @@ import { VEmojiPicker } from 'v-emoji-picker';
     /* webpackChunkName: "ReplyView" */ './ReplyView.vue'
   );
 
+  const SideBar = () => import(
+    /* webpackChunkName: "SideBar" */ '../dashboard/sideBar.vue'
+  );
+
 export default {
      data () {
       return {
@@ -1003,6 +1031,7 @@ export default {
        searchValue:'',
        selectedQuoteId:0,
        showMoreOptions:false,
+       bottomIsVisible:false
      
       }
     },
@@ -1034,7 +1063,8 @@ export default {
         ChatShare,
         ImageCropper,
         MoreOptions,
-        ReplyView
+        ReplyView,
+        SideBar
     },
      methods:{
      
@@ -1102,6 +1132,9 @@ export default {
 
        
 
+    },
+    visibilityChanged:function(isVisible, entry){
+        this.bottomIsVisible = isVisible
     },
     setShareLink:function(){
 
