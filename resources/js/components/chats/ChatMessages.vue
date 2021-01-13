@@ -776,7 +776,7 @@
                       </div>
 
                        <div class="col-3 text-right py-1"  style="align-items:center;">
-                           <v-btn icon color="#ffffff"  @click="goToProject(source)"> <v-icon>las la-arrow-circle-right</v-icon></v-btn>
+                           <v-btn icon color="#ffffff"  @click.stop="goToProject(source)"> <v-icon>las la-arrow-circle-right</v-icon></v-btn>
                       </div>
                    </div>
                         
@@ -838,7 +838,7 @@
                       </div>
 
                        <div class="col-3 text-right py-1"  style="align-items:center;">
-                           <v-btn icon @click="goToProject(source)"> <v-icon>las la-arrow-circle-right</v-icon></v-btn>
+                           <v-btn icon @click.stop="goToProject(source)"> <v-icon>las la-arrow-circle-right</v-icon></v-btn>
                       </div>
                    </div>
                  <!-- more option -->

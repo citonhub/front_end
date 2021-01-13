@@ -430,11 +430,21 @@
 
                                <!-- scroll to bottom button -->
 
-                              <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"   fab x-small color="#3C87CD" class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:14%; left:1%;">
+                                <template v-if="that.$root.Messages">
+
+                                   <template v-if="that.$root.Messages.length >  0">
+
+                                     <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible && that.$root.Messages.length > 0"   fab x-small color="#3C87CD" class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:14%; left:1%;">
 
                                <v-icon style="font-size:20px; color:white;">las la-angle-double-down</v-icon>
 
                               </v-btn>
+
+                                   </template>
+
+                                </template>
+
+                             
 
                               <!-- ends -->
 
@@ -686,11 +696,21 @@
 
                                <!-- scroll to bottom button -->
 
-                              <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"   fab x-small color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:17%; left:2%; ">
+                                <template v-if="that.$root.Messages">
+
+                                   <template v-if="that.$root.Messages.length >  0">
+
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"   fab x-small color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:17%; left:2%; ">
 
                                <v-icon style="font-size:20px; color:white;">las la-angle-double-down</v-icon>
 
                               </v-btn>
+
+                                   </template>
+
+                                </template>
+
+                            
 
                               <!-- ends -->
 
@@ -1200,19 +1220,87 @@ export default {
            }
        },
        controlChatPath:function(){
+
+            if(this.$root.autoOpenChat){
+   
+            this.liveSessionIsOpen = false;
+      this.chatShareIsOpen = false;
+      this.imageCropperIsOpen = false;
+      this.chatIsOpen = true;
+        
+         this.openChat(this.$root.autoOpenChatId,true)
+        this.messageIsDone = false;
+             
+
+            }
            if(this.$route.params.spaceId != undefined){
 
             
       this.liveSessionIsOpen = false;
       this.chatShareIsOpen = false;
       this.imageCropperIsOpen = false;
-      this.chatIsOpen = true;
-     this.fetchMessages(this.$route.params.spaceId);
-        this.messageIsDone = false;
+    
+        
+         this.openChat(this.$route.params.spaceId,false )
+      
 
        
 
            }
+       },
+        openChat:function(space_id,redirect){
+
+           // handle random qoutes
+
+          function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+        this.$root.chatComponent.selectedQuoteId =  getRandomInt(0,9); 
+
+      // ends
+
+
+          if(this.$root.selectedSpace.general_spaceId != space_id ){
+
+             if(this.$root.TrackLastSubSpace.length != 0 && space_id == this.$root.TrackLastSubSpace[0]){
+
+                if(redirect)
+                {
+              this.$router.push({ path: '/channels/' + this.$root.TrackLastSubSpace[1]  +'/content' });
+                }
+
+                      
+              
+              this.$root.chatComponent.fetchMessages(this.$root.TrackLastSubSpace[1] );
+              this.$root.chatComponent.messageIsDone = false;
+           this.$root.chatComponent.chatIsOpen = true;
+                 
+
+                     return;
+
+             }else{
+
+               
+
+               if(redirect)
+                {
+              this.$router.push({ path: '/channels/' + space_id +'/content' });
+                }
+              
+              this.$root.chatComponent.fetchMessages(space_id);
+              this.$root.chatComponent.messageIsDone = false;
+           this.$root.chatComponent.chatIsOpen = true;
+
+             }
+
+          }
+               
+                 
+           
+
        },
        goBack:function(){
 
@@ -1597,6 +1685,10 @@ export default {
       },
 
        fetchMessages:function(spaceId){
+
+
+          // set autoOpen to finalResult
+           this.$root.autoOpenChat = false;
  
          // set messages to null
           this.$root.Messages = null;

@@ -13,7 +13,7 @@
                     
 				<div class="mx-1" style="width:100%;">
                    <v-progress-linear rounded 
-                     height="7" :color="colorBase" :value="sliderPercent" @change="seek" ></v-progress-linear>
+                     height="7" :color="colorBase" :value="sliderPercent" @change.stop="seek" ></v-progress-linear>
 				</div>
 
 				<div class="mr-1">

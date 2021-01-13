@@ -36,6 +36,73 @@
            </div>
      <!-- ends -->
 
+      <template v-if="this.$root.TopBarComponent">
+
+
+        <!-- search area  -->
+
+        <template  v-if="this.$root.TopBarComponent.searchContent.length > 0">
+
+
+
+           <div class="col-lg-4 col-md-6 px-2 mb-1 py-1 pt-0 mt-md-2" v-for="diary in this.$root.diarySearchList" :key="diary.id+ 'search'">
+          
+          <v-card @click="getDiaryContent(diary)"  class="py-2 px-1"  style="border-radius:7px;" >
+            
+            <div class="col-12 py-0 my-0 d-flex flex-row">
+                 <div     class="mr-2 py-2"> 
+
+                   <div :style="imageStyle(45,diary)"
+                   >
+                    </div> 
+
+                 </div>
+
+                  <div class="text-left d-flex  py-1" style="overflow-x:hidden; width:100%;align-items:center;">
+               <div style="font-size:13px;font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1">{{diary.name}}</div>
+              
+                </div>
+
+                 <div class=" d-flex flex-row-reverse ml-1" style="overflow-x:hidden;align-items:center;width:100%;">
+
+                   <div class="d-flex flex-row" style="align-items:center; justify-content:center;">
+
+                   <div> <v-icon style="font-size:22px;" class="pr-1">las la-user-friends</v-icon></div>
+
+                     <div style="font-size:12px;font-family:BodyFont;" > {{diary.users}} </div>
+
+                   </div>
+                  
+                </div>
+            </div>
+          </v-card>
+
+          
+
+          </div>
+
+
+
+
+        </template>
+
+
+        <!-- ends -->
+
+         <template v-else>
+
+              <template v-if="loadingDiary">
+
+             <div class="col-12 mt-4 text-center">
+
+               <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
+
+             </div>
+
+       </template>
+
+       <template v-else>
+
             <div class="col-lg-4 col-md-6 px-2 mb-1 py-1 pt-0 mt-md-2" v-for="diary in this.$root.diaryList" :key="diary.id">
           
           <v-card @click="getDiaryContent(diary)"  class="py-2 px-1"  style="border-radius:7px;" >
@@ -72,6 +139,19 @@
 
           </div>
 
+       </template>
+
+         </template>
+
+
+       
+
+         
+
+
+      </template>
+
+     
           <!-- spacer -->
 
           <div class="col-12 py-5 my-5">
@@ -105,6 +185,7 @@
 
       ],
       loadingDiary:false,
+      loadingSearchDairy:false
       }
      
     },
@@ -174,16 +255,14 @@
          this.$root.diaryList = response.data.user_diary;
       
      
-         this.loadingDiary = false;
-       
+     
      }
        
      
      })
      .catch(error => {
 
-        this.loadingDiary = false;
-    
+       
      }) 
 
 
@@ -204,7 +283,7 @@
                     
                    
  
-                  this.loadingDiary = false;
+                 this.loadingDiary = false;
 
               this.checkForNewDiary();
 

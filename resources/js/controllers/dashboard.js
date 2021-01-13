@@ -139,7 +139,22 @@ const routes = [
      component:ProfilePage,
      meta: {
       twModalView: true
-    }
+    },
+    beforeEnter: (to, from, next) => {
+     
+      if(window.thisUserState != undefined){
+        
+        thisUserState.$root.showFullImage = false;
+
+        thisUserState.$root.showProfileEditModal = false;
+
+         thisUserState.$root.showViewPost = false;
+       
+       }
+     
+     
+      next()
+     }
   },
     // edit profile
 { path: '/profile/edit/:username',
@@ -189,6 +204,54 @@ beforeEnter: (to, from, next) => {
  next()
 }
 },
+   // full image view
+   { path: '/full-image-view',
+   name: 'FullImageView',
+   meta: {
+    twModalView: true
+   },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+   
+     
+    if(window.thisUserState != undefined){
+      
+      thisUserState.$root.showFullImage = true;
+     
+     }
+   
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Hub,
+        modal: false
+      }
+    }
+   
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Hub
+      }
+    }
+   
+    next()
+   }
+   },
   {
     path:'/',
     redirect:'/hub',
@@ -1515,6 +1578,13 @@ const app = new Vue({
      projectSearchList:[],
      ProjectMembers:[],
      projectListComponent:undefined,
+     diarySearchList:[],
+     showFullImage:false,
+     baseImageColor:'',
+     baseImageLink:'',
+     profilePageComponent:undefined,
+     autoOpenChat:false,
+     autoOpenChatId:'',
      },
      mounted: function () {
       window.thisUserState = this;

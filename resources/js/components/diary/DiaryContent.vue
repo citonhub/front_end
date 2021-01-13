@@ -14,14 +14,7 @@
                 <div class="d-flex flex-row mt-2" style="align-items:center;justify-content:center;">
 
                  
-                   <div class="px-2 d-flex flex-column mx-2" style="align-items:center;justify-content:center;">
-                    <div>
-                      <v-icon style="font-size:26px;">mdi-battery-charging-medium</v-icon>
-                    </div>
-                    <div>
-                    <span style="font-size:12px;font-family:BodyFont;">  340 HP </span>
-                    </div>
-                  </div>
+                  
 
                    <div class="px-2 d-flex flex-column mx-2" style="align-items:center;justify-content:center;">
                     <div>
@@ -29,6 +22,15 @@
                     </div>
                     <div>
                     <span style="font-size:12px;font-family:BodyFont;">  {{this.$root.selectedDiary.users}} </span>
+                    </div>
+                  </div>
+
+                   <div class="px-2 d-flex flex-column mx-2" style="align-items:center;justify-content:center;">
+                    <div>
+                      <v-icon style="font-size:26px;cursor:pointer;" @click="shareDairy()">mdi-share-variant</v-icon>
+                    </div>
+                    <div>
+                      <span style="font-size:11px;font-family:BodyFont;"> share </span>
                     </div>
                   </div>
 
@@ -51,7 +53,13 @@
 
             <!-- ends -->
 
-            <div class="col-md-8 px-3 px-md-2 offset-md-2 col-lg-6 offset-lg-3 py-0 text-center">
+            <div class="col-md-8 px-1 px-md-2 offset-md-2 mt-3 col-lg-6 offset-lg-3 py-0 d-md-none ">
+
+              <p style="color:#333333;font-size:13px; font-family:BodyFont;">{{ this.$root.selectedDiary.description }}</p>
+
+            </div>
+
+             <div class="col-md-8 px-2 px-md-2 offset-md-2 mt-3 col-lg-6 offset-lg-3 py-0 d-md-block text-center d-none ">
 
               <p style="color:#333333;font-size:13px; font-family:BodyFont;">{{ this.$root.selectedDiary.description }}</p>
 
@@ -172,6 +180,9 @@ export default {
 
     },
     methods:{
+      shareDiary:function(){
+
+      },
       addNote:function(){
       
        this.loadingAddNote = true;
@@ -187,6 +198,8 @@ export default {
          this.loadingAddNote = false;
 
           this.saveNoteOrder(false);
+
+            this.$root.selectedDiary.updated = false;
 
            this.$router.push({path:'/board/diary/board/' + this.$route.params.diary_id + '/edit-note/' + this.$root.noteContent.note.tag_unique_id});
        
@@ -235,6 +248,8 @@ export default {
        
 
              this.$root.LocalStore('user_diary_data_' +  this.$route.params.diary_id + this.$root.username,this.$root.selectedDiary);
+
+          this.$root.selectedDiary.updated = false;
        
      }
        

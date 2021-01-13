@@ -20,11 +20,27 @@
                        v-model="searchValue"  placeholder="Search" class="py-2 px-2" type="search" >       
          
             </div>
-             <div class="col-2 text-center py-0">
-                <v-btn icon ><v-icon style="font-size:25px;color:#263238;" >las la-bell</v-icon></v-btn>
+              <div class="col-2 text-center py-0">
+                 <template v-if="this.$root.authProfile.name" >
+
+                      <v-btn icon  @click="goToNotification"> 
+                   <v-badge
+               :content="this.$root.authProfile.unread" 
+                   v-if="this.$root.authProfile.unread > 0"
+                color="green">
+                <v-icon style="font-size:23px;color:#263238;" >las la-bell</v-icon>
+                   </v-badge>
+
+                    <v-icon style="font-size:23px;color:#263238;" v-else >las la-bell</v-icon>
+                </v-btn>
+
+                  </template>
             </div>
              <div class="col-2 d-flex px-1 py-0" style="justify-content:center; align-items:center;">
-                 <div style="border-radius:50%;height:32px;width:32px;background-color:#c5c5c5; background-image:url(/imgs/img3.jpg); background-size:100%;border:1px solid transparent;"></div>
+
+                <template v-if="this.$root.authProfile.name">
+                 <div :style="imageStyleUser(32,this.$root.authProfile)" @click="showProfile"></div>
+                </template>
             </div>
                    </div>
              </v-card>
@@ -49,6 +65,16 @@ export default {
       this.$root.TopBarComponent = this;
     },
     methods:{
+       goToNotification: function(){
+
+        this.$router.push({ path:'/board/notifications'});
+
+      },
+        showProfile:function(){
+
+           this.$router.push({ path:'/profile/' + this.$root.username});
+
+      },
       searchChatList:function(){
 
     
@@ -85,12 +111,27 @@ export default {
        
 
       this.$root.searchChatList = chatListResult;
-       
-        
-
-     
 
     },
+     imageStyleUser:function(dimension,data){
+
+      if(data.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
+         
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
+        
+         
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
+         let imgLink = data.image_name + '.' + data.image_extension;
+         
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+         
+         
+          return styleString;
+      }
+     },
     }
 }
 </script>

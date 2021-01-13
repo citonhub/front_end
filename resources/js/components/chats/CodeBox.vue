@@ -12,7 +12,7 @@
         @focus="onCmFocus"
         @blur="onCmBlur"
       />
-     <v-btn  @click="showCodeEditor" icon :style="'position:absolute; top:' + topMargin + '%; right:3%;z-index:999;'">
+     <v-btn  @click.stop="showCodeEditor" icon :style="'position:absolute; top:' + topMargin + '%; right:3%;z-index:999;'">
             <v-icon color="#ffffff">las la-expand</v-icon>
      </v-btn>
     <div style="position:absolute; width:100%;" class="py-2 px-2 d-flex flex-row">

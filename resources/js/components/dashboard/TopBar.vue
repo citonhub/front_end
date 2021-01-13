@@ -154,6 +154,13 @@ export default {
 
          }
 
+          if(this.$root.searchType == 'diary'){
+      
+           
+            this.searchDiary(this.searchContent);
+
+         }
+
       },
       searchProject:function(query){
 
@@ -176,6 +183,29 @@ export default {
        
 
       this.$root.projectSearchList = projectListResult;
+
+      },
+      searchDiary:function(query){
+
+        
+
+        let diaryListResult = this.$root.diaryList.filter((diary)=>{
+
+          let nameValue = diary.name.toLowerCase();
+
+           
+
+         
+      return nameValue.includes(query.toLowerCase());
+
+       
+
+                
+       });
+
+       
+
+      this.$root.diarySearchList = diaryListResult;
 
       },
       getChallenges:_.debounce(function (query) {

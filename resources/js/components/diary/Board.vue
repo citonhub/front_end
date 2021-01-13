@@ -33,12 +33,25 @@
                        </template>
                        <template v-else>
 
-                         <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
-                       <template >
-                          <span style="color:white;text-transform:none;">Update</span> 
-                       </template>
+                        <template v-if="this.$root.selectedDiary.updated">
+
+                             <v-btn small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
+                     
+                          <span style="text-transform:none;">View</span> 
                       
                         </v-btn>
+
+                          </template>
+
+                          <template v-else>
+
+                            <v-btn :loading="loadingUpdate" @click="updateDiary()" small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+                     
+                          <span style="color:white;text-transform:none;">Update</span> 
+                      
+                        </v-btn>
+
+                          </template>
 
                          
                        </template>
@@ -95,12 +108,27 @@
                        </template>
                        <template v-else>
 
-                         <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
-                       <template >
-                          <span style="color:white;text-transform:none;">Update</span> 
-                       </template>
+                          <template v-if="this.$root.selectedDiary.updated">
+
+                             <v-btn small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
+                     
+                          <span style="text-transform:none;">View</span> 
                       
                         </v-btn>
+
+                          </template>
+
+                          <template v-else>
+
+                            <v-btn small :loading="loadingUpdate"  rounded color="#3C87CD" @click="updateDiary()" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+                     
+                          <span style="color:white;text-transform:none;">Update</span> 
+                      
+                        </v-btn>
+
+                          </template>
+
+                        
 
                          
                        </template>
@@ -134,7 +162,7 @@ export default {
    data () {
       return {
       that:this,
-     
+      loadingUpdate:false,
       loadingSaveNote:false
       }
     },
@@ -151,6 +179,29 @@ export default {
 
         }
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+     },
+     updateDiary:function(){
+        this.loadingUpdate = true;
+
+        axios.get('/update-dairy-'+ this.$route.params.diary_id)
+          .then(response => {
+             
+  
+            if(response.status == 200){
+         this.loadingUpdate = false;
+            this.$root.selectedDiary.updated = true;
+           this.showAlert('Updated!','Your changes have been updated','success');
+
+            console.log(response.data)
+            }
+  
+          })
+          .catch(error => {
+
+             this.loadingUpdate = false;
+              this.showAlert('Oops!','Unable to update, please try again','error');
+            
+          })
      },
      saveNote:function(){
 

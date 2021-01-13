@@ -38,7 +38,7 @@
             <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.pinned }}</span>
 
           <v-btn icon >
-                       <i :class="this.$root.selectedPost.isLiked == 1 ? 'las la-heart' : 'lar la-heart'" :style="this.$root.selectedPost.isLiked ? 'font-size:25px; color: red;' : 'font-size: 25px;'" @click="likePost"></i>
+                       <i :class="this.$root.selectedPost.isLiked == 1 ? 'las la-heart' : 'lar la-heart'" :style="this.$root.selectedPost.isLiked ? 'font-size:25px; color: #ff6666;' : 'font-size: 25px;'" @click="likePost"></i>
                     </v-btn>
              <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.likes }}</span>
         </div>
@@ -281,16 +281,9 @@
 
            </div>
 
-     
-
-   
-
-
       </div>
 
       <!-- ends -->
-
-     
 
  </div>
 </template>
