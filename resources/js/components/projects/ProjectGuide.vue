@@ -6,13 +6,17 @@
             <li class="ml-4">Basics</li>
           <a href="#node"> <li class="ml-4">Node</li></a> 
          <a href="#php">   <li class="ml-4">PHP</li></a>
-           
+            <a href="#common">   <li class="ml-4">Common Errors</li></a>
             </ul></nav>
         <div class="intro col-lg-6">
 <h2 class=" text-left px-1 py-1 " style="font-size:1.8rem;font-weight:500;">Introduction</h2>
 <p>Welcome to the project panel. Here you can use all the tools available to bring your project idea to life.
 As soon as you start you can access a live button which you can use to view your project at any point.
 </p>
+
+<img src="imgs/guide/button.png" style="border:1px solid black" alt="">
+
+<p class="mt-4 ml-2">Live button for viewing projects from the editor</p>
         </div>
 
         <div class="basics col-lg-6 px-1 py-1">
@@ -23,6 +27,10 @@ As soon as you start you can access a live button which you can use to view your
     There are many ways to add files to your project. On the project panels there are different file types such as views and styles.
     Cick on the plus button beside the file type you want. Choose your desired options and click save. You will now find the file under the category you selected on the panel.
 </p>
+
+<img src="imgs/guide/file-s.png" alt="">
+
+<p class="mt-4" >Files created under differnt categories.</p>
             </div>
 
             <div class="assets col-lg-10 px-1 py-1 mb-4">
@@ -31,6 +39,11 @@ As soon as you start you can access a live button which you can use to view your
        To add assets to your project you have to upload them. Choose the category that suits the assets you want to upload and click on the add button right beside it.
        Click on the upload box to open up your device files.You can then browse through to pick the asset you want and click on the upload button to upload it.
 </p>
+
+
+
+<img src="imgs/guide/asset.png" alt="">
+<p class="offset-1">Example of upload box and upload button.</p>
             </div>
         </div>
 
@@ -170,6 +183,10 @@ As soon as you start you can access a live button which you can use to view your
            
 
             </div>
+        </div>
+
+        <div class="common" id="common">
+            <h2 class="ml-4">Common Errors</h2>
         </div>
     </div>
 </template>
