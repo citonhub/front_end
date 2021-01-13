@@ -8,8 +8,8 @@ window.io = require('socket.io-client');
 
 Vue.use(Vuex)
 
-axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
-
+//axios.defaults.baseURL = 'http://localhost:8000/api'
+ axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
 
 const store = new Vuex.Store({
   state: {
@@ -97,7 +97,7 @@ const ResourceUpload = () => import(/* webpackChunkName: "ResourceUpload" */ '..
 const PanelLoader = () => import(/* webpackChunkName: "PanelLoader" */ '../components/projects/PanelLoader.vue');
 const PanelSettings = () => import(/* webpackChunkName: "PanelSettings" */ '../components/projects/PanelSettings.vue');
 const AddWebroute= () => import(/* webpackChunkName: "AddWebroute" */ '../components/projects/AddWebroute.vue');
-
+const ProjectGuide = () => import(/* webpackChunkName: "ProjectGuide" */ '../components/projects/ProjectGuide.vue')
 // chats routes
 const Chats = () => import(/* webpackChunkName: "Chats" */ '../components/chats/Chats.vue');
 
@@ -1169,6 +1169,13 @@ beforeEnter: (to, from, next) => {
         path: 'panel/:project_slug',
         component: ProjectPanel,
         children:[
+
+
+          {
+//project guide
+            path:'guide',
+           component: ProjectGuide
+          },
                  {
                  // code editor
                  path: 'editor',
@@ -1287,7 +1294,7 @@ beforeEnter: (to, from, next) => {
             component: ChallengesList
             },
             { // create
-              path: 'create',
+              path: 'create/:type',
               component: ChallengesCreate
             },
             {
@@ -1449,7 +1456,6 @@ const app = new Vue({
       showRootReply:false,
       is_reply:false,
       NewMsg:[],
-      replyMessage:[],
       SpaceUsers:[],
       showEmojiBox:false,
       imageHeight1: '',
@@ -1966,6 +1972,21 @@ const app = new Vue({
            }
 
       }
+
+
+      if(e.actionType == 'challenge_comment'){
+
+        if( this.$root.discussionComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
+         
+        
+          this.$root.discussionComponent.comments.unshift(e.data);
+
+        
+
+        }
+
+   }
+
 
       })
       .listenForWhisper('typing', (e) => {

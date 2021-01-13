@@ -171,9 +171,11 @@
                               <chat-top></chat-top>
                             </div>
 
-                             <DynamicScroller
+                          <v-app id="largeView"  v-if="that.$root.Messages.length != 0" style="position:absolute;width:100%;height:100%; left:0%;background:#E1F0FC;">
+
+                              <DynamicScroller
     :items="that.$root.Messages"
-     v-if="that.$root.Messages.length != 0"
+   
      :keyField="'index_count'"
     :min-item-size="36"
     ref="messageContainer"
@@ -194,15 +196,15 @@
         ]"
         :data-index="index"
       >
-     <chat-messages  :source="item" ></chat-messages>
+     <chat-messages :screenType="'large'" :source="item" ></chat-messages>
     
       </DynamicScrollerItem>
     </template>
 
 
-     <template #before>
+     <template #before >
 
-       <div  class=" col-12 text-center" style="margin-top:70px;">
+       <div  class=" col-12 text-center" style="margin-top:70px;" >
      
         <span v-if="that.$root.selectedSpace.type == 'SubSpace'" style="font-size:13px;font-family:BodyFont;">
            {{ that.$root.selectedSpace.description }}
@@ -214,7 +216,7 @@
 
     <template #after>
 
-       <div  class=" col-12 " style="margin-top:20px;">
+       <div  class=" col-12 " style="margin-top:20px;" v-observe-visibility="visibilityChanged">
 
 
 
@@ -222,6 +224,10 @@
   </template>
 
   </DynamicScroller>
+
+                          </v-app>
+
+                           
             <template v-else>
         <div  class="col-12 px-0 scroller" 
 
@@ -230,7 +236,8 @@
 
             <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
 
-                <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'" :fromChat="true" :alertComponent="this"></invitation>
+               <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'"
+                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
 
             </template>
 
@@ -243,6 +250,17 @@
                                <div class="col-12  py-1" v-if="that.$root.showEmojiBox">
                             <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
                                  </div>
+
+
+                                  <!-- reply view -->
+
+                                  <div class="col-12  py-1" v-if="this.$root.showRootReply" >
+
+                                      <reply-view></reply-view>
+                                        
+                                 </div>
+
+                                  <!-- ends -->
 
                                   <div class="px-2 py-1" style="background:#ffffff; border-top:1px solid #c5c5c5;">
                                 <chat-bottom ref="bottomLg"></chat-bottom>
@@ -259,10 +277,10 @@
                                 <img src="/imgs/chat_side.svg" height="250px">
 
                                 <div class="d-flex flex-column mt-5 px-5" style="align-items:center;justify-content:center;">
-                                    <blockquote class="fill" style="font-family:BodyFont; font-size:15px; color:black;">Knowing is not enough; we must apply. Wishing is not enough; we must do.</blockquote>
+                                    <blockquote class="fill" style="font-family:BodyFont; font-size:15px; color:black;">{{qouteArray[selectedQuoteId].qoute}}</blockquote>
  
                             <p class="text-center" style="font-family:HeaderFont;font-size:15px;">
-                                 - Rob Siltanen
+                                 - {{qouteArray[selectedQuoteId].author}}
                               </p>
                                 </div>
 
@@ -280,12 +298,12 @@
                                 <img src="/imgs/chat_side.svg" height="250px">
 
                                 <div class="d-flex flex-column mt-5 px-5" style="align-items:center;justify-content:center;">
-                                    <blockquote class="fill" style="font-family:BodyFont; font-size:15px; color:black;">Knowing is not enough; we must apply. Wishing is not enough; we must do.</blockquote>
+                                    <blockquote class="fill" style="font-family:BodyFont; font-size:15px; color:black;">{{qouteArray[selectedQuoteId].qoute}}</blockquote>
                                  
                                 
                                  
                             <p class="text-center" style="font-family:HeaderFont;font-size:15px;">
-                                 - Rob Siltanen
+                                 - {{qouteArray[selectedQuoteId].author}}
                               </p>
 
                                <v-progress-linear indeterminate height="4px"  color="#3C87CD" class="mb-2" rounded></v-progress-linear>
@@ -316,7 +334,8 @@
                                <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center " @click="goBack" style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                  <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'" :fromChat="true" :alertComponent="this"></invitation>
+                                  <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'"
+                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
                             </div>
 
                             <!-- ends -->
@@ -403,7 +422,7 @@
 
                       </div>
 
-                           <v-btn  @click="showCodeEditor" v-if="chatIsOpen" medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
+                           <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply" medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
 
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
 
@@ -569,12 +588,12 @@
                                 <img src="/imgs/chat_side.svg" height="150px">
 
                                 <div class="d-flex flex-column mt-5 px-5" style="align-items:center;justify-content:center;">
-                                    <blockquote class="fill" style="font-family:BodyFont; font-size:14px; color:black;">Knowing is not enough; we must apply. Wishing is not enough; we must do.</blockquote>
+                                    <div class="fill text-center pb-2" style="font-family:BodyFont; font-size:14px; color:black;">{{qouteArray[selectedQuoteId].qoute}}</div>
                                   
                                 
 
                             <p class="text-center" style="font-family:HeaderFont;font-size:14px;">
-                                 - Rob Siltanen
+                                 - {{qouteArray[selectedQuoteId].author}}
                               </p>
 
                                  <v-progress-linear indeterminate height="4px"  color="#3C87CD" class="mb-2" rounded></v-progress-linear>
@@ -594,7 +613,7 @@
 
                    <template v-if="chatIsOpen && that.$root.Messages != null">
 
-              <div class="row py-0">
+              <div  class="row py-0" :id="'smallView'" >
                             <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:fixed; top:0%;z-index:999999999;" >
                               <chat-top></chat-top>
                             </div>
@@ -623,7 +642,7 @@
         ]"
         :data-index="index"
       >
-     <chat-messages  :source="item" ></chat-messages>
+     <chat-messages :screenType="'small'" :source="item" ></chat-messages>
     
       </DynamicScrollerItem>
     </template>
@@ -643,7 +662,7 @@
 
     <template #after>
 
-       <div  class=" col-12 " style="margin-top:60px;">
+       <div  class=" col-12 " style="margin-top:60px;" v-observe-visibility="visibilityChanged">
 
 
 
@@ -660,7 +679,8 @@
 
               <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
 
-                <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'" :fromChat="true" :alertComponent="this"></invitation>
+              <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'"
+                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
 
             </template>
           
@@ -668,7 +688,7 @@
      </template>
                       
 
-                             <v-btn @click="showCodeEditor" v-if="chatIsOpen"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
+                             <v-btn @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
 
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
 
@@ -698,6 +718,17 @@
                                 <div class="col-12  py-1"  v-if="that.$root.showEmojiBox">
                             <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
                                  </div>
+
+                                 <!-- reply view -->
+
+                                  <div class="col-12 px-1 py-1" v-if="this.$root.showRootReply" >
+
+                                      <reply-view></reply-view>
+                                        
+                                 </div>
+
+                                  <!-- ends -->
+
                                  <div class="px-2 py-1" style="background:#ffffff; border-top:1px solid #c5c5c5;">
                                 <chat-bottom ref="bottomSm"></chat-bottom>
                                  </div>
@@ -728,7 +759,18 @@
                                <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center " style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
                                   <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                  <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'" :fromChat="true" :alertComponent="this"></invitation>
+                                  <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'"
+                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
+                            </div>
+
+                            <!-- ends -->
+
+
+                             <!-- message options -->
+
+                               <div  v-if="chatIsOpen && showMoreOptions" @click="showMoreOptions = false" class="col-12 py-0 px-0 d-flex" style="align-items:center; justify-content:center; background: rgba(27, 27, 30, 0.1); position:fixed; height:100%; top:0%;z-index:999999999999;" >
+                                  
+                                  <more-options></more-options>
                             </div>
 
                             <!-- ends -->
@@ -840,7 +882,7 @@
    <div style="position:absolute; height:100%; width:70%; left:0;" >
 
      <div class="col-md-6 col-lg-3 pt-2" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
-        <sidebar></sidebar>
+        <side-bar></side-bar>
      </div>
 
    </div>
@@ -935,6 +977,20 @@ import { VEmojiPicker } from 'v-emoji-picker';
      const Invitation = () => import(
     /* webpackChunkName: "Invitation" */ './invitation.vue'
   );
+
+ const MoreOptions = () => import(
+    /* webpackChunkName: "MoreOptions" */ './MoreOptions.vue'
+  );
+
+
+ const ReplyView = () => import(
+    /* webpackChunkName: "ReplyView" */ './ReplyView.vue'
+  );
+
+  const SideBar = () => import(
+    /* webpackChunkName: "SideBar" */ '../dashboard/sideBar.vue'
+  );
+
 export default {
      data () {
       return {
@@ -948,9 +1004,54 @@ export default {
        errorLoadingMessage:false,
         counter:0,
         messageIsDone: true,
+        qouteArray:[
+          {
+            qoute:'Believe you can and you’re halfway there.',
+            author:'Theodore Roosevelt'
+          },
+          {
+            qoute:'Alone, we can do so little; together we can do so much.',
+            author:'Helen Keller'
+          },
+          {
+            qoute:'You can’t use up creativity. The more you use, the more you have.',
+            author:'Maya Angelou'
+          },
+          {
+            qoute:'If you want to lift yourself up, lift up someone else.',
+            author:'Booker T. Washington'
+          },
+          {
+            qoute:'You can change. And you can be an agent of change.',
+            author:'Laura Dern'
+          },
+          {
+            qoute:'One person can make a difference, and everyone should try.',
+            author:'John F. Kennedy'
+          },
+          {
+            qoute:'Whatever you do, always give 100%. Unless you\'re donating blood.',
+            author:'Bill Murray'
+          },
+          {
+            qoute:'Success is the sum of little efforts repeated day in day out.',
+            author:'Robert collier'
+          },
+          {
+            qoute:'Experience is not the best teacher. Evaluated experience is.',
+            author:'John Maxwell'
+          },
+          {
+            qoute:'Make each day your masterpiece.',
+            author:'John Wooden'
+          },
+        ],
         chatShareIsOpen:false,
         imageCropperIsOpen:false,
        searchValue:'',
+       selectedQuoteId:0,
+       showMoreOptions:false,
+       bottomIsVisible:false
      
       }
     },
@@ -980,9 +1081,13 @@ export default {
         VEmojiPicker,
         Invitation,
         ChatShare,
-        ImageCropper
+        ImageCropper,
+        MoreOptions,
+        ReplyView,
+        SideBar
     },
      methods:{
+     
         showAlert:function(title='',message,type){
        
        if(type == 'info'){
@@ -992,7 +1097,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-        timeout:5000,
+        timeout:2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -1007,7 +1112,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-        timeout:5000,
+        timeout:2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -1020,7 +1125,7 @@ export default {
           iziToast.warning(
         { 
        title: title,
-        timeout:5000,
+        timeout:2000,
        message: message,
        zindex:'9999999999',
        position: 'bottomRight',
@@ -1036,7 +1141,7 @@ export default {
         { 
        title: title,
        message: message,
-        timeout:5000,
+        timeout:2000,
        zindex:'9999999999',
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
@@ -1047,6 +1152,9 @@ export default {
 
        
 
+    },
+    visibilityChanged:function(isVisible, entry){
+        this.bottomIsVisible = isVisible
     },
     setShareLink:function(){
 

@@ -32,8 +32,8 @@
         <div class="col-6 py-0 px-0 text-right">
 
              <v-btn icon @click="pinPost">
-                      <v-icon style="font-size:25px; color: red;" v-if="this.$root.selectedPost.isPinned == 1">lar la-thumbtack</v-icon>
-                      <v-icon style="font-size:25px;" v-else>lar la-thumbtack</v-icon>
+                      <v-icon style="font-size:25px;" v-if="this.$root.selectedPost.isPinned == 1">lar la-thumbtack</v-icon>
+                      <v-icon style="font-size:25px;" v-else>las la-thumbtack</v-icon>
                     </v-btn>
             <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.pinned }}</span>
 
@@ -134,9 +134,9 @@
 
        <!-- comment list -->
          <div class="col-lg-6 offset-lg-3 px-2 px-md-3 scroller" style="background:#E1F0FC;font-family:BodyFont;min-height:200px;max-height:500px;overflow-y:auto;overflow-x:hidden;">
-         <div class="row" v-for="(comment, i) in comments" :key="i">
+         <div class="row">
            
-            <div elevation-1 class="col-11 py-0 mt-2" v-if="comment.user_id != that.$root.authProfile.id">
+            <div elevation-1 class="col-11 py-0 mt-2">
            <div class="row">
              <div class="col-lg-9 col-md-10   d-flex flex-row">
                   <div
@@ -146,24 +146,24 @@
                   <v-card elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
                     <div class="d-flex" style="align-items:center;">
-                         <span style="font-size:13px;font-weight:bold; " class="mr-1">{{ comment.username }}</span>  <i class="las la-award" style="font-size:20px;color:#ef476f;" ></i> 
+                         <span style="font-size:13px;font-weight:bold; " class="mr-1">Bisola23</span>  <i class="las la-award" style="font-size:20px;color:#ef476f;" ></i> 
                   </div>
-                      <span style="font-size:13px;">{{ comment.body }} </span>
+                      <span style="font-size:13px;">Lorem ipsum dolor sit amet consectetur </span>
                        <div class="text-right">
-                         <span style="font-size:11px; color:grey;">{{ comment.date }}</span>
+                         <span style="font-size:11px; color:grey;">3:14 PM</span>
                   </div>
                   </v-card> 
              </div>
              <div style="padding-left:45px;align-items:center;" class="col-12 py-0 d-flex">
                 <span class="d-inline-block mx-1" >
-                <i :class="comment.liked == 1 ? 'las la-heart' : 'lar la-heart'" style="font-size:20px;color:#3C87CD;" :style="comment.liked == 1 ? 'color: red;' : ''" @click="likeComment(comment.id)"></i> 
-                <span style="font-family:MediumFont; font-size:12px; color:#000000;">{{ comment.likes }}</span>
+                <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> 
+                <span style="font-family:MediumFont; font-size:12px; color:#000000;">231</span>
                 </span>
              </div>
            </div>
         </div>
 
-            <div elevation-1 class="col-11 py-0 offset-1" v-else>
+            <div elevation-1 class="col-11 py-0 offset-1">
            <div class="row">
              <div class="col-lg-9 col-md-10  offset-lg-3 offset-md-2 d-flex flex-row-reverse">
                   <div
@@ -171,11 +171,11 @@
   background-repeat: no-repeat; ;border:1px solid transparent;"></div>
 
                   <v-card elevation-1 class="py-1 px-2 mr-2" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
-                      <span style="color:white;font-size:13px;">{{ comment.body }}</span>
+                      <span style="color:white;font-size:13px;">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
                        
                   <!-- time -->
                   <div class="text-right">
-                         <span style="color:white;font-size:11px; ">{{ comment.date }}</span>
+                         <span style="color:white;font-size:11px; ">3:14 PM</span>
                   </div>
                   <!-- ends -->
                   </v-card> 
@@ -184,8 +184,8 @@
              </div>
              <div style="padding-right:45px;" class="col-12 text-right py-0">
                 <span class="d-inline-block mx-1" >
-                <i :class="comment.liked == 1 ? 'las la-heart' : 'lar la-heart'" style="font-size:20px;color:#3C87CD;" :style="comment.liked ? 'color:red;' : ''" @click="likeComment(comment.id)"></i> 
-                <span style="font-family:MediumFont; font-size:12px; color:#000000;">{{ comment.likes }}</span>
+                <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> 
+                <span style="font-family:MediumFont; font-size:12px; color:#000000;">231</span>
                 </span>
              </div>
            </div>
@@ -296,8 +296,6 @@ export default {
   data () {
     return {
       post: '',
-      comments: [],
-      user: this.$root.authProfile,
       is_reply: false,
       commentValue: '',
       commentRules: [
@@ -315,31 +313,20 @@ export default {
   },
 
   mounted () {
-        this.$root.selectedPost = [];
        this.fetchPost();
-       // this.fetchComments();
   },
   methods:{
-    fetchComments ($id) {
-      axios.get('/comments/' + $id)
-        .then((response) => {
-          // console.log(response);
-          this.comments = response.data.data;
-        })
-    },
-
      postComment () {
       if (this.commentValue != '') {
           let formData = new FormData();
         formData.append('post_id', this.$root.selectedPost.id);
-        formData.append('comment', this.commentValue);
+        formData.append('comment', this.comment);
         formData.append('is_reply', this.is_reply);
 
         axios.post('/comment-hub-post', formData)
           .then((response) => {
-            if (response.data == "success") {
-              this.commentValue = '';
-              this.fetchPost();
+            if (response.status == 201) {
+              console.log(response);
             }
           })
       } else {
@@ -353,7 +340,7 @@ export default {
 
          axios.post('/like-hub-post', formData)
       .then((response) => {
-        if (response.status == 201) {
+        if (response.status == 204) {
           if (response.data == "liked") {
             this.$root.selectedPost.isLiked = 1
           }
@@ -366,26 +353,6 @@ export default {
         }
       })
 
-     },
-
-     likeComment ($id) {
-      let formData = new FormData();
-      formData.append('comment_id', $id)
-
-         axios.post('/like-hub-post-comment', formData)
-      .then((response) => {
-        if (response.status == 201) {
-          if (response.data == "liked") {
-            this.fetchComments(this.$root.selectedPost.id)
-          }
-        } else {
-          if (response.data == "Comment Liked Already") {
-            this.showAlert('Oops!', response.data, 'error');
-          } else if (response.data == "liked") {
-            this.fetchComments(this.$root.selectedPost.id)
-          }
-        }
-      })
      },
 
      pinPost(){
@@ -667,7 +634,6 @@ export default {
           
       },
     fetchPost:function(){
-      console.log("I work here");
 
 
        this.loadingPost  = true;
@@ -681,8 +647,6 @@ export default {
                     let finalResult = JSON.parse(result);
                      
                       this.$root.selectedPost = finalResult;
-
-                      this.fetchComments(this.$root.selectedPost.id);
 
                        if(!this.$root.selectedPost.link){
 
@@ -704,9 +668,6 @@ export default {
           this.$root.LocalStore('post_data_' +  this.$route.params.post_id + this.$root.username,response.data.data);
         
            this.$root.selectedPost = response.data.data;
-
-           console.log(response.data.data);
-            this.fetchComments(response.data.data.id);
           
            if(!this.$root.selectedPost.link){
 

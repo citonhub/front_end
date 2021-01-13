@@ -60,6 +60,16 @@
 <script>
  import { codemirror } from 'vue-codemirror'
  import '../../bootstraps/codeImports'
+ import 'codemirror/addon/hint/anyword-hint.js'
+ import 'codemirror/addon/hint/css-hint.js'
+ import 'codemirror/addon/hint/html-hint.js'
+ import 'codemirror/addon/hint/javascript-hint.js'
+ import 'codemirror/addon/hint/show-hint.css'
+ import 'codemirror/addon/hint/show-hint.js'
+ import 'codemirror/addon/hint/sql-hint.js'
+ import 'codemirror/addon/hint/xml-hint.js'
+
+
   
 
 export default {
@@ -68,7 +78,12 @@ export default {
     
        this.detectchange(this.$root.EditorLanguage);
         this.$root.codeEditorComponent = this;
-       this.$root.projectPanelComponent.showAlert('Happy coding!','Your work is auto saved','info');
+          if(this.$root.projectPanelComponent){
+
+             this.$root.projectPanelComponent.showAlert('Happy coding!','Your work is auto saved','info');
+
+          }
+      
        
       },
      components: {
@@ -249,6 +264,10 @@ methods:{
              return member.user_id == this.$root.user_temp_id;
          });
 
+          if(this.$root.projectData.project.user_id == this.$root.user_temp_id){
+          return true;
+          }
+
            if(member.length == 0){
             
             return false;
@@ -401,8 +420,11 @@ methods:{
 
     },
       onCmReady(codemirror) {
-
-        
+    
+        codemirror.on('keypress', () => {
+    
+    codemirror.showHint()
+  })
         console.debug('onCmReady', codemirror)
       },
       onCmFocus(codemirror) {
@@ -412,7 +434,8 @@ methods:{
         console.debug('onCmBlur', codemirror)
       },
       onCmCodeChange:function(code){
-        
+         
+
        this.$root.projectData.project_files.code_files.map((file)=>{
           if(file.id == this.$root.selectedFileId){
 

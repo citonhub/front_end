@@ -34,10 +34,10 @@
                 <span class="d-inline-block mx-1" >
                 
                  <v-btn icon class="d-inline-block"  v-if="comment.liked_by_user">
-                   <i class="las la-heart" style="font-size:20px;color:#3C87CD;" ></i> </v-btn>
+                   <i class="las la-heart" style="font-size:20px;color:red;" ></i> </v-btn>
 
                  <v-btn icon class="d-inline-block"  v-else @click="likeComment(comment)">
-                    <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> </v-btn> 
+                    <i class="lar la-heart" style="font-size:20px;color:3C87CD;" ></i> </v-btn> 
                
                 <span style="font-family:BodyFont; font-size:12px; color:#000000;">{{comment.likes}}</span>
                 </span>
@@ -66,7 +66,7 @@
              <div style="padding-right:45px;" class="col-12 text-right py-0">
                 <span class="d-inline-block mx-1" >
                   <v-btn icon class="d-inline-block"  v-if="comment.liked_by_user">
-                   <i class="las la-heart" style="font-size:20px;color:#3C87CD;" ></i> </v-btn>
+                   <i class="las la-heart" style="font-size:20px;color:red;" ></i> </v-btn>
 
                  <v-btn icon class="d-inline-block"  v-else @click="likeComment(comment)">
                     <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> </v-btn>  
@@ -139,6 +139,7 @@ export default {
     },
     mounted:function(){
       this.fetchComments();
+       this.$root.discussionComponent = this;
     },
     methods:{
        fetchComments(){
