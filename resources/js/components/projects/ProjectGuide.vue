@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-12" style="overflow-y: scroll;height:580px;width:1100px;">
+    <div class="col-lg-12" style="overflow-y: scroll;height:100%;width:100%;">
         <h1 class="h1 px-1 py-1 mt-4 mb-4" style="color:#3C87CD">Project Creation Guide</h1>
         <nav class="col-lg-8" style=""><ul  class="d-flex col-lg-10" style="list-style:none;">
             <li class="ml-4">Basics</li>
@@ -66,8 +66,37 @@ As soon as you start you can access a live button which you can use to view your
                         <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-5 py-0">$home/$panel/Audios/FILENAME</p> 
                         <h5>For Images:</h5>
                         <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-5 py-0">$home/$panel/Images/FILENAME</p> 
+                         <p>
+                              Note: FILENAME is the name file. Change it to what you named yours.
+                          </p>
+                      </ul>
+                </div>
+
+                 <div class="step col-lg-10">
+                    <h4>Step 3 </h4>
+                      <p>Link files and view project</p>  
+                      <ul class="col-lg-12">
+                          <li class="mb-2">To link a file to an existing html file in your project you have to insert one of the following urls</li>
+                           <h5>For HTML:</h5>
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 py-0">@include($panel . '.FILENAME')</p> 
+    <h5>For JS:</h5>
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 py-0">@include($panel.'.Scripts.FILENAME')</p> 
+                        <h5>For CSS:</h5>
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 py-0">@include($panel.'.Styles.FILENAME')</p> 
+                          <p>
+                              Note: FILENAME is the name file. Change it to what you named yours.
+                          </p>
+                          
+                          
+                          <li class="mb-2">To view your project go into your index view file and 
+                              click on the play button underneath your editor. You will be directed to a
+                               page with the live view of your project. You can easily share the
+                                link so your friends can view your project. </li>
+                      
                          
                       </ul>
+                     
+                    
                 </div>
            
 
@@ -103,10 +132,39 @@ As soon as you start you can access a live button which you can use to view your
                           <li class="mb-2">To link the asset you place one the urls below wherever you want it to be. </li>
                         <div class="links" v-for="link in php" :key="link.id">
                          <h5>For {{link.type}}</h5>
-                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-5 py-0">{{link.link}}</p> 
-    
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 py-0">{{link.link}}</p> 
+    <p>
+                              Note: FILENAME is the name file. Change it to what you named yours.
+                          </p>
                          </div>
                       </ul>
+                </div>
+
+                 <div class="step col-lg-10">
+                    <h4>Step 3 </h4>
+                      <p>Link files and view project</p>  
+                      <ul class="col-lg-12">
+                          <li class="mb-2">To link a file to an existing html file in your project you have to insert one of the following urls</li>
+                           <h5>For HTML:</h5>
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 py-0">@include($panel . '.FILENAME')</p> 
+    <h5>For JS:</h5>
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 py-0">@include($panel.'.Scripts.FILENAME')</p> 
+                        <h5>For CSS:</h5>
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 py-0">@include($panel.'.Styles.FILENAME')</p> 
+                          <p>
+                              Note: FILENAME is the name file. Change it to what you named yours.
+                          </p>
+                          
+                          
+                          <li class="mb-2">To view your project go into your index view file and 
+                              click on the play button underneath your editor. You will be directed to a
+                               page with the live view of your project. You can easily share the
+                                link so your friends can view your project. </li>
+                      
+                         
+                      </ul>
+                     
+                    
                 </div>
            
 
