@@ -9,7 +9,7 @@ window.io = require('socket.io-client');
 Vue.use(Vuex)
 
 //axios.defaults.baseURL = 'http://localhost:8000/api'
- axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
+ axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
 
 const store = new Vuex.Store({
   state: {
@@ -1231,7 +1231,7 @@ beforeEnter: (to, from, next) => {
             component: ChallengesList
             },
             { // create
-              path: 'create',
+              path: 'create/:type',
               component: ChallengesCreate
             },
             {
@@ -1393,7 +1393,6 @@ const app = new Vue({
       showRootReply:false,
       is_reply:false,
       NewMsg:[],
-      replyMessage:[],
       SpaceUsers:[],
       showEmojiBox:false,
       imageHeight1: '',
@@ -1503,6 +1502,19 @@ const app = new Vue({
      shareText:'',
      shareLink:'',
      fromChannelEdit:false,
+     moreOptionComponent:undefined,
+     challengesList:[],
+     infoText:'',
+     extraInfo:'',
+     alertComponent:undefined,
+     showInvitation:false,
+     challengePanelComponent:undefined,
+     discussionComponent:undefined,
+     challengeSearchList:[],
+     challengeListComponent:undefined,
+     projectSearchList:[],
+     ProjectMembers:[],
+     projectListComponent:undefined,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -1890,6 +1902,21 @@ const app = new Vue({
            }
 
       }
+
+
+      if(e.actionType == 'challenge_comment'){
+
+        if( this.$root.discussionComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
+         
+        
+          this.$root.discussionComponent.comments.unshift(e.data);
+
+        
+
+        }
+
+   }
+
 
       })
       .listenForWhisper('typing', (e) => {

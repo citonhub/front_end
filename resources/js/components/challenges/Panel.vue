@@ -17,7 +17,7 @@
 
                             <v-btn @click="goBack"   icon class="mr-2 mt-2" style="z-index:9999999999999999 !important;"><v-icon style="font-size:25px;color:#ffffff;">las la-arrow-left</v-icon></v-btn>
                             <div class="d-flex flex-column pt-1">
-                               <div style="font-size:18px;font-family:HeaderFont;color:#ffffff;" >{{this.$root.selectedChallenge.title}}</div>  
+                               <div style="font-size:18px;font-family:HeaderFont;color:#ffffff;" >{{this.$root.selectedChallenge.title}} <v-btn @click="editChallenge" v-if="this.$root.username == this.$root.selectedChallenge.username" icon> <v-icon color="#ffffff">las la-edit</v-icon> </v-btn></div>  
                                 <div style="font-size:14px;font-family:BodyFont;color:#ffffff;" class="pt-1" >{{this.$root.selectedChallenge.summary}} </div>  
                             </div>
 
@@ -53,10 +53,16 @@
 
                                 <div style="font-size:14px;font-family:BodyFont;color:#ffffff;" class="d-md-block d-none">  <v-icon style="font-size:20px;" color="#ffffff">las la-user-friends</v-icon> {{this.$root.selectedChallenge.current_participant}} </div>
                              
-                                 
+                                  
+
+                              
                                    </div>
 
                                    <div class="col-4 py-0 px-2 d-flex flex-row-reverse" style="align-items:center;">
+
+                                      <v-btn class="ml-1"  @click="shareChallenge"  outlined medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; background:white;font-family:MediumFont;">
+                                      <span style="text-transform:capitalize;">Share</span>   <v-icon class="ml-r" style="font-size:18px;" >mdi mdi-share-variant</v-icon> 
+                                   </v-btn>
 
                                          <v-btn :loading="loadingStater"  @click="startChallenge" v-if="this.$root.username == this.$root.selectedChallenge.username && checkDuelStatus(this.$root.selectedChallenge) == 'Pending'" medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
                                         <span style="color:white;text-transform:capitalize;">Start</span> 
@@ -190,8 +196,8 @@
 
                         <div class="d-flex flex-row px-2 pt-2 " style="height:30%;">
 
-                           <div class="d-flex flex-column pt-2 pr-2">
-                               <div style="font-size:14px;font-family:HeaderFont;color:#ffffff;" >{{this.$root.selectedChallenge.title}}</div>  
+                           <div class="d-flex flex-column pt-2 pr-2" >
+                               <div style="font-size:14px;font-family:HeaderFont;color:#ffffff; align-items:center;"  class="d-flex flex-row"><div> {{this.$root.selectedChallenge.title}}</div> <v-icon @click="editChallenge" v-if="this.$root.username == this.$root.selectedChallenge.username" color="#ffffff" class="mx-1" style="font-size:20px;">las la-edit</v-icon> </div>  
                                 <div style="font-size:13px;font-family:BodyFont;color:#ffffff;" class="pt-1" >{{this.$root.selectedChallenge.summary}} </div>  
                             </div>
 
@@ -325,8 +331,10 @@
               <!-- ends -->
 
 
-               <div  class="d-lg-none d-flex flex-row-reverse" v-if="this.$router.currentRoute.path.indexOf('discussion') <= 0 && this.$router.currentRoute.path.indexOf('results') <= 0"  style="z-index:9999999999; width:100%; position:fixed;  bottom:2%; right:3%; ">
-
+               <div  class="d-lg-none d-flex flex-row-reverse" v-if="this.$router.currentRoute.path.indexOf('discussion') <= 0 && this.$router.currentRoute.path.indexOf('results') <= 0"  style="z-index:9999999999; overflow-x:auto; width:100%; position:fixed;  bottom:2%; right:3%; ">
+                  <v-btn class="ml-1" @click="shareChallenge" outlined medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; background:white;font-family:MediumFont;">
+                                     <v-icon class="ml-r" style="font-size:18px;" >mdi mdi-share-variant</v-icon> 
+                                   </v-btn>
                    <v-btn :loading="loadingStater"  @click="startChallenge" v-if="this.$root.username == this.$root.selectedChallenge.username && checkDuelStatus(this.$root.selectedChallenge) == 'Pending'" medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
                                         <span style="color:white;text-transform:capitalize;">Start</span> 
                                    </v-btn>
@@ -368,6 +376,9 @@
     </div>
 </template>
 <script>
+
+  import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 
 
 
@@ -582,10 +593,26 @@ export default {
 
     mounted(){
       this.setPage();
+      this.$root.challengePanelComponent = this;
       this.$root.selectedChallenge = [];
       this.fetchChallenge();
     },
     methods:{
+       shareChallenge:function(){
+
+          this.$root.shareLink =  'https://www.citonhub.com/link/challenge/'+ this.$route.params.challenge_id;
+
+          this.$root.shareText = 'Check out this challenge on Citonhub';
+          
+          this.$root.infoText = 'Let others know about this challenge';
+
+          this.$root.alertComponent = this;
+
+          this.$root.showInvitation = true;
+
+           
+
+       },
        goToPanel:function(){
 
            let projectSlug = this.$root.selectedChallenge.participant_data.project_slug;
@@ -595,6 +622,78 @@ export default {
             this.$router.push({ path: '/board/projects/panel/' + projectSlug });
 
        },
+       showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+       timeout:2000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRigh  t',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+         timeout:2000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+         timeout:2000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+         timeout:2000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'question'){
+
+       }
+     
+
+
+    },
+    editChallenge(){
+        this.$router.push({path:'/board/challenges/create/edit'})
+      },
        showResults:function(type){
 
             this.$router.push({ path: '/board/challenges/panel/' + this.$route.params.challenge_id + '/results/' + type  });
