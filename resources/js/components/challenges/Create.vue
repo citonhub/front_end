@@ -5,22 +5,12 @@
     <div class="col-lg-10 offset-lg-1 py-2 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky;z-index:9999999999;background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0">
-          <h5> <v-btn @click="goBack" icon><v-icon>las la-arrow-left</v-icon></v-btn>  <template v-if="this.$route.params.type == 'new'">
-                  Create a challenge
-             </template>
-             <template v-if="this.$route.params.type == 'edit'">
-                  Edit challenge
-             </template></h5>
+          <h5> <v-btn @click="goBack" icon><v-icon>las la-arrow-left</v-icon></v-btn> Create a challenge</h5>
         </div>
 
          <div class="col-6 py-0 my-0 text-right">
              <v-btn @click="createChallenge" :loading="loading" small rounded  color="#3C87CD" style="font-size:12px; text-transform:none; font-weight:bolder; color:white;font-family:MediumFont;">
-               <template v-if="this.$route.params.type == 'new'">
-                  Create
-             </template>
-             <template v-if="this.$route.params.type == 'edit'">
-                  Save
-             </template>
+             Create
            </v-btn>
         </div>
          
@@ -30,29 +20,12 @@
    <div class=" px-0 col-12 py-1 pt-2 d-md-none d-block fixed-top d-flex flex-row" style="position:sticky; background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
    
         <div class="col-8 py-0 my-0 px-0">
-           <div style="font-size:16px; font-family:HeaderFont;"><v-btn @click="goBack"  icon><v-icon>las la-arrow-left</v-icon></v-btn>
-           
-         
-
-            <template v-if="this.$route.params.type == 'new'">
-                  Create a challenge
-             </template>
-             <template v-if="this.$route.params.type == 'edit'">
-                  Edit challenge
-             </template>
-           
-           </div>
+           <div style="font-size:16px; font-family:HeaderFont;"><v-btn @click="goBack"  icon><v-icon>las la-arrow-left</v-icon></v-btn>Create a challenge</div>
         </div>
          <div class="col-4 py-0 my-0 text-right px-0">
       
           <v-btn @click="createChallenge" small rounded :loading="loading" color="#3C87CD" style="font-size:12px; text-transform:none; font-weight:bolder; color:white;font-family:MediumFont;">
-             
-             <template v-if="this.$route.params.type == 'new'">
-                  Create
-             </template>
-             <template v-if="this.$route.params.type == 'edit'">
-                  Save
-             </template>
+             Create
            </v-btn>
         </div>
      
@@ -162,7 +135,6 @@
      label="Application type"
      :items="languageIcon"
      item-text="name"
-       :disabled="challengeIsActive"
            item-value="id"
      v-model="language"
      :rules="requiredRule"
@@ -291,7 +263,6 @@
 
                   <v-text-field
                 style="font-size:13px;"
-                :disabled="challengeIsActive"
                 v-model="durationValueDay"
                 :placeholder="$t('duels.days') + '...'"
             :label="$t('duels.days')"
@@ -312,7 +283,6 @@
                 v-model="durationValueHr"
                 :placeholder="$t('duels.hours') + '...'"
             :label="$t('duels.hours')"
-            :disabled="challengeIsActive"
             :rules="durationRule"
            
             type="tel"
@@ -384,7 +354,7 @@ export default {
              v => !isNaN(parseFloat(v)) && v >= 0 && v <= 1000 || 'Days has to be between 0 and 1000 hours'
         ],
         durationRule2:[
-
+            v => !!v || 'duration is required',
              v => !isNaN(parseFloat(v)) && v >= 0 && v <= 23.9 || 'Duration has to be between 0 and 23.9 hours'
         ],
 
@@ -614,76 +584,15 @@ export default {
         language:'',
         image:'',
         imageDefault:0,
-        challengeIsActive:false,
       };
     },
     mounted(){
      this.$root.showTopBar = false;
-     this.setEditValues();
     },
     components:{
       VPressEditor
     },
     methods:{
-      setEditValues: function(){
-       if(this.$root.selectedChallenge.length != 0 && this.$route.params.type == 'edit'){
-         this.title = this.$root.selectedChallenge.title;
-       
-         this.durationValue = this.$root.selectedChallenge.duration;
-         
-         this.durationValueHr = this.durationValue % 24;
-
-          this.durationValueDay = (this.durationValue - this.durationValueHr)  / 24;
-          
-       
-       this.summary = this.$root.selectedChallenge.summary;
-
-       this.description = this.$root.selectedChallenge.description;
-
-       this.rulesContent = this.$root.selectedChallenge.rules;
-
-       this.language =  this.$root.selectedChallenge.languages;
-
-         if(this.language != 'PHP' && this.language != 'NodeJs'){
-
-            this.language = parseInt(this.language)
-
-         }
-
-         this.judgeType = this.$root.selectedChallenge.judges
-
-          let imgLink =  this.$root.selectedChallenge.image_name + '.' + this.$root.selectedChallenge.image_extension;
-
-          this.$root.croppedImage = '/imgs/challenges/' + imgLink;
-
-         if(this.checkDuelStatus(this.$root.selectedChallenge) == 'Active'){
-           this.challengeIsActive = true;
-         }else{
-           this.challengeIsActive = false;
-         }
-         
-       }
-    },
-     checkDuelStatus:function(duel){
-      
-      if(duel.started == 0){
-         return 'Pending'
-      }
-             
-          let now  = moment();
-           let terminalDateToMoment = moment(duel.duel_terminal_time);
-          
-          let differenceInSeconds = terminalDateToMoment.diff(now,'seconds');
-
-            
-          if(differenceInSeconds <= 0){
-             return 'Ended';
-          }else{
-             
-            return 'Active'
-          }
-          
-       },
       selectDefaultImg:function(image,number){
        
         this.imageDefault = 'default_' + number;
@@ -765,7 +674,6 @@ this.judgeType='everyone';
           iziToast.info(
         { 
        title: title,
-       timeout:2000,
        message: message,
        zindex:'9999999999',
        position: 'bottomRigh  t',
@@ -781,7 +689,6 @@ this.judgeType='everyone';
         { 
        title: title,
        message: message,
-       timeout:2000,
        zindex:'9999999999',
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
@@ -795,7 +702,6 @@ this.judgeType='everyone';
           iziToast.warning(
         { 
        title: title,
-       timeout:2000,
        message: message,
        zindex:'9999999999',
        position: 'bottomRight',
@@ -811,7 +717,6 @@ this.judgeType='everyone';
         { 
        title: title,
        message: message,
-       timeout:2000,
        zindex:'9999999999',
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
@@ -865,9 +770,7 @@ this.judgeType='everyone';
              var data1 = this.handleBlob(this.$root.croppedImage);
                     formData.append('image',data1[0]);
                        formData.append('image_ext',data1[1]);
-            }
-
-            if(this.imageDefault != 0){  
+            }else{
                 
                 formData.append('image_default',this.imageDefault);
             }
@@ -882,10 +785,6 @@ this.judgeType='everyone';
              formData.append('challenge_language',this.language);
              formData.append('judges',this.judgeType);
 
-            if(this.$route.params.type == 'edit'){
-              formData.append('challengeId',this.$root.selectedChallenge.duel_id)
-            }
-
 
 
            axios.post('/save-challenge',formData,
@@ -898,37 +797,9 @@ this.judgeType='everyone';
           response => {
             
            if (response.status == 200) {
-
-
-             // edit mode
-
-               if(this.$route.params.type == 'edit'){
-
-                  this.showAlert('Saved',' Your changes has been saved','success');
-                          this.loading = false;
-              return
-            }
-
-              
-            // save to database
              
-             
-              let storedChallenges = this.$root.getLocalStore('user_challenges_'  + this.$root.username);
-
-            storedChallenges.then((result)=>{
-                 if(result != null ){
-
-                     let finalResult = JSON.parse(result);
-
-                     finalResult.unshift(response.data.challenge)
-
-                      this.$root.challengesList = finalResult;
-
-                      this.$root.LocalStore('user_challenges_' + this.$root.username,finalResult);
-                 }
-
-                  this.$router.push({path:'/board/challenges/panel/' + response.data.challenge.duel_id +  '/description'})
-            })
+             this.showAlert('Welldone!',' Challenge created sucessfully!','success')
+        
              
 
            }

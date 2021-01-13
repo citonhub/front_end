@@ -90,7 +90,7 @@
    <div style="position:absolute; height:100%; width:70%; left:0;" >
 
      <div class="col-md-6 col-lg-3 pt-2" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
-        <side-bar></side-bar>
+        <sidebar></sidebar>
      </div>
 
    </div>

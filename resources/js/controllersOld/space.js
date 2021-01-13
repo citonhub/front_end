@@ -1620,7 +1620,21 @@ console.log(err)
 
    this.$root.LocalStore(this.$root.selectedSpace.space_id  + this.$root.username,fullData);
 
-   
+   axios.post('/delete-message',{
+    'message_id':messageId
+ } )
+.then(response => {
+
+if (response.status == 200) {
+ 
+
+}
+
+
+})
+.catch(error => {  
+  
+}) 
     
    },
    clearUnreadMessageRemote: function(messageId){
