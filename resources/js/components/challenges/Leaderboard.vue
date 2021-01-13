@@ -11,7 +11,7 @@
              
    <div class="py-3 d-flex flex-row" style=" border-bottom:1px solid #c5c5c5;width:100%;align-items:center;">
         <div class="col-8 py-0 px-0 d-flex flex-row" style="align-items:center;">
-         <span style="font-size:13px;font-family:BodyFont;" class="mr-1">{{user.username}} </span><i class="las la-award" style="font-size:20px;color:#560bad;" ></i> 
+         <span style="font-size:13px;font-family:BodyFont;" class="mr-1">{{user.username}} </span>  <img :src="getUserLevel(user.points)" class="mx-1" height="22px"> 
         </div>
 
          <div class="col-4 py-0 px-0 d-flex pt-1 pr-2 flex-row-reverse" style="align-items:center;">
@@ -32,7 +32,7 @@
 export default {
      data(){
         return{
-          participants:'',
+          participants:[],
           that:this,
 
           
@@ -48,7 +48,7 @@ export default {
           sortArray: function(arrayValue){
       arrayValue.sort(function(a, b){ 
       
-        return new Date(b.stars) - new Date(a.stars); 
+        return b.stars - a.stars 
     }); 
 
       },
@@ -81,7 +81,7 @@ export default {
              
          
            this.participants = response.data.participants;
-            this.participants = this.sortArray(this.participants);
+            this.participants.sort(function(a, b){return b.stars - a.stars})
 
             }else{
                console.log(response.status)
@@ -93,7 +93,38 @@ export default {
           })
 
 
-         }
+         },
+          getUserLevel: function(points){
+let imageUrl = '';
+          
+  if(points >= 0 && points <= 99){
+    imageUrl += '/imgs/newbie.svg'
+
+  }
+  else if(points >= 100 && points <= 999 ){
+
+   imageUrl +='/imgs/junior.svg'
+  }
+   else if(points >= 1000 && points <= 4999 ){ 
+   
+imageUrl += '/imgs/intermediate.svg' 
+}
+    else if(points >= 5000 && points <= 9999 ){ 
+
+imageUrl += '/imgs/senior.svg'
+   }
+ else if(points >= 10000 && points <= 14999 ){ 
+   
+imageUrl +='/imgs/expert.svg'
+}
+  else if(points >= 15000 && points <= 100000 ){ 
+      
+ imageUrl += '/imgs/super_dev.svg'
+}
+
+  return imageUrl;
+
+    }
        
     },
 }

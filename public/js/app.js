@@ -12626,7 +12626,7 @@ var app = new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\citonhub\front_end\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /var/www/citonhubnew/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ })

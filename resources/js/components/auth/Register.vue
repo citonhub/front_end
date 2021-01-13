@@ -76,6 +76,7 @@
             counter="80"
             v-model="name"
             outlined
+             dense
              prepend-inner-icon="las la-user"
             :rules="nameRule"
              color="#3C87CD"
@@ -91,7 +92,7 @@
             label="Email"
              v-model="email"
               prepend-inner-icon="las la-envelope"
-          
+            dense
             :rules="emailRule"
              :error="emailExist"
              outlined
@@ -109,7 +110,7 @@
               outlined
               v-model="password"
               @click:append="switchTxtView()"	
-              
+                dense
                prepend-inner-icon="las la-lock"
                :append-icon="prependIconText"
             :rules="passwordRule"

@@ -1,7 +1,7 @@
 <template>
     <div class="row">
 
-             <div class="col-12 pt-md-4 pt-0 px-0  fixed-top" style="position:sticky;background:white; top:0%;">
+             <div class="col-12 pt-md-4 pt-0 px-0  fixed-top application application--light" style="position:sticky;background:white; top:0%;" data-app="true" >
                 <div class="row">
                   <div class="col-6 d-flex py-0 " style="align-items:center;">
                      <template  >
@@ -9,11 +9,34 @@
                     v-if="this.$router.currentRoute.path.indexOf('editor') >= 0 || this.$router.currentRoute.path.indexOf('panel-loader') >= 0" class="d-inline-block d-lg-none" icon><v-icon style="font-size:20px;">las la-times</v-icon> </v-btn>
                      </template>
                      
-                     <v-btn class="ml-1" x-small color="#3C87CD"> <span style="font-family:HeaderFont;font-size:11px; text-transform:capitalize; color:white;" >Guide</span> </v-btn>
+                     <v-btn @click="openGuide" class="ml-1" x-small color="#3C87CD"> <span style="font-family:HeaderFont;font-size:11px; text-transform:capitalize; color:white;" >Guide</span> </v-btn>
                   </div>
 
-                  <div class="col-6 text-right py-0">
-                      <v-btn icon><v-icon style="font-size:25px;">las la-ellipsis-v</v-icon></v-btn>
+                  <div class="col-6 d-flex flex-row-reverse  py-0" style="align-items:center;">
+                       
+                      <v-btn class="mr-2" id="activator" @click="ShowMore" x-small color="#3C87CD"> <span style="font-family:HeaderFont;font-size:11px; text-transform:capitalize; color:white;" >more</span>
+                         
+                           <!-- more option -->
+
+                   <v-menu
+      absolute
+      :activator="'#activator'"
+       style="z-index:99999999999999999999;"
+      
+      left
+      offset-y
+      
+    >
+    <more-options></more-options>
+    </v-menu>
+
+                 
+
+                  <!-- ends -->
+
+                       </v-btn>
+                       
+                       
                   </div>
 
                 </div>
@@ -498,6 +521,12 @@
 </template>
 
 <script>
+
+  const MoreOptions = () => import(
+    /* webpackChunkName: "MoreOptionsPanel" */ './MoreOptions.vue'
+  );
+
+
 export default {
    data () {
       return {
@@ -691,11 +720,17 @@ export default {
         toggleCodeFiles:true
       }
     },
+    components:{
+       MoreOptions
+    },
     mounted:function(){
       this.$root.editorSideComponent = this;
         this.separateCodeFiles();
     },
   methods:{
+     ShowMore:function(){
+       this.$root.projectPanelComponent.showMoreOptions = true;
+     },
     addRoute() {
          this.$root.projectPanelComponent.showSideBar = false
       this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/web-route'});
@@ -924,7 +959,13 @@ export default {
              this.$router.push({ path: '/board/projects/list' });
 
          }
+
+           this.$root.projectPanelComponent.showSideBar = false
       },
+      openGuide(){
+            this.$root.projectPanelComponent.showSideBar = false
+         this.$router.push({path: '/board/projects/panel/' + project.project_slug})
+      }
   },
   
   
