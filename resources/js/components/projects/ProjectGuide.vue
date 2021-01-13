@@ -1,6 +1,7 @@
 <template>
     <div class="col-lg-12" style="overflow-y: scroll;height:100%;width:100%;">
-        <h1 class="h1 px-1 py-1 mt-4 mb-4" style="color:#3C87CD">Project Creation Guide</h1>
+        <h1 class=" px-lg-1 py-lg-1 mt-4 mb-4 col-lg-8 col-12" style="color:#3C87CD; font-size:3rem;">Project Creation Guide</h1>
+       
         <nav class="col-lg-8" style=""><ul  class="d-flex col-lg-10" style="list-style:none;">
             <li class="ml-4">Basics</li>
           <a href="#node"> <li class="ml-4">Node</li></a> 
@@ -44,7 +45,7 @@ As soon as you start you can access a live button which you can use to view your
                       <p>Create or upload basic files: HTML, CSS and JS</p>  
                       <ul class="col-lg-12">
                           <li class="mb-2">Click on the + icon next to the file type you want in the project panel to add a new file.</li>
-                            <img src="/imgs/guide/file.png" alt="" class="col-lg-10"  style="width:390px;height:150px;">
+                            <img src="/imgs/guide/file.png" alt="" class="col-lg-10"  style="width:390px;height:180px;">
                           <li class="mb-2">Alternatively, you can click on the + icon next to the files section to  upload already created files on your laptop</li>
                           <img src="/imgs/guide/upload.png" alt="">
                          
@@ -58,14 +59,14 @@ As soon as you start you can access a live button which you can use to view your
                      <p>Upload assets and files and  incorporate in your project</p>  
                       <ul class="col-lg-12">
                           <li class="mb-2">Click on the + icon next to the type of asset you want. click on the upload box to searchthrough your device. select the asset and click the upload button.</li>
-                            <img src="/imgs/guide/file.png" alt="" class="col-lg-10"  style="width:390px;height:150px;">
+                          
                           <li class="mb-2">To link the asset you place one the urls below wherever you want it to be. </li>
                          <h5>For videos:</h5>
-                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-5 py-0">$home/$panel/Videos/FILENAME</p> 
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-5 col-8 py-0">$home/$panel/Videos/FILENAME</p> 
     <h5>For Audios:</h5>
-                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-5 py-0">$home/$panel/Audios/FILENAME</p> 
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-5 col-8 py-0">$home/$panel/Audios/FILENAME</p> 
                         <h5>For Images:</h5>
-                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-5 py-0">$home/$panel/Images/FILENAME</p> 
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-5 col-8 py-0">$home/$panel/Images/FILENAME</p> 
                          <p>
                               Note: FILENAME is the name file. Change it to what you named yours.
                           </p>
@@ -78,11 +79,11 @@ As soon as you start you can access a live button which you can use to view your
                       <ul class="col-lg-12">
                           <li class="mb-2">To link a file to an existing html file in your project you have to insert one of the following urls</li>
                            <h5>For HTML:</h5>
-                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 py-0">@include($panel . '.FILENAME')</p> 
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 col-10 py-0">@include($panel . '.FILENAME')</p> 
     <h5>For JS:</h5>
-                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 py-0">@include($panel.'.Scripts.FILENAME')</p> 
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 col-10 py-0">@include($panel.'.Scripts.FILENAME')</p> 
                         <h5>For CSS:</h5>
-                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 py-0">@include($panel.'.Styles.FILENAME')</p> 
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 col-10 py-0">@include($panel.'.Styles.FILENAME')</p> 
                           <p>
                               Note: FILENAME is the name file. Change it to what you named yours.
                           </p>
@@ -114,7 +115,7 @@ As soon as you start you can access a live button which you can use to view your
                       <p>Create or upload basic files: HTML, CSS and JS</p>  
                       <ul class="col-lg-12">
                           <li class="mb-2">Click on the + icon next to the file type you want in the project panel to add a new file.</li>
-                            <img src="/imgs/guide/file.png" alt="" class="col-lg-10"  style="width:390px;height:150px;">
+                            <img src="/imgs/guide/file.png" alt="" class="col-lg-10"  style="width:390px;height:180px;">
                           <li class="mb-2">Alternatively, you can click on the + icon next to the files section to  upload already created files on your laptop</li>
                           <img src="/imgs/guide/upload.png" alt="">
                          
@@ -128,7 +129,7 @@ As soon as you start you can access a live button which you can use to view your
                      <p>Upload assets and incorporate in your project</p>  
                       <ul class="col-lg-12">
                           <li class="mb-2">Click on the + icon next to the type of asset you want. click on the upload box to searchthrough your device. select the asset and click the upload button.</li>
-                            <img src="/imgs/guide/file.png" alt="" class="col-lg-10"  style="width:390px;height:150px;">
+                            
                           <li class="mb-2">To link the asset you place one the urls below wherever you want it to be. </li>
                         <div class="links" v-for="link in php" :key="link.id">
                          <h5>For {{link.type}}</h5>
@@ -146,11 +147,11 @@ As soon as you start you can access a live button which you can use to view your
                       <ul class="col-lg-12">
                           <li class="mb-2">To link a file to an existing html file in your project you have to insert one of the following urls</li>
                            <h5>For HTML:</h5>
-                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 py-0">@include($panel . '.FILENAME')</p> 
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 col-11 py-0">@include($panel . '.FILENAME')</p> 
     <h5>For JS:</h5>
-                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 py-0">@include($panel.'.Scripts.FILENAME')</p> 
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 col-11 py-0">@include($panel.'.Scripts.FILENAME')</p> 
                         <h5>For CSS:</h5>
-                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 py-0">@include($panel.'.Styles.FILENAME')</p> 
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-7 col-11 py-0">@include($panel.'.Styles.FILENAME')</p> 
                           <p>
                               Note: FILENAME is the name file. Change it to what you named yours.
                           </p>
