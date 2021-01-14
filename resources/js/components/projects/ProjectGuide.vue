@@ -195,10 +195,14 @@ As soon as you start you can access a live button which you can use to view your
                 </ul>
             </div>
             <div class="error mb-4 col-lg-8 ">
-                <p class="text-danger"> 1. Error: PHP web app displaying error page</p>
-<img src="" alt="">
+                <p class="text-danger"> 2. Error: PHP web app displaying error page</p>
+                <p>Here is an example of what this could look like.</p>
+<img class="col-lg-6" src="imgs/guide/error.jpeg" alt="">
                 <ul class="solutions">
-                    <li class="text-success">Possible solution: Make sure you are bringing in the framework via a  CDN.</li>
+                    <li class="text-success">Possible solution: Scroll down the error display page to see where the error occcurs in your code.</li>
+              
+              <img class="col-lg-6" src="imgs/guide/check.jpeg" alt="">
+               <p>Here is an example of what you see. In this case the error is due to wrong syntax on line 15.</p>
                 </ul>
             </div>
             </div>

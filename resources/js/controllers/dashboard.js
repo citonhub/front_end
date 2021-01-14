@@ -81,7 +81,7 @@ const Diary = () => import(/* webpackChunkName: "Diary" */ '../components/dashbo
 const Challenges = () => import(/* webpackChunkName: "Challenges" */ '../components/dashboard/Challenges.vue');
 const Wallet = () => import(/* webpackChunkName: "Wallet" */ '../components/dashboard/Wallet.vue');
 const Notifications = () => import(/* webpackChunkName: "Notifications" */ '../components/dashboard/Notifications.vue');
-  
+const Feedback=  () => import(/*webpackChunkName: "Feedback" */ '../components/dashboard/Feedback.vue')
 
 // notifications list
 const NotificationsList = () => import(/* webpackChunkName: "NotificationsList" */ '../components/notifications/List.vue');
@@ -133,6 +133,7 @@ const routes = [
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
+  {path:'/feedback', name:'Feedback', component: Feedback},
   {
     path:'/profile/:username',
      name:'ProfilePage', 
