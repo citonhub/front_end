@@ -183,12 +183,31 @@ As soon as you start you can access a live button which you can use to view your
            
 
             </div>
-        </div>
+     
 
         <div class="common" id="common">
             <h2 class="ml-4">Common Errors</h2>
+            <div class="error">
+                <p> Error: Framework(Vuejs, bootstrap) code not showing up</p>
+
+                <div class="solutions">
+                    <li>Make sure you are bringing in the framework via a CDN.</li>
+                </div>
+            </div>
+            <div class="error">
+                 <p> Error: Framework code not showing up</p>
+
+                <div class="solutions"></div>
+            </div>
+            </div>
+            <div class="error"></div>
+            <div class="error"></div>
+            <div class="error"></div>
+            <div class="error"></div>
+            <div class="error"></div>
+            <div class="error"></div>
         </div>
-    </div>
+</div>
 </template>
 
 
