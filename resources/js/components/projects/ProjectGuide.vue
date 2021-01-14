@@ -185,19 +185,21 @@ As soon as you start you can access a live button which you can use to view your
             </div>
      
 
-        <div class="common" id="common">
-            <h2 class="ml-4">Common Errors</h2>
-            <div class="error">
-                <p> Error: Framework(Vuejs, bootstrap) code not showing up</p>
+        <div class="common col-lg-12" id="common">
+            <h2 class=" ml-2">Common Errors</h2>
+            <div class="error mb-4 col-lg-8 ">
+                <p class="text-danger"> 1. Error: Framework(Vuejs, bootstrap) code not working as it should</p>
 
-                <div class="solutions">
-                    <li>Make sure you are bringing in the framework via a CDN.</li>
-                </div>
+                <ul class="solutions">
+                    <li class="text-success">Possible solution: Make sure you are bringing in the framework via a  CDN.</li>
+                </ul>
             </div>
-            <div class="error">
-                 <p> Error: Framework code not showing up</p>
-
-                <div class="solutions"></div>
+            <div class="error mb-4 col-lg-8 ">
+                <p class="text-danger"> 1. Error: PHP web app displaying error page</p>
+<img src="" alt="">
+                <ul class="solutions">
+                    <li class="text-success">Possible solution: Make sure you are bringing in the framework via a  CDN.</li>
+                </ul>
             </div>
             </div>
             <div class="error"></div>
