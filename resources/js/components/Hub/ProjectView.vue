@@ -32,13 +32,13 @@
         <div class="col-6 py-0 px-0 text-right">
 
              <v-btn icon @click="pinPost">
-                      <v-icon style="font-size:25px; color: red;" v-if="this.$root.selectedPost.isPinned == 1">lar la-thumbtack</v-icon>
-                      <v-icon style="font-size:25px;" v-else>lar la-thumbtack</v-icon>
+                      <v-icon style="font-size:25px;" v-if="this.$root.selectedPost.isPinned == 1">lar la-thumbtack</v-icon>
+                      <v-icon style="font-size:25px;" v-else>las la-thumbtack</v-icon>
                     </v-btn>
             <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.pinned }}</span>
 
           <v-btn icon >
-                       <i :class="this.$root.selectedPost.isLiked == 1 ? 'las la-heart' : 'lar la-heart'" :style="this.$root.selectedPost.isLiked ? 'font-size:25px; color: red;' : 'font-size: 25px;'" @click="likePost"></i>
+                       <i :class="this.$root.selectedPost.isLiked == 1 ? 'las la-heart' : 'lar la-heart'" :style="this.$root.selectedPost.isLiked ? 'font-size:25px; color: #ff6666;' : 'font-size: 25px;'" @click="likePost"></i>
                     </v-btn>
              <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.likes }}</span>
         </div>
@@ -134,7 +134,7 @@
 
        <!-- comment list -->
          <div class="col-lg-6 offset-lg-3 px-2 px-md-3 scroller" style="background:#E1F0FC;font-family:BodyFont;min-height:200px;max-height:500px;overflow-y:auto;overflow-x:hidden;">
-         <div class="row" v-for="(comment,index) in comments" :key="index">
+         <div class="row">
            
             <div elevation-1 class="col-11 py-0 mt-2">
            <div class="row">
@@ -281,16 +281,9 @@
 
            </div>
 
-     
-
-   
-
-
       </div>
 
       <!-- ends -->
-
-     
 
  </div>
 </template>
@@ -303,7 +296,6 @@ export default {
   data () {
     return {
       post: '',
-      comments: [],
       is_reply: false,
       commentValue: '',
       commentRules: [
@@ -321,19 +313,9 @@ export default {
   },
 
   mounted () {
-        this.$root.selectedPost = [];
        this.fetchPost();
-       // this.fetchComments();
   },
   methods:{
-    fetchComments ($id) {
-      axios.get('/comments/' + $id)
-        .then((response) => {
-          // console.log(response);
-          this.comments = response.data.data;
-        })
-    },
-
      postComment () {
       if (this.commentValue != '') {
           let formData = new FormData();
@@ -652,7 +634,6 @@ export default {
           
       },
     fetchPost:function(){
-      console.log("I work here");
 
 
        this.loadingPost  = true;
@@ -666,8 +647,6 @@ export default {
                     let finalResult = JSON.parse(result);
                      
                       this.$root.selectedPost = finalResult;
-
-                      this.fetchComments(this.$root.selectedPost.id);
 
                        if(!this.$root.selectedPost.link){
 
@@ -689,9 +668,6 @@ export default {
           this.$root.LocalStore('post_data_' +  this.$route.params.post_id + this.$root.username,response.data.data);
         
            this.$root.selectedPost = response.data.data;
-
-           console.log(response.data.data);
-            this.fetchComments(response.data.data.id);
           
            if(!this.$root.selectedPost.link){
 

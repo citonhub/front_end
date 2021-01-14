@@ -5,7 +5,7 @@
        
         class="col-12 px-1 d-flex flex-row py-0 messageBox"
          :style="spaceSelected(source) ? 'align-items:center; justify-content:center; background:whitesmoke;' : 'align-items:center; justify-content:center;'" 
-         @click="openChat(source)" >
+         @click="openChat(source.space_id)" >
            
                    <div  class=" mr-2 py-3" v-if="source.type == 'Channel' || source.type == 'Team'"
                      :style="imageStyle(40,source,'channel')"></div> 
@@ -81,7 +81,7 @@ export default {
    },
     methods:{
       
-       openChat:function(space){
+       openChat:function(space_id){
 
            // handle random qoutes
 
@@ -96,9 +96,9 @@ export default {
       // ends
 
 
-          if(this.$root.selectedSpace.general_spaceId != space.space_id ){
+          if(this.$root.selectedSpace.general_spaceId != space_id ){
 
-             if(this.$root.TrackLastSubSpace.length != 0 && space.space_id == this.$root.TrackLastSubSpace[0]){
+             if(this.$root.TrackLastSubSpace.length != 0 && space_id == this.$root.TrackLastSubSpace[0]){
 
                      this.$router.push({ path: '/channels/' + this.$root.TrackLastSubSpace[1]  +'/content' });
               
@@ -113,9 +113,9 @@ export default {
 
                
 
-                this.$router.push({ path: '/channels/' + space.space_id +'/content' });
+                this.$router.push({ path: '/channels/' + space_id +'/content' });
               
-              this.$root.chatComponent.fetchMessages(space.space_id);
+              this.$root.chatComponent.fetchMessages(space_id);
               this.$root.chatComponent.messageIsDone = false;
            this.$root.chatComponent.chatIsOpen = true;
 
@@ -127,6 +127,7 @@ export default {
            
 
        },
+       
      
        generateMessageString: function(Lastmessage){
 

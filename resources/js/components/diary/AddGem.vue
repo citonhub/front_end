@@ -121,7 +121,7 @@
 
             <div
            
-              class="col-md-6 col-lg-4 px-1"
+              class="col-md-6 col-lg-4 "
             v-for="(element,index) in that.$root.noteContent.pages[selectedContentId].contents"
             :key="index"
           >
@@ -250,7 +250,7 @@
                       </div>
 
                        <div class="col-3 text-right py-1"  style="align-items:center;">
-                           <v-btn icon > <v-icon>las la-arrow-circle-right</v-icon></v-btn>
+                           <v-btn icon @click="goToProject(element)" > <v-icon>las la-arrow-circle-right</v-icon></v-btn>
                       </div>
                    </div>
 
@@ -373,7 +373,7 @@
 
           </div>
 
-           <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 px-1 px-md-2 text-center" v-if="progressvalue > 0" style="background:white;" >
+            <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 px-1 px-md-2 text-center" v-if="progressvalue > 0" style="background:white;" >
 
                <v-progress-linear color="#3C87CD" height="6"  :value="progressvalue" rounded v-if="progressvalue < 100">
 
@@ -393,6 +393,38 @@
                   </div>
              
          </div>
+
+
+          <!-- project session -->
+
+            <template  v-if="selectedContentType == 'project'">
+
+                 <div class="px-2">
+
+                    <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 d-flex flex-row flex-wrap px-1 px-md-2" style="align-items:center; background:white;">
+
+                    
+             <div>
+               <span style="font-size:13px;font-family:BodyFont:">Select a project</span>
+             </div>
+         <select  style="font-size:13px !important; "    v-model="selectedProject" class="browser-default custom-select">
+                 <option v-for="(option,index)  in projectArray" :value="option.project_slug" :key="index">{{ option.title}}</option>
+                     </select>
+
+                  </div>
+
+                   <div class="col-12 text-center" v-if="selectedProject">
+                           <v-btn small rounded color="#3C87CD"   :loading="loadingSendMsg"  @click="sendMessage" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+            <span style="color:white;text-transform:none;">Send</span> 
+           </v-btn>
+
+                 </div>
+
+                 </div>
+
+              </template>
+
+          <!-- ends -->
 
 
 
@@ -950,6 +982,7 @@ export default {
       audioBlob:'',
       mediaRecorder:null,
       audioChunks:[],
+      projectArray:[]
      
       }
     },
@@ -976,12 +1009,39 @@ export default {
      mounted(){
       this.$root.showMobileHub = false;
       this.$root.addDiaryContentComponent = this;
+      this.getAllProjects();
     },
     methods:{
       closeAddContentModel:function(){
 
          this.addNewContentModal = false;
 
+      },
+       goToProject:function(message){
+
+      this.$router.push({ path: '/board/projects/panel/' + message.project.project_slug });
+
+    },
+       getAllProjects:function(){
+         
+        
+             axios.get( '/fetch-personal-projects')
+      .then(response => {
+
+      if (response.status == 200) {
+
+       
+
+       this.projectArray = response.data.projects
+
+     }
+
+
+     })
+     .catch(error => {
+
+     })
+       
       },
        startrecord: function(){
 
@@ -1158,6 +1218,12 @@ export default {
           if(type == 'record'){
 
             this.startrecord();
+
+          }
+            
+          if(type == 'project'){
+
+            this.showShareProject = true;
 
           }
      this.selectedContentType = type
@@ -1821,6 +1887,17 @@ crophandler:function(e){
               formData.append('display_name','Voice Record');
         }
 
+
+         if(this.showShareProject == true){
+
+
+            formData.append('project_data',this.selectedProject);
+
+            this.attachment_type = 'project';
+
+
+        }
+
        
            
         
@@ -1871,6 +1948,8 @@ crophandler:function(e){
                 this.progressvalue = 0;
 
                 this.$root.AddModalIsUp = false;
+
+                this.$root.selectedDiary.updated = false;
                
             }
 

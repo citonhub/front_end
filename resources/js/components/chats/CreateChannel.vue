@@ -164,7 +164,7 @@ export default {
 
                      this.$root.sortChatList();
 
-                     this.$root.chatListComponent.openChat(response.data.space)
+                     this.$root.chatListComponent.openChat(response.data.space.space_id)
 
                   
 

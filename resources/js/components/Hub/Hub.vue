@@ -55,6 +55,8 @@
 
        <!-- ends -->
 
+        
+    <!-- post view content -->
        
         <div class=" col-12 scroller" style=" position:absolute; height:90%; top:10%; overflow-y:auto; padding-bottom:60px; padding-top:20px; " >
 
@@ -63,72 +65,8 @@
 
                    <div class="row">
                     
-
-          <div class="col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;" v-for="post in this.$root.posts" :key="post.id">
-
-             <div :style="imageStyle(190, post)" @click="showProject(post.id, post.post_id)">
-
-              <div class="pt-3 px-2  pl-3" style=" position:absolute; width:100%; height:35%; left:0; bottom:0%; border-radius:0px; border-bottom-left-radius:20px;
-          border-bottom-right-radius:20px; background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);">
-                
-                 <div class="row">
-                  <div class="col-8 py-0 my-0">
-                     <span   style="font-family:MediumFont; font-size:13px; color:white;" >{{ post.title }}</span>
-    
-                  </div>
-                   <div class="col-4 py-0 my-0 text-right">
-
-                      <i :class="tag.icon" style="font-size:25px; color:white;" v-for="(tag, i) in JSON.parse(post.tags)" :key="i"></i>
-
-                  </div>
-                </div>
-                 
-
-          </div>
-
-         </div>
-
-          <v-card class="py-1 px-1" style="position:absolute; width:94%; height:auto; left:3%; top:0; border-radius:0px; border-top-left-radius:20px;
-          border-top-right-radius:20px;">
-            
-            <div class="col-12 py-0 my-0 px-1 text-left">
-                <div class="row py-0 my-0">
                    
-                   <div class="col-10 py-0 my-0 d-flex flex-row" style="align-items:center;">
-                      
-                         <div  class="mr-1"  
-                           :style="imageStyleUser(30,post.user)"></div>
-                       
-                             <div    style="font-family:MediumFont; font-size:13px;" >{{post.user.username}}  <img :src="getUserLevel(post.user.points)" class="mx-1" height="22px"></div>
-                     
-                     
-                   </div>
-                   <div class="col-2 text-right py-0 my-0">
-                      <v-btn icon><v-icon style="font-size:25px;">las la-ellipsis-v</v-icon></v-btn>
-                   </div>
-                </div>
-            </div>
-          </v-card>
-
-          <div class="py-1 px-2" style="position:absolute; width:94%; height:auto; left:3%; top:100%;">
-            
-             <div class="row">
-                  <div class="col-12 py-0 my-0 text-right">
-                       
-                       <span class="d-inline-block mx-1" >
-                <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> 
-                <span style="font-family:MediumFont; font-size:12px; color:#000000;">{{ post.likes }}</span>
-            </span>
-
-             <span class="d-inline-block mx-1" >
-                <i class="las la-comment" style="font-size:20px;color:#3C87CD;" ></i> 
-                <span style="font-family:MediumFont; font-size:12px; color:#000000;">{{ post.comments }}</span>
-            </span>
-                  </div>   
-            </div>
-
-          </div>
-          </div>
+                   <post-view :fromProfile="false" :post="post" v-for="post in this.$root.posts" :key="post.id" ></post-view>
 
 
        
@@ -138,6 +76,8 @@
 
 
         </div>
+
+        <!-- ends -->
 
        
 
@@ -331,6 +271,10 @@ const ImageCropperBoard = () => import(
     /* webpackChunkName: "SideBar" */ '../dashboard/sideBar.vue'
   );
 
+  const PostView = () => import(
+    /* webpackChunkName: "PostView" */ './PostView.vue'
+  );
+
 
 export default {
      data () {
@@ -353,7 +297,8 @@ export default {
       addPage,
       ProjectView,
       ImageCropperBoard,
-      SideBar
+      SideBar,
+      PostView,
     },
     mounted(){
        
@@ -369,13 +314,7 @@ export default {
     },
 
     methods: {
-      showProject (id, postId) {
-        this.$router.push({ path: `/hub/post/${postId}` })
-        this.$root.currentPost = id
-        // this.project = project;
-         this.viewProjectModal = true;
-      },
-
+     
        fetchPost:function(){
 
           this.loadingPost = true;
@@ -518,38 +457,7 @@ export default {
       }
      },
 
-      imageStyle: function (width, data) {
-
-        if (data.image_extension == null) {
-          let styleString = "height: " + width +  "px; width: 94%;  position:absolute; left: 3%; border: 1px solid #c5c5c5;  background-repeat: no-repeat; border-radius: 20px; box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25); background-size: cover;";
-          
-          if (data.image_name == null || data.image_name == '0') {
-            styleString += 'background-color: white; background-image: url(imgs/background1.jpg);';
-          } else {
-            
-            if (data.image_name == 'default_1') {
-              styleString += 'background-color: white; background-image: url(/imgs/background3.jpg);';
-            }
-
-            if (data.image_name == 'default_2') {
-              styleString += 'background-color: white; background-image: url(/imgs/background1.jpg);';
-            }
-
-            if (data.image_name == 'default_3') {
-              styleString += 'background-color:white; background-image: url(/imgs/imgproj2.jpeg);';
-            }
-          }
-         
-          return styleString;
-        } else {
-          let styleString = "height: " + width +  "px; width: 94%; left: 3%;  position:absolute; border: 1px solid #c5c5c5;  background-repeat: no-repeat; border-radius: 20px; box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25); background-size: cover;";
-          
-         let imgLink = data.image_name + '.' + data.image_extension;
-          styleString +=' background-color:' + data.background_color   +   ';background-image:url(/imgs/posts/'  + imgLink  +  ');';
-         
-          return styleString;
-        }
-      },
+     
 
       closeAddPost:function(){
      this.$root.showAddNewPost = false;

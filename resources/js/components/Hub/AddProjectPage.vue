@@ -34,8 +34,10 @@
              <!-- select project -->
 
               <div class=" col-12 py-1 my-0  " style="font-family:BodyFont;">
+                 <v-chip :outlined="!postLink" @click="postLink = true" class="d-inline-block mr-1" color="#3C87CD" :style="postLink ? 'font-size:13px;cursor:pointer;color:white;' : 'font-size:13px;cursor:pointer;'">Add Link</v-chip>
+
                 <v-chip :outlined="postLink" @click="postLink = !postLink" class="d-inline-block mr-1" color="#3C87CD" :style="postLink ? 'font-size:13px;cursor:pointer;' : 'font-size:13px;cursor:pointer;color:white;'">Select Project</v-chip>
-                <v-chip :outlined="!postLink" @click="postLink = true" class="d-inline-block mr-1" color="#3C87CD" :style="postLink ? 'font-size:13px;cursor:pointer;color:white;' : 'font-size:13px;cursor:pointer;'">Add Link</v-chip>
+               
 
                 <v-text-field 
                 v-if="postLink" 
@@ -448,7 +450,7 @@ export default {
             addlink:false,
             select:true,
             addprojectlink:false,
-            postLink: false,
+            postLink: true,
             formState:false,
             post: {
               title: '',

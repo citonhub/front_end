@@ -19,7 +19,7 @@
    <div style="position:absolute; height:100%; width:70%; left:0;" >
 
      <div class="col-md-6 col-lg-3 pt-2" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
-        <sidebar></sidebar>
+        <side-bar></side-bar>
      </div>
 
    </div>
@@ -36,24 +36,24 @@
             <v-slide-x-reverse-transition>
 
      
-   <div class="col-12  py-0 px-0" style="position:fixed; left:0; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);" v-if="this.$root.showProfileEditModal">
+   <div class="col-12  py-0 px-0" style="position:fixed; left:0; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);"  @click="goBack" v-if="this.$root.showProfileEditModal">
 
    <div style="position:absolute; height:100%; width:100%; left:0;background:transparent;overflow-y:auto; overflow-x:hidden;"  >
    
 
       <!-- large and medium screens -->
 
-     <div class="col-lg-3 col-md-6 offset-lg-9 offset-md-6 pt-0 pb-3 scrollerAddProject px-md-2 px-0 " 
+     <div class="col-lg-3 col-md-6 offset-lg-9 offset-md-6 pt-0 pb-3 scroller  px-0 " 
      style=" height:100%; top:0%;  position:absolute; background:white;
      border:1px solid white;border-radius:0px;border-radius:0px;  overflow-y:auto;overflow-x:hidden;">
 
      <!-- header -->
                 
     
-     <div class="col-12 px-md-2 px-0 py-2 pt-0 fixed-top d-flex flex-row" style="border-top-left-radius:10px; border-top-right-radius:10px; left:0; position:sticky;background:white; top:0%; border-bottom:1px solid #c5c5c5;align-items:center;">
+     <div class="col-12 px-md-1 px-0 py-2 pt-0 fixed-top d-flex flex-row" style=" left:0; position:sticky;background:white; top:0%; border-bottom:1px solid #c5c5c5;align-items:center;">
            
-             <div class=" col-2 py-0 ">
-              <v-btn @click="goBack" icon >
+             <div class=" col-2 px-1 py-0 ">
+              <v-btn @click.stop="goBack" icon >
                       <v-icon>mdi mdi-close</v-icon>
                     </v-btn>
             </div>
@@ -104,24 +104,35 @@
 
             <div class="row">
 
+                 <template v-if="loadingProfile">
+
+                      <div  class="col-12 mt-4 text-center">
+
+                    <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
+
+                      </div>
+
+                 </template>
+
+                <template v-if="!loadingProfile">
+
+              
+
                     <div class="d-flex flex-row flex-wrap col-12 pb-2 text-center">
 
              <div class="d-flex flex-column py-0 pb-1 col-lg-6 offset-lg-3 " style="align-items:center;justify-content:center;">
 
-               <!--    <div    class="mb-2"
-         style="border-radius:50%;height:150px;width:150px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-         background-repeat: no-repeat; border:5px solid #3C87CD;">
-       </div> -->
+              
 
        <div class="mb-2"  
                    :style=" imageStyleUser(150,profileData)"
                  
-                   
+                      @click="showFullImage(profileData)"
                   ></div>
 
        
             <span style="font-family:HeaderFont;font-size:16px;">{{userData.name}}</span>
-            <span style="font-family:MediumFont;color:grey;font-size:14px;">{{userData.username}}</span>
+            <span style="font-family:MediumFont;color:grey;font-size:14px;">@{{userData.username}}</span>
 
              <div class="col-lg-8 col-md-8 py-0 my-0 d-flex" style="align-items:center;justify-content:center;">
 
@@ -173,21 +184,21 @@
          <div class="col-lg-4 py-0 my-0 px-1 d-flex" style="align-items:center;justify-content:center;">
 
                 <div class="col-6 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
-                         <span style="font-family:MediumFont;font-size:13px;color:#333333;" class="mx-1">{{profileData.connections}}</span> <span style="font-size:13px;font-family:BodyFont;">Following</span>
+                         <span style="font-family:MediumFont;font-size:13px;color:#333333;" class="mx-1">{{profileData.following}}</span> <span style="font-size:13px;font-family:BodyFont;">Following</span>
                 </div>
 
               
                 <div class="col-6 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
 
-                     <span style="font-family:MediumFont;font-size:13px;color:#333333;" class="mx-1">25k</span> <span style="font-size:13px;font-family:BodyFont;">Followers</span>
+                     <span style="font-family:MediumFont;font-size:13px;color:#333333;" class="mx-1">{{profileData.followers}}</span> <span style="font-size:13px;font-family:BodyFont;">Followers</span>
 
                 </div>
 
             </div>
 
             <div  class="col-lg-4 py-0 my-lg-1 px-1 d-flex text-center my-2" style="align-items:center;justify-content:center;">
-                <div style="font-family:BodyFont;font-size:13px;" class="mt-2">
-               {{profileData.about}}
+                <div style="font-family:BodyFont;font-size:13px;" class="mt-2" v-html="profileData.about">
+              
             </div>
             </div>
 
@@ -205,16 +216,27 @@
               <template v-else>
 
                  <div class="col-6 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
-                      <v-btn small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
+                      <v-btn small outlined rounded color="#3C87CD" :loading="loadingChat" @click="chatUser()" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
                        <span style="text-transform:capitalize;">Chat</span> 
                   </v-btn>
                 </div>
 
                 <div class="col-6 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
+                      
+                       <template v-if="profileData.following_user">
+                           <v-btn small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
+                       <span style="text-transform:capitalize;">following</span> 
+                  </v-btn>
 
-                     <v-btn small rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+                       </template>
+                       <template v-else>
+
+                          <v-btn small rounded color="#3C87CD" :loading="loadingFollowing" @click="followUser()" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
                        <span style="color:white;text-transform:capitalize;">follow</span> 
                   </v-btn>
+
+                       </template>
+                    
 
                 </div>
 
@@ -232,78 +254,53 @@
 
                <div class="row mt-3">
 
-                   <div class="col-lg-4 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox" style="height:200px;" >
-             <div   style="height:190px; position:absolute; width:94%; left:3%; border:1px solid #c5c5c5;
-          border-radius:20px;box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25);background: url(/imgs/background1.jpg);background-size:cover;">
-
-              <div class="pt-3 px-2  pl-3" style=" position:absolute; width:100%; height:35%; left:0; bottom:0%; border-radius:0px; border-bottom-left-radius:20px;
-          border-bottom-right-radius:20px; background: linear-gradient(180deg, rgba(60, 135, 205, 0.0053) 0%, rgba(0, 0, 0, 0.53) 100%);">
-                
-                 <div class="row">
-                  <div class="col-8 py-0 my-0">
-                     <span   style="font-family:MediumFont; font-size:13px; color:white;" >Python calculator</span>
-    
-                  </div>
-                   <div class="col-4 py-0 my-0 text-right">
-
-                      <i class="lab la-python" style="font-size:25px; color:white;" ></i>
-
-                     <i class="lab la-html5" style="font-size:25px; color:white;"></i>
-
-                  </div>
-                </div>
+                  <template v-if="loadingUserProjects">
                  
 
-          </div>
+                  <div  class="col-12 mt-4 text-center">
 
-         </div>
+                    <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
 
-          <v-card class="py-1 px-2" style="position:absolute; width:94%; height:auto; left:3%; top:0; border-radius:0px; border-top-left-radius:20px;
-          border-top-right-radius:20px;">
-            
-            <div class="col-12 py-0 my-0 text-left">
-                <div class="row py-0 my-0">
-                    <div class="col-2 py-0 my-0 d-flex px-0" style="align-items:center; justify-content:center;">
-                      <span  class="d-inline-block"  
-                             style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5; background-image:url(/imgs/img3.jpg);background-size:100%;border:1px solid transparent;"></span>
-                 
-                    </div>
-                   <div class="col-8 py-0 my-0 d-flex" style="align-items:center;">
-                       <div> 
-                             <span   class="d-inline-block"  style="font-family:MediumFont; font-size:13px;" >{{userData.name}}</span>
-                       </div>
+                      </div>
+                    
+                  </template>
+
+                  <template v-else>
+
                      
-                   </div>
-                   <div class="col-2 text-right py-0 my-0">
-                      <v-btn icon><v-icon style="font-size:25px;">las la-ellipsis-v</v-icon></v-btn>
-                   </div>
-                </div>
-            </div>
-          </v-card>
 
-          <div class="py-1 px-2" style="position:absolute; width:94%; height:auto; left:3%; top:100%;">
-            
-             <div class="row">
-                  <div class="col-12 py-0 my-0 text-right">
-                       
-                       <span class="d-inline-block mx-1" >
-                <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> 
-                <span style="font-family:MediumFont; font-size:12px; color:#000000;">231</span>
-            </span>
+                         <template v-if="userProjects.length > 0">
 
-             <span class="d-inline-block mx-1" >
-                <i class="las la-comment" style="font-size:20px;color:#3C87CD;" ></i> 
-                <span style="font-family:MediumFont; font-size:12px; color:#000000;">32</span>
-            </span>
-                  </div>   
-            </div>
+                           <post-view  :fromProfile="true" :post="post" v-for="(post,index) in userProjects" :key="index"></post-view>
 
-          </div>
-          </div>
+
+                     </template>
+
+                     <template v-else>
+
+                        <div  class="col-12 mt-4 text-center">
+
+                    <span style="font-size:13px;color:grey;font-family:BodyFont;">{{userData.username}} has no project yet</span>
+                      </div>
+
+                     </template>
+
+                    
+                    
+                    
+                  
+                      
+
+                  </template>
+
+                  
 
                </div>
 
              </div>
+
+
+              </template>
 
            
 
@@ -353,11 +350,95 @@
 
  <!-- ends -->
 
+
+ <!-- full image view -->
+
+
+   <div class="py-0 px-0" :style="'position:fixed; width:100%; height:100%; z-index:99999999999999999;background: ' + that.$root.baseImageColor + ';'" v-if="that.$root.showFullImage">
+
+   <div style="position:absolute; height:90%; top:5%; width:100%; left:0%; align-items:center; justify-content:center;" class="d-flex" >
+
+     <div class=" col-lg-6 px-1 pt-2 col-md-8  d-flex flex-column" :style="'height:100%;'" >
+
+          
+            <v-btn icon color="#ffffff" @click="closeImage" style="position:absolute;background:#3C87CD;top:4%; left:3%; z-index:990679797879;" 
+           class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
+
+           <!-- image view -->
+
+       <div class="col-12 py-0 my-0 px-0 d-flex scroller" style="position:absolute;  height:100%; left:0%; width:100%; overflow-y:auto; overflow-x:hidden; align-items:center; justify-content:center;">
+        
+            <img :src="that.$root.baseImageLink" style="height:auto; " width="100%">
+         
+       </div>
+              
+   <!-- ends -->
+
+      
+       
+     </div>
+
+   </div>
+
+ </div>
+
+ <!-- ends -->
+
+ <!-- project view -->
+
+
+  <div class="col-12  py-0 px-0" style="position:fixed; left:0; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);"  v-if="this.$root.showViewPost">
+
+   <div style="position:absolute; height:100%; width:100%; left:0;background:transparent;overflow-y:hidden; overflow-x:hidden;" class="d-flex flex-column"  >
+   
+
+      <!-- small,large and medium screens -->
+
+      <!-- close button -->
+    
+      <div class="text-right">
+       <v-btn icon @click.stop="close" color="#ffffff">
+                      <v-icon>mdi mdi-close</v-icon>
+                    </v-btn>
+      </div>
+      
+
+      <!-- ends -->
+
+     <div class="col-12 pt-0 pb-3 scrollerViewProject px-md-2 px-0" 
+     style="background:white; height:100%;
+     border:1px solid white;border-radius:0px;border-top-left-radius:10px;  overflow-y:auto;overflow-x:hidden;" >
+
+   
+      <!-- project view page -->
+      <div class="col-12  py-2 pt-0">
+
+       <project-view ></project-view>
+
+      </div>
+        
+
+      <!-- ends -->
+     </div>
+
+     <!-- ends -->
+
+   </div>   
+
+     </div>
+
+ <!-- ends -->
+
    </div>
 </template>
 
 <script>
 import '../../bootstraps/globalPackage'
+
+import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+
+
 const TopBar = () => import(
    /* webpackChunkName: "top-bar-profile" */ './TopBar.vue'
   );
@@ -370,18 +451,34 @@ const ImageCropperBoard = () => import(
     /* webpackChunkName: "imageCropperBoard" */ '../dashboard/ImageCropper.vue'
   );
 
+  const PostView = () => import(
+    /* webpackChunkName: "PostView" */ '../Hub/PostView.vue'
+  );
+
+ const ProjectView = () => import(
+    /* webpackChunkName: "ProjectView" */ '../Hub/ProjectView.vue'
+  );
+
+const SideBar = () => import(
+    /* webpackChunkName: "SideBar" */ '../dashboard/sideBar.vue'
+  );
 
 export default {
 
 components:{
 TopBar,
 EditProfile,
-ImageCropperBoard
+ImageCropperBoard,
+SideBar,
+PostView,
+ProjectView
 },
   mounted(){
       this.$root.showMobileHub = false;
    
      this.fetchProfileContent();
+
+     this.$root.profilePageComponent = this;
      
       
     },
@@ -390,12 +487,6 @@ ImageCropperBoard
 
         return{
              that:this,
-        projects:[
-           {id:1, type: 'Ecommerce Website'},
-            { id:2, type:'Social media website'}
-        ],
-
-       
         userData:[],
         profileData:[],
         xp:'',
@@ -406,10 +497,167 @@ ImageCropperBoard
        pic:'/imgs/junior.svg',
        pic1:'/imgs/newbie.svg',
        owner:false,
-       profileData:[],
+       loadingProfile: false,
+       loadingUserProjects: false,
+       loadingFollowing:false,
+       userProjects:[],
+       loadingChat:false,
         }
     },
     methods:{
+       followUser:function(){
+              this.$root.checkIfUserIsLoggedIn();
+              if(this.$root.checkauthroot == 'auth'){
+                 this.loadingFollowing = true;
+                axios.get( '/connect-user-'+ this.userData.username)
+      .then(response => {
+      
+      if (response.status == 200) {
+          
+           this.loadingFollowing = false;
+          this.profileData.following_user = true;
+          this.profileData.followers += 1
+          
+     }
+       
+     
+     })
+     .catch(error => {
+
+         this.loadingFollowing = false;
+
+         this.showAlert('Oops!','Something went wrong','error');
+    
+     }) 
+              }
+            
+         },
+      getUserProjects:function(){
+
+         this.loadingUserProjects = true;
+
+         axios.get('/fetch-user-posts/'+ this.userData.username)
+    .then(
+  response=>{
+
+    if(response.status == 200){
+     
+       this.userProjects = response.data.data;
+     
+        this.loadingUserProjects = false;
+    }
+  }
+   )
+   .catch(error => {
+
+          this.showAlert('Oops!','Unable to fetch user projects','error');
+
+     })
+
+         
+
+      },
+      showFullImage: function(data){
+
+         if(data.image_name){
+
+            this.$root.baseImageLink =  '/imgs/profile/'  + data.image_name + '.' + data.image_extension;
+
+             this.$root.baseImageColor =  data.background_color;
+
+               this.$router.push({ path:'/full-image-view'})
+
+         }
+
+        
+
+      },
+      chatUser:function(){
+
+         this.loadingChat = true;
+
+          axios.post( '/create-space',{
+                name: '',
+                limit: 2,
+                memberId: this.userData.id,
+                type: 'Direct'
+                  })
+          .then(response => {
+
+             if (response.status == 200) {
+
+              
+
+                  let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+                   storedChat.then((result)=>{
+
+                       if(result != null ){
+
+                           
+
+                          
+
+                    let finalResult = JSON.parse(result);
+
+                        let userSpace = finalResult.direct_messages.filter((space)=>{
+                          return space.space_id == response.data.space.space_id
+                        })
+
+                        if(userSpace.length > 0){
+
+
+                        }else{
+
+                          finalResult.direct_messages.unshift(response.data.space);
+
+                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+                     
+                   this.$root.ChatList = fullList;
+
+                     this.$root.sortChatList();
+
+                        }
+                      
+                         
+
+
+
+                      this.$root.autoOpenChat = true;
+
+                       this.$root.autoOpenChatId = response.data.space.space_id;
+
+                     this.$router.push({ path: '/channels' });
+
+                  
+
+                    
+
+                 }
+
+                   } )
+
+               
+            }
+
+          })
+          .catch(error => {
+             
+
+               this.loadingChat = false;
+
+              this.showAlert('Oops!','Unable to fetch user projects','error');
+
+
+          })
+
+
+        
+
+      },
       closeCropper:function(){
         this.$root.showImageCropper = false;
          window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
@@ -420,13 +668,80 @@ ImageCropperBoard
 
       },
 
+      showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
 
-fetchProfileContent(){
-axios.get('/fetch-profile-'+ this.$route.params.username)
-.then(
+          iziToast.info(
+        { 
+       title: title,
+       message: message,
+       timeout:2000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+        timeout:2000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+        timeout:2000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+        timeout:2000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       
+
+    },
+
+
+    fetchProfileContent(){
+       this.loadingProfile = true;
+    axios.get('/fetch-profile-'+ this.$route.params.username)
+    .then(
   response=>{
     if(response.status==200){
-      console.log('profile received!', response.data.user_data)
+     
       this.userData= response.data.user_data
       this.profileData=response.data.profile
     this.xp=this.profileData.points
@@ -436,16 +751,24 @@ axios.get('/fetch-profile-'+ this.$route.params.username)
    if(this.$route.params.username == this.$root.username){
        // this should be true
           this.owner=true;
-          console.log(this.$root.username)
-          console.log(this.$route.params.username)
+         
         }else if(this.$route.params.username =! this.$root.username){
           this.owner=false;
         }
-     console.log(this.owner)
+
+      this.loadingProfile = false;
+
+      this.getUserProjects();
+   
      
     }
   }
-)
+   )
+   .catch(error => {
+
+          this.showAlert('Oops!','Something went wrong','error');
+
+     })
 },
 
 calculateLevel(){
@@ -496,7 +819,14 @@ this.pic1='/imgs/expert.svg'}
 
 },
 
+  
+  closeImage:function(){
+    window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+  },
 
+ close:function(){
+    window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+  },
 
 goBack(){
     this.$router.push({
@@ -509,14 +839,14 @@ goBack(){
       
 
       if(data.background_color == null){
-        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:5px solid #3C87CD;";
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:5px solid #3C87CD;cursor:pointer;";
          
            styleString += 'background-color:#ffffff; border:5px solid #3C87CD;';
         
          
          return styleString;
       }else{
-        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:5px solid #3C87CD; ";
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:5px solid #3C87CD;cursor:pointer; ";
          let imgLink = data.image_name + '.' + data.image_extension;
          
             styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';

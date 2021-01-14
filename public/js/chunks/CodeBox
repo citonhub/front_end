@@ -321,7 +321,12 @@ var render = function() {
               _vm.topMargin +
               "%; right:3%;z-index:999;",
             attrs: { icon: "" },
-            on: { click: _vm.showCodeEditor }
+            on: {
+              click: function($event) {
+                $event.stopPropagation()
+                return _vm.showCodeEditor($event)
+              }
+            }
           },
           [
             _c("v-icon", { attrs: { color: "#ffffff" } }, [
