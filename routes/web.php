@@ -21,6 +21,7 @@ Route::get('/privacy-policy','PageController@privacy');
 Route::get('/terms-of-use','PageController@terms');
 Route::get('/contact-us','PageController@contact');
 Route::get('/link/{type}/{uniqueId}/{referral}','PageController@handelLink');
+Route::get('/beta', 'PageController@showBeta');
 
 
 
