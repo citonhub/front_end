@@ -115,13 +115,13 @@
                 </div>
                        </div>
                     </div>
-                    <div class="col-12 px-0 sideBar py-1 py-md-2">
+                    <div class="col-12 px-0 sideBar py-1 py-md-2"  :style="selectedTab == 'feedback' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''"  @click.stop="goToPage('feedback')">
                        <div class="row">
                          <div class="col-4 py-1 text-center">
-                  <v-icon style="font-size:30px;" color="#A4A4A5">las la-question-circle</v-icon>
+                  <v-icon style="font-size:30px;"  :color="selectedTab == 'feedback' ? '#3C87CD' : '#A4A4A5'">las la-question-circle</v-icon>
                 </div>
-                <div class="  py-1 col-8 d-flex" style="align-items:center; color:#A4A4A5;">
-                  <div style="font-family:MediumFont; font-size:14px;" >Help</div>
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'feedback' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
+                  <div style="font-family:MediumFont; font-size:14px;" >Feedback</div>
                 </div>
                        </div>
                     </div>
@@ -185,6 +185,7 @@ export default {
               
             }
 
+             
 
           if(this.$router.currentRoute.path.indexOf('wallet') >= 0){
                 
@@ -200,10 +201,17 @@ export default {
                this.selectedTab = 'settings';
 
                 this.$root.searchType = 'settings'
+           
+        }
+
+          if(this.$router.currentRoute.path.indexOf('feedback') >= 0){
+                
+               this.selectedTab = 'feedback';
+
+                this.$root.searchType = 'feedback'
 
               
             }
-
 
 
         },
@@ -213,6 +221,8 @@ export default {
        this.$router.push({ path: '/channels' });
 
        this.$root.showSideBar = false;
+        this.selectedTab = page;
+                this.$root.searchType = page;
         return;
            }
 
@@ -220,6 +230,18 @@ export default {
        this.$router.push({ path: '/hub' });
        
        this.$root.showSideBar = false;
+        this.selectedTab = page;
+                this.$root.searchType = page;
+       
+        return;
+           }
+
+            if(page == 'feedback'){
+       this.$router.push({ path: '/board/feedback' });
+       
+       this.$root.showSideBar = false;
+        this.selectedTab = page;
+                this.$root.searchType = page;
        
         return;
            }

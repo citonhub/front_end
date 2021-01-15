@@ -10,7 +10,7 @@ Vue.use(Vuex)
 
 //axios.defaults.baseURL = 'http://localhost:8000/api'
  axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
-
+ //axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
 const store = new Vuex.Store({
   state: {
     user: null
@@ -25,7 +25,7 @@ const store = new Vuex.Store({
 
     clearUserData () {
       localStorage.removeItem('user')
-      location.reload()
+      location.reload();
     }
   },
 
@@ -88,6 +88,7 @@ const SettingsMain = () => import(/* webpackChunkName: "SettingsMain" */ '../com
 
 // wallet routes
 const WalletInfo = () => import(/* webpackChunkName: "WalletInfo" */ '../components/Wallet/Info.vue');
+const Feedback=  () => import(/*webpackChunkName: "Feedback" */ '../components/dashboard/Feedback.vue')
 
 // notifications list
 const NotificationsList = () => import(/* webpackChunkName: "NotificationsList" */ '../components/notifications/List.vue');
@@ -134,6 +135,8 @@ const DiaryContent= () => import(/* webpackChunkName: "DiaryContent" */ '../comp
 const AddGem= () => import(/* webpackChunkName: "AddGem" */ '../components/diary/AddGem.vue');
 const GetDiary= () => import(/* webpackChunkName: "GetDiary" */ '../components/diary/GetDiary.vue');
 
+// feedback routes
+const FeedForm= () => import(/* webpackChunkName: "FeedForm" */ '../components/Feedback/FeedbackForm.vue')
 
 const routes = [
   { path: '/login', name: 'login', component: Login },
@@ -142,6 +145,7 @@ const routes = [
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
+ 
   {
     path:'/profile/:username',
      name:'ProfilePage', 
@@ -1211,6 +1215,20 @@ beforeEnter: (to, from, next) => {
      component: Board,
      redirect: '/board/projects',
     children: [
+//feedback
+
+{path:'feedback',
+ name:'Feedback',
+  component: Feedback,
+   redirect:'/board/feedback/feedback-form',
+
+children:[
+  {path:'/board/feedback/feedback-form',
+   name:'FeedbackForm',
+    component:FeedForm}
+]
+},
+
       {
         // projects
         path: 'projects',

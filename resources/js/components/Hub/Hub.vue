@@ -403,6 +403,13 @@ export default {
     },
     mounted(){
        
+        if(!this.$root.isLogged){
+
+            this.$root.checkIfUserIsLoggedIn();
+         return;
+        }
+     
+       
       this.fetchPost();
 
       this.setPath();

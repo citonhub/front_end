@@ -1256,6 +1256,12 @@ export default {
            }
        },
        controlChatPath:function(){
+       
+        if(!this.$root.isLogged){
+
+            this.$root.checkIfUserIsLoggedIn();
+         return;
+        }
 
             if(this.$root.autoOpenChat){
    

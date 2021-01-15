@@ -369,7 +369,7 @@ export default {
               this.showResend = false;
               this.timer = 30;
               this.setEmail();
-              this.showAlert(5000,'Mail Sent');
+               this.showAlert('Sent!','Mail has been re-sent','error')
 
 
             
@@ -377,7 +377,7 @@ export default {
             
           })
           .catch(error => {
-            this.showAlert(5000,'Failed- ' + error);
+            this.showAlert('Oops!','Something went wrong, please try again.','error')
               this.loading = false;
           })
     },
@@ -402,7 +402,11 @@ export default {
             
            if(finalResult[0]){
 
+                this.$root.LocalStore('is_forget_password',[false]);
+
              this.$router.push({ path: '/reset-password' });
+
+            
 
            }else{
 

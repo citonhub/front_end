@@ -964,7 +964,7 @@ export default {
       },
       openGuide(){
             this.$root.projectPanelComponent.showSideBar = false
-         this.$router.push({path: '/board/projects/panel/' + project.project_slug})
+         this.$router.push({path: '/board/projects/panel/' + this.$route.params.project_slug + '/guide'})
       }
   },
   

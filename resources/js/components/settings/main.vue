@@ -62,7 +62,7 @@
 
         <div class="col-12 text-center mt-3">
 
-             <v-btn x-small color="#3C87CD" style="color:white;text-transform:normal;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" >Logout</v-btn>
+             <v-btn small :loading="loadingLogout" @click="logout()" color="#3C87CD" style="color:white;text-transform:normal;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" >Logout</v-btn>
 
         </div>
         
@@ -76,9 +76,16 @@
 export default {
       data () {
       return {
-        notify:true
+        notify:true,
+        loadingLogout:false,
       }
     },
+    methods:{
+        logout:function(){
+            this.loadingLogout = true;
+             this.$store.dispatch('logout');
+        }
+    }
 }
 </script>
 <style scoped>

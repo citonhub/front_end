@@ -1,11 +1,13 @@
 <template>
-    <div class="col-lg-12" style="overflow-y: scroll;height:580px;width:1100px;">
-        <h1 class="h1 px-1 py-1 mt-4 mb-4" style="color:#3C87CD">Project Creation Guide</h1>
-        <nav class="col-lg-8" style=""><ul  class="d-flex col-lg-10" style="list-style:none;">
+    <div class="col-lg-12" style="overflow-y: scroll;height:100%;width:100%;">
+        <h1 class="h1 px-1 py-1 mt-4 mb-4 d-none" style="color:#3C87CD">Project Creation Guide</h1>
+
+          <h1 class=" px-1 py-1 ml-4  d-sm-none" style="color:#3C87CD; font-size:1.5rem;margin-top:30px;">Project Creation Guide</h1>
+        <nav class="col-lg-8 col-12 " style=""><ul  class="d-flex col-lg-10" style="list-style:none;">
             <li class="ml-4">Basics</li>
-          <a href="#node"> <li class="ml-4">Node</li></a> 
-         <a href="#php">   <li class="ml-4">PHP</li></a>
-           
+          <a href="#node"> <li class="ml-4 ">Node</li></a> 
+         <a href="#php">   <li class="ml-4 ">PHP</li></a>
+           <a href="#common"> <li class="ml-4">Common Errors</li> </a>
             </ul></nav>
         <div class="intro col-lg-6">
 <h2 class=" text-left px-1 py-1 " style="font-size:1.8rem;font-weight:500;">Introduction</h2>
@@ -37,7 +39,7 @@ As soon as you start you can access a live button which you can use to view your
             <h2 class=" text-left px-1 py-1 mb-4 " style="font-size:1.8rem;font-weight:500;">Building a static site with Nodejs</h2>
             <p class="here col-lg-6" >Here are answers to some questions you might have on hosting Front-end applications.</p>
 
-            <div class="steps col-lg-8">
+            <div class="steps col-lg-12">
                
                 <div class="step col-lg-10">
                     <h4>Step 1 </h4>
@@ -78,7 +80,7 @@ As soon as you start you can access a live button which you can use to view your
             <h2 class=" text-left px-1 py-1 mb-4 " style="font-size:1.8rem;font-weight:500;">Building a static site with PHP backend</h2>
             <p class="here col-lg-6" >Here are answers to some questions you might have on hosting Front-end applications.</p>
 
-            <div class="steps col-lg-8">
+            <div class="steps col-lg-12">
                
                 <div class="step col-lg-10">
                     <h4>Step 1 </h4>
@@ -94,23 +96,64 @@ As soon as you start you can access a live button which you can use to view your
                     
                 </div>
            
-<div class="step">
+<div class="step col-lg-12">
                     <h4>Step 2 </h4>
                      <p>Upload assets and incorporate in your project</p>  
                       <ul class="col-lg-12">
                           <li class="mb-2">Click on the + icon next to the type of asset you want. click on the upload box to searchthrough your device. select the asset and click the upload button.</li>
-                            <img src="/imgs/guide/file.png" alt="" class="col-lg-10"  style="width:390px;height:150px;">
+                            <img src="/imgs/guide/file.png" alt="" class="col-lg-12"  style="width:390px;height:150px;">
                           <li class="mb-2">To link the asset you place one the urls below wherever you want it to be. </li>
-                        <div class="links" v-for="link in php" :key="link.id">
+                       
+                      </ul>
+                       <div class="links col-lg-12 col-12" v-for="link in php" :key="link.id">
                          <h5>For {{link.type}}</h5>
-                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-5 py-0">{{link.link}}</p> 
+                        <p style="color:#3C87CD;height:25px;" class="col-lg-10 col-12 py-0">{{link.link}}</p> 
     
                          </div>
-                      </ul>
                 </div>
            
 
             </div>
+        </div>
+
+
+        <div class="common" id="common">
+
+ <h2 class=" text-left px-1 py-1 mb-4 " style="font-size:1.8rem;font-weight:500;">Common Errors</h2>
+
+            <div class="error">
+              <p class="err  text-danger">
+1. Framework code not working as it should.
+              </p>
+
+              <p class="solution text-success">
+                  Possible solution: Make sure you are bringing in framework via a CDN.
+              </p>
+            </div>
+            <div class="error">
+                 <p class="err  text-danger">
+2. PHP web app displaying error page.
+              </p>
+<figure class="col-lg-6">
+
+      <img class="col-lg-8" src="/imgs/guide/error.jpeg" alt="">
+
+      <figcaption>An example of what the error would look like</figcaption>
+</figure>
+            
+
+            
+
+              <p class="solution text-success">Possible Solution: Scroll down to check line of code with error and fix.</p>
+              <figure class="col-lg-6">
+
+      <img class="col-lg-8" src="/imgs/guide/check.jpeg" alt="">
+
+      <figcaption>In this example the error is due to wrong syntax on line 15.</figcaption>
+</figure>
+            </div>
+
+
         </div>
     </div>
 </template>

@@ -18,7 +18,7 @@
 <blockquote class="fill" style="font-family:BodyFont; font-size:25px; color:black;">People who are crazy enough to think they can change the world, are the ones who do.</blockquote>
 
  <p class="text-center" style="font-family:HeaderFont;font-size:25px;">
-   - Steve Jobs
+   - Rob Siltanen
  </p>
        </div>
 
@@ -228,7 +228,7 @@
 <blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">People who are crazy enough to think they can change the world, are the ones who do.</blockquote>
 
  <p class="text-center" style="font-family:HeaderFont;font-size:16px;">
-   - Steve Jobs
+   - Rob Siltanen
  </p>
        </div>
 

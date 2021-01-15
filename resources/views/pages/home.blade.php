@@ -19,7 +19,7 @@
     <meta name="msapplication-TileImage" content="imagesNew/icons/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#4495a2">
     <meta property="og:description" content="Teach, mentor, and connect with other developers" />
-    <meta property='twitter:title' content="Citonhub:Teach, mentor, and connect with other developers"/>
+    <meta property='twitter:title' content="CitonHub:Teach, mentor, and connect with other developers"/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 

@@ -252,4 +252,9 @@ class PageController extends Controller
 
       return view('pages.contact');
     }
+
+    public function showBeta()
+    {
+      return view('pages.beta');
+    }
 }
