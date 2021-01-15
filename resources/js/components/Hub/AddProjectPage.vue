@@ -49,7 +49,7 @@
                 dense
               
                 style="font-size:13px;"
-                :rules="requiredRule"
+                :rules="urlRule"
                  color="#3C87CD"
                  placeholder="paste here"
                  v-model="post.project_url">
@@ -251,6 +251,10 @@ export default {
         descriptionRule:[
          v => !!v || 'description is required',
            v => v.length <= 200 || 'description must be less than 200 characters'
+            ],
+            urlRule:[
+                  v => !!v || 'Project link is required',
+                  v =>  this.isURL(v) || "Link should be valid and secure"
             ],
             languageIcon:[
                {
@@ -470,6 +474,17 @@ export default {
          this.getAllProjects();
      },
     methods:{
+      isURL(str) {
+      let url;
+
+      try {
+        url = new URL(str);
+      } catch (_) {
+        return false;
+      }
+
+      return  url.protocol === "https:";
+    },
        displayTab() {
           this.addlink = !this.addlink
           this.select = !this.select

@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- chat area -->
-        <div class="col-lg-10 offset-lg-1 scroller px-md-2 px-1 py-1 " 
+        <div class="col-lg-10 offset-lg-1 scroller px-md-2 px-md-1 px-0  py-1 " 
       style="background:#E1F0FC;position:absolute;height:100%;top:0%;left:0;border:1px solid #E1F0FC;overflow-y:auto; overflow-x:hidden; " >
 
                <div class="row">
@@ -20,7 +20,7 @@
                   <v-card elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
                    
                     <div class="text-left my-0 py-0 d-flex flex-row">
-                         <span style="font-size:13px;font-weight:bold; ">{{comment.username}}</span>
+                         <span style="font-size:13px;font-weight:bold; cursor:pointer;" @click.stop="goToProfile(comment.username)">{{comment.username}}</span>
 
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(comment.created_at)}}</span> 
 
@@ -34,10 +34,10 @@
                 <span class="d-inline-block mx-1" >
                 
                  <v-btn icon class="d-inline-block"  v-if="comment.liked_by_user">
-                   <i class="las la-heart" style="font-size:20px;color:red;" ></i> </v-btn>
+                   <i class="las la-heart" style="font-size:20px;color:#ff6666;" ></i> </v-btn>
 
                  <v-btn icon class="d-inline-block"  v-else @click="likeComment(comment)">
-                    <i class="lar la-heart" style="font-size:20px;color:3C87CD;" ></i> </v-btn> 
+                    <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> </v-btn> 
                
                 <span style="font-family:BodyFont; font-size:12px; color:#000000;">{{comment.likes}}</span>
                 </span>
@@ -48,8 +48,7 @@
             <div elevation-1 class="col-11 py-0 offset-1" v-if="comment.username == that.$root.username">
            <div class="row">
              <div class="col-lg-9 col-md-10 py-1 offset-lg-3 offset-md-2 d-flex flex-row-reverse">
-                  <div  :style="imageStyleUser(30,comment)"
-                      ></div>
+                 
 
                   <v-card elevation-1 class="py-1 px-2 mr-2" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                       <span style="color:white;font-size:13px;" v-html="comment.content"></span>
@@ -63,10 +62,10 @@
 
                  
              </div>
-             <div style="padding-right:45px;" class="col-12 text-right py-0">
+             <div  class="col-12 text-right py-0">
                 <span class="d-inline-block mx-1" >
                   <v-btn icon class="d-inline-block"  v-if="comment.liked_by_user">
-                   <i class="las la-heart" style="font-size:20px;color:red;" ></i> </v-btn>
+                   <i class="las la-heart" style="font-size:20px;color:#ff6666;" ></i> </v-btn>
 
                  <v-btn icon class="d-inline-block"  v-else @click="likeComment(comment)">
                     <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> </v-btn>  
@@ -142,6 +141,10 @@ export default {
        this.$root.discussionComponent = this;
     },
     methods:{
+       goToProfile:function(username){
+        this.$root.selectedUsername = username;
+         this.$router.push({ path:'/profile-view/' + username})
+      },
        fetchComments(){
           axios.get('/fetch-challenge-comments/' + this.$route.params.challenge_id)
 
@@ -162,6 +165,8 @@ export default {
           })
        },
         saveComment:function(){
+
+           if(this.contentInWord.length == 0) return;
        this.loading = true;
      axios.post('/save-challenge-comment',{
       'duel_id':this.$route.params.challenge_id,

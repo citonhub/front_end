@@ -81,7 +81,13 @@ const Diary = () => import(/* webpackChunkName: "Diary" */ '../components/dashbo
 const Challenges = () => import(/* webpackChunkName: "Challenges" */ '../components/dashboard/Challenges.vue');
 const Wallet = () => import(/* webpackChunkName: "Wallet" */ '../components/dashboard/Wallet.vue');
 const Notifications = () => import(/* webpackChunkName: "Notifications" */ '../components/dashboard/Notifications.vue');
-  
+const Settings = () => import(/* webpackChunkName: "Settings" */ '../components/dashboard/Settings.vue');
+
+// settings routes
+const SettingsMain = () => import(/* webpackChunkName: "SettingsMain" */ '../components/settings/main.vue');
+
+// wallet routes
+const WalletInfo = () => import(/* webpackChunkName: "WalletInfo" */ '../components/Wallet/Info.vue');
 
 // notifications list
 const NotificationsList = () => import(/* webpackChunkName: "NotificationsList" */ '../components/notifications/List.vue');
@@ -98,6 +104,9 @@ const PanelLoader = () => import(/* webpackChunkName: "PanelLoader" */ '../compo
 const PanelSettings = () => import(/* webpackChunkName: "PanelSettings" */ '../components/projects/PanelSettings.vue');
 const AddWebroute= () => import(/* webpackChunkName: "AddWebroute" */ '../components/projects/AddWebroute.vue');
 const ProjectGuide = () => import(/* webpackChunkName: "ProjectGuide" */ '../components/projects/ProjectGuide.vue')
+
+
+
 // chats routes
 const Chats = () => import(/* webpackChunkName: "Chats" */ '../components/chats/Chats.vue');
 
@@ -204,6 +213,57 @@ beforeEnter: (to, from, next) => {
  next()
 }
 },
+  // full image view
+  { path: '/profile-view/:username',
+  name: 'ProfileViewPage',
+  meta: {
+   twModalView: true
+  },
+  beforeEnter: (to, from, next) => {
+   const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+  
+    
+   if(window.thisUserState != undefined){
+    thisUserState.$root.showViewPost = false;
+     
+     thisUserState.$root.showProfileView = true;
+    
+    }
+  
+   if (!twModalView) {
+     //
+     // For direct access
+     //
+     to.matched[0].components = {
+       default: ProfilePage,
+       modal: false
+     }
+   }
+  
+   if (twModalView) {
+
+       
+     //
+     // For twModalView access
+     //
+     if (from.matched.length > 1) {
+       // copy nested router
+       const childrenView = from.matched.slice(1, from.matched.length)
+       for (let view of childrenView) {
+         to.matched.push(view)
+       }
+     }
+     if (to.matched[0].components) {
+       // Rewrite components for `default`
+       to.matched[0].components.default = from.matched[0].components.default
+       // Rewrite components for `modal`
+       to.matched[0].components.modal = ProfilePage
+     }
+   }
+  
+   next()
+  }
+  },
    // full image view
    { path: '/full-image-view',
    name: 'FullImageView',
@@ -271,6 +331,7 @@ beforeEnter: (to, from, next) => {
         
         thisUserState.$root.showAddNewPost = false;
         thisUserState.$root.showViewPost = false;
+        thisUserState.$root.showProfileView = false;
        
        }
      
@@ -399,6 +460,7 @@ beforeEnter: (to, from, next) => {
           thisUserState.$root.chatComponent.messageIsDone = true;
           thisUserState.$root.chatComponent.imageCropperIsOpen = false;
           thisUserState.$root.chatComponent.chatShareIsOpen = false;
+          thisUserState.$root.showProfileView = false;
           thisUserState.selectedSpace = [];
           thisUserState.$root.chatComponent.chatbarContent = 'chat_list';
          }
@@ -438,6 +500,7 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
       thisUserState.$root.chatComponent.chatInnerSideBar = false;
       thisUserState.$root.chatComponent.chatIsOpen = true;
+      thisUserState.$root.showProfileView = false;
       thisUserState.$root.chatComponent.messageIsDone = true;
       
         
@@ -1288,6 +1351,18 @@ beforeEnter: (to, from, next) => {
         meta: {
           twModalView: true
         },
+        beforeEnter: (to, from, next) => {
+     
+          if(window.thisUserState != undefined){
+            
+            thisUserState.$root.showProfileView = false;
+    
+           
+           }
+         
+         
+          next()
+         },
         children:[
             { // list
             path: 'list',
@@ -1342,13 +1417,34 @@ beforeEnter: (to, from, next) => {
         // wallet
         path: 'wallet',
         component: Wallet,
-      
+        redirect:'/board/wallet/info',
         meta: {
           twModalView: true
         },
         children:[
            
-             
+          {
+            // info
+            path:'info',
+            component: WalletInfo
+          }
+        ]
+      },
+      {
+        // settings
+        path: 'settings',
+        component: Settings,
+        redirect:'/board/settings/main',
+        meta: {
+          twModalView: true
+        },
+        children:[
+           
+          {
+            // main
+            path:'main',
+            component: SettingsMain
+          }
         ]
       },
       {
@@ -1585,6 +1681,15 @@ const app = new Vue({
      profilePageComponent:undefined,
      autoOpenChat:false,
      autoOpenChatId:'',
+     postsSearch:[],
+     TopBarComponentHub:undefined,
+     projectViewComponent:undefined,
+     autoOpenPost:false,
+     autoOpenPostId:'',
+     showProfileView:false,
+     selectedUsername:'',
+     TopBarComponentChat:undefined,
+     TopBarComponentBoard:undefined,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -1872,7 +1977,8 @@ const app = new Vue({
       'about': userProfile.about,
       'Interests': userProfile.interestsArray,
       'connections': userProfile.connections,
-      'background_color': userProfile.background_color
+      'background_color': userProfile.background_color,
+      'unread': userProfile.unread,
       };
         
 
@@ -1974,6 +2080,198 @@ const app = new Vue({
       }
 
 
+      if(e.actionType == 'new_post'){
+
+
+        if(this.$root.hubComponents){
+         
+        
+          this.$root.posts.push(e.data);
+
+        
+
+        }
+
+       
+
+         }
+
+         if(e.actionType == 'post_liked'){
+
+        
+          if(this.$root.hubComponents){
+           
+          
+            this.$root.posts.map((post)=>{
+              if(post.id == e.data.hub_post_id){
+
+                 post.likes += 1;
+
+              }
+            });
+
+             if(this.$root.selectedPost){
+
+               if(this.$root.selectedPost.id == e.data.hub_post_id){
+
+                this.$root.selectedPost.likes += 1;
+
+               }
+
+             
+
+             }
+  
+          
+  
+          }
+  
+         
+  
+           }
+
+           if(e.actionType == 'post_pinned'){
+
+
+            if(this.$root.hubComponents){
+             
+                
+  
+               if(this.$root.selectedPost){
+  
+                if(this.$root.selectedPost.id == e.data.hub_post_id){
+
+                  this.$root.selectedPost.pinned += 1;
+  
+                 }
+  
+               }
+    
+            
+    
+            }
+    
+           
+    
+             }
+
+
+             if(e.actionType == 'post_comment'){
+
+
+              if(this.$root.hubComponents){
+
+
+                this.$root.posts.map((post)=>{
+                  if(post.id == e.data.hub_post_id){
+    
+                     post.comments += 1;
+    
+                  }
+                });
+               
+            
+    
+                 if(this.$root.selectedPost){
+    
+                  if(this.$root.selectedPost.id == e.data.hub_post_id){
+  
+                     this.$root.projectViewComponent.comments.unshift(e.data);
+                     this.$root.projectViewComponent.scrollToTop();
+    
+                   }
+    
+                 }
+      
+              
+      
+              }
+      
+             
+      
+               }
+
+
+               if(e.actionType == 'post_comment_like'){
+
+
+                if(this.$root.hubComponents){
+  
+             
+      
+                   if(this.$root.selectedPost){
+      
+                    if(this.$root.selectedPost.id == e.data.hub_post_id){
+    
+                       this.$root.projectViewComponent.comments.map((comment)=>{
+                         if(comment.id == e.data.id){
+
+                           comment.likes += 1;
+
+                         }
+                       });
+      
+                     }
+      
+                   }
+        
+                
+        
+                }
+        
+               
+        
+                 }
+
+                 if(e.actionType == 'new_direct_space'){
+
+                  let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+                  storedChat.then((result)=>{
+
+                      if(result != null ){
+
+
+                   let finalResult = JSON.parse(result);
+
+                       let userSpace = finalResult.direct_messages.filter((space)=>{
+                         return space.space_id == e.data.space.space_id
+                       })
+
+                       if(userSpace.length > 0){
+
+
+                       }else{
+
+                         finalResult.direct_messages.unshift(e.data.space);
+
+                         this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+                    let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+                    
+                  this.$root.ChatList = fullList;
+
+                    this.$root.sortChatList();
+
+                       }
+                   
+
+                }
+
+                  } )
+
+                 }
+
+                  if(e.actionType == 'message_delete'){
+
+
+                     this.deleteMessage(e.data)
+
+                 
+                 }
+ 
+
       if(e.actionType == 'challenge_comment'){
 
         if( this.$root.discussionComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
@@ -1986,6 +2284,56 @@ const app = new Vue({
         }
 
    }
+
+   if(e.actionType == 'challenge_comment_like'){
+
+    if( this.$root.discussionComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
+     
+    
+      this.$root.discussionComponent.comments.map((comment)=>{
+          if(comment.id == e.data.id){
+
+            comment.likes += 1;
+
+          }
+      });
+
+    
+
+    }
+
+      }    
+
+
+
+      if(e.actionType == 'new_challenge_participant'){
+
+        if( this.$root.challengePanelComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
+         
+        
+          this.$root.selectedChallenge.current_participant += 1;
+
+          this.$root.selectedChallenge.duel_participants.unshift(e.data);
+    
+        
+    
+        }
+    
+          }  
+
+          
+          if(e.actionType == 'challenge_started'){
+
+            if(this.$root.challengePanelComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
+             
+            
+              
+              this.$root.challengePanelComponent.reloadChallenge();
+            
+        
+            }
+        
+              }  
 
 
       })
@@ -2043,6 +2391,163 @@ const app = new Vue({
 
     }
        
+  },
+  handleResults(messageArray){
+
+    this.$root.returnedMessages = messageArray;
+
+     let intialCount = 0;
+
+     this.$root.returnedMessages.map((msg)=>{
+         msg.id = msg.message_id
+         msg.initialSize = 200
+         msg.index_count = intialCount++;
+
+
+
+     });
+
+ 
+
+
+
+   return  this.$root.returnedMessages ;
+
+},
+  deleteMessage:function(message){
+
+     // remove from database
+
+    
+     let ProcessedMessages = [];
+
+     let storedMsg = this.$root.getLocalStore('full_' + message.space_id + this.$root.username);
+
+     storedMsg.then((result)=>{
+
+        if(result != null){
+
+           let finalResult = JSON.parse(result);
+
+           ProcessedMessages = this.$root.handleResults(finalResult.messages);
+
+            let remainingMessages = finalResult.messages.filter((eachMessage)=>{
+                return eachMessage.message_id != message.message_id;
+            })
+
+           finalResult.messages = remainingMessages;
+
+            if( this.$root.selectedSpace.space_id == message.space_id){
+
+
+
+              this.$root.Messages = this.$root.handleResults(remainingMessages);
+
+        
+
+            }
+
+           
+
+          
+             this.$root.LocalStore('full_' +  message.space_id   + this.$root.username,finalResult);
+
+        }
+
+     })
+
+     // update chatlist, check if message deleted is a last message
+
+
+      
+
+   let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+    storedChat.then((result)=>{
+
+                if(result != null ){
+
+
+            let messageData = ProcessedMessages.filter((EachMessage)=>{
+              return EachMessage.message_id == message.message_id;
+              
+                })
+
+            messageData = messageData[0];
+
+
+
+             let finalResult = JSON.parse(result);
+               
+
+                   finalResult.channels.map((space)=>{
+  
+           if(space.space_id == messageData.space_id){
+
+            
+               
+                if(space.last_message[0].index_count == messageData.index_count ){
+
+                  
+
+                    space.last_message[0].deleted = true
+
+                   
+                }
+          
+           
+                 }
+
+                    });
+
+              finalResult.direct_messages.map((space)=>{
+                      if(space.space_id == messageData.space_id){
+
+                       
+               
+                if(space.last_message[0].index_count == messageData.index_count ){
+
+                   space.last_message[0].deleted = true
+
+                }
+          
+           
+                 }
+
+                });
+
+               finalResult.pet_spaces.map((space)=>{
+   
+             if(space.space_id == messageData.space_id){
+
+                 
+               
+                if(space.last_message[0].index_count == messageData.index_count ){
+
+                    space.last_message[0].deleted = true
+
+                }
+          
+           
+                 }
+
+                  });
+
+                   this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+              let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+              
+            this.$root.ChatList = fullList;
+
+               this.$root.sortChatList();
+
+
+          }
+
+            } )
+
+
   },
    sendLiveSignal:function(type){
 
@@ -2385,7 +2890,7 @@ handleSpaceData: function(returnData){
 },
  updateSpaceTracker: function(spaceId,message){
      
-  if(this.ChatList != undefined){
+  if(this.ChatList.length > 0){
    
     this.ChatList.map((space)=>{
          
@@ -2397,6 +2902,7 @@ handleSpaceData: function(returnData){
     });
 
     // save into local storage
+    
 
      this.baseChatList.channels.map((space)=>{
          

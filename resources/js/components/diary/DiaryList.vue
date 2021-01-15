@@ -36,12 +36,12 @@
            </div>
      <!-- ends -->
 
-      <template v-if="this.$root.TopBarComponent">
+      <template v-if="this.$root.TopBarComponentBoard">
 
 
         <!-- search area  -->
 
-        <template  v-if="this.$root.TopBarComponent.searchContent.length > 0">
+        <template  v-if="this.$root.TopBarComponentBoard.searchContent.length > 0">
 
 
 

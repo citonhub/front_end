@@ -1,5 +1,5 @@
 <template>
-    <div  style="position:fixed;height:100%;background:#F5F5FB; top:0; left:0; width:100%; z-index:999999999;">
+    <div  style="position:fixed;height:100%;background:#F5F5FB; top:0; left:0; width:100%; z-index:999999999;" >
 
         <!-- top bar -->
         <div class="col-12 py-0 fixed-top" style="position:sticky;width:100%;height:auto; ">
@@ -321,7 +321,7 @@
                             <!-- code editor -->
                             
                            
-                               <div v-if="chatIsOpen && chatInnerConent == 'code_editor'"  class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                               <div v-if="chatIsOpen && chatInnerConent == 'code_editor'"  class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                   <code-editor-chat></code-editor-chat>
                             </div>
 
@@ -331,7 +331,7 @@
 
                                <!-- channel invitation -->
 
-                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center " @click="goBack" style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center " @click="goBack" style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
                                   <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'"
@@ -342,7 +342,7 @@
 
                              <!-- image viewer -->
 
-                               <div  v-if="chatIsOpen && chatInnerConent == 'image_viewer'" class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerConent == 'image_viewer'" class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                   <image-viewer></image-viewer>
                             </div>
 
@@ -351,7 +351,7 @@
                               <!-- channel sidebar -->
 
 
-                               <div  v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" @click="goBack" style="overflow-x:hidden; background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" @click="goBack" style="overflow-x:hidden; background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                    <div style="position:absolute; height:100%; width:70%; left:30%;" >
 
                                     <div  @click.stop="chatInnerSideBar = true" class="scrollerinfo offset-lg-6" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
@@ -382,7 +382,7 @@
 
                          
 
-                            <div v-if="chatIsOpen && !chatInnerSideBar && liveSessionIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                            <div v-if="chatIsOpen && !chatInnerSideBar && liveSessionIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                       <!-- rtc screen -->
 
 
@@ -406,7 +406,7 @@
 
                                <!-- share -->
 
-                            <div  v-if="chatIsOpen && !chatInnerSideBar && chatShareIsOpen"  class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;"  >
+                            <div  v-if="chatIsOpen && !chatInnerSideBar && chatShareIsOpen"  class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;"  >
                                     <chat-share></chat-share>
                                </div>
 
@@ -414,7 +414,7 @@
 
                               <!-- crop image -->
 
-                            <div v-if="chatIsOpen && !chatInnerSideBar && imageCropperIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;">
+                            <div v-if="chatIsOpen && !chatInnerSideBar && imageCropperIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;">
                                     <image-cropper></image-cropper>
                                </div>
 
@@ -495,10 +495,10 @@
                 </DynamicScroller>
            </template>
 
-              <template v-if="that.$root.TopBarComponent">
+              <template v-if="that.$root.TopBarComponentChat">
                 
 
-                          <template v-if="that.$root.TopBarComponent.searchValue != ''">
+                          <template v-if="that.$root.TopBarComponentChat.searchValue != ''">
 
                              <DynamicScroller
     :items="this.$root.searchChatList"
@@ -775,6 +775,15 @@
 
                             <!-- ends -->
 
+                           <!-- chat more options -->
+
+                               <div  v-if="chatIsOpen && showMoreOptionsChat" @click="showMoreOptionsChat = false" class="col-12 py-0 px-0 d-flex" style="align-items:center; justify-content:center; background: rgba(27, 27, 30, 0.1); position:fixed; height:100%; top:0%;z-index:999999999999;" >
+                                  
+                                  <more-option-chat></more-option-chat>
+                            </div>
+
+                            <!-- ends -->
+
 
                               <!-- channel sidebar -->
 
@@ -894,6 +903,24 @@
        <!-- ends -->
 
 
+        <!-- profile View  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: #F5F5FB;" v-if="this.$root.showProfileView">
+
+  
+      
+      <profile-view :fromModal="true"></profile-view>
+   
+
+  
+
+ </div>
+
+
+ <!-- ends -->
+
+
     </div>
 </template>
 <script>
@@ -991,6 +1018,12 @@ import { VEmojiPicker } from 'v-emoji-picker';
     /* webpackChunkName: "SideBar" */ '../dashboard/sideBar.vue'
   );
 
+   const ProfileView = () => import(
+    /* webpackChunkName: "ProfileView" */ '../Profile/ProfilePage.vue'
+  );
+ const MoreOptionChat = () => import(
+    /* webpackChunkName: "MoreOptionChat" */ './MoreOptionChat.vue'
+  );
 export default {
      data () {
       return {
@@ -1051,7 +1084,8 @@ export default {
        searchValue:'',
        selectedQuoteId:0,
        showMoreOptions:false,
-       bottomIsVisible:false
+       bottomIsVisible:false,
+       showMoreOptionsChat:false,
      
       }
     },
@@ -1084,7 +1118,9 @@ export default {
         ImageCropper,
         MoreOptions,
         ReplyView,
-        SideBar
+        SideBar,
+        ProfileView,
+        MoreOptionChat
     },
      methods:{
      

@@ -105,12 +105,12 @@
 
     <div class="col-12 px-0 py-2 mt-2" style="position:absolute; bottom:0%;left:0;">
                
-                    <div class="col-12 px-0  mb-1 py-1 py-md-2 sideBar">
+                    <div class="col-12 px-0  mb-1 py-1 py-md-2 sideBar" @click.stop="goToPage('settings')" :style="selectedTab == 'settings' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''">
                        <div class="row">
                          <div class="col-4 py-1 text-center">
-                  <v-icon style="font-size:30px;" color="#A4A4A5">las la-cog</v-icon>
+                  <v-icon style="font-size:30px;" :color="selectedTab == 'settings' ? '#3C87CD' : '#A4A4A5'">las la-cog</v-icon>
                 </div>
-                <div class="  py-1 col-8 d-flex" style="align-items:center; color:#A4A4A5;">
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'settings' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
                   <div style="font-family:MediumFont; font-size:14px;" >Setings</div>
                 </div>
                        </div>
@@ -186,11 +186,20 @@ export default {
             }
 
 
-         if(this.$router.currentRoute.path.indexOf('wallet') >= 0){
+          if(this.$router.currentRoute.path.indexOf('wallet') >= 0){
                 
                this.selectedTab = 'wallet';
 
                 this.$root.searchType = 'wallet'
+
+              
+            }
+
+             if(this.$router.currentRoute.path.indexOf('settings') >= 0){
+                
+               this.selectedTab = 'settings';
+
+                this.$root.searchType = 'settings'
 
               
             }

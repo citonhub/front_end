@@ -345,15 +345,16 @@ methods:{
 
         
       },
-       
-       saveFileContent: function(){
+     saveFileContent:_.debounce(function () {
 
-          if(this.checkIfOwner()){
+
+            if(this.checkIfOwner()){
 
           }else{
             return;
           }
           this.loading = true;
+
       axios.post( '/save-code-content-project',{
                 project_slug: this.$route.params.project_slug,
                 file_id: this.$root.selectedFileId,
@@ -399,10 +400,13 @@ methods:{
             
           })
           .catch(error => {
-              this.showAlert(5000,'Failed- ' + error);
+              this.$root.projectPanelComponent.showAlert('Oops!','Unable to save changes','error');
               this.loading = false;
           })
-    },
+
+      }, 500),
+       
+  
     handleIndexFile:function(indexFile){
 
        axios.post( '/save-code-content-project',{

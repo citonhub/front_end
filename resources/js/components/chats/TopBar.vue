@@ -62,7 +62,7 @@ export default {
       }
     },
     mounted(){
-      this.$root.TopBarComponent = this;
+      this.$root.TopBarComponentChat = this;
     },
     methods:{
        goToNotification: function(){

@@ -32,11 +32,11 @@
 
  <!-- project list view -->
 
-     <template v-if="this.$root.TopBarComponent">
+     <template v-if="this.$root.TopBarComponentBoard">
 
          <!-- search session -->
            
-          <template  v-if="this.$root.TopBarComponent.searchContent.length > 0">
+          <template  v-if="this.$root.TopBarComponentBoard.searchContent.length > 0">
 
 
                <div class="col-md-10 offset-md-1 py-1 px-2 ">

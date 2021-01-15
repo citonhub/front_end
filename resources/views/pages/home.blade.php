@@ -80,14 +80,16 @@
    <div class="px-5 " style="width:80%;">
      <h1 style="font-family:HeaderFont;" class="mb-3">Teach, mentor, and connect with other developers</h1>
    
-     <p style="font-size:20px;color:grey;">CitonHub is where developers help each other grow.</p>
+     <p style="font-size:20px;color:grey;">Join other developers helping each other grow on CitonHub.</p>
 
      <div class="py-2 px-0 mt-3 col-12">
       <div class="row">
 
+      <a href="/dashboard#/sign-up" class="homeButton mx-3 px-5 py-3">Sign Up</a>
+      
       <a href="/dashboard#/login" class="homeButtonOutline mx-3 px-5 py-3">Login</a>
       
-       <a href="/dashboard#/sign-up" class="homeButton mx-3 px-5 py-3">Sign Up</a>
+       
      
       
       </div>
@@ -102,14 +104,16 @@
 
 <h5 style="font-family:HeaderFont;" class="mb-2">Teach, mentor, and connect with other developers</h5>
    
-   <p style="font-size:15px;color:grey;" class="px-4">CitonHub is where developers help each other grow.</p>
+   <p style="font-size:15px;color:grey;" class="px-4">Join other developers helping each other grow on CitonHub.</p>
 
     
       <div class="mt-3">
 
+      <a href="/dashboard#/sign-up" class="homeButton  px-4 py-2 mx-1" style="font-size:13px;">Sign Up</a>
+
       <a href="/dashboard#/login" class="homeButtonOutline  px-4 py-2 mx-1" style="font-size:13px;">Login</a>
 
-       <a href="/dashboard#/sign-up" class="homeButton  px-4 py-2 mx-1" style="font-size:13px;">Sign Up</a>
+      
      
        
       </div>

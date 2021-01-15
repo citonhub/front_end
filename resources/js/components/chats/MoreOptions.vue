@@ -90,7 +90,8 @@ export default {
 
           this.$root.is_reply = true;
           
-           this.$root.channelBottomComp.reFocusEditor();
+          
+            this.$root.bottomEditorValue.focus();
        },
        sendDeleteRequest:function(messageId){
           axios.post('/delete-message',{
@@ -129,7 +130,7 @@ export default {
 
                   finalResult.messages = remainingMessages;
 
-                   this.$root.Messages = remainingMessages;
+                   this.$root.Messages = this.$root.handleResults(remainingMessages);
 
                     this.$root.LocalStore('full_' +  message.space_id   + this.$root.username,finalResult);
 

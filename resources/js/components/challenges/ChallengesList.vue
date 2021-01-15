@@ -25,10 +25,10 @@
 
     <!-- project list view -->
 
-  <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 px-2  pb-1 pt-0   " v-if="this.$root.TopBarComponent">
+  <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 px-2  pb-1 pt-0   " v-if="this.$root.TopBarComponentBoard">
 
 
-      <template v-if="this.$root.TopBarComponent.searchContent.length > 0">
+      <template v-if="this.$root.TopBarComponentBoard.searchContent.length > 0">
 
          
 

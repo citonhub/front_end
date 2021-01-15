@@ -24,7 +24,7 @@
 
          </div>
 
-          <v-card class="py-1 px-1" style="position:absolute; width:94%; height:auto; left:3%; top:0; border-radius:0px; border-top-left-radius:20px;
+          <v-card class="py-1 px-1"   style="position:absolute; width:94%; height:auto; left:3%; top:0; border-radius:0px; border-top-left-radius:20px;
           border-top-right-radius:20px;">
             
             <div class="col-12 py-0 my-0 px-1 text-left">
@@ -32,15 +32,32 @@
                    
                    <div class="col-10 py-0 my-0 d-flex flex-row" style="align-items:center;">
                       
-                         <div  class="mr-1"  
+                         <div  class="mr-1"    @click="goToProfile(post.user.username)"
                            :style="imageStyleUser(30,post.user)"></div>
                        
-                             <div    style="font-family:MediumFont; font-size:13px;" >{{post.user.username}}  <img :src="getUserLevel(post.user.points)" class="mx-1" height="22px"></div>
+                             <div   @click="goToProfile(post.user.username)" style="font-family:MediumFont; font-size:13px;" >{{post.user.username}}  <img :src="getUserLevel(post.user.points)" class="mx-1" height="22px"></div>
                      
                      
                    </div>
-                   <div class="col-2 text-right py-0 my-0">
-                      <v-btn icon><v-icon style="font-size:25px;">las la-ellipsis-v</v-icon></v-btn>
+                   <div class="col-2 text-right py-0 my-0" >
+                      <v-btn icon :id="'activatorPost' + post.id" ><v-icon style="font-size:25px;">las la-ellipsis-v</v-icon></v-btn>
+
+                          <!-- more option -->
+
+                   <v-menu
+      absolute
+      :activator="'#activatorPost' + post.id"
+       style="z-index:99999999999999999999;"
+      
+      right
+      offset-y
+      
+    >
+    <more-options :post="post" :alertComponent="alertComponent" :fromProfile="fromProfile"></more-options>
+    </v-menu>
+                 
+                  <!-- ends -->
+
                    </div>
                 </div>
             </div>
@@ -68,21 +85,29 @@
     
 </template>
 <script>
+  const MoreOptions = () => import(
+    /* webpackChunkName: "MoreOptionsPost" */ './MoreOptions.vue'
+  );
+
 export default {
-    props:['post','fromProfile'],
+    props:['post','fromProfile','alertComponent'],
+    components:{
+     MoreOptions
+    },
      methods:{
+      
           imageStyleUser:function(dimension,data){
       
 
       if(data.background_color == null){
-        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;cursor:pointer;";
          
            styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
         
          
          return styleString;
       }else{
-        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;cursor:pointer; ";
          let imgLink = data.image_name + '.' + data.image_extension;
          
             styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
@@ -161,6 +186,10 @@ imageUrl +='/imgs/expert.svg'
         // this.project = project;
         
       },
+      goToProfile:function(username){
+        this.$root.selectedUsername = username;
+         this.$router.push({ path:'/profile-view/' + username})
+      }
 
      }
 }

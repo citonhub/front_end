@@ -1,5 +1,5 @@
 <template>
-   <div  style="position:fixed;height:100%;background:#F5F5FB; width:100%;">
+   <div data-app="true" class=" application application--light" style="position:fixed;height:100%;background:#F5F5FB; width:100%;">
 
          <!-- top bar -->
         <div class="col-12 py-0 fixed-top" style="position:sticky;width:100%;height:auto;z-index:999999999999999999; ">
@@ -271,7 +271,7 @@
 
                          <template v-if="userProjects.length > 0">
 
-                           <post-view  :fromProfile="true" :post="post" v-for="(post,index) in userProjects" :key="index"></post-view>
+                           <post-view :alertComponent="that" :fromProfile="true" :post="post" v-for="(post,index) in userProjects" :key="index"></post-view>
 
 
                      </template>
@@ -427,6 +427,28 @@
 
      </div>
 
+
+       <!-- share  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" @click="that.$root.showInvitation = false" v-if="this.$root.showInvitation">
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+
+   
+
+      
+      <invitation :infoText="this.$root.infoText"
+                                   :extraInfo="this.$root.extraInfo" :fromChat="false" :alertComponent="this.$root.alertComponent"></invitation>
+   
+
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
+
  <!-- ends -->
 
    </div>
@@ -463,24 +485,35 @@ const SideBar = () => import(
     /* webpackChunkName: "SideBar" */ '../dashboard/sideBar.vue'
   );
 
-export default {
+const Invitation = () => import(
+    /* webpackChunkName: "Invitation" */ '../chats/invitation.vue'
+  );
 
+export default {
+   props:['fromModal'],
 components:{
 TopBar,
 EditProfile,
 ImageCropperBoard,
 SideBar,
 PostView,
-ProjectView
+ProjectView,
+Invitation
 },
   mounted(){
       this.$root.showMobileHub = false;
-   
-     this.fetchProfileContent();
+  
+       if(this.$route.params.username){
+
+         this.mainUserName =  this.$route.params.username ;
+       
+       }else{
+         this.mainUserName =  this.$root.selectedUsername ;
+       }
+
+        this.fetchProfileContent();
 
      this.$root.profilePageComponent = this;
-     
-      
     },
 
     data(){
@@ -502,6 +535,7 @@ ProjectView
        loadingFollowing:false,
        userProjects:[],
        loadingChat:false,
+       mainUserName:''
         }
     },
     methods:{
@@ -625,13 +659,21 @@ ProjectView
                          
 
 
+                      if(this.fromModal){
 
-                      this.$root.autoOpenChat = true;
+                        this.$root.chatComponent.openChat(response.data.space.space_id,true)
+
+                      }else{
+
+                         this.$root.autoOpenChat = true;
 
                        this.$root.autoOpenChatId = response.data.space.space_id;
 
                      this.$router.push({ path: '/channels' });
 
+
+                      }
+                     
                   
 
                     
@@ -737,7 +779,7 @@ ProjectView
 
     fetchProfileContent(){
        this.loadingProfile = true;
-    axios.get('/fetch-profile-'+ this.$route.params.username)
+    axios.get('/fetch-profile-'+ this.mainUserName)
     .then(
   response=>{
     if(response.status==200){
@@ -748,11 +790,11 @@ ProjectView
     this.calculateLevel();
 
  
-   if(this.$route.params.username == this.$root.username){
+   if(this.mainUserName == this.$root.username){
        // this should be true
           this.owner=true;
          
-        }else if(this.$route.params.username =! this.$root.username){
+        }else if(this.mainUserName =! this.$root.username){
           this.owner=false;
         }
 

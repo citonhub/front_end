@@ -2,13 +2,13 @@
  <div class="row px-2">
       <!-- top bar -->
 
-      <div class="col-lg-6 offset-lg-3 py-1 fixed-top d-flex flex-row px-1"
+      <div class="col-lg-6 offset-lg-3 py-1 py-md-2 fixed-top d-flex flex-row px-0"
        style="position:sticky;background:white;z-index:99999999;border-bottom:1px solid #c5c5c5;top:0%;">
        
         <div class="col-6 py-0 px-0 d-flex flew-row" >
            <template v-if="this.$root.selectedPost.user">
 
-              <div    class="mr-2" :style="imageStyleUser(35,this.$root.selectedPost.user)"
+              <div  @click.stop="goToProfile(that.$root.selectedPost.user.username)"  class="mr-2" :style="imageStyleUser(35,this.$root.selectedPost.user)"
             >
      </div> 
      
@@ -19,8 +19,8 @@
 
              <template v-if="this.$root.selectedPost.user">
 
-           <span style="font-size:14px; font-family:MediumFont;">
-              {{this.$root.selectedPost.user.username}}   <img :src="getUserLevel(this.$root.selectedPost.user.points)" class="mx-1" height="22px">
+           <span style="font-size:14px; font-family:MediumFont;cursor:pointer;" @click.stop="goToProfile(that.$root.selectedPost.user.username)" >
+              {{this.$root.selectedPost.user.username}}   <img :src="getUserLevel(that.$root.selectedPost.user.points)" class="mx-1" height="22px">
             </span>
              </template>
                
@@ -32,13 +32,13 @@
         <div class="col-6 py-0 px-0 text-right">
 
              <v-btn icon @click="pinPost">
-                      <v-icon style="font-size:25px;" v-if="this.$root.selectedPost.isPinned == 1">lar la-thumbtack</v-icon>
+                      <v-icon style="font-size:25px;color:#3C87CD;" v-if="this.$root.selectedPost.isPinned == 1">lar la-thumbtack</v-icon>
                       <v-icon style="font-size:25px;" v-else>las la-thumbtack</v-icon>
                     </v-btn>
             <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.pinned }}</span>
 
-          <v-btn icon >
-                       <i :class="this.$root.selectedPost.isLiked == 1 ? 'las la-heart' : 'lar la-heart'" :style="this.$root.selectedPost.isLiked ? 'font-size:25px; color: #ff6666;' : 'font-size: 25px;'" @click="likePost"></i>
+          <v-btn icon @click="likePost" >
+                       <i :class="this.$root.selectedPost.isLiked == 1 ? 'las la-heart' : 'lar la-heart'" :style="this.$root.selectedPost.isLiked ? 'font-size:25px; color: #ff6666;' : 'font-size: 25px;'" ></i>
                     </v-btn>
              <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.likes }}</span>
         </div>
@@ -58,6 +58,16 @@
 
       <div  class="col-lg-6 offset-lg-3 py-2 px-0 pt-1 mt-1" style="height:450px;">
 
+
+
+        <template v-if="loadingPost">
+
+            <div  class="col-12 d-flex " style="position:absolute; height:100%; align-items:center; justify-content:center;  background:white;border:1px solid #c5c5c5; border-radius:7px;">
+               <v-progress-circular color="#3C87CD" indeterminate width="3" size="28" ></v-progress-circular>
+               </div>
+
+         </template>
+
          <template v-if="this.$root.selectedPost.link">
 
               <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" 
@@ -65,6 +75,8 @@
    class="col-12 px-0 py-0" style="position:absolute; height:100%;  background:white;border:1px solid #c5c5c5; border-radius:7px;"  ></iframe>
 
          </template>
+
+         
 
 
          <template v-else> 
@@ -110,14 +122,15 @@
       
 
       <!-- view source -->
-         <div class="col-lg-6 offset-lg-3 px-2 mt-3 text-right">
-        <v-btn v-if="this.$root.selectedPost.project" color="#3C87CD" small style="text-transform:none;color:white;font-size:12px;font-family:BodyFont;">View source <v-icon class="ml-1">mdi-launch mdi-18px</v-icon></v-btn>
+         <div class="col-lg-6 offset-lg-3 px-2 mt-3 text-center">
+        <v-btn v-if="this.$root.selectedPost.project" @click="goToProject(this.$root.selectedPost.project)" 
+        color="#3C87CD" outlined rounded  small style="text-transform:none;font-size:12px;font-family:MediumFont;">View source <v-icon class="ml-1">mdi-launch mdi-18px</v-icon></v-btn>
       </div>
       <!-- ends -->
 
 
        <!-- descriptions -->
-         <div class="col-lg-6 offset-lg-3 px-2 mt-3 text-left">
+         <div class="col-lg-6 offset-lg-3 px-1 mt-3 text-left">
           <p style="font-size:14px;font-family:BodyFont;">
              {{ this.$root.selectedPost.description }}
           </p>
@@ -128,87 +141,144 @@
 
        <!-- comments -->
          <div class="col-lg-6 offset-lg-3 px-1 mt-1 " style="border-bottom:1px solid #c5c5c5;">
-         <div style="font-size:16px; font-family:MediumFont;">Comments</div>
+         <div style="font-size:15px; color:grey; font-family:MediumFont;">Comments</div>
       </div>
       <!-- ends -->
 
        <!-- comment list -->
-         <div class="col-lg-6 offset-lg-3 px-2 px-md-3 scroller" style="background:#E1F0FC;font-family:BodyFont;min-height:200px;max-height:500px;overflow-y:auto;overflow-x:hidden;">
+         <div class="col-lg-6 offset-lg-3 px-0 px-md-3 commentScroller scroller" style="background:#E1F0FC;font-family:BodyFont;min-height:250px;max-height:300px;overflow-y:auto;overflow-x:hidden;">
          <div class="row">
            
-            <div elevation-1 class="col-11 py-0 mt-2">
+
+            <template v-if="loadingPostComments">
+              <div class="d-flex col-12" style="position:absolute; overflow-y:hidden; height:90%;left:0%;align-items:center; justify-content:center;">
+
+                  <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
+
+              </div>
+
+            </template>
+
+            <template v-else> 
+
+                
+                <template v-if="comments.length == 0">
+
+                   
+                    <div class="d-flex col-12" style="position:absolute; overflow-y:hidden; height:90%;left:0%;align-items:center; justify-content:center;">
+
+                <span style="font-size:13px;color:grey;font-family:BodyFont;">No comment yet, be the first to commment</span>
+
+              </div>
+
+
+                </template>
+
+                <template v-else>
+
+                   <div class="col-12 py-2 px-1"  v-for="(comment,index) in comments" :key="index" >
+
+                 
+           
+            <div elevation-1 class="col-11 py-0 " v-if="comment.username != that.$root.username">
            <div class="row">
-             <div class="col-lg-9 col-md-10   d-flex flex-row">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img2.jpg);background-size: cover;
-                           background-repeat: no-repeat; border:1px solid transparent;"></div>
+             <div class="col-lg-9 col-md-10 py-1  d-flex flex-row">
+                  <div  :style="imageStyleUser(30,comment)" @click.stop="goToProfile(comment.username)"
+                      ></div>
 
                   <v-card elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
+                   
+                    <div class="text-left my-0 py-0 d-flex flex-row">
+                         <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(comment.username)" >{{comment.username}}</span>
 
-                    <div class="d-flex" style="align-items:center;">
-                         <span style="font-size:13px;font-weight:bold; " class="mr-1">Bisola23</span>  <i class="las la-award" style="font-size:20px;color:#ef476f;" ></i> 
+                          <span style="font-size:11px; " class="ml-auto">{{checkDatereal(comment.created_at)}}</span> 
+
                   </div>
-                      <span style="font-size:13px;">Lorem ipsum dolor sit amet consectetur </span>
-                       <div class="text-right">
-                         <span style="font-size:11px; color:grey;">3:14 PM</span>
-                  </div>
+                    
+                      <span style="font-size:13px;" v-html="comment.content"></span>
+                      
                   </v-card> 
              </div>
              <div style="padding-left:45px;align-items:center;" class="col-12 py-0 d-flex">
                 <span class="d-inline-block mx-1" >
-                <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> 
-                <span style="font-family:MediumFont; font-size:12px; color:#000000;">231</span>
+                
+                 <v-btn icon class="d-inline-block"  v-if="comment.liked_by_user">
+                   <i class="las la-heart" style="font-size:20px;color:#ff6666;" ></i> </v-btn>
+
+                 <v-btn icon class="d-inline-block"  v-else @click="likeComment(comment)">
+                    <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> </v-btn> 
+               
+                <span style="font-family:BodyFont; font-size:12px; color:#000000;">{{comment.likes}}</span>
                 </span>
              </div>
            </div>
         </div>
 
-            <div elevation-1 class="col-11 py-0 offset-1">
+            <div elevation-1 class="col-11 py-0 offset-1" v-if="comment.username == that.$root.username">
            <div class="row">
-             <div class="col-lg-9 col-md-10  offset-lg-3 offset-md-2 d-flex flex-row-reverse">
-                  <div
-                     style="border-radius:50%;height:30px;width:30px;background-color:#c5c5c5;background-image:url(/imgs/img3.jpg);background-size: cover;
-  background-repeat: no-repeat; ;border:1px solid transparent;"></div>
+             <div class="col-lg-9 col-md-10 py-1 offset-lg-3 offset-md-2 d-flex flex-row-reverse">
+                  
 
                   <v-card elevation-1 class="py-1 px-2 mr-2" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
-                      <span style="color:white;font-size:13px;">Lorem ipsum dolor sit amet consectetur adipisicing elit.</span>
+                      <span style="color:white;font-size:13px;" v-html="comment.content"></span>
                        
                   <!-- time -->
                   <div class="text-right">
-                         <span style="color:white;font-size:11px; ">3:14 PM</span>
+                         <span style="color:white;font-size:11px; ">{{checkDatereal(comment.created_at)}}</span>
                   </div>
                   <!-- ends -->
                   </v-card> 
 
                  
              </div>
-             <div style="padding-right:45px;" class="col-12 text-right py-0">
+             <div  class="col-12 text-right py-0">
                 <span class="d-inline-block mx-1" >
-                <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> 
-                <span style="font-family:MediumFont; font-size:12px; color:#000000;">231</span>
+                  <v-btn icon class="d-inline-block"  v-if="comment.liked_by_user">
+                   <i class="las la-heart" style="font-size:20px;color:#ff6666;" ></i> </v-btn>
+
+                 <v-btn icon class="d-inline-block"  v-else @click="likeComment(comment)">
+                    <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> </v-btn>  
+                <span style="font-family:BodyFont; font-size:12px; color:#000000;">{{comment.likes}}</span>
                 </span>
              </div>
            </div>
         </div>
+
+
+        
+                </div>
+
+                  <div class="my-2 col-12">
+
+                </div>
+
+                </template>
+
+
+            
+            </template>
+          
+          
 
          </div>
         </div>
       <!-- ends -->
 
         <!-- comment textarea -->
-         <div class="col-lg-6 offset-lg-3 px-2 py-1" style="z-index:999999999999;background:white;font-family:BodyFont;">
+         <div class="col-lg-6 offset-lg-3 px-2 py-1 pb-2" style="z-index:999999999999;background:white;font-family:BodyFont;">
          
           <div class="row px-md-3 py-0">
-           <div class="col-12 py-1 my-0 d-flex px-md-2 px-2 flex-row" style="align-items:center; justify-content:center;">
-               <v-btn icon class="mx-md-1"><v-icon>las la-grin</v-icon> </v-btn>
-  
-                  <textarea ref="textBottom"  style="font-size:13px;"  placeholder="please,be nice"   :rules="commentRules" v-model="commentValue"></textarea>
+           <div class="col-12  my-0 d-flex px-md-2 px-2 flex-row" style="align-items:center; justify-content:center;">
+            
+                  <textarea ref="textBottom"  style="font-size:13px;"  placeholder="Please,be nice"    v-model="commentValue"></textarea>
 
-                  <v-btn icon class="mx-md-1" @click="postComment" @keyup.enter="postComment"><v-icon>las la-send</v-icon> </v-btn>
+                  <v-btn icon class="mx-md-1" @click="postComment" @keyup.enter="postComment" :loading="sendingComment" ><v-icon>las la-send</v-icon> </v-btn>
            </div>
             
           </div>
         </div>
+
+        
       <!-- ends  -->
 
        <!-- full loader -->
@@ -309,32 +379,172 @@ export default {
        loadingCode: false,
       showFullLoader:false,
        selectedLangId:'',
+       comments:[],
+       loadingPostComments:false,
+       sendingComment:false,
     }
   },
 
   mounted () {
+    this.$root.selectedPost = [];
        this.fetchPost();
+       this.$root.projectViewComponent = this;
+        this.$root.autoOpenPost = false;
   },
   methods:{
+     goToProfile:function(username){
+        this.$root.selectedUsername = username;
+         this.$router.push({ path:'/profile-view/' + username})
+      },
+     fetchComments:function(postId){
+
+        this.loadingPostComments = true;
+         axios.get( '/comments/' + postId)
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+           
+         this.comments = response.data.data;
+
+       
+        
+        this.loadingPostComments = false;
+     }
+       
+     
+     })
+     .catch(error => {
+      this.loadingPostComments = false;
+     }) 
+       
+        
+     },
+    goToProject:function(project){
+
+       this.$router.push({ path: '/board/projects/panel/' + project.project_slug });
+
+    },
+     imageStyleUser:function(dimension,data){
+      
+
+      if(data.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;cursor:pointer;";
+         
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
+        
+         
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;cursor:pointer; ";
+         let imgLink = data.image_name + '.' + data.image_extension;
+         
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+         
+         
+          return styleString;
+      }
+     },
+      likeComment:function(comment){
+          
+          if(comment.liked_by_user){
+          return;
+        }
+
+         axios.post( '/like-hub-post-comment',{
+            "comment_id": comment.id
+          })
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+         this.comments.map((eachcomment)=> {
+            if(eachcomment.id ==  comment.id){
+                eachcomment.liked_by_user = true;
+              eachcomment.likes = parseInt(eachcomment.likes)  + 1;
+            }
+         });
+        
+        
+     }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+      },
+      
+   checkDatereal: function(date){
+
+            var realTimeHour = moment(date).add(1,'hours');
+
+            var aWeekAgo = moment().subtract(7,'days');
+
+            if (moment(realTimeHour) >= aWeekAgo) {
+              return moment(realTimeHour).format("h:mm a");
+            }else{
+               return moment(realTimeHour).format("h:mm a");
+            }
+      },
+      scrollToTop:function(){
+
+
+        let container = document.querySelector('.commentScroller');
+
+         container.scrollTo(0,0)
+
+      },
+
      postComment () {
       if (this.commentValue != '') {
+
+         this.sendingComment = true;
+
           let formData = new FormData();
         formData.append('post_id', this.$root.selectedPost.id);
-        formData.append('comment', this.comment);
+        formData.append('comment', this.commentValue);
         formData.append('is_reply', this.is_reply);
 
         axios.post('/comment-hub-post', formData)
           .then((response) => {
             if (response.status == 201) {
-              console.log(response);
+
+                
+                this.comments.unshift(response.data.data);
+
+                this.scrollToTop();
+
+               this.sendingComment = false;
+
+                 this.commentValue = '';
+
+             this.$root.posts.map((post)=>{
+                  if(post.id == this.$root.selectedPost.id){
+    
+                     post.comments += 1;
+    
+                  }
+           });
+              
             }
           })
+          .catch(error => {
+
+             this.showAlert('Oops!', 'Something went wrong,please try again','error');
+    
+            }) 
       } else {
         this.showAlert('Oops!', 'Comment Cannot be empty','error');
       }
+
+
      },
 
      likePost(){
+
+         if(this.$root.selectedPost.isLiked) return;
       let formData = new FormData();
       formData.append('post_id', this.$root.selectedPost.id)
 
@@ -351,11 +561,25 @@ export default {
             this.$root.selectedPost.isLiked = 1
           }
         }
+
+        this.$root.selectedPost.likes += 1;
+
+         this.$root.posts.map((post)=>{
+                  if(post.id == this.$root.selectedPost.id){
+    
+                     post.likes += 1;
+    
+                  }
+           });
+
+     
       })
+
 
      },
 
      pinPost(){
+         if(this.$root.selectedPost.isPinned) return;
         let formData = new FormData();
         formData.append('post_id', this.$root.selectedPost.id)
 
@@ -372,6 +596,8 @@ export default {
             this.$root.selectedPost.isPinned = 1
           }
         }
+
+         this.$root.selectedPost.pinned += 1;
       })
 
      },
@@ -422,7 +648,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-       timeout:5000,
+       timeout:2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -437,7 +663,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-        timeout:5000,
+        timeout:2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -451,7 +677,7 @@ export default {
         { 
        title: title,
        message: message,
-        timeout:5000,
+        timeout:2000,
        zindex:'9999999999',
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
@@ -467,7 +693,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-        timeout:5000,
+        timeout:2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -653,9 +879,11 @@ export default {
                          this.showPage();
 
                        }
+
+                        this.fetchComments(this.$root.selectedPost.id)
                  
                    this.loadingPost  = false;
-              // this.updatePost();
+               this.updatePost();
 
                  }else{
             
@@ -675,6 +903,8 @@ export default {
 
                        }
 
+                        this.fetchComments(this.$root.selectedPost.id)
+
          this.loadingPost = false;
        
      }
@@ -689,6 +919,26 @@ export default {
 
                  }
             })
+
+    },
+    updatePost:function(){
+
+       axios.get( '/fetch-post/' + this.$route.params.post_id)
+      .then(response => {
+      
+      if (response.status == 200) {
+
+          this.$root.LocalStore('post_data_' +  this.$route.params.post_id + this.$root.username,response.data.data);
+        
+           this.$root.selectedPost = response.data.data;
+     }
+       
+     
+     })
+     .catch(error => {
+
+    
+     }) 
 
     },
      getUserLevel: function(points){
@@ -731,9 +981,9 @@ imageUrl +='/imgs/expert.svg'
 
 textarea {
     font-size:13px; 
-    background:whitesmoke;
+    background:white;
     width:100%; 
-    height: 60px;
+    height: 55px;
     max-height: 75px;
     padding: 6px 6px;
     resize:none; 
@@ -747,7 +997,7 @@ textarea {
   background-color: #3C87CD;
   outline: 1px solid #3C87CD;
 }
-.scrollerinfo::-webkit-scrollbar {
-  width: 6px;
+.scroller::-webkit-scrollbar {
+  width: 5px;
 }
 </style>

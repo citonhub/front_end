@@ -809,7 +809,7 @@
 
                   <!-- new connections -->
 
-         <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"  @click="handleNotify(notification)" 
+            <v-card tile flat class="col-12 py-1 px-0 my-0" :color="notification.status == 'unread' ? '#dbedf0' : '#ffffff'" style="border-bottom:1px solid #5fb0b9;"  @click="handleNotify(notification)" 
                     v-if="notification.type == 'new_connection'"   >
                 <div class="row py-0 my-0 px-2">
 

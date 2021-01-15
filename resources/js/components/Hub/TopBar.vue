@@ -12,10 +12,10 @@
                 <div class="row">
                   <div class="col-lg-6 col-md-5 pb-1 text-center">
                      <v-text-field
-                     @keyup="send"
+                    
                      v-model="query"
                 style="font-size:13px;"
-                
+                  @input="send()"
                  placeholder="Search for projects"
               filled
               dense
@@ -84,7 +84,7 @@
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
 
-             <input style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search for projects" class="py-2 px-2" type="search" @keyup="send"
+             <input style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search for projects" class="py-2 px-2" type="search"  @input="send()"
                      v-model="query">       
          
             </div>
@@ -93,7 +93,7 @@
 
                       <v-btn icon  @click="goToNotification"> 
                    <v-badge
-               :content="this.$root.authProfile.unread" 
+                    dot
                    v-if="this.$root.authProfile.unread > 0"
                 color="green">
                 <v-icon style="font-size:23px;color:#263238;" >las la-bell</v-icon>
@@ -135,7 +135,7 @@ export default {
       
     },
      mounted(){
-      this.$root.TopBarComponent = this;
+      this.$root.TopBarComponentHub = this;
     },
 
     methods: {
@@ -168,11 +168,8 @@ export default {
           return styleString;
       }
      },
-      send () {
-
-         setTimeout(() => {
-
-               this.$root.hubComponents.loadingPost = true;
+     send:_.debounce(function (query) {
+             this.$root.hubComponents.loadingSearchPost = true;
 
                 let queryString = '/' + this.query;
 
@@ -184,20 +181,20 @@ export default {
           .then((response) => {
             if (response.status == 200) {
              
-              this.$root.posts = response.data.data
+              this.$root.postsSearch = response.data.data
 
-                this.$root.hubComponents.loadingPost = false;
+                this.$root.hubComponents.loadingSearchPost = false;
             }
           })
            .catch(error => {
 
-         this.$root.hubComponents.loadingPost = false;
-         this.$root.hubComponents.showAlert('Oops!','Unable to fetch posts,please try again','error') 
+         this.$root.hubComponents.loadingSearchPost = false;
+         this.$root.hubComponents.showAlert('Oops!','Unable to fetch posts','error') 
      }) 
            
-         }, 1000);
-       
-      }
+
+      }, 500),
+     
     },
 
    
