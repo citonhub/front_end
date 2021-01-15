@@ -12,7 +12,7 @@
 <div class="message form-group col-lg-8 offset-lg-2 col-sm-8 offset-sm-2 col-10 offset-1">
    
    <v-textarea
-     
+     v-model="feedback"
     clearable
     clear-icon="las la-times-circle"
     filled
