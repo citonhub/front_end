@@ -227,7 +227,7 @@ export default {
            }
 
             if(page == 'feedback'){
-       this.$router.push({ path: '/feedback' });
+       this.$router.push({ path: '/board/feedback' });
        
        this.$root.showSideBar = false;
        

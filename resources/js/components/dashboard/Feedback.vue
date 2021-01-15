@@ -1,25 +1,33 @@
 <template>
-    <div class="top">
-      <div class="feed-header col-lg-12 " style="margin-top:100px; color:#3C87CD;">
-<h1 class="text-center" style="font-size:2.5rem;"> We would love to hear from you!</h1>
-<p class="text-center mt-4" style="color:black;">Please help us with feedback to improve citonhub.</p>
+<div>
+ 
+   <div class="col-12 px-1 px-md-2 py-0 mt-md-5  scroller" style="overflow-y:auto;overflow-x:hidden; position:absolute; width:100%;height:100%;">
+    <router-view></router-view>
+   </div>
 
-<div class="message form-group col-lg-4 offset-lg-4">
-   
-    <textarea name="" id="" cols="30" rows="10" placeholder="Citonhub is..." class="form-control" v-model="feedback"></textarea>
 </div>
-      </div>
-    </div>
+  
 </template>
 
-
-
 <script>
-export default {
-  data(){
-    return{
-      feedback:''
-    }
+ export default {
+    data () {
+      return {
+       
+      }
+    },
   }
-}
 </script>
+<style scoped>
+ .scroller::-webkit-scrollbar {
+  width: 5px;
+}
+
+ 
+.scroller::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+  
+  
+</style>

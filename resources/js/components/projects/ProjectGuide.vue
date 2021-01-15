@@ -1,5 +1,5 @@
 <template>
-    <div class="col-lg-12" style="overflow-y: scroll;height:580px;width:1100px;">
+    <div class="col-lg-12" style="overflow-y: scroll;height:100%;width:100%;">
         <h1 class="h1 px-1 py-1 mt-4 mb-4" style="color:#3C87CD">Project Creation Guide</h1>
         <nav class="col-lg-8" style=""><ul  class="d-flex col-lg-10" style="list-style:none;">
             <li class="ml-4">Basics</li>
