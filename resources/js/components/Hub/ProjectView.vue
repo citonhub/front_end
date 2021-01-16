@@ -148,7 +148,7 @@
 
 
        <!-- descriptions -->
-         <div class="col-lg-6 offset-lg-3 px-1 mt-1 text-left">
+         <div class="col-lg-6 offset-lg-3 px-1 mt-1 text-center">
           <div style="font-size:14px;font-family:BodyFont;">
              {{ this.$root.selectedPost.description }}
           </div>
