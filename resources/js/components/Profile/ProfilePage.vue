@@ -396,22 +396,17 @@
 
       <!-- close button -->
     
-      <div class="text-right">
-       <v-btn icon @click.stop="close" color="#ffffff">
-                      <v-icon>mdi mdi-close</v-icon>
-                    </v-btn>
-      </div>
-      
+     
 
       <!-- ends -->
 
-     <div class="col-12 pt-0 pb-3 scrollerViewProject px-md-2 px-0" 
+   <div class="col-12 pt-0 pb-0  px-0" 
      style="background:white; height:100%;
-     border:1px solid white;border-radius:0px;border-top-left-radius:10px;  overflow-y:auto;overflow-x:hidden;" >
+     border:1px solid white; overflow-y:auto;overflow-x:hidden;">
 
    
       <!-- project view page -->
-      <div class="col-12  py-2 pt-0">
+      <div class="col-12  py-0 pt-0">
 
        <project-view ></project-view>
 
