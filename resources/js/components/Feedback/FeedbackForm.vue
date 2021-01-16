@@ -29,7 +29,7 @@
 
  <div class="col-12 pt-0 mt-n2 text-center">
 
-        <v-btn small  color="#3C87CD" style="color:white;text-transform:normal;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" >Send</v-btn>
+        <v-btn @click="sendFeedback()" small :loading="loading" :disabled="feedback == ''" color="#3C87CD" style="color:white;text-transform:normal;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" >Send</v-btn>
 
  </div>
       </div>
@@ -39,11 +39,112 @@
 
 
 <script>
+import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+
 export default {
   data(){
     return{
-      feedback:''
+      feedback:'',
+      loading:false,
     }
+  },
+  methods:{
+    sendFeedback:function(){
+      this.loading = true;
+        axios.post( '/send-feedback',{
+          message: this.feedback
+        })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+       
+        
+         this.showAlert('Thanks!','You message has been sent','success');
+
+         this.loading = false;
+
+         this.feedback = '';
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+         this.showAlert('Oops!','Something went wrong, please try again','error');
+
+        this.loading = false;
+       
+    
+     }) 
+    },
+    showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+       message: message,
+       timeout:2000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+        timeout:2000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+        timeout:2000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+        timeout:2000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       
+
+    },
   }
 }
 </script>

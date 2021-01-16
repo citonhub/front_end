@@ -48,6 +48,7 @@
                <DynamicScroller
     :items="this.$root.ChatList"
      :keyField="'space_id'"
+     v-if="this.$root.ChatList.length > 0"
     :min-item-size="36"
     ref="ChatContainer"
     :buffer="5000"
@@ -72,6 +73,21 @@
              </template>
 
                 </DynamicScroller>
+
+                <div v-else class="col-12 px-5 text-center d-flex flex-column chatListScroller" 
+       style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:100px;">
+
+                    <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
+                       Someday, this place would be filled with alot of memories.
+                    </div>
+
+                     <div>
+                          <v-btn small color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                     </div>
+
+                     
+
+                </div>
              
            </template>
 
@@ -470,6 +486,7 @@
     :items="this.$root.ChatList"
      :keyField="'space_id'"
     :min-item-size="36"
+    v-if="this.$root.ChatList.length > 0"
     ref="ChatContainersmall"
     :buffer="5000"
     id="ChatContainersmall"
@@ -493,6 +510,21 @@
              </template>
 
                 </DynamicScroller>
+
+                <div v-else class="col-12 px-3 text-center d-flex flex-column " 
+          style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto;align-items:center;justify-content:center;" >
+
+                    <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
+                       Someday, this place would be filled with alot of memories.
+                    </div>
+
+                     <div>
+                          <v-btn small color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                     </div>
+
+                     
+
+                </div>
            </template>
 
               <template v-if="that.$root.TopBarComponentChat">
@@ -1195,7 +1227,7 @@ export default {
     setShareLink:function(){
 
       this.$root.shareText = 'Join ' + this.$root.selectedSpace.name +  ' on Citonhub';
-       this.$root.shareLink =   'https://www.citonhub.com/link/space/'+ this.$route.params.spaceId;
+       this.$root.shareLink =   'https://www.citonhub.com/link/channel/'+ this.$route.params.spaceId;
 
     },
         selectEmoji(emoji) {

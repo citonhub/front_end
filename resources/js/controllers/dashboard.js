@@ -25,6 +25,7 @@ const store = new Vuex.Store({
 
     clearUserData () {
       localStorage.removeItem('user')
+      thisUserState.$router.push({ path: '/hub' });
       location.reload();
     }
   },
@@ -1708,6 +1709,8 @@ const app = new Vue({
      selectedUsername:'',
      TopBarComponentChat:undefined,
      TopBarComponentBoard:undefined,
+     ShowappInstaller:false,
+     deferredPrompt:'',
      },
      mounted: function () {
       window.thisUserState = this;
@@ -1716,6 +1719,7 @@ const app = new Vue({
         this.fetchUserDetails();
        }
       this.connectToChannel();
+      this.checkPWA();
     },
     computed: {
       ...mapGetters([
@@ -1869,7 +1873,24 @@ const app = new Vue({
     methods:{
 
       
-        
+      checkPWA: function(){
+          
+         
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+          // Prevent the mini-infobar from appearing on mobile
+          e.preventDefault();
+          // Stash the event so it can be triggered later.
+           this.deferredPrompt = e;
+          // Update UI notify the user they can install the PWA
+          this.showInstallPromotion();
+        });
+                   
+              },
+              
+              showInstallPromotion:function(){
+                this.ShowappInstaller = true;
+             },
       // user device tracker
       checkUserDevice: function(){
          

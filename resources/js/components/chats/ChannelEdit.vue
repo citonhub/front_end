@@ -28,7 +28,7 @@
 
               <div class="col-12 py-2 my-0 px-2">
                  <div>
-                     <span style="font-size:13px;"> {{ $t('space.space_image') }}</span>
+                     <span style="font-size:13px;"> Channel profile image</span>
                  </div>
              
               <v-row>

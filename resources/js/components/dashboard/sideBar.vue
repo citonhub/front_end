@@ -18,7 +18,7 @@
   </div>
      
 
-    <div class="col-12  py-2 px-0">
+    <div class="col-12  py-2 pt-md-2  pt-0 px-0">
     
 
       <div class="row px-0">
@@ -93,6 +93,15 @@
                 </div>
           </div>
 
+          
+            <!-- PWA installer -->
+
+           <div class="col-12 text-center" v-if="this.$root.ShowappInstaller">
+                <button  @click="installApp()" class="homeButton mx-2 px-3 py-2" style="border-radius:20px;font-family:MediumFont;font-size:13px;">Use App</button>
+          </div>
+
+           <!-- ends -->
+
 
           
 
@@ -141,6 +150,23 @@ export default {
       this.setPage();
     },
     methods:{
+      installApp:function(){
+        
+                // Hide the app provided install promotion
+            this.$root.ShowappInstaller = false;
+          // Show the install prompt
+           this.$root.deferredPrompt.prompt();
+          // Wait for the user to respond to the prompt
+           this.$root.deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the install prompt');
+            } else {
+              console.log('User dismissed the install prompt');
+            }
+          });
+        
+
+              },
         setPage:function(){
 
              if(this.$router.currentRoute.path.indexOf('projects') >= 0){
