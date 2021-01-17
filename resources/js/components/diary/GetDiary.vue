@@ -1,5 +1,5 @@
 <template>
-    <v-app style="background:transparent;font-family:BodyFont;" class="px-0">
+    <div style="background:transparent;font-family:BodyFont;" class="px-0">
   
   
        <div class="col-lg-10 offset-lg-1 py-1 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky;z-index:9999999999;background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
@@ -31,7 +31,7 @@
    </div>
 
 
-        <div class="col-12 px-0">
+        <v-app style="background:transparent;font-family:BodyFont; " class="col-12 px-0">
            
               <v-form class="col-lg-8 offset-lg-2 py-1 col-md-10 offset-md-1 px-2" v-model="formState" ref="diaryForm">
 
@@ -204,9 +204,9 @@
 
       
            
-       </div>
+       </v-app>
         
-    </v-app>
+    </div>
 </template>
 <script>
 

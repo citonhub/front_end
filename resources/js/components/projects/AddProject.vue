@@ -1,5 +1,5 @@
 <template>
-<v-app style="background:transparent;" class="px-0" >
+<div style="background:transparent;" class="px-0" >
 
     <!-- spacer -->
     <div class="my-lg-3 my-md-3 py-0 py-md-2 col-12 " style="background:#F5F5FB;">
@@ -39,7 +39,7 @@
 
    <div class="col-lg-8 offset-lg-2 py-1 col-md-10 offset-md-1 px-4 px-md-2 ">
 
-      <div class="row text-center">
+      <v-app style="background:transparent;font-family:BodyFont; " class="row text-center">
          
            <div class="col-lg-6 py-1 my-0 px-2">
               <v-text-field
@@ -88,11 +88,11 @@
              
              </div>
      
-      </div>
+      </v-app>
 
   </div>
 
-</v-app>
+</div>
   
 </template>
 

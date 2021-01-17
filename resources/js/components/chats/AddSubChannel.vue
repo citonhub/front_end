@@ -1,5 +1,5 @@
 <template>
-    <v-app style="background:transparent;">
+    <div style="background:transparent;">
    <div class="col-12 py-1 my-0 ">
     <div class="row">
         <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky; background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
@@ -22,7 +22,7 @@
 
 
          <!-- edit space form -->
-      <div class="col-12 py-1 my-0" >
+      <v-app style="background:transparent;font-family:BodyFont; " class="col-12 py-1 my-0" >
          <v-form class="row my-2 py-2 px-2 " style="font-family:BodyFont;" ref="subspace" v-model="formstate">
 
 
@@ -95,7 +95,7 @@
             
               
           </v-form>
-        </div>
+        </v-app>
 
        <!-- ends -->
 
@@ -106,7 +106,7 @@
     </div>
    </div>
 
-  </v-app>
+  </div>
 </template>
 <script>
 export default {

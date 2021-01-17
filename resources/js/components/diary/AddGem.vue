@@ -1,8 +1,8 @@
 <template>
-    <v-app style="background:transparent;font-size:BodyFont;">
+    <div style="background:transparent;font-size:BodyFont;">
         <div class="col-12 px-3 px-md-2 scroller" style="position:absolute;height:95%;top:0%;left:0%;overflow-y:auto;overflow-x:hidden;padding-bottom:150px !important;">
         
-        <div class="row">
+        <v-app style="background:transparent;font-family:BodyFont; " class="row">
 
             <div class="col-md-6 offset-md-1 py-0 my-0 pl-md-3 text-left">
           <h5 style="font-size:18px;" class="d-md-block d-none"> Make a Note</h5>
@@ -270,7 +270,7 @@
     </template>
 
         
-        </div>   
+        </v-app>   
       </div>
 
        <!-- add content -->
@@ -729,7 +729,7 @@
 
 
  <!-- ends -->
-    </v-app>
+    </div>
 </template>
 <script>
 
