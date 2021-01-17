@@ -38,13 +38,13 @@ export default {
         languageCat:[],
         TableName:'',
          Rule:[
-             v => !!v || 'Table Name is required',
+             v => !!v || 'Oh! you missed this.',
            v => v.length < 30 || 'Table Name must be less than 30 characters',
             v => (v.split(' ').length <= 1) || 'no one space allowed',
              v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
          ],
           requiredRule: [
-         v => !!v || 'This feild is required',
+         v => !!v || 'Oh! you missed this.',
         ],
          loading:false,
          formstate:false,

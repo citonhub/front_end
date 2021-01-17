@@ -120,7 +120,7 @@
                   <v-icon style="font-size:30px;" :color="selectedTab == 'settings' ? '#3C87CD' : '#A4A4A5'">las la-cog</v-icon>
                 </div>
                 <div class="  py-1 col-8 d-flex" :style="selectedTab == 'settings' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div style="font-family:MediumFont; font-size:14px;" >Setings</div>
+                  <div style="font-family:MediumFont; font-size:14px;" >Settings</div>
                 </div>
                        </div>
                     </div>

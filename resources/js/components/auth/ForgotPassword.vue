@@ -209,7 +209,7 @@ export default {
         emailExist:false,
        email:'',
         emailRule: [
-            v => !!v || 'Oh!, you miss this.',
+            v => !!v || 'Oh! you missed this.',
              v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
             ],
       }

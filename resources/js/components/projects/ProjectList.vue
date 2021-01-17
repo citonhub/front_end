@@ -13,20 +13,31 @@
           <h5>Projects</h5>
         </div>
          <div class="col-6  py-0 my-0 text-right">
-           <v-btn small rounded @click="addProject" color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+            <template v-if="this.$root.projectList.user_projects">
+
+               <v-btn small v-if="this.$root.projectList.user_projects.length != 0 || this.$root.projectList.contributor_projects.length != 0 
+     || this.$root.projectList.pinned_projects.length != 0" rounded @click="addProject" color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
              <v-icon style="font-size:20px;">las la-plus</v-icon> <span style="text-transform:none;">Create a project</span> 
            </v-btn>
+
+            </template>
+          
         </div>
       </div>
    </div>
 
    <!-- fab for smaller screen -->
+  <template v-if="this.$root.projectList.user_projects">
 
-    <v-btn  fab color="#3C87CD" @click="addProject"  class="d-md-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
+     <v-btn v-if="this.$root.projectList.user_projects.length != 0 || this.$root.projectList.contributor_projects.length != 0 
+     || this.$root.projectList.pinned_projects.length != 0"  fab color="#3C87CD" @click="addProject"  class="d-md-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
 
      </v-btn>
+
+  </template>
+   
 
 <!-- ends -->
 
@@ -112,8 +123,7 @@
 
 
          <div class="mb-3 px-3" style="font-size:13px;color:black;font-family:BodyFont;">
-                     <span style="font-family:MediumFont;color:black;">Build</span>,<span style="font-family:MediumFont;color:black;">test</span> and <span style="font-family:MediumFont;color:black;">collaborate</span> on projects to improve your skill. You can build project in over <b style="font-family:MediumFont;color:black;">25 programming languages</b> here. 
-                      So, its your choice. Happy coding!
+                     <span style="font-family:MediumFont;color:black;">Build</span>,<span style="font-family:MediumFont;color:black;">test</span> and <span style="font-family:MediumFont;color:black;">collaborate</span> on projects to improve your skill. 
                     </div>
 
                      <div>

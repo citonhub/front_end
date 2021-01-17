@@ -132,7 +132,7 @@
               <div class="col-12 py-1 my-0  px-2 text-center">
 
                 <span   style="font-size:13px; font-family:BodyFont; color:gray;"
-                > By click on sign up, you agree with our <a href="/terms-of-use">terms of use </a>and <a href="/privacy-policy">privacy policy</a>.
+                > By clicking on sign up, you agree with our <a href="/terms-of-use">terms of use </a>and <a href="/privacy-policy">privacy policy</a>.
                 </span>
                 
             </div>
@@ -251,7 +251,7 @@
              <div class="col-12 py-0 my-0  px-2 text-center">
 
                 <span   style="font-size:12px; font-family:BodyFont; color:gray;"
-                > By click on sign up, you agree with our <a href="/terms-of-use">terms of use </a>and <a href="/privacy-policy">privacy policy</a>.
+                > By clicking on sign up, you agree with our <a href="/terms-of-use">terms of use </a>and <a href="/privacy-policy">privacy policy</a>.
                 </span>
                 
             </div>
@@ -305,7 +305,7 @@ export default {
       return {
         emailExist: false,
           nameRule:[
-             v => !!v || 'Oh!, you miss this.',
+             v => !!v || 'Oh! you missed this.',
            v => v.length <= 80 || 'Name must be less than 80 characters'
             ],
             name:'',
@@ -317,15 +317,15 @@ export default {
            passwordState:'password',
             email:'',
              emailRule: [
-            v => !!v || 'Oh!, you miss this.',
+            v => !!v || 'Oh! you missed this.',
              v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
             ],
             comfirmPasswordRule: [
-          v => !!v || 'Oh!, you miss this.',
+          v => !!v || 'Oh! you missed this.',
            v => this.password ==  this.passwordConfirm || 'Password do not match',
             ],
              passwordRule:[
-        v => !!v || 'Oh!, you miss this.',
+        v => !!v || 'Oh! you missed this.',
            v => v.length >= 8 || 'Password must be more than 8 characters',
             ],
             formstate:false,

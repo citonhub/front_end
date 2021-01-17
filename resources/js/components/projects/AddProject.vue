@@ -106,7 +106,7 @@ import 'izitoast/dist/css/iziToast.min.css'
       return {
        
              Rule:[
-             v => !!v || 'Oh!, you miss this.',
+             v => !!v || 'Oh! you missed this.',
            v => v.length < 80 || 'Name must be less than 60 characters',
             v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
          ],

@@ -20,7 +20,7 @@
                 dense
             counter="80"
             outlined
-            placeholder="title"
+            placeholder="my portfolio"
             persistent-hint
              hint="What are you building?"
             
@@ -192,10 +192,10 @@
                  style="font-size:14px;"
                  outlined
                  height="100px"
-                 counter="200"
+                 counter="300"
                     :rules="descriptionRule"
                  v-model="post.description"
-                 placeholder="A short description of your project"
+                 placeholder="A collection of my all the projects I have built"
                 >
 
                 </v-textarea>
@@ -242,21 +242,29 @@ export default {
         return{
            imageUrl:'',
             titleRule:[
-             v => !!v || 'Oh!, you miss this.',
+             v => !!v || 'Oh! you missed this.',
            v => v.length <= 80 || 'Title must be less than 80 characters'
             ],
         requiredRule: [
-         v => !!v || 'Oh!, you miss this.',
+         v => !!v || 'Oh! you missed this.',
         ],
         descriptionRule:[
-         v => !!v || 'Oh!, you miss this.',
-           v => v.length <= 200 || 'description must be less than 200 characters'
+         v => !!v || 'Oh! you missed this.',
+           v => v.length <= 300 || 'description must be less than 300 characters'
             ],
             urlRule:[
-                  v => !!v || 'Oh!, you miss this.',
+                  v => !!v || 'Oh! you missed this.',
                   v =>  this.isURL(v) || "Link should be valid and secure"
             ],
             languageIcon:[
+              {
+                  name:'Web app',
+                  icon:'lab la-html5',
+                  border_color:'#263238',
+                  background:'#ffffff',
+                  id: 'web',
+               
+               },
                {
                   name:'Web app NodeJs',
                   icon:'lab la-html5',
@@ -460,7 +468,7 @@ export default {
               title: '',
               project_slug: '',
               project_url: '',
-              tags: [],
+              tags: ['Web app'],
               description: ''
             },
             imageDefault:0,
@@ -731,7 +739,10 @@ export default {
 
                  
                  this.loading = false;
+
+                 
                     this.goBack();
+
                   
                 }
               })

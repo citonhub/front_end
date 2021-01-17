@@ -7,7 +7,7 @@
           <h5>Diary</h5>
         </div>
          <div class="col-6  py-0 my-0 text-right">
-           <v-btn small  @click="createDiary" rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+           <v-btn small  v-if="this.$root.diaryList.length != 0"  @click="createDiary" rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
              <v-icon     style="font-size:20px;">las la-plus</v-icon> <span style="color:white;text-transform:none;">Create a diary</span> 
            </v-btn>
         </div>
@@ -16,7 +16,7 @@
 
   <!-- fab for smaller screen -->
 
-    <v-btn @click="createDiary"  fab color="#3C87CD"  class="d-md-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
+    <v-btn  v-if="this.$root.diaryList.length != 0" @click="createDiary"  fab color="#3C87CD"  class="d-md-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
 
@@ -112,7 +112,7 @@
 
 
          <div class="mb-3 px-3" style="font-size:13px;color:black;font-family:BodyFont;">
-                    Document <span style="font-family:MediumFont;">how you learn </span> , <span style="font-family:MediumFont;">what you learn</span> and <span style="font-family:MediumFont;">share them with others</span>. You can help a million people improve, by sharing what you know!
+                    Document <span style="font-family:MediumFont;">how you learn </span> , <span style="font-family:MediumFont;">what you learn</span> and <span style="font-family:MediumFont;">share them with others</span>. You can help people improve, by sharing what you know!
                     </div>
 
                      <div>

@@ -64,7 +64,7 @@
               <v-text-field
                 style="font-size:13px;"
 
-                 placeholder="username"
+                 placeholder="Grandmaster"
             label="Username"
              v-model="usernameValue"
             prepend-inner-icon="las la-user"
@@ -280,11 +280,11 @@ export default {
         errorState: false,
         formstate:false,
         passwordRule:[
-        v => !!v || 'Oh!, you miss this.',
+        v => !!v || 'Oh! you missed this.',
            v => v.length >= 8 || 'Password must be more than 8 characters',
         ],
          UsernameRule:[
-           v => !!v || 'Oh!, you miss this.'
+           v => !!v || 'Oh! you missed this.'
         ]
       }
     },

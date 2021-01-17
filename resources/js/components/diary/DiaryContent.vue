@@ -27,7 +27,7 @@
 
                    <div class="px-2 d-flex flex-column mx-2" style="align-items:center;justify-content:center;">
                     <div>
-                      <v-icon style="font-size:26px;cursor:pointer;" @click="shareDairy()">mdi-share-variant</v-icon>
+                      <v-icon style="font-size:26px;cursor:pointer;" @click="shareDiary()">mdi-share-variant</v-icon>
                     </div>
                     <div>
                       <span style="font-size:11px;font-family:BodyFont;"> share </span>
@@ -96,7 +96,7 @@
             :key="element.id"
           >
 
-           <div  @click="showNote(element)" style="cursor:pointer;">
+           <div  @click="showNote(element)" style="cursor:pointer;" >
 
               <v-card class="px-2 py-2">
 
@@ -182,6 +182,16 @@ export default {
     methods:{
       shareDiary:function(){
 
+          this.$root.shareLink =  'https://www.citonhub.com/link/diary/'+ this.$route.params.diary_id;
+
+          this.$root.shareText = 'Check out my diary on Citonhub';
+          
+          this.$root.infoText = 'Share your diary with others';
+
+          this.$root.alertComponent =   this.$root.diaryBoardComponent;
+
+          this.$root.showInvitation = true;
+
       },
       addNote:function(){
       
@@ -249,7 +259,9 @@ export default {
 
              this.$root.LocalStore('user_diary_data_' +  this.$route.params.diary_id + this.$root.username,this.$root.selectedDiary);
 
-          this.$root.selectedDiary.updated = false;
+             
+
+     
        
      }
        
