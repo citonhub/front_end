@@ -9,7 +9,7 @@
   <div class="row">
      <div class="col-4 pl-4 pt-2 text-center">
 
-     <span  class="linkStyle mx-2"  style="color:#ffffff;"> &copy; CitonHub 2020</span>
+     <span  class="linkStyle mx-2"  style="color:#ffffff;"> &copy; CitonHub 2021</span>
        
      </div>
 
