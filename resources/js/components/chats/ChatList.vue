@@ -135,7 +135,7 @@ export default {
 
           let message = Lastmessage[0];
 
-          if(message.type == null || message.type == 'action'){
+          if(message.type == null || message.type == 'action' || message.type == 'text'){
 
           finalString =  htmlToText(message.content, {
              wordwrap: 100

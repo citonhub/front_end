@@ -70,6 +70,7 @@
             :label="$t('general.verification_code')"
               outlined
             v-model="verifyCode"
+            counter="6"
              type="tel"
              color="#3C87CD"
              ></v-text-field>
@@ -142,6 +143,7 @@
             :label="$t('general.verification_code')"
               outlined
             v-model="verifyCode"
+            counter="6"
              type="tel"
              color="#3C87CD"
              ></v-text-field>

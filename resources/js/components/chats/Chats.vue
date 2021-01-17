@@ -82,7 +82,7 @@
                     </div>
 
                      <div>
-                          <v-btn small color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
                      </div>
 
                      
@@ -232,9 +232,76 @@
 
     <template #after>
 
-       <div  class=" col-12 " style="margin-top:20px;" v-observe-visibility="visibilityChanged">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged">
+            
+          <template v-if="that.$root.selectedSpace.type == 'Bot' ">
+
+             <div class="row">
+
+              <template v-if=" that.$root.botIsLoading">
+
+                 <div elevation-1 class="col-11 py-0 mt-2" >
+           <div class="row">
+             <div class="col-lg-7 col-md-8  px-1 px-md-2  d-flex flex-row">
+                 
+
+                         <div 
+                     :style="imageStyle(30,that.$root.selectedSpace.bot_data,'bot')"  ></div> 
 
 
+                  <v-card elevation-1  class="py-0 px-2 ml-2 d-flex " style=" align-items:center;justify-content:center; border:1px solid transparent; min-width:45px;background:#ffffff; border-radius:20px;">
+
+                       <img src="/imgs/diary_loading.svg"  height="30px" width="40px">
+
+                
+                  </v-card> 
+             </div>
+           </div>
+        </div>
+
+              </template>
+
+               <template v-else>
+
+                   <div elevation-1 class="col-11 py-0 offset-1" >
+           <div class="row">
+             <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse" >
+                 
+
+                  <div flat tile  class="py-1 px-2  d-flex flex-row-reverse flex-wrap"  style="align-items:center;">
+                     
+                     <v-card  @click="initiateMessageCtl(pattern.pattern_content)" v-for="(pattern,index) in that.$root.botSuggestionArray" :key="index" tile flat class="py-1 px-2 mr-2 mb-2" style="border:2px solid #3C87CD; background:white; border-radius:8px;font-family:BodyFont;">
+                        <span style="font-size:13px;color:#3C87CD;">{{pattern.pattern_content}}</span>
+                     </v-card>  
+                    
+                    
+                      
+              
+                  </div> 
+
+                 
+             </div>
+           </div>
+        </div>
+
+               </template>
+             
+
+          
+
+
+             </div>
+
+
+
+          </template>
+
+
+
+        <div  style="margin-top:20px;">
+
+        </div>
+   
 
       </div>
   </template>
@@ -438,7 +505,7 @@
 
                       </div>
 
-                           <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply" medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
+                           <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'" medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
 
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
 
@@ -519,7 +586,7 @@
                     </div>
 
                      <div>
-                          <v-btn small color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                          <v-btn small color="#3C87CD" @click="showCreateChannel" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
                      </div>
 
                      
@@ -694,9 +761,75 @@
 
     <template #after>
 
-       <div  class=" col-12 " style="margin-top:60px;" v-observe-visibility="visibilityChanged">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged">
+            
+          <template v-if="that.$root.selectedSpace.type == 'Bot' ">
+
+             <div class="row">
+
+              <template v-if=" that.$root.botIsLoading">
+
+                 <div elevation-1 class="col-11 py-0 mt-2" >
+           <div class="row">
+             <div class="col-lg-7 col-md-8  px-1 px-md-2  d-flex flex-row">
+                 
+
+                         <div 
+                     :style="imageStyle(30,that.$root.selectedSpace.bot_data,'bot')"  ></div> 
 
 
+                  <v-card elevation-1  class="py-0 px-2 ml-2 d-flex " style=" align-items:center;justify-content:center; border:1px solid transparent; min-width:45px;background:#ffffff; border-radius:20px;">
+
+                       <img src="/imgs/diary_loading.svg"  height="30px" width="40px">
+
+                
+                  </v-card> 
+             </div>
+           </div>
+        </div>
+
+              </template>
+
+               <template v-else>
+
+                   <div elevation-1 class="col-11 py-0 offset-1" >
+           <div class="row">
+             <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse" >
+                 
+
+                  <div flat tile  class="py-1 px-2 mr-2 d-flex flex-row-reverse flex-wrap"  style="align-items:center;">
+                     
+                   <v-card  @click="initiateMessageCtl(pattern.pattern_content)" v-for="(pattern,index) in that.$root.botSuggestionArray" :key="index" tile flat class="py-1 px-2 mr-2 mb-2" style="border:2px solid #3C87CD; background:white; border-radius:8px;font-family:BodyFont;">
+                        <span style="font-size:13px;color:#3C87CD;">{{pattern.pattern_content}}</span>
+                     </v-card>  
+                    
+                      
+              
+                  </div> 
+
+                 
+             </div>
+           </div>
+        </div>
+
+               </template>
+             
+
+          
+
+
+             </div>
+
+
+
+          </template>
+
+
+
+        <div  style="margin-top:60px;">
+
+        </div>
+   
 
       </div>
   </template>
@@ -720,7 +853,7 @@
      </template>
                       
 
-                             <v-btn @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
+                             <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
 
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
 
@@ -946,6 +1079,22 @@
    
 
   
+
+ </div>
+
+
+ <!-- ends -->
+
+    <!-- diary settings -->
+
+
+   <div class="py-0 px-0 d-flex flex-column" style="position:fixed; align-items:center; justify-content:center; width:100%; height:100%; z-index:99999999999999999;background: #F5F5FB;" v-if="this.$root.showDiarySettings">
+
+        <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
+
+        <div class="py-2" style="font-size:14px;font-family:BodyFont;">
+             Checking for diary ...
+        </div>
 
  </div>
 
@@ -1221,6 +1370,28 @@ export default {
        
 
     },
+     imageStyle:function(dimension,data,type){
+      
+
+      if(data.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
+         
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
+        
+         
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
+         let imgLink = data.image_name + '.' + data.image_extension;
+          if(this.$root.selectedSpace.type == 'Bot'){
+              styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
+         }else{
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+         }
+         
+          return styleString;
+      }
+     },
     visibilityChanged:function(isVisible, entry){
         this.bottomIsVisible = isVisible
     },
@@ -1229,6 +1400,106 @@ export default {
       this.$root.shareText = 'Join ' + this.$root.selectedSpace.name +  ' on Citonhub';
        this.$root.shareLink =   'https://www.citonhub.com/link/channel/'+ this.$route.params.spaceId;
 
+    },
+     initiateMessageCtl: function(message){
+
+
+          this.$root.channelBottomComp.contentInWord = message;
+
+           this.$root.channelBottomComp.input = message;
+
+            let refocus = false;
+          this.$root.channelBottomComp.sendMessage(refocus);
+
+
+
+       },
+    checkDiary:function(){
+
+       let botId = '';
+
+       if(this.$route.params.bot_id){
+
+           botId = this.$route.params.bot_id;
+
+       }else{
+           botId  = this.$root.tempDiaryId;
+       }
+
+          this.$root.autoOpenDiary = false;
+    
+       axios.get('/check-diary/'+  botId)
+          .then(response => {
+             
+            
+            
+
+            if(response.status == 200){
+               
+
+            
+              
+              let space = response.data.space;
+
+                let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+                   storedChat.then((result)=>{
+
+                       if(result != null ){
+
+                           
+
+                          
+
+                    let finalResult = JSON.parse(result);
+
+                        let userSpace = finalResult.pet_spaces.filter((space)=>{
+                          return space.space_id == response.data.space.space_id
+                        })
+
+                        if(userSpace.length > 0){
+
+
+                        }else{
+
+                          finalResult.pet_spaces.unshift(response.data.space);
+
+                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+                     
+                   this.$root.ChatList = fullList;
+
+                     this.$root.sortChatList();
+
+                        }
+
+                        this.openChat(response.data.space.space_id,true)
+                      
+                     this.$root.showDiarySettings = false;
+                      
+
+                 }
+
+                   } )
+
+              
+                    this.$root.showDiarySettings = false;
+             
+            }
+              
+            
+           
+            
+          })
+          .catch(error => {
+              this.showAlert('Oops!','Something went wrong, please try again','error')
+              this.$root.showDiarySettings = false;
+                this.$router.push({ path: '/channels/' });
+            
+          })
+    
     },
         selectEmoji(emoji) {
      
@@ -1307,6 +1578,24 @@ export default {
              
 
             }
+
+          if(this.$root.autoOpenDiary){
+        
+             this.checkDiary();
+
+            this.$router.push({ path: '/channels/engine/diary/' + this.$root.tempDiaryId });
+
+             
+
+          }
+
+          if(this.$route.params.bot_id){
+
+             this.checkDiary();
+
+          }
+
+
            if(this.$route.params.spaceId != undefined){
 
             

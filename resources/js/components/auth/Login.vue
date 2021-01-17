@@ -280,11 +280,11 @@ export default {
         errorState: false,
         formstate:false,
         passwordRule:[
-        v => !!v || 'password is required',
+        v => !!v || 'Oh!, you miss this.',
            v => v.length >= 8 || 'Password must be more than 8 characters',
         ],
          UsernameRule:[
-           v => !!v || 'Username is required'
+           v => !!v || 'Oh!, you miss this.'
         ]
       }
     },

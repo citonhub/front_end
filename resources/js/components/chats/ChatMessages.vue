@@ -32,14 +32,10 @@
 
                   <v-card :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 mr-2" @click="showMoreOption(source)" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                      
-                     <template v-if="checkIfMsgIsLong(source)">
-                       <span style="color:white;font-size:13px;" v-html="shortContent(source.content,300)" :id="'shortContent' + source.message_id"> </span>
-                       <span :id="'moreContentbtn' + source.message_id" @click.stop="showFullMsg" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
-                         <span style="color:white;font-size:13px;display:none;" :id="'fullContent' + source.message_id" v-html="source.content" > </span>
-                     </template>
-                     <template v-else>
+                    
+                    
                        <span style="color:white;font-size:13px;" v-html="source.content" > </span>
-                     </template>
+                    
                       
                        
                   <!-- time -->
@@ -96,14 +92,9 @@
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
 
                   </div>
-                      <template v-if="checkIfMsgIsLong(source)">
-                       <span style="font-size:13px;" v-html="shortContent(source.content,300)" :id="'shortContent' + source.message_id"> </span>
-                       <span :id="'moreContentbtn' + source.message_id" @click.stop="showFullMsg" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
-                         <span style="font-size:13px;display:none;" :id="'fullContent' + source.message_id" v-html="source.content" > </span>
-                     </template>
-                     <template v-else>
+                     
                        <span style="font-size:13px;" v-html="source.content" > </span>
-                     </template>
+                     
 
                  <!-- more option -->
 
@@ -228,14 +219,14 @@
 
                   <!-- ends -->
 
-                 <template v-if="checkIfMsgIsLong(source)">
-                       <span style="color:white;font-size:13px;" v-html="shortContent(source.content,300)" :id="'shortContent' + source.message_id"> </span>
-                       <span :id="'moreContentbtn' + source.message_id" @click.stop="showFullMsg" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
-                         <span style="color:white;font-size:13px;display:none;" :id="'fullContent' + source.message_id" v-html="source.content" > </span>
-                     </template>
-                     <template v-else>
+                 <!-- <template v-if="checkIfMsgIsLong(source)">
+                       <span style="color:white;font-size:13px;" v-html="shortenContent(source.content,300)" :id="'shortContent' + source.message_id + screenType"> </span>
+                       <span :id="'moreContentbtn' + source.message_id + screenType" @click.stop="showFullMsg(source)" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
+                         <span style="color:white;font-size:13px;display:none;" :id="'fullContent' + source.message_id + screenType" v-html="source.content" > </span>
+                     </template> -->
+                    
                        <span style="color:white;font-size:13px;" v-html="source.content" > </span>
-                     </template>
+                   
                       
                        
                   <!-- time -->
@@ -378,14 +369,14 @@
                   <!-- ends -->
 
                   <!-- ends -->
-                      <template v-if="checkIfMsgIsLong(source)">
-                       <span style="font-size:13px;" v-html="shortContent(source.content,300)" :id="'shortContent' + source.message_id"> </span>
-                       <span :id="'moreContentbtn' + source.message_id" @click.stop="showFullMsg" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
-                         <span style="font-size:13px;display:none;" :id="'fullContent' + source.message_id" v-html="source.content" > </span>
-                     </template>
-                     <template v-else>
+                      <!-- <template v-if="checkIfMsgIsLong(source)">
+                       <span style="font-size:13px;" v-html="shortenContent(source.content,300)" :id="'shortContent' + source.message_id + screenType"> </span>
+                       <span :id="'moreContentbtn' + source.message_id + screenType" @click.stop="showFullMsg(source)" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
+                         <span style="font-size:13px;display:none;" :id="'fullContent' + source.message_id + screenType" v-html="source.content" > </span>
+                     </template> -->
+                   
                        <span style="font-size:13px;" v-html="source.content" > </span>
-                     </template>
+                    
 
                       <!-- more option -->
 
@@ -1193,7 +1184,7 @@
 
 const { htmlToText } = require('html-to-text');
 export default {
-   props:['source','username'],
+   props:['source','username','screenType'],
    data(){
         return{      
             that:this,
@@ -1263,9 +1254,14 @@ export default {
     },
     showFullMsg:function(message){
 
-       document.getElementById('moreContentbtn'+ message.message_id).style.visibility='hidden' ;
-        document.getElementById('shortContent' + message.message_id).style.display = 'none';
-       document.getElementById('fullContent'+ message.message_id).style.display = 'inline-block';
+       
+
+       document.querySelector('#moreContentbtn'+ message.message_id + this.screenType).style.visibility='hidden' ;
+        document.querySelector('#shortContent' + message.message_id + this.screenType).style.display = 'none';
+        
+       document.querySelector('#fullContent'+ message.message_id + this.screenType).style.display = 'inline-block';
+
+    
 
 
 
@@ -1283,7 +1279,7 @@ export default {
       }else{
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
          let imgLink = data.image_name + '.' + data.image_extension;
-          if(type == 'bot'){
+          if(this.$root.selectedSpace.type == 'Bot'){
               styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
          }else{
             styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';

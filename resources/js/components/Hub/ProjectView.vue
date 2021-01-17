@@ -166,7 +166,7 @@
        </div>
 
        <!-- comment list -->
-         <div class="col-lg-6 offset-lg-3 px-0 px-md-3 commentScroller scroller" style="border-top:1px solid #c5c5c5;background:;
+         <div class="col-lg-6 offset-lg-3 px-0 px-md-3 commentScroller scroller" style="border-top:1px solid #c5c5c5;background:#E1F0FC;
          font-family:BodyFont;min-height:250px;max-height:300px;overflow-y:auto;overflow-x:hidden;">
          <div class="row">
            
@@ -295,7 +295,7 @@
           <div class="row px-md-3 py-0">
            <div class="col-12  py-0 my-0 d-flex px-md-2 px-2 flex-row" style="align-items:center; justify-content:center;">
             
-                  <textarea ref="textBottom"  style="font-size:13px;"  placeholder="Please,be nice"    v-model="commentValue"></textarea>
+                  <textarea ref="textBottom"  style="font-size:13px;"  placeholder="Please be nice!"    v-model="commentValue"></textarea>
 
                   <v-btn icon class="mx-md-1" @click="postComment" @keyup.enter="postComment" :loading="sendingComment" ><v-icon>las la-send</v-icon> </v-btn>
            </div>

@@ -205,9 +205,9 @@ export default {
         formstate:false,
         usernameExist:false,
         UsernameRule:[
-           v => !!v || 'Username is required',
+           v => !!v || 'Oh!, you miss this.',
            v => v.length < 16 || 'Username must be less than 16 characters',
-            v => (v.split(' ').length <= 1) || 'no one space allowed'
+            v => (v.split(' ').length <= 1) || 'Oops!,no space allowed'
         ]
       }
     },

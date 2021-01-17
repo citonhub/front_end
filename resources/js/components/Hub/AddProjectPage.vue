@@ -242,18 +242,18 @@ export default {
         return{
            imageUrl:'',
             titleRule:[
-             v => !!v || 'Title is required',
+             v => !!v || 'Oh!, you miss this.',
            v => v.length <= 80 || 'Title must be less than 80 characters'
             ],
         requiredRule: [
-         v => !!v || 'This feild is required',
+         v => !!v || 'Oh!, you miss this.',
         ],
         descriptionRule:[
-         v => !!v || 'description is required',
+         v => !!v || 'Oh!, you miss this.',
            v => v.length <= 200 || 'description must be less than 200 characters'
             ],
             urlRule:[
-                  v => !!v || 'Project link is required',
+                  v => !!v || 'Oh!, you miss this.',
                   v =>  this.isURL(v) || "Link should be valid and secure"
             ],
             languageIcon:[

@@ -120,7 +120,7 @@ export default {
           
           formstate:false,
             requiredRule: [
-         v => !!v || 'This feild is required',
+         v => !!v || 'Oh!, you miss this.',
         ],
         subType:'Public',
         subSpaceType:[
@@ -128,11 +128,11 @@ export default {
         ],
           spaceName:'',
            Rule:[
-             v => !!v || 'Name is required',
+             v => !!v || 'Oh!, you miss this.',
            v => v.length < 80 || 'Name must be less than 80 characters'
          ],
          DescriptionRule:[
-              v => !!v || 'Description is required',
+              v => !!v || 'Oh!, you miss this.',
            v => v.length < 300 || 'Description must be less than 300 characters'
          ],
          wordCount:0,

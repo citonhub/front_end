@@ -366,18 +366,18 @@ export default {
          switch1:false,
          rulesContent:'',
           titleRule:[
-             v => !!v || 'Title is required',
+             v => !!v || 'Oh!, you miss this.',
            v => v.length <= 50 || 'Name must be less than 50 characters'
             ],
       requiredRule: [
-         v => !!v || 'This feild is required',
+         v => !!v || 'Oh!, you miss this.',
         ],
         summaryRules:[
-            v => !!v || 'Summary is required',
+            v => !!v || 'Oh!, you miss this.',
            v => v.length <= 101 || 'Name must be less than 100 characters'
         ],
         max_participantRule:[
-             v => !!v || 'Max Participant is required',
+             v => !!v || 'Oh!, you miss this.',
              v => !isNaN(parseFloat(v)) && v >= 2 && v <= 500 || 'Number has to be between 2 and 500'
         ],
         durationRule:[

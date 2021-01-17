@@ -24,8 +24,6 @@ Route::get('/link/{type}/{uniqueId}/{referral}','PageController@handelLink');
 Route::get('/beta', 'PageController@showBeta');
 
 
-
-
 // subsidiary routes
 Route::get('/run-panel/{panelId}','PanelController@runPanel');
 Route::get('/page-loader/{panelId}/{pageName}','PanelController@pageLoader');

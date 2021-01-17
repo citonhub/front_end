@@ -774,7 +774,7 @@ export default {
      data () {
       return {
           requiredRule: [
-         v => !!v || 'This feild is required',
+         v => !!v || 'Oh!, you miss this.',
         ],
         subjectRule: [
          v => !!v || 'Add a subject to this note',

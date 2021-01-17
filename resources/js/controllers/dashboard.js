@@ -466,6 +466,7 @@ beforeEnter: (to, from, next) => {
           thisUserState.$root.chatComponent.imageCropperIsOpen = false;
           thisUserState.$root.chatComponent.chatShareIsOpen = false;
           thisUserState.$root.showProfileView = false;
+          thisUserState.$root.showDiarySettings = false;
           thisUserState.selectedSpace = [];
           thisUserState.$root.chatComponent.chatbarContent = 'chat_list';
          }
@@ -486,6 +487,7 @@ beforeEnter: (to, from, next) => {
     next()
   }
   },
+  
 
   // channel content 
   { path: '/channels/:spaceId/content',
@@ -500,6 +502,7 @@ beforeEnter: (to, from, next) => {
     if(window.thisUserState != undefined){
   
       if( thisUserState.$root.chatComponent){
+
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.chatShareIsOpen = false;
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
@@ -507,6 +510,7 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.chatIsOpen = true;
       thisUserState.$root.showProfileView = false;
       thisUserState.$root.chatComponent.messageIsDone = true;
+      thisUserState.$root.showDiarySettings = false;
       
         
       }
@@ -545,6 +549,61 @@ beforeEnter: (to, from, next) => {
 
     next()
   }
+},
+
+// diary settings 
+{ path: '/channels/engine/diary/:bot_id',
+name: 'DiarySettings',
+meta: {
+ twModalView: true
+},
+beforeEnter: (to, from, next) => {
+ const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+ if(window.thisUserState != undefined){
+
+   if( thisUserState.$root.chatComponent){
+   thisUserState.$root.showDiarySettings = true;
+
+  
+     
+   }
+  
+
+  }
+
+ if (!twModalView) {
+   //
+   // For direct access
+   //
+   to.matched[0].components = {
+     default: Chats,
+     modal: false
+   }
+ }
+
+ if (twModalView) {
+   //
+   // For twModalView access
+   //
+   if (from.matched.length > 1) {
+     // copy nested router
+     const childrenView = from.matched.slice(1, from.matched.length)
+     for (let view of childrenView) {
+       to.matched.push(view)
+     }
+   }
+   if (to.matched[0].components) {
+     // Rewrite components for `default`
+     to.matched[0].components.default = from.matched[0].components.default
+     // Rewrite components for `modal`
+     to.matched[0].components.modal = Chats
+   }
+ }
+
+ next()
+}
 },
 // create channel
 { path: '/channels/create',
@@ -1711,6 +1770,9 @@ const app = new Vue({
      TopBarComponentBoard:undefined,
      ShowappInstaller:false,
      deferredPrompt:'',
+     showDiarySettings:false,
+     tempDiaryId:'',
+     autoOpenDiary:false,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -2883,7 +2945,7 @@ handleSpaceData: function(returnData){
 
             this.$root.clearUnreadMessageRemote(messages.message_id);
 
-            this.$root.scrollToBottom(); 
+           
 
         });
 
@@ -3014,53 +3076,12 @@ botMessager:function(message){
   
     let fullMessages = response.data[0];
 
-     
+    let messageData = {
+      space_id: this.$root.selectedSpace.space_id,
+      new_messages: fullMessages
+    };
     
-    for (let index = 0; index < fullMessages.length; index++) {
-
-       let message = fullMessages[index];
-           
-           
-
-       message.index_count = this.$root.returnLastIndex() + 1;
-       message.id =  message.message_id;
-       message.initialSize = 200
-
-       
-
-  this.$root.Messages.push(message);
-
-
-
-
-
-          this.$root.spaceFullData[0] = this.$root.Messages;
-
-
-          
-
-            let fullData = [];
-               fullData.push(this.$root.spaceFullData[0]);
-           fullData.push(this.$root.spaceFullData[1]);
-
-            let thirdData = [];
-               
-               thirdData.push(this.$root.spaceFullData[2][0])
-
-           fullData.push(thirdData);
-
-          
-
-
-        this.$root.LocalStore('full_' + this.$root.selectedSpace.space_id  + this.$root.username,fullData);
-
- this.$root.updateSpaceTracker(message.space_id);
-
- this.$root.sortChatList();
- 
-   
-
- }
+   this.handleSpaceData([messageData]);
    
     
     this.botSuggestionArray = response.data[1];

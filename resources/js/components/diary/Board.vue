@@ -35,7 +35,7 @@
 
                         <template v-if="this.$root.selectedDiary.updated">
 
-                             <v-btn small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
+                             <v-btn @click="viewDiary"  small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
                      
                           <span style="text-transform:none;">View</span> 
                       
@@ -110,7 +110,7 @@
 
                           <template v-if="this.$root.selectedDiary.updated">
 
-                             <v-btn small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
+                             <v-btn @click="viewDiary" small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
                      
                           <span style="text-transform:none;">View</span> 
                       
@@ -179,6 +179,13 @@ export default {
 
         }
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+     },
+     viewDiary:function(){
+
+        this.$root.autoOpenDiary = true;
+        this.$root.tempDiaryId = this.$route.params.diary_id;
+         this.$router.push({ path: '/channels' });
+
      },
      updateDiary:function(){
         this.loadingUpdate = true;

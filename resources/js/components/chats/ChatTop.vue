@@ -18,7 +18,7 @@
                         
 
                              <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
-                                <span style="font-size:14px; font-family:BodyFont;cursor:pointer;font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.selectedSpace.name}}</span>
+                                <span style="font-size:14px; font-family:BodyFont;cursor:pointer;font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'"> {{this.$root.selectedSpace.name}}</span>
               <span style="font-size:14px; font-family:BodyFont;cursor:pointer;font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'">{{this.$root.selectedSpace.userInfo.username}}</span>
 
                  <span style="font-size:14px; font-family:BodyFont;cursor:pointer;font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type == 'Bot'"> {{this.$root.selectedSpace.bot_data.name}}</span>
@@ -151,7 +151,7 @@
                         
 
                             <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
-                                <span style="font-size:13px; font-family:BodyFont;cursor:pointer; font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.selectedSpace.name}}</span>
+                                <span style="font-size:13px; font-family:BodyFont;cursor:pointer; font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'"> {{this.$root.selectedSpace.name}}</span>
               <span style="font-size:13px; font-family:BodyFont;cursor:pointer; font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'">{{this.$root.selectedSpace.userInfo.username}}</span>
 
                <span style="font-size:13px; font-family:BodyFont;cursor:pointer;font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type == 'Bot'"> {{this.$root.selectedSpace.bot_data.name}}</span>

@@ -95,9 +95,42 @@
     
 
       <template v-if="!loadingProject">
-              
 
-  <div class="col-md-10 offset-md-1 py-1 px-2 ">
+     <template v-if="this.$root.projectList.user_projects.length == 0 && this.$root.projectList.contributor_projects.length == 0 
+     && this.$root.projectList.pinned_projects.length == 0">
+
+        <!-- spacer -->
+         
+           <div class="col-12 mt-3 mt-md-0 d-md-none d-block"> 
+
+           </div>
+     <!-- ends -->
+
+       <div class="col-md-6 offset-md-3 px-md-4 py-1 px-2 mt-3 mt-md-5 text-center d-flex flex-column ">
+
+     
+
+
+         <div class="mb-3 px-3" style="font-size:13px;color:black;font-family:BodyFont;">
+                     <span style="font-family:MediumFont;color:black;">Build</span>,<span style="font-family:MediumFont;color:black;">test</span> and <span style="font-family:MediumFont;color:black;">collaborate</span> on projects to improve your skill. You can build project in over <b style="font-family:MediumFont;color:black;">25 programming languages</b> here. 
+                      So, its your choice. Happy coding!
+                    </div>
+
+                     <div>
+                          <v-btn small color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" @click="addProject" class="mx-2 d-inline-block" rounded>Create a project</v-btn>
+                     </div>
+
+
+    
+
+    </div>
+       
+       </template>           
+
+
+       <template v-else>
+
+         <div class="col-md-10 offset-md-1 py-1 px-2 ">
 
       <div class="row text-center ">
 
@@ -162,6 +195,10 @@
      
 
     </div>
+
+       </template>
+   
+  
     
      </template>
 
