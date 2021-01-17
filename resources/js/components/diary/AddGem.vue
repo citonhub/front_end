@@ -115,7 +115,7 @@
                       </div>
                         
                   </div>
-                      <span style="font-size:13px;">{{element.content}}</span>
+                      <span style="font-size:13px;" v-html="element.content"></span>
                       
                   </v-card> 
 
