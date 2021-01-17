@@ -1,5 +1,6 @@
 <template>
-    <div class="col-lg-12" style="overflow-y: scroll;height:100%;width:100%;">
+    <div class="col-lg-12" style="overflow-y: scroll;height:100%;width:100%;--scrollbarBG: #CFD8DC;
+  --thumbBG: #90A4AE;">
         <h1 class="h1 px-1 py-1 mt-4 mb-4 d-none" style="color:#3C87CD">Project Creation Guide</h1>
 
           <h1 class=" px-1 py-1 ml-4  d-sm-none" style="color:#3C87CD; font-size:1.5rem;margin-top:30px;">Project Creation Guide</h1>
