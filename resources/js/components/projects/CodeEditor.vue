@@ -349,11 +349,13 @@ methods:{
            }else{
              console.log(this.$root.projectData.project.project_slug)
               this.$router.push({path: '/board/projects/panel/' + this.$root.projectData.project.project_slug })
+             this.$root.codeEditorArray = newarray;
+           
            }
 
          
 
-         this.$root.codeEditorArray = newarray;
+       
 
         
       },
