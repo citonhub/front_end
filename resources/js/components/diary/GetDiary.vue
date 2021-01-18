@@ -220,11 +220,11 @@ export default {
 data(){
   return{
      NameRule:[
-             v => !!v || 'Oh!, you miss this.',
+             v => !!v || 'Oh! you missed this.',
            v => v.length <= 60 || 'Diary name must be less than 60 characters'
             ],
         requiredRule: [
-         v => !!v || 'Oh!, you miss this.',
+         v => !!v || 'Oh! you missed this.',
         ],
     diaryName:'',
     channel:'',

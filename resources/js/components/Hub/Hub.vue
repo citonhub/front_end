@@ -27,7 +27,7 @@
             <div class="col-lg-6 px-0 pb-1 text-right d-none d-lg-block" style="border-bottom:1px solid #263238;z-index:99999999999999;" >
 
                 <v-btn @click="showAddPost"   small rounded  color="#3C87CD" style="font-size:13px; text-transform:none; font-weight:bolder; color:white;font-family:MediumFont;">
-            Post your project <v-icon style="font-size:19px; color:white;">las la-plus</v-icon>
+            Share your project <v-icon style="font-size:19px; color:white;">las la-plus</v-icon>
            </v-btn>
             </div>
 
@@ -181,9 +181,9 @@
                     </v-btn>
             </div>
              <div class="col-8 text-center py-0">
-             <span style="font-size:17px; font-family:HeaderFont;" class="d-md-block d-none">Post your project</span>
+             <span style="font-size:17px; font-family:HeaderFont;" class="d-md-block d-none">Share your project</span>
 
-               <span style="font-size:15px; font-family:HeaderFont;" class="d-md-none d-block">Post your project</span>
+               <span style="font-size:15px; font-family:HeaderFont;" class="d-md-none d-block">Share your project</span>
           </div>
               
                <div class="px-1 py-0 col-2 text-right ">
@@ -300,7 +300,26 @@
    <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
 
      
+       <invitation :infoText="this.$root.infoText"
+                                   :extraInfo="this.$root.extraInfo" :fromChat="false" :alertComponent="this.$root.alertComponent"></invitation>
+   
 
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
+
+  <!-- reward alert  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showRewardBoard">
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+
+     
+      <reward></reward>
    
 
    </div>
@@ -367,6 +386,9 @@ const Invitation = () => import(
     /* webpackChunkName: "ProfileView" */ '../Profile/ProfilePage.vue'
   );
 
+  const Reward = () => import(
+    /* webpackChunkName: "Reward" */ '../dashboard/reward.vue'
+  );
 
 export default {
      data () {
@@ -393,7 +415,8 @@ export default {
       SideBar,
       PostView,
       Invitation,
-      ProfileView
+      ProfileView,
+      Reward
     },
     mounted(){
        

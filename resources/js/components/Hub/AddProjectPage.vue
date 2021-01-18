@@ -20,7 +20,7 @@
                 dense
             counter="80"
             outlined
-            placeholder="title"
+            placeholder="my portfolio"
             persistent-hint
              hint="What are you building?"
             
@@ -113,13 +113,13 @@
                 <div style="font-size:13px;color:grey;" class="mt-3">Or select from defaults</div>
 
                <div class="d-flex flex-row mt-3" >
-                       <div    class="mr-2" @click="selectDefaultImg('/imgs/background3.jpg',1)"
-    style="border-radius:10px;height:60px;width:60px; cursor:pointer; background-color:#c5c5c5;background-image:url(/imgs/background3.jpg);background-size: cover;
+                       <div    class="mr-2" @click="selectDefaultImg('/imgs/default_1.jpg',1)"
+    style="border-radius:10px;height:60px;width:60px; cursor:pointer; background-color:#c5c5c5;background-image:url(/imgs/default_1.jpg);background-size: cover;
   background-repeat: no-repeat; border:1px solid #c5c5c5;">
   </div> 
 
-    <div    class="mr-2"  @click="selectDefaultImg('/imgs/background1.jpg',2)"
-    style="border-radius:10px;height:60px;width:60px;cursor:pointer; background-color:#c5c5c5;background-image:url(/imgs/background1.jpg);background-size: cover;
+    <div    class="mr-2"  @click="selectDefaultImg('/imgs/default_2.jpg',2)"
+    style="border-radius:10px;height:60px;width:60px;cursor:pointer; background-color:#c5c5c5;background-image:url(/imgs/default_2.jpg);background-size: cover;
   background-repeat: no-repeat;border:1px solid #c5c5c5;">
   </div> 
 
@@ -192,10 +192,10 @@
                  style="font-size:14px;"
                  outlined
                  height="100px"
-                 counter="200"
+                 counter="300"
                     :rules="descriptionRule"
                  v-model="post.description"
-                 placeholder="A short description of your project"
+                 placeholder="A collection of my all the projects I have built"
                 >
 
                 </v-textarea>
@@ -242,21 +242,29 @@ export default {
         return{
            imageUrl:'',
             titleRule:[
-             v => !!v || 'Oh!, you miss this.',
+             v => !!v || 'Oh! you missed this.',
            v => v.length <= 80 || 'Title must be less than 80 characters'
             ],
         requiredRule: [
-         v => !!v || 'Oh!, you miss this.',
+         v => !!v || 'Oh! you missed this.',
         ],
         descriptionRule:[
-         v => !!v || 'Oh!, you miss this.',
-           v => v.length <= 200 || 'description must be less than 200 characters'
+         v => !!v || 'Oh! you missed this.',
+           v => v.length <= 300 || 'description must be less than 300 characters'
             ],
             urlRule:[
-                  v => !!v || 'Oh!, you miss this.',
+                  v => !!v || 'Oh! you missed this.',
                   v =>  this.isURL(v) || "Link should be valid and secure"
             ],
             languageIcon:[
+              {
+                  name:'Web app',
+                  icon:'lab la-html5',
+                  border_color:'#263238',
+                  background:'#ffffff',
+                  id: 'web',
+               
+               },
                {
                   name:'Web app NodeJs',
                   icon:'lab la-html5',
@@ -460,7 +468,7 @@ export default {
               title: '',
               project_slug: '',
               project_url: '',
-              tags: [],
+              tags: ['Web app'],
               description: ''
             },
             imageDefault:0,
@@ -731,7 +739,18 @@ export default {
 
                  
                  this.loading = false;
+
+                   this.showAlert('Awesome!','Your project has been shared','success')
+
+                   
+
+                 
                     this.goBack();
+
+                    this.$root.authProfile.points += 10;
+
+                     this.$root.showRewardBoard = true;
+
                   
                 }
               })

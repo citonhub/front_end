@@ -1,9 +1,9 @@
 <template>
- <div class="row px-0" style="background:whitesmoke;">
+ <div class="row px-0" >
       <!-- top bar -->
 
-      <div class="col-lg-6 offset-lg-3 py-1 py-md-2 fixed-top d-flex flex-row px-md-2 px-1"
-       style="position:sticky;background:white;z-index:99999999;border-bottom:1px solid #c5c5c5;top:0%;">
+      <v-card tile class="col-lg-6 offset-lg-3 py-1 py-md-2 fixed-top d-flex flex-row px-md-2 px-1"
+       style="position:sticky;background:white;z-index:99999999;top:0%;">
        
         <div class="col-6 py-0 px-0 d-flex flew-row" >
            <template v-if="this.$root.selectedPost.user">
@@ -38,21 +38,17 @@
         </div>
        
          
-      </div>
+      </v-card>
 
       
       <!-- ends -->
        
        <div class="px-2 col-12 py-0">
 
-          <div class="col-lg-6 offset-lg-3 py-2 px-0 mt-1 text-center">
-        <span class="d-md-block d-none" style="font-size:17px; font-family:MediumFont;">{{ this.$root.selectedPost.title }}</span>
-        <span class="d-md-none d-block" style="font-size:14px; font-family:MediumFont;">{{ this.$root.selectedPost.title }}</span>
-      </div>
 
       <!-- pages loader -->
 
-      <div  class="col-lg-6 offset-lg-3 py-2 px-0 pt-1 " style="height:380px;">
+      <div  class="col-lg-6 offset-lg-3 py-2 px-0 pt-1 mt-2" style="height:350px;">
 
 
 
@@ -117,27 +113,52 @@
       <!-- ends -->
       
 
-      <!-- view source -->
-         <div class="col-lg-6 offset-lg-3 px-2 mt-2 ">
-            <div class="row">
-              <div class="col-6 px-0 py-1 text-left">
+     <div class="col-lg-6 offset-lg-3 py-2 px-0 mt-2 d-flex flex-column">
+        <div class="d-md-block d-none" style="font-size:16px; font-family:MediumFont;">{{ this.$root.selectedPost.title }}</div>
+        <div class="d-md-none d-block" style="font-size:14px; font-family:MediumFont;">{{ this.$root.selectedPost.title }}</div>
 
-                  <v-btn icon @click="pinPost">
+         <div  style="font-size:13px; font-family:BodyFont;">{{ this.$root.selectedPost.description }}</div>
+      </div>
+
+
+      <div class="col-lg-6 offset-lg-3 py-1 px-0 mt-2 d-flex flex-row" style="align-items:center; border-top:1px solid #c5c5c5;border-bottom:1px solid #c5c5c5;">
+
+        <div class="d-flex flex-row">
+
+          <div>
+              <span style="font-size:13px;color:black;font-family:MediumFont;">{{ this.$root.selectedPost.likes }}</span> 
+                 <span style="font-size:13px;font-family:BodyFont;" class="mx-1">Likes</span>
+          </div>
+
+           <div class="ml-1">
+              <span style="font-size:13px;color:black;font-family:MediumFont;">{{ this.$root.selectedPost.comments }}</span> 
+                 <span style="font-size:13px;font-family:BodyFont;" class="mx-1">Comments</span>
+          </div>
+
+        </div>
+
+         <div class="d-flex flex-row ml-auto">
+
+          <v-btn icon @click="pinPost">
                       <v-icon style="font-size:25px;color:#3C87CD;" v-if="this.$root.selectedPost.isPinned == 1">lar la-thumbtack</v-icon>
                       <v-icon style="font-size:25px;" v-else>las la-thumbtack</v-icon>
                     </v-btn>
-            <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.pinned }}</span>
 
-          <v-btn icon @click="likePost" >
+           <v-btn icon @click="likePost" >
                        <i :class="this.$root.selectedPost.isLiked == 1 ? 'las la-heart' : 'lar la-heart'" :style="this.$root.selectedPost.isLiked ? 'font-size:25px; color: #ff6666;' : 'font-size: 25px;'" ></i>
-                    </v-btn>
-             <span style="font-size:12px;color:grey;">{{ this.$root.selectedPost.likes }}</span>
+                  </v-btn>
+
+        </div>
+
+      </div>
 
 
-              </div>
+      <!-- view source -->
+         <div class="col-lg-6 offset-lg-3 px-2 mt-2 " v-if="this.$root.selectedPost.project">
+            <div class="row">
 
-              <div class="col-6 px-0 py-0 text-right">
-        <v-btn v-if="this.$root.selectedPost.project" @click="goToProject(this.$root.selectedPost.project)" 
+              <div class="col-12 px-0 py-0 text-right">
+        <v-btn  @click="goToProject(this.$root.selectedPost.project)" 
         color="#3C87CD" outlined rounded  small style="text-transform:none;font-size:12px;font-family:MediumFont;">View source <v-icon class="ml-1">mdi-launch mdi-18px</v-icon></v-btn>
               </div>
 
@@ -146,28 +167,12 @@
       </div>
       <!-- ends -->
 
-
-       <!-- descriptions -->
-         <div class="col-lg-6 offset-lg-3 px-1  text-center">
-          <div style="font-size:14px;font-family:BodyFont;">
-             {{ this.$root.selectedPost.description }}
-          </div>
-      </div>
-      <!-- ends -->
-
-
-
-       <!-- comments -->
-         <div class="col-lg-6 offset-lg-3 px-1 mt-1 " >
-         <div style="font-size:15px; font-family:MediumFont;">Comments</div>
-      </div>
-      <!-- ends -->
-
+    
        </div>
 
        <!-- comment list -->
          <div class="col-lg-6 offset-lg-3 px-0 px-md-3 commentScroller scroller" style="border-top:1px solid #c5c5c5;background:#E1F0FC;
-         font-family:BodyFont;min-height:250px;max-height:300px;overflow-y:auto;overflow-x:hidden;">
+         font-family:BodyFont;height:300px;overflow-y:auto;overflow-x:hidden;">
          <div class="row">
            
 
@@ -290,15 +295,15 @@
       <!-- ends -->
 
         <!-- comment textarea -->
-         <div class="col-lg-6 offset-lg-3 px-2 py-1 pb-1" style="z-index:999999999999;font-family:BodyFont;">
+         <div class="col-lg-6 offset-lg-3 py-0  fixed-bottom" style="z-index:999999999999;font-family:BodyFont;background:white;">
          
-          <div class="row px-md-3 py-0">
-           <div class="col-12  py-0 my-0 d-flex px-md-2 px-2 flex-row" style="align-items:center; justify-content:center;">
+          <div class="row  py-0">
+           <v-card tile class="col-12  py-2 my-0 d-flex  px-2 flex-row" style="align-items:center; justify-content:center;">
             
-                  <textarea ref="textBottom"  style="font-size:13px;"  placeholder="Please be nice!"    v-model="commentValue"></textarea>
+                  <textarea ref="textBottom"  style="font-size:13px;"  placeholder="Type your comment"    v-model="commentValue"></textarea>
 
                   <v-btn icon class="mx-md-1" @click="postComment" @keyup.enter="postComment" :loading="sendingComment" ><v-icon>las la-send</v-icon> </v-btn>
-           </div>
+           </v-card>
             
           </div>
         </div>
@@ -1013,13 +1018,13 @@ textarea {
     font-size:13px; 
     background:white;
     width:100%; 
-    height: 55px;
+    height: 45px;
     max-height: 75px;
     padding: 6px 6px;
     resize:none; 
     overflow-x: hidden;
      overflow-y: auto;
-    border:1px solid #e6e6e6; 
+  
     border-radius:2px;
 }
 

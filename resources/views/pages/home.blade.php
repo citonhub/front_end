@@ -80,7 +80,7 @@
    <div class="px-5 " style="width:80%;">
      <h1 style="font-family:HeaderFont;" class="mb-3">Teach, mentor, and connect with other developers</h1>
    
-     <p style="font-size:20px;color:grey;">Join other developers helping each other grow on CitonHub.</p>
+     <p style="font-size:20px;">Join other developers helping each other grow on CitonHub.</p>
 
      <div class="py-2 px-0 mt-3 col-12">
       <div class="row">
@@ -104,7 +104,7 @@
 
 <h5 style="font-family:HeaderFont;" class="mb-2">Teach, mentor, and connect with other developers</h5>
    
-   <p style="font-size:15px;color:grey;" class="px-4">Join other developers helping each other grow on CitonHub.</p>
+   <p style="font-size:15px;" class="px-4">Join other developers helping each other grow on CitonHub.</p>
 
     
       <div class="mt-3">
@@ -200,7 +200,7 @@
 
     <!-- layer 4 -->
     <div class="col-6">
-      <span class="linkStyle mx-1"  style="color:#ffffff;font-size:13px;">&copy; CitonHub 2020</span>
+      <span class="linkStyle mx-1"  style="color:#ffffff;font-size:13px;">&copy; CitonHub 2021</span>
       </div>
       <div class="col-6">
       <a href="/privacy-policy" class="linkStyle mx-1"  style="color:#ffffff;font-size:13px;"> Privacy Policy</a>

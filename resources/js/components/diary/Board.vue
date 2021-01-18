@@ -5,11 +5,11 @@
         <div style="position:fixed;height:88%;left:0;top:10%;z-index:99999999999999;overflow-y:auto;background:#F5F5FB;" class="col-lg-10 offset-lg-2 py-0 px-0">
       
          <!-- large screens -->
-             <div class="col-lg-10 offset-lg-1 py-1 mb-0 col-md-10 offset-md-1 px-0 d-md-block d-none py-0 pb-3 px-0 "
+             <div class="col-lg-10 offset-lg-1  mb-0 col-md-10 offset-md-1 px-0 d-md-block d-none py-0 pb-3 px-0 "
               style="position:absolute; left:0%; top:0%; height:100%;  background:#ffffff;border:1px solid #c5c5c5; border-radius:6px;overflow-y:hidden;overflow-x:hidden;">
       
         <!-- top bar -->
-                <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row " style="z-index:99999999999999999;position:sticky;background:white; top:-1%; border-bottom:1px solid #c5c5c5;align-items:center;">
+                <div class="col-12 px-1 py-1 pt-0 d-flex flex-row " style="z-index:99999999999999999;position:sticky;background:white; top:0%; border-bottom:1px solid #c5c5c5;align-items:center;">
             <div class="px-1 col-3 py-0">
               <v-btn icon @click="goBack">
                       <v-icon>mdi mdi-arrow-left</v-icon>

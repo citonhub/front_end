@@ -2,7 +2,21 @@
     <div>
         <div class="col-12 px-2 px-md-2 scroller" style="position:absolute;height:92%;top:6%;left:0%;overflow-y:auto;overflow-x:hidden;">
 
-              <!-- pet profile view -->
+
+          <template v-if="loading">
+
+             <div class="col-12 mt-2 text-center">
+
+               <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
+
+             </div>
+
+
+          </template>
+
+          <template v-else> 
+
+             <!-- pet profile view -->
 
                <div class="col-12 px-0 px-md-2 d-flex" style="align-items:center; justify-content:center;">
 
@@ -27,7 +41,7 @@
 
                    <div class="px-2 d-flex flex-column mx-2" style="align-items:center;justify-content:center;">
                     <div>
-                      <v-icon style="font-size:26px;cursor:pointer;" @click="shareDairy()">mdi-share-variant</v-icon>
+                      <v-icon style="font-size:26px;cursor:pointer;" @click="shareDiary()">mdi-share-variant</v-icon>
                     </div>
                     <div>
                       <span style="font-size:11px;font-family:BodyFont;"> share </span>
@@ -37,10 +51,10 @@
 
                    <div class="px-2 d-flex flex-column mx-2" style="align-items:center;justify-content:center;">
                     <div>
-                      <i style="font-size:26px;color:grey;" class="lar la-heart"></i>
+                      <i style="font-size:26px;color:grey;" class="lar la-eye"></i>
                     </div>
                     <div>
-                    <span style="font-size:12px;font-family:BodyFont;">  3.3 K </span>
+                    <span style="font-size:12px;font-family:BodyFont;"> {{calculateView()}} </span>
                     </div>
                   </div>
 
@@ -96,16 +110,28 @@
             :key="element.id"
           >
 
-           <div  @click="showNote(element)" style="cursor:pointer;">
+           <div  @click="showNote(element)" style="cursor:pointer;" >
 
-              <v-card class="px-2 py-2">
+              <v-card class="px-2 py-2" style="align-items:center">
 
               <div class="d-flex flex-row">
 
                 <div class="d-flex flex-row" style="width:100%;align-items:center;">
                    <v-icon style="font-size:25px;" color="#3C87CD" class="mr-2 handle">lar la-clipboard</v-icon>
-                   <div style="font-size:13px; font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" > {{ element.note.tag_name }}</div>
+                   <div style="font-size:13px; font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" > {{ element.note.tag_name }} 
+                      <span  style="font-size:11px; font-family:BodyFont;color:gray;" class=" mx-1">
+                        
+                         {{checkDatereal(element.note.created_at)}}
+                     
+                     </span>
+                   </div>
+                    
+
+                     
+                   
                 </div>
+
+               
 
               <div class="d-flex flex-row-reverse" style="align-items:center;">
 
@@ -113,11 +139,6 @@
                   <v-btn icon><v-icon style="font-size:23px;">las la-ellipsis-v</v-icon></v-btn>
 
                     <div class="d-flex flex-row" style="align-items:center;justify-content:center;">
-
-                       <i style="font-size:18px;color:grey;" class="lar la-heart"></i>
-
-                   <div class="px-1" style="font-size:12px;font-family:BodyFont;">{{element.note.likes}}</div> 
-
 
                         <v-icon style="font-size:20px;color:grey;">las la-eye</v-icon>
 
@@ -131,6 +152,8 @@
 
               </div>
 
+              
+
              
                      
             </v-card>
@@ -142,6 +165,10 @@
     
       </draggable>
 
+
+          </template>
+
+             
             </div>
     </div>
 </template>
@@ -180,7 +207,41 @@ export default {
 
     },
     methods:{
+       checkDatereal: function(date){
+
+            var realTimeHour = moment(date).add(1,'hours');
+
+           
+                return moment(realTimeHour).format('MMM D,YYYY');
+          
+      },
+      calculateView:function(){
+
+         let views = 0;
+            
+            if( this.$root.selectedDiary.notes){
+
+              this.$root.selectedDiary.notes.forEach((notes)=>{
+            views += notes.note.views
+         })
+
+            }
+         
+
+        return views;
+
+      },
       shareDiary:function(){
+
+          this.$root.shareLink =  'https://www.citonhub.com/link/diary/'+ this.$route.params.diary_id;
+
+          this.$root.shareText = 'Check out my diary on Citonhub';
+          
+          this.$root.infoText = 'Share your diary with others';
+
+          this.$root.alertComponent =   this.$root.diaryBoardComponent;
+
+          this.$root.showInvitation = true;
 
       },
       addNote:function(){
@@ -249,7 +310,9 @@ export default {
 
              this.$root.LocalStore('user_diary_data_' +  this.$route.params.diary_id + this.$root.username,this.$root.selectedDiary);
 
-          this.$root.selectedDiary.updated = false;
+             
+
+     
        
      }
        

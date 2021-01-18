@@ -32,7 +32,7 @@
                    <v-app class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 my-0 px-2" style="height:70px;width:100%;">
               <v-text-field
                 style="font-size:13px;"
-                 placeholder="channel name"
+                 placeholder="Dev community"
             :label="$t('general.Name')"
              dense
              outlined
@@ -46,7 +46,7 @@
              </v-app>
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn @click.prevent="createSpace" type="submit" rounded small color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family: MediumFont;" :loading="loading">{{ $t('general.create') }}</v-btn>
+                  <v-btn @click.prevent="createSpace" type="submit" rounded small color="#3C87CD" style="font-size:12px; color:white;font-family: MediumFont;" :loading="loading">{{ $t('general.create') }}</v-btn>
              </div>
 
              <div class="my-5 py-3">
@@ -92,7 +92,7 @@ export default {
         name:'',
         formstate:false,
         Rule:[
-             v => !!v || 'Oh!, you miss this.',
+             v => !!v || 'Oh! you missed this.',
            v => v.length < 80 || 'Name must be less than 50 characters',
              v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
          ],
@@ -164,7 +164,7 @@ export default {
 
                      this.$root.sortChatList();
 
-
+                      this.$root.chatComponent.chatbarContent = 'chat_list';
                        this.$root.chatComponent.openChat(response.data.space.space_id,true)
 
                   

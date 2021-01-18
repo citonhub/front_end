@@ -10,7 +10,7 @@ Vue.use(Vuex)
 
 //axios.defaults.baseURL = 'http://localhost:8000/api'
  //axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
- axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
+axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
 const store = new Vuex.Store({
   state: {
     user: null
@@ -1773,6 +1773,7 @@ const app = new Vue({
      showDiarySettings:false,
      tempDiaryId:'',
      autoOpenDiary:false,
+     showRewardBoard:false,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -2080,6 +2081,7 @@ const app = new Vue({
       'connections': userProfile.connections,
       'background_color': userProfile.background_color,
       'unread': userProfile.unread,
+      'points': userProfile.points
       };
         
 

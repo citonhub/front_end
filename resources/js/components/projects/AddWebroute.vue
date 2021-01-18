@@ -60,14 +60,14 @@ export default {
         ],
         programmingLanguage:'',
          Rule:[
-             v => !!v || 'File Name is required',
+             v => !!v || 'Oh! you missed this.',
            v => v.length < 30 || 'File Name must be less than 30 characters',
              v => (v.split(' ').length <= 1) || 'no one space allowed',
               v => /^\//.test(v) || 'Must start with \'/\''
            
          ],
           requiredRule: [
-         v => !!v || 'This field is required',
+         v => !!v || 'Oh! you missed this.',
           v => (v.split(' ').length <= 1) || 'no one space allowed',
            v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
          

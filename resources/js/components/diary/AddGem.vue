@@ -2,45 +2,46 @@
     <div style="background:transparent;font-size:BodyFont;">
         <div class="col-12 px-3 px-md-2 scroller" style="position:absolute;height:95%;top:0%;left:0%;overflow-y:auto;overflow-x:hidden;padding-bottom:150px !important;">
         
-        <v-app style="background:transparent;font-family:BodyFont; " class="row">
+        <div style="background:transparent;font-family:BodyFont; " class="row">
 
             <div class="col-md-6 offset-md-1 py-0 my-0 pl-md-3 text-left">
           <h5 style="font-size:18px;" class="d-md-block d-none"> Make a Note</h5>
          <h5 class="d-md-none d-block"> Make a Note</h5>
         </div>
 
+
+     
+
          <div class="col-lg-6 offset-lg-1 mb-2">
+
+             <span  style="font-size:14px;font-family:MediumFont;">Subject</span>  
 
               <v-text-field
                  style="font-size:13px;"
-                
-            label="Subject"
+              
             counter="60"
             :rules="subjectRule"
             persistent-hint     
               v-model="that.$root.noteContent.note.tag_name"
-             placeholder="What new thing do you learn today"
+           
               dense
-              hint="What new thing do you learn today"
+              hint="What new thing did you learn today?"
              color="#3C87CD">
              </v-text-field>
 
          </div>
 
 
-          <div class="col-lg-11 offset-lg-1 mt-1">
-             <div style="color:gray;font-size:14px;">Add Keywords</div>
-         </div>
-
          <div class="col-lg-6 offset-lg-1 mb-2 mt-0">
+            <span  style="font-size:14px;font-family:MediumFont;">Keywords</span>  
              <v-combobox
                  style="font-size:13px;"
               dense
-              label="Keywords"
+              
               :rules="KeywordsRule"
             counter="80"
             v-model="that.$root.noteContent.keywords"
-             placeholder="words or sentences that is related to the above subject"
+             
             persistent-hint
             hint="words or sentences that is related to the above subject"
             chips
@@ -70,36 +71,9 @@
          </div>
 
 
-           <div class="col-lg-6 offset-lg-1 py-1">
-           
-            <h5 style="font-size:15px;color:gray;" >Pages</h5>
-            
-         </div>
-
-          <div class="col-lg-10 offset-lg-1 d-flex flex-row flex-wrap py-0" style="align-items:center;">
-           
-            <v-chip v-for="(content,index) in that.$root.noteContent.pages" @click="selectedContentId = index"     @click:close="deletePage(content)" :key="index" :outlined="index != selectedContentId" close dense color="#3C87CD" class="mr-2 my-1"  :style="index == selectedContentId ? 'font-size:13px; color:#ffffff; font-family:BodyFont;' : ''" >{{content.name}}</v-chip>
-
-                <v-btn icon class="mx-1" :loading="loadingAddPage" @click="addNewContent"><v-icon style="font-size:20px;">las la-plus</v-icon></v-btn>
-            
-         </div>
-
-         <div class="col-lg-3 pb-0 offset-lg-1">
-
-              <v-text-field
-                 style="font-size:13px;"
-            counter="60"
-              v-model="that.$root.noteContent.pages[selectedContentId].name"
-              :rules="requiredRule"
-              dense
-             color="#3C87CD">
-             </v-text-field>
-
-         </div>
-
          <div class="col-lg-10 py-1 offset-lg-1 d-flex flex-row" style="align-items:center;">
 
-            <span  style="font-size:13px;font-family:MediumFont;">Contents</span>  <v-btn icon class="mx-1" @click="showAddModal"><v-icon style="font-size:20px;">las la-plus</v-icon></v-btn>
+            <span  style="font-size:14px;font-family:MediumFont;">Contents</span>  <v-btn icon class="mx-1" @click="showAddModal"><v-icon style="font-size:20px;">las la-plus</v-icon></v-btn>
 
          </div>
     
@@ -141,7 +115,7 @@
                       </div>
                         
                   </div>
-                      <span style="font-size:13px;">{{element.content}}</span>
+                      <span style="font-size:13px;" v-html="element.content"></span>
                       
                   </v-card> 
 
@@ -207,7 +181,7 @@
 
              <template v-if="element.type == 'code'">
 
-                <v-card elevation-1 class="py-1 px-2 pb-5 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                <v-card elevation-1 class="py-1 px-2 pb-4 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                         <div class="d-flex flex-row" style="align-items:center;">
                       <div class="col-8 py-0 px-0">
                          <span style="font-size:13px;font-weight:bold; ">{{that.$root.selectedDiary.name}}</span>
@@ -270,7 +244,7 @@
     </template>
 
         
-        </v-app>   
+        </div>   
       </div>
 
        <!-- add content -->
@@ -774,7 +748,7 @@ export default {
      data () {
       return {
           requiredRule: [
-         v => !!v || 'Oh!, you miss this.',
+         v => !!v || 'Oh! you missed this.',
         ],
         subjectRule: [
          v => !!v || 'Add a subject to this note',

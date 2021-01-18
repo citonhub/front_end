@@ -878,7 +878,7 @@ goBack(){
       if(data.background_color == null){
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:5px solid #3C87CD;cursor:pointer;";
          
-           styleString += 'background-color:#ffffff; border:5px solid #3C87CD;';
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
         
          
          return styleString;

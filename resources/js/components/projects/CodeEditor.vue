@@ -337,17 +337,18 @@ methods:{
       
       },
       removeCode:function(codeBox){
-        console.log(codeBox)
-       
+        
+         
+          let newarray= []; 
 
-          if(this.$root.codeEditorArray.length >=2 ){
-            console.log(this.$root.codeEditorArray.length)
-  var newarray = this.$root.codeEditorArray.filter((file)=>{
+          if(this.$root.codeEditorArray.length >= 2 ){
+           
+           newarray = this.$root.codeEditorArray.filter((file)=>{
           
             return file.id !=  codeBox.id;
          });
            }else{
-             console.log(this.$root.projectData.project.project_slug)
+             
               this.$router.push({path: '/board/projects/panel/' + this.$root.projectData.project.project_slug })
              this.$root.codeEditorArray = newarray;
            

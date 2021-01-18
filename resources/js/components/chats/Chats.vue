@@ -78,7 +78,7 @@
        style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:100px;">
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                       Someday, this place would be filled with alot of memories.
+                       Teach and build your community in channels.
                     </div>
 
                      <div>
@@ -319,7 +319,7 @@
 
             <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
 
-               <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'"
+               <invitation :infoText="'A brand new channel and the beginning of your journey to help others grow 🚀'"
                                    :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
 
             </template>
@@ -417,7 +417,7 @@
                                <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center " @click="goBack" style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                  <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'"
+                                  <invitation :infoText="'A brand new channel and the beginning of your journey to help others grow 🚀'"
                                    :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
                             </div>
 
@@ -582,7 +582,7 @@
           style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto;align-items:center;justify-content:center;" >
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                       Someday, this place would be filled with alot of memories.
+                       Teach and build your community in channels.
                     </div>
 
                      <div>
@@ -844,7 +844,7 @@
 
               <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
 
-              <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'"
+              <invitation :infoText="'A brand new channel and the beginning of your journey to help others grow 🚀'"
                                    :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
 
             </template>
@@ -924,7 +924,7 @@
                                <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center " style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
                                   <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                  <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'"
+                                  <invitation :infoText="'A brand new channel and the beginning of your journey to help others grow 🚀'"
                                    :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
                             </div>
 
