@@ -337,6 +337,7 @@ methods:{
       
       },
       removeCode:function(codeBox){
+        console.log(codeBox)
          var newarray = this.$root.codeEditorArray.filter((file)=>{
             return file.id !=  codeBox.id;
          });

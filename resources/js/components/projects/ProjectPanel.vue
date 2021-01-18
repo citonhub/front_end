@@ -219,7 +219,8 @@ import 'izitoast/dist/css/iziToast.min.css'
         this.$root.codeEditorComponent.showCode(codeBox);
 
       },
-      removeCode:function(){
+      removeCode:function(codeBox){
+
            this.$root.codeEditorComponent.removeCode(codeBox);
       },
       languageExtensions:function(language){
