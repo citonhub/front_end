@@ -4,7 +4,7 @@
     <div class="row" style="font-family:BodyFont;background:transparent;">
 
     <!-- contents  -->
-         <v-form class="col-12 px-md-4 px-2 py-2 pt-0 mt-1 text-left" ref="addPost" v-model="formState" style="height:auto !important; font-family:BodyFont; background:transparent !important;" >
+         <v-form class="col-12 px-md-4 px-3 py-2 pt-0 mt-1 text-left" ref="addPost" v-model="formState" style="height:auto !important; font-family:BodyFont; background:transparent !important;" >
            
            <div class="row application application--light"  data-app="true">
 
