@@ -19,11 +19,11 @@
         <div class="text-left d-flex flex-column py-md-3 py-2" style="overflow-x:hidden; width:100%;">
           <!-- large screen -->
           <div style="font-size:14px;font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1 d-md-block d-none">{{source.title}}</div>
-          <div style="font-size:12px;font-family:BodyFont; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1  d-md-block d-none">{{source.description}}</div>
+          <div style="font-size:12px;font-family:BodyFont; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1  d-md-block d-none">{{source.summary}}</div>
           <!-- ends -->
           <!-- smaller screen -->
                <div style="font-size:13px;font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1  d-md-none d-block">{{source.title}}</div>
-          <div style="font-size:11px;font-family:BodyFont; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1  d-md-none d-block">{{source.description}}</div>
+          <div style="font-size:11px;font-family:BodyFont; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1  d-md-none d-block">{{source.summary}}</div>
           <!-- ends -->
           <div class="d-flex flex-row pr-2" style="align-items:center;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
              <div style="font-size:12px;font-family:BodyFont;">{{appName(source)}} </div> <v-icon class="mx-1" style="font-size:12px;">mdi-record</v-icon> 

@@ -5,7 +5,7 @@
       <v-card tile class="col-lg-6 offset-lg-3 py-1 py-md-2 fixed-top d-flex flex-row px-md-2 px-1"
        style="position:sticky;background:white;z-index:99999999;top:0%;">
        
-        <div class="col-6 py-0 px-0 d-flex flew-row" >
+        <div class="col-10 py-0 px-0 d-flex flew-row" >
            <template v-if="this.$root.selectedPost.user">
 
               <div  @click.stop="goToProfile(that.$root.selectedPost.user.username)"  class="mr-2" :style="imageStyleUser(35,this.$root.selectedPost.user)"
@@ -29,7 +29,7 @@
         </div>
 
   
-        <div class="col-6 py-0 px-0 text-right">
+        <div class="col-2 py-0 px-0 text-right">
 
             <v-btn icon @click.stop="goBack" >
                       <v-icon>mdi mdi-close</v-icon>

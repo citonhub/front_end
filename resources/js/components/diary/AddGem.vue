@@ -358,7 +358,18 @@
 
          <div class="col-lg-12 py-1 my-2 px-2 text-center" v-if="selectedContentType == 'text'">
 
-             <v-press-editor :placeholder="'Type here...'" v-model="contentInWord" ></v-press-editor>
+                <v-textarea
+                 style="font-size:14px;background:white;"
+                 outlined
+                 height="100px"
+                
+                :placeholder="'Type here...'"
+                v-model="contentInWord" 
+               
+                >
+
+                </v-textarea>
+
 
        <div class="col-12 text-center">
                            <v-btn small rounded color="#3C87CD" :loading="loadingSendMsg"   @click="sendMessage" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
@@ -736,9 +747,7 @@ import 'izitoast/dist/css/iziToast.min.css'
   );
 
 
- const VPressEditor = () => import(
-    /* webpackChunkName: "VPressEditor?v=0.12" */ '../challenges/Editor.vue'
-  );
+
 
 
   import draggable from 'vuedraggable'
@@ -967,7 +976,6 @@ export default {
       AudioPlayer,
       Images,
        ImageCropperBoard,
-      VPressEditor,
       codemirror
   },
    computed: {
