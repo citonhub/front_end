@@ -2806,7 +2806,7 @@ const app = new Vue({
   // check user login state
   checkIfUserIsLoggedIn: function(){
     if(this.checkauthroot == 'noauth'){
-      this.LocalStore('route_tracker',[this.$router.currentRoute.path]);
+      this.LocalStore('route_tracker_new',[this.$router.currentRoute.path]);
      
        this.$router.push({ path: '/login' });
       return;

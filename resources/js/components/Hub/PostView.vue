@@ -2,9 +2,8 @@
 
   <div :class="fromProfile ? 'col-lg-4 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox' : 'col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox'" style="height:200px;" >
 
-             <image-loader  :externalUrl="externalUrl"  :backgroundColor="backgroundColor" :additionalStyle="additionalStyle"
-             :externalClass="externalClass" :post="post"
-               @click="showProject(post.id, post.post_id)">
+             <image-loader  :post="post"
+              >
 
             
          </image-loader>
@@ -94,7 +93,7 @@ export default {
     },
     mounted(){
 
-      this.imageStyle(190, this.post);
+     
 
     },
      methods:{
@@ -120,55 +119,7 @@ export default {
       }
      },
 
-      imageStyle: function (width, data) {
-
-        if (data.image_extension == null) {
-          let styleString = "height: " + width +  "px; width: 94%;  position:absolute; left: 3%; border: 1px solid #c5c5c5;  background-repeat: no-repeat; border-radius: 20px; box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25); background-size: cover;";
-          
-            this.additionalStyle = styleString;
-
-             this.backgroundColor = 'white';
-
-             let imageUrl = '';
-
-          if (data.image_name == null || data.image_name == '0') {
-           
-            imageUrl = 'imgs/default_1.jpg';
-          } else {
-            
-            if (data.image_name == 'default_1') {
-
-               imageUrl = 'imgs/background1.jpg';
-            
-            }
-
-            if (data.image_name == 'default_2') {
-               imageUrl = 'imgs/background3.jpg';
-            
-            }
-
-            if (data.image_name == 'default_3') {
-               imageUrl = 'imgs/imgproj2.jpeg';
-             
-            }
-          }
-
-           this.externalUrl = imageUrl;
-         
-         
-        } else {
-          let styleString = "height: " + width +  "px; width: 94%; left: 3%;  position:absolute; border: 1px solid #c5c5c5;  background-repeat: no-repeat; border-radius: 20px; box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25); background-size: cover;";
-           
-             this.additionalStyle = styleString;
-
-         let imgLink = data.image_name + '.' + data.image_extension;
-
-          this.externalUrl = 'imgs/posts/' + imgLink;
-
-           this.backgroundColor =  data.background_color
-         
-        }
-      },
+    
        getUserLevel: function(points){
 let imageUrl = '';
           

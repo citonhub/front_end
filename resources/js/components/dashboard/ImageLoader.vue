@@ -2,7 +2,7 @@
     
         
        <div 
-                  
+                    @click="showProject(post.id, post.post_id)"
            :style=" additionalStyle + 'background-image:url('+ image +'); background-color:'+ backgroundColor +';'"> 
 
              <div class="pt-3 px-2  pl-3" style=" position:absolute; width:100%; height:35%; left:0; bottom:0%; border-radius:0px; border-bottom-left-radius:20px;
@@ -32,16 +32,21 @@ export default {
      data(){
         return{      
             image: '',
-            imageUrl: ''
+            imageUrl: '',
+             externalUrl: '',
+        backgroundColor:'',
+        additionalStyle:'',
+        externalClass:'',
         }
     },  
-    props:['externalUrl','backgroundColor','additionalStyle','externalClass','post'],
+    props:['post'],
     mounted: function () {
         this.setImage();
     },
     methods: {        
         setImage() {
-           
+              this.imageStyle(190, this.post);
+
             this.imageUrl = this.externalUrl;
             this.image = '';
             
@@ -56,7 +61,62 @@ export default {
             highResImage.src = this.imageUrl;
 
            
+        },
+          imageStyle: function (width, data) {
+
+        if (data.image_extension == null) {
+          let styleString = "height: " + width +  "px; width: 94%;  position:absolute; left: 3%; border: 1px solid #c5c5c5;  background-repeat: no-repeat; border-radius: 20px; box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25); background-size: cover;";
+          
+            this.additionalStyle = styleString;
+
+             this.backgroundColor = 'white';
+
+             let imageUrl = '';
+
+          if (data.image_name == null || data.image_name == '0') {
+           
+            imageUrl = 'imgs/default_1.jpg';
+          } else {
+            
+            if (data.image_name == 'default_1') {
+
+               imageUrl = 'imgs/background1.jpg';
+            
+            }
+
+            if (data.image_name == 'default_2') {
+               imageUrl = 'imgs/background3.jpg';
+            
+            }
+
+            if (data.image_name == 'default_3') {
+               imageUrl = 'imgs/imgproj2.jpeg';
+             
+            }
+          }
+
+           this.externalUrl = imageUrl;
+         
+         
+        } else {
+          let styleString = "height: " + width +  "px; width: 94%; left: 3%;  position:absolute; border: 1px solid #c5c5c5;  background-repeat: no-repeat; border-radius: 20px; box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25); background-size: cover;";
+           
+             this.additionalStyle = styleString;
+
+         let imgLink = data.image_name + '.' + data.image_extension;
+
+          this.externalUrl = 'imgs/posts/' + imgLink;
+
+           this.backgroundColor =  data.background_color
+         
         }
+      },
+      showProject (id, postId) {
+        this.$router.push({ path: `/hub/post/${postId}` })
+        this.$root.currentPost = id
+        // this.project = project;
+        
+      },
     }
    
 }
