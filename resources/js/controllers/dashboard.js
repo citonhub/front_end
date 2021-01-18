@@ -19,12 +19,12 @@ const store = new Vuex.Store({
   mutations: {
     setUserData (state, userData) {
       state.user = userData
-      localStorage.setItem('user', JSON.stringify(userData))
+      localStorage.setItem('user_new', JSON.stringify(userData))
       axios.defaults.headers.common.Authorization = `Bearer ${userData.token}`
     },
 
     clearUserData () {
-      localStorage.removeItem('user')
+      localStorage.removeItem('user_new')
       thisUserState.$router.push({ path: '/hub' });
       location.reload();
     }
@@ -1897,7 +1897,7 @@ const app = new Vue({
       window.routerData = this.$router;
 
       // get user info from local storage if logged in
-      const userInfo = localStorage.getItem('user')
+      const userInfo = localStorage.getItem('user_new')
     if (userInfo) {
       const userData = JSON.parse(userInfo)
 

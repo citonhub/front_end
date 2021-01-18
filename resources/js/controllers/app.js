@@ -13,7 +13,7 @@ const app = new Vue({
     },
     created(){
    
-      let loggedInUser = localStorage.getItem('user');
+      let loggedInUser = localStorage.getItem('user_new');
 
       if(loggedInUser){
 

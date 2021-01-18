@@ -263,6 +263,6 @@
  @section('scripts')
 
 <!-- The main compiled script for this page  -->
-<script src="{{ asset('js/app.js?v=0.10') }}"></script>
+<script src="{{ asset('js/app.js?v=0.11') }}"></script>
  <!-- ends -->
  @endsection
