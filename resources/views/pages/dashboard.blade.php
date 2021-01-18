@@ -55,6 +55,9 @@
  @section('content')
   
   <div id="dashboard">
+  <div style="position:fixed;height:100%; width:100%; align-items:center; justify-content:center;z-index:100000;background:white;" v-if="pageLoaderView"  class="sliderfull d-flex "> 
+      <img src="/imgs/diary_loading.svg" height="50" >
+</div>
   <dashboard></dashboard>
   </div>
  
@@ -89,7 +92,7 @@
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=2.22') }}"></script>
+ <script src="{{ asset('js/dashboard.js?v=2.24') }}"></script>
  <!-- ends -->
      
  @endsection

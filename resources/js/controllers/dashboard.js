@@ -1774,15 +1774,19 @@ const app = new Vue({
      tempDiaryId:'',
      autoOpenDiary:false,
      showRewardBoard:false,
+     pageLoaderView:true,
      },
      mounted: function () {
       window.thisUserState = this;
       window.routerData = this.$router;
+
+      this.pageLoaderView = false;
       if(this.isLogged){
         this.fetchUserDetails();
        }
       this.connectToChannel();
       this.checkPWA();
+
     },
     computed: {
       ...mapGetters([
