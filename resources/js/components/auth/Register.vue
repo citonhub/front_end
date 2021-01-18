@@ -71,7 +71,7 @@
  <div class="col-12 py-1 my-0 px-2">
               <v-text-field
                  style="font-size:13px;"
-                 placeholder="name"
+                 placeholder="Yoda"
             label="Your Name"
             counter="80"
             v-model="name"
@@ -88,7 +88,7 @@
               <v-text-field
                 style="font-size:13px;"
                 
-                 placeholder="example@email.com"
+                 placeholder="yoda@email.com"
             label="Email"
              v-model="email"
               prepend-inner-icon="las la-envelope"
@@ -105,7 +105,7 @@
              <div class="col-12 py-1 my-0 px-2">
               <v-text-field
                  style="font-size:13px;"
-                 placeholder="password"
+                 placeholder="therepublic"
             :label="$t('general.password')"
               outlined
               v-model="password"
@@ -192,7 +192,7 @@
            <div class="col-12 py-0 my-0 px-2">
               <v-text-field
                  style="font-size:12px;"
-                 placeholder="name"
+                 placeholder="Yoda"
             label="Your Name"
             counter="80"
             v-model="name"
@@ -209,7 +209,7 @@
               <v-text-field
                 style="font-size:12px;"
                 
-                 placeholder="example@email.com"
+                 placeholder="yoda@email.com"
             label="Email"
              v-model="email"
               prepend-inner-icon="las la-envelope"
@@ -226,12 +226,11 @@
              <div class="col-12 py-0 my-0 px-2">
               <v-text-field
                  style="font-size:12px;"
-                 placeholder="password"
+                 placeholder="therepublic"
             :label="$t('general.password')"
               outlined
               v-model="password"
               @click:append="switchTxtView()"	
-               
                prepend-inner-icon="las la-lock"
                :append-icon="prependIconText"
             :rules="passwordRule"
@@ -306,7 +305,7 @@ export default {
       return {
         emailExist: false,
           nameRule:[
-             v => !!v || 'Name is required',
+             v => !!v || 'Oh!, you miss this.',
            v => v.length <= 80 || 'Name must be less than 80 characters'
             ],
             name:'',
@@ -318,15 +317,15 @@ export default {
            passwordState:'password',
             email:'',
              emailRule: [
-            v => !!v || 'Email is required',
+            v => !!v || 'Oh!, you miss this.',
              v => !v || /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'E-mail must be valid'
             ],
             comfirmPasswordRule: [
-          v => !!v || 'Confirm Password is required',
+          v => !!v || 'Oh!, you miss this.',
            v => this.password ==  this.passwordConfirm || 'Password do not match',
             ],
              passwordRule:[
-        v => !!v || 'password is required',
+        v => !!v || 'Oh!, you miss this.',
            v => v.length >= 8 || 'Password must be more than 8 characters',
             ],
             formstate:false,

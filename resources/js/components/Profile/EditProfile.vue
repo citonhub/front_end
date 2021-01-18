@@ -110,15 +110,15 @@ return{
   fullName:'',
   contentInWord:'',
    nameRule:[
-             v => !!v || 'Name is required',
+             v => !!v || 'Oh!, you miss this.',
            v => v.length <= 80 || 'Name must be less than 80 characters'
             ],
          UsernameRule:[
-           v => !!v || 'Username is required',
+           v => !!v || 'Oh!, you miss this.',
            v => v.length < 16 || 'Username must be less than 16 characters'
         ],
         aboutRule:[
-          v => !!v || 'About is required',
+          v => !!v || 'Oh!, you miss this.',
            v => v.length < 250 || 'About must be less than 250 characters'
         ],
       imagepath:'',

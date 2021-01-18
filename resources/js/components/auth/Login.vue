@@ -18,7 +18,7 @@
 <blockquote class="fill" style="font-family:BodyFont; font-size:25px; color:black;">People who are crazy enough to think they can change the world, are the ones who do.</blockquote>
 
  <p class="text-center" style="font-family:HeaderFont;font-size:25px;">
-   - Steve Jobs
+   - Rob Siltanen
  </p>
        </div>
 
@@ -228,7 +228,7 @@
 <blockquote class="fill" style="font-family:BodyFont; font-size:16px; color:black;">People who are crazy enough to think they can change the world, are the ones who do.</blockquote>
 
  <p class="text-center" style="font-family:HeaderFont;font-size:16px;">
-   - Steve Jobs
+   - Rob Siltanen
  </p>
        </div>
 
@@ -280,11 +280,11 @@ export default {
         errorState: false,
         formstate:false,
         passwordRule:[
-        v => !!v || 'password is required',
+        v => !!v || 'Oh!, you miss this.',
            v => v.length >= 8 || 'Password must be more than 8 characters',
         ],
          UsernameRule:[
-           v => !!v || 'Username is required'
+           v => !!v || 'Oh!, you miss this.'
         ]
       }
     },

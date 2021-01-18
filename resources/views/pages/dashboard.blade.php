@@ -5,7 +5,7 @@
 
  @endsection
  @section('meta') 
- <meta name="description" content="A teaching platform for developers. Chat, share codes, live code and build projects in your Space. Create an account or log in to get started." />
+ <meta name="description" content="CitonHub dashboard" />
   <meta name="keywords" content="Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
@@ -14,12 +14,12 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="white">
     <meta name="apple-mobile-web-app-title" content="CitonHub">
-    <link rel="apple-touch-icon" href="imagesNew/icons/icon-144x144.png">
+    <link rel="apple-touch-icon" href="images/icons/msapplication_icon_144x144.png">
     <!--Metadata for Microsoft-->
-    <meta name="msapplication-TileImage" content="imagesNew/icons/icon-144x144.png">
-    <meta name="msapplication-TileColor" content="#4495a2">
-    <meta property="og:description" content="A teaching platform for developers. Chat, share codes, live code and build projects in your Space. Create an account or log in to get started" />
-    <meta property='twitter:title' content="Citonhub:A teaching platform for developers"/>
+    <meta name="msapplication-TileImage" content="images/icons/msapplication_icon_144x144.png">
+    <meta name="msapplication-TileColor" content="#3C87CD">
+    <meta property="og:description" content="CitonHub dashboard" />
+    <meta property='twitter:title' content="CitonHub dashboard"/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 
@@ -89,7 +89,7 @@
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=1.75') }}"></script>
+ <script src="{{ asset('js/dashboard.js?v=1.98') }}"></script>
  <!-- ends -->
      
  @endsection

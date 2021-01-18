@@ -5,22 +5,22 @@
 
  @endsection
  @section('meta') 
- <meta name="description" content="A teaching platform for developers. Chat, share codes, live code and build projects in your Space. Create an account or log in to get started." />
+ <meta name="description" content="Contact CitonHub" />
   <meta name="keywords" content="Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
-  <meta name="og:image" content="https://citonhub.com/imgs/CitonHub.png"/>
+  <meta name="og:image" content="https://citonhub.com/imgs/logo.png"/>
   <!--Metadata for Apple-->
   <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="white">
     <meta name="apple-mobile-web-app-title" content="CitonHub">
-    <link rel="apple-touch-icon" href="imagesNew/icons/icon-144x144.png">
+    <link rel="apple-touch-icon" href="images/icons/msapplication_icon_144x144.png">
     <!--Metadata for Microsoft-->
-    <meta name="msapplication-TileImage" content="imagesNew/icons/icon-144x144.png">
-    <meta name="msapplication-TileColor" content="#4495a2">
-    <meta property="og:description" content="A teaching platform for developers. Chat, share codes, live code and build projects in your Space. Create an account or log in to get started" />
-    <meta property='twitter:title' content="Citonhub:A teaching platform for developers"/>
-<meta property='twitter:image' content="https://citonhub.com/imgs/CitonHub.png"/>
+    <meta name="msapplication-TileImage" content="images/icons/msapplication_icon_144x144.png">
+    <meta name="msapplication-TileColor" content="#3C87CD">
+    <meta property="og:description" content="Contact CitonHub" />
+    <meta property='twitter:title' content="Contact CitonHub"/>
+<meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 
 

@@ -235,11 +235,11 @@ export default {
         passwordConfirm:'',
             password:'',
              comfirmPasswordRule: [
-          v => !!v || 'Confirm Password is required',
+          v => !!v || 'Oh!, you miss this.',
            v => this.password ==  this.passwordConfirm || 'Password do not match',
             ],
              passwordRule:[
-        v => !!v || 'password is required',
+        v => !!v || 'Oh!, you miss this.',
            v => v.length >= 8 || 'Password must be more than 8 characters',
             ],
       }

@@ -25,69 +25,129 @@
 
            </div>
      <!-- ends -->
-             
-             <div class="col-12 d-flex flex-row px-0" style="align-items:center;border-bottom:1px solid #c5c5c5;">
+
+
+        <template v-if="loading">
+
+
+       <div  class="col-12 mt-4 text-center">
+
+           <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
+
+      </div>
+
+        </template>
+
+        <template v-else>
+
+
+          <div v-for="(notification,index) in notifications" @click="goToNotification(notification)"  :key="index" class="col-12 d-flex flex-row px-0" style="align-items:center;cursor:pointer;border-bottom:1px solid #c5c5c5;">
                 <div class="mx-2" >
-                    <div :style="imageStyle(40,['data'],'8px')">
+
+                   <template v-if="notification.type == 'new_connection' || notification.type == 'space_invitation'" >
+
+                      <div :style="imageStyle(40,notification.dataArray[0],'50%','profile')">
 
                     </div>
-                </div>
-                <div class="pr-2">
-                    <span style="font-family:MediumFont;font-size:13px;">David Adebola and 23 others</span> <span style="font-family:BodyFont;font-size:13px;"> liked your project,</span> <span  style="font-family:MediumFont;font-size:13px;">Music player</span>
-                     <span class="mx-1" style="font-family:BodyFont;font-size:12px; color:grey;">12:34 PM</span>
-                </div>
-             </div>
-           
 
-            <div class="col-12 d-flex flex-row px-0" style="align-items:center;border-bottom:1px solid #c5c5c5;">
-                <div class="mx-2" >
-                    <div :style="imageStyle(40,['data'],'8px')">
+                   </template>
+
+                   <template v-else >
+
+                      <div :style="imageStyle(40,notification.post_data,'8px','posts')">
 
                     </div>
+
+                   </template>
+                   
                 </div>
                 <div class="pr-2">
-                    <span style="font-family:MediumFont;font-size:13px;">Jude Prince and 14 others</span> <span style="font-family:BodyFont;font-size:13px;"> liked your pinned,</span> <span  style="font-family:MediumFont;font-size:13px;">Music player</span>
-                     <span class="mx-1" style="font-family:BodyFont;font-size:12px; color:grey;">2:34 PM</span>
-                </div>
-             </div>
 
-              <div class="col-12 d-flex flex-row px-0" style="align-items:center;border-bottom:1px solid #c5c5c5;">
-                <div class="mx-2" >
-                    <div :style="imageStyle(40,['data'],'8px')">
+                   <template v-if="notification.type == 'post_like'">
+                          <template v-if="notification.dataArray.length == 1">
 
-                    </div>
-                </div>
-                <div class="pr-2">
-                    <span style="font-family:MediumFont;font-size:13px;">John Haskell and 114 others</span> <span style="font-family:BodyFont;font-size:13px;"> commented your pinned,</span> <span  style="font-family:MediumFont;font-size:13px;">Music player</span>
-                     <span class="mx-1" style="font-family:BodyFont;font-size:12px; color:grey;">2:30 PM</span>
-                </div>
-             </div>
+                             <span style="font-family:MediumFont;font-size:13px;">{{notification.dataArray[0].username}}</span> 
 
-               <div class="col-12 d-flex flex-row px-0" style="align-items:center;border-bottom:1px solid #c5c5c5;">
-                <div class="mx-2" >
-                    <div :style="imageStyle(35,['data'],'50%')">
+                          </template>
+                          <template v-else>
+                             <span style="font-family:MediumFont;font-size:13px;">{{notification.dataArray[0].username}} and {{notification.dataArray.length - 1}} others</span> 
+                          </template>
+                     
 
-                    </div>
-                </div>
-                <div class="pr-2">
-                    <span style="font-family:MediumFont;font-size:13px;">Michell and 4 others</span> <span style="font-family:BodyFont;font-size:13px;"> are now following you</span> 
-                     <span class="mx-1" style="font-family:BodyFont;font-size:12px; color:grey;">12:30 AM</span>
-                </div>
-             </div>
+                      <span style="font-family:BodyFont;font-size:13px;"> liked your project,</span> 
 
-               <div class="col-12 d-flex flex-row px-0" style="align-items:center;border-bottom:1px solid #c5c5c5;">
-                <div class="mx-2" >
-                    <div :style="imageStyle(35,['data'],'50%')">
+                      <span  style="font-family:MediumFont;font-size:13px;">{{notification.post_data.title}}</span>
 
-                    </div>
-                </div>
-                <div class="pr-2">
-                    <span style="font-family:MediumFont;font-size:13px;">Adenike</span> <span style="font-family:BodyFont;font-size:13px;"> is inviting you to join </span><span  style="font-family:MediumFont;font-size:13px;">Js Interns</span>
+                   </template>
+
+                    <template v-if="notification.type == 'post_comment'">
+                          <template v-if="notification.dataArray.length == 1">
+
+                             <span style="font-family:MediumFont;font-size:13px;">{{notification.dataArray[0].username}}</span> 
+
+                          </template>
+                          <template v-else>
+                             <span style="font-family:MediumFont;font-size:13px;">{{notification.dataArray[0].username}} and {{notification.dataArray.length - 1}} others</span> 
+                          </template>
+                     
+
+                      <span style="font-family:BodyFont;font-size:13px;"> commented on your project,</span> 
+
+                      <span  style="font-family:MediumFont;font-size:13px;">{{notification.post_data.title}}</span>
+
+                   </template>
+
+                    <template v-if="notification.type == 'post_pinned'">
+                          <template v-if="notification.dataArray.length == 1">
+
+                             <span style="font-family:MediumFont;font-size:13px;">{{notification.dataArray[0].username}}</span> 
+
+                          </template>
+                          <template v-else>
+                             <span style="font-family:MediumFont;font-size:13px;">{{notification.dataArray[0].username}} and {{notification.dataArray.length - 1}} others</span> 
+                          </template>
+                     
+
+                      <span style="font-family:BodyFont;font-size:13px;"> pinned your project,</span> 
+
+                      <span  style="font-family:MediumFont;font-size:13px;">{{notification.post_data.title}}</span>
+
+                   </template>
+
+                   <template v-if="notification.type == 'new_connection'">
+                          <template v-if="notification.dataArray.length == 1">
+
+                             <span style="font-family:MediumFont;font-size:13px;">{{notification.dataArray[0].username}}</span> 
+
+                                <span style="font-family:BodyFont;font-size:13px;"> is now following you</span> 
+
+                          </template>
+                          <template v-else>
+                             <span style="font-family:MediumFont;font-size:13px;">{{notification.dataArray[0].username}} and {{notification.dataArray.length - 1}} others</span> 
+                              <span style="font-family:BodyFont;font-size:13px;"> are now following you</span> 
+                          </template>
+                  
+
+                   </template>
+
+                    <template v-if="notification.type == 'space_invitation'">
+                          <span style="font-family:MediumFont;font-size:13px;">{{notification.dataArray[0].username}}</span> <span style="font-family:BodyFont;font-size:13px;"> is inviting you to join </span><span  style="font-family:MediumFont;font-size:13px;">Js Interns</span>
                      <v-btn x-small color="#3C87CD" style="color:white;text-transform:normal;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Accept</v-btn>
                       <v-btn x-small color="#3C87CD" outlined style="text-transform:normal;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Decline</v-btn>
-                     <span class="mx-1" style="font-family:BodyFont;font-size:12px; color:grey;">12:30 AM</span>
+
+                   </template>
+                   
+
+
+                     <span class="mx-1" style="font-family:BodyFont;font-size:12px; color:grey;">{{checkDatereal(notification.created_at)}}</span>
                 </div>
              </div>
+
+        </template>
+             
+             
+           
+
            
 
           <!-- spacer -->
@@ -118,19 +178,112 @@
  export default {
     data () {
       return {
-     
+         notifications:[],
+         loading:false,
       }
      
     },
      mounted(){
      this.$root.showTopBar = true;
-
+     
+     this.getNotification();
   
     },
 
      methods:{
+       checkDatereal: function(date){
 
-          imageStyle: function(size,data,radius){
+            var realTimeHour = moment(date).add(1,'hours');
+
+            var aWeekAgo = moment().subtract(7,'days');
+
+            var anHourAgo = moment().subtract(1,'hours');
+
+            if (moment(realTimeHour) >= aWeekAgo) {
+
+               if(moment(realTimeHour) >= anHourAgo){
+
+                    return moment(realTimeHour).fromNow();
+                  
+               } 
+
+              return moment(realTimeHour).format("h:mm a");
+             
+            }else{
+                return moment(realTimeHour).calendar();
+            }
+      },
+      goToNotification:function(notification){
+
+        if(notification.type == 'new_connection'){
+
+             this.$router.push({ path:'/profile/' + this.$root.username})
+
+        }
+
+        if(notification.type == 'post_like' || notification.type == 'post_pinned' || notification.type == 'post_comment'){
+
+             this.$root.autoOpenPost = true;
+
+                this.$root.autoOpenPostId = notification.post_data.post_id;
+
+
+             this.$router.push({ path:'/hub/'})
+
+        }
+
+      },
+      markAsRead:function(){
+             axios.post( '/mark-as-read')
+      .then(response => {
+      
+      if (response.status == 200){
+          
+
+         
+         
+      }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+       },
+      
+        getNotification: function(){
+
+            this.loading = true;
+
+         axios.get( '/user-notification')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+       
+        
+           this.notifications = response.data.notifications;
+           this.$root.authProfile.unread = 0;
+
+             this.markAsRead();
+        
+
+         this.loading = false;
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+        this.loading = false;
+       
+    
+     }) 
+             
+
+        },
+          imageStyle: function(size,data,radius,type){
 
          if(data.background_color == null){
         let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:" + radius + ";background-repeat: no-repeat; ";
@@ -162,7 +315,7 @@
         let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:" + radius + ";background-repeat: no-repeat; ";
          let imgLink = data.image_name + '.' + data.image_extension;
         
-        styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
+        styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/' + type + '/'  + imgLink  +  ');';
          
           return styleString;
 

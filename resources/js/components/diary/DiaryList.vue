@@ -36,12 +36,12 @@
            </div>
      <!-- ends -->
 
-      <template v-if="this.$root.TopBarComponent">
+      <template v-if="this.$root.TopBarComponentBoard">
 
 
         <!-- search area  -->
 
-        <template  v-if="this.$root.TopBarComponent.searchContent.length > 0">
+        <template  v-if="this.$root.TopBarComponentBoard.searchContent.length > 0">
 
 
 
@@ -103,7 +103,32 @@
 
        <template v-else>
 
-            <div class="col-lg-4 col-md-6 px-2 mb-1 py-1 pt-0 mt-md-2" v-for="diary in this.$root.diaryList" :key="diary.id">
+          <template v-if="this.$root.diaryList.length == 0">
+
+              
+       <div class="col-md-6 offset-md-3 px-md-4 py-1 px-2 mt-3 mt-md-5 text-center d-flex flex-column ">
+
+     
+
+
+         <div class="mb-3 px-3" style="font-size:13px;color:black;font-family:BodyFont;">
+                    Document <span style="font-family:MediumFont;">how you learn </span> , <span style="font-family:MediumFont;">what you learn</span> and <span style="font-family:MediumFont;">share them with others</span>. You can help a million people improve, by sharing what you know!
+                    </div>
+
+                     <div>
+                          <v-btn small color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" @click="createDiary" class="mx-2 d-inline-block" rounded>Create a dairy</v-btn>
+                     </div>
+
+
+    
+
+    </div>
+
+          </template>
+
+          <template v-else>
+
+              <div class="col-lg-4 col-md-6 px-2 mb-1 py-1 pt-0 mt-md-2" v-for="diary in this.$root.diaryList" :key="diary.id">
           
           <v-card @click="getDiaryContent(diary)"  class="py-2 px-1"  style="border-radius:7px;" >
             
@@ -138,6 +163,10 @@
           
 
           </div>
+
+          </template>
+
+          
 
        </template>
 

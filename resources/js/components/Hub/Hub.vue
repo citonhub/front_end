@@ -1,5 +1,5 @@
 <template>
-    <div  style="position:fixed;height:100%;background:#F5F5FB; width:100%;">
+    <div data-app="true" class=" application application--light" style="position:fixed;height:100%;background:#F5F5FB; width:100%;">
 
       
 
@@ -57,6 +57,7 @@
 
         
     <!-- post view content -->
+    
        
         <div class=" col-12 scroller" style=" position:absolute; height:90%; top:10%; overflow-y:auto; padding-bottom:60px; padding-top:20px; " >
 
@@ -64,9 +65,62 @@
                <div class="col-lg-10 offset-lg-1 col-12 py-0 pt-md-5 mt-md-3 px-md-2 px-1" >
 
                    <div class="row">
-                    
+
+                 <template v-if="this.$root.TopBarComponentHub">
+
+                     
+                     <template  v-if="this.$root.TopBarComponentHub.query.length > 0">
+
+
+
+
+                        <template v-if="loadingSearchPost">
+
+                           <div  class="col-12 mt-4 text-center">
+
+                    <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
+
+                      </div>
+
+                      </template>
+
+                       <template v-else>
+
+                          <post-view :fromProfile="false" :post="post" :alertComponent="that" v-for="post in this.$root.postsSearch" :key="post.id" ></post-view>
+
+                      </template>
+
+
+
+                     </template>
+
+
+                     <template v-else>
+
+
+                        <template v-if="loadingPost">
+
+                           <div  class="col-12 mt-4 text-center">
+
+                    <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
+
+                      </div>
+
+                      </template>
+
+                       <template v-else>
+
+                          <post-view :fromProfile="false" :post="post" :alertComponent="that" v-for="post in this.$root.posts" :key="post.id" ></post-view>
+
+                      </template>
+                       
+                     </template>
+
                    
-                   <post-view :fromProfile="false" :post="post" v-for="post in this.$root.posts" :key="post.id" ></post-view>
+
+                 </template>
+                     
+                  
 
 
        
@@ -177,22 +231,16 @@
 
       <!-- close button -->
     
-      <div class="text-right">
-       <v-btn icon @click.stop="goBack" color="#ffffff">
-                      <v-icon>mdi mdi-close</v-icon>
-                    </v-btn>
-      </div>
-      
-
+     
       <!-- ends -->
 
-     <div class="col-12 pt-0 pb-3 scrollerViewProject px-md-2 px-0" 
+     <div class="col-12 pt-0 pb-0  px-0" 
      style="background:white; height:100%;
-     border:1px solid white;border-radius:0px;border-top-left-radius:10px;  overflow-y:auto;overflow-x:hidden;" @click.stop="viewProjectModal = true">
+     border:1px solid white; overflow-y:auto;overflow-x:hidden;" @click.stop="viewProjectModal = true">
 
    
       <!-- project view page -->
-      <div class="col-12  py-2 pt-0">
+      <div class="col-12  py-0 pt-0">
 
        <project-view :post="currentPost"></project-view>
 
@@ -242,6 +290,42 @@
  </div>
 
  <!-- ends -->
+
+
+  <!-- share  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" @click="that.$root.showInvitation = false" v-if="this.$root.showInvitation">
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+
+     
+
+   
+
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
+
+  <!-- profile View  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: #F5F5FB;" v-if="this.$root.showProfileView">
+
+  
+      
+      <profile-view></profile-view>
+   
+
+  
+
+ </div>
+
+
+ <!-- ends -->
   
 
      <!-- ends -->
@@ -266,6 +350,10 @@ const addPage = () => import(/*webpackChunkName: "addPage"*/ './AddProjectPage.v
 const ImageCropperBoard = () => import(
     /* webpackChunkName: "imageCropperBoard" */ './ImageCropper.vue'
   );
+  
+const Invitation = () => import(
+    /* webpackChunkName: "Invitation" */ '../chats/invitation.vue'
+  );
 
   const SideBar = () => import(
     /* webpackChunkName: "SideBar" */ '../dashboard/sideBar.vue'
@@ -273,6 +361,10 @@ const ImageCropperBoard = () => import(
 
   const PostView = () => import(
     /* webpackChunkName: "PostView" */ './PostView.vue'
+  );
+
+   const ProfileView = () => import(
+    /* webpackChunkName: "ProfileView" */ '../Profile/ProfilePage.vue'
   );
 
 
@@ -290,6 +382,7 @@ export default {
         currentPost: this.$root.currentPost,
         project: {},
         loadingPost:false,
+        loadingSearchPost:false,
       }
     },
     components: {
@@ -299,10 +392,21 @@ export default {
       ImageCropperBoard,
       SideBar,
       PostView,
+      Invitation,
+      ProfileView
     },
     mounted(){
        
+        if(!this.$root.isLogged){
+
+            this.$root.checkIfUserIsLoggedIn();
+         return;
+        }
+     
+       
       this.fetchPost();
+
+      this.setPath();
 
        this.$root.hubComponents = this;
 
@@ -314,6 +418,17 @@ export default {
     },
 
     methods: {
+
+       setPath:function(){
+
+         
+          if(this.$root.autoOpenPost){
+
+             this.$router.push({ path: '/hub/post/' + this.$root.autoOpenPostId });
+
+          }
+
+       },
      
        fetchPost:function(){
 

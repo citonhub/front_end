@@ -92,7 +92,7 @@ export default {
         name:'',
         formstate:false,
         Rule:[
-             v => !!v || 'Name is required',
+             v => !!v || 'Oh!, you miss this.',
            v => v.length < 80 || 'Name must be less than 50 characters',
              v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
          ],
@@ -164,7 +164,8 @@ export default {
 
                      this.$root.sortChatList();
 
-                     this.$root.chatListComponent.openChat(response.data.space.space_id)
+
+                       this.$root.chatComponent.openChat(response.data.space.space_id,true)
 
                   
 

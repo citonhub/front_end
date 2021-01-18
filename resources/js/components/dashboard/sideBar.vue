@@ -18,7 +18,7 @@
   </div>
      
 
-    <div class="col-12  py-2 px-0">
+    <div class="col-12  py-2 pt-md-2  pt-0 px-0">
     
 
       <div class="row px-0">
@@ -93,6 +93,15 @@
                 </div>
           </div>
 
+          
+            <!-- PWA installer -->
+
+           <div class="col-12 text-center" v-if="this.$root.ShowappInstaller">
+                <button  @click="installApp()" class="homeButton mx-2 px-3 py-2" style="border-radius:20px;font-family:MediumFont;font-size:13px;">Use App</button>
+          </div>
+
+           <!-- ends -->
+
 
           
 
@@ -105,12 +114,12 @@
 
     <div class="col-12 px-0 py-2 mt-2" style="position:absolute; bottom:0%;left:0;">
                
-                    <div class="col-12 px-0  mb-1 py-1 py-md-2 sideBar">
+                    <div class="col-12 px-0  mb-1 py-1 py-md-2 sideBar" @click.stop="goToPage('settings')" :style="selectedTab == 'settings' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''">
                        <div class="row">
                          <div class="col-4 py-1 text-center">
-                  <v-icon style="font-size:30px;" color="#A4A4A5">las la-cog</v-icon>
+                  <v-icon style="font-size:30px;" :color="selectedTab == 'settings' ? '#3C87CD' : '#A4A4A5'">las la-cog</v-icon>
                 </div>
-                <div class="  py-1 col-8 d-flex" style="align-items:center; color:#A4A4A5;">
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'settings' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
                   <div style="font-family:MediumFont; font-size:14px;" >Setings</div>
                 </div>
                        </div>
@@ -141,6 +150,23 @@ export default {
       this.setPage();
     },
     methods:{
+      installApp:function(){
+        
+                // Hide the app provided install promotion
+            this.$root.ShowappInstaller = false;
+          // Show the install prompt
+           this.$root.deferredPrompt.prompt();
+          // Wait for the user to respond to the prompt
+           this.$root.deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the install prompt');
+            } else {
+              console.log('User dismissed the install prompt');
+            }
+          });
+        
+
+              },
         setPage:function(){
 
              if(this.$router.currentRoute.path.indexOf('projects') >= 0){
@@ -187,7 +213,7 @@ export default {
 
              
 
-         if(this.$router.currentRoute.path.indexOf('wallet') >= 0){
+          if(this.$router.currentRoute.path.indexOf('wallet') >= 0){
                 
                this.selectedTab = 'wallet';
 
@@ -196,7 +222,15 @@ export default {
               
             }
 
-             if(this.$router.currentRoute.path.indexOf('feedback') >= 0){
+             if(this.$router.currentRoute.path.indexOf('settings') >= 0){
+                
+               this.selectedTab = 'settings';
+
+                this.$root.searchType = 'settings'
+           
+        }
+
+          if(this.$router.currentRoute.path.indexOf('feedback') >= 0){
                 
                this.selectedTab = 'feedback';
 
@@ -206,8 +240,6 @@ export default {
             }
 
 
-
-
         },
         goToPage:function(page){
 
@@ -215,6 +247,8 @@ export default {
        this.$router.push({ path: '/channels' });
 
        this.$root.showSideBar = false;
+        this.selectedTab = page;
+                this.$root.searchType = page;
         return;
            }
 
@@ -222,6 +256,8 @@ export default {
        this.$router.push({ path: '/hub' });
        
        this.$root.showSideBar = false;
+        this.selectedTab = page;
+                this.$root.searchType = page;
        
         return;
            }
@@ -230,6 +266,8 @@ export default {
        this.$router.push({ path: '/board/feedback' });
        
        this.$root.showSideBar = false;
+        this.selectedTab = page;
+                this.$root.searchType = page;
        
         return;
            }

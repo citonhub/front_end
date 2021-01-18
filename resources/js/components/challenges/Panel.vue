@@ -42,7 +42,7 @@
                                    
                                    <div class="col-8 py-0 px-0 d-flex flex-row" style="align-items:center;">
 
-                                        <div  class="d-inline-block mx-2 " v-if="this.$root.selectedChallenge.owner_profile" :style="imageStyleUser(40,this.$root.selectedChallenge.owner_profile)"></div> 
+                                        <div  class="d-inline-block mx-2 " v-if="this.$root.selectedChallenge.owner_profile" @click.stop="goToProfile(that.$root.selectedChallenge.username)" :style="imageStyleUser(40,this.$root.selectedChallenge.owner_profile)"></div> 
                               <div style="font-size:13px;font-family:BodyFont;color:#ffffff;" >{{this.$root.selectedChallenge.username}} </div>  
 
                                <v-icon class="mx-1" style="font-size:8px;color:#ffffff;">mdi-record</v-icon> 
@@ -223,7 +223,7 @@
                                    <div class="col-12 py-0 px-0 d-flex flex-row" style="align-items:center;">
 
                                      
-                                        <div  class="d-inline-block mx-2 "   v-if="this.$root.selectedChallenge.owner_profile"
+                                        <div  class="d-inline-block mx-2 "   @click.stop="goToProfile(that.$root.selectedChallenge.username)"  v-if="this.$root.selectedChallenge.owner_profile"
                               :style="imageStyleUser(40,this.$root.selectedChallenge.owner_profile)"></div> 
 
 
@@ -386,6 +386,7 @@ export default {
      data () {
       return {
         selectedTab:'',
+        that:this,
         currentChallenge:'',
         loadingChallenge: false,
         TimerValue:'00 : 00 : 00 : 00',
@@ -699,6 +700,10 @@ export default {
             this.$router.push({ path: '/board/challenges/panel/' + this.$route.params.challenge_id + '/results/' + type  });
 
        },
+        goToProfile:function(username){
+        this.$root.selectedUsername = username;
+         this.$router.push({ path:'/profile-view/' + username})
+      },
        joinChallenge:function(project){
          axios.post( '/join-challenge',{
            duel_id: this.$route.params.challenge_id,
@@ -1097,14 +1102,14 @@ export default {
       
 
       if(data.background_color == null){
-        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;cursor:pointer;";
          
            styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
         
          
          return styleString;
       }else{
-        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;cursor:pointer; ";
          let imgLink = data.image_name + '.' + data.image_extension;
          
             styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';

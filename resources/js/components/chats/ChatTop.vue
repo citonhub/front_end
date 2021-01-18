@@ -1,9 +1,9 @@
 <template>
-    <div class="row" >
+    <div class="row application application--light" data-app="true">
 
 
        <!-- large and medium screens -->
-         <div class="col-md-8 py-0 d-md-flex px-md-1 flex-row  d-none" style="align-items:center;" >
+         <div class="col-md-9 py-0 d-md-flex px-md-1 flex-row  d-none" style="align-items:center;" >
               
                    
                  
@@ -18,8 +18,8 @@
                         
 
                              <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
-                                <span style="font-size:14px; font-family:BodyFont;cursor:pointer;font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.selectedSpace.name}}</span>
-              <span style="font-size:14px; font-family:BodyFont;cursor:pointer;font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'" @click.stop="viewUser()">{{this.$root.selectedSpace.userInfo.username}}</span>
+                                <span style="font-size:14px; font-family:BodyFont;cursor:pointer;font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'"> {{this.$root.selectedSpace.name}}</span>
+              <span style="font-size:14px; font-family:BodyFont;cursor:pointer;font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'">{{this.$root.selectedSpace.userInfo.username}}</span>
 
                  <span style="font-size:14px; font-family:BodyFont;cursor:pointer;font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type == 'Bot'"> {{this.$root.selectedSpace.bot_data.name}}</span>
         
@@ -61,12 +61,9 @@
                      </div>
               
          </div>
-         <div class="col-md-2 py-1 d-md-block d-none">
-              
-         </div>
-         <div class="col-md-2 py-1 pt-2 text-right d-md-block d-none" >
+         <div class="col-md-1 py-1 d-md-block d-none text-right d-md-block"  style="align-items:center;">
 
-             <template v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
+            <template v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
 
                   <v-btn  @click="showSideBar('sub_channels')" icon class="mr-2"> <v-icon>mdi mdi-pound</v-icon> </v-btn>
 
@@ -77,7 +74,10 @@
                 <v-btn icon @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)"><v-icon color="#ffffff">mdi-account-supervisor-outline</v-icon></v-btn>
 
              </template>
-           
+              
+         </div>
+
+          <div class="col-md-1 py-1 d-md-block d-none text-right px-1 d-md-block"  style="align-items:center;">
 
 
             <template v-if=" this.$root.selectedSpace.type != 'Bot'">
@@ -98,14 +98,40 @@
             <v-btn v-else icon  ><v-icon >mdi-comment-question-outline</v-icon></v-btn>
 
               
-               
+              
+         </div>
+         <div class="col-md-1 py-1 text-right d-none d-md-block" style="align-items:center;" >
+
+            
+             <v-btn icon class="showMoreChat"  ><v-icon >las la-ellipsis-v</v-icon></v-btn>
+
+               <!-- more option -->
+
+                   <v-menu
+      absolute
+      :activator="'.showMoreChat'"
+       style="z-index:99999999999999999999;"
+      
+      left
+      offset-y
+      
+    >
+    <more-option-chat></more-option-chat>
+    </v-menu>
+
+                 
+
+                  <!-- ends -->
+
+
+   
          </div>
             
             <!-- ends -->
            
          <!-- smaller screens -->
            
-            <div class="col-9 py-0 d-flex  flex-row d-md-none px-1" style="align-items:center;"  >
+            <div class="col-12 py-0 d-flex  flex-row d-md-none px-1" style="align-items:center;"  >
               
                     <v-btn icon class="d-lg-none d-inline-block"  @click.stop="goback">
                       <v-icon style="font-size:24px;">las la-arrow-left</v-icon>
@@ -121,12 +147,12 @@
                      :style="imageStyle(38,this.$root.selectedSpace.userInfo,'direct')"  @click="showSideBar('channel_info')"></div> 
                     
 
-                     <div class="d-inline-block">
+                     <div class="d-inline-block" >
                         
 
                             <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
-                                <span style="font-size:13px; font-family:BodyFont;cursor:pointer; font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.selectedSpace.name}}</span>
-              <span style="font-size:13px; font-family:BodyFont;cursor:pointer; font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'" @click.stop="viewUser()">{{this.$root.selectedSpace.userInfo.username}}</span>
+                                <span style="font-size:13px; font-family:BodyFont;cursor:pointer; font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'"> {{this.$root.selectedSpace.name}}</span>
+              <span style="font-size:13px; font-family:BodyFont;cursor:pointer; font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.userInfo != undefined && this.$root.selectedSpace.type == 'Direct'">{{this.$root.selectedSpace.userInfo.username}}</span>
 
                <span style="font-size:13px; font-family:BodyFont;cursor:pointer;font-family:MediumFont;"  @click="showSideBar('channel_info')"  v-if="this.$root.selectedSpace.type == 'Bot'"> {{this.$root.selectedSpace.bot_data.name}}</span>
              
@@ -165,12 +191,11 @@
 
                        
                      </div>
-              
-         </div>
 
-          <div class="col-1 py-0 px-0 d-md-none d-block pt-1 text-right" >
+                  <div class="ml-auto d-flex flex-row" style="align-items:center; justify-content:center;">
 
-                 <template v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
+                <!-- sub channels -->
+                      <template v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
 
                   <v-btn  @click="showSideBar('sub_channels')" icon class="mr-2"> <v-icon>mdi mdi-pound</v-icon> </v-btn>
 
@@ -182,10 +207,11 @@
 
              </template>
 
-         </div>
-         <div class="col-2 py-0 px-0 text-right pt-1 d-md-none d-block" >
-              
-             <template v-if=" this.$root.selectedSpace.type != 'Bot'">
+             <!-- ends -->
+                
+                 <!-- live session and bot author comment-->
+
+                  <template v-if=" this.$root.selectedSpace.type != 'Bot'">
                 
              <v-btn @click="openLiveSession" icon class="mr-2"> 
                  <v-badge
@@ -201,8 +227,19 @@
             </template>
 
             <v-btn v-else icon  ><v-icon >mdi-comment-question-outline</v-icon></v-btn>
+
+                 <!-- ends -->
+                
+                <!-- more options -->
+
+                   <v-btn icon @click="showMoreOptions()" ><v-icon >las la-ellipsis-v</v-icon></v-btn>
+
+                <!-- ends -->
+                  </div>
+              
          </div>
 
+         
 
          <!-- ends -->
 
@@ -210,13 +247,22 @@
     </div>
 </template>
 <script>
+ const MoreOptionChat = () => import(
+    /* webpackChunkName: "MoreOptionChat" */ './MoreOptionChat.vue'
+  );
 export default {
     data () {
       return {
        that: this,
       }
     },
+    components:{
+     MoreOptionChat
+    },
     methods:{
+       showMoreOptions:function(){
+        this.$root.chatComponent.showMoreOptionsChat = true;
+       },
         gotToBotChannel: function(botChannel){
           
           if(this.$root.selectedSpace.bot_data.bot_channel){
@@ -266,9 +312,19 @@ export default {
 
              }
 
+             if(this.$root.selectedSpace.type == 'Direct'){
+
+               this.goToProfile(this.$root.selectedSpace.userInfo.username)
+
+             }
+
            
          
        },
+       goToProfile:function(username){
+        this.$root.selectedUsername = username;
+         this.$router.push({ path:'/profile-view/' + username})
+      },
        openLiveSession:function(){
                this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id +'/live_session' });
             

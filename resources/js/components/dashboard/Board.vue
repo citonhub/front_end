@@ -116,6 +116,24 @@
      
    </div>
 
+
+    <!-- profile View  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: #F5F5FB;" v-if="this.$root.showProfileView">
+
+  
+      
+      <profile-view :fromModal="true"></profile-view>
+   
+
+  
+
+ </div>
+
+
+ <!-- ends -->
+
 </div>
   
 </template>
@@ -138,6 +156,10 @@ const ImageCropperBoard = () => import(
     /* webpackChunkName: "SideBar" */ './sideBar.vue'
   );
 
+   const ProfileView = () => import(
+    /* webpackChunkName: "ProfileView" */ '../Profile/ProfilePage.vue'
+  );
+
  export default {
     data () {
       return {
@@ -150,7 +172,8 @@ const ImageCropperBoard = () => import(
      ImageCropperBoard,
      Invitation,
      TopBar,
-     SideBar
+     SideBar,
+     ProfileView
     },
     mounted(){
       this.$root.boardComponent = this;

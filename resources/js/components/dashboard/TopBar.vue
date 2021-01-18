@@ -92,7 +92,7 @@
 
                       <v-btn icon  @click="goToNotification"> 
                    <v-badge
-               :content="this.$root.authProfile.unread" 
+                 dot
                    v-if="this.$root.authProfile.unread > 0"
                 color="green">
                 <v-icon style="font-size:23px;color:#263238;" >las la-bell</v-icon>
@@ -129,7 +129,7 @@ export default {
       }
     },
     mounted(){
-      this.$root.TopBarComponent = this;
+      this.$root.TopBarComponentBoard = this;
     },
     
     methods:{

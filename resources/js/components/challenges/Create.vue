@@ -1,5 +1,5 @@
 <template>
-<v-app style="background:transparent;font-family:BodyFont;" class="px-0" >
+<div style="background:transparent;font-family:BodyFont; " class="px-0" >
 
  
     <div class="col-lg-10 offset-lg-1 py-2 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky;z-index:9999999999;background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
@@ -59,7 +59,7 @@
    </div>
 
 
-   <div class="col-lg-8 offset-lg-2 py-1 col-md-10 offset-md-1 px-2 ">
+   <v-app style="background:transparent;font-family:BodyFont; " class="col-lg-8 offset-lg-2 py-1 col-md-10 offset-md-1 px-2 ">
 
       <v-form class="row" v-model="formstate" ref="create">
 
@@ -338,9 +338,9 @@
        
       </v-form>
 
-  </div>
+  </v-app>
 
-</v-app>
+</div>
   
 </template>
 <script>
@@ -366,18 +366,18 @@ export default {
          switch1:false,
          rulesContent:'',
           titleRule:[
-             v => !!v || 'Title is required',
+             v => !!v || 'Oh!, you miss this.',
            v => v.length <= 50 || 'Name must be less than 50 characters'
             ],
       requiredRule: [
-         v => !!v || 'This feild is required',
+         v => !!v || 'Oh!, you miss this.',
         ],
         summaryRules:[
-            v => !!v || 'Summary is required',
+            v => !!v || 'Oh!, you miss this.',
            v => v.length <= 101 || 'Name must be less than 100 characters'
         ],
         max_participantRule:[
-             v => !!v || 'Max Participant is required',
+             v => !!v || 'Oh!, you miss this.',
              v => !isNaN(parseFloat(v)) && v >= 2 && v <= 500 || 'Number has to be between 2 and 500'
         ],
         durationRule:[

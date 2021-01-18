@@ -27,19 +27,15 @@
          <!-- text message -->
         <div elevation-1 class="col-11 py-0 offset-1" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''"  v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1' || source.type == 'action') && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse" >
+             <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse" :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" >
                  
 
-                  <v-card :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 mr-2" @click="showMoreOption(source)" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card  elevation-1 class="py-1 px-2 mr-2"  style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                      
-                     <template v-if="checkIfMsgIsLong(source)">
-                       <span style="color:white;font-size:13px;" v-html="shortContent(source.content,300)" :id="'shortContent' + source.message_id"> </span>
-                       <span :id="'moreContentbtn' + source.message_id" @click="showFullMsg" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
-                         <span style="color:white;font-size:13px;display:none;" :id="'fullContent' + source.message_id" v-html="source.content" > </span>
-                     </template>
-                     <template v-else>
+                    
+                    
                        <span style="color:white;font-size:13px;" v-html="source.content" > </span>
-                     </template>
+                    
                       
                        
                   <!-- time -->
@@ -79,31 +75,26 @@
         </div>
 
 
-         <div elevation-1 class="col-11 py-0 mt-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1') && checkOwner(source.user_id) == false">
+         <div elevation-1 class="col-11 py-0 mt-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1' || source.type == 'action'  && source.is_reply != '1') && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-7 col-md-8  px-1 px-md-2  d-flex flex-row">
+             <div class="col-lg-7 col-md-8  px-1 px-md-2  d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
                  
 
                          <div 
-                     :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
+                     :style="imageStyle(30,source.user_profile,source.user_type)" @click.stop="goToProfile(source.username)"  ></div> 
 
 
-                  <v-card elevation-1 :id="'messageWrap' + source.message_id" @click="showMoreOption(source)"  class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
+                  <v-card elevation-1  class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
                     <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
+                         <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
 
                   </div>
-                      <template v-if="checkIfMsgIsLong(source)">
-                       <span style="font-size:13px;" v-html="shortContent(source.content,300)" :id="'shortContent' + source.message_id"> </span>
-                       <span :id="'moreContentbtn' + source.message_id" @click="showFullMsg" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
-                         <span style="font-size:13px;display:none;" :id="'fullContent' + source.message_id" v-html="source.content" > </span>
-                     </template>
-                     <template v-else>
+                     
                        <span style="font-size:13px;" v-html="source.content" > </span>
-                     </template>
+                     
 
                  <!-- more option -->
 
@@ -136,13 +127,91 @@
 
         <div elevation-1 :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" class="col-11 py-0 offset-1"  v-if="(source.replied_message != undefined && source.is_reply == '1') && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse">
+             <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
                  
-                  <v-card :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" elevation-1 class="py-1 px-2 mr-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card  elevation-1 class="py-1 px-2 mr-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                      <!-- comment -->
 
                    <div class="d-flex flex-column py-2 px-1" style="border-left:3px solid #ffffff; border-radius:0px; background:#d6e6f5;"  @click.stop="scrollToMessage(source.replied_message.message_id)">
-                          <div style="font-size:13px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{ getReplyMsg(source.replied_message) }}</div>
+                          <template v-if="source.replied_message.type == null || source.replied_message.type == 'text' || source.replied_message.type == 'action'">
+                               <div style="font-size:13px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{ getReplyMsg(source.replied_message) }}</div>
+                          </template>
+
+                          <template v-if="source.replied_message.type == 'video'">
+                          <div class="d-flex flex-row py-0 my-0" style="align-items:center;">
+                   
+                   <v-icon>las la-video</v-icon>
+
+
+                     
+                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.video.display_name ,25)}}</span>
+                   
+                     
+                    </div>
+                          </template>
+
+                           <template v-if="source.replied_message.type == 'code'">
+                          <div class="d-flex flex-row py-0 my-0" style="align-items:center;">
+                   
+                      <v-icon>las la-code</v-icon>
+
+
+                     
+                     <span style="font-size:13px;" class="ml-2" >{{ source.replied_message.code.name + '.' + languageExtensions(source.replied_message.code.language_type)}}</span>
+                   
+                     
+                    </div>
+                          </template>
+                           <template v-if="source.replied_message.type == 'project'">
+                          <div class="d-flex flex-row py-0 my-0" style="align-items:center;">
+                   
+                      <v-icon>las la-laptop-code</v-icon>
+
+
+                     
+                     <span style="font-size:13px;" class="ml-2" >{{shortenContent(source.replied_message.project.title ,25)}}</span>
+                   
+                     
+                    </div>
+                          </template>
+                    <template v-if="source.replied_message.type == 'file'">
+                          <div class="d-flex flex-row py-0 my-0" style="align-items:center;">
+                   
+                   <v-icon>las la-file-alt</v-icon>
+
+
+                     
+                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.file.display_name ,25)}}</span>
+                   
+                     
+                    </div>
+                    </template>
+                    <template v-if="source.replied_message.type == 'audio'">
+                          <div class="d-flex flex-row py-0 my-0" style="align-items:center;">
+                   
+                   <v-icon>las la-microphone</v-icon>
+
+
+                     
+                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.audio.display_name ,25)}}</span>
+                   
+                     
+                    </div>
+                          </template>
+
+                           <template v-if="source.replied_message.type == 'image'">
+                          <div class="d-flex flex-row py-0 my-0" style="align-items:center;">
+                   
+                   <img width="50" height="40" :src="'/imgs/space/' + source.replied_message.image[0].image_name  + '.' + source.replied_message.image[0].image_extension" class="d-inline-block "/> 
+
+
+                     
+                     <span style="font-size:13px;" class="ml-2" >Images</span>
+                   
+                     
+                    </div>
+                          </template>
+                         
                           <div class="text-right">
                                <span style="color:gray;font-size:11px;">{{source.replied_message.username}}</span>
                           </div>
@@ -150,14 +219,14 @@
 
                   <!-- ends -->
 
-                 <template v-if="checkIfMsgIsLong(source)">
-                       <span style="color:white;font-size:13px;" v-html="shortContent(source.content,300)" :id="'shortContent' + source.message_id"> </span>
-                       <span :id="'moreContentbtn' + source.message_id" @click="showFullMsg" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
-                         <span style="color:white;font-size:13px;display:none;" :id="'fullContent' + source.message_id" v-html="source.content" > </span>
-                     </template>
-                     <template v-else>
+                 <!-- <template v-if="checkIfMsgIsLong(source)">
+                       <span style="color:white;font-size:13px;" v-html="shortenContent(source.content,300)" :id="'shortContent' + source.message_id + screenType"> </span>
+                       <span :id="'moreContentbtn' + source.message_id + screenType" @click.stop="showFullMsg(source)" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
+                         <span style="color:white;font-size:13px;display:none;" :id="'fullContent' + source.message_id + screenType" v-html="source.content" > </span>
+                     </template> -->
+                    
                        <span style="color:white;font-size:13px;" v-html="source.content" > </span>
-                     </template>
+                   
                       
                        
                   <!-- time -->
@@ -200,14 +269,14 @@
 
          <div elevation-1 :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" class="col-11 py-0 mt-2" v-if="(source.replied_message != undefined && source.is_reply == '1') && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-7 col-md-8 px-1 px-md-2  d-flex flex-row">
+             <div class="col-lg-7 col-md-8 px-1 px-md-2  d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
                    <div 
-                     :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
+                     :style="imageStyle(30,source.user_profile,source.user_type)" @click.stop="goToProfile(source.username)"   ></div> 
 
-                  <v-card :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
+                  <v-card  elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
                     <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span>  <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
+                         <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)" >{{source.username}}</span>  <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
 
@@ -215,7 +284,84 @@
 
                   <!-- comment -->
                    <div class="d-flex flex-column py-2 px-1" style="border-left:3px solid #3C87CD; background:#d6e6f5;"   @click.stop="scrollToMessage(source.replied_message.message_id)">
-                          <div style="font-size:13px;white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{ getReplyMsg(source.replied_message) }}</div>
+                           <template v-if="source.replied_message.type == null || source.replied_message.type == 'text' || source.replied_message.type == 'action'">
+                               <div style="font-size:13px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{ getReplyMsg(source.replied_message) }}</div>
+                          </template>
+
+                          <template v-if="source.replied_message.type == 'video'">
+                          <div class="d-flex flex-row py-0 my-0" style="align-items:center;">
+                   
+                   <v-icon>las la-video</v-icon>
+
+
+                     
+                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.video.display_name ,25)}}</span>
+                   
+                     
+                    </div>
+                          </template>
+
+                           <template v-if="source.replied_message.type == 'code'">
+                          <div class="d-flex flex-row py-0 my-0" style="align-items:center;">
+                   
+                      <v-icon>las la-code</v-icon>
+
+
+                     
+                     <span style="font-size:13px;" class="ml-2" >{{ source.replied_message.code.name + '.' + languageExtensions(source.replied_message.code.language_type)}}</span>
+                   
+                     
+                    </div>
+                          </template>
+                           <template v-if="source.replied_message.type == 'project'">
+                          <div class="d-flex flex-row py-0 my-0" style="align-items:center;">
+                   
+                      <v-icon>las la-laptop-code</v-icon>
+
+
+                     
+                     <span style="font-size:13px;" class="ml-2" >{{shortenContent(source.replied_message.project.title ,25)}}</span>
+                   
+                     
+                    </div>
+                          </template>
+                    <template v-if="source.replied_message.type == 'file'">
+                          <div class="d-flex flex-row py-0 my-0" style="align-items:center;">
+                   
+                   <v-icon>las la-file-alt</v-icon>
+
+
+                     
+                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.file.display_name ,25)}}</span>
+                   
+                     
+                    </div>
+                    </template>
+                    <template v-if="source.replied_message.type == 'audio'">
+                          <div class="d-flex flex-row py-0 my-0" style="align-items:center;">
+                   
+                   <v-icon>las la-microphone</v-icon>
+
+
+                     
+                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.audio.display_name ,25)}}</span>
+                   
+                     
+                    </div>
+                          </template>
+
+                           <template v-if="source.replied_message.type == 'image'">
+                          <div class="d-flex flex-row py-0 my-0" style="align-items:center;">
+                   
+                   <img width="50" height="40" :src="'/imgs/space/' + source.replied_message.image[0].image_name  + '.' + source.replied_message.image[0].image_extension" class="d-inline-block "/> 
+
+
+                     
+                     <span style="font-size:13px;" class="ml-2" >Images</span>
+                   
+                     
+                    </div>
+                          </template>
                           <div class="text-right">
                                <span style="color:gray;font-size:11px;">{{source.replied_message.username}}</span>
                           </div>
@@ -223,14 +369,14 @@
                   <!-- ends -->
 
                   <!-- ends -->
-                      <template v-if="checkIfMsgIsLong(source)">
-                       <span style="font-size:13px;" v-html="shortContent(source.content,300)" :id="'shortContent' + source.message_id"> </span>
-                       <span :id="'moreContentbtn' + source.message_id" @click="showFullMsg" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
-                         <span style="font-size:13px;display:none;" :id="'fullContent' + source.message_id" v-html="source.content" > </span>
-                     </template>
-                     <template v-else>
+                      <!-- <template v-if="checkIfMsgIsLong(source)">
+                       <span style="font-size:13px;" v-html="shortenContent(source.content,300)" :id="'shortContent' + source.message_id + screenType"> </span>
+                       <span :id="'moreContentbtn' + source.message_id + screenType" @click.stop="showFullMsg(source)" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
+                         <span style="font-size:13px;display:none;" :id="'fullContent' + source.message_id + screenType" v-html="source.content" > </span>
+                     </template> -->
+                   
                        <span style="font-size:13px;" v-html="source.content" > </span>
-                     </template>
+                    
 
                       <!-- more option -->
 
@@ -261,10 +407,10 @@
      <!-- code message -->
           <div class="col-10  py-0 offset-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'code' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 px-0 px-md-2 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+             <div class="col-lg-5 px-0 px-md-2 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
                 
 
-                  <v-card :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" elevation-1 class="py-1 px-2 mr-2" style=" width:90%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card  elevation-1 class="py-1 px-2 mr-2" style=" width:90%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                      
                      
                    <code-box color="#ffffff" v-if="source.loading == false"  :topMargin="5"  
@@ -325,15 +471,15 @@
         </div>
 
 
-         <div class="col-10 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''"  v-if="source.type == 'code' && checkOwner(source.user_id) == false">
+         <div class="col-11 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''"  v-if="source.type == 'code' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row">
-                   <div 
+             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+                   <div  @click.stop="goToProfile(source.username)"
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
-                  <v-card :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" elevation-1 class="py-1 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card  elevation-1 class="py-1 px-2 ml-2" style=" width:80%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                       <div class="text-left d-flex" style="align-items:center:">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}}</span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
+                         <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}}</span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                   </div>
 
@@ -382,10 +528,10 @@
    <!-- video message -->
          <div class="col-10 py-0 offset-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'video' && checkOwner(source.user_id) ">
            <div class="row">
-             <div class="col-lg-5 px-0 px-md-2 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+             <div class="col-lg-5 px-0 px-md-2 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
                  
 
-                  <v-card :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" elevation-1 class="py-1 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card elevation-1 class="py-1 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
 
                      <div class="col-12 py-1 px-1"  v-if="source.loading || source.video == null" >
@@ -465,13 +611,13 @@
 
           <div class="col-10 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'video' && checkOwner(source.user_id) == false ">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
                    <div 
-                     :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
+                     :style="imageStyle(30,source.user_profile,source.user_type)"  @click.stop="goToProfile(source.username)" ></div> 
 
-                  <v-card :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" elevation-1 class="py-1 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card  elevation-1 class="py-1 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                          <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
+                         <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
 
@@ -512,10 +658,10 @@
     <!-- audio message -->
          <div class="col-10 py-0 offset-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="(source.type == 'audio') && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
                 
 
-                  <v-card :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card  elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
 
 
@@ -595,13 +741,13 @@
 
          <div class="col-10 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="(source.type == 'audio' &&  source.audio != null) && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
                    <div 
-                     :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
+                     :style="imageStyle(30,source.user_profile,source.user_type)" @click.stop="goToProfile(source.username)"  ></div> 
 
-                  <v-card  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card  elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                        <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
+                         <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
 
@@ -639,10 +785,10 @@
 
          <div class="col-10 py-0 offset-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'image' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
                
 
-                  <v-card :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" elevation-1 class="py-1 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card  elevation-1 class="py-1 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
                      <div class="col-12 py-1 px-1"  v-if="source.loading" >
                   <div class="row py-0 my-0">
@@ -719,13 +865,13 @@
 
          <div class="col-10 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'image' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-1 px-md-2  d-flex flex-row">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2  d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
                    <div 
-                     :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
+                     :style="imageStyle(30,source.user_profile,source.user_type)"  @click.stop="goToProfile(source.username)" ></div> 
 
-                  <v-card :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                        <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
+                         <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
 
@@ -763,9 +909,9 @@
    <!-- project message -->
          <div class="col-10 py-0 offset-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'project' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
                   
-                  <v-card :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card  elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
                    <div class="row">
                       <div class="col-2 text-center d-flex py-1" style="align-items:center; justify-content:center;">
@@ -817,13 +963,13 @@
 
       <div class="col-10 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'project' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
                    <div 
-                     :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
+                     :style="imageStyle(30,source.user_profile,source.user_type)"  @click.stop="goToProfile(source.username)" ></div> 
 
-                  <v-card  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card   elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                        <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
+                         <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
 
@@ -871,10 +1017,10 @@
 
          <div class="col-10 py-0 offset-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''"  v-if="source.type == 'file' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse">
+             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
                  
 
-                  <v-card :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card  elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
                      <div class="col-12 py-1 px-1"  v-if="source.loading" >
                   <div class="row py-0 my-0">
@@ -962,13 +1108,13 @@
 
          <div class="col-10 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'file' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 px-1 px-md-2 col-md-6  d-flex flex-row">
+             <div class="col-lg-5 px-1 px-md-2 col-md-6  d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
                    <div 
-                     :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
+                     :style="imageStyle(30,source.user_profile,source.user_type)"  @click.stop="goToProfile(source.username)" ></div> 
 
-                  <v-card :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card  elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                        <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
-                         <span style="font-size:13px;font-weight:bold; ">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
+                         <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                           <span style="font-size:11px; " class="ml-auto">{{checkDatereal(source.created_at)}}</span> 
 
@@ -1038,7 +1184,7 @@
 
 const { htmlToText } = require('html-to-text');
 export default {
-   props:['source','username'],
+   props:['source','username','screenType'],
    data(){
         return{      
             that:this,
@@ -1080,6 +1226,10 @@ export default {
        this.$root.replyMessage = message;
           this.$root.chatComponent.showMoreOptions = true;
     },
+    goToProfile:function(username){
+        this.$root.selectedUsername = username;
+         this.$router.push({ path:'/profile-view/' + username})
+      },
      checkIfAdmin: function(source){
 
       let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
@@ -1104,9 +1254,14 @@ export default {
     },
     showFullMsg:function(message){
 
-       document.getElementById('moreContentbtn'+ message.message_id).style.visibility='hidden' ;
-        document.getElementById('shortContent' + message.message_id).style.display = 'none';
-       document.getElementById('fullContent'+ message.message_id).style.display = 'inline-block';
+       
+
+       document.querySelector('#moreContentbtn'+ message.message_id + this.screenType).style.visibility='hidden' ;
+        document.querySelector('#shortContent' + message.message_id + this.screenType).style.display = 'none';
+        
+       document.querySelector('#fullContent'+ message.message_id + this.screenType).style.display = 'inline-block';
+
+    
 
 
 
@@ -1124,7 +1279,7 @@ export default {
       }else{
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
          let imgLink = data.image_name + '.' + data.image_extension;
-          if(type == 'bot'){
+          if(this.$root.selectedSpace.type == 'Bot'){
               styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
          }else{
             styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';

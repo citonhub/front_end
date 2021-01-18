@@ -9,7 +9,7 @@
                     </v-btn>
             </div>
           
-             <div class="col-8 py-0">
+             <div class="col-8 py-0 text-center">
              <span style="font-size:14px; font-family:MediumFont;">Channel Info</span>
           </div>
               

@@ -5,16 +5,31 @@
                   <template v-if="!recording">
 
                      <v-btn icon class="mx-md-1 mr-1" @click="toggleEmoji"><v-icon>las la-grin</v-icon> </v-btn>
-                <v-btn icon class="mx-md-1" v-if="showAttachment" @click="showShareBoard"> <v-icon>las la-paperclip</v-icon> </v-btn>
+                <v-btn icon class="mx-md-1" v-if="showAttachment && this.$root.selectedSpace.type != 'Bot'" @click="showShareBoard"> <v-icon>las la-paperclip</v-icon> </v-btn>
                
                   <textarea ref="textBottom" :value="input" @input="update"  @keydown="handelkeyAct" @focus="focusEditor"  @blur="blurEditor"  style="font-size:13px;"  :placeholder="$t('general.type_here')"  ></textarea>
+                    
 
-                  <!-- send  -->
+                    <template v-if="this.$root.selectedSpace.type != 'Bot'">
+
+                          <!-- send  -->
                   <v-btn icon class="mx-md-1" @click="sendMessage" v-if="showSend"><v-icon>las la-send</v-icon> </v-btn>
 
                   <!-- ends -->
 
                      <v-btn icon class="mx-md-1" @click="startrecord" v-else><v-icon>las la-microphone</v-icon> </v-btn>
+
+                    </template>
+
+                    <template v-else>
+
+                        <v-btn icon class="mx-md-1" @click="sendMessage" ><v-icon>las la-send</v-icon> </v-btn>
+
+                    </template>
+
+                     
+                    
+                
 
                   </template>
               
@@ -98,7 +113,7 @@ export default {
     methods:{
       showShareBoard: function(){
           this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id +'/share' });
-
+ 
       },
       reFocusEditor:function(){
       this.$refs.textBottom.focus();

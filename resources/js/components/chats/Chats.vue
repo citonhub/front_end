@@ -1,5 +1,5 @@
 <template>
-    <div  style="position:fixed;height:100%;background:#F5F5FB; top:0; left:0; width:100%; z-index:999999999;">
+    <div  style="position:fixed;height:100%;background:#F5F5FB; top:0; left:0; width:100%; z-index:999999999;" >
 
         <!-- top bar -->
         <div class="col-12 py-0 fixed-top" style="position:sticky;width:100%;height:auto; ">
@@ -48,6 +48,7 @@
                <DynamicScroller
     :items="this.$root.ChatList"
      :keyField="'space_id'"
+     v-if="this.$root.ChatList.length > 0"
     :min-item-size="36"
     ref="ChatContainer"
     :buffer="5000"
@@ -72,6 +73,21 @@
              </template>
 
                 </DynamicScroller>
+
+                <div v-else class="col-12 px-5 text-center d-flex flex-column chatListScroller" 
+       style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:100px;">
+
+                    <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
+                       Someday, this place would be filled with alot of memories.
+                    </div>
+
+                     <div>
+                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                     </div>
+
+                     
+
+                </div>
              
            </template>
 
@@ -216,9 +232,76 @@
 
     <template #after>
 
-       <div  class=" col-12 " style="margin-top:20px;" v-observe-visibility="visibilityChanged">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged">
+            
+          <template v-if="that.$root.selectedSpace.type == 'Bot' ">
+
+             <div class="row">
+
+              <template v-if=" that.$root.botIsLoading">
+
+                 <div elevation-1 class="col-11 py-0 mt-2" >
+           <div class="row">
+             <div class="col-lg-7 col-md-8  px-1 px-md-2  d-flex flex-row">
+                 
+
+                         <div 
+                     :style="imageStyle(30,that.$root.selectedSpace.bot_data,'bot')"  ></div> 
 
 
+                  <v-card elevation-1  class="py-0 px-2 ml-2 d-flex " style=" align-items:center;justify-content:center; border:1px solid transparent; min-width:45px;background:#ffffff; border-radius:20px;">
+
+                       <img src="/imgs/diary_loading.svg"  height="30px" width="40px">
+
+                
+                  </v-card> 
+             </div>
+           </div>
+        </div>
+
+              </template>
+
+               <template v-else>
+
+                   <div elevation-1 class="col-11 py-0 offset-1" >
+           <div class="row">
+             <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse" >
+                 
+
+                  <div flat tile  class="py-1 px-2  d-flex flex-row-reverse flex-wrap"  style="align-items:center;">
+                     
+                     <v-card  @click="initiateMessageCtl(pattern.pattern_content)" v-for="(pattern,index) in that.$root.botSuggestionArray" :key="index" tile flat class="py-1 px-2 mr-2 mb-2" style="border:2px solid #3C87CD; background:white; border-radius:8px;font-family:BodyFont;">
+                        <span style="font-size:13px;color:#3C87CD;">{{pattern.pattern_content}}</span>
+                     </v-card>  
+                    
+                    
+                      
+              
+                  </div> 
+
+                 
+             </div>
+           </div>
+        </div>
+
+               </template>
+             
+
+          
+
+
+             </div>
+
+
+
+          </template>
+
+
+
+        <div  style="margin-top:20px;">
+
+        </div>
+   
 
       </div>
   </template>
@@ -321,7 +404,7 @@
                             <!-- code editor -->
                             
                            
-                               <div v-if="chatIsOpen && chatInnerConent == 'code_editor'"  class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                               <div v-if="chatIsOpen && chatInnerConent == 'code_editor'"  class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                   <code-editor-chat></code-editor-chat>
                             </div>
 
@@ -331,7 +414,7 @@
 
                                <!-- channel invitation -->
 
-                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center " @click="goBack" style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center " @click="goBack" style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
                                   <invitation :infoText="'A brand new channel and the beginning of help others grow 🚀'"
@@ -342,7 +425,7 @@
 
                              <!-- image viewer -->
 
-                               <div  v-if="chatIsOpen && chatInnerConent == 'image_viewer'" class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerConent == 'image_viewer'" class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                   <image-viewer></image-viewer>
                             </div>
 
@@ -351,7 +434,7 @@
                               <!-- channel sidebar -->
 
 
-                               <div  v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" @click="goBack" style="overflow-x:hidden; background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" @click="goBack" style="overflow-x:hidden; background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                    <div style="position:absolute; height:100%; width:70%; left:30%;" >
 
                                     <div  @click.stop="chatInnerSideBar = true" class="scrollerinfo offset-lg-6" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
@@ -382,7 +465,7 @@
 
                          
 
-                            <div v-if="chatIsOpen && !chatInnerSideBar && liveSessionIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;" >
+                            <div v-if="chatIsOpen && !chatInnerSideBar && liveSessionIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                       <!-- rtc screen -->
 
 
@@ -406,7 +489,7 @@
 
                                <!-- share -->
 
-                            <div  v-if="chatIsOpen && !chatInnerSideBar && chatShareIsOpen"  class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;"  >
+                            <div  v-if="chatIsOpen && !chatInnerSideBar && chatShareIsOpen"  class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;"  >
                                     <chat-share></chat-share>
                                </div>
 
@@ -414,7 +497,7 @@
 
                               <!-- crop image -->
 
-                            <div v-if="chatIsOpen && !chatInnerSideBar && imageCropperIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:93%; top:7%;z-index:9999999999999;">
+                            <div v-if="chatIsOpen && !chatInnerSideBar && imageCropperIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;">
                                     <image-cropper></image-cropper>
                                </div>
 
@@ -422,7 +505,7 @@
 
                       </div>
 
-                           <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply" medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
+                           <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'" medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
 
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
 
@@ -470,6 +553,7 @@
     :items="this.$root.ChatList"
      :keyField="'space_id'"
     :min-item-size="36"
+    v-if="this.$root.ChatList.length > 0"
     ref="ChatContainersmall"
     :buffer="5000"
     id="ChatContainersmall"
@@ -493,12 +577,27 @@
              </template>
 
                 </DynamicScroller>
+
+                <div v-else class="col-12 px-3 text-center d-flex flex-column " 
+          style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto;align-items:center;justify-content:center;" >
+
+                    <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
+                       Someday, this place would be filled with alot of memories.
+                    </div>
+
+                     <div>
+                          <v-btn small color="#3C87CD" @click="showCreateChannel" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                     </div>
+
+                     
+
+                </div>
            </template>
 
-              <template v-if="that.$root.TopBarComponent">
+              <template v-if="that.$root.TopBarComponentChat">
                 
 
-                          <template v-if="that.$root.TopBarComponent.searchValue != ''">
+                          <template v-if="that.$root.TopBarComponentChat.searchValue != ''">
 
                              <DynamicScroller
     :items="this.$root.searchChatList"
@@ -662,9 +761,75 @@
 
     <template #after>
 
-       <div  class=" col-12 " style="margin-top:60px;" v-observe-visibility="visibilityChanged">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged">
+            
+          <template v-if="that.$root.selectedSpace.type == 'Bot' ">
+
+             <div class="row">
+
+              <template v-if=" that.$root.botIsLoading">
+
+                 <div elevation-1 class="col-11 py-0 mt-2" >
+           <div class="row">
+             <div class="col-lg-7 col-md-8  px-1 px-md-2  d-flex flex-row">
+                 
+
+                         <div 
+                     :style="imageStyle(30,that.$root.selectedSpace.bot_data,'bot')"  ></div> 
 
 
+                  <v-card elevation-1  class="py-0 px-2 ml-2 d-flex " style=" align-items:center;justify-content:center; border:1px solid transparent; min-width:45px;background:#ffffff; border-radius:20px;">
+
+                       <img src="/imgs/diary_loading.svg"  height="30px" width="40px">
+
+                
+                  </v-card> 
+             </div>
+           </div>
+        </div>
+
+              </template>
+
+               <template v-else>
+
+                   <div elevation-1 class="col-11 py-0 offset-1" >
+           <div class="row">
+             <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse" >
+                 
+
+                  <div flat tile  class="py-1 px-2 mr-2 d-flex flex-row-reverse flex-wrap"  style="align-items:center;">
+                     
+                   <v-card  @click="initiateMessageCtl(pattern.pattern_content)" v-for="(pattern,index) in that.$root.botSuggestionArray" :key="index" tile flat class="py-1 px-2 mr-2 mb-2" style="border:2px solid #3C87CD; background:white; border-radius:8px;font-family:BodyFont;">
+                        <span style="font-size:13px;color:#3C87CD;">{{pattern.pattern_content}}</span>
+                     </v-card>  
+                    
+                      
+              
+                  </div> 
+
+                 
+             </div>
+           </div>
+        </div>
+
+               </template>
+             
+
+          
+
+
+             </div>
+
+
+
+          </template>
+
+
+
+        <div  style="margin-top:60px;">
+
+        </div>
+   
 
       </div>
   </template>
@@ -688,7 +853,7 @@
      </template>
                       
 
-                             <v-btn @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
+                             <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
 
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
 
@@ -771,6 +936,15 @@
                                <div  v-if="chatIsOpen && showMoreOptions" @click="showMoreOptions = false" class="col-12 py-0 px-0 d-flex" style="align-items:center; justify-content:center; background: rgba(27, 27, 30, 0.1); position:fixed; height:100%; top:0%;z-index:999999999999;" >
                                   
                                   <more-options></more-options>
+                            </div>
+
+                            <!-- ends -->
+
+                           <!-- chat more options -->
+
+                               <div  v-if="chatIsOpen && showMoreOptionsChat" @click="showMoreOptionsChat = false" class="col-12 py-0 px-0 d-flex" style="align-items:center; justify-content:center; background: rgba(27, 27, 30, 0.1); position:fixed; height:100%; top:0%;z-index:999999999999;" >
+                                  
+                                  <more-option-chat></more-option-chat>
                             </div>
 
                             <!-- ends -->
@@ -894,6 +1068,40 @@
        <!-- ends -->
 
 
+        <!-- profile View  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: #F5F5FB;" v-if="this.$root.showProfileView">
+
+  
+      
+      <profile-view :fromModal="true"></profile-view>
+   
+
+  
+
+ </div>
+
+
+ <!-- ends -->
+
+    <!-- diary settings -->
+
+
+   <div class="py-0 px-0 d-flex flex-column" style="position:fixed; align-items:center; justify-content:center; width:100%; height:100%; z-index:99999999999999999;background: #F5F5FB;" v-if="this.$root.showDiarySettings">
+
+        <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
+
+        <div class="py-2" style="font-size:14px;font-family:BodyFont;">
+             Checking for diary ...
+        </div>
+
+ </div>
+
+
+ <!-- ends -->
+
+
     </div>
 </template>
 <script>
@@ -991,6 +1199,12 @@ import { VEmojiPicker } from 'v-emoji-picker';
     /* webpackChunkName: "SideBar" */ '../dashboard/sideBar.vue'
   );
 
+   const ProfileView = () => import(
+    /* webpackChunkName: "ProfileView" */ '../Profile/ProfilePage.vue'
+  );
+ const MoreOptionChat = () => import(
+    /* webpackChunkName: "MoreOptionChat" */ './MoreOptionChat.vue'
+  );
 export default {
      data () {
       return {
@@ -1051,7 +1265,8 @@ export default {
        searchValue:'',
        selectedQuoteId:0,
        showMoreOptions:false,
-       bottomIsVisible:false
+       bottomIsVisible:false,
+       showMoreOptionsChat:false,
      
       }
     },
@@ -1084,7 +1299,9 @@ export default {
         ImageCropper,
         MoreOptions,
         ReplyView,
-        SideBar
+        SideBar,
+        ProfileView,
+        MoreOptionChat
     },
      methods:{
      
@@ -1153,14 +1370,136 @@ export default {
        
 
     },
+     imageStyle:function(dimension,data,type){
+      
+
+      if(data.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
+         
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
+        
+         
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
+         let imgLink = data.image_name + '.' + data.image_extension;
+          if(this.$root.selectedSpace.type == 'Bot'){
+              styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
+         }else{
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+         }
+         
+          return styleString;
+      }
+     },
     visibilityChanged:function(isVisible, entry){
         this.bottomIsVisible = isVisible
     },
     setShareLink:function(){
 
       this.$root.shareText = 'Join ' + this.$root.selectedSpace.name +  ' on Citonhub';
-       this.$root.shareLink =   'https://www.citonhub.com/link/space/'+ this.$route.params.spaceId;
+       this.$root.shareLink =   'https://www.citonhub.com/link/channel/'+ this.$route.params.spaceId;
 
+    },
+     initiateMessageCtl: function(message){
+
+
+          this.$root.channelBottomComp.contentInWord = message;
+
+           this.$root.channelBottomComp.input = message;
+
+            let refocus = false;
+          this.$root.channelBottomComp.sendMessage(refocus);
+
+
+
+       },
+    checkDiary:function(){
+
+       let botId = '';
+
+       if(this.$route.params.bot_id){
+
+           botId = this.$route.params.bot_id;
+
+       }else{
+           botId  = this.$root.tempDiaryId;
+       }
+
+          this.$root.autoOpenDiary = false;
+    
+       axios.get('/check-diary/'+  botId)
+          .then(response => {
+             
+            
+            
+
+            if(response.status == 200){
+               
+
+            
+              
+              let space = response.data.space;
+
+                let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+                   storedChat.then((result)=>{
+
+                       if(result != null ){
+
+                           
+
+                          
+
+                    let finalResult = JSON.parse(result);
+
+                        let userSpace = finalResult.pet_spaces.filter((space)=>{
+                          return space.space_id == response.data.space.space_id
+                        })
+
+                        if(userSpace.length > 0){
+
+
+                        }else{
+
+                          finalResult.pet_spaces.unshift(response.data.space);
+
+                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+                     
+                   this.$root.ChatList = fullList;
+
+                     this.$root.sortChatList();
+
+                        }
+
+                        this.openChat(response.data.space.space_id,true)
+                      
+                     this.$root.showDiarySettings = false;
+                      
+
+                 }
+
+                   } )
+
+              
+                    this.$root.showDiarySettings = false;
+             
+            }
+              
+            
+           
+            
+          })
+          .catch(error => {
+              this.showAlert('Oops!','Something went wrong, please try again','error')
+              this.$root.showDiarySettings = false;
+                this.$router.push({ path: '/channels/' });
+            
+          })
+    
     },
         selectEmoji(emoji) {
      
@@ -1220,6 +1559,12 @@ export default {
            }
        },
        controlChatPath:function(){
+       
+        if(!this.$root.isLogged){
+
+            this.$root.checkIfUserIsLoggedIn();
+         return;
+        }
 
             if(this.$root.autoOpenChat){
    
@@ -1233,6 +1578,24 @@ export default {
              
 
             }
+
+          if(this.$root.autoOpenDiary){
+        
+             this.checkDiary();
+
+            this.$router.push({ path: '/channels/engine/diary/' + this.$root.tempDiaryId });
+
+             
+
+          }
+
+          if(this.$route.params.bot_id){
+
+             this.checkDiary();
+
+          }
+
+
            if(this.$route.params.spaceId != undefined){
 
             
