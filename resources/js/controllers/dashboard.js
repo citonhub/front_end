@@ -8,8 +8,9 @@ window.io = require('socket.io-client');
 
 Vue.use(Vuex)
 
-axios.defaults.baseURL = 'https://api.citonhub.com/api'
-
+//axios.defaults.baseURL = 'http://localhost:8000/api'
+axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
+//axios.defaults.baseURL = 'https://api.citonhub.com/api'
 const store = new Vuex.Store({
   state: {
     user: null
@@ -24,7 +25,8 @@ const store = new Vuex.Store({
 
     clearUserData () {
       localStorage.removeItem('user')
-      location.reload()
+      thisUserState.$router.push({ path: '/hub' });
+      location.reload();
     }
   },
 
@@ -40,7 +42,10 @@ const store = new Vuex.Store({
             
             routerData.push({ path: '/verify' });
 
+             return;
+
            }
+           
 
           commit('setUserData', response.data)
         })
@@ -62,191 +67,1480 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-import Hub from "../components/dashboard/Hub.vue"
-import Dashboard from "../components/dashboard/Dashboard.vue"
-import MatchBoard from "../components/dashboard/MatchBoard.vue"
-import DuelInfo from "../components/dashboard/DuelInfo.vue"
-import CreateDuel from "../components/dashboard/CreateDuel.vue"
-import MatchPanel from "../components/dashboard/MatchPanel.vue"
-import CodeEditor from "../components/dashboard/CodeEditor.vue"
-import DBTable from "../components/dashboard/DBTable.vue"
-import MatchComment from "../components/dashboard/MatchComment.vue"
-import MatchResult from "../components/dashboard/MatchResult.vue"
-import Login from "../components/auth/Login.vue"
-import Register from "../components/auth/Register.vue"
-import Auth from "../components/auth/auth.vue"
-import Verify from "../components/auth/Verify.vue"
-import SetUsername from "../components/auth/SetUsername.vue"
-import NewCodeFile from "../components/dashboard/NewCodeFile.vue"
-import PanelSettings from "../components/dashboard/PanelSettings.vue"
-import AddPanelRoutes from "../components/dashboard/AddPanelRoutes.vue"
-import CropImage from  "../components/profile/CropImage.vue"
-import CreateTable from "../components/dashboard/CreateTable.vue"
-import CreateSpace from "../components/dashboard/CreateSpace.vue"
-import PanelLoader from "../components/dashboard/PanelLoader.vue"
-import ProjectComments from "../components/dashboard/ProjectComments.vue"
-import NewComment from "../components/dashboard/NewComment.vue"
-import Organization from "../components/dashboard/Organizations.vue"
-import AddOrganization from "../components/dashboard/AddOrganization.vue"
-import AddBot from "../components/dashboard/AddBot.vue"
-import Bots from "../components/dashboard/Bots.vue"
-import NotFound from "../components/auth/NotFound.vue"
-import ForgotPassword from "../components/auth/ForgotPassword.vue"
-import ResetPassword from "../components/auth/ResetPassword.vue"
+// authentication routes
+const Register = () => import(/* webpackChunkName: "register" */ '../components/auth/Register.vue');
+const Login = () => import(/* webpackChunkName: "login" */ '../components/auth/Login.vue');
+const Verify = () => import(/* webpackChunkName: "verify" */ '../components/auth/Verify.vue');
+const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword" */ '../components/auth/ForgotPassword.vue');
+const ResetPassword = () => import(/* webpackChunkName: "ResetPassword" */ '../components/auth/ResetPassword.vue');
+const SetUsername = () => import(/* webpackChunkName: "SetUsername" */ '../components/auth/SetUsername.vue');
 
+// dashboard routes
+const Board = () => import(/* webpackChunkName: "Board" */ '../components/dashboard/Board.vue');
+const Projects = () => import(/* webpackChunkName: "Projects" */ '../components/dashboard/Projects.vue');
+const Diary = () => import(/* webpackChunkName: "Diary" */ '../components/dashboard/Diary.vue');
+const Challenges = () => import(/* webpackChunkName: "Challenges" */ '../components/dashboard/Challenges.vue');
+const Wallet = () => import(/* webpackChunkName: "Wallet" */ '../components/dashboard/Wallet.vue');
+const Notifications = () => import(/* webpackChunkName: "Notifications" */ '../components/dashboard/Notifications.vue');
+const Settings = () => import(/* webpackChunkName: "Settings" */ '../components/dashboard/Settings.vue');
+
+// settings routes
+const SettingsMain = () => import(/* webpackChunkName: "SettingsMain" */ '../components/settings/main.vue');
+
+// wallet routes
+const WalletInfo = () => import(/* webpackChunkName: "WalletInfo" */ '../components/Wallet/Info.vue');
+const Feedback=  () => import(/*webpackChunkName: "Feedback" */ '../components/dashboard/Feedback.vue')
+
+// notifications list
+const NotificationsList = () => import(/* webpackChunkName: "NotificationsList" */ '../components/notifications/List.vue');
+
+// project routes
+const ProjectList = () => import(/* webpackChunkName: "ProjectList" */ '../components/projects/ProjectList.vue');
+const ProjectPanel = () => import(/* webpackChunkName: "ProjectPanel" */ '../components/projects/ProjectPanel.vue');
+const CodeEditor = () => import(/* webpackChunkName: "CodeEditor" */ '../components/projects/CodeEditor.vue');
+const AddProject = () => import(/* webpackChunkName: "AddProject" */ '../components/projects/AddProject.vue');
+const AddNewFile = () => import(/* webpackChunkName: "AddNewFile" */ '../components/projects/AddNewFile.vue');
+const AddDatabase = () => import(/* webpackChunkName: "AddDatabase" */ '../components/projects/AddDatabase.vue');
+const ResourceUpload = () => import(/* webpackChunkName: "ResourceUpload" */ '../components/projects/ResourceUpload.vue');
+const PanelLoader = () => import(/* webpackChunkName: "PanelLoader" */ '../components/projects/PanelLoader.vue');
+const PanelSettings = () => import(/* webpackChunkName: "PanelSettings" */ '../components/projects/PanelSettings.vue');
+const AddWebroute= () => import(/* webpackChunkName: "AddWebroute" */ '../components/projects/AddWebroute.vue');
+const ProjectGuide = () => import(/* webpackChunkName: "ProjectGuide" */ '../components/projects/ProjectGuide.vue')
+
+
+
+// chats routes
+const Chats = () => import(/* webpackChunkName: "Chats" */ '../components/chats/Chats.vue');
+
+// Hub routes
+const Hub = () => import(/* webpackChunkName: "Hub" */ '../components/Hub/Hub.vue');
+
+// profile routes
+ const ProfilePage= () => import(/* webpackChunkName:"ProfilePage"*/ '../components/Profile/ProfilePage.vue');
+
+// challenges routes
+const ChallengesList= () => import(/* webpackChunkName: "ChallengesList" */ '../components/challenges/ChallengesList.vue');
+const ChallengesCreate= () => import(/* webpackChunkName: "ChallengesCreate" */ '../components/challenges/Create.vue');
+const ChallengePanel= () => import(/* webpackChunkName: "ChallengePanel" */ '../components/challenges/Panel.vue');
+const ChallengeDescription= () => import(/* webpackChunkName: "ChallengeDescription" */ '../components/challenges/Description.vue');
+const ChallengeJudges= () => import(/* webpackChunkName: "ChallengeJudges" */ '../components/challenges/Judges.vue');
+const ChallengeLeaderboard= () => import(/* webpackChunkName: "ChallengeLeaderboard" */ '../components/challenges/Leaderboard.vue');
+const ChallengeDiscussions= () => import(/* webpackChunkName: "ChallengeDiscussions" */ '../components/challenges/Discussion.vue');
+const ChallengeRules= () => import(/* webpackChunkName: "ChallengeRules" */ '../components/challenges/Rules.vue');
+const ChallengeResult= () => import(/* webpackChunkName: "ChallengeResult" */ '../components/challenges/Results.vue');
+
+// Diary routes
+const DiaryList= () => import(/* webpackChunkName: "DiaryList" */ '../components/diary/DiaryList.vue');
+const DiaryBoard= () => import(/* webpackChunkName: "DiaryBoard" */ '../components/diary/Board.vue');
+const DiaryContent= () => import(/* webpackChunkName: "DiaryContent" */ '../components/diary/DiaryContent.vue');
+const AddGem= () => import(/* webpackChunkName: "AddGem" */ '../components/diary/AddGem.vue');
+const GetDiary= () => import(/* webpackChunkName: "GetDiary" */ '../components/diary/GetDiary.vue');
+
+// feedback routes
+const FeedForm= () => import(/* webpackChunkName: "FeedForm" */ '../components/Feedback/FeedbackForm.vue')
 
 const routes = [
-  { path: '/', redirect: '/panel'},
-  {
-    path: '*',
-    name: 'notFound',
-    component: NotFound
-  },
-  { path: '/login', name: 'Login', component: Login},
-  { path: '/crop-image', 
-  name: 'CropImage', 
-  component: CropImage,
-  },
+  { path: '/login', name: 'login', component: Login },
+  { path: '/sign-up', name: 'register', component: Register },
+  { path: '/verify', name: 'verify', component: Verify },
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
-  { path: '/register', name: 'Register', component: Register},
-  { path: '/auth/:fromPage', name: 'Auth', component: Auth},
-  { path: '/verify', name: 'Verify', component: Verify},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
-  { path: '/panel',
-     name: 'Hub', 
-     component: Hub,
-     redirect: '/panel/main/user',
-    children: [
-      {
-        // dashboard
-        path: 'main/:orgId',
-        component: Dashboard
-      },
-      {
-        // dashboard
-        path: 'main/:orgId/:user',
-        component: Dashboard
-      },
-      {
-        // dashboard
-        path: 'main/new/:orgId',
-        component: Dashboard
-      },
-      {
-        // organization
-        path: 'organizations',
-        component: Organization
-      },
-      {
-        // bots
-        path: 'bot/setup/:botId',
-        component: Bots
-      },
-      {
-        // create bot
-        path: 'bot/create',
-        component: AddBot
-      },
-      {
-        // create organization
-        path: 'organization/create',
-        component: AddOrganization
-      },
-      {
-        // create new space
-        path: 'space/create',
-        component: CreateSpace
-      },
-      {
-        // new code file
-        path: ':duelId/:language_type/add-new-file',
-        component: NewCodeFile
-      },
-      {
-        // match board
-        path: ':duelId/board/:referral',
-        component: MatchBoard
-      },
-      {
-        //duel info
-        path: ':duelId/info',
-        component: DuelInfo
-      },
-      {
-        //duel loader
-        path: ':duelId/page-loader',
-        component: PanelLoader
-      },
-      {
-        //duel add route
-        path: ':duelId/add-panel-route',
-        component: AddPanelRoutes
-      },
-       {
-        //create duel
-        path: 'challenge/create',
-        component: CreateDuel
-      },
-      {
-        //edit duel
-        path: 'challenge/edit',
-        component: CreateDuel
-      },
-
-      {
-        //create db table
-        path: ':duelId/create-db-table',
-        component: CreateTable
-      },
+ 
+  {
+    path:'/profile/:username',
+     name:'ProfilePage', 
+     component:ProfilePage,
+     meta: {
+      twModalView: true
+    },
+    beforeEnter: (to, from, next) => {
      
-      {
-        //match panel
-        path: ':duelId/panel/:type/:referral',
-        component: MatchPanel
-      },
-      {
-        //match panel view
-        path: ':duelId/panel/:type/:referral/view/:panelId',
-        component: MatchPanel
-      },
-      {
-        //match panel comment
-        path: ':duelId/panel/:type/comments/view',
-        component: ProjectComments
-      },
-      {
-        //match panel comment
-        path: ':duelId/panel/:type/comments/new',
-        component: NewComment
-      },
-      {
-        //match panel
-        path: ':duelId/panel/new/settings/duel',
-        component: PanelSettings
-      },
-      {
-        //code editor
-        path: ':duelId/code-editor',
-        component: CodeEditor
-      },
-      {
-        //code editor
-        path: ':duelId/db-table',
-        component: DBTable
-      },
-      {
-        //match comment
-        path: ':duelId/comment',
-        component: MatchComment
-      },
-      {
-        //match result
-        path: ':duelId/participant/:actionType',
-        component: MatchResult
-      },
+      if(window.thisUserState != undefined){
+        
+        thisUserState.$root.showFullImage = false;
+
+        thisUserState.$root.showProfileEditModal = false;
+
+         thisUserState.$root.showViewPost = false;
+       
+       }
+     
+     
+      next()
+     }
+  },
+    // edit profile
+{ path: '/profile/edit/:username',
+name: 'EditProfile',
+meta: {
+ twModalView: true
+},
+beforeEnter: (to, from, next) => {
+ const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+  
+ if(window.thisUserState != undefined){
+   
+   thisUserState.$root.showProfileEditModal = true;
+  
+  }
+
+ if (!twModalView) {
+   //
+   // For direct access
+   //
+   to.matched[0].components = {
+     default: ProfilePage,
+     modal: false
+   }
+ }
+
+ if (twModalView) {
+   //
+   // For twModalView access
+   //
+   if (from.matched.length > 1) {
+     // copy nested router
+     const childrenView = from.matched.slice(1, from.matched.length)
+     for (let view of childrenView) {
+       to.matched.push(view)
+     }
+   }
+   if (to.matched[0].components) {
+     // Rewrite components for `default`
+     to.matched[0].components.default = from.matched[0].components.default
+     // Rewrite components for `modal`
+     to.matched[0].components.modal = ProfilePage
+   }
+ }
+
+ next()
+}
+},
+  // full image view
+  { path: '/profile-view/:username',
+  name: 'ProfileViewPage',
+  meta: {
+   twModalView: true
+  },
+  beforeEnter: (to, from, next) => {
+   const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+  
+    
+   if(window.thisUserState != undefined){
+    thisUserState.$root.showViewPost = false;
+     
+     thisUserState.$root.showProfileView = true;
+    
+    }
+  
+   if (!twModalView) {
+     //
+     // For direct access
+     //
+     to.matched[0].components = {
+       default: ProfilePage,
+       modal: false
+     }
+   }
+  
+   if (twModalView) {
+
+       
+     //
+     // For twModalView access
+     //
+     if (from.matched.length > 1) {
+       // copy nested router
+       const childrenView = from.matched.slice(1, from.matched.length)
+       for (let view of childrenView) {
+         to.matched.push(view)
+       }
+     }
+     if (to.matched[0].components) {
+       // Rewrite components for `default`
+       to.matched[0].components.default = from.matched[0].components.default
+       // Rewrite components for `modal`
+       to.matched[0].components.modal = ProfilePage
+     }
+   }
+  
+   next()
+  }
+  },
+   // full image view
+   { path: '/full-image-view',
+   name: 'FullImageView',
+   meta: {
+    twModalView: true
+   },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+   
+     
+    if(window.thisUserState != undefined){
+      
+      thisUserState.$root.showFullImage = true;
+     
+     }
+   
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Hub,
+        modal: false
+      }
+    }
+   
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Hub
+      }
+    }
+   
+    next()
+   }
+   },
+  {
+    path:'/',
+    redirect:'/hub',
+  },
+  {
+    path:'/hub',
+    name:'Hub',
+    component:Hub,
+    meta: {
+      twModalView: true
+    },
+    beforeEnter: (to, from, next) => {
+
+     
+      
+      if(window.thisUserState != undefined){
+        
+        thisUserState.$root.showAddNewPost = false;
+        thisUserState.$root.showViewPost = false;
+        thisUserState.$root.showProfileView = false;
+       
+       }
+     
+     
+      next()
+     }
+  },
+
+  // new post
+{ path: '/hub/new-post',
+name: 'NewPost',
+meta: {
+  twModalView: true
+},
+beforeEnter: (to, from, next) => {
+ const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+ 
+ if(window.thisUserState != undefined){
+   
+   thisUserState.$root.showAddNewPost = true;
+  
+  }
+
+ if (!twModalView) {
+   //
+   // For direct access
+   //
+   to.matched[0].components = {
+     default: Hub,
+     modal: false
+   }
+ }
+
+ if (twModalView) {
+   //
+   // For twModalView access
+   //
+   if (from.matched.length > 1) {
+     // copy nested router
+     const childrenView = from.matched.slice(1, from.matched.length)
+     for (let view of childrenView) {
+       to.matched.push(view)
+     }
+   }
+   if (to.matched[0].components) {
+     // Rewrite components for `default`
+     to.matched[0].components.default = from.matched[0].components.default
+     // Rewrite components for `modal`
+     to.matched[0].components.modal = Hub
+   }
+ }
+
+ next()
+}
+},
+
+// new post
+{
+  path: '/hub/post/:post_id',
+  name: 'ViewPost',
+  meta: {
+    twModalView: true
+  },
+  beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+  if (window.thisUserState != undefined) {
+    thisUserState.$root.showViewPost = true;
+  }
+
+  if (!twModalView) {
+   //
+   // For direct access
+   //
+    to.matched[0].components = {
+      default: Hub,
+      modal: false
+    }
+  }
+
+  if (twModalView) {
+   //
+   // For twModalView access
+   //
+    if (from.matched.length > 1) {
+      
+      // copy nested router
+      const childrenView = from.matched.slice(1, from.matched.length)
+      
+      for (let view of childrenView) {
+        to.matched.push(view)
+      }
+    }
+   
+    if (to.matched[0].components) {
+      
+      // Rewrite components for `default`
+      to.matched[0].components.default = from.matched[0].components.default
+      
+      // Rewrite components for `modal`
+      to.matched[0].components.modal = Hub
+    }
+  }
+
+  next()
+}
+
+},
+  
+  {
+    // channels
+    path: '/channels',
+    component: Chats,
+    name:'Channels',
+    meta: {
+      twModalView: true
+    },
+    beforeEnter: (to, from, next) => {
+
+      if(window.thisUserState != undefined){
+
+         if( thisUserState.$root.chatComponent){
+          thisUserState.$root.chatComponent.chatIsOpen = false;
+          thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+          thisUserState.$root.chatComponent.messageIsDone = true;
+          thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+          thisUserState.$root.chatComponent.chatShareIsOpen = false;
+          thisUserState.$root.showProfileView = false;
+          thisUserState.$root.showDiarySettings = false;
+          thisUserState.selectedSpace = [];
+          thisUserState.$root.chatComponent.chatbarContent = 'chat_list';
+         }
+  
+       
+            
+       
+
+       }
+   
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+
+      
+       
+    next()
+  }
+  },
+  
+
+  // channel content 
+  { path: '/channels/:spaceId/content',
+   name: 'Content',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
 
 
+    if(window.thisUserState != undefined){
+  
+      if( thisUserState.$root.chatComponent){
+
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+      thisUserState.$root.chatComponent.chatInnerSideBar = false;
+      thisUserState.$root.chatComponent.chatIsOpen = true;
+      thisUserState.$root.showProfileView = false;
+      thisUserState.$root.chatComponent.messageIsDone = true;
+      thisUserState.$root.showDiarySettings = false;
+      
+        
+      }
+     
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+
+// diary settings 
+{ path: '/channels/engine/diary/:bot_id',
+name: 'DiarySettings',
+meta: {
+ twModalView: true
+},
+beforeEnter: (to, from, next) => {
+ const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+ if(window.thisUserState != undefined){
+
+   if( thisUserState.$root.chatComponent){
+   thisUserState.$root.showDiarySettings = true;
+
+  
+     
+   }
+  
+
+  }
+
+ if (!twModalView) {
+   //
+   // For direct access
+   //
+   to.matched[0].components = {
+     default: Chats,
+     modal: false
+   }
+ }
+
+ if (twModalView) {
+   //
+   // For twModalView access
+   //
+   if (from.matched.length > 1) {
+     // copy nested router
+     const childrenView = from.matched.slice(1, from.matched.length)
+     for (let view of childrenView) {
+       to.matched.push(view)
+     }
+   }
+   if (to.matched[0].components) {
+     // Rewrite components for `default`
+     to.matched[0].components.default = from.matched[0].components.default
+     // Rewrite components for `modal`
+     to.matched[0].components.modal = Chats
+   }
+ }
+
+ next()
+}
+},
+// create channel
+{ path: '/channels/create',
+   name: 'CreateChannel',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+      
+      if( thisUserState.$root.chatComponent){
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.chatbarContent = 'create_channel';
+      }
+     
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// sub channels
+{ path: '/channels/:spaceId/sub_channels',
+   name: 'SubChannels',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+
+      if( thisUserState.$root.chatComponent){
+  
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.innerSideBarContent = '';
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+    
+      thisUserState.$root.chatComponent.chatInnerSideBar = true;
+      thisUserState.$root.chatComponent.innerSideBarContent = 'sub_channels';
+    
+     }
+     
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+
+// channel info
+{ path: '/channels/:spaceId/channel_info',
+   name: 'ChannelInfo',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+      if( thisUserState.$root.chatComponent){
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+      thisUserState.$root.chatComponent.innerSideBarContent = '';
+      thisUserState.$root.chatComponent.chatInnerConent = '';
+   
+      thisUserState.$root.chatComponent.chatInnerSideBar = true;
+      thisUserState.$root.chatComponent.innerSideBarContent = 'channel_info';
+       
+  
+          
+     }
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// channel edit
+{ path: '/channels/:spaceId/channel_edit',
+   name: 'ChannelEdit',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+
+      if( thisUserState.$root.chatComponent){
+        thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.innerSideBarContent = '';
+    
+      thisUserState.$root.chatComponent.chatInnerSideBar = true;
+      thisUserState.$root.chatComponent.innerSideBarContent = 'channel_edit';
+       
+  
+          
+      }
+     
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+
+// add sub channel
+{ path: '/channels/:spaceId/add_sub_channel',
+   name: 'AddSubChannel',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+
+      if( thisUserState.$root.chatComponent){
+  
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.innerSideBarContent = '';
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+   
+      thisUserState.$root.chatComponent.chatInnerSideBar = true;
+      thisUserState.$root.chatComponent.innerSideBarContent = 'add_sub_channel';
+       
+ 
+          
+      }
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+
+// live session
+{ path: '/channels/:spaceId/live_session',
+   name: 'LiveSession',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+  
+      if( thisUserState.$root.chatComponent){
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+      thisUserState.$root.chatComponent.chatInnerConent = false;
+      thisUserState.$root.chatComponent.chatInnerSideBar = false;
+
+    
+        thisUserState.$root.chatComponent.liveSessionIsOpen = true;
+      
+  
+       }
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// chat share
+{ path: '/channels/:spaceId/share',
+   name: 'ChatShare',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+  
+      if( thisUserState.$root.chatComponent){
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+      thisUserState.$root.chatComponent.chatInnerConent = false;
+      thisUserState.$root.chatComponent.chatInnerSideBar = false;
+
+     
+        thisUserState.$root.chatComponent.chatShareIsOpen = true;
+     
+  
+       }
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+
+// crop image
+{ path: '/channels/:spaceId/crop-image',
+   name: 'CropImage',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+  
+      if( thisUserState.$root.chatComponent){
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.chatInnerConent = false;
+      thisUserState.$root.chatComponent.chatInnerSideBar = false;
+
+    
+        thisUserState.$root.chatComponent.imageCropperIsOpen = true;
+      
+  
+       }
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// editor
+{ path: '/channels/:spaceId/editor',
+   name: 'editor',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+      if( thisUserState.$root.chatComponent){
+  
+      thisUserState.$root.chatComponent.chatInnerConent = 'code_editor';
+      }
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// image viewer
+{ path: '/channels/:spaceId/image_viewer',
+   name: 'ImageViewer',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+      if( thisUserState.$root.chatComponent){
+        thisUserState.$root.chatComponent.chatInnerSideBar = false;
+      thisUserState.$root.chatComponent.chatInnerConent = 'image_viewer';
+      }
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// Channel invitation
+{ path: '/channels/:spaceId/channel_invitation',
+   name: 'ChannelInvitation',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+      if( thisUserState.$root.chatComponent){
+        thisUserState.$root.chatComponent.chatInnerSideBar = false;
+      thisUserState.$root.chatComponent.chatInnerConent = 'channel_invitation';
+      }
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// image cropper
+{ path: '/crop-image',
+   name: 'baseImageCropper',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+    
+    if(window.thisUserState != undefined){
+      
+      thisUserState.$root.showImageCropper = true;
+     
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Hub,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Hub
+      }
+    }
+
+    next()
+  }
+},
+  { path: '/board',
+     name: 'Board', 
+     component: Board,
+     redirect: '/board/projects',
+    children: [
+//feedback
+
+{path:'feedback',
+ name:'Feedback',
+  component: Feedback,
+   redirect:'/board/feedback/feedback-form',
+
+children:[
+  {path:'/board/feedback/feedback-form',
+   name:'FeedbackForm',
+    component:FeedForm}
+]
+},
+
+      {
+        // projects
+        path: 'projects',
+        component: Projects,
+
+        redirect: '/board/projects/list',
+        children: [
+        { // list
+        path: 'list',
+        component: ProjectList
+        },
+        {
+        // add project
+        path: 'add',
+        component: AddProject
+        },
+        {
+         // project panel
+        path: 'panel/:project_slug',
+        component: ProjectPanel,
+        children:[
+
+
+          {
+//project guide
+            path:'guide',
+           component: ProjectGuide
+          },
+                 {
+                 // code editor
+                 path: 'editor',
+                  component: CodeEditor
+                  },
+                  {
+                    // Add Code File
+                    path: 'add-new-file/:language_type',
+                    component: AddNewFile
+                  },
+                  {
+                    // alter panel settings
+                    path:"set-panel",
+                    component:PanelSettings
+                  },
+                  {
+                    // add web route
+                    path:"web-route",
+                    component:AddWebroute
+                  },
+                  {
+                    // Add DataBase
+                    path: 'create-db-table',
+                    component: AddDatabase
+                  },
+                  {
+                    // resource upload
+                    path: 'resource-upload/:type',
+                    component: ResourceUpload
+                  },
+                  {
+                    // panel loader
+                    path: 'panel-loader',
+                    component: PanelLoader
+                  },
+                 
+               ]
+    },
+    {
+      // add project
+      path: 'create',
+      component: AddProject
+    },
+  
+    ]
+      },
+    
+      {
+        // content bots
+        path: 'diary',
+        component: Diary,
+        meta: {
+          twModalView: true
+        },
+        redirect:'/board/diary/list',
+        children:[
+          {
+            // list
+            path:'list',
+            component:DiaryList,
+            meta: {
+              twModalView: true
+             },
+          },
+          {
+            // board
+            path:'board/:diary_id',
+            component:DiaryBoard,
+            //redirect:'/board/diary/board/content',
+            meta: {
+              twModalView: true
+             },
+            children:[
+              {
+                // content
+                path:'content',
+                component:DiaryContent,
+                meta: {
+                  twModalView: true
+                 },
+              },
+              {
+                // add new gem
+                path:'edit-note/:note_id',
+                component:AddGem,
+                meta: {
+                  twModalView: true
+                 },
+              },
+            
+
+            ]
+          }
+          ,
+              // create diary
+              {
+                path:'create-diary',
+                component:GetDiary
+              }
+        ]
+      },
+
+   
+
+      {
+        // challenges
+        path: 'challenges',
+        component: Challenges,
+        redirect: '/board/challenges/list',
+        meta: {
+          twModalView: true
+        },
+        beforeEnter: (to, from, next) => {
+     
+          if(window.thisUserState != undefined){
+            
+            thisUserState.$root.showProfileView = false;
+    
+           
+           }
+         
+         
+          next()
+         },
+        children:[
+            { // list
+            path: 'list',
+            component: ChallengesList
+            },
+            { // create
+              path: 'create/:type',
+              component: ChallengesCreate
+            },
+            {
+              // panel
+              path:'panel/:challenge_id',
+              component:ChallengePanel,
+              children:[
+
+                { // description
+                  path: 'description',
+                  component: ChallengeDescription
+                  },
+
+                  { // challengeResult
+                  path: 'results/:type',
+                  component: ChallengeResult
+                  },
+                     // challengeResult
+                   {
+                    // judges
+                    path:'judges',
+                    component: ChallengeJudges
+                  },
+                  {
+                    // leaderboard
+                    path:'leaderboard',
+                    component: ChallengeLeaderboard
+                  },
+                  {
+                    // discussions
+                    path:'discussion',
+                    component: ChallengeDiscussions
+                  },
+                  {
+                    // rules
+                    path:'rules',
+                    component: ChallengeRules
+                  }
+
+              ]
+            }
+        ]
+      },
+      {
+        // wallet
+        path: 'wallet',
+        component: Wallet,
+        redirect:'/board/wallet/info',
+        meta: {
+          twModalView: true
+        },
+        children:[
+           
+          {
+            // info
+            path:'info',
+            component: WalletInfo
+          }
+        ]
+      },
+      {
+        // settings
+        path: 'settings',
+        component: Settings,
+        redirect:'/board/settings/main',
+        meta: {
+          twModalView: true
+        },
+        children:[
+           
+          {
+            // main
+            path:'main',
+            component: SettingsMain
+          }
+        ]
+      },
+      {
+        // notifications
+        path: 'notifications',
+        component: Notifications,
+        redirect: '/board/notifications/list',
+        meta: {
+          twModalView: true
+        },
+        children:[
+            
+          { // list
+            path: 'list',
+            component: NotificationsList
+            },
+        ]
+      }
     ]
   },
 ];
@@ -254,6 +1548,26 @@ const routes = [
 const router = new VueRouter({
   routes
 });
+
+
+router.beforeEach((to, from, next) => {
+  // If this isn't an initial page load.
+  
+      // Start the route progress bar.
+      if(window.thisUserState){
+        thisUserState.routeIsLoading = true;
+      }
+  
+  next()
+})
+
+router.afterEach((to, from) => {
+  // Complete the animation of the route progress bar.
+  if(window.thisUserState){
+    thisUserState.routeIsLoading = false;
+  }
+})
+
 
 import VueI18n from 'vue-i18n'
 
@@ -267,97 +1581,57 @@ const i18n = new VueI18n({
 })
 
 const app = new Vue({
-  router: router,
-   store,
-    el: '#dashboard',
-    vuetify: new Vuetify(),
-    i18n,
-    data:{
-      pageloader: false,
-      checkauthroot:'',
+     router: router,
+     store,
+     el: '#dashboard',
+     vuetify: new Vuetify(),
+     i18n,
+     data:{
+      TopBarComponent:null,
+      routeIsLoading: false,
+      showSideBar:false,
+      searchType:'',
+      codemirrorComponent:'',
+      fullImageColor:'',
+      showMobileHub:true,
+      imageViewPath:'',
+      chatComponent:undefined,
       username: '',
-      typing: false,
-      typinguser:'',
-      notificationApproved:'',
-      shownotificationboard: false,
       user_temp_id:0,
-      pushManager:'',
-      sentmessageid:0,
-       members:[],
-      users: [],
-      usersCount:0,
-      userEmail:'',
-      userPassword:'',
-      showTabs:true,
-      showHeader:true,
-       serverControlled:true,
-      tabLabel:'dashboard',
-      duels:[],
-      selectedDuel:[],
-      duelComments:[],
-      is_reply_comment:false,
-      replyCommentId:'',
-      replyCommentUsername:'',
-      redirectRoot:'',
-      panelLanguage:'',
-      codeEditorArray:[],
-      codeEditorContent:'',
-      EditorLanguage:'',
-      CodeFilesData:[],
-      is_edit:false,
-      forcePanelReload:false,
-      selectedFileCatType:'',
-      panelRoutes:[],
-      allChannel:[],
-      selectedRoute:[],
-      UrlTrack:'',
-      SelectedTable:[],
-      authProfile:[],
-      isEditDuel: false,
-      editDuelArray:[],
-      localChannel:[],
-      showShare:false,
-      codeFiles:[],
-      UserDuel:null,
-      showShare:false,
-      userList:[],
-      frontEndFiles:[],
-      backEndFiles:[],
-      projectComments:[],
-      replyCommentUsername:'',
-      replyCommentId:0,
-      is_reply_comment:false,
-      referralUser:'user',
-      showBoard:false,
-      boardContent:'',
-      boardBtnLabel:'',
-      userPageTrack:[],
-      selectedPage:[],
-      drawer:false,
-      notificationCount:0,
-      notificationCountSpace:0,
-      panel:[],
-      panelBack:[],
-      showFront:true,
-      showBack: false,
-      fromDuelBoard: true,
-      UploadType:'',
-      UploadMessage:'',
-      SelectedCodeBox:[],
-      panelResources:[],
-      UploadResources:false,
-      frompage:'duels',
-      reloadDuelBoard:false,
-      pageLoaderOpened: false,
-      panelDataFull:[],
-      showLangOption:false,
-      userLocale:document.getElementById('appLocale').value,
-      baseApiUrl:'http://api.citonhub.com/api',
       returnedToken:'',
-      croppedImage:'',
-       imagepath:'',
-       imageExist:false,
-       imagepath:'',
+      checkauthroot:'',
+      authProfile:[],
+      userDeviceId:'',
+      ChatList:[],
+      selectedSpace:[],
+      Messages:[],
+      baseImageUrl:'http//citonhubnew.com',
+      selectedGenSpaceType:'',
+      selectedSubSpaceName:'',
+      selectedSubSpaceType:'',
+      TrackLastSubSpace:[],
+      selectedSpaceMembers:[],
+      adminMembers:[],
+      msgScrollComponent:undefined,
+      returnedMessages:'',
+      sendingMessage:false,
+      replyMessage:[],
+      botIsLoading:false,
+      botSuggestionArray:[],
+      fullCodeLanguage:'HTML',
+      FullcodeContent:'<p>write your code</p>',
+      imageSlidestate:0,
+      imageArrayView:[],
+      typinguser:'',
+      typingSpace:'',
+      typing:false,
+      globalUsers:[],
+      messageSlicePosition:30,
+      showRootReply:false,
+      is_reply:false,
+      NewMsg:[],
+      SpaceUsers:[],
+      showEmojiBox:false,
       imageHeight1: '',
        imageHeight2: '',
        imageHeight3: '',
@@ -370,58 +1644,259 @@ const app = new Vue({
        imageCanvas2:'',
        imageCanvas3:'',
        imageCanvas4:'',
-       imageTemp1:'',
-       imageTemp2:'',
-        imageTemp3:'',
-        imageViewPath:'',
-        currentImage:'',
-        imagepath1:'',
-        imagepath2:'',
-        imagepath3:'',
-        imagepath4:'',
-        tags:[],
-        patterns:[],
-        responses:[],
-        fullData:[],
-        contentGenratorComponent: undefined,
-        selectedBot:[],
-        isBotLink:false,
-        selectedOrg:[],
-        orgIdRoot:'user',
-        itIsHomePage:false,
-        showDashboardInfo:false,
-     showHubInfo: false,
-     showProfileInfo: false,
-     panelViewMode:false,
-     buttonText:'Ok',
-     dashboardContent:'Create new communities, channels, teams and teaching bots in your dashboard',
-     hubContent:'Network and share your works with other developers on CitonHub',
-     profileContent:'Manage your account and connections in your profile',
-     showImageEditor:false,
-     contentInWordroot:'',
-     fullnameroot:'',
-     selectedChannelroot:''
-        
-    },
+      imageTemp1:'',
+      imageTemp2:'',
+      imageTemp3:'',
+      selectedSpaceId:'',
+      imageTemp4:'',
+      imageViewPath:'',
+      currentImage:'',
+      imagepath:'',
+      imagepath1:'',
+      imagepath2:'',
+      imagepath3:'',
+      imagepath4:'',
+      baseChatList:[],
+      codeIsLive:false,
+      codeEditorComponent:undefined,
+      recordUrl:'',
+      recorderBlob:'',
+      dataconnection:undefined,
+      connection:undefined,
+      audioconnection:undefined,
+      CodeResult:'',
+      liveShowCode:true,
+      newMasterId:0,
+      allAudioParticipant:[],
+      connectingToSocket:false,
+      roomNotExist:false,
+      roomCheckingInitaited:false,
+      screenIsConnecting:false,
+      screenSharingOn:false,
+      showVideoScreen:false,
+      socketEcho:undefined,
+      audioSocket:undefined,
+      screenSocket:undefined,
+      dataSocket:undefined,
+      reconnectionCount:0,
+      isMaster:false,
+      localAudioMuted:false,
+      userIsReconnecting:false,
+      remoteLiveHappening:false,
+      remoteAudio:false,
+      liveIsOn:false,
+      remoteScreen:false,
+      showTopBar:true,
+      speakingUser:[],
+      manuallyClosed:false,
+      liveBoardContent:'action_list',
+      fromLiveSession:false,
+      codeboxComponent:undefined,
+      showMemberBoard:false,
+      projectList:[],
+      projectData:[],
+      selectedFileId:'',
+      SelectedCodeBox:[],
+      selectedFileCatType:'',
+      codeEditorContent:'',
+      EditorLanguage:'',
+      codeEditorArray:[],
+      codeEditorComponent:undefined,
+      editorSideComponent:undefined,
+      projectPanelComponent:undefined,
+      selectedChallenge:[],
+      is_route_edit:false,
+      selectedRoute:[],
+      croppedImage:'',
+      showImageCropper:false,
+      imageExist:false,
+      is_reply_comment:false,
+      replyCommentId:0,
+      showResultPage:false,
+      panelFromChallenges:false,
+      diaryList:[],
+      selectedDiary:[],
+      showAddNewPost:false,
+      noteContent:[],
+      diaryBoardComponent:undefined,
+      addDiaryContentComponent:undefined,
+      AddModalIsUp:false,
+      posts:[],
+      showProfileEditModal:false,
+      showImageCropperDiary:false,
+      showViewPost: false,
+      showProfileEditModal:false,
+      currentPost:null,
+      userEmail:'',
+      userPassword:'',
+      pageToDelete:'',
+      selectedPost:[],
+      hubComponents:undefined,
+      loadingChatList: false,
+      loadingIsError:false,
+      searchChatList:[],
+     chatListComponent:undefined,
+     shareText:'',
+     shareLink:'',
+     fromChannelEdit:false,
+     moreOptionComponent:undefined,
+     challengesList:[],
+     infoText:'',
+     extraInfo:'',
+     alertComponent:undefined,
+     showInvitation:false,
+     challengePanelComponent:undefined,
+     discussionComponent:undefined,
+     challengeSearchList:[],
+     challengeListComponent:undefined,
+     projectSearchList:[],
+     ProjectMembers:[],
+     projectListComponent:undefined,
+     diarySearchList:[],
+     showFullImage:false,
+     baseImageColor:'',
+     baseImageLink:'',
+     profilePageComponent:undefined,
+     autoOpenChat:false,
+     autoOpenChatId:'',
+     postsSearch:[],
+     TopBarComponentHub:undefined,
+     projectViewComponent:undefined,
+     autoOpenPost:false,
+     autoOpenPostId:'',
+     showProfileView:false,
+     selectedUsername:'',
+     TopBarComponentChat:undefined,
+     TopBarComponentBoard:undefined,
+     ShowappInstaller:false,
+     deferredPrompt:'',
+     showDiarySettings:false,
+     tempDiaryId:'',
+     autoOpenDiary:false,
+     showRewardBoard:false,
+     },
      mounted: function () {
-      this.pageloader= false;
-      let _this = this;
-      this.connectToChannel();
+      window.thisUserState = this;
+      window.routerData = this.$router;
       if(this.isLogged){
         this.fetchUserDetails();
        }
-      this.SetLocale(this.userLocale);
-     
-      window.routerData = this.$router;
+      this.connectToChannel();
+      this.checkPWA();
     },
     computed: {
       ...mapGetters([
         'isLogged'
-      ])
+      ]),
+      isConnected:function(){
+         if(this.socketEcho){
+          return this.socketEcho.connector.socket.connected;
+         }
+        return 'empty';
+      },
+      isConnectedAudio:function(){
+        if(this.audioSocket){
+         return this.audioSocket.connected;
+        }
+       return 'empty';
+     },
+     isConnectedScreen:function(){
+      if(this.screenSocket){
+       return this.screenSocket.connected;
+      }
+     return 'empty';
+     },
+     isConnectedData:function(){
+      if(this.dataSocket){
+       return this.dataSocket.connected;
+      }
+     return 'empty';
+     },
+    },
+    watch: {
+      // whenever isConnected changes, this function will run
+      isConnected: function (newValue, oldValue) {
+
+        if(!newValue && this.$root.chatComponent){
+
+            this.updateSpaceMessages();
+
+            }
+         
+      },
+      // whenever isConnectedAudio changes, this function will run
+      isConnectedAudio: function (newValue, oldValue) {
+
+
+        if(!newValue){
+
+       
+
+          this.connectingToSocket = 'disconnected';
+        
+          if(!this.manuallyClosed){
+
+            this.rejoinAudio(this.isMaster);
+
+          }
+         
+
+
+       }else{
+
+         this.connectingToSocket = false;
+       }
+   
+      },
+      // whenever isConnectedScreen changes, this function will run
+      isConnectedScreen: function (newValue, oldValue) {
+
+        if(!newValue){
+
+        
+          if(!this.screenIsConnecting){
+
+             if(!this.manuallyClosed){
+
+              this.rejoinScreen(this.isMaster);
+
+             }
+
+            
+
+          }
+
+         
+
+        }
+
+       
+    },
+      // whenever isConnectedData changes, this function will run
+      isConnectedData: function (newValue, oldValue) {
+
+        if(!newValue){
+
+        
+       
+             if(!this.manuallyClosed){
+
+              this.rejoinData(this.isMaster);
+
+             }
+
+
+        }
+          
+      }
     },
     created(){
-      window.thisUserState = this;
+   
+      // set default 'this' data
+     window.thisUserState = this;
       window.routerData = this.$router;
+
+      // get user info from local storage if logged in
       const userInfo = localStorage.getItem('user')
     if (userInfo) {
       const userData = JSON.parse(userInfo)
@@ -430,9 +1905,14 @@ const app = new Vue({
         this.user_temp_id = userData.user.id;
 
         this.returnedToken = userData.token;
+        this.$store.commit('setUserData', userData)
+
+        // set laravel echo config
         this.setEcho();
-      this.$store.commit('setUserData', userData)
+      
+     
     }
+
     axios.interceptors.response.use(
       response => response,
       error => {
@@ -442,800 +1922,2484 @@ const app = new Vue({
         return Promise.reject(error)
       }
     );
-
+    
+    // set user login state
     if(this.isLogged){
        this.checkauthroot = 'auth';
+       this.checkUserDevice();
     }else{
       this.checkauthroot = 'noauth';
     }
 
 
-    },
-    http: {
-     headers:{
-        'X-CSRF-TOKEN':document.head.querySelector("meta[name='csrf-token']").content
-     }
   },
-  methods:{
-    setEcho:function(){
-      if (typeof io !== 'undefined') {
-        window.Echo = new Echo({
-            broadcaster: 'socket.io', 
-           host: window.customLocation + ':6001',
-           transports: ['websocket', 'polling', 'flashsocket'] ,// Fix CORS error!
-           auth:
-               {
-                   headers:
-                   {
-                       'Authorization': 'Bearer ' + this.returnedToken
-                   }
-               }
-        });}
-       
-        
-        
-    },
-    changeLocale: function(locale){
-
-      this.$root.showLangOption = false;
-
-     
-      this.$root.$i18n.locale = locale;
-
-      axios.post('/save-locale',{
-        locale: locale
-      }).then(response => {
-          
-        if (response.status == 200) {
-           
-         }else{
-           
-         }
-         
-         
-       })
-       .catch(error => {
-        
-       })
-
-       
-    },
-    SetLocale:function(locale){
-       
-      if(this.checkauthroot != 'noauth'){
-
-        this.$root.$i18n.locale = locale;
-
-      }
-
-     
-
-    },
-    closeNotification(uniqueId){
-       
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.ready.then(registration => { 
-          var  notificationTag = uniqueId;
-
-          var notificationFilter = {
-            tag: notificationTag
-          };
-
-          registration.getNotifications(notificationFilter)
-          .then(function(notifications) {
-               
-            if(notifications[0] != undefined){
-              
-               for (let index = 0; index < notifications.length; index++) {
-               
-                notifications[index].close();
-                 
-               }
-            }
-           
-            
-          });
-          });
-      } 
-
-    },
-    LocalStore:function(key,data){
-    
-      
-     
-      localforage.setItem(key,JSON.stringify(data)).then(function () {
-        return localforage.getItem(key);
-      }).then(function (value) {
-        // we got our value
-       
-      }).catch(function (err) {
-        console.log(err)
-        // we got an error
-      });
-  
-      },
-      getLocalStore:function(key){
-        let result = localforage.getItem(key);
-          
-        return result;
-        
-      
-      },
-      removeLocalStorage: function(key){
-        localforage.removeItem(key).then(()=> {
-          // Run this code once the key has been removed.
-        
-         
-         
-      }).catch(function(err) {
-          // This code runs if there were any errors
-          console.log(err);
-      });
-      },
-      logout: function(){
-        this.pageloader= true;
-        this.$store.dispatch('logout');
-        this.username = '';
-        this.user_temp_id = 0;
-        this.checkauthroot = 'noauth';
-        this.drawer = false;
-        this.checkIfUserIsLoggedIn('space');
-      },
-    showNavigator:function(){
-      this.drawer = true;
-      },
-    showNavLink:function(type){
-      if(type == 'library'){
-        window.location = '/hub#/library';
-      }
-
-      if(type == 'duel_list'){
-       window.location = '/duels#/duel/list';
-     }
-
-     if(type == 'account_settings'){
-      return;
-     }
-
-     if(type == 'privacy'){
-      window.location = '/#/privacy-policy';
-    }
-
-    if(type == 'profile'){
-      this.pageloader= true;
-      window.location = '/profile';
-    }
-
-     if(type == 'help'){
-       return;
-     }
-    
-   },
-   connectToChannel: function(){
-
-
-      if(this.checkauthroot == 'auth'){
-        window.Echo.private('user.' + this.username)
-        .listen('.UserChannel',(e) => {
-          
-          if(e.actionType == 'new-duel'){
-            this.$root.duels.unshift(e.data);
-            this.$root.thisDuelConnection(e.data);
-        }
-
-        if(e.actionType == 'new-coin'){
-          this.authProfile.coins = this.authProfile.coins + 1;
-       }
+    methods:{
 
       
-          
-     });
-      
-
-       }
-  
-
-    },
-
-    disconnectDuel:function(duelArray){
-      this.allChannel = [];
-      duelArray.forEach((duel)=>{
-     
-       window.Echo.leave('duel.' + duel.duel_id);
-     });
-   },
-
-    trackDuelConnections: function(DuelArray){
-
-     
-      if(this.allChannel.length == 0){
-
-
-          if(this.checkauthroot == 'auth'){
-
-            DuelArray.forEach((duel)=>{
-
-          
-      var channel =  window.Echo.private('duel.' + duel.duel_id)
-       .listen('.DuelChannel',(e) => {
-
-
-      
-
-   
-
-
-     if(e.actionType == 'duel-comment-like'){
-       
-            
-          this.$root.duelComments.map((comment)=> {
-          if(comment.id ==  e.data){
-            
-            comment.likes = parseInt(comment.likes) + 1;
-          }
-       });
-         
-        
-    }
-
-
-    if(e.actionType == 'duel-comment'){
-
-      this.$root.duels.map((duel)=> {
-        if(duel.duel_id ==  e.data.duel_id){
-          
-          duel.comments = duel.comments + 1;
-        }
-     });
-     
-  
-       this.$root.duelComments.unshift(e.data);
-
-    }
-
-     
-        if(e.actionType == 'duel-like'){
-          this.$root.duels.map((duel)=> {
-            if(duel.duel_id ==  e.data){
-              
-              duel.likes = duel.likes + 1;
-            }
-         });
-          
-      }
-
-      if(e.actionType == 'new-participant'){
-       
-        this.$root.duels.map((duel)=> {
-          if(duel.duel_id ==  e.data.duel_id){
-            
-            duel.duel_participants_array.unshift(e.data);
-            duel.current_participant = duel.current_participant + 1;
-          }
-       });
-     
-           
-         }
- 
-
- 
-      if(e.actionType == 'duel-comment'){
- 
-        this.$root.duels.map((duel)=> {
-          if(duel.duel_id ==  e.data){
-            
-            duel.comments = duel.comments + 1;
-          }
-       });
-         
-          
-      }
+      checkPWA: function(){
           
          
-    });
 
-     this.allChannel.push(channel);
+        window.addEventListener('beforeinstallprompt', (e) => {
+          // Prevent the mini-infobar from appearing on mobile
+          e.preventDefault();
+          // Stash the event so it can be triggered later.
+           this.deferredPrompt = e;
+          // Update UI notify the user they can install the PWA
+          this.showInstallPromotion();
         });
+                   
+              },
+              
+              showInstallPromotion:function(){
+                this.ShowappInstaller = true;
+             },
+      // user device tracker
+      checkUserDevice: function(){
+         
+
+        let storedInfo = this.$root.getLocalStore('user_device_id_' + this.$root.username);
+  
+         storedInfo.then((result)=>{
+           if(result != null){
+           
+  
+            let finalResult = JSON.parse(result);
+  
+            this.userDeviceId = finalResult[0];
+  
+            this.saveDeviceInfo(this.userDeviceId);
+  
+  
+           }else{
+  
+            var deviceId = "device_" + Math.random().toString(36).slice(2);
+  
+            this.userDeviceId = deviceId;
+  
+            this.$root.LocalStore('user_device_id_' + this.$root.username,[deviceId]);
+  
+            this.saveDeviceInfo(deviceId);
+  
+  
+           }
+  
+          
+         })
+  
+  
+        },
+        saveDeviceInfo:function(deviceId){
+  
+          axios.post('/save-user-device',{
+            deviceId: deviceId,
+            device_name: navigator.appName,
+            device_platform: navigator.platform
+              })
+      .then(response => {
         
-     }
+       if (response.status == 200) {
+          
+    
+        
+        }else{
+          console.log(response.status);
+        }
+        
+        
+      })
+      .catch(error => {
+        console.log(error);
+      })
+  
+        },
+        markSpaceRead:function(spaceId){
+
+          if(this.ChatList != undefined){
+           
+            this.ChatList.map((space)=>{
+                 
+              if(space.space_id == spaceId){
+    
+                
+                space.unread = 0;
+              }
+      
+            });
+      
+            
+          
+          }
+    
+    
+          this.$root.LocalStore('unread_messages_' + spaceId  + this.$root.username,[]);
+          
+        },
+      // sets up laravel echo for live sockets
+      setEcho:function(){
+        if (typeof io !== 'undefined') {
+          window.Echo = new Echo({
+              broadcaster: 'socket.io', 
+             host: window.customLocation + ':6001',
+             transports: ['websocket', 'polling', 'flashsocket'] ,// Fix CORS error!
+             auth:
+                 {
+                     headers:
+                     {
+                         'Authorization': 'Bearer ' + this.returnedToken
+                     }
+                 }
+          });}
+
+          this.socketEcho = window.Echo;
+         
+          
+      },
+    // fetches the logged in user details
+      fetchUserDetails: function(){
+      
+
+        axios.get('/fetch-profile-'+ this.username)
+  .then(response => {
+  
+  if (response.status == 200) {
+       
+       let userProfile = response.data.profile;
+       let user = response.data.user_data;
+
+       
+       
+       
+      let userDetails = {
+      'username':user.username,
+      'name': user.name,
+      'coin': userProfile.coins,
+      'image_name': userProfile.image_name,
+      'image_extension': userProfile.image_extension,
+      'about': userProfile.about,
+      'Interests': userProfile.interestsArray,
+      'connections': userProfile.connections,
+      'background_color': userProfile.background_color,
+      'unread': userProfile.unread,
+      'points': userProfile.points
+      };
+        
+
+      
+    this.$root.authProfile = userDetails;
+    
+   
+    
+    
+ }
+   
+ 
+ })
+ .catch(error => {
+
+ }) 
+
      
+  },
+  clearUnreadMessageRemote: function(messageId){
+
+
+    axios.post('/delete-unread-message',{
+      message_id:messageId,
+      device_id: this.$root.userDeviceId
+   })
+  .then(response => {
+  
+  if (response.status == 200) {
+   
+  
+  }
+  
+  
+  })
+  .catch(error => {  
+    
+  }) 
+     
+   
+   },
+  // connect user to a global private socket
+  connectToChannel: function(){
+
+
+
+    if(this.checkauthroot == 'auth'){
+     
+      window.Echo.join('global')
+      .here((users) => {
+ 
+         
+        
+      this.$root.globalUsers = users;
+ 
+       
+ 
+    })
+    .joining((user) => {
+ 
+       
+    
+     
+    this.$root.globalUsers.push(user);
+ 
+   
+    
+    })
+    .leaving((user) => {
+       let newList = this.$root.globalUsers.filter((eachuser)=>{
+           return eachuser.id != user.id
+       });
+
+     this.$root.globalUsers = newList;
+ 
+    })
+    .listen('.GlobalChannel',(e) => {
+
+      if(e.actionType == 'new-message'){
+
+           if(!this.$root.checkIfMessageExist(e.data)){
+            
+            let messageData = {
+              space_id: e.data.space_id,
+              new_messages: [e.data]
+            };
+
+            this.handleSpaceData([messageData])
+            
+
+          this.$root.sortChatList();
+
+            this.scrollToBottom();
+
+           
+
+           }
+
       }
 
-   },
 
-   thisDuelConnection: function(duel){
+      if(e.actionType == 'new_post'){
+
+
+        if(this.$root.hubComponents){
+         
+        
+          this.$root.posts.push(e.data);
+
+        
+
+        }
+
+       
+
+         }
+
+         if(e.actionType == 'post_liked'){
+
+        
+          if(this.$root.hubComponents){
+           
+          
+            this.$root.posts.map((post)=>{
+              if(post.id == e.data.hub_post_id){
+
+                 post.likes += 1;
+
+              }
+            });
+
+             if(this.$root.selectedPost){
+
+               if(this.$root.selectedPost.id == e.data.hub_post_id){
+
+                this.$root.selectedPost.likes += 1;
+
+               }
+
+             
+
+             }
+  
+          
+  
+          }
+  
+         
+  
+           }
+
+           if(e.actionType == 'post_pinned'){
+
+
+            if(this.$root.hubComponents){
+             
+                
+  
+               if(this.$root.selectedPost){
+  
+                if(this.$root.selectedPost.id == e.data.hub_post_id){
+
+                  this.$root.selectedPost.pinned += 1;
+  
+                 }
+  
+               }
     
-     window.Echo.private('duel.' + duel.duel_id)
-     .listen('.DuelChannel',(e) => {
+            
+    
+            }
+    
+           
+    
+             }
 
+
+             if(e.actionType == 'post_comment'){
+
+
+              if(this.$root.hubComponents){
+
+
+                this.$root.posts.map((post)=>{
+                  if(post.id == e.data.hub_post_id){
+    
+                     post.comments += 1;
+    
+                  }
+                });
+               
+            
+    
+                 if(this.$root.selectedPost){
+    
+                  if(this.$root.selectedPost.id == e.data.hub_post_id){
+  
+                     this.$root.projectViewComponent.comments.unshift(e.data);
+                     this.$root.projectViewComponent.scrollToTop();
+    
+                   }
+    
+                 }
+      
+              
+      
+              }
+      
+             
+      
+               }
+
+
+               if(e.actionType == 'post_comment_like'){
+
+
+                if(this.$root.hubComponents){
+  
+             
+      
+                   if(this.$root.selectedPost){
+      
+                    if(this.$root.selectedPost.id == e.data.hub_post_id){
+    
+                       this.$root.projectViewComponent.comments.map((comment)=>{
+                         if(comment.id == e.data.id){
+
+                           comment.likes += 1;
+
+                         }
+                       });
+      
+                     }
+      
+                   }
+        
+                
+        
+                }
+        
+               
+        
+                 }
+
+                 if(e.actionType == 'new_direct_space'){
+
+                  let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+                  storedChat.then((result)=>{
+
+                      if(result != null ){
+
+
+                   let finalResult = JSON.parse(result);
+
+                       let userSpace = finalResult.direct_messages.filter((space)=>{
+                         return space.space_id == e.data.space.space_id
+                       })
+
+                       if(userSpace.length > 0){
+
+
+                       }else{
+
+                         finalResult.direct_messages.unshift(e.data.space);
+
+                         this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+                    let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+                    
+                  this.$root.ChatList = fullList;
+
+                    this.$root.sortChatList();
+
+                       }
+                   
+
+                }
+
+                  } )
+
+                 }
+
+                  if(e.actionType == 'message_delete'){
+
+
+                     this.deleteMessage(e.data)
+
+                 
+                 }
+ 
+
+      if(e.actionType == 'challenge_comment'){
+
+        if( this.$root.discussionComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
+         
+        
+          this.$root.discussionComponent.comments.unshift(e.data);
+
+        
+
+        }
+
+   }
+
+   if(e.actionType == 'challenge_comment_like'){
+
+    if( this.$root.discussionComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
+     
+    
+      this.$root.discussionComponent.comments.map((comment)=>{
+          if(comment.id == e.data.id){
+
+            comment.likes += 1;
+
+          }
+      });
 
     
+
+    }
+
+      }    
+
+
+
+      if(e.actionType == 'new_challenge_participant'){
+
+        if( this.$root.challengePanelComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
+         
+        
+          this.$root.selectedChallenge.current_participant += 1;
+
+          this.$root.selectedChallenge.duel_participants.unshift(e.data);
+    
+        
+    
+        }
+    
+          }  
+
+          
+          if(e.actionType == 'challenge_started'){
+
+            if(this.$root.challengePanelComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
+             
+            
+              
+              this.$root.challengePanelComponent.reloadChallenge();
+            
+        
+            }
+        
+              }  
+
+
+      })
+      .listenForWhisper('typing', (e) => {
+
+
+        this.$root.typinguser = e.user;
+         this.$root.typing = e.typing;
+         this.$root.typingSpace = e.spaceId;
+
+
+
+           })
+          .listenForWhisper('liveAction', (e) => {
+
+
+            if(this.$route.params.spaceId == e.spaceId){
+
+
+
+
+             if(e.action == 'liveIsOn'){
+
+                this.$root.remoteLiveHappening = true;
+
+                 if(e.data == 'audio'){
+
+                this.$root.remoteAudio = true;
+
+                 }
+                 if(e.data == 'screen'){
+
+                    this.$root.remoteScreen = true;
+
+                 }
+                 if(e.data == 'code'){
+
+                   this.$root.remoteCode  = true;
+                 }
+
+             }
+
+             if(e.action == 'liveIsOff'){
+
+               this.$root.remoteLiveHappening = false;
+
+             }
+
+
+            }
+
+
+
+            });
+
+    }
+       
+  },
+  fetchSpaceDetails:function(space_id,finalResult){
+
+    axios.get('/fetch-user-spaces-'  + this.$root.userDeviceId  +  '/' + space_id)
+  .then(response => {
+  
+  if (response.status == 200) {
+
+
+     response.data.space.message_track = new Date();
+  
+    if(response.data.type == 'Direct'){
+
+      finalResult.direct_messages.unshift(response.data.space);
+
+    }
+
+    if(response.data.type == 'Channel'){
+
+      finalResult.channels.unshift(response.data.space);
+
+    }
+
+   
+
+    this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+  let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+
+
+ this.$root.ChatList = fullList;
+
+ this.$root.sortChatList();
+
+
+  
+  }
+  
+  
+  })
+  .catch(error => {  
+
+   
+    
+  }) 
+    
+  },
+  addSpaceToChatList:function(space_id){
+    let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+    storedChat.then((result)=>{
+
+        if(result != null ){
+
+
+     let finalResult = JSON.parse(result);
+
+       let allChatList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+         
+
+         let userSpace = allChatList.filter((space)=>{
+           return space.space_id == space_id
+         })
+
+         if(userSpace.length > 0){
+
+
+         }else{
+
+
+             this.fetchSpaceDetails(space_id,finalResult);
+
+
+          
+         }
+        }
+        
+      })
+   
+  },
+  handleResults(messageArray){
+
+    this.$root.returnedMessages = messageArray;
+
+     let intialCount = 0;
+
+     this.$root.returnedMessages.map((msg)=>{
+         msg.id = msg.message_id
+         msg.initialSize = 200
+         msg.index_count = intialCount++;
+
+
+
+     });
 
  
 
 
-   if(e.actionType == 'duel-comment-like'){
-     
+
+   return  this.$root.returnedMessages ;
+
+},
+  deleteMessage:function(message){
+
+     // remove from database
+
+    
+     let ProcessedMessages = [];
+
+     let storedMsg = this.$root.getLocalStore('full_' + message.space_id + this.$root.username);
+
+     storedMsg.then((result)=>{
+
+        if(result != null){
+
+           let finalResult = JSON.parse(result);
+
+           ProcessedMessages = this.$root.handleResults(finalResult.messages);
+
+            let remainingMessages = finalResult.messages.filter((eachMessage)=>{
+                return eachMessage.message_id != message.message_id;
+            })
+
+           finalResult.messages = remainingMessages;
+
+            if( this.$root.selectedSpace.space_id == message.space_id){
+
+
+
+              this.$root.Messages = this.$root.handleResults(remainingMessages);
+
+        
+
+            }
+
+           
+
           
-        this.$root.duelComments.map((comment)=> {
-        if(comment.id ==  e.data){
-          
-          comment.likes = parseInt(comment.likes) + 1;
+             this.$root.LocalStore('full_' +  message.space_id   + this.$root.username,finalResult);
+
         }
-     });
-       
+
+     })
+
+     // update chatlist, check if message deleted is a last message
+
+
       
-  }
+
+   let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+    storedChat.then((result)=>{
+
+                if(result != null ){
 
 
-  if(e.actionType == 'duel-comment'){
+            let messageData = ProcessedMessages.filter((EachMessage)=>{
+              return EachMessage.message_id == message.message_id;
+              
+                })
 
-    this.$root.duels.map((duel)=> {
-      if(duel.duel_id ==  e.data.duel_id){
-        
-        duel.comments = duel.comments + 1;
-      }
-   });
-   
+            messageData = messageData[0];
 
-     this.$root.duelComments.unshift(e.data);
 
-  }
 
-   
-      if(e.actionType == 'duel-like'){
-        this.$root.duels.map((duel)=> {
-          if(duel.duel_id ==  e.data){
+             let finalResult = JSON.parse(result);
+               
+
+                   finalResult.channels.map((space)=>{
+  
+           if(space.space_id == messageData.space_id){
+
             
-            duel.likes = duel.likes + 1;
-          }
-       });
-        
-    }
+               
+                if(space.last_message[0].index_count == messageData.index_count ){
 
-    if(e.actionType == 'new-participant'){
-     
-      this.$root.duels.map((duel)=> {
-        if(duel.duel_id ==  e.data.duel_id){
+                  
+
+                    space.last_message[0].deleted = true
+
+                   
+                }
           
-          duel.duel_participants_array.unshift(e.data);
-          duel.current_participant = duel.current_participant + 1;
-        }
-     });
+           
+                 }
+
+                    });
+
+              finalResult.direct_messages.map((space)=>{
+                      if(space.space_id == messageData.space_id){
+
+                       
+               
+                if(space.last_message[0].index_count == messageData.index_count ){
+
+                   space.last_message[0].deleted = true
+
+                }
+          
+           
+                 }
+
+                });
+
+               finalResult.pet_spaces.map((space)=>{
    
-         
-       }
+             if(space.space_id == messageData.space_id){
 
+                 
+               
+                if(space.last_message[0].index_count == messageData.index_count ){
 
+                    space.last_message[0].deleted = true
 
-    if(e.actionType == 'duel-comment'){
-
-      this.$root.duels.map((duel)=> {
-        if(duel.duel_id ==  e.data){
+                }
           
-          duel.comments = duel.comments + 1;
+           
+                 }
+
+                  });
+
+                   this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+              let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+              
+            this.$root.ChatList = fullList;
+
+               this.$root.sortChatList();
+
+
+          }
+
+            } )
+
+
+  },
+   sendLiveSignal:function(type){
+
+        
+
+        this.$root.liveInitiated = true;
+
+         let interval = null;
+
+          let _this = this;
+        
+          interval = setInterval(()=>{
+            if(_this.$root.liveInitiated){
+
+           _this.liveChanges(type,'liveIsOn')
+   
+           
+        }else{
+
+           _this.liveChanges(type,'liveIsOff')
+
+         clearInterval(interval);
         }
+           
+      
+         },2000);
+
+         
+
+     
+
+     },
+     liveChanges:function(data,action) {
+
+   
+   let channel =  window.Echo.join('global');
+
+  
+
+      channel.whisper('liveAction', {
+       data:data,
+         action: action,
+         spaceId: this.$root.selectedSpace.space_id
      });
+
+
+    
+
+      
+  
        
-        
-    }
-        
-       
+     },
+  checkIfMessageExist(data){
+
+    let messageData = this.$root.Messages.filter((message)=>{
+                 return message.message_id == data.message_id ||  message.temp_id == data.temp_id;
+              });
+
+              if(messageData.length == 0){
+
+                return false
+              }else{
+                return true
+              }
+
+  },
+
+  // check user login state
+  checkIfUserIsLoggedIn: function(){
+    if(this.checkauthroot == 'noauth'){
+      this.LocalStore('route_tracker',[this.$router.currentRoute.path]);
+     
+       this.$router.push({ path: '/login' });
+      return;
+    } 
+ },
+ // save space data to local storage
+ pushDataToLocal:function(data){
+
+  localforage.getItem('full_' + data.space_id + this.$root.username).then((result)=> {
+
+   if(result != null){
+    
+    
+    let finalResult = JSON.parse(result);
+        finalResult[0].push(data);
+      
+        this.LocalStore('full_' + data.space_id  + this.$root.username,finalResult);
+      
+   }
+
+  });
+   
+ },
+ // local storage
+ LocalStore:function(key,data){ 
+     
+  localforage.setItem(key,JSON.stringify(data)).then(function () {
+    return localforage.getItem(key);
+  }).then(function (value) {
+    // we got our value
+   
+  }).catch(function (err) {
+    console.log(err)
+    // we got an error
   });
 
+  },
+  getLocalStore:function(key){
+    let result = localforage.getItem(key);
+      
+    return result;
+    
   
+  },
+  removeLocalStorage: function(key){
+    localforage.removeItem(key).then(()=> {
+      // Run this code once the key has been removed.
+    
      
- },
+     
+  }).catch(function(err) {
+      // This code runs if there were any errors
+      console.log(err);
+  });
+  },
+  // sort chat list
+  sortArray: function(arrayValue){
+    arrayValue.sort(function(a, b){ 
+    
+      return new Date(b.message_track) - new Date(a.message_track); 
+  }); 
 
- fetchUserDetails: function(){
+  },
+  sortChatList: function(){
+    if(this.ChatList != undefined){
+
+      this.sortArray(this.ChatList);
+
+    }
    
-  let userInfo = this.$root.getLocalStore('userInfo'+ this.$root.username);
+},
+updateSpaceMessages: function(){
 
-   userInfo.then((result)=>{
+  axios.get( '/check-for-new-space-messages/' + this.$root.userDeviceId)
+ .then(response => {
+ 
+ if (response.status == 200) {
+
+    let returnData = response.data;
+      
+      this.handleSpaceData(returnData);
+}
+
+
+})
+.catch(error => {
+  
+ 
+})
+
+},
+
+handleSpaceData: function(returnData){
+
+  returnData.forEach(space => {
+
+    if( this.$root.selectedSpace.space_id != space.space_id){
+
+       // if the space is not currently opened
+         let storedMsg = this.$root.getLocalStore('full_' + space.space_id  + this.$root.username);
+   
+    storedMsg.then((result)=>{
+  
+      if(result != null){
+
+         // update space messages
+       let parsedResult = JSON.parse(result);
+
+       let MessagesFull = parsedResult;
+
+       let newMessages = space.new_messages;
+            
+        // update unread in chatlist
+
+        this.ChatList.map((chatspace)=>{
+          if(chatspace.space_id == space.space_id){
+            chatspace.unread += newMessages.length;
+          } 
+        });
+
+        newMessages.forEach((message)=>{
+
+          MessagesFull.messages.push(message);
+
+          // update into local storage
+            this.$root.LocalStore('full_' + space.space_id  + this.$root.username,MessagesFull);
+
+            this.$root.updateSpaceTracker(space.space_id,message);
+          
+            this.$root.clearUnreadMessageRemote(message.message_id);
+         
+
+             // update unread messages into local storage
+
+      let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + space.space_id + this.$root.username);
+
+   unreadStoredMsg.then((result)=>{
+
+     let finalResultUnread = JSON.parse(result);
+
+      finalResultUnread.push(message)
+
+
+      localforage.setItem('unread_messages_' + space.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
+        
+
+       }).then(function (value) {
+       // we got our value
+
+       }).catch(function (err) {
+      console.log(err)
+      // we got an error   
+       });
+
+      });
+
+        });
+
+         
+      }else{
+   
+        // if this space does not exist the user database yet
      
-    if(result != null){
-      let finalResult = JSON.parse(result);
+
+        // save unread in local storage
+       localforage.setItem('unread_messages_' + space.space_id + this.$root.username,JSON.stringify(returnData)).then( ()=> {
 
 
-      this.authProfile = finalResult;
+       }).then(function (value) {
+      // we got our value
+
+     }).catch(function (err) {
+     console.log(err)
+      // we got an error
+      });
+
+     // update unread in chatlist
+
+     this.ChatList.map((chatspace)=>{
+      if(chatspace.space_id == space.space_id){
+        chatspace.unread += space.new_messages.length;
+      } 
+    });
+
+      }
 
 
-       this.fetchProfileStandAlone();
-
+    });
 
     }else{
 
- 
-      axios.get('/fetch-profile-'+ this.username)
-      .then(response => {
-      
-      if (response.status == 200) {
-           
-           let userProfile = response.data[1];
-           let user = response.data[0];
-     
-           this.notificationCount = response.data[3];
-     
-           this.notificationCountSpace = response.data[4];
-           
-          let userDetails = {
-          'username':user.username,
-          'name': user.name,
-          'coin': userProfile.coins,
-          'image_name': userProfile.image_name,
-          'image_extension': userProfile.image_extension,
-          'about': userProfile.about,
-          'Interests': userProfile.interestsArray,
-          'connections': userProfile.connections,
-          'background_color': userProfile.background_color,
-          'user_locale': userProfile.user_locale
-          };
-            
+      // if the space is opened
+       let storedMsg = this.$root.getLocalStore('full_' + space.space_id  + this.$root.username);
+   
+    storedMsg.then((result)=>{
 
-          this.$root.LocalStore('userInfo' + this.$root.username,userDetails);
      
           
-           this.authProfile = userDetails;
-        
-           if(this.authProfile.user_locale != undefined){
+      if(result != null){
+
+        // update space local storage and show message to user
+       
+       let parsedResult = JSON.parse(result);
+
+       let MessagesFull = parsedResult;
+
+       let newMessages = space.new_messages;
+            
+        newMessages.forEach((messages)=>{
+
+          MessagesFull.messages.push(messages);
+
+            this.$root.LocalStore('full_' + space.space_id  + this.$root.username,MessagesFull);
+
+            messages.initialSize = 200
+            messages.id = messages.message_id
+            messages.index_count = this.$root.returnLastIndex() + 1;
+
+               this.$root.Messages.push(messages);
+
+               this.$root.updateSpaceTracker(space.space_id,messages);
 
 
-            this.SetLocale(this.authProfile.user_locale);
+            this.$root.clearUnreadMessageRemote(messages.message_id);
+
+           
+
+        });
+
+         
+      }
+
+
+    });
       
-          }
-        
-       
-        
-        
-     }
-       
-     
-     })
-     .catch(error => {
-     
-     }) 
-     
 
     }
 
-    if(this.authProfile.user_locale != undefined){
+  
+});
 
-      this.SetLocale(this.authProfile.user_locale);
+ },
+ updateLocalStorage: function(){
 
-    }
+  this.$root.spaceFullData.messages = this.Messages;
 
+  this.$root.LocalStore('full_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
+ },
+ returnLastIndex:function(){
 
-   })
+  let msgIndex = 0;
+   
+   if(this.$root.Messages.length == 0){
 
+      msgIndex = 0;
+
+   }else{
+
+     let lastMsg = this.$root.Messages[this.$root.Messages.length - 1];
+
+   msgIndex = lastMsg.index_count;
+
+   }
+ 
+  
+
+      
+  return msgIndex;
+},
+ updateSpaceTracker: function(spaceId,message){
+     
+  if(this.ChatList.length > 0){
+   
+    this.ChatList.map((space)=>{
+         
+      if(space.space_id == spaceId){
+        space.message_track = new Date();
+        space.last_message = [message];
+      }
+
+    });
+
+    // save into local storage
     
+
+     this.baseChatList.channels.map((space)=>{
+         
+      if(space.space_id == spaceId){
+        space.message_track = new Date();
+        space.last_message = [message];
+      }
+
+    });
+
+    this.baseChatList.direct_messages.map((space)=>{
+         
+      if(space.space_id == spaceId){
+        space.message_track = new Date();
+        space.last_message = [message];
+      }
+
+    });
+
+    this.baseChatList.pet_spaces.map((space)=>{
+         
+      if(space.space_id == spaceId){
+        space.message_track = new Date();
+        space.last_message = [message];
+      }
+
+    });
+
+  
+    this.$root.LocalStore('user_chat_list' + this.$root.username,this.baseChatList);
+
+    this.$root.sortChatList();
+   
+  }
+  
+
+},
+scrollToBottom: function(){
+
+   
+
+  if(this.$root.msgScrollComponent){
+
+    setTimeout(() => {
+       
+      this.$root.msgScrollComponent.messageContainer.scrollToBottom();
+      this.$root.msgScrollComponent.messageContainersmall.scrollToBottom();
+   },200)
+
+  }
+  
+
+
+},
+
+botMessager:function(message){
+
+          
+  this.botIsLoading = true;
+    axios.post('initiate-bot-chat',{
+      bot_id: this.$root.selectedSpace.bot_id,
+      device_id: this.$root.userDeviceId,
+      message: message,
+      space_id: this.$root.selectedSpace.space_id
+    })
+ .then(response => {
+    
+   this.botIsLoading = false;
+   if(response.status == 200){
+  
+    let fullMessages = response.data[0];
+
+    let messageData = {
+      space_id: this.$root.selectedSpace.space_id,
+      new_messages: fullMessages
+    };
+    
+   this.handleSpaceData([messageData]);
+   
+    
+    this.botSuggestionArray = response.data[1];
+
+     this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data[1]);
+    
+
+   }
+
+ })
+ .catch(error => {
+
+  
+     console.log(error)
+     this.botIsLoading = false;
+   
+ })
+
+
   
 },
-fetchProfileStandAlone: function(){
+updateSentMessage:function(postData){
 
-
-axios.get('/fetch-profile-'+ this.username)
-.then(response => {
-
-if (response.status == 200) {
-     
-     let userProfile = response.data[1];
-     let user = response.data[0];
-
-     this.notificationCount = response.data[3];
-
-     this.notificationCountSpace = response.data[4];
-     
-    let userDetails = {
-    'username':user.username,
-    'name': user.name,
-    'coin': userProfile.coins,
-    'image_name': userProfile.image_name,
-    'image_extension': userProfile.image_extension,
-    'about': userProfile.about,
-    'Interests': userProfile.interestsArray,
-    'connections': userProfile.connections,
-    'background_color': userProfile.background_color,
-    'user_locale': userProfile.user_locale
-    };
+  
       
+  let unsentMsg = this.$root.getLocalStore('unsent_messages_' + postData.space_id  + this.$root.username);
 
-    this.$root.LocalStore('userInfo' + this.$root.username,userDetails);
+  unsentMsg.then((result)=>{
+
+    if(result != null){
+
+     let finalResult = JSON.parse(result);
+       
+       
+
+     let remainingMsg = finalResult.filter((message)=>{
+       return message.temp_id != postData.temp_id;
+    });
+
+
+    this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,remainingMsg);
+
+        
+    this.sendingMessage = false;
+
+    }else{
+      this.sendingMessage = false;
+    }
 
     
-     this.authProfile = userDetails;
+
+   
+ 
+  });
+
+
+},
+storeUnsentMessages:function(postData){
+
+  let unsentMsg = this.$root.getLocalStore('unsent_messages_' + postData.space_id  + this.$root.username);
+
+   unsentMsg.then((result)=>{
+
+     if(result != null){
+
+      let finalResult = JSON.parse(result);
+        
+        
+
+      let messageData = finalResult.filter((message)=>{
+        return message.temp_id == postData.temp_id;
+     });
+
+
+          
+         if(messageData.length == 0){
+
+          finalResult.push(postData);
+          this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,finalResult);
+
+         }
+
+         
+         
+
+     }else{
+
+      
+        this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,[postData]);
+
+     }
+
+     if(this.chatComponent != undefined){
+      this.chatComponent.resendMessages();
+     }
+
+    
+  
+   });
   
  
-  
-  
+
+},
+sendTextMessage: function(postData){
+  this.sendingMessage = true;
+axios.post('/send-message',postData)
+ .then(response => {
+this.is_reply = false;
+if (response.status == 200) {
+
+
+
+let messageId = response.data[0].temp_id;
+  this.Messages.map((message)=>{
+     if(messageId == message.message_id){
+        message.loading = false;
+        message.message_id = response.data[0].message_id; 
+        message.id = response.data[0].message_id; 
+
+     }
+  });
+
+  if(this.selectedSpace.type == 'Bot'){
+   this.botMessager(response.data[0].content);
+  }
+
+  this.$root.spaceFullData.messages = this.Messages;
+
+  this.$root.LocalStore('full_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
+
+
+this.replyMessage = [];
+
+this.scrollToBottom();
+
+
+this.updateSentMessage(postData);
+
+this.sendingMessage = false;
+
+
 }
- 
+
 
 })
 .catch(error => {
 
+this.sendingMessage = false;
+
+this.storeUnsentMessages(postData);
+
+}) 
+},
+sendCodeMessage: function(postData){
+this.sendingMessage = true;
+axios.post('/send-message',postData)
+.then(response => {
+
+if (response.status == 200) {
+
+
+
+let messageId = response.data[0].temp_id;
+ let messageType = this.NewMsg.type;
+this.Messages.map((message)=>{
+   if(messageId == message.message_id){
+      message.loading = false;
+      message.message_id = response.data[0].message_id; 
+      message.id = response.data[0].message_id; 
+       message.code = response.data[0].code;
+       
+   }
+});
+
+
+this.$root.spaceFullData.messages = this.Messages;
+
+  this.$root.LocalStore('full_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
+
+
+this.scrollToBottom();
+this.updateSentMessage(postData);
+this.sendingMessage = false;
+
+
+}
+
+
+})
+.catch(error => {
+this.sendingMessage = false;
+
+this.storeUnsentMessages(postData);
+
 }) 
 
 },
+sendShareMessage: function(formData){
+
+
+this.sendingMessage = true;
+axios.post('/send-message',formData,
+  {
+      headers:{
+       'Content-Type':'multipart/form-data'
+      },
+      onUploadProgress: (progressEvent)=>{
+         let messageId = this.NewMsg.message_id;
+        this.Messages.map((message)=>{
+           if(messageId == message.message_id){
+              message.progressValue = this.progressvalue = parseInt(Math.round(
+            (progressEvent.loaded / progressEvent.total) * 100
+             ))
+           }
+        });
+      
+    }
+    })
+   .then(response => {
+
+      
+     
+    if (response.status == 200) {
+        
     
-   imageStyle:function(dimension,authProfile){
+         let messageId = response.data[0].temp_id;
+         let messageType = this.NewMsg.type;
+        this.Messages.map((message)=>{
+           if(messageId == message.message_id){
+              message.loading = false;
+              message.message_id = response.data[0].message_id;
+              message.id = response.data[0].message_id; 
+             
+              if(messageType == 'image'){
+                message.image = response.data[0].image;
+              }
+              if(messageType == 'file'){
+                message.file = response.data[0].file;
+              }
+              if(messageType == 'video'){
+                message.video = response.data[0].video;
+              }
+              if(messageType == 'audio'){
+                message.audio = response.data[0].audio;
+              }
+              if(messageType == 'code'){
+                message.code = response.data[0].code;
+              }
+           }
+        });
+
+        this.$root.spaceFullData.messages = this.Messages;
+
+  this.$root.LocalStore('full_'+  response.data[0].space_id  + this.$root.username,this.$root.spaceFullData);
+
+        this.sendingMessage = false;
+
+        this.updateSentMessage(postData);
+        this.scrollToBottom();
+   
+
+        
+     }else{
+       
+     }
+  
+    
+  
+      
+     
+   })
+   .catch(error => {
+    
+     this.sendingMessage = false;
+    
+   })
+},
+
+ // webRTC configs
+ setDataConnection:function(){
+
+  let _this = this;
+
+    this.$root.dataconnection = new RTCMultiConnection();
+
+      this.$root.dataconnection.enableLogs = false;
+
+// by default, socket.io server is assumed to be deployed on your own URL
+this.$root.dataconnection.socketURL = 'https://rtc.citonhub.com:9001/';
+
+// set user as default speaker
+let userSpeakerData =  this.authProfile;
+     userSpeakerData.speaking = false;    
+
+this.speakingUser = userSpeakerData; 
+
+this.$root.dataconnection.socketMessageEvent = 'data-channel';
+
+this.$root.dataconnection.extra = {
+   profile: this.$root.authProfile,
+  joinedAt: (new Date).toISOString(),
+  volume: 80.00,
+  speaking: false
+     };
+
+     this.$root.dataconnection.socketCustomParameters = '&extra=' + JSON.stringify(this.$root.dataconnection.extra);
+
+this.$root.dataconnection.session = {
+audio: false,
+video: false,
+data: true
+
+};
+
+this.$root.dataconnection.mediaConstraints = {
+audio: true,
+video: false
+};
+
+this.$root.dataconnection.sdpConstraints.mandatory = {
+OfferToReceiveAudio: false,
+OfferToReceiveVideo: false
+};
+
+
+
+// first step, ignore default STUN+TURN servers
+this.$root.dataconnection.iceServers = [];
+
+// second step, set STUN url
+this.$root.dataconnection.iceServers.push({
+ urls: 'stun:134.122.10.107:3478'  
+});
+
+// last step, set TURN url (recommended)
+
+this.$root.dataconnection.iceServers.push({
+urls: 'turn:134.122.10.107:3478',
+credential: '15Raymond',
+username: 'ILoveCitonHubPort'
+});
+
+setTimeout(() => {
+    this.dataSocket = this.$root.dataconnection.socket;
+}, 2000);
+
+
+this.$root.dataconnection.onmessage = (event) => {
+
+
+
+if(event.data.action == 'typing' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+this.$root.FullcodeContent = event.data.data;
+
+ this.codeboxComponent.setCodeContent();
+ 
+}
+
+if(event.data.action == 'codeChange' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+this.$root.fullCodeLanguage = event.data.data;
+
+this.codeboxComponent.setCodeContent();
+ 
+}
+
+if(event.data.action == 'codeRun' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+        this.$root.liveShowCode = false;
+
+               this.$root.CodeResult = event.data.data;
+               this.codeboxComponent.setCodeContent();
+ 
+}
+
+if(event.data.action == 'returnToCode' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+this.$root.liveShowCode = true;
+
+this.codeboxComponent.setCodeContent();
+ 
+}
+
+if(event.data.action == 'neutral' ){
+
+
+if(this.$root.allAudioParticipant.length != 0){
+    
+  this.speakingUser = event.data.data.userProfile;
+  
+ }
+ 
+}
+
+if(event.data.action == 'new_master' && this.$root.selectedSpace.space_id == event.data.space_id){
+
+this.$root.newMasterId = event.data.data;
+
+              
+
+this.$root.adminMembers.forEach((member)=>{
+
+member.master_user = false;
+
+});
+
+this.$root.adminMembers.map((member)=>{
+if(member.memberId ==  this.$root.newMasterId){
+
+member.master_user = true;
+
+}
+})
+
+this.$root.selectedSpaceMembers.forEach((member)=>{
+
+member.master_user = false;
+
+});
+
+this.$root.selectedSpaceMembers.map((member)=>{
+if(member.memberId ==  this.$root.newMasterId){
+
+member.master_user = true;
+
+}
+})
+this.codeboxComponent.setCodeContent();
+}
+};
+
+
+},
+
+// screen sharing 
+setSreenShareConnection:function(){
+          
+
+  let _this = this;
+
+   this.$root.connection = new RTCMultiConnection();
+
+    this.$root.connection.enableLogs = false;
+
+   this.$root.connection.socketURL = 'https://rtc.citonhub.com:9001/';
+
+   this.$root.connection.socketMessageEvent = 'screen-sharing';
+
+    this.$root.connection.extra = {
+  profile: this.$root.authProfile,
+ joinedAt: (new Date).toISOString()
+    };
+
+    this.$root.connection.socketCustomParameters = '&extra=' + JSON.stringify( this.$root.connection.extra);
+
+     this.$root.connection.session = {
+      screen: true,
+      oneway: true
+       };
+
+   
+   this.$root.connection.sdpConstraints.mandatory = {
+OfferToReceiveAudio: false,
+OfferToReceiveVideo: false
+        };
+
+
       
 
-    if(authProfile.background_color == null){
-      let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
-       styleString += 'background-color:#ffffff; background-image:url(imgs/usernew.png);';
-       return styleString;
-    }else{
-      let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;";
-       let imgLink = authProfile.image_name + '.' + authProfile.image_extension;
-        styleString += 'background-color:'+ authProfile.background_color + '; background-image:url(imgs/profile/'  + imgLink  +  ');';
-        return styleString;
-    }
+  // first step, ignore default STUN+TURN servers
+  this.$root.connection.iceServers = [];
+
+// second step, set STUN url
+this.$root.connection.iceServers.push({
+urls: 'stun:134.122.10.107:3478'  
+});
+
+// last step, set TURN url (recommended)
 
     
+ this.$root.connection.iceServers.push({
+  urls: 'turn:134.122.10.107:3478',
+  credential: '15Raymond',
+  username: 'ILoveCitonHubPort'
+ });
 
-},
-checkIfUserIsLoggedIn: function(frompage){
-  if(this.checkauthroot == 'noauth'){
-    this.LocalStore('route_tracker',[this.$router.currentRoute.path]);
+
+
+
+ this.$root.connection.videosContainer = document.getElementById('videos-container');
+
+
+
+
+
+ this.$root.connection.onstream = function(event) {
+var existing = document.getElementById(event.streamid);
+var existingSm = document.getElementById(event.streamid + 'small');
+
+if(existing && existing.parentNode) {
+ existing.parentNode.removeChild(existing);
+}
+
+if(existingSm && existingSm.parentNode) {
+  existingSm.parentNode.removeChild(existingSm);
+ }
+
+event.mediaElement.removeAttribute('src');
+event.mediaElement.removeAttribute('srcObject');
+event.mediaElement.muted = true;
+event.mediaElement.volume = 0;
+
+var video = document.createElement('video');
+
+try {
+   video.setAttributeNode(document.createAttribute('autoplay'));
+   video.setAttributeNode(document.createAttribute('playsinline'));
+} catch (e) {
+   video.setAttribute('autoplay', true);
+   video.setAttribute('playsinline', true);
+}
+
+
+if(event.type === 'local') {
+ video.volume = 0;
+ try {
+     video.setAttributeNode(document.createAttribute('muted'));
+ } catch (e) {
+     video.setAttribute('muted', true);
+ }
+}
+video.srcObject = event.stream;
+
+var width = innerWidth - 80;
+var mediaElement = getHTMLMediaElement(video, {
+   title: event.userid,
+   buttons: ['full-screen'],
+   showOnMouseEnter: false,
+ 
+});
+
+_this.$root.connection.videosContainer.appendChild(mediaElement);
+
+
+setTimeout(function() {
+   mediaElement.media.play();
+}, 5000);
+
+mediaElement.id = event.streamid;
+
+// smaller screens
+var videoSm = document.createElement('video');
+
+try {
+  videoSm.setAttributeNode(document.createAttribute('autoplay'));
+  videoSm.setAttributeNode(document.createAttribute('playsinline'));
+} catch (e) {
+  videoSm.setAttribute('autoplay', true);
+  videoSm.setAttribute('playsinline', true);
+}
+
+
+if(event.type === 'local') {
+  videoSm.volume = 0;
+ try {
+  videoSm.setAttributeNode(document.createAttribute('muted'));
+ } catch (e) {
+  videoSm.setAttribute('muted', true);
+ }
+}
+videoSm.srcObject = event.stream;
+
+var mediaElementSm = getHTMLMediaElement(videoSm, {
+   title: event.userid + 'small',
+   buttons: ['full-screen'],
+   showOnMouseEnter: false,
+ 
+});
+
+document.querySelector('#videos-container-sm').appendChild(mediaElementSm);
+
+
+setTimeout(function() {
+  mediaElementSm.media.play();
+}, 5000);
+
+mediaElementSm.id = event.streamid + 'small';
+
+
+
+
+
+
+ 
+
+};
+
+this.$root.connection.onstreamended = function(event) {
+var mediaElement = document.getElementById(event.streamid);
+if (mediaElement) {
+   mediaElement.parentNode.removeChild(mediaElement);
+
+   if(event.userid === _this.$root.connection.sessionid && !_this.$root.connection.isInitiator) {
+     alert('Broadcast is ended. We will reload this page to clear the cache.');
+     location.reload();
+   }
+}
+
+var mediaElementSm = document.getElementById(event.streamid + 'small');
+if (mediaElementSm) {
+  mediaElementSm.parentNode.removeChild(mediaElementSm);
+
+   if(event.userid === _this.$root.connection.sessionid && !_this.$root.connection.isInitiator) {
+     alert('Broadcast is ended. We will reload this page to clear the cache.');
+     location.reload();
+   }
+}
+
+};
+
+// for smaller screen
+
+
+
+this.$root.connection.onMediaError = function(e) {
+if (e.message === 'Concurrent mic process limit.') {
+   if (DetectRTC.audioInputDevices.length <= 1) {
+       alert('Please select external microphone');
+       return;
+   }
+
+   var secondaryMic = DetectRTC.audioInputDevices[1].deviceId;
+   _this.$root.connection.mediaConstraints.audio = {
+       deviceId: secondaryMic
+   };
+
+   _this.$root.connection.join(_this.$root.connection.sessionid);
+}
+};
+
+
+   },
+
+   // audio connection
+
+   setAudioConnection(){
+        
+    let _this = this;
+
+    this.$root.audioconnection = new RTCMultiConnection();
+
+      this.$root.audioconnection.enableLogs = false;
+
+// by default, socket.io server is assumed to be deployed on your own URL
+this.$root.audioconnection.socketURL = 'https://rtc.citonhub.com:9001/';
+
+this.$root.audioconnection.bandwidth = {
+audio: 128
+};
+
+
+this.$root.audioconnection.socketMessageEvent = 'audio-conference';
+
+this.$root.audioconnection.extra = {
+   profile: this.$root.authProfile,
+  joinedAt: (new Date).toISOString(),
+  volume: 80.00,
+  speaking: false
+     };
+
+     this.$root.audioconnection.socketCustomParameters = '&extra=' + JSON.stringify(this.$root.audioconnection.extra);
+
+this.$root.audioconnection.session = {
+audio: true,
+video: false,
+data: true
+
+};
+
+this.$root.audioconnection.mediaConstraints = {
+audio: true,
+video: false
+};
+
+this.$root.audioconnection.sdpConstraints.mandatory = {
+OfferToReceiveAudio: true,
+OfferToReceiveVideo: false
+};
+
+
+
+// first step, ignore default STUN+TURN servers
+this.$root.audioconnection.iceServers = [];
+
+// second step, set STUN url
+this.$root.audioconnection.iceServers.push({
+ urls: 'stun:134.122.10.107:3478'  
+});
+
+// last step, set TURN url (recommended)
+
+this.$root.audioconnection.iceServers.push({
+urls: 'turn:134.122.10.107:3478',
+credential: '15Raymond',
+username: 'ILoveCitonHubPort'
+});
+
+this.$root.audioconnection.audiosContainer = document.getElementById('audios-container');
+
+
+
+
+
+this.$root.audioconnection.onstream = function(event) {
+
+
+
+var width = parseInt(_this.$root.audioconnection.audiosContainer.clientWidth / 2) - 20;
+
+var mediaElement = getHTMLMediaElement(event.mediaElement, {
+  title: event.userid,
+  width: width,
+  showOnMouseEnter: false
+});
+
+if(event.type === 'local') {
+event.mediaElement.muted = true;
+delete event.mediaElement;
+}
+
+_this.$root.audioconnection.audiosContainer.appendChild(mediaElement);
+
+
+setTimeout(function() {
+  mediaElement.media.play();
+}, 2000);
+
+mediaElement.id = event.streamid;
+
+// for smaller screens
+var mediaElementSm = getHTMLMediaElement(event.mediaElement, {
+  title: event.userid,
+  width: width,
+  showOnMouseEnter: false
+});
+
+if(event.type === 'local') {
+event.mediaElement.muted = true;
+delete event.mediaElement;
+}
+
+document.querySelector('#audios-container-sm').appendChild(mediaElementSm);
+
+setTimeout(function() {
+  mediaElementSm.media.play();
+}, 2000);
+
+mediaElementSm.id = event.streamid + 'small';
+
+   _this.setUserSpeaker();
+
+
+};
+
+this.$root.audioconnection.onmute = function(e) {
+if (!e.mediaElement) {
+  return;
+}
+
+if (e.muteType === 'both' || e.muteType === 'video') {
+  e.mediaElement.src = null;
+  e.mediaElement.pause();
+} else if (e.muteType === 'audio') {
+  e.mediaElement.muted = true;
+}
+};
+
+this.$root.audioconnection.onunmute = function(e) {
+if (!e.mediaElement) {
+  return;
+}
+
+if (e.unmuteType === 'both' || e.unmuteType === 'video') {
+  e.mediaElement.poster = null;
+  e.mediaElement.src = URL.createObjectURL(e.stream);
+  e.mediaElement.play();
+} else if (e.unmuteType === 'audio') {
+  e.mediaElement.muted = false;
+}
+};
+
+
+this.$root.audioconnection.onleave = this.$root.audioconnection.onclose = (event) =>{
+
+
+let newusers = this.$root.allAudioParticipant.filter((user)=>{
+
+return user[1] != event.userid;
+
+});
+
+
+
+this.$root.allAudioParticipant = newusers;
+
+
+};
+
+
+this.$root.audioconnection.multiPeersHandler.onPeerStateChanged = (state)=> {
+
+let connection = this.$root.audioconnection;
+if (state.iceConnectionState.search(/disconnected|closed|failed/gi) === -1) {
+  
+  
+
+  var peer = connection.peers[state.userid].peer;
+
+  
+
    
-    if(this.$route.params.referral != null){
-      this.referralUser = this.$route.params.referral;
-     }
-     this.$router.push({ path: '/login' });
-    return;
-  } 
-},
-   
-    loader:function(){
+
+   let userState = state.iceConnectionState;
+
+   let newInfo = this.$root.allAudioParticipant.filter((user)=>{
+
+    return user[1] == state.userid;
+
+  });
+
+
+
+   if(newInfo.length == 0  && state.extra.profile.username != this.username){
+
+    this.$root.allAudioParticipant.push([state.extra,state.userid])
+
+   }
+
+
+
+
+ 
+  return;
+}else{
+
+
+     let newusers = this.$root.allAudioParticipant.filter((user)=>{
+
+       return user[1] != state.userid;
+
+     });
+
      
-        this.pageloader = true;
-    
-    },
-    joinclass: function(classid){
-      this.$refs.board.membersroot = [];
-  
-    },
-    isTyping:function(classid) {
+      
+     this.$root.allAudioParticipant = newusers;
+
+}
+};
+
+this.$root.audioconnection.onstreamended = function(event) {
+var mediaElement = document.getElementById(event.streamid);
+if (mediaElement) {
+    mediaElement.parentNode.removeChild(mediaElement);
+}
 
 
-      let channel =  window.Echo.join('class.' + classid)
-                      .here((users)=> {
-                        this.$root.members = users;
-                      })
-                       .joining((user) =>{
-                        this.$root.members.push(user);
-                       })
-                       .leaving((user) => {
-                        this.$root.members= this.$root.members.filter(u => u != user);
-                       });
-   
-      setTimeout(function() {
-        channel.whisper('typing', {
-          user: Laravel.user.name,
-            typing: true
-        });
-      }, 300);
-   
-   
-          
-        },
-      scrollboard: function(){
-        setTimeout(()=> {
-           
-          var container = this.$el.querySelector("#container");
-              var containermd = this.$el.querySelector("#containermd");
-               var containersm = this.$el.querySelector("#containersm");
-       
-       container.scrollTop = container.scrollHeight + 100;
-       containermd.scrollTop = containermd.scrollHeight + 100;
-       containersm.scrollTop = containersm.scrollHeight + 100;
-                }, 1000);
-      },
-      runcode: function(code,language){
-        this.$refs.board.codeboard = false;
-        this.$refs.board.displaycodebox = true;
-        if(language == 'HTML' || language == 'CSS' || language == 'JAVASCRIPT' || language == 'VUEJS'){
-          this.$refs.board.code = code;
-        }else{
+};
+
+
+  },
+
+  // manage audio connection
+
+  checkAudioRoomState: function(master){
+      
+      
+    if(this.$root.audioconnection != undefined){
+
+       this.isMaster = master;
          
-            this.$refs.board.code = "<p style=\"color:red;\">Not Available, Coming soon..</p>";
-        
-        }
-        
-      },
-      expandcode: function(){
-        if( this.$refs.board.fuulscreencode){
-          this.$refs.board.fuulscreencode = false;  
-        }else{
-          this.$refs.board.fuulscreencode = true;  
-        }
-      },
-      showcode:function(messageid){
-        this.$refs.board.showcode(messageid);
-        this.$refs.board.showcodemd(messageid);
-        this.$refs.board.showcodelg(messageid);
-      },
-      sendmessage: function(type,msgtext){
+      this.$root.connectingToSocket = true;
 
+      this.$root.audioconnection.DetectRTC.load(()=> {
 
-        if(type == 'text' && msgtext != ''){
-          let content = '';
-         
-            content = msgtext;
-              this.sentmessageid++;
-                var newmsg = {
-             user_id: this.user_id_root,
-             type: type,
-             content: content,
-             sentmessageid: this.sentmessageid,
-             msgsending: true,
-            
-             tutoruserid: this.$refs.board.tutoruserid,
-             created_at: moment(new Date()).subtract(1,'hours')
-           };
-  
+     
+        if (this.$root.audioconnection.DetectRTC.hasMicrophone === true) {
+            // enable microphone
+            this.$root.audioconnection.mediaConstraints.audio = true;
+            this.$root.audioconnection.session.audio = true;
            
-          
-          
-          
-            this.$refs.board.messages.push(newmsg);
 
-            this.$refs.board.emptyfield();
-            
-            
-                    this.scrollboard();
+        }
+      
+        if (this.$root.audioconnection.DetectRTC.hasMicrophone === false ) {
+      
+          alert('Please attach a microphone device.');
+      
+          
+        }
+      
+        if (this.$root.audioconnection.DetectRTC.hasSpeakers === false) { // checking for "false"
+            alert('Please attach a speaker device. You will be unable to hear incoming audios.');
+
+        }
+      
+      
+        let _this = this;
+
+          this.$root.audioconnection.checkPresence('audio' + this.$root.selectedSpace.space_id, function(isRoomExist, roomid) {
+          
+
                  
-        
-             axios.authProfile('/save-message',{
-                  content: content,
-                  classid: this.$refs.board.selected_class_id,
-                  type:type,
-                  activemembers: this.users,           
-                    })
-            .then(response => {
-  
-           
-                
+            if (isRoomExist === true) {
+             _this.joinAudioRoom();
+             _this.dataconnection.join('data' + _this.$root.selectedSpace.space_id)
+          } else {
+
               
-               if (response.status == 200) {
-                
-             let getmessage = this.$refs.board.messages.filter((message)=>{
-              return  message.sentmessageid ==  newmsg.sentmessageid;
-            });
-               getmessage[0].msgsending = false;
-            let remainingmsg =  this.$refs.board.messages.filter((message)=>{
-              return  message.sentmessageid !=  newmsg.sentmessageid;
-            });
-                 
-             
-            remainingmsg.push(getmessage[0]);
-            
-            this.$refs.board.messages = remainingmsg;
-  
-                 
-                  
-         
-              }
-                
-              
-            })
-            .catch(error => {
-              console.log(error);
-            })
-        }
-         
-        
-             
-             
-           
-        },
+            if(master){
+              _this.openAudioRoom();
+              _this.dataconnection.open('data' + _this.$root.selectedSpace.space_id)
+            }else{
 
-        changeheight: function(){
-          this.$refs.board.focusfield = true;
-      },
-      removefocus: function(){
-      this.$refs.board.focusfield = false;
-     },
-     initialPushMangerReg: function(){
-      if('serviceWorker' in navigator){
-       navigator.serviceWorker.ready.then(registration => {
-         if("PushManager" in window){
-           registration.pushManager.getSubscription().then(sub => {
-             if(sub == undefined){
-              this.askforpermission();
-             }else{
-              // update data in database;
+              _this.roomNotExist = true;
+
+              _this.roomCheckingInitaited = true;
+
+              
+                _this.rejoinAudio(master);
+
+              return;
             }
-           })
+
+            
+          }
+
+
+   //  _this.checkIfUserIsReconnecting(master)
+
+     _this.audioSocket = _this.$root.audioconnection.socket;
+   
+    _this.$root.localAudioMuted = false;
+    _this.$root.connectingToSocket = false;
+    _this.userIsReconnecting = false;
+    });
+
+      });
+   
+    }       
+    
+   
+   },
+
+   rejoinAudio: function(master){
+
+    let _this = this;
+
+
+    if(this.$root.audioconnection != undefined){
+
+   // disconnect with all users
+this.$root.audioconnection.getAllParticipants().forEach(function(pid) {
+   _this.$root.audioconnection.disconnectWith(pid);
+});
+
+// stop all local cameras
+this.$root.audioconnection.attachStreams.forEach(function(localStream) {
+   localStream.stop();
+});
+
+// close socket.io connection
+this.$root.audioconnection.closeSocket();
+    }
+  this.$root.audioconnection = undefined;
+    this.$root.setAudioConnection();
+     if(master){
+
+             this.$root.checkAudioRoomState(true);
+
+          }else{
+             this.$root.checkAudioRoomState(false);
+          }
+
+ },
+ rejoinData: function(master){
+
+  let _this = this;
+
+
+  if(this.$root.dataconnection != undefined){
+
+ // disconnect with all users
+this.$root.dataconnection.getAllParticipants().forEach(function(pid) {
+ _this.$root.dataconnection.disconnectWith(pid);
+});
+
+// stop all local cameras
+this.$root.dataconnection.attachStreams.forEach(function(localStream) {
+ localStream.stop();
+});
+
+// close socket.io connection
+this.$root.dataconnection.closeSocket();
+  }
+this.$root.dataconnection = undefined;
+  this.$root.setDataConnection();
+   if(master){
+
+    this.dataconnection.openOrJoin('data' + this.$root.selectedSpace.space_id)
+
+        }else{
+          this.dataconnection.join('data' + this.$root.selectedSpace.space_id)
+        }
+
+},
+   openAudioRoom: function(){  
+    
+    let _this = this;
+  
+    this.$root.audioconnection.open('audio' + this.$root.selectedSpace.space_id, () =>{
+
+        
+      _this.$root.connectingToSocket = false;
+      _this.userIsReconnecting = false;
+});
+
+  },
+  joinAudioRoom: function(){    
+     
+       
+    let _this = this;
+    
+     this.$root.audioconnection.join('audio' + this.$root.selectedSpace.space_id);
+
+     _this.$root.connectingToSocket = false;
+     _this.userIsReconnecting = false;
+
+  },
+
+  // manage screen connection
+  checkScreenRoomState: function(master){
+      
+    let _this = this;
+
+    this.isMaster = master;
+
+
+       this.screenIsConnecting = true;
+
+       this.$root.connection.checkPresence('screen' + this.$root.selectedSpace.space_id, function(isRoomExist, roomid) {
+     
+         _this.$root.screenSharingOn = true;
+   
+         _this.$root.showVideoScreen = true;
+
+
+         if (isRoomExist === true) {
+           _this.joinScreenRoom();
+           _this.screenIsConnecting = false;
+        } else {
+
+            
+          if(master){
+            _this.openScreenRoom();
+            _this.screenIsConnecting = false;
+          }else{
+
+            return;
+          }
+
           
-         }
-       })
-      }
-     },
-     askforpermission: function(){
-      this.shownotificationboard = true;
-   }, 
-    askPermission: function() {
-    return new Promise(function(resolve, reject) {
-      const permissionResult = Notification.requestPermission(function(result) {
-        resolve(result);
+        }
+
+         _this.screenSocket = _this.$root.connection.socket;
+ 
+   });
+ 
+
+   },
+
+     openScreenRoom: function(){    
+
+        let _this = this;
+      
+        this.$root.connection.sdpConstraints.mandatory = {
+           OfferToReceiveAudio: false,
+           OfferToReceiveVideo: true
+       };
+      
+     this.$root.connection.open('screen' + this.$root.selectedSpace.space_id, function() {
+      
+    });
+
+    this.screenIsConnecting = false;
+
+      },
+      joinScreenRoom: function(){    
+         
+           
+        let _this = this;
+      
+     this.$root.connection.sdpConstraints.mandatory = {
+        OfferToReceiveAudio: false,
+        OfferToReceiveVideo: true
+    };
+
+    this.screenIsConnecting = false;
+
+    this.$root.connection.join('screen' + this.$root.selectedSpace.space_id);
+   
+      },
+      rejoinScreen:function(master){
+
+
+        let _this = this;
+
+
+        if(this.$root.connection != undefined){
+
+       // disconnect with all users
+   this.$root.connection.getAllParticipants().forEach(function(pid) {
+       _this.$root.connection.disconnectWith(pid);
+   });
+
+   // stop all local cameras
+   this.$root.connection.attachStreams.forEach(function(localStream) {
+       localStream.stop();
+   });
+
+   // close socket.io connection
+  this.$root.connection.closeSocket();
+   
+        }
+
+     this.$root.connection = undefined;
+
+     this.$root.screenSharingOn = false;
+      
+       this.$root.showVideoScreen = false;
+
+       this.$root.connection = undefined;
+
+        this.$root.setSreenShareConnection();
+
+         if(master){
+
+                 this.$root.checkScreenRoomState(true);
+
+              }else{
+                 this.$root.checkScreenRoomState(false);
+              }
+
+       }, 
+
+      // detect speaker
+      setUserSpeaker: function(){
+
+        let _this = this;
+
+        if(this.$root.audioconnection == undefined){
+            
+         
+        }else{
+        
+            
+         if(this.$root.allAudioParticipant.length > 0){
+            // work on local streams
+         var localStream = this.$root.audioconnection.attachStreams[0];
+
+         var options = {};
+       var speechEvents = hark(localStream, options);
+
+
+     speechEvents.on('speaking', function() {
+
+      if(_this.$root.audioconnection != undefined && _this.$root.selectedSpace.space_id != undefined){
+
+         
+       
+
+         let userSpeakerData =  _this.authProfile;
+     userSpeakerData.speaking = true;    
+
+      
+        let data = {
+          userid: _this.$root.audioconnection.userid,
+          userProfile: userSpeakerData,
+      };
+
+      _this.$root.dataconnection.send({
+        action:'neutral',
+        data: data,
+        space_id: _this.$root.selectedSpace.space_id
       });
   
-      if (permissionResult) {
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.ready.then(function(reg) {
-           
-            function urlB64ToUint8Array(base64String) {
-              const padding = '='.repeat((4 - base64String.length % 4) % 4);
-              const base64 = (base64String + padding)
-                .replace(/\-/g, '+')
-                .replace(/_/g, '/');
-        
-              const rawData = window.atob(base64);
-              const outputArray = new Uint8Array(rawData.length);
-        
-              for (let i = 0; i < rawData.length; ++i) {
-                outputArray[i] = rawData.charCodeAt(i);
-              }
-              return outputArray;
-            }
-            reg.pushManager.subscribe({
-              userVisibleOnly: true,
-              applicationServerKey: urlB64ToUint8Array('BA5RO17EugggZ7VQBGMf6_dQat4fLr5qwmS1Q8FUl8Wg0Pm7vOtX_Thws0OdafoWg1tdF-A0mDK-JcZJ09VoEq8')
-            }).then(function(sub) {
-  
-              let subObj = sub.toJSON();
-              axios.authProfile('/save-notification',{
-                endpoint: subObj.endpoint,
-                public_key: subObj.keys.p256dh,
-                auth_token: subObj.keys.auth
-                  })
-          .then(response => {
-            
-           if (response.status == 200) {
-              
-        
-            
-            }else{
-              console.log(response.status);
-            }
-            
-            
-          })
-          .catch(error => {
-            console.log(error);
-          })
-  
-            }).catch(function(e) {
-              if (Notification.permission === 'denied') {
-                console.warn('Permission for notifications was denied');
-              } else {
-                console.error('Unable to subscribe to push', e);
-              }
-            });
-          })
-        }
       }
-    })
-    .then(function(permissionResult) {
-      if (permissionResult !== 'granted') {
-        throw new Error('We weren\'t granted permission.');
-      }
-    });
-  },
-     userResponse: function(response){
-      this.shownotificationboard = false;
-         this.notificationApproved = response;
-      if(this.notificationApproved == 'yes'){
-        this.askPermission();
        
-      }
-      if(this.notificationApproved == 'no'){
-         return;
-      }
-     }
+        
+    });
+
+    speechEvents.on('stopped_speaking', function() {
     
+        if(_this.$root.audioconnection != undefined && _this.$root.selectedSpace.space_id != undefined){
+
+          let userSpeakerData =  _this.authProfile;
+     userSpeakerData.speaking = false;    
+
+
+        
+          let data = {
+            userid: _this.$root.audioconnection.userid,
+            userProfile: userSpeakerData,
+           
+        };
+    
+        _this.$root.dataconnection.send({
+          action:'neutral',
+          data: data,
+          space_id: _this.$root.selectedSpace.space_id
+        });
+    
+    
+    
+        }
+    });
+  
+         }
+
+        }
+
+    },
+
    
-   
-}
+    },
+    
+  
 });

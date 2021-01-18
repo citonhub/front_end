@@ -1,0 +1,272 @@
+<template>
+  <div class="col-12 py-1 my-0 ">
+
+       <div class="row">
+        <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky;background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
+            <div class=" mr-1 col-2 px-1 py-0">
+              <v-btn icon  @click.stop="close">
+                      <v-icon>mdi mdi-close</v-icon>
+                    </v-btn>
+            </div>
+          
+             <div class="col-8 py-0 text-center">
+             <span style="font-size:14px; font-family:MediumFont;">Channel Info</span>
+          </div>
+              
+              <div class="col-2 py-0 mr-1 text-right px-1" >
+                  <v-btn icon @click.stop="EditChannel"  v-if="checkIfisOwner()">
+                      <v-icon>las la-edit</v-icon>
+                    </v-btn>
+              </div>
+          
+        </div>
+
+        <div class="col-12 d-flex" style="align-items:center; justify-content:center;">
+              <div   :style="imageStyleSpace(150,that.$root.selectedSpace,'channel')"  >
+               </div> 
+        </div>
+
+        <div class="col-12 text-center py-0">
+           <span style="font-size:14px; font-family:MediumFont;">{{that.$root.selectedSpace.name}}</span>
+        </div>
+
+        <div class="col-12 text-left py-1">
+           <span style="font-size:14px;font-family:MediumFont;">Description</span><br>
+
+              <template v-if="that.$root.selectedSpace.description">
+                 <span style="font-size:12px;" v-html="that.$root.selectedSpace.description"></span>
+
+              </template>
+
+              <template v-else>
+             
+
+                  <span style="font-size:12px; color:grey;">Here is this channel description</span>
+
+
+              </template>
+          
+        </div>
+           
+        <div class="col-12 py-2">
+         <div class="row">
+
+           <div class="col-6 px-0 py-0">
+
+               <v-btn x-small color="#3C87CD"  v-if="checkIfisOwner()" @click.stop="showInvitation" style="color:white;text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Invite</v-btn>
+
+           </div>
+
+           <div class="col-6 px-0 py-0 text-right">
+               <v-btn x-small color="#3C87CD" :loading="loadingLeave" @click="leaveSpace" outlined style="text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Leave</v-btn>
+           </div>
+
+         </div>
+        </div>
+        
+
+          <div class="col-12 py-2 d-flex flex-row mt-2" style="border-top:1px solid #c5c5c5; border-bottom:1px solid #c5c5c5;">
+           <div class="col-7 py-0 px-0">
+                 <span style="font-size:14px; font-family:MediumFont;">Members</span>
+           </div>
+           <div class="col-5 text-right py-0 px-0">
+                 <span style="font-size:13px;">{{that.$root.selectedSpaceMembers.length}}</span>
+           </div>
+        </div>
+
+        <div class="col-12 py-2 d-flex flex-row" style="align-items:center; border-bottom:1px solid #c5c5c5;" v-for="(member,index) in that.$root.selectedSpaceMembers"
+          :key="index">
+              <div    class="mr-2"
+     :style="imageStyle(40,member,'user')">
+  </div> 
+   <div>
+        <span style="font-size:13px;">{{member.name}} @{{member.username}}</span>
+   </div>
+        </div>
+        
+
+     
+
+    </div>
+
+  </div>
+   
+</template>
+<script>
+
+
+
+export default {
+      data(){
+        return{
+          
+         that:this,
+       loadingLeave:false,
+       
+        }
+    },
+    methods:{
+         close:function(){
+             window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+        this.$root.chatComponent.chatInnerSideBar = false;
+   },  
+   EditChannel:function(){
+        this.$root.chatComponent.innerSideBarContent = '';
+          
+            this.$root.chatComponent.innerSideBarContent = 'channel_edit';
+                
+          
+           this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id + '/channel_edit' });
+
+   },
+    leaveSpace: function(){
+         this.loadingLeave = true;
+        axios.post('/leave-space',{
+           'space_id':this.$route.params.spaceId
+        } )
+      .then(response => {
+
+      if (response.status == 200) {
+
+           let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+                   storedChat.then((result)=>{
+
+                       if(result != null ){
+
+                    let finalResult = JSON.parse(result);
+
+                       
+                       if(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' ){
+
+                          let remainingSpace = finalResult.channels.filter((space)=>{
+                         return    space.space_id != this.$route.params.spaceId
+                          });
+
+                          finalResult.channels = remainingSpace;
+
+                        }
+
+                         if(this.$root.selectedSpace.type == 'Bot'){
+
+                          let remainingSpace = finalResult.pet_spaces.filter((space)=>{
+                         return    space.space_id != this.$route.params.spaceId
+                          });
+
+                          finalResult.channels = remainingSpace;
+
+                        }
+                         
+
+                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+                     
+                   this.$root.ChatList = fullList;
+
+                     this.$root.sortChatList();
+
+                    
+                     
+                  
+                  this.$router.push({ path: '/channels' });
+                    
+
+                 }
+
+                   } )
+
+
+             
+
+
+     }
+
+
+     })
+     .catch(error => {
+          this.loadingLeave = false;
+       this.$root.chatComponent.showAlert('Oops!','Something went wrong,please try again','error')
+     })
+       },
+    imageStyleSpace:function(dimension,data,type){
+      
+
+      if(data.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:5px solid #3C87CD; cursor:pointer;";
+         if(type == 'channel'){
+              styleString += 'background-color:#ffffff; background-image:url(imgs/channel.png);';
+         }else{
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
+         }
+         
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:5px solid #3C87CD; cursor:pointer;";
+         let imgLink = data.image_name + '.' + data.image_extension;
+          if(type == 'channel' || type== 'bot'){
+              styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
+         }else{
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+         }
+         
+          return styleString;
+      }
+
+      
+
+  },
+    imageStyle:function(dimension,data,type){
+      
+
+      if(data.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
+         if(type == 'channel'){
+              styleString += 'background-color:#ffffff; background-image:url(imgs/channel.png);';
+         }else{
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
+         }
+         
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
+         let imgLink = data.image_name + '.' + data.image_extension;
+          if(type == 'channel' || type== 'bot'){
+              styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
+         }else{
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+         }
+         
+          return styleString;
+      }
+
+      
+
+  },
+   showInvitation:function(){
+       
+            this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id + '/channel_invitation' });
+        },
+    checkIfisOwner: function(){
+
+           let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
+
+             return members.user_id == this.$root.user_temp_id;
+           });
+
+           if(userMemberData.length != 0){
+
+             return userMemberData[0].is_admin;
+
+           }else{
+              return false
+           }
+
+       },
+    }
+}
+</script>
+<style scoped>
+
+</style>

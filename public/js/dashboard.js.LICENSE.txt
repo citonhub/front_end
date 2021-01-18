@@ -1,10 +1,4 @@
 /*!
-  * vue-router v3.3.2
-  * (c) 2020 Evan You
-  * @license MIT
-  */
-
-/*!
  * The buffer module from node.js, for the browser.
  *
  * @author   Feross Aboukhadijeh <http://feross.org>

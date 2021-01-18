@@ -11,17 +11,19 @@ use App\Project;
 use App\Profile;
 use App\DuelTeam;
 use App\Bot;
+use App\Models\HubPost;
 use App\Organization;
 
 
 class PageController extends Controller
 {
 
-    public function handelLink($type,$uniqueId,$referral){
+    public function handelLink($type,$uniqueId){
        
 
         if($type == 'post'){
-         $thisPost = Post::where('post_id',$uniqueId)->first();
+         $thisPost = HubPost::where('post_id',$uniqueId)->first();
+
          $thisUser= DB::table('profiles')
               ->join('users','users.id','profiles.user_id')
               ->select(
@@ -32,94 +34,62 @@ class PageController extends Controller
               ->where('users.id',$thisPost->user_id)
               ->first();
 
-        $pageTitle = $thisUser->username . ' on CitonHub.';
-        $pageDescription = '';
-
-         if($thisPost->content != ''){
-            
-            $html = new \Html2Text\Html2Text($thisPost->content);
-            $myText =  $html->getText();
-             
-           
-
-            $pageDescription = $myText;
-         }else{
-            $pageDescription = 'Check out this post.';
-         }
-
-         if( $thisUser->image_name  == null){
-            $imagePath = 'CitonHub.png';
-         }else{
-            $imagePath = 'profile/' . $thisUser->image_name .'.' . $thisUser->image_extension;
-         }
-
-        
-            
-         if($thisPost->is_comment == 'true'){
-            $pageLink = '/hub#/post/comment/' . $thisUser->username .'/'. $uniqueId;
-         }else{
-            $pageLink = '/hub#/post/' . $thisUser->username .'/'. $uniqueId;
-         }
+        $pageTitle = $thisPost->title;
         
 
+         $pageDescription = 'Check out my project on CitonHub.';
+
+         if( $thisPost->image_name  == null){
+            $imagePath = 'logo.png';
+         }else{
+            $imagePath = 'posts/' . $thisPost->image_name .'.' . $thisPost->image_extension;
+         }
+
+         $pageLink = '/dashboard#/hub/' . $uniqueId;
+       
         
         }
 
 
-        if($type == 'duel'){
+        if($type == 'challenge'){
             $thisDuel = Duel::where('duel_id',$uniqueId)->first();
            
    
-           $pageTitle = 'CitonHub-Duels';
+           $pageTitle = 'Challenges on CitonHub';
            $pageDescription = $thisDuel->title;
    
            
-            $imagePath = 'CitonHub.png';
             
-               $pageLink = '/dashboard#/duel/' . $uniqueId .'/board';
+
+            if( $thisDuel->image_name  == null){
+               $imagePath = 'logo.png';
+            }else{
+               $imagePath = 'challenges/' . $thisDuel->image_name .'.' . $thisDuel->image_extension;
+            }
             
-           
-   
+               $pageLink = '/dashboard#/board/challenges/panel/' . $uniqueId . '/description';
+            
            
            }
 
-        if($type == 'duel-team'){
-
-            $thisDuelTeam = DuelTeam::where('team_code',$uniqueId)->first();
-            
-   
-            $pageTitle = 'CitonHub-Duels';
-            $pageDescription = 'Join ' . $thisDuelTeam->name . ' on CitonHub Duel';
-    
-            
-             $imagePath = 'CitonHub.png';
-             
-                $pageLink = '/dashboard#/duel/' . $thisDuelTeam->duel_id .'/panel\/' . $uniqueId; 
-             
-            
     
 
-        }
-
-           if($type == 'space'){
+           if($type == 'channel'){
             $thisSpace = Space::where('space_id',$uniqueId)->first();
            
    
-           $pageTitle = 'CitonHub-Space';
+           $pageTitle = $thisSpace->name;
            $pageDescription = 'Join ' . $thisSpace->name . ' ' . $thisSpace->type  .' on Citonhub.';
    
              if($thisSpace->image_name == null){
-                $imagePath = 'CitonHub.png';
+                $imagePath = 'logo.png';
              }else{
                 $imagePath = 'space/' . $thisSpace->image_name .'.' . $thisSpace->image_extension;
              }
           
             
-               $pageLink = '/space#/space/' . $uniqueId .'/channel/content';
+               $pageLink = '/dashboard#/channels/' . $uniqueId .'/content';
               
-
-           
-   
            
            }
 
@@ -129,63 +99,37 @@ class PageController extends Controller
             
             $thisSpace = Space::where('space_id',$thisProject->space_id)->first();
    
-           $pageTitle = 'CitonHub-Project:' . $thisProject->title;
-           $pageDescription = 'Check out this project:' . $thisProject->title  .',on Citonhub.';
+           $pageTitle =   $thisProject->title;
+           $pageDescription = 'Check out this project, ' . $thisProject->title  .' on Citonhub.';
    
-             if($thisSpace->image_name == null){
-                $imagePath = 'CitonHub.png';
-             }else{
-                $imagePath = 'space/' . $thisSpace->image_name .'.' . $thisSpace->image_extension;
-             }
+            
+                $imagePath = 'logo.png';
+          
           
             
-               $pageLink = '/#\/' . $uniqueId .'/page-loader';
+               $pageLink = '/dashboard#/board/projects/panel/' . $uniqueId;
               
-
-           
-   
            
            }
 
-           if($type == 'bot'){
+
+
+           if($type == 'diary'){
             $thisbot = Bot::where('bot_id',$uniqueId)->first();
             
          
    
-           $pageTitle = 'CitonHub-Bot:' . $thisbot->name;
+           $pageTitle =  $thisbot->name;
            $pageDescription = $thisbot->description;
    
              if($thisbot->image_name == null){
-                $imagePath = 'CitonHub.png';
+                $imagePath = 'logo.png';
              }else{
                 $imagePath = 'space/' . $thisbot->image_name .'.' . $thisbot->image_extension;
              }
           
             
-             $pageLink = '/#\/bot-engine\/' . $uniqueId ;
-              
-
-           
-   
-           
-           }
-
-           if($type == 'org'){
-            $thisOrg = Organization::where('organization_id',$uniqueId)->first();
-            
-         
-   
-           $pageTitle =  $thisOrg->name . ' on CitonHub';
-           $pageDescription = $thisOrg->description;
-   
-             if($thisOrg->image_name == null){
-                $imagePath = 'CitonHub.png';
-             }else{
-                $imagePath = 'space/' . $thisOrg->image_name .'.' . $thisOrg->image_extension;
-             }
-          
-            
-             $pageLink = '/dashboard#\/panel\/main\/' . $uniqueId ;
+             $pageLink = '/dashboard#/channels/engine/diary/' . $uniqueId ;
               
 
            
@@ -194,63 +138,44 @@ class PageController extends Controller
            }
 
 
-           if($type == 'projectPanel'){
-            $thisProject = Project::where('project_slug',$uniqueId)->first();
-            
-            $thisSpace = Space::where('space_id',$thisProject->space_id)->first();
-   
-           $pageTitle = 'CitonHub-Project:' . $thisProject->title;
-           $pageDescription = 'Check out this project:' . $thisProject->title  .',on Citonhub.';
-   
-             if($thisSpace->image_name == null){
-                $imagePath = 'CitonHub.png';
-             }else{
-                $imagePath = 'space/' . $thisSpace->image_name .'.' . $thisSpace->image_extension;
-             }
-          
-            
-               $pageLink = '/#\/' . $uniqueId .'/panel';
-              
-
-           
-   
-           
-           }
-     
         return view('pages.link',compact('pageTitle','pageDescription','imagePath','pageLink','referral'));
 
     }
 
 
-    public function hub(){
+    public function home(){
 
-        $tablabel = 'hub';
-        return view('pages.hub',compact('tablabel'));
+        return view('pages.home');
     }
 
    
 
-    public function space(){
+    public function terms(){
       
-       
-        $tablabel = 'space';
-        return view('pages.space',compact('tablabel'));
+        return view('pages.terms');
+    }
+
+
+    public function dashboard(){
+
+        return view('pages.dashboard');
     }
 
 
 
+    public function privacy(){
 
-    public function panel(){
-
-        $tablabel = 'dashboard';
-        return view('pages.dashboard',compact('tablabel'));
+        return view('pages.privacy');
     }
 
 
+    public function contact(){
 
-    public function profile(){
+      return view('pages.contact');
+    }
 
-        $tablabel = 'profile';
-        return view('pages.profile',compact('tablabel'));
+    public function showBeta()
+    {
+      return view('pages.beta');
     }
 }

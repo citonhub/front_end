@@ -15,19 +15,16 @@ use Illuminate\Support\Facades\Route;
 
 
 // pages routes
-Route::get('/','PageController@space');
-Route::get('/home','PageController@space');
-Route::get('/hub','PageController@hub');
-Route::get('/space','PageController@space');
-Route::get('/duels','PageController@panel');
-Route::get('/dashboard','PageController@panel');
-Route::get('/profile','PageController@profile');
-Route::get('/view-profile','PageController@profile');
-Route::get('/link/{type}/{uniqueId}/{referral}','PageController@handelLink');
+Route::get('/','PageController@home');
+Route::get('/dashboard','PageController@dashboard');
+Route::get('/privacy-policy','PageController@privacy');
+Route::get('/terms-of-use','PageController@terms');
+Route::get('/contact-us','PageController@contact');
+Route::get('/link/{type}/{uniqueId}','PageController@handelLink');
+Route::get('/beta', 'PageController@showBeta');
 
 
-
-// panel routes
+// subsidiary routes
 Route::get('/run-panel/{panelId}','PanelController@runPanel');
 Route::get('/page-loader/{panelId}/{pageName}','PanelController@pageLoader');
 Route::get('/download-file-{messageId}','PanelController@downloadFile');
