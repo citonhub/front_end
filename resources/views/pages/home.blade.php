@@ -18,7 +18,7 @@
     <!--Metadata for Microsoft-->
     <meta name="msapplication-TileImage" content="images/icons/msapplication_icon_144x144.png">
     <meta name="msapplication-TileColor" content="#3C87CD">
-    <meta property="og:description" content="Teach, mentor, and connect with other developers" />
+    <meta property="og:description" content="Join other developers helping each other grow on CitonHub" />
     <meta property='twitter:title' content="CitonHub:Teach, mentor, and connect with other developers"/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>

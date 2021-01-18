@@ -11,17 +11,34 @@
         
          <div class="d-lg-block d-none">
               <div class="row py-1 my-0" >
-           <div class="col-2 py-0 my-0 text-left">
+           <div class="col-4 py-0 my-0 text-left">
            <v-btn @click="closePanel()" icon><v-icon style="font-size:25px;">las la-times</v-icon> </v-btn>
            </div>
-            <div class="col-8 py-0 my-0 d-flex" style="align-items:center;justify-content:center;">
+            <div class="col-4 py-0 my-0 d-flex" style="align-items:center;justify-content:center;">
               <template v-if="this.$root.projectData.project">
          <div style="font-family:MediumFont; font-size:13px;" >{{this.$root.projectData.project.title}} </div>
               </template>
                
            </div>
-            <div class="col-2 py-0 my-0 text-right">
+            <div class="col-4 py-0 my-0  d-flex flex-row">
+
+                <div class="ml-auto d-flex flex-row">
+
+                   <template v-if="this.$router.currentRoute.path.indexOf('panel-loader') >= 0">
+               
+                   <div class="mx-1 " >
+                       <v-btn icon  @click="shareProject" ><v-icon style="font-size:20px;">mdi mdi-share-variant</v-icon> </v-btn>
+                     </div>
+
+                      <div class="mx-1 " v-if="that.$root.projectData.project.is_web">
+                       <v-btn icon  @click="showFullPage" ><v-icon style="font-size:20px;">mdi mdi-launch</v-icon> </v-btn>
+                     </div>
+
+               </template>
            <v-btn icon @click="openSettings()"><v-icon style="font-size:25px;">las la-cog</v-icon> </v-btn>
+
+                 </div>
+              
            </div>
 
         </div>
@@ -47,7 +64,7 @@
         </div>
          </div>
        
-            <div class="d-lg-none d-flex flex-row py-1" style="background:#F3F8FC; align-items:center; " >
+            <div class="d-lg-none d-flex flex-row py-1" style="background:#F3F8FC; align-items:center; " v-if="this.$router.currentRoute.path.indexOf('editor') >= 0" >
                  
                   <div class="mx-1 " >
                        <v-btn icon @click="showSideBar = true" ><v-icon style="font-size:20px;">las la-bars</v-icon> </v-btn>
@@ -69,6 +86,31 @@
 
               
             </div>
+
+            <!-- loader -->
+
+              <div class="d-lg-none d-flex flex-row py-1" style="background:#F3F8FC; align-items:center; "  v-if="this.$router.currentRoute.path.indexOf('panel-loader') >= 0">
+                 
+                  <div class="mx-1 " >
+                       <v-btn icon @click="showSideBar = true" ><v-icon style="font-size:20px;">las la-bars</v-icon> </v-btn>
+                  </div>
+
+                  <div class="ml-auto d-flex flex-row" style="align-items:center;" >
+                      
+                       <div class="mx-1 " >
+                       <v-btn icon  @click="shareProject" ><v-icon style="font-size:20px;">mdi mdi-share-variant</v-icon> </v-btn>
+                     </div>
+
+                      <div class="mx-1 " v-if="that.$root.projectData.project.is_web">
+                       <v-btn icon  @click="showFullPage" ><v-icon style="font-size:20px;">mdi mdi-launch</v-icon> </v-btn>
+                     </div>
+
+                  </div>
+
+              
+            </div>
+
+            <!-- ends -->
                
               
       </div>
@@ -399,6 +441,23 @@ import 'izitoast/dist/css/iziToast.min.css'
        
 
     },
+      shareProject:function(){
+          
+          this.$root.shareLink =  'https://www.citonhub.com/link/project/'+ this.$route.params.project_slug;
+
+          this.$root.shareText = 'Check out this project on Citonhub';
+          
+          this.$root.infoText = 'Share your project with others';
+
+          this.$root.alertComponent =  this.$root.projectPanelComponent;
+
+          this.$root.showInvitation = true;
+    },
+    showFullPage:function(){
+
+        window.open('/run-panel/' + this.$root.projectData.project_panel.panel_id , '_blank');
+
+     },
        fetchProjectData:function(){
 
           this.loadingProject  = true;
