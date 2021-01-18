@@ -80,7 +80,7 @@
               <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:13px;"
-                 placeholder="password"
+                 placeholder="therepublic"
             :label="$t('general.password')"
               prepend-inner-icon="las la-lock"
              outlined
@@ -159,7 +159,7 @@
               <v-text-field
                style="font-size:13px;"
 
-                 placeholder="username"
+                 placeholder="Grandmaster"
             label="Username"
              v-model="usernameValue"
             prepend-inner-icon="las la-user"
@@ -175,7 +175,7 @@
               <div class="col-12 py-2 my-0 px-2">
               <v-text-field
                 style="font-size:13px;"
-                 placeholder="password"
+                 placeholder="therepublic"
             :label="$t('general.password')"
               prepend-inner-icon="las la-lock"
              outlined
