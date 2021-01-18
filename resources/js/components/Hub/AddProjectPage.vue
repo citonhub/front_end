@@ -1,23 +1,24 @@
 <template>
 
 
-    <div class="row" >
+    <div class="row" style="font-family:BodyFont;background:transparent;">
 
     <!-- contents  -->
          <v-form class="col-12 px-md-4 px-2 py-2 pt-0 mt-1 text-left" ref="addPost" v-model="formState" style="height:auto !important; font-family:BodyFont; background:transparent !important;" >
            
-           <div class="row">
+           <div class="row application application--light"  data-app="true">
 
                <!-- project title -->
 
-                <v-app class="col-12" style="font-family:BodyFont;background:transparent;">
-
-                      <div  class=" col-12 py-1 my-0 px-2 mb-1" style="font-family:BodyFont;">
+               
+ 
+                    <div  class=" col-12 py-1 my-0 px-2 mb-1" style="font-family:BodyFont;">
+                       <span  style="font-size:14px;font-family:MediumFont;" class="mb-1">Project title</span>  
               <v-text-field
                 v-model="post.title"
                  style="font-size:13px;"
                 
-              label="Project Title"
+             
               :rules="titleRule"
                 dense
             counter="80"
@@ -35,7 +36,7 @@
 
              <!-- select project -->
 
-              <div class=" col-12 py-1 my-0  " style="font-family:BodyFont;">
+              <div class=" col-12 py-1 my-0 px-2" style="font-family:BodyFont;">
                  <v-chip :outlined="!postLink" @click="postLink = true" class="d-inline-block mr-1" color="#3C87CD" :style="postLink ? 'font-size:13px;cursor:pointer;color:white;' : 'font-size:13px;cursor:pointer;'">Add Link</v-chip>
 
                 <v-chip :outlined="postLink" @click="postLink = !postLink" class="d-inline-block mr-1" color="#3C87CD" :style="postLink ? 'font-size:13px;cursor:pointer;' : 'font-size:13px;cursor:pointer;color:white;'">Select Project</v-chip>
@@ -43,8 +44,8 @@
 
                 <v-text-field 
                 v-if="postLink" 
-                label="Paste Project Link"
-                class="mt-4"
+               
+                class="mt-2"
                
                 outlined
                 
@@ -58,9 +59,9 @@
 
                 </v-text-field>
                 <v-select v-else 
-                label="Select Project" 
+               
                  style="font-size:13px;"
-                 class="mt-4"
+                 class="mt-2"
                  @change="setTagHandler"
                  color="#3C87CD"
                    :items="projectArray"
@@ -79,9 +80,9 @@
              <!-- ends -->
             
            
-              <div class="col-12 py-1 my-0 mt-n3 px-2 pl-3">
-             <span style="font-size:13px;">Upload Thumbnail</span>
-             <span style="font-size:12px; color:grey;" class="mx-1">(give your project an identity)</span><br>
+              <div class="col-12 py-1 my-0 mt-n3 px-2 ">
+       
+              <span  style="font-size:14px;font-family:MediumFont;">Upload Thumbnail</span>  
 
             <v-sheet
               elevation="0"
@@ -135,16 +136,14 @@
 
            <!-- ends -->
              
-         <div class="col-12 py-1">
-
-         </div>
-
+      
            <!-- add tags -->
-                <div  class=" col-12 py-1 mt-5 my-0 px-2 pt-3" style="height:auto;font-family:BodyFont;">
+                <div  class=" col-12 py-1 mt-1 my-0 px-2 pt-3" style="height:auto;font-family:BodyFont;">
+                    <span  style="font-size:14px;font-family:MediumFont;" class="mb-1">Tags</span>  
               <v-select
                  style="font-size:13px;"
               dense
-              label="Tags"
+            
             counter="10"
             placeholder="add tags"
            
@@ -183,12 +182,11 @@
 
          <!-- ends -->
 
-         <div class="col-12 py-4">
-
-         </div>
+        
 
          <!-- project description -->
              <div class="col-12 py-1 pt-0 my-0 px-2">
+                 <span  style="font-size:14px;font-family:MediumFont;">Description</span>  
                 
                 <v-textarea
                  style="font-size:14px;"
@@ -217,10 +215,6 @@
 
 
              <!-- ends -->
-
-                </v-app>
- 
-                
 
            </div>
 
