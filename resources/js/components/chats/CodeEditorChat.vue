@@ -251,6 +251,14 @@
 <script>
  import { codemirror } from 'vue-codemirror'
  import '../../bootstraps/codeImports'
+ import 'codemirror/addon/hint/anyword-hint.js'
+ import 'codemirror/addon/hint/css-hint.js'
+ import 'codemirror/addon/hint/html-hint.js'
+ import 'codemirror/addon/hint/javascript-hint.js'
+ import 'codemirror/addon/hint/show-hint.css'
+ import 'codemirror/addon/hint/show-hint.js'
+ import 'codemirror/addon/hint/sql-hint.js'
+ import 'codemirror/addon/hint/xml-hint.js'
 
 
 export default {
@@ -814,6 +822,11 @@ methods:{
       },
 
       onCmReady(codemirror) {
+
+          codemirror.on('keypress', () => {
+    
+    codemirror.showHint()
+  })
 
         console.debug('onCmReady', codemirror)
       },

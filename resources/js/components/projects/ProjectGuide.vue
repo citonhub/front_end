@@ -1,15 +1,18 @@
 <template>
-    <div class="col-lg-12" style="overflow-y: scroll;height:100%;width:100%;">
-        <h1 class="h1 px-1 py-1 mt-4 mb-4 d-none" style="color:#3C87CD">Project Creation Guide</h1>
+    <div class="col-lg-12 scroller" style="overflow-y: scroll;height:100%;width:100%;
+  ">
+
+  
+        <h1 class="h1 px-1 py-1 mt-4 mb-4 mt-sm-4 mt-md-4 d-lg-block d-md-block d-sm-block d-none" style="color:#3C87CD">Project Creation Guide</h1>
 
           <h1 class=" px-1 py-1 ml-4  d-sm-none" style="color:#3C87CD; font-size:1.5rem;margin-top:30px;">Project Creation Guide</h1>
         <nav class="col-lg-8 col-12 " style=""><ul  class="d-flex col-lg-10" style="list-style:none;">
-            <li class="ml-4">Basics</li>
+           <a href="#intro"> <li class="ml-4">Basics</li></a>
           <a href="#node"> <li class="ml-4 ">Node</li></a> 
          <a href="#php">   <li class="ml-4 ">PHP</li></a>
            <a href="#common"> <li class="ml-4">Common Errors</li> </a>
             </ul></nav>
-        <div class="intro col-lg-6">
+        <div class="intro  col-lg-6" id="intro">
 <h2 class=" text-left px-1 py-1 " style="font-size:1.8rem;font-weight:500;">Introduction</h2>
 <p>Welcome to the project panel. Here you can use all the tools available to bring your project idea to life.
 As soon as you start you can access a live button which you can use to view your project at any point.
@@ -55,19 +58,19 @@ As soon as you start you can access a live button which you can use to view your
                     
                 </div>
            
-<div class="step">
+<div class="step ">
                     <h4>Step 2 </h4>
                      <p>Upload assets and files and  incorporate in your project</p>  
-                      <ul class="col-lg-12">
+                      <ul class="col-lg-10">
                           <li class="mb-2">Click on the + icon next to the type of asset you want. click on the upload box to searchthrough your device. select the asset and click the upload button.</li>
                             <img src="/imgs/guide/file.png" alt="" class="col-lg-10"  style="width:390px;height:150px;">
                           <li class="mb-2">To link the asset you place one the urls below wherever you want it to be. </li>
                          <h5>For videos:</h5>
-                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-5 py-0">$home/$panel/Videos/FILENAME</p> 
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-5 col-12 py-0">$home/$panel/Videos/FILENAME</p> 
     <h5>For Audios:</h5>
-                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-5 py-0">$home/$panel/Audios/FILENAME</p> 
+                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-5 col-12 py-0">$home/$panel/Audios/FILENAME</p> 
                         <h5>For Images:</h5>
-                        <p style="background-color:#3C87CD;color:white;height:25px;" class="col-lg-5 py-0">$home/$panel/Images/FILENAME</p> 
+                        <p style="background-color:#3C87CD;color:white;height:28px;" class="col-lg-5 col-12 py-0">$home/$panel/Images/FILENAME</p> 
                          
                       </ul>
                 </div>
@@ -172,3 +175,17 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+ .scroller::-webkit-scrollbar {
+  width: 5px;
+}
+
+ 
+.scroller::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+  
+  
+</style>

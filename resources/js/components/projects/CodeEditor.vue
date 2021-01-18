@@ -337,9 +337,22 @@ methods:{
       
       },
       removeCode:function(codeBox){
-         var newarray = this.$root.codeEditorArray.filter((file)=>{
+        
+         
+          let newarray= []; 
+
+          if(this.$root.codeEditorArray.length >= 2 ){
+           
+           newarray = this.$root.codeEditorArray.filter((file)=>{
+          
             return file.id !=  codeBox.id;
          });
+           }else{
+             
+              this.$router.push({path: '/board/projects/panel/' + this.$root.projectData.project.project_slug })
+           }
+
+         
 
          this.$root.codeEditorArray = newarray;
 
