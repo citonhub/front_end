@@ -45,7 +45,7 @@ export default {
     },
     methods: {        
         setImage() {
-              this.imageStyle(190, this.post);
+              this.imageStyle(200, this.post);
 
             this.imageUrl = this.externalUrl;
             this.image = '';

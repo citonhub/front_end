@@ -59,7 +59,7 @@
     <!-- post view content -->
     
        
-        <div class=" col-12 scroller" style=" position:absolute; height:90%; top:10%; overflow-y:auto; padding-bottom:60px; padding-top:20px; " >
+        <div class=" col-12 scroller" style=" position:absolute; height:90%; top:10%; overflow-y:auto; padding-bottom:60px; padding-top:8px; " >
 
           
                <div class="col-lg-10 offset-lg-1 col-12 py-0 pt-md-5 mt-md-3 px-md-2 px-1" >
@@ -582,7 +582,7 @@ export default {
       if(data.background_color == null){
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
          
-           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile_new.png);';
         
          
          return styleString;

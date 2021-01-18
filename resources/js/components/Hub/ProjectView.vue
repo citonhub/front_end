@@ -158,7 +158,7 @@
             <div class="row">
 
               <div class="col-12 px-0 py-0 text-right">
-        <v-btn  @click="goToProject(this.$root.selectedPost.project)" 
+        <v-btn  @click="goToProject(that.$root.selectedPost.project)" 
         color="#3C87CD" outlined rounded  small style="text-transform:none;font-size:12px;font-family:MediumFont;">View source <v-icon class="ml-1">mdi-launch mdi-18px</v-icon></v-btn>
               </div>
 
@@ -466,7 +466,7 @@ export default {
       if(data.background_color == null){
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;cursor:pointer;";
          
-           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile_new.png);';
         
          
          return styleString;

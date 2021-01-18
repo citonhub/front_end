@@ -1,6 +1,6 @@
 <template>
 
-  <div :class="fromProfile ? 'col-lg-4 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox' : 'col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox'" style="height:200px;" >
+  <div :class="fromProfile ? 'col-lg-4 col-md-6 px-0 mb-4 pt-1 pt-md-2 projectBox' : 'col-lg-3 col-md-6 px-0 mb-4 pt-1 pt-md-2 projectBox'" style="height:212px;" >
 
              <image-loader  :post="post"
               >
@@ -47,7 +47,7 @@
             </div>
           </v-card>
 
-          <div class="py-1 px-2" style="position:absolute; width:94%; height:auto; left:3%; top:100%;">
+          <div class="py-1 px-2" style="position:absolute; width:94%; height:auto; left:3%; top:97%;">
             
              <div class="row">
                   <div class="col-12 py-0 my-0 text-right">

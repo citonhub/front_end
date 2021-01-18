@@ -12,7 +12,8 @@
          <div class="d-lg-block d-none">
               <div class="row py-1 my-0" >
            <div class="col-4 py-0 my-0 text-left">
-           <v-btn @click="closePanel()" icon><v-icon style="font-size:25px;">las la-times</v-icon> </v-btn>
+           <v-btn @click="closePanel()" icon ><v-icon style="font-size:25px;">las la-times</v-icon> </v-btn>
+          
            </div>
             <div class="col-4 py-0 my-0 d-flex" style="align-items:center;justify-content:center;">
               <template v-if="this.$root.projectData.project">
@@ -46,7 +47,7 @@
           <div class="d-lg-none d-block">
               <div class="row py-1 my-0" v-if="this.$router.currentRoute.path.indexOf('editor') <= 0 && this.$router.currentRoute.path.indexOf('panel-loader') <= 0">
            <div class="col-2 py-0 my-0 text-left">
-           <v-btn @click="closePanel()" class="ml-1" icon><v-icon style="font-size:25px;">las la-times</v-icon> </v-btn>
+            <v-btn  @click="showSideBar = true" icon class="ml-1"><v-icon style="font-size:25px;">las la-bars</v-icon> </v-btn>
            </div>
             <div class="col-8 py-0 my-0 d-flex" style="align-items:center;justify-content:center;">
                 <template v-if="this.$root.projectData.project">

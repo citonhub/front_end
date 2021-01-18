@@ -6,7 +6,7 @@
                   <div class="col-6 d-flex py-0 " style="align-items:center;">
                      <template  >
                     <v-btn @click.stop="closePanel()"
-                    v-if="this.$router.currentRoute.path.indexOf('editor') >= 0 || this.$router.currentRoute.path.indexOf('panel-loader') >= 0" class="d-inline-block d-lg-none" icon><v-icon style="font-size:20px;">las la-times</v-icon> </v-btn>
+                    class="d-inline-block d-lg-none" icon><v-icon style="font-size:20px;">las la-times</v-icon> </v-btn>
                      </template>
                      
                      <v-btn @click="openGuide" class="ml-1" x-small color="#3C87CD"> <span style="font-family:HeaderFont;font-size:11px; text-transform:capitalize; color:white;" >Guide</span> </v-btn>

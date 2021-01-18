@@ -242,7 +242,7 @@ export default {
          if(type == 'channel'){
               styleString += 'background-color:#ffffff; background-image:url(imgs/channel.png);';
          }else{
-           styleString += 'background-color:#ffffff; background-image:url(imgs/profile.png);';
+           styleString += 'background-color:#ffffff; background-image:url(imgs/profile_new.png);';
          }
          
          return styleString;
