@@ -193,7 +193,7 @@
                    
                     <div class="d-flex col-12" style="position:absolute; overflow-y:hidden; height:90%;left:0%;align-items:center; justify-content:center;">
 
-                <span style="font-size:13px;font-family:BodyFont;">No comment yet, be the first to commment</span>
+                <span style="font-size:13px;font-family:BodyFont;">No comment yet, be the first to make a comment</span>
 
               </div>
 

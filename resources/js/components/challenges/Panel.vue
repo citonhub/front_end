@@ -306,7 +306,7 @@
 
                   <div style="position:absolute;height:500px;width:100%;top:290px;left:0; overflow-y:auto; overflow-x:hidden;background:white;">
 
-                  <div class="col-12 scroller" style="height:100%;position:absolute; top:0%; overflow-y:auto; overflow-x:hidden;">
+                  <div class="col-12 scroller" style="height:100%;position:absolute; top:0%; overflow-y:auto; overflow-x:hidden; padding-bottom:400px;">
                         <router-view></router-view>
                   </div>
 

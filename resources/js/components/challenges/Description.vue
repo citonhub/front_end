@@ -3,8 +3,8 @@
         <div class="col-lg-10 offset-lg-1 px-md-2 px-1">
             
 
-        <p>
-            {{that.$root.selectedChallenge.description}}
+        <p v-html="that.$root.selectedChallenge.description">
+          
         </p>
         </div>
     </div>
