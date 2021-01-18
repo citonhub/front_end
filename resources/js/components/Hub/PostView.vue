@@ -138,12 +138,12 @@ export default {
             
             if (data.image_name == 'default_1') {
 
-               imageUrl = 'imgs/default_1.jpg';
+               imageUrl = 'imgs/background1.jpg';
             
             }
 
             if (data.image_name == 'default_2') {
-               imageUrl = 'imgs/default_2.jpg';
+               imageUrl = 'imgs/background3.jpg';
             
             }
 

@@ -113,13 +113,13 @@
                 <div style="font-size:13px;color:grey;" class="mt-3">Or select from defaults</div>
 
                <div class="d-flex flex-row mt-3" >
-                       <div    class="mr-2" @click="selectDefaultImg('/imgs/default_1.jpg',1)"
-    style="border-radius:10px;height:60px;width:60px; cursor:pointer; background-color:#c5c5c5;background-image:url(/imgs/default_1.jpg);background-size: cover;
+                       <div    class="mr-2" @click="selectDefaultImg('/imgs/background1.jpg',1)"
+    style="border-radius:10px;height:60px;width:60px; cursor:pointer; background-color:#c5c5c5;background-image:url(/imgs/background1.jpg);background-size: cover;
   background-repeat: no-repeat; border:1px solid #c5c5c5;">
   </div> 
 
-    <div    class="mr-2"  @click="selectDefaultImg('/imgs/default_2.jpg',2)"
-    style="border-radius:10px;height:60px;width:60px;cursor:pointer; background-color:#c5c5c5;background-image:url(/imgs/default_2.jpg);background-size: cover;
+    <div    class="mr-2"  @click="selectDefaultImg('/imgs/background3.jpg',2)"
+    style="border-radius:10px;height:60px;width:60px;cursor:pointer; background-color:#c5c5c5;background-image:url(/imgs/background3.jpg);background-size: cover;
   background-repeat: no-repeat;border:1px solid #c5c5c5;">
   </div> 
 
