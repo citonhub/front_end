@@ -181,7 +181,7 @@
 
              <template v-if="element.type == 'code'">
 
-                <v-card elevation-1 class="py-1 px-2 pb-3 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                <v-card elevation-1 class="py-1 px-2 pb-4 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                         <div class="d-flex flex-row" style="align-items:center;">
                       <div class="col-8 py-0 px-0">
                          <span style="font-size:13px;font-weight:bold; ">{{that.$root.selectedDiary.name}}</span>

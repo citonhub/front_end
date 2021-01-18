@@ -8,11 +8,12 @@
           border-bottom-right-radius:20px; background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.7) 100%);">
                 
                  <div class="row">
-                  <div class="col-8 py-0 my-0">
-                     <span   style="font-family:MediumFont; font-size:13px; color:white;" >{{ post.title }}</span>
+                  <div class="col-9 py-0 my-0 d-flex flex-column">
+                     <div   style="font-family:MediumFont; font-size:13px; color:white; white-space:nowrap; overflow:hidden; text-overflow: ellipsis;" >{{ post.title }}</div>
+                      <div   style="font-family:BodyFont; font-size:13px; color:white; white-space:nowrap; overflow:hidden; text-overflow: ellipsis;" >{{ post.description }}</div>
     
                   </div>
-                   <div class="col-4 py-0 my-0 text-right">
+                   <div class="col-3 py-0 my-0 text-right">
 
                       <i :class="tag.icon" style="font-size:25px; color:white;" v-for="(tag, i) in JSON.parse(post.tags)" :key="i"></i>
 
@@ -123,15 +124,15 @@ export default {
           let styleString = "height: " + width +  "px; width: 94%;  position:absolute; left: 3%; border: 1px solid #c5c5c5;  background-repeat: no-repeat; border-radius: 20px; box-shadow: 0px 0px 8px -2px rgba(60, 135, 205, 0.25); background-size: cover;";
           
           if (data.image_name == null || data.image_name == '0') {
-            styleString += 'background-color: white; background-image: url(imgs/background1.jpg);';
+            styleString += 'background-color: white; background-image: url(imgs/default_1.jpg);';
           } else {
             
             if (data.image_name == 'default_1') {
-              styleString += 'background-color: white; background-image: url(/imgs/background3.jpg);';
+              styleString += 'background-color: white; background-image: url(/imgs/default_1.jpg);';
             }
 
             if (data.image_name == 'default_2') {
-              styleString += 'background-color: white; background-image: url(/imgs/background1.jpg);';
+              styleString += 'background-color: white; background-image: url(/imgs/default_2.jpg);';
             }
 
             if (data.image_name == 'default_3') {
