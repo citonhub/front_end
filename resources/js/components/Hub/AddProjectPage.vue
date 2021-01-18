@@ -1,16 +1,18 @@
 <template>
 
 
-    <div class="row" style="font-family:BodyFont;background:transparent;">
+    <div class="row" >
 
     <!-- contents  -->
          <v-form class="col-12 px-md-4 px-2 py-2 pt-0 mt-1 text-left" ref="addPost" v-model="formState" style="height:auto !important; font-family:BodyFont; background:transparent !important;" >
            
-           <v-app class="row">
+           <div class="row">
 
                <!-- project title -->
- 
-                    <div  class=" col-12 py-1 my-0 px-2 mb-1" style="font-family:BodyFont;">
+
+                <v-app class="col-12" style="font-family:BodyFont;background:transparent;">
+
+                      <div  class=" col-12 py-1 my-0 px-2 mb-1" style="font-family:BodyFont;">
               <v-text-field
                 v-model="post.title"
                  style="font-size:13px;"
@@ -216,7 +218,11 @@
 
              <!-- ends -->
 
-           </v-app>
+                </v-app>
+ 
+                
+
+           </div>
 
 
            
