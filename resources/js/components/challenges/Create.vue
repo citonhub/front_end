@@ -72,8 +72,8 @@
             counter="60"
             persistent-hint
             v-model="title"
-             
-             
+           
+               placeholder="CitonHub weekly challenge"
              prepend-inner-icon="las la-trophy"
             :rules="titleRule"
              color="#3C87CD">
@@ -92,7 +92,7 @@
                  counter="100"
                  :rules="summaryRules"
                 label="Summary"
-                 placeholder="What is this challenge about?"
+                  placeholder="Build a social currency app"
                  v-model="summary"
                 >
 
@@ -184,7 +184,7 @@
              </div>
              <div class="col-lg-12 py-1 my-2 px-2 text-left">
 
-              <v-press-editor v-model="description"  :placeholder="'Describe this challenge, its aim and objective'"></v-press-editor>
+              <v-press-editor v-model="description"  :placeholder="'The aim of this project is to test your ability in using local storage'"></v-press-editor>
              
              </div>
 
@@ -199,7 +199,7 @@
 
              <div class="col-lg-12 py-1 my-2 px-2 text-left">
 
-              <v-press-editor v-model="rulesContent"  :placeholder="'What are the dos and do not'"></v-press-editor>
+              <v-press-editor v-model="rulesContent"  :placeholder="'Make sure most of the codes are yours'"></v-press-editor>
              
              </div>
              
@@ -229,7 +229,7 @@
        
         
     @click="disableEvery"
-    >Custom Judges</v-chip>
+    >Select Judges</v-chip>
              
              </div>
 

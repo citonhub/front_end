@@ -295,17 +295,17 @@
       <!-- ends -->
 
         <!-- comment textarea -->
-         <div class="col-lg-6 offset-lg-3 py-0  fixed-bottom" style="z-index:999999999999;font-family:BodyFont;background:white;">
+         <div class="col-lg-6 offset-lg-3 py-0 px-0 fixed-bottom" style="z-index:999999999999;font-family:BodyFont;background:white;">
+        
          
-          <div class="row  py-0">
-           <v-card tile class="col-12  py-2 my-0 d-flex  px-2 flex-row" style="align-items:center; justify-content:center;">
+           <v-card tile class="col-12  py-2 my-0 d-flex  px-2 flex-row" style="align-items:center; justify-content:center;" >
             
                   <textarea ref="textBottom"  style="font-size:13px;"  placeholder="Type your comment"    v-model="commentValue"></textarea>
 
                   <v-btn icon class="mx-md-1" @click="postComment" @keyup.enter="postComment" :loading="sendingComment" ><v-icon>las la-send</v-icon> </v-btn>
            </v-card>
             
-          </div>
+          
         </div>
 
         
