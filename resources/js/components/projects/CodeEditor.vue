@@ -347,7 +347,12 @@ methods:{
 
              if(currentFilePosition == 0){
 
-                this.showCode(this.$root.codeEditorArray[1]);
+                      if(this.$root.selectedFileId == codeBox.id ){
+
+                         this.showCode(this.$root.codeEditorArray[1]);
+
+                      }
+               
 
              }else{
 
@@ -355,7 +360,13 @@ methods:{
 
              let newSelectedCodeBox = this.$root.codeEditorArray[nextFilePosition];
 
-             this.showCode(newSelectedCodeBox);
+               if(this.$root.selectedFileId == codeBox.id ){
+
+                  this.showCode(newSelectedCodeBox);
+
+               }
+
+            
 
              }
 
