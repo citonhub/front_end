@@ -342,12 +342,34 @@ methods:{
           let newarray= []; 
 
           if(this.$root.codeEditorArray.length >= 2 ){
+
+            let currentFilePosition =   this.$root.codeEditorArray.indexOf(codeBox);
+
+             if(currentFilePosition == 0){
+
+                this.showCode(this.$root.codeEditorArray[1]);
+
+             }else{
+
+               let nextFilePosition = currentFilePosition - 1;
+
+             let newSelectedCodeBox = this.$root.codeEditorArray[nextFilePosition];
+
+             this.showCode(newSelectedCodeBox);
+
+             }
+
+            
            
            newarray = this.$root.codeEditorArray.filter((file)=>{
           
             return file.id !=  codeBox.id;
          });
+
+         
            }else{
+
+               this.$root.codeEditorComponent = undefined;
              
               this.$router.push({path: '/board/projects/panel/' + this.$root.projectData.project.project_slug })
            }

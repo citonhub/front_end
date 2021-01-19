@@ -763,8 +763,7 @@ export default {
        this.$root.codeEditorArray.map((codeFile)=>{
           
           if(codeFile.id == codeBox.id){
-           
-            codeFile.content = codeBox.content;
+
             
            }
 
@@ -774,17 +773,28 @@ export default {
            this.$root.codeEditorArray.unshift(codeBox);
        }
        this.$root.selectedFileCatType = catType;
-       this.$root.EditorLanguage = codeBox.language_type;
-       this.$root.codeEditorContent = codeBox.content;
-       this.$root.selectedFileId = codeBox.id;
+       
+        if(this.$root.codeEditorComponent){
 
-        if(this.$router.currentRoute.path.indexOf('editor') <= 0){
-          this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/editor'});
-        }else{
-           this.$root.codeEditorComponent.detectchange(this.$root.EditorLanguage);
-           this.$root.codeEditorComponent.code = this.$root.codeEditorContent;
-        }
-    
+                 this.$root.codeEditorComponent.code = codeBox.content;
+                  this.$root.codeEditorComponent.language = codeBox.language_type;
+                   this.$root.selectedFileId = codeBox.id;
+                    this.$root.codeEditorComponent.detectchange(codeBox.language_type);
+
+              }else{
+                 this.$root.codeEditorContent = codeBox.content;
+
+                 this.$root.EditorLanguage = codeBox.language_type
+
+                 this.$root.selectedFileId = codeBox.id
+
+                
+
+                  this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/editor'});
+              }
+           
+
+     
   
    },
     separateCodeFiles:function(){
