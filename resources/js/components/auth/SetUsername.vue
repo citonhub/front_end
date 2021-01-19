@@ -377,7 +377,7 @@ export default {
           password: this.$root.userPassword
         })
         .then(() => {
-          const userInfo = localStorage.getItem('user')
+          const userInfo = localStorage.getItem('user_new')
     if (userInfo) {
       const userData = JSON.parse(userInfo)
 

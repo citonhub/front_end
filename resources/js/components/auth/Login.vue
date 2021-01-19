@@ -65,7 +65,7 @@
                 style="font-size:13px;"
 
                  placeholder="Grandmaster"
-            label="Username"
+            label="Email or Username"
              v-model="usernameValue"
             prepend-inner-icon="las la-user"
             :rules="UsernameRule"
@@ -160,7 +160,7 @@
                style="font-size:13px;"
 
                  placeholder="Grandmaster"
-            label="Username"
+            label="Email or Username"
              v-model="usernameValue"
             prepend-inner-icon="las la-user"
             :rules="UsernameRule"
@@ -390,7 +390,7 @@ export default {
           password: this.password
         })
         .then(() => {
-          const userInfo = localStorage.getItem('user')
+          const userInfo = localStorage.getItem('user_new')
     if (userInfo) {
       const userData = JSON.parse(userInfo)
 

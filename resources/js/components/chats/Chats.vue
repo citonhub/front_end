@@ -2044,9 +2044,9 @@ export default {
 
        
 
-      
+       let lastMessages = this.$root.returnedMessages.slice(Math.max(this.$root.returnedMessages .length - 30, 0));
 
-         return  this.$root.returnedMessages ;
+         return  this.$root.returnedMessages;
 
       },
 
@@ -2206,11 +2206,11 @@ export default {
          
         
             
-        },2000);
+        },1500);
 
          setTimeout(() => {
             this.messageIsDone = true;
-         }, 2500);
+         }, 2000);
        
 
 
@@ -2363,11 +2363,11 @@ export default {
               this.$refs.messageContainersmall.scrollToBottom();
          
           
-        },2000);
+        },1500);
 
           setTimeout(() => {
             this.messageIsDone = true;
-         }, 2500);
+         }, 2000);
 
     
     }
