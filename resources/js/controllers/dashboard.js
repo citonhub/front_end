@@ -1776,6 +1776,8 @@ const app = new Vue({
      autoOpenDiary:false,
      showRewardBoard:false,
      pageLoaderView:true,
+     showUserNotification:false,
+     notificationApproved:false
      },
      mounted: function () {
       window.thisUserState = this;
@@ -3323,6 +3325,116 @@ this.storeUnsentMessages(postData);
 
 }) 
 },
+initialPushMangerReg: function(){
+  if('serviceWorker' in navigator){
+   navigator.serviceWorker.ready.then(registration => {
+     if("PushManager" in window){
+        
+       registration.pushManager.getSubscription().then(sub => {
+            
+         if(sub == null || sub == undefined){
+          this.showUserNotification = true;
+         }else{
+
+          let subObj = sub.toJSON();
+          axios.post('/save-notification',{
+            endpoint: subObj.endpoint,
+            public_key: subObj.keys.p256dh,
+            auth_token: subObj.keys.auth
+              })
+      .then(response => {
+        
+       if (response.status == 200) {
+          
+    
+        
+        }else{
+          console.log(response.status);
+        }
+        
+        
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      
+        }
+       })
+      
+     }
+   })
+  }
+ },
+ 
+askPermission: function() {
+return new Promise(function(resolve, reject) {
+  const permissionResult = Notification.requestPermission(function(result) {
+    resolve(result);
+  });
+
+  if (permissionResult) {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready.then(function(reg) {
+        function urlB64ToUint8Array(base64String) {
+          const padding = '='.repeat((4 - base64String.length % 4) % 4);
+          const base64 = (base64String + padding)
+            .replace(/\-/g, '+')
+            .replace(/_/g, '/');
+    
+          const rawData = window.atob(base64);
+          const outputArray = new Uint8Array(rawData.length);
+    
+          for (let i = 0; i < rawData.length; ++i) {
+            outputArray[i] = rawData.charCodeAt(i);
+          }
+          return outputArray;
+        }
+        
+        reg.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlB64ToUint8Array('BA5RO17EugggZ7VQBGMf6_dQat4fLr5qwmS1Q8FUl8Wg0Pm7vOtX_Thws0OdafoWg1tdF-A0mDK-JcZJ09VoEq8')
+        }).then(function(sub) {
+
+          let subObj = sub.toJSON();
+          axios.post('/save-notification',{
+            endpoint: subObj.endpoint,
+            public_key: subObj.keys.p256dh,
+            auth_token: subObj.keys.auth
+              })
+      .then(response => {
+        
+       if (response.status == 200) {
+          
+    
+        
+        }else{
+          console.log(response.status);
+        }
+        
+        
+      })
+      .catch(error => {
+        console.log(error);
+      })
+
+        }).catch(function(e) {
+          if (Notification.permission === 'denied') {
+            console.warn('Permission for notifications was denied');
+          } else {
+            console.error('Unable to subscribe to push', e);
+          }
+        });
+      })
+    }
+  }
+})
+.then(function(permissionResult) {
+  if (permissionResult !== 'granted') {
+    throw new Error('We weren\'t granted permission.');
+  }
+});
+},
+ 
 sendCodeMessage: function(postData){
 this.sendingMessage = true;
 axios.post('/send-message',postData)

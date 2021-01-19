@@ -97,7 +97,7 @@
 
        <!-- profile container -->
 
-       <div class=" col-12 scroller" style=" position:fixed; height:92%; top:8%; overflow-y:auto; padding-bottom:60px; overflow-x:hidden;" >
+       <div class=" col-12 scroller" style=" position:fixed; height:91%; top:8%; overflow-y:auto; padding-bottom:60px; overflow-x:hidden;" >
 
           <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 py-0">
 
@@ -444,6 +444,24 @@
 
  <!-- ends -->
 
+ <!-- notification alert  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showUserNotification">
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+
+     
+      <notify></notify>
+   
+
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
+
  <!-- ends -->
 
    </div>
@@ -462,6 +480,10 @@ const TopBar = () => import(
 
 const EditProfile = () => import(
    /* webpackChunkName: "EditProfile" */ './EditProfile.vue'
+  );
+
+  const Notify = () => import(
+   /* webpackChunkName: "Notify" */ './Notify.vue'
   );
 
 const ImageCropperBoard = () => import(
@@ -493,7 +515,8 @@ ImageCropperBoard,
 SideBar,
 PostView,
 ProjectView,
-Invitation
+Invitation,
+Notify
 },
   mounted(){
       this.$root.showMobileHub = false;
@@ -788,6 +811,8 @@ Invitation
    if(this.mainUserName == this.$root.username){
        // this should be true
           this.owner=true;
+
+           this.$root.initialPushMangerReg();
          
         }else if(this.mainUserName =! this.$root.username){
           this.owner=false;
