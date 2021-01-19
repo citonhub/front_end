@@ -266,7 +266,17 @@
                     <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> </v-btn>  
                 <span style="font-family:BodyFont; font-size:12px; color:#000000;">{{comment.likes}}</span>
                 </span>
+
+                <span class="d-inline-block mx-1">
+  <v-btn icon class="d-inline-block">
+        <i class="las la-comment" style="font-size:20px;color:black;" ></i> </v-btn>
+
+                </span>
+
+                
              </div>
+
+              
            </div>
         </div>
 
@@ -275,7 +285,10 @@
                 </div>
 
                   <div class="my-2 col-12">
+<span>
 
+
+</span>
                 </div>
 
                 </template>
