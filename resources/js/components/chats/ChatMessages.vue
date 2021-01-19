@@ -570,7 +570,7 @@
                  </div>
 
                 <video-player v-else :videoUrl="'/videos/' + source.video.video_name + '.mpd'" :backgroundColor="source.video.background_color" style="width:100%;"
-               :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.message_id" > </video-player>
+               :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.message_id"  :screenType="screenType"> </video-player>
                         
                  <!-- time -->
                   <div class="text-right">
@@ -624,7 +624,7 @@
                   </div>
 
 
-                   <video-player  :videoUrl="'/videos/' + source.video.video_name + '.mpd'" :backgroundColor="source.video.background_color" style="width:100%;"
+                   <video-player :screenType="screenType"  :videoUrl="'/videos/' + source.video.video_name + '.mpd'" :backgroundColor="source.video.background_color" style="width:100%;"
                :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.message_id" > </video-player>
                         
                           <!-- more option -->
@@ -1065,8 +1065,8 @@
                            <span style="color:white; font-size:13px;white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{source.file.display_name}}</span>
                       </div>
 
-                       <div class="col-2 text-center py-1 d-flex"  style="align-items:center; justify-content:center;">
-                          <v-icon color="#ffffff">mdi mdi-cloud-download</v-icon>
+                       <div  class="col-2 text-center py-1 d-flex"  style="align-items:center;cursor:pointer; justify-content:center;">
+                          <v-btn color="#ffffff" icon @click.stop="downloadFile(source)" > <v-icon>mdi mdi-cloud-download</v-icon></v-btn>
                       </div>
                    </div>
                         
@@ -1129,7 +1129,7 @@
                       </div>
 
                        <div class="col-3 text-right py-1"  style="align-items:center;">
-                           <v-btn icon > <v-icon>mdi mdi-cloud-download</v-icon></v-btn>
+                           <v-btn icon @click.stop="downloadFile(source)" > <v-icon>mdi mdi-cloud-download</v-icon></v-btn>
                       </div>
                    </div>
 
@@ -1219,6 +1219,11 @@ export default {
 
        return this.shortenContent(message.content,200);
     
+    },
+    downloadFile:function(message){
+
+      window.url = '/download-file-' + message.message_id;
+
     },
     showMoreOption:function(message){
 

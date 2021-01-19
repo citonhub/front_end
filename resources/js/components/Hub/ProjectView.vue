@@ -456,7 +456,7 @@ export default {
         
      },
     goToProject:function(project){
-
+        this.$root.viewFromPost = true;
        this.$router.push({ path: '/board/projects/panel/' + project.project_slug });
 
     },

@@ -40,8 +40,21 @@
 
         <template v-else>
 
+           <template v-if="notifications.length  == 0">
 
-          <div v-for="(notification,index) in notifications" @click="goToNotification(notification)"  :key="index" class="col-12 d-flex flex-row px-0" style="align-items:center;cursor:pointer;border-bottom:1px solid #c5c5c5;">
+                <div  class="col-12 mt-4 text-center">
+
+          <div class="mb-3 px-3" style="font-size:13px;color:black;font-family:BodyFont;">
+                   You have no notification yet.
+                    </div>
+
+             </div>
+
+           </template>
+
+           <template v-else>
+
+               <div v-for="(notification,index) in notifications" @click="goToNotification(notification)"  :key="index" class="col-12 d-flex flex-row px-0" style="align-items:center;cursor:pointer;border-bottom:1px solid #c5c5c5;">
                 <div class="mx-2" >
 
                    <template v-if="notification.type == 'new_connection' || notification.type == 'space_invitation'" >
@@ -142,6 +155,9 @@
                      <span class="mx-1" style="font-family:BodyFont;font-size:12px; color:grey;">{{checkDatereal(notification.created_at)}}</span>
                 </div>
              </div>
+
+           </template>
+         
 
         </template>
              

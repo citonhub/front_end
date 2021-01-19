@@ -1,9 +1,9 @@
 <template>
    
 
-   <div>
+   <div @click.stop="workingOne">
      <div  class="d-flex alignContent col-12 py-0 "  v-if="!playVideoValue"
-   :style="'border:1px solid transparent;width:100%;height:190px; background-size:cover;  background-repeat:no-repeat; background-color:'+ backgroundColor+ ';background-image:url('+ backgroundImg+ '); border-radius: 10px;'" :id="'playerContainer'+playerId">
+   :style="'border:1px solid transparent;width:100%;height:190px; background-size:cover;  background-repeat:no-repeat; background-color:'+ backgroundColor+ ';background-image:url('+ backgroundImg+ '); border-radius: 10px;'" :id="'playerContainer'+playerId+screenType">
          
        <div>
          <span style="color:#c9e4e8; background:#3C87CD; border:1px solid #3C87CD;
@@ -11,9 +11,9 @@
      </div>
      </div>
        <div data-shaka-player-container style="max-width:40em" v-show="playVideoValue"
-         data-shaka-player-cast-receiver-id="7B25EC44" :id="'videocontainner' + playerId">
+         data-shaka-player-cast-receiver-id="7B25EC44" :id="'videocontainner' + playerId + screenType">
       <!-- The manifest url in the src attribute will be automatically loaded -->
-      <video  data-shaka-player   :id="'video'+playerId"
+      <video  data-shaka-player   :id="'video'+playerId + screenType"
        :poster="backgroundImg" 
         style="width:100%;height:100%; border-radius:10px; border:1px solid transparent;"
        :src="videoUrl"></video>
@@ -25,7 +25,7 @@
 <script>
 
 export default {
-     props:['videoUrl','backgroundColor','backgroundImg','playerId'],
+     props:['videoUrl','backgroundColor','backgroundImg','playerId','screenType'],
     data () {
       return {
          manifestUri:'',
@@ -42,6 +42,9 @@ export default {
 	
 	},
   methods:{
+    workingOne:function(){
+
+    },
     playVideo:function(){
 
        this.manifestUri = this.videoUrl;
@@ -81,10 +84,10 @@ document.addEventListener('shaka-ui-load-failed', this.initFailed);
 
 
      // When using the UI, the player is made automatically by the UI object.
-  const video = document.getElementById('video' + _this.playerId);
+  const video = document.getElementById('video' + _this.playerId + _this.screenType);
   const player = new shaka.Player(video);
 
-  const videoContainer = document.getElementById('videocontainner' + _this.playerId);
+  const videoContainer = document.getElementById('videocontainner' + _this.playerId + _this.screenType);
 
     const ui = new shaka.ui.Overlay(player, videoContainer, video);
     
@@ -92,9 +95,9 @@ document.addEventListener('shaka-ui-load-failed', this.initFailed);
   const config = {
   'overflowMenuButtons' : ['cast','picture_in_picture','loop','quality','playback_rate'],
   'seekBarColors': {
-   base: 'rgba(111, 182, 195, 0.3)',
-   buffered: 'rgba(111, 182, 195, 0.54)',
-   played: 'rgb(111, 182, 195)',
+   base: 'rgba(60, 135, 205, 0.3)',
+   buffered: 'rgba(60, 135, 205, 0.54)',
+   played: 'rgb(60, 135, 205)',
  }
   };
   ui.configure(config);

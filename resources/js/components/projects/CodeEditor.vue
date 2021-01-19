@@ -78,11 +78,13 @@ export default {
     
        this.detectchange(this.$root.EditorLanguage);
         this.$root.codeEditorComponent = this;
-          if(this.$root.projectPanelComponent){
+          if(this.$root.projectPanelComponent && !this.$root.viewFromPost){
 
              this.$root.projectPanelComponent.showAlert('Happy coding!','Your work is auto saved','info');
 
           }
+
+          this.$root.viewFromPost = true;
       
        
       },

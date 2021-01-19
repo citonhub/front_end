@@ -1777,7 +1777,8 @@ const app = new Vue({
      showRewardBoard:false,
      pageLoaderView:true,
      showUserNotification:false,
-     notificationApproved:false
+     notificationApproved:false,
+     viewFromPost:false,
      },
      mounted: function () {
       window.thisUserState = this;
