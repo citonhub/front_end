@@ -282,7 +282,7 @@ export default {
       
     
            
-           if(this.connectionformstate){
+           if(this.selectedConnections){
 
             
               
@@ -313,9 +313,7 @@ export default {
          
            
            
-           if(this.Emailformstate){
-
-            
+         
               
               this.loadingEmail = true;
              axios.post( '/send-space-invite-mail',{
@@ -337,7 +335,7 @@ export default {
              this.alertComponent.showAlert('Oops!','Something went wrong,please try again','error')
               this.loadingEmail = false;
           })
-       }
+      
 
       },
       fetchConnected: function(){

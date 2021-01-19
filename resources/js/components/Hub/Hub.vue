@@ -42,7 +42,7 @@
         </div>
 
 
-          <div class="col-lg-10 offset-lg-1 d-none d-md-block col-12 px-0 d-md-block d-none" style="background:#F5F5FB; position:absolute; height:92%; top:18px; " >
+          <div class="col-lg-10 offset-lg-1 d-none d-md-block col-12 px-0 d-md-block d-none" style="background:#F5F5FB; position:absolute; height:92%; top:10px; " >
 
           
 

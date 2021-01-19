@@ -4,7 +4,12 @@
            <div class="col-12 py-1 my-0 d-flex px-md-2 px-2 flex-row" style="align-items:center; justify-content:center;">
                   <template v-if="!recording">
 
+                      <v-btn icon class="mx-md-1" v-if="showAttachment && this.$root.selectedSpace.type != 'Bot'" @click="showShareBoard"> 
+           <v-icon>las la-paperclip</v-icon> </v-btn>
+                 
                      <v-btn icon class="mx-md-1 mr-1" @click="toggleEmoji"><v-icon>las la-grin</v-icon> </v-btn>
+
+                      
               
                   <textarea ref="textBottom" :value="input" @input="update"  @keydown="handelkeyAct" @focus="focusEditor"  @blur="blurEditor"  style="font-size:13px;"  :placeholder="$t('general.type_here')"  ></textarea>
                     
@@ -18,8 +23,7 @@
 
                      <v-btn icon class="mx-md-1" @click="startrecord" v-else><v-icon>las la-microphone</v-icon> </v-btn>
               
-               <v-btn icon class="mx-md-1" v-if="showAttachment && this.$root.selectedSpace.type != 'Bot'" @click="showShareBoard"> 
-           <v-icon>las la-paperclip</v-icon> </v-btn>
+            
 
 
                     </template>
