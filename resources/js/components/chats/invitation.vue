@@ -188,42 +188,12 @@
               </div>
 
                    <div class="col-12 py-2 my-0 px-2">
-               <v-select
-          v-model="selectedConnections"
-          :items="Connections"
-          label="Invite followers"
-           style="font-size:13px;"
-          item-text="name"
-          item-value="username"
-          hide-selected
-           :loading="loadingConnection"
-          multiple
-          dense
-          :placeholder="$t('general.select') + '...'"
-          color="#3C87CD"
-          chips
-        >
 
-         <template v-slot:selection="data">
-            <v-chip
-              :key="JSON.stringify(data.item)"
-              v-bind="data.attrs"
-              :input-value="data.selected"
-              color="#3C87CD"
-              dense
-              class="my-1"
-              style="font-size:12px; font-family:BodyFont;"
-              outlined
-              :disabled="data.disabled"
-          
-            >
-             
-              {{ data.item.name }}
-            </v-chip>
+                      <select  style="font-size:14px !important; " :placeholder="$t('general.select') + '...'"   v-model="selectedConnections" class="browser-default custom-select">
+                 <option v-for="(option,index)  in Connections" :value="option.username" :key="index">{{ option.name}}</option>
+                     </select>
+            
 
-              </template>
-           
-        </v-select>
              </div>
         <div class="col-12 py-1 my-0 px-2 text-center">
                   <v-btn rounded :loading="loadingEmail" small color="#3C87CD" style="font-size:11px;  color:white;font-family: MediumFont;" 
@@ -310,7 +280,7 @@ export default {
       },
       sendToConnection: function(){
       
-      this.$refs.connectionform.validate();
+    
            
            if(this.connectionformstate){
 
@@ -319,7 +289,7 @@ export default {
               this.loadingConnection = true;
              axios.post('/send-to-connections',{
                 space_id: this.$route.params.spaceId,
-                connections: this.selectedConnections
+                connections: [this.selectedConnections]
                   })
           .then(response => {
             
@@ -341,7 +311,7 @@ export default {
       sendInviteMail: function(){
 
          
-           this.$refs.emailform.validate();
+           
            
            if(this.Emailformstate){
 

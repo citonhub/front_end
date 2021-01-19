@@ -163,6 +163,7 @@ const routes = [
         thisUserState.$root.showProfileEditModal = false;
 
          thisUserState.$root.showViewPost = false;
+         
        
        }
      
