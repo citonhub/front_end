@@ -200,5 +200,6 @@
     "/js/chunks/WalletInfo.30f9b2425696ac042841.js": "/js/chunks/WalletInfo.30f9b2425696ac042841.js",
     "/js/chunks/login.86ab04580f49cc7dda72.js": "/js/chunks/login.86ab04580f49cc7dda72.js",
     "/js/chunks/register.7d0ab4b0206ffb522436.js": "/js/chunks/register.7d0ab4b0206ffb522436.js",
-    "/js/chunks/vendors~CodeEditor~CodeEditorChat.3ad182e4031903a4d409.js": "/js/chunks/vendors~CodeEditor~CodeEditorChat.3ad182e4031903a4d409.js"
+    "/js/chunks/vendors~CodeEditor~CodeEditorChat.3ad182e4031903a4d409.js": "/js/chunks/vendors~CodeEditor~CodeEditorChat.3ad182e4031903a4d409.js",
+    "/js/chunks/CodeEditor.69fe0486438b06b0391b.js": "/js/chunks/CodeEditor.69fe0486438b06b0391b.js"
 }
