@@ -97,7 +97,7 @@
 
        <!-- profile container -->
 
-       <div class=" col-12 scroller" style=" position:fixed; height:90%; top:8%; overflow-y:auto; padding-bottom:60px; overflow-x:hidden;" >
+       <div class=" col-12 scroller" style=" position:fixed; height:92%; top:8%; overflow-y:auto; padding-bottom:60px; overflow-x:hidden;" >
 
           <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 py-0">
 
