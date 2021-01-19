@@ -42,13 +42,6 @@
         </div>
 
 
-          <div class="col-lg-10 offset-lg-1 d-none d-md-block col-12 px-0 d-md-block d-none" style="background:#F5F5FB; position:absolute; height:92%; top:10px; " >
-
-          
-
-
-            
-        </div>
 
 
 
@@ -69,7 +62,7 @@
     <!-- post view content -->
     
        
-        <div class=" col-12 scroller" style=" position:absolute; height:90%; top:10%; overflow-y:auto; padding-bottom:60px; padding-top:8px; " >
+        <div class=" col-12 scroller" style=" position:absolute; height:92%; top:8%; overflow-y:auto; padding-bottom:60px; padding-top:20px; " >
 
           
                <div class="col-lg-10 offset-lg-1 col-12 py-0 pt-md-5 mt-md-3 px-md-2 px-1" >

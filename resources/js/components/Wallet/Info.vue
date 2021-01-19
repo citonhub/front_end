@@ -34,7 +34,7 @@
                    
                    <div> <span style="font-family:MediumFont;font-size:14px;">Donation based:</span> 
                    <span class="paragraph">
-                       Your audience or members can donate any amount of money to support you/ for the progress of the community.
+                       Your audience or members can donate any amount of money to support you or for the progress of the community.
                     </span> <br>
                     </div> <br>
 
