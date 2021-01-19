@@ -179,7 +179,13 @@ export default {
 
            if(message.type == 'project'){
 
-          finalString = 'share a project'
+          finalString = 'shared a project'
+
+          }
+
+           if(message.type == 'file'){
+
+          finalString = 'shared a file'
 
           }
 

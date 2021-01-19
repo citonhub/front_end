@@ -1221,8 +1221,8 @@ export default {
     
     },
     downloadFile:function(message){
-
-      window.url = '/download-file-' + message.message_id;
+       
+     window.open ('/download-file-' + message.message_id,'_self',false)
 
     },
     showMoreOption:function(message){
