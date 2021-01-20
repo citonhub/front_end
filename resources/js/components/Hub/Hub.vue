@@ -62,13 +62,15 @@
     <!-- post view content -->
     
        
-        <div class=" col-12  px-0" style=" position:absolute; height:92%; top:8%; overflow-y:hidden; padding-bottom:60px; padding-top:20px; " >
+        <div class=" col-12 px-1" style=" position:absolute; height:92%; top:8%; overflow-y:auto; overflow-x:hidden; padding-bottom:60px; padding-top:20px; " >
 
           
-               <div class="col-lg-10 offset-lg-1 col-12 py-0 pt-md-5 mt-md-3 px-md-2 px-1 d-flex flex-column" style=" position:absolute; height:100%;left:0%; " >
+               <div class="col-lg-10 offset-lg-1 col-12 py-0 pt-md-5 mt-md-3 px-md-2  d-flex flex-column"  >
 
                  
+                  <div class="row">
 
+                  
                  <template v-if="this.$root.TopBarComponentHub">
 
                      
@@ -89,46 +91,9 @@
 
                        <template v-else>
 
-                          <DynamicScroller
-    :items="that.$root.postsSearch"
-     :keyField="'id'"
-    :min-item-size="36"
-   
-    ref="ScrollerPost"
-    :buffer="5000"
-   id="ScrollerPost"
-      class="col-12 px-1 py-0 scroller" 
-       style="position:absolute; overflow-y:auto; top:0%; height:100%;left:0%;"
-        >
+                  
 
-    <template v-slot="{ item, index, active }">
-      <DynamicScrollerItem
-        :item="item"
-        :active="active"
-        :size-dependencies="[
-         item.content
-        ]"
-        :data-index="index"
-      >
-
-      <post-view :fromProfile="false" :source="item" :alertComponent="that"  ></post-view>
-
-          </DynamicScrollerItem>
-             </template>
-
-              <template #after>
-
-                   <div class="my-4 py-3 col-12">
-
-                </div>
-
-
-              </template>
-
-                </DynamicScroller>
-
-
-                        
+                    <post-view :fromProfile="false" :source="post" :alertComponent="that" v-for="(post,index) in that.$root.postsSearch" :key="index" ></post-view>
 
                       </template>
 
@@ -151,43 +116,10 @@
                       </template>
 
                        <template v-else>
-                           <DynamicScroller
-    :items="that.$root.posts"
-     :keyField="'id'"
-    :min-item-size="36"
-   
-    ref="ScrollerPostMain"
-    :buffer="5000"
-   id="ScrollerPostMain"
-      class="col-12 px-1 py-0 scroller" 
-       style="position:absolute; overflow-y:auto; top:0%; height:100%;left:0%;"
-        >
-
-    <template v-slot="{ item, index, active }">
-      <DynamicScrollerItem
-        :item="item"
-        :active="active"
-        :size-dependencies="[
-         item.content
-        ]"
-        :data-index="index"
-      >
-
-      <post-view :fromProfile="false" :source="item" :alertComponent="that"  ></post-view>
-
-          </DynamicScrollerItem>
-             </template>
-
-              <template #after>
-
-                   <div class="my-4 py-3 col-12">
-
-                </div>
 
 
-              </template>
-
-                </DynamicScroller>
+                    <post-view :fromProfile="false" :source="post" :alertComponent="that" v-for="(post,index) in that.$root.posts" :key="index" ></post-view>
+                      
 
                       
 
@@ -203,7 +135,7 @@
 
 
        
-                 
+                 </div>
             </div>
 
 
@@ -436,10 +368,7 @@ import '../../bootstraps/globalPackage'
   import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 
-import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
-import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
-Vue.component('DynamicScroller', DynamicScroller)
-Vue.component('DynamicScrollerItem', DynamicScrollerItem)
+
 
  const TopBar = () => import(
     /* webpackChunkName: "top-bar" */ './TopBar.vue'
