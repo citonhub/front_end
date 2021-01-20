@@ -84,7 +84,7 @@ export default {
 
           }
 
-          this.$root.viewFromPost = true;
+        
       
        
       },

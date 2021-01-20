@@ -588,7 +588,17 @@ import 'izitoast/dist/css/iziToast.min.css'
   
    },
       closePanel() {
+       if(this.$root.viewFromPost){
 
+                 this.$router.push({ path: '/hub/post/' +  this.$root.selectedPost.post_id  });
+
+               
+ 
+                 this.$root.viewFromPost = false;
+
+                 return
+           }
+           
          if(this.$root.panelFromChallenges){
 
            this.$root.panelFromChallenges = false;
