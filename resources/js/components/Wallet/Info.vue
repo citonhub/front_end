@@ -60,7 +60,7 @@
 
             </p>
 
-            <span class="paragraph" style="font-family:MediumFont;">Coming soon.</span>
+            <h5>Coming soon.</h5>
 
             
 
