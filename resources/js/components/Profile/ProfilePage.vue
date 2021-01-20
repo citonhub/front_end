@@ -271,7 +271,9 @@
 
                          <template v-if="userProjects.length > 0">
 
-                           <post-view :alertComponent="that" :fromProfile="true" :post="post" v-for="(post,index) in userProjects" :key="index"></post-view>
+                           
+
+                           <post-view :alertComponent="that" :fromProfile="true" :source="post" v-for="(post,index) in userProjects" :key="index"></post-view>
 
 
                      </template>
