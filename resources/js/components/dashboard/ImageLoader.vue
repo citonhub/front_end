@@ -116,9 +116,10 @@ export default {
            this.$root.selectedPost = [];
 
         this.$root.fromProfile = this.fromProfile;
+          this.$root.currentPost = postId;
         this.$root.fromProfileUsername = this.username
         this.$router.push({ path: `/hub/post/${postId}` })
-        this.$root.currentPost = id
+      
 
        
         // this.project = project;
