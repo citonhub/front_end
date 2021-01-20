@@ -93,7 +93,7 @@
 
                   
 
-                    <post-view :fromProfile="false" :source="post" :alertComponent="that" v-for="(post,index) in that.$root.postsSearch" :key="index" ></post-view>
+                    <post-view :fromProfile="false" :source="post" :alertComponent="that" v-for="(post,index) in that.$root.postsSearch" :key="index + 'search'" ></post-view>
 
                       </template>
 
@@ -118,7 +118,7 @@
                        <template v-else>
 
 
-                    <post-view :fromProfile="false" :source="post" :alertComponent="that" v-for="(post,index) in that.$root.posts" :key="index" ></post-view>
+                    <post-view :fromProfile="false" :source="post" :alertComponent="that" v-for="(post,index) in that.$root.posts" :key="index + 'post'" ></post-view>
                       
 
                       
