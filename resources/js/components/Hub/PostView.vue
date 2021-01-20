@@ -1,8 +1,8 @@
 <template>
 
-  <div :class="fromProfile ? 'col-lg-4 col-md-6 px-0 mb-4 pt-1 pt-md-2 projectBox' : 'col-lg-3 col-md-6 px-0 mb-4 pt-1 pt-md-2 projectBox'" style="height:212px;" >
+  <div :class="fromProfile ? 'col-lg-4 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox' : 'col-lg-3 col-md-6 px-0 mb-5 pt-1 pt-md-2 projectBox'" style="height:212px;" >
 
-             <image-loader  :post="post"
+             <image-loader  :post="source"
               >
 
             
@@ -16,28 +16,28 @@
                    
                    <div class="col-10 py-0 my-0 d-flex flex-row" style="align-items:center;">
                       
-                         <div  class="mr-1"    @click="goToProfile(post.user.username)"
-                           :style="imageStyleUser(30,post.user)"></div>
+                         <div  class="mr-1"    @click="goToProfile(source.user.username)"
+                           :style="imageStyleUser(30,source.user)"></div>
                        
-                             <div   @click="goToProfile(post.user.username)" style="font-family:MediumFont; font-size:13px;" >{{post.user.username}}  <img :src="getUserLevel(post.user.points)" class="mx-1" height="22px"></div>
+                             <div   @click="goToProfile(source.user.username)" style="font-family:MediumFont; font-size:13px;" >{{source.user.username}}  <img :src="getUserLevel(source.user.points)" class="mx-1" height="22px"></div>
                      
                      
                    </div>
                    <div class="col-2 text-right py-0 my-0" >
-                      <v-btn icon :id="'activatorPost' + post.id" ><v-icon style="font-size:25px;">las la-ellipsis-v</v-icon></v-btn>
+                      <v-btn icon :id="'activatorPost' + source.id" ><v-icon style="font-size:25px;">las la-ellipsis-v</v-icon></v-btn>
 
                           <!-- more option -->
 
                    <v-menu
       absolute
-      :activator="'#activatorPost' + post.id"
+      :activator="'#activatorPost' + source.id"
        style="z-index:99999999999999999999;"
       
       right
       offset-y
       
     >
-    <more-options :post="post" :alertComponent="alertComponent" :fromProfile="fromProfile"></more-options>
+    <more-options :post="source" :alertComponent="alertComponent" :fromProfile="fromProfile"></more-options>
     </v-menu>
                  
                   <!-- ends -->
@@ -54,12 +54,12 @@
                        
                        <span class="d-inline-block mx-1" >
                 <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> 
-                <span style="font-family:MediumFont; font-size:12px; color:#000000;">{{ post.likes }}</span>
+                <span style="font-family:MediumFont; font-size:12px; color:#000000;">{{ source.likes }}</span>
             </span>
 
              <span class="d-inline-block mx-1" >
                 <i class="las la-comment" style="font-size:20px;color:#3C87CD;" ></i> 
-                <span style="font-family:MediumFont; font-size:12px; color:#000000;">{{ post.comments }}</span>
+                <span style="font-family:MediumFont; font-size:12px; color:#000000;">{{ source.comments }}</span>
             </span>
                   </div>   
             </div>
@@ -86,7 +86,7 @@ export default {
         externalClass:'',
         }
     },  
-    props:['post','fromProfile','alertComponent'],
+    props:['source','fromProfile','alertComponent'],
     components:{
      MoreOptions,
      ImageLoader
