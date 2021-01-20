@@ -89,7 +89,7 @@
             <div id="info_session" style="display:none;">
 
             <div v-if="sent == 'yes'" class="bg-success py-2 px-2 text-center" style="font-family:BodyFont;font-size:14px;color:white;border:1px solid transparent;border-radius:7px;">
-                   We have sent you a mail, thank you for signing up.
+                   We have sent you a mail! Thank you for signing up.
             </div>
 
             <div v-if="sent == 'error'" class="bg-danger py-2 px-2 text-center" style="font-family:BodyFont;font-size:14px;color:white;border:1px solid transparent;border-radius:7px;">
