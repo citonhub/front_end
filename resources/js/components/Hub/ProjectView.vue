@@ -572,6 +572,7 @@ export default {
     goToProject:function(project){
         this.$root.viewFromPost = true;
         this.$root.showViewPost = false;
+        this.$root.showProfileView = false;
        this.$router.push({ path: '/board/projects/panel/' + project.project_slug });
 
     },
