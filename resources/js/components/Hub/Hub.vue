@@ -62,10 +62,10 @@
     <!-- post view content -->
     
        
-        <div class=" col-12 px-1" style=" position:absolute; height:92%; top:8%; overflow-y:auto; overflow-x:hidden; padding-bottom:60px; padding-top:20px; " >
+        <div class=" col-12 px-1" style=" position:absolute; height:92%; left:0%; top:8%; overflow-y:auto; overflow-x:hidden; padding-bottom:60px; padding-top:20px; " >
 
           
-               <div class="col-lg-10 offset-lg-1 col-12 py-0 pt-md-5 mt-md-3 px-md-2  d-flex flex-column"  >
+               <div class="col-lg-10 offset-lg-1 col-12 py-0 pt-md-5 mt-md-3  d-flex flex-column"  >
 
                  
                   <div class="row">
