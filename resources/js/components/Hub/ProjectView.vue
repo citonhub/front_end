@@ -171,8 +171,8 @@
        </div>
 
        <!-- comment list -->
-         <div class="col-lg-6 offset-lg-3 px-0 px-md-3 commentScroller scroller" style="border-top:1px solid #c5c5c5;background:#E1F0FC;
-         font-family:BodyFont;height:300px;overflow-y:auto;overflow-x:hidden;">
+         <div class="col-lg-6 offset-lg-3 px-0 px-md-3 commentScroller scroller"   style="border-top:1px solid #c5c5c5;background:#ffffff;
+         font-family:BodyFont;height:300px;overflow-y:hidden;overflow-x:hidden;">
          <div class="row">
            
 
@@ -202,81 +202,43 @@
 
                 <template v-else>
 
-                   <div class="col-12 py-2 px-1"  v-for="(comment,index) in comments" :key="index" >
+                     <DynamicScroller
+    :items="comments"
+     :keyField="'id'"
+    :min-item-size="36"
+   
+    ref="commentScrollerPost"
+    :buffer="5000"
+   id="commentScrollerPost"
+      class="col-12 px-1  scroller" 
+       style="position:absolute; overflow-y:auto; top:0%; height:100%;left:0%;background:white;"
+        >
 
-                 
-           
-            <div elevation-1 class="col-11 py-0 " v-if="comment.username != that.$root.username">
-           <div class="row">
-             <div class="col-lg-9 col-md-10 py-1  d-flex flex-row">
-                  <div  :style="imageStyleUser(30,comment)" @click.stop="goToProfile(comment.username)"
-                      ></div>
+    <template v-slot="{ item, index, active }">
+      <DynamicScrollerItem
+        :item="item"
+        :active="active"
+        :size-dependencies="[
+         item.content
+        ]"
+        :data-index="index"
+      >
 
-                  <v-card elevation-1 class="py-1 px-2 ml-2" flat style="max-width:80%;  border:1px solid transparent;  min-width:190px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
-                   
-                    <div class="text-left my-0 py-0 d-flex flex-row">
-                         <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(comment.username)" >{{comment.username}}</span>
+        <comment-post :source="item" :username="that.$root.username" ></comment-post>
 
-                          <span style="font-size:11px; " class="ml-auto">{{checkDatereal(comment.created_at)}}</span> 
+          </DynamicScrollerItem>
+             </template>
 
-                  </div>
-                    
-                      <span style="font-size:13px;" v-html="comment.content"></span>
-                      
-                  </v-card> 
-             </div>
-             <div style="padding-left:45px;align-items:center;" class="col-12 py-0 d-flex">
-                <span class="d-inline-block mx-1" >
-                
-                 <v-btn icon class="d-inline-block"  v-if="comment.liked_by_user">
-                   <i class="las la-heart" style="font-size:20px;color:#ff6666;" ></i> </v-btn>
+              <template #after>
 
-                 <v-btn icon class="d-inline-block"  v-else @click="likeComment(comment)">
-                    <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> </v-btn> 
-               
-                <span style="font-family:BodyFont; font-size:12px; color:#000000;">{{comment.likes}}</span>
-                </span>
-             </div>
-           </div>
-        </div>
-
-            <div elevation-1 class="col-11 py-0 offset-1" v-if="comment.username == that.$root.username">
-           <div class="row">
-             <div class="col-lg-9 col-md-10 py-1 offset-lg-3 offset-md-2 d-flex flex-row-reverse">
-                  
-
-                  <v-card elevation-1 flat class="py-1 px-2 mr-2" style="max-width:80%;  border:1px solid transparent; min-width:190px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
-                      <span style="color:white;font-size:13px;" v-html="comment.content"></span>
-                       
-                  <!-- time -->
-                  <div class="text-right">
-                         <span style="color:white;font-size:11px; ">{{checkDatereal(comment.created_at)}}</span>
-                  </div>
-                  <!-- ends -->
-                  </v-card> 
-
-                 
-             </div>
-             <div  class="col-12 text-right py-0">
-                <span class="d-inline-block mx-1" >
-                  <v-btn icon class="d-inline-block"  v-if="comment.liked_by_user">
-                   <i class="las la-heart" style="font-size:20px;color:#ff6666;" ></i> </v-btn>
-
-                 <v-btn icon class="d-inline-block"  v-else @click="likeComment(comment)">
-                    <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> </v-btn>  
-                <span style="font-family:BodyFont; font-size:12px; color:#000000;">{{comment.likes}}</span>
-                </span>
-             </div>
-           </div>
-        </div>
-
-
-        
-                </div>
-
-                  <div class="my-2 col-12">
+                   <div class="my-4 py-3 col-12">
 
                 </div>
+
+
+              </template>
+
+                </DynamicScroller>
 
                 </template>
 
@@ -296,8 +258,30 @@
 
         <!-- comment textarea -->
          <div class="col-lg-6 offset-lg-3 py-0 px-0 fixed-bottom" style="z-index:999999999999;font-family:BodyFont;background:white;">
-        
-         
+           
+           <template v-if="replyCommentIsOn">
+                
+                <div>
+                   <div class="px-2" >
+
+                  <div class=" py-2 px-2  text-left mb-1"  style="background:#3C87CD; border:1px solid transparent; border-radius:8px;" >
+
+                     <div class="col-12 py-1 px-1  text-right">
+                  <span class="msgTextReplynew text-left d-block" style="color:white; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" >
+                  {{repliedComment.content}}
+                  </span>
+
+              </div>
+              </div>
+                  <div style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
+                               <v-btn @click="closeComment" icon><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
+                             </div>
+                </div>
+                </div>
+
+
+           </template>
+             
            <v-card tile class="col-12  py-2 my-0 d-flex  px-2 flex-row" style="align-items:center; justify-content:center;" >
             
                   <textarea ref="textBottom"  style="font-size:13px;"  placeholder="Type your comment"    v-model="commentValue"></textarea>
@@ -331,6 +315,18 @@
              <div class="col-8 py-0 text-center">
              <span style="font-size:14px; font-family:MediumFont;">{{ this.$root.selectedPost.title }}</span>
           </div>
+          <div class="col-2 px-1 text-right py-0" v-if="that.$root.selectedPost.project">
+             <template v-if="that.$root.selectedPost.project.is_web">
+                       <v-btn icon  @click="showFullPage" ><v-icon style="font-size:20px;">mdi mdi-launch</v-icon> </v-btn>
+                     </template>
+          </div>
+
+          <div class="col-2 px-1 text-right py-0" v-else>
+             <template v-if="that.$root.selectedPost.link">
+                       <v-btn icon  @click="showFullPage" ><v-icon style="font-size:20px;">mdi mdi-launch</v-icon> </v-btn>
+                     </template>
+          </div>
+
 
         </div>
 
@@ -391,7 +387,15 @@
 import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 
+import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
+import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
+Vue.component('DynamicScroller', DynamicScroller)
+Vue.component('DynamicScrollerItem', DynamicScrollerItem)
 
+
+ const CommentPost = () => import(
+    /* webpackChunkName: "CommentPost" */ './comment.vue'
+  );
 export default {
   data () {
     return {
@@ -412,9 +416,13 @@ export default {
        comments:[],
        loadingPostComments:false,
        sendingComment:false,
+       replyCommentIsOn: false,
+       repliedComment:[]
     }
   },
-
+  components:{
+   CommentPost
+  },
   mounted () {
     this.$root.selectedPost = [];
        this.fetchPost();
@@ -422,6 +430,42 @@ export default {
         this.$root.autoOpenPost = false;
   },
   methods:{
+     showFullPage:function(){
+
+        if(this.$root.selectedPost.project){
+
+           if(this.$root.selectedPost.project.is_web){
+
+
+           window.open('/run-panel/' + this.$root.selectedPost.project.panel_id , '_blank');
+
+        }
+
+
+        }
+
+       
+        if(this.$root.selectedPost.link){
+
+           window.open(this.$root.selectedPost.project_url , '_blank');
+          
+        }
+
+       
+
+     },
+     showReplyAction: function(comment){
+           this.replyCommentIsOn = true;
+            this.repliedComment = comment;
+            this.is_reply = true;
+     },
+     closeComment:function(){
+
+        this.replyCommentIsOn = false;
+            this.repliedComment = [];
+             this.is_reply = false;
+
+     },
       goBack() {
         // this.viewProjectModal = false;
         this.$root.showViewPost = false;
@@ -442,9 +486,23 @@ export default {
            
          this.comments = response.data.data;
 
+          this.comments.map((eachcomment)=>{
+            
+                eachcomment.tagged =false;
+             
+           })
+
        
         
         this.loadingPostComments = false;
+
+         setTimeout(() => {
+
+           this.scrollToBottom();
+           
+         }, 1700);
+
+        
      }
        
      
@@ -455,6 +513,50 @@ export default {
        
         
      },
+     scrollToComment:function(comment){
+
+           let commentData = this.comments.filter((eachcomment)=>{
+             return comment.id == eachcomment.id;
+           })
+           
+            if(commentData.length > 0){
+
+               let fullComment = commentData[0];
+                
+                let commentIndex = this.comments.indexOf(fullComment);
+
+               
+
+                this.$refs.commentScrollerPost.scrollToItem(commentIndex);
+
+                  this.comments.map((eachcomment)=>{
+             if( comment.id == eachcomment.id)
+             {
+                eachcomment.tagged = true;
+             }
+           })
+
+
+           setTimeout(() => {
+
+              this.comments.map((eachcomment)=>{
+             if( comment.id == eachcomment.id)
+             {
+                eachcomment.tagged =false;
+             }
+           })
+             
+           }, 2000);
+
+            }
+
+         
+            
+           
+
+
+     },
+ 
     goToProject:function(project){
         this.$root.viewFromPost = true;
        this.$router.push({ path: '/board/projects/panel/' + project.project_slug });
@@ -523,33 +625,61 @@ export default {
                return moment(realTimeHour).format("h:mm a");
             }
       },
-      scrollToTop:function(){
+      scrollToBottom:function(){
 
 
-        let container = document.querySelector('.commentScroller');
-
-         container.scrollTo(0,0)
+       this.$refs.commentScrollerPost.scrollToBottom();
+          
 
       },
+     shortenContent: function(content,limit){
 
+             if(content.length > limit){
+                let shortcontent = content.slice(0,limit);
+                 return shortcontent + '...';
+             }else{
+               return content;
+             }
+        },
      postComment () {
       if (this.commentValue != '') {
 
          this.sendingComment = true;
 
+         let hub_post_comment_id=''
+         
+          if(this.is_reply){
+
+              hub_post_comment_id = this.repliedComment.id
+
+          }
           let formData = new FormData();
         formData.append('post_id', this.$root.selectedPost.id);
         formData.append('comment', this.commentValue);
         formData.append('is_reply', this.is_reply);
+        formData.append('hub_post_comment_id',hub_post_comment_id);
 
         axios.post('/comment-hub-post', formData)
           .then((response) => {
             if (response.status == 201) {
 
-                
-                this.comments.unshift(response.data.data);
 
-                this.scrollToTop();
+               let Newcomment = response.data.data;
+
+                Newcomment.tagged = false;
+
+                
+                this.comments.push(Newcomment);
+
+              
+
+                this.closeComment();
+
+                  setTimeout(() => {
+
+           this.scrollToBottom();
+           
+         }, 500);
 
                this.sendingComment = false;
 
@@ -1028,6 +1158,10 @@ textarea {
     border-radius:2px;
 }
 
+.msgTextReplynew{
+  font-size: 13px;
+  color: #4d4d4d;
+}
 .scroller::-webkit-scrollbar-thumb {
   background-color: #3C87CD;
   outline: 1px solid #3C87CD;

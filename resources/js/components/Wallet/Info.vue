@@ -47,7 +47,7 @@
 
                      <div> <span style="font-family:MediumFont;font-size:14px;">One time payment:</span> 
                    <span class="paragraph">
-                       This is perfect for activites that require one time payment and gain lifetime access. An example could be when you are organizing a bootcamp for a fee. Members pay once and have access for ever.
+                       This is perfect for activites that require one time payment and gaining lifetime access. An example could be when you are organize a bootcamp for a fee. Members pay once and have access forever.
                     </span><br>
                     </div>
                </div>

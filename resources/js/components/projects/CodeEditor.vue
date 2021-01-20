@@ -326,6 +326,8 @@ methods:{
 
             
               codeData = codeData[0];
+               this.$root.EditorLanguage = codeData.language_type;
+                this.$root.codeEditorContent = codeData.content;
                this.language = codeData.language_type;
               this.detectchange(this.language);
              this.code = codeData.content;
@@ -385,11 +387,13 @@ methods:{
                this.$root.codeEditorComponent = undefined;
              
               this.$router.push({path: '/board/projects/panel/' + this.$root.projectData.project.project_slug })
+             this.$root.codeEditorArray = newarray;
+           
            }
 
          
 
-         this.$root.codeEditorArray = newarray;
+       
 
         
       },

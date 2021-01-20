@@ -780,6 +780,8 @@ export default {
                   this.$root.codeEditorComponent.language = codeBox.language_type;
                    this.$root.selectedFileId = codeBox.id;
                     this.$root.codeEditorComponent.detectchange(codeBox.language_type);
+                      this.$root.EditorLanguage = codeBox.language_type;
+                this.$root.codeEditorContent = codeBox.content;
 
               }else{
                  this.$root.codeEditorContent = codeBox.content;

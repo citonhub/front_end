@@ -116,7 +116,7 @@
         :data-index="index"
       >
 
-        <chat-list :source="item" ></chat-list>
+        <chat-list :source="item"  ></chat-list>
 
           </DynamicScrollerItem>
              </template>

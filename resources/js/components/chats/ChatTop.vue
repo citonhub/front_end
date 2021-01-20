@@ -8,11 +8,11 @@
                    
                  
 
-                   <div  class="d-inline-block mx-2"   v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' || this.$root.selectedSpace.type == 'SubSpace'"
+                   <div  class="d-inline-block mx-2"  style="width:42px;"  v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' || this.$root.selectedSpace.type == 'SubSpace'"
                      :style="imageStyle(40,this.$root.selectedSpace,'channel')"   @click="showSideBar('channel_info')" ></div> 
-                      <div  class="d-inline-block mx-2"   v-if="this.$root.selectedSpace.type == 'Bot' && this.$root.selectedSpace.bot_data != null"
+                      <div  style="width:42px;" class="d-inline-block mx-2"   v-if="this.$root.selectedSpace.type == 'Bot' && this.$root.selectedSpace.bot_data != null"
                      :style="imageStyle(40,this.$root.selectedSpace.bot_data,'bot')"  @click="showSideBar('channel_info')"></div> 
-                      <div  class="d-inline-block mx-2"   v-if="this.$root.selectedSpace.type == 'Direct' && this.$root.selectedSpace.userInfo != null"
+                      <div  style="width:42px;" class="d-inline-block mx-2"   v-if="this.$root.selectedSpace.type == 'Direct' && this.$root.selectedSpace.userInfo != null"
                      :style="imageStyle(40,this.$root.selectedSpace.userInfo,'direct')"  @click="showSideBar('channel_info')"></div> 
                      <div class="d-inline-block">
                         
@@ -137,17 +137,24 @@
                       <v-icon style="font-size:24px;">las la-arrow-left</v-icon>
                     </v-btn>
                  
+                     <div class="d-flex" style="align-items:center; justify-content:center;">
 
-                      <div  class="d-inline-block mr-1"   v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' || this.$root.selectedSpace.type == 'SubSpace'"
+                        <div  class="d-inline-block mr-1"   v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' || this.$root.selectedSpace.type == 'SubSpace'"
                      :style="imageStyle(38,this.$root.selectedSpace,'channel')"   @click="showSideBar('channel_info')" ></div> 
-                      <div  class="d-inline-block mr-1"   v-if="this.$root.selectedSpace.type == 'Bot' && this.$root.selectedSpace.bot_data != null"
+                      <div class="d-inline-block mr-1"   v-if="this.$root.selectedSpace.type == 'Bot' && this.$root.selectedSpace.bot_data != null"
                      :style="imageStyle(38,this.$root.selectedSpace.bot_data,'bot')"  @click="showSideBar('channel_info')"></div> 
                      
-                      <div  class="d-inline-block mr-1"   v-if="this.$root.selectedSpace.type == 'Direct' && this.$root.selectedSpace.userInfo != null"
+                      <div    class="d-inline-block mr-1"   v-if="this.$root.selectedSpace.type == 'Direct' && this.$root.selectedSpace.userInfo != null"
                      :style="imageStyle(38,this.$root.selectedSpace.userInfo,'direct')"  @click="showSideBar('channel_info')"></div> 
+                     
+
+                     </div>
+                    
                     
 
-                     <div class="d-inline-block" >
+                     <div class="d-inline-block  py-0 px-0" style="width:40%;">
+
+                    
                         
 
                             <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
@@ -213,7 +220,7 @@
 
                   <template v-if=" this.$root.selectedSpace.type != 'Bot'">
                 
-             <v-btn @click="openLiveSession" icon class="mr-2"> 
+             <v-btn small  @click="openLiveSession" icon class="mr-2"> 
                  <v-badge
                dot
                v-if="that.$root.remoteLiveHappening"
@@ -226,13 +233,13 @@
                </v-btn>
             </template>
 
-            <v-btn v-else icon  ><v-icon >mdi-comment-question-outline</v-icon></v-btn>
+            <v-btn small v-else icon  ><v-icon >mdi-comment-question-outline</v-icon></v-btn>
 
                  <!-- ends -->
                 
                 <!-- more options -->
 
-                   <v-btn icon @click="showMoreOptions()" ><v-icon >las la-ellipsis-v</v-icon></v-btn>
+                   <v-btn small icon @click="showMoreOptions()" ><v-icon >las la-ellipsis-v</v-icon></v-btn>
 
                 <!-- ends -->
                   </div>

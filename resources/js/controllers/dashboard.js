@@ -1779,6 +1779,7 @@ const app = new Vue({
      showUserNotification:false,
      notificationApproved:false,
      viewFromPost:false,
+     postCommentsData:[],
      },
      mounted: function () {
       window.thisUserState = this;
