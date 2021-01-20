@@ -15,7 +15,7 @@
        
         <div class="col-lg-10 offset-lg-1 d-none d-md-block col-12 px-0 d-md-block d-none" style="background:#F5F5FB; position:absolute; height:92%; top:8%; " >
 
-            <div class="row px-md-4 px-4">
+            <div class="row px-md-4 px-4" style="background:#F5F5FB;z-index:99999999999999;">
               <!-- header -->
             <div class="col-lg-6 px-0 pb-1 " style="border-bottom:1px solid #263238;z-index:99999999999999;" >
 
