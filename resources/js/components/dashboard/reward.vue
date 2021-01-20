@@ -8,7 +8,7 @@
    <div class="py-3 text-center">
 
         <span style="font-size:13px; font-family:MediumFont;">Congratulations!</span> <span style="font-size:13px; font-family:BodyFont;">You received </span> 
-      <span style="font-size:13px; font-family:MediumFont;">10 experience points.</span> <span style="font-size:13px; font-family:BodyFont;">You have 
+      <span style="font-size:13px; font-family:MediumFont;">4 experience points.</span> <span style="font-size:13px; font-family:BodyFont;"> Get more point by sharing your project and getting more likes and comments. You have 
           <span style="font-size:13px; font-family:MediumFont;">{{remainingPoints}} experience points</span> left 
           to become a </span>  <span style="font-size:13px; font-family:MediumFont;">{{nextLevel}} dev</span>
 

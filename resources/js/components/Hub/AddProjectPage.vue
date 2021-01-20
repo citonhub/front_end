@@ -747,7 +747,7 @@ export default {
                  
                     this.goBack();
 
-                    this.$root.authProfile.points += 10;
+                    this.$root.authProfile.points += 4;
 
                      this.$root.showRewardBoard = true;
 

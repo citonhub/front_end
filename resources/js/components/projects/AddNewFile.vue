@@ -5,7 +5,7 @@
     <h6>Add Code File</h6>
    </div>
 
-    <div class="col-md-8 col-lg-4 offset-lg-4 offset-md-2 text-center py-1">
+    <div class="col-md-8 col-lg-4 offset-lg-4 offset-md-2 py-1">
     	
     		<v-form class="row my-2 py-2 px-2"  ref="form" v-model="formstate">
     			<div class="col-12 py-2 my-0 px-2">
@@ -14,8 +14,13 @@
                  counter="30" dense placeholder="name..."  outlined color="#3C87CD" label="File Name"></v-text-field>
     			</div>
     			<div class="col-12 py-2 my-0 px-2">
-    				<v-select  v-model="programmingLanguage"
-          :items="languageCat"  label="Language" placeholder="select..." dense outlined style="font-size:13px;"  color="#3C87CD"></v-select>
+            <span style="font-family:BodyFont;font-size:13px;">
+                Select language
+            </span>
+              <select  style="font-size:14px !important; font-family:BodyFont; background:transparent;" placeholder="select language"    v-model="programmingLanguage" class="browser-default custom-select">
+                 <option v-for="(option,index)  in languageCat" :value="option" :key="index">{{ option}}</option>
+                     </select>
+    		
     			</div>
     			<div class="col-12 py-1 my-0 px-2 text-center">
     				<v-btn  type="submit" :loading="loading" @click.prevent="saveCodeFile" small color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;">Add</v-btn>

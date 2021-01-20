@@ -106,6 +106,7 @@ methods:{
 
            this.$root.fullCodeLanguage = this.codeLanguage
            this.$root.FullcodeContent = this.codeContent
+           this.$root.codeFromChat = true;
          this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id +'/editor' });
         },
      

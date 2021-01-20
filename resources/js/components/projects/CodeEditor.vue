@@ -11,8 +11,10 @@
 
                      <!-- large and medium screens -->
 
-          <div class="col-12 my-0 py-2 d-lg-flex  d-none scroller " style="overflow-x:auto; white-space:nowrap;  z-index:9999999999; left:0;background:#F3F8FC; ">
-                <v-chip v-for="(file,index) in this.$root.codeEditorArray" :key="index"
+          <div class="col-12 my-0 py-1 d-lg-flex flex-row d-none scroller " style="  z-index:9999999999; left:0;background:#F3F8FC; ">
+                  <div style="width:100%;overflow-x:auto; white-space:nowrap;align-items:center;" class="d-flex" >
+
+                     <v-chip v-for="(file,index) in this.$root.codeEditorArray" :key="index"
       class="ma-1 mx-1 ml-0 fileText d-inline-block"
       close
       small
@@ -22,6 +24,13 @@
       >
       {{file.file_name + '.' + languageExtensions(file.language_type)}}
     </v-chip>  
+
+
+                  </div>
+               
+       <div class="ml-auto " >
+                       <v-btn icon @click="copyText" ><v-icon style="font-size:20px;">las la-copy</v-icon> </v-btn>
+                  </div>
 
               </div>
    <!-- ends -->
@@ -137,6 +146,27 @@ export default {
     }
 },
 methods:{
+   copyText () { 
+
+          const copyToClipboard = str => {
+  const el = document.createElement('textarea');
+  el.value = str;
+  el.setAttribute('readonly', '');
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+};
+
+      copyToClipboard(this.code);
+
+         this.$root.projectPanelComponent.showAlert('Copied!','Copied to clipboard','success');
+
+         
+        
+        },
    
   setEditorPosition: function(codemirror){
 
@@ -170,33 +200,7 @@ methods:{
       
 
   },
-   copyText () {
-          let spacelink = document.querySelector('#codeBoxContent')
-          spacelink.setAttribute('type', 'text')  
-          spacelink.select()
-
-          try {
-            var successful = document.execCommand('copy');
-            var msg = successful ? 'successful' : 'unsuccessful';
-              if(msg == 'successful'){
-
-                this.showAlert(5000,'Copied!')
-                
-              }else{
-
-                 this.showAlert(5000,'Oops! unable to copy')
-                
-              }
-          } catch (err) {
-           
-          }
-
-          /* unselect the range */
-          spacelink.setAttribute('type', 'hidden')
-          window.getSelection().removeAllRanges()
-        },
-
-      
+  
  
         trackUser: function(){
       

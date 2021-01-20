@@ -85,6 +85,10 @@
 
                   </div>
 
+                   <div class="ml-auto " >
+                       <v-btn icon @click="copyText" ><v-icon style="font-size:20px;">las la-copy</v-icon> </v-btn>
+                  </div>
+
               
             </div>
 
@@ -442,6 +446,26 @@ import 'izitoast/dist/css/iziToast.min.css'
        
 
     },
+     copyText () { 
+
+          const copyToClipboard = str => {
+  const el = document.createElement('textarea');
+  el.value = str;
+  el.setAttribute('readonly', '');
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+};
+
+      copyToClipboard(this.$root.codeEditorComponent.code);
+
+        this.showAlert('Copied!','Copied to clipboard','success');
+         
+        
+        },
       shareProject:function(){
           
           this.$root.shareLink =  'https://www.citonhub.com/link/project/'+ this.$route.params.project_slug;

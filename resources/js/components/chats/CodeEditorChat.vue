@@ -26,7 +26,7 @@
                      <v-btn class="mx-1 ml-2 mt-2"  x-small color="#3C87CD "  @click="sendMessage" ><span style="color:#ffffff; font-weight:bolder; font-size:10px;">send</span></v-btn>
                  
           
-                     <v-btn class="mx-1" icon @click="copyText" v-if="!that.$root.codeIsLive"><v-icon>mdi-content-copy mdi-18px</v-icon></v-btn>
+                     <v-btn class="mx-1" icon @click="copyText" v-if="!that.$root.codeIsLive"><v-icon>las la-copy</v-icon></v-btn>
 
 
                     <v-btn icon class="mx-1"  @click="showActiveUsers()"  v-if="that.$root.codeIsLive">
@@ -264,7 +264,6 @@
 export default {
       mounted(){
 
-         this.detectchange(this.language);
       
         this.setCodeContent();
       
@@ -644,6 +643,12 @@ methods:{
          
            this.cmOption.readOnly = undefined;
 
+            this.code = this.$root.FullcodeContent;
+           this.language = this.$root.fullCodeLanguage;
+           this.detectchange(this.$root.fullCodeLanguage);
+
+          
+
          }
 
 
@@ -681,30 +686,26 @@ methods:{
 
 
        },
-      copyText () {
-          let spacelink = document.querySelector('#codeBoxContent')
-          spacelink.setAttribute('type', 'text')
-          spacelink.select()
+      copyText () { 
 
-          try {
-            var successful = document.execCommand('copy');
-            var msg = successful ? 'successful' : 'unsuccessful';
-              if(msg == 'successful'){
+          const copyToClipboard = str => {
+  const el = document.createElement('textarea');
+  el.value = str;
+  el.setAttribute('readonly', '');
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+};
 
-                this.$root.chatComponent.showAlert('','Link copied','success');
+      copyToClipboard(this.code);
 
-              }else{
+        this.$root.chatComponent.showAlert('Copied!','Copied to clipboard','success');
 
-                 this.$root.chatComponent.showAlert('','Unable link copied','error');
-
-              }
-          } catch (err) {
-
-          }
-
-          /* unselect the range */
-          spacelink.setAttribute('type', 'hidden')
-          window.getSelection().removeAllRanges()
+         
+        
         },
 
         showAlert:function(duration,text){
@@ -1390,6 +1391,8 @@ methods:{
 
 
          }
+
+          this.$root.codeFromChat = false;
 
       },
 }

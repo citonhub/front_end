@@ -1782,6 +1782,7 @@ const app = new Vue({
      postCommentsData:[],
      fromProfile:false,
      fromProfileUsername:'',
+     codeFromChat:false,
      },
      mounted: function () {
       window.thisUserState = this;
