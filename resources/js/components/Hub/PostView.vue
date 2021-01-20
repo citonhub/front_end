@@ -2,7 +2,7 @@
 
   <div :class="fromProfile ? 'col-lg-4 col-md-6 px-0 mb-5  pt-1 pt-md-2 projectBox' : 'col-lg-3 mb-5  col-md-6 px-0 pt-1 pt-md-2 projectBox'" style="height:212px;" >
 
-             <image-loader  :post="source"
+             <image-loader  :post="source" 
               >
 
             

@@ -111,9 +111,16 @@ export default {
          
         }
       },
-      showProject (id, postId) {
+       showProject (id, postId) {
+
+           this.$root.selectedPost = [];
+
+        this.$root.fromProfile = this.fromProfile;
+        this.$root.fromProfileUsername = this.username
         this.$router.push({ path: `/hub/post/${postId}` })
         this.$root.currentPost = id
+
+       
         // this.project = project;
         
       },
