@@ -48,7 +48,7 @@
  @section('content')
 
 
-<div style="position:fixed;height:100%;width:100%;" id="app" class="background">
+<div style="position:fixed;height:100%;width:100%;overflow-y:auto;" id="app" class="background">
 
 <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 py-1" >
     
@@ -58,11 +58,11 @@
 <div class="mt-5 pt-5">
  
  </div>
-      <div class="card pt-2" style="background: rgba(225, 225, 225, 0.5);overflow-y:auto;">
-          <h2 class="text-center mb-3 mb-lg-3" style="font-family:HeaderFont;">CitonHub Beta Testing</h2>
+      <div class="card pt-3" style="background: rgba(225, 225, 225, 0.5);">
+          <h3 class="text-center mb-3 mb-lg-3" style="font-family:HeaderFont;">CitonHub Beta Testing</h3>
           <p class="text-center" style="font-family:BodyFont;">CitonHub is a platfrom for developers to teach, mentor and connect</p>
 
-          <div class="row justify-content-center m-3 p-md-5 px-1">
+          <div class="row justify-content-center p-md-3 px-1">
             <div class="col-md-10 text-center col-sm-12 px-1">
               <div >
                 <div class="card-body">
