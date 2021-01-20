@@ -469,7 +469,19 @@ export default {
       goBack() {
         // this.viewProjectModal = false;
         this.$root.showViewPost = false;
-        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+
+         if( this.$root.fromProfile){
+
+              this.$router.push({ path:'/profile-view/' + this.$root.fromProfileUsername})
+
+               this.$root.fromProfile = false;
+         }
+         else{
+         
+
+              this.$router.push({ path:'/hub'})
+         }
+       
         },
      goToProfile:function(username){
         this.$root.selectedUsername = username;

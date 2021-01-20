@@ -86,7 +86,7 @@ export default {
         externalClass:'',
         }
     },  
-    props:['source','fromProfile','alertComponent'],
+    props:['source','fromProfile','alertComponent','username'],
     components:{
      MoreOptions,
      ImageLoader
@@ -152,8 +152,13 @@ imageUrl +='/imgs/expert.svg'
 
     },
      showProject (id, postId) {
+
+        this.$root.fromProfile = this.fromProfile;
+        this.$root.fromProfileUsername = this.username
         this.$router.push({ path: `/hub/post/${postId}` })
         this.$root.currentPost = id
+
+       
         // this.project = project;
         
       },

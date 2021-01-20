@@ -273,7 +273,7 @@
 
                            
 
-                           <post-view :alertComponent="that" :fromProfile="true" :source="post" v-for="(post,index) in userProjects" :key="index"></post-view>
+                           <post-view :alertComponent="that" :username="userData.username" :fromProfile="true" :source="post" v-for="(post,index) in userProjects" :key="index"></post-view>
 
 
                      </template>
@@ -410,7 +410,7 @@
       <!-- project view page -->
       <div class="col-12  py-0 pt-0">
 
-       <project-view ></project-view>
+       <project-view    ></project-view>
 
       </div>
         
