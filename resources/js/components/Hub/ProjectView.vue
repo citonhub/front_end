@@ -1040,10 +1040,18 @@ export default {
       },
     fetchPost:function(){
 
+      let currentPostid = '';
+
+       if(this.$route.params.post_id){
+         currentPostid = this.$route.params.post_id;
+       }else{
+          currentPostid = this.$root.currentPost;
+       }
+
 
        this.loadingPost  = true;
 
-             let storedPostData = this.$root.getLocalStore('post_data_' +   this.$root.currentPost + this.$root.username);
+             let storedPostData = this.$root.getLocalStore('post_data_' +   currentPostid + this.$root.username);
 
             storedPostData.then((result)=>{
                 
@@ -1067,12 +1075,12 @@ export default {
                  }else{
             
            
-            axios.get( '/fetch-post/' +  this.$root.currentPost)
+            axios.get( '/fetch-post/' +  currentPostid)
       .then(response => {
       
       if (response.status == 200) {
 
-          this.$root.LocalStore('post_data_' +   this.$root.currentPost + this.$root.username,response.data.data);
+          this.$root.LocalStore('post_data_' +   currentPostid + this.$root.username,response.data.data);
         
            this.$root.selectedPost = response.data.data;
           
