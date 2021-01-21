@@ -295,7 +295,9 @@ export default {
                    
                     let finalResult = JSON.parse(result);
 
-                    this.$root.userEmail = finalResult[0];
+                     if(this.$root.userEmail == ''){
+                         this.$root.userEmail = finalResult[0];
+                     }
                     this.$root.userPassword = finalResult[1];
 
                  }
@@ -396,7 +398,7 @@ export default {
        this.$root.setEcho();
 
 
-      let storedTracker = this.$root.getLocalStore('route_tracker');
+      let storedTracker = this.$root.getLocalStore('route_tracker_new');
 
       storedTracker.then((result)=>{
         this.$root.connectToChannel();

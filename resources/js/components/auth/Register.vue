@@ -486,7 +486,7 @@ export default {
                 name: this.name,
                 email: this.email,
                 password: this.password,
-                referral: this.$root.referralUser
+                referral: 'empty'
                   })
           .then(response => {
             

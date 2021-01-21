@@ -248,8 +248,10 @@ export default {
                  if(result != null){
                    
                     let finalResult = JSON.parse(result);
-
-                    this.$root.userEmail = finalResult[0];
+ 
+                    if(this.$root.userEmail == ''){
+                         this.$root.userEmail = finalResult[0];
+                     }
                     this.$root.userPassword = finalResult[1];
 
                  }
@@ -404,12 +406,10 @@ export default {
             
            if(finalResult[0]){
 
-                this.$root.LocalStore('is_forget_password',[false]);
+             this.$root.LocalStore('is_forget_password',[false]);
 
              this.$router.push({ path: '/reset-password' });
-
-            
-
+              
            }else{
 
              this.$router.push({ path: '/set-username' });

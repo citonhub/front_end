@@ -358,6 +358,8 @@ export default {
        setEmail: function(){
         
          let storedEmail = this.$root.getLocalStore('user_temp_email');
+
+          
               
               storedEmail.then((result)=>{
 
@@ -416,7 +418,7 @@ export default {
        this.$root.setEcho();
 
 
-      let storedTracker = this.$root.getLocalStore('route_tracker');
+      let storedTracker = this.$root.getLocalStore('route_tracker_new');
 
       storedTracker.then((result)=>{
         this.$root.connectToChannel();
