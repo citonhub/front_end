@@ -396,7 +396,7 @@ export default {
        this.$root.setEcho();
 
 
-      let storedTracker = this.$root.getLocalStore('route_tracker');
+      let storedTracker = this.$root.getLocalStore('route_tracker_new');
 
       storedTracker.then((result)=>{
         this.$root.connectToChannel();
