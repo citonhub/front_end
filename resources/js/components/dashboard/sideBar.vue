@@ -243,6 +243,8 @@ export default {
         },
         goToPage:function(page){
 
+          this.$root.showProfileView = false;
+
            if(page == 'channels'){
        this.$router.push({ path: '/channels' });
 

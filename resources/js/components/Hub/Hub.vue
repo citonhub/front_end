@@ -206,9 +206,15 @@
       <!-- ends -->
 
       <!-- add project page -->
-      <div class="col-12 px-3 px-md-1 py-1">
+     <div class="col-12 px-3 px-md-1 py-1" >
 
         <addPage></addPage>
+
+      </div>
+
+      <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:90%; width:100%; align-items:center; justify-content:center;background:white;">
+
+         <img src="/imgs/diary_loading.svg" height="50" >
 
       </div>
         
@@ -251,9 +257,15 @@
 
    
       <!-- project view page -->
-      <div class="col-12  py-0 pt-0">
+     <div class="col-12  py-0 pt-0">
 
        <project-view :post="currentPost"></project-view>
+
+      </div> 
+
+        <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+         <img src="/imgs/diary_loading.svg" height="50" >
 
       </div>
         
@@ -585,6 +597,8 @@ export default {
         },
 
       showAddPost: function() {
+
+         this.$root.componentIsLoading = true;
 
           this.$router.push({ path:'/hub/new-post'})
 

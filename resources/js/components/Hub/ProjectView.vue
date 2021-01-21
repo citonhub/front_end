@@ -424,9 +424,12 @@ export default {
    CommentPost
   },
   mounted () {
+
+      this.$root.componentIsLoading = false;
     this.$root.selectedPost = [];
        this.fetchPost();
        this.$root.projectViewComponent = this;
+
         this.$root.autoOpenPost = false;
   },
   methods:{
@@ -570,6 +573,7 @@ export default {
      },
  
     goToProject:function(project){
+      this.$root.componentIsLoading = true;
         this.$root.viewFromPost = true;
         this.$root.showViewPost = false;
         this.$root.showProfileView = false;

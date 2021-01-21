@@ -153,6 +153,7 @@ imageUrl +='/imgs/expert.svg'
     },
      showProject (id, postId) {
 
+      
         this.$root.fromProfile = this.fromProfile;
         this.$root.fromProfileUsername = this.username
         this.$router.push({ path: `/hub/post/${postId}` })

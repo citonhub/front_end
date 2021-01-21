@@ -1783,6 +1783,7 @@ const app = new Vue({
      fromProfile:false,
      fromProfileUsername:'',
      codeFromChat:false,
+     componentIsLoading:false,
      },
      mounted: function () {
       window.thisUserState = this;

@@ -113,6 +113,8 @@ export default {
       },
        showProject (id, postId) {
 
+          this.$root.componentIsLoading = true;
+
            this.$root.selectedPost = [];
 
         this.$root.fromProfile = this.fromProfile;
