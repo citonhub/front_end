@@ -51,7 +51,7 @@
      v-if="this.$root.ChatList.length > 0"
     :min-item-size="36"
     ref="ChatContainer"
-    :buffer="5000"
+   
     id="ChatContainer"
       class="col-12 px-1  chatListScroller" 
        style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;"
@@ -724,7 +724,7 @@
      :keyField="'index_count'"
     :min-item-size="36"
     ref="messageContainersmall"
-    :buffer="2000"
+  
     id="messageContainersmall"
   class="col-12 scroller px-0" 
 
