@@ -2447,11 +2447,10 @@ export default {
                    let finalResult = JSON.parse(result);
 
                     finalResult.space = response.data.space;
-                    this.$root.selectedSpace = response.data.space;
-
+                    
                   
                   finalResult.members = response.data.members;
-                   this.$root.selectedSpaceMembers = response.data.members;
+                  
 
             this.$root.LocalStore('full_' +  this.$route.params.spaceId  + this.$root.username,finalResult);
 
