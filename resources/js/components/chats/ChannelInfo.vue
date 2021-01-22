@@ -74,7 +74,7 @@
            </div>
         </div>
 
-        <div class="col-12 py-2 d-flex flex-row" style="align-items:center; border-bottom:1px solid #c5c5c5;" v-for="(member,index) in that.$root.selectedSpaceMembers"
+        <div @click.stop="goToProfile(member.username)" class="col-12 py-2 d-flex flex-row" style="align-items:center; border-bottom:1px solid #c5c5c5;" v-for="(member,index) in that.$root.selectedSpaceMembers"
           :key="index">
               <div    class="mr-2"
      :style="imageStyle(40,member,'user')">
@@ -106,6 +106,10 @@ export default {
         }
     },
     methods:{
+       goToProfile:function(username){
+        this.$root.selectedUsername = username;
+         this.$router.push({ path:'/profile-view/' + username})
+      },
          close:function(){
              window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         this.$root.chatComponent.chatInnerSideBar = false;
