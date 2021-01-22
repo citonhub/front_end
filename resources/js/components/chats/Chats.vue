@@ -1513,6 +1513,8 @@ export default {
        // large screen
             this.$refs.bottomLg.input =  this.$refs.bottomLg.input + emoji.data
               this.$refs.bottomLg.contentInWord = this.$refs.bottomLg.compiledMarkdown;
+
+               this.$root.channelBottomComp.showSend = true;
              
     
     },   

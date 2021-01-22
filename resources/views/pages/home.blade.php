@@ -14,9 +14,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="white">
     <meta name="apple-mobile-web-app-title" content="CitonHub">
-    <link rel="apple-touch-icon" href="images/icons/msapplication_icon_144x144.png">
+    <link rel="apple-touch-icon" href="images/icons/logo_msapplication-icon-144x144.png">
     <!--Metadata for Microsoft-->
-    <meta name="msapplication-TileImage" content="images/icons/msapplication_icon_144x144.png">
+    <meta name="msapplication-TileImage" content="images/icons/logo_msapplication-icon-144x144.png">
     <meta name="msapplication-TileColor" content="#3C87CD">
     <meta property="og:description" content="Join other developers helping each other grow on CitonHub" />
     <meta property='twitter:title' content="CitonHub:Teach, mentor, and connect with other developers"/>
