@@ -34,7 +34,7 @@
                      
                     
                     
-                       <span style="color:white;font-size:13px;" class="handleText" v-html="source.content" > </span>
+                       <span style="color:white !important;font-size:13px;" class="handleText" v-html="source.content" > </span>
                     
                       
                        
@@ -225,7 +225,7 @@
                          <span style="color:white;font-size:13px;display:none;" :id="'fullContent' + source.message_id + screenType" v-html="source.content" > </span>
                      </template> -->
                     
-                       <span style="color:white;font-size:13px;" class="handleText" v-html="source.content" > </span>
+                       <span style="color:white !important;font-size:13px;" class="handleText" v-html="source.content" > </span>
                    
                       
                        
@@ -1215,7 +1215,7 @@ export default {
     },
     methods:{
 
-       handelMessageContent: function(message){
+   handelMessageContent: function(message){
 
        return this.shortenContent(message.content,200);
     
