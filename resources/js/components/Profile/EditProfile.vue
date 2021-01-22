@@ -5,7 +5,7 @@
     <!-- contents  -->
          <div class="col-12 px-md-4 px-3 py-2 pt-0 mt-1 text-left" style="height:auto !important; font-family:BodyFont; background:transparent !important;" >
            
-           <v-app class="row">
+           <div class="row">
 
                <div class="col-12 py-2 my-0 px-2">
                  <div>
@@ -47,11 +47,12 @@
               
 
               <div class="col-12 py-2 my-0 px-2">
+                <span  style="font-size:14px;font-family:MediumFont;" class="mb-1">Name</span>  
     				<v-text-field style="font-size:13px;" 
             
              outlined color="#3C87CD"
                :placeholder="$t('general.Name') + '...'"
-            :label="$t('general.Name')"
+
              dense
              counter="80"
              :rules="nameRule"
@@ -61,6 +62,7 @@
     			</div>
 
           <div class="col-12 py-2 my-0 px-2">
+            <span  style="font-size:14px;font-family:MediumFont;" class="mb-1">Bio</span>  
     				<v-textarea style="font-size:13px;"
              dense 
             placeholder="your bio" 
@@ -68,7 +70,7 @@
              counter="250"
              v-model="contentInWord"
               outlined color="#3C87CD"
-              label="Bio"></v-textarea>
+            ></v-textarea>
     			</div>
            
        
@@ -88,7 +90,7 @@
 
              <!-- ends -->
 
-           </v-app>
+           </div>
 
 
            
