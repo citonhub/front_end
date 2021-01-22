@@ -2093,8 +2093,7 @@ export default {
 
         this.$root.selectedSpace  = [];
 
-       // generate unread msg and the mark as read
-        this.generateUnreadMessage();
+     
 
            this.$root.selectedSpace = finalResult.space;
 
@@ -2136,7 +2135,7 @@ export default {
 
                this.$root.selectedSpace = generalSpace;
 
-              
+                 
 
 
               }
@@ -2146,6 +2145,9 @@ export default {
 
 
           this.$root.selectedSpaceMembers = finalResult.members;
+
+         // generate unread msg and the mark as read
+         this.generateUnreadMessage();
           
 
             // set default admin user
