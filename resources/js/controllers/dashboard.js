@@ -2912,6 +2912,14 @@ handleSpaceData: function(returnData){
 
   returnData.forEach(space => {
 
+     // check for space in chatlist
+     if(space.type == 'Channel' || space.type == 'Team' || space.type == 'Direct'){
+
+      this.$root.addSpaceToChatList(space.space_id);
+
+     }  
+
+
     if( this.$root.selectedSpace.space_id != space.space_id){
 
        // if the space is not currently opened
