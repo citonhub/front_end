@@ -220,7 +220,7 @@
 
      <template #before >
 
-       <div  class=" col-12 text-center" style="margin-top:70px;" >
+       <div  class=" col-12 text-center" style="margin-top:80px;" >
      
         <span v-html="that.$root.selectedSpace.description" v-if="that.$root.selectedSpace.type == 'SubSpace' || that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'" style="font-size:13px;font-family:BodyFont;">
        
@@ -232,7 +232,7 @@
 
     <template #after>
 
-        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-top:130px; ">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-top:100px; ">
             
           <template v-if="that.$root.selectedSpace.type == 'Bot' ">
 
