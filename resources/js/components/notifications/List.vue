@@ -67,9 +67,13 @@
 
                    <template v-else >
 
+                      <template v-if="notification.post_data != undefined">
+                        
                       <div :style="imageStyle(40,notification.post_data,'8px','posts')">
 
                     </div>
+
+                      </template>
 
                    </template>
                    
