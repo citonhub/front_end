@@ -2516,7 +2516,9 @@ const app = new Vue({
   if (response.status == 200) {
 
 
-     response.data.space.message_track = new Date();
+      if(response.data.type != 'SubSpace'){
+
+        response.data.space.message_track = new Date();
   
     if(response.data.type == 'Direct'){
 
@@ -2534,13 +2536,17 @@ const app = new Vue({
 
     this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
 
-  let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+    let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
 
 
 
- this.$root.ChatList = fullList;
+     this.$root.ChatList = fullList;
 
- this.$root.sortChatList();
+     this.$root.sortChatList();
+
+      }
+
+     
 
 
   
@@ -2913,11 +2919,11 @@ handleSpaceData: function(returnData){
   returnData.forEach(space => {
 
      // check for space in chatlist
-     if(space.type == 'Channel' || space.type == 'Team' || space.type == 'Direct'){
+    
 
       this.$root.addSpaceToChatList(space.space_id);
 
-     }  
+ 
 
 
     if( this.$root.selectedSpace.space_id != space.space_id){
