@@ -200,7 +200,7 @@
   class="col-12 px-0 scroller" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:95%; left:0; position:absolute; z-index:99999; top:0%; overflow-y:auto;"
+            background-repeat: no-repeat; height:95%; left:0; position:absolute; z-index:99999; top:4%; overflow-y:auto;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -220,7 +220,7 @@
 
      <template #before >
 
-       <div  class=" col-12 text-center" style="margin-top:80px;" >
+       <div  class=" col-12 text-center"  >
      
         <span v-html="that.$root.selectedSpace.description" v-if="that.$root.selectedSpace.type == 'SubSpace' || that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'" style="font-size:13px;font-family:BodyFont;">
        
