@@ -2146,10 +2146,7 @@ export default {
 
           this.$root.selectedSpaceMembers = finalResult.members;
 
-         // generate unread msg and the mark as read
-         this.generateUnreadMessage();
-          
-
+       
             // set default admin user
 
            this.autoMakeuserMaster();
@@ -2166,6 +2163,9 @@ export default {
 
               }  
 
+           // generate unread msg and the mark as read
+         this.generateUnreadMessage();
+          
 
 
        setTimeout(() => {
@@ -2357,6 +2357,11 @@ export default {
                  this.$root.addSpaceToChatList(this.$root.selectedSpace.space_id);
 
               }  
+
+              // generate unread msg and the mark as read
+         this.generateUnreadMessage();
+          
+
 
 
       setTimeout(() => {
