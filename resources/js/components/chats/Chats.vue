@@ -232,7 +232,7 @@
 
     <template #after>
 
-        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-top:90px; ">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-top:140px; ">
             
           <template v-if="that.$root.selectedSpace.type == 'Bot' ">
 
