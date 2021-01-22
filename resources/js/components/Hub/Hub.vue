@@ -19,7 +19,7 @@
               <!-- header -->
             <div class="col-lg-6 px-0 pb-1 " style="border-bottom:1px solid #263238;z-index:99999999999999;" >
 
-               <h3 class="d-none d-md-block">Hub</h3>
+               <h3 class="d-none d-md-block">Showcase</h3>
 
               
             </div>
