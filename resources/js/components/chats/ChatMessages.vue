@@ -34,7 +34,7 @@
                      
                     
                     
-                       <span style="color:white;font-size:13px;" v-html="source.content" > </span>
+                       <span style="color:white;font-size:13px;" class="handleText" v-html="source.content" > </span>
                     
                       
                        
@@ -225,7 +225,7 @@
                          <span style="color:white;font-size:13px;display:none;" :id="'fullContent' + source.message_id + screenType" v-html="source.content" > </span>
                      </template> -->
                     
-                       <span style="color:white;font-size:13px;" v-html="source.content" > </span>
+                       <span style="color:white;font-size:13px;" class="handleText" v-html="source.content" > </span>
                    
                       
                        
@@ -1702,5 +1702,8 @@ export default {
 }
 </script>
 <style scoped>
-
+.handleText a {
+  color: white;
+  text-decoration: underline;
+}
 </style>

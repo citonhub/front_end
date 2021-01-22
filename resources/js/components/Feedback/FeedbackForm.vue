@@ -1,5 +1,5 @@
 <template>
-    <v-app class="top" style="background:transparent;font-family:BodyFont;">
+    <div class="top" style="background:transparent;font-family:BodyFont;">
 
     <!-- spacer -->
          
@@ -33,7 +33,7 @@
 
  </div>
       </div>
-    </v-app>
+    </div>
 </template>
 
 

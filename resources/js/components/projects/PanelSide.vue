@@ -812,7 +812,7 @@ export default {
          });
 
          this.scripts = this.$root.projectData.project_files.code_files.filter((file)=>{
-           return file.language_type == 'JAVASCRIPT' || file.language_type == 'TYPESCRIPT';
+           return (file.language_type == 'JAVASCRIPT' || file.language_type == 'TYPESCRIPT') && file.type != "back_end";
          });
 
           this.controllers = this.$root.projectData.project_files.code_files.filter((file)=>{
