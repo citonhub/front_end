@@ -25,7 +25,7 @@ const store = new Vuex.Store({
 
     clearUserData () {
       localStorage.removeItem('user_new')
-      thisUserState.$router.push({ path: '/hub' });
+      thisUserState.$router.push({ path: '/channels' });
       location.reload();
     }
   },
@@ -320,7 +320,7 @@ beforeEnter: (to, from, next) => {
    },
   {
     path:'/',
-    redirect:'/hub',
+    redirect:'/channels',
   },
   {
     path:'/hub',

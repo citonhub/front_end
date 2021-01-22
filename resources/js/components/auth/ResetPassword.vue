@@ -381,7 +381,7 @@ export default {
 
         
         if(this.$root.isLogged){
-            this.$router.push({ path: '/hub' });
+            this.$router.push({ path: '/channels' });
         }
 
 

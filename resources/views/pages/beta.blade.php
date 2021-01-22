@@ -71,7 +71,7 @@
 
                     @csrf()
                     <div class="form-group">
-                      <input v-model="email" type="email" class="form-control" placeholder="Email Address" required autofocus name="email">
+                      <input v-model="email" type="email" class="form-control" placeholder="Email Address" required  name="email">
                     </div>
                     <div class="form-group">
                       <button type="submit" v-on:click.prevent="sendBetaMail()" class="homeButton mx-2 px-3 py-2" :disabled="loading ? 'disabled' : false ">
