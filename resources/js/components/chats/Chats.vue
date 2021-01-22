@@ -222,8 +222,8 @@
 
        <div  class=" col-12 text-center" style="margin-top:70px;" >
      
-        <span v-if="that.$root.selectedSpace.type == 'SubSpace'" style="font-size:13px;font-family:BodyFont;">
-           {{ that.$root.selectedSpace.description }}
+        <span v-html="that.$root.selectedSpace.description" v-if="that.$root.selectedSpace.type == 'SubSpace' || that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'" style="font-size:13px;font-family:BodyFont;">
+       
         </span>
 
 
@@ -750,8 +750,8 @@
 
         <div  class=" col-12 text-center" style="margin-top:10px;">
      
-        <span v-if="that.$root.selectedSpace.type == 'SubSpace'" style="font-size:12px;font-family:BodyFont;">
-           {{ that.$root.selectedSpace.description }}
+        <span v-html="that.$root.selectedSpace.description" v-if="that.$root.selectedSpace.type == 'SubSpace'  || that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'" style="font-size:12px;font-family:BodyFont;">
+         
         </span>
 
 

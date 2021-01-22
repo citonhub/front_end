@@ -41,7 +41,7 @@
                     
                      <div> <span style="font-family:MediumFont;font-size:14px;">Subscription based:</span> 
                    <span class="paragraph">
-                       When you activate a monthly subscription model, people can only have access into your channels after paying.
+                       When you activate a monthly subscription model, people can only have access into your sub-channels after paying.
                     </span> <br>
                     </div> <br>
 
