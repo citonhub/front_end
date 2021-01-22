@@ -235,7 +235,7 @@ export default {
         return{
            Alert:false,
         alertMsg:'',
-        mails:'',
+        mails:[],
         items:[],
          emailRule: [
             v => !!v || 'Email is required',
@@ -313,7 +313,7 @@ export default {
          
            
            
-         
+          if(this.mails.length == 0) return;
               
               this.loadingEmail = true;
              axios.post( '/send-space-invite-mail',{
@@ -326,7 +326,7 @@ export default {
                  
               this.loadingEmail = false;
 
-              this.alertComponenthis.showAlert('Nice','Invitation sent','success');
+              this.alertComponent.showAlert('Nice','Invitation sent','success');
           
             }
             
