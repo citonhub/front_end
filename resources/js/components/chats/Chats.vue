@@ -200,7 +200,7 @@
   class="col-12 px-0 scroller" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:93%; left:0; position:absolute; z-index:99999; top:0%; overflow-y:auto;"
+            background-repeat: no-repeat; height:95%; left:0; position:absolute; z-index:99999; top:0%; overflow-y:auto;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -232,7 +232,7 @@
 
     <template #after>
 
-        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-top:150px; ">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-top:90px; ">
             
           <template v-if="that.$root.selectedSpace.type == 'Bot' ">
 
