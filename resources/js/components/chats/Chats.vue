@@ -200,7 +200,7 @@
   class="col-12 px-0 scroller" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:93%; left:0; position:absolute; z-index:99999; top:0%;padding-top:80px; padding-bottom:130px;  overflow-y:auto;"
+            background-repeat: no-repeat; height:93%; left:0; position:absolute; z-index:99999; top:0%; overflow-y:auto;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -232,7 +232,7 @@
 
     <template #after>
 
-        <div  class=" col-12 " v-observe-visibility="visibilityChanged">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-top:130px; ">
             
           <template v-if="that.$root.selectedSpace.type == 'Bot' ">
 
@@ -729,7 +729,7 @@
   class="col-12 scroller px-0" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:9999999; top:0%;padding-top:80px; padding-bottom:130px;  overflow-y:auto;"
+            background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:9999999; top:0%; overflow-y:auto;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -748,7 +748,7 @@
 
      <template #before>
 
-        <div  class=" col-12 text-center" style="margin-top:10px;">
+        <div  class=" col-12 text-center" style="margin-top:80px; ">
      
         <span v-html="that.$root.selectedSpace.description" v-if="that.$root.selectedSpace.type == 'SubSpace'  || that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'" style="font-size:12px;font-family:BodyFont;">
          
@@ -761,7 +761,7 @@
 
     <template #after>
 
-        <div  class=" col-12 " v-observe-visibility="visibilityChanged">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-top:130px; ">
             
           <template v-if="that.$root.selectedSpace.type == 'Bot' ">
 
