@@ -106,7 +106,7 @@ const PanelLoader = () => import(/* webpackChunkName: "PanelLoader" */ '../compo
 const PanelSettings = () => import(/* webpackChunkName: "PanelSettings" */ '../components/projects/PanelSettings.vue');
 const AddWebroute= () => import(/* webpackChunkName: "AddWebroute" */ '../components/projects/AddWebroute.vue');
 const ProjectGuide = () => import(/* webpackChunkName: "ProjectGuide" */ '../components/projects/ProjectGuide.vue')
-
+const AddGit= () => import(/* webpackChunkName: "AddGit" */ '../components/projects/AddGit.vue')
 
 
 // chats routes
@@ -1353,6 +1353,11 @@ children:[
                     path: 'panel-loader',
                     component: PanelLoader
                   },
+
+                  {
+                    path:'add-git',
+                    component: AddGit
+                  }
                  
                ]
     },

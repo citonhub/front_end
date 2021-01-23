@@ -36,6 +36,10 @@
                      </div>
 
                </template>
+
+               <v-btn @click="openGit()" icon>
+                 <v-icon style="font-size:25px;">lab la-github</v-icon>
+               </v-btn>
            <v-btn icon @click="openSettings()"><v-icon style="font-size:25px;">las la-cog</v-icon> </v-btn>
 
                  </div>
@@ -639,6 +643,12 @@ import 'izitoast/dist/css/iziToast.min.css'
 
       openSettings(){
         this.$router.push({ path: '/board/projects/panel/'+  this.$route.params.project_slug +'/set-panel' });
+      },
+
+       openGit(){
+        //    this.$root.projectPanelComponent.showSideBar = false
+         this.$router.push({path: '/board/projects/panel/' + this.$root.projectData.project.project_slug + '/add-git'})
+         console.log(this.$root.projectData.project.project_slug )
       }
     }
   }
