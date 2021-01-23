@@ -232,7 +232,7 @@
 
     <template #after>
 
-        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-top:160px; ">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-bottom:160px; ">
             
           <template v-if="that.$root.selectedSpace.type == 'Bot' ">
 
@@ -761,7 +761,7 @@
 
     <template #after>
 
-        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-top:130px; ">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-bottom:130px; ">
             
           <template v-if="that.$root.selectedSpace.type == 'Bot' ">
 
@@ -1571,6 +1571,8 @@ export default {
          return;
         }
 
+        // when users is coming from a direct message
+
             if(this.$root.autoOpenChat){
    
             this.liveSessionIsOpen = false;
@@ -2046,7 +2048,7 @@ export default {
 
        
 
-       let lastMessages = this.$root.returnedMessages.slice(Math.max(this.$root.returnedMessages .length - 30, 0));
+       let lastMessages = this.$root.returnedMessages.slice(Math.max(this.$root.returnedMessages.length - 30, 0));
 
          return  this.$root.returnedMessages;
 
