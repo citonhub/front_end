@@ -195,7 +195,7 @@
      :keyField="'index_count'"
     :min-item-size="36"
     ref="messageContainer"
-     
+     :buffer="1000"
     id="messageContainer"
   class="col-12 px-0 scroller" 
 
@@ -724,7 +724,7 @@
      :keyField="'index_count'"
     :min-item-size="36"
     ref="messageContainersmall"
-     
+      :buffer="1000"
     id="messageContainersmall"
   class="col-12 scroller px-0" 
 
