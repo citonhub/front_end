@@ -134,8 +134,8 @@ export default {
    
         this.$root.projectPanelComponent.showSideBar = false
 
-         this.$router.push({ path: '/board/projects/panel/'+  this.$route.params.project_slug +'/set-panel' });
-        
+        // this.$router.push({ path: '/board/projects/panel/'+  this.$route.params.project_slug +'/set-panel' });
+          this.$router.push({path: '/board/projects/panel/' + this.$root.projectData.project.project_slug + '/set-panel' })
     }
     },
    
