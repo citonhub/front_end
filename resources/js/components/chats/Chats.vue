@@ -13,9 +13,23 @@
 
          <!-- large screens -->
 
+           <!-- menu session -->
+
+                        <v-btn fab small class="d-none d-lg-inline-block" color="#ffffff" @click="that.$root.showSideBar = true" style="position:absolute;left:12px;top:3%;">
+
+                            <v-badge
+                   dot
+                color="green">
+                 <v-icon style="font-size:22px;color:#263238;" >las la-bars</v-icon>
+                   </v-badge>
+                           
+                           </v-btn>
+
+                       <!-- ends -->
+
         <div class="  py-0 px-0 d-lg-block d-none card " style=" overflow-y:hidden;position:absolute;width:90%; left:5%; height:94%; top:3%; overflow-y:hidden; overflow-x:hidden; background:white;" >
 
-
+                     
 
 
                    <div class="py-0"  style="height:100%; width:28%; left:0%; position:absolute; overflow-y:hidden; overflow-x:hidden; border-right:1px solid #c5c5c5;">
@@ -26,7 +40,8 @@
                            <template v-if="chatbarContent == 'chat_list'">
 
                              <div class="col-12 py-2 px-2 pb-0 mb-0 text-center d-flex flex-row fixed-top" style="left:0%;height:58px;position:sticky;background:white;top:-5%;">
-                         <v-btn  icon @click="that.$root.showSideBar = true"><v-icon style="font-size:22px;color:#263238;" >las la-bars</v-icon></v-btn>
+                             <v-btn icon ><v-icon>las la-search</v-icon></v-btn>
+                        
                               <v-text-field
                        style="font-size:13px;"
                       placeholder="Search"
@@ -36,8 +51,8 @@
                        v-model="searchValue"
                      rounded
                      ></v-text-field>
-
                         <v-btn icon @click="showCreateChannel"><v-icon>mdi mdi-chat-plus-outline</v-icon></v-btn>
+                     
                        
                      
                         
