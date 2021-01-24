@@ -117,11 +117,37 @@
    <!-- pet picture selection section ends-->
 
 
+
+
+      <div class="col-lg-8  py-1 mt-3 px-2">
+
+             <div style="font-size:14px;"  class="mb-4">3. Control diary access.</div>
+               <v-chip 
+        :outlined="accessType !='public'"
+       class="d-inline-block mr-1 mt-2"
+    :style="accessType != 'public' ? 'font-size:13px;cursor:pointer;' : 'font-size:13px;cursor:pointer;color:white;'"
+              color="#3C87CD"
+           
+@click="accessType='public'"
+    >Public</v-chip>
+
+     <v-chip
+       :outlined="accessType !='private'"
+       class="d-inline-block mr-1 mt-2"
+        :style="accessType != 'private' ? 'font-size:13px;cursor:pointer;' : 'font-size:13px;cursor:pointer;color:white;'"
+       color="#3C87CD"
+       
+        
+    @click="accessType='private'"
+    >Private</v-chip>
+             </div>
+
+
    <!-- channel selection field for pets starts-->
 
    
     <div class=" col-lg-12 py-1 my-0 px-2">
-            <div style="font-size:14px;"  class="my-2" >3. Select a channel <span style="font-size:12px;color:grey;">(optional)</span></div>
+            <div style="font-size:14px;"  class="my-2" >4. Select a channel <span style="font-size:12px;color:grey;">(optional)</span></div>
 
                   
                     <div class="col-lg-8 px-0">
@@ -238,6 +264,8 @@ data(){
     imageDefault:0,
     formState: false,
     loading: false,
+    accessType:'private',
+
   }
 }
   ,
