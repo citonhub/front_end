@@ -176,6 +176,26 @@
 
               </div>
 
+                  <div class=" col-lg-12 py-1 my-0 px-2" >
+
+                    <div class="col-lg-8 px-0" >
+      <v-text-field
+                 style="font-size:13px;"
+                
+            label="Create Channel"
+            counter="20"
+            persistent-hint
+            v-model="new_channel"
+           
+               placeholder="Create challenge channel"
+             
+         
+             color="#3C87CD">
+             </v-text-field>
+                    </div>
+
+              </div>
+
             
         <div class="col-lg-12 py-1 my-2 px-2 text-left">
 

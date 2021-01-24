@@ -132,7 +132,7 @@
             counter="20"
             v-model="selectedChannel"
             placeholder="select..."
-              :rules="requiredRule"
+              
             persistent-hint
             chips
             :items="channelList"
