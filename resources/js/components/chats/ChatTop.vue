@@ -28,11 +28,12 @@
                               <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
 
 
-                           
-                            <span class="typingText d-block" v-if="this.$root.typing && (this.$root.typingSpace == this.$root.selectedSpace.space_id)">  <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing... </span>
-                <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }} , {{generateOnlineUsers()}}  {{ $t('space.Online') }}</span>
+                             <template v-if="!this.$root.typing &&  (this.$root.typingSpace != this.$root.selectedSpace.space_id)">
 
-          <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' ">
+                              
+                <span class="typingText d-block" v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }} , {{generateOnlineUsers()}}  {{ $t('space.Online') }}</span>
+
+          <span class="typingText d-block" v-if="this.$root.selectedSpace.type == 'SubSpace' ">
             
             <v-icon v-if="this.$root.selectedSubSpaceType == 'Public'" color="#333333"   class="d-inline-block" style="font-size:12px;">mdi-pound </v-icon>
             <v-icon v-if="this.$root.selectedSubSpaceType == 'Private'" color="#333333"  class="d-inline-block" style="font-size:12px;"> mdi-lock </v-icon>
@@ -43,17 +44,24 @@
             Online
           </span>
 
-           <span class="typingText d-block" v-if="this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' && (this.$root.typingSpace == this.$root.selectedSpace.space_id) ">
+           <span class="typingText d-block" v-if=" this.$root.selectedSpace.type == 'Direct' && checkIfOnline(this.$root.selectedSpace.userInfo.id)">{{ $t('space.Online') }}</span>
+
+                             </template>
+
+
+                  <template v-else>
+
+                     <span class="typingText d-block" >
             
                   <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing...  
             
-          </span>
+                </span>
+                    
+                    </template>          
 
-          
+      
 
-
-
-              <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'Direct' && checkIfOnline(this.$root.selectedSpace.userInfo.id)">{{ $t('space.Online') }}</span>
+             
 
                              </div>
 
@@ -168,12 +176,14 @@
                               <div >
                               <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
 
+             
 
                            
-                            <span  class="typingTextSm d-block" v-if="this.$root.typing && (this.$root.typingSpace == this.$root.selectedSpace.space_id)">  <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing...  </span>
-                <span class="typingTextSm d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }} , {{generateOnlineUsers()}}  {{ $t('space.Online') }}</span>
+                            <template v-if="!this.$root.typing &&  (this.$root.typingSpace != this.$root.selectedSpace.space_id)">
 
-          <span class="typingTextSm d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' ">
+                                <span class="typingTextSm d-block" v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }} , {{generateOnlineUsers()}}  {{ $t('space.Online') }}</span>
+
+          <span class="typingTextSm d-block" v-if="this.$root.selectedSpace.type == 'SubSpace' ">
             
             <v-icon v-if="this.$root.selectedSubSpaceType == 'Public'" color="#333333"   class="d-inline-block" style="font-size:12px;">mdi-pound </v-icon>
             <v-icon v-if="this.$root.selectedSubSpaceType == 'Private'" color="#333333"  class="d-inline-block" style="font-size:12px;"> mdi-lock </v-icon>
@@ -183,14 +193,19 @@
           <span class="typingTextSm d-block" v-if="this.$root.selectedSpace.type == 'Bot' ">
             Online
           </span>
+      <span class="typingTextSm d-block" v-if="this.$root.selectedSpace.type == 'Direct' && checkIfOnline(this.$root.selectedSpace.userInfo.id)">{{ $t('space.Online') }}</span>
 
-           <span class="typingTextSm d-block" v-if="this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' && (this.$root.typingSpace == this.$root.selectedSpace.space_id) ">
-            
-             <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing... 
-            
-          </span>
+                            </template>
 
-              <span class="typingTextSm d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'Direct' && checkIfOnline(this.$root.selectedSpace.userInfo.id)">{{ $t('space.Online') }}</span>
+                            <template v-else>
+
+                               <span class="typingTextSm d-block">
+            
+                            <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing... 
+            
+                             </span>
+
+                            </template>
 
                              </div>
 

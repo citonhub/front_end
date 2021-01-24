@@ -1846,6 +1846,8 @@ export default {
          },
           resendMessages:function(){
 
+         
+
               let unsentMsg = this.$root.getLocalStore('unsent_messages_' + this.$route.params.spaceId  + this.$root.username );
 
          unsentMsg.then((result)=>{
@@ -1854,28 +1856,24 @@ export default {
 
             let finalResult = JSON.parse(result);
 
-                if(finalResult.length == 0){
+                if(finalResult.length != 0){
 
-                 
+                    for (let index = 0; index < finalResult.length; index++) {
 
-                }else{
-
-                      for (let index = 0; index < finalResult.length; index++) {
-
-                      if(this.$route.params.spaceId == finalResult[index].space_id){
+                    
 
 
 
                          this.$root.sendTextMessage(finalResult[index]);
 
 
-                      }
 
                         }
 
                   this.$root.LocalStore('unsent_messages_' + this.$route.params.spaceId  + this.$root.username,[]);
 
                  
+
                 }
 
            }else{
@@ -2048,8 +2046,6 @@ export default {
 
        
 
-       let lastMessages = this.$root.returnedMessages.slice(Math.max(this.$root.returnedMessages.length - 30, 0));
-
          return  this.$root.returnedMessages;
 
       },
@@ -2089,11 +2085,11 @@ export default {
          
             this.$root.spaceFullData = finalResult;
 
-         let returnedData = this.handleResults(finalResult.messages);
+          let returnedData = this.handleResults(finalResult.messages);
 
-       this.$root.Messages = returnedData;
+          this.$root.Messages = returnedData;
 
-        this.$root.selectedSpace  = [];
+           this.$root.selectedSpace  = [];
 
      
 
@@ -2212,29 +2208,14 @@ export default {
          
         
             
-        },1500);
+        },1000);
 
-         setTimeout(() => {
+       
             this.messageIsDone = true;
-         }, 2000);
+        
        
 
 
-
-         
-             let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + this.$route.params.spaceId  + this.$root.username);
-
-           unreadStoredMsg.then((result)=>{
-
-              let finalResultUnread = JSON.parse(result);
-
-              if(this.$root.sendingMessage == false){
-
-                 this.periodicUpdate(finalResultUnread);
-
-              }
-
-           });
 
        
        // check for unsent messages and resend
@@ -2244,22 +2225,10 @@ export default {
 
            unsentStoredMsg.then((result)=>{
 
-              let finalResultunsent = JSON.parse(result);
-
-              if(finalResultunsent != null){
-
-                if(finalResultunsent.length == 0){
-
-              this.resendMessages();
-
-              }
-
-              }else{
+             
                 this.resendMessages();
 
-              }
-
-
+          
 
            });
 
@@ -2374,11 +2343,11 @@ export default {
               this.$refs.messageContainersmall.scrollToBottom();
          
           
-        },1500);
+        },1000);
 
-          setTimeout(() => {
+         
             this.messageIsDone = true;
-         }, 2000);
+       
 
     
     }

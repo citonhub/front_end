@@ -2028,7 +2028,7 @@ const app = new Vue({
         },
         markSpaceRead:function(spaceId){
 
-          if(this.ChatList != undefined){
+          if(this.ChatList.length != 0){
            
             this.ChatList.map((space)=>{
                  
@@ -2039,6 +2039,34 @@ const app = new Vue({
               }
       
             });
+
+
+            this.baseChatList.channels.map((space)=>{
+         
+              if(space.space_id == spaceId){
+                space.unread = 0;
+              }
+        
+            });
+        
+            this.baseChatList.direct_messages.map((space)=>{
+                 
+              if(space.space_id == spaceId){
+                space.unread = 0;
+              }
+        
+            });
+        
+            this.baseChatList.pet_spaces.map((space)=>{
+                 
+              if(space.space_id == spaceId){
+                space.unread = 0;
+              }
+        
+            });
+        
+          
+            this.$root.LocalStore('user_chat_list' + this.$root.username,this.baseChatList);
       
             
           
@@ -2846,11 +2874,19 @@ const app = new Vue({
    
  },
  // local storage
- LocalStore:function(key,data){ 
+ LocalStore:function(key,data,fromUnsent = false){ 
      
   localforage.setItem(key,JSON.stringify(data)).then(function () {
     return localforage.getItem(key);
-  }).then(function (value) {
+  }).then( () => {
+
+      if(fromUnsent){
+
+        if(this.chatComponent != undefined){
+          this.chatComponent.resendMessages();
+         }
+
+      }
     // we got our value
    
   }).catch(function (err) {
@@ -3270,7 +3306,7 @@ storeUnsentMessages:function(postData){
          if(messageData.length == 0){
 
           finalResult.push(postData);
-          this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,finalResult);
+          this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,finalResult,true);
 
          }
 
@@ -3280,13 +3316,14 @@ storeUnsentMessages:function(postData){
      }else{
 
       
-        this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,[postData]);
+        this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,[postData],true);
 
      }
 
-     if(this.chatComponent != undefined){
-      this.chatComponent.resendMessages();
-     }
+    
+
+
+    
 
     
   
