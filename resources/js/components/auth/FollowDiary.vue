@@ -12,7 +12,7 @@
         </div>
 
         <div class="buttons mt-2 col-5 offset-7 d-flex">
-  <p style="font-size:1.2rem;font-weight:bold;">Skip</p>  <v-btn    class="ml-2 px-2" style="color:white;background-color: #3C87CD;border-radius:10px;height:30px;">Done</v-btn>
+  <p style="font-size:1.2rem;font-weight:bold;">Skip</p>  <v-btn @click="openChatList()"   class="ml-2 px-2" style="color:white;background-color: #3C87CD;border-radius:10px;height:30px;">Done</v-btn>
 </div>
     </div>
 </template>
@@ -27,6 +27,13 @@ export default {
             ]
             }
        
+    },
+    methods:{
+        openChatList(){
+            this.$router.push({
+path:'/channels'
+            })
+        }
     }
 }
 </script>
