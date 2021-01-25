@@ -11,6 +11,23 @@
 
        <!-- chat content -->
 
+       
+                                <!--Interests Popup-->
+
+  <div class="py-0 px-0 " style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="popup">
+
+   <div class="scroller" style="position:absolute; height:90%; top:5%; width:94%;  align-items:center; justify-content:center;overflow-y: scroll;" >
+
+     
+      <interest ></interest>
+   
+
+   </div>
+
+ </div>
+
+                      <!--Interests Popup ends--> 
+
          <!-- large screens -->
 
         <div class="  py-0 px-0 d-lg-block d-none card " style=" overflow-y:hidden;position:absolute;width:90%; left:5%; height:94%; top:3%; overflow-y:hidden; overflow-x:hidden; background:white;" >
@@ -21,6 +38,8 @@
                    <div class="py-0"  style="height:100%; width:28%; left:0%; position:absolute; overflow-y:hidden; overflow-x:hidden; border-right:1px solid #c5c5c5;">
 
                          <div class="row  px-2">
+
+
 
                        
                            <template v-if="chatbarContent == 'chat_list'">
@@ -979,6 +998,9 @@
                                 
                             <!-- channel sidebar -->
 
+
+
+                         
                              <!-- live session -->
 
                             <div v-if="chatIsOpen && !chatInnerSideBar && liveSessionIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
@@ -1124,6 +1146,11 @@ import 'izitoast/dist/css/iziToast.min.css'
 
 import { VEmojiPicker } from 'v-emoji-picker';
 
+const Interest= () => import(
+   /* webpackChunkName: "Interest" */ '../auth/InterestPopup'
+  );
+
+
  const TopBar = () => import(
     /* webpackChunkName: "top-bar-chat" */ './TopBar.vue'
   );
@@ -1218,6 +1245,7 @@ export default {
        errorLoadingMessage:false,
         counter:0,
         messageIsDone: true,
+        popup:false,
         qouteArray:[
           {
             qoute:'Believe you can and you’re halfway there.',
@@ -1301,7 +1329,8 @@ export default {
         ReplyView,
         SideBar,
         ProfileView,
-        MoreOptionChat
+        MoreOptionChat,
+         Interest
     },
      methods:{
      
