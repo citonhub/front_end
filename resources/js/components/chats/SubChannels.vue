@@ -109,7 +109,7 @@ export default {
         }
     },
    mounted(){
-
+     this.$root.componentIsLoading = false;
      this.fetchSubSpaces();
     
    },

@@ -15,7 +15,7 @@
 
            <!-- menu session -->
 
-                        <v-btn fab small class="d-none d-lg-inline-block" color="#ffffff" @click="that.$root.showSideBar = true" style="position:absolute;left:12px;top:3%;">
+                        <v-btn fab small class="d-none d-lg-inline-block" color="#ffffff" @click="showSideBarHandler()" style="position:absolute;left:12px;top:3%;">
 
                             <v-badge
                    dot
@@ -420,7 +420,13 @@
                             
                            
                                <div v-if="chatIsOpen && chatInnerConent == 'code_editor'"  class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
-                                  <code-editor-chat></code-editor-chat>
+                                 
+                                  <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
+                                  <code-editor-chat v-else></code-editor-chat>
                             </div>
 
                             
@@ -919,7 +925,12 @@
                            <!-- code editor -->
 
                                <div  v-if="chatIsOpen && chatInnerConent == 'code_editor'"  class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
-                                  <code-editor-chat></code-editor-chat>
+                                  <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
+                                  <code-editor-chat v-else></code-editor-chat>
                             </div>
 
                             <!-- ends -->
@@ -1071,7 +1082,17 @@
    <div style="position:absolute; height:100%; width:70%; left:0;" >
 
      <div class="col-md-6 col-lg-3 pt-2" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
-        <side-bar></side-bar>
+
+       <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+         <img src="/imgs/diary_loading.svg" height="50" >
+
+      </div>
+      
+      <template v-else>
+       <side-bar></side-bar>
+      </template>
+
      </div>
 
    </div>
@@ -1432,6 +1453,15 @@ export default {
 
 
        },
+       showSideBarHandler: function(){
+
+         this.$root.componentIsLoading = true;
+
+         this.$root.showSideBar = true;
+
+
+
+      },
     checkDiary:function(){
 
        let botId = '';
@@ -1694,6 +1724,8 @@ export default {
        },
         showCreateChannel: function(){
 
+           this.$root.componentIsLoading = true;
+
             this.$router.push({ path: '/channels/create' });
 
           this.chatbarContent = '';
@@ -1705,7 +1737,7 @@ export default {
          
         },
         showCodeEditor:function(){
-       
+           this.$root.componentIsLoading = true;
             this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id +'/editor' });
         },
          fetchChatList: function(){
@@ -2229,7 +2261,7 @@ export default {
             this.messageIsDone = true;
         
        
-
+       
 
 
        
@@ -2362,6 +2394,8 @@ export default {
 
          
             this.messageIsDone = true;
+
+           
        
 
     

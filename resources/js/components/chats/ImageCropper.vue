@@ -63,6 +63,8 @@ export default {
   },
    mounted(){
 
+         this.$root.componentIsLoading = false;
+
         if(!this.$root.fromChannelEdit){
 
              if(this.$root.currentImage == 'image1'){

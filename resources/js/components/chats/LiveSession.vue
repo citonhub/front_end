@@ -286,6 +286,8 @@ export default {
      
        },
        mounted(){
+
+           this.$root.componentIsLoading = false;
       
       if(this.$root.liveIsOn){
 

@@ -107,7 +107,7 @@ export default {
   
   },
     mounted(){
-      
+        this.$root.componentIsLoading = false;
     },
     methods:{
       
