@@ -12,11 +12,18 @@
              <v-card  style="border-radius:7px;" class="col-12 py-2 px-1">
                    <div class="row">
                    <div class="col-2 py-0  text-center">
-                 <v-btn icon @click="that.$root.showSideBar = true"><v-icon style="font-size:25px;color:#263238;" >las la-bars</v-icon></v-btn>
+                 <v-btn icon @click="that.$root.showSideBar = true">
+                 
+                     <v-badge
+                   dot
+                color="green">
+                 <v-icon style="font-size:25px;color:#263238;" >las la-bars</v-icon>
+                   </v-badge>
+                   </v-btn>
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
 
-             <input style="width:100%;heigth:100%;font-size:12px;"   @input="searchChatList"
+             <input style="width:100%;heigth:100%;font-size:12px;"   @keydown="searchChatList"
                        v-model="searchValue"  placeholder="Search" class="py-2 px-2" type="search" >       
          
             </div>

@@ -156,6 +156,8 @@ export default {
     
   },
     mounted(){
+
+        this.$root.componentIsLoading = false;
      
        if(this.$root.selectedSpace.description == null){
           this.contentInWord = '';

@@ -147,6 +147,7 @@ export default {
     },
     mounted(){
       this.setPage();
+       this.$root.componentIsLoading = false;
     },
     methods:{
       installApp:function(){

@@ -61,8 +61,8 @@ const ImageLoader = () => import(
 export default {
 
        mounted(){
-      this.$root.showTabs=false;
-       this.$root.showHeader = false;
+           this.$root.componentIsLoading = false;
+     
     },
      components: {
       

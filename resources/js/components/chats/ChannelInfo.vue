@@ -105,6 +105,9 @@ export default {
        
         }
     },
+    mounted(){
+     this.$root.componentIsLoading = false;
+    },
     methods:{
        goToProfile:function(username){
         this.$root.selectedUsername = username;

@@ -264,7 +264,7 @@
 export default {
       mounted(){
 
-      
+          this.$root.componentIsLoading = false;
         this.setCodeContent();
       
       this.$root.codeboxComponent = this;

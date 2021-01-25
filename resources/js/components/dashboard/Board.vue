@@ -9,7 +9,15 @@
  <!-- large and medium screens -->
   <v-card class="d-none col-lg-2  d-lg-block"  style="z-index:999;border-radius:0px; align-items:center; background:white; justify-content:center; position:fixed; height:100%; top:0%;">
     
-   <side-bar></side-bar>
+  <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+         <img src="/imgs/diary_loading.svg" height="50" >
+
+      </div>
+      
+      <template v-else>
+       <side-bar></side-bar>
+      </template>
 
   </v-card>
 
@@ -23,7 +31,15 @@
    <div style="position:absolute; height:100%; width:70%; left:0;" >
 
      <div class="col-md-6 pt-2" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
-        <side-bar></side-bar>
+       <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+         <img src="/imgs/diary_loading.svg" height="50" >
+
+      </div>
+      <template v-else>
+       <side-bar></side-bar>
+      </template>
+       
      </div>
 
    </div>
