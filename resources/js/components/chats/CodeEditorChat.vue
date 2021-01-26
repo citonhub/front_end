@@ -613,6 +613,8 @@ methods:{
 
           if(this.$root.codeIsLive && !userState && this.$root.fromLiveSession){
 
+             
+
 
 
              this.cmOption.readOnly = 'nocursor';
@@ -645,6 +647,8 @@ methods:{
 
             this.code = this.$root.FullcodeContent;
            this.language = this.$root.fullCodeLanguage;
+
+           
            this.detectchange(this.$root.fullCodeLanguage);
 
           
@@ -722,6 +726,7 @@ methods:{
        goBack() {
 
           this.$root.fromLiveSession = false;
+          this.$root.codeFromChat = false;
     
     window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
          this.$root.chatComponent.chatInnerConent = '';
@@ -1094,7 +1099,7 @@ methods:{
 
        this.$root.fullCodeLanguage = language;
 
-
+   
 
          if(language == 'HTML'){
             this.cmOption.mode = 'text/html';
@@ -1392,7 +1397,7 @@ methods:{
 
          }
 
-          this.$root.codeFromChat = false;
+        
 
       },
 }
