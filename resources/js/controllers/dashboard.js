@@ -2862,7 +2862,7 @@ const app = new Vue({
   
        
      },
-     stopTying:_.debounce( () => {
+     stopTying:_.debounce( function () {
 
       this.$root.typinguser = '';
      this.$root.typing = false;
