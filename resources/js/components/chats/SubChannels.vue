@@ -278,12 +278,13 @@ export default {
    },  
    addSubChannel:function(){
 
-       this.$root.chatComponent.innerSideBarContent = '';
-             setTimeout(() => {
+       this.$root.componentIsLoading = true;
 
+       this.$root.chatComponent.innerSideBarContent = '';
+           
             this.$root.chatComponent.innerSideBarContent = 'add_sub_channel';
                 
-             },500);
+           
            this.$router.push({ path: '/channels/space_id/add_sub_channel' });
 
      

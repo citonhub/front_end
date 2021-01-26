@@ -1,7 +1,7 @@
 <template>
 
 
-    <div class="row" style="font-family:BodyFont;background:transparent;">
+    <div class="row "  style="font-family:BodyFont;background:transparent;" >
 
     <!-- contents  -->
          <v-form class="col-12 px-md-4 px-3 py-2 pt-0 mt-1 text-left" ref="addPost" v-model="formState" style="height:auto !important; font-family:BodyFont; background:transparent !important;" >
@@ -36,46 +36,52 @@
 
              <!-- select project -->
 
-              <div class=" col-12 py-1 my-0 px-2" style="font-family:BodyFont;">
-                 <v-chip :outlined="!postLink" @click="postLink = true" class="d-inline-block mr-1" color="#3C87CD" :style="postLink ? 'font-size:13px;cursor:pointer;color:white;' : 'font-size:13px;cursor:pointer;'">Add Link</v-chip>
+              <div class=" col-12 py-1  px-2" style="font-family:BodyFont;">
+                 
+                  <span  style="font-size:13px;font-family:MediumFont;" class="mb-1">Add project URL</span>  
 
-                <v-chip :outlined="postLink" @click="postLink = !postLink" class="d-inline-block mr-1" color="#3C87CD" :style="postLink ? 'font-size:13px;cursor:pointer;' : 'font-size:13px;cursor:pointer;color:white;'">Select Project</v-chip>
-               
-
-                <v-text-field 
-                v-if="postLink" 
-               
-                class="mt-2"
-               
+                <v-text-field        
                 outlined
                 
                 dense
-              
+                 placeholder="https://myportfolio.com"
                 style="font-size:13px;"
                 :rules="urlRule"
                  color="#3C87CD"
-                 placeholder="paste here"
+                @keydown="post.project_slug=''"
                  v-model="post.project_url">
 
                 </v-text-field>
-                <v-select v-else 
+             
+              
+             </div>
+
+             <div class="col-12 py-0  mt-n3 ">
+
+                 <span  style="font-size:13px;font-family:BodyFont; color:grey;" >Or</span>  
+
+             </div>
+               
+                <div class=" col-12 py-1 my-0 px-2" style="font-family:BodyFont;">
+                   <span  style="font-size:13px;font-family:MediumFont;" class="mb-1">Select from project list</span>  
+                <v-select
                
                  style="font-size:13px;"
-                 class="mt-2"
+                 
                  @change="setTagHandler"
                  color="#3C87CD"
                    :items="projectArray"
+                   
                   item-text="title"
                 item-value="project_slug"
                  :loading="loadingProjects"
                  dense
                  outlined
-                    :rules="requiredRule"
+                  
                  placeholder="select..."
                 v-model="post.project_slug">
                 </v-select>
-              
-             </div>
+                </div>
 
              <!-- ends -->
             
@@ -253,7 +259,6 @@ export default {
            v => v.length <= 300 || 'description must be less than 300 characters'
             ],
             urlRule:[
-                  v => !!v || 'Oh! you missed this.',
                   v =>  this.isURL(v) || "Link should be valid and secure"
             ],
             languageIcon:[
@@ -484,6 +489,12 @@ export default {
      },
     methods:{
       isURL(str) {
+
+         if(str.length == 0){
+
+           return true;
+
+         }
       let url;
 
       try {
@@ -520,6 +531,8 @@ export default {
          })
 
           this.post.tags = [selectedTag[0].name];
+
+          this.post.project_url ='';
          
        },
         getAllProjects:function(){

@@ -56,7 +56,10 @@
                                        </div>
                                     
                                  </div>          
-                     </div>      
+                     </div> 
+
+
+
        </div>
 
        <!-- ends -->
@@ -67,13 +70,16 @@
 </template>
 <script>
 
+
 const { htmlToText } = require('html-to-text');
 
 export default {
    props:['source'],
+   
     data () {
       return {
        that: this,
+       popup:true
       }
     },
    mounted(){

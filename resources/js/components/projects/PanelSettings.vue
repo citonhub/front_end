@@ -195,7 +195,7 @@ export default {
 
         
          this.loading = false;
-        
+        this.$router.push({path: '/board/projects/panel/' + this.$root.projectData.project.project_slug })
      }
        
      

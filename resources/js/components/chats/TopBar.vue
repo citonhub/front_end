@@ -6,7 +6,7 @@
 
      <!-- top bar smaller screen -->
 
-       <div class="col-12 d-block d-md-none py-2 " style="position:absolute; top:0; left:0; font-family:BodyFont; z-index:99999999999;background:#ffffff;">
+       <div class="col-12 d-block d-lg-none py-2 " style="position:absolute; top:0; left:0; font-family:BodyFont; z-index:99999999999;background:#ffffff;">
 
          <div class="row px-2">
              <v-card  style="border-radius:7px;" class="col-12 py-2 px-1">

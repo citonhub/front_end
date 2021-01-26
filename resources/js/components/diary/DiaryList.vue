@@ -116,7 +116,7 @@
                     </div>
 
                      <div>
-                          <v-btn small color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" @click="createDiary" class="mx-2 d-inline-block" rounded>Create a dairy</v-btn>
+                          <v-btn small color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" @click="createDiary" class="mx-2 d-inline-block" rounded>Create a diary</v-btn>
                      </div>
 
 

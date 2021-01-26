@@ -3,7 +3,7 @@
 
 
        <!-- large and medium screens -->
-         <div class="col-md-9 py-0 d-md-flex px-md-1 flex-row  d-none" style="align-items:center;" >
+         <div class="col-md-9 py-0 d-lg-flex px-md-1 flex-row  d-none" style="align-items:center;" >
               
                    
                  
@@ -69,7 +69,7 @@
                      </div>
               
          </div>
-         <div class="col-md-1 py-1 d-md-block d-none text-right d-md-block"  style="align-items:center;">
+         <div class="col-md-1 py-1 d-none text-right d-lg-block"  style="align-items:center;">
 
             <template v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
 
@@ -85,7 +85,7 @@
               
          </div>
 
-          <div class="col-md-1 py-1 d-md-block d-none text-right px-1 d-md-block"  style="align-items:center;">
+          <div class="col-md-1 py-1  d-none text-right px-1 d-lg-block"  style="align-items:center;">
 
 
             <template v-if=" this.$root.selectedSpace.type != 'Bot'">
@@ -108,7 +108,7 @@
               
               
          </div>
-         <div class="col-md-1 py-1 text-right d-none d-md-block" style="align-items:center;" >
+         <div class="col-md-1 py-1 text-right d-none d-lg-block" style="align-items:center;" >
 
             
              <v-btn icon class="showMoreChat"  ><v-icon >las la-ellipsis-v</v-icon></v-btn>
@@ -139,7 +139,7 @@
            
          <!-- smaller screens -->
            
-            <div class="col-12 py-0 d-flex  flex-row d-md-none px-1" style="align-items:center;"  >
+            <div class="col-12 py-0 d-flex  flex-row d-lg-none px-1" style="align-items:center;"  >
               
                     <v-btn icon class="d-lg-none d-inline-block"  @click.stop="goback">
                       <v-icon style="font-size:24px;">las la-arrow-left</v-icon>
@@ -326,11 +326,15 @@ export default {
           }
       },
        showSideBar: function(type){
+
+
             
              if( this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team'  || this.$root.selectedSpace.type == 'SubSpace'){
+                 this.$root.componentIsLoading = true;
 
                 this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/' + type });
-            
+              
+              
 
              }
 
@@ -348,6 +352,7 @@ export default {
          this.$router.push({ path:'/profile-view/' + username})
       },
        openLiveSession:function(){
+           this.$root.componentIsLoading = true;
                this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id +'/live_session' });
             
        },

@@ -11,6 +11,23 @@
 
        <!-- chat content -->
 
+       
+                                <!--Interests Popup-->
+
+  <div class="py-0 px-0 " style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="popup">
+
+   <div class="scroller" style="position:absolute; height:90%; top:5%; width:94%;  align-items:center; justify-content:center;overflow-y: scroll;" >
+
+     
+      <interest ></interest>
+   
+
+   </div>
+
+ </div>
+
+                      <!--Interests Popup ends--> 
+
          <!-- large screens -->
 
            <!-- menu session -->
@@ -35,6 +52,8 @@
                    <div class="py-0"  style="height:100%; width:28%; left:0%; position:absolute; overflow-y:hidden; overflow-x:hidden; border-right:1px solid #c5c5c5;">
 
                          <div class="row  px-2">
+
+
 
                        
                            <template v-if="chatbarContent == 'chat_list'">
@@ -93,7 +112,7 @@
        style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:100px;">
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                       Teach and build your community in channels.
+                      Chat, share and run codes, organize live coding and screen sharing sessions with others in your channel.
                     </div>
 
                      <div>
@@ -180,6 +199,11 @@
                        
                             <div v-if="chatbarContent == 'create_channel'" class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; overflow-x:hidden; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                   <create-channel></create-channel>
+                                    <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
                             </div>
                         
                             <!-- ends -->
@@ -420,13 +444,14 @@
                             
                            
                                <div v-if="chatIsOpen && chatInnerConent == 'code_editor'"  class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
-                                 
+                                   
+
                                   <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
 
                           <img src="/imgs/diary_loading.svg" height="50" >
 
                                </div>
-                                  <code-editor-chat v-else></code-editor-chat>
+                                  <code-editor-chat ></code-editor-chat>
                             </div>
 
                             
@@ -448,6 +473,11 @@
 
                                <div  v-if="chatIsOpen && chatInnerConent == 'image_viewer'" class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                   <image-viewer></image-viewer>
+                                    <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
                             </div>
 
                             <!-- ends -->
@@ -459,7 +489,12 @@
                                    <div style="position:absolute; height:100%; width:70%; left:30%;" >
 
                                     <div  @click.stop="chatInnerSideBar = true" class="scrollerinfo offset-lg-6" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
-                                     
+                                       
+                                         <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
                                      
                                         <channel-info v-if="innerSideBarContent == 'channel_info'" ></channel-info>
                                      
@@ -501,6 +536,12 @@
 
                             <!-- ends -->
 
+                              <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
+
      
                                     <live-session></live-session>
                                </div>
@@ -520,6 +561,11 @@
 
                             <div v-if="chatIsOpen && !chatInnerSideBar && imageCropperIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;">
                                     <image-cropper></image-cropper>
+                                      <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
                                </div>
 
                             <!-- ends -->
@@ -603,7 +649,7 @@
           style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto;align-items:center;justify-content:center;" >
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                       Teach and build your community in channels.
+                     Chat, share and run codes, organize live coding and screen sharing sessions with others in your channel.
                     </div>
 
                      <div>
@@ -688,6 +734,11 @@
 
                             <div  v-if="chatbarContent == 'create_channel'" class="col-12 py-0 px-0" style="background:#ffffff; left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
                                   <create-channel></create-channel>
+                                   <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
                             </div>
                       
 
@@ -930,7 +981,7 @@
                           <img src="/imgs/diary_loading.svg" height="50" >
 
                                </div>
-                                  <code-editor-chat v-else></code-editor-chat>
+                                  <code-editor-chat></code-editor-chat>
                             </div>
 
                             <!-- ends -->
@@ -961,7 +1012,15 @@
 
                                <div  v-if="chatIsOpen && showMoreOptions" @click="showMoreOptions = false" class="col-12 py-0 px-0 d-flex" style="align-items:center; justify-content:center; background: rgba(27, 27, 30, 0.1); position:fixed; height:100%; top:0%;z-index:999999999999;" >
                                   
+                                    <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
+
                                   <more-options></more-options>
+
+
                             </div>
 
                             <!-- ends -->
@@ -969,7 +1028,11 @@
                            <!-- chat more options -->
 
                                <div  v-if="chatIsOpen && showMoreOptionsChat" @click="showMoreOptionsChat = false" class="col-12 py-0 px-0 d-flex" style="align-items:center; justify-content:center; background: rgba(27, 27, 30, 0.1); position:fixed; height:100%; top:0%;z-index:999999999999;" >
-                                  
+                                      <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
                                   <more-option-chat></more-option-chat>
                             </div>
 
@@ -983,7 +1046,11 @@
 
                                     <div class="scrollerinfo col-md-6 offset-md-6 px-0 py-0 pb-2" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
                                      
-                                    
+                                        <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
                                         
                                         <channel-info v-if="innerSideBarContent == 'channel_info'" ></channel-info>
                                      
@@ -1005,6 +1072,9 @@
                                 
                             <!-- channel sidebar -->
 
+
+
+                         
                              <!-- live session -->
 
                             <div v-if="chatIsOpen && !chatInnerSideBar && liveSessionIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
@@ -1021,6 +1091,12 @@
              </div>
 
                             <!-- ends -->
+
+                              <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
 
      
                                     <live-session></live-session>
@@ -1040,6 +1116,11 @@
 
                             <div v-if="chatIsOpen && !chatInnerSideBar && imageCropperIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
                                     <image-cropper></image-cropper>
+                                      <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
                                </div>
 
                             <!-- ends -->
@@ -1079,17 +1160,18 @@
     
    <div class="col-12  py-0 px-0" style="position:absolute; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);" @click="that.$root.showSideBar = false" v-if="that.$root.showSideBar">
 
-   <div style="position:absolute; height:100%; width:70%; left:0;" >
+   <div style="position:absolute; height:100%; width:65%; left:0;" >
 
      <div class="col-md-6 col-lg-3 pt-2" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
 
-       <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+      
+      
+      <template>
+         <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
 
          <img src="/imgs/diary_loading.svg" height="50" >
 
       </div>
-      
-      <template v-else>
        <side-bar></side-bar>
       </template>
 
@@ -1159,6 +1241,11 @@ import 'izitoast/dist/css/iziToast.min.css'
 
 
 import { VEmojiPicker } from 'v-emoji-picker';
+
+const Interest= () => import(
+   /* webpackChunkName: "Interest" */ '../auth/InterestPopup'
+  );
+
 
  const TopBar = () => import(
     /* webpackChunkName: "top-bar-chat" */ './TopBar.vue'
@@ -1254,6 +1341,7 @@ export default {
        errorLoadingMessage:false,
         counter:0,
         messageIsDone: true,
+        popup:false,
         qouteArray:[
           {
             qoute:'Believe you can and you’re halfway there.',
@@ -1337,7 +1425,8 @@ export default {
         ReplyView,
         SideBar,
         ProfileView,
-        MoreOptionChat
+        MoreOptionChat,
+         Interest
     },
      methods:{
      
@@ -1791,9 +1880,9 @@ export default {
           this.$root.baseChatList = response.data;
           this.$root.ChatList = responseList.channels.concat(responseList.direct_messages, responseList.pet_spaces);
 
-           this.$root.LocalStore('user_chat_list' + this.$root.username,response.data);
+           this.$root.LocalStore('user_chat_list' + this.$root.username,response.data,false,'sort_chat');
 
-         this.$root.sortChatList();
+       
 
              this.$root.loadingChatList = false;
 

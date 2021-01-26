@@ -141,7 +141,11 @@
                         <div style="font-size:14px;font-family:MediumFont;" >Discussion</div>  
 
                    </div>
+ <div class="py-2 px-3 mr-1 sideBar" :style="selectedTab == 'channel' ? ' border-bottom:4px solid #3C87CD;' : ''" @click.stop="goToPage('channel')">
 
+                        <div style="font-size:14px;font-family:MediumFont;" >Channel</div>  
+
+                   </div>
                   </div>
 
                  
@@ -291,6 +295,12 @@
                     <div class="py-2 px-3 mr-1 sideBar" :style="selectedTab == 'discussion' ? ' border-bottom:4px solid #3C87CD;' : ''" @click.stop="goToPage('discussion')">
 
                         <div style="font-size:13px;font-family:MediumFont;" >Discussion</div>  
+
+                   </div>
+
+                      <div class="py-2 px-3 mr-1 sideBar" :style="selectedTab == 'channel' ? ' border-bottom:4px solid #3C87CD;' : ''" @click.stop="goToPage('channel')">
+
+                        <div style="font-size:13px;font-family:MediumFont;" >Channel</div>  
 
                    </div>
 

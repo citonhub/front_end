@@ -22,16 +22,17 @@
 
 
          <!-- edit space form -->
-      <v-app style="background:transparent;font-family:BodyFont; " class="col-12 py-1 my-0" >
+      <div style="background:transparent;font-family:BodyFont; " class="col-12 py-1 my-0" >
          <v-form class="row my-2 py-2 px-2 " style="font-family:BodyFont;" ref="subspace" v-model="formstate">
 
 
               
-                   <div class="col-12 py-2 my-0 px-2">
+                   <div class="col-12 py-1 my-0 px-2">
+                       <span  style="font-size:13px;font-family:MediumFont;" class="mb-1">Name</span>  
               <v-text-field
                 style="font-size:13px;"
                  :placeholder="'e.g fun'"
-            :label="$t('general.Name')"
+           
             :rules="Rule"
             counter="80"
              dense
@@ -43,7 +44,7 @@
              </div>
 
               <div class="col-12 ">
-                <span style="font-size:14px;">Choose type</span>
+                <span style="font-size:13px;font-family:MediumFont;">Choose type</span>
               </div>
 
              <div class="col-lg-12 py-0 my-0 px-2 text-left">
@@ -71,12 +72,13 @@
               </div>
 
 
-             <div class="col-12 py-2 my-0 mt-3 px-2">
+             <div class="col-12 py-2 my-0 px-2">
+                 <span  style="font-size:13px;font-family:MediumFont;" class="mb-1">Description</span>  
                    <v-textarea
                 style="font-size:13px;"
                  
-            :label="$t('general.description')"
-             dense
+           
+             outlined
             
             :placeholder="'what is this sub-channel for?'"
              :rules="DescriptionRule"
@@ -95,7 +97,7 @@
             
               
           </v-form>
-        </v-app>
+        </div>
 
        <!-- ends -->
 
@@ -142,6 +144,9 @@ export default {
          contentInWord:'',
           
         }
+    },
+    mounted(){
+    this.$root.componentIsLoading = false;
     },
     methods:{
         goBack:function(){

@@ -92,7 +92,7 @@
            <template v-if="pageContent != '' && !this.$root.selectedPost.project.is_web">
 
              <!-- for non-web content -->
-   <textarea  readonly class="col-12" style=" font-size:14px;position:absolute; height:100%;  background:white;border:1px solid #c5c5c5; border-radius:7px;"  >
+   <textarea :value="pageContent"  readonly class="col-12" style=" font-size:14px; position:absolute; height:100%;  background:white;border:1px solid #c5c5c5; border-radius:7px;"  >
        
     </textarea>
 
@@ -361,7 +361,7 @@
            <template v-if="pageContent != '' && !this.$root.selectedPost.project.is_web">
 
              <!-- for non-web content -->
-   <textarea  readonly class="col-12" style=" font-size:14px; height:100%;  background:white;border:1px solid #c5c5c5; "  >
+   <textarea  :value="pageContent"  readonly class="col-12" style=" font-size:14px; height:100%;  background:white;border:1px solid #c5c5c5; "  >
        
     </textarea>
 

@@ -9,13 +9,14 @@
  <!-- large and medium screens -->
   <v-card class="d-none col-lg-2  d-lg-block"  style="z-index:999;border-radius:0px; align-items:center; background:white; justify-content:center; position:fixed; height:100%; top:0%;">
     
-  <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+  
+      
+      <template>
+        <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
 
          <img src="/imgs/diary_loading.svg" height="50" >
 
       </div>
-      
-      <template v-else>
        <side-bar></side-bar>
       </template>
 
@@ -28,15 +29,16 @@
  <v-slide-x-transition>
    <div class="col-12 d-lg-none d-block py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" @click="that.$root.showSideBar = false" v-if="that.$root.showSideBar">
 
-   <div style="position:absolute; height:100%; width:70%; left:0;" >
+   <div style="position:absolute; height:100%; width:60%; left:0;" >
 
      <div class="col-md-6 pt-2" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
-       <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+      
+      <template >
+         <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
 
          <img src="/imgs/diary_loading.svg" height="50" >
 
       </div>
-      <template v-else>
        <side-bar></side-bar>
       </template>
        

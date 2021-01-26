@@ -9,8 +9,8 @@ window.io = require('socket.io-client');
 Vue.use(Vuex)
 
 //axios.defaults.baseURL = 'http://localhost:8000/api'
-axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
-//axios.defaults.baseURL = 'https://api.citonhub.com/api'
+//axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
+axios.defaults.baseURL = 'https://api.citonhub.com/api'
 const store = new Vuex.Store({
   state: {
     user: null
@@ -74,7 +74,8 @@ const Verify = () => import(/* webpackChunkName: "verify" */ '../components/auth
 const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword" */ '../components/auth/ForgotPassword.vue');
 const ResetPassword = () => import(/* webpackChunkName: "ResetPassword" */ '../components/auth/ResetPassword.vue');
 const SetUsername = () => import(/* webpackChunkName: "SetUsername" */ '../components/auth/SetUsername.vue');
-
+const UserInterests= () => import(/* webpackChunkName: "userInterests" */ '../components/auth/Interests.vue')
+const FollowDiary= () => import(/* webpackChunkName:"FollowDiary" */ '../components/auth/FollowDiary.vue')
 // dashboard routes
 const Board = () => import(/* webpackChunkName: "Board" */ '../components/dashboard/Board.vue');
 const Projects = () => import(/* webpackChunkName: "Projects" */ '../components/dashboard/Projects.vue');
@@ -106,7 +107,7 @@ const PanelLoader = () => import(/* webpackChunkName: "PanelLoader" */ '../compo
 const PanelSettings = () => import(/* webpackChunkName: "PanelSettings" */ '../components/projects/PanelSettings.vue');
 const AddWebroute= () => import(/* webpackChunkName: "AddWebroute" */ '../components/projects/AddWebroute.vue');
 const ProjectGuide = () => import(/* webpackChunkName: "ProjectGuide" */ '../components/projects/ProjectGuide.vue')
-
+const AddGit= () => import(/* webpackChunkName: "AddGit" */ '../components/projects/AddGit.vue')
 
 
 // chats routes
@@ -146,6 +147,12 @@ const routes = [
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
+  {
+    path:'/choose-interests',  name:'UserInterests', component:  UserInterests
+  },
+  {
+    path:'/follow-diaries', name:'FollowDiary', component:FollowDiary
+  },
  
   {
     path:'/profile/:username',
@@ -1353,6 +1360,11 @@ children:[
                     path: 'panel-loader',
                     component: PanelLoader
                   },
+
+                  {
+                    path:'add-git',
+                    component: AddGit
+                  }
                  
                ]
     },
@@ -2040,34 +2052,51 @@ const app = new Vue({
       
             });
 
+            let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
 
-            this.baseChatList.channels.map((space)=>{
+            storedChat.then((result)=>{
+        
+                if(result != null ){
+        
+             let finalResult = JSON.parse(result);
+               
+                 
+        
+        
+                   finalResult.channels.map((space)=>{
+                 
+                    if(space.space_id == spaceId){
+                      space.unread = 0;
+                    }
+              
+                  });
+              
+                  finalResult.direct_messages.map((space)=>{
+                       
+                    if(space.space_id == spaceId){
+                      space.unread = 0;
+                    }
+              
+                  });
+              
+                  finalResult.pet_spaces.map((space)=>{
+                       
+                    if(space.space_id == spaceId){
+                      space.unread = 0;
+                    }
+                
+             
+                     });
+        
+            this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
          
-              if(space.space_id == spaceId){
-                space.unread = 0;
-              }
         
-            });
+          }
         
-            this.baseChatList.direct_messages.map((space)=>{
-                 
-              if(space.space_id == spaceId){
-                space.unread = 0;
-              }
-        
-            });
-        
-            this.baseChatList.pet_spaces.map((space)=>{
-                 
-              if(space.space_id == spaceId){
-                space.unread = 0;
-              }
-        
-            });
-        
-          
-            this.$root.LocalStore('user_chat_list' + this.$root.username,this.baseChatList);
-      
+        })
+
+
+           
             
           
           }
@@ -2874,7 +2903,7 @@ const app = new Vue({
    
  },
  // local storage
- LocalStore:function(key,data,fromUnsent = false){ 
+ LocalStore:function(key,data,fromUnsent = false,actionName = 'null',extraData = null){ 
      
   localforage.setItem(key,JSON.stringify(data)).then(function () {
     return localforage.getItem(key);
@@ -2887,7 +2916,41 @@ const app = new Vue({
          }
 
       }
-    // we got our value
+
+      if(actionName == 'leave_space'){
+
+        let fullList = data.channels.concat(data.direct_messages, data.pet_spaces);
+
+                     
+        this.$root.ChatList = fullList;
+
+          this.$root.sortChatList();   
+          
+       
+       this.$router.push({ path: '/channels' });
+
+      }
+
+      if(actionName == 'new_channel'){
+
+        let fullList = data.channels.concat(data.direct_messages, data.pet_spaces);
+
+                     
+        this.$root.ChatList = fullList;
+
+          this.$root.sortChatList();
+
+           this.$root.chatComponent.chatbarContent = 'chat_list';
+            this.$root.chatComponent.openChat(extraData.space_id,true)
+
+      }
+
+      if(actionName == 'sort_chat'){
+
+        this.$root.sortChatList();
+
+      }
+   
    
   }).catch(function (err) {
     console.log(err)
@@ -3150,42 +3213,57 @@ handleSpaceData: function(returnData){
     });
 
     // save into local storage
+
+    let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+    storedChat.then((result)=>{
+
+        if(result != null ){
+
+     let finalResult = JSON.parse(result);
+       
+         
+
+
+           finalResult.channels.map((space)=>{
+         
+            if(space.space_id == spaceId){
+              space.message_track = new Date();
+              space.last_message = [message];
+            }
+      
+          });
+      
+          finalResult.direct_messages.map((space)=>{
+               
+            if(space.space_id == spaceId){
+              space.message_track = new Date();
+              space.last_message = [message];
+            }
+      
+          });
+      
+          finalResult.pet_spaces.map((space)=>{
+               
+            if(space.space_id == spaceId){
+              space.message_track = new Date();
+              space.last_message = [message];
+            }
+        
+     
+             });
+
+    this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult,false,'sort_chat');
+
+   
+    
     
 
-     this.baseChatList.channels.map((space)=>{
-         
-      if(space.space_id == spaceId){
-        space.message_track = new Date();
-        space.last_message = [message];
-      }
-
-    });
-
-    this.baseChatList.direct_messages.map((space)=>{
-         
-      if(space.space_id == spaceId){
-        space.message_track = new Date();
-        space.last_message = [message];
-      }
-
-    });
-
-    this.baseChatList.pet_spaces.map((space)=>{
-         
-      if(space.space_id == spaceId){
-        space.message_track = new Date();
-        space.last_message = [message];
-      }
-
-    });
-
-  
-    this.$root.LocalStore('user_chat_list' + this.$root.username,this.baseChatList);
-
-    this.$root.sortChatList();
-   
   }
-  
+
+})
+
+  }
 
 },
 scrollToBottom: function(){

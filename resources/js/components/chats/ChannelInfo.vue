@@ -53,7 +53,7 @@
 
            <div class="col-6 px-0 py-0">
 
-               <v-btn x-small color="#3C87CD"  v-if="checkIfisOwner()" @click.stop="showInvitation" style="color:white;text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Invite</v-btn>
+               <v-btn x-small color="#3C87CD"  v-if="checkIfisOwner() && that.$root.selectedSpace.type != 'Bot'" @click.stop="showInvitation" style="color:white;text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Invite</v-btn>
 
            </div>
 
@@ -64,6 +64,7 @@
          </div>
         </div>
         
+     <template v-if="that.$root.selectedSpace.type != 'Bot'">
 
           <div class="col-12 py-2 d-flex flex-row mt-2" style="border-top:1px solid #c5c5c5; border-bottom:1px solid #c5c5c5;">
            <div class="col-7 py-0 px-0">
@@ -83,6 +84,9 @@
         <span style="font-size:13px;">{{member.name}} @{{member.username}}</span>
    </div>
         </div>
+
+     </template>
+       
         
 
      
@@ -147,7 +151,7 @@ export default {
                        if(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' ){
 
                           let remainingSpace = finalResult.channels.filter((space)=>{
-                         return    space.space_id != this.$route.params.spaceId
+                         return    space.space_id != this.$root.selectedSpace.space_id
                           });
 
                           finalResult.channels = remainingSpace;
@@ -157,27 +161,17 @@ export default {
                          if(this.$root.selectedSpace.type == 'Bot'){
 
                           let remainingSpace = finalResult.pet_spaces.filter((space)=>{
-                         return    space.space_id != this.$route.params.spaceId
+                         return    space.space_id != this.$root.selectedSpace.space_id
                           });
 
-                          finalResult.channels = remainingSpace;
+                          finalResult.pet_spaces = remainingSpace;
 
                         }
                          
 
-                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
-
-                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
-
-                     
-                   this.$root.ChatList = fullList;
-
-                     this.$root.sortChatList();
+                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult,false,'leave_space');
 
                     
-                     
-                  
-                  this.$router.push({ path: '/channels' });
                     
 
                  }

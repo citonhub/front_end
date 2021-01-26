@@ -176,6 +176,22 @@
 
               </div>
 
+                  <div class=" col-lg-12 py-1 my-0 px-2" >
+
+                    <div class="col-lg-8 px-0" >
+     <v-combobox
+     label=" Challenge Channel"
+     placeholder="Select existing channel or enter new channel name"
+     v-model="new_channel"
+     style="font-size:0.8rem"
+     :items="channelList"
+                 item-value="space_id"
+            item-text="name"
+     ></v-combobox>
+                    </div>
+
+              </div>
+
             
         <div class="col-lg-12 py-1 my-2 px-2 text-left">
 
@@ -365,6 +381,8 @@ export default {
          switch2:true,
          switch1:false,
          rulesContent:'',
+         channelList:[],
+         new_channel:'',
           titleRule:[
              v => !!v || 'Oh! you missed this.',
            v => v.length <= 50 || 'Name must be less than 50 characters'
@@ -620,6 +638,7 @@ export default {
     mounted(){
      this.$root.showTopBar = false;
      this.setEditValues();
+     this.fetchChannels()
     },
     components:{
       VPressEditor
@@ -942,7 +961,25 @@ this.judgeType='everyone';
 
          }
        
+      },
+
+        fetchChannels(){
+          axios.get('/fetch-user-channels-diary' )
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+       this.channelList = response.data;
+       
       }
+       
+     
+     })
+     .catch(error => {
+    
+     }) 
+
+       }
     }
   };
 </script>
