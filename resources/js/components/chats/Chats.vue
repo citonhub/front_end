@@ -1827,6 +1827,7 @@ export default {
         },
         showCodeEditor:function(){
            this.$root.componentIsLoading = true;
+            this.$root.codeFromChat = true;
             this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id +'/editor' });
         },
          fetchChatList: function(){
