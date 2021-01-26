@@ -2517,13 +2517,7 @@ const app = new Vue({
          this.$root.typing = e.typing;
          this.$root.typingSpace = e.spaceId;
 
-         _.debounce( () => {
-
-          this.$root.typinguser = '';
-         this.$root.typing = false;
-         this.$root.typingSpace = '';
-
-          }, 1000);
+          this.stopTying();
 
 
 
@@ -2868,6 +2862,13 @@ const app = new Vue({
   
        
      },
+     stopTying:_.debounce( () => {
+
+      this.$root.typinguser = '';
+     this.$root.typing = false;
+     this.$root.typingSpace = '';
+
+      }, 1000),
   checkIfMessageExist(data){
 
     let messageData = this.$root.Messages.filter((message)=>{
