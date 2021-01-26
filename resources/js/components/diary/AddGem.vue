@@ -259,9 +259,7 @@
 
                 </div>
 
-                <div class="px-5 d-md-none">
-
-                </div>
+              
              <div class="py-1">
 
                 <v-card class="px-1 py-1 mx-1 typeBox"    @click="selectContentType('text')" :style="selectedContentType == 'text' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
@@ -356,19 +354,26 @@
 
             </div>
 
-         <div class="col-lg-12 py-1 my-2 px-2 text-center" v-if="selectedContentType == 'text'">
+         <div class="col-lg-6 offset-lg-3 col-md-8 offset-lg-2 py-1 my-2 px-2 text-center" v-if="selectedContentType == 'text'">
 
-                <v-textarea
-                 style="font-size:14px;background:white;"
+             <div style="background:white;border:1px solid transparent;border-radius:7px;" >
+
+                 <v-textarea
+                 style="font-size:14px;"
                  outlined
-                 height="100px"
-                
+                 height="300px"
+                  color="#3C87CD"
+                 @input="updateText()"
                 :placeholder="'Type here...'"
-                v-model="contentInWord" 
+                v-model="input" 
                
                 >
 
                 </v-textarea>
+
+             </div>
+
+              
 
 
        <div class="col-12 text-center">
@@ -817,6 +822,7 @@ export default {
           audioSize:'',
           loadingProjects:false,
           showCode:true,
+          input:'',
           showShareProject:false,
           selectedProject:'',
           languageCode:'JAVASCRIPT(Node)',
@@ -986,14 +992,32 @@ export default {
         disabled: false,
         ghostClass: "ghost"
       };
-    }
+    },
+     compiledMarkdown: function() {
+           
+             var renderer = new marked.Renderer();
+            renderer.link = function(href, title, text) {
+          var link = marked.Renderer.prototype.link.call(this, href, title, text);
+          return link.replace("<a","<a target='_blank' ");
+          };
+        marked.setOptions({
+          renderer: renderer    
+          });
+
+           return  marked(this.input, { sanitize: true });
+           
+          }
   },
+  
      mounted(){
       this.$root.showMobileHub = false;
       this.$root.addDiaryContentComponent = this;
       this.getAllProjects();
     },
     methods:{
+      updateText:function(){
+          this.contentInWord = this.compiledMarkdown;
+      },
       closeAddContentModel:function(){
 
          this.addNewContentModal = false;
@@ -1415,6 +1439,7 @@ export default {
             this.audioBlob = '';
             this.codeContent = '';
             this.contentInWord = '';
+            this.input = '';
             this.showShareProject = false;
 
         },

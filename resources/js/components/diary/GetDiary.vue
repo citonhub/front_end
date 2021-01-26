@@ -119,27 +119,30 @@
 
 
 
-      <div class="col-lg-8  py-1 mt-3 px-2">
+      <div class="col-lg-8  py-1 mt-3 px-2 mb-1">
 
-             <div style="font-size:14px;"  class="mb-4">3. Control diary access.</div>
-               <v-chip 
-        :outlined="accessType !='public'"
-       class="d-inline-block mr-1 mt-2"
-    :style="accessType != 'public' ? 'font-size:13px;cursor:pointer;' : 'font-size:13px;cursor:pointer;color:white;'"
-              color="#3C87CD"
-           
-@click="accessType='public'"
-    >Public</v-chip>
+             <div style="font-size:14px;"  class="mb-2">3. Control diary access.</div>
 
-     <v-chip
+              <v-chip
        :outlined="accessType !='private'"
-       class="d-inline-block mr-1 mt-2"
+       class="d-inline-block ml-2 my-1"
         :style="accessType != 'private' ? 'font-size:13px;cursor:pointer;' : 'font-size:13px;cursor:pointer;color:white;'"
        color="#3C87CD"
        
         
     @click="accessType='private'"
     >Private</v-chip>
+
+               <v-chip 
+        :outlined="accessType !='public'"
+       class="d-inline-block ml-1 my-1"
+    :style="accessType != 'public' ? 'font-size:13px;cursor:pointer;' : 'font-size:13px;cursor:pointer;color:white;'"
+              color="#3C87CD"
+           
+@click="accessType='public'"
+    >Public</v-chip>
+
+    
              </div>
 
 
@@ -147,14 +150,14 @@
 
    
     <div class=" col-lg-12 py-1 my-0 px-2">
-            <div style="font-size:14px;"  class="my-2" >4. Select a channel <span style="font-size:12px;color:grey;">(optional)</span></div>
+            <div style="font-size:14px;"  >4. Select a channel <span style="font-size:12px;color:grey;">(optional)</span></div>
 
                   
-                    <div class="col-lg-8 px-0">
+                    <div class="col-lg-8 py-0 px-0">
                          <v-select
                  style="font-size:13px;"
               dense
-              label="Channel"
+             
             counter="20"
             v-model="selectedChannel"
             placeholder="select..."
@@ -203,7 +206,7 @@
   
   <div class="col-lg-8  py-1 my-0 px-2">
 
-             <div style="font-size:14px;" class="mb-3">4. Let us know about your new diary</div>
+             <div style="font-size:14px;" class="mb-3">5. About your new diary</div>
               <v-textarea
                  style="font-size:13px;"
                 
@@ -465,6 +468,7 @@ var blob = this.b64toBlob(realData, contentType);
              formData.append('name',this.diaryName);
              formData.append('channel_id',this.selectedChannel);
              formData.append('description',this.description);
+             formData.append('access_type',this.accessType);
 
               axios.post('/create-diary',formData,
            {

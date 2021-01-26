@@ -92,9 +92,20 @@
               </div>
 
             </div>
+  
+    <template v-if="that.$root.selectedDiary.notes">
 
-          
-               <draggable
+       <template v-if="that.$root.selectedDiary.notes.length == 0">
+
+                 <div class="text-center px-3 mt-3" style="font-size:13px;color:gray;font-family:BodyFont;">
+                     You have not added any note yet.
+                    </div>
+
+            </template>
+
+              <template v-else>
+
+                     <draggable
         class="col-12  px-md-3  px-0 py-0 d-flex flex-row flex-wrap"
         tag="div"
         v-model="that.$root.selectedDiary.notes"
@@ -164,6 +175,13 @@
           </div>
     
       </draggable>
+
+              </template>
+
+    </template>
+
+           
+          
 
 
           </template>
