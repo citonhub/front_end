@@ -371,19 +371,11 @@ export default {
             spaceId: this.$route.params.spaceId
         });
 
-      },1000)
+      },500)
 
 
    
-      setTimeout(()=>{
-
-          channel.whisper('typing', {
-          user: this.$root.username,
-           typing: false,
-            spaceId: this.$route.params.spaceId
-        });
-
-      },5000)
+     
         
      
     

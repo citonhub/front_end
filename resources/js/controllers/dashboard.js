@@ -2242,7 +2242,7 @@ const app = new Vue({
             this.handleSpaceData([messageData])
             
 
-          this.$root.sortChatList();
+        
 
             this.scrollToBottom();
 
@@ -2512,10 +2512,18 @@ const app = new Vue({
       })
       .listenForWhisper('typing', (e) => {
 
-
+            
         this.$root.typinguser = e.user;
          this.$root.typing = e.typing;
          this.$root.typingSpace = e.spaceId;
+
+         _.debounce( () => {
+
+          this.$root.typinguser = '';
+         this.$root.typing = false;
+         this.$root.typingSpace = '';
+
+          }, 1000);
 
 
 
@@ -3212,6 +3220,8 @@ handleSpaceData: function(returnData){
 
     });
 
+    this.$root.sortChatList();
+
     // save into local storage
 
     let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
@@ -3253,9 +3263,9 @@ handleSpaceData: function(returnData){
      
              });
 
-    this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult,false,'sort_chat');
+    this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
 
-   
+     this.$root.sortChatList();
     
     
 
