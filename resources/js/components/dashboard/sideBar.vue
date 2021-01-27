@@ -30,7 +30,7 @@
                   <v-icon style="font-size:30px;" :color="selectedTab == 'channels' ? '#3C87CD' : '#A4A4A5'">las la-comments</v-icon>
                 </div>
                 <div class="  py-1 col-8 d-flex" :style="selectedTab == 'channels' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div style="font-family:MediumFont; font-size:14px;" >Channels</div>
+                  <div style="font-family:MediumFont; font-size:14px;" >Chats</div>
                 </div>
                 </div>
           </div>
