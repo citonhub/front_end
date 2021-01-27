@@ -16,7 +16,7 @@
 
   <div class="py-0 px-0 " style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="popup">
 
-   <div class="scroller" style="position:absolute; height:90%; top:5%; width:94%;  align-items:center; justify-content:center;overflow-y: scroll;" >
+   <div class=" d-flex py-2" style="position:absolute;left:3%; height:90%; top:5%; width:94%;  align-items:center; justify-content:center;overflow-y: hidden;" >
 
      
       <interest ></interest>
@@ -1245,7 +1245,7 @@ export default {
        errorLoadingMessage:false,
         counter:0,
         messageIsDone: true,
-        popup:false,
+        popup:true,
         qouteArray:[
           {
             qoute:'Believe you can and you’re halfway there.',
