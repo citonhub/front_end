@@ -4352,7 +4352,7 @@ if (mediaElement) {
               
             if(master){
               _this.openAudioRoom();
-              _this.dataconnection.open('data' + _this.$root.selectedSpace.space_id)
+              _this.dataconnection.openOrJoin('data' + _this.$root.selectedSpace.space_id)
             }else{
 
               _this.roomNotExist = true;
@@ -4451,7 +4451,7 @@ this.$root.dataconnection = undefined;
     
     let _this = this;
   
-    this.$root.audioconnection.open('audio' + this.$root.selectedSpace.space_id, () =>{
+    this.$root.audioconnection.openOrJoin('audio' + this.$root.selectedSpace.space_id, () =>{
 
         
       _this.$root.connectingToSocket = false;
@@ -4521,7 +4521,7 @@ this.$root.dataconnection = undefined;
            OfferToReceiveVideo: true
        };
       
-     this.$root.connection.open('screen' + this.$root.selectedSpace.space_id, function() {
+     this.$root.connection.openOrJoin('screen' + this.$root.selectedSpace.space_id, function() {
       
     });
 

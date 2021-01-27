@@ -1704,9 +1704,9 @@ export default {
     
 }
 </script>
-<style scoped>
-.handleText a{
-  color: white !important;
+<style >
+.handleText  p a{
+  color: #ffffff ;
   text-decoration: underline;
 }
 </style>
