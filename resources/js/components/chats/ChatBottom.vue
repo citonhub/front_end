@@ -10,10 +10,21 @@
                      <v-btn icon class="mx-md-1 mr-1" @click="toggleEmoji"><v-icon>las la-grin</v-icon> </v-btn>
 
                       
-              
-                  <textarea ref="textBottom" :value="input" @input="update"  @keydown="handelkeyAct" @focus="focusEditor"  @blur="blurEditor"  style="font-size:13px;"  :placeholder="$t('general.type_here')"  ></textarea>
+            
                     
-
+                      <textarea-autosize
+                 placeholder="Type here..."
+                 ref="textBottom"
+                 @input="update" 
+                  @keydown.native="handelkeyAct"
+                   @focus.native="focusEditor"  
+                   @blur.native="blurEditor"
+                 v-model="input"
+                 :class="screenType == 'large' ? 'textareaLg' : 'textareaSm' "
+                :min-height="screenType == 'large' ? 50 : 20"
+                :max-height="screenType == 'large' ? 80 : 60"
+               
+                 />
                     <template v-if="this.$root.selectedSpace.type != 'Bot'">
 
                           <!-- send  -->
@@ -69,8 +80,12 @@
     </div>
 </template>
 <script>
+import VueTextareaAutosize from 'vue-textarea-autosize'
+
+Vue.use(VueTextareaAutosize)
 
 export default {
+    props:['screenType'],
       data(){
         return{
         
@@ -100,7 +115,7 @@ export default {
       
   },
     mounted(){
-       this.$root.bottomEditorValue = this.$refs.textBottom;
+       this.$root.bottomEditorValue = this.$refs.textBottom.$el;
        this.$root.channelBottomComp = this;
     },
      computed: {
@@ -126,7 +141,7 @@ export default {
  
       },
       reFocusEditor:function(){
-      this.$refs.textBottom.focus();
+      this.$refs.textBottom.$el.focus();
       },
         toggleEmoji:function(){
 
@@ -167,12 +182,12 @@ export default {
            this.$root.showChatBottom = false;
         },
         update:function(e){
-           this.input = e.target.value;
-
+          
            this.wordCount =  this.input.length;
            
              if(this.wordCount > 0){
            this.showSend = true;
+           this.$root.showCodeboxBtn = false;
            
                  
              this.isTyping();
@@ -181,6 +196,7 @@ export default {
 
          }else{
             this.showSend = false;
+              this.$root.showCodeboxBtn = true;
             
              
          }
@@ -245,7 +261,7 @@ export default {
 
         
          
-          this.recorderInterval = setInterval(() => {
+         let recorderInterval = setInterval(() => {
 
          this.seconds++
 
@@ -273,6 +289,8 @@ export default {
 
    
          }, 1000);
+
+         this.recorderInterval= recorderInterval;
 
      },
        stoprecord: function(type){
@@ -459,7 +477,7 @@ export default {
        
   
       if(refocus){
-    this.$refs.textBottom.focus();
+    this.$refs.textBottom.$el.focus();
       }
 
             
@@ -515,11 +533,13 @@ export default {
     focusEditor: function(){
      
          this.showAttachment = false;
+         
           this.$root.showEmojiBox = false
         
     },
     blurEditor: function(){
         this.showAttachment = true;
+      
     }
   
   },
@@ -527,12 +547,23 @@ export default {
 </script>
 <style scoped>
 
-
-textarea {
+.textareaLg{
     font-size:13px; 
     background:whitesmoke;
     width:100%; 
     height: 55px;
+    padding: 4px 6px;
+    resize:none; 
+    overflow-x: hidden;
+     overflow-y: auto;
+    border:1px solid #e6e6e6; 
+    border-radius:2px;
+}
+.textareaSm {
+    font-size:13px; 
+    background:whitesmoke;
+    width:100%; 
+   
     padding: 4px 6px;
     resize:none; 
     overflow-x: hidden;

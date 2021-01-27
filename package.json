@@ -70,6 +70,7 @@
     "vue-ravepayment": "^2.0.2",
     "vue-router": "^3.3.2",
     "vue-scrollto": "^2.18.1",
+    "vue-textarea-autosize": "^1.1.1",
     "vue-video-player": "^5.0.2",
     "vue-virtual-scroll-list": "^2.3.0",
     "vue-virtual-scroller": "^1.0.10",

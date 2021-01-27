@@ -92,8 +92,8 @@
                        </div>
 
                   <div class="col-12 text-center" v-if="image1 != '' || image2 != '' || image3 != '' || image4 != ''">
-                           <v-btn small rounded color="#3C87CD"  @click="sendMessage" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
-            <span style="color:white;text-transform:none;">Send</span> 
+                           <v-btn small rounded color="#ffffff"   @click="sendMessage" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+            <span style="color:#3C87CD;text-transform:none;">Send</span> 
            </v-btn>
                   </div>
                 </div>
@@ -116,8 +116,8 @@
                   </div>
 
                    <div class="col-12 text-center" v-if="selectedProject">
-                           <v-btn small rounded color="#3C87CD"   @click="sendMessage" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
-            <span style="color:white;text-transform:none;">Send</span> 
+                           <v-btn small rounded color="#ffffff"   @click="sendMessage" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+            <span style="color:#3C87CD;text-transform:none;">Send</span> 
            </v-btn>
 
                  </div>

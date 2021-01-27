@@ -1796,6 +1796,7 @@ const app = new Vue({
      fromProfileUsername:'',
      codeFromChat:false,
      componentIsLoading:false,
+     showCodeboxBtn:true,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -2151,7 +2152,8 @@ const app = new Vue({
       'connections': userProfile.connections,
       'background_color': userProfile.background_color,
       'unread': userProfile.unread,
-      'points': userProfile.points
+      'points': userProfile.points,
+      'user_onboarded':userProfile.user_onboarded,
       };
         
 

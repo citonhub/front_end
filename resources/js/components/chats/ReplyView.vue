@@ -5,12 +5,12 @@
                   <div class=" py-2 px-2  text-left mb-1"  style="background:#3C87CD; border:1px solid transparent; border-radius:8px;" >
 
                      <div class="col-12 py-1 px-1  text-right" v-if="this.$root.replyMessage.type == null">
-                  <span class="msgTextReplynew text-left d-block" style="color:white;" v-html="getReplyMsg(this.$root.replyMessage.content)" ></span>
+                  <span class="msgTextReplynew text-left d-block"  style="color:white; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" v-html="getReplyMsg(this.$root.replyMessage.content)" ></span>
 
               </div>
 
                <div class="col-12 py-1 px-1  text-right" v-if="this.$root.replyMessage.type == 'action'">
-                  <span class="msgTextReplynew text-left d-block" style="color:white;" v-html="getReplyMsg(this.$root.replyMessage.content)"></span>
+                  <span class="msgTextReplynew text-left d-block"  style="color:white; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" v-html="getReplyMsg(this.$root.replyMessage.content)"></span>
 
               </div>
 

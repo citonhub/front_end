@@ -14,7 +14,7 @@
        
                                 <!--Interests Popup-->
 
-  <div class="py-0 px-0 " style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="popup">
+  <div class="py-0 px-0 " style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="false">
 
    <div class="scroller" style="position:absolute; height:90%; top:5%; width:94%;  align-items:center; justify-content:center;overflow-y: scroll;" >
 
@@ -36,9 +36,12 @@
 
                             <v-badge
                    dot
+                     v-if="!that.$root.authProfile.user_onboarded"
                 color="green">
                  <v-icon style="font-size:22px;color:#263238;" >las la-bars</v-icon>
                    </v-badge>
+
+                    <v-icon v-else style="font-size:22px;color:#263238;" >las la-bars</v-icon>
                            
                            </v-btn>
 
@@ -232,9 +235,9 @@
     :items="that.$root.Messages"
       
      :keyField="'index_count'"
-    :min-item-size="36"
+    :min-item-size="76"
     ref="messageContainer"
-     :buffer="1000"
+     
     id="messageContainer"
   class="col-12 px-0 scroller" 
 
@@ -385,7 +388,7 @@
                                   <!-- ends -->
 
                                   <div class="px-2 py-1" style="background:#ffffff; border-top:1px solid #c5c5c5;">
-                                <chat-bottom ref="bottomLg"></chat-bottom>
+                                <chat-bottom ref="bottomLg" :screenType="'large'"></chat-bottom>
                                  </div>
                             </div>
                            </template>
@@ -794,14 +797,14 @@
     :items="that.$root.Messages"
      v-if="that.$root.Messages.length != 0"
      :keyField="'index_count'"
-    :min-item-size="36"
+    :min-item-size="70"
     ref="messageContainersmall"
-      :buffer="1000"
+     
     id="messageContainersmall"
   class="col-12 scroller px-0" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:9999999; top:0%; overflow-y:auto;"
+            background-repeat: no-repeat; height:98%; left:0; position:fixed; z-index:9999999; top:0%; overflow-y:auto;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -833,7 +836,7 @@
 
     <template #after>
 
-        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-bottom:130px; ">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-bottom:30px; ">
             
           <template v-if="that.$root.selectedSpace.type == 'Bot' ">
 
@@ -925,7 +928,7 @@
      </template>
                       
 
-                             <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:17%; right:2%; ">
+                             <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot' && this.$root.showCodeboxBtn"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:13%; right:2%; ">
 
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
 
@@ -937,7 +940,7 @@
 
                                    <template v-if="that.$root.Messages.length >  0">
 
-                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"   fab x-small color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:20%; left:2%; ">
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"   fab x-small color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:14%; left:2%; ">
 
                                <v-icon style="font-size:20px; color:white;">las la-angle-double-down</v-icon>
 
@@ -967,7 +970,7 @@
                                   <!-- ends -->
 
                                  <div class="px-2 py-1" style="background:#ffffff; border-top:1px solid #c5c5c5;">
-                                <chat-bottom ref="bottomSm"></chat-bottom>
+                                <chat-bottom ref="bottomSm" :screenType="'small'"></chat-bottom>
                                  </div>
                                  
                             </div>
@@ -1429,7 +1432,7 @@ export default {
          Interest
     },
      methods:{
-     
+    
         showAlert:function(title='',message,type){
        
        if(type == 'info'){
@@ -1547,6 +1550,28 @@ export default {
          this.$root.componentIsLoading = true;
 
          this.$root.showSideBar = true;
+
+           
+         if(!this.$root.authProfile.user_onboarded){
+
+            axios.post('/save-user-onboarded-status')
+       .then(response => {
+
+       if (response.status == 200) {
+
+          this.$root.authProfile.user_onboarded = true;
+
+ 
+
+      }
+
+
+      })
+     .catch(error => {  
+  
+       }) 
+
+         }
 
 
 

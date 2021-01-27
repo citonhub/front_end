@@ -119,7 +119,7 @@
 
 
 
-      <div class="col-lg-8  py-1 mt-3 px-2 mb-1">
+      <div class="col-lg-8  py-1 mt-3 px-2 mb-3">
 
              <div style="font-size:14px;"  class="mb-2">3. Control diary access.</div>
 
@@ -158,9 +158,9 @@
                  style="font-size:13px;"
               dense
              
-            counter="20"
+           
             v-model="selectedChannel"
-            placeholder="select..."
+            placeholder="select channel"
               
             persistent-hint
             chips
@@ -200,13 +200,57 @@
 
    <!-- channel selection field for pets ends-->
 
+   <!-- add tags to diary -->
+    
+     <div  class=" col-lg-8 ">
+         <div style="font-size:14px;" class="mb-3">5. Select your diary tags  <span style="font-size:12px;color:grey;">(optional)</span></div>
+                 
+              <v-select
+                 style="font-size:13px;"
+              dense
+            
+          
+            placeholder="select tags"
+           
+            chips
+            multiple
+           
+             
+             item-text="name"
+             item-value="name"
+             :items="tags"
+             v-model="diaryTags"
+             color="#3C87CD">
 
+              <template v-slot:selection="data">
+            <v-chip
+              :key="JSON.stringify(data.item)"
+              v-bind="data.attrs"
+              :input-value="data.selected"
+              color="#3C87CD"
+              dense
+              class="my-1"
+              style="font-size:12px; font-family:BodyFont;"
+              outlined
+              :disabled="data.disabled"
+          
+            >
+             
+              {{ data.item.name }}
+            </v-chip>
+
+              </template>
+             </v-select>
+
+             </div>
+
+   <!-- ends -->
 
 <!-- pet description field starts-->
   
   <div class="col-lg-8  py-1 my-0 px-2">
 
-             <div style="font-size:14px;" class="mb-3">5. About your new diary</div>
+             <div style="font-size:14px;" class="mb-3">6. About your new diary</div>
               <v-textarea
                  style="font-size:13px;"
                 
@@ -222,7 +266,7 @@
 
   
    <!-- pet description field ends-->
-          <div class="col-12">
+          <div class="col-12 my-5 py-5">
 
           </div>
       
@@ -256,6 +300,198 @@ data(){
          v => !!v || 'Oh! you missed this.',
         ],
     diaryName:'',
+     tags:[
+              {
+                  name:'Web app',
+                  id: 'web',
+               
+               },
+                {
+                  name:'HTML',
+                  id: 'html',
+               
+               },
+                {
+                  name:'CSS',
+                  id: 'css',
+               
+               },
+               {
+                  name:'JavaScript',
+                  id:26
+               
+               },
+               {
+                  name:'PHP',
+                 
+                   id: 35,
+               
+               },
+               {
+                  name:'Cloud computing',
+                 
+                   id: 140,
+               
+               },
+               {
+                  name:'Python',
+                
+                   id: 39,
+               
+               },
+               {
+                  name:'Artificial Intelligence',
+                 
+                   id: 100,
+               
+               },
+                 {
+                  name:'Machine Learning',
+                 
+                   id: 110,
+               
+               },
+               {
+                  name:'C',
+                 
+                  id: 4,
+               
+               },
+               {
+                  name:'C++',
+                 
+                  id:11,
+               
+               },
+               {
+                  name:'Laravel',
+                 
+                   id: 131,
+               
+               },
+               {
+                  name:'Java',
+                 
+                   id: 25,
+               
+               },
+               {
+                  name:'C#',
+                 
+                  id: 13,
+               
+               },
+                 {
+                  name:'Technical writing',
+                 
+                   id: 130,
+               
+               },
+               {
+                  name:'Dev ops',
+                 
+                   id: 130,
+               
+               },
+               {
+                  name:'Erlang',
+                 
+                   id: 18,
+               
+               },
+                {
+                  name:'Flask',
+                 
+                   id: 132,
+               
+               },
+               {
+                  name:'Django',
+                 
+                   id: 133,
+               
+               },
+               
+               {
+                  name:'Kotlin',
+                 
+                  id: 27,
+               
+               },
+               {
+                  name:'Fortran',
+                 
+                  id:21,
+               
+               },
+               {
+                  name:'Perl',
+                 
+                   id: 34,
+               
+               },
+               {
+                  name:'R',
+                
+                   id:40,
+               
+               },
+               {
+                  name:'Ruby',
+                 
+                   id: 41,
+               
+               },
+               {
+                  name:'Go',
+                 
+                  id: 22,
+               
+               },
+
+               {
+                  name:'Hashkell',
+                 
+                  id: 24,
+               
+               },
+               {
+                  name:'Lua',
+                 
+                   id: 28,
+               
+               },
+               {
+                  name:'Pascal',
+                 
+                   id:33,
+               
+               },
+               {
+                  name:'TypeScript',
+                 
+                   id: 46,
+               
+               },
+               {
+                  name:'Rust',
+                 
+                   id:42,
+               
+               },
+               {
+                  name:'Swift',
+                
+                  id:45,
+               
+               },
+                {
+                  name:'Scala',
+                 
+                  id: 43,
+               
+               },
+            ],
     channel:'',
     selectedChannel:'',
     description:'',
@@ -263,6 +499,7 @@ data(){
     channelList:[],
      input:'',
      language:'',
+     diaryTags:[],
       image:'',
     imageDefault:0,
     formState: false,

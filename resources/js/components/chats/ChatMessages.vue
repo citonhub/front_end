@@ -4,7 +4,7 @@
        <!-- date time -->
         
          <div class="col-12  text-center" v-if="source.showDate != undefined" :id="'message'+ source.id">
-            <v-btn small rounded color="#3C87CD" class=" py-1 px-2" style="font-size:11px;text-transform:none;color:white;">{{covertDate(source.showDate)}}</v-btn>
+            <span  class=" py-1 px-2  " style="font-size:11px;text-transform:none;color:white; background:#3C87CD;border:1px solid #3C87CD;border-radius:10px;">{{covertDate(source.showDate)}}</span>
          </div>
 
          <!-- ends -->
@@ -12,8 +12,11 @@
             <!-- user joined -->
         
          <div class="col-12  text-center" v-if="source.type == 'join'"  :id="'message'+ source.id">
-            <v-btn small rounded color="#3C87CD" class=" py-1 px-2" style="font-size:11px;text-transform:none;color:white;" v-if="source.username != that.$root.username">{{source.username}} joined</v-btn>
-             <v-btn small rounded color="#3C87CD" class=" py-1 px-2" style="font-size:11px;text-transform:none;color:white;" v-else>You joined</v-btn>
+          
+               <span  class=" py-1 px-2  " style="font-size:11px;text-transform:none;color:white; background:#3C87CD;border:1px solid #3C87CD;border-radius:10px;"  v-if="source.username != that.$root.username">{{source.username}} joined</span>
+
+                 <span  class=" py-1 px-2  " style="font-size:11px;text-transform:none;color:white; background:#3C87CD;border:1px solid #3C87CD;border-radius:10px;"  v-else>You joined</span>
+
          </div>
 
 
@@ -21,11 +24,11 @@
         
          <div class="col-12  text-center" v-if="source.type == 'unread'"  :id="'message'+ source.id">
 
-               <v-btn small rounded color="#3C87CD" class=" py-1 px-2" style="font-size:11px;text-transform:none;color:white;">{{source.content}}</v-btn>
+                 <span  class=" py-1 px-2  " style="font-size:11px;text-transform:none;color:white; background:#3C87CD;border:1px solid #3C87CD;border-radius:10px;" >{{source.content}}</span>
          </div>
 
          <!-- text message -->
-        <div elevation-1 class="col-11 py-0 offset-1" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''"  v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1' || source.type == 'action') && checkOwner(source.user_id)">
+        <div elevation-1 class="col-12 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''"  v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1' || source.type == 'action') && checkOwner(source.user_id)">
            <div class="row">
              <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse"  @click="showMoreOption(source)" >
                  
@@ -75,7 +78,7 @@
         </div>
 
 
-         <div elevation-1 class="col-11 py-0 mt-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1' || source.type == 'action'  && source.is_reply != '1') && checkOwner(source.user_id) == false">
+         <div elevation-1 class="col-12 py-0 mt-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1' || source.type == 'action'  && source.is_reply != '1') && checkOwner(source.user_id) == false">
            <div class="row">
              <div class="col-lg-7 col-md-8  px-1 px-md-2  d-flex flex-row"   @click="showMoreOption(source)">
                  
@@ -125,7 +128,7 @@
        
 
 
-        <div elevation-1 :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" class="col-11 py-0 offset-1"  v-if="(source.replied_message != undefined && source.is_reply == '1') && checkOwner(source.user_id)">
+        <div elevation-1 :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" class="col-12 py-0 "  v-if="(source.replied_message != undefined && source.is_reply == '1') && checkOwner(source.user_id)">
            <div class="row">
              <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse"   @click="showMoreOption(source)">
                  
@@ -267,7 +270,7 @@
 
 
 
-         <div elevation-1 :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" class="col-11 py-0 mt-2" v-if="(source.replied_message != undefined && source.is_reply == '1') && checkOwner(source.user_id) == false">
+         <div elevation-1 :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" class="col-12 py-0 mt-2" v-if="(source.replied_message != undefined && source.is_reply == '1') && checkOwner(source.user_id) == false">
            <div class="row">
              <div class="col-lg-7 col-md-8 px-1 px-md-2  d-flex flex-row"  @click="showMoreOption(source)">
                    <div 
@@ -1285,9 +1288,9 @@ export default {
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
          let imgLink = data.image_name + '.' + data.image_extension;
           if(this.$root.selectedSpace.type == 'Bot'){
-              styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
+              styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/thumbnails/'  + imgLink  +  ');';
          }else{
-            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/thumbnails/'  + imgLink  +  ');';
          }
          
           return styleString;
@@ -1480,9 +1483,9 @@ export default {
 
         
   
-         this.$root.chatComponent.$refs.messageContainer.scrollToItem(msgIndex - 2);
+         this.$root.chatComponent.$refs.messageContainer.scrollToItem(msgIndex);
 
-         this.$root.chatComponent.$refs.messageContainersmall.scrollToItem(msgIndex - 2);
+         this.$root.chatComponent.$refs.messageContainersmall.scrollToItem(msgIndex);
 
         },200)
       

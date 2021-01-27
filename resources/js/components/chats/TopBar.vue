@@ -12,13 +12,16 @@
              <v-card  style="border-radius:7px;" class="col-12 py-2 px-1">
                    <div class="row">
                    <div class="col-2 py-0  text-center">
-                 <v-btn icon @click="that.$root.showSideBar = true">
+                 <v-btn icon @click="showSidebarHandler">
                  
                      <v-badge
                    dot
+                     v-if="!that.$root.authProfile.user_onboarded"
                 color="green">
-                 <v-icon style="font-size:25px;color:#263238;" >las la-bars</v-icon>
+                 <v-icon style="font-size:23px;color:#263238;" >las la-bars</v-icon>
                    </v-badge>
+
+                    <v-icon v-else style="font-size:23px;color:#263238;" >las la-bars</v-icon>
                    </v-btn>
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
@@ -77,6 +80,34 @@ export default {
         this.$router.push({ path:'/board/notifications'});
 
       },
+      showSidebarHandler:function(){
+        this.$root.showSideBar = true
+
+          this.$root.componentIsLoading = true;
+
+         if(!this.$root.authProfile.user_onboarded){
+
+            axios.post('/save-user-onboarded-status')
+       .then(response => {
+
+       if (response.status == 200) {
+
+          this.$root.authProfile.user_onboarded = true;
+
+ 
+
+      }
+
+
+      })
+     .catch(error => {  
+  
+       }) 
+
+         }
+       
+       
+      },
         showProfile:function(){
 
            this.$router.push({ path:'/profile/' + this.$root.username});
@@ -133,7 +164,7 @@ export default {
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
          let imgLink = data.image_name + '.' + data.image_extension;
          
-            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/thumbnails/'  + imgLink  +  ');';
          
          
           return styleString;
