@@ -3911,6 +3911,25 @@ OfferToReceiveAudio: false,
 OfferToReceiveVideo: false
         };
 
+        this.$root.connection.bandwidth = {
+          audio: 128,
+          video: 1024,
+          screen: 1024
+      };
+      
+      var videoConstraints = {
+          mandatory: {
+              maxWidth: 1920,
+              maxHeight: 1080,
+              minAspectRatio: 1.77,
+              minFrameRate: 3,
+              maxFrameRate: 64
+          },
+          optional: []
+      };
+      
+      this.$root.connection.mediaConstraints.video = videoConstraints;
+
 
       
 
@@ -3981,7 +4000,7 @@ video.srcObject = event.stream;
 var width = innerWidth - 80;
 var mediaElement = getHTMLMediaElement(video, {
    title: event.userid,
-   buttons: ['full-screen'],
+   buttons: [],
    showOnMouseEnter: false,
  
 });
@@ -4019,7 +4038,7 @@ videoSm.srcObject = event.stream;
 
 var mediaElementSm = getHTMLMediaElement(videoSm, {
    title: event.userid + 'small',
-   buttons: ['full-screen'],
+   buttons: [],
    showOnMouseEnter: false,
  
 });
