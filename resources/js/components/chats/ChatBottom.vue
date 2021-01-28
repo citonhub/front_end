@@ -16,9 +16,9 @@
                  placeholder="Type here..."
                  ref="textBottom"
                  @input="update" 
-                  @keydown.native="handelkeyAct"
-                   @focus.native="focusEditor"  
-                   @blur.native="blurEditor"
+                  @keydown="handelkeyAct"
+                   @focus="focusEditor"  
+                   @blur="blurEditor"
                  :value="input"
                  :class="screenType == 'large' ? 'textareaLg' : 'textareaSm' "
                 :min-height="screenType == 'large' ? 50 : 20"
@@ -28,7 +28,7 @@
                     <template v-if="this.$root.selectedSpace.type != 'Bot'">
 
                           <!-- send  -->
-                  <v-btn icon class="mx-md-1" @click="sendMessage" v-if="showSend"><v-icon>las la-send</v-icon> </v-btn>
+                  <v-btn icon class="mx-md-1" @click="sendMessage" v-if="contentInWord.length > 0"><v-icon>las la-send</v-icon> </v-btn>
 
                   <!-- ends -->
 
@@ -537,12 +537,12 @@ export default {
          this.showAttachment = false;
          
           this.$root.showEmojiBox = false
-           this.showSend = true;
+           
         
     },
     blurEditor: function(){
         this.showAttachment = true;
-         this.showSend = false;
+         
       
     }
   
