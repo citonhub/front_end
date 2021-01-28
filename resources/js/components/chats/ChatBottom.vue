@@ -15,7 +15,7 @@
                       <textarea-autosize
                  placeholder="Type here..."
                  ref="textBottom"
-                 @input="update" 
+                 @keyup.native="update" 
                   @keydown.native="handelkeyAct"
                    @focus.native="focusEditor"  
                    @blur.native="blurEditor"
@@ -181,7 +181,7 @@ export default {
           this.$root.sharePage= true;
            this.$root.showChatBottom = false;
         },
-        update:function(e){
+        update:function(){
           
            this.wordCount =  this.input.length;
            
