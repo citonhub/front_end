@@ -16,9 +16,9 @@
                  placeholder="Type here..."
                  ref="textBottom"
                  @input="update" 
-                  @keydown="handelkeyAct"
-                   @focus="focusEditor"  
-                   @blur="blurEditor"
+                  @keydown.native="handelkeyAct"
+                   @focus.native="focusEditor"  
+                   @blur.native="blurEditor"
                  :value="input"
                  :class="screenType == 'large' ? 'textareaLg' : 'textareaSm' "
                 :min-height="screenType == 'large' ? 50 : 20"
@@ -154,6 +154,21 @@ export default {
 
         },
      handelkeyAct: function(e){
+
+        if(this.input > 0){
+          
+
+             this.showSend = true;
+        
+              
+
+         }else{
+
+             this.showSend = false;
+           
+           
+              
+         }
 
        
         
