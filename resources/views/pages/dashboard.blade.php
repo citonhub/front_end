@@ -72,8 +72,6 @@
 
  <script src="https://cdn.webrtc-experiment.com/hark.js"></script>
 
-
-  
 <!-- ends -->
 
 <!-- Video player and streaming, third-party scripts -->
@@ -92,7 +90,7 @@
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=3.54') }}"></script>
+ <script src="{{ asset('js/dashboard.js?v=3.56') }}"></script>
  <!-- ends -->
      
  @endsection

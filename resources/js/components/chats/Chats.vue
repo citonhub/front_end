@@ -836,7 +836,7 @@
 
     <template #after>
 
-        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-bottom:30px; ">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-bottom:32px; ">
             
           <template v-if="that.$root.selectedSpace.type == 'Bot' ">
 
@@ -928,7 +928,7 @@
      </template>
                       
 
-                             <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot' && this.$root.showCodeboxBtn"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
+                             <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot' && this.$root.showCodeboxBtn"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:14%; right:2%; ">
 
                                <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
 
@@ -2198,11 +2198,11 @@ export default {
 
       handleResults(messageArray){
 
-          this.$root.returnedMessages = messageArray;
+        
 
            let intialCount = 0;
 
-           this.$root.returnedMessages.map((msg)=>{
+          messageArray.map((msg)=>{
                msg.id = msg.message_id
                msg.initialSize = 200
                msg.index_count = intialCount++;
@@ -2213,7 +2213,7 @@ export default {
 
        
 
-         return  this.$root.returnedMessages;
+         return messageArray;
 
       },
 
@@ -2249,10 +2249,15 @@ export default {
                  
 
                let finalResult = JSON.parse(result);
+
+              
+
          
             this.$root.spaceFullData = finalResult;
 
           let returnedData = this.handleResults(finalResult.messages);
+
+           
 
           this.$root.Messages = returnedData;
 

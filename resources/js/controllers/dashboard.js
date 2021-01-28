@@ -2964,6 +2964,7 @@ const app = new Vue({
         this.$root.sortChatList();
 
       }
+      
 
      
    
@@ -3070,20 +3071,21 @@ handleSpaceData: function(returnData){
 
           MessagesFull.messages.push(message);
 
-          // update into local storage
-            this.$root.LocalStore('full_' + space.space_id  + this.$root.username,MessagesFull);
-
+       
 
          this.$root.updateSpaceTracker(space.space_id,message);
           
             this.$root.clearUnreadMessageRemote(message.message_id);
+           
          
+              // update into local storage
+           this.$root.LocalStore('full_' + space.space_id  + this.$root.username,MessagesFull,false,'messager');
 
              // update unread messages into local storage
 
       let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + message.space_id + this.$root.username);
 
-   unreadStoredMsg.then((result)=>{
+      unreadStoredMsg.then((result)=>{
 
      let finalResultUnread = JSON.parse(result);
 
@@ -3106,6 +3108,9 @@ handleSpaceData: function(returnData){
            
 
         });
+
+         
+
 
          
       }else{
