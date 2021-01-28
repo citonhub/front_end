@@ -28,7 +28,7 @@
                     <template v-if="this.$root.selectedSpace.type != 'Bot'">
 
                           <!-- send  -->
-                  <v-btn icon class="mx-md-1" @click="sendMessage" v-if="contentInWord.length > 0"><v-icon>las la-send</v-icon> </v-btn>
+                  <v-btn icon class="mx-md-1" @click="sendMessage" v-if="showSend"><v-icon>las la-send</v-icon> </v-btn>
 
                   <!-- ends -->
 
@@ -154,6 +154,23 @@ export default {
 
         },
      handelkeyAct: function(e){
+
+         if(this.input > 0){
+          
+
+             this.showSend = true;
+          
+             this.isTyping();
+
+              
+
+         }else{
+
+             this.showSend = false;
+           
+           
+              
+         }
         
         if(e.keyCode == 16){
 
@@ -191,13 +208,15 @@ export default {
              if(this.wordCount > 0){
           
 
-         
+             this.showSend = true;
           
              this.isTyping();
 
               
 
          }else{
+
+             this.showSend = false;
            
            
               
@@ -297,8 +316,12 @@ export default {
      },
        stoprecord: function(type){
          
-          
-           this.mediaRecorder.stop();
+            if( this.mediaRecorder){
+
+              this.mediaRecorder.stop();
+
+            }
+           
            clearInterval(this.recorderInterval);
 
            this.recording = false;
