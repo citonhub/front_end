@@ -20,7 +20,6 @@
                    @focus.native="focusEditor"  
                    @blur.native="blurEditor"
                  :value="input"
-                 v-model="input"
                  :class="screenType == 'large' ? 'textareaLg' : 'textareaSm' "
                 :min-height="screenType == 'large' ? 50 : 20"
                 :max-height="screenType == 'large' ? 80 : 60"
@@ -29,7 +28,7 @@
                     <template v-if="this.$root.selectedSpace.type != 'Bot'">
 
                           <!-- send  -->
-                  <v-btn icon class="mx-md-1" @click="sendMessage" v-if="input.length > 0"><v-icon>las la-send</v-icon> </v-btn>
+                  <v-btn icon class="mx-md-1" @click="sendMessage" v-if="showSend"><v-icon>las la-send</v-icon> </v-btn>
 
                   <!-- ends -->
 
@@ -118,6 +117,7 @@ export default {
     mounted(){
        this.$root.bottomEditorValue = this.$refs.textBottom.$el;
        this.$root.channelBottomComp = this;
+        this.$root.showCodeboxBtn = true;
     },
      computed: {
 
@@ -182,12 +182,16 @@ export default {
           this.$root.sharePage= true;
            this.$root.showChatBottom = false;
         },
-        update:function(){
+        update:function(e){
+
+            this.input = e;
           
-           this.wordCount =  this.input.length;
+           this.wordCount =  e.length;
            
              if(this.wordCount > 0){
            this.showSend = true;
+
+           this.$root.showCodeboxBtn = false;
           
              this.isTyping();
 
@@ -196,7 +200,7 @@ export default {
          }else{
             this.showSend = false;
            
-             
+              this.$root.showCodeboxBtn = true;
          }
 
            this.contentInWord = this.compiledMarkdown;
