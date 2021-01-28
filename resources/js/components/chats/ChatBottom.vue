@@ -15,10 +15,11 @@
                       <textarea-autosize
                  placeholder="Type here..."
                  ref="textBottom"
-                 @input.native="update" 
+                 @input="update" 
                   @keydown.native="handelkeyAct"
                    @focus.native="focusEditor"  
                    @blur.native="blurEditor"
+                 :value="input"
                  v-model="input"
                  :class="screenType == 'large' ? 'textareaLg' : 'textareaSm' "
                 :min-height="screenType == 'large' ? 50 : 20"
