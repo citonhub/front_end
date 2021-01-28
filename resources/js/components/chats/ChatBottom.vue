@@ -28,7 +28,7 @@
                     <template v-if="this.$root.selectedSpace.type != 'Bot'">
 
                           <!-- send  -->
-                  <v-btn icon class="mx-md-1" @click="sendMessage" v-if="showSend"><v-icon>las la-send</v-icon> </v-btn>
+                  <v-btn icon class="mx-md-1" @click="sendMessage" v-if="input.length > 0"><v-icon>las la-send</v-icon> </v-btn>
 
                   <!-- ends -->
 
