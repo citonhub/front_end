@@ -1887,6 +1887,8 @@ export default {
 
                      // get all new messages
 
+                      
+
                       this.$root.updateSpaceMessages();
 
                         this.$root.loadingChatList = false;
@@ -1929,6 +1931,9 @@ export default {
                  }
             })
 
+             }else{
+                 this.$root.updateSpaceMessages();
+                 
              }
          
           }

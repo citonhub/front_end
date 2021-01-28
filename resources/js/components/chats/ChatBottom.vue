@@ -15,7 +15,7 @@
                       <textarea-autosize
                  placeholder="Type here..."
                  ref="textBottom"
-                 @keyup.native="update" 
+                 @input="update" 
                   @keydown.native="handelkeyAct"
                    @focus.native="focusEditor"  
                    @blur.native="blurEditor"
