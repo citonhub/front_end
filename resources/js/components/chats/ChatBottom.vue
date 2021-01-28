@@ -155,21 +155,7 @@ export default {
         },
      handelkeyAct: function(e){
 
-        if(this.input > 0){
-          
-
-             this.showSend = true;
-        
-              
-
-         }else{
-
-             this.showSend = false;
-           
-           
-              
-         }
-
+       
        
         
         if(e.keyCode == 16){
@@ -205,12 +191,11 @@ export default {
           
            this.wordCount =  e.length;
 
-            console.log( this.wordCount)
+       
            
              if(this.wordCount > 0){
           
 
-             this.showSend = true;
           
              this.isTyping();
 
@@ -218,10 +203,6 @@ export default {
 
          }else{
 
-             this.showSend = false;
-           
-           
-              
          }
 
            this.contentInWord = this.compiledMarkdown;
@@ -562,12 +543,16 @@ export default {
          this.showAttachment = false;
          
           this.$root.showEmojiBox = false
+
+             this.showSend = true;
+          
            
         
     },
     blurEditor: function(){
         this.showAttachment = true;
-         
+            this.showSend = false;
+          
       
     }
   

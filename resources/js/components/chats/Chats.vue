@@ -928,7 +928,7 @@
      </template>
                       
 
-                             <v-btn small @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot' && this.$root.showCodeboxBtn"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
+                             <v-btn small @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot' && this.$root.showCodeboxBtn"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:16%; right:2%; ">
 
                                <v-icon style="font-size:20px; color:white;">las la-code</v-icon>
 
@@ -940,7 +940,7 @@
 
                                    <template v-if="that.$root.Messages.length >  0">
 
-                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"   fab x-small color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:15%; left:2%; ">
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"   fab x-small color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:16%; left:2%; ">
 
                                <v-icon style="font-size:20px; color:white;">las la-angle-double-down</v-icon>
 
