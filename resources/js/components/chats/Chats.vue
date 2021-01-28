@@ -14,7 +14,7 @@
        
                                 <!--Interests Popup-->
 
-  <div class="py-0 px-0 " style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="popup">
+  <div class="py-0 px-0 " style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="this.$root.loadInterestModal">
 
    <div class=" d-flex py-2" style="position:absolute;left:3%; height:90%; top:5%; width:94%;  align-items:center; justify-content:center;overflow-y: hidden;" >
 
@@ -27,6 +27,23 @@
  </div>
 
                       <!--Interests Popup ends--> 
+
+
+                         <!--follow Popup-->
+
+  <div class="py-0 px-0 " style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-else>
+
+   <div class=" d-flex py-2" style="position:absolute;left:3%; height:90%; top:5%; width:94%;  align-items:center; justify-content:center;overflow-y: hidden;" >
+
+     
+      <follow ></follow>
+   
+
+   </div>
+
+ </div>
+
+                      <!--follow Popup ends--> 
 
          <!-- large screens -->
 
@@ -1150,6 +1167,8 @@ const Interest= () => import(
    /* webpackChunkName: "Interest" */ '../auth/InterestPopup'
   );
 
+  const Follow= () => import(/* webpackChunkName: "Follow" */ '../auth/FollowDiary' )
+
 
  const TopBar = () => import(
     /* webpackChunkName: "top-bar-chat" */ './TopBar.vue'
@@ -1245,7 +1264,7 @@ export default {
        errorLoadingMessage:false,
         counter:0,
         messageIsDone: true,
-        popup:true,
+        popup:false,
         qouteArray:[
           {
             qoute:'Believe you can and you’re halfway there.',
@@ -1330,7 +1349,8 @@ export default {
         SideBar,
         ProfileView,
         MoreOptionChat,
-         Interest
+         Interest,
+         Follow
     },
      methods:{
      

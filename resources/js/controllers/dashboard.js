@@ -74,8 +74,6 @@ const Verify = () => import(/* webpackChunkName: "verify" */ '../components/auth
 const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword" */ '../components/auth/ForgotPassword.vue');
 const ResetPassword = () => import(/* webpackChunkName: "ResetPassword" */ '../components/auth/ResetPassword.vue');
 const SetUsername = () => import(/* webpackChunkName: "SetUsername" */ '../components/auth/SetUsername.vue');
-const UserInterests= () => import(/* webpackChunkName: "userInterests" */ '../components/auth/Interests.vue')
-const FollowDiary= () => import(/* webpackChunkName:"FollowDiary" */ '../components/auth/FollowDiary.vue')
 // dashboard routes
 const Board = () => import(/* webpackChunkName: "Board" */ '../components/dashboard/Board.vue');
 const Projects = () => import(/* webpackChunkName: "Projects" */ '../components/dashboard/Projects.vue');
@@ -147,12 +145,6 @@ const routes = [
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
-  {
-    path:'/choose-interests',  name:'UserInterests', component:  UserInterests
-  },
-  {
-    path:'/follow-diaries', name:'FollowDiary', component:FollowDiary
-  },
  
   {
     path:'/profile/:username',
@@ -1796,6 +1788,7 @@ const app = new Vue({
      fromProfileUsername:'',
      codeFromChat:false,
      componentIsLoading:false,
+     loadInterestModal:true
      },
      mounted: function () {
       window.thisUserState = this;
