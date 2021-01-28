@@ -33,7 +33,7 @@
              <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse"  >
                  
 
-                  <v-card :ripple="false"  @click="showMoreOption(source)" elevation-1 class="py-1 px-2 mr-2" :id="'messageWrap' + source.message_id" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)" elevation-1 class="py-1 px-2 mr-2" :id="'messageWrap' + source.message_id" style="max-width:95%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                      
                     
                     
@@ -87,7 +87,7 @@
                      :style="imageStyle(30,source.user_profile,source.user_type)" @click.stop="goToProfile(source.username)"  ></div> 
 
 
-                  <v-card :ripple="false"  @click="showMoreOption(source)"  elevation-1 :id="'messageWrap' + source.message_id" class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  elevation-1 :id="'messageWrap' + source.message_id" class="py-1 px-2 ml-2" style="max-width:90%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
                     <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
                          <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
@@ -132,7 +132,7 @@
            <div class="row">
              <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse"  >
                  
-                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 mr-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 mr-2" style="max-width:95%;  border:1px solid transparent; min-width:200px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                      <!-- comment -->
 
                    <div class="d-flex flex-column py-2 px-1" style="border-left:3px solid #ffffff; border-radius:0px; background:#d6e6f5;"  @click.stop="scrollToMessage(source.replied_message.message_id)">
@@ -276,7 +276,7 @@
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)" @click.stop="goToProfile(source.username)"   ></div> 
 
-                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 ml-2" style="max-width:90%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
                     <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
                          <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)" >{{source.username}}</span>  <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>

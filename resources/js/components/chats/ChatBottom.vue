@@ -195,13 +195,15 @@ export default {
            
              if(this.wordCount > 0){
           
-
+                  this.showSend = true;
           
              this.isTyping();
 
               
 
          }else{
+
+               this.showSend = false;
 
          }
 
@@ -551,7 +553,6 @@ export default {
     },
     blurEditor: function(){
         this.showAttachment = true;
-            this.showSend = false;
           
       
     }
