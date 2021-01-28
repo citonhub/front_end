@@ -90,7 +90,7 @@
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=3.62') }}"></script>
+ <script src="{{ asset('js/dashboard.js?v=3.63') }}"></script>
  <!-- ends -->
      
  @endsection
