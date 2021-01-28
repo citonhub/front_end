@@ -15,7 +15,7 @@
                       <textarea-autosize
                  placeholder="Type here..."
                  ref="textBottom"
-                 @input="update" 
+                 @input.native="update" 
                   @keydown.native="handelkeyAct"
                    @focus.native="focusEditor"  
                    @blur.native="blurEditor"
@@ -187,17 +187,14 @@ export default {
            
              if(this.wordCount > 0){
            this.showSend = true;
-           this.$root.showCodeboxBtn = false;
-           
-                 
+          
              this.isTyping();
 
               
 
          }else{
             this.showSend = false;
-              this.$root.showCodeboxBtn = true;
-            
+           
              
          }
 
