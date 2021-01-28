@@ -28,7 +28,7 @@
                     <template v-if="this.$root.selectedSpace.type != 'Bot'">
 
                           <!-- send  -->
-                  <v-btn icon class="mx-md-1" @click="sendMessage" v-if="showSend"><v-icon>las la-send</v-icon> </v-btn>
+                  <v-btn icon class="mx-md-1" @click="sendMessage" v-if="compiledMarkdown.length > 0"><v-icon>las la-send</v-icon> </v-btn>
 
                   <!-- ends -->
 
@@ -191,7 +191,7 @@ export default {
              if(this.wordCount > 0){
            this.showSend = true;
 
-           this.$root.showCodeboxBtn = false;
+         
           
              this.isTyping();
 
@@ -200,7 +200,7 @@ export default {
          }else{
             this.showSend = false;
            
-              this.$root.showCodeboxBtn = true;
+              
          }
 
            this.contentInWord = this.compiledMarkdown;
