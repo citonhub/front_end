@@ -10,10 +10,7 @@ Vue.use(Vuex)
 
 //axios.defaults.baseURL = 'http://localhost:8000/api'
 //axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
-//axios.defaults.baseURL = 'https://api.citonhub.com/api'
-
-axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
-
+axios.defaults.baseURL = 'https://api.citonhub.com/api'
 const store = new Vuex.Store({
   state: {
     user: null
@@ -1799,7 +1796,6 @@ const app = new Vue({
      fromProfileUsername:'',
      codeFromChat:false,
      componentIsLoading:false,
-     showCodeboxBtn:true,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -2020,26 +2016,28 @@ const app = new Vue({
         },
         saveDeviceInfo:function(deviceId){
   
-          axios.post('/save-user-device',{
-            deviceId: deviceId,
-            device_name: navigator.appName,
-            device_platform: navigator.platform
-              })
-      .then(response => {
-        
-       if (response.status == 200) {
-          
     
-        
-        }else{
-          console.log(response.status);
-        }
-        
-        
-      })
-      .catch(error => {
-        console.log(error);
-      })
+
+      axios.post('/user-post-data',{
+        deviceId: deviceId,
+        device_name: navigator.appName,
+        device_platform: navigator.platform
+          })
+  .then(response => {
+    
+   if (response.status == 200) {
+      
+   
+    
+    }else{
+      console.log(response.status);
+    }
+    
+    
+  })
+  .catch(error => {
+    console.log(error);
+  })
   
         },
         markSpaceRead:function(spaceId){
@@ -2155,8 +2153,7 @@ const app = new Vue({
       'connections': userProfile.connections,
       'background_color': userProfile.background_color,
       'unread': userProfile.unread,
-      'points': userProfile.points,
-      'user_onboarded':userProfile.user_onboarded,
+      'points': userProfile.points
       };
         
 
@@ -2247,7 +2244,7 @@ const app = new Vue({
             this.handleSpaceData([messageData])
             
 
-        
+          this.$root.sortChatList();
 
             this.scrollToBottom();
 
@@ -2517,12 +2514,10 @@ const app = new Vue({
       })
       .listenForWhisper('typing', (e) => {
 
-            
+
         this.$root.typinguser = e.user;
          this.$root.typing = e.typing;
          this.$root.typingSpace = e.spaceId;
-
-          this.stopTying();
 
 
 
@@ -2867,13 +2862,6 @@ const app = new Vue({
   
        
      },
-     stopTying:_.debounce( function () {
-
-      this.$root.typinguser = '';
-     this.$root.typing = false;
-     this.$root.typingSpace = '';
-
-      }, 1000),
   checkIfMessageExist(data){
 
     let messageData = this.$root.Messages.filter((message)=>{
@@ -2962,39 +2950,6 @@ const app = new Vue({
       if(actionName == 'sort_chat'){
 
         this.$root.sortChatList();
-
-      }
-
-      if(actionName == 'message_engine'){
-
-         this.$root.updateSpaceTracker(extraData.space_id,extraData);
-          
-            this.$root.clearUnreadMessageRemote(extraData.message_id);
-         
-
-             // update unread messages into local storage
-
-      let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + extraData.space_id + this.$root.username);
-
-   unreadStoredMsg.then((result)=>{
-
-     let finalResultUnread = JSON.parse(result);
-
-      finalResultUnread.push(extraData)
-
-
-      localforage.setItem('unread_messages_' + extraData.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
-        
-
-       }).then(function (value) {
-       // we got our value
-
-       }).catch(function (err) {
-      console.log(err)
-      // we got an error   
-       });
-
-      });
 
       }
    
@@ -3102,9 +3057,36 @@ handleSpaceData: function(returnData){
           MessagesFull.messages.push(message);
 
           // update into local storage
-            this.$root.LocalStore('full_' + space.space_id  + this.$root.username,MessagesFull,false,'message_engine',message);
+            this.$root.LocalStore('full_' + space.space_id  + this.$root.username,MessagesFull);
 
-           
+            this.$root.updateSpaceTracker(space.space_id,message);
+          
+            this.$root.clearUnreadMessageRemote(message.message_id);
+         
+
+             // update unread messages into local storage
+
+      let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + space.space_id + this.$root.username);
+
+   unreadStoredMsg.then((result)=>{
+
+     let finalResultUnread = JSON.parse(result);
+
+      finalResultUnread.push(message)
+
+
+      localforage.setItem('unread_messages_' + space.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
+        
+
+       }).then(function (value) {
+       // we got our value
+
+       }).catch(function (err) {
+      console.log(err)
+      // we got an error   
+       });
+
+      });
 
         });
 
@@ -3232,8 +3214,6 @@ handleSpaceData: function(returnData){
 
     });
 
-    this.$root.sortChatList();
-
     // save into local storage
 
     let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
@@ -3275,9 +3255,9 @@ handleSpaceData: function(returnData){
      
              });
 
-    this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+    this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult,false,'sort_chat');
 
-     this.$root.sortChatList();
+   
     
     
 
@@ -4361,7 +4341,7 @@ if (mediaElement) {
               
             if(master){
               _this.openAudioRoom();
-              _this.dataconnection.openOrJoin('data' + _this.$root.selectedSpace.space_id)
+              _this.dataconnection.open('data' + _this.$root.selectedSpace.space_id)
             }else{
 
               _this.roomNotExist = true;
@@ -4460,7 +4440,7 @@ this.$root.dataconnection = undefined;
     
     let _this = this;
   
-    this.$root.audioconnection.openOrJoin('audio' + this.$root.selectedSpace.space_id, () =>{
+    this.$root.audioconnection.open('audio' + this.$root.selectedSpace.space_id, () =>{
 
         
       _this.$root.connectingToSocket = false;
@@ -4530,7 +4510,7 @@ this.$root.dataconnection = undefined;
            OfferToReceiveVideo: true
        };
       
-     this.$root.connection.openOrJoin('screen' + this.$root.selectedSpace.space_id, function() {
+     this.$root.connection.open('screen' + this.$root.selectedSpace.space_id, function() {
       
     });
 
