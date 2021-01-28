@@ -155,22 +155,7 @@ export default {
         },
      handelkeyAct: function(e){
 
-         if(this.input > 0){
-          
-
-             this.showSend = true;
-          
-             this.isTyping();
-
-              
-
-         }else{
-
-             this.showSend = false;
-           
-           
-              
-         }
+       
         
         if(e.keyCode == 16){
 
@@ -204,6 +189,8 @@ export default {
             this.input = e;
           
            this.wordCount =  e.length;
+
+            console.log( this.wordCount)
            
              if(this.wordCount > 0){
           
