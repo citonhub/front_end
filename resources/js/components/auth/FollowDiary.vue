@@ -8,7 +8,7 @@
 
 <div style="overflow-y:auto;overflow-x:hidden;position:absolute;height:80%;top:10%;width:100%;padding-bottom:20px;left:0;" class="scroller">
         <div v-for="(diary,index) in diaries" :key="index" class="follow col-lg-12 d-flex mb-2 "  style="background-color:rgba( 125,179,229,0.1); font-size:1.1rem;font-weight:bold;height:65px;">
-            <div  class="diary col-lg-4 py-1 col-7 px-1 " >
+            <div  class="diary col-lg-5 py-1 col-7 px-1 " >
                  <div class="name">{{diary.name}}</div>
                  <p class="describe">{{diary.description}}</p>
              </div>
