@@ -278,6 +278,10 @@ export default {
        that: this,
       }
     },
+    mounted(){
+     this.$root.chatTopLoaded = true;
+     this.$root.chatTopLoadedLg = true;
+    },
     components:{
      MoreOptionChat
     },

@@ -226,6 +226,7 @@
                            <!-- chat view -->
                            <template v-if="chatIsOpen && that.$root.Messages != null">
                               <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:absolute; top:0%;z-index:9999999;" >
+                                
                               <chat-top></chat-top>
                             </div>
 
@@ -242,7 +243,7 @@
   class="col-12 px-0 scroller" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:100%; left:0; position:absolute; z-index:99999; top:0%; overflow-y:auto;"
+            background-repeat: no-repeat; height:95%; left:0; position:absolute; z-index:99999; top:0%; overflow-y:auto;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -274,7 +275,7 @@
 
     <template #after>
 
-        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-bottom:160px; ">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-bottom:100px; ">
             
           <template v-if="that.$root.selectedSpace.type == 'Bot' ">
 
@@ -387,8 +388,10 @@
 
                                   <!-- ends -->
 
-                                  <div class="px-2 py-1" style="background:#ffffff; border-top:1px solid #c5c5c5;">
-                                <chat-bottom ref="bottomLg" :screenType="'large'"></chat-bottom>
+                                  <div class="px-2 py-1 card" style="background:#ffffff; border-radius:0px;">
+                                     
+                                <chat-bottom  ref="bottomLg" :screenType="'large'"></chat-bottom>
+                                
                                  </div>
                             </div>
                            </template>
@@ -575,9 +578,9 @@
 
                       </div>
 
-                           <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'" medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
+                           <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'" medium fab color="#ffffff"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
 
-                               <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
+                               <v-icon style="font-size:25px; color:#3C87CD;">las la-code</v-icon>
 
                               </v-btn>
 
@@ -587,9 +590,9 @@
 
                                    <template v-if="that.$root.Messages.length >  0">
 
-                                     <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible && that.$root.Messages.length > 0"   fab x-small color="#3C87CD" class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:14%; left:1%;">
+                                     <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible && that.$root.Messages.length > 0"   fab x-small color="#ffffff" class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:14%; left:1%;">
 
-                               <v-icon style="font-size:20px; color:white;">las la-angle-double-down</v-icon>
+                               <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
 
                               </v-btn>
 
@@ -789,7 +792,16 @@
 
               <div  class="row py-0" :id="'smallView'" >
                             <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:fixed; top:0%;z-index:999999999;" >
-                              <chat-top></chat-top>
+                              <template v-if="!that.$root.chatTopLoaded">
+
+                                       <v-skeleton-loader
+                                       type="image"
+                                       height="35px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                    </template>
+                              <chat-top v-else></chat-top>
                             </div>
 
 
@@ -804,7 +816,7 @@
   class="col-12 scroller px-0" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:98%; left:0; position:fixed; z-index:9999999; top:0%; overflow-y:auto;"
+            background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:9999999; top:0%; overflow-y:auto;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -823,7 +835,7 @@
 
      <template #before>
 
-        <div  class=" col-12 text-center" style="margin-top:80px; ">
+        <div  class=" col-12 text-center" style="margin-top:60px; ">
      
         <span v-html="that.$root.selectedSpace.description" v-if="that.$root.selectedSpace.type == 'SubSpace'  || that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'" style="font-size:12px;font-family:BodyFont;">
          
@@ -928,9 +940,9 @@
      </template>
                       
 
-                             <v-btn small @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot' && this.$root.showCodeboxBtn"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:16%; right:2%; ">
+                             <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot' && this.$root.showCodeboxBtn"   fab color="#ffffff"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
 
-                               <v-icon style="font-size:20px; color:white;">las la-code</v-icon>
+                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
 
                               </v-btn>
 
@@ -940,9 +952,9 @@
 
                                    <template v-if="that.$root.Messages.length >  0">
 
-                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"   fab x-small color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:16%; left:2%; ">
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"   fab x-small color="#ffffff"  style="z-index:9999999;  position:fixed;  bottom:16%; left:2%; ">
 
-                               <v-icon style="font-size:20px; color:white;">las la-angle-double-down</v-icon>
+                               <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
 
                               </v-btn>
 
@@ -969,8 +981,18 @@
 
                                   <!-- ends -->
 
-                                 <div class="px-2 py-1" style="background:#ffffff; border-top:1px solid #c5c5c5;">
-                                <chat-bottom ref="bottomSm" :screenType="'small'"></chat-bottom>
+                                 <div class="px-2 py-1 card" style="background:#ffffff; border-radius:0px;">
+
+                                    <template v-if="!that.$root.chatBottomLoaded">
+
+                                       <v-skeleton-loader
+                                       type="image"
+                                       height="35px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                    </template>
+                                <chat-bottom v-else ref="bottomSm" :screenType="'small'"></chat-bottom>
                                  </div>
                                  
                             </div>

@@ -4,8 +4,7 @@
            <div class="col-12 py-1 my-0 d-flex px-md-2 px-2 flex-row" style="align-items:center; justify-content:center;">
                   <template v-if="!recording">
 
-                      <v-btn icon class="mx-md-1" v-if="showAttachment && this.$root.selectedSpace.type != 'Bot'" @click="showShareBoard"> 
-           <v-icon>las la-paperclip</v-icon> </v-btn>
+                     
                  
                      <v-btn icon class="mx-md-1 mr-1" @click="toggleEmoji"><v-icon>las la-grin</v-icon> </v-btn>
 
@@ -20,12 +19,16 @@
                    @focus.native="focusEditor"  
                    @blur.native="blurEditor"
                  :value="input"
+                  :important="true"
                  :class="screenType == 'large' ? 'textareaLg' : 'textareaSm' "
-                :min-height="screenType == 'large' ? 50 : 20"
-                :max-height="screenType == 'large' ? 80 : 60"
+                :min-height="screenType == 'large' ? 40 : 40"
+                :max-height="screenType == 'large' ? 60 : textHeight"
                
                  />
                     <template v-if="this.$root.selectedSpace.type != 'Bot'">
+
+                       <v-btn icon class="mx-md-1" v-if="showAttachment && this.$root.selectedSpace.type != 'Bot'" @click="showShareBoard"> 
+           <v-icon>las la-paperclip</v-icon> </v-btn>
 
                           <!-- send  -->
                   <v-btn icon class="mx-md-1" @click="sendMessage" v-if="showSend"><v-icon>las la-send</v-icon> </v-btn>
@@ -98,6 +101,7 @@ export default {
       alertMsg:'',
       recording:false,
       audioBlob:'',
+      textHeight:28,
       mediaRecorder:null,
       contentInWord:'',
       NewMsg:'',
@@ -118,6 +122,8 @@ export default {
        this.$root.bottomEditorValue = this.$refs.textBottom.$el;
        this.$root.channelBottomComp = this;
         this.$root.showCodeboxBtn = true;
+        this.$root.chatBottomLoaded = true;
+         this.$root.chatBottomLoadedLg = true;
     },
      computed: {
 
@@ -199,12 +205,15 @@ export default {
           
              this.isTyping();
 
+               this.textHeight = 60;
+
               
 
          }else{
 
                this.showSend = false;
 
+           this.textHeight = 35;
          }
 
            this.contentInWord = this.compiledMarkdown;
@@ -547,6 +556,8 @@ export default {
           this.$root.showEmojiBox = false
 
              this.showSend = true;
+
+           
           
            
         
@@ -554,7 +565,7 @@ export default {
     blurEditor: function(){
         this.showAttachment = true;
           
-      
+         
     }
   
   },
@@ -564,26 +575,23 @@ export default {
 
 .textareaLg{
     font-size:13px; 
-    background:whitesmoke;
+    background:white;
     width:100%; 
     height: 55px;
     padding: 4px 6px;
     resize:none; 
     overflow-x: hidden;
      overflow-y: auto;
-    border:1px solid #e6e6e6; 
-    border-radius:2px;
 }
 .textareaSm {
     font-size:13px; 
-    background:whitesmoke;
+    background:white;
     width:100%; 
-   
+    height: 30px !important;
     padding: 4px 6px;
     resize:none; 
     overflow-x: hidden;
      overflow-y: auto;
-    border:1px solid #e6e6e6; 
-    border-radius:2px;
+   
 }
 </style>

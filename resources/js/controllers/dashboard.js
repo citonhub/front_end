@@ -522,7 +522,7 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.showProfileView = false;
       thisUserState.$root.chatComponent.messageIsDone = true;
       thisUserState.$root.showDiarySettings = false;
-      
+      thisUserState.$root.chatComponent.chatInnerConent = '';
         
       }
      
@@ -1800,6 +1800,10 @@ const app = new Vue({
      codeFromChat:false,
      componentIsLoading:false,
      showCodeboxBtn:true,
+     chatBottomLoaded:false,
+     chatTopLoaded:false,
+     chatBottomLoadedLg:false,
+     chatTopLoadedLg:false,
      },
      mounted: function () {
       window.thisUserState = this;
