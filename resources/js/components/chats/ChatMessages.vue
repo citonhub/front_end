@@ -33,11 +33,11 @@
              <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse"  >
                  
 
-                  <v-card :ripple="false"  @click="showMoreOption(source)" elevation-1 class="py-1 px-2 mr-2" :id="'messageWrap' + source.message_id" style="max-width:95%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)" elevation-1 class="py-1 px-2 mr-2" :id="'messageWrap' + source.message_id" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                      
                     
                     
-                       <span style="color:white !important;font-size:13px;" class="handleText" v-html="source.content" > </span>
+                       <span style="color:white !important;" :class="screenType == 'large' ? 'handleText' :'handleTextSm'" v-html="source.content" > </span>
                     
                       
                        
@@ -87,7 +87,7 @@
                      :style="imageStyle(30,source.user_profile,source.user_type)" @click.stop="goToProfile(source.username)"  ></div> 
 
 
-                  <v-card :ripple="false"  @click="showMoreOption(source)"  elevation-1 :id="'messageWrap' + source.message_id" class="py-1 px-2 ml-2" style="max-width:90%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  elevation-1 :id="'messageWrap' + source.message_id" class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
                     <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
                          <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
@@ -96,7 +96,7 @@
 
                   </div>
                      
-                       <span style="font-size:13px;" v-html="source.content" > </span>
+                       <span :class="screenType == 'large' ? 'handleTextNormal' :'handleTextNormalSm'" v-html="source.content" > </span>
                      
 
                  <!-- more option -->
@@ -132,12 +132,12 @@
            <div class="row">
              <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse"  >
                  
-                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 mr-2" style="max-width:95%;  border:1px solid transparent; min-width:200px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 mr-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                      <!-- comment -->
 
                    <div class="d-flex flex-column py-2 px-1" style="border-left:3px solid #ffffff; border-radius:0px; background:#d6e6f5;"  @click.stop="scrollToMessage(source.replied_message.message_id)">
                           <template v-if="source.replied_message.type == null || source.replied_message.type == 'text' || source.replied_message.type == 'action'">
-                               <div style="font-size:13px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{ getReplyMsg(source.replied_message) }}</div>
+                               <div  :style="screenType == 'large' ? 'font-size:13px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ' :'font-size:12px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; '" >{{ getReplyMsg(source.replied_message) }}</div>
                           </template>
 
                           <template v-if="source.replied_message.type == 'video'">
@@ -147,7 +147,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.video.display_name ,25)}}</span>
+                     <span  :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'" class="ml-2" >{{ shortenContent(source.replied_message.video.display_name ,25)}}</span>
                    
                      
                     </div>
@@ -160,7 +160,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ source.replied_message.code.name + '.' + languageExtensions(source.replied_message.code.language_type)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{ source.replied_message.code.name + '.' + languageExtensions(source.replied_message.code.language_type)}}</span>
                    
                      
                     </div>
@@ -172,7 +172,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{shortenContent(source.replied_message.project.title ,25)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{shortenContent(source.replied_message.project.title ,25)}}</span>
                    
                      
                     </div>
@@ -184,7 +184,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.file.display_name ,25)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{ shortenContent(source.replied_message.file.display_name ,25)}}</span>
                    
                      
                     </div>
@@ -196,7 +196,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.audio.display_name ,25)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{ shortenContent(source.replied_message.audio.display_name ,25)}}</span>
                    
                      
                     </div>
@@ -209,7 +209,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >Images</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >Images</span>
                    
                      
                     </div>
@@ -228,7 +228,7 @@
                          <span style="color:white;font-size:13px;display:none;" :id="'fullContent' + source.message_id + screenType" v-html="source.content" > </span>
                      </template> -->
                     
-                       <span style="color:white !important;font-size:13px;" class="handleText" v-html="source.content" > </span>
+                       <span style="color:white !important;" :class="screenType == 'large' ? 'handleText' :'handleTextSm'" v-html="source.content" > </span>
                    
                       
                        
@@ -276,7 +276,7 @@
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)" @click.stop="goToProfile(source.username)"   ></div> 
 
-                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 ml-2" style="max-width:90%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
                     <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
                          <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)" >{{source.username}}</span>  <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
@@ -298,7 +298,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.video.display_name ,25)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{ shortenContent(source.replied_message.video.display_name ,25)}}</span>
                    
                      
                     </div>
@@ -311,7 +311,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ source.replied_message.code.name + '.' + languageExtensions(source.replied_message.code.language_type)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{ source.replied_message.code.name + '.' + languageExtensions(source.replied_message.code.language_type)}}</span>
                    
                      
                     </div>
@@ -323,7 +323,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{shortenContent(source.replied_message.project.title ,25)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{shortenContent(source.replied_message.project.title ,25)}}</span>
                    
                      
                     </div>
@@ -335,7 +335,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.file.display_name ,25)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{ shortenContent(source.replied_message.file.display_name ,25)}}</span>
                    
                      
                     </div>
@@ -347,7 +347,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.audio.display_name ,25)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{ shortenContent(source.replied_message.audio.display_name ,25)}}</span>
                    
                      
                     </div>
@@ -360,7 +360,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >Images</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >Images</span>
                    
                      
                     </div>
@@ -373,12 +373,12 @@
 
                   <!-- ends -->
                       <!-- <template v-if="checkIfMsgIsLong(source)">
-                       <span style="font-size:13px;" v-html="shortenContent(source.content,300)" :id="'shortContent' + source.message_id + screenType"> </span>
+                       <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  v-html="shortenContent(source.content,300)" :id="'shortContent' + source.message_id + screenType"> </span>
                        <span :id="'moreContentbtn' + source.message_id + screenType" @click.stop="showFullMsg(source)" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
                          <span style="font-size:13px;display:none;" :id="'fullContent' + source.message_id + screenType" v-html="source.content" > </span>
                      </template> -->
                    
-                       <span style="font-size:13px;" v-html="source.content" > </span>
+                       <span :class="screenType == 'large' ? 'handleTextNormal' :'handleTextNormalSm'" v-html="source.content" > </span>
                     
 
                       <!-- more option -->
@@ -1708,5 +1708,46 @@ export default {
 .handleText  p a{
   color: #ffffff ;
   text-decoration: underline;
+  font-size:13px;
 }
+
+.handleText  p {
+  color: #ffffff ;
+  font-size:13px;
+}
+
+.handleTextSm  p a{
+  color: #ffffff ;
+  text-decoration: underline;
+  font-size:12px;
+}
+
+.handleTextSm  p {
+  color: #ffffff ;
+  font-size:12px;
+}
+
+.handleTextNormal  p a{
+  color: blue ;
+  text-decoration: underline;
+  font-size:13px;
+}
+
+.handleTextNormal  p {
+  color: #000000 ;
+  font-size:13px;
+}
+
+.handleTextNormalSm  p a{
+  color: blue ;
+  text-decoration: underline;
+  font-size:12px;
+}
+
+.handleTextNormalSm  p {
+  color: #000000 ;
+  font-size:12px;
+}
+
+
 </style>
