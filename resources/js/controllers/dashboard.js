@@ -1788,7 +1788,8 @@ const app = new Vue({
      fromProfileUsername:'',
      codeFromChat:false,
      componentIsLoading:false,
-     loadInterestModal:true
+     loadInterestModal:true,
+     suggestedDiaries:[]
      },
      mounted: function () {
       window.thisUserState = this;

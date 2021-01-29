@@ -63,8 +63,10 @@ Interests:this.picked
       }).then(
         response =>{
 if(response.status==200){
-  console.log('posted!')
+  console.log(response.data.suggested_diaries)
+this.$root.suggestedDiaries=response.data.suggested_diaries
 this.$root.loadInterestModal=false
+
 }else{
   console.log('smth went wrong')
 }

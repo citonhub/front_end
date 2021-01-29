@@ -9,8 +9,8 @@
 <div style="overflow-y:auto;overflow-x:hidden;position:absolute;height:80%;top:10%;width:100%;padding-bottom:20px;left:0;" class="scroller">
         <div v-for="(diary,index) in diaries" :key="index" class="follow col-lg-12 d-flex mb-2 "  style="background-color:rgba( 125,179,229,0.1); font-size:1.1rem;font-weight:bold;height:65px;">
             <div  class="diary col-lg-4 py-1 col-7 px-1 " >
-                 <div class="name">{{diary}}</div>
-                 <p class="describe">Lorem ipsum dolor</p>
+                 <div class="name">{{diary.name}}</div>
+                 <p class="describe">{{diary.description}}</p>
              </div>
 
              <v-btn class="mt-1 offset-lg-5 offset-md-5 offset-sm-4 offset-1 " style="color:white;background-color: #3C87CD;border-radius:10px;height:30px;">Follow</v-btn>
@@ -26,12 +26,13 @@
 
 <script>
 export default {
+    mounted(){
+this.fetchDiaries()
+    },
     data(){
 
         return{ 
-            diaries:[
-                'Intro to PHP', 'Advanced CSS','tensorflow','python magic','html cheats'
-            ]
+            diaries:[]
             }
        
     },
@@ -40,6 +41,9 @@ export default {
             this.$router.push({
 path:'/channels'
             })
+        },
+        fetchDiaries(){
+           this.diaries= this.$root.suggestedDiaries
         }
     }
 }
