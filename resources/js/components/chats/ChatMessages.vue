@@ -1716,6 +1716,11 @@ export default {
   font-size:13px;
 }
 
+.handleText  {
+  color: #ffffff ;
+  font-size:13px;
+}
+
 .handleTextSm  p a{
   color: #ffffff ;
   text-decoration: underline;
@@ -1727,8 +1732,13 @@ export default {
   font-size:12px;
 }
 
+.handleTextSm  {
+  color: #ffffff ;
+  font-size:12px;
+}
+
 .handleTextNormal  p a{
-  color: blue ;
+  color: #3C87CD ;
   text-decoration: underline;
   font-size:13px;
 }
@@ -1738,13 +1748,23 @@ export default {
   font-size:13px;
 }
 
+.handleTextNormal  {
+  color: #000000 ;
+  font-size:13px;
+}
+
 .handleTextNormalSm  p a{
-  color: blue ;
+  color: #3C87CD ;
   text-decoration: underline;
   font-size:12px;
 }
 
 .handleTextNormalSm  p {
+  color: #000000 ;
+  font-size:12px;
+}
+
+.handleTextNormalSm  {
   color: #000000 ;
   font-size:12px;
 }
