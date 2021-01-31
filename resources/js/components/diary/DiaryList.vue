@@ -265,7 +265,7 @@ overflow-y:auto;overflow-x:hidden;
          let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:50%;background-repeat: no-repeat; ";
          let imgLink = data.image_name + '.' + data.image_extension;
         
-        styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
+        styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/thumbnails/'  + imgLink  +  ');';
          
           return styleString;
 

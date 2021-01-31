@@ -2667,6 +2667,8 @@ export default {
                    let finalResult = JSON.parse(result);
 
                     finalResult.space = response.data.space;
+
+                      this.$root.selectedSpace = response.data.space;
                     
                   
                   finalResult.members = response.data.members;
@@ -2696,7 +2698,7 @@ export default {
                    let finalResult = JSON.parse(result);   
 
                  
-
+                 
                      
                 
 
@@ -2721,14 +2723,9 @@ export default {
                       finalResult.direct_messages.map((chat)=>{
                           if(chat.space_id == this.$root.selectedSpace.space_id){
 
-                             chat.name =  response.data.space.userInfo.name;
+                             chat.userInfo =  response.data.space.userInfo;
 
-                             chat.image_name = response.data.space.userInfo.image_name;
-
-                             chat.image_extension = response.data.space.userInfo.image_extension;
-
-                             chat.background_color = response.data.space.userInfo.background_color;
-
+                          
                           }
                         })
 
@@ -2736,17 +2733,14 @@ export default {
 
                    if(response.data.space.type == 'Bot'){
 
+                        
+
                       finalResult.pet_spaces.map((chat)=>{
                           if(chat.space_id == this.$root.selectedSpace.space_id){
+                             
+                             chat.bot_data =  response.data.space.bot_data;
 
-                             chat.name =  response.data.space.bot_data.name;
-
-                             chat.image_name = response.data.space.bot_data.image_name;
-
-                             chat.image_extension = response.data.space.bot_data.image_extension;
-
-                             chat.background_color = response.data.space.bot_data.background_color;
-
+                         
                           }
                         })
 
