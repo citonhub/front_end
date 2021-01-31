@@ -342,37 +342,37 @@ export default {
     displayMode: 'once',
     id: 'question',
     zindex: 999,
-    title: 'Hey',
-    message: 'Are you sure about that?',
+     title: title,
+       message: message,
     position: 'center',
     buttons: [
         ['<button><b>YES</b></button>', (instance, toast) => {
 
-              axios.post( '/delete-intent-response/' + this.$root.pageToDelete)
-      .then(response => {
+    //           axios.post( '/delete-intent-response/' + this.$root.pageToDelete)
+    //   .then(response => {
       
-      if (response.status == 200) {
+    //   if (response.status == 200) {
 
-         let remainingPages = this.$root.noteContent.pages.filter((page)=>{
-           return page.slug != this.$root.pageToDelete;
-         })
+    //      let remainingPages = this.$root.noteContent.pages.filter((page)=>{
+    //        return page.slug != this.$root.pageToDelete;
+    //      })
          
-         this.$root.noteContent.pages = remainingPages;
+    //      this.$root.noteContent.pages = remainingPages;
 
-          this.$root.LocalStore('user_diary_data_' +  this.$route.params.diary_id + this.$root.username,this.$root.selectedDiary);
+    //       this.$root.LocalStore('user_diary_data_' +  this.$route.params.diary_id + this.$root.username,this.$root.selectedDiary);
 
-          this.$root.pageToDelete = '';
+    //       this.$root.pageToDelete = '';
 
-     }
+    //  }
        
      
-     })
-     .catch(error => {
+    //  })
+    //  .catch(error => {
 
-     this.$root.diaryBoardComponent.showAlert('Oops!','Unable to delete page','error');
+    //  this.$root.diaryBoardComponent.showAlert('Oops!','Unable to delete note','error');
        
     
-     }) 
+    //  }) 
  
             instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
  

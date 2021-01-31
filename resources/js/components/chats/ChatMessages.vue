@@ -1739,6 +1739,8 @@ export default {
   font-size:13px;
 }
 
+
+
 .handleText  {
   color: #ffffff ;
   font-size:13px;
@@ -1753,6 +1755,14 @@ export default {
 .handleTextSm  p {
   color: #ffffff ;
   font-size:12px;
+}
+
+.handleTextSm   ol{
+  padding-left:13px !important;
+}
+
+.handleTextSm   ul{
+ padding-left:13px !important;
 }
 
 .handleTextSm  {
@@ -1770,6 +1780,7 @@ export default {
   color: #000000 ;
   font-size:13px;
 }
+
 
 .handleTextNormal  {
   color: #000000 ;
@@ -1790,6 +1801,15 @@ export default {
 .handleTextNormalSm  {
   color: #000000 ;
   font-size:12px;
+}
+
+
+.handleTextNormalSm   ol{
+  padding-left:13px !important;
+}
+
+.handleTextNormalSm   ul{
+   padding-left:13px !important;
 }
 
 
