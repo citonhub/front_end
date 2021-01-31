@@ -169,7 +169,7 @@
      <!-- page viewer for HTML codes -->
           <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
    :srcdoc="ResultCode"
-    style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%;" v-if="selectedLangId == 0"></iframe>
+    style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%;" v-if="selectedLangId == 0 || selectedLangId == 35"></iframe>
 
 <!-- ends -->
 

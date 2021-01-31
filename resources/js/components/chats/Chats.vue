@@ -311,7 +311,7 @@
 
                   <v-card elevation-1  class="py-0 px-2 ml-2 d-flex " style=" align-items:center;justify-content:center; border:1px solid transparent; min-width:45px;background:#ffffff; border-radius:20px;">
 
-                       <img src="/imgs/diary_loading.svg"  height="30px" width="40px">
+                      <span style="font-size:13px;font-family:BodyFont;">Loading...</span>
 
                 
                   </v-card> 
@@ -886,7 +886,7 @@
 
                   <v-card elevation-1  class="py-0 px-2 ml-2 d-flex " style=" align-items:center;justify-content:center; border:1px solid transparent; min-width:45px;background:#ffffff; border-radius:20px;">
 
-                       <img src="/imgs/diary_loading.svg"  height="30px" width="40px">
+                         <span style="font-size:12px;font-family:BodyFont;">Loading...</span>
 
                 
                   </v-card> 

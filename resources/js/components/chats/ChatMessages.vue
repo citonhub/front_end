@@ -415,7 +415,17 @@
                 
 
                   <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 mr-2" style=" width:90%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
-                     
+                      
+                      
+                      <template v-if="that.$root.codeboxIsLoading">
+                        <v-skeleton-loader
+                                       type="image"
+                                       height="200px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                  
+                      </template>
                      
                    <code-box color="#ffffff" v-if="source.loading == false"  :topMargin="5"  
                    :codeContent="source.code.content" 
@@ -487,6 +497,16 @@
                          <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}}</span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                   </div>
+
+                   <template v-if="that.$root.codeboxIsLoading">
+                        <v-skeleton-loader
+                                       type="image"
+                                       height="200px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                  
+                      </template>
 
                    <code-box color="#333333" v-if="source.loading == false"  :topMargin="13"  
                    :codeContent="source.code.content" 
