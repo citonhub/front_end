@@ -289,7 +289,7 @@
                   <!-- comment -->
                    <div class="d-flex flex-column py-2 px-1" style="border-left:3px solid #3C87CD; background:#d6e6f5;"   @click.stop="scrollToMessage(source.replied_message.message_id)">
                            <template v-if="source.replied_message.type == null || source.replied_message.type == 'text' || source.replied_message.type == 'action'">
-                               <div style="font-size:13px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{ getReplyMsg(source.replied_message) }}</div>
+                               <div :style="screenType == 'large' ? 'font-size:13px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ' :'font-size:12px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; '">{{ getReplyMsg(source.replied_message) }}</div>
                           </template>
 
                           <template v-if="source.replied_message.type == 'video'">
@@ -419,6 +419,7 @@
                      
                    <code-box color="#ffffff" v-if="source.loading == false"  :topMargin="5"  
                    :codeContent="source.code.content" 
+                    :screenType="screenType"
                    :messageId="source.message_id" 
                    :filename="source.code.name + '.' + languageExtensions(source.code.language_type)" 
                    :codeLanguage="source.code.language_type"></code-box>
@@ -490,6 +491,7 @@
                    <code-box color="#333333" v-if="source.loading == false"  :topMargin="13"  
                    :codeContent="source.code.content" 
                    :messageId="source.message_id" 
+                    :screenType="screenType"
                    :filename="source.code.name + '.' + languageExtensions(source.code.language_type)" 
                    :codeLanguage="source.code.language_type"></code-box>
 

@@ -272,7 +272,7 @@
 
                 <template v-if="that.$root.selectedSpace.bot_data.bot_channel">
 
-                      <v-btn small   @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
+                      <v-btn small class="mr-1" @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
              
             
                  <v-icon  style="font-size:21px;">mdi-comment-multiple-outline </v-icon>
@@ -284,7 +284,7 @@
 
                   <template v-else>
 
-                      <v-btn small :disabled="that.$root.selectedSpace.owner == that.$root.user_temp_id" :loading="loadingChat"  @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
+                      <v-btn  class="mr-1" small :disabled="that.$root.selectedSpace.owner == that.$root.user_temp_id" :loading="loadingChat"  @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
           
 
              
