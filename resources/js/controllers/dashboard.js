@@ -1859,6 +1859,8 @@ const app = new Vue({
      suggestedDiaries:[],
      sideBarComponent:undefined,
      codeboxIsLoading:true,
+     intentToDelete:'',
+     showLanguageOption:false,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -2951,7 +2953,18 @@ const app = new Vue({
   // check user login state
   checkIfUserIsLoggedIn: function(){
     if(this.checkauthroot == 'noauth'){
-      this.LocalStore('route_tracker_new',[this.$router.currentRoute.path]);
+
+      if(this.$router.currentRoute.path.indexOf('settings') >= 0){
+                    
+        this.LocalStore('route_tracker_new',['/channels']);
+
+
+      }else{
+
+        this.LocalStore('route_tracker_new',[this.$router.currentRoute.path]);
+
+      }
+     
      
        this.$router.push({ path: '/login' });
       return;

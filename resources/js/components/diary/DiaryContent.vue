@@ -159,7 +159,7 @@
               <div class="d-flex flex-row-reverse" style="align-items:center;">
 
               
-                  <v-btn @click.stop="deleteNote" icon><v-icon  color="#c5c5c5" style="font-size:20px;">mdi mdi-close</v-icon></v-btn>
+                  <v-btn @click.stop="deleteNote(element.note)" icon><v-icon  color="#c5c5c5" style="font-size:20px;">mdi mdi-close</v-icon></v-btn>
 
                     <div class="d-flex flex-row" style="align-items:center;justify-content:center;">
 
@@ -252,8 +252,11 @@ export default {
                 return moment(realTimeHour).format('MMM D,YYYY');
           
       },
-      deleteNote:function(){
+      deleteNote:function(note){
+
+           this.$root.intentToDelete = note.tag_unique_id;
            this.$root.diaryBoardComponent.showAlert('Hey','Do you want to delete this note?','question');
+
       },
       calculateView:function(){
 

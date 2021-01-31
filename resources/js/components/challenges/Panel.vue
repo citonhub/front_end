@@ -72,7 +72,7 @@
                                         <span style="color:white;text-transform:capitalize;">Panel</span> 
                                    </v-btn>
 
-                                   <v-btn @click="createProject" :loading="loadingJoinAction" class="mx-1"  v-if="!this.$root.selectedChallenge.user_participating && !this.$root.selectedChallenge.participant_reached && knowDuelStatus(this.$root.selectedChallenge)"  medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
+                                   <v-btn @click="that.$root.showLanguageOption = true" :loading="loadingJoinAction" class="mx-1"  v-if="!this.$root.selectedChallenge.user_participating && !this.$root.selectedChallenge.participant_reached && knowDuelStatus(this.$root.selectedChallenge)"  medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
                                         <span style="color:white;text-transform:capitalize;">Join</span> 
                                    </v-btn>
 
@@ -139,11 +139,7 @@
 
                    </div>
 
-                    <div class="py-2 px-3 mr-1 sideBar" :style="selectedTab == 'discussion' ? ' border-bottom:4px solid #3C87CD;' : ''" @click.stop="goToPage('discussion')">
-
-                        <div style="font-size:14px;font-family:MediumFont;" >Discussion</div>  
-
-                   </div>
+                  
                   <div class="py-2 px-3 mr-1 sideBar" v-if="this.$root.selectedChallenge.channel_id" :style="selectedTab == 'channel' ? ' border-bottom:4px solid #3C87CD;' : ''" @click.stop="goToPage('channel')">
 
                         <div style="font-size:14px;font-family:MediumFont;" >Join Channel</div>  
@@ -177,7 +173,14 @@
            </div>
 
 
-        
+           <!-- share  -->
+
+  
+
+
+
+
+ <!-- ends -->
 
             
 
@@ -302,12 +305,7 @@
 
                    </div>
 
-                    <div class="py-2 px-3 mr-1 sideBar" :style="selectedTab == 'discussion' ? ' border-bottom:4px solid #3C87CD;' : ''" @click.stop="goToPage('discussion')">
-
-                        <div style="font-size:13px;font-family:MediumFont;" >Discussion</div>  
-
-                   </div>
-
+                  
                       <div v-if="this.$root.selectedChallenge.channel_id" class="py-2 px-3 mr-1 sideBar" :style="selectedTab == 'channel' ? ' border-bottom:4px solid #3C87CD;' : ''" @click.stop="goToPage('channel')">
 
                         <div style="font-size:13px;font-family:MediumFont;" >Join Channel</div>  
@@ -338,7 +336,6 @@
               </template>
                
 
-               
 
    
                 </div>
@@ -348,13 +345,61 @@
 
        
 
+
+                <!-- language options -->
+
+   <div class="py-0 px-0 " style="position:fixed; left:0%; width:100%; height:100%; top:0%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" @click="that.$root.showLanguageOption = false" v-if="this.$root.showLanguageOption">
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+
+   
+       <v-card class="col-lg-3 py-1  col-md-6 scroller" style="max-height:400px;overflow-y:auto;">
+
+           <div class="col-12 py-1 text-center">
+
+                   <span style="font-family:MediumFont; font-size:13px;">Select your language choice</span>
+
+                 </div>
+
+               <div class="col-12  py-0">
+
+                   <div class="row">
+
+                       <v-card @click.stop="createProject(lang)"  v-for="(lang,index) in languageData" :key="index" tile flat class="py-2 px-2 d-flex flex-row col-12" style="border-bottom:1px solid #c5c5c5;">
+                     
+                      <div class="mr-2">
+
+                           <span style="color:#3C87CD;" class="mx-1"><i :class="lang.icon"></i> </span> 
+
+                      </div>
+
+                      <div>
+                           <span style="font-family:BodyFont; font-size:13px;">{{lang.name}}</span>
+                      </div>
+
+                     </v-card>
+
+
+                   </div>
+               </div>
+
+       </v-card>
+      
+     
+   
+
+   </div>
+
+ </div>
+
+   <!-- ends -->
             
               <!-- button for smaller screens -->
 
               <!-- ends -->
 
 
-               <div  class="d-lg-none d-flex flex-row-reverse" v-if="this.$router.currentRoute.path.indexOf('discussion') <= 0 && this.$router.currentRoute.path.indexOf('results') <= 0"  style="z-index:9999999999; overflow-x:auto; width:100%; position:fixed;  bottom:2%; right:3%; ">
+               <div  class="d-md-none d-flex flex-row-reverse" v-if="this.$router.currentRoute.path.indexOf('discussion') <= 0 && this.$router.currentRoute.path.indexOf('results') <= 0"  style="z-index:9999999999; overflow-x:auto; width:100%; position:fixed;  bottom:2%; right:3%; ">
                   <v-btn class="ml-1" @click="shareChallenge" outlined medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; background:white;font-family:MediumFont;">
                                      <v-icon class="ml-r" style="font-size:18px;" >mdi mdi-share-variant</v-icon> 
                                    </v-btn>
@@ -366,7 +411,7 @@
                                         <span style="color:white;text-transform:capitalize;">Panel</span> 
                                    </v-btn>
 
-                                   <v-btn  @click="createProject" :loading="loadingJoinAction" class="mx-1"  v-if="!this.$root.selectedChallenge.user_participating && !this.$root.selectedChallenge.participant_reached && knowDuelStatus(this.$root.selectedChallenge)"  medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
+                                   <v-btn  @click="that.$root.showLanguageOption = true" :loading="loadingJoinAction" class="mx-1"  v-if="!this.$root.selectedChallenge.user_participating && !this.$root.selectedChallenge.participant_reached && knowDuelStatus(this.$root.selectedChallenge)"  medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
                                         <span style="color:white;text-transform:capitalize;">Join</span> 
                                    </v-btn>
 
@@ -612,6 +657,7 @@ export default {
 
             ],
             selectLangValue:[],
+            languageData:[],
       }
     },
 
@@ -635,6 +681,28 @@ export default {
           this.$root.showInvitation = true;
 
            
+
+       },
+       getChallengeLanguages:function(){
+
+          let languagesArray = this.$root.selectedChallenge.languages.split(',');
+          
+          let finalLangArray = [];
+
+          for (let index = 0; index < languagesArray.length; index++) {
+            
+               let langData = this.languageIcon.filter((lang)=>{
+                  return lang.id == languagesArray[index];
+               })
+
+               if(langData.length > 0){
+
+                  finalLangArray.push(langData[0])
+
+               }
+          }
+
+          this.languageData = finalLangArray;
 
        },
        goToPanel:function(){
@@ -766,6 +834,10 @@ export default {
 
              this.loadingJoinAction = false;
 
+             let projectSlug = this.$root.selectedChallenge.participant_data.project_slug;
+
+            this.$root.panelFromChallenges = true;
+
              this.$router.push({ path: '/board/projects/panel/' + project.project_slug });
 
           
@@ -808,21 +880,18 @@ export default {
      }) 
 
        }, 
-       createProject(){
+       createProject(lang){
 
            this.loadingJoinAction = true;
+           this.$root.showLanguageOption = false;
 
-           let language = this.languageIcon.filter((app)=>{
-              return app.id == this.$root.selectedChallenge.duel_language_array;
-           })
-
-            this.selectLangValue = language[0];
+         
 
            axios.post( '/create-project',{
                 app_type: 'Multiple-pages',
                 title:  this.$root.selectedChallenge.title,
-              panel_language: this.selectLangValue.id,
-                language_name: this.selectLangValue.name.toUpperCase()
+              panel_language: lang.id,
+                language_name: lang.name.toUpperCase()
                   })
              .then(response => {
              
@@ -952,6 +1021,8 @@ export default {
                    
  
                   this.loadingChallenge = false;
+
+                  this.getChallengeLanguages();
                 
                  
 
@@ -987,7 +1058,7 @@ export default {
 
                     
                    
-
+           this.getChallengeLanguages();
          
      
          this.loadingChallenge = false;
