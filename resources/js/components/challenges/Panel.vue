@@ -107,7 +107,10 @@
                 
               <!-- ends -->
 
-              <!-- switch session -->
+              <template v-if="!loadingChallenge">
+
+                   <!-- switch session -->
+              
                  <div style="position:absolute;height:46px;width:100%;top:35%;left:0; overflow-y:hidden; overflow-x:auto;border-bottom:1px solid #c5c5c5;background:whitesmoke;">
 
                   <div class="col-12 px-0 d-flex flex-row py-0" style="align-items:center; height:100%;border-right:1px solid #c5c5c5;position:absolute; top:0;">
@@ -141,9 +144,9 @@
                         <div style="font-size:14px;font-family:MediumFont;" >Discussion</div>  
 
                    </div>
- <div class="py-2 px-3 mr-1 sideBar" :style="selectedTab == 'channel' ? ' border-bottom:4px solid #3C87CD;' : ''" @click.stop="goToPage('channel')">
+                  <div class="py-2 px-3 mr-1 sideBar" v-if="this.$root.selectedChallenge.channel_id" :style="selectedTab == 'channel' ? ' border-bottom:4px solid #3C87CD;' : ''" @click.stop="goToPage('channel')">
 
-                        <div style="font-size:14px;font-family:MediumFont;" >Channel</div>  
+                        <div style="font-size:14px;font-family:MediumFont;" >Join Channel</div>  
 
                    </div>
                   </div>
@@ -167,6 +170,10 @@
                   
               <!-- ends -->
               
+
+              </template>
+
+            
            </div>
 
 
@@ -264,7 +271,10 @@
 
 
               <!-- switch session -->
-                 <div class="fixed-top" style="position:absolute;height:40px;width:100%; top:250px; left:0%; overflow-y:hidden; overflow-x:auto; white-space: nowrap; border-bottom:1px solid #c5c5c5;background:whitesmoke;">
+
+              <template v-if="!loadingChallenge">
+
+                   <div class="fixed-top" style="position:absolute;height:40px;width:100%; top:250px; left:0%; overflow-y:hidden; overflow-x:auto; white-space: nowrap; border-bottom:1px solid #c5c5c5;background:whitesmoke;">
 
                   <div class="col-12 px-0 d-flex flex-row py-0" style="align-items:center; height:100%;position:absolute; top:0;">
                     
@@ -298,9 +308,9 @@
 
                    </div>
 
-                      <div class="py-2 px-3 mr-1 sideBar" :style="selectedTab == 'channel' ? ' border-bottom:4px solid #3C87CD;' : ''" @click.stop="goToPage('channel')">
+                      <div v-if="this.$root.selectedChallenge.channel_id" class="py-2 px-3 mr-1 sideBar" :style="selectedTab == 'channel' ? ' border-bottom:4px solid #3C87CD;' : ''" @click.stop="goToPage('channel')">
 
-                        <div style="font-size:13px;font-family:MediumFont;" >Channel</div>  
+                        <div style="font-size:13px;font-family:MediumFont;" >Join Channel</div>  
 
                    </div>
 
@@ -324,6 +334,9 @@
 
                   
               <!-- ends -->
+
+              </template>
+               
 
                
 
@@ -1096,6 +1109,18 @@ export default {
 }, 1000);
        },
         goToPage:function(page){
+
+            if(page == 'channel'){
+                
+                this.$root.autoOpenChat = true;
+
+                       this.$root.autoOpenChatId = this.$root.selectedChallenge.channel_id;
+
+                     this.$router.push({ path: '/channels' });
+
+               return;
+
+            }
 
           
              this.$router.push({ path: '/board/challenges/panel/' +  this.$route.params.challenge_id + '/' + page });

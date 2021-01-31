@@ -77,8 +77,6 @@ const Verify = () => import(/* webpackChunkName: "verify" */ '../components/auth
 const ForgotPassword = () => import(/* webpackChunkName: "ForgotPassword" */ '../components/auth/ForgotPassword.vue');
 const ResetPassword = () => import(/* webpackChunkName: "ResetPassword" */ '../components/auth/ResetPassword.vue');
 const SetUsername = () => import(/* webpackChunkName: "SetUsername" */ '../components/auth/SetUsername.vue');
-const UserInterests= () => import(/* webpackChunkName: "userInterests" */ '../components/auth/Interests.vue')
-const FollowDiary= () => import(/* webpackChunkName:"FollowDiary" */ '../components/auth/FollowDiary.vue')
 // dashboard routes
 const Board = () => import(/* webpackChunkName: "Board" */ '../components/dashboard/Board.vue');
 const Projects = () => import(/* webpackChunkName: "Projects" */ '../components/dashboard/Projects.vue');
@@ -150,12 +148,6 @@ const routes = [
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
-  {
-    path:'/choose-interests',  name:'UserInterests', component:  UserInterests
-  },
-  {
-    path:'/follow-diaries', name:'FollowDiary', component:FollowDiary
-  },
  
   {
     path:'/profile/:username',
@@ -691,6 +683,65 @@ beforeEnter: (to, from, next) => {
     
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'sub_channels';
+    
+     }
+     
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+// sub channels
+{ path: '/channels/:spaceId/diary_notes',
+   name: 'DiaryNotes',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+
+      if( thisUserState.$root.chatComponent){
+  
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.innerSideBarContent = '';
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+    
+      thisUserState.$root.chatComponent.chatInnerSideBar = true;
+      thisUserState.$root.chatComponent.innerSideBarContent = 'diary_notes';
     
      }
      
@@ -1429,7 +1480,7 @@ children:[
           ,
               // create diary
               {
-                path:'create-diary',
+                path:'create-diary/:type',
                 component:GetDiary
               }
         ]
@@ -1804,6 +1855,9 @@ const app = new Vue({
      chatTopLoaded:false,
      chatBottomLoadedLg:false,
      chatTopLoadedLg:false,
+     loadInterestModal:false,
+     suggestedDiaries:[],
+     sideBarComponent:undefined,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -3315,6 +3369,7 @@ scrollToBottom: function(){
 },
 
 botMessager:function(message){
+  
 
           
   this.botIsLoading = true;
@@ -3328,7 +3383,9 @@ botMessager:function(message){
     
    this.botIsLoading = false;
    if(response.status == 200){
-  
+
+
+    
     let fullMessages = response.data[0];
 
     let messageData = {
@@ -3336,12 +3393,12 @@ botMessager:function(message){
       new_messages: fullMessages
     };
     
-   this.handleSpaceData([messageData]);
+    this.handleSpaceData([messageData]);
    
     
     this.botSuggestionArray = response.data[1];
 
-     this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data[1]);
+    this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data[1]);
     
 
    }
@@ -3350,7 +3407,7 @@ botMessager:function(message){
  .catch(error => {
 
   
-     console.log(error)
+     
      this.botIsLoading = false;
    
  })
@@ -3461,7 +3518,8 @@ let messageId = response.data[0].temp_id;
   });
 
   if(this.selectedSpace.type == 'Bot'){
-   this.botMessager(response.data[0].content);
+    
+   this.chatComponent.botMessagerChat(response.data[0].content);
   }
 
   this.$root.spaceFullData.messages = this.Messages;

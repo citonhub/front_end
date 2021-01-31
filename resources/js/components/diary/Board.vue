@@ -21,6 +21,7 @@
           </div>
               
               <div class="col-3 py-0 px-1 text-right">
+                
                     <template v-if="this.$router.currentRoute.path.indexOf('edit-note') >= 0">
                           <v-btn small rounded :loading="loadingSaveNote" color="#3C87CD" @click="saveNote" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
                        <template >
@@ -32,8 +33,15 @@
                          
                        </template>
                        <template v-else>
+                         
 
                         <template v-if="this.$root.selectedDiary.updated">
+
+                            <v-btn @click="editDiary"  small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
+                     
+                          <span style="text-transform:none;">Edit</span> 
+                      
+                        </v-btn>
 
                              <v-btn @click="viewDiary"  small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
                      
@@ -180,8 +188,16 @@ export default {
         }
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
      },
+     editDiary:function(){
+      this.$router.push({ path:'/board/diary/create-diary/edit'})
+     },
      viewDiary:function(){
+      
+      if(this.$root.sideBarComponent){
 
+        this.$root.sideBarComponent.selectedTab = 'channels';
+
+      }
         this.$root.autoOpenDiary = true;
         this.$root.tempDiaryId = this.$route.params.diary_id;
          this.$router.push({ path: '/channels' });

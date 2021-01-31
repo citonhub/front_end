@@ -3,6 +3,17 @@
         <div class="col-12 px-2 px-md-2 scroller" style="position:absolute;height:92%;top:6%;left:0%;overflow-y:auto;overflow-x:hidden;">
 
 
+             <!-- fab for smaller screen -->
+
+    <v-btn  @click="editDiary" fab color="#3C87CD"  class="d-md-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
+
+        <v-icon style="font-size:24px; color:white;">mdi mdi-square-edit-outline</v-icon>
+        
+
+     </v-btn>
+
+<!-- ends -->
+
           <template v-if="loading">
 
              <div class="col-12 mt-2 text-center">
@@ -23,6 +34,7 @@
                 <div class="d-flex flex-column"  style="align-items:center; justify-content:center;">
 
                     <div  :style="imageStyle(150,this.$root.selectedDiary)">
+                     
                 </div> 
 
                 <div class="d-flex flex-row mt-2" style="align-items:center;justify-content:center;">
@@ -176,6 +188,10 @@
     
       </draggable>
 
+      <div class="py-5 my-3">
+
+      </div>
+
               </template>
 
     </template>
@@ -225,6 +241,9 @@ export default {
 
     },
     methods:{
+       editDiary:function(){
+      this.$router.push({ path:'/board/diary/create-diary/edit'})
+     },
        checkDatereal: function(date){
 
             var realTimeHour = moment(date).add(1,'hours');

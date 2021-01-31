@@ -5,12 +5,24 @@
        <div class="col-lg-10 offset-lg-1 py-1 col-md-10 offset-md-1 px-2 d-md-block d-none fixed-top" style="position:sticky;z-index:9999999999;background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0">
-          <h5> <v-btn @click="goback" icon><v-icon>las la-arrow-left</v-icon></v-btn> Create a diary</h5>
+          <h5> <v-btn @click="goback" icon><v-icon>las la-arrow-left</v-icon></v-btn> 
+          <template v-if="this.$route.params.type == 'new'">
+                  Create a diary
+             </template>
+             <template v-if="this.$route.params.type == 'edit'">
+                  Edit diary
+             </template>
+          </h5>
         </div>
 
          <div class="col-6 py-0 my-0 text-right">
              <v-btn @click="createDiary" :loading="loading"  small rounded  color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
-             Done
+              <template v-if="this.$route.params.type == 'new'">
+                  Done
+             </template>
+             <template v-if="this.$route.params.type == 'edit'">
+                  Save
+             </template>
            </v-btn>
         </div>
          
@@ -20,11 +32,25 @@
    <div class=" px-0 col-12 pb-0 pt-2 d-md-none d-block fixed-top" style="position:sticky; background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
      <div class="row py-0">
         <div class="col-8 py-0 my-0">
-           <h6 style="font-size:17px;"><v-btn  @click="goback"  icon><v-icon>las la-arrow-left</v-icon></v-btn>Create a diary</h6>
+           <h6 style="font-size:17px;"><v-btn  @click="goback"  icon><v-icon>las la-arrow-left</v-icon></v-btn>
+           
+            <template v-if="this.$route.params.type == 'new'">
+                  Create a diary
+             </template>
+             <template v-if="this.$route.params.type == 'edit'">
+                  Edit diary
+             </template>
+             
+            </h6>
         </div>
          <div class="col-4 py-0 my-0 text-right">
           <v-btn @click="createDiary" :loading="loading" small rounded  color="#3C87CD" style="font-size:12px; font-weight:bolder; text-transform:none; color:white;font-family:MediumFont;">
-             Done
+               <template v-if="this.$route.params.type == 'new'">
+                  Done
+             </template>
+             <template v-if="this.$route.params.type == 'edit'">
+                  Save
+             </template>
            </v-btn>
         </div>
       </div>
@@ -266,10 +292,20 @@
 
   
    <!-- pet description field ends-->
-          <div class="col-12 my-5 py-5">
+
+    <div class="col-12 py-2 text-center" v-if="this.$route.params.type == 'edit'" >
+
+                <v-btn  @click="deleteDiary" :loading="loadingDelete" small rounded  color="#3C87CD" style="font-size:12px; text-transform:none; font-weight:bolder; color:white;font-family:MediumFont;">
+             Delete
+           </v-btn>
+
+    </div>
+
+          <div class="col-12 my-3 py-5">
 
           </div>
       
+
        
       </div>
 
@@ -292,6 +328,7 @@ export default {
 
 data(){
   return{
+    loadingDelete:false,
      NameRule:[
              v => !!v || 'Oh! you missed this.',
            v => v.length <= 60 || 'Diary name must be less than 60 characters'
@@ -316,6 +353,7 @@ data(){
                   id: 'css',
                
                },
+              
                {
                   name:'JavaScript',
                   id:26
@@ -491,6 +529,16 @@ data(){
                   id: 43,
                
                },
+                {
+                  name:'Jokes',
+                  id: 'jokes',
+               
+               },
+                {
+                  name:'Others',
+                  id: 'others',
+               
+               },
             ],
     channel:'',
     selectedChannel:'',
@@ -512,9 +560,42 @@ data(){
     mounted(){
        this.$root.showTopBar = false;
        this.fetchChannels();
+
+       this.setEditValues();
         
     },
     methods:{
+        setEditValues: function(){
+       if(this.$root.selectedDiary.length != 0 && this.$route.params.type == 'edit'){
+         this.diaryName = this.$root.selectedDiary.name;
+       
+         this.accessType = this.$root.selectedDiary.access_type;
+         
+         this.selectedChannel = this.$root.selectedDiary.bot_channel;
+
+          if(this.$root.selectedDiary.diary_tags){
+
+             this.diaryTags = this.$root.selectedDiary.diary_tags.split(',');
+
+          }
+
+        
+   
+       this.description = this.$root.selectedDiary.description;
+
+     
+          let imgLink =  this.$root.selectedDiary.image_name + '.' + this.$root.selectedDiary.image_extension;
+
+              if(this.$root.selectedDiary.image_extension){
+
+                   this.$root.croppedImage = '/imgs/space/' + imgLink;
+
+              }
+       
+
+       
+       }
+    },
        selectDefaultImg:function(image,number){
        
         this.imageDefault = 'default_' + number;
@@ -536,7 +617,7 @@ data(){
        message: message,
        zindex:'9999999999',
        position: 'bottomRight',
-         timeout: 5000,
+         timeout: 2000,
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -550,7 +631,7 @@ data(){
        title: title,
        message: message,
        zindex:'9999999999',
-         timeout: 5000,
+         timeout: 2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -565,7 +646,7 @@ data(){
        title: title,
        message: message,
        zindex:'9999999999',
-         timeout: 5000,
+         timeout: 2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -580,7 +661,7 @@ data(){
        title: title,
        message: message,
        zindex:'9999999999',
-         timeout: 5000,
+         timeout: 2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -594,6 +675,47 @@ data(){
      
 
 
+    },
+
+    deleteDiary:function(){
+      
+        this.loadingDelete = true;
+       axios.post('/delete-diary',{
+                bot_id: this.$root.selectedDiary.bot_id
+                  })
+          .then(response => {
+            
+           if (response.status == 200) {
+                
+               
+                 
+                if(this.$root.diaryList.length != 0){
+
+                   let remainingDiary = this.$root.diaryList.filter((diary)=>{
+                     return diary.bot_id != this.$root.selectedDiary.bot_id;
+                   });
+
+                  this.$root.diaryList =  remainingDiary;
+
+                   this.$root.LocalStore('user_diary_' + this.$root.username,this.$root.diaryList);
+
+                }
+
+                 this.loadingDelete = false;
+
+                 
+
+           this.$router.push({ path: '/board/diary'});
+
+            }
+            
+            
+          })
+          .catch(error => {
+            this.showAlert('Oops!',' Unable to delete diary','error')
+              this.loadingDelete = false;
+          })
+    
     },
 
       handleBlob: function(imageString){
@@ -612,7 +734,7 @@ var blob = this.b64toBlob(realData, contentType);
 
   return [blob,imgType];
  },
- goBack() {
+ goback() {
           
         window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         },
@@ -682,9 +804,7 @@ var blob = this.b64toBlob(realData, contentType);
 
        },
 
-      goback(){
-        this.$router.push({path:'/board/diary/list'})
-      },
+     
          createDiary(){
 
              if( this.$refs.diaryForm.validate()){
@@ -706,6 +826,13 @@ var blob = this.b64toBlob(realData, contentType);
              formData.append('channel_id',this.selectedChannel);
              formData.append('description',this.description);
              formData.append('access_type',this.accessType);
+             formData.append('tags',this.diaryTags);
+
+
+              if(this.$route.params.type == 'edit'){
+              formData.append('bot_id',this.$root.selectedDiary.bot_id)
+              }
+
 
               axios.post('/create-diary',formData,
            {
@@ -719,6 +846,12 @@ var blob = this.b64toBlob(realData, contentType);
               if(response.status == 200){
                  
                 this.loading = false;
+
+                  if(this.$route.params.type == 'edit'){
+               this.showAlert('Saved!',' Your changes has been saved','success')
+              
+              return
+              }
 
                  let storedDiary = this.$root.getLocalStore('user_diary_'  + this.$root.username);
 

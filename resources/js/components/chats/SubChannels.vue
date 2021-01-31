@@ -181,7 +181,7 @@ export default {
  
                   this.loadingSubSpace = false;
 
-              // this.checkForNewSubSpace();
+              this.checkForNewSubSpace();
 
                  }else{
             
@@ -208,7 +208,7 @@ export default {
              });
            }
 
-             this.showList();
+             this.sortList();
      
          this.loadingSubSpace = false;
 
@@ -228,6 +228,34 @@ export default {
 
          
        
+        },
+        checkForNewSubSpace:function(){
+
+               axios.get( '/fetch-sub-spaces-' + this.$root.selectedSpace.general_spaceId + '-' + this.$root.userDeviceId )
+      .then(response => {
+      
+      if (response.status == 200) {
+
+          this.$root.LocalStore('sub_channels_' + this.$root.selectedSpace.general_spaceId  + this.$root.username,response.data);
+        
+            
+                   let finalResult = response.data.sub_channels;
+
+                    this.subSpaces =  finalResult;
+     
+              this.sortList();
+     
+     }
+       
+     
+     })
+     .catch(error => {
+
+      
+    
+     }) 
+
+
         },
         checkForUnread:function(){
 

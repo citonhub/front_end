@@ -79,7 +79,32 @@
 
                <template v-if=" this.$root.selectedSpace.type == 'Bot'">
 
-                <v-btn icon @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)"><v-icon color="#ffffff">mdi-account-supervisor-outline</v-icon></v-btn>
+                  <template v-if="that.$root.selectedSpace.bot_data.bot_channel">
+
+                      <v-btn    @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
+             
+            
+                 <v-icon >mdi-comment-multiple-outline </v-icon>
+           
+             
+              </v-btn>
+                    
+                  </template>
+
+                  <template v-else>
+
+                      <v-btn :disabled="that.$root.selectedSpace.owner == that.$root.user_temp_id" :loading="loadingChat"  @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
+          
+
+             
+                 <v-icon >las la-user-alt </v-icon>
+              
+              </v-btn>
+
+                  </template>
+
+              
+
 
              </template>
               
@@ -103,7 +128,7 @@
                 </v-btn>
             </template>
 
-            <v-btn v-else icon  ><v-icon >mdi-comment-question-outline</v-icon></v-btn>
+            <v-btn v-else icon  @click.stop="showDiaryNotes" ><v-icon >mdi-format-list-bulleted</v-icon></v-btn>
 
               
               
@@ -223,12 +248,7 @@
 
              </template>
 
-               <template v-if=" this.$root.selectedSpace.type == 'Bot'">
-
-                <v-btn icon @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)"><v-icon color="#ffffff">mdi-account-supervisor-outline</v-icon></v-btn>
-
-             </template>
-
+             
              <!-- ends -->
                 
                  <!-- live session and bot author comment-->
@@ -248,7 +268,38 @@
                </v-btn>
             </template>
 
-            <v-btn small v-else icon  ><v-icon >mdi-comment-question-outline</v-icon></v-btn>
+            <template v-else>
+
+                <template v-if="that.$root.selectedSpace.bot_data.bot_channel">
+
+                      <v-btn small   @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
+             
+            
+                 <v-icon  style="font-size:21px;">mdi-comment-multiple-outline </v-icon>
+           
+             
+              </v-btn>
+                    
+                  </template>
+
+                  <template v-else>
+
+                      <v-btn small :disabled="that.$root.selectedSpace.owner == that.$root.user_temp_id" :loading="loadingChat"  @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
+          
+
+             
+                 <v-icon  style="font-size:21px;">las la-user-alt </v-icon>
+              
+              </v-btn>
+
+                  </template>
+
+            </template>
+
+          
+
+
+            <v-btn small @click.stop="showDiaryNotes" v-if=" this.$root.selectedSpace.type == 'Bot'" icon  ><v-icon style="font-size:21px;" > mdi-format-list-bulleted</v-icon></v-btn>
 
                  <!-- ends -->
                 
@@ -276,6 +327,7 @@ export default {
     data () {
       return {
        that: this,
+       loadingChat:false,
       }
     },
     mounted(){
@@ -293,41 +345,127 @@ export default {
           
           if(this.$root.selectedSpace.bot_data.bot_channel){
 
-             this.$root.Messages = null;
+            
+          let spaceId = this.$root.selectedSpace.bot_data.bot_channel;
 
-              this.$root.channel = null
+               this.$root.chatComponent.chatInnerSideBar= false;
+               this.$root.chatComponent.chatIsOpen = false;
+                this.$root.chatComponent.innerSideBarContent = '';
+
+                
+
+            this.$router.push({ path: '/channels/' + spaceId +'/content' });
+              
+              this.$root.chatComponent.fetchMessages(spaceId);
+              this.$root.chatComponent.messageIsDone = false;
+           this.$root.chatComponent.chatIsOpen = true;
+
+
+          }else{
+
+             if(this.$root.selectedSpace.owner == this.$root.user_temp_id){
+
+               return;
+
+             }
+            this.chatUser();
+          }
+      },
+        chatUser:function(){
+
+         this.loadingChat = true;
+
+          axios.post( '/create-space',{
+                name: '',
+                limit: 2,
+                memberId: this.$root.selectedSpace.owner,
+                type: 'Direct'
+                  })
+          .then(response => {
+
+             if (response.status == 200) {
 
               
 
-      //           this.$root.codeEditorArray = [];
-      //  this.$root.returnedMessages = [];
-      //  this.$root.messageStoreTop = [];
-      //  this.$root.messageStore = [];
-      //  this.$root.sharePage = false;
-      //  this.$root.showUserInfo = false;
-       
+                  let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
 
-      //      window.Echo.leave('space.' + this.$root.selectedSpace.space_id);
-        
-      //   this.$root.forceListReload = true;
-      //   this.$root.showUserInfo = false;
-      //  this.$root.selectedSpaceMembers = [];
+                   storedChat.then((result)=>{
 
-      //   this.$root.SpaceUsers = [];
-      //    this.$root.selectedSpace = [];
+                       if(result != null ){
 
-            
+                           
 
+                          
+
+                    let finalResult = JSON.parse(result);
+
+                        let userSpace = finalResult.direct_messages.filter((space)=>{
+                          return space.space_id == response.data.space.space_id
+                        })
+
+                        if(userSpace.length > 0){
 
 
-      //        this.$router.push({ path: '/space/'  +  botChannel  +  '/channel/content/new' + '/user' });
+                        }else{
 
-      //           this.$root.channelContentComponent.fetchMessages();
+                          finalResult.direct_messages.unshift(response.data.space);
 
-      //      this.$root.channelContentComponent.makeSpaceConnetion();
+                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+                     
+                   this.$root.ChatList = fullList;
+
+                     this.$root.sortChatList();
+
+                        }
+                      
                          
 
-          }
+
+                           let spaceId = response.data.space.space_id;
+
+               this.$root.chatComponent.chatInnerSideBar= false;
+               this.$root.chatComponent.chatIsOpen = false;
+                this.$root.chatComponent.innerSideBarContent = '';
+
+                
+
+            this.$router.push({ path: '/channels/' + spaceId +'/content' });
+              
+              this.$root.chatComponent.fetchMessages(spaceId);
+              this.$root.chatComponent.messageIsDone = false;
+           this.$root.chatComponent.chatIsOpen = true;
+
+       
+
+                 }
+
+                   } )
+
+               
+            }
+
+          })
+          .catch(error => {
+             
+
+               this.loadingChat = false;
+
+              this.showAlert('Oops!','Something went wrong,please try again','error');
+
+
+          })
+
+
+        
+
+      },
+      showDiaryNotes:function(){
+
+       this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/diary_notes' });
+
       },
        showSideBar: function(type){
 

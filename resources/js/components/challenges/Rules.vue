@@ -3,22 +3,37 @@
         <div class="col-lg-10 offset-lg-1 px-md-2 px-1">
               
           
-              <vue-markdown  class="para">{{that.$root.selectedChallenge.rules}}</vue-markdown>
+               <div  class="para" v-html="textValue"></div>
              
         </div>
     </div>
 </template>
 <script>
-import VueMarkdown from 'vue-markdown'
 
 export default {
     data(){
         return{
-             that:this
+             that:this,
+             textValue:''
+           
         }
     },
-    components: {
-    VueMarkdown
+   
+  mounted(){
+     
+     this.convertToHtml();
+  },
+  methods:{
+
+      convertToHtml:function(){
+           if(this.$root.selectedChallenge.rules){
+
+                  this.textValue =  marked(this.$root.selectedChallenge.rules, { sanitize: true })
+
+           }
+       
+      }
+
   }
 
    

@@ -14,9 +14,9 @@
        
                                 <!--Interests Popup-->
 
-  <div class="py-0 px-0 " style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="false">
+  <div class="py-0 px-0 " style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="this.$root.loadInterestModal">
 
-   <div class="scroller" style="position:absolute; height:90%; top:5%; width:94%;  align-items:center; justify-content:center;overflow-y: scroll;" >
+   <div class=" d-flex py-2" style="position:absolute;left:3%; height:90%; top:5%; width:94%;  align-items:center; justify-content:center;overflow-y: hidden;" >
 
      
       <interest ></interest>
@@ -27,6 +27,23 @@
  </div>
 
                       <!--Interests Popup ends--> 
+
+
+                         <!--follow Popup-->
+
+  <div class="py-0 px-0 " style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="false">
+
+   <div class=" d-flex py-2" style="position:absolute;left:3%; height:90%; top:5%; width:94%;  align-items:center; justify-content:center;overflow-y: hidden;" >
+
+     
+      <follow ></follow>
+   
+
+   </div>
+
+ </div>
+
+                      <!--follow Popup ends--> 
 
          <!-- large screens -->
 
@@ -115,7 +132,7 @@
        style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:100px;">
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Chat, share and run codes, organize live coding and screen sharing sessions with others in your channel.
+                      Chat, share and run codes, organize live coding and screen sharing sessions with people in your channel.
                     </div>
 
                      <div>
@@ -230,7 +247,7 @@
                               <chat-top></chat-top>
                             </div>
 
-                          <v-app id="largeView"  v-if="that.$root.Messages.length != 0" style="position:absolute;width:100%;height:100%; left:0%;background:#E1F0FC;">
+                          <div v-if="that.$root.Messages.length != 0" style="position:absolute;width:100%;height:100%; left:0%;background:#E1F0FC;">
 
                               <DynamicScroller
     :items="that.$root.Messages"
@@ -240,10 +257,10 @@
     ref="messageContainer"
      
     id="messageContainer"
-  class="col-12 px-0 scroller" 
+  class="col-12 px-0 scrollerLg" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:95%; left:0; position:absolute; z-index:99999; top:0%; overflow-y:auto;"
+            background-repeat: no-repeat; height:94%; left:0; position:absolute; z-index:99999; top:0%; overflow-y:auto;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -265,7 +282,7 @@
 
        <div  class=" col-12 text-center" style="margin-top:80px; " >
      
-        <span v-html="that.$root.selectedSpace.description" v-if="that.$root.selectedSpace.type == 'SubSpace' || that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'" style="font-size:13px;font-family:BodyFont;">
+        <span v-html="that.$root.selectedSpace.description" v-if="that.$root.selectedSpace.type != 'Direct'" style="font-size:13px;font-family:BodyFont;">
        
         </span>
 
@@ -351,7 +368,7 @@
 
   </DynamicScroller>
 
-                          </v-app>
+                          </div>
 
                            
             <template v-else>
@@ -514,6 +531,8 @@
                                          
                                         <add-sub-channel v-if="innerSideBarContent == 'add_sub_channel'"></add-sub-channel>
 
+                                          <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
+
                                          
                                    </div>
 
@@ -655,7 +674,7 @@
           style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto;align-items:center;justify-content:center;" >
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                     Chat, share and run codes, organize live coding and screen sharing sessions with others in your channel.
+                     Chat, share and run codes, organize live coding and screen sharing sessions with people in your channel.
                     </div>
 
                      <div>
@@ -813,7 +832,7 @@
     ref="messageContainersmall"
      
     id="messageContainersmall"
-  class="col-12 scroller px-0" 
+  class="col-12 px-0" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
             background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:9999999; top:0%; overflow-y:auto;"
@@ -837,7 +856,7 @@
 
         <div  class=" col-12 text-center" style="margin-top:60px; ">
      
-        <span v-html="that.$root.selectedSpace.description" v-if="that.$root.selectedSpace.type == 'SubSpace'  || that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'" style="font-size:12px;font-family:BodyFont;">
+        <span v-html="that.$root.selectedSpace.description" v-if="that.$root.selectedSpace.type != 'Direct'" style="font-size:12px;font-family:BodyFont;">
          
         </span>
 
@@ -1088,6 +1107,8 @@
                                          
                                         <add-sub-channel v-if="innerSideBarContent == 'add_sub_channel'"></add-sub-channel>
 
+                                        <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
+
                                          
                                     
                                    </div>
@@ -1267,9 +1288,13 @@ import 'izitoast/dist/css/iziToast.min.css'
 
 import { VEmojiPicker } from 'v-emoji-picker';
 
+const { htmlToText } = require('html-to-text');
+
 const Interest= () => import(
    /* webpackChunkName: "Interest" */ '../auth/InterestPopup'
   );
+
+  const Follow= () => import(/* webpackChunkName: "Follow" */ '../auth/FollowDiary' )
 
 
  const TopBar = () => import(
@@ -1353,6 +1378,10 @@ const Interest= () => import(
  const MoreOptionChat = () => import(
     /* webpackChunkName: "MoreOptionChat" */ './MoreOptionChat.vue'
   );
+
+   const DiaryNotes = () => import(
+    /* webpackChunkName: "DiaryNotes" */ './DiaryNotes.vue'
+  );
 export default {
      data () {
       return {
@@ -1422,6 +1451,8 @@ export default {
     mounted(){
      this.$root.showSideBar = false;
     this.$root.chatComponent = this;
+   
+    
     
      this.controlChatPath();
       this.fetchChatList();
@@ -1451,7 +1482,9 @@ export default {
         SideBar,
         ProfileView,
         MoreOptionChat,
-         Interest
+         Interest,
+         Follow,
+         DiaryNotes
     },
      methods:{
     
@@ -1520,6 +1553,16 @@ export default {
        
 
     },
+    botMessagerChat:function(message){
+     
+    let processedMsg = htmlToText(message, {
+             wordwrap: 500
+            });
+
+      this.$root.botMessager(processedMsg);     
+     
+  
+},
      imageStyle:function(dimension,data,type){
       
 
@@ -2248,7 +2291,12 @@ export default {
          // set messages to null
           this.$root.Messages = null;
           this.errorLoadingMessage = false;
-         
+
+
+         // clear diary suggestions
+          this.$root.botSuggestionArray = [];
+
+
          this.messageIsDone = false;
          // proceed if user is logged in
          if(this.$root.checkauthroot == 'auth'){
@@ -2772,6 +2820,17 @@ export default {
 .scrollerinfo::-webkit-scrollbar {
   width: 5px;
 }
+
+.scrollerLg::-webkit-scrollbar {
+  width: 6px;
+}
+
+
+.scrollerLg::-webkit-scrollbar-thumb {
+  background-color: #3C87CD;
+  outline: 1px solid #3C87CD;
+}
+
 
 
 .scrollerinfo::-webkit-scrollbar-thumb {

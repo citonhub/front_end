@@ -10,11 +10,19 @@
             </div>
           
              <div class="col-8 py-0 text-center">
-             <span style="font-size:14px; font-family:MediumFont;">Channel Info</span>
+             <span style="font-size:14px; font-family:MediumFont;">
+               <template v-if="that.$root.selectedSpace.type != 'Bot'">
+                 Channel Info
+               </template>
+                <template v-else>
+                 Diary Info
+               </template>
+               </span>
+
           </div>
               
               <div class="col-2 py-0 mr-1 text-right px-1" >
-                  <v-btn icon @click.stop="EditChannel"  v-if="checkIfisOwner()">
+                  <v-btn icon @click.stop="EditChannel"  v-if="checkIfisOwner() &&  that.$root.selectedSpace.type != 'Bot'">
                       <v-icon>las la-edit</v-icon>
                     </v-btn>
               </div>

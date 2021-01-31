@@ -51,7 +51,7 @@
                                              <span v-else><i>Send a message to start chat</i></span>
                                              
                                        </div>
-                                        <div class=" px-1 py-0 my-0 text-right ">
+                                        <div class=" px-1 py-0 my-0 text-right " v-if="source.type != 'Bot'">
                                               <span v-if="source.unread > 0" class="messagesBadges d-flex ml-lg-0 ml-md-5 ml-0" >{{source.unread}}</span>
                                        </div>
                                     

@@ -176,6 +176,7 @@ export default {
     mounted(){
       this.setPage();
        this.$root.componentIsLoading = false;
+       this.$root.sideBarComponent = this;
     },
     methods:{
       installApp:function(){

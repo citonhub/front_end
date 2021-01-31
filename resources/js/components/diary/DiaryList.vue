@@ -42,7 +42,7 @@
         <!-- search area  -->
 
         <template  v-if="this.$root.TopBarComponentBoard.searchContent.length > 0">
-
+overflow-y:auto;overflow-x:hidden;
 
 
            <div class="col-lg-4 col-md-6 px-2 mb-1 py-1 pt-0 mt-md-2" v-for="diary in this.$root.diarySearchList" :key="diary.id+ 'search'">
@@ -227,7 +227,7 @@
      methods:{
         createDiary(){
           
-          this.$router.push({ path:'/board/diary/create-diary'})
+          this.$router.push({ path:'/board/diary/create-diary/new'})
         },
 
         getDiaryContent(diary){

@@ -6,7 +6,8 @@
          <codemirror
         v-model="codeContent"
         :options="cmOption"
-        style="height:190px; overflow-y:hidden !important; overflow-x:hidden !important; "
+
+        :style="screenType == 'large' ? 'font-size:13px; height:190px; overflow-y:hidden !important; overflow-x:hidden !important; ' :'font-size:12px; height:190px; overflow-y:hidden !important; overflow-x:hidden !important; '"
         @cursorActivity="onCmCursorActivity"
         @ready="onCmReady"
         @focus="onCmFocus"
@@ -19,7 +20,7 @@
 
         <div class="mr-2"><v-icon style="font-size:19px;" :color="color" >las la-code</v-icon></div>
           <div class="ml-3">
-              <span :style="'color:' + color +' ;font-size:13px;'">{{filename}}</span>
+              <span :style="'color:' + color +' ;font-size:12px;'">{{filename}}</span>
               </div>
 
        
@@ -39,7 +40,7 @@
 
 
 export default {
-    props:['codeContent','filename','codeLanguage','codeViewerType','messageId','color','topMargin'],
+    props:['codeContent','filename','codeLanguage','codeViewerType','messageId','color','topMargin','screenType'],
      components: {
       codemirror
       

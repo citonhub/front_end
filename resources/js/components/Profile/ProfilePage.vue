@@ -711,7 +711,7 @@ Notify
 
                this.loadingChat = false;
 
-              this.showAlert('Oops!','Unable to fetch user projects','error');
+              this.showAlert('Oops!','Something went wrong,please try again','error');
 
 
           })

@@ -55,10 +55,11 @@
 
                   <!-- more option -->
 
+                  
+
                    <v-menu
       absolute
       :activator="'#messageWrap' + source.message_id"
-       style="z-index:99999999999999999999;"
       
       left
       offset-y
