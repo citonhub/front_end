@@ -1858,6 +1858,7 @@ const app = new Vue({
      loadInterestModal:false,
      suggestedDiaries:[],
      sideBarComponent:undefined,
+     codeboxIsLoading:true,
      },
      mounted: function () {
       window.thisUserState = this;

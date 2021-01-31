@@ -818,8 +818,12 @@ var blob = this.b64toBlob(realData, contentType);
                     formData.append('image',data1[0]);
                        formData.append('image_ext',data1[1]);
             }else{
+
+               if(this.$route.params.type != 'edit'){
+               formData.append('image_default',this.imageDefault);
+              }
                 
-                formData.append('image_default',this.imageDefault);
+              
             }
 
              formData.append('name',this.diaryName);

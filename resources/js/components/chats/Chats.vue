@@ -298,7 +298,7 @@
 
              <div class="row">
 
-              <template v-if=" that.$root.botIsLoading && that.$root.sendingMessage">
+              <template v-if=" that.$root.botIsLoading || that.$root.sendingMessage">
 
                  <div elevation-1 class="col-11 py-0 mt-2" >
            <div class="row">
@@ -873,7 +873,7 @@
 
              <div class="row">
 
-              <template v-if=" that.$root.botIsLoading && that.$root.sendingMessage">
+              <template v-if=" that.$root.botIsLoading || that.$root.sendingMessage">
 
                  <div elevation-1 class="col-11 py-0 mt-2" >
            <div class="row">
