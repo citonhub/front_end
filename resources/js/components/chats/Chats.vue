@@ -298,7 +298,7 @@
 
              <div class="row">
 
-              <template v-if=" that.$root.botIsLoading">
+              <template v-if=" that.$root.botIsLoading && that.$root.sendingMessage">
 
                  <div elevation-1 class="col-11 py-0 mt-2" >
            <div class="row">
@@ -873,7 +873,7 @@
 
              <div class="row">
 
-              <template v-if=" that.$root.botIsLoading">
+              <template v-if=" that.$root.botIsLoading && that.$root.sendingMessage">
 
                  <div elevation-1 class="col-11 py-0 mt-2" >
            <div class="row">
@@ -2653,12 +2653,12 @@ export default {
   
         fetchSpaceInfo: function(){
 
-            axios.get('/fetch-space-info-'+ this.$route.params.spaceId)
+            axios.get('/fetch-space-info-'+ this.$root.selectedSpace.space_id)
    .then(response => {
 
    if (response.status == 200) {
 
-         let storedMsg = this.$root.getLocalStore('full_' + this.$route.params.spaceId + this.$root.username);
+         let storedMsg = this.$root.getLocalStore('full_' + this.$root.selectedSpace.space_id + this.$root.username);
        
            storedMsg.then((result)=>{
 
@@ -2672,7 +2672,7 @@ export default {
                   finalResult.members = response.data.members;
                   
 
-            this.$root.LocalStore('full_' +  this.$route.params.spaceId  + this.$root.username,finalResult);
+            this.$root.LocalStore('full_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
 
               
 
@@ -2702,7 +2702,7 @@ export default {
 
                    if(response.data.space.type == 'Channel' || response.data.space.type == 'Team'){
                         finalResult.channels.map((chat)=>{
-                          if(chat.space_id == this.$route.params.spaceId){
+                          if(chat.space_id == this.$root.selectedSpace.space_id){
 
                              chat.name =  response.data.space.name;
 
@@ -2719,7 +2719,7 @@ export default {
                    if(response.data.space.type == 'Direct'){
 
                       finalResult.direct_messages.map((chat)=>{
-                          if(chat.space_id == this.$route.params.spaceId){
+                          if(chat.space_id == this.$root.selectedSpace.space_id){
 
                              chat.name =  response.data.space.userInfo.name;
 
@@ -2737,7 +2737,7 @@ export default {
                    if(response.data.space.type == 'Bot'){
 
                       finalResult.pet_spaces.map((chat)=>{
-                          if(chat.space_id == this.$route.params.spaceId){
+                          if(chat.space_id == this.$root.selectedSpace.space_id){
 
                              chat.name =  response.data.space.bot_data.name;
 
