@@ -4,7 +4,7 @@
                      <div class="col-12 my-0 py-2 d-flex  scroller " style="overflow-x:auto; white-space:nowrap; z-index:9999999999;
                       border-top-left-radius:6px;  border-top-right-radius:6px; left:0;background:#F3F8FC; ">
                  
-                 <v-btn class="d-inline-block" @click="goBack" small icon style="position:sticky;left:0px;">
+                 <v-btn class="d-inline-block" @click.stop="goBack" small icon style="position:sticky;left:0px;background:white;">
                       <v-icon color="#3C87CD" >mdi mdi-close mdi-18px</v-icon>
                  </v-btn>
                  
