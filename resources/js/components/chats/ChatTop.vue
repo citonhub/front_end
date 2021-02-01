@@ -51,9 +51,9 @@
 
                   <template v-else>
 
-                     <span class="typingText d-block" >
+                     <span class="typingText d-block" v-if="(this.$root.typingSpace == this.$root.selectedSpace.space_id)">
             
-                  <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing...  
+                  <span v-if="this.$root.selectedSpace.type != 'Direct' "> {{this.$root.typinguser}} is</span> typing...  
             
                 </span>
                     
@@ -224,7 +224,7 @@
 
                             <template v-else>
 
-                               <span class="typingTextSm d-block">
+                               <span class="typingTextSm d-block"  v-if="(this.$root.typingSpace == this.$root.selectedSpace.space_id)">
             
                             <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing... 
             

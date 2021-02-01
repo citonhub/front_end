@@ -113,7 +113,7 @@
          <!-- ends -->
 
        
-       <v-btn medium fab color="#3C87CD"  @click="goTopanel" class="d-inline-block " style="z-index:999999999999999;  position:absolute;  bottom:12%; right:2%; ">
+       <v-btn medium fab color="#3C87CD" v-if="selectedParticipantId != ''"  @click="goTopanel" class="d-inline-block " style="z-index:999999999999999;  position:absolute;  bottom:12%; right:2%; ">
 
         <v-icon style="font-size:25px; color:white;">las la-laptop-code</v-icon>
          
