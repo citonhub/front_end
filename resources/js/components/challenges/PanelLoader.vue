@@ -9,7 +9,7 @@
                  </v-btn>
                  
                 <v-chip v-for="(participant,index) in participants" :key="index"
-      class="ma-1 mx-1 ml-0 fileText d-inline-block"
+      class="ma-1 mx-1 ml-0 fileText "
         @click="showPage(participant)"
       small
    :style="selecetedPanelId == participant.panel_id ? 'color:white;background-color:#3C87CD;' : 'background:transparent;border:1px solid #3C87CD;'"
@@ -40,7 +40,7 @@
        <!-- ends -->
        
     <!-- for non-web content -->
-   <textarea  readonly v-if="pageContent != '' && !participantSelected.is_web"   class="col-12 mt-0 mt-md-1" style=" font-size:14px;  top:0; height:100%; left:0;  background:white;border:1px solid transparent; border-radius:0px;"  >
+   <textarea v-model="pageContent" readonly v-if="pageContent != '' && !participantSelected.is_web"   class="col-12 mt-0 mt-md-1" style=" font-size:14px;  top:0; height:100%; left:0;  background:white;border:1px solid transparent; border-radius:0px;"  >
        
     </textarea>
 
