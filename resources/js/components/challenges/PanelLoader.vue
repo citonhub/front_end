@@ -355,7 +355,7 @@ methods:{
 
              
              
-               _this.pageContent = 'An issue occured,unable to run on sandbox...';
+               _this.pageContent = 'Oops! This participant haven\'t writen any codes yet.';
 
                
              
@@ -415,7 +415,7 @@ methods:{
 
             
              
-               this.pageContent = 'An issue occured,unable to run on sandbox...';
+               this.pageContent = 'Oops! This participant haven\'t writen any codes yet.';
 
                 
               
