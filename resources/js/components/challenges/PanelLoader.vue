@@ -29,6 +29,15 @@
     
   <!-- ends -->
 
+    <!-- view info -->
+      <div 
+        v-if="pageContent == '' && !loading"
+    style="border: 0; height:80%; top:5%;left:0; z-index:99999999999; align-items:center; justify-content:center;" class=" px-5 col-lg-4 offset-lg-4 px-1 py-0 d-flex" >
+        <span style="font-size:13px; color:grey;">Click on participant name to view result</span>
+       </div>
+    
+  <!-- ends -->
+
 
    <!-- page content view -->
    
@@ -276,9 +285,10 @@ methods:{
 
      })
      },
-       checkResponse:function(token){
+      checkResponse:_.debounce(function (token) {
 
-        let _this = this;
+
+         let _this = this;
 
       
                 axios.post( '/check-for-submission',{
@@ -351,10 +361,8 @@ methods:{
              
           })
 
-
-        
-
-      },
+      }, 500),
+       
       runCodeOnSandbox: function(){
 
           axios.post( '/run-code-on-sandbox-project',{
@@ -379,20 +387,18 @@ methods:{
               }else if(response.data[0][0].status.description == 'In Queue'){
 
                  this.pageContent = 'In Queue...';
-                  setTimeout(() => {
+                
                        this.checkResponse(token,response.data[1]);
 
-                  }, 1000);
+                 
                
               }else if(response.data[0][0].status.description == 'Processing'){
 
                  this.pageContent = 'Processing...';
 
-                  setTimeout(() => {
-                       this.checkResponse(token,response.data[1]);
+                   this.checkResponse(token,response.data[1]);
 
-                  }, 1000);
-
+                 
               }else{
 
                 
@@ -434,12 +440,7 @@ methods:{
 
         // show first result
 
-         if( this.participants[0]){
-
-               this.showPage( this.participants[0])
-
-         }
-
+         
 
      }
 
