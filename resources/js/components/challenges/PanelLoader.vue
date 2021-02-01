@@ -238,7 +238,7 @@ methods:{
     },
     checkState: function(){
 
-         this.loading = true;
+       
      
          this.fetchParticipants();
       
