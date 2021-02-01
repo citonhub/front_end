@@ -8,15 +8,15 @@
                       <v-icon color="#3C87CD" >mdi mdi-close mdi-18px</v-icon>
                  </v-btn>
                  
-                <v-chip v-for="(participant,index) in participants" :key="index"
-      class="ma-1 mx-1 ml-0 fileText "
+                <div v-for="(participant,index) in participants" :key="index"
+      class="ma-1 mx-1 ml-0 py-1 px-2 fileText d-inline-block"
         @click="showPage(participant)"
       small
-   :style="selecetedPanelId == participant.panel_id ? 'color:white;background-color:#3C87CD;' : 'background:transparent;border:1px solid #3C87CD;'"
+   :style="selecetedPanelId == participant.panel_id ? 'color:white;background-color:#3C87CD;font-size:13px;border-radius:10px;' : 'background:transparent;border:1px solid #3C87CD;font-size:13px;border-radius:10px;'"
       >
      <span  v-if="participant.type == 'user'" >{{participant.username}}</span>
      <span  v-if="participant.type == 'team'" >{{participant.team.name}}</span>
-    </v-chip>  
+    </div>  
 
               </div>
 
@@ -104,7 +104,7 @@
          <!-- ends -->
 
        
-       <v-btn medium fab color="#3C87CD"  @click="goTopanel" class="d-inline-block " style="z-index:999999999999999;  position:absolute;  bottom:8%; right:2%; ">
+       <v-btn medium fab color="#3C87CD"  @click="goTopanel" class="d-inline-block " style="z-index:999999999999999;  position:absolute;  bottom:12%; right:2%; ">
 
         <v-icon style="font-size:25px; color:white;">las la-laptop-code</v-icon>
          
@@ -379,13 +379,19 @@ methods:{
               }else if(response.data[0][0].status.description == 'In Queue'){
 
                  this.pageContent = 'In Queue...';
-                 this.checkResponse(token,response.data[1]);
+                  setTimeout(() => {
+                       this.checkResponse(token,response.data[1]);
 
+                  }, 1000);
+               
               }else if(response.data[0][0].status.description == 'Processing'){
 
                  this.pageContent = 'Processing...';
 
-                 this.checkResponse(token,response.data[1]);
+                  setTimeout(() => {
+                       this.checkResponse(token,response.data[1]);
+
+                  }, 1000);
 
               }else{
 
