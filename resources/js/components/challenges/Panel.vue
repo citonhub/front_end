@@ -76,7 +76,7 @@
                                         <span style="color:white;text-transform:capitalize;">Join</span> 
                                    </v-btn>
 
-                                    <v-btn @click="showResults('vote')" class="mx-1"  v-if="!this.$root.selectedChallenge.user_participating  && checkDuelStatus(this.$root.selectedChallenge) == 'Ended'"  medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
+                                    <v-btn @click="showResults('vote')" class="mx-1"   medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
                                         <span style="color:white;text-transform:capitalize;">Vote</span> 
                                    </v-btn>
 
@@ -415,7 +415,7 @@
                                         <span style="color:white;text-transform:capitalize;">Join</span> 
                                    </v-btn>
 
-                          <v-btn  class="mx-1"  @click="showResults('vote')" v-if="!this.$root.selectedChallenge.user_participating  && checkDuelStatus(this.$root.selectedChallenge) == 'Ended'"  medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
+                          <v-btn  class="mx-1"  @click="showResults('vote')"  medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
                                         <span style="color:white;text-transform:capitalize;">Vote</span> 
                                    </v-btn>
 

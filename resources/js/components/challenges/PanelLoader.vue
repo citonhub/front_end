@@ -220,6 +220,10 @@ methods:{
     },
   
     goTopanel:function(){
+
+      
+
+            this.$root.panelFromChallenges = true;
          
        this.$router.push({ path: '/board/projects/panel/' + this.participantSelected.project_slug });
     },
