@@ -355,7 +355,7 @@ methods:{
 
              
              
-               _this.pageContent = 'Oops! This participant haven\'t writen any codes yet.';
+               _this.pageContent = 'Oops! This participant hasn\'t written any codes yet.';
 
                
              
@@ -415,7 +415,7 @@ methods:{
 
             
              
-               this.pageContent = 'Oops! This participant haven\'t writen any codes yet.';
+               this.pageContent = 'Oops! This participant hasn\'t written any codes yet.';
 
                 
               
