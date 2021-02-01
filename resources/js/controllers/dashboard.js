@@ -3115,7 +3115,7 @@ handleSpaceData: function(returnData){
  
 
 
-    if( this.$root.selectedSpace.space_id != space.space_id){
+    if( this.$root.selectedSpace.space_id != space.space_id || this.$root.selectedSpace.length == 0){
 
        // if the space is not currently opened
          let storedMsg = this.$root.getLocalStore('full_' + space.space_id  + this.$root.username);
@@ -3130,16 +3130,21 @@ handleSpaceData: function(returnData){
        let MessagesFull = parsedResult;
 
        let newMessages = space.new_messages;
-            
+       
+
+        newMessages.forEach((message)=>{
+
+               
         // update unread in chatlist
 
         this.ChatList.map((chatspace)=>{
+
           if(chatspace.space_id == space.space_id){
-            chatspace.unread += newMessages.length;
+            chatspace.unread += 1;
+            chatspace.message_track = new Date();
+            chatspace.last_message = [message];
           } 
         });
-
-        newMessages.forEach((message)=>{
 
           MessagesFull.messages.push(message);
 
@@ -3202,16 +3207,11 @@ handleSpaceData: function(returnData){
       // we got an error
       });
 
-     // update unread in chatlist
-
-     this.ChatList.map((chatspace)=>{
-      if(chatspace.space_id == space.space_id){
-        chatspace.unread += space.new_messages.length;
-      } 
-    });
-
+    
       }
+   
 
+      
 
     });
 
@@ -3235,6 +3235,18 @@ handleSpaceData: function(returnData){
        let newMessages = space.new_messages;
             
         newMessages.forEach((messages)=>{
+
+            // update unread in chatlist
+
+        this.ChatList.map((chatspace)=>{
+
+          if(chatspace.space_id == space.space_id){
+            chatspace.unread += 1;
+            chatspace.message_track = new Date();
+            chatspace.last_message = [messages];
+          } 
+        });
+
 
           MessagesFull.messages.push(messages);
 
@@ -3264,7 +3276,7 @@ handleSpaceData: function(returnData){
 
     }
 
-  
+    this.sortChatList();
 });
 
  },

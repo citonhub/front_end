@@ -115,8 +115,8 @@
                       </div>
                         
                   </div>
-                      <span style="font-size:13px;" v-html="element.content"></span>
-                      
+                      <span style="font-size:13px;" class="handleTextNormalSm" v-html="element.content"></span>
+                       
                   </v-card> 
 
              </template>
@@ -2187,7 +2187,7 @@ crophandler:function(e){
     } 
 }
 </script>
-<style scoped>
+<style >
 .handle{
    cursor: move; 
     
@@ -2197,6 +2197,14 @@ crophandler:function(e){
   background: whitesmoke;
   border:1px solid whitesmoke;
   border-radius: 7px;
+}
+
+.handleTextNormalSm   ol{
+  padding-left:16px !important;
+}
+
+.handleTextNormalSm   ul{
+   padding-left:16px !important;
 }
 
   .scroller::-webkit-scrollbar {

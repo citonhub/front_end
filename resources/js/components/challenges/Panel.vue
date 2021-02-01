@@ -353,7 +353,7 @@
    <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
 
    
-       <v-card class="col-lg-3 py-1  col-md-6 scroller" style="max-height:400px;overflow-y:auto;">
+       <v-card class="col-lg-3 py-2  col-md-6 scroller" style="max-height:400px;overflow-y:auto;">
 
            <div class="col-12 py-1 text-center">
 
