@@ -2220,33 +2220,25 @@ export default {
 
              if (response.status == 200) {
 
+               
+
 
                 if(response.data[0].length > 0){
 
-
-
-             for (let index = 0; index < response.data[0].length; index++) {
-
-
-
-                     response.data[0][index].index_count = this.$root.returnLastIndex() + 1;
-                      response.data[0][index].id =  response.data[0][index].message_id;
-                      response.data[0][index].initialSize =  200;
-
-
-
-                     this.$root.Messages.push(response.data[0][index]);
-                  this.$root.pushDataToLocal(response.data[0][index]);
-
-                  this.scrollToBottom();
-
-
-                }
+                  let messageData = {
+               space_id: this.$root.selectedSpace.space_id,
+               new_messages: response.data[0]
+                  };
+    
+               this.$root.handleSpaceData([messageData]);
 
 
              }
 
+
+
             }
+
 
           })
           .catch(error => {

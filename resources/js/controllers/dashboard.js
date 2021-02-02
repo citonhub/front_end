@@ -3241,7 +3241,7 @@ handleSpaceData: function(returnData){
         this.ChatList.map((chatspace)=>{
 
           if(chatspace.space_id == space.space_id){
-            chatspace.unread += 1;
+          
             chatspace.message_track = new Date();
             chatspace.last_message = [messages];
           } 
