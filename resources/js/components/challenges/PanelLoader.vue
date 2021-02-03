@@ -423,6 +423,13 @@ methods:{
 
           
       },
+          sortArray: function(arrayValue){
+      arrayValue.sort(function(a, b){ 
+      
+        return b.stars - a.stars 
+    }); 
+
+      },
        
    
       fetchParticipants: function(){
@@ -434,6 +441,7 @@ methods:{
 
 
         this.participants = response.data.participants;
+        this.participants.sort(function(a, b){return b.stars - a.stars});
         this.votes = response.data.votes;
  
             this.selectedParticipantId = '';
