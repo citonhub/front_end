@@ -1,6 +1,6 @@
 <template>
     <div style="background:transparent;font-size:BodyFont;">
-        <div class="col-12 px-3 px-md-2 scroller" style="position:absolute;height:95%;top:0%;left:0%;overflow-y:auto;overflow-x:hidden;padding-bottom:150px !important;">
+        <div class="col-12 px-3 px-md-2 scroller" style="position:absolute;height:99%;top:0%;left:0%;overflow-y:auto;overflow-x:hidden;padding-bottom:150px !important;">
         
         <div style="background:transparent;font-family:BodyFont; " class="row">
 
@@ -83,7 +83,7 @@
           <draggable
         class="col-lg-10 py-1 offset-lg-1 px-0 px-md-2 py-0 d-flex flex-row flex-wrap"
         tag="div"
-        style="background:#E1F0FC;"
+        style="background:whitesmoke;"
          v-model="that.$root.noteContent.pages[selectedContentId].contents"
          handle=".handle"
         v-bind="dragOptions"
@@ -105,13 +105,16 @@
 
                 <v-card elevation-1 class="py-1 px-2 ml-2" style="max-width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
-                    <div class="d-flex flex-row" style="align-items:center;">
-                      <div class="col-8 py-0 px-0">
+                    <div class="d-flex flex-row mb-2" style="align-items:center;">
+                      <div class=" py-0 px-0 d-flex flex-row handle"  style="align-items:center; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
+                        <v-icon style="font-size:25px;" color="#3C87CD" class="mr-1" >mdi mdi-cursor-move</v-icon>
                          <span style="font-size:13px;font-weight:bold; ">{{that.$root.selectedDiary.name}}</span>
                       </div>
 
-                      <div class="col-4 py-0 px-0 text-right">
-                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-list</v-icon>
+                      <div class="ml-auto py-0 px-0 d-flex flex-row">
+                         
+                          
+                           <v-icon style="font-size:22px;" @click.stop="deleteContent(element.message_id)" >mdi mdi-close</v-icon>
                       </div>
                         
                   </div>
@@ -124,13 +127,16 @@
              <template v-if="element.type == 'image'">
 
                  <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                      <div class="d-flex flex-row" style="align-items:center;">
-                      <div class="col-8 py-0 px-0">
+                      <div class="d-flex flex-row mb-2" style="align-items:center;">
+                      <div class=" py-0 px-0 d-flex flex-row handle"  style="align-items:center; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
+                        <v-icon style="font-size:25px;" color="#3C87CD" class="mr-1" >mdi mdi-cursor-move</v-icon>
                          <span style="font-size:13px;font-weight:bold; ">{{that.$root.selectedDiary.name}}</span>
                       </div>
 
-                      <div class="col-4 py-0 px-0 text-right">
-                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-list</v-icon>
+                      <div class="ml-auto py-0 px-0 d-flex flex-row">
+                         
+                          
+                           <v-icon style="font-size:22px;" @click.stop="deleteContent(element.message_id)" >mdi mdi-close</v-icon>
                       </div>
                         
                   </div>
@@ -142,13 +148,16 @@
              <template v-if="element.type == 'video'">
 
                 <v-card elevation-1 class="py-1 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                     <div class="d-flex flex-row" style="align-items:center;">
-                      <div class="col-8 py-0 px-0">
+                     <div class="d-flex flex-row mb-2" style="align-items:center;">
+                      <div class=" py-0 px-0 d-flex flex-row handle"  style="align-items:center; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
+                        <v-icon style="font-size:25px;" color="#3C87CD" class="mr-1" >mdi mdi-cursor-move</v-icon>
                          <span style="font-size:13px;font-weight:bold; ">{{that.$root.selectedDiary.name}}</span>
                       </div>
 
-                      <div class="col-4 py-0 px-0 text-right">
-                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-list</v-icon>
+                      <div class="ml-auto py-0 px-0 d-flex flex-row">
+                         
+                          
+                           <v-icon style="font-size:22px;" @click.stop="deleteContent(element.message_id)" >mdi mdi-close</v-icon>
                       </div>
                         
                   </div>
@@ -163,16 +172,20 @@
              <template v-if="element.type == 'audio'">
 
                  <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                      <div class="d-flex flex-row" style="align-items:center;">
-                      <div class="col-8 py-0 px-0">
+                      <div class="d-flex flex-row mb-2" style="align-items:center;">
+                      <div class=" py-0 px-0 d-flex flex-row handle"  style="align-items:center; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
+                        <v-icon style="font-size:25px;" color="#3C87CD" class="mr-1" >mdi mdi-cursor-move</v-icon>
                          <span style="font-size:13px;font-weight:bold; ">{{that.$root.selectedDiary.name}}</span>
                       </div>
 
-                      <div class="col-4 py-0 px-0 text-right">
-                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-list</v-icon>
+                      <div class="ml-auto py-0 px-0 d-flex flex-row">
+                         
+                          
+                           <v-icon style="font-size:22px;" @click.stop="deleteContent(element.message_id)" >mdi mdi-close</v-icon>
                       </div>
                         
                   </div>
+
                    <audio-player class="mt-n1" :file="'/audio/' + element.audio.audio_name + '.' + element.audio.audio_extension" :playerId="element.message_id"  :colorBase="'#333333'"></audio-player>
                   
                   </v-card> 
@@ -181,22 +194,34 @@
 
              <template v-if="element.type == 'code'">
 
-                <v-card elevation-1 class="py-1 px-2 pb-4 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                        <div class="d-flex flex-row" style="align-items:center;">
-                      <div class="col-8 py-0 px-0">
+                <v-card elevation-1 class="py-1 d-flex flex-column px-2 pb-4" style=" width:100%; height:auto; border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                       
+                            <div class="d-flex flex-row mb-2" style="align-items:center;">
+                      <div class=" py-0 px-0 d-flex flex-row handle"  style="align-items:center; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
+                        <v-icon style="font-size:25px;" color="#3C87CD" class="mr-1" >mdi mdi-cursor-move</v-icon>
                          <span style="font-size:13px;font-weight:bold; ">{{that.$root.selectedDiary.name}}</span>
                       </div>
 
-                      <div class="col-4 py-0 px-0 text-right">
-                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-list</v-icon>
+                      <div class="ml-auto py-0 px-0 d-flex flex-row">
+                         
+                          
+                           <v-icon style="font-size:22px;" @click.stop="deleteContent(element.message_id)" >mdi mdi-close</v-icon>
                       </div>
                         
                   </div>
-                   <code-box  :topMargin="13"   :codeContent="element.code.content" 
+
+                      <div>
+
+                         <code-box color="#333333"  :topMargin="13"  
+                   :codeContent="element.code.content" 
                    :messageId="element.message_id" 
+                    :screenType="'small'"
                    :filename="element.code.name + '.' + languageExtensions(element.code.language_type)" 
-                   :codeLanguage="element.code.language_type" ></code-box>
-                        
+                   :codeLanguage="element.code.language_type"></code-box>
+
+
+                      </div>
+
                   </v-card> 
 
              </template>
@@ -204,13 +229,16 @@
              <template v-if="element.type == 'project'">
                
                  <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
-                      <div class="d-flex flex-row" style="align-items:center;">
-                      <div class="col-8 py-0 px-0">
+                     <div class="d-flex flex-row mb-2" style="align-items:center;">
+                      <div class=" py-0 px-0 d-flex flex-row handle"  style="align-items:center; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
+                        <v-icon style="font-size:25px;" color="#3C87CD" class="mr-1" >mdi mdi-cursor-move</v-icon>
                          <span style="font-size:13px;font-weight:bold; ">{{that.$root.selectedDiary.name}}</span>
                       </div>
 
-                      <div class="col-4 py-0 px-0 text-right">
-                          <v-icon style="font-size:25px;" color="#3C87CD" class="handle">las la-list</v-icon>
+                      <div class="ml-auto py-0 px-0 d-flex flex-row">
+                         
+                          
+                           <v-icon style="font-size:22px;" @click.stop="deleteContent(element.message_id)" >mdi mdi-close</v-icon>
                       </div>
                         
                   </div>
@@ -267,6 +295,30 @@
            </v-card>
 
              </div>
+
+               <div class="py-1">
+
+               <v-card class="px-1 py-1 mx-1  typeBox"   @click="selectContentType('code')" :style="selectedContentType == 'code' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
+                   <v-btn icon title="Add a code"> <v-icon style="font-size:26px;">las la-code</v-icon></v-btn>
+           </v-card>
+
+             </div>
+
+               <div class="py-1">
+
+                <v-card class="px-1 py-1 mx-1 typeBox"   @click="selectContentType('record')" :style="selectedContentType == 'record' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
+                   <v-btn icon title="Start recording"> <v-icon style="font-size:26px;">las la-microphone</v-icon></v-btn>
+           </v-card>
+
+             </div>
+
+                <div class="py-1">
+
+                <v-card class="px-1 py-1 mx-1 typeBox"   @click="selectContentType('project')" :style="selectedContentType == 'project' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
+                   <v-btn icon title="Add a project"> <v-icon style="font-size:26px;">las la-laptop-code</v-icon></v-btn>
+           </v-card>
+
+             </div>
            
              <div class="py-1">
 
@@ -317,31 +369,7 @@
              </div>
 
 
-            
 
-             <div class="py-1">
-
-                <v-card class="px-1 py-1 mx-1 typeBox"   @click="selectContentType('record')" :style="selectedContentType == 'record' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
-                   <v-btn icon title="Start recording"> <v-icon style="font-size:26px;">las la-microphone</v-icon></v-btn>
-           </v-card>
-
-             </div>
-
-              <div class="py-1">
-
-               <v-card class="px-1 py-1 mx-1  typeBox"   @click="selectContentType('code')" :style="selectedContentType == 'code' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
-                   <v-btn icon title="Add a code"> <v-icon style="font-size:26px;">las la-code</v-icon></v-btn>
-           </v-card>
-
-             </div>
-
-             <div class="py-1">
-
-                <v-card class="px-1 py-1 mx-1 typeBox"   @click="selectContentType('project')" :style="selectedContentType == 'project' ? 'border-radius:10px;background:#E1F0FC;' : 'border-radius:10px;'">
-                   <v-btn icon title="Add a project"> <v-icon style="font-size:26px;">las la-laptop-code</v-icon></v-btn>
-           </v-card>
-
-             </div>
 
           </div>
 
@@ -1049,6 +1077,19 @@ export default {
      })
        
       },
+      deleteContent:function(content_id){
+
+         this.$root.pageContentToDelete = {
+        slug: this.$root.noteContent.pages[this.selectedContentId].slug,
+        content_id: content_id
+         }
+
+           this.showAlert('Hey','Are you sure about this?','question');
+        
+           
+         
+
+      },
        startrecord: function(){
 
        this.recording = true;
@@ -1511,7 +1552,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-         timeout: 5000,
+         timeout: 2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -1526,7 +1567,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-         timeout: 5000,
+         timeout: 2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -1541,7 +1582,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-         timeout: 5000,
+         timeout: 2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -1556,12 +1597,71 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-         timeout: 5000,
+         timeout: 2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
       )
+       }
+
+          if(type == 'question'){
+
+         iziToast.question({
+    timeout: null,
+    close: false,
+    overlay: true,
+    displayMode: 'once',
+    id: 'question',
+    zindex: 999,
+     title: title,
+       message: message,
+    position: 'center',
+    buttons: [
+        ['<button><b>YES</b></button>', (instance, toast) => {
+
+            axios.post( '/delete-intent-response/' + this.$root.pageContentToDelete.slug + '/' + this.$root.pageContentToDelete.content_id )
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         let remainingNotesContent = this.$root.noteContent.pages[this.selectedContentId].contents.filter((content)=>{
+          return content.message_id != this.$root.pageContentToDelete.content_id;
+          })
+
+         
+         
+        this.$root.noteContent.pages[this.selectedContentId].contents = remainingNotesContent;
+
+         
+
+           this.$root.pageContentToDelete = [];
+            this.saveContentOrder(false);
+
+            this.showAlert('Deleted!','','success');
+
+      }
+       
+     
+      })
+      .catch(error => {
+
+      this.showAlert('Oops!','Unable to delete note','error');
+       
+    
+     }) 
+ 
+            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+ 
+        }, true],
+        ['<button>NO</button>', function (instance, toast) {
+ 
+            instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
+ 
+        }],
+    ]
+});
+
        }
 
        
@@ -2222,7 +2322,7 @@ crophandler:function(e){
 }
 
 
-  .codeboxnew,
+  .codeboxnewDiary,
     .pre {
       width: 100%;
       margin: 0;
@@ -2235,7 +2335,7 @@ crophandler:function(e){
       overflow: auto;
     }
 
- .codeboxnew{
+ .codeboxnewDiary{
        height: 100%;
        border: 1px solid #e6e6e6;
         position:absolute;

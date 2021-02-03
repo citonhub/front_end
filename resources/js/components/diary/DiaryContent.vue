@@ -255,7 +255,7 @@ export default {
       deleteNote:function(note){
 
            this.$root.intentToDelete = note.tag_unique_id;
-           this.$root.diaryBoardComponent.showAlert('Hey','Do you want to delete this note?','question');
+           this.$root.diaryBoardComponent.showAlert('Hey','Are you sure about this?','question');
 
       },
       calculateView:function(){

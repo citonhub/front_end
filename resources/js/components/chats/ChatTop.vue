@@ -128,7 +128,16 @@
                 </v-btn>
             </template>
 
-            <v-btn v-else icon  @click.stop="showDiaryNotes" ><v-icon >mdi-format-list-bulleted</v-icon></v-btn>
+            <v-btn v-else icon  @click.stop="showDiaryNotes" >
+                <v-badge
+                   dot
+                   v-if="newUpdatePresent(that.$root.diaryNotes)"
+                color="green">
+                 <v-icon > mdi-format-list-bulleted</v-icon>
+                   </v-badge>
+
+                    <v-icon v-else  > mdi-format-list-bulleted</v-icon>
+            </v-btn>
 
               
               
@@ -299,7 +308,17 @@
           
 
 
-            <v-btn small @click.stop="showDiaryNotes" v-if=" this.$root.selectedSpace.type == 'Bot'" icon  ><v-icon style="font-size:21px;" > mdi-format-list-bulleted</v-icon></v-btn>
+            <v-btn small @click.stop="showDiaryNotes" v-if=" this.$root.selectedSpace.type == 'Bot'" icon  >
+             
+                  <v-badge
+                   dot
+                   v-if="newUpdatePresent(that.$root.diaryNotes)"
+                color="green">
+                 <v-icon style="font-size:21px;" > mdi-format-list-bulleted</v-icon>
+                   </v-badge>
+
+                    <v-icon v-else style="font-size:21px;" > mdi-format-list-bulleted</v-icon>
+              </v-btn>
 
                  <!-- ends -->
                 
@@ -338,6 +357,21 @@ export default {
      MoreOptionChat
     },
     methods:{
+      newUpdatePresent:function(updateData){
+
+         let update = updateData.filter((note)=>{
+
+             return note.changes > 0 || note.is_new;
+
+         })
+
+         if(update.length > 0){
+          return true;
+         }else{
+           return false;
+         }
+
+      },
        showMoreOptions:function(){
         this.$root.chatComponent.showMoreOptionsChat = true;
        },

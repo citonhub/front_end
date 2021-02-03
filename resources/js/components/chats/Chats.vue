@@ -311,7 +311,7 @@
 
                   <v-card elevation-1  class="py-0 px-2 ml-2 d-flex " style=" align-items:center;justify-content:center; border:1px solid transparent; min-width:45px;background:#ffffff; border-radius:20px;">
 
-                      <span style="font-size:13px;font-family:BodyFont;">Loading...</span>
+                       <img src="/imgs/diary_loading.svg" height="30" >
 
                 
                   </v-card> 
@@ -886,7 +886,7 @@
 
                   <v-card elevation-1  class="py-0 px-2 ml-2 d-flex " style=" align-items:center;justify-content:center; border:1px solid transparent; min-width:45px;background:#ffffff; border-radius:20px;">
 
-                         <span style="font-size:12px;font-family:BodyFont;">Loading...</span>
+                         <img src="/imgs/diary_loading.svg" height="30" >
 
                 
                   </v-card> 
@@ -2602,12 +2602,11 @@ export default {
 
 
     if( this.$root.selectedSpace.type == 'Bot'){
-      setTimeout(() => {
+
+        this.checkForNewNotes();
+     
             this.botMessager();
-      }, 2000);
-
-
-
+     
       }
 
 
@@ -2642,6 +2641,33 @@ export default {
               }
     
       },
+        checkForNewNotes:function(){
+
+        axios.get( '/fetch-diary-notes-' + this.$root.selectedSpace.bot_data.bot_id)
+      .then(response => {
+      
+      if (response.status == 200) {
+
+          this.$root.LocalStore('diary_notes_' + this.$root.selectedSpace.space_id  + this.$root.username,response.data);
+        
+     
+                   let finalResult = response.data.diary_notes;
+
+                   
+
+                      this.$root.diaryNotes = finalResult
+  
+     }
+       
+     
+     })
+     .catch(error => {
+
+      
+    
+     }) 
+
+        },
   
         fetchSpaceInfo: function(){
 

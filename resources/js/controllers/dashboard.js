@@ -9,8 +9,8 @@ window.io = require('socket.io-client');
 Vue.use(Vuex)
 
 //axios.defaults.baseURL = 'http://localhost:8000/api'
-//axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
-axios.defaults.baseURL = 'https://api.citonhub.com/api'
+axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
+//axios.defaults.baseURL = 'https://api.citonhub.com/api'
 
 //axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
 
@@ -1861,6 +1861,8 @@ const app = new Vue({
      codeboxIsLoading:true,
      intentToDelete:'',
      showLanguageOption:false,
+     pageContentToDelete:[],
+     diaryNotes:[],
      },
      mounted: function () {
       window.thisUserState = this;

@@ -41,7 +41,7 @@
             <div class="row px-2" v-if="diaryNotes.length > 0">
           
 
-            <v-card flat tile class="col-12 py-2 px-1 messageBox" style="border-bottom:1px solid #cccccc;" v-for="(note,index) in diaryNotes" @click.stop="selectDiaryNote(note)"
+            <v-card flat :color="note.is_new ? '#E1F0FC':''" tile class="col-12 py-2 px-1 messageBox" style="border-bottom:1px solid #cccccc;" v-for="(note,index) in diaryNotes" @click.stop="selectDiaryNote(note)"
             :key="index">
               <div class="row py-0 my-0">
                   <div class="col-2 py-0 my-0">
@@ -53,7 +53,10 @@
                   <div class="col-8 py-0 my-0 text-center">
                        <span  style="font-size:13px; color:#1e4148; font-family:MediumFont;"> {{note.tag_name}}</span>
                   </div>
-                  <div class="col-2 py-0 my-0">
+                  <div class="col-2 py-0 my-0 text-center d-flex" style="align-items:center;" >
+     
+                  <span  v-if="note.changes > 0" class="messagesBadges d-flex ml-lg-0 ml-0" >{{note.changes}}</span>
+
                       
                   </div>
                  
@@ -101,6 +104,8 @@ export default {
            this.$root.channelBottomComp.input = note.patterns[0].pattern_content;
 
           this.$root.channelBottomComp.sendMessage(false);
+
+             this.clearTracker(note);
             }
           
             this.close();
@@ -123,6 +128,8 @@ export default {
                       finalResult = finalResult.diary_notes;
 
                        this.diaryNotes = finalResult
+
+                       this.$root.diaryNotes = finalResult
                    
                    
                   this.loading = false;
@@ -143,6 +150,8 @@ export default {
                    let finalResult = response.data.diary_notes;
 
                      this.diaryNotes = finalResult
+
+                     this.$root.diaryNotes = finalResult
        
      
          this.loading = false;
@@ -164,6 +173,46 @@ export default {
          
        
         },
+        clearTracker:function(note){
+
+         
+
+           axios.post( '/clear-update-track',{
+            space_id: this.$root.selectedSpace.space_id,
+            note_id: note.tag_unique_id
+           })
+      .then(response => {
+      
+      if (response.status == 200) {
+  
+
+             this.$root.diaryNotes.map((eachnote)=>{
+         if(note.tag_unique_id == eachnote.tag_unique_id){
+
+            note.changes = 0;
+            note.is_new = false;
+
+           
+
+         }
+        })
+
+
+       this.$root.LocalStore('diary_notes_' + this.$root.selectedSpace.space_id  + this.$root.username, this.$root.diaryNotes);
+           
+  
+     }
+       
+     
+     })
+     .catch(error => {
+
+      
+    
+     }) 
+
+
+        },
         checkForNewNotes:function(){
 
         axios.get( '/fetch-diary-notes-' + this.$root.selectedSpace.bot_data.bot_id)
@@ -177,6 +226,8 @@ export default {
                    let finalResult = response.data.diary_notes;
 
                      this.diaryNotes = finalResult
+
+                      this.$root.diaryNotes = finalResult
   
      }
        
@@ -216,4 +267,5 @@ export default {
     background:whitesmoke;
     cursor: pointer;
 }
+
 </style>
