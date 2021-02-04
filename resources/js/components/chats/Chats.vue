@@ -1494,9 +1494,7 @@ export default {
      this.controlChatPath();
       this.fetchChatList();
 
-       if(!this.$root.authProfile.suggested_diary){
-           this.$root.showUserNotification = true;
-       }
+      
 
       
     },
