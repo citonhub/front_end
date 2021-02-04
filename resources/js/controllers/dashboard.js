@@ -1863,6 +1863,7 @@ const app = new Vue({
      showLanguageOption:false,
      pageContentToDelete:[],
      diaryNotes:[],
+     fromVerifyPage:false,
      },
      mounted: function () {
       window.thisUserState = this;

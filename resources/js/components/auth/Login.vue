@@ -291,6 +291,10 @@ export default {
      mounted(){
 
        this.checkIfLogin();
+
+       if(this.$root.fromVerifyPage){
+          this.showAlert('Hey!','Please login with your email and password','info')
+       }
     },
     methods:{
        showRegister: function(){
@@ -319,7 +323,7 @@ export default {
          timeout: 5000,
        message: message,
        zindex:'9999999999',
-       position: 'bottomRigh  t',
+       position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -433,6 +437,13 @@ export default {
         })
         .catch(err => {
           this.loading = false;
+           
+             if(err.response.status == 404){
+              this.$router.push({ path: '/verify' });
+
+             return;
+             }
+           
           this.showAlert('Oops!','Wrong details, give it another shot.','error')
         })
 

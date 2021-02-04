@@ -242,8 +242,8 @@ export default {
          let storedEmail = this.$root.getLocalStore('user_temp_email');
 
           if(this.$root.userEmail == ''){
-
-             this.showAlert('Hey!','Please login with your email and password','info')
+                this.$root.fromVerifyPage = true;
+            
 
               this.$router.push({ path: '/login' });
 
@@ -310,7 +310,7 @@ export default {
          timeout: 5000,
        message: message,
        zindex:'9999999999',
-       position: 'bottomRigh  t',
+       position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
