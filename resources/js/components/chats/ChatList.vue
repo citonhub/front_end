@@ -22,7 +22,7 @@
                                              <span v-if="source.type == 'Bot' && source.bot_data != null" style="font-size:14px; font-family:BodyFont;">{{ source.bot_data.name }}</span>
                                              <span v-if="source.type == 'Direct'" style="font-size:14px; font-family:BodyFont;">{{ source.userInfo.username }}</span>
                                        </div>
-                                        <div class="px-1 py-0 my-0 text-right ml-auto" >
+                                        <div class="px-1 py-0 my-0 text-right ml-auto" style="width:15%;">
                                              <span  v-if="source.last_message" style="font-size:11px; font-family:BodyFont;color:gray; margin-right:0px;" >
                                                <span v-if="source.last_message[0]">
                                                   {{checkDatereal(source.last_message[0].created_at)}}
