@@ -1864,6 +1864,8 @@ const app = new Vue({
      pageContentToDelete:[],
      diaryNotes:[],
      fromVerifyPage:false,
+     followDiariesLoaded:false,
+     channelChats:[],
      },
      mounted: function () {
       window.thisUserState = this;
@@ -2221,6 +2223,7 @@ const app = new Vue({
       'unread': userProfile.unread,
       'points': userProfile.points,
       'user_onboarded':userProfile.user_onboarded,
+      'suggested_diary': userProfile.suggested_diary
       };
         
 

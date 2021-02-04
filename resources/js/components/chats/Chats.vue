@@ -12,38 +12,41 @@
        <!-- chat content -->
 
        
-                                <!--Interests Popup-->
-
-  <div class="py-0 px-0 " style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="this.$root.loadInterestModal">
-
-   <div class=" d-flex py-2" style="position:absolute;left:3%; height:90%; top:5%; width:94%;  align-items:center; justify-content:center;overflow-y: hidden;" >
-
-     
-      <interest ></interest>
-   
-
-   </div>
-
- </div>
-
-                      <!--Interests Popup ends--> 
+               
 
 
                          <!--follow Popup-->
 
-  <div class="py-0 px-0 " style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="false">
 
-   <div class=" d-flex py-2" style="position:absolute;left:3%; height:90%; top:5%; width:94%;  align-items:center; justify-content:center;overflow-y: hidden;" >
+  <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showUserNotification">
 
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+          
+          <template v-if="!that.$root.followDiariesLoaded">
+    <div class="d-flex"  style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
+          </template>
+       
+      <template v-if="suggestionsContent == 'notification'">
+        <notify></notify>
+      </template>
+
+      <template v-if="suggestionsContent == 'diaries'">
+        <follow></follow>
+      </template>
      
-      <follow ></follow>
    
 
    </div>
 
  </div>
 
+
                       <!--follow Popup ends--> 
+
 
          <!-- large screens -->
 
@@ -123,6 +126,20 @@
 
         <chat-list :source="item" ></chat-list>
 
+        <template #after v-if="that.$root.channelChats.length == 0"> 
+
+          <div class="col-12 text-center d-flex flex-column">
+                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
+                      Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
+                    </div>
+
+                     <div>
+                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                     </div>
+          </div>
+
+        </template>
+
           </DynamicScrollerItem>
              </template>
 
@@ -132,7 +149,7 @@
        style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:100px;">
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Chat, share and run codes, organize live coding and screen sharing sessions with people in your channel.
+                      Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
                     </div>
 
                      <div>
@@ -665,6 +682,20 @@
 
         <chat-list :source="item" ></chat-list>
 
+         <template #after v-if="that.$root.channelChats.length == 0"> 
+
+          <div class="col-12 text-center d-flex flex-column">
+                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
+                      Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
+                    </div>
+
+                     <div>
+                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                     </div>
+          </div>
+
+        </template>
+
           </DynamicScrollerItem>
              </template>
 
@@ -674,7 +705,7 @@
           style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto;align-items:center;justify-content:center;" >
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                     Chat, share and run codes, organize live coding and screen sharing sessions with people in your channel.
+                     Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
                     </div>
 
                      <div>
@@ -1382,6 +1413,11 @@ const Interest= () => import(
    const DiaryNotes = () => import(
     /* webpackChunkName: "DiaryNotes" */ './DiaryNotes.vue'
   );
+
+  const Notify = () => import(
+   /* webpackChunkName: "Notify" */ '../Profile/Notify.vue'
+  );
+
 export default {
      data () {
       return {
@@ -1394,6 +1430,7 @@ export default {
        chatInnerConent:'',
        errorLoadingMessage:false,
         counter:0,
+        suggestionsContent:'diaries',
         messageIsDone: true,
         popup:false,
         qouteArray:[
@@ -1457,6 +1494,10 @@ export default {
      this.controlChatPath();
       this.fetchChatList();
 
+       if(!this.$root.authProfile.suggested_diary){
+           this.$root.showUserNotification = true;
+       }
+
       
     },
     components: {
@@ -1484,7 +1525,8 @@ export default {
         MoreOptionChat,
          Interest,
          Follow,
-         DiaryNotes
+         DiaryNotes,
+         Notify
     },
      methods:{
     
@@ -1941,6 +1983,8 @@ export default {
                     let finalResult = JSON.parse(result);
                       this.$root.baseChatList = finalResult;
 
+                       this.$root.channelChats = finalResult.channels;
+
                      let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
 
                      
@@ -1971,6 +2015,7 @@ export default {
 
 
           this.$root.baseChatList = response.data;
+            this.$root.channelChats = responseList.channels;
           this.$root.ChatList = responseList.channels.concat(responseList.direct_messages, responseList.pet_spaces);
 
            this.$root.LocalStore('user_chat_list' + this.$root.username,response.data,false,'sort_chat');

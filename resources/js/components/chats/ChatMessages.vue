@@ -1253,11 +1253,13 @@ export default {
     },
     showMoreOption:function(message){
 
-        
+         if( this.$root.selectedSpace.type == 'Bot' ) return
        this.$root.replyMessage = message;
           this.$root.chatComponent.showMoreOptions = true;
     },
     goToProfile:function(username){
+
+       if( this.$root.selectedSpace.type == 'Bot' ) return
         this.$root.selectedUsername = username;
          this.$router.push({ path:'/profile-view/' + username})
       },

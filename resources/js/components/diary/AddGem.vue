@@ -287,6 +287,16 @@
 
                 </div>
 
+                
+
+                <div class="px-4 d-md-none">
+
+                </div>
+
+                <div class="px-1 d-md-none">
+                    <v-btn title="close" @click.stop="that.$root.AddModalIsUp = false" icon style="background:white;"> <v-icon style="font-size:22px;">mdi mdi-close</v-icon></v-btn>
+                </div>
+
               
              <div class="py-1">
 

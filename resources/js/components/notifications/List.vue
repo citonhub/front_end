@@ -67,7 +67,7 @@
 
                    <template v-else >
 
-                      <template v-if="notification.post_data != undefined">
+                     
 
                          <template  v-if="notification.type == 'diary_changes'">
 
@@ -87,7 +87,7 @@
                         
                      
 
-                      </template>
+                     
 
                    </template>
                    
@@ -146,17 +146,17 @@
                    </template>
 
                     <template v-if="notification.type == 'diary_changes'">
-                          <template v-if="notification.dataArray.length == 1">
-
-                             <span style="font-family:MediumFont;font-size:13px;">{{notification.dataArray[0].username}}</span> 
-
-                          </template>
-                          <template v-else>
-                             <span style="font-family:MediumFont;font-size:13px;">You have {{notification.dataArray.length}} new updates</span> 
+                         
+                          <template>
+                             <span style="font-family:MediumFont;font-size:13px;">You have {{notification.dataArray.length}} new 
+                                <span v-if="notification.dataArray.length > 1">updates</span>
+                                <span v-else>update</span>
+                                
+                                </span> 
                           </template>
                      
 
-                      <span style="font-family:BodyFont;font-size:13px;"> from ,</span> 
+                      <span style="font-family:BodyFont;font-size:13px;"> from a diary - </span> 
 
                       <span  style="font-family:MediumFont;font-size:13px;">{{notification.diary.name}}</span>
 

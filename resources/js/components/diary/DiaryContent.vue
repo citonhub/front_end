@@ -139,7 +139,7 @@
 
               <div class="d-flex flex-row">
 
-                <div class="d-flex flex-row" style="width:100%;align-items:center;">
+                <div class="d-flex flex-row" style="width:80%;align-items:center;">
                    <v-icon style="font-size:25px;" color="#3C87CD" class="mr-2 handle">lar la-clipboard</v-icon>
                    <div style="font-size:13px; font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" > {{ element.note.tag_name }} 
                       <span  style="font-size:11px; font-family:BodyFont;color:gray;" class=" mx-1">
