@@ -2589,7 +2589,7 @@ export default {
 
             this.botSuggestionArray = response.data.patterns;
 
-         this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data[1]);
+         this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data.patterns);
 
               }
 
