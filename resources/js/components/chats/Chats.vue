@@ -2585,7 +2585,7 @@ export default {
 
               if(response.data.space.type == 'Bot'){
 
-            this.botSuggestionArray = response.data.patterns;
+            this.$root.botSuggestionArray = response.data.patterns;
 
          this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data.patterns);
 
