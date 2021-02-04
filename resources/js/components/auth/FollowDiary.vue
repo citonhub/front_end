@@ -126,7 +126,7 @@ path:'/channels'
             })
         },
         skip:function(){
-            that.$root.chatComponent.suggestionsContent = 'notification'; 
+            this.$root.chatComponent.suggestionsContent = 'notification'; 
           this.updateUserProfile()
         },
         canProceed:function(){
