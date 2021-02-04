@@ -236,7 +236,7 @@ export default {
 
                if(moment(realTimeHour) >= anHourAgo){
 
-                    return moment(realTimeHour).fromNow();
+                 return moment(realTimeHour).format("h:mm a");
                   
                } 
 
