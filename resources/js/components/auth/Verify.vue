@@ -243,6 +243,8 @@ export default {
 
           if(this.$root.userEmail == ''){
 
+             this.showAlert('Hey!','Please login with your email and password','info')
+
               this.$router.push({ path: '/login' });
 
               return;

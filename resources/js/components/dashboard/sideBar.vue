@@ -37,20 +37,7 @@
                 </div>
           </div>
 
-              <div class="col-12  px-0 py-1 py-md-2 sideBar" :style="selectedTab == 'hub' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('hub')">
-                <div class="row">
-                <div class="col-4 py-1 text-center">
-                 
-                    <v-icon class="d-none d-md-inline-block" style="font-size:30px;" :color="selectedTab == 'hub' ? '#3C87CD' : '#A4A4A5'">las la-stream</v-icon>
-                 <v-icon  class="d-md-none d-inline-block" style="font-size:27px;" :color="selectedTab == 'hub' ? '#3C87CD' : '#A4A4A5'">las la-stream</v-icon>
-                </div>
-                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'hub' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:14px;" >Showcase</div>
-                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:13px;" >Showcase</div>
-                </div>
-                </div>
-          </div>
-
+             
           
            <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'challenges' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('challenges')">
                 <div class="row">
@@ -67,6 +54,10 @@
                 </div>
                 </div>
           </div>
+
+
+          
+
 
            <div class="col-12  px-0 py-1 py-md-2 sideBar mt-1 " :style="selectedTab == 'projects' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('projects')">
                 <div class="row">
@@ -94,6 +85,20 @@
                 <div class="  py-1 col-8 d-flex" :style="selectedTab == 'diary' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
                   <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:14px;" >Diary</div>
                   <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:13px;" >Diary</div>
+                </div>
+                </div>
+          </div>
+
+           <div class="col-12  px-0 py-1 py-md-2 sideBar" :style="selectedTab == 'hub' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('hub')">
+                <div class="row">
+                <div class="col-4 py-1 text-center">
+                 
+                    <v-icon class="d-none d-md-inline-block" style="font-size:30px;" :color="selectedTab == 'hub' ? '#3C87CD' : '#A4A4A5'">las la-stream</v-icon>
+                 <v-icon  class="d-md-none d-inline-block" style="font-size:27px;" :color="selectedTab == 'hub' ? '#3C87CD' : '#A4A4A5'">las la-stream</v-icon>
+                </div>
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'hub' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
+                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:14px;" >Showcase</div>
+                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:13px;" >Showcase</div>
                 </div>
                 </div>
           </div>
