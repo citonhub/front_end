@@ -243,6 +243,10 @@ export default {
 
           if(this.$root.userEmail == ''){
 
+              this.$router.push({ path: '/login' });
+
+              return;
+
              storedEmail.then((result)=>{
 
                  if(result != null){

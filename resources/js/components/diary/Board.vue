@@ -367,6 +367,8 @@ export default {
 
             this.$root.diaryBoardComponent.showAlert('Deleted!','Note was deleted','success');
 
+            this.saveNoteOrder(false);
+
       }
        
      
@@ -375,7 +377,7 @@ export default {
 
       this.$root.diaryBoardComponent.showAlert('Oops!','Unable to delete note','error');
        
-    
+        
      }) 
  
             instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
@@ -394,6 +396,53 @@ export default {
 
 
     },
+     saveNoteOrder: function(showAlert = true){
+       
+       let NoteArray = [];
+
+        this.$root.selectedDiary.notes.forEach((note)=>{
+
+         NoteArray.push(note.note.tag_unique_id)
+   
+        });
+
+      axios.post( '/save-note-order',{
+        bot_id: this.$route.params.diary_id,
+        notes: NoteArray
+      })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         if(showAlert){
+
+               this.$root.diaryBoardComponent.showAlert('Saved!','Your changes have been saved','success');
+
+         }
+
+       
+
+             this.$root.LocalStore('user_diary_data_' +  this.$route.params.diary_id + this.$root.username,this.$root.selectedDiary);
+
+             
+
+     
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+     this.$root.diaryBoardComponent.showAlert('Oops!','Unable to save changes,please try again','error');
+       
+    
+     }) 
+
+        
+        
+         
+     },
    }
 }
 </script>
