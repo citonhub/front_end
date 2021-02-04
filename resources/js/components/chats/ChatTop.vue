@@ -567,6 +567,16 @@ export default {
         return onlineUserList.length;
        },
        goback: function(){
+
+          if(this.$root.comingFromDiaryBank){
+
+          this.$router.push({ path: '/board/diary/bank' });
+
+          this.$root.comingFromDiaryBank = false;
+
+          return;
+
+         }
           
              this.$router.push({ path: '/channels'});
           

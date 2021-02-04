@@ -137,6 +137,7 @@ const DiaryBoard= () => import(/* webpackChunkName: "DiaryBoard" */ '../componen
 const DiaryContent= () => import(/* webpackChunkName: "DiaryContent" */ '../components/diary/DiaryContent.vue');
 const AddGem= () => import(/* webpackChunkName: "AddGem" */ '../components/diary/AddGem.vue');
 const GetDiary= () => import(/* webpackChunkName: "GetDiary" */ '../components/diary/GetDiary.vue');
+const DiaryBank= () => import(/* webpackChunkName: "DiaryBank" */ '../components/diary/bank.vue');
 
 // feedback routes
 const FeedForm= () => import(/* webpackChunkName: "FeedForm" */ '../components/Feedback/FeedbackForm.vue')
@@ -473,6 +474,8 @@ beforeEnter: (to, from, next) => {
           thisUserState.selectedSpace = [];
           thisUserState.$root.chatComponent.chatbarContent = 'chat_list';
          }
+
+        
   
        
             
@@ -572,7 +575,7 @@ beforeEnter: (to, from, next) => {
   
      
    }
-  
+
 
   }
 
@@ -1438,8 +1441,15 @@ children:[
         meta: {
           twModalView: true
         },
-        redirect:'/board/diary/list',
+        redirect:'/board/diary/bank',
         children:[
+          { 
+            path:'bank',
+            component:DiaryBank,
+            meta: {
+              twModalView: true
+             },
+          },
           {
             // list
             path:'list',
@@ -1866,6 +1876,10 @@ const app = new Vue({
      fromVerifyPage:false,
      followDiariesLoaded:false,
      channelChats:[],
+     diaryBankList:[],
+     diaryBankSearchList:[],
+     diaryBankComponent:[],
+     comingFromDiaryBank:false,
      },
      mounted: function () {
       window.thisUserState = this;

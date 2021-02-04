@@ -636,7 +636,20 @@
 
                                 </template>
 
-                             
+                              <!-- ends -->
+
+                               <!-- share diary -->
+                          
+                           <template v-if="that.$root.selectedSpace.type ==  'Bot'">
+
+                                       <v-btn @click="shareDiary()" v-if="chatIsOpen"    fab x-small color="#ffffff" class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:14%; right:1%;">
+
+                               <v-icon style="font-size:20px; color:#3C87CD;">mdi mdi-share-variant</v-icon>
+
+                              </v-btn>
+
+                                   </template>
+
 
                               <!-- ends -->
 
@@ -1016,6 +1029,21 @@
 
                               <!-- ends -->
 
+                              <!-- share diary -->
+                          
+                           <template v-if="that.$root.selectedSpace.type ==  'Bot'">
+
+                                       <v-btn @click="shareDiary()" v-if="chatIsOpen"   fab x-small color="#ffffff"  style="z-index:9999999;  position:fixed;  bottom:16%; right:2%; ">
+
+                               <v-icon style="font-size:20px; color:#3C87CD;">mdi mdi-share-variant</v-icon>
+
+                              </v-btn>
+
+                                   </template>
+
+
+                              <!-- ends -->
+
                              <div class="col-12 py-0 px-0" style=" left:0; position:fixed; bottom:0%;z-index:999999999;" >
                                 <div class="col-12  py-1"  v-if="that.$root.showEmojiBox">
                             <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
@@ -1290,6 +1318,27 @@
         <div class="py-2" style="font-size:14px;font-family:BodyFont;">
              Checking for diary ...
         </div>
+
+ </div>
+
+
+ <!-- ends -->
+
+   <!-- share  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" @click="that.$root.showInvitation = false" v-if="this.$root.showInvitation">
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+
+   
+
+      
+      <invitation :infoText="this.$root.infoText"
+                                   :extraInfo="this.$root.extraInfo" :fromChat="false" :alertComponent="this.$root.alertComponent"></invitation>
+   
+
+   </div>
 
  </div>
 
@@ -1603,6 +1652,18 @@ export default {
      
   
 },
+ shareDiary:function(){
+
+    this.$root.shareLink =  'https://www.citonhub.com/link/diary/'+ this.$root.selectedSpace.bot_data.bot_id;
+
+          this.$root.shareText = 'Check out this diary on Citonhub';
+          
+          this.$root.infoText = 'Share diary with others';
+
+    this.$root.alertComponent =   this;
+
+          this.$root.showInvitation = true;
+ },
      imageStyle:function(dimension,data,type){
       
 

@@ -268,7 +268,7 @@
 
         if(notification.type == 'new_connection'){
 
-             this.$router.push({ path:'/profile/' + this.$root.username})
+             this.$router.push({ path:'/profile/' + notification.dataArray[0].username})
 
         }
 

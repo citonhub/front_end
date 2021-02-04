@@ -40,7 +40,7 @@
                                            
                                            
 
-                                                 <v-btn v-else  x-small @click="followDiary(diary)"  color="#3C87CD" rounded style="color:white;text-transform:capitalize;font-family:BodyFont;font-size:12px;" class="mx-2 d-inline-block" >follow</v-btn>
+                                                 <v-btn v-else  x-small outlined @click="followDiary(diary)"  color="#3C87CD" rounded style="text-transform:capitalize;font-family:BodyFont;font-size:12px;" class="mx-2 d-inline-block" >follow</v-btn>
 
                                           
                                               

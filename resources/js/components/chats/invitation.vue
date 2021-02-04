@@ -68,7 +68,7 @@
                      </v-card>
                    
 
-                      <v-card v-if="fromChat" tile flat class="py-2 px-2 d-flex flex-row col-12" @click.stop="mailInvite" style="border-bottom:1px solid #c5c5c5;">
+                      <v-card v-if="fromChat && !that.$root.comingFromDiaryBank " tile flat class="py-2 px-2 d-flex flex-row col-12" @click.stop="mailInvite" style="border-bottom:1px solid #c5c5c5;">
                      
                       <div class="mr-2">
 
@@ -249,6 +249,7 @@ export default {
           Connections:[],
           loadingConnection:false,
           selectedExtraOptions: false,
+          that:this,
        
         }
     },
