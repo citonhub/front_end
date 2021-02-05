@@ -256,7 +256,7 @@
         imageStyle: function(size,data){
 
          if(data.background_color == null){
-        let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:50%;background-repeat: no-repeat; ";
+        let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:3px;background-repeat: no-repeat; ";
          if(data.image_name == null || data.image_name == '0'){
               styleString += 'background-color:whitesmoke; background-image:url(imgs/background1.jpg);';
          }else{
@@ -282,7 +282,7 @@
          
          return styleString;
        }else{
-         let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:50%;background-repeat: no-repeat; ";
+         let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:3px;background-repeat: no-repeat; ";
          let imgLink = data.image_name + '.' + data.image_extension;
         
         styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/thumbnails/'  + imgLink  +  ');';

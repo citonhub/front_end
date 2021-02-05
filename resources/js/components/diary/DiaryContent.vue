@@ -37,40 +37,7 @@
                      
                 </div> 
 
-                <div class="d-flex flex-row mt-2" style="align-items:center;justify-content:center;">
-
-                 
-                  
-
-                   <div class="px-2 d-flex flex-column mx-2" style="align-items:center;justify-content:center;">
-                    <div>
-                      <v-icon style="font-size:26px;">las la-user-friends</v-icon>
-                    </div>
-                    <div>
-                    <span style="font-size:12px;font-family:BodyFont;">  {{this.$root.selectedDiary.users}} </span>
-                    </div>
-                  </div>
-
-                   <div class="px-2 d-flex flex-column mx-2" style="align-items:center;justify-content:center;">
-                    <div>
-                      <v-icon style="font-size:26px;cursor:pointer;" @click="shareDiary()">mdi-share-variant</v-icon>
-                    </div>
-                    <div>
-                      <span style="font-size:11px;font-family:BodyFont;"> share </span>
-                    </div>
-                  </div>
-
-
-                   <div class="px-2 d-flex flex-column mx-2" style="align-items:center;justify-content:center;">
-                    <div>
-                      <i style="font-size:26px;color:grey;" class="lar la-eye"></i>
-                    </div>
-                    <div>
-                    <span style="font-size:12px;font-family:BodyFont;"> {{calculateView()}} </span>
-                    </div>
-                  </div>
-
-                </div>
+              
        
 
                 </div>
@@ -78,6 +45,30 @@
             </div>
 
             <!-- ends -->
+
+              <div class="col-12 py-1 px-2 mt-2 d-flex flex-row" style="align-items:center; border-top:1px solid #c5c5c5;border-bottom:1px solid #c5c5c5;">
+
+        <div class="d-flex flex-row">
+
+          <div>
+              <span style="font-size:13px;color:black;font-family:MediumFont;"> {{this.$root.selectedDiary.users}}</span> 
+                 <span style="font-size:13px;font-family:BodyFont;" class="mx-1">Followers</span>
+          </div>
+
+           <div class="ml-1">
+              <span style="font-size:13px;color:black;font-family:MediumFont;">{{calculateView()}}</span> 
+                 <span style="font-size:13px;font-family:BodyFont;" class="mx-1">Views</span>
+          </div>
+
+        </div>
+
+         <div class="d-flex flex-row ml-auto">
+
+          <v-btn icon @click="shareDiary()" ><v-icon style="font-size:26px;cursor:pointer;" >mdi-share-variant</v-icon></v-btn>
+
+        </div>
+
+      </div>
 
             <div class="col-md-8 px-1 px-md-2 offset-md-2 mt-3 col-lg-6 offset-lg-3 py-0 d-md-none ">
 
@@ -383,7 +374,7 @@ export default {
       imageStyle: function(size,data){
 
          if(data.background_color == null){
-        let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:50%;background-repeat: no-repeat; border:5px solid #3C87CD;";
+        let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:7px;background-repeat: no-repeat; border:5px solid #3C87CD;";
          if(data.image_name == null || data.image_name == '0'){
               styleString += 'background-color:whitesmoke; background-image:url(imgs/background1.jpg);';
          }else{
@@ -409,7 +400,7 @@ export default {
          
          return styleString;
        }else{
-         let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:50%;background-repeat: no-repeat;border:5px solid #3C87CD; ";
+         let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:7px;background-repeat: no-repeat;border:5px solid #3C87CD; ";
          let imgLink = data.image_name + '.' + data.image_extension;
         
         styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
