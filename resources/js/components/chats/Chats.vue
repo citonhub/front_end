@@ -126,9 +126,13 @@
 
         <chat-list :source="item" ></chat-list>
 
-        <template #after v-if="that.$root.channelChats.length == 0"> 
+      
+          </DynamicScrollerItem>
+             </template>
 
-          <div class="col-12 text-center d-flex flex-column">
+               <template #after> 
+
+          <div class="col-12 mt-2 text-center d-flex flex-column"  v-if="that.$root.channelChats.length == 0">
                      <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
                       Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
                     </div>
@@ -140,8 +144,6 @@
 
         </template>
 
-          </DynamicScrollerItem>
-             </template>
 
                 </DynamicScroller>
 
@@ -695,9 +697,15 @@
 
         <chat-list :source="item" ></chat-list>
 
-         <template #after v-if="that.$root.channelChats.length == 0"> 
+         
 
-          <div class="col-12 text-center d-flex flex-column">
+          </DynamicScrollerItem>
+             </template>
+
+
+             <template #after > 
+
+          <div class="col-12 mt-2 text-center d-flex flex-column" v-if="that.$root.channelChats.length == 0">
                      <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
                       Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
                     </div>
@@ -708,9 +716,6 @@
           </div>
 
         </template>
-
-          </DynamicScrollerItem>
-             </template>
 
                 </DynamicScroller>
 

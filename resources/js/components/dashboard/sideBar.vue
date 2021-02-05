@@ -57,7 +57,7 @@
 
 
 
-            <div class="col-12  px-0 py-1 py-md-2 sideBar" :style="selectedTab == 'hub' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('hub')">
+            <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar" :style="selectedTab == 'hub' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('hub')">
                 <div class="row">
                 <div class="col-4 py-1 text-center">
                  

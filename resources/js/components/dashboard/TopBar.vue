@@ -15,7 +15,7 @@
                      <v-text-field
                 style="font-size:13px;"
                    v-model="searchContent"
-                 :placeholder="this.$router.currentRoute.path.indexOf('bank') >= 0  ? 'Discover diaries'  :  'Search ' + that.$root.searchType"
+                 :placeholder="'Search ' + that.$root.searchType"
               filled
               dense
               @input="triggerSearch"
@@ -84,7 +84,7 @@
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
                 <template v-if="this.$router.currentRoute.path.indexOf('notifications') <= 0">
              <input style="width:100%;heigth:100%;font-size:13px;"  @input="triggerSearch"  v-model="searchContent" 
-                :placeholder="this.$router.currentRoute.path.indexOf('bank') >= 0  ? 'Discover diaries'  :  'Search ' + that.$root.searchType"
+                :placeholder="'Search ' + that.$root.searchType"
               class="py-2 px-2" type="search" >   
                 </template>    
          

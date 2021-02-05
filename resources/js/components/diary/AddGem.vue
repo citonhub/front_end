@@ -396,18 +396,9 @@
 
              <div style="background:white;border:1px solid transparent;border-radius:7px;" >
 
-                 <v-textarea
-                 style="font-size:14px;"
-                 outlined
-                 height="300px"
-                  color="#3C87CD"
-                 @input="updateText()"
-                :placeholder="'Type here...'"
-                v-model="input" 
                
-                >
 
-                </v-textarea>
+                 <v-press-editor v-model="input" :height="'400px'"  :placeholder="'Type here'" ></v-press-editor>
 
              </div>
 
@@ -765,6 +756,10 @@ const ImageCropperBoard = () => import(
     /* webpackChunkName: "imageCropperBoardDiary" */ './ImageCropper.vue'
   );
 
+   const VPressEditor = () => import(
+    /* webpackChunkName: "VPressEditor" */ '../challenges/Editor.vue'
+  );
+
 
 import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
@@ -1020,7 +1015,8 @@ export default {
       AudioPlayer,
       Images,
        ImageCropperBoard,
-      codemirror
+      codemirror,
+      VPressEditor
   },
    computed: {
     dragOptions() {
@@ -1864,6 +1860,7 @@ crophandler:function(e){
        sendMessage: function(){
         this.loadingSendMsg = true;
 
+       this.updateText();
           
           let formData = new FormData();
          

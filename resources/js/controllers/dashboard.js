@@ -1441,7 +1441,7 @@ children:[
         meta: {
           twModalView: true
         },
-        redirect:'/board/diary/bank',
+        redirect:'/board/diary/list',
         children:[
           { 
             path:'bank',

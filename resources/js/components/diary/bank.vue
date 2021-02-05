@@ -16,9 +16,9 @@
 
   <!-- fab for smaller screen -->
 
-    <v-btn small  @click="goToDiaryList()" rounded  color="#3C87CD"  class="d-md-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
+    <v-btn medium  @click="goToDiaryList()" rounded  color="#3C87CD"  class="d-md-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
 
-       <v-icon   color="#ffffff"  style="font-size:20px;">mdi-book-multiple-outline</v-icon> <span class="mr-1" style="font-size:12px;color:white;text-transform:none;font-family:MediumFont;">My diaries</span> 
+       <span class="mr-1" style="font-size:12px;color:white;text-transform:none;font-family:MediumFont;">My diaries</span> 
 
      </v-btn>
 
