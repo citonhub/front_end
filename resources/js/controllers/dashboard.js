@@ -4441,7 +4441,7 @@ if (state.iceConnectionState.search(/disconnected|closed|failed/gi) === -1) {
 
 
 
-   if(newInfo.length == 0){
+   if(newInfo.length == 0 && state.extra.profile.username != this.username){
 
     this.$root.allAudioParticipant.push([state.extra,state.userid])
 
