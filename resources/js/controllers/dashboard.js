@@ -2237,7 +2237,8 @@ const app = new Vue({
       'unread': userProfile.unread,
       'points': userProfile.points,
       'user_onboarded':userProfile.user_onboarded,
-      'suggested_diary': userProfile.suggested_diary
+      'suggested_diary': userProfile.suggested_diary,
+      
       };
         
 
@@ -3849,6 +3850,7 @@ this.$root.dataconnection.socketURL = 'https://rtc.citonhub.com:9001/';
 // set user as default speaker
 let userSpeakerData =  this.authProfile;
      userSpeakerData.speaking = false;    
+     userSpeakerData.muted = false;    
 
 this.speakingUser = userSpeakerData; 
 
@@ -3939,6 +3941,26 @@ this.$root.liveShowCode = true;
 this.codeboxComponent.setCodeContent();
  
 }
+
+ if(event.data.action == 'mute_state'){
+
+  this.$root.allAudioParticipant.map((user)=>{
+    if(user[1] == event.data.data.userid){
+
+       if(event.data.data.status == 'muted'){
+        user[0].profile.muted = true
+       }
+
+       if(event.data.data.status == 'unmuted'){
+        user[0].profile.muted = false
+       }
+
+      
+
+    }
+  })
+
+ }
 
 if(event.data.action == 'neutral' ){
 
@@ -4239,8 +4261,13 @@ audio: 128
 
 this.$root.audioconnection.socketMessageEvent = 'audio-conference';
 
+// set user 
+let userMainData =  this.authProfile;
+userMainData.speaking = false;    
+userMainData.muted = false; 
+
 this.$root.audioconnection.extra = {
-   profile: this.$root.authProfile,
+   profile: userMainData,
   joinedAt: (new Date).toISOString(),
   volume: 80.00,
   speaking: false
@@ -4337,6 +4364,8 @@ mediaElementSm.id = event.streamid + 'small';
 
    _this.setUserSpeaker();
 
+   
+
 
 };
 
@@ -4351,6 +4380,8 @@ if (e.muteType === 'both' || e.muteType === 'video') {
 } else if (e.muteType === 'audio') {
   e.mediaElement.muted = true;
 }
+
+  _this.sendMuteDetails('muted')
 };
 
 this.$root.audioconnection.onunmute = function(e) {
@@ -4365,6 +4396,8 @@ if (e.unmuteType === 'both' || e.unmuteType === 'video') {
 } else if (e.unmuteType === 'audio') {
   e.mediaElement.muted = false;
 }
+
+_this.sendMuteDetails('unmuted')
 };
 
 
@@ -4408,7 +4441,7 @@ if (state.iceConnectionState.search(/disconnected|closed|failed/gi) === -1) {
 
 
 
-   if(newInfo.length == 0  && state.extra.profile.username != this.username){
+   if(newInfo.length == 0){
 
     this.$root.allAudioParticipant.push([state.extra,state.userid])
 
@@ -4729,6 +4762,24 @@ this.$root.dataconnection = undefined;
               }
 
        }, 
+       sendMuteDetails:function(status){
+
+        if(this.$root.dataconnection != undefined){
+             
+          let data = {
+            userid: this.$root.audioconnection.userid,
+            status:  status,
+        };
+  
+        this.$root.dataconnection.send({
+          action:'mute_state',
+          data: data,
+          space_id: this.$root.selectedSpace.space_id
+        });
+         
+        }
+
+       },
 
       // detect speaker
       setUserSpeaker: function(){

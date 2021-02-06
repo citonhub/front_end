@@ -14,10 +14,8 @@
        
                
 
-
-                         <!--follow Popup-->
-
-
+<!-- 
+               
   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showUserNotification">
 
    <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
@@ -42,10 +40,9 @@
 
    </div>
 
- </div>
+ </div> -->
 
-
-                      <!--follow Popup ends--> 
+ 
 
 
          <!-- large screens -->
@@ -561,6 +558,10 @@
 
                             <!-- channel sidebar -->
 
+                             <!-- audio container -->
+                               <div  id="audios-container" v-show="false"></div>
+                              <!-- ends -->
+
                             <!-- live session -->
 
                          
@@ -573,9 +574,7 @@
 
                <div  id="videos-container" ></div>
 
-                 <!-- audio container -->
-                               <div  id="audios-container" v-show="false"></div>
-                              <!-- ends -->
+                
                </div>
 
                             <!-- ends -->
@@ -1182,7 +1181,10 @@
                                 
                             <!-- channel sidebar -->
 
-
+                            
+                               <!-- audio container -->
+                               <div  id="audios-container-sm" v-show="false"></div>
+                              <!-- ends -->
 
                          
                              <!-- live session -->
@@ -1195,9 +1197,7 @@
 
                <div  id="videos-container-sm" ></div>
 
-                 <!-- audio container -->
-                               <div  id="audios-container-sm" v-show="false"></div>
-                              <!-- ends -->
+              
              </div>
 
                             <!-- ends -->
@@ -1657,6 +1657,7 @@ export default {
      
   
 },
+ 
  shareDiary:function(){
 
     this.$root.shareLink =  'https://www.citonhub.com/link/diary/'+ this.$root.selectedSpace.bot_data.bot_id;
