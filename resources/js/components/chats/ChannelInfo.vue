@@ -92,11 +92,11 @@
         <span style="font-size:13px;">{{member.name}} @{{member.username}}</span>
    </div>
     <div class="py-0 my-0 " style="align-items:center; position:absolute; top:5%; right:5%;" v-if="member.is_admin">
-                         <span style="font-size:10px; color:#4d4d4d;">Admin <v-icon color="green" v-if="checkIfOnline(member.user_id)" style="font-size:12px;">mdi-circle </v-icon></span>
+                         <span style="font-size:10px; color:#4d4d4d;">Admin <v-icon color="#33cc33" v-if="checkIfOnline(member.user_id)" style="font-size:12px;">mdi-circle </v-icon></span>
                     </div>
 
                <div class="py-0 my-0 " style="align-items:center; position:absolute; top:5%; right:5%;" v-else>
-                         <span style="font-size:10px; color:#4d4d4d;"> <v-icon color="green" v-if="checkIfOnline(member.user_id)" style="font-size:12px;">mdi-circle </v-icon></span>
+                         <span style="font-size:10px; color:#4d4d4d;"> <v-icon color="#33cc33" v-if="checkIfOnline(member.user_id)" style="font-size:12px;">mdi-circle </v-icon></span>
                     </div>
 
             
