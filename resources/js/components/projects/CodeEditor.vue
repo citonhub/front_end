@@ -298,10 +298,11 @@ methods:{
 
               })
               codeData = codeData[0];
+               this.$root.EditorLanguage = codeData.language_type;
+                this.$root.codeEditorContent = codeData.content;
                this.language = codeData.language_type;
               this.detectchange(this.language);
              this.code = codeData.content;
-
           }
           
           if(this.$root.SelectedCodeBox.type == 'back-end'){
@@ -313,6 +314,8 @@ methods:{
 
            })
               codeData = codeData[0];
+               this.$root.EditorLanguage = codeData.language_type;
+                this.$root.codeEditorContent = codeData.content;
                this.language = codeData.language_type;
               this.detectchange(this.language);
              this.code = codeData.content;
