@@ -524,7 +524,7 @@
                                <!-- No access -->
 
 
-              <div class="d-flex flex-column col-12"   v-if="checkIfMemeber()"    style="background:#ffffff; border-top:1px solid #c5c5c5;  position:absolute; height:100%; top:0%;z-index:9999999999999; align-items:center; justify-content:center;">
+              <div class="d-flex flex-column col-12"   v-if="chatIsOpen && checkIfMemeber()"    style="background:#ffffff; border-top:1px solid #c5c5c5;  position:absolute; height:100%; top:0%;z-index:9999999999999; align-items:center; justify-content:center;">
 
            
             <img alt="Thank you" class="mb-2"  src="/imgs/oops.gif" height="100"/>
