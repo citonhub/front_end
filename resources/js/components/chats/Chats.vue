@@ -3168,7 +3168,7 @@ export default {
                   
                   finalResult.members = response.data.members;
 
-                  this.$root.selectedSpaceMembers = response.data.members;
+                 
                   
 
             this.$root.LocalStore('full_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
