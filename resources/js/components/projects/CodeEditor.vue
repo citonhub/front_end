@@ -414,6 +414,10 @@ methods:{
           }
           this.loading = true;
 
+           if(this.code == ''){
+              return
+           }
+
       axios.post( '/save-code-content-project',{
                 project_slug: this.$route.params.project_slug,
                 file_id: this.$root.selectedFileId,
