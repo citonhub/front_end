@@ -521,11 +521,75 @@
 
                             <!-- ends -->
 
+                               <!-- No access -->
+
+
+              <div class="d-flex flex-column col-12"   v-if="checkIfMemeber()"    style="background:#ffffff; border-top:1px solid #c5c5c5;  position:absolute; height:100%; top:0%;z-index:9999999999999; align-items:center; justify-content:center;">
+
+           
+            <img alt="Thank you" class="mb-2"  src="/imgs/oops.gif" height="100"/>
+
+           <div class="py-2 mb-2" style="font-size:14px;font-family:BodyFont;">
+             Oops! You no longer have access to this channel.
+           </div>
+
+           <div>
+             <v-btn small  @click="leaveSpace" color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Delete Channel</v-btn>
+             </div>
+
+
+
+              </div>
+
+
+              <!-- ends -->
+
+
                               <!-- channel sidebar -->
 
 
                                <div  v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" @click="goBack" style="overflow-x:hidden; background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
+                                   
+                                   
+                                   <!-- admin options -->
+
+                          <div style="position:absolute; height:100%; width:70%; left:30%;z-index:99999999999999;" v-if="that.$root.showAdminOption">
+                           <div class="offset-lg-6 d-flex" @click.stop="that.$root.showAdminOption = false" style="height:100%; align-items:center; justify-content:center; background: rgba(225, 225, 225, 0.32);" >
+ 
+                      
+                          <v-card style="border-radius:10px;width:90%;"
+             height="auto"
+              
+       class="py-2 px-1"  >
+
+            <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click.stop="makeAdmin"
+             v-if="selectedSpaceMembers.is_admin == false">
+        <span style="font-size:13px;">{{ $t('space.make_admin') }}</span>
+            </v-card>
+             <v-card tile  @click.stop="RemoveAdmin" flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" v-else>
+        <span style="font-size:13px;">{{ $t('space.remove_admin') }}</span>
+            </v-card>
+
+             <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click.stop="removeUser">
+        <span style="font-size:13px;">{{ $t('space.remove') }}</span>
+            </v-card>
+         <v-card tile flat class="text-center py-2"  @click.stop="goToProfile(selectedSpaceMembers.username)">
+        <span style="font-size:13px;">{{ $t('space.view_profile') }}</span>
+            </v-card>
+
+             </v-card>
+      
+   
+
+                           </div>
+                          </div>
+
+
+                              <!-- ends -->
+                                   
                                    <div style="position:absolute; height:100%; width:70%; left:30%;" >
+
+                                     
 
                                     <div  @click.stop="chatInnerSideBar = true" class="scrollerinfo offset-lg-6" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
                                        
@@ -534,6 +598,8 @@
                           <img src="/imgs/diary_loading.svg" height="50" >
 
                                </div>
+
+
                                      
                                         <channel-info v-if="innerSideBarContent == 'channel_info'" ></channel-info>
                                      
@@ -591,7 +657,9 @@
                             
 
                             <!-- ends -->
+                        
 
+                      
                                <!-- share -->
 
                             <div  v-if="chatIsOpen && !chatInnerSideBar && chatShareIsOpen"  class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;"  >
@@ -1146,6 +1214,31 @@
                             <!-- ends -->
 
 
+                              <!-- No access -->
+
+
+              <div class="d-flex flex-column col-12" v-if="checkIfMemeber()"  style="background:#ffffff; border-top:1px solid #c5c5c5;  position:fixed; height:100%; top:0%;z-index:9999999999999; align-items:center; justify-content:center;">
+
+           
+            <img alt="Thank you" class="mb-2"  src="/imgs/oops.gif" height="80"/>
+
+           <div class="py-2 mb-2" style="font-size:14px;font-family:BodyFont;">
+             Oops! You no longer have access to this channel.
+           </div>
+
+           <div>
+             <v-btn small  @click="leaveSpace" color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Delete Channel</v-btn>
+             </div>
+
+
+
+              </div>
+
+
+              <!-- ends -->
+
+
+
                               <!-- channel sidebar -->
 
                                <div v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32);  left:0; position:fixed; height:100%; top:0%;z-index:99999999999999999;" >
@@ -1158,6 +1251,8 @@
                           <img src="/imgs/diary_loading.svg" height="50" >
 
                                </div>
+
+                             
                                         
                                         <channel-info v-if="innerSideBarContent == 'channel_info'" ></channel-info>
                                      
@@ -1180,6 +1275,41 @@
                                </div>
                                 
                             <!-- channel sidebar -->
+
+
+                              <!-- admin options -->
+
+                          <div  class="d-flex" @click.stop="that.$root.showAdminOption = false"  style="position:fixed; height:100%; width:100%; top:0%; z-index:99999999999999999999;align-items:center; justify-content:center; background: rgba(225, 225, 225, 0.32);" v-if="that.$root.showAdminOption" >
+                           
+                          <v-card style="border-radius:10px;width:90%;"
+             height="auto"
+      
+       class="py-2 px-1"  >
+
+            <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click.stop="makeAdmin"
+             v-if="selectedSpaceMembers.is_admin == false">
+        <span style="font-size:13px;">{{ $t('space.make_admin') }}</span>
+            </v-card>
+             <v-card tile @click.stop="RemoveAdmin" flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" v-else>
+        <span style="font-size:13px;">{{ $t('space.remove_admin') }}</span>
+            </v-card>
+
+             <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click.stop="removeUser">
+        <span style="font-size:13px;">{{ $t('space.remove') }}</span>
+            </v-card>
+         <v-card tile flat class="text-center py-2"  @click.stop="goToProfile(selectedSpaceMembers.username)">
+        <span style="font-size:13px;">{{ $t('space.view_profile') }}</span>
+            </v-card>
+
+             </v-card>
+      
+   
+
+                          
+                          </div>
+
+
+                              <!-- ends -->
 
                             
                                <!-- audio container -->
@@ -1536,6 +1666,7 @@ export default {
        showMoreOptions:false,
        bottomIsVisible:false,
        showMoreOptionsChat:false,
+       selectedSpaceMembers:[]
      
       }
     },
@@ -1657,7 +1788,243 @@ export default {
      
   
 },
- 
+ makeAdmin:function(){
+
+   this.$root.showAdminOption = false
+
+         axios.post( '/make-user-admin',{
+           memberId: this.selectedSpaceMembers.memberId
+         })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         
+        
+         this.$root.selectedSpaceMembers.map((member)=>{
+           if(member.memberId == response.data){
+
+             member.is_admin = true;
+
+           }
+         })
+
+            let storedMsg = this.$root.getLocalStore('full_' + this.$root.selectedSpace.space_id + this.$root.username);
+       
+           storedMsg.then((result)=>{
+
+               if(result != null){
+
+                   let finalResult = JSON.parse(result);
+
+                    finalResult.members = this.$root.selectedSpaceMembers;
+                  
+
+            this.$root.LocalStore('full_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
+
+              
+
+
+               }
+
+
+
+              
+           });
+
+
+
+         
+       
+      }
+       
+     
+     })
+     .catch(error => {
+
+       
+    
+     }) 
+
+      },
+
+      removeUser:function(){
+         this.$root.showAdminOption = false
+
+         axios.post( '/remove-user',{
+           memberId: this.selectedSpaceMembers.memberId
+         })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         
+        
+        let newUserList =  this.$root.selectedSpaceMembers.filter((member)=>{
+        return   member.memberId != response.data
+
+         })
+
+         this.$root.selectedSpaceMembers = newUserList;
+
+            let storedMsg = this.$root.getLocalStore('full_' + this.$root.selectedSpace.space_id + this.$root.username);
+       
+           storedMsg.then((result)=>{
+
+               if(result != null){
+
+                   let finalResult = JSON.parse(result);
+
+                    finalResult.members = this.$root.selectedSpaceMembers;
+                  
+
+            this.$root.LocalStore('full_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
+
+              
+
+
+               }
+
+
+
+              
+           });
+
+
+
+         
+       
+      }
+       
+     
+     })
+     .catch(error => {
+
+       
+    
+     }) 
+
+      },
+       RemoveAdmin:function(){
+      this.$root.showAdminOption = false
+         axios.post( '/remove-user-admin',{
+           memberId: this.selectedSpaceMembers.memberId
+         })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         
+        
+         this.$root.selectedSpaceMembers.map((member)=>{
+           if(member.memberId == response.data){
+
+             member.is_admin = false;
+
+           }
+         })
+
+            let storedMsg = this.$root.getLocalStore('full_' + this.$root.selectedSpace.space_id + this.$root.username);
+       
+           storedMsg.then((result)=>{
+
+               if(result != null){
+
+                   let finalResult = JSON.parse(result);
+
+                    finalResult.members = this.$root.selectedSpaceMembers;
+                  
+
+            this.$root.LocalStore('full_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
+
+              
+
+
+               }
+
+
+
+              
+           });
+
+
+
+         
+       
+      }
+       
+     
+     })
+     .catch(error => {
+
+       
+    
+     }) 
+
+      },
+ leaveSpace: function(){
+        let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+                   storedChat.then((result)=>{
+
+                       if(result != null ){
+
+                    let finalResult = JSON.parse(result);
+
+                       
+                       if(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' ){
+
+                          let remainingSpace = finalResult.channels.filter((space)=>{
+                         return    space.space_id != this.$root.selectedSpace.space_id
+                          });
+
+                          finalResult.channels = remainingSpace;
+
+                        }
+
+                         if(this.$root.selectedSpace.type == 'Bot'){
+
+                          let remainingSpace = finalResult.pet_spaces.filter((space)=>{
+                         return    space.space_id != this.$root.selectedSpace.space_id
+                          });
+
+                          finalResult.pet_spaces = remainingSpace;
+
+                        }
+                         
+
+                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult,false,'leave_space');
+
+                    
+                    
+
+                 }
+
+                   } )
+
+       },
+   goToProfile:function(username){
+          this.$root.showAdminOption = false
+        this.$root.selectedUsername = username;
+         this.$router.push({ path:'/profile-view/' + username})
+      },
+      checkIfMemeber: function(){
+
+        let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
+
+             return members.user_id == this.$root.user_temp_id;
+           });
+
+           if(userMemberData.length != 0){
+
+             return false
+
+           }else{
+              return true
+           }
+
+
+      },
  shareDiary:function(){
 
     this.$root.shareLink =  'https://www.citonhub.com/link/diary/'+ this.$root.selectedSpace.bot_data.bot_id;
@@ -2800,6 +3167,8 @@ export default {
                     
                   
                   finalResult.members = response.data.members;
+
+                  this.$root.selectedSpaceMembers = response.data.members;
                   
 
             this.$root.LocalStore('full_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);

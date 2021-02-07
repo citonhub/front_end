@@ -801,7 +801,7 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
       thisUserState.$root.chatComponent.chatInnerConent = '';
-   
+      thisUserState.$root.showProfileView = false;
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'channel_info';
        
@@ -1880,6 +1880,7 @@ const app = new Vue({
      diaryBankSearchList:[],
      diaryBankComponent:[],
      comingFromDiaryBank:false,
+     showAdminOption:false,
      },
      mounted: function () {
       window.thisUserState = this;
