@@ -646,6 +646,11 @@ export default {
       };
     },
     mounted(){
+       if(!this.$root.isLogged){
+
+            this.$root.checkIfUserIsLoggedIn();
+         return;
+        }
      this.$root.showTopBar = false;
      this.setEditValues();
      this.fetchChannels()

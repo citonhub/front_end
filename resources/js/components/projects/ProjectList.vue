@@ -253,6 +253,11 @@ const Project = () => import(
      
     },
     mounted(){
+       if(!this.$root.isLogged){
+
+            this.$root.checkIfUserIsLoggedIn();
+         return;
+        }
      this.$root.showTopBar = true;
      this.$root.projectListComponent = this;
      this.fetchProjects();

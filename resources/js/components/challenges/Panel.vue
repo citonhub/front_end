@@ -685,6 +685,8 @@ export default {
        },
        getChallengeLanguages:function(){
 
+        
+
           let languagesArray = this.$root.selectedChallenge.languages.split(',');
           
           let finalLangArray = [];
@@ -706,6 +708,12 @@ export default {
 
        },
        goToPanel:function(){
+
+           if(!this.$root.isLogged){
+
+            this.$root.checkIfUserIsLoggedIn();
+         return;
+        }
 
            let projectSlug = this.$root.selectedChallenge.participant_data.project_slug;
 
@@ -796,6 +804,11 @@ export default {
          this.$router.push({ path:'/profile-view/' + username})
       },
        joinChallenge:function(project){
+           if(!this.$root.isLogged){
+
+            this.$root.checkIfUserIsLoggedIn();
+         return;
+        }
          axios.post( '/join-challenge',{
            duel_id: this.$route.params.challenge_id,
            project_slug: project.project_slug,
@@ -1180,6 +1193,8 @@ export default {
 }, 1000);
        },
         goToPage:function(page){
+
+            
 
             if(page == 'channel'){
                 
