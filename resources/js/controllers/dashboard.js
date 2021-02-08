@@ -3160,7 +3160,13 @@ handleSpaceData: function(returnData){
 
         newMessages.forEach((message)=>{
 
-               
+           let thismessage = MessagesFull.messages.filter((eachmessage)=>{
+            return eachmessage.message_id == message.message_id
+           });
+
+           if(thismessage.length == 0){
+
+                     
         // update unread in chatlist
 
         this.ChatList.map((chatspace)=>{
@@ -3207,6 +3213,10 @@ handleSpaceData: function(returnData){
        });
 
       });
+
+           }
+
+      
 
            
 
@@ -3262,7 +3272,13 @@ handleSpaceData: function(returnData){
             
         newMessages.forEach((messages)=>{
 
-            // update unread in chatlist
+          let thismessage = MessagesFull.messages.filter((eachmessage)=>{
+            return eachmessage.message_id == messages.message_id
+           });
+
+           if(thismessage == 0){
+
+               // update unread in chatlist
 
         this.ChatList.map((chatspace)=>{
 
@@ -3288,6 +3304,10 @@ handleSpaceData: function(returnData){
 
 
             this.$root.clearUnreadMessageRemote(messages.message_id);
+
+           }
+
+         
 
            
 
