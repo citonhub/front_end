@@ -93,6 +93,12 @@ export default {
 
           }
 
+          if(this.$root.projectPanelComponent && this.$root.panelFromChallenges){
+
+             this.$root.projectPanelComponent.showAlert('Hey!','Share challenge to get your work voted for','info');
+
+          }
+
         
       
        
