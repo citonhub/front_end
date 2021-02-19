@@ -11,7 +11,7 @@
              <div class="col-lg-7 col-md-10 offset-md-1 offset-lg-0">
                 <div class="row">
                   <div class="col-lg-6 col-md-5 text-center">
-                      <template v-if="this.$router.currentRoute.path.indexOf('notifications') <= 0">
+                      <template v-if="that.$root.searchType != 'notifications' && that.$root.searchType != 'wallet'">
                      <v-text-field
                 style="font-size:13px;"
                    v-model="searchContent"
@@ -82,7 +82,7 @@
                  <v-btn icon @click="showSideBarHandler()"><v-icon style="font-size:25px;color:#263238;" >las la-bars</v-icon></v-btn>
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
-                <template v-if="this.$router.currentRoute.path.indexOf('notifications') <= 0">
+                <template v-if="that.$root.searchType != 'notifications' && that.$root.searchType != 'wallet'">
              <input style="width:100%;heigth:100%;font-size:13px;"  @input="triggerSearch"  v-model="searchContent" 
                 :placeholder="'Search ' + that.$root.searchType"
               class="py-2 px-2" type="search" >   

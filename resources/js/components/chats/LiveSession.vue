@@ -563,7 +563,7 @@ export default {
 
            if(userMemberData.length != 0){
 
-             return userMemberData[0].master_user;
+             return userMemberData[0].is_admin;
 
            }else{
               return false

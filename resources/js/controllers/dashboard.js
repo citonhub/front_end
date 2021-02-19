@@ -91,6 +91,9 @@ const SettingsMain = () => import(/* webpackChunkName: "SettingsMain" */ '../com
 
 // wallet routes
 const WalletInfo = () => import(/* webpackChunkName: "WalletInfo" */ '../components/Wallet/Info.vue');
+const WalletCard = () => import(/* webpackChunkName: "WalletCard" */ '../components/Wallet/card.vue');
+
+// feedbacks
 const Feedback=  () => import(/*webpackChunkName: "Feedback" */ '../components/dashboard/Feedback.vue')
 
 // notifications list
@@ -1577,6 +1580,11 @@ children:[
           twModalView: true
         },
         children:[
+          {
+            // card
+            path:'card',
+            component: WalletCard
+          },
            
           {
             // info
@@ -1942,11 +1950,11 @@ const app = new Vue({
 
        
 
-          this.connectingToSocket = 'disconnected';
+        //  this.connectingToSocket = 'disconnected';
         
           if(!this.manuallyClosed){
 
-            this.rejoinAudio(this.isMaster);
+       //     this.rejoinAudio(this.isMaster);
 
           }
          
@@ -1968,7 +1976,7 @@ const app = new Vue({
 
              if(!this.manuallyClosed){
 
-              this.rejoinScreen(this.isMaster);
+             // this.rejoinScreen(this.isMaster);
 
              }
 
@@ -1991,7 +1999,7 @@ const app = new Vue({
        
              if(!this.manuallyClosed){
 
-              this.rejoinData(this.isMaster);
+              //this.rejoinData(this.isMaster);
 
              }
 
