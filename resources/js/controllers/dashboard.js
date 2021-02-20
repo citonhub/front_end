@@ -1584,7 +1584,7 @@ children:[
         // wallet
         path: 'wallet',
         component: Wallet,
-        redirect:'/board/wallet/card',
+        redirect:'/board/wallet/info',
         meta: {
           twModalView: true
         },
