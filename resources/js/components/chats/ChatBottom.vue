@@ -446,7 +446,7 @@ export default {
 
                
 
-             this.$root.LocalStore('full_'+ this.$route.params.spaceId  + this.$root.username,this.$root.spaceFullData);
+             this.$root.LocalStore('full_space_'+ this.$route.params.spaceId  + this.$root.username,this.$root.spaceFullData);
                
 
                this.$root.scrollToBottom();
@@ -523,7 +523,7 @@ export default {
 
                
 
-             this.$root.LocalStore('full_'+ this.$route.params.spaceId  + this.$root.username,this.$root.spaceFullData);
+             this.$root.LocalStore('full_space_'+ this.$route.params.spaceId  + this.$root.username,this.$root.spaceFullData);
                
 
                this.$root.scrollToBottom();

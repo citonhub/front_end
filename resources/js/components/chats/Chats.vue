@@ -1809,7 +1809,7 @@ export default {
            }
          })
 
-            let storedMsg = this.$root.getLocalStore('full_' + this.$root.selectedSpace.space_id + this.$root.username);
+            let storedMsg = this.$root.getLocalStore('full_space_' + this.$root.selectedSpace.space_id + this.$root.username);
        
            storedMsg.then((result)=>{
 
@@ -1820,7 +1820,7 @@ export default {
                     finalResult.members = this.$root.selectedSpaceMembers;
                   
 
-            this.$root.LocalStore('full_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
+            this.$root.LocalStore('full_space_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
 
               
 
@@ -1867,7 +1867,7 @@ export default {
 
          this.$root.selectedSpaceMembers = newUserList;
 
-            let storedMsg = this.$root.getLocalStore('full_' + this.$root.selectedSpace.space_id + this.$root.username);
+            let storedMsg = this.$root.getLocalStore('full_space_' + this.$root.selectedSpace.space_id + this.$root.username);
        
            storedMsg.then((result)=>{
 
@@ -1878,7 +1878,7 @@ export default {
                     finalResult.members = this.$root.selectedSpaceMembers;
                   
 
-            this.$root.LocalStore('full_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
+            this.$root.LocalStore('full_space_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
 
               
 
@@ -1924,7 +1924,7 @@ export default {
            }
          })
 
-            let storedMsg = this.$root.getLocalStore('full_' + this.$root.selectedSpace.space_id + this.$root.username);
+            let storedMsg = this.$root.getLocalStore('full_space_' + this.$root.selectedSpace.space_id + this.$root.username);
        
            storedMsg.then((result)=>{
 
@@ -1935,7 +1935,7 @@ export default {
                     finalResult.members = this.$root.selectedSpaceMembers;
                   
 
-            this.$root.LocalStore('full_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
+            this.$root.LocalStore('full_space_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
 
               
 
@@ -2777,7 +2777,7 @@ export default {
 
         // get the space data from local storage
 
-          let storedMsg = this.$root.getLocalStore('full_' + spaceId + this.$root.username);
+          let storedMsg = this.$root.getLocalStore('full_space_' + spaceId + this.$root.username);
 
             storedMsg.then((result)=>{
 
@@ -2964,7 +2964,7 @@ export default {
        this.$root.spaceFullData = response.data;
 
 
-      this.$root.LocalStore('full_' +  this.$route.params.spaceId  + this.$root.username,response.data);
+      this.$root.LocalStore('full_space_' +  this.$route.params.spaceId  + this.$root.username,response.data);
 
       this.$root.LocalStore('unread_messages_' + this.$route.params.spaceId  + this.$root.username,[]);
 
@@ -3153,7 +3153,7 @@ export default {
 
    if (response.status == 200) {
 
-         let storedMsg = this.$root.getLocalStore('full_' + this.$root.selectedSpace.space_id + this.$root.username);
+         let storedMsg = this.$root.getLocalStore('full_space_' + this.$root.selectedSpace.space_id + this.$root.username);
        
            storedMsg.then((result)=>{
 
@@ -3171,7 +3171,7 @@ export default {
                  
                   
 
-            this.$root.LocalStore('full_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
+            this.$root.LocalStore('full_space_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
 
               
 

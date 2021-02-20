@@ -16,10 +16,15 @@ axios.defaults.baseURL = 'https://api.citonhub.com/api'
 
 const store = new Vuex.Store({
   state: {
-    user: null
+    user: null,
+    connected: navigator.onLine,
   },
 
   mutations: {
+    'SET_CONNECTED' (state, payload) {
+      state.connected = payload
+    },
+
     setUserData (state, userData) {
       state.user = userData
       localStorage.setItem('user_new', JSON.stringify(userData))
@@ -34,6 +39,9 @@ const store = new Vuex.Store({
   },
 
   actions: {
+    setConnected ({ commit }, payload) {
+      commit('SET_CONNECTED', payload)
+    },
     login ({ commit }, credentials) {
       return axios
         .post('/login', credentials)
@@ -61,7 +69,8 @@ const store = new Vuex.Store({
   },
 
   getters : {
-    isLogged: state => !!state.user
+    isLogged: state => !!state.user,
+    connected: state => state.connected,
   }
 });
 
@@ -1575,7 +1584,7 @@ children:[
         // wallet
         path: 'wallet',
         component: Wallet,
-        redirect:'/board/wallet/info',
+        redirect:'/board/wallet/card',
         meta: {
           twModalView: true
         },
@@ -1906,6 +1915,9 @@ const app = new Vue({
       ...mapGetters([
         'isLogged'
       ]),
+      InternetConnected() {
+        return this.$store.getters['connected']
+      },
       isConnected:function(){
          if(this.socketEcho){
           return this.socketEcho.connector.socket.connected;
@@ -1942,19 +1954,28 @@ const app = new Vue({
             }
          
       },
+      InternetConnected:function(newValue, oldValue){
+
+          if(newValue){
+            console.log('you are connected')
+          }else{
+            console.log('Internet connection was lost')
+          }
+
+      },
       // whenever isConnectedAudio changes, this function will run
       isConnectedAudio: function (newValue, oldValue) {
 
 
-        if(!newValue){
+        if(!newValue && !this.InternetConnected){
 
        
 
-        //  this.connectingToSocket = 'disconnected';
+         this.connectingToSocket = 'disconnected';
         
           if(!this.manuallyClosed){
 
-       //     this.rejoinAudio(this.isMaster);
+         this.rejoinAudio(this.isMaster);
 
           }
          
@@ -1969,14 +1990,14 @@ const app = new Vue({
       // whenever isConnectedScreen changes, this function will run
       isConnectedScreen: function (newValue, oldValue) {
 
-        if(!newValue){
+        if(!newValue && !this.InternetConnected){
 
         
           if(!this.screenIsConnecting){
 
              if(!this.manuallyClosed){
 
-             // this.rejoinScreen(this.isMaster);
+              this.rejoinScreen(this.isMaster);
 
              }
 
@@ -1993,13 +2014,13 @@ const app = new Vue({
       // whenever isConnectedData changes, this function will run
       isConnectedData: function (newValue, oldValue) {
 
-        if(!newValue){
+        if(!newValue && !this.InternetConnected){
 
         
        
              if(!this.manuallyClosed){
 
-              //this.rejoinData(this.isMaster);
+              this.rejoinData(this.isMaster);
 
              }
 
@@ -2010,6 +2031,15 @@ const app = new Vue({
     },
     created(){
    
+
+       // set internet connection listerner
+       window.addEventListener('offline', () => {
+        this.$store.dispatch('setConnected', false)
+      })
+      window.addEventListener('online', () => {
+        this.$store.dispatch('setConnected', true)
+      })
+
       // set default 'this' data
      window.thisUserState = this;
       window.routerData = this.$router;
@@ -2783,7 +2813,7 @@ const app = new Vue({
     
      let ProcessedMessages = [];
 
-     let storedMsg = this.$root.getLocalStore('full_' + message.space_id + this.$root.username);
+     let storedMsg = this.$root.getLocalStore('full_space_' + message.space_id + this.$root.username);
 
      storedMsg.then((result)=>{
 
@@ -2812,7 +2842,7 @@ const app = new Vue({
            
 
           
-             this.$root.LocalStore('full_' +  message.space_id   + this.$root.username,finalResult);
+             this.$root.LocalStore('full_space_' +  message.space_id   + this.$root.username,finalResult);
 
         }
 
@@ -3007,7 +3037,7 @@ const app = new Vue({
  // save space data to local storage
  pushDataToLocal:function(data){
 
-  localforage.getItem('full_' + data.space_id + this.$root.username).then((result)=> {
+  localforage.getItem('full_space_' + data.space_id + this.$root.username).then((result)=> {
 
    if(result != null){
     
@@ -3015,7 +3045,7 @@ const app = new Vue({
     let finalResult = JSON.parse(result);
         finalResult[0].push(data);
       
-        this.LocalStore('full_' + data.space_id  + this.$root.username,finalResult);
+        this.LocalStore('full_space_' + data.space_id  + this.$root.username,finalResult);
       
    }
 
@@ -3152,7 +3182,34 @@ handleSpaceData: function(returnData){
     if( this.$root.selectedSpace.space_id != space.space_id || this.$root.selectedSpace.length == 0){
 
        // if the space is not currently opened
-         let storedMsg = this.$root.getLocalStore('full_' + space.space_id  + this.$root.username);
+
+       // show new messages first
+
+       let newMessagesFull = space.new_messages;
+
+       newMessagesFull.forEach((message)=>{
+
+          // update unread in chatlist
+
+        this.ChatList.map((chatspace)=>{
+
+          if(chatspace.space_id == space.space_id){
+            chatspace.unread += 1;
+            chatspace.message_track = new Date();
+            chatspace.last_message = [message];
+          } 
+        });
+
+          
+
+         this.$root.updateSpaceTracker(space.space_id,message);
+
+
+       })
+
+       
+       // save to local database
+         let storedMsg = this.$root.getLocalStore('full_space_' + space.space_id  + this.$root.username);
    
     storedMsg.then((result)=>{
   
@@ -3175,28 +3232,15 @@ handleSpaceData: function(returnData){
            if(thismessage.length == 0){
 
                      
-        // update unread in chatlist
-
-        this.ChatList.map((chatspace)=>{
-
-          if(chatspace.space_id == space.space_id){
-            chatspace.unread += 1;
-            chatspace.message_track = new Date();
-            chatspace.last_message = [message];
-          } 
-        });
-
-          MessagesFull.messages.push(message);
+            MessagesFull.messages.push(message);
 
        
-
-         this.$root.updateSpaceTracker(space.space_id,message);
           
             this.$root.clearUnreadMessageRemote(message.message_id);
            
          
               // update into local storage
-           this.$root.LocalStore('full_' + space.space_id  + this.$root.username,MessagesFull,false,'messager');
+           this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,false,'messager');
 
              // update unread messages into local storage
 
@@ -3262,7 +3306,50 @@ handleSpaceData: function(returnData){
     }else{
 
       // if the space is opened
-       let storedMsg = this.$root.getLocalStore('full_' + space.space_id  + this.$root.username);
+
+       // show new messages first
+
+       let newMessagesFull = space.new_messages;
+
+       newMessagesFull.forEach((messages)=>{
+
+        let thismessage = MessagesFull.messages.filter((eachmessage)=>{
+          return eachmessage.message_id == messages.message_id
+         });
+
+         if(thismessage == 0){
+
+             // update unread in chatlist
+
+      this.ChatList.map((chatspace)=>{
+
+        if(chatspace.space_id == space.space_id){
+        
+          chatspace.message_track = new Date();
+          chatspace.last_message = [messages];
+        } 
+      });
+
+
+     
+          messages.initialSize = 200
+          messages.id = messages.message_id
+          messages.index_count = this.$root.returnLastIndex() + 1;
+
+             this.$root.Messages.push(messages);
+
+             this.$root.updateSpaceTracker(space.space_id,messages);
+
+
+      
+
+         }
+
+
+       })
+
+       // save to local database
+       let storedMsg = this.$root.getLocalStore('full_space_' + space.space_id  + this.$root.username);
    
     storedMsg.then((result)=>{
 
@@ -3286,30 +3373,9 @@ handleSpaceData: function(returnData){
 
            if(thismessage == 0){
 
-               // update unread in chatlist
-
-        this.ChatList.map((chatspace)=>{
-
-          if(chatspace.space_id == space.space_id){
-          
-            chatspace.message_track = new Date();
-            chatspace.last_message = [messages];
-          } 
-        });
-
-
           MessagesFull.messages.push(messages);
 
-            this.$root.LocalStore('full_' + space.space_id  + this.$root.username,MessagesFull);
-
-            messages.initialSize = 200
-            messages.id = messages.message_id
-            messages.index_count = this.$root.returnLastIndex() + 1;
-
-               this.$root.Messages.push(messages);
-
-               this.$root.updateSpaceTracker(space.space_id,messages);
-
+            this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull);
 
             this.$root.clearUnreadMessageRemote(messages.message_id);
 
@@ -3338,7 +3404,7 @@ handleSpaceData: function(returnData){
 
   this.$root.spaceFullData.messages = this.Messages;
 
-  this.$root.LocalStore('full_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
+  this.$root.LocalStore('full_space_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
  },
  returnLastIndex:function(){
 
@@ -3604,7 +3670,7 @@ let messageId = response.data[0].temp_id;
 
   this.$root.spaceFullData.messages = this.Messages;
 
-  this.$root.LocalStore('full_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
+  this.$root.LocalStore('full_space_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
 
 
 this.replyMessage = [];
@@ -3763,7 +3829,7 @@ this.Messages.map((message)=>{
 
 this.$root.spaceFullData.messages = this.Messages;
 
-  this.$root.LocalStore('full_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
+  this.$root.LocalStore('full_space_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
 
 
 this.scrollToBottom();
@@ -3839,7 +3905,7 @@ axios.post('/send-message',formData,
 
         this.$root.spaceFullData.messages = this.Messages;
 
-  this.$root.LocalStore('full_'+  response.data[0].space_id  + this.$root.username,this.$root.spaceFullData);
+  this.$root.LocalStore('full_space_'+  response.data[0].space_id  + this.$root.username,this.$root.spaceFullData);
 
         this.sendingMessage = false;
 

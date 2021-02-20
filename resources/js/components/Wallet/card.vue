@@ -26,16 +26,21 @@
            </div>
           <!-- ends -->
 
-          <div class="col-12 px-0">
+          <div class="col-12 px-0 d-flex flex-row">
+                
 
-            <v-card height="230" width="400" style="background-repeat: no-repeat;
-          border-radius:10px;background: url(/imgs/card_bg.jpg);background-size:cover;">
+                <div class="col-lg-4 py-1 col-md-6 ">
+
+                   <v-card height="230" width="100%" style="background-repeat: no-repeat;
+          border-radius:10px;background: url(/imgs/card_bg_2.jpg);background-size:cover;">
 
           <div style="position:absolute;width:100%;top:0%; left:0%; height:25%; align-items:center;" class="d-flex flex-row">
 
             <img height="50" src="/imgs/credit-card-chip.png" class="pl-2 pt-2" >
 
-              <img height="50" src="/imgs/citonhub_grey.png" class="pr-2 pt-2 ml-auto" >
+           
+
+         
 
           </div>
 
@@ -58,8 +63,91 @@
 
           </div>
 
+
+           <div style="position:absolute;width:100%;top:75%; left:0%; height:25%; align-items:center;" class="d-flex flex-row">
+
+           <div  class="d-flex px-2 pb-2 flex-column text-left">
+             <div style="font-size:12px;color:white;font-family:BodyFont;">Balance</div>
+
+             <div style="font-size:26px;color:white;font-family:HeaderFont;">&#8358; 456,078.00</div>
+
+                  
+              
+                   
+           </div>
+
+              <img height="50" src="/imgs/logo.png" class="pr-2 pb-2 ml-auto" >
+
+           
+
+
+          </div>
+
         </v-card>
 
+
+                </div>
+           
+
+               <div class="col-lg-4 py-1 col-md-6 ">
+
+                   <v-card height="230" width="100%" style="background-repeat: no-repeat;
+          border-radius:10px;background: url(/imgs/card_bg_2.jpg);background-size:cover;">
+
+          <div style="position:absolute;width:100%;top:0%; left:0%; height:25%; align-items:center;" class="d-flex flex-row">
+
+            <img height="50" src="/imgs/credit-card-chip.png" class="pl-2 pt-2" >
+
+            
+
+          </div>
+
+
+           <div style="position:absolute;width:100%;top:25%; left:0%; height:50%; align-items:center;" class="d-flex flex-row">
+
+           <div style="width:50%;" class="d-flex px-2 flex-column text-left">
+                  <div style="font-size:12px;color:white;font-family:BodyFont;">Name</div>
+
+                   <div style="font-size:14px;color:white;font-family:HeaderFont;">DSC Havard</div>
+           </div>
+
+           <div style="width:50%;" class="d-flex px-2 flex-column text-right">
+                 <div style="font-size:12px;color:white;font-family:BodyFont;">Number</div>
+
+                   <div style="font-size:14px;color:white;font-family:HeaderFont;">**** **** 4567</div>
+           </div>
+
+
+
+          </div>
+
+
+           <div style="position:absolute;width:100%;top:75%; left:0%; height:25%; align-items:center;" class="d-flex flex-row">
+
+           <div  class="d-flex px-2 pb-2 flex-column text-left">
+             <div style="font-size:12px;color:white;font-family:BodyFont;">Balance</div>
+
+             <div style="font-size:26px;color:white;font-family:HeaderFont;">$ 6,078.00</div>
+
+                  
+              
+                   
+           </div>
+
+           <img height="50" src="/imgs/logo.png" class="pr-2 pb-2 ml-auto" >
+
+         
+
+         
+
+
+          </div>
+
+        </v-card>
+
+
+                </div>
+           
           </div>
 
         
