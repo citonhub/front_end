@@ -1898,6 +1898,7 @@ const app = new Vue({
      diaryBankComponent:[],
      comingFromDiaryBank:false,
      showAdminOption:false,
+     livesessionComponent:undefined,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -2672,6 +2673,18 @@ const app = new Vue({
                  if(e.data == 'screen'){
 
                     this.$root.remoteScreen = true;
+
+                    if(this.$root.liveIsOn &&  this.$root.chatComponent.liveSessionIsOpen){
+
+                      if(this.livesessionComponent){
+
+                        this.livesessionComponent.selectAction('screen_sharing')
+
+                      }
+
+                       
+
+                    }
 
                  }
                  if(e.data == 'code'){

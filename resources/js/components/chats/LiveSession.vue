@@ -307,13 +307,17 @@ export default {
        },
        mounted(){
 
+         this.$root.livesessionComponent = this;
+
            this.$root.componentIsLoading = false;
+
+           this.$root.liveSessionIsOpen
       
       if(this.$root.liveIsOn){
 
          this.$root.liveBoardContent = 'audio_speaker'
 
-          if(this.$root.remoteLiveHappening){
+       
 
               if(this.$root.remoteScreen){
                
@@ -330,9 +334,6 @@ export default {
               if(this.$root.remoteAudio){
            
             this.selectAction('voice_chat')
-
-
-              }
 
           }
 
