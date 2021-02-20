@@ -3313,11 +3313,7 @@ handleSpaceData: function(returnData){
 
        newMessagesFull.forEach((messages)=>{
 
-        let thismessage = MessagesFull.messages.filter((eachmessage)=>{
-          return eachmessage.message_id == messages.message_id
-         });
-
-         if(thismessage == 0){
+     
 
              // update unread in chatlist
 
@@ -3341,9 +3337,7 @@ handleSpaceData: function(returnData){
              this.$root.updateSpaceTracker(space.space_id,messages);
 
 
-      
-
-         }
+ 
 
 
        })
