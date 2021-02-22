@@ -17,11 +17,7 @@
       }
     },
        mounted(){
-        if(!this.$root.isLogged){
-
-            this.$root.checkIfUserIsLoggedIn();
-         return;
-        }
+        
     }
   }
 </script>

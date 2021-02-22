@@ -83,7 +83,7 @@
            </div>
         </div>
 
-        <div @click.stop="goToProfile(member.username)" class="col-12 py-2 d-flex flex-row" style="align-items:center; border-bottom:1px solid #c5c5c5;" v-for="(member,index) in that.$root.selectedSpaceMembers"
+        <v-card flat tile :id="'member' + index" @click.stop="goToProfile(member)" class="col-12 py-2 d-flex flex-row" style="align-items:center; border-bottom:1px solid #c5c5c5;" v-for="(member,index) in that.$root.selectedSpaceMembers"
           :key="index">
               <div    class="mr-2"
      :style="imageStyle(40,member,'user')">
@@ -91,7 +91,16 @@
    <div>
         <span style="font-size:13px;">{{member.name}} @{{member.username}}</span>
    </div>
-        </div>
+    <div class="py-0 my-0 " style="align-items:center; position:absolute; top:5%; right:5%;" v-if="member.is_admin">
+                         <span style="font-size:10px; color:#4d4d4d;">Admin <v-icon color="#33cc33" v-if="checkIfOnline(member.user_id)" style="font-size:12px;">mdi-circle </v-icon></span>
+                    </div>
+
+               <div class="py-0 my-0 " style="align-items:center; position:absolute; top:5%; right:5%;" v-else>
+                         <span style="font-size:10px; color:#4d4d4d;"> <v-icon color="#33cc33" v-if="checkIfOnline(member.user_id)" style="font-size:12px;">mdi-circle </v-icon></span>
+                    </div>
+
+            
+        </v-card>
 
      </template>
        
@@ -100,6 +109,8 @@
      
 
     </div>
+
+ 
 
   </div>
    
@@ -121,14 +132,28 @@ export default {
      this.$root.componentIsLoading = false;
     },
     methods:{
-       goToProfile:function(username){
-        this.$root.selectedUsername = username;
-         this.$router.push({ path:'/profile-view/' + username})
+      goToProfile:function(member){
+           
+
+           if(this.$root.username ==  member.username) return;
+          if(this.checkIfisOwner()){
+
+             this.$root.chatComponent.selectedSpaceMembers = member;
+
+              this.$root.showAdminOption = true;
+    
+          }else{
+          this.$root.selectedUsername = member.username;
+         this.$router.push({ path:'/profile-view/' + member.username})
+          }
+
+       
       },
          close:function(){
              window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
         this.$root.chatComponent.chatInnerSideBar = false;
    },  
+   
    EditChannel:function(){
         this.$root.chatComponent.innerSideBarContent = '';
           
@@ -199,6 +224,42 @@ export default {
        this.$root.chatComponent.showAlert('Oops!','Something went wrong,please try again','error')
      })
        },
+         generateOnlineUsersList: function(){
+          let onlineUserList = [];
+
+          this.$root.selectedSpaceMembers.forEach(member => {
+             
+             let userData = this.$root.globalUsers.filter((user)=>{
+               return user.id == member.user_id;
+             })
+
+             if(userData.length != 0){
+               onlineUserList.push(userData[0])
+             }
+           
+            
+          });
+        
+        return onlineUserList;
+       },
+        checkIfOnline: function(user_id){
+
+         let SpaceUserOnline = this.generateOnlineUsersList();
+          
+        let userData = SpaceUserOnline.filter((user)=>{
+         return user.id == user_id;
+        });
+
+         if(userData.length == 0){
+
+            return false
+
+         }else{
+
+           return true
+         }
+
+      },
     imageStyleSpace:function(dimension,data,type){
       
 
@@ -254,7 +315,8 @@ export default {
 
   },
    showInvitation:function(){
-       
+            this.$root.shareText = 'Join ' + this.$root.selectedSpace.name +  ' on Citonhub';
+       this.$root.shareLink =   'https://www.citonhub.com/link/channel/'+ this.$root.selectedSpace.space_id;
             this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id + '/channel_invitation' });
         },
     checkIfisOwner: function(){

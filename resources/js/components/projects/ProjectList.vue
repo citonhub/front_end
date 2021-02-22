@@ -10,7 +10,7 @@
    <div class="col-lg-10 offset-lg-1 py-1 pt-2 px-2 d-md-block d-none fixed-top" style="position:sticky; top:0%; background:#F5F5FB; border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0">
-          <h5>Projects</h5>
+          <h5>My Projects</h5>
         </div>
          <div class="col-6  py-0 my-0 text-right">
             <template v-if="this.$root.projectList.user_projects">
@@ -253,6 +253,11 @@ const Project = () => import(
      
     },
     mounted(){
+       if(!this.$root.isLogged){
+
+            this.$root.checkIfUserIsLoggedIn();
+         return;
+        }
      this.$root.showTopBar = true;
      this.$root.projectListComponent = this;
      this.fetchProjects();

@@ -23,6 +23,10 @@
    </div>
         </div>
 
+        <div class="col-12 py-5 my-2">
+
+        </div>
+
         
 
         </div>
@@ -66,7 +70,7 @@ export default {
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
          let imgLink = data.image_name + '.' + data.image_extension;
          
-            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/thumbnails/'  + imgLink  +  ');';
          
          
           return styleString;

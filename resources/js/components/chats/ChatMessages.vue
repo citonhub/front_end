@@ -289,7 +289,7 @@
                   <!-- comment -->
                    <div class="d-flex flex-column py-2 px-1" style="border-left:3px solid #3C87CD; background:#d6e6f5;"   @click.stop="scrollToMessage(source.replied_message.message_id)">
                            <template v-if="source.replied_message.type == null || source.replied_message.type == 'text' || source.replied_message.type == 'action'">
-                               <div style="font-size:13px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{ getReplyMsg(source.replied_message) }}</div>
+                               <div :style="screenType == 'large' ? 'font-size:13px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ' :'font-size:12px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; '">{{ getReplyMsg(source.replied_message) }}</div>
                           </template>
 
                           <template v-if="source.replied_message.type == 'video'">
@@ -415,10 +415,21 @@
                 
 
                   <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 mr-2" style=" width:90%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
-                     
+                      
+                      
+                      <template v-if="that.$root.codeboxIsLoading">
+                        <v-skeleton-loader
+                                       type="image"
+                                       height="200px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                  
+                      </template>
                      
                    <code-box color="#ffffff" v-if="source.loading == false"  :topMargin="5"  
                    :codeContent="source.code.content" 
+                    :screenType="screenType"
                    :messageId="source.message_id" 
                    :filename="source.code.name + '.' + languageExtensions(source.code.language_type)" 
                    :codeLanguage="source.code.language_type"></code-box>
@@ -487,9 +498,20 @@
 
                   </div>
 
+                   <template v-if="that.$root.codeboxIsLoading">
+                        <v-skeleton-loader
+                                       type="image"
+                                       height="200px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                  
+                      </template>
+
                    <code-box color="#333333" v-if="source.loading == false"  :topMargin="13"  
                    :codeContent="source.code.content" 
                    :messageId="source.message_id" 
+                    :screenType="screenType"
                    :filename="source.code.name + '.' + languageExtensions(source.code.language_type)" 
                    :codeLanguage="source.code.language_type"></code-box>
 
@@ -1231,11 +1253,13 @@ export default {
     },
     showMoreOption:function(message){
 
-        
+         if( this.$root.selectedSpace.type == 'Bot' ) return
        this.$root.replyMessage = message;
           this.$root.chatComponent.showMoreOptions = true;
     },
     goToProfile:function(username){
+
+       if( this.$root.selectedSpace.type == 'Bot' ) return
         this.$root.selectedUsername = username;
          this.$router.push({ path:'/profile-view/' + username})
       },
@@ -1717,6 +1741,8 @@ export default {
   font-size:13px;
 }
 
+
+
 .handleText  {
   color: #ffffff ;
   font-size:13px;
@@ -1731,6 +1757,14 @@ export default {
 .handleTextSm  p {
   color: #ffffff ;
   font-size:12px;
+}
+
+.handleTextSm   ol{
+  padding-left:13px !important;
+}
+
+.handleTextSm   ul{
+ padding-left:13px !important;
 }
 
 .handleTextSm  {
@@ -1748,6 +1782,7 @@ export default {
   color: #000000 ;
   font-size:13px;
 }
+
 
 .handleTextNormal  {
   color: #000000 ;
@@ -1768,6 +1803,15 @@ export default {
 .handleTextNormalSm  {
   color: #000000 ;
   font-size:12px;
+}
+
+
+.handleTextNormalSm   ol{
+  padding-left:13px !important;
+}
+
+.handleTextNormalSm   ul{
+   padding-left:13px !important;
 }
 
 

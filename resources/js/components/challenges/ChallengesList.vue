@@ -217,6 +217,11 @@ const Challenge = () => import(
       }
     },
    mounted(){
+      if(!this.$root.isLogged){
+
+            this.$root.checkIfUserIsLoggedIn();
+         return;
+        }
      this.$root.showTopBar = true;
 
        this.$root.challengeListComponent = this;

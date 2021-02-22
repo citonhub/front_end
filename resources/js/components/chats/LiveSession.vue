@@ -206,7 +206,9 @@
                                     </div>
 
                                     <div class="col-2 text-right py-0">
-                                   <v-icon>las la-microphone</v-icon>
+                                   <v-icon v-if="that.$root.localAudioMuted">las la-microphone-slash</v-icon>
+
+                                           <v-icon v-else>las la-microphone</v-icon>
                                     </div>
                               </div>
                               
@@ -222,7 +224,9 @@
                                     </div>
 
                                     <div class="col-2 text-right py-0">
-                                   <v-icon>las la-microphone</v-icon>
+                                    <v-icon v-if="user[0].profile.muted">las la-microphone-slash</v-icon>
+
+                                           <v-icon v-else>las la-microphone</v-icon>
                                     </div>
                               </div>
                               
@@ -244,8 +248,24 @@
                                <div v-if="this.$root.liveIsOn" class="col-12 py-2 d-flex flex-row" style="background:white;height:60px; overflow-y:auto; z-index:999999999; left:0; bottom:0; position:absolute; overflow-x:hidden;" >
                                      
                                     <div class="col-4 py-0">
+                             
 
-                                        <v-btn icon style="z-index:999999999999999;"><v-icon>las la-microphone</v-icon></v-btn>
+                                         <template v-if="that.$root.localAudioMuted">
+                                           <v-btn  @click.stop="unmuteAudio()" icon >
+                                          <v-icon>las la-microphone-slash</v-icon>
+                                          </v-btn>
+
+                                         </template>
+
+                                        <template  v-else>
+
+                                           <v-btn @click.stop="muteAudio()" icon >
+                                         
+                                         <v-icon>las la-microphone</v-icon>
+                                          </v-btn>
+                                          
+                                          </template>                                        
+                                         
 
                                     </div>
                                      <div class="col-4 py-0 text-center" style="background:white;">
@@ -287,13 +307,17 @@ export default {
        },
        mounted(){
 
+         this.$root.livesessionComponent = this;
+
            this.$root.componentIsLoading = false;
+
+           this.$root.liveSessionIsOpen
       
       if(this.$root.liveIsOn){
 
          this.$root.liveBoardContent = 'audio_speaker'
 
-          if(this.$root.remoteLiveHappening){
+       
 
               if(this.$root.remoteScreen){
                
@@ -311,9 +335,6 @@ export default {
            
             this.selectAction('voice_chat')
 
-
-              }
-
           }
 
       }else{
@@ -321,6 +342,33 @@ export default {
       }
        },
     methods:{
+      muteAudio:function(){
+
+      if(this.$root.audioconnection){
+
+         this.$root.localAudioMuted = true;
+
+           var localStream = this.$root.audioconnection.attachStreams[0];
+            localStream.mute('audio');
+
+      }
+        
+           
+
+      },
+      unmuteAudio:function(){
+
+         if(this.$root.audioconnection){
+         this.$root.localAudioMuted = false;
+
+             var localStream = this.$root.audioconnection.attachStreams[0];
+            localStream.unmute('audio');
+         }
+             
+        
+
+      },
+
        goBack:function(){
             window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
 
@@ -516,7 +564,7 @@ export default {
 
            if(userMemberData.length != 0){
 
-             return userMemberData[0].master_user;
+             return userMemberData[0].is_admin;
 
            }else{
               return false

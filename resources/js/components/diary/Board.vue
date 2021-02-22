@@ -342,36 +342,42 @@ export default {
     displayMode: 'once',
     id: 'question',
     zindex: 999,
-    title: 'Hey',
-    message: 'Are you sure about that?',
+     title: title,
+       message: message,
     position: 'center',
     buttons: [
         ['<button><b>YES</b></button>', (instance, toast) => {
 
-              axios.post( '/delete-intent-response/' + this.$root.pageToDelete)
+            axios.post( '/delete-intent-tag-' + this.$root.intentToDelete)
       .then(response => {
       
       if (response.status == 200) {
 
-         let remainingPages = this.$root.noteContent.pages.filter((page)=>{
-           return page.slug != this.$root.pageToDelete;
-         })
+         let remainingNotes = this.$root.selectedDiary.notes.filter((note)=>{
+          return note.note.tag_unique_id != this.$root.intentToDelete;
+          })
+
          
-         this.$root.noteContent.pages = remainingPages;
+         
+         this.$root.selectedDiary.notes = remainingNotes;
 
           this.$root.LocalStore('user_diary_data_' +  this.$route.params.diary_id + this.$root.username,this.$root.selectedDiary);
 
-          this.$root.pageToDelete = '';
+           this.$root.intentToDelete = '';
 
-     }
+            this.$root.diaryBoardComponent.showAlert('Deleted!','Note was deleted','success');
+
+            this.saveNoteOrder(false);
+
+      }
        
      
-     })
-     .catch(error => {
+      })
+      .catch(error => {
 
-     this.$root.diaryBoardComponent.showAlert('Oops!','Unable to delete page','error');
+      this.$root.diaryBoardComponent.showAlert('Oops!','Unable to delete note','error');
        
-    
+        
      }) 
  
             instance.hide({ transitionOut: 'fadeOut' }, toast, 'button');
@@ -390,6 +396,53 @@ export default {
 
 
     },
+     saveNoteOrder: function(showAlert = true){
+       
+       let NoteArray = [];
+
+        this.$root.selectedDiary.notes.forEach((note)=>{
+
+         NoteArray.push(note.note.tag_unique_id)
+   
+        });
+
+      axios.post( '/save-note-order',{
+        bot_id: this.$route.params.diary_id,
+        notes: NoteArray
+      })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         if(showAlert){
+
+               this.$root.diaryBoardComponent.showAlert('Saved!','Your changes have been saved','success');
+
+         }
+
+       
+
+             this.$root.LocalStore('user_diary_data_' +  this.$route.params.diary_id + this.$root.username,this.$root.selectedDiary);
+
+             
+
+     
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+     this.$root.diaryBoardComponent.showAlert('Oops!','Unable to save changes,please try again','error');
+       
+    
+     }) 
+
+        
+        
+         
+     },
    }
 }
 </script>

@@ -51,6 +51,7 @@ export default {
     }
    },
    mounted(){
+     this.$root.codeboxIsLoading = false;
      this.detectchange(this.codeLanguage);
    },
     data(){

@@ -299,7 +299,7 @@ export default {
         let styleString = "height:100%;width:" + width +"px;background-size:cover;border-top-left-radius:7px;border-bottom-left-radius:7px; background-repeat: no-repeat; ";
          let imgLink = data.image_name + '.' + data.image_extension;
         
-        styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/challenges/'  + imgLink  +  ');';
+        styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/challenges/thumbnails/'  + imgLink  +  ');';
          
           return styleString;
 

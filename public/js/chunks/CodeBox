@@ -59,6 +59,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    this.$root.codeboxIsLoading = false;
     this.detectchange(this.codeLanguage);
   },
   data: function data() {

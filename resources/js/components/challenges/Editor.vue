@@ -1,6 +1,6 @@
 <template>
     <div>
-          <v-md-editor v-model="listLocal" height="400px" mode="edit" :placeholder="placeholder" 
+          <v-md-editor v-model="listLocal" :height="height" mode="edit" :placeholder="placeholder" 
         left-toolbar="h bold italic strikethrough quote ul ol  hr image link"  right-toolbar="preview"></v-md-editor>
     </div>
 </template>
@@ -20,7 +20,7 @@ import enUS from '@kangc/v-md-editor/lib/lang/en-US';
 VueMarkdownEditor.lang.use('en-US', enUS);
 
 export default {
-     props:['placeholder','content'],
+     props:['placeholder','content','height'],
       model: {
         prop: 'content',
         event: 'textChange'

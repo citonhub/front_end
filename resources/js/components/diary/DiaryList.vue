@@ -4,17 +4,25 @@
     <div class="col-lg-10 offset-lg-1 py-1 mb-0  px-2 d-md-block d-none fixed-top" style="position:sticky; background:#F5F5FB; z-index:999999999999; border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0">
-          <h5>Diary</h5>
+          <h5>Diaries</h5>
         </div>
          <div class="col-6  py-0 my-0 text-right">
+             
            <v-btn small  v-if="this.$root.diaryList.length != 0"  @click="createDiary" rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
              <v-icon     style="font-size:20px;">las la-plus</v-icon> <span style="color:white;text-transform:none;">Create a diary</span> 
            </v-btn>
+
+           <v-btn small   @click="discoverDiaries" class="mr-2" rounded color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+           <v-icon   color="#ffffff"  style="font-size:20px;">mdi-book-multiple-outline</v-icon>  <span style="color:white;text-transform:none;">Discover diaries</span> 
+           </v-btn>
+
         </div>
       </div>
    </div>
 
   <!-- fab for smaller screen -->
+
+  
 
     <v-btn  v-if="this.$root.diaryList.length != 0" @click="createDiary"  fab color="#3C87CD"  class="d-md-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
 
@@ -42,8 +50,9 @@
         <!-- search area  -->
 
         <template  v-if="this.$root.TopBarComponentBoard.searchContent.length > 0">
-overflow-y:auto;overflow-x:hidden;
+              
 
+            
 
            <div class="col-lg-4 col-md-6 px-2 mb-1 py-1 pt-0 mt-md-2" v-for="diary in this.$root.diarySearchList" :key="diary.id+ 'search'">
           
@@ -103,6 +112,13 @@ overflow-y:auto;overflow-x:hidden;
 
        <template v-else>
 
+          <div class="col-12 text-center  px-2  pt-0 pb-2 d-md-none d-block">
+                <v-btn small  rounded @click="discoverDiaries"   color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+           <v-icon   color="#ffffff"  style="font-size:20px;">mdi-book-multiple-outline</v-icon>  <span style="color:white;text-transform:none;">Discover diaries</span> 
+           </v-btn>
+              </div>
+
+
           <template v-if="this.$root.diaryList.length == 0">
 
               
@@ -128,6 +144,7 @@ overflow-y:auto;overflow-x:hidden;
 
           <template v-else>
 
+                         
               <div class="col-lg-4 col-md-6 px-2 mb-1 py-1 pt-0 mt-md-2" v-for="diary in this.$root.diaryList" :key="diary.id">
           
           <v-card @click="getDiaryContent(diary)"  class="py-2 px-1"  style="border-radius:7px;" >
@@ -229,6 +246,9 @@ overflow-y:auto;overflow-x:hidden;
           
           this.$router.push({ path:'/board/diary/create-diary/new'})
         },
+        discoverDiaries:function(){
+          this.$router.push({ path:'/board/diary/bank'})
+        },
 
         getDiaryContent(diary){
            this.$router.push({path:'/board/diary/board/' + diary.bot_id+ '/content'})
@@ -236,7 +256,7 @@ overflow-y:auto;overflow-x:hidden;
         imageStyle: function(size,data){
 
          if(data.background_color == null){
-        let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:50%;background-repeat: no-repeat; ";
+        let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:3px;background-repeat: no-repeat; ";
          if(data.image_name == null || data.image_name == '0'){
               styleString += 'background-color:whitesmoke; background-image:url(imgs/background1.jpg);';
          }else{
@@ -262,10 +282,10 @@ overflow-y:auto;overflow-x:hidden;
          
          return styleString;
        }else{
-         let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:50%;background-repeat: no-repeat; ";
+         let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:3px;background-repeat: no-repeat; ";
          let imgLink = data.image_name + '.' + data.image_extension;
         
-        styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
+        styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/thumbnails/'  + imgLink  +  ');';
          
           return styleString;
 

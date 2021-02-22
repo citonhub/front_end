@@ -165,6 +165,7 @@
        :disabled="challengeIsActive"
            item-value="id"
      v-model="language"
+     multiple
      :rules="requiredRule"
      style="font-size:13px;"
       placeholder="select challenge app type"
@@ -200,7 +201,7 @@
              </div>
              <div class="col-lg-12 py-1 my-2 px-2 text-left">
 
-              <v-press-editor v-model="description"  :placeholder="'The aim of this project is to test your ability in using local storage'"></v-press-editor>
+              <v-press-editor v-model="description" :height="'400px'"  :placeholder="'The aim of this project is to test your ability in using local storage'"></v-press-editor>
              
              </div>
 
@@ -215,7 +216,7 @@
 
              <div class="col-lg-12 py-1 my-2 px-2 text-left">
 
-              <v-press-editor v-model="rulesContent"  :placeholder="'Make sure most of the codes are yours'"></v-press-editor>
+              <v-press-editor v-model="rulesContent"  :height="'400px'" :placeholder="'Make sure most of the codes are yours'"></v-press-editor>
              
              </div>
              
@@ -645,6 +646,11 @@ export default {
       };
     },
     mounted(){
+       if(!this.$root.isLogged){
+
+            this.$root.checkIfUserIsLoggedIn();
+         return;
+        }
      this.$root.showTopBar = false;
      this.setEditValues();
      this.fetchChannels()
@@ -670,13 +676,21 @@ export default {
 
        this.rulesContent = this.$root.selectedChallenge.rules;
 
-       this.language =  this.$root.selectedChallenge.languages;
+       
 
-         if(this.language != 'PHP' && this.language != 'NodeJs'){
+        if(this.$root.selectedChallenge.languages){
 
-            this.language = parseInt(this.language)
+            let challengeLang =  this.$root.selectedChallenge.languages.toString();
 
-         }
+             this.language =  challengeLang.split(',');
+
+            
+
+              
+
+          }
+
+         
 
          this.judgeType = this.$root.selectedChallenge.judges
 
@@ -936,7 +950,9 @@ this.judgeType='everyone';
 
             if(this.imageDefault != 0){  
                 
-                formData.append('image_default',this.imageDefault);
+                 if(this.$route.params.type != 'edit'){
+               formData.append('image_default',this.imageDefault);
+              }
             }
 
              this.durationValue =  (this.durationValueDay * 24) + parseInt(this.durationValueHr);

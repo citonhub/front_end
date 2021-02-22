@@ -4,19 +4,19 @@
                      <div class="col-12 my-0 py-2 d-flex  scroller " style="overflow-x:auto; white-space:nowrap; z-index:9999999999;
                       border-top-left-radius:6px;  border-top-right-radius:6px; left:0;background:#F3F8FC; ">
                  
-                 <v-btn class="d-inline-block" @click="goBack" small icon style="position:sticky;left:0px;">
+                 <v-btn class="d-inline-block" @click.stop="goBack" small icon style="position:sticky;left:0px;background:white;">
                       <v-icon color="#3C87CD" >mdi mdi-close mdi-18px</v-icon>
                  </v-btn>
                  
-                <v-chip v-for="(participant,index) in participants" :key="index"
-      class="ma-1 mx-1 ml-0 fileText d-inline-block"
+                <div v-for="(participant,index) in participants" :key="index"
+      class="ma-1 mx-1 ml-0 py-1 px-2 fileText d-inline-block"
         @click="showPage(participant)"
       small
-   :style="selecetedPanelId == participant.panel_id ? 'color:white;background-color:#3C87CD;' : 'background:transparent;border:1px solid #3C87CD;'"
+   :style="selecetedPanelId == participant.panel_id ? 'color:white;background-color:#3C87CD;font-size:13px;border-radius:10px;' : 'background:transparent;border:1px solid #3C87CD;font-size:13px;border-radius:10px;'"
       >
      <span  v-if="participant.type == 'user'" >{{participant.username}}</span>
      <span  v-if="participant.type == 'team'" >{{participant.team.name}}</span>
-    </v-chip>  
+    </div>  
 
               </div>
 
@@ -25,6 +25,15 @@
         v-if="pageContent == '' && loading"
     style="border: 0; height:80%; top:5%;left:0; z-index:99999999999; align-items:center; justify-content:center;" class=" px-5 col-lg-4 offset-lg-4 px-1 py-0 d-flex" >
          <v-progress-circular color="#3C87CD" indeterminate width="3" size="28" ></v-progress-circular>
+       </div>
+    
+  <!-- ends -->
+
+    <!-- view info -->
+      <div 
+        v-if="pageContent == '' && !loading"
+    style="border: 0; height:80%; top:5%;left:0; z-index:99999999999; align-items:center; justify-content:center;" class=" px-5 col-lg-4 offset-lg-4 px-1 py-0 d-flex" >
+        <span style="font-size:13px; color:grey;">Click on participant name to view result</span>
        </div>
     
   <!-- ends -->
@@ -40,7 +49,7 @@
        <!-- ends -->
        
     <!-- for non-web content -->
-   <textarea  readonly v-if="pageContent != '' && !participantSelected.is_web"   class="col-12 mt-0 mt-md-1" style=" font-size:14px;  top:0; height:100%; left:0;  background:white;border:1px solid transparent; border-radius:0px;"  >
+   <textarea v-model="pageContent" readonly v-if="pageContent != '' && !participantSelected.is_web"   class="col-12 mt-0 mt-md-1" style=" font-size:14px;  top:0; height:100%; left:0;  background:white;border:1px solid transparent; border-radius:0px;"  >
        
     </textarea>
 
@@ -104,7 +113,7 @@
          <!-- ends -->
 
        
-       <v-btn medium fab color="#3C87CD"  @click="goTopanel" class="d-inline-block " style="z-index:999999999999999;  position:absolute;  bottom:8%; right:2%; ">
+       <v-btn medium fab color="#3C87CD" v-if="selectedParticipantId != ''"  @click="goTopanel" class="d-inline-block " style="z-index:999999999999999;  position:absolute;  bottom:12%; right:2%; ">
 
         <v-icon style="font-size:25px; color:white;">las la-laptop-code</v-icon>
          
@@ -162,7 +171,7 @@ methods:{
        title: title,
        message: message,
        zindex:'9999999999',
-       timeout:5000,
+       timeout:1000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -177,7 +186,7 @@ methods:{
        title: title,
        message: message,
        zindex:'9999999999',
-        timeout:5000,
+        timeout:1000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -191,7 +200,7 @@ methods:{
         { 
        title: title,
        message: message,
-        timeout:5000,
+        timeout:1000,
        zindex:'9999999999',
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
@@ -207,7 +216,7 @@ methods:{
        title: title,
        message: message,
        zindex:'9999999999',
-        timeout:5000,
+        timeout:1000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -220,12 +229,16 @@ methods:{
     },
   
     goTopanel:function(){
+
+      
+
+            this.$root.panelFromChallenges = true;
          
        this.$router.push({ path: '/board/projects/panel/' + this.participantSelected.project_slug });
     },
     checkState: function(){
 
-         this.loading = true;
+       
      
          this.fetchParticipants();
       
@@ -272,9 +285,10 @@ methods:{
 
      })
      },
-       checkResponse:function(token){
+      checkResponse:_.debounce(function (token) {
 
-        let _this = this;
+
+         let _this = this;
 
       
                 axios.post( '/check-for-submission',{
@@ -341,16 +355,14 @@ methods:{
 
              
              
-               _this.pageContent = 'An issue occured,unable to run on sandbox...';
+               _this.pageContent = 'Oops! This participant hasn\'t written any codes yet.';
 
                
              
           })
 
-
-        
-
-      },
+      }, 500),
+       
       runCodeOnSandbox: function(){
 
           axios.post( '/run-code-on-sandbox-project',{
@@ -375,14 +387,18 @@ methods:{
               }else if(response.data[0][0].status.description == 'In Queue'){
 
                  this.pageContent = 'In Queue...';
-                 this.checkResponse(token,response.data[1]);
+                
+                       this.checkResponse(token,response.data[1]);
 
+                 
+               
               }else if(response.data[0][0].status.description == 'Processing'){
 
                  this.pageContent = 'Processing...';
 
-                 this.checkResponse(token,response.data[1]);
+                   this.checkResponse(token,response.data[1]);
 
+                 
               }else{
 
                 
@@ -399,13 +415,20 @@ methods:{
 
             
              
-               this.pageContent = 'An issue occured,unable to run on sandbox...';
+               this.pageContent = 'Oops! This participant hasn\'t written any codes yet.';
 
                 
               
           })
 
           
+      },
+          sortArray: function(arrayValue){
+      arrayValue.sort(function(a, b){ 
+      
+        return b.stars - a.stars 
+    }); 
+
       },
        
    
@@ -418,18 +441,14 @@ methods:{
 
 
         this.participants = response.data.participants;
+        this.participants.sort(function(a, b){return b.stars - a.stars});
         this.votes = response.data.votes;
  
             this.selectedParticipantId = '';
 
         // show first result
 
-         if( this.participants[0]){
-
-               this.showPage( this.participants[0])
-
-         }
-
+         
 
      }
 

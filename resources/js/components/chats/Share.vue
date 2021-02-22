@@ -630,7 +630,7 @@ var blob = this.b64toBlob(realData, contentType);
 
           
 
-        this.$root.LocalStore('full_'+this.$root.selectedSpace.space_id  + this.$root.username,this.$root.spaceFullData);
+        this.$root.LocalStore('full_space_'+this.$root.selectedSpace.space_id  + this.$root.username,this.$root.spaceFullData);
 
 
          this.$root.scrollToBottom();

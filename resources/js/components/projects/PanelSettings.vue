@@ -133,6 +133,11 @@ export default {
         }
     },
     mounted:function(){
+          if(!this.$root.isLogged){
+
+            this.$root.checkIfUserIsLoggedIn();
+         return;
+        }
          this.fetchConnected();
          this.title = this.$root.projectData.project.title;
     },

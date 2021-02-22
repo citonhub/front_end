@@ -11,7 +11,7 @@
              <div class="col-lg-7 col-md-10 offset-md-1 offset-lg-0">
                 <div class="row">
                   <div class="col-lg-6 col-md-5 text-center">
-                      <template v-if="this.$router.currentRoute.path.indexOf('notifications') <= 0">
+                      <template v-if="that.$root.searchType != 'notifications' && that.$root.searchType != 'wallet'">
                      <v-text-field
                 style="font-size:13px;"
                    v-model="searchContent"
@@ -81,10 +81,20 @@
                    <div class="col-2 py-0  text-center">
                  <v-btn icon @click="showSideBarHandler()"><v-icon style="font-size:25px;color:#263238;" >las la-bars</v-icon></v-btn>
             </div>
-             <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
-                <template v-if="this.$router.currentRoute.path.indexOf('notifications') <= 0">
-             <input style="width:100%;heigth:100%;font-size:13px;"  @input="triggerSearch"  v-model="searchContent" :placeholder="'Search ' + that.$root.searchType" class="py-2 px-2" type="search" >   
+             <div class="col-6 d-flex py-0 px-1" style="align-items:center;">
+                <template v-if="that.$root.searchType != 'notifications' && that.$root.searchType != 'wallet'">
+             <input style="width:100%;heigth:100%;font-size:13px;"  @input="triggerSearch"  v-model="searchContent" 
+                :placeholder="'Search ' + that.$root.searchType"
+              class="py-2 px-2" type="search" >   
                 </template>    
+
+                <template v-else>
+                      <div class="text-left">
+                    <span style="font-size:14px;text-transfrom:capitalize;font-family:MediumFont;" v-if="that.$root.searchType == 'wallet'">Wallet</span>
+                     <span style="font-size:14px;text-transfrom:capitalize;font-family:MediumFont;" v-if="that.$root.searchType == 'notifications'">Notifications</span>
+                      </div>
+                       
+                </template>
          
             </div>
              <div class="col-2 text-center py-0">
@@ -196,7 +206,14 @@ export default {
       },
       searchDiary:function(query){
 
-        
+          
+          if(this.$router.currentRoute.path.indexOf('bank') >= 0){
+
+             this.getDiaryBank(query);
+
+             return;
+
+          }
 
         let diaryListResult = this.$root.diaryList.filter((diary)=>{
 
@@ -217,6 +234,36 @@ export default {
       this.$root.diarySearchList = diaryListResult;
 
       },
+       getDiaryBank:_.debounce(function (query) {
+
+            let finalString = '/' + query;
+
+              if(query.length == 0) {
+                 finalString = '';
+              }
+          this.$root.diaryBankComponent.loadingSearchDairy = true;
+  
+         axios.get('/get-diary-bank' + finalString)
+
+        .then(
+          response=>{
+            if(response.status == 200){
+             
+         
+           this.$root.diaryBankSearchList = response.data.diaries;  
+
+             this.$root.diaryBankComponent.loadingSearchDairy = false;
+
+            }
+          }
+        )
+     .catch(error => {
+
+           this.$root.diaryBankComponent.loadingSearchDairy = false;
+    
+     }) 
+
+      }, 500),
       getChallenges:_.debounce(function (query) {
 
          

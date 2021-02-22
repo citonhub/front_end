@@ -51,9 +51,9 @@
 
                   <template v-else>
 
-                     <span class="typingText d-block" >
+                     <span class="typingText d-block" v-if="(this.$root.typingSpace == this.$root.selectedSpace.space_id)">
             
-                  <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing...  
+                  <span v-if="this.$root.selectedSpace.type != 'Direct' "> {{this.$root.typinguser}} is</span> typing...  
             
                 </span>
                     
@@ -128,7 +128,16 @@
                 </v-btn>
             </template>
 
-            <v-btn v-else icon  @click.stop="showDiaryNotes" ><v-icon >mdi-format-list-bulleted</v-icon></v-btn>
+            <v-btn v-else icon  @click.stop="showDiaryNotes" >
+                <v-badge
+                   dot
+                   v-if="newUpdatePresent(that.$root.diaryNotes)"
+                color="green">
+                 <v-icon > mdi-format-list-bulleted</v-icon>
+                   </v-badge>
+
+                    <v-icon v-else  > mdi-format-list-bulleted</v-icon>
+            </v-btn>
 
               
               
@@ -224,7 +233,7 @@
 
                             <template v-else>
 
-                               <span class="typingTextSm d-block">
+                               <span class="typingTextSm d-block"  v-if="(this.$root.typingSpace == this.$root.selectedSpace.space_id)">
             
                             <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing... 
             
@@ -272,7 +281,7 @@
 
                 <template v-if="that.$root.selectedSpace.bot_data.bot_channel">
 
-                      <v-btn small   @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
+                      <v-btn small class="mr-1" @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
              
             
                  <v-icon  style="font-size:21px;">mdi-comment-multiple-outline </v-icon>
@@ -284,7 +293,7 @@
 
                   <template v-else>
 
-                      <v-btn small :disabled="that.$root.selectedSpace.owner == that.$root.user_temp_id" :loading="loadingChat"  @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
+                      <v-btn  class="mr-1" small :disabled="that.$root.selectedSpace.owner == that.$root.user_temp_id" :loading="loadingChat"  @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
           
 
              
@@ -299,7 +308,17 @@
           
 
 
-            <v-btn small @click.stop="showDiaryNotes" v-if=" this.$root.selectedSpace.type == 'Bot'" icon  ><v-icon style="font-size:21px;" > mdi-format-list-bulleted</v-icon></v-btn>
+            <v-btn small @click.stop="showDiaryNotes" v-if=" this.$root.selectedSpace.type == 'Bot'" icon  >
+             
+                  <v-badge
+                   dot
+                   v-if="newUpdatePresent(that.$root.diaryNotes)"
+                color="green">
+                 <v-icon style="font-size:21px;" > mdi-format-list-bulleted</v-icon>
+                   </v-badge>
+
+                    <v-icon v-else style="font-size:21px;" > mdi-format-list-bulleted</v-icon>
+              </v-btn>
 
                  <!-- ends -->
                 
@@ -338,6 +357,21 @@ export default {
      MoreOptionChat
     },
     methods:{
+      newUpdatePresent:function(updateData){
+
+         let update = updateData.filter((note)=>{
+
+             return note.changes > 0 || note.is_new;
+
+         })
+
+         if(update.length > 0){
+          return true;
+         }else{
+           return false;
+         }
+
+      },
        showMoreOptions:function(){
         this.$root.chatComponent.showMoreOptionsChat = true;
        },
@@ -533,6 +567,16 @@ export default {
         return onlineUserList.length;
        },
        goback: function(){
+
+          if(this.$root.comingFromDiaryBank){
+
+          this.$router.push({ path: '/board/diary/bank' });
+
+          this.$root.comingFromDiaryBank = false;
+
+          return;
+
+         }
           
              this.$router.push({ path: '/channels'});
           

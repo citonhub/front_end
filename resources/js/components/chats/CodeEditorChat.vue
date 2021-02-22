@@ -169,7 +169,7 @@
      <!-- page viewer for HTML codes -->
           <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
    :srcdoc="ResultCode"
-    style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%;" v-if="selectedLangId == 0"></iframe>
+    style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%;" v-if="selectedLangId == 0 || selectedLangId == 35"></iframe>
 
 <!-- ends -->
 
@@ -800,7 +800,7 @@ methods:{
               this.$root.spaceFullData.messages =  this.$root.Messages;
 
          
-              this.$root.LocalStore('full_'+this.$root.selectedSpace.space_id  + this.$root.username,this.$root.spaceFullData);
+              this.$root.LocalStore('full_space_'+this.$root.selectedSpace.space_id  + this.$root.username,this.$root.spaceFullData);
 
 
                  this.$root.scrollToBottom();

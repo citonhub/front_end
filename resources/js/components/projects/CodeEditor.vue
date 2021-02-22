@@ -93,6 +93,12 @@ export default {
 
           }
 
+          if(this.$root.projectPanelComponent && this.$root.panelFromChallenges){
+
+             this.$root.projectPanelComponent.showAlert('Hey!','Share challenge to get your work voted for','info');
+
+          }
+
         
       
        
@@ -298,10 +304,11 @@ methods:{
 
               })
               codeData = codeData[0];
+               this.$root.EditorLanguage = codeData.language_type;
+                this.$root.codeEditorContent = codeData.content;
                this.language = codeData.language_type;
               this.detectchange(this.language);
              this.code = codeData.content;
-
           }
           
           if(this.$root.SelectedCodeBox.type == 'back-end'){
@@ -313,6 +320,8 @@ methods:{
 
            })
               codeData = codeData[0];
+               this.$root.EditorLanguage = codeData.language_type;
+                this.$root.codeEditorContent = codeData.content;
                this.language = codeData.language_type;
               this.detectchange(this.language);
              this.code = codeData.content;
@@ -410,6 +419,10 @@ methods:{
             return;
           }
           this.loading = true;
+
+           if(this.code == ''){
+              return
+           }
 
       axios.post( '/save-code-content-project',{
                 project_slug: this.$route.params.project_slug,
