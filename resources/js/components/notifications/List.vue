@@ -67,13 +67,27 @@
 
                    <template v-else >
 
-                      <template v-if="notification.post_data != undefined">
+                     
+
+                         <template  v-if="notification.type == 'diary_changes'">
+
+                             <div :style="imageStyle(40,notification.diary,'50%','space')">
+  
+                             </div>
+
+                         </template>
+
+                         <template v-else>
+
+                            <div :style="imageStyle(40,notification.post_data,'8px','posts')">
+  
+                             </div>
+
+                         </template>
                         
-                      <div :style="imageStyle(40,notification.post_data,'8px','posts')">
+                     
 
-                    </div>
-
-                      </template>
+                     
 
                    </template>
                    
@@ -128,6 +142,23 @@
                       <span style="font-family:BodyFont;font-size:13px;"> pinned your project,</span> 
 
                       <span  style="font-family:MediumFont;font-size:13px;">{{notification.post_data.title}}</span>
+
+                   </template>
+
+                    <template v-if="notification.type == 'diary_changes'">
+                         
+                          <template>
+                             <span style="font-family:MediumFont;font-size:13px;">You have {{notification.dataArray.length}} new 
+                                <span v-if="notification.dataArray.length > 1">updates</span>
+                                <span v-else>update</span>
+                                
+                                </span> 
+                          </template>
+                     
+
+                      <span style="font-family:BodyFont;font-size:13px;"> from a diary - </span> 
+
+                      <span  style="font-family:MediumFont;font-size:13px;">{{notification.diary.name}}</span>
 
                    </template>
 
@@ -237,7 +268,19 @@
 
         if(notification.type == 'new_connection'){
 
-             this.$router.push({ path:'/profile/' + this.$root.username})
+             this.$router.push({ path:'/profile/' + notification.dataArray[0].username})
+
+        }
+
+        if(notification.type == 'diary_changes'){
+
+             this.$root.autoOpenChat = true;
+
+                       this.$root.autoOpenChatId = notification.diary_space.space_id;
+
+                     this.$router.push({ path: '/channels' });
+
+            
 
         }
 

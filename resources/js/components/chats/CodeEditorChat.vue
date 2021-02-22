@@ -169,7 +169,7 @@
      <!-- page viewer for HTML codes -->
           <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals"
    :srcdoc="ResultCode"
-    style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%;" v-if="selectedLangId == 0"></iframe>
+    style="border: 0; height:91%; position:absolute; width:100%; left:0; top:6%;" v-if="selectedLangId == 0 || selectedLangId == 35"></iframe>
 
 <!-- ends -->
 
@@ -264,7 +264,7 @@
 export default {
       mounted(){
 
-      
+          this.$root.componentIsLoading = false;
         this.setCodeContent();
       
       this.$root.codeboxComponent = this;
@@ -613,6 +613,8 @@ methods:{
 
           if(this.$root.codeIsLive && !userState && this.$root.fromLiveSession){
 
+             
+
 
 
              this.cmOption.readOnly = 'nocursor';
@@ -645,6 +647,8 @@ methods:{
 
             this.code = this.$root.FullcodeContent;
            this.language = this.$root.fullCodeLanguage;
+
+           
            this.detectchange(this.$root.fullCodeLanguage);
 
           
@@ -722,6 +726,7 @@ methods:{
        goBack() {
 
           this.$root.fromLiveSession = false;
+          this.$root.codeFromChat = false;
     
     window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
          this.$root.chatComponent.chatInnerConent = '';
@@ -795,7 +800,7 @@ methods:{
               this.$root.spaceFullData.messages =  this.$root.Messages;
 
          
-              this.$root.LocalStore('full_'+this.$root.selectedSpace.space_id  + this.$root.username,this.$root.spaceFullData);
+              this.$root.LocalStore('full_space_'+this.$root.selectedSpace.space_id  + this.$root.username,this.$root.spaceFullData);
 
 
                  this.$root.scrollToBottom();
@@ -1094,7 +1099,7 @@ methods:{
 
        this.$root.fullCodeLanguage = language;
 
-
+   
 
          if(language == 'HTML'){
             this.cmOption.mode = 'text/html';
@@ -1392,7 +1397,7 @@ methods:{
 
          }
 
-          this.$root.codeFromChat = false;
+        
 
       },
 }

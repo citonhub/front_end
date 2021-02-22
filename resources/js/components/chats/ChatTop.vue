@@ -3,7 +3,7 @@
 
 
        <!-- large and medium screens -->
-         <div class="col-md-9 py-0 d-md-flex px-md-1 flex-row  d-none" style="align-items:center;" >
+         <div class="col-md-9 py-0 d-lg-flex px-md-1 flex-row  d-none" style="align-items:center;" >
               
                    
                  
@@ -28,11 +28,12 @@
                               <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
 
 
-                           
-                            <span class="typingText d-block" v-if="this.$root.typing && (this.$root.typingSpace == this.$root.selectedSpace.space_id)">  <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing... </span>
-                <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }} , {{generateOnlineUsers()}}  {{ $t('space.Online') }}</span>
+                             <template v-if="!this.$root.typing &&  (this.$root.typingSpace != this.$root.selectedSpace.space_id)">
 
-          <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' ">
+                              
+                <span class="typingText d-block" v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }} , {{generateOnlineUsers()}}  {{ $t('space.Online') }}</span>
+
+          <span class="typingText d-block" v-if="this.$root.selectedSpace.type == 'SubSpace' ">
             
             <v-icon v-if="this.$root.selectedSubSpaceType == 'Public'" color="#333333"   class="d-inline-block" style="font-size:12px;">mdi-pound </v-icon>
             <v-icon v-if="this.$root.selectedSubSpaceType == 'Private'" color="#333333"  class="d-inline-block" style="font-size:12px;"> mdi-lock </v-icon>
@@ -43,17 +44,24 @@
             Online
           </span>
 
-           <span class="typingText d-block" v-if="this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' && (this.$root.typingSpace == this.$root.selectedSpace.space_id) ">
+           <span class="typingText d-block" v-if=" this.$root.selectedSpace.type == 'Direct' && checkIfOnline(this.$root.selectedSpace.userInfo.id)">{{ $t('space.Online') }}</span>
+
+                             </template>
+
+
+                  <template v-else>
+
+                     <span class="typingText d-block" v-if="(this.$root.typingSpace == this.$root.selectedSpace.space_id)">
             
-                  <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing...  
+                  <span v-if="this.$root.selectedSpace.type != 'Direct' "> {{this.$root.typinguser}} is</span> typing...  
             
-          </span>
+                </span>
+                    
+                    </template>          
 
-          
+      
 
-
-
-              <span class="typingText d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'Direct' && checkIfOnline(this.$root.selectedSpace.userInfo.id)">{{ $t('space.Online') }}</span>
+             
 
                              </div>
 
@@ -61,7 +69,7 @@
                      </div>
               
          </div>
-         <div class="col-md-1 py-1 d-md-block d-none text-right d-md-block"  style="align-items:center;">
+         <div class="col-md-1 py-1 d-none text-right d-lg-block"  style="align-items:center;">
 
             <template v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
 
@@ -71,13 +79,38 @@
 
                <template v-if=" this.$root.selectedSpace.type == 'Bot'">
 
-                <v-btn icon @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)"><v-icon color="#ffffff">mdi-account-supervisor-outline</v-icon></v-btn>
+                  <template v-if="that.$root.selectedSpace.bot_data.bot_channel">
+
+                      <v-btn    @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
+             
+            
+                 <v-icon >mdi-comment-multiple-outline </v-icon>
+           
+             
+              </v-btn>
+                    
+                  </template>
+
+                  <template v-else>
+
+                      <v-btn :disabled="that.$root.selectedSpace.owner == that.$root.user_temp_id" :loading="loadingChat"  @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
+          
+
+             
+                 <v-icon >las la-user-alt </v-icon>
+              
+              </v-btn>
+
+                  </template>
+
+              
+
 
              </template>
               
          </div>
 
-          <div class="col-md-1 py-1 d-md-block d-none text-right px-1 d-md-block"  style="align-items:center;">
+          <div class="col-md-1 py-1  d-none text-right px-1 d-lg-block"  style="align-items:center;">
 
 
             <template v-if=" this.$root.selectedSpace.type != 'Bot'">
@@ -95,12 +128,21 @@
                 </v-btn>
             </template>
 
-            <v-btn v-else icon  ><v-icon >mdi-comment-question-outline</v-icon></v-btn>
+            <v-btn v-else icon  @click.stop="showDiaryNotes" >
+                <v-badge
+                   dot
+                   v-if="newUpdatePresent(that.$root.diaryNotes)"
+                color="green">
+                 <v-icon > mdi-format-list-bulleted</v-icon>
+                   </v-badge>
+
+                    <v-icon v-else  > mdi-format-list-bulleted</v-icon>
+            </v-btn>
 
               
               
          </div>
-         <div class="col-md-1 py-1 text-right d-none d-md-block" style="align-items:center;" >
+         <div class="col-md-1 py-1 text-right d-none d-lg-block" style="align-items:center;" >
 
             
              <v-btn icon class="showMoreChat"  ><v-icon >las la-ellipsis-v</v-icon></v-btn>
@@ -131,7 +173,7 @@
            
          <!-- smaller screens -->
            
-            <div class="col-12 py-0 d-flex  flex-row d-md-none px-1" style="align-items:center;"  >
+            <div class="col-12 py-0 d-flex  flex-row d-lg-none px-1" style="align-items:center;"  >
               
                     <v-btn icon class="d-lg-none d-inline-block"  @click.stop="goback">
                       <v-icon style="font-size:24px;">las la-arrow-left</v-icon>
@@ -168,12 +210,14 @@
                               <div >
                               <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
 
+             
 
                            
-                            <span  class="typingTextSm d-block" v-if="this.$root.typing && (this.$root.typingSpace == this.$root.selectedSpace.space_id)">  <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing...  </span>
-                <span class="typingTextSm d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }} , {{generateOnlineUsers()}}  {{ $t('space.Online') }}</span>
+                            <template v-if="!this.$root.typing &&  (this.$root.typingSpace != this.$root.selectedSpace.space_id)">
 
-          <span class="typingTextSm d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' ">
+                                <span class="typingTextSm d-block" v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }} , {{generateOnlineUsers()}}  {{ $t('space.Online') }}</span>
+
+          <span class="typingTextSm d-block" v-if="this.$root.selectedSpace.type == 'SubSpace' ">
             
             <v-icon v-if="this.$root.selectedSubSpaceType == 'Public'" color="#333333"   class="d-inline-block" style="font-size:12px;">mdi-pound </v-icon>
             <v-icon v-if="this.$root.selectedSubSpaceType == 'Private'" color="#333333"  class="d-inline-block" style="font-size:12px;"> mdi-lock </v-icon>
@@ -183,14 +227,19 @@
           <span class="typingTextSm d-block" v-if="this.$root.selectedSpace.type == 'Bot' ">
             Online
           </span>
+      <span class="typingTextSm d-block" v-if="this.$root.selectedSpace.type == 'Direct' && checkIfOnline(this.$root.selectedSpace.userInfo.id)">{{ $t('space.Online') }}</span>
 
-           <span class="typingTextSm d-block" v-if="this.$root.typing && this.$root.selectedSpace.type == 'SubSpace' && (this.$root.typingSpace == this.$root.selectedSpace.space_id) ">
-            
-             <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing... 
-            
-          </span>
+                            </template>
 
-              <span class="typingTextSm d-block" v-if="!this.$root.typing && this.$root.selectedSpace.type == 'Direct' && checkIfOnline(this.$root.selectedSpace.userInfo.id)">{{ $t('space.Online') }}</span>
+                            <template v-else>
+
+                               <span class="typingTextSm d-block"  v-if="(this.$root.typingSpace == this.$root.selectedSpace.space_id)">
+            
+                            <span v-if="this.$root.selectedSpace.type != 'Direct'"> {{this.$root.typinguser}} is</span> typing... 
+            
+                             </span>
+
+                            </template>
 
                              </div>
 
@@ -208,12 +257,7 @@
 
              </template>
 
-               <template v-if=" this.$root.selectedSpace.type == 'Bot'">
-
-                <v-btn icon @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)"><v-icon color="#ffffff">mdi-account-supervisor-outline</v-icon></v-btn>
-
-             </template>
-
+             
              <!-- ends -->
                 
                  <!-- live session and bot author comment-->
@@ -233,7 +277,48 @@
                </v-btn>
             </template>
 
-            <v-btn small v-else icon  ><v-icon >mdi-comment-question-outline</v-icon></v-btn>
+            <template v-else>
+
+                <template v-if="that.$root.selectedSpace.bot_data.bot_channel">
+
+                      <v-btn small class="mr-1" @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
+             
+            
+                 <v-icon  style="font-size:21px;">mdi-comment-multiple-outline </v-icon>
+           
+             
+              </v-btn>
+                    
+                  </template>
+
+                  <template v-else>
+
+                      <v-btn  class="mr-1" small :disabled="that.$root.selectedSpace.owner == that.$root.user_temp_id" :loading="loadingChat"  @click="gotToBotChannel(that.$root.selectedSpace.bot_data.bot_channel)" icon >
+          
+
+             
+                 <v-icon  style="font-size:21px;">las la-user-alt </v-icon>
+              
+              </v-btn>
+
+                  </template>
+
+            </template>
+
+          
+
+
+            <v-btn small @click.stop="showDiaryNotes" v-if=" this.$root.selectedSpace.type == 'Bot'" icon  >
+             
+                  <v-badge
+                   dot
+                   v-if="newUpdatePresent(that.$root.diaryNotes)"
+                color="green">
+                 <v-icon style="font-size:21px;" > mdi-format-list-bulleted</v-icon>
+                   </v-badge>
+
+                    <v-icon v-else style="font-size:21px;" > mdi-format-list-bulleted</v-icon>
+              </v-btn>
 
                  <!-- ends -->
                 
@@ -261,12 +346,32 @@ export default {
     data () {
       return {
        that: this,
+       loadingChat:false,
       }
+    },
+    mounted(){
+     this.$root.chatTopLoaded = true;
+     this.$root.chatTopLoadedLg = true;
     },
     components:{
      MoreOptionChat
     },
     methods:{
+      newUpdatePresent:function(updateData){
+
+         let update = updateData.filter((note)=>{
+
+             return note.changes > 0 || note.is_new;
+
+         })
+
+         if(update.length > 0){
+          return true;
+         }else{
+           return false;
+         }
+
+      },
        showMoreOptions:function(){
         this.$root.chatComponent.showMoreOptionsChat = true;
        },
@@ -274,48 +379,138 @@ export default {
           
           if(this.$root.selectedSpace.bot_data.bot_channel){
 
-             this.$root.Messages = null;
+            
+          let spaceId = this.$root.selectedSpace.bot_data.bot_channel;
 
-              this.$root.channel = null
+               this.$root.chatComponent.chatInnerSideBar= false;
+               this.$root.chatComponent.chatIsOpen = false;
+                this.$root.chatComponent.innerSideBarContent = '';
+
+                
+
+            this.$router.push({ path: '/channels/' + spaceId +'/content' });
+              
+              this.$root.chatComponent.fetchMessages(spaceId);
+              this.$root.chatComponent.messageIsDone = false;
+           this.$root.chatComponent.chatIsOpen = true;
+
+
+          }else{
+
+             if(this.$root.selectedSpace.owner == this.$root.user_temp_id){
+
+               return;
+
+             }
+            this.chatUser();
+          }
+      },
+        chatUser:function(){
+
+         this.loadingChat = true;
+
+          axios.post( '/create-space',{
+                name: '',
+                limit: 2,
+                memberId: this.$root.selectedSpace.owner,
+                type: 'Direct'
+                  })
+          .then(response => {
+
+             if (response.status == 200) {
 
               
 
-      //           this.$root.codeEditorArray = [];
-      //  this.$root.returnedMessages = [];
-      //  this.$root.messageStoreTop = [];
-      //  this.$root.messageStore = [];
-      //  this.$root.sharePage = false;
-      //  this.$root.showUserInfo = false;
-       
+                  let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
 
-      //      window.Echo.leave('space.' + this.$root.selectedSpace.space_id);
-        
-      //   this.$root.forceListReload = true;
-      //   this.$root.showUserInfo = false;
-      //  this.$root.selectedSpaceMembers = [];
+                   storedChat.then((result)=>{
 
-      //   this.$root.SpaceUsers = [];
-      //    this.$root.selectedSpace = [];
+                       if(result != null ){
 
-            
+                           
 
+                          
+
+                    let finalResult = JSON.parse(result);
+
+                        let userSpace = finalResult.direct_messages.filter((space)=>{
+                          return space.space_id == response.data.space.space_id
+                        })
+
+                        if(userSpace.length > 0){
 
 
-      //        this.$router.push({ path: '/space/'  +  botChannel  +  '/channel/content/new' + '/user' });
+                        }else{
 
-      //           this.$root.channelContentComponent.fetchMessages();
+                          finalResult.direct_messages.unshift(response.data.space);
 
-      //      this.$root.channelContentComponent.makeSpaceConnetion();
+                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+                     
+                   this.$root.ChatList = fullList;
+
+                     this.$root.sortChatList();
+
+                        }
+                      
                          
 
-          }
+
+                           let spaceId = response.data.space.space_id;
+
+               this.$root.chatComponent.chatInnerSideBar= false;
+               this.$root.chatComponent.chatIsOpen = false;
+                this.$root.chatComponent.innerSideBarContent = '';
+
+                
+
+            this.$router.push({ path: '/channels/' + spaceId +'/content' });
+              
+              this.$root.chatComponent.fetchMessages(spaceId);
+              this.$root.chatComponent.messageIsDone = false;
+           this.$root.chatComponent.chatIsOpen = true;
+
+       
+
+                 }
+
+                   } )
+
+               
+            }
+
+          })
+          .catch(error => {
+             
+
+               this.loadingChat = false;
+
+              this.showAlert('Oops!','Something went wrong,please try again','error');
+
+
+          })
+
+
+        
+
+      },
+      showDiaryNotes:function(){
+
+       this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/diary_notes' });
+
       },
        showSideBar: function(type){
+
+
             
              if( this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team'  || this.$root.selectedSpace.type == 'SubSpace'){
+                 this.$root.componentIsLoading = true;
 
                 this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/' + type });
-            
+              
+              
 
              }
 
@@ -333,6 +528,7 @@ export default {
          this.$router.push({ path:'/profile-view/' + username})
       },
        openLiveSession:function(){
+           this.$root.componentIsLoading = true;
                this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id +'/live_session' });
             
        },
@@ -371,6 +567,16 @@ export default {
         return onlineUserList.length;
        },
        goback: function(){
+
+          if(this.$root.comingFromDiaryBank){
+
+          this.$router.push({ path: '/board/diary/bank' });
+
+          this.$root.comingFromDiaryBank = false;
+
+          return;
+
+         }
           
              this.$router.push({ path: '/channels'});
           
@@ -392,9 +598,9 @@ export default {
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; cursor:pointer;";
          let imgLink = data.image_name + '.' + data.image_extension;
           if(type == 'channel' || type== 'bot'){
-              styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
+              styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/thumbnails/'  + imgLink  +  ');';
          }else{
-            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/thumbnails/'  + imgLink  +  ');';
          }
          
           return styleString;

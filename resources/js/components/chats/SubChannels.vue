@@ -109,7 +109,7 @@ export default {
         }
     },
    mounted(){
-
+     this.$root.componentIsLoading = false;
      this.fetchSubSpaces();
     
    },
@@ -181,7 +181,7 @@ export default {
  
                   this.loadingSubSpace = false;
 
-              // this.checkForNewSubSpace();
+              this.checkForNewSubSpace();
 
                  }else{
             
@@ -208,7 +208,7 @@ export default {
              });
            }
 
-             this.showList();
+             this.sortList();
      
          this.loadingSubSpace = false;
 
@@ -228,6 +228,34 @@ export default {
 
          
        
+        },
+        checkForNewSubSpace:function(){
+
+               axios.get( '/fetch-sub-spaces-' + this.$root.selectedSpace.general_spaceId + '-' + this.$root.userDeviceId )
+      .then(response => {
+      
+      if (response.status == 200) {
+
+          this.$root.LocalStore('sub_channels_' + this.$root.selectedSpace.general_spaceId  + this.$root.username,response.data);
+        
+            
+                   let finalResult = response.data.sub_channels;
+
+                    this.subSpaces =  finalResult;
+     
+              this.sortList();
+     
+     }
+       
+     
+     })
+     .catch(error => {
+
+      
+    
+     }) 
+
+
         },
         checkForUnread:function(){
 
@@ -278,12 +306,13 @@ export default {
    },  
    addSubChannel:function(){
 
-       this.$root.chatComponent.innerSideBarContent = '';
-             setTimeout(() => {
+       this.$root.componentIsLoading = true;
 
+       this.$root.chatComponent.innerSideBarContent = '';
+           
             this.$root.chatComponent.innerSideBarContent = 'add_sub_channel';
                 
-             },500);
+           
            this.$router.push({ path: '/channels/space_id/add_sub_channel' });
 
      

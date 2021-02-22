@@ -4,7 +4,7 @@
        <!-- date time -->
         
          <div class="col-12  text-center" v-if="source.showDate != undefined" :id="'message'+ source.id">
-            <v-btn small rounded color="#3C87CD" class=" py-1 px-2" style="font-size:11px;text-transform:none;color:white;">{{covertDate(source.showDate)}}</v-btn>
+            <span  class=" py-1 px-2  " style="font-size:11px;text-transform:none;color:white; background:#3C87CD;border:1px solid #3C87CD;border-radius:10px;">{{covertDate(source.showDate)}}</span>
          </div>
 
          <!-- ends -->
@@ -12,8 +12,11 @@
             <!-- user joined -->
         
          <div class="col-12  text-center" v-if="source.type == 'join'"  :id="'message'+ source.id">
-            <v-btn small rounded color="#3C87CD" class=" py-1 px-2" style="font-size:11px;text-transform:none;color:white;" v-if="source.username != that.$root.username">{{source.username}} joined</v-btn>
-             <v-btn small rounded color="#3C87CD" class=" py-1 px-2" style="font-size:11px;text-transform:none;color:white;" v-else>You joined</v-btn>
+          
+               <span  class=" py-1 px-2  " style="font-size:11px;text-transform:none;color:white; background:#3C87CD;border:1px solid #3C87CD;border-radius:10px;"  v-if="source.username != that.$root.username">{{source.username}} joined</span>
+
+                 <span  class=" py-1 px-2  " style="font-size:11px;text-transform:none;color:white; background:#3C87CD;border:1px solid #3C87CD;border-radius:10px;"  v-else>You joined</span>
+
          </div>
 
 
@@ -21,20 +24,20 @@
         
          <div class="col-12  text-center" v-if="source.type == 'unread'"  :id="'message'+ source.id">
 
-               <v-btn small rounded color="#3C87CD" class=" py-1 px-2" style="font-size:11px;text-transform:none;color:white;">{{source.content}}</v-btn>
+                 <span  class=" py-1 px-2  " style="font-size:11px;text-transform:none;color:white; background:#3C87CD;border:1px solid #3C87CD;border-radius:10px;" >{{source.content}}</span>
          </div>
 
          <!-- text message -->
-        <div elevation-1 class="col-11 py-0 offset-1" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''"  v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1' || source.type == 'action') && checkOwner(source.user_id)">
+        <div elevation-1 class="col-12 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''"  v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1' || source.type == 'action') && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse" :id="'messageWrap' + source.message_id" @click="showMoreOption(source)" >
+             <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse"  >
                  
 
-                  <v-card  elevation-1 class="py-1 px-2 mr-2"  style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)" elevation-1 class="py-1 px-2 mr-2" :id="'messageWrap' + source.message_id" style="max-width:80%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                      
                     
                     
-                       <span style="color:white;font-size:13px;" class="handleText" v-html="source.content" > </span>
+                       <span style="color:white !important;" :class="screenType == 'large' ? 'handleText' :'handleTextSm'" v-html="source.content" > </span>
                     
                       
                        
@@ -52,10 +55,11 @@
 
                   <!-- more option -->
 
+                  
+
                    <v-menu
       absolute
       :activator="'#messageWrap' + source.message_id"
-       style="z-index:99999999999999999999;"
       
       left
       offset-y
@@ -75,16 +79,16 @@
         </div>
 
 
-         <div elevation-1 class="col-11 py-0 mt-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1' || source.type == 'action'  && source.is_reply != '1') && checkOwner(source.user_id) == false">
+         <div elevation-1 class="col-12 py-0 mt-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1' || source.type == 'action'  && source.is_reply != '1') && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-7 col-md-8  px-1 px-md-2  d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+             <div class="col-lg-7 col-md-8  px-1 px-md-2  d-flex flex-row"   >
                  
 
                          <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)" @click.stop="goToProfile(source.username)"  ></div> 
 
 
-                  <v-card elevation-1  class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  elevation-1 :id="'messageWrap' + source.message_id" class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
                     <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
                          <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
@@ -93,7 +97,7 @@
 
                   </div>
                      
-                       <span style="font-size:13px;" v-html="source.content" > </span>
+                       <span :class="screenType == 'large' ? 'handleTextNormal' :'handleTextNormalSm'" v-html="source.content" > </span>
                      
 
                  <!-- more option -->
@@ -125,16 +129,16 @@
        
 
 
-        <div elevation-1 :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" class="col-11 py-0 offset-1"  v-if="(source.replied_message != undefined && source.is_reply == '1') && checkOwner(source.user_id)">
+        <div elevation-1 :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" class="col-12 py-0 "  v-if="(source.replied_message != undefined && source.is_reply == '1') && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+             <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse"  >
                  
-                  <v-card  elevation-1 class="py-1 px-2 mr-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 mr-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                      <!-- comment -->
 
                    <div class="d-flex flex-column py-2 px-1" style="border-left:3px solid #ffffff; border-radius:0px; background:#d6e6f5;"  @click.stop="scrollToMessage(source.replied_message.message_id)">
                           <template v-if="source.replied_message.type == null || source.replied_message.type == 'text' || source.replied_message.type == 'action'">
-                               <div style="font-size:13px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{ getReplyMsg(source.replied_message) }}</div>
+                               <div  :style="screenType == 'large' ? 'font-size:13px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ' :'font-size:12px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; '" >{{ getReplyMsg(source.replied_message) }}</div>
                           </template>
 
                           <template v-if="source.replied_message.type == 'video'">
@@ -144,7 +148,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.video.display_name ,25)}}</span>
+                     <span  :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'" class="ml-2" >{{ shortenContent(source.replied_message.video.display_name ,25)}}</span>
                    
                      
                     </div>
@@ -157,7 +161,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ source.replied_message.code.name + '.' + languageExtensions(source.replied_message.code.language_type)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{ source.replied_message.code.name + '.' + languageExtensions(source.replied_message.code.language_type)}}</span>
                    
                      
                     </div>
@@ -169,7 +173,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{shortenContent(source.replied_message.project.title ,25)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{shortenContent(source.replied_message.project.title ,25)}}</span>
                    
                      
                     </div>
@@ -181,7 +185,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.file.display_name ,25)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{ shortenContent(source.replied_message.file.display_name ,25)}}</span>
                    
                      
                     </div>
@@ -193,7 +197,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.audio.display_name ,25)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{ shortenContent(source.replied_message.audio.display_name ,25)}}</span>
                    
                      
                     </div>
@@ -206,7 +210,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >Images</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >Images</span>
                    
                      
                     </div>
@@ -225,7 +229,7 @@
                          <span style="color:white;font-size:13px;display:none;" :id="'fullContent' + source.message_id + screenType" v-html="source.content" > </span>
                      </template> -->
                     
-                       <span style="color:white;font-size:13px;" class="handleText" v-html="source.content" > </span>
+                       <span style="color:white !important;" :class="screenType == 'large' ? 'handleText' :'handleTextSm'" v-html="source.content" > </span>
                    
                       
                        
@@ -267,13 +271,13 @@
 
 
 
-         <div elevation-1 :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" class="col-11 py-0 mt-2" v-if="(source.replied_message != undefined && source.is_reply == '1') && checkOwner(source.user_id) == false">
+         <div elevation-1 :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" class="col-12 py-0 mt-2" v-if="(source.replied_message != undefined && source.is_reply == '1') && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-7 col-md-8 px-1 px-md-2  d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+             <div class="col-lg-7 col-md-8 px-1 px-md-2  d-flex flex-row"  >
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)" @click.stop="goToProfile(source.username)"   ></div> 
 
-                  <v-card  elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 ml-2" style="max-width:80%;  border:1px solid transparent; min-width:200px;background:#ffffff; border-radius:7px; border-bottom-left-radius:0px;">
 
                     <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
                          <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)" >{{source.username}}</span>  <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
@@ -285,7 +289,7 @@
                   <!-- comment -->
                    <div class="d-flex flex-column py-2 px-1" style="border-left:3px solid #3C87CD; background:#d6e6f5;"   @click.stop="scrollToMessage(source.replied_message.message_id)">
                            <template v-if="source.replied_message.type == null || source.replied_message.type == 'text' || source.replied_message.type == 'action'">
-                               <div style="font-size:13px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">{{ getReplyMsg(source.replied_message) }}</div>
+                               <div :style="screenType == 'large' ? 'font-size:13px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ' :'font-size:12px; white-space: nowrap; overflow:hidden; text-overflow: ellipsis; '">{{ getReplyMsg(source.replied_message) }}</div>
                           </template>
 
                           <template v-if="source.replied_message.type == 'video'">
@@ -295,7 +299,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.video.display_name ,25)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{ shortenContent(source.replied_message.video.display_name ,25)}}</span>
                    
                      
                     </div>
@@ -308,7 +312,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ source.replied_message.code.name + '.' + languageExtensions(source.replied_message.code.language_type)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{ source.replied_message.code.name + '.' + languageExtensions(source.replied_message.code.language_type)}}</span>
                    
                      
                     </div>
@@ -320,7 +324,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{shortenContent(source.replied_message.project.title ,25)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{shortenContent(source.replied_message.project.title ,25)}}</span>
                    
                      
                     </div>
@@ -332,7 +336,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.file.display_name ,25)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{ shortenContent(source.replied_message.file.display_name ,25)}}</span>
                    
                      
                     </div>
@@ -344,7 +348,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >{{ shortenContent(source.replied_message.audio.display_name ,25)}}</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >{{ shortenContent(source.replied_message.audio.display_name ,25)}}</span>
                    
                      
                     </div>
@@ -357,7 +361,7 @@
 
 
                      
-                     <span style="font-size:13px;" class="ml-2" >Images</span>
+                     <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  class="ml-2" >Images</span>
                    
                      
                     </div>
@@ -370,12 +374,12 @@
 
                   <!-- ends -->
                       <!-- <template v-if="checkIfMsgIsLong(source)">
-                       <span style="font-size:13px;" v-html="shortenContent(source.content,300)" :id="'shortContent' + source.message_id + screenType"> </span>
+                       <span :style="screenType == 'large' ? 'font-size:13px;' :'font-size:12px;'"  v-html="shortenContent(source.content,300)" :id="'shortContent' + source.message_id + screenType"> </span>
                        <span :id="'moreContentbtn' + source.message_id + screenType" @click.stop="showFullMsg(source)" class="mx-1 px-1 py-1" style="color:#3C87CD;font-size:13px; background:white;border:1px solid transparent;border-radius:8px;">more</span>
                          <span style="font-size:13px;display:none;" :id="'fullContent' + source.message_id + screenType" v-html="source.content" > </span>
                      </template> -->
                    
-                       <span style="font-size:13px;" v-html="source.content" > </span>
+                       <span :class="screenType == 'large' ? 'handleTextNormal' :'handleTextNormalSm'" v-html="source.content" > </span>
                     
 
                       <!-- more option -->
@@ -407,14 +411,25 @@
      <!-- code message -->
           <div class="col-10  py-0 offset-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'code' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 px-0 px-md-2 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+             <div class="col-lg-5 px-0 px-md-2 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse"  >
                 
 
-                  <v-card  elevation-1 class="py-1 px-2 mr-2" style=" width:90%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
-                     
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 mr-2" style=" width:90%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                      
+                      
+                      <template v-if="that.$root.codeboxIsLoading">
+                        <v-skeleton-loader
+                                       type="image"
+                                       height="200px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                  
+                      </template>
                      
                    <code-box color="#ffffff" v-if="source.loading == false"  :topMargin="5"  
                    :codeContent="source.code.content" 
+                    :screenType="screenType"
                    :messageId="source.message_id" 
                    :filename="source.code.name + '.' + languageExtensions(source.code.language_type)" 
                    :codeLanguage="source.code.language_type"></code-box>
@@ -473,19 +488,30 @@
 
          <div class="col-11 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''"  v-if="source.type == 'code' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row"  >
                    <div  @click.stop="goToProfile(source.username)"
                      :style="imageStyle(30,source.user_profile,source.user_type)"   ></div> 
 
-                  <v-card  elevation-1 class="py-1 px-2 ml-2" style=" width:80%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 ml-2" style=" width:80%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                       <div class="text-left d-flex" style="align-items:center:">
                          <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}}</span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
                   </div>
 
+                   <template v-if="that.$root.codeboxIsLoading">
+                        <v-skeleton-loader
+                                       type="image"
+                                       height="200px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                  
+                      </template>
+
                    <code-box color="#333333" v-if="source.loading == false"  :topMargin="13"  
                    :codeContent="source.code.content" 
                    :messageId="source.message_id" 
+                    :screenType="screenType"
                    :filename="source.code.name + '.' + languageExtensions(source.code.language_type)" 
                    :codeLanguage="source.code.language_type"></code-box>
 
@@ -528,10 +554,10 @@
    <!-- video message -->
          <div class="col-10 py-0 offset-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'video' && checkOwner(source.user_id) ">
            <div class="row">
-             <div class="col-lg-5 px-0 px-md-2 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+             <div class="col-lg-5 px-0 px-md-2 col-md-6  offset-lg-7 offset-md-6 d-flex flex-row-reverse"  >
                  
 
-                  <v-card elevation-1 class="py-1 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
 
                      <div class="col-12 py-1 px-1"  v-if="source.loading || source.video == null" >
@@ -611,11 +637,11 @@
 
           <div class="col-10 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'video' && checkOwner(source.user_id) == false ">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row"   >
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)"  @click.stop="goToProfile(source.username)" ></div> 
 
-                  <v-card  elevation-1 class="py-1 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                          <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
                          <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
@@ -658,10 +684,10 @@
     <!-- audio message -->
          <div class="col-10 py-0 offset-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="(source.type == 'audio') && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse"  >
                 
 
-                  <v-card  elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card  :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
 
 
@@ -741,11 +767,11 @@
 
          <div class="col-10 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="(source.type == 'audio' &&  source.audio != null) && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row"   >
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)" @click.stop="goToProfile(source.username)"  ></div> 
 
-                  <v-card  elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card  :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                        <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
                          <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
@@ -785,10 +811,10 @@
 
          <div class="col-10 py-0 offset-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'image' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse" >
                
 
-                  <v-card  elevation-1 class="py-1 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
                      <div class="col-12 py-1 px-1"  v-if="source.loading" >
                   <div class="row py-0 my-0">
@@ -865,11 +891,11 @@
 
          <div class="col-10 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'image' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-1 px-md-2  d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2  d-flex flex-row"   >
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)"  @click.stop="goToProfile(source.username)" ></div> 
 
-                  <v-card elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                        <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
                          <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
@@ -909,9 +935,9 @@
    <!-- project message -->
          <div class="col-10 py-0 offset-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'project' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse"  >
                   
-                  <v-card  elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
                    <div class="row">
                       <div class="col-2 text-center d-flex py-1" style="align-items:center; justify-content:center;">
@@ -963,11 +989,11 @@
 
       <div class="col-10 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'project' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+             <div class="col-lg-5 col-md-6 px-1 px-md-2 d-flex flex-row"  >
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)"  @click.stop="goToProfile(source.username)" ></div> 
 
-                  <v-card   elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id"  elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                        <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
                          <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
@@ -1017,10 +1043,10 @@
 
          <div class="col-10 py-0 offset-2" :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''"  v-if="source.type == 'file' && checkOwner(source.user_id)">
            <div class="row">
-             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+             <div class="col-lg-5 col-md-6 px-0 px-md-2 offset-lg-7 offset-md-6 d-flex flex-row-reverse"  >
                  
 
-                  <v-card  elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card  :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-2 pt-3 px-2 mr-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#3C87CD; border-radius:7px; border-bottom-right-radius:0px;">
                     
                      <div class="col-12 py-1 px-1"  v-if="source.loading" >
                   <div class="row py-0 my-0">
@@ -1108,11 +1134,11 @@
 
          <div class="col-10 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''" v-if="source.type == 'file' && checkOwner(source.user_id) == false">
            <div class="row">
-             <div class="col-lg-5 px-1 px-md-2 col-md-6  d-flex flex-row"  :id="'messageWrap' + source.message_id" @click="showMoreOption(source)">
+             <div class="col-lg-5 px-1 px-md-2 col-md-6  d-flex flex-row"  >
                    <div 
                      :style="imageStyle(30,source.user_profile,source.user_type)"  @click.stop="goToProfile(source.username)" ></div> 
 
-                  <v-card  elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
+                  <v-card :ripple="false"  @click="showMoreOption(source)"  :id="'messageWrap' + source.message_id" elevation-1 class="py-1 pb-2 px-2 ml-2" style=" width:100%;  border:1px solid transparent; min-width:150px;background:#ffffff; border-radius:7px; border-bottom-right-radius:0px;">
                        <div class="text-left my-0 py-0 d-flex flex-row" style="align-items:center;">
                          <span style="font-size:13px;font-weight:bold; " @click.stop="goToProfile(source.username)">{{source.username}} </span> <span v-if="checkIfAdmin(source) && that.$root.selectedSpace.type != 'Direct'"><v-icon style="font-size:18px;color:#3C87CD;" class="mx-1">las la-check-circle</v-icon></span>
 
@@ -1215,7 +1241,7 @@ export default {
     },
     methods:{
 
-       handelMessageContent: function(message){
+   handelMessageContent: function(message){
 
        return this.shortenContent(message.content,200);
     
@@ -1227,11 +1253,13 @@ export default {
     },
     showMoreOption:function(message){
 
-        
+         if( this.$root.selectedSpace.type == 'Bot' ) return
        this.$root.replyMessage = message;
           this.$root.chatComponent.showMoreOptions = true;
     },
     goToProfile:function(username){
+
+       if( this.$root.selectedSpace.type == 'Bot' ) return
         this.$root.selectedUsername = username;
          this.$router.push({ path:'/profile-view/' + username})
       },
@@ -1285,9 +1313,9 @@ export default {
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
          let imgLink = data.image_name + '.' + data.image_extension;
           if(this.$root.selectedSpace.type == 'Bot'){
-              styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
+              styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/thumbnails/'  + imgLink  +  ');';
          }else{
-            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/thumbnails/'  + imgLink  +  ');';
          }
          
           return styleString;
@@ -1480,9 +1508,9 @@ export default {
 
         
   
-         this.$root.chatComponent.$refs.messageContainer.scrollToItem(msgIndex - 2);
+         this.$root.chatComponent.$refs.messageContainer.scrollToItem(msgIndex);
 
-         this.$root.chatComponent.$refs.messageContainersmall.scrollToItem(msgIndex - 2);
+         this.$root.chatComponent.$refs.messageContainersmall.scrollToItem(msgIndex);
 
         },200)
       
@@ -1701,9 +1729,90 @@ export default {
     
 }
 </script>
-<style scoped>
-.handleText a {
-  color: white;
+<style >
+.handleText  p a{
+  color: #ffffff ;
   text-decoration: underline;
+  font-size:13px;
 }
+
+.handleText  p {
+  color: #ffffff ;
+  font-size:13px;
+}
+
+
+
+.handleText  {
+  color: #ffffff ;
+  font-size:13px;
+}
+
+.handleTextSm  p a{
+  color: #ffffff ;
+  text-decoration: underline;
+  font-size:12px;
+}
+
+.handleTextSm  p {
+  color: #ffffff ;
+  font-size:12px;
+}
+
+.handleTextSm   ol{
+  padding-left:13px !important;
+}
+
+.handleTextSm   ul{
+ padding-left:13px !important;
+}
+
+.handleTextSm  {
+  color: #ffffff ;
+  font-size:12px;
+}
+
+.handleTextNormal  p a{
+  color: #3C87CD ;
+  text-decoration: underline;
+  font-size:13px;
+}
+
+.handleTextNormal  p {
+  color: #000000 ;
+  font-size:13px;
+}
+
+
+.handleTextNormal  {
+  color: #000000 ;
+  font-size:13px;
+}
+
+.handleTextNormalSm  p a{
+  color: #3C87CD ;
+  text-decoration: underline;
+  font-size:12px;
+}
+
+.handleTextNormalSm  p {
+  color: #000000 ;
+  font-size:12px;
+}
+
+.handleTextNormalSm  {
+  color: #000000 ;
+  font-size:12px;
+}
+
+
+.handleTextNormalSm   ol{
+  padding-left:13px !important;
+}
+
+.handleTextNormalSm   ul{
+   padding-left:13px !important;
+}
+
+
 </style>

@@ -107,7 +107,7 @@ export default {
   
   },
     mounted(){
-      
+        this.$root.componentIsLoading = false;
     },
     methods:{
       
@@ -155,17 +155,9 @@ export default {
                       
                          finalResult.channels.unshift(response.data.space);
 
-                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult,false,'new_channel',response.data.space);
 
-                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
-
-                     
-                   this.$root.ChatList = fullList;
-
-                     this.$root.sortChatList();
-
-                      this.$root.chatComponent.chatbarContent = 'chat_list';
-                       this.$root.chatComponent.openChat(response.data.space.space_id,true)
+                 
 
                   
 

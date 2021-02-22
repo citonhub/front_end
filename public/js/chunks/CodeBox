@@ -45,10 +45,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['codeContent', 'filename', 'codeLanguage', 'codeViewerType', 'messageId', 'color', 'topMargin'],
+  props: ['codeContent', 'filename', 'codeLanguage', 'codeViewerType', 'messageId', 'color', 'topMargin', 'screenType'],
   components: {
     codemirror: vue_codemirror__WEBPACK_IMPORTED_MODULE_0__["codemirror"]
   },
@@ -58,6 +59,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    this.$root.codeboxIsLoading = false;
     this.detectchange(this.codeLanguage);
   },
   data: function data() {
@@ -293,11 +295,10 @@ var render = function() {
       { staticClass: " codeboxnew" },
       [
         _c("codemirror", {
-          staticStyle: {
-            height: "190px",
-            "overflow-y": "hidden !important",
-            "overflow-x": "hidden !important"
-          },
+          style:
+            _vm.screenType == "large"
+              ? "font-size:13px; height:190px; overflow-y:hidden !important; overflow-x:hidden !important; "
+              : "font-size:12px; height:190px; overflow-y:hidden !important; overflow-x:hidden !important; ",
           attrs: { options: _vm.cmOption },
           on: {
             cursorActivity: _vm.onCmCursorActivity,
@@ -363,7 +364,7 @@ var render = function() {
             _c("div", { staticClass: "ml-3" }, [
               _c(
                 "span",
-                { style: "color:" + _vm.color + " ;font-size:13px;" },
+                { style: "color:" + _vm.color + " ;font-size:12px;" },
                 [_vm._v(_vm._s(_vm.filename))]
               )
             ])

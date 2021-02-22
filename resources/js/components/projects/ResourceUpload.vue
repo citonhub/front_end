@@ -213,10 +213,10 @@
                 this.loading = false;
                    
                   
-              // push new files into the code file list
+              // push new files into the  file list
                    
 
-              this.$root.projectData.project_files.resources.unshift(response.data.route_file)
+              this.$root.projectData.project_files.resources.unshift(response.data)
 
                this.$root.LocalStore('user_projects_data_' +  this.$route.params.project_slug + this.$root.username,this.$root.projectData);
 

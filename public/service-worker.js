@@ -195,7 +195,23 @@ const {NetworkOnly} = workbox.strategies;
 
      
 
+       
 
+       if(notificationOptions.data.type == 'diary_changes'){
+
+        
+        if(notificationCount == undefined){
+
+          notificationOptions.title = 'New updates from ' + notificationOptions.data.diary.name;
+         
+        }else{
+          
+          notificationOptions.title =  'New updates from ' + notificationOptions.data.diary.name;
+
+          
+        }
+      
+       }
        
 
          if(notificationOptions.data.type == 'new_message'){

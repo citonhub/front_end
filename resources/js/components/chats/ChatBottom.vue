@@ -4,17 +4,31 @@
            <div class="col-12 py-1 my-0 d-flex px-md-2 px-2 flex-row" style="align-items:center; justify-content:center;">
                   <template v-if="!recording">
 
-                      <v-btn icon class="mx-md-1" v-if="showAttachment && this.$root.selectedSpace.type != 'Bot'" @click="showShareBoard"> 
-           <v-icon>las la-paperclip</v-icon> </v-btn>
+                     
                  
                      <v-btn icon class="mx-md-1 mr-1" @click="toggleEmoji"><v-icon>las la-grin</v-icon> </v-btn>
 
                       
-              
-                  <textarea ref="textBottom" :value="input" @input="update"  @keydown="handelkeyAct" @focus="focusEditor"  @blur="blurEditor"  style="font-size:13px;"  :placeholder="$t('general.type_here')"  ></textarea>
+            
                     
-
+                      <textarea-autosize
+                 placeholder="Type here..."
+                 ref="textBottom"
+                 @input="update" 
+                  @keydown.native="handelkeyAct"
+                   @focus.native="focusEditor"  
+                   @blur.native="blurEditor"
+                 :value="input"
+                  :important="true"
+                 :class="screenType == 'large' ? 'textareaLg' : 'textareaSm' "
+                :min-height="screenType == 'large' ? 40 : 40"
+                :max-height="screenType == 'large' ? 60 : textHeight"
+               
+                 />
                     <template v-if="this.$root.selectedSpace.type != 'Bot'">
+
+                       <v-btn icon class="mx-md-1" v-if="showAttachment && this.$root.selectedSpace.type != 'Bot'" @click="showShareBoard"> 
+           <v-icon>las la-paperclip</v-icon> </v-btn>
 
                           <!-- send  -->
                   <v-btn icon class="mx-md-1" @click="sendMessage" v-if="showSend"><v-icon>las la-send</v-icon> </v-btn>
@@ -69,8 +83,12 @@
     </div>
 </template>
 <script>
+import VueTextareaAutosize from 'vue-textarea-autosize'
+
+Vue.use(VueTextareaAutosize)
 
 export default {
+    props:['screenType'],
       data(){
         return{
         
@@ -83,6 +101,7 @@ export default {
       alertMsg:'',
       recording:false,
       audioBlob:'',
+      textHeight:28,
       mediaRecorder:null,
       contentInWord:'',
       NewMsg:'',
@@ -100,8 +119,11 @@ export default {
       
   },
     mounted(){
-       this.$root.bottomEditorValue = this.$refs.textBottom;
+       this.$root.bottomEditorValue = this.$refs.textBottom.$el;
        this.$root.channelBottomComp = this;
+        this.$root.showCodeboxBtn = true;
+        this.$root.chatBottomLoaded = true;
+         this.$root.chatBottomLoadedLg = true;
     },
      computed: {
 
@@ -126,7 +148,7 @@ export default {
  
       },
       reFocusEditor:function(){
-      this.$refs.textBottom.focus();
+      this.$refs.textBottom.$el.focus();
       },
         toggleEmoji:function(){
 
@@ -138,6 +160,9 @@ export default {
 
         },
      handelkeyAct: function(e){
+
+       
+       
         
         if(e.keyCode == 16){
 
@@ -167,22 +192,28 @@ export default {
            this.$root.showChatBottom = false;
         },
         update:function(e){
-           this.input = e.target.value;
 
-           this.wordCount =  this.input.length;
+            this.input = e;
+          
+           this.wordCount =  e.length;
+
+       
            
              if(this.wordCount > 0){
-           this.showSend = true;
-           
-                 
+          
+                  this.showSend = true;
+          
              this.isTyping();
+
+               this.textHeight = 60;
 
               
 
          }else{
-            this.showSend = false;
-            
-             
+
+               this.showSend = false;
+
+           this.textHeight = 35;
          }
 
            this.contentInWord = this.compiledMarkdown;
@@ -245,7 +276,7 @@ export default {
 
         
          
-          this.recorderInterval = setInterval(() => {
+         let recorderInterval = setInterval(() => {
 
          this.seconds++
 
@@ -274,11 +305,17 @@ export default {
    
          }, 1000);
 
+         this.recorderInterval= recorderInterval;
+
      },
        stoprecord: function(type){
          
-          
-           this.mediaRecorder.stop();
+            if( this.mediaRecorder){
+
+              this.mediaRecorder.stop();
+
+            }
+           
            clearInterval(this.recorderInterval);
 
            this.recording = false;
@@ -371,19 +408,11 @@ export default {
             spaceId: this.$route.params.spaceId
         });
 
-      },1000)
+      },500)
 
 
    
-      setTimeout(()=>{
-
-          channel.whisper('typing', {
-          user: this.$root.username,
-           typing: false,
-            spaceId: this.$route.params.spaceId
-        });
-
-      },5000)
+     
         
      
     
@@ -417,7 +446,7 @@ export default {
 
                
 
-             this.$root.LocalStore('full_'+ this.$route.params.spaceId  + this.$root.username,this.$root.spaceFullData);
+             this.$root.LocalStore('full_space_'+ this.$route.params.spaceId  + this.$root.username,this.$root.spaceFullData);
                
 
                this.$root.scrollToBottom();
@@ -467,7 +496,7 @@ export default {
        
   
       if(refocus){
-    this.$refs.textBottom.focus();
+    this.$refs.textBottom.$el.focus();
       }
 
             
@@ -494,7 +523,7 @@ export default {
 
                
 
-             this.$root.LocalStore('full_'+ this.$route.params.spaceId  + this.$root.username,this.$root.spaceFullData);
+             this.$root.LocalStore('full_space_'+ this.$route.params.spaceId  + this.$root.username,this.$root.spaceFullData);
                
 
                this.$root.scrollToBottom();
@@ -523,11 +552,20 @@ export default {
     focusEditor: function(){
      
          this.showAttachment = false;
+         
           this.$root.showEmojiBox = false
+
+             this.showSend = true;
+
+           
+          
+           
         
     },
     blurEditor: function(){
         this.showAttachment = true;
+          
+         
     }
   
   },
@@ -535,17 +573,25 @@ export default {
 </script>
 <style scoped>
 
-
-textarea {
+.textareaLg{
     font-size:13px; 
-    background:whitesmoke;
+    background:white;
     width:100%; 
     height: 55px;
     padding: 4px 6px;
     resize:none; 
     overflow-x: hidden;
      overflow-y: auto;
-    border:1px solid #e6e6e6; 
-    border-radius:2px;
+}
+.textareaSm {
+    font-size:13px; 
+    background:white;
+    width:100%; 
+    height: 30px !important;
+    padding: 4px 6px;
+    resize:none; 
+    overflow-x: hidden;
+     overflow-y: auto;
+   
 }
 </style>

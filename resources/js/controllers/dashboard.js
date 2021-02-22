@@ -9,14 +9,22 @@ window.io = require('socket.io-client');
 Vue.use(Vuex)
 
 //axios.defaults.baseURL = 'http://localhost:8000/api'
-//axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
-axios.defaults.baseURL = 'https://api.citonhub.com/api'
+axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
+//axios.defaults.baseURL = 'https://api.citonhub.com/api'
+
+//axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
+
 const store = new Vuex.Store({
   state: {
-    user: null
+    user: null,
+    connected: navigator.onLine,
   },
 
   mutations: {
+    'SET_CONNECTED' (state, payload) {
+      state.connected = payload
+    },
+
     setUserData (state, userData) {
       state.user = userData
       localStorage.setItem('user_new', JSON.stringify(userData))
@@ -31,6 +39,9 @@ const store = new Vuex.Store({
   },
 
   actions: {
+    setConnected ({ commit }, payload) {
+      commit('SET_CONNECTED', payload)
+    },
     login ({ commit }, credentials) {
       return axios
         .post('/login', credentials)
@@ -58,7 +69,8 @@ const store = new Vuex.Store({
   },
 
   getters : {
-    isLogged: state => !!state.user
+    isLogged: state => !!state.user,
+    connected: state => state.connected,
   }
 });
 
@@ -88,6 +100,10 @@ const SettingsMain = () => import(/* webpackChunkName: "SettingsMain" */ '../com
 
 // wallet routes
 const WalletInfo = () => import(/* webpackChunkName: "WalletInfo" */ '../components/Wallet/Info.vue');
+const WalletCard = () => import(/* webpackChunkName: "WalletCard" */ '../components/Wallet/card.vue');
+const WalletCardView = () => import(/* webpackChunkName: "WalletCard" */ '../components/Wallet/CardView.vue');
+
+// feedbacks
 const Feedback=  () => import(/*webpackChunkName: "Feedback" */ '../components/dashboard/Feedback.vue')
 
 // notifications list
@@ -134,6 +150,7 @@ const DiaryBoard= () => import(/* webpackChunkName: "DiaryBoard" */ '../componen
 const DiaryContent= () => import(/* webpackChunkName: "DiaryContent" */ '../components/diary/DiaryContent.vue');
 const AddGem= () => import(/* webpackChunkName: "AddGem" */ '../components/diary/AddGem.vue');
 const GetDiary= () => import(/* webpackChunkName: "GetDiary" */ '../components/diary/GetDiary.vue');
+const DiaryBank= () => import(/* webpackChunkName: "DiaryBank" */ '../components/diary/bank.vue');
 
 // feedback routes
 const FeedForm= () => import(/* webpackChunkName: "FeedForm" */ '../components/Feedback/FeedbackForm.vue')
@@ -470,6 +487,8 @@ beforeEnter: (to, from, next) => {
           thisUserState.selectedSpace = [];
           thisUserState.$root.chatComponent.chatbarContent = 'chat_list';
          }
+
+        
   
        
             
@@ -511,7 +530,7 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.showProfileView = false;
       thisUserState.$root.chatComponent.messageIsDone = true;
       thisUserState.$root.showDiarySettings = false;
-      
+      thisUserState.$root.chatComponent.chatInnerConent = '';
         
       }
      
@@ -569,7 +588,7 @@ beforeEnter: (to, from, next) => {
   
      
    }
-  
+
 
   }
 
@@ -718,6 +737,65 @@ beforeEnter: (to, from, next) => {
     next()
   }
 },
+// sub channels
+{ path: '/channels/:spaceId/diary_notes',
+   name: 'DiaryNotes',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+
+      if( thisUserState.$root.chatComponent){
+  
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.innerSideBarContent = '';
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+    
+      thisUserState.$root.chatComponent.chatInnerSideBar = true;
+      thisUserState.$root.chatComponent.innerSideBarContent = 'diary_notes';
+    
+     }
+     
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
 
 // channel info
 { path: '/channels/:spaceId/channel_info',
@@ -736,7 +814,7 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
       thisUserState.$root.chatComponent.chatInnerConent = '';
-   
+      thisUserState.$root.showProfileView = false;
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'channel_info';
        
@@ -1378,6 +1456,13 @@ children:[
         },
         redirect:'/board/diary/list',
         children:[
+          { 
+            path:'bank',
+            component:DiaryBank,
+            meta: {
+              twModalView: true
+             },
+          },
           {
             // list
             path:'list',
@@ -1418,7 +1503,7 @@ children:[
           ,
               // create diary
               {
-                path:'create-diary',
+                path:'create-diary/:type',
                 component:GetDiary
               }
         ]
@@ -1500,16 +1585,26 @@ children:[
         // wallet
         path: 'wallet',
         component: Wallet,
-        redirect:'/board/wallet/info',
+        redirect:'/board/wallet/card',
         meta: {
           twModalView: true
         },
         children:[
+          {
+            // card
+            path:'card',
+            component: WalletCard
+          },
            
           {
             // info
             path:'info',
             component: WalletInfo
+          },
+          {
+            // info
+            path:'card-view',
+            component: WalletCardView
           }
         ]
       },
@@ -1788,8 +1883,28 @@ const app = new Vue({
      fromProfileUsername:'',
      codeFromChat:false,
      componentIsLoading:false,
-     loadInterestModal:true,
-     suggestedDiaries:[]
+     showCodeboxBtn:true,
+     chatBottomLoaded:false,
+     chatTopLoaded:false,
+     chatBottomLoadedLg:false,
+     chatTopLoadedLg:false,
+     loadInterestModal:false,
+     suggestedDiaries:[],
+     sideBarComponent:undefined,
+     codeboxIsLoading:true,
+     intentToDelete:'',
+     showLanguageOption:false,
+     pageContentToDelete:[],
+     diaryNotes:[],
+     fromVerifyPage:false,
+     followDiariesLoaded:false,
+     channelChats:[],
+     diaryBankList:[],
+     diaryBankSearchList:[],
+     diaryBankComponent:[],
+     comingFromDiaryBank:false,
+     showAdminOption:false,
+     livesessionComponent:undefined,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -1807,6 +1922,9 @@ const app = new Vue({
       ...mapGetters([
         'isLogged'
       ]),
+      InternetConnected() {
+        return this.$store.getters['connected']
+      },
       isConnected:function(){
          if(this.socketEcho){
           return this.socketEcho.connector.socket.connected;
@@ -1843,19 +1961,28 @@ const app = new Vue({
             }
          
       },
+      InternetConnected:function(newValue, oldValue){
+
+          if(newValue){
+            console.log('you are connected')
+          }else{
+            console.log('Internet connection was lost')
+          }
+
+      },
       // whenever isConnectedAudio changes, this function will run
       isConnectedAudio: function (newValue, oldValue) {
 
 
-        if(!newValue){
+        if(!newValue && !this.InternetConnected){
 
        
 
-          this.connectingToSocket = 'disconnected';
+         this.connectingToSocket = 'disconnected';
         
           if(!this.manuallyClosed){
 
-            this.rejoinAudio(this.isMaster);
+         this.rejoinAudio(this.isMaster);
 
           }
          
@@ -1870,7 +1997,7 @@ const app = new Vue({
       // whenever isConnectedScreen changes, this function will run
       isConnectedScreen: function (newValue, oldValue) {
 
-        if(!newValue){
+        if(!newValue && !this.InternetConnected){
 
         
           if(!this.screenIsConnecting){
@@ -1894,7 +2021,7 @@ const app = new Vue({
       // whenever isConnectedData changes, this function will run
       isConnectedData: function (newValue, oldValue) {
 
-        if(!newValue){
+        if(!newValue && !this.InternetConnected){
 
         
        
@@ -1911,6 +2038,15 @@ const app = new Vue({
     },
     created(){
    
+
+       // set internet connection listerner
+       window.addEventListener('offline', () => {
+        this.$store.dispatch('setConnected', false)
+      })
+      window.addEventListener('online', () => {
+        this.$store.dispatch('setConnected', true)
+      })
+
       // set default 'this' data
      window.thisUserState = this;
       window.routerData = this.$router;
@@ -2034,7 +2170,7 @@ const app = new Vue({
         },
         markSpaceRead:function(spaceId){
 
-          if(this.ChatList != undefined){
+          if(this.ChatList.length != 0){
            
             this.ChatList.map((space)=>{
                  
@@ -2045,7 +2181,52 @@ const app = new Vue({
               }
       
             });
-      
+
+            let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+            storedChat.then((result)=>{
+        
+                if(result != null ){
+        
+             let finalResult = JSON.parse(result);
+               
+                 
+        
+        
+                   finalResult.channels.map((space)=>{
+                 
+                    if(space.space_id == spaceId){
+                      space.unread = 0;
+                    }
+              
+                  });
+              
+                  finalResult.direct_messages.map((space)=>{
+                       
+                    if(space.space_id == spaceId){
+                      space.unread = 0;
+                    }
+              
+                  });
+              
+                  finalResult.pet_spaces.map((space)=>{
+                       
+                    if(space.space_id == spaceId){
+                      space.unread = 0;
+                    }
+                
+             
+                     });
+        
+            this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+         
+        
+          }
+        
+        })
+
+
+           
             
           
           }
@@ -2100,12 +2281,19 @@ const app = new Vue({
       'connections': userProfile.connections,
       'background_color': userProfile.background_color,
       'unread': userProfile.unread,
-      'points': userProfile.points
+      'points': userProfile.points,
+      'user_onboarded':userProfile.user_onboarded,
+      'suggested_diary': userProfile.suggested_diary,
+      
       };
         
 
       
     this.$root.authProfile = userDetails;
+
+     if(!this.$root.authProfile.suggested_diary){
+           this.$root.showUserNotification = true;
+       }
     
    
     
@@ -2191,7 +2379,7 @@ const app = new Vue({
             this.handleSpaceData([messageData])
             
 
-          this.$root.sortChatList();
+        
 
             this.scrollToBottom();
 
@@ -2461,10 +2649,12 @@ const app = new Vue({
       })
       .listenForWhisper('typing', (e) => {
 
-
+            
         this.$root.typinguser = e.user;
          this.$root.typing = e.typing;
          this.$root.typingSpace = e.spaceId;
+
+          this.stopTying();
 
 
 
@@ -2489,6 +2679,18 @@ const app = new Vue({
                  if(e.data == 'screen'){
 
                     this.$root.remoteScreen = true;
+
+                    if(this.$root.liveIsOn &&  this.$root.chatComponent.liveSessionIsOpen){
+
+                      if(this.livesessionComponent){
+
+                        this.livesessionComponent.selectAction('screen_sharing')
+
+                      }
+
+                       
+
+                    }
 
                  }
                  if(e.data == 'code'){
@@ -2630,7 +2832,7 @@ const app = new Vue({
     
      let ProcessedMessages = [];
 
-     let storedMsg = this.$root.getLocalStore('full_' + message.space_id + this.$root.username);
+     let storedMsg = this.$root.getLocalStore('full_space_' + message.space_id + this.$root.username);
 
      storedMsg.then((result)=>{
 
@@ -2659,7 +2861,7 @@ const app = new Vue({
            
 
           
-             this.$root.LocalStore('full_' +  message.space_id   + this.$root.username,finalResult);
+             this.$root.LocalStore('full_space_' +  message.space_id   + this.$root.username,finalResult);
 
         }
 
@@ -2809,6 +3011,13 @@ const app = new Vue({
   
        
      },
+     stopTying:_.debounce( function () {
+
+      this.$root.typinguser = '';
+     this.$root.typing = false;
+     this.$root.typingSpace = '';
+
+      }, 1000),
   checkIfMessageExist(data){
 
     let messageData = this.$root.Messages.filter((message)=>{
@@ -2827,7 +3036,18 @@ const app = new Vue({
   // check user login state
   checkIfUserIsLoggedIn: function(){
     if(this.checkauthroot == 'noauth'){
-      this.LocalStore('route_tracker_new',[this.$router.currentRoute.path]);
+
+      if(this.$router.currentRoute.path.indexOf('settings') >= 0){
+                    
+        this.LocalStore('route_tracker_new',['/channels']);
+
+
+      }else{
+
+        this.LocalStore('route_tracker_new',[this.$router.currentRoute.path]);
+
+      }
+     
      
        this.$router.push({ path: '/login' });
       return;
@@ -2836,7 +3056,7 @@ const app = new Vue({
  // save space data to local storage
  pushDataToLocal:function(data){
 
-  localforage.getItem('full_' + data.space_id + this.$root.username).then((result)=> {
+  localforage.getItem('full_space_' + data.space_id + this.$root.username).then((result)=> {
 
    if(result != null){
     
@@ -2844,7 +3064,7 @@ const app = new Vue({
     let finalResult = JSON.parse(result);
         finalResult[0].push(data);
       
-        this.LocalStore('full_' + data.space_id  + this.$root.username,finalResult);
+        this.LocalStore('full_space_' + data.space_id  + this.$root.username,finalResult);
       
    }
 
@@ -2852,12 +3072,57 @@ const app = new Vue({
    
  },
  // local storage
- LocalStore:function(key,data){ 
+ LocalStore:function(key,data,fromUnsent = false,actionName = 'null',extraData = null){ 
      
   localforage.setItem(key,JSON.stringify(data)).then(function () {
     return localforage.getItem(key);
-  }).then(function (value) {
-    // we got our value
+  }).then( () => {
+
+      if(fromUnsent){
+
+        if(this.chatComponent != undefined){
+          this.chatComponent.resendMessages();
+         }
+
+      }
+
+      if(actionName == 'leave_space'){
+
+        let fullList = data.channels.concat(data.direct_messages, data.pet_spaces);
+
+                     
+        this.$root.ChatList = fullList;
+
+          this.$root.sortChatList();   
+          
+       
+       this.$router.push({ path: '/channels' });
+
+      }
+
+      if(actionName == 'new_channel'){
+
+        let fullList = data.channels.concat(data.direct_messages, data.pet_spaces);
+
+                     
+        this.$root.ChatList = fullList;
+
+          this.$root.sortChatList();
+
+           this.$root.chatComponent.chatbarContent = 'chat_list';
+            this.$root.chatComponent.openChat(extraData.space_id,true)
+
+      }
+
+      if(actionName == 'sort_chat'){
+
+        this.$root.sortChatList();
+
+      }
+      
+
+     
+   
    
   }).catch(function (err) {
     console.log(err)
@@ -2915,6 +3180,7 @@ updateSpaceMessages: function(){
 })
 .catch(error => {
   
+  this.updateSpaceMessages();
  
 })
 
@@ -2932,10 +3198,37 @@ handleSpaceData: function(returnData){
  
 
 
-    if( this.$root.selectedSpace.space_id != space.space_id){
+    if( this.$root.selectedSpace.space_id != space.space_id || this.$root.selectedSpace.length == 0){
 
        // if the space is not currently opened
-         let storedMsg = this.$root.getLocalStore('full_' + space.space_id  + this.$root.username);
+
+       // show new messages first
+
+       let newMessagesFull = space.new_messages;
+
+       newMessagesFull.forEach((message)=>{
+
+          // update unread in chatlist
+
+        this.ChatList.map((chatspace)=>{
+
+          if(chatspace.space_id == space.space_id){
+            chatspace.unread += 1;
+            chatspace.message_track = new Date();
+            chatspace.last_message = [message];
+          } 
+        });
+
+          
+
+         this.$root.updateSpaceTracker(space.space_id,message);
+
+
+       })
+
+       
+       // save to local database
+         let storedMsg = this.$root.getLocalStore('full_space_' + space.space_id  + this.$root.username);
    
     storedMsg.then((result)=>{
   
@@ -2947,32 +3240,32 @@ handleSpaceData: function(returnData){
        let MessagesFull = parsedResult;
 
        let newMessages = space.new_messages;
-            
-        // update unread in chatlist
-
-        this.ChatList.map((chatspace)=>{
-          if(chatspace.space_id == space.space_id){
-            chatspace.unread += newMessages.length;
-          } 
-        });
+       
 
         newMessages.forEach((message)=>{
 
-          MessagesFull.messages.push(message);
+           let thismessage = MessagesFull.messages.filter((eachmessage)=>{
+            return eachmessage.message_id == message.message_id
+           });
 
-          // update into local storage
-            this.$root.LocalStore('full_' + space.space_id  + this.$root.username,MessagesFull);
+           if(thismessage.length == 0){
 
-            this.$root.updateSpaceTracker(space.space_id,message);
+                     
+            MessagesFull.messages.push(message);
+
+       
           
             this.$root.clearUnreadMessageRemote(message.message_id);
+           
          
+              // update into local storage
+           this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,false,'messager');
 
              // update unread messages into local storage
 
-      let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + space.space_id + this.$root.username);
+      let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + message.space_id + this.$root.username);
 
-   unreadStoredMsg.then((result)=>{
+      unreadStoredMsg.then((result)=>{
 
      let finalResultUnread = JSON.parse(result);
 
@@ -2992,7 +3285,16 @@ handleSpaceData: function(returnData){
 
       });
 
+           }
+
+      
+
+           
+
         });
+
+         
+
 
          
       }else{
@@ -3012,23 +3314,55 @@ handleSpaceData: function(returnData){
       // we got an error
       });
 
-     // update unread in chatlist
-
-     this.ChatList.map((chatspace)=>{
-      if(chatspace.space_id == space.space_id){
-        chatspace.unread += space.new_messages.length;
-      } 
-    });
-
+    
       }
+   
 
+      
 
     });
 
     }else{
 
       // if the space is opened
-       let storedMsg = this.$root.getLocalStore('full_' + space.space_id  + this.$root.username);
+
+       // show new messages first
+
+       let newMessagesFull = space.new_messages;
+
+       newMessagesFull.forEach((messages)=>{
+
+     
+
+             // update unread in chatlist
+
+      this.ChatList.map((chatspace)=>{
+
+        if(chatspace.space_id == space.space_id){
+        
+          chatspace.message_track = new Date();
+          chatspace.last_message = [messages];
+        } 
+      });
+
+
+     
+          messages.initialSize = 200
+          messages.id = messages.message_id
+          messages.index_count = this.$root.returnLastIndex() + 1;
+
+             this.$root.Messages.push(messages);
+
+             this.$root.updateSpaceTracker(space.space_id,messages);
+
+
+ 
+
+
+       })
+
+       // save to local database
+       let storedMsg = this.$root.getLocalStore('full_space_' + space.space_id  + this.$root.username);
    
     storedMsg.then((result)=>{
 
@@ -3046,20 +3380,21 @@ handleSpaceData: function(returnData){
             
         newMessages.forEach((messages)=>{
 
+          let thismessage = MessagesFull.messages.filter((eachmessage)=>{
+            return eachmessage.message_id == messages.message_id
+           });
+
+           if(thismessage == 0){
+
           MessagesFull.messages.push(messages);
 
-            this.$root.LocalStore('full_' + space.space_id  + this.$root.username,MessagesFull);
-
-            messages.initialSize = 200
-            messages.id = messages.message_id
-            messages.index_count = this.$root.returnLastIndex() + 1;
-
-               this.$root.Messages.push(messages);
-
-               this.$root.updateSpaceTracker(space.space_id,messages);
-
+            this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull);
 
             this.$root.clearUnreadMessageRemote(messages.message_id);
+
+           }
+
+         
 
            
 
@@ -3074,7 +3409,7 @@ handleSpaceData: function(returnData){
 
     }
 
-  
+    this.sortChatList();
 });
 
  },
@@ -3082,7 +3417,7 @@ handleSpaceData: function(returnData){
 
   this.$root.spaceFullData.messages = this.Messages;
 
-  this.$root.LocalStore('full_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
+  this.$root.LocalStore('full_space_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
  },
  returnLastIndex:function(){
 
@@ -3118,43 +3453,60 @@ handleSpaceData: function(returnData){
 
     });
 
+    this.$root.sortChatList();
+
     // save into local storage
+
+    let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+    storedChat.then((result)=>{
+
+        if(result != null ){
+
+     let finalResult = JSON.parse(result);
+       
+         
+
+
+           finalResult.channels.map((space)=>{
+         
+            if(space.space_id == spaceId){
+              space.message_track = new Date();
+              space.last_message = [message];
+            }
+      
+          });
+      
+          finalResult.direct_messages.map((space)=>{
+               
+            if(space.space_id == spaceId){
+              space.message_track = new Date();
+              space.last_message = [message];
+            }
+      
+          });
+      
+          finalResult.pet_spaces.map((space)=>{
+               
+            if(space.space_id == spaceId){
+              space.message_track = new Date();
+              space.last_message = [message];
+            }
+        
+     
+             });
+
+    this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+
+     this.$root.sortChatList();
+    
     
 
-     this.baseChatList.channels.map((space)=>{
-         
-      if(space.space_id == spaceId){
-        space.message_track = new Date();
-        space.last_message = [message];
-      }
-
-    });
-
-    this.baseChatList.direct_messages.map((space)=>{
-         
-      if(space.space_id == spaceId){
-        space.message_track = new Date();
-        space.last_message = [message];
-      }
-
-    });
-
-    this.baseChatList.pet_spaces.map((space)=>{
-         
-      if(space.space_id == spaceId){
-        space.message_track = new Date();
-        space.last_message = [message];
-      }
-
-    });
-
-  
-    this.$root.LocalStore('user_chat_list' + this.$root.username,this.baseChatList);
-
-    this.$root.sortChatList();
-   
   }
-  
+
+})
+
+  }
 
 },
 scrollToBottom: function(){
@@ -3176,6 +3528,7 @@ scrollToBottom: function(){
 },
 
 botMessager:function(message){
+  
 
           
   this.botIsLoading = true;
@@ -3189,7 +3542,9 @@ botMessager:function(message){
     
    this.botIsLoading = false;
    if(response.status == 200){
-  
+
+
+    
     let fullMessages = response.data[0];
 
     let messageData = {
@@ -3197,12 +3552,12 @@ botMessager:function(message){
       new_messages: fullMessages
     };
     
-   this.handleSpaceData([messageData]);
+    this.handleSpaceData([messageData]);
    
     
     this.botSuggestionArray = response.data[1];
 
-     this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data[1]);
+    this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data[1]);
     
 
    }
@@ -3211,7 +3566,7 @@ botMessager:function(message){
  .catch(error => {
 
   
-     console.log(error)
+     
      this.botIsLoading = false;
    
  })
@@ -3276,7 +3631,7 @@ storeUnsentMessages:function(postData){
          if(messageData.length == 0){
 
           finalResult.push(postData);
-          this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,finalResult);
+          this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,finalResult,true);
 
          }
 
@@ -3286,13 +3641,14 @@ storeUnsentMessages:function(postData){
      }else{
 
       
-        this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,[postData]);
+        this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,[postData],true);
 
      }
 
-     if(this.chatComponent != undefined){
-      this.chatComponent.resendMessages();
-     }
+    
+
+
+    
 
     
   
@@ -3321,12 +3677,13 @@ let messageId = response.data[0].temp_id;
   });
 
   if(this.selectedSpace.type == 'Bot'){
-   this.botMessager(response.data[0].content);
+    
+   this.chatComponent.botMessagerChat(response.data[0].content);
   }
 
   this.$root.spaceFullData.messages = this.Messages;
 
-  this.$root.LocalStore('full_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
+  this.$root.LocalStore('full_space_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
 
 
 this.replyMessage = [];
@@ -3485,7 +3842,7 @@ this.Messages.map((message)=>{
 
 this.$root.spaceFullData.messages = this.Messages;
 
-  this.$root.LocalStore('full_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
+  this.$root.LocalStore('full_space_'+ postData.space_id  + this.$root.username,this.$root.spaceFullData);
 
 
 this.scrollToBottom();
@@ -3561,7 +3918,7 @@ axios.post('/send-message',formData,
 
         this.$root.spaceFullData.messages = this.Messages;
 
-  this.$root.LocalStore('full_'+  response.data[0].space_id  + this.$root.username,this.$root.spaceFullData);
+  this.$root.LocalStore('full_space_'+  response.data[0].space_id  + this.$root.username,this.$root.spaceFullData);
 
         this.sendingMessage = false;
 
@@ -3601,6 +3958,7 @@ this.$root.dataconnection.socketURL = 'https://rtc.citonhub.com:9001/';
 // set user as default speaker
 let userSpeakerData =  this.authProfile;
      userSpeakerData.speaking = false;    
+     userSpeakerData.muted = false;    
 
 this.speakingUser = userSpeakerData; 
 
@@ -3692,6 +4050,26 @@ this.codeboxComponent.setCodeContent();
  
 }
 
+ if(event.data.action == 'mute_state'){
+
+  this.$root.allAudioParticipant.map((user)=>{
+    if(user[1] == event.data.data.userid){
+
+       if(event.data.data.status == 'muted'){
+        user[0].profile.muted = true
+       }
+
+       if(event.data.data.status == 'unmuted'){
+        user[0].profile.muted = false
+       }
+
+      
+
+    }
+  })
+
+ }
+
 if(event.data.action == 'neutral' ){
 
 
@@ -3775,6 +4153,25 @@ OfferToReceiveAudio: false,
 OfferToReceiveVideo: false
         };
 
+        this.$root.connection.bandwidth = {
+          audio: 128,
+          video: 1024,
+          screen: 1024
+      };
+      
+      var videoConstraints = {
+          mandatory: {
+              maxWidth: 1920,
+              maxHeight: 1080,
+              minAspectRatio: 1.77,
+              minFrameRate: 3,
+              maxFrameRate: 64
+          },
+          optional: []
+      };
+      
+      this.$root.connection.mediaConstraints.video = videoConstraints;
+
 
       
 
@@ -3845,7 +4242,7 @@ video.srcObject = event.stream;
 var width = innerWidth - 80;
 var mediaElement = getHTMLMediaElement(video, {
    title: event.userid,
-   buttons: ['full-screen'],
+   buttons: [],
    showOnMouseEnter: false,
  
 });
@@ -3883,7 +4280,7 @@ videoSm.srcObject = event.stream;
 
 var mediaElementSm = getHTMLMediaElement(videoSm, {
    title: event.userid + 'small',
-   buttons: ['full-screen'],
+   buttons: [],
    showOnMouseEnter: false,
  
 });
@@ -3972,8 +4369,13 @@ audio: 128
 
 this.$root.audioconnection.socketMessageEvent = 'audio-conference';
 
+// set user 
+let userMainData =  this.authProfile;
+userMainData.speaking = false;    
+userMainData.muted = false; 
+
 this.$root.audioconnection.extra = {
-   profile: this.$root.authProfile,
+   profile: userMainData,
   joinedAt: (new Date).toISOString(),
   volume: 80.00,
   speaking: false
@@ -4070,6 +4472,8 @@ mediaElementSm.id = event.streamid + 'small';
 
    _this.setUserSpeaker();
 
+   
+
 
 };
 
@@ -4084,6 +4488,8 @@ if (e.muteType === 'both' || e.muteType === 'video') {
 } else if (e.muteType === 'audio') {
   e.mediaElement.muted = true;
 }
+
+  _this.sendMuteDetails('muted')
 };
 
 this.$root.audioconnection.onunmute = function(e) {
@@ -4098,6 +4504,8 @@ if (e.unmuteType === 'both' || e.unmuteType === 'video') {
 } else if (e.unmuteType === 'audio') {
   e.mediaElement.muted = false;
 }
+
+_this.sendMuteDetails('unmuted')
 };
 
 
@@ -4141,7 +4549,7 @@ if (state.iceConnectionState.search(/disconnected|closed|failed/gi) === -1) {
 
 
 
-   if(newInfo.length == 0  && state.extra.profile.username != this.username){
+   if(newInfo.length == 0 && state.extra.profile.username != this.username){
 
     this.$root.allAudioParticipant.push([state.extra,state.userid])
 
@@ -4229,7 +4637,7 @@ if (mediaElement) {
               
             if(master){
               _this.openAudioRoom();
-              _this.dataconnection.open('data' + _this.$root.selectedSpace.space_id)
+              _this.dataconnection.openOrJoin('data' + _this.$root.selectedSpace.space_id)
             }else{
 
               _this.roomNotExist = true;
@@ -4328,7 +4736,7 @@ this.$root.dataconnection = undefined;
     
     let _this = this;
   
-    this.$root.audioconnection.open('audio' + this.$root.selectedSpace.space_id, () =>{
+    this.$root.audioconnection.openOrJoin('audio' + this.$root.selectedSpace.space_id, () =>{
 
         
       _this.$root.connectingToSocket = false;
@@ -4398,7 +4806,7 @@ this.$root.dataconnection = undefined;
            OfferToReceiveVideo: true
        };
       
-     this.$root.connection.open('screen' + this.$root.selectedSpace.space_id, function() {
+     this.$root.connection.openOrJoin('screen' + this.$root.selectedSpace.space_id, function() {
       
     });
 
@@ -4462,6 +4870,24 @@ this.$root.dataconnection = undefined;
               }
 
        }, 
+       sendMuteDetails:function(status){
+
+        if(this.$root.dataconnection != undefined){
+             
+          let data = {
+            userid: this.$root.audioconnection.userid,
+            status:  status,
+        };
+  
+        this.$root.dataconnection.send({
+          action:'mute_state',
+          data: data,
+          space_id: this.$root.selectedSpace.space_id
+        });
+         
+        }
+
+       },
 
       // detect speaker
       setUserSpeaker: function(){

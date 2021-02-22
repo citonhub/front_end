@@ -22,7 +22,7 @@
                                              <span v-if="source.type == 'Bot' && source.bot_data != null" style="font-size:14px; font-family:BodyFont;">{{ source.bot_data.name }}</span>
                                              <span v-if="source.type == 'Direct'" style="font-size:14px; font-family:BodyFont;">{{ source.userInfo.username }}</span>
                                        </div>
-                                        <div class="px-1 py-0 my-0 text-right ml-auto" >
+                                        <div class="px-1 py-0 my-0 text-right ml-auto" style="width:26%;">
                                              <span  v-if="source.last_message" style="font-size:11px; font-family:BodyFont;color:gray; margin-right:0px;" >
                                                <span v-if="source.last_message[0]">
                                                   {{checkDatereal(source.last_message[0].created_at)}}
@@ -51,7 +51,7 @@
                                              <span v-else><i>Send a message to start chat</i></span>
                                              
                                        </div>
-                                        <div class=" px-1 py-0 my-0 text-right ">
+                                        <div class=" px-1 py-0 my-0 text-right " v-if="source.type != 'Bot'">
                                               <span v-if="source.unread > 0" class="messagesBadges d-flex ml-lg-0 ml-md-5 ml-0" >{{source.unread}}</span>
                                        </div>
                                     
@@ -236,7 +236,7 @@ export default {
 
                if(moment(realTimeHour) >= anHourAgo){
 
-                    return moment(realTimeHour).fromNow();
+                 return moment(realTimeHour).format("h:mm a");
                   
                } 
 
@@ -262,9 +262,9 @@ export default {
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
          let imgLink = data.image_name + '.' + data.image_extension;
           if(type == 'channel' || type== 'bot'){
-              styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/'  + imgLink  +  ');';
+              styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/thumbnails/'  + imgLink  +  ');';
          }else{
-            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/thumbnails/'  + imgLink  +  ');';
          }
          
           return styleString;

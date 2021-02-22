@@ -165,6 +165,7 @@
        :disabled="challengeIsActive"
            item-value="id"
      v-model="language"
+     multiple
      :rules="requiredRule"
      style="font-size:13px;"
       placeholder="select challenge app type"
@@ -179,7 +180,7 @@
                   <div class=" col-lg-12 py-1 my-0 px-2" >
 
                     <div class="col-lg-8 px-0" >
-     <v-combobox
+     <v-select
      label=" Challenge Channel"
      placeholder="Select existing channel or enter new channel name"
      v-model="new_channel"
@@ -187,7 +188,7 @@
      :items="channelList"
                  item-value="space_id"
             item-text="name"
-     ></v-combobox>
+     ></v-select>
                     </div>
 
               </div>
@@ -200,7 +201,7 @@
              </div>
              <div class="col-lg-12 py-1 my-2 px-2 text-left">
 
-              <v-press-editor v-model="description"  :placeholder="'The aim of this project is to test your ability in using local storage'"></v-press-editor>
+              <v-press-editor v-model="description" :height="'400px'"  :placeholder="'The aim of this project is to test your ability in using local storage'"></v-press-editor>
              
              </div>
 
@@ -215,7 +216,7 @@
 
              <div class="col-lg-12 py-1 my-2 px-2 text-left">
 
-              <v-press-editor v-model="rulesContent"  :placeholder="'Make sure most of the codes are yours'"></v-press-editor>
+              <v-press-editor v-model="rulesContent"  :height="'400px'" :placeholder="'Make sure most of the codes are yours'"></v-press-editor>
              
              </div>
              
@@ -343,6 +344,14 @@
 
              </div>
 
+             <div class="col-12 py-2 text-center" v-if="this.$route.params.type == 'edit'" >
+
+                <v-btn  @click="deleteChallenge" :loading="loadingDelete" small rounded  color="#3C87CD" style="font-size:12px; text-transform:none; font-weight:bolder; color:white;font-family:MediumFont;">
+             Delete
+           </v-btn>
+
+          </div>
+
           <div class="col-12 py-5 my-5">
 
           </div>
@@ -382,6 +391,7 @@ export default {
          switch1:false,
          rulesContent:'',
          channelList:[],
+         loadingDelete:false,
          new_channel:'',
           titleRule:[
              v => !!v || 'Oh! you missed this.',
@@ -636,6 +646,11 @@ export default {
       };
     },
     mounted(){
+       if(!this.$root.isLogged){
+
+            this.$root.checkIfUserIsLoggedIn();
+         return;
+        }
      this.$root.showTopBar = false;
      this.setEditValues();
      this.fetchChannels()
@@ -661,13 +676,21 @@ export default {
 
        this.rulesContent = this.$root.selectedChallenge.rules;
 
-       this.language =  this.$root.selectedChallenge.languages;
+       
 
-         if(this.language != 'PHP' && this.language != 'NodeJs'){
+        if(this.$root.selectedChallenge.languages){
 
-            this.language = parseInt(this.language)
+            let challengeLang =  this.$root.selectedChallenge.languages.toString();
 
-         }
+             this.language =  challengeLang.split(',');
+
+            
+
+              
+
+          }
+
+         
 
          this.judgeType = this.$root.selectedChallenge.judges
 
@@ -682,6 +705,45 @@ export default {
          }
          
        }
+    },
+    deleteChallenge:function(){
+
+        this.loadingDelete = true;
+       axios.post('/delete-challenge',{
+                duelId: this.$root.selectedChallenge.duel_id
+                  })
+          .then(response => {
+            
+           if (response.status == 200) {
+                
+               
+                 
+                if(this.$root.challengesList.length != 0){
+
+                   let remainingChallenges = this.$root.challengesList.filter((challenge)=>{
+                     return challenge.duel_id != this.$root.selectedChallenge.duel_id;
+                   });
+
+                  this.$root.challengesList =  remainingChallenges;
+
+                }
+
+                 this.loadingDelete = false;
+
+                 
+
+           this.$router.push({ path: '/board/challenges'});
+
+            }
+            
+            
+          })
+          .catch(error => {
+            this.showAlert('Oops!',' Unable to delete challenge','error')
+              this.loadingDelete = false;
+          })
+    
+
     },
      checkDuelStatus:function(duel){
       
@@ -888,7 +950,9 @@ this.judgeType='everyone';
 
             if(this.imageDefault != 0){  
                 
-                formData.append('image_default',this.imageDefault);
+                 if(this.$route.params.type != 'edit'){
+               formData.append('image_default',this.imageDefault);
+              }
             }
 
              this.durationValue =  (this.durationValueDay * 24) + parseInt(this.durationValueHr);
@@ -900,6 +964,8 @@ this.judgeType='everyone';
              formData.append('duration',this.durationValue);
              formData.append('challenge_language',this.language);
              formData.append('judges',this.judgeType);
+
+             formData.append('channel_id',this.new_channel);
 
             if(this.$route.params.type == 'edit'){
               formData.append('challengeId',this.$root.selectedChallenge.duel_id)

@@ -783,6 +783,12 @@ export default {
                       this.$root.EditorLanguage = codeBox.language_type;
                 this.$root.codeEditorContent = codeBox.content;
 
+                  if(this.$router.currentRoute.path.indexOf('editor') <= 0){
+
+                  this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/editor'});
+
+                 }
+
               }else{
                  this.$root.codeEditorContent = codeBox.content;
 
@@ -794,6 +800,8 @@ export default {
 
                   this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/editor'});
               }
+
+          
            
 
      

@@ -12,44 +12,61 @@
        <!-- chat content -->
 
        
-                                <!--Interests Popup-->
+               
 
-  <div class="py-0 px-0 " style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="this.$root.loadInterestModal">
+<!-- 
+               
+  <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showUserNotification">
 
-   <div class=" d-flex py-2" style="position:absolute;left:3%; height:90%; top:5%; width:94%;  align-items:center; justify-content:center;overflow-y: hidden;" >
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+          
+          <template v-if="!that.$root.followDiariesLoaded">
+    <div class="d-flex"  style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
 
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
+          </template>
+       
+      <template v-if="suggestionsContent == 'notification'">
+        <notify></notify>
+      </template>
+
+      <template v-if="suggestionsContent == 'diaries'">
+        <follow></follow>
+      </template>
      
-      <interest ></interest>
    
 
    </div>
 
- </div>
+ </div> -->
 
-                      <!--Interests Popup ends--> 
+ 
 
-
-                         <!--follow Popup-->
-
-  <div class="py-0 px-0 " style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-else>
-
-   <div class=" d-flex py-2" style="position:absolute;left:3%; height:90%; top:5%; width:94%;  align-items:center; justify-content:center;overflow-y: hidden;" >
-
-     
-      <follow ></follow>
-   
-
-   </div>
-
- </div>
-
-                      <!--follow Popup ends--> 
 
          <!-- large screens -->
 
+           <!-- menu session -->
+
+                        <v-btn fab small class="d-none d-lg-inline-block" color="#ffffff" @click="showSideBarHandler()" style="position:absolute;left:12px;top:3%;">
+
+                            <v-badge
+                   dot
+                     v-if="!that.$root.authProfile.user_onboarded"
+                color="green">
+                 <v-icon style="font-size:22px;color:#263238;" >las la-bars</v-icon>
+                   </v-badge>
+
+                    <v-icon v-else style="font-size:22px;color:#263238;" >las la-bars</v-icon>
+                           
+                           </v-btn>
+
+                       <!-- ends -->
+
         <div class="  py-0 px-0 d-lg-block d-none card " style=" overflow-y:hidden;position:absolute;width:90%; left:5%; height:94%; top:3%; overflow-y:hidden; overflow-x:hidden; background:white;" >
 
-
+                     
 
 
                    <div class="py-0"  style="height:100%; width:28%; left:0%; position:absolute; overflow-y:hidden; overflow-x:hidden; border-right:1px solid #c5c5c5;">
@@ -62,7 +79,8 @@
                            <template v-if="chatbarContent == 'chat_list'">
 
                              <div class="col-12 py-2 px-2 pb-0 mb-0 text-center d-flex flex-row fixed-top" style="left:0%;height:58px;position:sticky;background:white;top:-5%;">
-                         <v-btn  icon @click="that.$root.showSideBar = true"><v-icon style="font-size:22px;color:#263238;" >las la-bars</v-icon></v-btn>
+                             <v-btn icon ><v-icon>las la-search</v-icon></v-btn>
+                        
                               <v-text-field
                        style="font-size:13px;"
                       placeholder="Search"
@@ -72,8 +90,8 @@
                        v-model="searchValue"
                      rounded
                      ></v-text-field>
-
                         <v-btn icon @click="showCreateChannel"><v-icon>mdi mdi-chat-plus-outline</v-icon></v-btn>
+                     
                        
                      
                         
@@ -87,7 +105,7 @@
      v-if="this.$root.ChatList.length > 0"
     :min-item-size="36"
     ref="ChatContainer"
-    :buffer="5000"
+       :buffer="5000"
     id="ChatContainer"
       class="col-12 px-1  chatListScroller" 
        style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;"
@@ -105,8 +123,24 @@
 
         <chat-list :source="item" ></chat-list>
 
+      
           </DynamicScrollerItem>
              </template>
+
+               <template #after> 
+
+          <div class="col-12 mt-2 text-center d-flex flex-column"  v-if="that.$root.channelChats.length == 0">
+                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
+                      Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
+                    </div>
+
+                     <div>
+                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                     </div>
+          </div>
+
+        </template>
+
 
                 </DynamicScroller>
 
@@ -114,7 +148,7 @@
        style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:100px;">
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                       Teach and build your community in channels.
+                      Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
                     </div>
 
                      <div>
@@ -201,6 +235,11 @@
                        
                             <div v-if="chatbarContent == 'create_channel'" class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; overflow-x:hidden; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                   <create-channel></create-channel>
+                                    <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
                             </div>
                         
                             <!-- ends -->
@@ -220,23 +259,24 @@
                            <!-- chat view -->
                            <template v-if="chatIsOpen && that.$root.Messages != null">
                               <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:absolute; top:0%;z-index:9999999;" >
+                                
                               <chat-top></chat-top>
                             </div>
 
-                          <v-app id="largeView"  v-if="that.$root.Messages.length != 0" style="position:absolute;width:100%;height:100%; left:0%;background:#E1F0FC;">
+                          <div v-if="that.$root.Messages.length != 0" style="position:absolute;width:100%;height:100%; left:0%;background:#E1F0FC;">
 
                               <DynamicScroller
     :items="that.$root.Messages"
-   
+      
      :keyField="'index_count'"
-    :min-item-size="36"
+    :min-item-size="76"
     ref="messageContainer"
-    :buffer="2000"
+     
     id="messageContainer"
-  class="col-12 px-0 scroller" 
+  class="col-12 px-0 scrollerLg" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:93%; left:0; position:absolute; z-index:99999; top:0%; overflow-y:auto;"
+            background-repeat: no-repeat; height:94%; left:0; position:absolute; z-index:99999; top:0%; overflow-y:auto;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -256,9 +296,9 @@
 
      <template #before >
 
-       <div  class=" col-12 text-center" style="margin-top:70px;" >
+       <div  class=" col-12 text-center" style="margin-top:80px; " >
      
-        <span v-html="that.$root.selectedSpace.description" v-if="that.$root.selectedSpace.type == 'SubSpace' || that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'" style="font-size:13px;font-family:BodyFont;">
+        <span v-html="that.$root.selectedSpace.description" v-if="that.$root.selectedSpace.type != 'Direct'" style="font-size:13px;font-family:BodyFont;">
        
         </span>
 
@@ -268,13 +308,13 @@
 
     <template #after>
 
-        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-top:130px; ">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-bottom:100px; ">
             
           <template v-if="that.$root.selectedSpace.type == 'Bot' ">
 
              <div class="row">
 
-              <template v-if=" that.$root.botIsLoading">
+              <template v-if=" that.$root.botIsLoading || that.$root.sendingMessage">
 
                  <div elevation-1 class="col-11 py-0 mt-2" >
            <div class="row">
@@ -287,7 +327,7 @@
 
                   <v-card elevation-1  class="py-0 px-2 ml-2 d-flex " style=" align-items:center;justify-content:center; border:1px solid transparent; min-width:45px;background:#ffffff; border-radius:20px;">
 
-                       <img src="/imgs/diary_loading.svg"  height="30px" width="40px">
+                       <img src="/imgs/diary_loading.svg" height="30" >
 
                 
                   </v-card> 
@@ -344,7 +384,7 @@
 
   </DynamicScroller>
 
-                          </v-app>
+                          </div>
 
                            
             <template v-else>
@@ -381,8 +421,10 @@
 
                                   <!-- ends -->
 
-                                  <div class="px-2 py-1" style="background:#ffffff; border-top:1px solid #c5c5c5;">
-                                <chat-bottom ref="bottomLg"></chat-bottom>
+                                  <div class="px-2 py-1 card" style="background:#ffffff; border-radius:0px;">
+                                     
+                                <chat-bottom  ref="bottomLg" :screenType="'large'"></chat-bottom>
+                                
                                  </div>
                             </div>
                            </template>
@@ -441,7 +483,14 @@
                             
                            
                                <div v-if="chatIsOpen && chatInnerConent == 'code_editor'"  class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
-                                  <code-editor-chat></code-editor-chat>
+                                   
+
+                                  <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
+                                  <code-editor-chat ></code-editor-chat>
                             </div>
 
                             
@@ -463,18 +512,94 @@
 
                                <div  v-if="chatIsOpen && chatInnerConent == 'image_viewer'" class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                   <image-viewer></image-viewer>
+                                    <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
                             </div>
 
                             <!-- ends -->
+
+                               <!-- No access -->
+
+
+              <div class="d-flex flex-column col-12"   v-if="chatIsOpen && checkIfMemeber()"    style="background:#ffffff; border-top:1px solid #c5c5c5;  position:absolute; height:100%; top:0%;z-index:9999999999999; align-items:center; justify-content:center;">
+
+           
+            <img alt="Thank you" class="mb-2"  src="/imgs/oops.gif" height="100"/>
+
+           <div class="py-2 mb-2" style="font-size:14px;font-family:BodyFont;">
+             Oops! You no longer have access to this channel.
+           </div>
+
+           <div>
+             <v-btn small  @click="leaveSpace" color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Delete Channel</v-btn>
+             </div>
+
+
+
+              </div>
+
+
+              <!-- ends -->
+
 
                               <!-- channel sidebar -->
 
 
                                <div  v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" @click="goBack" style="overflow-x:hidden; background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
+                                   
+                                   
+                                   <!-- admin options -->
+
+                          <div style="position:absolute; height:100%; width:70%; left:30%;z-index:99999999999999;" v-if="that.$root.showAdminOption">
+                           <div class="offset-lg-6 d-flex" @click.stop="that.$root.showAdminOption = false" style="height:100%; align-items:center; justify-content:center; background: rgba(225, 225, 225, 0.32);" >
+ 
+                      
+                          <v-card style="border-radius:10px;width:90%;"
+             height="auto"
+              
+       class="py-2 px-1"  >
+
+            <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click.stop="makeAdmin"
+             v-if="selectedSpaceMembers.is_admin == false">
+        <span style="font-size:13px;">{{ $t('space.make_admin') }}</span>
+            </v-card>
+             <v-card tile  @click.stop="RemoveAdmin" flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" v-else>
+        <span style="font-size:13px;">{{ $t('space.remove_admin') }}</span>
+            </v-card>
+
+             <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click.stop="removeUser">
+        <span style="font-size:13px;">{{ $t('space.remove') }}</span>
+            </v-card>
+         <v-card tile flat class="text-center py-2"  @click.stop="goToProfile(selectedSpaceMembers.username)">
+        <span style="font-size:13px;">{{ $t('space.view_profile') }}</span>
+            </v-card>
+
+             </v-card>
+      
+   
+
+                           </div>
+                          </div>
+
+
+                              <!-- ends -->
+                                   
                                    <div style="position:absolute; height:100%; width:70%; left:30%;" >
 
-                                    <div  @click.stop="chatInnerSideBar = true" class="scrollerinfo offset-lg-6" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
                                      
+
+                                    <div  @click.stop="chatInnerSideBar = true" class="scrollerinfo offset-lg-6" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
+                                       
+                                         <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
+
+
                                      
                                         <channel-info v-if="innerSideBarContent == 'channel_info'" ></channel-info>
                                      
@@ -488,6 +613,8 @@
                                          
                                         <add-sub-channel v-if="innerSideBarContent == 'add_sub_channel'"></add-sub-channel>
 
+                                          <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
+
                                          
                                    </div>
 
@@ -496,6 +623,10 @@
                               
 
                             <!-- channel sidebar -->
+
+                             <!-- audio container -->
+                               <div  id="audios-container" v-show="false"></div>
+                              <!-- ends -->
 
                             <!-- live session -->
 
@@ -509,12 +640,16 @@
 
                <div  id="videos-container" ></div>
 
-                 <!-- audio container -->
-                               <div  id="audios-container" v-show="false"></div>
-                              <!-- ends -->
+                
                </div>
 
                             <!-- ends -->
+
+                              <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
 
      
                                     <live-session></live-session>
@@ -522,7 +657,9 @@
                             
 
                             <!-- ends -->
+                        
 
+                      
                                <!-- share -->
 
                             <div  v-if="chatIsOpen && !chatInnerSideBar && chatShareIsOpen"  class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;"  >
@@ -535,15 +672,20 @@
 
                             <div v-if="chatIsOpen && !chatInnerSideBar && imageCropperIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;">
                                     <image-cropper></image-cropper>
+                                      <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
                                </div>
 
                             <!-- ends -->
 
                       </div>
 
-                           <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'" medium fab color="#3C87CD"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
+                           <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'" medium fab color="#ffffff"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
 
-                               <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
+                               <v-icon style="font-size:25px; color:#3C87CD;">las la-code</v-icon>
 
                               </v-btn>
 
@@ -553,9 +695,9 @@
 
                                    <template v-if="that.$root.Messages.length >  0">
 
-                                     <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible && that.$root.Messages.length > 0"   fab x-small color="#3C87CD" class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:14%; left:1%;">
+                                     <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible && that.$root.Messages.length > 0"   fab x-small color="#ffffff" class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:14%; left:1%;">
 
-                               <v-icon style="font-size:20px; color:white;">las la-angle-double-down</v-icon>
+                               <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
 
                               </v-btn>
 
@@ -563,7 +705,20 @@
 
                                 </template>
 
-                             
+                              <!-- ends -->
+
+                               <!-- share diary -->
+                          
+                           <template v-if="that.$root.selectedSpace.type ==  'Bot'">
+
+                                       <v-btn @click="shareDiary()" v-if="chatIsOpen"    fab x-small color="#ffffff" class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:14%; right:1%;">
+
+                               <v-icon style="font-size:20px; color:#3C87CD;">mdi mdi-share-variant</v-icon>
+
+                              </v-btn>
+
+                                   </template>
+
 
                               <!-- ends -->
 
@@ -609,8 +764,25 @@
 
         <chat-list :source="item" ></chat-list>
 
+         
+
           </DynamicScrollerItem>
              </template>
+
+
+             <template #after > 
+
+          <div class="col-12 mt-2 text-center d-flex flex-column" v-if="that.$root.channelChats.length == 0">
+                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
+                      Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
+                    </div>
+
+                     <div>
+                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                     </div>
+          </div>
+
+        </template>
 
                 </DynamicScroller>
 
@@ -618,7 +790,7 @@
           style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto;align-items:center;justify-content:center;" >
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                       Teach and build your community in channels.
+                     Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
                     </div>
 
                      <div>
@@ -703,6 +875,11 @@
 
                             <div  v-if="chatbarContent == 'create_channel'" class="col-12 py-0 px-0" style="background:#ffffff; left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
                                   <create-channel></create-channel>
+                                   <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
                             </div>
                       
 
@@ -750,7 +927,16 @@
 
               <div  class="row py-0" :id="'smallView'" >
                             <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:fixed; top:0%;z-index:999999999;" >
-                              <chat-top></chat-top>
+                              <template v-if="!that.$root.chatTopLoaded">
+
+                                       <v-skeleton-loader
+                                       type="image"
+                                       height="35px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                    </template>
+                              <chat-top v-else></chat-top>
                             </div>
 
 
@@ -758,11 +944,11 @@
     :items="that.$root.Messages"
      v-if="that.$root.Messages.length != 0"
      :keyField="'index_count'"
-    :min-item-size="36"
+    :min-item-size="70"
     ref="messageContainersmall"
-    :buffer="2000"
+     
     id="messageContainersmall"
-  class="col-12 scroller px-0" 
+  class="col-12 px-0" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
             background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:9999999; top:0%; overflow-y:auto;"
@@ -784,9 +970,9 @@
 
      <template #before>
 
-        <div  class=" col-12 text-center" style="margin-top:80px; ">
+        <div  class=" col-12 text-center" style="margin-top:60px; ">
      
-        <span v-html="that.$root.selectedSpace.description" v-if="that.$root.selectedSpace.type == 'SubSpace'  || that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'" style="font-size:12px;font-family:BodyFont;">
+        <span v-html="that.$root.selectedSpace.description" v-if="that.$root.selectedSpace.type != 'Direct'" style="font-size:12px;font-family:BodyFont;">
          
         </span>
 
@@ -797,13 +983,13 @@
 
     <template #after>
 
-        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-top:130px; ">
+        <div  class=" col-12 " v-observe-visibility="visibilityChanged" style="margin-bottom:32px; ">
             
           <template v-if="that.$root.selectedSpace.type == 'Bot' ">
 
              <div class="row">
 
-              <template v-if=" that.$root.botIsLoading">
+              <template v-if=" that.$root.botIsLoading || that.$root.sendingMessage">
 
                  <div elevation-1 class="col-11 py-0 mt-2" >
            <div class="row">
@@ -816,7 +1002,7 @@
 
                   <v-card elevation-1  class="py-0 px-2 ml-2 d-flex " style=" align-items:center;justify-content:center; border:1px solid transparent; min-width:45px;background:#ffffff; border-radius:20px;">
 
-                       <img src="/imgs/diary_loading.svg"  height="30px" width="40px">
+                         <img src="/imgs/diary_loading.svg" height="30" >
 
                 
                   </v-card> 
@@ -889,9 +1075,9 @@
      </template>
                       
 
-                             <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'"   fab color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:17%; right:2%; ">
+                             <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot' && this.$root.showCodeboxBtn"   fab color="#ffffff"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
 
-                               <v-icon style="font-size:25px; color:white;">las la-code</v-icon>
+                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
 
                               </v-btn>
 
@@ -901,9 +1087,9 @@
 
                                    <template v-if="that.$root.Messages.length >  0">
 
-                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"   fab x-small color="#3C87CD"  style="z-index:9999999;  position:fixed;  bottom:18%; left:2%; ">
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"   fab x-small color="#ffffff"  style="z-index:9999999;  position:fixed;  bottom:16%; left:2%; ">
 
-                               <v-icon style="font-size:20px; color:white;">las la-angle-double-down</v-icon>
+                               <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
 
                               </v-btn>
 
@@ -912,6 +1098,21 @@
                                 </template>
 
                             
+
+                              <!-- ends -->
+
+                              <!-- share diary -->
+                          
+                           <template v-if="that.$root.selectedSpace.type ==  'Bot'">
+
+                                       <v-btn @click="shareDiary()" v-if="chatIsOpen"   fab x-small color="#ffffff"  style="z-index:9999999;  position:fixed;  bottom:16%; right:2%; ">
+
+                               <v-icon style="font-size:20px; color:#3C87CD;">mdi mdi-share-variant</v-icon>
+
+                              </v-btn>
+
+                                   </template>
+
 
                               <!-- ends -->
 
@@ -930,8 +1131,18 @@
 
                                   <!-- ends -->
 
-                                 <div class="px-2 py-1" style="background:#ffffff; border-top:1px solid #c5c5c5;">
-                                <chat-bottom ref="bottomSm"></chat-bottom>
+                                 <div class="px-2 py-1 card" style="background:#ffffff; border-radius:0px;">
+
+                                    <template v-if="!that.$root.chatBottomLoaded">
+
+                                       <v-skeleton-loader
+                                       type="image"
+                                       height="35px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                    </template>
+                                <chat-bottom v-else ref="bottomSm" :screenType="'small'"></chat-bottom>
                                  </div>
                                  
                             </div>
@@ -940,6 +1151,11 @@
                            <!-- code editor -->
 
                                <div  v-if="chatIsOpen && chatInnerConent == 'code_editor'"  class="col-12 py-0 px-0" style="background:#ffffff; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
+                                  <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
                                   <code-editor-chat></code-editor-chat>
                             </div>
 
@@ -971,7 +1187,15 @@
 
                                <div  v-if="chatIsOpen && showMoreOptions" @click="showMoreOptions = false" class="col-12 py-0 px-0 d-flex" style="align-items:center; justify-content:center; background: rgba(27, 27, 30, 0.1); position:fixed; height:100%; top:0%;z-index:999999999999;" >
                                   
+                                    <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
+
                                   <more-options></more-options>
+
+
                             </div>
 
                             <!-- ends -->
@@ -979,11 +1203,40 @@
                            <!-- chat more options -->
 
                                <div  v-if="chatIsOpen && showMoreOptionsChat" @click="showMoreOptionsChat = false" class="col-12 py-0 px-0 d-flex" style="align-items:center; justify-content:center; background: rgba(27, 27, 30, 0.1); position:fixed; height:100%; top:0%;z-index:999999999999;" >
-                                  
+                                      <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
                                   <more-option-chat></more-option-chat>
                             </div>
 
                             <!-- ends -->
+
+
+                              <!-- No access -->
+
+
+              <div class="d-flex flex-column col-12" v-if="checkIfMemeber()"  style="background:#ffffff; border-top:1px solid #c5c5c5;  position:fixed; height:100%; top:0%;z-index:9999999999999; align-items:center; justify-content:center;">
+
+           
+            <img alt="Thank you" class="mb-2"  src="/imgs/oops.gif" height="80"/>
+
+           <div class="py-2 mb-2" style="font-size:14px;font-family:BodyFont;">
+             Oops! You no longer have access to this channel.
+           </div>
+
+           <div>
+             <v-btn small  @click="leaveSpace" color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Delete Channel</v-btn>
+             </div>
+
+
+
+              </div>
+
+
+              <!-- ends -->
+
 
 
                               <!-- channel sidebar -->
@@ -993,7 +1246,13 @@
 
                                     <div class="scrollerinfo col-md-6 offset-md-6 px-0 py-0 pb-2" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
                                      
-                                    
+                                        <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
+
+                             
                                         
                                         <channel-info v-if="innerSideBarContent == 'channel_info'" ></channel-info>
                                      
@@ -1006,6 +1265,8 @@
                                          
                                         <add-sub-channel v-if="innerSideBarContent == 'add_sub_channel'"></add-sub-channel>
 
+                                        <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
+
                                          
                                     
                                    </div>
@@ -1016,6 +1277,44 @@
                             <!-- channel sidebar -->
 
 
+                              <!-- admin options -->
+
+                          <div  class="d-flex" @click.stop="that.$root.showAdminOption = false"  style="position:fixed; height:100%; width:100%; top:0%; z-index:99999999999999999999;align-items:center; justify-content:center; background: rgba(225, 225, 225, 0.32);" v-if="that.$root.showAdminOption" >
+                           
+                          <v-card style="border-radius:10px;width:90%;"
+             height="auto"
+      
+       class="py-2 px-1"  >
+
+            <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click.stop="makeAdmin"
+             v-if="selectedSpaceMembers.is_admin == false">
+        <span style="font-size:13px;">{{ $t('space.make_admin') }}</span>
+            </v-card>
+             <v-card tile @click.stop="RemoveAdmin" flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" v-else>
+        <span style="font-size:13px;">{{ $t('space.remove_admin') }}</span>
+            </v-card>
+
+             <v-card tile flat class="text-center py-2" style="border-bottom:1px solid #c5c5c5;border-radius:0px;" @click.stop="removeUser">
+        <span style="font-size:13px;">{{ $t('space.remove') }}</span>
+            </v-card>
+         <v-card tile flat class="text-center py-2"  @click.stop="goToProfile(selectedSpaceMembers.username)">
+        <span style="font-size:13px;">{{ $t('space.view_profile') }}</span>
+            </v-card>
+
+             </v-card>
+      
+   
+
+                          
+                          </div>
+
+
+                              <!-- ends -->
+
+                            
+                               <!-- audio container -->
+                               <div  id="audios-container-sm" v-show="false"></div>
+                              <!-- ends -->
 
                          
                              <!-- live session -->
@@ -1028,12 +1327,16 @@
 
                <div  id="videos-container-sm" ></div>
 
-                 <!-- audio container -->
-                               <div  id="audios-container-sm" v-show="false"></div>
-                              <!-- ends -->
+              
              </div>
 
                             <!-- ends -->
+
+                              <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
 
      
                                     <live-session></live-session>
@@ -1053,6 +1356,11 @@
 
                             <div v-if="chatIsOpen && !chatInnerSideBar && imageCropperIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
                                     <image-cropper></image-cropper>
+                                      <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+                          <img src="/imgs/diary_loading.svg" height="50" >
+
+                               </div>
                                </div>
 
                             <!-- ends -->
@@ -1095,7 +1403,18 @@
    <div style="position:absolute; height:100%; width:70%; left:0;" >
 
      <div class="col-md-6 col-lg-3 pt-2" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
-        <side-bar></side-bar>
+
+      
+      
+      <template>
+         <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
+
+         <img src="/imgs/diary_loading.svg" height="50" >
+
+      </div>
+       <side-bar></side-bar>
+      </template>
+
      </div>
 
    </div>
@@ -1140,6 +1459,27 @@
 
  <!-- ends -->
 
+   <!-- share  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" @click="that.$root.showInvitation = false" v-if="this.$root.showInvitation">
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+
+   
+
+      
+      <invitation :infoText="this.$root.infoText"
+                                   :extraInfo="this.$root.extraInfo" :fromChat="false" :alertComponent="this.$root.alertComponent"></invitation>
+   
+
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
+
 
     </div>
 </template>
@@ -1162,6 +1502,8 @@ import 'izitoast/dist/css/iziToast.min.css'
 
 
 import { VEmojiPicker } from 'v-emoji-picker';
+
+const { htmlToText } = require('html-to-text');
 
 const Interest= () => import(
    /* webpackChunkName: "Interest" */ '../auth/InterestPopup'
@@ -1251,6 +1593,15 @@ const Interest= () => import(
  const MoreOptionChat = () => import(
     /* webpackChunkName: "MoreOptionChat" */ './MoreOptionChat.vue'
   );
+
+   const DiaryNotes = () => import(
+    /* webpackChunkName: "DiaryNotes" */ './DiaryNotes.vue'
+  );
+
+  const Notify = () => import(
+   /* webpackChunkName: "Notify" */ '../Profile/Notify.vue'
+  );
+
 export default {
      data () {
       return {
@@ -1263,6 +1614,7 @@ export default {
        chatInnerConent:'',
        errorLoadingMessage:false,
         counter:0,
+        suggestionsContent:'diaries',
         messageIsDone: true,
         popup:false,
         qouteArray:[
@@ -1314,15 +1666,20 @@ export default {
        showMoreOptions:false,
        bottomIsVisible:false,
        showMoreOptionsChat:false,
+       selectedSpaceMembers:[]
      
       }
     },
     mounted(){
      this.$root.showSideBar = false;
     this.$root.chatComponent = this;
+   
+    
     
      this.controlChatPath();
       this.fetchChatList();
+
+      
 
       
     },
@@ -1350,10 +1707,12 @@ export default {
         ProfileView,
         MoreOptionChat,
          Interest,
-         Follow
+         Follow,
+         DiaryNotes,
+         Notify
     },
      methods:{
-     
+    
         showAlert:function(title='',message,type){
        
        if(type == 'info'){
@@ -1419,6 +1778,265 @@ export default {
        
 
     },
+    botMessagerChat:function(message){
+     
+    let processedMsg = htmlToText(message, {
+             wordwrap: 500
+            });
+
+      this.$root.botMessager(processedMsg);     
+     
+  
+},
+ makeAdmin:function(){
+
+   this.$root.showAdminOption = false
+
+         axios.post( '/make-user-admin',{
+           memberId: this.selectedSpaceMembers.memberId
+         })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         
+        
+         this.$root.selectedSpaceMembers.map((member)=>{
+           if(member.memberId == response.data){
+
+             member.is_admin = true;
+
+           }
+         })
+
+            let storedMsg = this.$root.getLocalStore('full_space_' + this.$root.selectedSpace.space_id + this.$root.username);
+       
+           storedMsg.then((result)=>{
+
+               if(result != null){
+
+                   let finalResult = JSON.parse(result);
+
+                    finalResult.members = this.$root.selectedSpaceMembers;
+                  
+
+            this.$root.LocalStore('full_space_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
+
+              
+
+
+               }
+
+
+
+              
+           });
+
+
+
+         
+       
+      }
+       
+     
+     })
+     .catch(error => {
+
+       
+    
+     }) 
+
+      },
+
+      removeUser:function(){
+         this.$root.showAdminOption = false
+
+         axios.post( '/remove-user',{
+           memberId: this.selectedSpaceMembers.memberId
+         })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         
+        
+        let newUserList =  this.$root.selectedSpaceMembers.filter((member)=>{
+        return   member.memberId != response.data
+
+         })
+
+         this.$root.selectedSpaceMembers = newUserList;
+
+            let storedMsg = this.$root.getLocalStore('full_space_' + this.$root.selectedSpace.space_id + this.$root.username);
+       
+           storedMsg.then((result)=>{
+
+               if(result != null){
+
+                   let finalResult = JSON.parse(result);
+
+                    finalResult.members = this.$root.selectedSpaceMembers;
+                  
+
+            this.$root.LocalStore('full_space_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
+
+              
+
+
+               }
+
+
+
+              
+           });
+
+
+
+         
+       
+      }
+       
+     
+     })
+     .catch(error => {
+
+       
+    
+     }) 
+
+      },
+       RemoveAdmin:function(){
+      this.$root.showAdminOption = false
+         axios.post( '/remove-user-admin',{
+           memberId: this.selectedSpaceMembers.memberId
+         })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         
+        
+         this.$root.selectedSpaceMembers.map((member)=>{
+           if(member.memberId == response.data){
+
+             member.is_admin = false;
+
+           }
+         })
+
+            let storedMsg = this.$root.getLocalStore('full_space_' + this.$root.selectedSpace.space_id + this.$root.username);
+       
+           storedMsg.then((result)=>{
+
+               if(result != null){
+
+                   let finalResult = JSON.parse(result);
+
+                    finalResult.members = this.$root.selectedSpaceMembers;
+                  
+
+            this.$root.LocalStore('full_space_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
+
+              
+
+
+               }
+
+
+
+              
+           });
+
+
+
+         
+       
+      }
+       
+     
+     })
+     .catch(error => {
+
+       
+    
+     }) 
+
+      },
+ leaveSpace: function(){
+        let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+
+                   storedChat.then((result)=>{
+
+                       if(result != null ){
+
+                    let finalResult = JSON.parse(result);
+
+                       
+                       if(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' ){
+
+                          let remainingSpace = finalResult.channels.filter((space)=>{
+                         return    space.space_id != this.$root.selectedSpace.space_id
+                          });
+
+                          finalResult.channels = remainingSpace;
+
+                        }
+
+                         if(this.$root.selectedSpace.type == 'Bot'){
+
+                          let remainingSpace = finalResult.pet_spaces.filter((space)=>{
+                         return    space.space_id != this.$root.selectedSpace.space_id
+                          });
+
+                          finalResult.pet_spaces = remainingSpace;
+
+                        }
+                         
+
+                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult,false,'leave_space');
+
+                    
+                    
+
+                 }
+
+                   } )
+
+       },
+   goToProfile:function(username){
+          this.$root.showAdminOption = false
+        this.$root.selectedUsername = username;
+         this.$router.push({ path:'/profile-view/' + username})
+      },
+      checkIfMemeber: function(){
+
+        let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
+
+             return members.user_id == this.$root.user_temp_id;
+           });
+
+           if(userMemberData.length != 0){
+
+             return false
+
+           }else{
+              return true
+           }
+
+
+      },
+ shareDiary:function(){
+
+    this.$root.shareLink =  'https://www.citonhub.com/link/diary/'+ this.$root.selectedSpace.bot_data.bot_id;
+
+          this.$root.shareText = 'Check out this diary on Citonhub';
+          
+          this.$root.infoText = 'Share diary with others';
+
+    this.$root.alertComponent =   this;
+
+          this.$root.showInvitation = true;
+ },
      imageStyle:function(dimension,data,type){
       
 
@@ -1466,6 +2084,37 @@ export default {
 
 
        },
+       showSideBarHandler: function(){
+
+         this.$root.componentIsLoading = true;
+
+         this.$root.showSideBar = true;
+
+           
+         if(!this.$root.authProfile.user_onboarded){
+
+            axios.post('/save-user-onboarded-status')
+       .then(response => {
+
+       if (response.status == 200) {
+
+          this.$root.authProfile.user_onboarded = true;
+
+ 
+
+      }
+
+
+      })
+     .catch(error => {  
+  
+       }) 
+
+         }
+
+
+
+      },
     checkDiary:function(){
 
        let botId = '';
@@ -1620,6 +2269,8 @@ export default {
          return;
         }
 
+        // when users is coming from a direct message
+
             if(this.$root.autoOpenChat){
    
             this.liveSessionIsOpen = false;
@@ -1726,6 +2377,8 @@ export default {
        },
         showCreateChannel: function(){
 
+           this.$root.componentIsLoading = true;
+
             this.$router.push({ path: '/channels/create' });
 
           this.chatbarContent = '';
@@ -1737,7 +2390,8 @@ export default {
          
         },
         showCodeEditor:function(){
-       
+           this.$root.componentIsLoading = true;
+            this.$root.codeFromChat = false;
             this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id +'/editor' });
         },
          fetchChatList: function(){
@@ -1761,6 +2415,8 @@ export default {
                     let finalResult = JSON.parse(result);
                       this.$root.baseChatList = finalResult;
 
+                       this.$root.channelChats = finalResult.channels;
+
                      let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
 
                      
@@ -1771,6 +2427,8 @@ export default {
                       this.SetUnread();
 
                      // get all new messages
+
+                      
 
                       this.$root.updateSpaceMessages();
 
@@ -1789,11 +2447,12 @@ export default {
 
 
           this.$root.baseChatList = response.data;
+            this.$root.channelChats = responseList.channels;
           this.$root.ChatList = responseList.channels.concat(responseList.direct_messages, responseList.pet_spaces);
 
-           this.$root.LocalStore('user_chat_list' + this.$root.username,response.data);
+           this.$root.LocalStore('user_chat_list' + this.$root.username,response.data,false,'sort_chat');
 
-         this.$root.sortChatList();
+       
 
              this.$root.loadingChatList = false;
 
@@ -1814,6 +2473,9 @@ export default {
                  }
             })
 
+             }else{
+                 this.$root.updateSpaceMessages();
+                 
              }
          
           }
@@ -1893,6 +2555,8 @@ export default {
          },
           resendMessages:function(){
 
+         
+
               let unsentMsg = this.$root.getLocalStore('unsent_messages_' + this.$route.params.spaceId  + this.$root.username );
 
          unsentMsg.then((result)=>{
@@ -1901,28 +2565,24 @@ export default {
 
             let finalResult = JSON.parse(result);
 
-                if(finalResult.length == 0){
+                if(finalResult.length != 0){
 
-                 
+                    for (let index = 0; index < finalResult.length; index++) {
 
-                }else{
-
-                      for (let index = 0; index < finalResult.length; index++) {
-
-                      if(this.$route.params.spaceId == finalResult[index].space_id){
+                    
 
 
 
                          this.$root.sendTextMessage(finalResult[index]);
 
 
-                      }
 
                         }
 
                   this.$root.LocalStore('unsent_messages_' + this.$route.params.spaceId  + this.$root.username,[]);
 
                  
+
                 }
 
            }else{
@@ -2037,33 +2697,25 @@ export default {
 
              if (response.status == 200) {
 
+               
+
 
                 if(response.data[0].length > 0){
 
-
-
-             for (let index = 0; index < response.data[0].length; index++) {
-
-
-
-                     response.data[0][index].index_count = this.$root.returnLastIndex() + 1;
-                      response.data[0][index].id =  response.data[0][index].message_id;
-                      response.data[0][index].initialSize =  200;
-
-
-
-                     this.$root.Messages.push(response.data[0][index]);
-                  this.$root.pushDataToLocal(response.data[0][index]);
-
-                  this.scrollToBottom();
-
-
-                }
+                  let messageData = {
+               space_id: this.$root.selectedSpace.space_id,
+               new_messages: response.data[0]
+                  };
+    
+               this.$root.handleSpaceData([messageData]);
 
 
              }
 
+
+
             }
+
 
           })
           .catch(error => {
@@ -2080,11 +2732,11 @@ export default {
 
       handleResults(messageArray){
 
-          this.$root.returnedMessages = messageArray;
+        
 
            let intialCount = 0;
 
-           this.$root.returnedMessages.map((msg)=>{
+          messageArray.map((msg)=>{
                msg.id = msg.message_id
                msg.initialSize = 200
                msg.index_count = intialCount++;
@@ -2095,9 +2747,7 @@ export default {
 
        
 
-       let lastMessages = this.$root.returnedMessages.slice(Math.max(this.$root.returnedMessages .length - 30, 0));
-
-         return  this.$root.returnedMessages;
+         return messageArray;
 
       },
 
@@ -2110,7 +2760,12 @@ export default {
          // set messages to null
           this.$root.Messages = null;
           this.errorLoadingMessage = false;
-         
+
+
+         // clear diary suggestions
+          this.$root.botSuggestionArray = [];
+
+
          this.messageIsDone = false;
          // proceed if user is logged in
          if(this.$root.checkauthroot == 'auth'){
@@ -2122,7 +2777,7 @@ export default {
 
         // get the space data from local storage
 
-          let storedMsg = this.$root.getLocalStore('full_' + spaceId + this.$root.username);
+          let storedMsg = this.$root.getLocalStore('full_space_' + spaceId + this.$root.username);
 
             storedMsg.then((result)=>{
 
@@ -2133,14 +2788,19 @@ export default {
                  
 
                let finalResult = JSON.parse(result);
+
+              
+
          
             this.$root.spaceFullData = finalResult;
 
-         let returnedData = this.handleResults(finalResult.messages);
+          let returnedData = this.handleResults(finalResult.messages);
 
-       this.$root.Messages = returnedData;
+           
 
-        this.$root.selectedSpace  = [];
+          this.$root.Messages = returnedData;
+
+           this.$root.selectedSpace  = [];
 
      
 
@@ -2195,10 +2855,7 @@ export default {
 
           this.$root.selectedSpaceMembers = finalResult.members;
 
-         // generate unread msg and the mark as read
-         this.generateUnreadMessage();
-          
-
+       
             // set default admin user
 
            this.autoMakeuserMaster();
@@ -2215,6 +2872,9 @@ export default {
 
               }  
 
+           // generate unread msg and the mark as read
+         this.generateUnreadMessage();
+          
 
 
        setTimeout(() => {
@@ -2259,29 +2919,14 @@ export default {
          
         
             
-        },1500);
+        },1000);
 
-         setTimeout(() => {
+       
             this.messageIsDone = true;
-         }, 2000);
+        
+       
        
 
-
-
-         
-             let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + this.$route.params.spaceId  + this.$root.username);
-
-           unreadStoredMsg.then((result)=>{
-
-              let finalResultUnread = JSON.parse(result);
-
-              if(this.$root.sendingMessage == false){
-
-                 this.periodicUpdate(finalResultUnread);
-
-              }
-
-           });
 
        
        // check for unsent messages and resend
@@ -2291,22 +2936,10 @@ export default {
 
            unsentStoredMsg.then((result)=>{
 
-              let finalResultunsent = JSON.parse(result);
-
-              if(finalResultunsent != null){
-
-                if(finalResultunsent.length == 0){
-
-              this.resendMessages();
-
-              }
-
-              }else{
+             
                 this.resendMessages();
 
-              }
-
-
+          
 
            });
 
@@ -2331,7 +2964,7 @@ export default {
        this.$root.spaceFullData = response.data;
 
 
-      this.$root.LocalStore('full_' +  this.$route.params.spaceId  + this.$root.username,response.data);
+      this.$root.LocalStore('full_space_' +  this.$route.params.spaceId  + this.$root.username,response.data);
 
       this.$root.LocalStore('unread_messages_' + this.$route.params.spaceId  + this.$root.username,[]);
 
@@ -2386,9 +3019,9 @@ export default {
 
               if(response.data.space.type == 'Bot'){
 
-            this.botSuggestionArray = response.data.patterns;
+            this.$root.botSuggestionArray = response.data.patterns;
 
-         this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data[1]);
+         this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data.patterns);
 
               }
 
@@ -2407,6 +3040,11 @@ export default {
 
               }  
 
+              // generate unread msg and the mark as read
+         this.generateUnreadMessage();
+          
+
+
 
       setTimeout(() => {
 
@@ -2416,11 +3054,13 @@ export default {
               this.$refs.messageContainersmall.scrollToBottom();
          
           
-        },1500);
+        },1000);
 
-          setTimeout(() => {
+         
             this.messageIsDone = true;
-         }, 2000);
+
+           
+       
 
     
     }
@@ -2439,12 +3079,11 @@ export default {
 
 
     if( this.$root.selectedSpace.type == 'Bot'){
-      setTimeout(() => {
+
+        this.checkForNewNotes();
+     
             this.botMessager();
-      }, 2000);
-
-
-
+     
       }
 
 
@@ -2479,15 +3118,42 @@ export default {
               }
     
       },
+        checkForNewNotes:function(){
+
+        axios.get( '/fetch-diary-notes-' + this.$root.selectedSpace.bot_data.bot_id)
+      .then(response => {
+      
+      if (response.status == 200) {
+
+          this.$root.LocalStore('diary_notes_' + this.$root.selectedSpace.space_id  + this.$root.username,response.data);
+        
+     
+                   let finalResult = response.data.diary_notes;
+
+                   
+
+                      this.$root.diaryNotes = finalResult
+  
+     }
+       
+     
+     })
+     .catch(error => {
+
+      
+    
+     }) 
+
+        },
   
         fetchSpaceInfo: function(){
 
-            axios.get('/fetch-space-info-'+ this.$route.params.spaceId)
+            axios.get('/fetch-space-info-'+ this.$root.selectedSpace.space_id)
    .then(response => {
 
    if (response.status == 200) {
 
-         let storedMsg = this.$root.getLocalStore('full_' + this.$route.params.spaceId + this.$root.username);
+         let storedMsg = this.$root.getLocalStore('full_space_' + this.$root.selectedSpace.space_id + this.$root.username);
        
            storedMsg.then((result)=>{
 
@@ -2496,12 +3162,16 @@ export default {
                    let finalResult = JSON.parse(result);
 
                     finalResult.space = response.data.space;
+
+                      this.$root.selectedSpace = response.data.space;
                     
                   
                   finalResult.members = response.data.members;
+
+                 
                   
 
-            this.$root.LocalStore('full_' +  this.$route.params.spaceId  + this.$root.username,finalResult);
+            this.$root.LocalStore('full_space_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
 
               
 
@@ -2525,13 +3195,13 @@ export default {
                    let finalResult = JSON.parse(result);   
 
                  
-
+                 
                      
                 
 
                    if(response.data.space.type == 'Channel' || response.data.space.type == 'Team'){
                         finalResult.channels.map((chat)=>{
-                          if(chat.space_id == this.$route.params.spaceId){
+                          if(chat.space_id == this.$root.selectedSpace.space_id){
 
                              chat.name =  response.data.space.name;
 
@@ -2548,16 +3218,11 @@ export default {
                    if(response.data.space.type == 'Direct'){
 
                       finalResult.direct_messages.map((chat)=>{
-                          if(chat.space_id == this.$route.params.spaceId){
+                          if(chat.space_id == this.$root.selectedSpace.space_id){
 
-                             chat.name =  response.data.space.userInfo.name;
+                             chat.userInfo =  response.data.space.userInfo;
 
-                             chat.image_name = response.data.space.userInfo.image_name;
-
-                             chat.image_extension = response.data.space.userInfo.image_extension;
-
-                             chat.background_color = response.data.space.userInfo.background_color;
-
+                          
                           }
                         })
 
@@ -2565,17 +3230,14 @@ export default {
 
                    if(response.data.space.type == 'Bot'){
 
+                        
+
                       finalResult.pet_spaces.map((chat)=>{
-                          if(chat.space_id == this.$route.params.spaceId){
+                          if(chat.space_id == this.$root.selectedSpace.space_id){
+                             
+                             chat.bot_data =  response.data.space.bot_data;
 
-                             chat.name =  response.data.space.bot_data.name;
-
-                             chat.image_name = response.data.space.bot_data.image_name;
-
-                             chat.image_extension = response.data.space.bot_data.image_extension;
-
-                             chat.background_color = response.data.space.bot_data.background_color;
-
+                         
                           }
                         })
 
@@ -2649,6 +3311,17 @@ export default {
 .scrollerinfo::-webkit-scrollbar {
   width: 5px;
 }
+
+.scrollerLg::-webkit-scrollbar {
+  width: 6px;
+}
+
+
+.scrollerLg::-webkit-scrollbar-thumb {
+  background-color: #3C87CD;
+  outline: 1px solid #3C87CD;
+}
+
 
 
 .scrollerinfo::-webkit-scrollbar-thumb {
