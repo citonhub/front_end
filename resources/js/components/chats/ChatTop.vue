@@ -529,6 +529,7 @@ export default {
       },
        openLiveSession:function(){
            this.$root.componentIsLoading = true;
+           this.$root.liveSessionIsOpen = true;
                this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id +'/live_session' });
             
        },

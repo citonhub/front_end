@@ -22,6 +22,7 @@
                                             <span style="font-family:BodyFont;font-size:13px;color:grey;">Channel info</span>
 
                                          </v-card>
+                                         
 
                                       </div>
 
@@ -50,6 +51,12 @@ export default {
                if(type == 'diary'){
 
                     this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/channel_info' });
+
+               }
+
+               if(type == 'support'){
+
+                     this.$root.chatComponent.makePayment();
 
                }
 

@@ -1480,12 +1480,30 @@
 
  <!-- ends -->
 
+  <!-- payment option info  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showPaymentOptionBoard">
+
+   <div style="position:absolute; height:90%; top:10%; width:94%; left:3%; "  >
+
+         <payment-info-board></payment-info-board>
+     
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
+
 
     </div>
 </template>
 <script>
 
+import Flutterwave from 'vue-flutterwave'
 
+Vue.use(Flutterwave, { publicKey: 'FLWPUBK_TEST-88988df0b869189dd63c6cd152830ac2-X' })
 
 import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
@@ -1602,6 +1620,10 @@ const Interest= () => import(
    /* webpackChunkName: "Notify" */ '../Profile/Notify.vue'
   );
 
+   const PaymentInfoBoard = () => import(
+   /* webpackChunkName: "PaymentInfoBoard" */ './PaymentInfoBoard.vue'
+  );
+
 export default {
      data () {
       return {
@@ -1662,6 +1684,7 @@ export default {
         chatShareIsOpen:false,
         imageCropperIsOpen:false,
        searchValue:'',
+       amount:5000,
        selectedQuoteId:0,
        showMoreOptions:false,
        bottomIsVisible:false,
@@ -1709,9 +1732,32 @@ export default {
          Interest,
          Follow,
          DiaryNotes,
-         Notify
+         Notify,
+         PaymentInfoBoard
     },
      methods:{
+
+        makePayment:function() {
+      this.$launchFlutterwave({
+        tx_ref: Date.now(),
+        amount: this.amount,
+        currency: 'NGN',
+        customer: {
+          email: 'user@gmail.com',
+          phonenumber: '08102909304',
+          name: 'yemi desola'
+        },
+        callback: function(data) {
+          // specified callback function
+          console.log(data)
+        },
+        customizations: {
+          title: 'My store',
+          description: 'Payment for items in cart',
+          logo: 'https://www.citonhub.com/images/icons/logo_android-chrome-192x192.png'
+        }
+      })
+    },
     
         showAlert:function(title='',message,type){
        
@@ -2009,6 +2055,8 @@ export default {
          this.$router.push({ path:'/profile-view/' + username})
       },
       checkIfMemeber: function(){
+
+          if(this.$root.selectedSpaceMembers.length == 0) return false;
 
         let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
 
