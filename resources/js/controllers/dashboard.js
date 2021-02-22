@@ -9,8 +9,8 @@ window.io = require('socket.io-client');
 Vue.use(Vuex)
 
 //axios.defaults.baseURL = 'http://localhost:8000/api'
-//axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
-axios.defaults.baseURL = 'https://api.citonhub.com/api'
+axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
+//axios.defaults.baseURL = 'https://api.citonhub.com/api'
 
 //axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
 
@@ -101,6 +101,7 @@ const SettingsMain = () => import(/* webpackChunkName: "SettingsMain" */ '../com
 // wallet routes
 const WalletInfo = () => import(/* webpackChunkName: "WalletInfo" */ '../components/Wallet/Info.vue');
 const WalletCard = () => import(/* webpackChunkName: "WalletCard" */ '../components/Wallet/card.vue');
+const WalletCardView = () => import(/* webpackChunkName: "WalletCard" */ '../components/Wallet/CardView.vue');
 
 // feedbacks
 const Feedback=  () => import(/*webpackChunkName: "Feedback" */ '../components/dashboard/Feedback.vue')
@@ -1584,7 +1585,7 @@ children:[
         // wallet
         path: 'wallet',
         component: Wallet,
-        redirect:'/board/wallet/info',
+        redirect:'/board/wallet/card',
         meta: {
           twModalView: true
         },
@@ -1599,6 +1600,11 @@ children:[
             // info
             path:'info',
             component: WalletInfo
+          },
+          {
+            // info
+            path:'card-view',
+            component: WalletCardView
           }
         ]
       },
