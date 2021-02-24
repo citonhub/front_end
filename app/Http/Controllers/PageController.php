@@ -94,6 +94,27 @@ class PageController extends Controller
            }
 
 
+           if($type == 'support'){
+            $thisSpace = Space::where('space_id',$uniqueId)->first();
+           
+   
+           $pageTitle = $thisSpace->name;
+           $pageDescription = 'Support ' . $thisSpace->name . ' ' . $thisSpace->type  .' on Citonhub.';
+   
+             if($thisSpace->image_name == null){
+                $imagePath = 'logo.png';
+             }else{
+                $imagePath = 'space/' . $thisSpace->image_name .'.' . $thisSpace->image_extension;
+             }
+          
+            
+               $pageLink = '/dashboard#/channels/' . $uniqueId .'/payment';
+              
+           
+           }
+
+
+
            if($type == 'project'){
             $thisProject = Project::where('project_slug',$uniqueId)->first();
             

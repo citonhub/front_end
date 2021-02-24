@@ -46,7 +46,7 @@
 
              </v-app>
 
-             <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 my-0 px-1 " v-if="false">
+             <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 my-0 px-1 "  v-if="false">
 
                <div style="font-size:13px;font-family:MediumFont;">Select payment option</div>
 
@@ -172,6 +172,8 @@ export default {
       selectPaymentOption:function(type){
            this.payment_option = type;
 
+            this.$root.baseChannelName = this.name;
+
             this.$root.payment_option = type;
 
            this.$root.showPaymentOptionBoard = true;
@@ -196,14 +198,36 @@ export default {
        
       
      if( this.$refs.form.validate()){
-        
+
+        let finalName = '';
+           
+            if(this.payment_option == 'subscription'){
+
+              finalName = 'Subscription for ' + this.name
+
+            
+            }
+
+             if(this.payment_option == 'support'){
+
+              finalName = 'Support for ' + this.name
+
+            
+            }
+
+            
        
           this.loading = true;
          axios.post('/create-space',{
-                name: this.name,
+                channel_name: this.name,
                 limit: this.limit,
-                type: this.selectedType
-               // payment_option: this.payment_option
+                type: this.selectedType,
+                payment_option: this.payment_option,
+                name: finalName,
+                currency: this.$root.payment_currency,
+                amount: this.$root.payment_amount,
+                card_name: this.$root.payment_card_name,
+                interval: this.$root.payment_interval
                   })
           .then(response => {
              

@@ -6,6 +6,9 @@
          <div class="col-md-9 py-0 d-lg-flex px-md-1 flex-row  d-none" style="align-items:center;" >
               
                    
+                    <v-btn icon class="d-inline-block"  @click.stop="goback">
+                      <v-icon style="font-size:24px;">las la-arrow-left</v-icon>
+                    </v-btn>
                  
 
                    <div  class="d-inline-block mx-2"  style="width:42px;"  v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' || this.$root.selectedSpace.type == 'SubSpace'"

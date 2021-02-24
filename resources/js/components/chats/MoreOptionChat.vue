@@ -7,21 +7,41 @@
 
                                         
 
-                                            <span style="font-family:BodyFont;font-size:13px;color:grey;">View profile</span>
+                                          <v-icon class="mr-1">las la-cog</v-icon>   <span style="font-family:BodyFont;font-size:13px;color:grey;">View profile</span>
 
                                          </v-card>
                                           <v-card tile flat v-if="this.$root.selectedSpace.type == 'Bot'"  class="px-2 py-2 d-flex flex-row" style="align-items:center;" @click="controlAction('diary')">
 
 
-                                            <span style="font-family:BodyFont;font-size:13px;color:grey;">Diary info</span>
+                                            <v-icon class="mr-1"> las la-cog</v-icon> <span style="font-family:BodyFont;font-size:13px;color:grey;">Diary info</span>
 
                                          </v-card>
                                          <v-card tile flat v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'SubSpace' || this.$root.selectedSpace.type == 'Team'" class="px-2 py-2 d-flex flex-row" style="align-items:center;" @click="controlAction('channel')">
 
 
-                                            <span style="font-family:BodyFont;font-size:13px;color:grey;">Channel info</span>
+                                             <v-icon class="mr-1">las la-cog</v-icon> <span style="font-family:BodyFont;font-size:13px;color:grey;">Channel info</span>
 
                                          </v-card>
+
+                                         <template v-if="false">
+
+                                          <v-card tile flat v-if="(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'SubSpace' || this.$root.selectedSpace.type == 'Team') && this.$root.selectedSpace.payment_option == 'support'" class="px-2 py-2 d-flex flex-row" style="align-items:center;" @click="controlAction('support')">
+
+
+                                            <v-icon class="mr-1">las la-hands-helping</v-icon> <span style="font-family:BodyFont;font-size:13px;color:grey;">Support {{ this.$root.selectedSpace.name }}</span>
+
+                                         </v-card>
+
+                                            <v-card tile flat v-if="(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'SubSpace' || this.$root.selectedSpace.type == 'Team') && this.$root.selectedSpace.payment_option == 'support'" class="px-2 py-2 d-flex flex-row" style="align-items:center;" @click="controlAction('support_link')">
+
+
+                                           <v-icon class="mr-1">las la-link</v-icon>   <span style="font-family:BodyFont;font-size:13px;color:grey;">Copy support link</span>
+
+                                         </v-card>
+
+                                         </template>
+
+                                       
                                          
 
                                       </div>
@@ -56,11 +76,38 @@ export default {
 
                if(type == 'support'){
 
-                     this.$root.chatComponent.makePayment();
+                      this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/payment' });
+
+               }
+
+                 if(type == 'support_link'){
+
+                     this.copyMessage();
 
                }
 
           },
+            copyMessage () {
+
+
+            const copyToClipboard = str => {
+  const el = document.createElement('textarea');
+  el.value = str;
+  el.setAttribute('readonly', '');
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+};
+
+      copyToClipboard('https://www.citonhub.com/link/support/'+ this.$root.selectedSpace.space_id);
+
+        this.$root.chatComponent.showAlert('Copied!','Copied to clipboard','success');
+
+         
+        },
             goToProfile:function(username){
         this.$root.selectedUsername = username;
          this.$router.push({ path:'/profile-view/' + username})
