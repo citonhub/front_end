@@ -2370,9 +2370,35 @@ goToChatList:function(){
                   this.liveSessionIsOpen = false;
       this.chatShareIsOpen = false;
       this.imageCropperIsOpen = false;
+
+                let storedMsg = this.$root.getLocalStore('full_space_' + this.$route.params.spaceId + this.$root.username);
+
+
+                    storedMsg.then((result)=>{
+
+
+                      
+
+                        if(result != null){
+
+                            this.openChat(this.$route.params.spaceId,false)
+
+                        }else{
+
+                          
+                            this.$root.fromSupportDirectlink = false;
+                          
+                           this.$router.push({ path: '/channels/' + this.$route.params.spaceId  +'/payment' });
+                             
+
+                         
+                        }
+                    })
+
+
     
         
-         this.openChat(this.$route.params.spaceId,false)
+       
 
                }
 

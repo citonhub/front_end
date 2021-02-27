@@ -46,7 +46,7 @@
 
              </v-app>
 
-             <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 my-0 px-1 "  v-if="false">
+             <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 my-0 px-1 ">
 
                <div style="font-size:13px;font-family:MediumFont;">Select payment option</div>
 

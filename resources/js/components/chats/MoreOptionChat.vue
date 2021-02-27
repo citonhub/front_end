@@ -23,7 +23,7 @@
 
                                          </v-card>
 
-                                         <template v-if="false">
+                                      
 
                                           <v-card tile flat v-if="(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'SubSpace' || this.$root.selectedSpace.type == 'Team') && this.$root.selectedSpace.payment_option == 'support'" class="px-2 py-2 d-flex flex-row" style="align-items:center;" @click="controlAction('support')">
 
@@ -37,11 +37,7 @@
 
                                            <v-icon class="mr-1">las la-link</v-icon>   <span style="font-family:BodyFont;font-size:13px;color:grey;">Copy support link</span>
 
-                                         </v-card>
-
-                                         </template>
-
-                                       
+                                         </v-card> 
                                          
 
                                       </div>
@@ -75,6 +71,10 @@ export default {
                }
 
                if(type == 'support'){
+
+                       this.$root.showProcessorFromChat = true;
+
+                       this.$root.fromSupportDirectlink = true;
 
                       this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/payment' });
 

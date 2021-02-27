@@ -38,19 +38,19 @@
        <div class="py-2 ">
               <template v-if="spaceData.payment_option == 'support'">
 
-                   <h6 style="font-siz:15px;">Support Us</h6>
+                   <h6 style="font-siz:14px;">Support Us</h6>
 
               </template>
 
               <template v-if="spaceData.payment_option == 'subscription'">
 
-                   <h6 style="font-siz:15px;">Subscribe and Join Us</h6>
+                   <h6 style="font-siz:14px;">Subscribe and Join Us</h6>
 
               </template>
 
                <template v-if="spaceData.payment_option == 'one_time'">
 
-                   <h6 style="font-siz:15px;">Join Us</h6>
+                   <h6 style="font-siz:14px;">Join Us</h6>
 
               </template>
                
@@ -403,14 +403,60 @@ export default {
         tx_ref: Date.now(),
         amount: this.amount,
         currency: this.currency,
-        paymentplan: this.spaceData.payment_data.plan_id,
+        payment_options: "card,mobilemoney,ussd",
+        payment_plan: paymentplan,
         customer: {
           email: userEmail,
           name: userName
         },
-        callback: function(data) {
-          // specified callback function
-          console.log(data)
+        callback: (data) => {
+
+           if(data.status == 'successful'){
+
+                axios.post('/save-transaction',{
+            data: data,
+            type: this.spaceData.payment_option,
+            card_no:  this.spaceData.payment_data.card_no,
+            narration: payment_desc,
+            paymentplan: paymentplan,
+            destination_currency: this.spaceData.payment_data.currency,
+            origin_currency: this.currency
+
+              })
+      .then(response => {
+        
+       if (response.status == 200) {
+
+           
+
+           
+          
+           this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
+
+            return;
+             
+    
+        
+        }else{
+          console.log(response.status);
+        }
+        
+        
+      })
+      .catch(error => {
+        console.log(error);
+      })
+
+
+            }else{
+
+                this.$root.chatComponent.showAlert('Oops!','Unable to process your payment, please try again','error');
+
+            }
+          
+       
+
+
         },
         customizations: {
           title: this.spaceData.name,
@@ -431,6 +477,64 @@ export default {
    if (response.status == 200) {
 
         this.spaceData = response.data.space;
+
+          if(this.spaceData.type != 'Channel' && this.spaceData.type != 'Team' && this.spaceData.type != 'SubSpace'){
+
+            this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
+
+            return;
+
+          }
+
+          if(this.spaceData.is_member){
+
+
+           if(!this.$root.showProcessorFromChat){
+
+               this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
+
+            return;
+             
+           }else{
+
+            
+           }
+
+           
+          }else{
+
+            if(this.spaceData.payment_option == 'support' && this.$root.isLogged){
+   
+           
+              if(!this.$root.fromSupportDirectlink){
+
+                 this.$root.chatComponent.openChat(this.$route.params.spaceId,false);
+
+            return;
+
+              }
+
+            
+
+
+            }else{
+             
+
+               
+            }
+          }
+
+
+         
+
+
+
+           
+
+           
+   
+
+
 
            if(this.spaceData.payment_option == 'subscription' ){
 
