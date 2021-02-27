@@ -29,14 +29,14 @@
           <div >
                 
         <vue-horizontal
-         
+      ref="horizontal"
       class="horizontal py-2 "
           >
          
-         <div v-for="item in items" :key="item.id" class="item">
+         <div v-for="(paymentCard,index) in paymentCards" :key="index" class="item">
 
-           <v-card height="200" @click="goToCardView" style="background-repeat: no-repeat;
-          border-radius:10px;background: url(/imgs/card_bg_3.jpg);background-size:cover;">
+           <v-card height="200"  @click="goToCardView" style="background-repeat: no-repeat;
+          border-radius:10px;background: url(/imgs/card_bg.jpg);background-size:cover;">
 
           <div style="position:absolute;width:100%;top:0%; left:0%; height:25%; align-items:center;" class="d-flex flex-row">
 
@@ -54,13 +54,13 @@
            <div style="width:50%;" class="d-flex px-2 flex-column text-left">
                   <div style="font-size:12px;color:white;font-family:BodyFont;">Name</div>
 
-                   <div style="font-size:14px;color:white;font-family:HeaderFont;">{{item.name}}</div>
+                   <div style="font-size:14px;color:white;font-family:HeaderFont;">{{paymentCard.name}}</div>
            </div>
 
            <div style="width:50%;" class="d-flex px-2 flex-column text-right">
                  <div style="font-size:12px;color:white;font-family:BodyFont;">Number</div>
 
-                   <div style="font-size:14px;color:white;font-family:HeaderFont;">**** **** 4567</div>
+                   <div style="font-size:14px;color:white;font-family:HeaderFont;">**** **** {{paymentCard.card_no.substr(paymentCard.card_no.length - 4)}}</div>
            </div>
 
 
@@ -73,7 +73,7 @@
            <div  class="d-flex px-2 pb-2 flex-column text-left">
              <div style="font-size:12px;color:white;font-family:BodyFont;">Balance</div>
 
-             <div style="font-size:22px;color:white;font-family:HeaderFont;">$ 1,078.00</div>
+             <div style="font-size:22px;color:white;font-family:HeaderFont;"><span v-html="currencyToCharacter(paymentCard.currency)"></span> {{formatMoney(paymentCard.balance)}}</div>
 
                   
               
@@ -104,7 +104,14 @@
          
           <div class="col-12 px-0 px-md-1 pt-md-5 pt-3">
 
-             <h6>Wallet history</h6>
+              <div class="d-flex flex-row" style="align-items:center;">
+
+                 <h6>Wallet history</h6>
+
+              
+              </div>
+
+            
 
              <div class="col-12 px-0 d-flex py-0 flex-column">
 
@@ -250,31 +257,140 @@
 </template>
 
 <script>
+
 import VueHorizontal from "vue-horizontal"
+import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
+
 
  export default {
     data () {
       return {
          page:1,
          loading:false,
-        items:[
-          {
-            name:'Akinola Raymond'
-          },
-           {
-            name:'DSC Landmark'
-          },
-           {
-            name:'Med in tech'
-          },
-           {
-            name:'Ademola James'
-          },
-           {
-            name:'hellp'
-          }
-        ]
        
+        paymentCards:[],
+        loadingPaymentCard:false,
+        currencyData:[
+          {
+            name:'Nigerian Naira (NGN)',
+            code:'NGN',
+            symbol:'&#8358;'
+          },
+          {
+            name:'Canadian Dollar (CAD)',
+            code:'CAD',
+            symbol:'&#36;'
+
+          },
+          {
+            name:'United State Dollar (USD)',
+            code:'USD',
+            symbol:'&#36;'
+          },
+           {
+            name:'Congolese Franc (CDF)',
+            code:'CDF',
+            symbol:'&#8355;'
+          },
+           {
+            name:'Euro (EUR)',
+            code:'EUR',
+            symbol:'&#128;'
+          },
+           {
+            name:'British Pound Sterling (GBP)',
+            code:'GBP',
+            symbol:'&#163;'
+          },
+           {
+            name:'Ghanainan Cedi (GHS)',
+            code:'GHS',
+            symbol:'&#8373;'
+          },
+           {
+            name:'Gambian Dalasi (GMD)',
+            code:'GMD',
+            symbol:'D'
+          },
+           {
+            name:'Guinean Franc (GNF)',
+            code:'GNF',
+            symbol:'&#8355;'
+          },
+           {
+            name:'Kenya Shilling (KES)',
+            code:'KES',
+            symbol:'KSh'
+          },
+           {
+            name:'Liberian Dollar (LRD)',
+            code:'LRD',
+            symbol:'&#36;'
+          },
+           {
+            name:'Malawian Kwacha (MWK)',
+            code:'MWK',
+            symbol:'MWK'
+          },
+           {
+            name:'Mozambican Metical (MZN)',
+            code:'MZN',
+            symbol:'MZN'
+          },
+           {
+            name:'Rwandan Franc (RWF)',
+            code:'RWF',
+            symbol:'&#8355;'
+          },
+            {
+            name:'Sierra Leonean Leone (SLL)',
+            code:'SLL',
+            symbol:'Le'
+          },
+            {
+            name:'Sao Tome and Principe Dobra (STD)',
+            code:'STD',
+            symbol:'STD'
+          },
+            {
+            name:'Tanzanian Shilling (TZS)',
+            code:'TZS',
+            symbol:'TSh'
+          },
+            {
+            name:'Ugandan Shilling (UGX)',
+            code:'UGX',
+            symbol:'Ush'
+          },
+            {
+            name:'CSA Franc BEAC (XAF)',
+            code:'XAF',
+            symbol:'&#8355;'
+          },
+            {
+            name:'CSA Franc BCEAO (XOF)',
+            code:'XOF',
+            symbol:'&#8355;'
+          },
+           {
+            name:'Zambian Kwacha (pre-2013) (ZMK)',
+            code:'ZMK',
+            symbol:'ZMK'
+          },
+           {
+            name:'Zambian Kwacha (ZMW)',
+            code:'ZMW',
+            symbol:'ZMW'
+          },
+           {
+            name:'Zimbabwean Dollar',
+            code:'ZWD',
+            symbol:'Z$'
+          },
+          
+          
+        ],
       }
      
     },
@@ -283,16 +399,206 @@ import VueHorizontal from "vue-horizontal"
   },
      mounted(){
      this.$root.showTopBar = true;
-     
+       this.fetchPaymentCard();
  
   
     },
 
      methods:{
+
+     formatMoney: function(number, decPlaces, decSep, thouSep) {
+decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
+decSep = typeof decSep === "undefined" ? "." : decSep;
+thouSep = typeof thouSep === "undefined" ? "," : thouSep;
+var sign = number < 0 ? "-" : "";
+var i = String(parseInt(number = Math.abs(Number(number) || 0).toFixed(decPlaces)));
+var j = (j = i.length) > 3 ? j % 3 : 0;
+
+return sign +
+	(j ? i.substr(0, j) + thouSep : "") +
+	i.substr(j).replace(/(\decSep{3})(?=\decSep)/g, "$1" + thouSep) +
+	(decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
+},
      
+      currencyToCharacter: function(currency){
+
+        let thisCurrency = this.currencyData.filter((eachCurrency)=>{
+          return currency == eachCurrency.code;
+        });
+
+       return thisCurrency[0].symbol;
+
+      },
          goToCardView:function(){
             this.$router.push({ path: '/board/wallet/card-view' });
-         }
+         },
+           fetchPaymentCard:function(){
+
+          this.loadingPaymentCard  = true;
+
+             let storedPaymentCard = this.$root.getLocalStore('user_payment_card_'  + this.$root.username);
+
+            storedPaymentCard.then((result)=>{
+                
+                 if(result != null ){
+
+                    let finalResult = JSON.parse(result);
+                     
+                      this.paymentCards = finalResult.payment_cards;
+
+                       this.paymentCards.sort(function(a, b){return b.balance - a.balance})
+
+                       
+                       
+
+                        setTimeout(() => {
+             if( this.paymentCards.length > 3){
+                this.$refs.horizontal.hasNext = true;
+             }
+                        
+                       }, 1000);
+                 
+ 
+                 this.loadingPaymentCard = false;
+
+               this.checkForNewPaymentCard();
+
+                 }else{
+            
+           
+            axios.get( '/payment-cards')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+          this.$root.LocalStore('user_payment_card_' + this.$root.username,response.data);
+        
+     
+         this.paymentCards = response.data.payment_cards;
+
+           this.paymentCards.sort(function(a, b){return b.balance - a.balance})
+      
+     
+         this.loadingPaymentCard = false;
+
+          setTimeout(() => {
+             if( this.paymentCards.length > 3){
+                this.$refs.horizontal.hasNext = true;
+             }
+                        
+                       }, 1000);
+                 
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+          this.showAlert('Oops!','Something went wrong','error');
+
+        this.loadingPaymentCard = false;
+    
+     }) 
+
+                 }
+            })
+
+
+      },
+
+      checkForNewPaymentCard:function(){
+
+           axios.get( '/payment-cards')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+          this.$root.LocalStore('user_payment_card_' + this.$root.username,response.data);
+        
+     
+         this.paymentCards = response.data.payment_cards;
+
+           this.paymentCards.sort(function(a, b){return b.balance - a.balance})
+        
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+      
+    
+     }) 
+
+      },
+
+         showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+       timeout:2000,
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+         timeout:2000,
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+       message: message,
+         timeout:2000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+         timeout:2000,
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       
+
+    },
       
       },
      

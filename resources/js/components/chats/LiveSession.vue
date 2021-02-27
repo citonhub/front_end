@@ -321,19 +321,19 @@ export default {
 
               if(this.$root.remoteScreen){
                
-                this.selectAction('screen_sharing')
+               // this.selectAction('screen_sharing')
                 
               }
 
               if(this.$root.remoteCode){
                
-                this.selectAction('live_coding')
+                //this.selectAction('live_coding')
                 
               }
 
               if(this.$root.remoteAudio){
            
-            this.selectAction('voice_chat')
+           // this.selectAction('voice_chat')
 
           }
 
@@ -563,6 +563,10 @@ export default {
            });
 
            if(userMemberData.length != 0){
+
+             if(this.$root.selectedSpace.type == 'Direct'){
+                 return userMemberData[0].master_user
+             }
 
              return userMemberData[0].is_admin;
 
