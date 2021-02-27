@@ -18,12 +18,13 @@
                  placeholder="Search for People"
               filled
               dense
+              v-model="profileName"
+              @input="fetchSearchResult"
             append-icon="las la-search"
             rounded
              ></v-text-field>
 
-                    
-                     
+            
 
              
                   </div>
@@ -86,7 +87,7 @@
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
        
-             <input style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search for People" class="py-2 px-2" type="search" >       
+             <input style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search for people" class="py-2 px-2" type="search" >       
          
             </div>
              <div class="col-2 text-center py-0">
@@ -127,7 +128,8 @@ export default {
       return {
        showSideBar:false,
        searchType:'',
-       that:this
+       that:this,
+       profileName:''
       }
     },
     mounted(){
@@ -158,10 +160,15 @@ export default {
          
           return styleString;
       }
+
+      
      },
+     fetchSearchResult(){
+        this.$router.push({path:'/profile-view/' + this.profileName})
+      }
     }
 }
 </script>
 <style scoped>
 
-</style>
+</style> 
