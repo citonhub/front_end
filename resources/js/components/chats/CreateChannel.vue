@@ -25,15 +25,16 @@
           <!-- create channel form -->
 
       <div class="col-12 py-1 my-0" style="font-family:BodyFont;">
-         <v-form class="row my-2 py-2 px-2 "  ref="form" v-model="formstate">
+         <v-form class="row my-2 mt-0 py-2 px-2 "  ref="form" v-model="formstate">
               
 
             
-                   <v-app class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 my-0 px-2" style="height:70px;width:100%;">
+                   <v-app class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 my-0 px-1" style="height:76px;width:100%;">
+                       <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Name</div>
               <v-text-field
                 style="font-size:13px;"
                  placeholder="Dev community"
-            :label="$t('general.Name')"
+            
              dense
              outlined
              :rules="Rule"
@@ -44,6 +45,61 @@
              ></v-text-field>
 
              </v-app>
+
+             <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 my-0 px-1 ">
+
+               <div style="font-size:13px;font-family:MediumFont;">Select payment option</div>
+
+               <div class="col-12 px-1 py-1 d-flex flex-row">
+
+                  <div class="  col-4  px-1 my-0 py-2 " >
+                     <v-card  @click="selectPaymentOption('support')" :color="payment_option == 'support' ? '#F3F8FC' : ''"  class="px-1 py-1 appBox" :style="'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                        <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
+                                   <div class="text-center">
+                                      <i style="font-size:30px;" :class="'las la-hands-helping'"></i>
+                                      <div>
+                                         <span style="font-size:13px; font-family:BodyFont;">Support</span>
+                                      </div>
+                                   </div>
+                        </div>
+
+                          <v-btn x-small icon style="position:absolute; top:3%; right:2%;" ><v-icon style="font-size:18px;">las la-exclamation-circle</v-icon></v-btn>
+                     </v-card>
+                 </div>
+
+                  <div class="  col-4  px-1 my-0 py-2 " >
+                     <v-card  @click="selectPaymentOption('subscription')" :color="payment_option == 'subscription' ? '#F3F8FC' : ''" class="px-1 py-1 appBox" :style="'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                        <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
+                                   <div class="text-center">
+                                      <i style="font-size:30px;" :class="'las la-credit-card'"></i>
+                                      <div>
+                                         <span style="font-size:13px; font-family:BodyFont;">Subscription</span>
+                                      </div>
+                                   </div>
+                        </div>
+
+                          <v-btn x-small icon style="position:absolute; top:3%; right:2%;" ><v-icon style="font-size:18px;">las la-exclamation-circle</v-icon></v-btn>
+                     </v-card>
+                 </div>
+
+                  <div class="  col-4  px-1 my-0 py-2 " >
+                     <v-card @click="selectPaymentOption('one_time')" :color="payment_option == 'one_time' ? '#F3F8FC' : ''" class="px-1 py-1 appBox" :style="'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                        <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
+                                   <div class="text-center">
+                                      <i style="font-size:30px;" :class="'las la-money-bill-wave'"></i>
+                                      <div>
+                                         <span style="font-size:13px; font-family:BodyFont;">One-time fee</span>
+                                      </div>
+                                   </div>
+                        </div>
+
+                          <v-btn x-small icon style="position:absolute; top:3%; right:2%;" ><v-icon style="font-size:18px;">las la-exclamation-circle</v-icon></v-btn>
+                     </v-card>
+                 </div>
+
+               </div>
+
+             </div>
 
              <div class="col-12 py-2 my-0 px-2 text-center">
                   <v-btn @click.prevent="createSpace" type="submit" rounded small color="#3C87CD" style="font-size:12px; color:white;font-family: MediumFont;" :loading="loading">{{ $t('general.create') }}</v-btn>
@@ -88,6 +144,7 @@ export default {
          'Channel'
         ],
         selectedType:'Channel',
+        payment_option: '',
         loading:false,
         name:'',
         formstate:false,
@@ -108,8 +165,19 @@ export default {
   },
     mounted(){
         this.$root.componentIsLoading = false;
+        this.$root.createChannelComponent = this;
     },
     methods:{
+
+      selectPaymentOption:function(type){
+           this.payment_option = type;
+
+            this.$root.baseChannelName = this.name;
+
+            this.$root.payment_option = type;
+
+           this.$root.showPaymentOptionBoard = true;
+      },
       
         close:function(){
 
@@ -130,13 +198,36 @@ export default {
        
       
      if( this.$refs.form.validate()){
-        
+
+        let finalName = '';
+           
+            if(this.payment_option == 'subscription'){
+
+              finalName = 'Subscription for ' + this.name
+
+            
+            }
+
+             if(this.payment_option == 'support'){
+
+              finalName = 'Support for ' + this.name
+
+            
+            }
+
+            
        
           this.loading = true;
          axios.post('/create-space',{
-                name: this.name,
+                channel_name: this.name,
                 limit: this.limit,
                 type: this.selectedType,
+                payment_option: this.payment_option,
+                name: finalName,
+                currency: this.$root.payment_currency,
+                amount: this.$root.payment_amount,
+                card_name: this.$root.payment_card_name,
+                interval: this.$root.payment_interval
                   })
           .then(response => {
              

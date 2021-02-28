@@ -545,6 +545,27 @@
               <!-- ends -->
 
 
+                <!-- payment processing board -->
+
+
+              <div class="d-flex flex-column col-12"   v-if="that.$root.showPaymentProcessingBoard"    style="background:#ffffff; overflow-y:auto; overflow-x:hidden;  position:absolute; height:100%; left:0; top:0%;z-index:9999999999999; align-items:center;">
+
+           
+               
+               <payment-processor></payment-processor>
+
+          
+                 <v-btn icon color="#ffffff" @click="goToChatList" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
+           class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
+
+          
+
+              </div>
+
+
+              <!-- ends -->
+
+
                               <!-- channel sidebar -->
 
 
@@ -1373,6 +1394,26 @@
 
              <!-- ends -->
 
+
+
+                <!-- payment processing board for smaller screens-->
+
+
+              <div class="d-flex flex-column col-12 d-lg-none d-block"  v-if="that.$root.showPaymentProcessingBoard"    style="background:#ffffff; overflow-y:auto; overflow-x:hidden; position:fixed; height:100%; left:0; top:0%;z-index:9999999999999; align-items:center;">
+
+           
+               
+               <payment-processor></payment-processor>
+
+          
+                  <v-btn icon color="#ffffff" @click="goToChatList" style="position:fixed;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
+           class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
+
+              </div>
+
+
+              <!-- ends -->
+
             
 
         <!-- floating add button -->
@@ -1473,6 +1514,22 @@
                                    :extraInfo="this.$root.extraInfo" :fromChat="false" :alertComponent="this.$root.alertComponent"></invitation>
    
 
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
+
+  <!-- payment option info  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showPaymentOptionBoard" @click="that.$root.showPaymentOptionBoard = false">
+
+   <div style="position:absolute; height:90%; top:10%; width:94%; left:3%; "  >
+
+         <payment-info-board></payment-info-board>
+     
    </div>
 
  </div>
@@ -1602,6 +1659,14 @@ const Interest= () => import(
    /* webpackChunkName: "Notify" */ '../Profile/Notify.vue'
   );
 
+   const PaymentInfoBoard = () => import(
+   /* webpackChunkName: "PaymentInfoBoard" */ './PaymentInfoBoard.vue'
+  );
+
+   const PaymentProcessor = () => import(
+   /* webpackChunkName: "PaymentProcessor" */ './PaymentProcessor.vue'
+  );
+
 export default {
      data () {
       return {
@@ -1662,6 +1727,7 @@ export default {
         chatShareIsOpen:false,
         imageCropperIsOpen:false,
        searchValue:'',
+       amount:5000,
        selectedQuoteId:0,
        showMoreOptions:false,
        bottomIsVisible:false,
@@ -1709,10 +1775,13 @@ export default {
          Interest,
          Follow,
          DiaryNotes,
-         Notify
+         Notify,
+         PaymentInfoBoard,
+         PaymentProcessor
     },
      methods:{
-    
+
+  
         showAlert:function(title='',message,type){
        
        if(type == 'info'){
@@ -1788,6 +1857,10 @@ export default {
      
   
 },
+
+goToChatList:function(){
+     this.$router.push({ path: '/channels' });
+}, 
  makeAdmin:function(){
 
    this.$root.showAdminOption = false
@@ -2009,6 +2082,8 @@ export default {
          this.$router.push({ path:'/profile-view/' + username})
       },
       checkIfMemeber: function(){
+
+          if(this.$root.selectedSpaceMembers.length == 0) return false;
 
         let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
 
@@ -2264,9 +2339,72 @@ export default {
        controlChatPath:function(){
        
         if(!this.$root.isLogged){
+  
+         if(this.$route.params.spaceId != undefined){
+
+
+                if(this.$router.currentRoute.path.indexOf('payment') >= 0){
+
+                 this.$root.showPaymentProcessingBoard = true;
+
+                   return;
+
+               }
+
+         }
+
+
 
             this.$root.checkIfUserIsLoggedIn();
          return;
+        }else{
+          
+            if(this.$route.params.spaceId != undefined){
+
+               if(this.$router.currentRoute.path.indexOf('payment') >= 0){
+
+               this.$root.showPaymentProcessingBoard = true;
+
+               }else{
+
+                  this.liveSessionIsOpen = false;
+      this.chatShareIsOpen = false;
+      this.imageCropperIsOpen = false;
+
+                let storedMsg = this.$root.getLocalStore('full_space_' + this.$route.params.spaceId + this.$root.username);
+
+
+                    storedMsg.then((result)=>{
+
+
+                      
+
+                        if(result != null){
+
+                            this.openChat(this.$route.params.spaceId,false)
+
+                        }else{
+
+                          
+                            this.$root.fromSupportDirectlink = false;
+                          
+                           this.$router.push({ path: '/channels/' + this.$route.params.spaceId  +'/payment' });
+                             
+
+                         
+                        }
+                    })
+
+
+    
+        
+       
+
+               }
+
+            
+     
+           }
         }
 
         // when users is coming from a direct message
@@ -2301,20 +2439,7 @@ export default {
           }
 
 
-           if(this.$route.params.spaceId != undefined){
-
-            
-      this.liveSessionIsOpen = false;
-      this.chatShareIsOpen = false;
-      this.imageCropperIsOpen = false;
-    
-        
-         this.openChat(this.$route.params.spaceId,false )
-      
-
-       
-
-           }
+         
        },
         openChat:function(space_id,redirect){
 

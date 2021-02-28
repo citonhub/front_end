@@ -482,6 +482,7 @@ beforeEnter: (to, from, next) => {
           thisUserState.$root.chatComponent.messageIsDone = true;
           thisUserState.$root.chatComponent.imageCropperIsOpen = false;
           thisUserState.$root.chatComponent.chatShareIsOpen = false;
+          thisUserState.$root.showPaymentProcessingBoard = false;
           thisUserState.$root.showProfileView = false;
           thisUserState.$root.showDiarySettings = false;
           thisUserState.selectedSpace = [];
@@ -493,6 +494,47 @@ beforeEnter: (to, from, next) => {
        
             
        
+
+       }
+   
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+
+      
+       
+    next()
+  }
+  },
+  
+
+
+  {
+    // channels
+    path: '/channels/:spaceId/payment',
+    component: Chats,
+    name:'ChannelPayment',
+    meta: {
+      twModalView: true
+    },
+    beforeEnter: (to, from, next) => {
+
+      if(window.thisUserState != undefined){
+
+         if( thisUserState.$root.chatComponent){
+          thisUserState.$root.chatComponent.chatIsOpen = false;
+          thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+          thisUserState.$root.chatComponent.messageIsDone = true;
+          thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+          thisUserState.$root.chatComponent.chatShareIsOpen = false;
+          thisUserState.$root.showProfileView = false;
+          thisUserState.$root.showDiarySettings = false;
+          thisUserState.selectedSpace = [];
+          thisUserState.$root.showPaymentProcessingBoard = true;
+          thisUserState.$root.chatComponent.chatbarContent = 'chat_list';
+         }
+
 
        }
    
@@ -527,6 +569,7 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
       thisUserState.$root.chatComponent.chatInnerSideBar = false;
       thisUserState.$root.chatComponent.chatIsOpen = true;
+      thisUserState.$root.showPaymentProcessingBoard = false;
       thisUserState.$root.showProfileView = false;
       thisUserState.$root.chatComponent.messageIsDone = true;
       thisUserState.$root.showDiarySettings = false;
@@ -1910,6 +1953,18 @@ const app = new Vue({
      comingFromDiaryBank:false,
      showAdminOption:false,
      livesessionComponent:undefined,
+     showPaymentOptionBoard:false,
+     createChannelComponent:[],
+     baseChannelName:'',
+     payment_option:'',
+     payment_card_name:'',
+     payment_interval:'',
+     payment_amount:'',
+     payment_name:'',
+     payment_currency:'',
+     showPaymentProcessingBoard: false,
+    showProcessorFromChat: true,
+    fromSupportDirectlink: true,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -2278,6 +2333,7 @@ const app = new Vue({
       let userDetails = {
       'username':user.username,
       'name': user.name,
+      'email': user.email,
       'coin': userProfile.coins,
       'image_name': userProfile.image_name,
       'image_extension': userProfile.image_extension,
@@ -4158,24 +4214,24 @@ OfferToReceiveAudio: false,
 OfferToReceiveVideo: false
         };
 
-        this.$root.connection.bandwidth = {
-          audio: 128,
-          video: 1024,
-          screen: 1024
-      };
+      //   this.$root.connection.bandwidth = {
+      //     audio: 128,
+      //     video: 1024,
+      //     screen: 1024
+      // };
       
-      var videoConstraints = {
-          mandatory: {
-              maxWidth: 1920,
-              maxHeight: 1080,
-              minAspectRatio: 1.77,
-              minFrameRate: 3,
-              maxFrameRate: 64
-          },
-          optional: []
-      };
+      // var videoConstraints = {
+      //     mandatory: {
+      //         maxWidth: 1920,
+      //         maxHeight: 1080,
+      //         minAspectRatio: 1.77,
+      //         minFrameRate: 3,
+      //         maxFrameRate: 64
+      //     },
+      //     optional: []
+      // };
       
-      this.$root.connection.mediaConstraints.video = videoConstraints;
+     // this.$root.connection.mediaConstraints.video = videoConstraints;
 
 
       
@@ -4367,10 +4423,6 @@ if (e.message === 'Concurrent mic process limit.') {
 // by default, socket.io server is assumed to be deployed on your own URL
 this.$root.audioconnection.socketURL = 'https://rtc.citonhub.com:9001/';
 
-this.$root.audioconnection.bandwidth = {
-audio: 128
-};
-
 
 this.$root.audioconnection.socketMessageEvent = 'audio-conference';
 
@@ -4390,9 +4442,7 @@ this.$root.audioconnection.extra = {
 
 this.$root.audioconnection.session = {
 audio: true,
-video: false,
-data: true
-
+video: false
 };
 
 this.$root.audioconnection.mediaConstraints = {
