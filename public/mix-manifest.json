@@ -166,5 +166,8 @@
     "/js/chunks/vendors~Chats.8a1cc0e62bc1036c745b.js": "/js/chunks/vendors~Chats.8a1cc0e62bc1036c745b.js",
     "/js/chunks/verify.7b41cbdcd071854e0c83.js": "/js/chunks/verify.7b41cbdcd071854e0c83.js",
     "/js/chunks/DiaryBank.4c9390e262b49bff27f3.js": "/js/chunks/DiaryBank.4c9390e262b49bff27f3.js",
-    "/js/chunks/WalletCard.952b828593c86ec59a60.js": "/js/chunks/WalletCard.952b828593c86ec59a60.js"
+    "/js/chunks/WalletCard.952b828593c86ec59a60.js": "/js/chunks/WalletCard.952b828593c86ec59a60.js",
+    "/js/chunks/ChatBottom.f1b38ee05a3325f7c59c.js": "/js/chunks/ChatBottom.f1b38ee05a3325f7c59c.js",
+    "/js/chunks/WalletCard.52a78130b05bb539f7fc.js": "/js/chunks/WalletCard.52a78130b05bb539f7fc.js",
+    "/js/chunks/vendors~WalletCard.03892751729645889c66.js": "/js/chunks/vendors~WalletCard.03892751729645889c66.js"
 }
