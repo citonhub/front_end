@@ -176,7 +176,7 @@
 
    <div class="col-12 text-center py-2 mt-3">
 
-                  <v-btn :disabled="amount == '' || supporter_name == ''"  @click="makePayment" small color="#3C87CD" style="color:white;text-transform:none;font-family:MediumFont;font-size:11px;" class="mx-2 d-inline-block" >
+                  <v-btn :loading="loadingBtn" :disabled="amount == '' || supporter_name == ''"  @click="makePayment" small color="#3C87CD" style="color:white;text-transform:none;font-family:MediumFont;font-size:11px;" class="mx-2 d-inline-block" >
                       <template  v-if="spaceData.payment_option == 'support'">
                           <span>Support</span>
                       </template>
@@ -209,6 +209,7 @@ Vue.use(Flutterwave, { publicKey: 'FLWPUBK_TEST-88988df0b869189dd63c6cd152830ac2
 export default {
      data(){
       return{
+        loadingBtn:false,
               CurrencyOptions:[
           {
             name:'Nigerian Naira (NGN)',
@@ -412,15 +413,16 @@ export default {
         callback: (data) => {
 
            if(data.status == 'successful'){
-
+             
+              this.loadingBtn = true;
                 axios.post('/save-transaction',{
             data: data,
             type: this.spaceData.payment_option,
             card_no:  this.spaceData.payment_data.card_no,
             narration: payment_desc,
             paymentplan: paymentplan,
-            destination_currency: this.spaceData.payment_data.currency,
-            origin_currency: this.currency
+            destination_currency: this.currency,
+            origin_currency: this.spaceData.payment_data.currency
 
               })
       .then(response => {
