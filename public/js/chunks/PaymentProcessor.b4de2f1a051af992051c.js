@@ -9,8 +9,8 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_flutterwave__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-flutterwave */ "./node_modules/vue-flutterwave/dist/flutterwave.min.js");
-/* harmony import */ var vue_flutterwave__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_flutterwave__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_flutterwave__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-flutterwave */ "./node_modules/vue-flutterwave/dist/flutterwave.min.js");
+/* harmony import */ var vue_flutterwave__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_flutterwave__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -214,7 +214,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-Vue.use(vue_flutterwave__WEBPACK_IMPORTED_MODULE_1___default.a, {
+Vue.use(vue_flutterwave__WEBPACK_IMPORTED_MODULE_0___default.a, {
   publicKey: 'FLWPUBK_TEST-88988df0b869189dd63c6cd152830ac2-X'
 });
 /* harmony default export */ __webpack_exports__["default"] = ({
