@@ -360,7 +360,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_horizontal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-horizontal */ "./node_modules/vue-horizontal/dist/vue-horizontal.esm.js");
+/* harmony import */ var vue_horizontal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-horizontal */ "./node_modules/vue-horizontal/dist/vue-horizontal.esm.js");
 //
 //
 //
@@ -632,7 +632,7 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   components: {
-    VueHorizontal: vue_horizontal__WEBPACK_IMPORTED_MODULE_1__["default"]
+    VueHorizontal: vue_horizontal__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   mounted: function mounted() {
     this.$root.showTopBar = true;

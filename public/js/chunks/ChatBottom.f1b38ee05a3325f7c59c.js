@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_textarea_autosize__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-textarea-autosize */ "./node_modules/vue-textarea-autosize/dist/vue-textarea-autosize.esm.js");
+/* harmony import */ var vue_textarea_autosize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-textarea-autosize */ "./node_modules/vue-textarea-autosize/dist/vue-textarea-autosize.esm.js");
 //
 //
 //
@@ -95,7 +95,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
-Vue.use(vue_textarea_autosize__WEBPACK_IMPORTED_MODULE_1__["default"]);
+Vue.use(vue_textarea_autosize__WEBPACK_IMPORTED_MODULE_0__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['screenType'],
   data: function data() {
