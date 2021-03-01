@@ -41,7 +41,7 @@
  @section('content')
 <div id="home" style="overflow-y:auto;">
    
-</style>>
+</style>
 
  <!-- Headers -->
  <div class="col-12 fixed-top py-3 px-md-4 px-3" >
