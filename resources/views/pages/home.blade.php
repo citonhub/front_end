@@ -39,7 +39,9 @@
  @endsection
 
  @section('content')
-<div id="home">
+<div id="home" style="overflow-y:auto;">
+   
+</style>>
 
  <!-- Headers -->
  <div class="col-12 fixed-top py-3 px-md-4 px-3" >
@@ -99,6 +101,9 @@
 
 </div>
 
+
+
+
 <div class="d-lg-none d-block col-12 " style="position:fixed; left:0%; height:60%; top:13%; z-index:80;">
 <div class=" text-center">
 
@@ -128,7 +133,7 @@
 <div class="col-12 d-lg-block d-none" style="position:fixed; right:0%; height:auto; bottom:3%; z-index:83;">
    
   
-  <div class="row">
+ <!-- <div class="row">
      <div class="col-4 pl-4 pt-2 text-center">
 
      <span  class="linkStyle mx-2"  style="color:#ffffff;"> &copy; CitonHub 2020</span>
@@ -141,7 +146,7 @@
 
      <a href="https://www.youtube.com/channel/UCODtu7pKNlZiIZM9-ZByC4g" target="_blank" class="linkStyle mx-2 "  style="color:#ffffff;"><i style="font-size:35px;" class="lab la-youtube"></i></a>
        
-     </div>
+     </div>-->
 
      <div class="col-4 text-center pt-2">
     
@@ -234,9 +239,12 @@
 
 
 <!-- bottom background image -->
-<div style="position:fixed;width:100%; height:26%; bottom:0; z-index:20;" class="d-lg-block d-none">
-<img src="imgs/bottomLg.png" height="100%" width="100%">
+
+<div style="width:100%;position:fixed; height:700px; z-index:20;margin-top:330px;" class="d-lg-block d-none ">
+<img src="imgs/topbg.png" height="100%" width="100%">
 </div>
+
+
 
 <div  style="position:fixed;width:100%; height:20%; bottom:0; z-index:20;" class="d-lg-none d-block">
 <img src="imgs/bottomSm.png" height="100%" width="100%">
@@ -244,7 +252,7 @@
 <!-- ends -->
 
 <!-- Main background image -->
-<div style="position:fixed;width:100%; height:100%;opacity: 0.5;" class="d-lg-block d-none">
+<div style="position:absolute;width:100%; opacity: 0.5;" class="d-lg-block d-none">
 <img src="imgs/backgroundHome.png" height="100%" width="100%">
 </div>
 
