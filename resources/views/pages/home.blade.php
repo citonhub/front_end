@@ -75,19 +75,19 @@
 
 <!-- Teach , learn and connect -->
 
-<div class="col-lg-6  d-none d-lg-flex flex-column" style="position:fixed; align-items:center; justify-content:center;  height:75%; top:8%; z-index:20;">
+<div class="col-lg-12 text-center  d-none d-lg-block flex-column mt-4" style="position:fixed; align-items:center; justify-content:center;  height:75%; top:8%; z-index:20;">
    
-   <div class="px-5 " style="width:80%;">
-     <h1 style="font-family:HeaderFont;" class="mb-3">Teach, mentor, and connect with other developers</h1>
+   <div class="px-5 mt-4 " style="width:100%;">
+     <h1 style="font-family:HeaderFont;" class="mb-3 mt-4">Teach, Learn, and connect</h1>
    
-     <p style="font-size:20px;">Join other developers helping each other grow on CitonHub.</p>
+     <p style="font-size:20px;">with other developers.</p>
 
      <div class="py-2 px-0 mt-3 col-12">
-      <div class="row">
+      <div class="row offset-5">
 
-      <a href="/dashboard#/sign-up" class="homeButton mx-3 px-5 py-3">Sign Up</a>
+      <a href="/dashboard#/sign-up" class="homeButton mx-3 px-5 py-3 ">Get Started</a>
       
-      <a href="/dashboard#/login" class="homeButtonOutline mx-3 px-5 py-3">Login</a>
+     <!--a href="/dashboard#/login" class="homeButtonOutline mx-3 px-5 py-3">Login</a>-->
       
        
      
@@ -215,7 +215,7 @@
 <!-- ends -->
 
 <!-- programmer illustration -->
-<div class="col-lg-6 d-lg-block d-none" style="position:fixed; right:0%; height:60%; top:20%; z-index:80;">
+<!--<div class="col-lg-6 d-lg-block d-none" style="position:fixed; right:0%; height:60%; top:20%; z-index:80;">
    
   
    <img src="imgs/homemain.png" height="100%" width="80%">
@@ -229,7 +229,7 @@
    <img src="imgs/homemain.png" height="70%" width="80%">
   
 
-</div>
+</div>-->
 <!-- ends -->
 
 
