@@ -9,10 +9,10 @@ window.io = require('socket.io-client');
 Vue.use(Vuex)
 
 //axios.defaults.baseURL = 'http://localhost:8000/api'
-//axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
+axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
 //axios.defaults.baseURL = 'https://api.citonhub.com/api'
 
-axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
+//axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
 
 const store = new Vuex.Store({
   state: {
@@ -1638,7 +1638,6 @@ children:[
             path:'card',
             component: WalletCard
           },
-           
           {
             // info
             path:'info',
@@ -1646,7 +1645,7 @@ children:[
           },
           {
             // info
-            path:'card-view',
+            path:'card-view/:card_no',
             component: WalletCardView
           }
         ]
@@ -1960,6 +1959,10 @@ const app = new Vue({
      showPaymentProcessingBoard: false,
     showProcessorFromChat: true,
     fromSupportDirectlink: true,
+    selectedPaymentCard:[],
+    showWalletinfo:false,
+    infoType:'',
+    selectedTransaction:[],
      },
      mounted: function () {
       window.thisUserState = this;
