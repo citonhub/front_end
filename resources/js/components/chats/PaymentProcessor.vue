@@ -216,17 +216,14 @@ export default {
             code:'NGN'
           },
           {
-            name:'Canadian Dollar (CAD)',
-            code:'CAD'
+            name:'Australian Dollar (AUD)',
+            code:'AUD'
           },
           {
             name:'United State Dollar (USD)',
             code:'USD'
           },
-           {
-            name:'Congolese Franc (CDF)',
-            code:'CDF'
-          },
+          
            {
             name:'Euro (EUR)',
             code:'EUR'
@@ -240,28 +237,12 @@ export default {
             code:'GHS'
           },
            {
-            name:'Gambian Dalasi (GMD)',
-            code:'GMD'
-          },
-           {
-            name:'Guinean Franc (GNF)',
-            code:'GNF'
-          },
-           {
             name:'Kenya Shilling (KES)',
             code:'KES'
           },
-           {
-            name:'Liberian Dollar (LRD)',
-            code:'LRD'
-          },
-           {
-            name:'Malawian Kwacha (MWK)',
-            code:'MWK'
-          },
-           {
-            name:'Mozambican Metical (MZN)',
-            code:'MZN'
+             {
+            name:'South African Rand (ZAR)',
+            code:'ZAR'
           },
            {
             name:'Rwandan Franc (RWF)',
@@ -271,10 +252,7 @@ export default {
             name:'Sierra Leonean Leone (SLL)',
             code:'SLL'
           },
-            {
-            name:'Sao Tome and Principe Dobra (STD)',
-            code:'STD'
-          },
+           
             {
             name:'Tanzanian Shilling (TZS)',
             code:'TZS'
@@ -291,19 +269,13 @@ export default {
             name:'CSA Franc BCEAO (XOF)',
             code:'XOF'
           },
-           {
-            name:'Zambian Kwacha (pre-2013) (ZMK)',
-            code:'ZMK'
-          },
+
            {
             name:'Zambian Kwacha (ZMW)',
             code:'ZMW'
           },
-           {
-            name:'Zimbabwean Dollar',
-            code:'ZWD'
-          },
-          
+
+        
           
         ],
         AmountRule:[
@@ -406,6 +378,14 @@ export default {
         currency: this.currency,
         payment_options: "card,mobilemoney,ussd",
         payment_plan: paymentplan,
+        meta: {
+        card_no: this.spaceData.payment_data.card_no,
+        type: this.spaceData.payment_option,
+         paymentplan: paymentplan,
+         destination_currency: this.currency,
+         origin_currency: this.spaceData.payment_data.currency,
+         customer_id: this.$root.user_temp_id
+      },
         customer: {
           email: userEmail,
           name: userName

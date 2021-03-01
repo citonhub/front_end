@@ -152,6 +152,30 @@
 
  <!-- ends -->
 
+  <!-- moreInfo wallet  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="this.$root.showWalletinfo" @click="that.$root.showWalletinfo = false" >
+
+   <div style="position:absolute; height:90%; top:10%; width:94%; left:3%; "  >
+  
+
+     <template v-if="that.$root.infoType == 'fee'">
+     <fee-info></fee-info>
+     </template>
+
+      <template v-if="that.$root.infoType == 'transaction'">
+   <transaction-info></transaction-info>
+     </template>
+        
+     
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
+
 </div>
   
 </template>
@@ -166,6 +190,13 @@ const ImageCropperBoard = () => import(
     /* webpackChunkName: "Invitation" */ '../chats/invitation.vue'
   );
 
+   const TransactionInfo = () => import(
+   /* webpackChunkName: "TransactionInfo" */ '../Wallet/TransactionInfo.vue'
+  );
+
+const FeeInfo = () => import(
+   /* webpackChunkName: "FeeInfo" */ '../Wallet/FeeInfo.vue'
+  );
   const TopBar = () => import(
     /* webpackChunkName: "TopBarBoard" */ './TopBar.vue'
   );
@@ -189,6 +220,8 @@ const ImageCropperBoard = () => import(
     components:{
      ImageCropperBoard,
      Invitation,
+      TransactionInfo,
+      FeeInfo,
      TopBar,
      SideBar,
      ProfileView

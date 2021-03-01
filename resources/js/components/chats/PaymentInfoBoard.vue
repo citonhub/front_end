@@ -4,7 +4,7 @@
     <div @click.stop="preventDefault">
     <v-card class="col-lg-4 offset-lg-4   py-2 d-flex flex-column col-md-8 offset-md-2 application application--light" style="align-items:center; justify-content:center; " data-app="true" >
   
-     <v-btn small icon color="#ffffff" @click="that.$root.showPaymentOptionBoard = false" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
+     <v-btn small icon color="#ffffff" @click="that.$root.showPaymentOptionBoard = false" style="position:absolute;background:#3C87CD;top:2%; right:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
 
    <div class=" text-left">
@@ -13,7 +13,7 @@
            
 
       <template v-if="that.$root.payment_option == 'support'">
-       <h5 class="text-center">Support</h5>
+       <h5 >Support</h5>
            <v-alert
       dense
       style="background:#3C87CD;"
@@ -25,7 +25,7 @@
       </template>
 
         <template v-if="that.$root.payment_option == 'subscription'">
-        <h5 class="text-center">Subscription</h5>
+        <h5 >Subscription</h5>
              <v-alert
       dense
         style="background:#3C87CD;"
@@ -39,7 +39,7 @@
       </template>
 
         <template v-if="that.$root.payment_option == 'one_time'">
-    <h5 class="text-center">One-time fee</h5>
+    <h5 >One-time fee</h5>
              <v-alert
       dense
          style="background:#3C87CD;"
@@ -138,17 +138,14 @@ export default {
             code:'NGN'
           },
           {
-            name:'Canadian Dollar (CAD)',
-            code:'CAD'
+            name:'Australian Dollar (AUD)',
+            code:'AUD'
           },
           {
             name:'United State Dollar (USD)',
             code:'USD'
           },
-           {
-            name:'Congolese Franc (CDF)',
-            code:'CDF'
-          },
+          
            {
             name:'Euro (EUR)',
             code:'EUR'
@@ -162,28 +159,12 @@ export default {
             code:'GHS'
           },
            {
-            name:'Gambian Dalasi (GMD)',
-            code:'GMD'
-          },
-           {
-            name:'Guinean Franc (GNF)',
-            code:'GNF'
-          },
-           {
             name:'Kenya Shilling (KES)',
             code:'KES'
           },
-           {
-            name:'Liberian Dollar (LRD)',
-            code:'LRD'
-          },
-           {
-            name:'Malawian Kwacha (MWK)',
-            code:'MWK'
-          },
-           {
-            name:'Mozambican Metical (MZN)',
-            code:'MZN'
+             {
+            name:'South African Rand (ZAR)',
+            code:'ZAR'
           },
            {
             name:'Rwandan Franc (RWF)',
@@ -193,10 +174,7 @@ export default {
             name:'Sierra Leonean Leone (SLL)',
             code:'SLL'
           },
-            {
-            name:'Sao Tome and Principe Dobra (STD)',
-            code:'STD'
-          },
+           
             {
             name:'Tanzanian Shilling (TZS)',
             code:'TZS'
@@ -213,18 +191,14 @@ export default {
             name:'CSA Franc BCEAO (XOF)',
             code:'XOF'
           },
-           {
-            name:'Zambian Kwacha (pre-2013) (ZMK)',
-            code:'ZMK'
-          },
+
            {
             name:'Zambian Kwacha (ZMW)',
             code:'ZMW'
           },
-           {
-            name:'Zimbabwean Dollar',
-            code:'ZWD'
-          },
+
+         
+           
           
           
         ],
