@@ -102,7 +102,7 @@ const SettingsMain = () => import(/* webpackChunkName: "SettingsMain" */ '../com
 const WalletInfo = () => import(/* webpackChunkName: "WalletInfo" */ '../components/Wallet/Info.vue');
 const WalletCard = () => import(/* webpackChunkName: "WalletCard" */ '../components/Wallet/card.vue');
 const WalletCardView = () => import(/* webpackChunkName: "WalletCard" */ '../components/Wallet/CardView.vue');
-
+const ManageWallet = () => import(/* webpackChunkName: "manageWallet" */ '../components/Wallet/manage.vue');
 // feedbacks
 const Feedback=  () => import(/*webpackChunkName: "Feedback" */ '../components/dashboard/Feedback.vue')
 
@@ -1647,6 +1647,11 @@ children:[
             // info
             path:'card-view/:card_no',
             component: WalletCardView
+          },
+          {
+            // manage
+            path:'manage/:card_no',
+            component: ManageWallet
           }
         ]
       },
@@ -1963,6 +1968,11 @@ const app = new Vue({
     showWalletinfo:false,
     infoType:'',
     selectedTransaction:[],
+    showPayoutAccount:false,
+    manageWalletComponent:undefined,
+    payoutAccounts:[],
+    planSubscriptions:[],
+    cardViewComponent:undefined,
      },
      mounted: function () {
       window.thisUserState = this;

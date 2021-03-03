@@ -167,7 +167,33 @@
       <template v-if="that.$root.infoType == 'transaction'">
    <transaction-info></transaction-info>
      </template>
+
+      <template v-if="that.$root.infoType == 'payout'">
+   <payout-info></payout-info>
+     </template>
         
+     
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
+
+
+
+
+  <!-- new payout account wallet  -->
+
+
+   <div class=" px-0"  v-if="that.$root.showPayoutAccount" @click="that.$root.showPayoutAccount = false" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32); overflow-y:auto;padding-bottom:100px !important;" >
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; "  >
+  
+
+    
+   <payout-account></payout-account>
+    
      
    </div>
 
@@ -194,11 +220,20 @@ const ImageCropperBoard = () => import(
    /* webpackChunkName: "TransactionInfo" */ '../Wallet/TransactionInfo.vue'
   );
 
+     const PayoutInfo = () => import(
+   /* webpackChunkName: "PayoutInfo" */ '../Wallet/PayoutInfo.vue'
+  );
+
+
 const FeeInfo = () => import(
    /* webpackChunkName: "FeeInfo" */ '../Wallet/FeeInfo.vue'
   );
   const TopBar = () => import(
     /* webpackChunkName: "TopBarBoard" */ './TopBar.vue'
+  );
+
+   const PayoutAccount = () => import(
+    /* webpackChunkName: "TopBarBoard" */ '../Wallet/PayoutAccount.vue'
   );
 
    const SideBar = () => import(
@@ -224,7 +259,9 @@ const FeeInfo = () => import(
       FeeInfo,
      TopBar,
      SideBar,
-     ProfileView
+     ProfileView,
+     PayoutAccount,
+     PayoutInfo
     },
     mounted(){
       this.$root.boardComponent = this;

@@ -26,7 +26,21 @@
            </div>
           <!-- ends -->
 
-          <div >
+
+          <template v-if="loadingPaymentCard">
+
+               <div  class="col-12 mt-4 text-center">
+
+           <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
+
+      </div>
+
+
+          </template>
+
+      
+
+               <div >
                 
         <vue-horizontal
       ref="horizontal"
@@ -112,8 +126,30 @@
               </div>
 
             
+               <template v-if="loadingTransactions">
 
-             <div class="col-12 px-0 d-flex py-0 flex-column">
+              <div  class="col-12 mt-4 text-center">
+
+           <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
+
+            </div>
+
+               </template>
+
+                <template v-else>
+
+                    <template v-if="transactions.length == 0">
+
+                      <div class="mt-5 px-3 pt-5 text-center" style="font-size:13px;color:grey;font-family:BodyFont;">
+                       No wallet history yet.
+                    </div>
+
+                    </template>
+
+                     <template v-else>
+
+
+                  <div class="col-12 px-0 d-flex py-0 flex-column">
 
                <v-card tile @click="showTransaction(transaction)" flat class="col-12 d-flex flex-row py-1 mb-2" style="align-items:center; background:#EAEEF3;" v-for="(transaction,index) in transactions" :key="index">
 
@@ -157,22 +193,40 @@
 
               
 
-               <div class="text-center py-1 col-lg-10 offset-lg-2 application application--light fixed-bottom" style="background: rgba(60, 135, 205, 0.6);" data-app="true">
+             
+
+
+             </div>
+
+                     </template>
+
+
+                 
+
+
+                </template>
+
+
+                <div v-if="transactions.length != 0" class="text-center py-1 col-lg-10 offset-lg-2 application application--light fixed-bottom" style="background: rgba(60, 135, 205, 0.6);" data-app="true">
           <v-pagination
-      v-model="page"
-      :length="4"
+      v-model="currentpage"
+      total-visible="5"
+      :length="lastPage"
+      @input="handleInput"
       circle
       color="#3C87CD"
            ></v-pagination>
             </div>
-
-
-             </div>
+             
 
           </div>
           
 
           <!-- ends -->
+
+         
+
+       
 
         
           <!-- spacer -->
@@ -332,6 +386,9 @@ import 'izitoast/dist/css/iziToast.min.css'
           
         ],
         transactions:[],
+        loadingTransactions:false,
+        currentpage:1,
+        lastPage:0,
       }
      
     },
@@ -347,6 +404,14 @@ import 'izitoast/dist/css/iziToast.min.css'
     },
 
      methods:{
+
+       handleInput:function(page){
+           this.loadingTransactions = true;
+
+          
+
+           this.fetchTransactions(page);
+       },
 
        showTransaction:function(transaction){
 
@@ -408,7 +473,7 @@ return sign +
                         
                        }, 1000);
 
-                        this.fetchTransactions();
+                        this.fetchTransactions(1);
                  
  
                  this.loadingPaymentCard = false;
@@ -439,6 +504,8 @@ return sign +
              }
                         
                        }, 1000);
+
+                     this.fetchTransactions(1);
                  
        
      }
@@ -473,7 +540,7 @@ return sign +
 
            this.paymentCards.sort(function(a, b){return b.balance - a.balance})
         
-        this.fetchTransactions();
+        this.fetchTransactions(1);
        
      }
        
@@ -486,14 +553,22 @@ return sign +
      }) 
 
       },
-    fetchTransactions:function(){
+    fetchTransactions:function(pageNum){
+
+         this.loadingTransactions = true;
         
-           axios.get( '/fetch-transactions')
+           axios.get( '/fetch-transactions?page=' + pageNum)
       .then(response => {
       
       if (response.status == 200) {
 
         this.transactions = response.data.transactions.data;
+
+          this.currentpage = response.data.transactions.current_page;
+
+          this.lastPage = response.data.transactions.last_page;
+
+           this.loadingTransactions = false;
 
      }
        
@@ -501,7 +576,7 @@ return sign +
      })
      .catch(error => {
 
-      
+         this.loadingTransactions = false;
     
      }) 
     },

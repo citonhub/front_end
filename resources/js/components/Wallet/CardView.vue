@@ -18,7 +18,7 @@
             <v-btn  @click="goBack()"   icon><v-icon>las la-arrow-left</v-icon></v-btn>  <h6 class="d-inline-block" ><h6>{{ this.$root.selectedPaymentCard.name}}</h6></h6>
         </div>
          <div class="col-4 py-0 my-0 text-right">
-          <v-btn  small  color="primary" style="font-size:12px;  color:white;font-family:MediumFont;text-transform:none;">
+          <v-btn @click="manageCard()" small  color="primary" style="font-size:12px;  color:white;font-family:MediumFont;text-transform:none;">
              Manage
            </v-btn>
         </div>
@@ -134,7 +134,8 @@
               
              <div class="col-12 py-0 px-0 text-center">
 
-                 <v-btn color="#3C87CD" outlined style="width:60%;" small><span style="font-size:13px;font-family:MediumFont;text-transform:none;" >Payout</span></v-btn>
+                 <v-btn color="#3C87CD" @click="makePayout()" v-if="that.$root.selectedPaymentCard.payout_status != 'pending'" outlined style="width:60%;" small><span style="font-size:13px;font-family:MediumFont;text-transform:none;" >Payout</span></v-btn>
+                   <v-btn color="#3C87CD"  disabled v-else outlined style="width:60%;" small><span style="font-size:13px;font-family:MediumFont;text-transform:none;" >Payout pending</span></v-btn>
 
              </div>
 
@@ -151,7 +152,7 @@
 
 
 
-                   <v-btn color="#ffffff" ><span style="font-size:13px;font-family:MediumFont;text-transform:none;">Manage</span></v-btn>
+                   <v-btn color="#ffffff" @click="manageCard()" ><span style="font-size:13px;font-family:MediumFont;text-transform:none;">Manage</span></v-btn>
 
                   
 
@@ -172,11 +173,35 @@
 
              <h6>Transactions</h6>
 
-             <div class="col-12 px-0 d-flex py-0 flex-column">
+               <template v-if="loadingTransactions">
+
+                   <div  class="col-12 mt-4 text-center">
+
+           <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
+
+            </div>
+
+                </template>
+
+                   <template v-else>
+
+
+                  <template v-if="transactions.length == 0">
+
+                      <div class="mt-5 px-3 pt-5 text-center" style="font-size:13px;color:gray;font-family:BodyFont;">
+                       No transaction yet.
+                    </div>
+
+                  </template>
+
+                  <template v-else>
+
+                       <div class="col-12 px-0 d-flex py-0 flex-column">
 
              
-                
+              
 
+             
             <v-card flat tile @click="showTransaction(transaction)" class="col-12 d-flex flex-row py-1 mb-2" style="align-items:center; background:#EAEEF3;" v-for="(transaction,index) in transactions" :key="index + 'transaction'">
 
                    <template v-if="transaction.type == 'payout'">
@@ -222,18 +247,30 @@
 
             
 
-              <div class="text-center py-1 col-lg-10 offset-lg-2 application application--light fixed-bottom" style="background: rgba(60, 135, 205, 0.6);" data-app="true">
-          <v-pagination
-      v-model="page"
-      :length="4"
-      circle
-      color="#3C87CD"
-           ></v-pagination>
-            </div>
+             
 
 
 
              </div>
+
+                  </template>
+
+                </template>
+
+                  <div v-if="transactions.length != 0" class="text-center py-1 col-lg-10 offset-lg-2 application application--light fixed-bottom" style="background: rgba(60, 135, 205, 0.6);" data-app="true">
+          <v-pagination
+      v-model="currentpage"
+      total-visible="5"
+      :length="lastPage"
+      @input="handleInput"
+      circle
+      color="#3C87CD"
+           ></v-pagination>
+            </div>
+             
+
+
+          
 
           </div>
           
@@ -391,6 +428,9 @@ import 'izitoast/dist/css/iziToast.min.css'
           
         ],
          transactions:[],
+         loadingTransactions:false,
+          currentpage:1,
+        lastPage:0,
       }
      
     },
@@ -402,10 +442,30 @@ import 'izitoast/dist/css/iziToast.min.css'
      
      this.fetchPaymentCard();
   
+     this.$root.cardViewComponent = this;
   
     },
 
      methods:{
+          handleInput:function(page){
+           this.loadingTransactions = true;
+
+          
+
+           this.fetchTransactions(page);
+       },
+
+       manageCard: function(){
+   
+
+            this.$router.push({ path: '/board/wallet/manage/' + this.$root.selectedPaymentCard.card_no });
+       
+       },
+       makePayout:function(){
+          this.$root.infoType = 'payout'
+
+         this.$root.showWalletinfo = true;
+       },
        showFee:function(){
        this.$root.infoType = 'fee'
 
@@ -468,8 +528,12 @@ return sign +
                      
                       this.$root.selectedPaymentCard = finalResult.payment_card;
 
+          this.$root.payoutAccounts = finalResult.payout_account;
+
+          this.$root.planSubscriptions = finalResult.subscriptions;
+
                        
-                        this.fetchTransactions();
+                        this.fetchTransactions(1);
                  
  
                  this.loadingPaymentCard = false;
@@ -489,11 +553,15 @@ return sign +
      
          this.$root.selectedPaymentCard = response.data.payment_card;
 
+            this.$root.payoutAccounts = response.data.payout_account;
+
+          this.$root.planSubscriptions = response.data.subscriptions;
+
       
          this.loadingPaymentCard = false;
 
         
-                    this.fetchTransactions();
+                    this.fetchTransactions(1);
        
      }
        
@@ -524,12 +592,16 @@ return sign +
         
      
          this.$root.selectedPaymentCard = response.data.payment_card;
+         
+           this.$root.payoutAccounts = response.data.payout_account;
+
+          this.$root.planSubscriptions = response.data.subscriptions;
 
       
          this.loadingPaymentCard = false;
 
         
-        this.fetchTransactions();
+        this.fetchTransactions(1);
        
      }
        
@@ -607,26 +679,33 @@ return sign +
        
 
     },
-       fetchTransactions:function(){
+      fetchTransactions:function(pageNum){
+
+         this.loadingTransactions = true;
         
-           axios.get( '/fetch-transactions/'+ this.$route.params.card_no)
+           axios.get( '/fetch-transactions?page=' + pageNum)
       .then(response => {
       
       if (response.status == 200) {
 
         this.transactions = response.data.transactions.data;
-        
+
+          this.currentpage = response.data.transactions.current_page;
+
+          this.lastPage = response.data.transactions.last_page;
+
+           this.loadingTransactions = false;
+
      }
        
      
      })
      .catch(error => {
 
-      
+         this.loadingTransactions = false;
     
      }) 
     },
-      
       },
      
   }
