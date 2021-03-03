@@ -601,7 +601,7 @@ return sign +
          this.loadingPaymentCard = false;
 
         
-        this.fetchTransactions(1);
+        this.fetchTransactions(1,false);
        
      }
        
@@ -679,9 +679,9 @@ return sign +
        
 
     },
-      fetchTransactions:function(pageNum){
+      fetchTransactions:function(pageNum,showLoading = true){
 
-         this.loadingTransactions = true;
+         this.loadingTransactions = showLoading;
         
            axios.get( '/fetch-transactions?page=' + pageNum)
       .then(response => {
