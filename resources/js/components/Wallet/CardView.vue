@@ -61,9 +61,9 @@
                    
                </v-card>
               </div>
-               <div class="col-lg-4  d-flex flex-column px-1  py-md-2 py-0" style="align-items:center;justify-content:center;"> 
+               <div class="col-lg-4  px-1  py-md-2 py-0 text-center" > 
 
-                   <v-card height="200" width="100%" max-width="370px" style="background-repeat: height:200px !important; no-repeat;
+                   <v-card height="200px" width="100%" max-width="370px" style="background-repeat: height:200px !important; no-repeat;
           border-radius:10px;background: url(/imgs/card_bg_6.jpg);background-size:cover;">
 
           <div style="position:absolute;width:100%;top:0%; left:0%; height:25%; align-items:center;" class="d-flex flex-row">
