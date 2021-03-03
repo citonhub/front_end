@@ -11,7 +11,7 @@
   
      <h6 class="text-left">Platform fee: <span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.platform_fee)}}</h6>
         <p style="font-size:13px;font-family:BodyFont;">
-           Platform fee is the 10% percentage of successful processed payment made into your payment card. This means we only make money when you do.
+           Platform fee is the 10% of successful processed payment made into your payment card. This means we only make money when you do.
         </p>
 
       <h6 class="text-left">Payment processing fee: <span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.payment_processing_fee)}}</h6>
