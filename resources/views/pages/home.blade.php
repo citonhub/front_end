@@ -35,8 +35,13 @@
  <style>
 .box{
   background: #3C87CD;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 
 }
+
+
  </style>
   
  @endsection
@@ -138,37 +143,78 @@
 <div  class="all-features mt-4 col-lg-8 offset-lg-2 d-flex ">
 
 <div class="col-lg-4 ml-4">
-<div class="box shadow" style="height:170px;width:170px;"></div>
+<div class="box shadow" style="height:170px;width:170px;">
+<img src="/imgs/phone-vector.png" alt=""></div>
+<p style="font-weight:bold;margin-left:14%;" class="mt-2">Voice Chat</p>
 </div>
 
 <div class="col-lg-4">
-<div class="box " style="height:170px;width:170px;margin-left:10%;"></div>
+<div class="box " style="height:170px;width:170px;margin-left:10%;">
+<img src="/imgs/code-vector.png" alt="">
+</div>
+<p style="font-weight:bold;margin-left:18%;" class="mt-2">Screen sharing</p>
 </div>
 
 <div class="col-lg-4 ml-4">
-<div class="box" style="height:170px;width:170px;"></div>
+<div class="box" style="height:170px;width:170px;">
+<img src="/imgs/live-vector.png" alt="">
+
+</div>
+<p style="font-weight:bold;margin-left:18%;" class="mt-2">Live Coding</p>
 </div>
 </div>
 
 <div  class="all-features mt-4 col-lg-8 offset-lg-2 d-flex ">
 
 <div class="col-lg-4 ml-4">
-<div class="box" style="height:170px;width:170px;"></div>
+<div class="box" style="height:170px;width:170px;">
+<img src="/imgs/collab-vector.png" alt=""></div>
+
+<p style="font-weight:bold;" class="mt-2">Collaborate on projects.</p>
+
 </div>
 
 <div class="col-lg-4">
 <div class="box " style="height:170px;width:170px;margin-left:10%;"></div>
+
+<p style="font-weight:bold;margin-left:16%;" class="mt-2">Projects showcase.</p>
 </div>
 
 <div class="col-lg-4 ml-4">
-<div class="box" style="height:170px;width:170px;"></div>
+<div class="box" style="height:170px;width:170px;">
+<img src="/imgs/document-vector.png" alt=""></div>
+<p style="font-weight:bold;margin-right:31%;" class="mt-2 text-center">Document your learning <br> process in diaries</p>
+</div>
+
 </div>
 </div>
 </div>
 
 <!--ends-->
 
-<p class="mt-4">gggg</p>
+<!--footer begins-->
+
+<footer class="col-lg-12 py-1" style="height:250px;background: #3C87CD;color:white;">
+
+<div class="foot-nav col-lg-12 d-flex" style="margin-top:220px;">
+
+<p class="ml-4">&copy; CitonHub 2021</p>
+
+<img src="imgs/twitter-bird.png" style="height: 17px;width: 21.25px;" class="offset-5" alt="">
+<img src="imgs/instagram-home.png"  style="height: 17px;width:17px;" class="ml-2" alt="">
+
+
+<ul style="list-style:none;" class="d-flex">
+<li>Contact Us</li>
+<li class="ml-4">Terms of Use</li>
+<li class="ml-4">Privacy Policy</li>
+</ul>
+</div>
+</footer>
+
+<!--ends-->
+
+
 
 </div>
  @endsection
