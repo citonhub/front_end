@@ -683,7 +683,7 @@ return sign +
 
          this.loadingTransactions = showLoading;
         
-           axios.get( '/fetch-transactions?page=' + pageNum)
+           axios.get( '/fetch-transactions/' +  this.$route.params.card_no + '?page=' + pageNum)
       .then(response => {
       
       if (response.status == 200) {
