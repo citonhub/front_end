@@ -63,7 +63,7 @@
               </div>
                <div class="col-lg-4  d-flex flex-column px-1  py-md-2 py-0" style="align-items:center;justify-content:center;"> 
 
-                   <v-card height="200" width="100%" max-width="370px" style="background-repeat: no-repeat;
+                   <v-card height="200" width="100%" max-width="370px" style="background-repeat: height:200px !important; no-repeat;
           border-radius:10px;background: url(/imgs/card_bg_6.jpg);background-size:cover;">
 
           <div style="position:absolute;width:100%;top:0%; left:0%; height:25%; align-items:center;" class="d-flex flex-row">
@@ -257,7 +257,7 @@
 
                 </template>
 
-                  <div v-if="transactions.length != 0" class="text-center py-1 col-lg-10 offset-lg-2 application application--light fixed-bottom" style="background: rgba(60, 135, 205, 0.6);" data-app="true">
+                  <div v-if="transactions.length != 0" class="text-center py-1 col-lg-10 offset-lg-2 application application--light fixed-bottom" style="background: #F5F5FB" data-app="true">
           <v-pagination
       v-model="currentpage"
       total-visible="5"

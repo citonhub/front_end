@@ -2587,6 +2587,8 @@ goToChatList:function(){
      })
      .catch(error => {
 
+       
+
         this.showAlert('Oops!','Unable to fetch channels','error');
 
            this.loadingChatList = false;

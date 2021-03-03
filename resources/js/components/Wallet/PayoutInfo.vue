@@ -21,10 +21,16 @@
     
       <div class="text-left mb-1 mt-1" style="font-size:13px;font-family:BodyFont;" >Select payout account </div>
 
-        <select  style="font-size:13px !important; font-family:BodyFont; background:transparent;" v-model="payout_account"  class="browser-default custom-select mb-4">
+        <select v-if="that.$root.payoutAccounts.length > 0"  style="font-size:13px !important; font-family:BodyFont; background:transparent;" v-model="payout_account"  class="browser-default custom-select mb-4">
                  <option :value="0">select...</option>
                  <option v-for="(option,index)  in that.$root.payoutAccounts" :value="option.id" :key="index">{{ option.bank_name}} -  {{ option.account_number }} </option>
             </select>
+
+           <div v-else class=" px-3 py-3 text-center" style="font-size:13px;color:gray;font-family:BodyFont;">
+                      No payout account found.
+                       <v-btn @click="addPayoutAccount" x-small  color="#3C87CD" style="font-size:11px;font-family:MediumFont;color:white;text-transform:none;">Add <v-icon style="font-size:16px;">las la-plus</v-icon></v-btn>
+                    
+                    </div>
 
        
          <div class="col-12 text-center pb-2 pt-1">
@@ -178,6 +184,13 @@ export default {
         closeModal: function(){
        this.$root.showWalletinfo = false;
         this.$root.infoType = false;
+        },
+        addPayoutAccount:function(){
+
+           this.$root.infoType = false
+
+         this.$root.showWalletinfo = false;
+    this.$router.push({ path: '/board/wallet/manage/' + this.$root.selectedPaymentCard.card_no });
         },
         PayoutToAccount:function(){
 
