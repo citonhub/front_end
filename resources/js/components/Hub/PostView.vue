@@ -55,6 +55,7 @@
                        <span class="d-inline-block mx-1" >
                 <i class="lar la-heart" style="font-size:20px;color:#3C87CD;" ></i> 
                 <span style="font-family:MediumFont; font-size:12px; color:#000000;">{{ source.likes }}</span>
+
             </span>
 
              <span class="d-inline-block mx-1" >
