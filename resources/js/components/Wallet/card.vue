@@ -453,7 +453,7 @@ import 'izitoast/dist/css/iziToast.min.css'
 
           this.loadingPaymentCard  = true;
 
-             let storedPaymentCard = this.$root.getLocalStore('user_payment_card_'  + this.$root.username);
+             let storedPaymentCard = this.$root.getLocalStore('user_payment_card_new_'  + this.$root.username);
 
             storedPaymentCard.then((result)=>{
                 
@@ -492,7 +492,7 @@ import 'izitoast/dist/css/iziToast.min.css'
       
       if (response.status == 200) {
 
-          this.$root.LocalStore('user_payment_card_' + this.$root.username,response.data);
+          this.$root.LocalStore('user_payment_card_new_' + this.$root.username,response.data);
            
            let finalResult = response.data;
      
@@ -541,7 +541,7 @@ import 'izitoast/dist/css/iziToast.min.css'
       
       if (response.status == 200) {
 
-          this.$root.LocalStore('user_payment_card_' + this.$root.username,response.data);
+          this.$root.LocalStore('user_payment_card_new_' + this.$root.username,response.data);
         
      
            let finalResult = response.data;
