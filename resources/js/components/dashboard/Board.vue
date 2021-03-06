@@ -157,7 +157,7 @@
 
    <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="this.$root.showWalletinfo" @click="that.$root.showWalletinfo = false" >
 
-   <div style="position:absolute; height:90%; top:10%; width:94%; left:3%; "  >
+   <div style="position:absolute; height:90%; top:8%; width:94%; left:3%; "  >
   
 
      <template v-if="that.$root.infoType == 'fee'">
@@ -170,6 +170,10 @@
 
       <template v-if="that.$root.infoType == 'payout'">
    <payout-info></payout-info>
+     </template>
+
+     <template v-if="that.$root.infoType == 'referral'">
+   <referral-info></referral-info>
      </template>
         
      
@@ -228,6 +232,10 @@ const ImageCropperBoard = () => import(
 const FeeInfo = () => import(
    /* webpackChunkName: "FeeInfo" */ '../Wallet/FeeInfo.vue'
   );
+
+  const ReferralInfo = () => import(
+   /* webpackChunkName: "ReferralInfo" */ '../Wallet/ReferralInfo.vue'
+  );
   const TopBar = () => import(
     /* webpackChunkName: "TopBarBoard" */ './TopBar.vue'
   );
@@ -258,6 +266,7 @@ const FeeInfo = () => import(
       TransactionInfo,
       FeeInfo,
      TopBar,
+     ReferralInfo,
      SideBar,
      ProfileView,
      PayoutAccount,

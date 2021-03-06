@@ -114,6 +114,36 @@ class PageController extends Controller
            }
 
 
+           if($type == 'referral'){
+
+            $thisUser= DB::table('profiles')
+              ->join('users','users.id','profiles.user_id')
+              ->select(
+                  'users.username as username',
+                  'profiles.image_name as image_name',
+                  'profiles.image_extension as image_extension',
+                  'users.name as name'
+              )
+              ->where('users.username',$uniqueId)
+              ->first();
+
+        $pageTitle = $thisUser->name .' invites you to CitonHub';
+        
+
+         $pageDescription = 'Teach, grow your community and earn.';
+
+         if( $thisUser->image_name  == null){
+            $imagePath = 'logo.png';
+         }else{
+            $imagePath = 'profile/' . $thisUser->image_name .'.' . $thisUser->image_extension;
+         }
+
+         $pageLink = '/dashboard#/sign-up/' . $uniqueId;
+              
+           
+           }
+
+
 
            if($type == 'project'){
             $thisProject = Project::where('project_slug',$uniqueId)->first();

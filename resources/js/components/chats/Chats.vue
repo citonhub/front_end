@@ -634,6 +634,8 @@
                                          
                                         <add-sub-channel v-if="innerSideBarContent == 'add_sub_channel'"></add-sub-channel>
 
+                                         <add-payment  v-if="innerSideBarContent == 'add_payment'"></add-payment>
+
                                           <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
 
                                          
@@ -1286,6 +1288,8 @@
                                          
                                         <add-sub-channel v-if="innerSideBarContent == 'add_sub_channel'"></add-sub-channel>
 
+                                        <add-payment  v-if="innerSideBarContent == 'add_payment'"></add-payment>
+
                                         <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
 
                                          
@@ -1667,6 +1671,10 @@ const Interest= () => import(
    /* webpackChunkName: "PaymentProcessor" */ './PaymentProcessor.vue'
   );
 
+   const AddPayment = () => import(
+   /* webpackChunkName: "AddPayment" */ './AddPayment.vue'
+  );
+
 export default {
      data () {
       return {
@@ -1777,7 +1785,8 @@ export default {
          DiaryNotes,
          Notify,
          PaymentInfoBoard,
-         PaymentProcessor
+         PaymentProcessor,
+         AddPayment
     },
      methods:{
 
@@ -2947,6 +2956,8 @@ goToChatList:function(){
 
                    generalSpace.description = finalResult.space.description;
 
+                     generalSpace.payment_option = finalResult.space.payment_option;
+
 
 
                 generalSpace.general_spaceId = finalResult.space.general_spaceId;
@@ -3112,6 +3123,8 @@ goToChatList:function(){
                     this.$root.selectedGenSpaceType = response.data.space.gen_space.type;
 
                   generalSpace.space_id =   response.data.space.space_id;
+
+                generalSpace.payment_option = response.data.space.payment_option;
 
                   generalSpace.type =  response.data.space.type;
 
@@ -3290,7 +3303,55 @@ goToChatList:function(){
 
                     finalResult.space = response.data.space;
 
-                      this.$root.selectedSpace = response.data.space;
+                      
+                        if(response.data.space.type == 'SubSpace'){
+
+
+                 let generalSpace =  response.data.space.gen_space;
+
+
+                    this.$root.selectedGenSpaceType = response.data.space.gen_space.type;
+
+                  generalSpace.space_id =   response.data.space.space_id;
+
+                generalSpace.payment_option = response.data.space.payment_option;
+
+                  generalSpace.type =  response.data.space.type;
+
+
+                    generalSpace.description = response.data.space.description;
+
+                  generalSpace.general_spaceId =  response.data.space.general_spaceId;
+
+            
+
+
+
+              let subSpaceData =  response.data.space.sub_space_data;
+
+
+
+
+             this.$root.selectedSubSpaceName =  response.data.space.name;
+
+             this.$root.selectedSubSpaceType = subSpaceData.type;
+
+
+
+               generalSpace.sub_spaces =  response.data.space.sub_spaces;
+
+
+
+               this.$root.selectedSpace = generalSpace;
+
+
+              }else{
+
+                  this.$root.selectedSpace = response.data.space;
+
+              }
+
+                    
                     
                   
                   finalResult.members = response.data.members;

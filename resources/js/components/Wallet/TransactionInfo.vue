@@ -32,11 +32,11 @@
                        <span class=" text-danger"  style=" font-size:14px; text-transform:capitalize;font-family:MediumFont;">{{that.$root.selectedTransaction.type}}</span>
                    </template>
 
-                    <template v-if="that.$root.selectedTransaction.type == 'withdrawal'">
+                    <template v-if="that.$root.selectedTransaction.type == 'referral'">
                          <span class=" text-primary"  style=" font-size:14px; text-transform:capitalize;font-family:MediumFont;">{{that.$root.selectedTransaction.type}}</span>
                    </template>
                     
-                     <template v-if="that.$root.selectedTransaction.type != 'payout' && that.$root.selectedTransaction.type != 'withdrawal'">
+                     <template v-if="that.$root.selectedTransaction.type != 'payout' && that.$root.selectedTransaction.type != 'referral'">
                     <span class=" text-success"  style="font-size:14px; text-transform:capitalize;font-family:MediumFont;">{{that.$root.selectedTransaction.type}}</span>
                    </template>
          </div>
@@ -256,20 +256,10 @@ export default {
        this.$root.showWalletinfo = false;
         this.$root.infoType = false;
         },
-           formatMoney: function(number, decPlaces, decSep, thouSep) {
-decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
-decSep = typeof decSep === "undefined" ? "." : decSep;
-thouSep = typeof thouSep === "undefined" ? "," : thouSep;
-var sign = number < 0 ? "-" : "";
-var i = String(parseInt(number = Math.abs(Number(number) || 0).toFixed(decPlaces)));
-var j = (j = i.length) > 3 ? j % 3 : 0;
+         formatMoney: function(number) {
 
-return sign +
-	(j ? i.substr(0, j) + thouSep : "") +
-	i.substr(j).replace(/(\decSep{3})(?=\decSep)/g, "$1" + thouSep) +
-	(decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
+   return (number).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 },
-     
       currencyToCharacter: function(currency){
 
         let thisCurrency = this.currencyData.filter((eachCurrency)=>{

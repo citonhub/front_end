@@ -9,10 +9,10 @@ window.io = require('socket.io-client');
 Vue.use(Vuex)
 
 //axios.defaults.baseURL = 'http://localhost:8000/api'
-//axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
+axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
 //axios.defaults.baseURL = 'https://api.citonhub.com/api'
 
-axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
+//axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
 
 const store = new Vuex.Store({
   state: {
@@ -33,7 +33,7 @@ const store = new Vuex.Store({
 
     clearUserData () {
       localStorage.removeItem('user_new')
-      thisUserState.$router.push({ path: '/channels' });
+    
       location.reload();
     }
   },
@@ -158,6 +158,8 @@ const FeedForm= () => import(/* webpackChunkName: "FeedForm" */ '../components/F
 const routes = [
   { path: '/login', name: 'login', component: Login },
   { path: '/sign-up', name: 'register', component: Register },
+  { path: '/login/:referral', name: 'loginReferral', component: Login },
+  { path: '/sign-up/:referral', name: 'registerReferral', component: Register },
   { path: '/verify', name: 'verify', component: Verify },
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
@@ -980,6 +982,66 @@ beforeEnter: (to, from, next) => {
    
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'add_sub_channel';
+       
+ 
+          
+      }
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+
+// add payment
+{ path: '/channels/:spaceId/add_payment',
+   name: 'AddPayment',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+
+      if( thisUserState.$root.chatComponent){
+  
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.innerSideBarContent = '';
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+   
+      thisUserState.$root.chatComponent.chatInnerSideBar = true;
+      thisUserState.$root.chatComponent.innerSideBarContent = 'add_payment';
        
  
           
@@ -1973,6 +2035,7 @@ const app = new Vue({
     payoutAccounts:[],
     planSubscriptions:[],
     cardViewComponent:undefined,
+    auth_device_id:'',
      },
      mounted: function () {
       window.thisUserState = this;
@@ -1982,6 +2045,8 @@ const app = new Vue({
       if(this.isLogged){
         this.fetchUserDetails();
        }
+
+     
       this.connectToChannel();
       this.checkPWA();
 
@@ -2130,11 +2195,12 @@ const app = new Vue({
         this.returnedToken = userData.token;
         this.$store.commit('setUserData', userData)
 
-        // set laravel echo config
-        this.setEcho();
-      
+       
      
     }
+
+      
+      
 
     axios.interceptors.response.use(
       response => response,
@@ -2402,7 +2468,8 @@ const app = new Vue({
   // connect user to a global private socket
   connectToChannel: function(){
 
-
+      // set laravel echo config
+      this.setEcho();
 
     if(this.checkauthroot == 'auth'){
      
@@ -2782,6 +2849,59 @@ const app = new Vue({
 
             });
 
+    }else{
+
+      window.Echo.channel('authuser')
+      .listen('.AuthUser',(e) => {
+
+         if(this.auth_device_id == e.deviceId){
+  
+
+          
+          this.$store.commit('setUserData',e.user);
+
+          const userInfo = localStorage.getItem('user_new')
+          if (userInfo) {
+            const userData = JSON.parse(userInfo)
+      
+              this.$root.username = userData.user.username;
+              this.$root.user_temp_id = userData.user.id;
+              this.$root.returnedToken = userData.token;
+      
+          }
+      
+            this.$root.checkUserDevice();
+      
+            this.$root.checkauthroot = 'auth';
+      
+           
+            this.$root.fetchUserDetails();
+             this.$root.setEcho();
+      
+      
+            let storedTracker = this.$root.getLocalStore('route_tracker_new');
+      
+            storedTracker.then((result)=>{
+              this.$root.connectToChannel();
+              if(result != null ){
+                  let finalResult = JSON.parse(result);
+             this.$router.push({ path: finalResult[0] });
+             
+      
+              }else{
+                
+                this.checkIfLogin()
+      
+                
+      
+              }
+      
+      
+            })
+
+         }
+
+      })
     }
        
   },

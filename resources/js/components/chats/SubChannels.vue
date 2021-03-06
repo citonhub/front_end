@@ -133,15 +133,44 @@ export default {
         selectSubSpace: function(subSpace){
 
                this.$root.chatComponent.chatInnerSideBar= false;
-               this.$root.chatComponent.chatIsOpen = false;
+             
                 this.$root.chatComponent.innerSideBarContent = '';
 
 
-            this.$router.push({ path: '/channels/' + subSpace.space_id +'/content' });
+                  let storedMsg = this.$root.getLocalStore('full_space_' + subSpace.space_id + this.$root.username);
+
+
+                    storedMsg.then((result)=>{
+
+
+                      
+
+                        if(result != null){
+
+                          
+
+                        this.$router.push({ path: '/channels/' + subSpace.space_id +'/content' });
               
               this.$root.chatComponent.fetchMessages(subSpace.space_id);
               this.$root.chatComponent.messageIsDone = false;
            this.$root.chatComponent.chatIsOpen = true;
+
+
+                        }else{
+                      
+                    
+                          
+                            this.$root.fromSupportDirectlink = false;
+                          
+                           this.$router.push({ path: '/channels/' + subSpace.space_id  +'/payment' });
+                             
+
+                         
+                        }
+                    })
+
+
+           
 
             
            

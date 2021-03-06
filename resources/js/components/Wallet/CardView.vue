@@ -131,13 +131,36 @@
          <div class="col-12 pb-md-2 pb-1 px-0 d-flex flex-row">
 
 
-              
-             <div class="col-12 py-0 px-0 text-center">
+               <template v-if="that.$root.selectedPaymentCard.type  != 'personal'">
+
+                  <div class="col-12 py-0 px-0 text-center">
 
                  <v-btn color="#3C87CD" @click="makePayout()" v-if="that.$root.selectedPaymentCard.payout_status != 'pending'" outlined style="width:60%;" small><span style="font-size:13px;font-family:MediumFont;text-transform:none;" >Payout</span></v-btn>
                    <v-btn color="#3C87CD"  disabled v-else outlined style="width:60%;" small><span style="font-size:13px;font-family:MediumFont;text-transform:none;" >Payout pending</span></v-btn>
 
              </div>
+
+               </template>
+
+               <template v-else>
+
+                 <div class="col-6 py-0 px-0 text-center">
+
+                 <v-btn color="#3C87CD" @click="showReferral()" style="width:90%;" small><span style="font-size:13px;font-family:MediumFont;text-transform:none;color:white;" >Referrals</span></v-btn>
+                  
+
+             </div>
+
+
+                  <div class="col-6 py-0 px-0 text-center">
+
+                 <v-btn color="#3C87CD" @click="makePayout()" v-if="that.$root.selectedPaymentCard.payout_status != 'pending'" outlined style="width:90%;" small><span style="font-size:13px;font-family:MediumFont;text-transform:none;" >Payout</span></v-btn>
+                   <v-btn color="#3C87CD"  disabled v-else outlined style="width:80%;" small><span style="font-size:13px;font-family:MediumFont;text-transform:none;" >Payout pending</span></v-btn>
+
+             </div>
+
+               </template>
+            
 
              
 
@@ -208,11 +231,11 @@
                      <v-btn icon small class="bg-danger mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-check</v-icon></v-btn>
                    </template>
 
-                    <template v-if="transaction.type == 'withdrawal'">
+                    <template v-if="transaction.type == 'referral'">
                      <v-btn icon small class="bg-primary mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-check</v-icon></v-btn>
                    </template>
                     
-                     <template v-if="transaction.type != 'payout' && transaction.type != 'withdrawal'">
+                     <template v-if="transaction.type != 'payout' && transaction.type != 'referral'">
                     <v-btn icon small class="bg-success mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-check</v-icon></v-btn>
                    </template>
                      
@@ -221,6 +244,14 @@
                        <template v-if="transaction.type == 'support'">
                           <span class="normalText">Received </span><span class="boldText"><span v-html="currencyToCharacter(transaction.currency)"></span> {{formatMoney(transaction.amount)}}</span> support from <span class="boldText">{{transaction.customer_name}}</span> 
                        </template>
+                        <template v-if="transaction.type == 'referral'">
+                          <span class="normalText">Received </span><span class="boldText"><span v-html="currencyToCharacter(transaction.currency)"></span> {{formatMoney(transaction.amount)}}</span> bonus from <span class="boldText">{{transaction.customer_name}}</span> 
+                       </template>
+
+                        <template v-if="transaction.type == 'payout'">
+                          <span class="normalText">Paid out </span><span class="boldText"><span v-html="currencyToCharacter(transaction.currency)"></span> {{formatMoney(transaction.amount)}}</span>
+                       </template>
+                       
                          | {{handleDateFormat(transaction.created_at)}}
                      </div>
 
@@ -230,11 +261,11 @@
                        <span class="boldText text-danger"  style="text-transform:capitalize;">{{transaction.type}}</span>
                    </template>
 
-                    <template v-if="transaction.type == 'withdrawal'">
+                    <template v-if="transaction.type == 'referral'">
                          <span class="boldText text-primary"  style="text-transform:capitalize;">{{transaction.type}}</span>
                    </template>
                     
-                     <template v-if="transaction.type != 'payout' && transaction.type != 'withdrawal'">
+                     <template v-if="transaction.type != 'payout' && transaction.type != 'referral'">
                     <span class="boldText text-success"  style="text-transform:capitalize;">{{transaction.type}}</span>
                    </template>
                        
@@ -454,6 +485,11 @@ import 'izitoast/dist/css/iziToast.min.css'
 
            this.fetchTransactions(page);
        },
+       showReferral:function(){
+        this.$root.infoType = 'referral'
+
+         this.$root.showWalletinfo = true;
+       },
 
        manageCard: function(){
    
@@ -485,18 +521,12 @@ import 'izitoast/dist/css/iziToast.min.css'
              window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
 
        },
-       formatMoney: function(number, decPlaces, decSep, thouSep) {
-decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
-decSep = typeof decSep === "undefined" ? "." : decSep;
-thouSep = typeof thouSep === "undefined" ? "," : thouSep;
-var sign = number < 0 ? "-" : "";
-var i = String(parseInt(number = Math.abs(Number(number) || 0).toFixed(decPlaces)));
-var j = (j = i.length) > 3 ? j % 3 : 0;
+       formatMoney: function(number) {
 
-return sign +
-	(j ? i.substr(0, j) + thouSep : "") +
-	i.substr(j).replace(/(\decSep{3})(?=\decSep)/g, "$1" + thouSep) +
-	(decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
+          
+      return (number).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        
+  
 },
        handleDateFormat: function(date){
          var realTimeHour = moment(date).add(1,'hours');

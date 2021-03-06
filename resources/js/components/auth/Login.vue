@@ -96,10 +96,27 @@
 
 
                <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn  :loading="loading" type="submit" medium color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;"
+
+                  <div class="row">
+
+                   
+
+                      <div class="col-6 py-0">
+                  <v-btn  :loading="loading" type="submit" medium color="#3C87CD" style="font-size:13px;text-transform:none; font-weight:bolder; color:white;font-family:BodyFont;"
                   @click.prevent="loginuser">
                  Login
                   </v-btn>
+                    </div>
+
+                     <div class="col-6 py-0">
+                <v-btn @click.prevent="handleGitHub"  medium color="#fffff" style="font-size:13px; font-weight:bolder;text-transform:none; color:black;font-family:BodyFont;"
+                  >
+                 Sign In <v-icon class="ml-1">lab la-github</v-icon>
+                  </v-btn>
+                    </div>
+
+                  </div>
+                 
              </div>
 
               <div class="col-12 py-1 my-0 px-2 text-center">
@@ -194,11 +211,26 @@
 
 
 
-               <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn  :loading="loading" type="submit" small color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;"
+               <div class="col-12 py-1 my-0 px-2 text-center mb-2">
+                  <div class="row">
+
+                   
+
+                      <div class="col-6 py-0">
+                  <v-btn  :loading="loading" type="submit" medium color="#3C87CD" style="font-size:13px;text-transform:none; font-weight:bolder; color:white;font-family:BodyFont;"
                   @click.prevent="loginuser">
                  Login
                   </v-btn>
+                    </div>
+
+                     <div class="col-6 py-0">
+                <v-btn @click.prevent="handleGitHub"  medium color="#fffff" style="font-size:13px; font-weight:bolder;text-transform:none; color:black;font-family:BodyFont;"
+                  >
+                 Sign In <v-icon class="ml-1">lab la-github</v-icon>
+                  </v-btn>
+                    </div>
+
+                  </div>
              </div>
 
               <div class="col-12 py-1 my-0 px-2 text-center">
@@ -298,11 +330,20 @@ export default {
     },
     methods:{
        showRegister: function(){
-            this.$router.push({ path: '/sign-up' });
+
+          if(this.$route.params.referral){
+                 this.$router.push({ path: '/sign-up/' + this.$route.params.referral });
+         }else{
+              
+                  this.$router.push({ path: '/sign-up' });
+         }
+
+          
         },
         showForgot: function(){
             this.$router.push({ path: '/forgot-password' });
         },
+        
       checkIfLogin:function(){
 
        
@@ -312,7 +353,23 @@ export default {
 
        },
 
-       
+         handleGitHub:function(){
+         this.$root.auth_device_id =  "device_" + Math.random().toString(36).slice(2);
+    var strWindowFeatures = "location=yes,height=570,width=520,scrollbars=yes,status=yes";
+     let referralUser = null;
+
+        var URL = null;
+
+         if(this.$route.params.referral){
+               referralUser = this.$route.params.referral;
+                 URL = "http://api.citonhubnew.com/auth/redirect/" +   this.$root.auth_device_id + '/' + referralUser;
+         }else{
+              
+                 URL = "http://api.citonhubnew.com/auth/redirect/" +   this.$root.auth_device_id;
+         }
+ 
+        var win = window.open(URL, "_blank", strWindowFeatures);
+      },
   showAlert:function(title='',message,type){
        
        if(type == 'info'){

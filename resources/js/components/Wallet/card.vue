@@ -141,7 +141,7 @@
                     <template v-if="transactions.length == 0">
 
                       <div class="mt-5 px-3 pt-5 text-center" style="font-size:13px;color:grey;font-family:BodyFont;">
-                       No wallet history yet.
+                       No history yet.
                     </div>
 
                     </template>
@@ -157,11 +157,11 @@
                      <v-btn icon small class="bg-danger mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-check</v-icon></v-btn>
                    </template>
 
-                    <template v-if="transaction.type == 'withdrawal'">
+                    <template v-if="transaction.type == 'referral'">
                      <v-btn icon small class="bg-primary mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-check</v-icon></v-btn>
                    </template>
                     
-                     <template v-if="transaction.type != 'payout' && transaction.type != 'withdrawal'">
+                     <template v-if="transaction.type != 'payout' && transaction.type != 'referral'">
                     <v-btn icon small class="bg-success mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-check</v-icon></v-btn>
                    </template>
                      
@@ -169,6 +169,14 @@
                      <div class="normalText">
                        <template v-if="transaction.type == 'support'">
                           <span class="normalText">Received </span><span class="boldText"><span v-html="currencyToCharacter(transaction.currency)"></span> {{formatMoney(transaction.amount)}}</span> support from <span class="boldText">{{transaction.customer_name}}</span> to <span class="boldText">{{transaction.card_name}}</span>
+                       </template>
+
+                          <template v-if="transaction.type == 'referral'">
+                          <span class="normalText">Received </span><span class="boldText"><span v-html="currencyToCharacter(transaction.currency)"></span> {{formatMoney(transaction.amount)}}</span> bonus from <span class="boldText">{{transaction.customer_name}}</span> 
+                       </template>
+
+                        <template v-if="transaction.type == 'payout'">
+                          <span class="normalText">Paid out </span><span class="boldText"><span v-html="currencyToCharacter(transaction.currency)"></span> {{formatMoney(transaction.amount)}}</span> from <span class="boldText">{{transaction.card_name}}</span>
                        </template>
                          | {{handleDateFormat(transaction.created_at)}}
                      </div>
@@ -179,11 +187,11 @@
                        <span class="boldText text-danger"  style="text-transform:capitalize;">{{transaction.type}}</span>
                    </template>
 
-                    <template v-if="transaction.type == 'withdrawal'">
+                    <template v-if="transaction.type == 'referral'">
                          <span class="boldText text-primary"  style="text-transform:capitalize;">{{transaction.type}}</span>
                    </template>
                     
-                     <template v-if="transaction.type != 'payout' && transaction.type != 'withdrawal'">
+                     <template v-if="transaction.type != 'payout' && transaction.type != 'referral'">
                     <span class="boldText text-success"  style="text-transform:capitalize;">{{transaction.type}}</span>
                    </template>
                        
@@ -423,18 +431,9 @@ import 'izitoast/dist/css/iziToast.min.css'
 
 
        },
-     formatMoney: function(number, decPlaces, decSep, thouSep) {
-decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
-decSep = typeof decSep === "undefined" ? "." : decSep;
-thouSep = typeof thouSep === "undefined" ? "," : thouSep;
-var sign = number < 0 ? "-" : "";
-var i = String(parseInt(number = Math.abs(Number(number) || 0).toFixed(decPlaces)));
-var j = (j = i.length) > 3 ? j % 3 : 0;
+     formatMoney: function(number) {
 
-return sign +
-	(j ? i.substr(0, j) + thouSep : "") +
-	i.substr(j).replace(/(\decSep{3})(?=\decSep)/g, "$1" + thouSep) +
-	(decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
+   return (number).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 },
      
       currencyToCharacter: function(currency){
@@ -461,10 +460,15 @@ return sign +
                  if(result != null ){
 
                     let finalResult = JSON.parse(result);
-                     
-                      this.paymentCards = finalResult.payment_cards;
 
-                       this.paymentCards.sort(function(a, b){return b.balance - a.balance})
+
+                    let returnedCard = finalResult.payment_cards;
+
+                    returnedCard.sort(function(a, b){return b.balance - a.balance});
+
+                    this.paymentCards = finalResult.personal_card.concat(returnedCard);
+                     
+                    
 
                         setTimeout(() => {
              if( this.paymentCards.length > 3){
@@ -489,12 +493,16 @@ return sign +
       if (response.status == 200) {
 
           this.$root.LocalStore('user_payment_card_' + this.$root.username,response.data);
-        
+           
+           let finalResult = response.data;
      
-         this.paymentCards = response.data.payment_cards;
+       let returnedCard = finalResult.payment_cards;
 
-           this.paymentCards.sort(function(a, b){return b.balance - a.balance})
-      
+                    returnedCard.sort(function(a, b){return b.balance - a.balance});
+
+                    this.paymentCards = finalResult.personal_card.concat(returnedCard);
+                  
+       
      
          this.loadingPaymentCard = false;
 
@@ -536,9 +544,16 @@ return sign +
           this.$root.LocalStore('user_payment_card_' + this.$root.username,response.data);
         
      
-         this.paymentCards = response.data.payment_cards;
+           let finalResult = response.data;
+     
+       let returnedCard = finalResult.payment_cards;
 
-           this.paymentCards.sort(function(a, b){return b.balance - a.balance})
+                    returnedCard.sort(function(a, b){return b.balance - a.balance});
+
+                    this.paymentCards = finalResult.personal_card.concat(returnedCard);
+                  
+       
+     
         
         this.fetchTransactions(1,false);
        
