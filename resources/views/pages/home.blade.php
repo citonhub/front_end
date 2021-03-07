@@ -175,10 +175,10 @@
     
     <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:650px;">
 
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column"> 
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column mt-3"> 
 
       <!-- what you can do -->
-<div class="col-12 text-center pt-5 mt-4">
+<div class="col-12 text-center pt-5 mt-5">
 
 
 <h5 style="font-weight:bold;  color:white;" class="text-center mb-0 d-md-none d-block mt-3 px-3" >CitonHub is an all-in-one platform where you can:</h5>
