@@ -5,7 +5,7 @@
 
  @endsection
  @section('meta') 
- <meta name="description" content="Teach, mentor, and connect with other developers" />
+ <meta name="description" content="CitonHub is a place for developers to teach and earn from their passion across borders" />
   <meta name="keywords" content="Teach programming,Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
@@ -19,7 +19,7 @@
     <meta name="msapplication-TileImage" content="images/icons/logo_msapplication-icon-144x144.png">
     <meta name="msapplication-TileColor" content="#3C87CD">
     <meta property="og:description" content="Join other developers helping each other grow on CitonHub" />
-    <meta property='twitter:title' content="CitonHub:Teach, mentor, and connect with other developers"/>
+    <meta property='twitter:title' content="CitonHub:A place for developers to teach and earn from their passion across borders"/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 
@@ -117,7 +117,7 @@
 <div class="d-md-none d-block  " style="width:100%; margin-top:90px; margin-bottom:40px;">
 <div class=" text-center">
 
-<h4 style="font-family:HeaderFont;" class="mb-3">Teach, grow your community, and earn</h4>
+<h4 style="font-family:HeaderFont;" class="mb-3 px-2">Teach, grow your community, and earn</h4>
    
    <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is a place for developers to earn from their passion across borders.</p>
 
