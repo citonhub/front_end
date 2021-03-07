@@ -171,11 +171,11 @@
 
 </div>
 
-<div class="d-md-none d-block" style="width:100%;height:650px;left:0%; margin-top:30px;" >
+<div class="d-md-none d-block" style="width:100%;height:690px;left:0%; margin-top:30px;" >
     
-    <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:650px;">
+    <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:700px;">
 
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column mt-3"> 
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column mt-2"> 
 
       <!-- what you can do -->
 <div class="col-12 text-center pt-5 mt-5">
