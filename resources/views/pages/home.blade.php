@@ -181,7 +181,7 @@
 <div class="col-12 text-center pt-5 mt-5">
 
 
-<h5 style="font-weight:bold;  color:white;" class="text-center mb-0 d-md-none d-block mt-3 px-3" >CitonHub is an all-in-one platform where you can:</h5>
+<h5 style="font-weight:bold;  color:white;" class="text-center mb-0 d-md-none d-block mt-3 px-4" >CitonHub is an all-in-one platform where you can:</h5>
 
 </div>
 
