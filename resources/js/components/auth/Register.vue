@@ -411,10 +411,10 @@ export default {
 
          if(this.$route.params.referral){
                referralUser = this.$route.params.referral;
-                 URL = "http://api.citonhubnew.com/auth/redirect/" +   this.$root.auth_device_id + '/' + referralUser;
+                 URL = "https://api.citonhub.com/auth/redirect/" +   this.$root.auth_device_id + '/' + referralUser;
          }else{
               
-                 URL = "http://api.citonhubnew.com/auth/redirect/" +   this.$root.auth_device_id;
+                 URL = "https://api.citonhub.com/auth/redirect/" +   this.$root.auth_device_id;
          }
  
         var win = window.open(URL, "_blank", strWindowFeatures);

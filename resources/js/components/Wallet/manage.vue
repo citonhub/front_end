@@ -130,7 +130,21 @@
 <div class="steps d-flex col-lg-10 offset-1 px-0">
 <div class="payment col-lg-4">
     <h2 class="col-lg-12 text-center" style="font-size:1.3rem;">Setup Payment Account</h2>
+<div class="col-12 py-0 my-0 px-2">
+              <v-text-field
+                 style="font-size:12px;"
+                 placeholder="DSC Nowhere"
+            label="Your Name"
+            counter="80"
+            
+            
+            outlined
+           
+            
+             color="#3C87CD"
+             ></v-text-field>
 
+             </div>
 </div>
 
 <div class="default col-lg-4">

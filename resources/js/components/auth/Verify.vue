@@ -54,7 +54,7 @@
             
              <div class="col-12 py-2 text-center ">
               <span  style="font-size:14px; font-family:BodyFont;"  class=" px-4">
-               {{ $t('general.enter_digit') }},<span style="color:#3C87CD;"> {{this.$root.userEmail}}</span> 
+              <span>A verification code has been sent to your email. Kindly check your inbox</span>,<span style="color:#3C87CD;"> {{this.$root.userEmail}}</span> 
              </span>
             </div>
 
@@ -127,7 +127,7 @@
 
            <div class="col-12 py-2 text-center ">
               <span  style="font-size:13px; font-family:BodyFont;"  class=" px-4">
-               {{ $t('general.enter_digit') }},<span style="color:#3C87CD;"> {{this.$root.userEmail}}</span> 
+            <span>A verification code has been sent to your email. Kindly check your inbox</span>,<span style="color:#3C87CD;"> {{this.$root.userEmail}}</span> 
              </span>
             </div>
 

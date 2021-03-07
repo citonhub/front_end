@@ -116,7 +116,7 @@ export default {
 
          // remove from database
 
-          let storedMsg = this.$root.getLocalStore('full_' + message.space_id + this.$root.username);
+          let storedMsg = this.$root.getLocalStore('full_space_' + message.space_id + this.$root.username);
 
             storedMsg.then((result)=>{
 
@@ -132,7 +132,7 @@ export default {
 
                    this.$root.Messages = this.$root.handleResults(remainingMessages);
 
-                    this.$root.LocalStore('full_' +  message.space_id   + this.$root.username,finalResult);
+                    this.$root.LocalStore('full_space_' +  message.space_id   + this.$root.username,finalResult);
 
                }
 

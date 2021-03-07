@@ -77,8 +77,8 @@
                 <div class="col-4 py-1 text-center">
                 
 
-                     <v-icon class="d-none d-md-inline-block" style="font-size:30px;" :color="selectedTab == 'diary' ? '#3C87CD' : '#A4A4A5'">mdi-book-multiple-outline</v-icon>
-                 <v-icon  class="d-md-none d-inline-block" style="font-size:27px;" :color="selectedTab == 'diary' ? '#3C87CD' : '#A4A4A5'">mdi-book-multiple-outline</v-icon>
+                     <v-icon class="d-none d-md-inline-block" style="font-size:30px;" :color="selectedTab == 'diary' ? '#3C87CD' : '#A4A4A5'">las la-book</v-icon>
+                 <v-icon  class="d-md-none d-inline-block" style="font-size:27px;" :color="selectedTab == 'diary' ? '#3C87CD' : '#A4A4A5'">las la-book</v-icon>
                 </div>
                 <div class="  py-1 col-8 d-flex" :style="selectedTab == 'diary' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
                   <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:14px;" >Diaries</div>

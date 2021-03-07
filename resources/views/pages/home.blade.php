@@ -33,231 +33,383 @@
   
 
  <style>
+.box{
+  background: #3C87CD;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+}
+
 
  </style>
   
  @endsection
 
  @section('content')
-<div id="home">
 
- <!-- Headers -->
- <div class="col-12 fixed-top py-3 px-md-4 px-3" >
+
+<div id="home" class="py-0 col-12 px-0" style="background:url('/imgs/backgroundHome.png');background-repeat:no-reapeat;overflow-x:hidden;">
+   
+<!-- Headers -->
+<div class="col-12 fixed-top py-2 px-md-4 px-2 "  style="background:rgba(255,255,255,1.0);">
 <div class="row">
 
 <!-- Logo -->
- <div class="col-4 text-left">
+ <div class="col-4 text-left ">
  
  <img alt="citonhub logo" class="d-lg-block d-none" src="/imgs/logo.png" height="40px">
 
  <img alt="citonhub logo" class="d-lg-none d-block" src="/imgs/logo.png" height="35px">
+ 
  </div>
 
  <!-- Sign up, register button -->
- <div class="col-8 text-right pt-1 d-lg-block d-none" >
- <a href="https://blog.citonhub.com"  target="_blank" class="linkStyle mx-3 " style="color:#000000;">Blog</a>
+ <div class="col-8 text-right pt-1 px-1 px-md-2" >
 
- <a href="/dashboard#/login"  class="linkStyle mx-3"  style="color:#000000;"> Login</a>
+
+ <a href="/dashboard#/login"  class="linkStyle mx-3 d-md-inline-block d-none"  style="color:#000000;"> Login</a>
  
- <a href="/dashboard#/sign-up" class="homeButton mx-2 px-3 py-2">Sign Up</a>
+ <a href="/dashboard#/sign-up" class="homeButton mx-2 px-3 py-2 d-md-inline-block d-none">Sign Up</a>
+
+ <a href="/dashboard#/login"  class="linkStyle mx-3 d-md-none d-inline-block"  style="color:#000000;font-size:14px;"> Login</a>
+ 
+ <a href="/dashboard#/sign-up" class="homeButton mx-2 px-3 py-2 d-md-none d-inline-block" style="font-size:14px;">Sign Up</a>
 
  </div>
 
- <div class="col-8 text-right pt-1 d-lg-none d-block pr-1" >
+ 
 
-
- </div>
+</div>
 
 
 </div>
-</div>
-<!-- ends -->
 
 <!-- Teach , learn and connect -->
 
-<div class="col-lg-6  d-none d-lg-flex flex-column" style="position:fixed; align-items:center; justify-content:center;  height:75%; top:8%; z-index:20;">
+<div class="col-lg-6 offset-lg-3 text-center  d-none d-md-block flex-column " style=" align-items:center; justify-content:center; margin-top:140px;margin-bottom:100px;">
    
-   <div class="px-5 " style="width:80%;">
-     <h1 style="font-family:HeaderFont;" class="mb-3">Teach, mentor, and connect with other developers</h1>
+   <div class="px-2 mt-4 " >
+     <h1 style="font-family:HeaderFont;" class="mb-3 mt-4">Teach, grow your community, and earn</h1>
+
+     <div class="px-3">
+     <p style="font-size:20px;font-family:BodyFont;" class="px-5">CitonHub is a place <br>for developers to earn from their passion across borders.</p>
+     </div>   
    
-     <p style="font-size:20px;">Join other developers helping each other grow on CitonHub.</p>
 
-     <div class="py-2 px-0 mt-3 col-12">
-      <div class="row">
-
-      <a href="/dashboard#/sign-up" class="homeButton mx-3 px-5 py-3">Sign Up</a>
+     <div class="py-2 px-0 mt-3 col-12 text-center">
+  
+      <a href="/dashboard#/sign-up" class="homeButton ml-2 py-3 px-4 d-inline-block ">Get Started</a>
       
-      <a href="/dashboard#/login" class="homeButtonOutline mx-3 px-5 py-3">Login</a>
+     <!--a href="/dashboard#/login" class="homeButtonOutline mx-3 px-5 py-3">Login</a>-->
       
        
      
       
-      </div>
+    
    
      </div>
    </div>
 
 </div>
 
-<div class="d-lg-none d-block col-12 " style="position:fixed; left:0%; height:60%; top:13%; z-index:80;">
+
+<div class="d-md-none d-block  " style="width:100%; margin-top:90px; margin-bottom:40px;">
 <div class=" text-center">
 
-<h5 style="font-family:HeaderFont;" class="mb-2">Teach, mentor, and connect with other developers</h5>
+<h4 style="font-family:HeaderFont;" class="mb-3">Teach, grow your community, and earn</h4>
    
-   <p style="font-size:15px;" class="px-4">Join other developers helping each other grow on CitonHub.</p>
+   <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is a place for developers to earn from their passion across borders.</p>
 
     
-      <div class="mt-3">
+      <div class="mt-4">
 
-      <a href="/dashboard#/sign-up" class="homeButton  px-4 py-2 mx-1" style="font-size:13px;">Sign Up</a>
+      <a href="/dashboard#/sign-up" class="homeButton  px-4 py-2 mx-1" style="font-size:14px;">Get Started</a>
 
-      <a href="/dashboard#/login" class="homeButtonOutline  px-4 py-2 mx-1" style="font-size:13px;">Login</a>
-
-      
-     
        
       </div>
 
   </div> 
 </div>
 
+<!--ends-->
+
+
+
+<!-- wallet section-->
+<div class="d-md-block d-none" style="width:100%;height:780px;left:0%; margin-top:50px;" >
+
+
+    
+    <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:860px;">
+
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column"> 
+
+    <!-- what you can do -->
+<div class="col-12 text-center pt-5">
+
+<h4 style="font-weight:bold; color:white;" class="text-center mb-0 d-md-block d-none" >CitonHub is an<br> all-in-one platform where you can:</h4>
+
+
+</div>
+
 <!-- ends -->
 
 
-<!-- bottom text -->
-<div class="col-12 d-lg-block d-none" style="position:fixed; right:0%; height:auto; bottom:3%; z-index:83;">
-   
-  
-  <div class="row">
-     <div class="col-4 pl-4 pt-2 text-center">
+    <div class=" text-center mb-5"  style="height:400px;margin-top:-20px;z-index:;">
+<img src="imgs/credit-vector.png" alt="" style="z-index:1; height:100%;">
+</div>
 
-     <span  class="linkStyle mx-2"  style="color:#ffffff;"> &copy; CitonHub 2020</span>
-       
-     </div>
+<div class="text-center  px-5 mt-2" style="z-index:1;">
+<span  style="color:white; font-family:BodyFont; font-size:18px;">Grow your community <br>and earn from  subscriptions, donations, and paid sessions.</span>
+</div>
+    
+    </div>
 
-      <div class="col-4 pl-4 py-2 text-center">
 
-      <a href="https://twitter.com/citonhub" target="_blank" class="linkStyle mx-2"  style="color:#ffffff;"><i style="font-size:35px;" class="lab la-twitter"></i></a>
 
-     <a href="https://www.youtube.com/channel/UCODtu7pKNlZiIZM9-ZByC4g" target="_blank" class="linkStyle mx-2 "  style="color:#ffffff;"><i style="font-size:35px;" class="lab la-youtube"></i></a>
-       
-     </div>
 
-     <div class="col-4 text-center pt-2">
+</div>
+
+<div class="d-md-none d-block" style="width:100%;height:620px;left:0%; margin-top:30px;" >
+    
+    <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:620px;">
+
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column"> 
+
+      <!-- what you can do -->
+<div class="col-12 text-center pt-5 mt-2">
+
+
+<h5 style="font-weight:bold;  color:white;" class="text-center mb-0 d-md-none d-block mt-3 px-2" >CitonHub is an all-in-one platform where you can:</h5>
+
+</div>
+
+<!-- ends -->
+
+
+    <div class=" text-center mb-5"  style="height:220px;margin-top:-20px;z-index:;">
+<img src="imgs/credit-vector.png" alt="" style="z-index:1; height:100%;">
+</div>
+
+<div class="text-center  px-5 mt-2" style="z-index:1;">
+<span  style="color:white; font-family:BodyFont; font-size:15px;">Grow your community <br>and earn from  subscriptions, donations, and paid sessions.</span>
+</div>
+    
+    </div>
+
+
+
+
+</div>
+
+
+<!--ends-->
+
+<!--collaborate section-->
+
+<div class="d-md-block d-none " style="width:100%;height:500px; margin-top:130px;" >
     
     
 
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; margin-top:10px;" class="d-flex flex-column"> 
 
-     <a href="/contact-us" class="linkStyle mx-3"  style="color:#ffffff;"> Contact Us</a>
+    <div class=" text-center mb-2"  style="height:450px;margin-top:-170px;z-index:;">
+<img src="imgs/teach_dev_new.svg" alt="" style="z-index:1; height:100%;">
+</div>
 
-     <a href="/terms-of-use" class="linkStyle mx-3"  style="color:#ffffff;"> Terms of Use</a>
+<div class="text-center  px-5" style="z-index:1;">
 
-     <a href="/privacy-policy" class="linkStyle mx-3"  style="color:#ffffff;"> Privacy Policy</a>
-
-     </div>
-  </div>
-  
+<span  style=" font-family:BodyFont; font-size:18px;">Teach and mentor upcoming developers in your channel.</span>
+</div>
+    
+    </div>
 
 </div>
 
-<div class="col-12 d-lg-none d-block text-left" style="position:fixed; right:0%; height:auto; bottom:1%; z-index:83;">
-   
-   <div class="row">
-    <!-- layer 1 -->
-      <div class="col-6">
 
+<div class="d-md-none d-block " style="width:100%;height:300px; margin-top:90px;" >
+    
+    
+
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; margin-top:10px;" class="d-flex flex-column"> 
+
+    <div class=" text-center mb-2"  style="height:300px;margin-top:-170px;z-index:;">
+<img src="imgs/teach_dev_new.svg" alt="" style="z-index:1; height:100%;">
+</div>
+
+<div class="text-center  px-5" style="z-index:1;">
+
+<span  style=" font-family:BodyFont; font-size:15px;">Teach and mentor upcoming developers in your channel.</span>
+</div>
+    
+    </div>
+
+
+
+
+</div>
+
+<!--ends-->
+
+<!--teach and mentor section-->
+
+<div class="d-md-block d-none " style="width:100%;height:700px; margin-top:-90px;" >
+    
+    <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:780px;">
+
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column"> 
+
+    <div class=" text-center mb-2"  style="height:400px;margin-top:30px;z-index:;">
+<img src="imgs/collaboration.png" alt="" style="z-index:1; height:100%;"> 
+</div>
+
+<div class="text-center  px-5" style="z-index:1;">
+<span  style="font-family:BodyFont; font-size:18px;color:white;">Collaborate and guide other <br> developers on projects in over 25 programming languages.</span>
+</div>
+    
+    </div>
+
+
+
+
+</div>
+
+<div class="d-md-none d-block " style="width:100%;height:590px; margin-top:-50px;" >
+    
+    <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:590px;">
+
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column"> 
+
+    <div class=" text-center mb-2"  style="height:300px;margin-top:30px;z-index:;">
+<img src="imgs/collaboration.png" alt="" style="z-index:1; height:100%;"> 
+</div>
+
+<div class="text-center  px-5" style="z-index:1;">
+<span  style="font-family:BodyFont; font-size:15px;color:white;">Collaborate and guide other <br> developers on projects in over 25 programming languages.</span>
+</div>
+    
+    </div>
+
+
+
+
+</div>
+
+
+<!--ends-->
+
+<!--features section-->
+
+<div class="features col-lg-12 px-0 mt-md-4">
+
+<h3 style="font-weight:bold;" class="text-center mb-2 d-md-block d-none" >Features for teaching and mentoring</h3>
+
+<h5 style="font-weight:bold;" class="text-center mb-2 d-md-none d-block px-4" >Features for teaching and mentoring</h5>
+
+<div  class=" mt-5 col-lg-8 offset-lg-2 d-flex flex-row flex-wrap"  style="align-items:center;justify-content:center;">
+
+
+<div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;">
       
+<div class="box d-flex flex-row" style="height:170px;width:170px;align-items:center;justify-content:center;border-radius:7px;" >
+      <i class="las la-phone" style="font-size:55px; color:white;"></i>
+</div>
+
+<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none">Voice Chat</p>
+
+<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block">Voice Chat</p>
+
+</div>
+
+
+<div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
       
-      </div>
-      <div class="col-6">
-      <a href="https://blog.citonhub.com" target="_blank" class="linkStyle mx-1"  style="color:#ffffff; font-size:13px;"> Blog</a>
-      </div>
+<div class="box" style="height:170px;width:170px; background:; border-radius:7px;" >
+<i class="las la-laptop-code" style="font-size:55px; color:white;"></i>
+</div>
 
-   <!-- ends -->
 
-    <!-- layer 2 -->
-    <div class="col-6">
+<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none">Screen sharing</p>
+
+<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block">Screen sharing</p>
+</div>
+
+
+<div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
       
-      </div>
-      <div class="col-6">
-      <a href="/contact-us" class="linkStyle mx-1"  style="color:#ffffff;font-size:13px;"> Contact Us</a>
-      </div>
+<div class="box" style="height:170px;width:170px; background:;border-radius:7px;" >
+<i class="las la-terminal" style="font-size:55px; color:white;"></i>
+</div>
 
-   <!-- ends -->
+<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none">Live coding</p>
 
-    <!-- layer 3 -->
-    <div class="col-6">
-
-    <a href="https://twitter.com/citonhub" target="_blank" class="linkStyle mx-1 "  style="color:#ffffff;"><i style="font-size:20px;" class="lab la-twitter"></i></a>
-
-    <a href="https://www.youtube.com/channel/UCODtu7pKNlZiIZM9-ZByC4g" target="_blank" class="linkStyle mx-1 "  style="color:#ffffff;"><i style="font-size:20px;" class="lab la-youtube"></i></a>
-      </div>
-      <div class="col-6">
-      <a href="/terms-of-use" class="linkStyle mx-1"  style="color:#ffffff;font-size:13px;"> Terms of Use</a>
-      </div>
-
-   <!-- ends -->
-
-    <!-- layer 4 -->
-    <div class="col-6">
-      <span class="linkStyle mx-1"  style="color:#ffffff;font-size:13px;">&copy; CitonHub 2021</span>
-      </div>
-      <div class="col-6">
-      <a href="/privacy-policy" class="linkStyle mx-1"  style="color:#ffffff;font-size:13px;"> Privacy Policy</a>
-      </div>
-
-   <!-- ends -->
-   </div>
-  
-  
+<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block">Live coding</p>
 
 </div>
+
+
+<div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
+      
+<div class="box" style="height:170px;width:170px; background:;border-radius:7px;" >
+<i class="las la-user-friends" style="font-size:55px; color:white;"></i>
+</div>
+
+<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none">Collaborate on projects</p>
+
+<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block">Collaborate on projects</p>
+
+</div>
+
+<div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
+      
+<div class="box" style="height:170px;width:170px; background:;border-radius:7px;" >
+<i class="las la-trophy" style="font-size:55px; color:white;"></i>
+</div>
+
+<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none">Organize challenges</p>
+
+<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block">Organize challenges</p>
+</div>
+
+<div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
+      
+<div class="box" style="height:170px;width:170px; background:;border-radius:7px;" >
+<i class="las la-book" style="font-size:55px; color:white;"></i>
+</div>
+
+<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none text-center">Document your teaching process in diaries</p>
+
+<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block text-center">Document your teaching process in diaries</p>
+</div>
+
+</div>
+</div>
+
+<!--smaller screens-->
+
+<!--ends-->
+
+<!-- get started -->
+<div class="col-12 text-center py-3 pt-5">
+
+<a href="/dashboard#/sign-up" class="homeButton ml-2 py-3 px-4 d-md-inline-block d-none">Get Started</a>
+
+<a href="/dashboard#/sign-up" class="homeButton  px-4 py-2 mx-1 d-md-none d-inline-block" style="font-size:14px;">Get Started</a>
+
+</div>
+
 <!-- ends -->
 
-<!-- programmer illustration -->
-<div class="col-lg-6 d-lg-block d-none" style="position:fixed; right:0%; height:60%; top:20%; z-index:80;">
-   
-  
-   <img src="imgs/homemain.png" height="100%" width="80%">
-  
 
-</div>
-
-<div class="col-lg-6 d-lg-none d-block text-center" style="position:fixed; right:0%; left:0%; height:58%; bottom:0%; z-index:70;">
-   
-  
-   <img src="imgs/homemain.png" height="70%" width="80%">
-  
-
-</div>
+<!-- Footer component -->
+@include('shared.footer')
 <!-- ends -->
 
 
-<!-- bottom background image -->
-<div style="position:fixed;width:100%; height:26%; bottom:0; z-index:20;" class="d-lg-block d-none">
-<img src="imgs/bottomLg.png" height="100%" width="100%">
-</div>
 
-<div  style="position:fixed;width:100%; height:20%; bottom:0; z-index:20;" class="d-lg-none d-block">
-<img src="imgs/bottomSm.png" height="100%" width="100%">
-</div>
-<!-- ends -->
-
-<!-- Main background image -->
-<div style="position:fixed;width:100%; height:100%;opacity: 0.5;" class="d-lg-block d-none">
-<img src="imgs/backgroundHome.png" height="100%" width="100%">
-</div>
-
-<div style="position:fixed;width:100%; height:100%; left:-425px; top:-5px; opacity: 0.5;" class="d-lg-none d-block">
-<img src="imgs/backgroundHome.png" height="817px" width="1226px">
-</div>
-<!-- ends -->
 
 </div>
-
-
-
-
  @endsection
 
  @section('scripts')
