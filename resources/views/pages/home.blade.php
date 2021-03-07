@@ -93,7 +93,7 @@
      <h1 style="font-family:HeaderFont;" class="mb-3 mt-4">Teach, grow your community, and earn</h1>
 
      <div class="px-3">
-     <p style="font-size:20px;font-family:BodyFont;" class="px-5">CitonHub is a place <br>for developers to earn from their passion across borders.</p>
+     <p style="font-size:20px;font-family:BodyFont;" class="px-5">CitonHub is a place <br>for developers to teach and earn from their passion across borders.</p>
      </div>   
    
 
@@ -119,7 +119,7 @@
 
 <h4 style="font-family:HeaderFont;" class="mb-3 px-2">Teach, grow your community, and earn</h4>
    
-   <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is a place for developers to earn from their passion across borders.</p>
+   <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is a place for developers to teach and earn from their passion across borders.</p>
 
     
       <div class="mt-4">
