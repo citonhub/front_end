@@ -175,7 +175,7 @@
     
     <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:700px;">
 
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column mt-2"> 
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column mt-1"> 
 
       <!-- what you can do -->
 <div class="col-12 text-center pt-5 mt-5">
