@@ -117,7 +117,7 @@
 <div class="d-md-none d-block  " style="width:100%; margin-top:90px; margin-bottom:40px;">
 <div class=" text-center">
 
-<h4 style="font-family:HeaderFont;" class="mb-3 px-2">Teach, grow your community, and earn</h4>
+<h4 style="font-family:HeaderFont;" class="mb-3 px-3">Teach, grow your community, and earn</h4>
    
    <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is a place for developers to teach and earn from their passion across borders.</p>
 
