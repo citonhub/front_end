@@ -411,24 +411,12 @@
                                  </div>
 
                                   
-                                   <!-- show code button -->
+                               
+                               <div class="d-flex flex-row col-12 py-0" v-if="!this.$root.showRootReply">
 
-                                   <div class="col-12  py-1 text-right" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'"  >
+                                  <!-- scroll to buttom -->
 
-                                        <v-btn  @click="showCodeEditor" class="mb-2"   fab color="#ffffff"  style="z-index:9999999;">
-
-                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
-
-                              </v-btn>
-
-                                   </div>
-                              
-
-                              <!-- ends -->
-
-                                <!-- scroll to buttom -->
-
-                                   <div class="col-12  py-1 text-left" v-if="that.$root.Messages && !this.$root.showRootReply" >
+                                   <div class="mr-auto py-0  " v-if="that.$root.Messages && !this.$root.showRootReply" >
 
                                          <!-- scroll to bottom  -->
 
@@ -436,7 +424,7 @@
 
                                    <template v-if="that.$root.Messages.length >  0">
 
-                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible" class="mb-2"   fab x-small color="#ffffff"  style="z-index:9999999;  ">
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"  class="mb-n5"  fab x-small color="#ffffff"  style="z-index:9999999;  ">
 
                                <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
 
@@ -451,7 +439,25 @@
                               <!-- ends -->
 
                                    </div>
+
+                                       <!-- show code button -->
+
+                                   <div class="  ml-auto" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'"  >
+
+                                        <v-btn  @click="showCodeEditor" class="mb-2"   fab color="#ffffff"  style="z-index:9999999;">
+
+                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
+
+                              </v-btn>
+
+                                   </div>
                               
+
+                              <!-- ends -->
+                              
+
+                               </div>
+                               
 
                               <!-- ends -->
 
@@ -1146,24 +1152,12 @@
                             <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
                                  </div>
 
-                                 <!-- show code button -->
+                             
+                              <div class="d-flex flex-row col-12 py-0 px-1" v-if="!this.$root.showRootReply">
 
-                                   <div class="col-12  py-1 text-right" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'" >
+                                  <!-- scroll to buttom -->
 
-                                        <v-btn  @click="showCodeEditor" class="mb-2"    fab color="#ffffff"  style="z-index:9999999;">
-
-                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
-
-                              </v-btn>
-
-                                   </div>
-                              
-
-                              <!-- ends -->
-
-                               <!-- scroll to buttom -->
-
-                                   <div class="col-12  py-1 text-left" v-if="that.$root.Messages && !this.$root.showRootReply" >
+                                   <div class="mr-auto py-0  " v-if="that.$root.Messages && !this.$root.showRootReply" >
 
                                          <!-- scroll to bottom  -->
 
@@ -1171,7 +1165,7 @@
 
                                    <template v-if="that.$root.Messages.length >  0">
 
-                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible" class="mb-2"   fab x-small color="#ffffff"  style="z-index:9999999;  ">
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"  class="mb-n4"  fab x-small color="#ffffff"  style="z-index:9999999;  ">
 
                                <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
 
@@ -1186,6 +1180,27 @@
                               <!-- ends -->
 
                                    </div>
+
+                                       <!-- show code button -->
+
+                                   <div class="  ml-auto" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'"  >
+
+                                        <v-btn  @click="showCodeEditor" class="mb-2"   fab color="#ffffff"  style="z-index:9999999;">
+
+                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
+
+                              </v-btn>
+
+                                   </div>
+                              
+
+                              <!-- ends -->
+                              
+
+                               </div>
+
+
+                                   
                               
 
                               <!-- ends -->
