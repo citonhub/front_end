@@ -426,6 +426,35 @@
 
                               <!-- ends -->
 
+                                <!-- scroll to buttom -->
+
+                                   <div class="col-12  py-1 text-left" v-if="that.$root.Messages && !this.$root.showRootReply" >
+
+                                         <!-- scroll to bottom  -->
+
+                                <template v-if="that.$root.Messages">
+
+                                   <template v-if="that.$root.Messages.length >  0">
+
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible" class="mb-2"   fab x-small color="#ffffff"  style="z-index:9999999;  ">
+
+                               <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
+
+                              </v-btn>
+
+                                   </template>
+
+                                </template>
+
+                            
+
+                              <!-- ends -->
+
+                                   </div>
+                              
+
+                              <!-- ends -->
+
                                   <!-- reply view -->
 
                                   <div class="col-12  py-1" v-if="this.$root.showRootReply" >
@@ -724,24 +753,7 @@
 
                          
 
-                               <!-- scroll to bottom button -->
-
-                                <template v-if="that.$root.Messages">
-
-                                   <template v-if="that.$root.Messages.length >  0">
-
-                                     <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible && that.$root.Messages.length > 0"   fab x-small color="#ffffff" class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:14%; left:1%;">
-
-                               <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
-
-                              </v-btn>
-
-                                   </template>
-
-                                </template>
-
-                              <!-- ends -->
-
+                            
                                <!-- share diary -->
                           
                            <template v-if="that.$root.selectedSpace.type ==  'Bot'">
@@ -1112,25 +1124,7 @@
 
                            
 
-                               <!-- scroll to bottom button -->
-
-                                <template v-if="that.$root.Messages">
-
-                                   <template v-if="that.$root.Messages.length >  0">
-
-                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"   fab x-small color="#ffffff"  style="z-index:9999999;  position:fixed;  bottom:16%; left:2%; ">
-
-                               <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
-
-                              </v-btn>
-
-                                   </template>
-
-                                </template>
-
-                            
-
-                              <!-- ends -->
+                             
 
                               <!-- share diary -->
                           
@@ -1161,6 +1155,35 @@
                                <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
 
                               </v-btn>
+
+                                   </div>
+                              
+
+                              <!-- ends -->
+
+                               <!-- scroll to buttom -->
+
+                                   <div class="col-12  py-1 text-left" v-if="that.$root.Messages && !this.$root.showRootReply" >
+
+                                         <!-- scroll to bottom  -->
+
+                                <template v-if="that.$root.Messages">
+
+                                   <template v-if="that.$root.Messages.length >  0">
+
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible" class="mb-2"   fab x-small color="#ffffff"  style="z-index:9999999;  ">
+
+                               <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
+
+                              </v-btn>
+
+                                   </template>
+
+                                </template>
+
+                            
+
+                              <!-- ends -->
 
                                    </div>
                               
