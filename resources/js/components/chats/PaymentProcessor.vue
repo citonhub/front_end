@@ -137,7 +137,7 @@
     
 
      <div class="  col-6  px-1 my-0 py-2 " >
-                     <v-card   :color="support_type == 'once' ? '#F3F8FC' :''" @click="support_type = 'once'" class="px-1 py-1 " :style="'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                     <v-card   :color="support_type == 'once' ? '#3C87CD' :''" @click="support_type = 'once'" class="px-1 py-1 " :style="support_type == 'once' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
                         <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                        <img src="/imgs/support.png" height="40" >
@@ -152,7 +152,7 @@
                  </div>
 
                   <div class="  col-6  px-1 my-0 py-2 " >
-                     <v-card :color="support_type == 'recurrent' ? '#F3F8FC' :''" @click="HandleSupport('recurrent')" class="px-1 py-1 appBox" :style="'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                     <v-card :color="support_type == 'recurrent' ? '#3C87CD' :''" @click="HandleSupport('recurrent')" class="px-1 py-1 appBox" :style="support_type == 'recurrent' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
                         <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                        <img src="/imgs/subscribe.png" height="40" >

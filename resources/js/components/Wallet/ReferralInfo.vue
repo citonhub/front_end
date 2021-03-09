@@ -49,8 +49,14 @@
     
      <div style="font-size:13px; color:gray;font-family:MediumFont;">Your referral link</div>
 
-     <div class="d-flex flex-row pt-2 px-2" style="align-items:center;">
-      <v-btn x-small color="#3C87CD" @click="copyMessage()"  style="color:white;text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mr-3 " >Copy</v-btn>
+      <div style="font-size:13px;font-family:BodyFont;" class="py-2 ">
+        Invite your friends to teach on CitonHub and get 5% of their first 20 transactions.
+      </div>
+
+     <div class="d-flex flex-row pt-2 " style="align-items:center;">
+
+
+      <v-btn x-small color="#3C87CD" @click="copyMessage()"  style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mr-3 " >Copy link</v-btn>
 
       <v-btn icon class="mr-3 " @click="shareToWhatsapp" x-small>  <v-icon color="#4FCE5D" style="font-size:25px;" >las la-whatsapp</v-icon> </v-btn>
 
@@ -65,7 +71,7 @@
     
      <div style="font-size:13px; color:gray;font-family:MediumFont;">Referred users</div>
 
-    <div class="mt-1 d-flex flex-column px-2 scroller" style="height:250px;overflow-x:hidden; overflow-y:auto;">
+    <div class="mt-1 d-flex flex-column px-2 scroller" style="height:230px;overflow-x:hidden; overflow-y:auto;">
    
    <template v-if="loadingUser">
       <div  class="col-12 mt-3 text-center">

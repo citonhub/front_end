@@ -28,8 +28,8 @@
 
                <div class="col-12 px-1 py-1 d-flex flex-row">
 
-                  <div class="  col-4  px-1 my-0 py-2 " >
-                     <v-card  @click="selectPaymentOption('support')" :color="payment_option == 'support' ? '#F3F8FC' : ''"  class="px-1 py-1 appBox" :style="'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                      <div class="  col-4  px-1 my-0 py-2 " >
+                     <v-card  @click="selectPaymentOption('support')" :color="payment_option == 'support' ? '#3C87CD' : ''"  class="px-1 py-1 appBox" :style="payment_option == 'support' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
                         <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                       <i style="font-size:30px;" :class="'las la-hands-helping'"></i>
@@ -39,12 +39,12 @@
                                    </div>
                         </div>
 
-                          <v-btn x-small icon style="position:absolute; top:3%; right:2%;" ><v-icon style="font-size:18px;">las la-exclamation-circle</v-icon></v-btn>
+                          
                      </v-card>
                  </div>
 
                   <div class="  col-4  px-1 my-0 py-2 " >
-                     <v-card  @click="selectPaymentOption('subscription')" :color="payment_option == 'subscription' ? '#F3F8FC' : ''" class="px-1 py-1 appBox" :style="'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                     <v-card  @click="selectPaymentOption('subscription')" :color="payment_option == 'subscription' ? '#3C87CD' : ''"  class="px-1 py-1 appBox" :style="payment_option == 'subscription' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
                         <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                       <i style="font-size:30px;" :class="'las la-credit-card'"></i>
@@ -54,12 +54,12 @@
                                    </div>
                         </div>
 
-                          <v-btn x-small icon style="position:absolute; top:3%; right:2%;" ><v-icon style="font-size:18px;">las la-exclamation-circle</v-icon></v-btn>
+                        
                      </v-card>
                  </div>
 
                   <div class="  col-4  px-1 my-0 py-2 " >
-                     <v-card @click="selectPaymentOption('one_time')" :color="payment_option == 'one_time' ? '#F3F8FC' : ''" class="px-1 py-1 appBox" :style="'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                     <v-card @click="selectPaymentOption('one_time')" :color="payment_option == 'one_time' ? '#3C87CD' : ''"  class="px-1 py-1 appBox" :style="payment_option == 'one_time' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
                         <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                       <i style="font-size:30px;" :class="'las la-money-bill-wave'"></i>
@@ -69,10 +69,11 @@
                                    </div>
                         </div>
 
-                          <v-btn x-small icon style="position:absolute; top:3%; right:2%;" ><v-icon style="font-size:18px;">las la-exclamation-circle</v-icon></v-btn>
+                        
                      </v-card>
                  </div>
 
+                 
                </div>
          
         </div>

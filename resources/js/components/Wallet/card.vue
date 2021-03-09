@@ -57,7 +57,9 @@
             <img height="50" src="/imgs/credit-card-chip.png" class="pl-2 pt-2" >
 
            
-
+              <div class="ml-auto pt-1 pr-2">
+                 <span style="font-size:11px;font-family:BodyFont;color:white;">Click to view card</span>
+              </div>
           
           </div>
 
