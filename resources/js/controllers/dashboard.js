@@ -2100,7 +2100,10 @@ const app = new Vue({
 
           if(newValue){
             if( this.$root.chatComponent){
+              
+              
               window.iziToast.destroy();
+              
               this.$root.chatComponent.showAlert('Nice!','You are back online','success','bottomRight',3000);
 
              
@@ -3370,8 +3373,9 @@ const app = new Vue({
 },
 updateSpaceMessages: function(showAlert = false){
 
-
+     
    if(showAlert){
+   
     this.$root.chatComponent.showAlert('Loading...','Checking for new messages','info','bottomRight',false);
    }
 
@@ -3395,8 +3399,12 @@ updateSpaceMessages: function(showAlert = false){
 
 })
 .catch(error => {
+
+    setTimeout(() => {
+      this.updateSpaceMessages();
+    }, 1000);
   
-  this.updateSpaceMessages();
+ 
  
 })
 
