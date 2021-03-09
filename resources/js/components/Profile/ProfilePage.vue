@@ -280,9 +280,17 @@
 
                      <template v-else>
 
+                          <div  class="col-12 mt-4 text-center">
+   {{userData.username}} has no project yet
+                          </div>
+
                         <div  class="col-12 mt-4 text-center">
 
-                    <span style="font-size:13px;color:grey;font-family:BodyFont;">{{userData.username}} has no project yet</span>
+                    <span  style="font-size:13px;color:grey;font-family:BodyFont;">You have no project at the moment</span>
+                    <br>
+                     <v-btn small rounded color="#3C87CD" class="mt-2" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
+                       <span style="color:white;text-transform:capitalize;">Start a new project</span> 
+                  </v-btn>
                       </div>
 
                      </template>
