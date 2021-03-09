@@ -410,6 +410,21 @@
                             <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
                                  </div>
 
+                                  
+                                   <!-- show code button -->
+
+                                   <div class="col-12  py-1 text-right" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'"  >
+
+                                        <v-btn  @click="showCodeEditor" class="mb-2"   fab color="#ffffff"  style="z-index:9999999;">
+
+                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
+
+                              </v-btn>
+
+                                   </div>
+                              
+
+                              <!-- ends -->
 
                                   <!-- reply view -->
 
@@ -420,6 +435,7 @@
                                  </div>
 
                                   <!-- ends -->
+
 
                                   <div class="px-2 py-1 card" style="background:#ffffff; border-radius:0px;">
                                      
@@ -706,11 +722,7 @@
 
                       </div>
 
-                           <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'" medium fab color="#ffffff"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
-
-                               <v-icon style="font-size:25px; color:#3C87CD;">las la-code</v-icon>
-
-                              </v-btn>
+                         
 
                                <!-- scroll to bottom button -->
 
@@ -1098,11 +1110,7 @@
      </template>
                       
 
-                             <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot' && this.$root.showCodeboxBtn"   fab color="#ffffff"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
-
-                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
-
-                              </v-btn>
+                           
 
                                <!-- scroll to bottom button -->
 
@@ -1143,6 +1151,21 @@
                                 <div class="col-12  py-1"  v-if="that.$root.showEmojiBox">
                             <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
                                  </div>
+
+                                 <!-- show code button -->
+
+                                   <div class="col-12  py-1 text-right" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'" >
+
+                                        <v-btn  @click="showCodeEditor" class="mb-2"    fab color="#ffffff"  style="z-index:9999999;">
+
+                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
+
+                              </v-btn>
+
+                                   </div>
+                              
+
+                              <!-- ends -->
 
                                  <!-- reply view -->
 
