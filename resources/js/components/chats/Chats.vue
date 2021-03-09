@@ -1561,6 +1561,8 @@ Vue.directive('observe-visibility', ObserveVisibility)
 import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 
+window.iziToast = iziToast;
+
 
 import { VEmojiPicker } from 'v-emoji-picker';
 
@@ -1791,7 +1793,7 @@ export default {
      methods:{
 
   
-        showAlert:function(title='',message,type){
+        showAlert:function(title='',message,type,position = 'bottomRight',timeout = 2000){
        
        if(type == 'info'){
 
@@ -1800,8 +1802,8 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-        timeout:2000,
-       position: 'bottomRight',
+        timeout:timeout,
+       position: position,
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -1816,7 +1818,7 @@ export default {
        message: message,
        zindex:'9999999999',
         timeout:2000,
-       position: 'bottomRight',
+       position: position,
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -1828,10 +1830,10 @@ export default {
           iziToast.warning(
         { 
        title: title,
-        timeout:2000,
+        timeout:timeout,
        message: message,
        zindex:'9999999999',
-       position: 'bottomRight',
+       position: position,
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -1844,9 +1846,9 @@ export default {
         { 
        title: title,
        message: message,
-        timeout:2000,
+        timeout:timeout,
        zindex:'9999999999',
-       position: 'bottomRight',
+       position: position,
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }

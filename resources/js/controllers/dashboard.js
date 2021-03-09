@@ -2097,8 +2097,21 @@ const app = new Vue({
       InternetConnected:function(newValue, oldValue){
 
           if(newValue){
+            if( this.$root.chatComponent){
+              window.iziToast.destroy();
+              this.$root.chatComponent.showAlert('Nice!','You are back online','success','bottomRight',3000);
+
+              this.$root.chatComponent.showAlert('Loading...','Checking for new messages','info','bottomRight',false);
+            }
             console.log('you are connected')
           }else{
+
+            if( this.$root.chatComponent){
+              this.$root.chatComponent.showAlert('Opps!','You are offline','error','bottomRight',false);
+
+              
+            }
+
             console.log('Internet connection was lost')
           }
 
@@ -3363,6 +3376,13 @@ updateSpaceMessages: function(){
     let returnData = response.data;
       
       this.handleSpaceData(returnData);
+
+
+
+       if(window.iziToast){
+        window.iziToast.destroy();
+       }
+     
 }
 
 
