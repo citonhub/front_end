@@ -1153,7 +1153,7 @@
                                  </div>
 
                              
-                              <div class="d-flex flex-row col-12 py-0 px-1" v-if="!this.$root.showRootReply">
+                              <div class="d-flex flex-row col-12 py-0 px-2" v-if="!this.$root.showRootReply">
 
                                   <!-- scroll to buttom -->
 
