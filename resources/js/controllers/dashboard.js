@@ -2089,7 +2089,9 @@ const app = new Vue({
 
         if(!newValue && this.$root.chatComponent){
 
-            this.updateSpaceMessages();
+            this.updateSpaceMessages(true);
+
+           
 
             }
          
@@ -2101,7 +2103,7 @@ const app = new Vue({
               window.iziToast.destroy();
               this.$root.chatComponent.showAlert('Nice!','You are back online','success','bottomRight',3000);
 
-              this.$root.chatComponent.showAlert('Loading...','Checking for new messages','info','bottomRight',false);
+             
             }
             console.log('you are connected')
           }else{
@@ -3366,7 +3368,12 @@ const app = new Vue({
     }
    
 },
-updateSpaceMessages: function(){
+updateSpaceMessages: function(showAlert = false){
+
+
+   if(showAlert){
+    this.$root.chatComponent.showAlert('Loading...','Checking for new messages','info','bottomRight',false);
+   }
 
   axios.get( '/check-for-new-space-messages/' + this.$root.userDeviceId)
  .then(response => {
