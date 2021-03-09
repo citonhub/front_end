@@ -142,7 +142,7 @@
                                    <div class="text-center">
                                        <img src="/imgs/support.png" height="40" >
                                       <div>
-                                         <span style="font-size:13px; font-family:BodyFont;">One-time</span>
+                                         <span style="font-size:13px; font-family:MediumFont;">One-time</span>
                                       </div>
                                    </div>
                         </div>
@@ -157,7 +157,7 @@
                                    <div class="text-center">
                                        <img src="/imgs/subscribe.png" height="40" >
                                       <div>
-                                         <span style="font-size:13px; font-family:BodyFont;">Monthly</span>
+                                         <span style="font-size:13px; font-family:MediumFont;">Monthly</span>
                                       </div>
                                    </div>
                         </div>
@@ -368,7 +368,7 @@ export default {
 
         if(this.spaceData.image_name){
 
-            SpaceImage = 'http://citonhubnew.com/imgs/space/thumbnails/' +  this.spaceData.image_name + '.' + this.spaceData.image_extension;
+            SpaceImage = 'https://www.citonhub.com/imgs/space/thumbnails/' +  this.spaceData.image_name + '.' + this.spaceData.image_extension;
 
         }
 
