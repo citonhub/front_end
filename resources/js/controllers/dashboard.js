@@ -2036,6 +2036,10 @@ const app = new Vue({
     planSubscriptions:[],
     cardViewComponent:undefined,
     auth_device_id:'',
+    MessagesFull:[],
+    messageIsProcessing:false,
+    messageQueues:[],
+    returnedDataArray:[],
      },
      mounted: function () {
       window.thisUserState = this;
@@ -2734,8 +2738,21 @@ const app = new Vue({
                    if(e.data.device_id == this.$root.userDeviceId){
 
                     let returnData = e.data.data;
-      
-                    this.handleSpaceData(returnData);
+
+                      this.returnedDataArray.push(returnData);
+
+                       if(!this.messageIsProcessing){
+
+                        let firstData = this.returnedDataArray.shift();
+                      
+
+                        this.handleSpaceData(firstData);
+
+                        
+                         
+                       }
+                       
+                     
  
 
                    }
@@ -3342,6 +3359,56 @@ const app = new Vue({
         this.$root.sortChatList();
 
       }
+
+      if(actionName == 'messager'){
+
+         if(this.returnedDataArray.length > 0){
+
+          let firstData = this.returnedDataArray.shift();
+
+
+           if(fromUnsent){
+
+              // update unread messages into local storage
+   
+       let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + extraData.space_id + this.$root.username);
+   
+       unreadStoredMsg.then((result)=>{
+   
+      let finalResultUnread = JSON.parse(result);
+   
+       finalResultUnread.push(extraData.message)
+   
+   
+       localforage.setItem('unread_messages_' + extraData.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
+         
+        this.handleSpaceData(firstData);
+        }).then( (value) => {
+       
+        
+   
+        }).catch(function (err) {
+       console.log(err)
+       // we got an error   
+        });
+   
+       });
+
+           }else{
+
+            this.handleSpaceData(firstData);
+
+           }
+
+            
+
+        
+
+         }else{
+          this.messageIsProcessing = true;
+         }
+
+      }
       
 
      
@@ -3379,6 +3446,7 @@ const app = new Vue({
   }); 
 
   },
+  
   sortChatList: function(){
     if(this.ChatList != undefined){
 
@@ -3416,231 +3484,269 @@ updateSpaceMessages: function(showAlert = false){
 
 },
 
-handleSpaceData: function(returnData){
+spaceMessageProcessor: function(space,allSpace,count){
 
-  returnData.forEach(space => {
+  return new Promise((resolve) => {
 
-     // check for space in chatlist
+
+
+       // check for space in chatlist
     
 
-      this.$root.addSpaceToChatList(space.space_id);
+       this.$root.addSpaceToChatList(space.space_id);
 
  
 
 
-    if( this.$root.selectedSpace.space_id != space.space_id || this.$root.selectedSpace.length == 0){
-
-       // if the space is not currently opened
-
-       // show new messages first
-
-       let newMessagesFull = space.new_messages;
-
-       newMessagesFull.forEach((message)=>{
-
-          // update unread in chatlist
-
-        this.ChatList.map((chatspace)=>{
-
-          if(chatspace.space_id == space.space_id){
-            chatspace.unread += 1;
-            chatspace.message_track = new Date();
-            chatspace.last_message = [message];
-          } 
-        });
-
-          
-
-         this.$root.updateSpaceTracker(space.space_id,message);
-
-
-       })
-
-       
-       // save to local database
-         let storedMsg = this.$root.getLocalStore('full_space_' + space.space_id  + this.$root.username);
+       if( this.$root.selectedSpace.space_id != space.space_id || this.$root.selectedSpace.length == 0){
    
-    storedMsg.then((result)=>{
-  
-      if(result != null){
-
-         // update space messages
-       let parsedResult = JSON.parse(result);
-
-       let MessagesFull = parsedResult;
-
-       let newMessages = space.new_messages;
-       
-
-        newMessages.forEach((message)=>{
-
-           let thismessage = MessagesFull.messages.filter((eachmessage)=>{
-            return eachmessage.message_id == message.message_id
-           });
-
-           if(thismessage.length == 0){
-
-                     
-            MessagesFull.messages.push(message);
-
-       
-          
-            this.$root.clearUnreadMessageRemote(message.message_id);
-           
-         
-              // update into local storage
-           this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,false,'messager');
-
-             // update unread messages into local storage
-
-      let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + message.space_id + this.$root.username);
-
-      unreadStoredMsg.then((result)=>{
-
-     let finalResultUnread = JSON.parse(result);
-
-      finalResultUnread.push(message)
-
-
-      localforage.setItem('unread_messages_' + space.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
-        
-
-       }).then(function (value) {
-       // we got our value
-
-       }).catch(function (err) {
-      console.log(err)
-      // we got an error   
-       });
-
-      });
-
-           }
-
-      
-
-           
-
-        });
-
-         
-
-
-         
-      }else{
+          // if the space is not currently opened
    
-        // if this space does not exist the user database yet
-     
-
-        // save unread in local storage
-       localforage.setItem('unread_messages_' + space.space_id + this.$root.username,JSON.stringify(returnData)).then( ()=> {
-
-
-       }).then(function (value) {
-      // we got our value
-
-     }).catch(function (err) {
-     console.log(err)
-      // we got an error
-      });
-
-    
-      }
+          // show new messages first
    
-
-      
-
-    });
-
-    }else{
-
-      // if the space is opened
-
-       // show new messages first
-
-       let newMessagesFull = space.new_messages;
-
-       newMessagesFull.forEach((messages)=>{
-
-     
-
+          let newMessagesFull = space.new_messages;
+   
+          newMessagesFull.forEach((message)=>{
+   
              // update unread in chatlist
-
-      this.ChatList.map((chatspace)=>{
-
-        if(chatspace.space_id == space.space_id){
-        
-          chatspace.message_track = new Date();
-          chatspace.last_message = [messages];
-        } 
-      });
-
-
+   
+           this.ChatList.map((chatspace)=>{
+   
+             if(chatspace.space_id == space.space_id){
+               chatspace.unread += 1;
+               chatspace.message_track = new Date();
+               chatspace.last_message = [message];
+             } 
+           });
+   
+             
+   
+            this.$root.updateSpaceTracker(space.space_id,message);
+   
+   
+          })
+   
+          
+          // save to local database
+            let storedMsg = this.$root.getLocalStore('full_space_' + space.space_id  + this.$root.username);
+      
+       storedMsg.then((result)=>{
      
-          messages.initialSize = 200
-          messages.id = messages.message_id
-          messages.index_count = this.$root.returnLastIndex() + 1;
+         if(result != null){
+   
+            // update space messages
+          let parsedResult = JSON.parse(result);
+   
+          let MessagesFull = parsedResult;
+   
+          let newMessages = space.new_messages;
+          
+         for (let index = 0; index < newMessages.length; index++) {
+           let message = newMessages[index];
+        
+   
+           let thismessage = MessagesFull.messages.filter((eachmessage)=>{
+             return eachmessage.message_id == message.message_id
+            });
+   
+            if(thismessage.length == 0){
+   
+                      
+             MessagesFull.messages.push(message);
+   
+        
+           
+             this.$root.clearUnreadMessageRemote(message.message_id);
+            
+          
+              
+   
+          
+   
+            }
+   
+       
+   
+           
+         }
+           
+              // update into local storage
+                 let messageTrackData = {
+                   count: count,
+                   space_id: space.space_id,
+                   message: newMessages[0]
+                 };
 
-             this.$root.Messages.push(messages);
+             this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,true,'messager',messageTrackData);
+   
+            
+   
+   
+            
+         }else{
+      
+           // if this space does not exist the user database yet
+        
+   
+           // save unread in local storage
+          localforage.setItem('unread_messages_' + space.space_id + this.$root.username,JSON.stringify(allSpace)).then( ()=> {
+   
+   
+          }).then(function (value) {
+         // we got our value
+   
+        }).catch(function (err) {
+        console.log(err)
+         // we got an error
+         });
+   
+       
+         }
+      
+   
+         
+   
+       });
+   
+       }else{
+   
+         // if the space is opened
+   
+          // show new messages first
+   
+          let newMessagesFull = space.new_messages;
+   
+          newMessagesFull.forEach((messages)=>{
+   
+        
+   
+                // update unread in chatlist
+   
+         this.ChatList.map((chatspace)=>{
+   
+           if(chatspace.space_id == space.space_id){
+           
+             chatspace.message_track = new Date();
+             chatspace.last_message = [messages];
+           } 
+         });
+   
+   
+        
+             messages.initialSize = 200
+             messages.id = messages.message_id
+             messages.index_count = this.$root.returnLastIndex() + 1;
+   
+                this.$root.Messages.push(messages);
+   
+                this.$root.updateSpaceTracker(space.space_id,messages);
+   
+   
+    
+   
+   
+          })
+   
+          // save to local database
+          let storedMsg = this.$root.getLocalStore('full_space_' + space.space_id  + this.$root.username);
+      
+       storedMsg.then((result)=>{
+   
+        
+             
+         if(result != null){
+   
+           // update space local storage and show message to user
+          
+          let parsedResult = JSON.parse(result);
+   
+          let MessagesFull = parsedResult;
+   
+          let newMessages = space.new_messages;
+               
+           newMessages.forEach((messages)=>{
+   
+             let thismessage = MessagesFull.messages.filter((eachmessage)=>{
+               return eachmessage.message_id == messages.message_id 
+              });
+   
+              if(thismessage == 0){
+   
+             MessagesFull.messages.push(messages);
+   
+             
+   
+               this.$root.clearUnreadMessageRemote(messages.message_id);
+   
+              }
+   
+            
+   
+              
+   
+           });
 
-             this.$root.updateSpaceTracker(space.space_id,messages);
+             // update into local storage
+             let messageTrackData = {
+              count: count,
+              allSpace: allSpace
+            };
 
+        this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,false,'messager',messageTrackData);
+   
+            
+         }
+   
+   
+       });
+         
+   
+       }
+   
+       this.sortChatList();
+   
+    
+  });
 
+},
+handleQueueingMessages:function(){
+
+   for (const space of this.messageQueues) {
+
+    
+     this.handleSpaceData(space);
+
+     let newMessageQueue = this.messageQueues.filter((queue)=>{
+    return queue != space;
+     })
+     
+     this.messageQueues = newMessageQueue;
+     
+   }
+
+},
+
+handleSpaceData: function(spaceData){
+
+  
+
+    this.handleMessageSequence(spaceData,0);
+
+    this.messageIsProcessing = true;
+ 
  
 
 
-       })
+ },
+ handleMessageSequence:function(allSpace,count){
 
-       // save to local database
-       let storedMsg = this.$root.getLocalStore('full_space_' + space.space_id  + this.$root.username);
+  
+
+  this.spaceMessageProcessor(allSpace[count],allSpace,count)
+  .then(count => {
    
-    storedMsg.then((result)=>{
-
-     
-          
-      if(result != null){
-
-        // update space local storage and show message to user
-       
-       let parsedResult = JSON.parse(result);
-
-       let MessagesFull = parsedResult;
-
-       let newMessages = space.new_messages;
-            
-        newMessages.forEach((messages)=>{
-
-          let thismessage = MessagesFull.messages.filter((eachmessage)=>{
-            return eachmessage.message_id == messages.message_id
-           });
-
-           if(thismessage == 0){
-
-          MessagesFull.messages.push(messages);
-
-            this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull);
-
-            this.$root.clearUnreadMessageRemote(messages.message_id);
-
-           }
-
-         
-
-           
-
-        });
-
-         
-      }
-
-
-    });
-      
-
-    }
-
-    this.sortChatList();
-});
+   console.log('next')
+  })
 
  },
  updateLocalStorage: function(){

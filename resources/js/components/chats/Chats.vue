@@ -2321,6 +2321,9 @@ goToChatList:function(){
 
                      this.$root.sortChatList();
 
+                      this.SetUnread();
+
+
                         }
 
                         this.openChat(response.data.space.space_id,true)
@@ -2726,7 +2729,7 @@ goToChatList:function(){
         //     this.$root.Messages.splice(msgIndex,0,newUnreadMsg);
 
          // mark the space as read
-           this.$root.markSpaceRead(this.$route.params.spaceId);
+           this.$root.markSpaceRead(this.$root.selectedSpace.space_id);
 
           }
       },
@@ -3499,6 +3502,9 @@ goToChatList:function(){
                       this.$root.ChatList = fullList;
 
                      this.$root.sortChatList();
+
+                      this.SetUnread();
+
                     
                       this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
 
