@@ -50,7 +50,7 @@
      <div style="font-size:13px; color:gray;font-family:MediumFont;">Your referral link</div>
 
       <div style="font-size:13px;font-family:BodyFont;" class="py-2 ">
-        Invite your friends to teach on CitonHub and get 5% of their first 20 transactions.
+        Invite your friends to teach on CitonHub and get 5% of their first 10 earnings.
       </div>
 
      <div class="d-flex flex-row pt-2 " style="align-items:center;">
