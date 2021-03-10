@@ -2025,7 +2025,7 @@ const app = new Vue({
      payment_currency:'',
      showPaymentProcessingBoard: false,
     showProcessorFromChat: true,
-    fromSupportDirectlink: true,
+    fromSupportDirectlink: false,
     selectedPaymentCard:[],
     showWalletinfo:false,
     infoType:'',
