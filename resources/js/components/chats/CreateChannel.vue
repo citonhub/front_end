@@ -25,12 +25,12 @@
           <!-- create channel form -->
 
       <div class="col-12 py-1 my-0" style="font-family:BodyFont;">
-         <v-form class="row my-2 mt-0 py-2 px-2 "  ref="form" v-model="formstate">
+         <v-form class="row  mt-0 py-2 px-2 "  ref="form" v-model="formstate">
               
 
             
-                   <v-app class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 my-0 px-1" style="height:76px;width:100%;">
-                       <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Name</div>
+                   <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 my-0 px-1" style="width:100%;">
+                       <div style="font-size:14px;" class="mb-2">Name</div>
               <v-text-field
                 style="font-size:13px;"
                  placeholder="Dev community"
@@ -44,11 +44,30 @@
             
              ></v-text-field>
 
-             </v-app>
+             <!--  description field starts-->
+  
 
-             <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 my-0 px-1 ">
 
-               <div style="font-size:13px;font-family:MediumFont;">Select payment plan</div>
+             <div style="font-size:14px;" class="my-2 mt-1">Description</div>
+              <v-textarea
+                 style="font-size:13px;"
+                
+            placeholder="About your new channel"
+            counter="400"
+           
+            outlined
+            v-model="description"
+             color="#3C87CD">
+             </v-textarea>
+
+  
+   <!-- pet description field ends-->
+
+             </div>
+
+             <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 pt-0 my-0 px-1  mt-n4">
+
+               <div style="font-size:14px;">Select payment plan</div>
 
                <div class="col-12 px-1 py-1 d-flex flex-row">
 
@@ -102,7 +121,7 @@
              </div>
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn @click.prevent="createSpace" type="submit" rounded small color="#3C87CD" style="font-size:12px; color:white;font-family: MediumFont;" :loading="loading">{{ $t('general.create') }}</v-btn>
+                  <v-btn @click.prevent="createSpace" type="submit" rounded small color="#3C87CD" style="font-size:12px;text-transform:none; color:white;font-family: MediumFont;" :loading="loading">Create</v-btn>
              </div>
 
              <div class="my-5 py-3">
@@ -145,6 +164,7 @@ export default {
         ],
         selectedType:'Channel',
         payment_option: '',
+        description:'',
         loading:false,
         name:'',
         formstate:false,
@@ -227,7 +247,8 @@ export default {
                 currency: this.$root.payment_currency,
                 amount: this.$root.payment_amount,
                 card_name: this.$root.payment_card_name,
-                interval: this.$root.payment_interval
+                interval: this.$root.payment_interval,
+                description: this.description
                   })
           .then(response => {
              

@@ -2729,6 +2729,20 @@ const app = new Vue({
 
                  }
 
+                 if(e.actionType == 'space_update'){
+
+                   if(e.data.device_id == this.$root.userDeviceId){
+
+                    let returnData = e.data.data;
+      
+                    this.handleSpaceData(returnData);
+ 
+
+                   }
+
+                
+                 }
+
                   if(e.actionType == 'message_delete'){
 
 
@@ -3375,10 +3389,6 @@ const app = new Vue({
 },
 updateSpaceMessages: function(showAlert = false){
 
-     
-  
-   
-  
   
 
   axios.get( '/check-for-new-space-messages/' + this.$root.userDeviceId)
@@ -3386,16 +3396,10 @@ updateSpaceMessages: function(showAlert = false){
  
  if (response.status == 200) {
 
-    let returnData = response.data;
-      
-      this.handleSpaceData(returnData);
+    
 
 
 
-       if(window.iziToast){
-        window.iziToast.destroy();
-       }
-     
 }
 
 
