@@ -131,7 +131,7 @@
 
           <div class="col-12 mt-2 text-center d-flex flex-column"  v-if="that.$root.channelChats.length == 0">
                      <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
+                      Channel is where you teach. Chat,share and run codes, organize live coding and screen sharing sessions with others.
                     </div>
 
                      <div>

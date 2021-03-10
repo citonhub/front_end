@@ -52,9 +52,8 @@
               <v-textarea
                  style="font-size:13px;"
                 
-            placeholder="About your new channel"
+            placeholder="We are here for your growth. We have over ten years in teaching and mentoring people like you to become software developers. Join us to tap into the vast experience of our mentors and also meet the thriving community of other learners to help you grow."
             counter="400"
-           
             outlined
             v-model="description"
              color="#3C87CD">
