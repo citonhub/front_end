@@ -1,5 +1,5 @@
 <template>
-  <div style="background:transparent;overflow-y:hidden;">
+  <div style="background:transparent;overflow-y:auto;">
    <div class="col-12 py-1 my-0 ">
     <div class="row">
         

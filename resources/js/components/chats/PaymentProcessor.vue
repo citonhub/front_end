@@ -460,6 +460,26 @@ export default {
 
         this.spaceData = response.data.space;
 
+           if(this.spaceData.payment_option == 'support' && this.$root.isLogged){
+   
+           
+              if(!this.$root.fromSupportDirectlink){
+
+                 this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
+
+            return;
+
+              }
+
+            
+
+
+            }else{
+             
+
+               
+            }
+
           if(this.spaceData.type != 'Channel' && this.spaceData.type != 'Team' && this.spaceData.type != 'SubSpace'){
 
             this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
@@ -485,36 +505,8 @@ export default {
            
           }else{
 
-            if(this.spaceData.payment_option == 'support' && this.$root.isLogged){
-   
-           
-              if(!this.$root.fromSupportDirectlink){
-
-                 this.$root.chatComponent.openChat(this.$route.params.spaceId,false);
-
-            return;
-
-              }
-
-            
-
-
-            }else{
-             
-
-               
-            }
-          }
-
-
          
-
-
-
-           
-
-           
-   
+          }
 
 
 
