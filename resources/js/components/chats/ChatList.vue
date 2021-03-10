@@ -43,7 +43,7 @@
                                                   </template>
                                                 <template v-else>
 
-                                                     <span v-if="that.$root.username != source.last_message[0].username && source.type != 'Direct' && source.type != 'Bot' ">{{ source.last_message[0].username }}:</span > {{ generateMessageString(source.last_message) }}
+                                                     <span v-if="that.$root.username != source.last_message[0].username && source.type != 'Direct' && source.type != 'Bot' ">{{ source.last_message[0].username }}:</span > <span v-if="that.$root.username != source.last_message[0].username">You:</span> {{ generateMessageString(source.last_message) }}
                                              
                                                    
                                                 </template>
