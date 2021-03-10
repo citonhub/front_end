@@ -51,7 +51,7 @@
              <div style="font-size:14px;" class="my-2 mt-1">Description</div>
               <v-textarea
                  style="font-size:13px;"
-                
+               
             placeholder="We are here for your growth. We have over ten years in teaching and mentoring people like you to become software developers. Join us to tap into the vast experience of our mentors and also meet the thriving community of other learners to help you grow."
             counter="400"
             outlined
@@ -64,7 +64,7 @@
 
              </div>
 
-             <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 pt-0 my-0 px-1  mt-n4">
+             <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 pt-0 my-0 px-1  mt-n3">
 
                <div style="font-size:14px;">Select payment plan</div>
 
