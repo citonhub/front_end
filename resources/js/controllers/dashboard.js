@@ -2040,6 +2040,8 @@ const app = new Vue({
     messageIsProcessing:false,
     messageQueues:[],
     returnedDataArray:[],
+    subSpaces:[],
+    selectedSpaceSubMessages:0,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -3378,13 +3380,17 @@ const app = new Vue({
       let finalResultUnread = JSON.parse(result);
    
        finalResultUnread.push(extraData.message)
+
+     
    
    
        localforage.setItem('unread_messages_' + extraData.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
          
         this.handleSpaceData(firstData);
         }).then( (value) => {
-       
+         
+
+         
         
    
         }).catch(function (err) {
@@ -3405,6 +3411,38 @@ const app = new Vue({
         
 
          }else{
+
+          if(fromUnsent){
+
+            // update unread messages into local storage
+ 
+     let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + extraData.space_id + this.$root.username);
+ 
+     unreadStoredMsg.then((result)=>{
+ 
+    let finalResultUnread = JSON.parse(result);
+ 
+     finalResultUnread.push(extraData.message)
+
+    
+     localforage.setItem('unread_messages_' + extraData.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
+       
+   
+      }).then( (value) => {
+       
+
+       
+      
+ 
+      }).catch(function (err) {
+     console.log(err)
+     // we got an error   
+      });
+ 
+     });
+
+         }
+
           this.messageIsProcessing = true;
          }
 
@@ -3449,11 +3487,61 @@ const app = new Vue({
   
   sortChatList: function(){
     if(this.ChatList != undefined){
-
+      
+      this.checkChannelSubSpace();
       this.sortArray(this.ChatList);
 
     }
    
+},
+checkChannelSubSpace:function(){
+
+  this.$root.ChatList.map((space)=>{
+
+    let storedSubChat = this.$root.getLocalStore('sub_channels_' + space.space_id  + this.$root.username);
+
+    storedSubChat.then((result)=>{
+
+ if(result != null){
+
+   let finalResult = JSON.parse(result);
+
+     let subspaces = finalResult.sub_channels;
+
+
+  subspaces.map((subspace)=>{
+
+    let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + subspace.space_id +  this.$root.username);
+
+unreadStoredMsg.then((result)=>{
+
+ if(result != null){
+
+   let finalResultUnread = JSON.parse(result);
+
+      
+
+   space.subspace_messages += finalResultUnread.length;
+
+  
+ }
+
+});
+
+ })
+
+
+
+   }
+
+});
+
+ })
+
+
+
+
+
 },
 updateSpaceMessages: function(showAlert = false){
 
@@ -3518,8 +3606,19 @@ spaceMessageProcessor: function(space,allSpace,count){
                chatspace.last_message = [message];
              } 
            });
+           
+            
+
+              this.$root.subSpaces.map((chatspace)=>{
    
-             
+                if(chatspace.space_id == space.space_id){
+                  chatspace.unread += 1;
+                  chatspace.message_track = new Date();
+                  
+                } 
+    
+              });
+
    
             this.$root.updateSpaceTracker(space.space_id,message);
    
@@ -3576,6 +3675,9 @@ spaceMessageProcessor: function(space,allSpace,count){
                    space_id: space.space_id,
                    message: newMessages[0]
                  };
+
+
+              
 
              this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,true,'messager',messageTrackData);
    
@@ -3789,6 +3891,12 @@ handleSpaceData: function(spaceData){
 
     });
 
+    if(this.$root.selectedSpace.general_spaceId == spaceId){
+
+       this.$root.selectedSpaceSubMessages += 1
+
+     }
+
     this.$root.sortChatList();
 
     // save into local storage
@@ -3802,7 +3910,18 @@ handleSpaceData: function(spaceData){
      let finalResult = JSON.parse(result);
        
          
+   // update channel for SubChannels new messages
+     finalResult.channels.map((chatspace)=>{
+   
+      if(spaceId == chatspace.general_spaceId){
 
+        chatspace.subspace_messages += 1;
+        chatspace.message_track = new Date();
+       
+      } 
+    });
+
+     
 
            finalResult.channels.map((space)=>{
          
@@ -3812,6 +3931,7 @@ handleSpaceData: function(spaceData){
             }
       
           });
+          
       
           finalResult.direct_messages.map((space)=>{
                

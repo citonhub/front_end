@@ -1153,7 +1153,7 @@
                                  </div>
 
                              
-                              <div class="d-flex flex-row col-12 py-0 px-2" v-if="!this.$root.showRootReply">
+                              <div class="d-flex flex-row col-12 py-0 px-2" v-if="!this.$root.showRootReply && !that.$root.showEmojiBox">
 
                                   <!-- scroll to buttom -->
 
@@ -1169,7 +1169,7 @@
 
                                <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
 
-                              </v-btn>
+                                 </v-btn>
 
                                    </template>
 
@@ -1180,6 +1180,22 @@
                               <!-- ends -->
 
                                    </div>
+
+
+                              <!-- share diary -->
+                          
+                           <div  class="ml-auto" v-if="that.$root.selectedSpace.type ==  'Bot'">
+
+                                       <v-btn @click="shareDiary()" v-if="chatIsOpen" class="mb-2"   fab x-small color="#ffffff"  style="z-index:9999999; ">
+
+                               <v-icon style="font-size:20px; color:#3C87CD;">mdi mdi-share-variant</v-icon>
+
+                              </v-btn>
+
+                                   </div>
+
+
+                              <!-- ends -->
 
                                        <!-- show code button -->
 
@@ -2622,12 +2638,17 @@ goToChatList:function(){
                      
                    this.$root.ChatList = fullList;
 
+                     this.$root.ChatList.map((chat)=>{
+                          chat.subspace_messages = 0
+                     })
+
+                    
+
                      this.$root.sortChatList();
 
                       this.SetUnread();
 
-                     // get all new messages
-
+                   
                       
 
                       this.$root.updateSpaceMessages();
@@ -2650,9 +2671,15 @@ goToChatList:function(){
             this.$root.channelChats = responseList.channels;
           this.$root.ChatList = responseList.channels.concat(responseList.direct_messages, responseList.pet_spaces);
 
+
+                     this.$root.ChatList.map((chat)=>{
+                          chat.subspace_messages = 0
+                     })
+             
+            
            this.$root.LocalStore('user_chat_list' + this.$root.username,response.data,false,'sort_chat');
 
-       
+            this.$root.sortChatList();
 
              this.$root.loadingChatList = false;
 
@@ -2684,6 +2711,7 @@ goToChatList:function(){
 
         
        },
+       
          SetUnread: function(){
 
             this.$root.ChatList.map((space)=>{
@@ -2773,9 +2801,13 @@ goToChatList:function(){
 
                     
 
+                       setTimeout(() => {
 
+                              this.$root.sendTextMessage(finalResult[index]);
+                         
+                       }, 2000);
 
-                         this.$root.sendTextMessage(finalResult[index]);
+                    
 
 
 
@@ -2963,6 +2995,10 @@ goToChatList:function(){
           this.$root.Messages = null;
           this.errorLoadingMessage = false;
 
+          // set subspaceUnread to 0
+
+           this.$root.selectedSpaceSubMessages = 0;
+
 
          // clear diary suggestions
           this.$root.botSuggestionArray = [];
@@ -3007,6 +3043,8 @@ goToChatList:function(){
      
 
            this.$root.selectedSpace = finalResult.space;
+
+            this.$root.selectedSpace.subspace_messages = 0;
 
               if(finalResult.space.type == 'SubSpace'){
 
@@ -3079,6 +3117,14 @@ goToChatList:function(){
            // generate unread msg and the mark as read
          this.generateUnreadMessage();
           
+
+           // check unreadMessages in subspaces
+
+         if(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' || this.$root.selectedSpace.type == 'SubSpace'){
+
+           this.handleUnreadUpdate();
+
+         }
 
 
        setTimeout(() => {
@@ -3179,6 +3225,7 @@ goToChatList:function(){
 
 
                this.$root.selectedSpace = response.data.space;
+                this.$root.selectedSpace.subspace_messages = 0;
 
               if(response.data.space.type == 'SubSpace'){
 
@@ -3230,6 +3277,14 @@ goToChatList:function(){
          this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data.patterns);
 
               }
+
+               // check unreadMessages in subspaces
+
+         if(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' || this.$root.selectedSpace.type == 'SubSpace'){
+
+           this.handleUnreadUpdate();
+
+         }
 
       this.$root.TrackLastSubSpace.push(this.$root.selectedSpace.general_spaceId, this.$route.params.spaceId);
 
@@ -3283,6 +3338,9 @@ goToChatList:function(){
 
                }
 
+        
+       
+
 
     if( this.$root.selectedSpace.type == 'Bot'){
 
@@ -3303,6 +3361,92 @@ goToChatList:function(){
      
 
        },
+       handleUnreadUpdate:function(){
+
+           let storedSubChat = this.$root.getLocalStore('sub_channels_' + this.$root.selectedSpace.general_spaceId  + this.$root.username);
+
+             storedSubChat.then((result)=>{
+             
+
+                 if(result != null ){
+
+                    let finalResult = JSON.parse(result);
+                     
+                      finalResult = finalResult.sub_channels;
+                     if(this.checkIfisOwner()){
+
+               this.$root.subSpaces =  finalResult;
+
+
+
+           }else{
+
+             this.$root.subSpaces = finalResult.filter((space)=>{
+
+               return space.type == 'Public' || (space.type == 'Private' && space.is_member == true);
+
+             });
+           }
+
+                    this.checkForUnreadSubSpace(this.$root.subSpaces,false);
+
+                       
+                 }
+
+             })
+
+       },
+       checkForUnreadSubSpace:function(subSpaces,returnCount = true){
+
+                 let fullCount = 0;
+    
+          subSpaces.map((space)=>{
+
+               let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + space.space_id +  this.$root.username);
+  
+          unreadStoredMsg.then((result)=>{
+  
+            if(result != null){
+  
+              let finalResultUnread = JSON.parse(result);
+          
+                 
+
+              space.unread = finalResultUnread.length;
+
+               fullCount += space.unread;
+
+             
+  
+            }else{
+               space.unread = 0;
+            }
+
+        
+          if(returnCount){
+
+            return fullCount;
+
+          }else{
+
+            this.$root.selectedSpaceSubMessages = fullCount;
+          }
+            
+  
+
+          
+          });
+
+            })
+          
+        
+         
+
+         
+
+
+
+        },
        checkForUnreadMessagesDisconnected:function(){
          
           if(this.chatIsOpen){
@@ -3417,6 +3561,7 @@ goToChatList:function(){
 
               }
 
+                 
                     
                     
                   

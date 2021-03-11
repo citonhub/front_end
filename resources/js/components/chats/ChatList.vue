@@ -17,8 +17,9 @@
                      <div class="px-0 py-3" style="width:85%;border-bottom:1px solid #e6e6e6;" >
                                  <div class="pr-1 d-flex flex-row" style="align-items:center;">
                                    
-                                       <div class="px-0 py-0 my-0 " style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
-                                               <span v-if="source.type == 'Team' || source.type == 'Channel'" style="font-size:14px; font-family:BodyFont;">{{ source.name }}</span>
+                                       <div class="px-0 py-0 my-0 d-flex " style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; align-items:center;">
+                                               <span v-if="source.type == 'Team' || source.type == 'Channel'" style="font-size:14px; font-family:BodyFont;">{{ source.name }} <span style="color:green; font-size:13px;" v-if="source.subspace_messages > 0">
+                                                  <v-icon style="font-size:17px;color:green;">mdi mdi-pound</v-icon> ({{ source.subspace_messages }}) </span></span>
                                              <span v-if="source.type == 'Bot' && source.bot_data != null" style="font-size:14px; font-family:BodyFont;">{{ source.bot_data.name }}</span>
                                              <span v-if="source.type == 'Direct'" style="font-size:14px; font-family:BodyFont;">{{ source.userInfo.username }}</span>
                                        </div>

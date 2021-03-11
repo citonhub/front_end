@@ -76,7 +76,16 @@
 
             <template v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
 
-                  <v-btn  @click="showSideBar('sub_channels')" icon class="mr-2"> <v-icon>mdi mdi-pound</v-icon> </v-btn>
+                  <v-btn  @click="showSideBar('sub_channels')" icon class="mr-2"> 
+                      <v-badge
+               dot
+               v-if="that.$root.selectedSpaceSubMessages > 0"
+               
+                color="green">
+              <v-icon>mdi mdi-pound</v-icon> 
+              </v-badge>
+                    <v-icon v-else >mdi mdi-pound</v-icon>
+                     </v-btn>
 
              </template>
 
@@ -256,7 +265,17 @@
                 <!-- sub channels -->
                       <template v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
 
-                  <v-btn  @click="showSideBar('sub_channels')" icon class="mr-2"> <v-icon>mdi mdi-pound</v-icon> </v-btn>
+                  <v-btn  @click="showSideBar('sub_channels')" icon class="mr-2"> 
+                      <v-badge
+               dot
+               v-if="that.$root.selectedSpaceSubMessages > 0"
+               
+                color="green">
+              <v-icon>mdi mdi-pound</v-icon> 
+              </v-badge>
+                    <v-icon v-else >mdi mdi-pound</v-icon>
+                    
+                     </v-btn>
 
              </template>
 

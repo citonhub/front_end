@@ -211,8 +211,12 @@
 
                   <template v-if="transactions.length == 0">
 
-                      <div class="mt-5 px-3 pt-5 text-center" style="font-size:13px;color:gray;font-family:BodyFont;">
-                       No transaction yet.
+                       <div class="mt-5 px-3 pt-5 text-center" style="font-size:13px;color:grey;font-family:BodyFont;">
+                       <div class="mb-1  px-3">
+                  You have no history yet. Invite your friends to teach on CitonHub and get 5% of their first 10 earnings. 
+                       </div>
+                       
+                             <v-btn small color="#3C87CD" @click="copyMessage()"  style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mr-3 " >Copy invite link</v-btn>
                     </div>
 
                   </template>
@@ -478,6 +482,29 @@ import 'izitoast/dist/css/iziToast.min.css'
     },
 
      methods:{
+            copyMessage () {
+
+
+            const copyToClipboard = str => {
+  const el = document.createElement('textarea');
+  el.value = str;
+  el.setAttribute('readonly', '');
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+};
+
+
+
+      copyToClipboard('https://www.citonhub.com/link/referral/'+ this.$root.username);
+
+        this.$root.cardViewComponent.showAlert('Copied!','Copied to clipboard','success');
+
+         
+        },
           handleInput:function(page){
            this.loadingTransactions = true;
 
