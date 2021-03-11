@@ -521,7 +521,18 @@ export default {
 
 
             }else{
-             
+              
+              if(this.spaceData.payment_option == null){
+
+                 if(!this.$root.fromSupportDirectlink){
+
+                 this.$root.chatComponent.openChat(this.$route.params.spaceId,false);
+
+              return;
+
+              }
+
+              }
 
                
             }
