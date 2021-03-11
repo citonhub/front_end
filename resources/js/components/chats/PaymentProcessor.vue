@@ -511,7 +511,7 @@ export default {
            
               if(!this.$root.fromSupportDirectlink){
 
-                 this.$root.chatComponent.openChat(this.$route.params.spaceId,false);
+                 this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
 
               return;
 
@@ -526,7 +526,7 @@ export default {
 
                  if(!this.$root.fromSupportDirectlink){
 
-                 this.$root.chatComponent.openChat(this.$route.params.spaceId,false);
+                 this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
 
               return;
 
