@@ -3513,7 +3513,7 @@ checkChannelSubSpace:function(){
 
      let subspaces = finalResult.sub_channels;
 
-      console.log(subspaces)
+     
 
 
   subspaces.map((subspace)=>{
@@ -3526,11 +3526,11 @@ unreadStoredMsg.then((result)=>{
 
    let finalResultUnread = JSON.parse(result);
 
-   console.log(finalResultUnread)
+  
 
    space.subspace_messages += finalResultUnread.length;
 
-  
+   console.log( space.subspace_messages,space.name)
  }
 
 });
