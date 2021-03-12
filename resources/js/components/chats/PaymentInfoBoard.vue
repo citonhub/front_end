@@ -93,7 +93,7 @@
           
 
             
-         <div class="mb-2" style="font-size:13px; font-family:BodyFont;">All payments to this channel would be managed in the below payment card in your wallet.</div> 
+         <div class="mb-2" style="font-size:13px; font-family:BodyFont;">All payments to your channel would be managed in this payment card.</div> 
 
            <v-text-field
                 style="font-size:13px;"

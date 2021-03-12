@@ -190,7 +190,11 @@ export default {
                 
                  if(result != null ){
 
-                    let finalResult = JSON.parse(result);
+
+
+                     if(this.$root.subSpaces.length == 0){
+
+                        let finalResult = JSON.parse(result);
                      
                       finalResult = finalResult.sub_channels;
                      if(this.checkIfisOwner()){
@@ -207,6 +211,10 @@ export default {
 
              });
            }
+
+                     }
+
+                   
 
                     this.checkForUnread();
 
@@ -291,10 +299,12 @@ export default {
                     });
 
            
-
+              
                
      
               this.sortList();
+
+               this.checkForUnread();
      
      }
        

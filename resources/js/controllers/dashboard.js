@@ -3193,7 +3193,7 @@ const app = new Vue({
               
             this.$root.ChatList = fullList;
 
-               this.$root.sortChatList();
+               this.$root.sortChatList(false);
 
 
           }
@@ -3485,10 +3485,13 @@ const app = new Vue({
 
   },
   
-  sortChatList: function(){
+  sortChatList: function(checkUnread = true){
     if(this.ChatList != undefined){
       
-      this.checkChannelSubSpace();
+      if(checkUnread){
+        this.checkChannelSubSpace();
+      }
+     
       this.sortArray(this.ChatList);
 
     }
@@ -3805,7 +3808,7 @@ spaceMessageProcessor: function(space,allSpace,count){
    
        }
    
-       this.sortChatList();
+       this.sortChatList(false);
    
     
   });
@@ -3878,7 +3881,60 @@ handleSpaceData: function(spaceData){
       
   return msgIndex;
 },
+
  updateSpaceTracker: function(spaceId,message){
+   
+     
+  let storedMsg = this.$root.getLocalStore('full_space_' + spaceId + this.$root.username);
+
+  storedMsg.then((result)=>{
+    
+    if(result != null ){
+
+      let finalResult = JSON.parse(result);
+      
+      let spaceData = finalResult.space;
+
+      
+
+      if(spaceData.type == 'SubSpace' && (this.$root.selectedSpace.space_id == spaceData.general_spaceId)){
+
+        this.$root.selectedSpaceSubMessages += 1
+    
+      }
+
+
+      if(this.ChatList.length > 0 && spaceData.type == 'SubSpace'){
+      
+
+      
+
+        this.ChatList.map((space)=>{
+   
+  
+          // update channel for SubChannels new messages
+         if(space.space_id == spaceData.general_spaceId){
+
+             
+           space.subspace_messages = space.subspace_messages + 1;
+           space.message_track = new Date();
+          
+         } 
+   
+       });
+
+
+      }
+
+     
+
+    }else{
+
+
+    }
+
+  })
+   
      
   if(this.ChatList.length > 0){
    
@@ -3888,16 +3944,12 @@ handleSpaceData: function(spaceData){
         space.message_track = new Date();
         space.last_message = [message];
       }
-
+  
+     
     });
 
-    if(this.$root.selectedSpace.general_spaceId == spaceId){
-
-       this.$root.selectedSpaceSubMessages += 1
-
-     }
-
-    this.$root.sortChatList();
+  
+    this.$root.sortChatList(false);
 
     // save into local storage
 
@@ -3910,18 +3962,7 @@ handleSpaceData: function(spaceData){
      let finalResult = JSON.parse(result);
        
          
-   // update channel for SubChannels new messages
-     finalResult.channels.map((chatspace)=>{
-   
-      if(spaceId == chatspace.general_spaceId){
-
-        chatspace.subspace_messages += 1;
-        chatspace.message_track = new Date();
-       
-      } 
-    });
-
-     
+  
 
            finalResult.channels.map((space)=>{
          
@@ -3954,7 +3995,7 @@ handleSpaceData: function(spaceData){
 
     this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
 
-     this.$root.sortChatList();
+     this.$root.sortChatList(false);
     
     
 
@@ -3967,19 +4008,31 @@ handleSpaceData: function(spaceData){
 },
 scrollToBottom: function(){
 
-   
+    if(this.$root.msgScrollComponent){
 
-  if(this.$root.msgScrollComponent){
 
-    setTimeout(() => {
-       
-      this.$root.msgScrollComponent.messageContainer.scrollToBottom();
-      this.$root.msgScrollComponent.messageContainersmall.scrollToBottom();
-   },200)
+      if(this.$root.msgScrollComponent.messageContainer){
 
-  }
-  
+        setTimeout(() => {
+           
+          this.$root.msgScrollComponent.messageContainer.scrollToBottom();
+         
+       },200)
+    
+      }
+    
+      if(this.$root.msgScrollComponent.messageContainersmall){
+    
+        setTimeout(() => {
+          this.$root.msgScrollComponent.messageContainersmall.scrollToBottom();
+        }, 200);
+      }
+      
+    
 
+    }
+
+ 
 
 },
 

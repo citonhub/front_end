@@ -39,7 +39,7 @@
 
               <div style="color:grey;font-size:14px;font-family:MediumFont;">Amount earned</div>
 
-            <div class="py-2" style="font-size:17px;;font-family:HeaderFont;"><span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(totalEarned)}}</div>
+            <div class="py-2" style="font-size:17px;font-family:HeaderFont;"><span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(totalEarned)}}</div>
 
       </div>
 
@@ -50,7 +50,7 @@
      <div style="font-size:13px; color:gray;font-family:MediumFont;">Your referral link</div>
 
       <div style="font-size:13px;font-family:BodyFont;" class="py-2 ">
-        Invite your friends to teach on CitonHub and get 5% of their first 10 earnings.
+        Invite your friends to teach on CitonHub and get 5% commission of their first 10 earnings.
       </div>
 
      <div class="d-flex flex-row pt-2 " style="align-items:center;">
