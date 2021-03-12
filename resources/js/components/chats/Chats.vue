@@ -2124,7 +2124,7 @@ goToChatList:function(){
 
       },
  leaveSpace: function(){
-        let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+        let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
                    storedChat.then((result)=>{
 
@@ -2154,7 +2154,7 @@ goToChatList:function(){
                         }
                          
 
-                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult,false,'leave_space');
+                          this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult,false,'leave_space');
 
                     
                     
@@ -2305,7 +2305,7 @@ goToChatList:function(){
               
               let space = response.data.space;
 
-                let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+                let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
                    storedChat.then((result)=>{
 
@@ -2328,7 +2328,7 @@ goToChatList:function(){
 
                           finalResult.pet_spaces.unshift(response.data.space);
 
-                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+                          this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
                      let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
 
@@ -2622,7 +2622,7 @@ goToChatList:function(){
              this.$root.loadingIsError = false;
 
 
-                let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+                let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
             storedChat.then((result)=>{
                 
@@ -2638,14 +2638,7 @@ goToChatList:function(){
                      
                    this.$root.ChatList = fullList;
 
-                     this.$root.ChatList.forEach((chat)=>{
-                          chat.subspace_messages = 0
-                     })
-
-                     
-
-                    
-
+                  
                      this.$root.sortChatList();
 
                       this.SetUnread();
@@ -2674,12 +2667,10 @@ goToChatList:function(){
           this.$root.ChatList = responseList.channels.concat(responseList.direct_messages, responseList.pet_spaces);
 
 
-                     this.$root.ChatList.forEach((chat)=>{
-                          chat.subspace_messages = 0
-                     })
+                
              
             
-           this.$root.LocalStore('user_chat_list' + this.$root.username,response.data,false,'sort_chat');
+           this.$root.LocalStore('user_chat_list_new_' + this.$root.username,response.data,false,'sort_chat');
 
             this.$root.sortChatList();
 
@@ -3587,7 +3578,7 @@ goToChatList:function(){
       
             // update chatList
 
-             let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+             let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
             
              storedChat.then((result)=>{
 
@@ -3653,7 +3644,7 @@ goToChatList:function(){
                       this.SetUnread();
 
                     
-                      this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+                      this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
               
 

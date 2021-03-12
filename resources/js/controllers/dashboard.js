@@ -2342,7 +2342,7 @@ const app = new Vue({
       
             });
 
-            let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+            let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
             storedChat.then((result)=>{
         
@@ -2378,7 +2378,7 @@ const app = new Vue({
              
                      });
         
-            this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+            this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
          
         
           }
@@ -2697,7 +2697,7 @@ const app = new Vue({
 
                  if(e.actionType == 'new_direct_space'){
 
-                  let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+                  let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
                   storedChat.then((result)=>{
 
@@ -2717,7 +2717,7 @@ const app = new Vue({
 
                          finalResult.direct_messages.unshift(e.data.space);
 
-                         this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+                         this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
 
@@ -2984,7 +2984,7 @@ const app = new Vue({
 
    
 
-    this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+    this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
 
@@ -3012,7 +3012,7 @@ const app = new Vue({
     
   },
   addSpaceToChatList:function(space_id){
-    let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+    let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
     storedChat.then((result)=>{
 
@@ -3114,7 +3114,7 @@ const app = new Vue({
 
       
 
-   let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+   let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
     storedChat.then((result)=>{
 
@@ -3186,7 +3186,7 @@ const app = new Vue({
 
                   });
 
-                   this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+                   this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
               let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
 
@@ -3959,7 +3959,7 @@ handleSpaceData: function(spaceData){
 
     // save into local storage
 
-    let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+    let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
     storedChat.then((result)=>{
 
@@ -3999,7 +3999,7 @@ handleSpaceData: function(spaceData){
      
              });
 
-    this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+    this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
      this.$root.sortChatList(false);
     

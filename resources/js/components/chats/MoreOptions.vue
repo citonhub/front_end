@@ -140,7 +140,7 @@ export default {
 
             // update chatlist, check if message deleted is a last message
 
-          let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+          let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
            storedChat.then((result)=>{
 
@@ -202,7 +202,7 @@ export default {
 
                          });
 
-                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+                          this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
                      let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
 

@@ -443,7 +443,7 @@ export default {
 
               
 
-                  let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+                  let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
                    storedChat.then((result)=>{
 
@@ -466,7 +466,7 @@ export default {
 
                           finalResult.direct_messages.unshift(response.data.space);
 
-                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+                          this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
                      let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
 

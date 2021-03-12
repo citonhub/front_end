@@ -178,7 +178,7 @@ export default {
 
       if (response.status == 200) {
 
-           let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+           let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
                    storedChat.then((result)=>{
 
@@ -208,7 +208,7 @@ export default {
                         }
                          
 
-                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult,false,'leave_space');
+                          this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult,false,'leave_space');
 
                     
                     
