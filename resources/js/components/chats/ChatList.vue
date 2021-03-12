@@ -22,7 +22,7 @@
                                              <span v-if="source.type == 'Bot' && source.bot_data != null" style="font-size:14px; font-family:BodyFont;">{{ source.bot_data.name }}</span>
                                              <span v-if="source.type == 'Direct'" style="font-size:14px; font-family:BodyFont;">{{ source.userInfo.username }}</span>
 
-                                             <span v-show="source.subspace_messages > 0" style="color:green; font-size:13px;" >
+                                             <span v-show="source.type == 'Team' || source.type == 'Channel'" style="color:green; font-size:13px;" >
                                                   <v-icon style="font-size:17px;color:green;">mdi mdi-pound</v-icon> ({{ source.subspace_messages }}) </span>
                                        </div>
                                         <div class="px-1 py-0 my-0 text-right ml-auto" style="width:26%;">
