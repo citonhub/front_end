@@ -3548,18 +3548,6 @@ unreadStoredMsg.then((result)=>{
  })
 
 
-   let newChatList = this.$root.ChatList;
-
-
-  this.$root.ChatList = newChatList;
-  console.log(this.$root.ChatList)
-
-
-
-
-
-
-
 
 },
 updateSpaceMessages: function(showAlert = false){
