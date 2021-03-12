@@ -3499,7 +3499,7 @@ const app = new Vue({
 },
 checkChannelSubSpace:function(){
 
- let newChatList = this.$root.ChatList.forEach((space)=>{
+ let newChatList = this.$root.ChatList.map((space)=>{
 
     let storedSubChat = this.$root.getLocalStore('sub_channels_' + space.space_id  + this.$root.username);
 
@@ -3544,6 +3544,11 @@ unreadStoredMsg.then((result)=>{
 });
 
  })
+
+
+ this.$root.ChatList = newChatList;
+
+  console.log(this.$root.ChatList)
 
 
 
