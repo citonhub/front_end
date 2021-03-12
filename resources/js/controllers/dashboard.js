@@ -3530,7 +3530,7 @@ unreadStoredMsg.then((result)=>{
 
    space.subspace_messages += finalResultUnread.length;
 
-   console.log( space.subspace_messages,space.name)
+   
  }
 
 });
