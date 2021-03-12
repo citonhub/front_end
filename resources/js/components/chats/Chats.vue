@@ -2638,7 +2638,7 @@ goToChatList:function(){
                      
                    this.$root.ChatList = fullList;
 
-                     this.$root.ChatList.map((chat)=>{
+                     this.$root.ChatList.forEach((chat)=>{
                           chat.subspace_messages = 0
                      })
 
@@ -2674,7 +2674,7 @@ goToChatList:function(){
           this.$root.ChatList = responseList.channels.concat(responseList.direct_messages, responseList.pet_spaces);
 
 
-                     this.$root.ChatList.map((chat)=>{
+                     this.$root.ChatList.forEach((chat)=>{
                           chat.subspace_messages = 0
                      })
              
