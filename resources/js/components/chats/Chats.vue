@@ -2642,6 +2642,8 @@ goToChatList:function(){
                           chat.subspace_messages = 0
                      })
 
+                     
+
                     
 
                      this.$root.sortChatList();
