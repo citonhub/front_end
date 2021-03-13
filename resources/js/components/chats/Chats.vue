@@ -129,15 +129,7 @@
 
                <template #after> 
 
-          <div class="col-12 mt-2 text-center d-flex flex-column"  v-if="that.$root.channelChats.length == 0">
-                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Channel is where you teach. Chat,share and run codes, organize live coding and screen sharing sessions with others.
-                    </div>
-
-                     <div>
-                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
-                     </div>
-          </div>
+          
 
         </template>
 
@@ -825,15 +817,7 @@
 
              <template #after > 
 
-          <div class="col-12 mt-2 text-center d-flex flex-column" v-if="that.$root.channelChats.length == 0">
-                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
-                    </div>
-
-                     <div>
-                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
-                     </div>
-          </div>
+       
 
         </template>
 
