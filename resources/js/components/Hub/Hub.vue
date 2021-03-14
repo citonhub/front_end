@@ -478,6 +478,25 @@ export default {
 
           }
 
+            if(this.$root.autoOpenAddPost){
+         
+          
+
+           this.$root.showAddNewPost = true;
+
+               this.$router.push({ path:'/hub/new-post'})
+
+
+          }
+
+          if(this.$router.currentRoute.path.indexOf('new-post') >= 0){
+         
+
+           this.$root.showAddNewPost = true;
+
+
+          }
+
        },
      
        fetchPost:function(){

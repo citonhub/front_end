@@ -2042,6 +2042,7 @@ const app = new Vue({
     returnedDataArray:[],
     subSpaces:[],
     selectedSpaceSubMessages:0,
+    autoOpenAddPost:false,
      },
      mounted: function () {
       window.thisUserState = this;

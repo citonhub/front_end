@@ -282,7 +282,15 @@
 
                         <div  class="col-12 mt-4 text-center">
 
-                    <span style="font-size:13px;color:grey;font-family:BodyFont;">{{userData.username}} has no project yet</span>
+                    <span style="font-size:13px;color:grey;font-family:BodyFont;" v-if="userData.username != that.$root.username">{{userData.username}} has no project yet</span>
+
+                     <span style="font-size:13px;color:grey;font-family:BodyFont;" v-else>You have no project yet. Share your project to get more experience points (XP)</span>
+                      </div>
+
+                       <div  class="col-12 mt-2 text-center" v-if="userData.username == that.$root.username"> 
+                   
+                    <v-btn small color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" @click="showAddPost" class="mx-2 d-inline-block" rounded>Share a project</v-btn>
+                    
                       </div>
 
                      </template>
@@ -609,6 +617,15 @@ Notify
      })
 
          
+
+      },
+         showAddPost: function() {
+
+         this.$root.componentIsLoading = true;
+
+         this.$root.autoOpenAddPost = true;
+
+          this.$router.push({ path:'/hub'})
 
       },
       showFullImage: function(data){
