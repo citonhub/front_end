@@ -284,7 +284,7 @@
 
                     <span style="font-size:13px;color:grey;font-family:BodyFont;" v-if="userData.username != that.$root.username">{{userData.username}} has no project yet</span>
 
-                     <span style="font-size:13px;color:grey;font-family:BodyFont;" v-else>You have no project yet. Share your project to get more experience points (XP)</span>
+                     <span style="font-size:13px;color:grey;font-family:BodyFont;" v-else>You have no project yet. Share your projects and get more experience points (XP)</span>
                       </div>
 
                        <div  class="col-12 mt-2 text-center" v-if="userData.username == that.$root.username"> 
