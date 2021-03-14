@@ -809,7 +809,7 @@ methods:{
               content: '',
               space_id: this.$root.selectedSpace.space_id,
               is_reply: this.$root.is_reply,
-              current_user: JSON.stringify(this.$root.SpaceUsers ),
+              current_user: JSON.stringify(this.generateOnlineUsersList()),
               replied_message_id: this.$root.replyMessage.message_id,
                attachment_type: 'code',
                 code: this.code,
@@ -826,7 +826,24 @@ methods:{
          this.goBack();
 
       },
+    generateOnlineUsersList: function(){
+          let onlineUserList = [];
 
+          this.$root.selectedSpaceMembers.forEach(member => {
+             
+             let userData = this.$root.globalUsers.filter((user)=>{
+               return user.id == member.user_id;
+             })
+
+             if(userData.length != 0){
+               onlineUserList.push(userData[0])
+             }
+           
+            
+          });
+        
+        return onlineUserList;
+       },
       onCmReady(codemirror) {
 
           codemirror.on('keypress', () => {
