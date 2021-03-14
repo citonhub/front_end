@@ -102,7 +102,7 @@ export default {
   document.body.removeChild(el);
 };
 
-      copyToClipboard('https://www.citonhub.com/link/support/'+ this.$root.selectedSpace.space_id);
+      copyToClipboard('https://link.citonhub.com/support/'+ this.$root.selectedSpace.space_id);
 
         this.$root.chatComponent.showAlert('Copied!','Copied to clipboard','success');
 
