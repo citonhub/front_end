@@ -140,7 +140,7 @@
        style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:100px;">
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Channel is where you teach, mentor and earn.
+                      Channel is where you teach, mentor, and earn.
                     </div>
 
                      <div>
@@ -827,7 +827,7 @@
           style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto;align-items:center;justify-content:center;" >
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                     Channel is where you teach, mentor and earn.
+                     Channel is where you teach, mentor, and earn.
                     </div>
 
                      <div>

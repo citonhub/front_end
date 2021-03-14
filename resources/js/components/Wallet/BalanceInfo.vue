@@ -9,7 +9,7 @@
 
      <h6 class="text-left">Total available balance: <span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.balance - (that.$root.selectedPaymentCard.platform_fee + that.$root.selectedPaymentCard.payment_processing_fee))}}</h6>
         <p style="font-size:13px;font-family:BodyFont;">
-           This is the total amount of successful payments you have received in your channel.
+           This is the total available amount you recieved in your channel, excluding payment processing fees and platform fee.
         </p>
 
       <h6 class="text-left">Payable amount: <span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.payable_amount)}}</h6>
