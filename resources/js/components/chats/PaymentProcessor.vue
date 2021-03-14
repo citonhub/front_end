@@ -368,7 +368,7 @@ export default {
 
         if(this.spaceData.image_name){
 
-            SpaceImage = 'https://www.citonhub.com/imgs/space/thumbnails/' +  this.spaceData.image_name + '.' + this.spaceData.image_extension;
+            SpaceImage = 'http://citonhubnew.com/imgs/space/thumbnails/' +  this.spaceData.image_name + '.' + this.spaceData.image_extension;
 
         }
 

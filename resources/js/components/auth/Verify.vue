@@ -379,7 +379,7 @@ export default {
               this.showResend = false;
               this.timer = 30;
               this.setEmail();
-               this.showAlert('Sent!','Mail has been re-sent','error')
+               this.showAlert('Sent!','Mail has been re-sent','success')
 
 
             

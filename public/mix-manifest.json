@@ -78,7 +78,7 @@
     "/js/chunks/PanelLoaderChallenge.6fd1dadedec7b145aa32.js": "/js/chunks/PanelLoaderChallenge.6fd1dadedec7b145aa32.js",
     "/js/chunks/PanelSettings.6dacad97ca6a3ccc9344.js": "/js/chunks/PanelSettings.6dacad97ca6a3ccc9344.js",
     "/js/chunks/PaymentInfoBoard.76c6b486014729e938b3.js": "/js/chunks/PaymentInfoBoard.76c6b486014729e938b3.js",
-    "/js/chunks/PaymentProcessor.412f14454ba03e233fdb.js": "/js/chunks/PaymentProcessor.412f14454ba03e233fdb.js",
+    "/js/chunks/PaymentProcessor.1a3ef96b9f358d4a9083.js": "/js/chunks/PaymentProcessor.1a3ef96b9f358d4a9083.js",
     "/js/chunks/PayoutInfo.5ce23753148770287480.js": "/js/chunks/PayoutInfo.5ce23753148770287480.js",
     "/js/chunks/PostView.409a0624d434b5b5fec4.js": "/js/chunks/PostView.409a0624d434b5b5fec4.js",
     "/js/chunks/ProjectGuide.785c3b9011f7ef4da1a8.js": "/js/chunks/ProjectGuide.785c3b9011f7ef4da1a8.js",
@@ -91,7 +91,7 @@
     "/js/chunks/ResetPassword.8761175c0078f56ffa09.js": "/js/chunks/ResetPassword.8761175c0078f56ffa09.js",
     "/js/chunks/ResourceUpload.033c8698664e05a60a09.js": "/js/chunks/ResourceUpload.033c8698664e05a60a09.js",
     "/js/chunks/Reward.1902132a9f8714b23653.js": "/js/chunks/Reward.1902132a9f8714b23653.js",
-    "/js/chunks/SetUsername.f9dd3623387523967bda.js": "/js/chunks/SetUsername.f9dd3623387523967bda.js",
+    "/js/chunks/SetUsername.5965acf71578909aec07.js": "/js/chunks/SetUsername.5965acf71578909aec07.js",
     "/js/chunks/Settings.93d397e0252f4b75d9f5.js": "/js/chunks/Settings.93d397e0252f4b75d9f5.js",
     "/js/chunks/SettingsMain.1543434c787a37b01cba.js": "/js/chunks/SettingsMain.1543434c787a37b01cba.js",
     "/js/chunks/SideBar.938f20a34d0fdf0145e8.js": "/js/chunks/SideBar.938f20a34d0fdf0145e8.js",
@@ -115,5 +115,5 @@
     "/js/chunks/vendors~Chats.7898262bb20b0c277716.js": "/js/chunks/vendors~Chats.7898262bb20b0c277716.js",
     "/js/chunks/vendors~ImageCropperMain.84fb04ed0d5d20dbc9b2.js": "/js/chunks/vendors~ImageCropperMain.84fb04ed0d5d20dbc9b2.js",
     "/js/chunks/vendors~VPressEditor.e21ccb7aae6aa01aa2e0.js": "/js/chunks/vendors~VPressEditor.e21ccb7aae6aa01aa2e0.js",
-    "/js/chunks/verify.8835e6f51e6a863f5f28.js": "/js/chunks/verify.8835e6f51e6a863f5f28.js"
+    "/js/chunks/verify.fe7095d97c09283fefb1.js": "/js/chunks/verify.fe7095d97c09283fefb1.js"
 }
