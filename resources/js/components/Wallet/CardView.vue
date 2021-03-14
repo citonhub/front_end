@@ -51,8 +51,7 @@
                        </div>
            
 
-             <div style="font-size:18px;font-family:HeaderFont;"><span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span> {{formatMoney(that.$root.selectedPaymentCard.platform_fee + 
-             that.$root.selectedPaymentCard.payout_fee + that.$root.selectedPaymentCard.payment_processing_fee)}}</div>
+             <div style="font-size:18px;font-family:HeaderFont;"><span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span> {{formatMoney(that.$root.selectedPaymentCard.platform_fee + that.$root.selectedPaymentCard.payment_processing_fee)}}</div>
 
                   
               
@@ -98,10 +97,15 @@
 
            <div style="position:absolute;width:100%;top:75%; left:0%; height:25%; align-items:center;" class="d-flex flex-row">
 
-           <div  class="d-flex px-2 pb-2 flex-column text-left">
-             <div style="font-size:12px;color:white;font-family:BodyFont;">Balance</div>
+           <div  class="d-flex px-2 pb-2 flex-column text-left" @click.stop="showBalance()" style="cursor:pointer;">
+             <div style="font-size:12px;color:white;font-family:BodyFont;" class="d-flex flex-row">
+               
+               <div>Total balance <v-icon style="font-size:16px;color:white;">las la-exclamation-circle</v-icon></div>
+               
+    
+              </div> 
 
-             <div style="font-size:22px;color:white;font-family:HeaderFont;"><span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span> {{formatMoney(that.$root.selectedPaymentCard.balance)}}</div>
+             <div style="font-size:20px;color:white;font-family:HeaderFont;"><span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span> {{formatMoney(that.$root.selectedPaymentCard.balance - (that.$root.selectedPaymentCard.platform_fee + that.$root.selectedPaymentCard.payment_processing_fee))}}</div>
 
                   
               
@@ -113,8 +117,8 @@
                <div  class="d-md-none d-flex pr-2 pb-2 flex-column text-right ml-auto"  @click.stop="showFee()">
              <div style="font-size:12px;color:white;font-family:BodyFont;">Fees <v-icon style="font-size:16px;color:white;">las la-exclamation-circle</v-icon></div>
 
-             <div style="font-size:18px;color:white;font-family:HeaderFont;"><span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span> {{formatMoney(that.$root.selectedPaymentCard.platform_fee + 
-             that.$root.selectedPaymentCard.payout_fee + that.$root.selectedPaymentCard.payment_processing_fee)}}</div>
+             <div style="font-size:18px;color:white;font-family:HeaderFont;"><span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span> {{formatMoney(that.$root.selectedPaymentCard.platform_fee 
+             + that.$root.selectedPaymentCard.payment_processing_fee)}}</div>
 
                   
               
@@ -531,6 +535,12 @@ import 'izitoast/dist/css/iziToast.min.css'
        },
        showFee:function(){
        this.$root.infoType = 'fee'
+
+         this.$root.showWalletinfo = true;
+       },
+       showBalance:function(){
+
+        this.$root.infoType = 'balance'
 
          this.$root.showWalletinfo = true;
        },

@@ -19,11 +19,7 @@
            This is the cost incurred by moving funds from your members or supporters to your channel. This fee varies per transaction , depending on the amount and also the currency. You can read more on our <a href="https://flutterwave.com/ng/global-pricing" target="_blank">payment provider website</a>
         </p>
 
-      <h6 class="text-left">Payout fee: <span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.payout_fee)}}</h6>
-        <p style="font-size:13px;font-family:BodyFont;">
-          Payout fee is the charge of moving your funds from your wallet to your bank.
-        </p>
-
+     
    
     
 

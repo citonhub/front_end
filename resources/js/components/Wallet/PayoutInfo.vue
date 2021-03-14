@@ -6,7 +6,7 @@
          
    <div class="d-flex flex-row px-0 py-1" style="border-bottom:1px solid #c5c5c5; border-radius:0px; align-items:center;">
 
-             <div style="font-family:HeaderFont;font-size:16px;">Make Payout</div>
+             <div style="font-family:HeaderFont;font-size:16px;">Payout to your bank</div>
 
                 <v-btn small icon color="#ffffff" @click="closeModal" style="background:#3C87CD;" 
            class="ml-auto "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
@@ -14,9 +14,15 @@
         </div>
     
         <div style="font-size:13px;font-family:BodyFont;" class="mt-3 mb-2">
-          <span style="font-family:MediumFont;font-size:16px;"><span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.balance - (that.$root.selectedPaymentCard.platform_fee + 
-             that.$root.selectedPaymentCard.payout_fee + that.$root.selectedPaymentCard.payment_processing_fee))  }}</span>, Would be paid into your payout account.
+          <span style="font-family:MediumFont;font-size:16px;"><span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.payable_amount - (
+             that.$root.selectedPaymentCard.payout_fee ))  }}</span>, Would be paid into your payout account.
         </div>
+
+         <div style="font-family:MediumFont;font-size:16px;" class="text-left"><span style="font-size:14px;">Payout fee:</span> <span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.payout_fee)}}</div>
+        <p style="font-size:13px;font-family:BodyFont;">
+          Payout fee is the charge of moving your funds from your wallet on CitonHub to your bank.
+        </p>
+
 
     
       <div class="text-left mb-1 mt-1" style="font-size:13px;font-family:BodyFont;" >Select payout account </div>

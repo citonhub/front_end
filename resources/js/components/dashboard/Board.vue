@@ -175,6 +175,11 @@
      <template v-if="that.$root.infoType == 'referral'">
    <referral-info></referral-info>
      </template>
+
+
+     <template v-if="that.$root.infoType == 'balance'">
+   <balance-info></balance-info>
+     </template>
         
      
    </div>
@@ -236,6 +241,12 @@ const FeeInfo = () => import(
   const ReferralInfo = () => import(
    /* webpackChunkName: "ReferralInfo" */ '../Wallet/ReferralInfo.vue'
   );
+
+
+    const BalanceInfo = () => import(
+   /* webpackChunkName: "BalanceInfo" */ '../Wallet/BalanceInfo.vue'
+  );
+
   const TopBar = () => import(
     /* webpackChunkName: "TopBarBoard" */ './TopBar.vue'
   );
@@ -267,6 +278,7 @@ const FeeInfo = () => import(
       FeeInfo,
      TopBar,
      ReferralInfo,
+     BalanceInfo,
      SideBar,
      ProfileView,
      PayoutAccount,

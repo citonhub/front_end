@@ -86,9 +86,9 @@
            <div style="position:absolute;width:100%;top:75%; left:0%; height:25%; align-items:center;" class="d-flex flex-row">
 
            <div  class="d-flex px-2 pb-2 flex-column text-left">
-             <div style="font-size:12px;color:white;font-family:BodyFont;">Balance</div>
+             <div style="font-size:12px;color:white;font-family:BodyFont;">Total balance</div>
 
-             <div style="font-size:22px;color:white;font-family:HeaderFont;"><span v-html="currencyToCharacter(paymentCard.currency)"></span> {{formatMoney(paymentCard.balance)}}</div>
+             <div style="font-size:22px;color:white;font-family:HeaderFont;"><span v-html="currencyToCharacter(paymentCard.currency)"></span> {{formatMoney(paymentCard.balance - (paymentCard.platform_fee + paymentCard.payment_processing_fee))}}</div>
 
                   
            
