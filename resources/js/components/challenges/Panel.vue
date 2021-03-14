@@ -670,7 +670,7 @@ export default {
     methods:{
        shareChallenge:function(){
 
-          this.$root.shareLink =  'https://www.citonhub.com/link/challenge/'+ this.$route.params.challenge_id;
+          this.$root.shareLink =  'https://link.citonhub.com/challenge/'+ this.$route.params.challenge_id;
 
           this.$root.shareText = 'Check out this challenge on Citonhub';
           

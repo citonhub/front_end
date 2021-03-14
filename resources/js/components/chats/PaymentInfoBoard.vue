@@ -54,7 +54,7 @@
        </div>
 
 
-         <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Currency</div>
+         <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Select currency</div>
                 <select  style="font-size:13px !important; font-family:BodyFont; background:transparent;" v-model="currency"  class="browser-default custom-select mb-4">
                  <option v-for="(option,index)  in CurrencyOptions" :value="option.code" :key="index">{{ option.name}}</option>
           </select>
@@ -65,7 +65,7 @@
 
 
         
-             <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Amount</div>
+             <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Set amount</div>
               <v-text-field
                 style="font-size:13px;"
                  placeholder="amount"
@@ -82,7 +82,7 @@
 
          <template  v-if="that.$root.payment_option == 'subscription'">
 
-             <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Interval</div>
+             <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Set interval</div>
               
 
              <select  style="font-size:13px !important; font-family:BodyFont; background:transparent;" v-model="interval"  class="browser-default custom-select mb-4">

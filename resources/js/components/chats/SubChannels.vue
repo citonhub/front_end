@@ -10,7 +10,7 @@
             </div>
           
              <div class="col-8 py-0 px-0 text-center">
-             <span style="font-size:14px; font-family:MediumFont;">Sub Channels</span>
+             <span style="font-size:14px; font-family:MediumFont;">Sub-Channels</span>
           </div>
               
               <div class="col-2 py-0 mr-1 px-1 text-right">

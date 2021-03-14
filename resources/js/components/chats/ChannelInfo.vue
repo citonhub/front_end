@@ -327,7 +327,7 @@ export default {
   },
    showInvitation:function(){
             this.$root.shareText = 'Join ' + this.$root.selectedSpace.name +  ' on Citonhub';
-       this.$root.shareLink =   'https://www.citonhub.com/link/channel/'+ this.$root.selectedSpace.space_id;
+       this.$root.shareLink =   'https://link.citonhub.com/channel/'+ this.$root.selectedSpace.space_id;
             this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id + '/channel_invitation' });
         },
     checkIfisOwner: function(){

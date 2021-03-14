@@ -213,7 +213,7 @@
 
                        <div class="mt-5 px-3 pt-5 text-center" style="font-size:13px;color:grey;font-family:BodyFont;">
                        <div class="mb-1  px-3">
-                  You have no transaction yet. Invite your friends to teach on CitonHub and get 5% commission of their first 10 earnings. 
+                  You have no transaction yet. Invite your friends to teach on CitonHub and get 5% commission on their first 10 earnings. 
                        </div>
                        
                              <v-btn small color="#3C87CD" @click="copyMessage()"  style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mr-3 " >Copy invite link</v-btn>
@@ -499,7 +499,7 @@ import 'izitoast/dist/css/iziToast.min.css'
 
 
 
-      copyToClipboard('https://www.citonhub.com/link/referral/'+ this.$root.username);
+      copyToClipboard('https://link.citonhub.com/referral/'+ this.$root.username);
 
         this.$root.cardViewComponent.showAlert('Copied!','Copied to clipboard','success');
 

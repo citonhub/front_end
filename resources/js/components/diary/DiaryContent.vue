@@ -267,7 +267,7 @@ export default {
       },
       shareDiary:function(){
 
-          this.$root.shareLink =  'https://www.citonhub.com/link/diary/'+ this.$route.params.diary_id;
+          this.$root.shareLink =  'https://link.citonhub.com/diary/'+ this.$route.params.diary_id;
 
           this.$root.shareText = 'Check out my diary on Citonhub';
           

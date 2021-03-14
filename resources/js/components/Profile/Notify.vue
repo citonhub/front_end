@@ -7,7 +7,7 @@
    
    <div class="py-3 text-center">
 
-        <span style="font-size:13px; font-family:MediumFont;">Turn on notification for this device to receive updates on your activities on CitonHub </span> 
+        <span style="font-size:13px; font-family:MediumFont;">Turn on notification to receive updates on your activities on CitonHub </span> 
 
    </div>
 

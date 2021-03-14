@@ -298,7 +298,7 @@ export default {
 
 
 
-      copyToClipboard('https://www.citonhub.com/link/referral/'+ this.$root.username);
+      copyToClipboard('https://link.citonhub.com/referral/'+ this.$root.username);
 
         this.$root.cardViewComponent.showAlert('Copied!','Copied to clipboard','success');
 
@@ -429,7 +429,7 @@ export default {
      shareToWhatsapp:function(){
 
               this.$root.shareText = 'Teach, grow your community and earn on CitonHub';
-              this.$root.shareLink = 'https://www.citonhub.com/link/referral/'+ this.$root.username;
+              this.$root.shareLink = 'https://link.citonhub.com/referral/'+ this.$root.username;
 
         let link = 'whatsapp://send?text='+ this.$root.shareText + ', ' + this.$root.shareLink;
 
@@ -440,7 +440,7 @@ export default {
       shareToTwitter: function(){
 
            this.$root.shareText = 'Teach, grow your community and earn on CitonHub';
-              this.$root.shareLink = 'https://www.citonhub.com/link/referral/'+ this.$root.username;
+              this.$root.shareLink = 'https://link.citonhub.com/referral/'+ this.$root.username;
 
          let link = 'https://twitter.com/intent/tweet?' + 'url=' + this.$root.shareLink + '&text=' + this.$root.shareText;
 

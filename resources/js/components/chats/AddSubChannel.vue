@@ -10,7 +10,7 @@
             </div>
           
              <div class="col-8 py-0 text-center">
-             <span style="font-size:14px; font-family:MediumFont;">Add a sub channel</span>
+             <span style="font-size:14px; font-family:MediumFont;">Add a sub-channel</span>
           </div>
               
               <div class="col-2 py-0 mr-1 text-right">
@@ -68,7 +68,7 @@
              </div>
 
               <div class="col-12">
-                <span style="font-size:12px;color:gray;">Public is for everyone and private for those you invite</span>
+                <span style="font-size:12px;color:gray;">All your members have access to your public sub-channels while private sub-channels are only for those you invite</span>
               </div>
 
 

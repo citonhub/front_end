@@ -140,7 +140,7 @@
        style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:100px;">
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
+                      Channel is where you teach, mentor and earn.
                     </div>
 
                      <div>
@@ -387,8 +387,8 @@
 
             <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
 
-               <invitation :infoText="'A brand new channel and the beginning of your journey to help others grow 🚀'"
-                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
+               <invitation :infoText="'Teach, mentor and grow your community here.'"
+                                   :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
 
             </template>
 
@@ -404,7 +404,7 @@
 
                                   
                                
-                               <div class="d-flex flex-row col-12 py-0" v-if="!this.$root.showRootReply">
+                               <div class="d-flex flex-row col-12 py-0" v-if="!this.$root.showRootReply && !that.$root.showEmojiBox">
 
                                   <!-- scroll to buttom -->
 
@@ -545,8 +545,8 @@
                                <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center " @click="goBack" style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                  <invitation :infoText="'A brand new channel and the beginning of your journey to help others grow 🚀'"
-                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
+                                  <invitation :infoText="'Teach, mentor and grow your community here.'"
+                                   :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
                             </div>
 
                             <!-- ends -->
@@ -827,7 +827,7 @@
           style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto;align-items:center;justify-content:center;" >
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                     Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
+                     Channel is where you teach, mentor and earn.
                     </div>
 
                      <div>
@@ -1103,8 +1103,8 @@
 
               <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
 
-              <invitation :infoText="'A brand new channel and the beginning of your journey to help others grow 🚀'"
-                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
+              <invitation :infoText="'Teach, mentor and grow your community here.'"
+                                   :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
 
             </template>
           
@@ -1116,21 +1116,7 @@
 
                              
 
-                              <!-- share diary -->
-                          
-                           <template v-if="that.$root.selectedSpace.type ==  'Bot'">
-
-                                       <v-btn @click="shareDiary()" v-if="chatIsOpen"   fab x-small color="#ffffff"  style="z-index:9999999;  position:fixed;  bottom:16%; right:2%; ">
-
-                               <v-icon style="font-size:20px; color:#3C87CD;">mdi mdi-share-variant</v-icon>
-
-                              </v-btn>
-
-                                   </template>
-
-
-                              <!-- ends -->
-
+                             
                              <div class="col-12 py-0 px-0" style=" left:0; position:fixed; bottom:0%;z-index:999999999;" >
                                 <div class="col-12  py-1"  v-if="that.$root.showEmojiBox">
                             <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
@@ -1260,8 +1246,8 @@
                                <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center " style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
                                   <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                  <invitation :infoText="'A brand new channel and the beginning of your journey to help others grow 🚀'"
-                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
+                                  <invitation :infoText="'Teach, mentor and grow your community here.'"
+                                   :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
                             </div>
 
                             <!-- ends -->
@@ -2174,7 +2160,7 @@ goToChatList:function(){
       },
  shareDiary:function(){
 
-    this.$root.shareLink =  'https://www.citonhub.com/link/diary/'+ this.$root.selectedSpace.bot_data.bot_id;
+    this.$root.shareLink =  'https://link.citonhub.com/diary/'+ this.$root.selectedSpace.bot_data.bot_id;
 
           this.$root.shareText = 'Check out this diary on Citonhub';
           
@@ -2214,7 +2200,7 @@ goToChatList:function(){
 
 
       this.$root.shareText = 'Join ' + this.$root.selectedSpace.name +  ' on Citonhub';
-       this.$root.shareLink =   'https://www.citonhub.com/link/channel/'+ this.$root.selectedSpace.space_id;
+       this.$root.shareLink =   'https://link.citonhub.com/channel/'+ this.$root.selectedSpace.space_id;
    
   
     },

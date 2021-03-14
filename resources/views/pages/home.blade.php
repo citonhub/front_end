@@ -90,7 +90,7 @@
 <div class="col-lg-6 offset-lg-3 text-center  d-none d-md-block flex-column " style=" align-items:center; justify-content:center; margin-top:140px;margin-bottom:100px;">
    
    <div class="px-2 mt-4 " >
-     <h1 style="font-family:HeaderFont;" class="mb-3 mt-4">Teach, grow your community, and earn</h1>
+     <h1 style="font-family:HeaderFont;" class="mb-3 mt-4">Teach, grow your community, and earn.</h1>
 
      <div class="px-3">
      <p style="font-size:20px;font-family:BodyFont;" class="px-5">CitonHub is a place <br>for developers to teach and earn from their passion across borders.</p>
@@ -117,7 +117,7 @@
 <div class="d-md-none d-block  " style="width:100%; margin-top:90px; margin-bottom:40px;">
 <div class=" text-center">
 
-<h4 style="font-family:HeaderFont;" class="mb-3 px-3">Teach, grow your community, and earn</h4>
+<h4 style="font-family:HeaderFont;" class="mb-3 px-3">Teach, grow your community, and earn.</h4>
    
    <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is a place for developers to teach and earn from their passion across borders.</p>
 

@@ -11,18 +11,17 @@
   
      <h6 class="text-left">Platform fee: <span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.platform_fee)}}</h6>
         <p style="font-size:13px;font-family:BodyFont;">
-           Platform fee is the 10% of successful processed payment made into your payment card. This means we only make money when you do.
+           Platform fee is the 10% of successful processed payment made into your channel. This means we only make money when you do.
         </p>
 
       <h6 class="text-left">Payment processing fee: <span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.payment_processing_fee)}}</h6>
         <p style="font-size:13px;font-family:BodyFont;">
-           This is the cost incurred by moving funds from your members or supporters to your payment card. This fee covers the cost of processing payment from your members or supporters
-           including recurring billing and fighting fraud. It also varies per transaction , depending on the amount , payment methods (i.e credit card,mobile money) and also the currency.
+           This is the cost incurred by moving funds from your members or supporters to your channel. This fee varies per transaction , depending on the amount and also the currency. You can read more on our <a href="https://flutterwave.com/ng/global-pricing" target="_blank">payment provider website</a>
         </p>
 
       <h6 class="text-left">Payout fee: <span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.payout_fee)}}</h6>
         <p style="font-size:13px;font-family:BodyFont;">
-          Payout fee is the charge of moving your funds from your payment card to your bank.
+          Payout fee is the charge of moving your funds from your wallet to your bank.
         </p>
 
    
