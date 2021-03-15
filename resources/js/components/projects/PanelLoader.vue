@@ -146,7 +146,9 @@
 
                  const InputFound = this.$root.projectData.project_files.code_files[0].content.match(InputRegex);
 
-                  if(InputFound.length > 0){
+                     if(InputFound != null){
+
+                         if(InputFound.length > 0){
 
                     this.$root.projectInputData = [];
 
@@ -171,6 +173,7 @@
 
                   }
 
+                     }
 
                }
 

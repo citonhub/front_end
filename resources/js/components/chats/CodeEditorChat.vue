@@ -905,7 +905,10 @@ methods:{
 
                  const InputFound = this.code.match(InputRegex);
 
-                  if(InputFound.length > 0){
+
+                  if(InputFound != null){
+
+                     if(InputFound.length > 0){
 
                     this.$root.projectInputData = [];
 
@@ -929,6 +932,10 @@ methods:{
                      return
 
                   }
+                  
+                  }
+
+                 
 
 
                }
