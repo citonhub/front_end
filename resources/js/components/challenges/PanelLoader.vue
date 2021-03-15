@@ -265,9 +265,19 @@ methods:{
               
                if(this.participantSelected.panel_language == '39' || this.participantSelected.panel_language  == '100' || this.participantSelected.panel_language == '38'){
                  
-                 const InputRegex = /(input\(')(.*)('\))/g;
+              
+                  const InputRegex = /(input\(')(.*)('\))/g;
 
                  const InputFound = this.participantSelected.main_file_content.match(InputRegex);
+
+                  if(InputFound == null){
+
+                   InputRegex = /(input\(")(.*)("\))/g;
+
+                 InputFound = this.participantSelected.main_file_content.match(InputRegex);
+
+                  }
+
 
                  if(InputFound != null){
 
@@ -278,9 +288,7 @@ methods:{
 
                     InputFound.forEach((input)=>{
 
-                       const regexString = /[^input(')]/g;
-
-                  
+                       
                        let finalWord = input.split("'");
 
                       var inputData = {

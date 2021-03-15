@@ -142,9 +142,19 @@
 
                if(this.$root.projectData.project_panel.panel_language == '39' || this.$root.projectData.project_panel.panel_language == '100' || this.$root.projectData.project_panel.panel_language == '38'){
                  
+              
+
                  const InputRegex = /(input\(')(.*)('\))/g;
 
                  const InputFound = this.$root.projectData.project_files.code_files[0].content.match(InputRegex);
+
+                  if(InputFound == null){
+
+                   InputRegex = /(input\(")(.*)("\))/g;
+
+                   InputFound = this.$root.projectData.project_files.code_files[0].content.match(InputRegex);
+
+                  }
 
                      if(InputFound != null){
 

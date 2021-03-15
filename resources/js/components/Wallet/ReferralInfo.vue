@@ -25,96 +25,57 @@
 
       <template v-else>
 
-        <div class="d-flex flex-row py-2 pb-1">
+       
 
-      <div class="col-6 d-flex pb-1 flex-column" style="align-items:center;justify-content:center;">
+      <div class="col-12 d-flex  flex-column" style="align-items:center;justify-content:center;">
 
-          <div style="color:grey;font-size:14px;font-family:MediumFont;">Your referrals</div>
+          <div style="color:grey;font-size:14px;font-family:MediumFont;">Your Referrals</div>
 
-         <div class="py-2" style="font-size:17px;font-family:HeaderFont;">{{totalReferral}}</div>
-
-      </div>
-
-       <div class="col-6 d-flex pb-1 flex-column" style="align-items:center;justify-content:center;">
-
-              <div style="color:grey;font-size:14px;font-family:MediumFont;">Amount earned</div>
-
-            <div class="py-2" style="font-size:17px;font-family:HeaderFont;"><span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(totalEarned)}}</div>
+         <div class="py-2" style="font-size:19px;font-family:HeaderFont;">{{totalReferral}}</div>
 
       </div>
 
-  </div>
+       <div class="col-12 d-flex pb-1 flex-column" style="align-items:center;justify-content:center;">
 
-  <div class="py-2 pt-0 d-flex flex-column">
-    
-     <div style="font-size:13px; color:gray;font-family:MediumFont;">Your referral link</div>
+              <div style="color:grey;font-size:14px;font-family:MediumFont;">Amount Earned</div>
 
-      <div style="font-size:13px;font-family:BodyFont;" class="py-2 ">
-        Invite your friends to teach on CitonHub and get 5% commission of their first 10 earnings.
+            <div class="py-2" style="font-size:19px;font-family:HeaderFont;"><span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(totalEarned)}}</div>
+
       </div>
 
-     <div class="d-flex flex-row pt-2 " style="align-items:center;">
 
 
-      <v-btn x-small color="#3C87CD" @click="copyMessage()"  style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mr-3 " >Copy link</v-btn>
+     <div class="d-flex flex-row py-0 px-1 col-12" style="align-items:center;">
 
-      <v-btn icon class="mr-3 " @click="shareToWhatsapp" x-small>  <v-icon color="#4FCE5D" style="font-size:25px;" >las la-whatsapp</v-icon> </v-btn>
+       <div style="width:100%;">
+         <div style="font-size:13px;font-family:MediumFont;" class="mb-1 ">Referral link:</div>
+              <v-text-field
+                style="font-size:13px;"
+                 placeholder="city"
+               v-model="referralLink"
+             dense  
+             readonly
+             outlined
+             color="#3C87CD"
+            
+             ></v-text-field>
+       </div>
 
-        <v-btn icon class="mr-3 " @click="shareToTwitter" x-small>  <v-icon style="font-size:25px;" color="#00acee" class="mx-1">las la-twitter</v-icon>  </v-btn>
+       <v-btn icon @click="copyMessage"><v-icon>las la-copy</v-icon></v-btn>
 
      </div>
-       
 
-  </div>
-
-  <div class="py-2 pt-0 d-flex mt-1 flex-column">
-    
-     <div style="font-size:13px; color:gray;font-family:MediumFont;">Referred users</div>
-
-    <div class="mt-1 d-flex flex-column px-2 scroller" style="height:230px;overflow-x:hidden; overflow-y:auto;">
-   
-   <template v-if="loadingUser">
-      <div  class="col-12 mt-3 text-center">
-
-           <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
-
-            </div>
-   </template>
-   <template v-else>
-
-      <div class="d-flex flex-row py-3" style="align-items:center; border-bottom:1px solid #d9d9d9;" v-for="(user,index) in referralData" :key="index">
-          
-              <div    class="mr-2"
-     :style="imageStyle(30,[],'user')">
-  </div> 
-   <div>
-        <span style="font-size:13px;font-family:MediumFont;">{{user.slug}}</span>
-   </div>
-
-   <div class="ml-auto">
-      <div  style="font-size:13px;font-family:MediumFont; color:grey;"><span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(user.amount_earned)}}</div>
-   </div>
-
+     <div style="font-size:13px;font-family:BodyFont;">
+         Invite your friends to teach on CitonHub and get 5% commission of their first 10 earnings.
         </div>
 
+        <div class="col-12 px-0">
+          <v-btn @click="shareToWhatsapp" block color="#4FCE5D" style="text-transform:none;color:white;font-family:MediumFont;">Share to Whatsapp</v-btn>
+        </div>
 
-   </template>
-       
-
-    </div>
-      <div class="text-center">
-          <v-pagination
-      v-model="currentpage"
-      total-visible="4"
-      :length="lastpage"
-       @input="handleInput"
-      circle
-      color="#3C87CD"
-           ></v-pagination>
-            </div>
-       
-
-  </div>
+         <div class="col-12 px-0">
+          <v-btn @click="shareToTwitter" block color="#00acee" style="text-transform:none;color:white;font-family:MediumFont;">Share to Twitter</v-btn>
+        </div>
   
 
       </template>
@@ -266,6 +227,7 @@ export default {
         totalEarned:0,
         loading:false,
         loadingUser:false,
+        referralLink:'https://link.citonhub.com/referral/'+ this.$root.username
           
         }
     },

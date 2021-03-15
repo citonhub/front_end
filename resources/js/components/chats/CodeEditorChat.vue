@@ -905,6 +905,14 @@ methods:{
 
                  const InputFound = this.code.match(InputRegex);
 
+                  if(InputFound == null){
+
+                   InputRegex = /(input\(")(.*)("\))/g;
+
+                 InputFound = this.code.match(InputRegex);
+
+                  }
+
 
                   if(InputFound != null){
 

@@ -91,12 +91,18 @@ export default {
                      
               let inputText = "input\\(\\'" + input.name + "\\'\\)";
 
+               let inputText2 = 'input\\(\\"' + input.name + '\\"\\)';
+
               
 
               let inputRegex = new RegExp(inputText,'g');
 
+               let inputRegex2 = new RegExp(inputText2,'g');
+
               
               finalContent =  codeContent.replace(inputRegex,input.value);  
+
+              finalContent =  finalContent.replace(inputRegex2,input.value);  
              
 
              })
