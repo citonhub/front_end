@@ -193,7 +193,7 @@
  <!-- project input handler  -->
 
 
-   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showProjectInput" @click="that.$root.showProjectInput = false" >
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showProjectInput" >
 
    <div style="position:absolute; height:90%; top:8%; width:94%; left:3%; "  >
   
