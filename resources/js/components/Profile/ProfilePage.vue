@@ -280,7 +280,7 @@
 
                      <template v-else>
 
-                          <div  class="col-12 mt-4 text-center">
+                          <div   class="col-12 mt-4 text-center" v-if="">
    {{userData.username}} has no project yet
                           </div>
 
