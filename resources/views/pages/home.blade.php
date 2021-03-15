@@ -5,7 +5,7 @@
 
  @endsection
  @section('meta') 
- <meta name="description" content="Teach, mentor, and connect with other developers" />
+ <meta name="description" content="CitonHub is a place for developers to teach and earn from their passion across borders" />
   <meta name="keywords" content="Teach programming,Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
@@ -19,7 +19,7 @@
     <meta name="msapplication-TileImage" content="images/icons/logo_msapplication-icon-144x144.png">
     <meta name="msapplication-TileColor" content="#3C87CD">
     <meta property="og:description" content="Join other developers helping each other grow on CitonHub" />
-    <meta property='twitter:title' content="CitonHub:Teach, mentor, and connect with other developers"/>
+    <meta property='twitter:title' content="CitonHub:A place for developers to teach and earn from their passion across borders"/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 
@@ -52,7 +52,7 @@
 <div id="home" class="py-0 col-12 px-0" style="background:url('/imgs/backgroundHome.png');background-repeat:no-reapeat;overflow-x:hidden;">
    
 <!-- Headers -->
-<div class="col-12 fixed-top py-2 px-md-4 px-2 "  style="background:rgba(255,255,255,1.0);">
+<div class="col-12 fixed-top py-2 px-md-4 px-3 px-md-2 "  style="background:rgba(255,255,255,1.0);">
 <div class="row">
 
 <!-- Logo -->
@@ -90,10 +90,10 @@
 <div class="col-lg-6 offset-lg-3 text-center  d-none d-md-block flex-column " style=" align-items:center; justify-content:center; margin-top:140px;margin-bottom:100px;">
    
    <div class="px-2 mt-4 " >
-     <h1 style="font-family:HeaderFont;" class="mb-3 mt-4">Teach, grow your community, and earn</h1>
+     <h1 style="font-family:HeaderFont;" class="mb-3 mt-4">Teach, grow your community, and earn.</h1>
 
      <div class="px-3">
-     <p style="font-size:20px;font-family:BodyFont;" class="px-5">CitonHub is a place <br>for developers to earn from their passion across borders.</p>
+     <p style="font-size:20px;font-family:BodyFont;" class="px-5">CitonHub is a place <br>for developers to teach and earn from their passion across borders.</p>
      </div>   
    
 
@@ -117,9 +117,9 @@
 <div class="d-md-none d-block  " style="width:100%; margin-top:90px; margin-bottom:40px;">
 <div class=" text-center">
 
-<h4 style="font-family:HeaderFont;" class="mb-3">Teach, grow your community, and earn</h4>
+<h4 style="font-family:HeaderFont;" class="mb-3 px-3">Teach, grow your community, and earn.</h4>
    
-   <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is a place for developers to earn from their passion across borders.</p>
+   <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is a place for developers to teach and earn from their passion across borders.</p>
 
     
       <div class="mt-4">
@@ -171,17 +171,17 @@
 
 </div>
 
-<div class="d-md-none d-block" style="width:100%;height:620px;left:0%; margin-top:30px;" >
+<div class="d-md-none d-block" style="width:100%;height:690px;left:0%; margin-top:30px;" >
     
-    <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:620px;">
+    <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:700px;">
 
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column"> 
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column mt-1"> 
 
       <!-- what you can do -->
-<div class="col-12 text-center pt-5 mt-2">
+<div class="col-12 text-center pt-5 mt-5">
 
 
-<h5 style="font-weight:bold;  color:white;" class="text-center mb-0 d-md-none d-block mt-3 px-2" >CitonHub is an all-in-one platform where you can:</h5>
+<h5 style="font-weight:bold;  color:white;" class="text-center mb-0 d-md-none d-block mt-3 px-4" >CitonHub is an all-in-one platform where you can:</h5>
 
 </div>
 

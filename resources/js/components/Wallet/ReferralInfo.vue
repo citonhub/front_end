@@ -39,7 +39,7 @@
 
               <div style="color:grey;font-size:14px;font-family:MediumFont;">Amount earned</div>
 
-            <div class="py-2" style="font-size:17px;;font-family:HeaderFont;"><span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(totalEarned)}}</div>
+            <div class="py-2" style="font-size:17px;font-family:HeaderFont;"><span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(totalEarned)}}</div>
 
       </div>
 
@@ -49,8 +49,14 @@
     
      <div style="font-size:13px; color:gray;font-family:MediumFont;">Your referral link</div>
 
-     <div class="d-flex flex-row pt-2 px-2" style="align-items:center;">
-      <v-btn x-small color="#3C87CD" @click="copyMessage()"  style="color:white;text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mr-3 " >Copy</v-btn>
+      <div style="font-size:13px;font-family:BodyFont;" class="py-2 ">
+        Invite your friends to teach on CitonHub and get 5% commission of their first 10 earnings.
+      </div>
+
+     <div class="d-flex flex-row pt-2 " style="align-items:center;">
+
+
+      <v-btn x-small color="#3C87CD" @click="copyMessage()"  style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mr-3 " >Copy link</v-btn>
 
       <v-btn icon class="mr-3 " @click="shareToWhatsapp" x-small>  <v-icon color="#4FCE5D" style="font-size:25px;" >las la-whatsapp</v-icon> </v-btn>
 
@@ -65,7 +71,7 @@
     
      <div style="font-size:13px; color:gray;font-family:MediumFont;">Referred users</div>
 
-    <div class="mt-1 d-flex flex-column px-2 scroller" style="height:250px;overflow-x:hidden; overflow-y:auto;">
+    <div class="mt-1 d-flex flex-column px-2 scroller" style="height:230px;overflow-x:hidden; overflow-y:auto;">
    
    <template v-if="loadingUser">
       <div  class="col-12 mt-3 text-center">
@@ -292,7 +298,7 @@ export default {
 
 
 
-      copyToClipboard('https://www.citonhub.com/link/referral/'+ this.$root.username);
+      copyToClipboard('https://link.citonhub.com/referral/'+ this.$root.username);
 
         this.$root.cardViewComponent.showAlert('Copied!','Copied to clipboard','success');
 
@@ -423,7 +429,7 @@ export default {
      shareToWhatsapp:function(){
 
               this.$root.shareText = 'Teach, grow your community and earn on CitonHub';
-              this.$root.shareLink = 'https://www.citonhub.com/link/referral/'+ this.$root.username;
+              this.$root.shareLink = 'https://link.citonhub.com/referral/'+ this.$root.username;
 
         let link = 'whatsapp://send?text='+ this.$root.shareText + ', ' + this.$root.shareLink;
 
@@ -434,7 +440,7 @@ export default {
       shareToTwitter: function(){
 
            this.$root.shareText = 'Teach, grow your community and earn on CitonHub';
-              this.$root.shareLink = 'https://www.citonhub.com/link/referral/'+ this.$root.username;
+              this.$root.shareLink = 'https://link.citonhub.com/referral/'+ this.$root.username;
 
          let link = 'https://twitter.com/intent/tweet?' + 'url=' + this.$root.shareLink + '&text=' + this.$root.shareText;
 

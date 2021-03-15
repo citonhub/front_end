@@ -4,7 +4,7 @@
       <div class="col-lg-10 offset-lg-1 py-1 mb-0  px-2 d-md-block d-none fixed-top" style="position:sticky; background:#F5F5FB; z-index:999999999999; border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0 d-flex flex-row" style="align-items:center;">
-          <v-btn @click="goBack()" icon class="mr-1"><v-icon>las la-arrow-left</v-icon></v-btn> <h5>DSC Landmark</h5>
+          <v-btn @click="goBack()" icon class="mr-1"><v-icon>las la-arrow-left</v-icon></v-btn> <h5>{{that.$root.selectedPaymentCard.name}}</h5>
         </div>
          <div class="col-6  py-0 my-0 text-right">
           
@@ -16,7 +16,7 @@
      <div class=" px-1 col-12 pb-0 d-md-none d-block fixed-top" style="position:sticky; background:#F5F5FB;border-bottom:1px solid #c5c5c5;">
      <div class="row">
         <div class="col-11 py-0 my-0" style="align-items:center;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
-            <v-btn  @click="goBack()"   icon><v-icon>las la-arrow-left</v-icon></v-btn>  <h6 class="d-inline-block" ><h6>DSC Landmark</h6></h6>
+            <v-btn  @click="goBack()"   icon><v-icon>las la-arrow-left</v-icon></v-btn>  <h6 class="d-inline-block" ><h6>{{that.$root.selectedPaymentCard.name}}</h6></h6>
         </div>
         
       </div>

@@ -129,15 +129,7 @@
 
                <template #after> 
 
-          <div class="col-12 mt-2 text-center d-flex flex-column"  v-if="that.$root.channelChats.length == 0">
-                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
-                    </div>
-
-                     <div>
-                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
-                     </div>
-          </div>
+          
 
         </template>
 
@@ -148,7 +140,7 @@
        style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:100px;">
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
+                      Channel is where you teach, mentor, and earn.
                     </div>
 
                      <div>
@@ -395,8 +387,8 @@
 
             <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
 
-               <invitation :infoText="'A brand new channel and the beginning of your journey to help others grow 🚀'"
-                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
+               <invitation :infoText="'Teach, mentor and grow your community here.'"
+                                   :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
 
             </template>
 
@@ -410,6 +402,56 @@
                             <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
                                  </div>
 
+                                  
+                               
+                               <div class="d-flex flex-row col-12 py-0" v-if="!this.$root.showRootReply && !that.$root.showEmojiBox">
+
+                                  <!-- scroll to buttom -->
+
+                                   <div class="mr-auto py-0  " v-if="that.$root.Messages && !this.$root.showRootReply" >
+
+                                         <!-- scroll to bottom  -->
+
+                                <template v-if="that.$root.Messages">
+
+                                   <template v-if="that.$root.Messages.length >  0">
+
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"  class="mb-n5"  fab x-small color="#ffffff"  style="z-index:9999999;  ">
+
+                               <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
+
+                              </v-btn>
+
+                                   </template>
+
+                                </template>
+
+                            
+
+                              <!-- ends -->
+
+                                   </div>
+
+                                       <!-- show code button -->
+
+                                   <div class="  ml-auto" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'"  >
+
+                                        <v-btn  @click="showCodeEditor" class="mb-2"   fab color="#ffffff"  style="z-index:9999999;">
+
+                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
+
+                              </v-btn>
+
+                                   </div>
+                              
+
+                              <!-- ends -->
+                              
+
+                               </div>
+                               
+
+                              <!-- ends -->
 
                                   <!-- reply view -->
 
@@ -420,6 +462,7 @@
                                  </div>
 
                                   <!-- ends -->
+
 
                                   <div class="px-2 py-1 card" style="background:#ffffff; border-radius:0px;">
                                      
@@ -502,8 +545,8 @@
                                <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center " @click="goBack" style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                  <invitation :infoText="'A brand new channel and the beginning of your journey to help others grow 🚀'"
-                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
+                                  <invitation :infoText="'Teach, mentor and grow your community here.'"
+                                   :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
                             </div>
 
                             <!-- ends -->
@@ -706,30 +749,9 @@
 
                       </div>
 
-                           <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'" medium fab color="#ffffff"  class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:12%; right:1%; ">
+                         
 
-                               <v-icon style="font-size:25px; color:#3C87CD;">las la-code</v-icon>
-
-                              </v-btn>
-
-                               <!-- scroll to bottom button -->
-
-                                <template v-if="that.$root.Messages">
-
-                                   <template v-if="that.$root.Messages.length >  0">
-
-                                     <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible && that.$root.Messages.length > 0"   fab x-small color="#ffffff" class="d-lg-inline-block d-none" style="z-index:99999999;  position:absolute;  bottom:14%; left:1%;">
-
-                               <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
-
-                              </v-btn>
-
-                                   </template>
-
-                                </template>
-
-                              <!-- ends -->
-
+                            
                                <!-- share diary -->
                           
                            <template v-if="that.$root.selectedSpace.type ==  'Bot'">
@@ -795,15 +817,7 @@
 
              <template #after > 
 
-          <div class="col-12 mt-2 text-center d-flex flex-column" v-if="that.$root.channelChats.length == 0">
-                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
-                    </div>
-
-                     <div>
-                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
-                     </div>
-          </div>
+       
 
         </template>
 
@@ -813,7 +827,7 @@
           style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto;align-items:center;justify-content:center;" >
 
                     <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                     Channel is where you teach. Chat, share and run codes, organize live coding and screen sharing sessions with others.
+                     Channel is where you teach, mentor, and earn.
                     </div>
 
                      <div>
@@ -1089,8 +1103,8 @@
 
               <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
 
-              <invitation :infoText="'A brand new channel and the beginning of your journey to help others grow 🚀'"
-                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
+              <invitation :infoText="'Teach, mentor and grow your community here.'"
+                                   :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
 
             </template>
           
@@ -1098,23 +1112,34 @@
      </template>
                       
 
-                             <v-btn  @click="showCodeEditor" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot' && this.$root.showCodeboxBtn"   fab color="#ffffff"  style="z-index:9999999;  position:fixed;  bottom:15%; right:2%; ">
+                           
 
-                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
+                             
 
-                              </v-btn>
+                             
+                             <div class="col-12 py-0 px-0" style=" left:0; position:fixed; bottom:0%;z-index:999999999;" >
+                                <div class="col-12  py-1"  v-if="that.$root.showEmojiBox">
+                            <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
+                                 </div>
 
-                               <!-- scroll to bottom button -->
+                             
+                              <div class="d-flex flex-row col-12 py-0 px-2" v-if="!this.$root.showRootReply && !that.$root.showEmojiBox">
+
+                                  <!-- scroll to buttom -->
+
+                                   <div class="mr-auto py-0  " v-if="that.$root.Messages && !this.$root.showRootReply" >
+
+                                         <!-- scroll to bottom  -->
 
                                 <template v-if="that.$root.Messages">
 
                                    <template v-if="that.$root.Messages.length >  0">
 
-                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"   fab x-small color="#ffffff"  style="z-index:9999999;  position:fixed;  bottom:16%; left:2%; ">
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"  class="mb-n4"  fab x-small color="#ffffff"  style="z-index:9999999;  ">
 
                                <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
 
-                              </v-btn>
+                                 </v-btn>
 
                                    </template>
 
@@ -1124,25 +1149,47 @@
 
                               <!-- ends -->
 
+                                   </div>
+
+
                               <!-- share diary -->
                           
-                           <template v-if="that.$root.selectedSpace.type ==  'Bot'">
+                           <div  class="ml-auto" v-if="that.$root.selectedSpace.type ==  'Bot'">
 
-                                       <v-btn @click="shareDiary()" v-if="chatIsOpen"   fab x-small color="#ffffff"  style="z-index:9999999;  position:fixed;  bottom:16%; right:2%; ">
+                                       <v-btn @click="shareDiary()" v-if="chatIsOpen" class="mb-2"   fab x-small color="#ffffff"  style="z-index:9999999; ">
 
                                <v-icon style="font-size:20px; color:#3C87CD;">mdi mdi-share-variant</v-icon>
 
                               </v-btn>
 
-                                   </template>
+                                   </div>
 
 
                               <!-- ends -->
 
-                             <div class="col-12 py-0 px-0" style=" left:0; position:fixed; bottom:0%;z-index:999999999;" >
-                                <div class="col-12  py-1"  v-if="that.$root.showEmojiBox">
-                            <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
-                                 </div>
+                                       <!-- show code button -->
+
+                                   <div class="  ml-auto" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'"  >
+
+                                        <v-btn  @click="showCodeEditor" class="mb-2"   fab color="#ffffff"  style="z-index:9999999;">
+
+                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
+
+                              </v-btn>
+
+                                   </div>
+                              
+
+                              <!-- ends -->
+                              
+
+                               </div>
+
+
+                                   
+                              
+
+                              <!-- ends -->
 
                                  <!-- reply view -->
 
@@ -1199,8 +1246,8 @@
                                <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center " style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
                                   <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                  <invitation :infoText="'A brand new channel and the beginning of your journey to help others grow 🚀'"
-                                   :extraInfo="'Now, invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
+                                  <invitation :infoText="'Teach, mentor and grow your community here.'"
+                                   :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
                             </div>
 
                             <!-- ends -->
@@ -1525,6 +1572,27 @@
 
  <!-- ends -->
 
+
+ <!-- codebox input handler  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showProjectInput" @click="that.$root.showProjectInput = false" >
+
+   <div style="position:absolute; height:90%; top:8%; width:94%; left:3%; "  >
+  
+
+     <input-handler></input-handler>
+
+
+        
+     
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
+
   <!-- payment option info  -->
 
 
@@ -1561,6 +1629,8 @@ Vue.directive('observe-visibility', ObserveVisibility)
 import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 
+window.iziToast = iziToast;
+
 
 import { VEmojiPicker } from 'v-emoji-picker';
 
@@ -1593,6 +1663,9 @@ const Interest= () => import(
   
   const CodeEditorChat = () => import(
     /* webpackChunkName: "CodeEditorChat" */ './CodeEditorChat.vue'
+  );
+   const InputHandler = () => import(
+   /* webpackChunkName: "InputHandler" */ '../projects/InputHandler.vue'
   );
   
   const ImageViewer = () => import(
@@ -1758,6 +1831,7 @@ export default {
       
     },
     components: {
+        InputHandler,
         TopBar,
         ChatTop,
         ChatBottom,
@@ -1791,7 +1865,7 @@ export default {
      methods:{
 
   
-        showAlert:function(title='',message,type){
+        showAlert:function(title='',message,type,position = 'bottomRight',timeout = 2000){
        
        if(type == 'info'){
 
@@ -1800,8 +1874,8 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-        timeout:2000,
-       position: 'bottomRight',
+        timeout:timeout,
+       position: position,
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -1816,7 +1890,7 @@ export default {
        message: message,
        zindex:'9999999999',
         timeout:2000,
-       position: 'bottomRight',
+       position: position,
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -1828,10 +1902,10 @@ export default {
           iziToast.warning(
         { 
        title: title,
-        timeout:2000,
+        timeout:timeout,
        message: message,
        zindex:'9999999999',
-       position: 'bottomRight',
+       position: position,
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -1844,9 +1918,9 @@ export default {
         { 
        title: title,
        message: message,
-        timeout:2000,
+        timeout:timeout,
        zindex:'9999999999',
-       position: 'bottomRight',
+       position: position,
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -2045,7 +2119,7 @@ goToChatList:function(){
 
       },
  leaveSpace: function(){
-        let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+        let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
                    storedChat.then((result)=>{
 
@@ -2075,7 +2149,7 @@ goToChatList:function(){
                         }
                          
 
-                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult,false,'leave_space');
+                          this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult,false,'leave_space');
 
                     
                     
@@ -2111,7 +2185,7 @@ goToChatList:function(){
       },
  shareDiary:function(){
 
-    this.$root.shareLink =  'https://www.citonhub.com/link/diary/'+ this.$root.selectedSpace.bot_data.bot_id;
+    this.$root.shareLink =  'https://link.citonhub.com/diary/'+ this.$root.selectedSpace.bot_data.bot_id;
 
           this.$root.shareText = 'Check out this diary on Citonhub';
           
@@ -2151,7 +2225,7 @@ goToChatList:function(){
 
 
       this.$root.shareText = 'Join ' + this.$root.selectedSpace.name +  ' on Citonhub';
-       this.$root.shareLink =   'https://www.citonhub.com/link/channel/'+ this.$root.selectedSpace.space_id;
+       this.$root.shareLink =   'https://link.citonhub.com/channel/'+ this.$root.selectedSpace.space_id;
    
   
     },
@@ -2226,7 +2300,7 @@ goToChatList:function(){
               
               let space = response.data.space;
 
-                let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+                let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
                    storedChat.then((result)=>{
 
@@ -2249,7 +2323,7 @@ goToChatList:function(){
 
                           finalResult.pet_spaces.unshift(response.data.space);
 
-                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+                          this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
                      let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
 
@@ -2257,6 +2331,9 @@ goToChatList:function(){
                    this.$root.ChatList = fullList;
 
                      this.$root.sortChatList();
+
+                      this.SetUnread();
+
 
                         }
 
@@ -2540,7 +2617,7 @@ goToChatList:function(){
              this.$root.loadingIsError = false;
 
 
-                let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+                let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
             storedChat.then((result)=>{
                 
@@ -2556,12 +2633,12 @@ goToChatList:function(){
                      
                    this.$root.ChatList = fullList;
 
+                  
                      this.$root.sortChatList();
 
                       this.SetUnread();
 
-                     // get all new messages
-
+                   
                       
 
                       this.$root.updateSpaceMessages();
@@ -2584,9 +2661,13 @@ goToChatList:function(){
             this.$root.channelChats = responseList.channels;
           this.$root.ChatList = responseList.channels.concat(responseList.direct_messages, responseList.pet_spaces);
 
-           this.$root.LocalStore('user_chat_list' + this.$root.username,response.data,false,'sort_chat');
 
-       
+                
+             
+            
+           this.$root.LocalStore('user_chat_list_new_' + this.$root.username,response.data,false,'sort_chat');
+
+            this.$root.sortChatList();
 
              this.$root.loadingChatList = false;
 
@@ -2618,6 +2699,7 @@ goToChatList:function(){
 
         
        },
+       
          SetUnread: function(){
 
             this.$root.ChatList.map((space)=>{
@@ -2663,7 +2745,7 @@ goToChatList:function(){
         //     this.$root.Messages.splice(msgIndex,0,newUnreadMsg);
 
          // mark the space as read
-           this.$root.markSpaceRead(this.$route.params.spaceId);
+           this.$root.markSpaceRead(this.$root.selectedSpace.space_id);
 
           }
       },
@@ -2707,9 +2789,13 @@ goToChatList:function(){
 
                     
 
+                       setTimeout(() => {
 
+                              this.$root.sendTextMessage(finalResult[index]);
+                         
+                       }, 2000);
 
-                         this.$root.sendTextMessage(finalResult[index]);
+                    
 
 
 
@@ -2897,6 +2983,10 @@ goToChatList:function(){
           this.$root.Messages = null;
           this.errorLoadingMessage = false;
 
+          // set subspaceUnread to 0
+
+           this.$root.selectedSpaceSubMessages = 0;
+
 
          // clear diary suggestions
           this.$root.botSuggestionArray = [];
@@ -2941,6 +3031,8 @@ goToChatList:function(){
      
 
            this.$root.selectedSpace = finalResult.space;
+
+            this.$root.selectedSpace.subspace_messages = 0;
 
               if(finalResult.space.type == 'SubSpace'){
 
@@ -3013,6 +3105,14 @@ goToChatList:function(){
            // generate unread msg and the mark as read
          this.generateUnreadMessage();
           
+
+           // check unreadMessages in subspaces
+
+         if(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' || this.$root.selectedSpace.type == 'SubSpace'){
+
+           this.handleUnreadUpdate();
+
+         }
 
 
        setTimeout(() => {
@@ -3113,6 +3213,7 @@ goToChatList:function(){
 
 
                this.$root.selectedSpace = response.data.space;
+                this.$root.selectedSpace.subspace_messages = 0;
 
               if(response.data.space.type == 'SubSpace'){
 
@@ -3164,6 +3265,14 @@ goToChatList:function(){
          this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data.patterns);
 
               }
+
+               // check unreadMessages in subspaces
+
+         if(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'Team' || this.$root.selectedSpace.type == 'SubSpace'){
+
+           this.handleUnreadUpdate();
+
+         }
 
       this.$root.TrackLastSubSpace.push(this.$root.selectedSpace.general_spaceId, this.$route.params.spaceId);
 
@@ -3217,6 +3326,9 @@ goToChatList:function(){
 
                }
 
+        
+       
+
 
     if( this.$root.selectedSpace.type == 'Bot'){
 
@@ -3237,6 +3349,92 @@ goToChatList:function(){
      
 
        },
+       handleUnreadUpdate:function(){
+
+           let storedSubChat = this.$root.getLocalStore('sub_channels_' + this.$root.selectedSpace.general_spaceId  + this.$root.username);
+
+             storedSubChat.then((result)=>{
+             
+
+                 if(result != null ){
+
+                    let finalResult = JSON.parse(result);
+                     
+                      finalResult = finalResult.sub_channels;
+                     if(this.checkIfisOwner()){
+
+               this.$root.subSpaces =  finalResult;
+
+
+
+           }else{
+
+             this.$root.subSpaces = finalResult.filter((space)=>{
+
+               return space.type == 'Public' || (space.type == 'Private' && space.is_member == true);
+
+             });
+           }
+
+                    this.checkForUnreadSubSpace(this.$root.subSpaces,false);
+
+                       
+                 }
+
+             })
+
+       },
+       checkForUnreadSubSpace:function(subSpaces,returnCount = true){
+
+                 let fullCount = 0;
+    
+          subSpaces.map((space)=>{
+
+               let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + space.space_id +  this.$root.username);
+  
+          unreadStoredMsg.then((result)=>{
+  
+            if(result != null){
+  
+              let finalResultUnread = JSON.parse(result);
+          
+                 
+
+              space.unread = finalResultUnread.length;
+
+               fullCount += space.unread;
+
+             
+  
+            }else{
+               space.unread = 0;
+            }
+
+        
+          if(returnCount){
+
+            return fullCount;
+
+          }else{
+
+            this.$root.selectedSpaceSubMessages = fullCount;
+          }
+            
+  
+
+          
+          });
+
+            })
+          
+        
+         
+
+         
+
+
+
+        },
        checkForUnreadMessagesDisconnected:function(){
          
           if(this.chatIsOpen){
@@ -3351,6 +3549,7 @@ goToChatList:function(){
 
               }
 
+                 
                     
                     
                   
@@ -3374,7 +3573,7 @@ goToChatList:function(){
       
             // update chatList
 
-             let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+             let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
             
              storedChat.then((result)=>{
 
@@ -3436,8 +3635,11 @@ goToChatList:function(){
                       this.$root.ChatList = fullList;
 
                      this.$root.sortChatList();
+
+                      this.SetUnread();
+
                     
-                      this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+                      this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
               
 

@@ -152,6 +152,22 @@ export default {
     }
 },
 methods:{
+  generateRegex:function(){
+   var _ = require('regexgen.js');
+var regex = _(
+    _.capture('input\(\''),
+     _.capture( _.anything() ),
+      _.capture( '\'\)' )
+);
+
+var regexString =  _(
+   _.anyCharBut( 'input\(\'\)' )
+);
+
+ console.log(regex)
+
+ console.log(regexString)
+  },
    copyText () { 
 
           const copyToClipboard = str => {

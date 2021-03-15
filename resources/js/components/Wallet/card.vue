@@ -57,7 +57,9 @@
             <img height="50" src="/imgs/credit-card-chip.png" class="pl-2 pt-2" >
 
            
-
+              <div class="ml-auto pt-1 pr-2">
+                 <span style="font-size:11px;font-family:BodyFont;color:white;">Click to view card</span>
+              </div>
           
           </div>
 
@@ -84,9 +86,9 @@
            <div style="position:absolute;width:100%;top:75%; left:0%; height:25%; align-items:center;" class="d-flex flex-row">
 
            <div  class="d-flex px-2 pb-2 flex-column text-left">
-             <div style="font-size:12px;color:white;font-family:BodyFont;">Balance</div>
+             <div style="font-size:12px;color:white;font-family:BodyFont;">Total balance</div>
 
-             <div style="font-size:22px;color:white;font-family:HeaderFont;"><span v-html="currencyToCharacter(paymentCard.currency)"></span> {{formatMoney(paymentCard.balance)}}</div>
+             <div style="font-size:22px;color:white;font-family:HeaderFont;"><span v-html="currencyToCharacter(paymentCard.currency)"></span> {{formatMoney(paymentCard.balance - (paymentCard.platform_fee + paymentCard.payment_processing_fee))}}</div>
 
                   
            
@@ -140,8 +142,13 @@
 
                     <template v-if="transactions.length == 0">
 
-                      <div class="mt-5 px-3 pt-5 text-center" style="font-size:13px;color:grey;font-family:BodyFont;">
-                       No history yet.
+                  
+                     <div class="mt-5 px-3 pt-5 text-center" style="font-size:13px;color:grey;font-family:BodyFont;">
+                       <div class="mb-1  px-3">
+                  You have no history yet. Invite your friends to teach on CitonHub and get 5% commission on their first 10 earnings. 
+                       </div>
+                       
+                             <v-btn small color="#3C87CD" @click="copyMessage()"  style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mr-3 " >Copy invite link</v-btn>
                     </div>
 
                     </template>
@@ -412,6 +419,29 @@ import 'izitoast/dist/css/iziToast.min.css'
     },
 
      methods:{
+        copyMessage () {
+
+
+            const copyToClipboard = str => {
+  const el = document.createElement('textarea');
+  el.value = str;
+  el.setAttribute('readonly', '');
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+};
+
+
+
+      copyToClipboard('https://link.citonhub.com/referral/'+ this.$root.username);
+
+        this.showAlert('Copied!','Copied to clipboard','success');
+
+         
+        },
 
        handleInput:function(page){
            this.loadingTransactions = true;

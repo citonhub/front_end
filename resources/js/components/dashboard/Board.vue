@@ -175,6 +175,32 @@
      <template v-if="that.$root.infoType == 'referral'">
    <referral-info></referral-info>
      </template>
+
+
+     <template v-if="that.$root.infoType == 'balance'">
+   <balance-info></balance-info>
+     </template>
+        
+     
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
+
+
+ <!-- project input handler  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showProjectInput" @click="that.$root.showProjectInput = false" >
+
+   <div style="position:absolute; height:90%; top:8%; width:94%; left:3%; "  >
+  
+
+     <input-handler></input-handler>
+
+
         
      
    </div>
@@ -236,6 +262,16 @@ const FeeInfo = () => import(
   const ReferralInfo = () => import(
    /* webpackChunkName: "ReferralInfo" */ '../Wallet/ReferralInfo.vue'
   );
+
+
+    const BalanceInfo = () => import(
+   /* webpackChunkName: "BalanceInfo" */ '../Wallet/BalanceInfo.vue'
+  );
+
+ const InputHandler = () => import(
+   /* webpackChunkName: "InputHandler" */ '../projects/InputHandler.vue'
+  );
+
   const TopBar = () => import(
     /* webpackChunkName: "TopBarBoard" */ './TopBar.vue'
   );
@@ -267,7 +303,9 @@ const FeeInfo = () => import(
       FeeInfo,
      TopBar,
      ReferralInfo,
+     BalanceInfo,
      SideBar,
+     InputHandler,
      ProfileView,
      PayoutAccount,
      PayoutInfo

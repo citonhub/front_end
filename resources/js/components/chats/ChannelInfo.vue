@@ -178,7 +178,7 @@ export default {
 
       if (response.status == 200) {
 
-           let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+           let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
                    storedChat.then((result)=>{
 
@@ -208,7 +208,7 @@ export default {
                         }
                          
 
-                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult,false,'leave_space');
+                          this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult,false,'leave_space');
 
                     
                     
@@ -327,7 +327,7 @@ export default {
   },
    showInvitation:function(){
             this.$root.shareText = 'Join ' + this.$root.selectedSpace.name +  ' on Citonhub';
-       this.$root.shareLink =   'https://www.citonhub.com/link/channel/'+ this.$root.selectedSpace.space_id;
+       this.$root.shareLink =   'https://link.citonhub.com/channel/'+ this.$root.selectedSpace.space_id;
             this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id + '/channel_invitation' });
         },
     checkIfisOwner: function(){

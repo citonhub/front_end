@@ -485,6 +485,7 @@ export default {
     },
     mounted(){
       this.$root.componentIsLoading = false;
+       this.$root.autoOpenAddPost = false;
          this.getAllProjects();
      },
     methods:{

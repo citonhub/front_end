@@ -222,7 +222,7 @@ export default {
       },
       shareProject:function(project){
           
-          this.$root.shareLink =  'https://www.citonhub.com/link/project/'+ project.project_slug;
+          this.$root.shareLink =  'https://link.citonhub.com/project/'+ project.project_slug;
 
           this.$root.shareText = 'Check out this project on Citonhub';
           

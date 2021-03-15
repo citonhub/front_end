@@ -17,10 +17,14 @@
                      <div class="px-0 py-3" style="width:85%;border-bottom:1px solid #e6e6e6;" >
                                  <div class="pr-1 d-flex flex-row" style="align-items:center;">
                                    
-                                       <div class="px-0 py-0 my-0 " style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
-                                               <span v-if="source.type == 'Team' || source.type == 'Channel'" style="font-size:14px; font-family:BodyFont;">{{ source.name }}</span>
+                                       <div class="px-0 py-0 my-0 d-flex " style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; align-items:center;">
+                                               <span v-if="source.type == 'Team' || source.type == 'Channel'" style="font-size:14px; font-family:BodyFont;">{{ source.name }} <span v-show="source.subspace_messages > 0" style="color:green; font-size:13px;" >
+                                                  <v-icon style="font-size:17px;color:green;">mdi mdi-pound</v-icon> ({{ source.subspace_messages }}) </span></span>
                                              <span v-if="source.type == 'Bot' && source.bot_data != null" style="font-size:14px; font-family:BodyFont;">{{ source.bot_data.name }}</span>
                                              <span v-if="source.type == 'Direct'" style="font-size:14px; font-family:BodyFont;">{{ source.userInfo.username }}</span>
+                                 
+                                               
+                                             
                                        </div>
                                         <div class="px-1 py-0 my-0 text-right ml-auto" style="width:26%;">
                                              <span  v-if="source.last_message" style="font-size:11px; font-family:BodyFont;color:gray; margin-right:0px;" >
@@ -43,7 +47,7 @@
                                                   </template>
                                                 <template v-else>
 
-                                                     <span v-if="that.$root.username != source.last_message[0].username && source.type != 'Direct' && source.type != 'Bot' ">{{ source.last_message[0].username }}:</span > {{ generateMessageString(source.last_message) }}
+                                                     <span v-if="that.$root.username != source.last_message[0].username && source.type != 'Direct' && source.type != 'Bot' ">{{ source.last_message[0].username }}:</span > <span v-if="that.$root.username == source.last_message[0].username">You:</span> {{ generateMessageString(source.last_message) }}
                                              
                                                    
                                                 </template>

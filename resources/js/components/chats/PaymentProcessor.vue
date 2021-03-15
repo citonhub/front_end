@@ -137,12 +137,12 @@
     
 
      <div class="  col-6  px-1 my-0 py-2 " >
-                     <v-card   :color="support_type == 'once' ? '#F3F8FC' :''" @click="support_type = 'once'" class="px-1 py-1 " :style="'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                     <v-card   :color="support_type == 'once' ? '#3C87CD' :''" @click="support_type = 'once'" class="px-1 py-1 " :style="support_type == 'once' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
                         <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                        <img src="/imgs/support.png" height="40" >
                                       <div>
-                                         <span style="font-size:13px; font-family:BodyFont;">One-time</span>
+                                         <span style="font-size:13px; font-family:MediumFont;">One-time</span>
                                       </div>
                                    </div>
                         </div>
@@ -152,12 +152,12 @@
                  </div>
 
                   <div class="  col-6  px-1 my-0 py-2 " >
-                     <v-card :color="support_type == 'recurrent' ? '#F3F8FC' :''" @click="HandleSupport('recurrent')" class="px-1 py-1 appBox" :style="'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                     <v-card :color="support_type == 'recurrent' ? '#3C87CD' :''" @click="HandleSupport('recurrent')" class="px-1 py-1 appBox" :style="support_type == 'recurrent' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
                         <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                        <img src="/imgs/subscribe.png" height="40" >
                                       <div>
-                                         <span style="font-size:13px; font-family:BodyFont;">Monthly</span>
+                                         <span style="font-size:13px; font-family:MediumFont;">Monthly</span>
                                       </div>
                                    </div>
                         </div>
@@ -204,7 +204,7 @@
 
 import Flutterwave from 'vue-flutterwave'
 
-Vue.use(Flutterwave, { publicKey: 'FLWPUBK_TEST-88988df0b869189dd63c6cd152830ac2-X' })
+Vue.use(Flutterwave, { publicKey: 'FLWPUBK-ea9a4693d8c3caabf78dafe50beccf96-X' })
 
 export default {
      data(){
@@ -460,6 +460,26 @@ export default {
 
         this.spaceData = response.data.space;
 
+           if(this.spaceData.payment_option == 'support' && this.$root.isLogged){
+   
+           
+              if(!this.$root.fromSupportDirectlink){
+
+                 this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
+
+            return;
+
+              }
+
+            
+
+
+            }else{
+             
+
+               
+            }
+
           if(this.spaceData.type != 'Channel' && this.spaceData.type != 'Team' && this.spaceData.type != 'SubSpace'){
 
             this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
@@ -485,14 +505,15 @@ export default {
            
           }else{
 
+
             if(this.spaceData.payment_option == 'support' && this.$root.isLogged){
    
            
               if(!this.$root.fromSupportDirectlink){
 
-                 this.$root.chatComponent.openChat(this.$route.params.spaceId,false);
+                 this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
 
-            return;
+              return;
 
               }
 
@@ -500,21 +521,24 @@ export default {
 
 
             }else{
-             
+              
+              if(this.spaceData.payment_option == null){
+
+                 if(!this.$root.fromSupportDirectlink){
+
+                 this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
+
+              return;
+
+              }
+
+              }
 
                
             }
-          }
-
 
          
-
-
-
-           
-
-           
-   
+          }
 
 
 

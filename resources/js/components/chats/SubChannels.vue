@@ -10,7 +10,7 @@
             </div>
           
              <div class="col-8 py-0 px-0 text-center">
-             <span style="font-size:14px; font-family:MediumFont;">Sub Channels</span>
+             <span style="font-size:14px; font-family:MediumFont;">Sub-Channels</span>
           </div>
               
               <div class="col-2 py-0 mr-1 px-1 text-right">
@@ -24,16 +24,16 @@
 
         <div class="col-12 ">
 
-          <div class="col-12 text-center" v-if="subSpaces == null">
+          <div class="col-12 text-center" v-if="this.$root.subSpaces == null">
 
             <v-progress-circular color="#3C87CD" indeterminate width="3" size="28" ></v-progress-circular>
 
           </div>
 
-          <template v-if="subSpaces != null">
+          <template v-if="this.$root.subSpaces != null">
 
 
-           <div class="col-12 d-flex flex-column text-center" v-if="subSpaces.length == 0">
+           <div class="col-12 d-flex flex-column text-center" v-if="this.$root.subSpaces.length == 0">
 
            <div style="font-size:13px; color:gray;"> No sub channels yet</div>  
 
@@ -47,7 +47,7 @@
 
           </div>
 
-            <div class="row px-2" v-if="subSpaces.length > 0">
+            <div class="row px-2" v-if="this.$root.subSpaces.length > 0">
             <v-card flat tile class="col-12 py-2 px-1 messageBox" style="border-bottom:1px solid #cccccc;"  @click.stop="gotoGeneral"
              v-if="that.$root.selectedSpace.type == 'SubSpace'">
               <div class="row py-0 my-0">
@@ -64,7 +64,7 @@
               </div>
            </v-card>
 
-            <v-card flat tile class="col-12 py-2 px-1 messageBox" style="border-bottom:1px solid #cccccc;" v-for="(space,index) in subSpaces" @click.stop="selectSubSpace(space)"
+            <v-card flat tile class="col-12 py-2 px-1 messageBox" style="border-bottom:1px solid #cccccc;" v-for="(space,index) in this.$root.subSpaces" @click.stop="selectSubSpace(space)"
             :key="index">
               <div class="row py-0 my-0">
                   <div class="col-2 py-0 my-0">
@@ -161,6 +161,8 @@ export default {
                     
                           
                             this.$root.fromSupportDirectlink = false;
+
+                            this.$root.showProcessorFromChat = false;
                           
                            this.$router.push({ path: '/channels/' + subSpace.space_id  +'/payment' });
                              
@@ -188,21 +190,31 @@ export default {
                 
                  if(result != null ){
 
-                    let finalResult = JSON.parse(result);
+
+
+                     if(this.$root.subSpaces.length == 0){
+
+                        let finalResult = JSON.parse(result);
                      
                       finalResult = finalResult.sub_channels;
                      if(this.checkIfisOwner()){
 
-               this.subSpaces =  finalResult;
+               this.$root.subSpaces =  finalResult;
+
+
 
            }else{
 
-             this.subSpaces = finalResult.filter((space)=>{
+             this.$root.subSpaces = finalResult.filter((space)=>{
 
                return space.type == 'Public' || (space.type == 'Private' && space.is_member == true);
 
              });
            }
+
+                     }
+
+                   
 
                     this.checkForUnread();
 
@@ -226,11 +238,11 @@ export default {
                    let finalResult = response.data.sub_channels;
         if(this.checkIfisOwner()){
 
-               this.subSpaces =  finalResult;
+               this.$root.subSpaces =  finalResult;
 
            }else{
             
-             this.subSpaces = finalResult.filter((space)=>{
+             this.$root.subSpaces = finalResult.filter((space)=>{
 
                return space.type == 'Public' || (space.type == 'Private' && space.is_member == true);
 
@@ -270,9 +282,29 @@ export default {
             
                    let finalResult = response.data.sub_channels;
 
-                    this.subSpaces =  finalResult;
+                    let newsubSpace = finalResult.forEach((data)=>{
+
+                       let subspaceData =  this.$root.subSpaces.filter((eachSubSpace)=>{
+                      return  eachSubSpace.space_id == data.space_id
+                       });
+
+                      if(subspaceData.length > 0){
+
+                         return false
+
+                      }else{
+                       this.$root.subSpaces.push(data);
+                      }
+
+                    });
+
+           
+              
+               
      
               this.sortList();
+
+               this.checkForUnread();
      
      }
        
@@ -288,7 +320,7 @@ export default {
         },
         checkForUnread:function(){
 
-            this.subSpaces.map((space)=>{
+            this.$root.subSpaces.map((space)=>{
 
                let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + space.space_id +  this.$root.username);
   
@@ -297,7 +329,8 @@ export default {
             if(result != null){
   
               let finalResultUnread = JSON.parse(result);
-
+          
+                 
 
               space.unread = finalResultUnread.length;
   
@@ -311,7 +344,7 @@ export default {
 
         },
         sortList:function(){
-                  this.$root.sortArray(this.subSpaces);
+                  this.$root.sortArray(this.$root.subSpaces);
         },
         checkIfisOwner: function(){
 
@@ -353,7 +386,7 @@ export default {
 .messagesBadges{
     
     color: #ffffff;
-    background: #3C87CD;
+    background: #5cb85c;
     font-size: 11px;
     font-family: BodyFont;
     font-weight: bolder;
