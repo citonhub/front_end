@@ -158,7 +158,7 @@ class PageController extends Controller
           
           
             
-               $pageLink = '/dashboard#/board/projects/panel/' . $uniqueId;
+               $pageLink = '/dashboard#/board/projects/panel/' . $uniqueId . '/panel-loader';
               
            
            }

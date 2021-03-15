@@ -175,7 +175,7 @@
 
 
     <!-- code viewer for non-web codes -->
-    <textarea  readonly v-else v-model="ResultCode"  style="border: 0; background:whitesmoke; height:95%; position:absolute; width:100%; left:0; top:6%; font-size:14px;" class="px-2 py-2">
+    <textarea  readonly v-else v-model="ResultCode"  style="border: 0; background:black; color:white; height:95%; position:absolute; width:100%; left:0; top:6%; font-size:14px;" class="px-2 py-2">
 
     </textarea>
 
@@ -268,7 +268,7 @@ export default {
         this.setCodeContent();
       
       this.$root.codeboxComponent = this;
-
+     
 
       },
      components: {
@@ -899,9 +899,44 @@ methods:{
 
             }else{
 
+               if(this.selectedLangId == '39' || this.selectedLangId == '100' || this.selectedLangId == '38'){
+                 
+                 const InputRegex = /(input\(')(.*)('\))/g;
+
+                 const InputFound = this.code.match(InputRegex);
+
+                  if(InputFound.length > 0){
+
+                    this.$root.projectInputData = [];
+
+                    InputFound.forEach((input)=>{
+
+                       const regexString = /[^input(')]/g;
+
+                  
+                       let finalWord = input.split("'");
+
+                      var inputData = {
+                         name: finalWord[1],
+                         value:''
+                      };
+
+                        this.$root.projectInputData.push(inputData);
+                    })
+
+                    this.$root.showProjectInput = true;
+
+                     return
+
+                  }
+
+
+               }
+
+       
               this.ResultCode = 'sending to sandbox...';
 
-              this.runCodeOnSandbox();
+              this.runCodeOnSandbox(null);
               this.sendCodeRunning();
 
 
@@ -1005,11 +1040,17 @@ methods:{
 
 
       },
-      runCodeOnSandbox: function(){
+      runCodeOnSandbox: function(codeContent){
+
+           if(codeContent == null){
+
+              codeContent = this.code
+
+           }
 
           axios.post( '/run-code-on-sandbox',{
                 langId: this.selectedLangId,
-                code: this.code,
+                code: codeContent,
                 messageId: 77
                   })
           .then(response => {

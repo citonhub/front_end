@@ -610,8 +610,21 @@ import 'izitoast/dist/css/iziToast.min.css'
        this.$root.codeEditorContent = codeBox.content;
        this.$root.selectedFileId = codeBox.id;
 
+       
+
+       if(this.$router.currentRoute.path.indexOf('panel-loader') >= 0){
+
+               return;
+            }
+           
+
+            if(this.$router.currentRoute.path.indexOf('editor') <= 0){
+
+                this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/editor'});
+
+            }
       
-          this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/editor'});
+        
       
   
    },

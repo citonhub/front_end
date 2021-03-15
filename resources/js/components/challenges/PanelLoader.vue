@@ -49,7 +49,7 @@
        <!-- ends -->
        
     <!-- for non-web content -->
-   <textarea v-model="pageContent" readonly v-if="pageContent != '' && !participantSelected.is_web"   class="col-12 mt-0 mt-md-1" style=" font-size:14px;  top:0; height:100%; left:0;  background:white;border:1px solid transparent; border-radius:0px;"  >
+   <textarea v-model="pageContent" readonly v-if="pageContent != '' && !participantSelected.is_web"   class="col-12 mt-0 mt-md-1" style=" font-size:14px; color:white;  top:0; height:100%; left:0;  background:black;border:1px solid transparent; border-radius:0px;"  >
        
     </textarea>
 
@@ -135,6 +135,8 @@ export default {
       mounted(){
       
       this.checkState();
+
+      this.$root.panelLoaderProject = this;
       
       },
      components: {
@@ -260,7 +262,45 @@ methods:{
 
             }else{
 
-                     this.runCodeOnSandbox();
+              
+               if(this.participantSelected.panel_language == '39' || this.participantSelected.panel_language  == '100' || this.participantSelected.panel_language == '38'){
+                 
+                 const InputRegex = /(input\(')(.*)('\))/g;
+
+                 const InputFound = this.participantSelected.main_file_content.match(InputRegex);
+
+                  if(InputFound.length > 0){
+
+                    this.$root.projectInputData = [];
+
+                    InputFound.forEach((input)=>{
+
+                       const regexString = /[^input(')]/g;
+
+                  
+                       let finalWord = input.split("'");
+
+                      var inputData = {
+                         name: finalWord[1],
+                         value:''
+                      };
+
+                        this.$root.projectInputData.push(inputData);
+                    })
+
+                    this.$root.showProjectInput = true;
+
+                     return
+
+                  }
+
+
+               }
+
+           this.pageContent = 'sending to sandbox...';
+
+              this.runCodeOnSandbox(null);
+
             }
 
         },
@@ -363,10 +403,11 @@ methods:{
 
       }, 500),
        
-      runCodeOnSandbox: function(){
+      runCodeOnSandbox: function(codeContent){
 
           axios.post( '/run-code-on-sandbox-project',{
                 panel_id: this.selecetedPanelId,
+                 code_content: codeContent
                   })
           .then(response => {
              
@@ -439,7 +480,7 @@ methods:{
 
       if (response.status == 200) {
 
-   console.log( response.data.participants)
+ 
         this.participants = response.data.participants;
      
         this.participants.sort(function(a, b){return b.stars - a.stars});

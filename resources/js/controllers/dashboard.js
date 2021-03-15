@@ -2043,6 +2043,9 @@ const app = new Vue({
     subSpaces:[],
     selectedSpaceSubMessages:0,
     autoOpenAddPost:false,
+    projectInputData:[],
+    panelLoaderProject:undefined,
+    showProjectInput:false,
      },
      mounted: function () {
       window.thisUserState = this;
