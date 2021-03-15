@@ -3114,6 +3114,9 @@ goToChatList:function(){
 
          }
 
+          this.$root.updateSpaceMessages();
+
+
 
        setTimeout(() => {
 

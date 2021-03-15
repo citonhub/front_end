@@ -144,9 +144,9 @@
                  
               
 
-                 const InputRegex = /(input\(')(.*)('\))/g;
+                 let InputRegex = /(input\(')(.*)('\))/g;
 
-                 const InputFound = this.$root.projectData.project_files.code_files[0].content.match(InputRegex);
+                 let InputFound = this.$root.projectData.project_files.code_files[0].content.match(InputRegex);
 
                   if(InputFound == null){
 
@@ -156,18 +156,25 @@
 
                   }
 
+                 
+
                      if(InputFound != null){
 
                          if(InputFound.length > 0){
-
+             
+                     
                     this.$root.projectInputData = [];
 
                     InputFound.forEach((input)=>{
 
-                       const regexString = /[^input(')]/g;
-
-                  
+                      
                        let finalWord = input.split("'");
+
+                          if(finalWord.length == 1){
+
+                              finalWord = input.split('"');
+
+                          }
 
                       var inputData = {
                          name: finalWord[1],

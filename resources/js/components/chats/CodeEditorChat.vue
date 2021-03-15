@@ -901,9 +901,9 @@ methods:{
 
                if(this.selectedLangId == '39' || this.selectedLangId == '100' || this.selectedLangId == '38'){
                  
-                 const InputRegex = /(input\(')(.*)('\))/g;
+                 let InputRegex = /(input\(')(.*)('\))/g;
 
-                 const InputFound = this.code.match(InputRegex);
+                 let InputFound = this.code.match(InputRegex);
 
                   if(InputFound == null){
 
@@ -922,10 +922,14 @@ methods:{
 
                     InputFound.forEach((input)=>{
 
-                       const regexString = /[^input(')]/g;
-
-                  
+                      
                        let finalWord = input.split("'");
+
+                          if(finalWord.length == 1){
+
+                              finalWord = input.split('"');
+
+                          }
 
                       var inputData = {
                          name: finalWord[1],
@@ -938,7 +942,6 @@ methods:{
                     this.$root.showProjectInput = true;
 
                      return
-
                   }
                   
                   }

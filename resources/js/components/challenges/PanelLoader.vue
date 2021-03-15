@@ -266,9 +266,9 @@ methods:{
                if(this.participantSelected.panel_language == '39' || this.participantSelected.panel_language  == '100' || this.participantSelected.panel_language == '38'){
                  
               
-                  const InputRegex = /(input\(')(.*)('\))/g;
+                  let InputRegex = /(input\(')(.*)('\))/g;
 
-                 const InputFound = this.participantSelected.main_file_content.match(InputRegex);
+                 let InputFound = this.participantSelected.main_file_content.match(InputRegex);
 
                   if(InputFound == null){
 
@@ -284,12 +284,18 @@ methods:{
 
                        if(InputFound.length > 0){
 
-                    this.$root.projectInputData = [];
+                   this.$root.projectInputData = [];
 
                     InputFound.forEach((input)=>{
 
-                       
+                      
                        let finalWord = input.split("'");
+
+                          if(finalWord.length == 1){
+
+                              finalWord = input.split('"');
+
+                          }
 
                       var inputData = {
                          name: finalWord[1],

@@ -6,7 +6,7 @@
          
       <div class="d-flex flex-row px-1 py-2" style="border-bottom:1px solid #c5c5c5; border-radius:0px; align-items:center;">
 
-             <div style="font-family:HeaderFont;font-size:16px;">Input</div>
+             <div style="font-family:HeaderFont;font-size:14px;">This program needs input</div>
 
                 <v-btn small icon color="#ffffff" @click="closeModal" style="background:#3C87CD;" 
            class="ml-auto "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
@@ -93,6 +93,8 @@ export default {
 
                let inputText2 = 'input\\(\\"' + input.name + '\\"\\)';
 
+
+
               
 
               let inputRegex = new RegExp(inputText,'g');
@@ -100,12 +102,16 @@ export default {
                let inputRegex2 = new RegExp(inputText2,'g');
 
               
-              finalContent =  codeContent.replace(inputRegex,input.value);  
 
-              finalContent =  finalContent.replace(inputRegex2,input.value);  
+              
+              finalContent =  codeContent.replace(inputRegex, "\"" + input.value + "\"");  
+
+              finalContent =  finalContent.replace(inputRegex2,"\"" + input.value + "\"");  
              
 
              })
+
+            
 
          
           if(this.$router.currentRoute.path.indexOf('channel') >= 0){
