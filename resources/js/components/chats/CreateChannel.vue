@@ -1,5 +1,5 @@
 <template>
-  <div style="background:transparent;overflow-y:hidden;">
+  <div style="background:transparent;overflow-y:auto;">
    <div class="col-12 py-1 my-0 ">
     <div class="row">
         
@@ -25,12 +25,12 @@
           <!-- create channel form -->
 
       <div class="col-12 py-1 my-0" style="font-family:BodyFont;">
-         <v-form class="row my-2 mt-0 py-2 px-2 "  ref="form" v-model="formstate">
+         <v-form class="row  mt-0 py-2 px-2 "  ref="form" v-model="formstate">
               
 
             
-                   <v-app class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 my-0 px-1" style="height:76px;width:100%;">
-                       <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Name</div>
+                   <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 my-0 px-1" style="width:100%;">
+                       <div style="font-size:14px;" class="mb-2">Name</div>
               <v-text-field
                 style="font-size:13px;"
                  placeholder="Dev community"
@@ -44,16 +44,34 @@
             
              ></v-text-field>
 
-             </v-app>
+             <!--  description field starts-->
+  
 
-             <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 my-0 px-1 ">
 
-               <div style="font-size:13px;font-family:MediumFont;">Select payment option</div>
+             <div style="font-size:14px;" class="my-2 mt-1">Description</div>
+              <v-textarea
+                 style="font-size:13px;"
+               
+            placeholder="We are here for your growth. We have over ten years in teaching and mentoring people like you to become software developers."
+            counter="400"
+            outlined
+            v-model="description"
+             color="#3C87CD">
+             </v-textarea>
+
+  
+   <!-- pet description field ends-->
+
+             </div>
+
+             <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 pt-0 my-0 px-1  mt-n3">
+
+               <div style="font-size:14px;">Select payment plan</div>
 
                <div class="col-12 px-1 py-1 d-flex flex-row">
 
                   <div class="  col-4  px-1 my-0 py-2 " >
-                     <v-card  @click="selectPaymentOption('support')" :color="payment_option == 'support' ? '#F3F8FC' : ''"  class="px-1 py-1 appBox" :style="'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                     <v-card  @click="selectPaymentOption('support')" :color="payment_option == 'support' ? '#3C87CD' : ''"  class="px-1 py-1 appBox" :style="payment_option == 'support' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
                         <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                       <i style="font-size:30px;" :class="'las la-hands-helping'"></i>
@@ -63,12 +81,12 @@
                                    </div>
                         </div>
 
-                          <v-btn x-small icon style="position:absolute; top:3%; right:2%;" ><v-icon style="font-size:18px;">las la-exclamation-circle</v-icon></v-btn>
+                          
                      </v-card>
                  </div>
 
                   <div class="  col-4  px-1 my-0 py-2 " >
-                     <v-card  @click="selectPaymentOption('subscription')" :color="payment_option == 'subscription' ? '#F3F8FC' : ''" class="px-1 py-1 appBox" :style="'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                     <v-card  @click="selectPaymentOption('subscription')" :color="payment_option == 'subscription' ? '#3C87CD' : ''"  class="px-1 py-1 appBox" :style="payment_option == 'subscription' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
                         <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                       <i style="font-size:30px;" :class="'las la-credit-card'"></i>
@@ -78,12 +96,12 @@
                                    </div>
                         </div>
 
-                          <v-btn x-small icon style="position:absolute; top:3%; right:2%;" ><v-icon style="font-size:18px;">las la-exclamation-circle</v-icon></v-btn>
+                        
                      </v-card>
                  </div>
 
                   <div class="  col-4  px-1 my-0 py-2 " >
-                     <v-card @click="selectPaymentOption('one_time')" :color="payment_option == 'one_time' ? '#F3F8FC' : ''" class="px-1 py-1 appBox" :style="'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                     <v-card @click="selectPaymentOption('one_time')" :color="payment_option == 'one_time' ? '#3C87CD' : ''"  class="px-1 py-1 appBox" :style="payment_option == 'one_time' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
                         <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                       <i style="font-size:30px;" :class="'las la-money-bill-wave'"></i>
@@ -93,7 +111,7 @@
                                    </div>
                         </div>
 
-                          <v-btn x-small icon style="position:absolute; top:3%; right:2%;" ><v-icon style="font-size:18px;">las la-exclamation-circle</v-icon></v-btn>
+                        
                      </v-card>
                  </div>
 
@@ -102,7 +120,7 @@
              </div>
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn @click.prevent="createSpace" type="submit" rounded small color="#3C87CD" style="font-size:12px; color:white;font-family: MediumFont;" :loading="loading">{{ $t('general.create') }}</v-btn>
+                  <v-btn @click.prevent="createSpace" type="submit" rounded small color="#3C87CD" style="font-size:12px;text-transform:none; color:white;font-family: MediumFont;" :loading="loading">Create</v-btn>
              </div>
 
              <div class="my-5 py-3">
@@ -145,6 +163,7 @@ export default {
         ],
         selectedType:'Channel',
         payment_option: '',
+        description:'',
         loading:false,
         name:'',
         formstate:false,
@@ -227,7 +246,8 @@ export default {
                 currency: this.$root.payment_currency,
                 amount: this.$root.payment_amount,
                 card_name: this.$root.payment_card_name,
-                interval: this.$root.payment_interval
+                interval: this.$root.payment_interval,
+                description: this.description
                   })
           .then(response => {
              
@@ -236,7 +256,7 @@ export default {
              if (response.status == 200) {
 
 
-                  let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+                  let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
                    storedChat.then((result)=>{
 
@@ -246,7 +266,7 @@ export default {
                       
                          finalResult.channels.unshift(response.data.space);
 
-                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult,false,'new_channel',response.data.space);
+                          this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult,false,'new_channel',response.data.space);
 
                  
 

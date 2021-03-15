@@ -26,7 +26,21 @@
            </div>
           <!-- ends -->
 
-          <div >
+
+          <template v-if="loadingPaymentCard">
+
+               <div  class="col-12 mt-4 text-center">
+
+           <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
+
+      </div>
+
+
+          </template>
+
+      
+
+               <div >
                 
         <vue-horizontal
       ref="horizontal"
@@ -35,17 +49,18 @@
          
          <div v-for="(paymentCard,index) in paymentCards" :key="index" class="item">
 
-           <v-card height="200"  @click="goToCardView" style="background-repeat: no-repeat;
-          border-radius:10px;background: url(/imgs/card_bg.jpg);background-size:cover;">
+           <v-card height="200"  @click="goToCardView(paymentCard)" style="background-repeat: no-repeat;
+          border-radius:10px;background: url(/imgs/card_bg_6.jpg);background-size:cover;">
 
           <div style="position:absolute;width:100%;top:0%; left:0%; height:25%; align-items:center;" class="d-flex flex-row">
 
             <img height="50" src="/imgs/credit-card-chip.png" class="pl-2 pt-2" >
 
            
-
-         
-
+              <div class="ml-auto pt-1 pr-2">
+                 <span style="font-size:11px;font-family:BodyFont;color:white;">Click to view card</span>
+              </div>
+          
           </div>
 
 
@@ -71,17 +86,18 @@
            <div style="position:absolute;width:100%;top:75%; left:0%; height:25%; align-items:center;" class="d-flex flex-row">
 
            <div  class="d-flex px-2 pb-2 flex-column text-left">
-             <div style="font-size:12px;color:white;font-family:BodyFont;">Balance</div>
+             <div style="font-size:12px;color:white;font-family:BodyFont;">Total balance</div>
 
-             <div style="font-size:22px;color:white;font-family:HeaderFont;"><span v-html="currencyToCharacter(paymentCard.currency)"></span> {{formatMoney(paymentCard.balance)}}</div>
+             <div style="font-size:22px;color:white;font-family:HeaderFont;"><span v-html="currencyToCharacter(paymentCard.currency)"></span> {{formatMoney(paymentCard.balance - (paymentCard.platform_fee + paymentCard.payment_processing_fee))}}</div>
 
                   
-              
+           
+
                    
            </div>
 
-              <img height="40" src="/imgs/logo.png" class="pr-2 pb-2 ml-auto" >
-
+           
+           <img height="40" src="/imgs/citonhub_grey.png" class="pr-2 pb-2 ml-auto" >
            
 
 
@@ -112,130 +128,120 @@
               </div>
 
             
+               <template v-if="loadingTransactions">
 
-             <div class="col-12 px-0 d-flex py-0 flex-column">
+              <div  class="col-12 mt-4 text-center">
 
-               <div class="col-12 d-flex flex-row py-1 mb-2" style="align-items:center; background:#EAEEF3;">
-                     <v-btn icon small class="bg-success mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-check</v-icon></v-btn>
+           <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
+
+            </div>
+
+               </template>
+
+                <template v-else>
+
+                    <template v-if="transactions.length == 0">
+
+                  
+                     <div class="mt-5 px-3 pt-5 text-center" style="font-size:13px;color:grey;font-family:BodyFont;">
+                       <div class="mb-1  px-3">
+                  You have no history yet. Invite your friends to teach on CitonHub and get 5% commission on their first 10 earnings. 
+                       </div>
+                       
+                             <v-btn small color="#3C87CD" @click="copyMessage()"  style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mr-3 " >Copy invite link</v-btn>
+                    </div>
+
+                    </template>
+
+                     <template v-else>
+
+
+                  <div class="col-12 px-0 d-flex py-0 flex-column">
+
+               <v-card tile @click="showTransaction(transaction)" flat class="col-12 d-flex flex-row py-1 mb-2" style="align-items:center; background:#EAEEF3;" v-for="(transaction,index) in transactions" :key="index">
+
+                   <template v-if="transaction.type == 'payout'">
+                     <v-btn icon small class="bg-danger mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-check</v-icon></v-btn>
+                   </template>
+
+                    <template v-if="transaction.type == 'referral'">
+                     <v-btn icon small class="bg-primary mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-check</v-icon></v-btn>
+                   </template>
+                    
+                     <template v-if="transaction.type != 'payout' && transaction.type != 'referral'">
+                    <v-btn icon small class="bg-success mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-check</v-icon></v-btn>
+                   </template>
+                     
 
                      <div class="normalText">
-                         <span class="normalText">Received </span><span class="boldText">&#8358;3000</span> donation from <span class="boldText">Joy Adejumo</span> to <span class="boldText">DSC Landmark</span>
-                         | Aug 12, 2021
+                       <template v-if="transaction.type == 'support'">
+                          <span class="normalText">Received </span><span class="boldText"><span v-html="currencyToCharacter(transaction.currency)"></span> {{formatMoney(transaction.amount)}}</span> support from <span class="boldText">{{transaction.customer_name}}</span> to <span class="boldText">{{transaction.card_name}}</span>
+                       </template>
+
+                          <template v-if="transaction.type == 'referral'">
+                          <span class="normalText">Received </span><span class="boldText"><span v-html="currencyToCharacter(transaction.currency)"></span> {{formatMoney(transaction.amount)}}</span> bonus from <span class="boldText">{{transaction.customer_name}}</span> 
+                       </template>
+
+                        <template v-if="transaction.type == 'payout'">
+                          <span class="normalText">Paid out </span><span class="boldText"><span v-html="currencyToCharacter(transaction.currency)"></span> {{formatMoney(transaction.amount)}}</span> from <span class="boldText">{{transaction.card_name}}</span>
+                       </template>
+                         | {{handleDateFormat(transaction.created_at)}}
                      </div>
 
                      <div class="ml-auto pl-2">
-                          <span class="boldText text-success">Donation</span>
+
+                         <template v-if="transaction.type == 'payout'">
+                       <span class="boldText text-danger"  style="text-transform:capitalize;">{{transaction.type}}</span>
+                   </template>
+
+                    <template v-if="transaction.type == 'referral'">
+                         <span class="boldText text-primary"  style="text-transform:capitalize;">{{transaction.type}}</span>
+                   </template>
+                    
+                     <template v-if="transaction.type != 'payout' && transaction.type != 'referral'">
+                    <span class="boldText text-success"  style="text-transform:capitalize;">{{transaction.type}}</span>
+                   </template>
+                       
                      </div>
-               </div>
+               </v-card>
                 
 
-                <div class="col-12 d-flex flex-row py-1 mb-2" style="align-items:center; background:#EAEEF3;">
-                     <v-btn icon small class="bg-success mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-check</v-icon></v-btn>
+              
 
-                     <div class="normalText">
-                         <span class="normalText">Received </span><span class="boldText">&#8358;3000</span> donation from <span class="boldText">David King</span> to <span class="boldText">DSC Landmark</span>
-                         | Aug 12, 2021
-                     </div>
-
-                     <div class="ml-auto pl-2">
-                          <span class="boldText text-success">Donation</span>
-                     </div>
-               </div>
-
-                 <div class="col-12 d-flex flex-row py-1 mb-2" style="align-items:center; background:#EAEEF3;">
-                     <v-btn icon small class="bg-success mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-check</v-icon></v-btn>
-
-                     <div class="normalText">
-                         <span class="normalText">Received </span><span class="boldText">&#8358;2000</span> subscription from <span class="boldText">David Shola</span> to <span class="boldText">DSC Landmark</span>
-                         | Aug 12, 2021
-                     </div>
-
-                     <div class="ml-auto pl-2">
-                          <span class="boldText text-success">Subscription</span>
-                     </div>
-               </div>
-
-                <div class="col-12 d-flex flex-row py-1 mb-2" style="align-items:center; background:#EAEEF3;">
-                     <v-btn icon small class="bg-success mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-check</v-icon></v-btn>
-
-                     <div class="normalText">
-                         <span class="normalText">Received </span><span class="boldText">&#8358;4000</span> payment from <span class="boldText">Ngozi</span> to <span class="boldText">DSC Landmark</span>
-                         | Aug 12, 2021
-                     </div>
-
-                     <div class="ml-auto pl-2">
-                          <span class="boldText text-success">Payment</span>
-                     </div>
-               </div>
-
-                 <div class="col-12 d-flex flex-row py-1 mb-2" style="align-items:center; background:#EAEEF3;">
-                     <v-btn icon small class="bg-danger mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-minus</v-icon></v-btn>
-
-                     <div class="normalText">
-                         <span class="normalText">Paid out </span><span class="boldText">&#8358;4000</span> from <span class="boldText">DSC Landmark</span> to <span class="boldText">Pelumi</span>
-                         | Aug 12, 2021
-                     </div>
-
-                     <div class="ml-auto pl-2">
-                          <span class="boldText text-danger">Payout</span>
-                     </div>
-               </div>
-
-                <div class="col-12 d-flex flex-row py-1 mb-2" style="align-items:center; background:#EAEEF3;">
-                     <v-btn icon small class="bg-success mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-check</v-icon></v-btn>
-
-                     <div class="normalText">
-                         <span class="normalText">Received </span><span class="boldText">&#8358;4000</span> payment from <span class="boldText">Ngozi</span> to <span class="boldText">DSC Landmark</span>
-                         | Aug 12, 2021
-                     </div>
-
-                     <div class="ml-auto pl-2">
-                          <span class="boldText text-success">Payment</span>
-                     </div>
-               </div>
-
-
-                <div class="col-12 d-flex flex-row py-1 mb-2" style="align-items:center; background:#EAEEF3;">
-                     <v-btn icon small class="bg-primary mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-minus</v-icon></v-btn>
-
-                     <div class="normalText">
-                         <span class="normalText">Withdrawn </span><span class="boldText">&#8358;10,000</span> from <span class="boldText">DSC Landmark</span>
-                         | Aug 12, 2021
-                     </div>
-
-                     <div class="ml-auto pl-2">
-                          <span class="boldText text-primary">Withdrawal</span>
-                     </div>
-               </div>
-
-                <div class="col-12 d-flex flex-row py-1 mb-2" style="align-items:center; background:#EAEEF3;">
-                     <v-btn icon small class="bg-success mr-2"><v-icon color="#ffffff" style="font-size:19px;">las la-check</v-icon></v-btn>
-
-                     <div class="normalText">
-                         <span class="normalText">Received </span><span class="boldText">&#8358;3000</span> donation from <span class="boldText">David King</span> to <span class="boldText">DSC Landmark</span>
-                         | Aug 12, 2021
-                     </div>
-
-                     <div class="ml-auto pl-2">
-                          <span class="boldText text-success">Donation</span>
-                     </div>
-               </div>
-
-               <div class="text-center col-12 application application--light" data-app="true">
-          <v-pagination
-      v-model="page"
-      :length="4"
-      circle
-           ></v-pagination>
-            </div>
+             
 
 
              </div>
+
+                     </template>
+
+
+                 
+
+
+                </template>
+
+
+                <div v-if="transactions.length != 0" class="text-center py-1 col-lg-10 offset-lg-2 application application--light fixed-bottom" style="background: #F5F5FB;" data-app="true">
+          <v-pagination
+      v-model="currentpage"
+      total-visible="5"
+      :length="lastPage"
+      @input="handleInput"
+      circle
+      color="#3C87CD"
+           ></v-pagination>
+            </div>
+             
 
           </div>
           
 
           <!-- ends -->
+
+         
+
+       
 
         
           <!-- spacer -->
@@ -252,6 +258,8 @@
 
  <!-- ends -->
 
+
+
 </div>
   
 </template>
@@ -261,6 +269,8 @@
 import VueHorizontal from "vue-horizontal"
 import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
+
+
 
 
  export default {
@@ -277,11 +287,10 @@ import 'izitoast/dist/css/iziToast.min.css'
             code:'NGN',
             symbol:'&#8358;'
           },
-          {
-            name:'Canadian Dollar (CAD)',
-            code:'CAD',
-            symbol:'&#36;'
-
+         {
+            name:'Australian Dollar (AUD)',
+            code:'AUD',
+            symbol:'A$'
           },
           {
             name:'United State Dollar (USD)',
@@ -391,11 +400,16 @@ import 'izitoast/dist/css/iziToast.min.css'
           
           
         ],
+        transactions:[],
+        loadingTransactions:false,
+        currentpage:1,
+        lastPage:0,
       }
      
     },
      components: {
     VueHorizontal,
+    
   },
      mounted(){
      this.$root.showTopBar = true;
@@ -405,19 +419,51 @@ import 'izitoast/dist/css/iziToast.min.css'
     },
 
      methods:{
+        copyMessage () {
 
-     formatMoney: function(number, decPlaces, decSep, thouSep) {
-decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
-decSep = typeof decSep === "undefined" ? "." : decSep;
-thouSep = typeof thouSep === "undefined" ? "," : thouSep;
-var sign = number < 0 ? "-" : "";
-var i = String(parseInt(number = Math.abs(Number(number) || 0).toFixed(decPlaces)));
-var j = (j = i.length) > 3 ? j % 3 : 0;
 
-return sign +
-	(j ? i.substr(0, j) + thouSep : "") +
-	i.substr(j).replace(/(\decSep{3})(?=\decSep)/g, "$1" + thouSep) +
-	(decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
+            const copyToClipboard = str => {
+  const el = document.createElement('textarea');
+  el.value = str;
+  el.setAttribute('readonly', '');
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+};
+
+
+
+      copyToClipboard('https://link.citonhub.com/referral/'+ this.$root.username);
+
+        this.showAlert('Copied!','Copied to clipboard','success');
+
+         
+        },
+
+       handleInput:function(page){
+           this.loadingTransactions = true;
+
+          
+
+           this.fetchTransactions(page);
+       },
+
+       showTransaction:function(transaction){
+
+         this.$root.selectedTransaction = transaction;
+
+         this.$root.infoType = 'transaction'
+
+         this.$root.showWalletinfo = true;
+
+
+       },
+     formatMoney: function(number) {
+
+   return (number).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 },
      
       currencyToCharacter: function(currency){
@@ -429,27 +475,30 @@ return sign +
        return thisCurrency[0].symbol;
 
       },
-         goToCardView:function(){
-            this.$router.push({ path: '/board/wallet/card-view' });
+         goToCardView:function(paymentCard){
+            this.$root.selectedPaymentCard = paymentCard;
+            this.$router.push({ path: '/board/wallet/card-view/' + paymentCard.card_no });
          },
            fetchPaymentCard:function(){
 
           this.loadingPaymentCard  = true;
 
-             let storedPaymentCard = this.$root.getLocalStore('user_payment_card_'  + this.$root.username);
+             let storedPaymentCard = this.$root.getLocalStore('user_payment_card_new_'  + this.$root.username);
 
             storedPaymentCard.then((result)=>{
                 
                  if(result != null ){
 
                     let finalResult = JSON.parse(result);
+
+
+                    let returnedCard = finalResult.payment_cards;
+
+                    returnedCard.sort(function(a, b){return b.balance - a.balance});
+
+                    this.paymentCards = finalResult.personal_card.concat(returnedCard);
                      
-                      this.paymentCards = finalResult.payment_cards;
-
-                       this.paymentCards.sort(function(a, b){return b.balance - a.balance})
-
-                       
-                       
+                    
 
                         setTimeout(() => {
              if( this.paymentCards.length > 3){
@@ -457,6 +506,8 @@ return sign +
              }
                         
                        }, 1000);
+
+                        this.fetchTransactions(1);
                  
  
                  this.loadingPaymentCard = false;
@@ -471,13 +522,17 @@ return sign +
       
       if (response.status == 200) {
 
-          this.$root.LocalStore('user_payment_card_' + this.$root.username,response.data);
-        
+          this.$root.LocalStore('user_payment_card_new_' + this.$root.username,response.data);
+           
+           let finalResult = response.data;
      
-         this.paymentCards = response.data.payment_cards;
+       let returnedCard = finalResult.payment_cards;
 
-           this.paymentCards.sort(function(a, b){return b.balance - a.balance})
-      
+                    returnedCard.sort(function(a, b){return b.balance - a.balance});
+
+                    this.paymentCards = finalResult.personal_card.concat(returnedCard);
+                  
+       
      
          this.loadingPaymentCard = false;
 
@@ -487,6 +542,8 @@ return sign +
              }
                         
                        }, 1000);
+
+                     this.fetchTransactions(1);
                  
        
      }
@@ -514,13 +571,21 @@ return sign +
       
       if (response.status == 200) {
 
-          this.$root.LocalStore('user_payment_card_' + this.$root.username,response.data);
+          this.$root.LocalStore('user_payment_card_new_' + this.$root.username,response.data);
         
      
-         this.paymentCards = response.data.payment_cards;
+           let finalResult = response.data;
+     
+       let returnedCard = finalResult.payment_cards;
 
-           this.paymentCards.sort(function(a, b){return b.balance - a.balance})
+                    returnedCard.sort(function(a, b){return b.balance - a.balance});
+
+                    this.paymentCards = finalResult.personal_card.concat(returnedCard);
+                  
+       
+     
         
+        this.fetchTransactions(1,false);
        
      }
        
@@ -533,7 +598,37 @@ return sign +
      }) 
 
       },
+    fetchTransactions:function(pageNum,showLoading = true){
 
+         this.loadingTransactions = showLoading;
+        
+           axios.get( '/fetch-transactions?page=' + pageNum)
+      .then(response => {
+      
+      if (response.status == 200) {
+
+        this.transactions = response.data.transactions.data;
+
+          this.currentpage = response.data.transactions.current_page;
+
+          this.lastPage = response.data.transactions.last_page;
+
+           this.loadingTransactions = false;
+
+     }
+       
+     
+     })
+     .catch(error => {
+
+         this.loadingTransactions = false;
+    
+     }) 
+    },
+    handleDateFormat: function(date){
+         var realTimeHour = moment(date).add(1,'hours');
+       return moment(realTimeHour).format("MMM D, YYYY");
+    },
          showAlert:function(title='',message,type){
        
        if(type == 'info'){

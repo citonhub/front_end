@@ -68,7 +68,7 @@
              </div>
 
               <div class="col-12">
-                <span style="font-size:12px;color:gray;">Public is for everyone and private for those you invite</span>
+                <span style="font-size:12px;color:gray;">All your members have access to your public sub-channels while private sub-channels are only for those you invite</span>
               </div>
 
 

@@ -472,7 +472,7 @@ import 'izitoast/dist/css/iziToast.min.css'
         },
       shareProject:function(){
           
-          this.$root.shareLink =  'https://www.citonhub.com/link/project/'+ this.$route.params.project_slug;
+          this.$root.shareLink =  'https://link.citonhub.com/project/'+ this.$route.params.project_slug;
 
           this.$root.shareText = 'Check out this project on Citonhub';
           
@@ -610,8 +610,21 @@ import 'izitoast/dist/css/iziToast.min.css'
        this.$root.codeEditorContent = codeBox.content;
        this.$root.selectedFileId = codeBox.id;
 
+       
+
+       if(this.$router.currentRoute.path.indexOf('panel-loader') >= 0){
+
+               return;
+            }
+           
+
+            if(this.$router.currentRoute.path.indexOf('editor') <= 0){
+
+                this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/editor'});
+
+            }
       
-          this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/editor'});
+        
       
   
    },

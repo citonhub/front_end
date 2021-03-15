@@ -59,14 +59,20 @@
         <div class="col-12 py-2">
          <div class="row">
 
-           <div class="col-6 px-0 py-0">
+           <div class="col-4 px-0 py-0">
 
-               <v-btn x-small color="#3C87CD"  v-if="checkIfisOwner() && that.$root.selectedSpace.type != 'Bot'" @click.stop="showInvitation" style="color:white;text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Invite</v-btn>
+               <v-btn small color="#3C87CD"  v-if="checkIfisOwner() && that.$root.selectedSpace.type != 'Bot'" @click.stop="showInvitation" style="color:white;text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" >Invite</v-btn>
 
            </div>
 
-           <div class="col-6 px-0 py-0 text-right">
-               <v-btn x-small color="#3C87CD" :loading="loadingLeave" @click="leaveSpace" outlined style="text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Leave</v-btn>
+            <div class="col-4 px-0 py-0 text-center">
+
+               <v-btn small color="#3C87CD"  v-if="checkIfisOwner() && that.$root.selectedSpace.payment_option == null && (that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team' || that.$root.selectedSpace.type == 'SubSpace')  " outlined @click.stop="showPaymentOptions" style="text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" >Add payment</v-btn>
+
+           </div>
+
+           <div class="col-4 px-0 py-0 text-right">
+               <v-btn small color="#3C87CD" :loading="loadingLeave" @click="leaveSpace"  style="text-transform:capitalize;color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" >Leave</v-btn>
            </div>
 
          </div>
@@ -172,7 +178,7 @@ export default {
 
       if (response.status == 200) {
 
-           let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+           let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
                    storedChat.then((result)=>{
 
@@ -202,7 +208,7 @@ export default {
                         }
                          
 
-                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult,false,'leave_space');
+                          this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult,false,'leave_space');
 
                     
                     
@@ -258,6 +264,11 @@ export default {
 
            return true
          }
+
+      },
+      showPaymentOptions:function(){
+
+         this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/add_payment' });
 
       },
     imageStyleSpace:function(dimension,data,type){
@@ -316,7 +327,7 @@ export default {
   },
    showInvitation:function(){
             this.$root.shareText = 'Join ' + this.$root.selectedSpace.name +  ' on Citonhub';
-       this.$root.shareLink =   'https://www.citonhub.com/link/channel/'+ this.$root.selectedSpace.space_id;
+       this.$root.shareLink =   'https://link.citonhub.com/channel/'+ this.$root.selectedSpace.space_id;
             this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id + '/channel_invitation' });
         },
     checkIfisOwner: function(){

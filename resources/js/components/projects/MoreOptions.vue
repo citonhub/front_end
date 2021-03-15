@@ -68,7 +68,7 @@ export default {
      },
       shareProject:function(){
           
-          this.$root.shareLink =  'https://www.citonhub.com/link/project/'+ this.$route.params.project_slug;
+          this.$root.shareLink =  'https://link.citonhub.com/project/'+ this.$route.params.project_slug;
 
           this.$root.shareText = 'Check out this project on Citonhub';
           

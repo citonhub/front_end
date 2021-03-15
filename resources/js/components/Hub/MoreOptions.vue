@@ -40,7 +40,7 @@ export default {
     
       share:function(){
           
-          this.$root.shareLink =  'https://www.citonhub.com/link/post/'+ this.post.post_id;
+          this.$root.shareLink =  'https://link.citonhub.com/post/'+ this.post.post_id;
 
           this.$root.shareText = 'Check out this project on Citonhub';
           

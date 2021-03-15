@@ -21,7 +21,7 @@
    class="col-12 mt-0  px-0 py-0" style=" position:absolute; height:100%; left:0; top:0;  background:white;border:1px solid #c5c5c5; border-radius:0px;"  ></iframe>
        <!-- ends -->
     <!-- for non-web content -->
-   <textarea  readonly v-else v-model="pageContent"  class="col-12 mt-0 mt-md-1" style=" font-size:14px; position:absolute; top:0; height:100%; left:0;  background:white;border:1px solid #c5c5c5; border-radius:0px;"  >
+   <textarea  readonly v-else v-model="pageContent"  class="col-12 mt-0 mt-md-1 " style=" font-size:14px; padding-top:15px; position:absolute; top:0; height:100%; left:0; color:white;  background:black;border:1px solid #c5c5c5; border-radius:0px;"  >
        
     </textarea>
 
@@ -47,6 +47,8 @@
        
 
     <!-- ends -->
+
+    
 
    
 </div>
@@ -74,12 +76,14 @@
   },
    mounted(){
      this.runCode();
+
+      this.$root.panelLoaderProject = this;
      
     },
     methods:{
        showShare:function(){
            this.$root.shareText = 'Check out this project on CitonHub';
-           this.$root.shareLink = 'https://www.citonhub.com/link/project/' + this.$route.params.project_slug + '/user' ; 
+           this.$root.shareLink = 'https://link.citonhub.com/project/' + this.$route.params.project_slug + '/user' ; 
             this.$root.showShare = true;
         },
       showFullPage:function(){
@@ -136,9 +140,46 @@
 
         }else{
 
+               if(this.$root.projectData.project_panel.panel_language == '39' || this.$root.projectData.project_panel.panel_language == '100' || this.$root.projectData.project_panel.panel_language == '38'){
+                 
+                 const InputRegex = /(input\(')(.*)('\))/g;
+
+                 const InputFound = this.$root.projectData.project_files.code_files[0].content.match(InputRegex);
+
+                     if(InputFound != null){
+
+                         if(InputFound.length > 0){
+
+                    this.$root.projectInputData = [];
+
+                    InputFound.forEach((input)=>{
+
+                       const regexString = /[^input(')]/g;
+
+                  
+                       let finalWord = input.split("'");
+
+                      var inputData = {
+                         name: finalWord[1],
+                         value:''
+                      };
+
+                        this.$root.projectInputData.push(inputData);
+                    })
+
+                    this.$root.showProjectInput = true;
+
+                     return
+
+                  }
+
+                     }
+
+               }
+
            this.pageContent = 'sending to sandbox...';
 
-              this.runCodeOnSandbox();
+              this.runCodeOnSandbox(null);
           
         }
 
@@ -222,10 +263,11 @@
         
 
       },
-      runCodeOnSandbox: function(){
+      runCodeOnSandbox: function(codeContent){
 
           axios.post( '/run-code-on-sandbox-project',{
                 panel_id: this.$root.projectData.project_panel.panel_id,
+                code_content: codeContent
                   })
           .then(response => {
              

@@ -76,7 +76,16 @@
 
             <template v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
 
-                  <v-btn  @click="showSideBar('sub_channels')" icon class="mr-2"> <v-icon>mdi mdi-pound</v-icon> </v-btn>
+                  <v-btn  @click="showSideBar('sub_channels')" icon class="mr-2"> 
+                      <v-badge
+               dot
+               v-if="that.$root.selectedSpaceSubMessages > 0"
+               
+                color="green">
+              <v-icon>mdi mdi-pound</v-icon> 
+              </v-badge>
+                    <v-icon v-else >mdi mdi-pound</v-icon>
+                     </v-btn>
 
              </template>
 
@@ -256,7 +265,17 @@
                 <!-- sub channels -->
                       <template v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'Bot'">
 
-                  <v-btn  @click="showSideBar('sub_channels')" icon class="mr-2"> <v-icon>mdi mdi-pound</v-icon> </v-btn>
+                  <v-btn  @click="showSideBar('sub_channels')" icon class="mr-2"> 
+                      <v-badge
+               dot
+               v-if="that.$root.selectedSpaceSubMessages > 0"
+               
+                color="green">
+              <v-icon>mdi mdi-pound</v-icon> 
+              </v-badge>
+                    <v-icon v-else >mdi mdi-pound</v-icon>
+                    
+                     </v-btn>
 
              </template>
 
@@ -424,7 +443,7 @@ export default {
 
               
 
-                  let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+                  let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
                    storedChat.then((result)=>{
 
@@ -447,7 +466,7 @@ export default {
 
                           finalResult.direct_messages.unshift(response.data.space);
 
-                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+                          this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
                      let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
 

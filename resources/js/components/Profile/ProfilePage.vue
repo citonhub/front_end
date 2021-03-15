@@ -286,11 +286,15 @@
 
                         <div  class="col-12 mt-4 text-center">
 
-                    <span  style="font-size:13px;color:grey;font-family:BodyFont;">You have no project at the moment</span>
-                    <br>
-                     <v-btn small rounded color="#3C87CD" class="mt-2" style="font-size:12px; font-weight:bolder; color:white;font-family:MediumFont;">
-                       <span style="color:white;text-transform:capitalize;">Start a new project</span> 
-                  </v-btn>
+                    <span style="font-size:13px;color:grey;font-family:BodyFont;" v-if="userData.username != that.$root.username">{{userData.username}} has no project yet</span>
+
+                     <span style="font-size:13px;color:grey;font-family:BodyFont;" v-else>You have no project yet. Share your projects and get more experience points (XP)</span>
+                      </div>
+
+                       <div  class="col-12 mt-2 text-center" v-if="userData.username == that.$root.username"> 
+                   
+                    <v-btn small color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" @click="showAddPost" class="mx-2 d-inline-block" rounded>Share a project</v-btn>
+                    
                       </div>
 
                      </template>
@@ -619,6 +623,15 @@ Notify
          
 
       },
+         showAddPost: function() {
+
+         this.$root.componentIsLoading = true;
+
+         this.$root.autoOpenAddPost = true;
+
+          this.$router.push({ path:'/hub'})
+
+      },
       showFullImage: function(data){
 
          if(data.image_name){
@@ -650,7 +663,7 @@ Notify
 
               
 
-                  let storedChat = this.$root.getLocalStore('user_chat_list'+ this.$root.username);
+                  let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
                    storedChat.then((result)=>{
 
@@ -673,7 +686,7 @@ Notify
 
                           finalResult.direct_messages.unshift(response.data.space);
 
-                          this.$root.LocalStore('user_chat_list' + this.$root.username,finalResult);
+                          this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
                      let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
 

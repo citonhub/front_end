@@ -137,12 +137,12 @@
     
 
      <div class="  col-6  px-1 my-0 py-2 " >
-                     <v-card   :color="support_type == 'once' ? '#F3F8FC' :''" @click="support_type = 'once'" class="px-1 py-1 " :style="'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                     <v-card   :color="support_type == 'once' ? '#3C87CD' :''" @click="support_type = 'once'" class="px-1 py-1 " :style="support_type == 'once' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
                         <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                        <img src="/imgs/support.png" height="40" >
                                       <div>
-                                         <span style="font-size:13px; font-family:BodyFont;">One-time</span>
+                                         <span style="font-size:13px; font-family:MediumFont;">One-time</span>
                                       </div>
                                    </div>
                         </div>
@@ -152,12 +152,12 @@
                  </div>
 
                   <div class="  col-6  px-1 my-0 py-2 " >
-                     <v-card :color="support_type == 'recurrent' ? '#F3F8FC' :''" @click="HandleSupport('recurrent')" class="px-1 py-1 appBox" :style="'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                     <v-card :color="support_type == 'recurrent' ? '#3C87CD' :''" @click="HandleSupport('recurrent')" class="px-1 py-1 appBox" :style="support_type == 'recurrent' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
                         <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                        <img src="/imgs/subscribe.png" height="40" >
                                       <div>
-                                         <span style="font-size:13px; font-family:BodyFont;">Monthly</span>
+                                         <span style="font-size:13px; font-family:MediumFont;">Monthly</span>
                                       </div>
                                    </div>
                         </div>
@@ -176,7 +176,7 @@
 
    <div class="col-12 text-center py-2 mt-3">
 
-                  <v-btn :disabled="amount == '' || supporter_name == ''"  @click="makePayment" small color="#3C87CD" style="color:white;text-transform:none;font-family:MediumFont;font-size:11px;" class="mx-2 d-inline-block" >
+                  <v-btn :loading="loadingBtn" :disabled="amount == '' || supporter_name == ''"  @click="makePayment" small color="#3C87CD" style="color:white;text-transform:none;font-family:MediumFont;font-size:11px;" class="mx-2 d-inline-block" >
                       <template  v-if="spaceData.payment_option == 'support'">
                           <span>Support</span>
                       </template>
@@ -204,28 +204,26 @@
 
 import Flutterwave from 'vue-flutterwave'
 
-Vue.use(Flutterwave, { publicKey: 'FLWPUBK_TEST-88988df0b869189dd63c6cd152830ac2-X' })
+Vue.use(Flutterwave, { publicKey: 'FLWPUBK-ea9a4693d8c3caabf78dafe50beccf96-X' })
 
 export default {
      data(){
       return{
+        loadingBtn:false,
               CurrencyOptions:[
           {
             name:'Nigerian Naira (NGN)',
             code:'NGN'
           },
           {
-            name:'Canadian Dollar (CAD)',
-            code:'CAD'
+            name:'Australian Dollar (AUD)',
+            code:'AUD'
           },
           {
             name:'United State Dollar (USD)',
             code:'USD'
           },
-           {
-            name:'Congolese Franc (CDF)',
-            code:'CDF'
-          },
+          
            {
             name:'Euro (EUR)',
             code:'EUR'
@@ -239,28 +237,12 @@ export default {
             code:'GHS'
           },
            {
-            name:'Gambian Dalasi (GMD)',
-            code:'GMD'
-          },
-           {
-            name:'Guinean Franc (GNF)',
-            code:'GNF'
-          },
-           {
             name:'Kenya Shilling (KES)',
             code:'KES'
           },
-           {
-            name:'Liberian Dollar (LRD)',
-            code:'LRD'
-          },
-           {
-            name:'Malawian Kwacha (MWK)',
-            code:'MWK'
-          },
-           {
-            name:'Mozambican Metical (MZN)',
-            code:'MZN'
+             {
+            name:'South African Rand (ZAR)',
+            code:'ZAR'
           },
            {
             name:'Rwandan Franc (RWF)',
@@ -270,10 +252,7 @@ export default {
             name:'Sierra Leonean Leone (SLL)',
             code:'SLL'
           },
-            {
-            name:'Sao Tome and Principe Dobra (STD)',
-            code:'STD'
-          },
+           
             {
             name:'Tanzanian Shilling (TZS)',
             code:'TZS'
@@ -290,19 +269,13 @@ export default {
             name:'CSA Franc BCEAO (XOF)',
             code:'XOF'
           },
-           {
-            name:'Zambian Kwacha (pre-2013) (ZMK)',
-            code:'ZMK'
-          },
+
            {
             name:'Zambian Kwacha (ZMW)',
             code:'ZMW'
           },
-           {
-            name:'Zimbabwean Dollar',
-            code:'ZWD'
-          },
-          
+
+        
           
         ],
         AmountRule:[
@@ -405,6 +378,14 @@ export default {
         currency: this.currency,
         payment_options: "card,mobilemoney,ussd",
         payment_plan: paymentplan,
+        meta: {
+        card_no: this.spaceData.payment_data.card_no,
+        type: this.spaceData.payment_option,
+         paymentplan: paymentplan,
+         destination_currency: this.currency,
+         origin_currency: this.spaceData.payment_data.currency,
+         customer_id: this.$root.user_temp_id
+      },
         customer: {
           email: userEmail,
           name: userName
@@ -412,15 +393,16 @@ export default {
         callback: (data) => {
 
            if(data.status == 'successful'){
-
+             
+              this.loadingBtn = true;
                 axios.post('/save-transaction',{
             data: data,
             type: this.spaceData.payment_option,
             card_no:  this.spaceData.payment_data.card_no,
             narration: payment_desc,
             paymentplan: paymentplan,
-            destination_currency: this.spaceData.payment_data.currency,
-            origin_currency: this.currency
+            destination_currency: this.currency,
+            origin_currency: this.spaceData.payment_data.currency
 
               })
       .then(response => {
@@ -478,6 +460,26 @@ export default {
 
         this.spaceData = response.data.space;
 
+           if(this.spaceData.payment_option == 'support' && this.$root.isLogged){
+   
+           
+              if(!this.$root.fromSupportDirectlink){
+
+                 this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
+
+            return;
+
+              }
+
+            
+
+
+            }else{
+             
+
+               
+            }
+
           if(this.spaceData.type != 'Channel' && this.spaceData.type != 'Team' && this.spaceData.type != 'SubSpace'){
 
             this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
@@ -503,14 +505,15 @@ export default {
            
           }else{
 
+
             if(this.spaceData.payment_option == 'support' && this.$root.isLogged){
    
            
               if(!this.$root.fromSupportDirectlink){
 
-                 this.$root.chatComponent.openChat(this.$route.params.spaceId,false);
+                 this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
 
-            return;
+              return;
 
               }
 
@@ -518,21 +521,24 @@ export default {
 
 
             }else{
-             
+              
+              if(this.spaceData.payment_option == null){
+
+                 if(!this.$root.fromSupportDirectlink){
+
+                 this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
+
+              return;
+
+              }
+
+              }
 
                
             }
-          }
-
 
          
-
-
-
-           
-
-           
-   
+          }
 
 
 

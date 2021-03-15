@@ -54,7 +54,7 @@
                     Dark mode
                </div>
                <div style="font-size:13px;font-family:BodyFont;">
-                   <p class="text-warning">Coming soon</p> 
+                   <p class="text-info">Coming soon</p> 
                </div>
 
            </div>

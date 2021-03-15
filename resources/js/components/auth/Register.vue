@@ -76,7 +76,7 @@
             counter="80"
             v-model="name"
             outlined
-             dense
+             
              prepend-inner-icon="las la-user"
             :rules="nameRule"
              color="#3C87CD"
@@ -92,7 +92,7 @@
             label="Email"
              v-model="email"
               prepend-inner-icon="las la-envelope"
-            dense
+            
             :rules="emailRule"
              :error="emailExist"
              outlined
@@ -110,7 +110,7 @@
               outlined
               v-model="password"
               @click:append="switchTxtView()"	
-                dense
+                
                prepend-inner-icon="las la-lock"
                :append-icon="prependIconText"
             :rules="passwordRule"
@@ -122,11 +122,29 @@
 
              
         
-               <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn  :loading="loading" type="submit" medium color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
-                 @click.prevent="checkemail">
-                 Sign Up
+               <div class="col-12 py-1 my-0 px-2 mb-2 text-center">
+
+
+                  <div class="row">
+
+                   
+
+                      <div class="col-6 py-0">
+                  <v-btn  :loading="loading" type="submit" medium color="#3C87CD" style="font-size:13px;text-transform:none; font-weight:bolder; color:white;font-family:BodyFont;"
+                   @click.prevent="checkemail">
+                 Register
                   </v-btn>
+                    </div>
+
+                     <div class="col-6 py-0">
+                <v-btn  medium color="#fffff" tag="a"  @click.prevent="handleGitHub" style="font-size:13px; font-weight:bolder;text-transform:none; color:black;font-family:BodyFont;"
+                  >
+                 Sign Up <v-icon class="ml-1">lab la-github</v-icon>
+                  </v-btn>
+                    </div>
+
+                  </div>
+                 
              </div>
 
               <div class="col-12 py-1 my-0  px-2 text-center">
@@ -140,7 +158,7 @@
               <div class="col-12 py-1 my-0 mt-1 px-2 text-center">
 
                 <span   style="font-size:13px; font-family:BodyFont; color:gray;"
-                >Have an account already? <router-link  style="font-size:13px; font-family:BodyFont; color:#3C87CD;" to="/login">LOGIN</router-link>.
+                >Have an account already? <span  style="font-size:13px; font-family:BodyFont; color:#3C87CD;" @click="showLogin">LOGIN</span>.
                 </span>
                 
             </div>
@@ -241,17 +259,32 @@
              </div>
 
 
-               <div class="col-12 py-1 my-0 px-2 text-center">
-                  <v-btn  :loading="loading" type="submit" small color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:BodyFont;" 
-                 @click.prevent="checkemail">
-                 Sign Up
+               <div class="col-12 py-1 my-0 px-2 mb-2 text-center">
+                    <div class="row">
+
+                   
+
+                      <div class="col-6 py-0">
+                  <v-btn  :loading="loading" type="submit" medium color="#3C87CD" style="font-size:13px;text-transform:none; font-weight:bolder; color:white;font-family:BodyFont;"
+                   @click.prevent="checkemail">
+                 Register
                   </v-btn>
+                    </div>
+
+                     <div class="col-6 py-0">
+                <v-btn  medium color="#fffff" tag="a"  @click.prevent="handleGitHub" style="font-size:13px; font-weight:bolder;text-transform:none; color:black;font-family:BodyFont;"
+                  >
+                 Sign Up <v-icon class="ml-1">lab la-github</v-icon>
+                  </v-btn>
+                    </div>
+
+                  </div>
              </div>
 
              <div class="col-12 py-0 my-0  px-2 text-center">
 
                 <span   style="font-size:12px; font-family:BodyFont; color:gray;"
-                > By clicking on sign up, you agree with our <a href="/terms-of-use">terms of use </a>and <a href="/privacy-policy">privacy policy</a>.
+                > By signing up, you agree with our <a href="/terms-of-use">terms of use </a>and <a href="/privacy-policy">privacy policy</a>.
                 </span>
                 
             </div>
@@ -259,7 +292,7 @@
             <div class="col-12 py-1 my-0  px-2 text-center">
 
                 <span   style="font-size:12px; font-family:BodyFont; color:gray;"
-                >Have an account already?<router-link  style="font-size:12px; font-family:BodyFont; color:#3C87CD;" to="/login">LOGIN</router-link>.
+                >Have an account already?<span  style="font-size:12px; font-family:BodyFont; color:#3C87CD;" @click="showLogin">LOGIN</span>.
                 </span>
                 
             </div>
@@ -355,6 +388,36 @@ export default {
          }
      
 
+      },
+       showLogin: function(){
+
+          if(this.$route.params.referral){
+                 this.$router.push({ path: '/login/' + this.$route.params.referral });
+         }else{
+              
+                  this.$router.push({ path: '/login' });
+         }
+
+       
+        },
+      handleGitHub:function(){
+         this.$root.auth_device_id =  "device_" + Math.random().toString(36).slice(2);
+    var strWindowFeatures = "location=yes,height=570,width=520,scrollbars=yes,status=yes";
+
+
+        let referralUser = null;
+
+        var URL = null;
+
+         if(this.$route.params.referral){
+               referralUser = this.$route.params.referral;
+                 URL = "https://api.citonhub.com/auth/redirect/" +   this.$root.auth_device_id + '/' + referralUser;
+         }else{
+              
+                 URL = "https://api.citonhub.com/auth/redirect/" +   this.$root.auth_device_id;
+         }
+ 
+        var win = window.open(URL, "_blank", strWindowFeatures);
       },
        checkIfLogin:function(){
 
@@ -480,13 +543,19 @@ export default {
       register: function(){
 
          this.$root.LocalStore('user_temp_email',[this.email,this.password]);
+
+         let referralUser = null;
+
+         if(this.$route.params.referral){
+               referralUser = this.$route.params.referral;
+         }
         
          this.$root.LocalStore('is_forget_password',[false]);
              axios.post( '/register',{
                 name: this.name,
                 email: this.email,
                 password: this.password,
-                referral: 'empty'
+                referral: referralUser
                   })
           .then(response => {
             

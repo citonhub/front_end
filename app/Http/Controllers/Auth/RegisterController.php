@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Mail;
 use App\Events\UserChannel;
 use App\Profile;
 use App\Jobs\HandleMail;
+use Laravel\Socialite\Facades\Socialite;
+use Carbon\Carbon;
+
 
 class RegisterController extends Controller
 {
@@ -46,6 +49,10 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+
+
+
+
 
     public function generateRandomNumber($length = 10) {
         $characters = '1234567890';

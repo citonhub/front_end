@@ -175,7 +175,7 @@
 
 
     <!-- code viewer for non-web codes -->
-    <textarea  readonly v-else v-model="ResultCode"  style="border: 0; background:whitesmoke; height:95%; position:absolute; width:100%; left:0; top:6%; font-size:14px;" class="px-2 py-2">
+    <textarea  readonly v-else v-model="ResultCode"  style="border: 0; background:black; color:white; height:95%; position:absolute; width:100%; left:0; top:6%; font-size:14px;" class="px-2 py-2">
 
     </textarea>
 
@@ -268,7 +268,7 @@ export default {
         this.setCodeContent();
       
       this.$root.codeboxComponent = this;
-
+     
 
       },
      components: {
@@ -809,7 +809,7 @@ methods:{
               content: '',
               space_id: this.$root.selectedSpace.space_id,
               is_reply: this.$root.is_reply,
-              current_user: JSON.stringify(this.$root.SpaceUsers ),
+              current_user: JSON.stringify(this.generateOnlineUsersList()),
               replied_message_id: this.$root.replyMessage.message_id,
                attachment_type: 'code',
                 code: this.code,
@@ -826,7 +826,24 @@ methods:{
          this.goBack();
 
       },
+    generateOnlineUsersList: function(){
+          let onlineUserList = [];
 
+          this.$root.selectedSpaceMembers.forEach(member => {
+             
+             let userData = this.$root.globalUsers.filter((user)=>{
+               return user.id == member.user_id;
+             })
+
+             if(userData.length != 0){
+               onlineUserList.push(userData[0])
+             }
+           
+            
+          });
+        
+        return onlineUserList;
+       },
       onCmReady(codemirror) {
 
           codemirror.on('keypress', () => {
@@ -882,9 +899,51 @@ methods:{
 
             }else{
 
+               if(this.selectedLangId == '39' || this.selectedLangId == '100' || this.selectedLangId == '38'){
+                 
+                 const InputRegex = /(input\(')(.*)('\))/g;
+
+                 const InputFound = this.code.match(InputRegex);
+
+
+                  if(InputFound != null){
+
+                     if(InputFound.length > 0){
+
+                    this.$root.projectInputData = [];
+
+                    InputFound.forEach((input)=>{
+
+                       const regexString = /[^input(')]/g;
+
+                  
+                       let finalWord = input.split("'");
+
+                      var inputData = {
+                         name: finalWord[1],
+                         value:''
+                      };
+
+                        this.$root.projectInputData.push(inputData);
+                    })
+
+                    this.$root.showProjectInput = true;
+
+                     return
+
+                  }
+                  
+                  }
+
+                 
+
+
+               }
+
+       
               this.ResultCode = 'sending to sandbox...';
 
-              this.runCodeOnSandbox();
+              this.runCodeOnSandbox(null);
               this.sendCodeRunning();
 
 
@@ -988,11 +1047,17 @@ methods:{
 
 
       },
-      runCodeOnSandbox: function(){
+      runCodeOnSandbox: function(codeContent){
+
+           if(codeContent == null){
+
+              codeContent = this.code
+
+           }
 
           axios.post( '/run-code-on-sandbox',{
                 langId: this.selectedLangId,
-                code: this.code,
+                code: codeContent,
                 messageId: 77
                   })
           .then(response => {

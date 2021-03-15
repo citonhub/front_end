@@ -5,16 +5,22 @@
     <router-view></router-view>
    </v-app>
 
+   
+
 </div>
   
 </template>
 
 <script>
+
  export default {
     data () {
       return {
        
       }
+    },
+    components:{
+   
     },
       mounted(){
         if(!this.$root.isLogged){

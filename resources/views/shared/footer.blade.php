@@ -76,7 +76,7 @@
 
     <!-- layer 4 -->
     <div class="col-6">
-      <span class="linkStyle mx-1"  style="color:#ffffff;font-size:13px;">&copy; CitonHub 2020</span>
+      <span class="linkStyle mx-1"  style="color:#ffffff;font-size:13px;">&copy; CitonHub 2021</span>
       </div>
       <div class="col-6">
       <a href="/privacy-policy" class="linkStyle mx-1"  style="color:#ffffff;font-size:13px;"> Privacy Policy</a>
