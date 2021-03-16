@@ -280,10 +280,6 @@
 
                      <template v-else>
 
-                          <div  class="col-12 mt-4 text-center">
-   {{userData.username}} has no project yet
-                          </div>
-
                         <div  class="col-12 mt-4 text-center">
 
                     <span style="font-size:13px;color:grey;font-family:BodyFont;" v-if="userData.username != that.$root.username">{{userData.username}} has no project yet</span>
