@@ -42,7 +42,7 @@
 
            <template v-if="notifications.length  == 0">
 
-                <div  class="col-12 mt-4 ">
+                <div  class="col-12 mt-md-4  mt-1 px-md-2 px-1">
 
           <div class="mb-3 px-3" style="font-size:14px;color:black;font-family:BodyFont;">
                    <p><b style="font-family:MediumFont;text-transform:capitalize;">{{ this.$root.authProfile.name }}</b>, welcome to CitonHub! </p>
