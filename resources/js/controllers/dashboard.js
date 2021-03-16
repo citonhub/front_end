@@ -2456,8 +2456,10 @@ const app = new Vue({
       
     this.$root.authProfile = userDetails;
 
-     if(!this.$root.authProfile.suggested_diary){
-           this.$root.showUserNotification = true;
+      
+
+     if(!this.$root.authProfile.user_onboarded){
+        this.$root.authProfile.unread = 1;
        }
     
    

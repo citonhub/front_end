@@ -42,10 +42,33 @@
 
            <template v-if="notifications.length  == 0">
 
-                <div  class="col-12 mt-4 text-center">
+                <div  class="col-12 mt-4 ">
 
-          <div class="mb-3 px-3" style="font-size:13px;color:black;font-family:BodyFont;">
-                   You have no notification yet.
+          <div class="mb-3 px-3" style="font-size:14px;color:black;font-family:BodyFont;">
+                   <p><b style="font-family:MediumFont;text-transform:capitalize;">{{ this.$root.authProfile.name }}</b>, welcome to CitonHub! </p>
+
+                   <p>Here is a brief description on each tab:</p>
+    
+                  <p>
+<b style="font-family:MediumFont;">1.) Channel:</b> Create your channel and add a payment plan to earn from teaching people how to code. Voice chat, share your screen, and live code in your channel.
+</p>
+
+<p>
+   <b style="font-family:MediumFont;">2.) Challenges:</b> Organize challenges in multiple languages to help others.
+</p>
+
+<p>
+<b style="font-family:MediumFont;">3.) Showcase:</b> Share your project with the community and get reviews. 
+</p>
+
+<p>
+<b style="font-family:MediumFont;">4.) Diaries:</b> Document your teaching in diaries.
+</p>
+
+<p>
+<b style="font-family:MediumFont;">5.) Wallet:</b> Your earnings drop here. Pay out to your bank account from your wallet.
+</p>
+
                     </div>
 
              </div>
