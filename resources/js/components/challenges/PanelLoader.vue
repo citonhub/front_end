@@ -71,7 +71,7 @@
 
                   <div class="col-6 py-0 px-0 d-flex flex-row" style="align-items:center; justify-content:center;">
                   
-                   <template  v-if="votes.length != 0">
+                   <template  v-if="votes.length != 0 && checkIfCanVote()">
 
                        <span  v-if="selectedParticipantId == ''"><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:12px; color:white;" class="px-1">{{ $t('duels.votes') }}</span> </span>
                      
@@ -113,7 +113,7 @@
          <!-- ends -->
 
        
-       <v-btn medium fab color="#3C87CD" v-if="selectedParticipantId != ''"  @click="goTopanel" class="d-inline-block " style="z-index:999999999999999;  position:absolute;  bottom:12%; right:2%; ">
+       <v-btn medium fab color="#3C87CD" v-if="selectedParticipantId != '' && checkIfCanVote()"  @click="goTopanel" class="d-inline-block " style="z-index:999999999999999;  position:absolute;  bottom:12%; right:2%; ">
 
         <v-icon style="font-size:25px; color:white;">las la-laptop-code</v-icon>
          
@@ -229,6 +229,36 @@ methods:{
        
 
     },
+     checkIfCanVote:function(){
+
+           if(this.$root.selectedChallenge.judges){
+
+      if(this.$root.selectedChallenge.judges == 'everyone'){
+
+               return true;
+
+           }else{
+
+             let UserJudge =  this.$root.selectedChallenge.selected_judges.filter((eachJudge)=>{
+
+                 return eachJudge.tempId == this.$root.user_temp_id;
+
+             });
+
+              if(UserJudge.length > 0){
+
+                  return true;
+
+              }else{
+                 return false;
+              }
+           }
+
+           }
+
+           
+          
+       },
   
     goTopanel:function(){
 
@@ -502,6 +532,8 @@ methods:{
 
  
         this.participants = response.data.participants;
+
+        this.$root.selectedChallenge = response.data.challenge[0];
      
         this.participants.sort(function(a, b){return b.stars - a.stars});
         this.votes = response.data.votes;

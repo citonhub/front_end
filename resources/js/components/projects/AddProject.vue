@@ -37,7 +37,7 @@
    </div>
 
 
-   <div class="col-lg-8 offset-lg-2 py-1 col-md-10 offset-md-1 px-4 px-md-2 ">
+   <div class="col-lg-8 offset-lg-2 py-1 col-md-10 offset-md-1 px-4 px-md-2  mt-2">
 
       <v-app style="background:transparent;font-family:BodyFont; " class="row text-center">
          
@@ -47,11 +47,13 @@
                 
             label="Title"
             counter="60"
+            placeholder="Snake game app"
             persistent-hint
+            outlined
             hint="What do you want to build?"
             v-model="title"
-             
-             
+              
+              dense
              prepend-inner-icon="las la-laptop-code"
             :rules="Rule"
              color="#3C87CD">

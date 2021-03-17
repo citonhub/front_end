@@ -58,7 +58,7 @@
                               
                                    </div>
 
-                                   <div class="col-4 py-0 px-2 d-flex flex-row-reverse" style="align-items:center;">
+                                   <div class="col-4 py-0 px-2 d-flex flex-row-reverse" style="align-items:center;" v-if="this.$root.selectedChallenge.judges">
 
                                       <v-btn class="ml-1"  @click="shareChallenge"  outlined medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; background:white;font-family:MediumFont;">
                                       <span style="text-transform:capitalize;">Share</span>   <v-icon class="ml-r" style="font-size:18px;" >mdi mdi-share-variant</v-icon> 
@@ -76,11 +76,11 @@
                                         <span style="color:white;text-transform:capitalize;">Join</span> 
                                    </v-btn>
 
-                                    <v-btn @click="showResults('vote')" class="mx-1"   medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
+                                    <v-btn @click="showResults('vote')" class="mx-1" v-if="this.$root.selectedChallenge.voting == null && checkIfCanVote()"  medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
                                         <span style="color:white;text-transform:capitalize;">Vote</span> 
                                    </v-btn>
 
-                                     <v-btn  v-if="this.$root.username == this.$root.selectedChallenge.username && checkDuelStatus(this.$root.selectedChallenge) == 'Ended' && this.$root.selectedChallenge.voting == null" medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
+                                     <v-btn  :loading="loadingEndChallenge" @click="endVoting" v-if="this.$root.username == this.$root.selectedChallenge.username && checkDuelStatus(this.$root.selectedChallenge) == 'Ended' && this.$root.selectedChallenge.voting == null" medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
                                         <span style="color:white;text-transform:capitalize;">End voting</span> 
                                    </v-btn>
 
@@ -399,7 +399,7 @@
               <!-- ends -->
 
 
-               <div  class="d-md-none d-flex flex-row-reverse" v-if="this.$router.currentRoute.path.indexOf('discussion') <= 0 && this.$router.currentRoute.path.indexOf('results') <= 0"  style="z-index:9999999999; overflow-x:auto; width:100%; position:fixed;  bottom:2%; right:3%; ">
+               <div  class="d-md-none d-flex flex-row-reverse" v-if="this.$router.currentRoute.path.indexOf('discussion') <= 0 && this.$router.currentRoute.path.indexOf('results') <= 0 && this.$root.selectedChallenge.judges"  style="z-index:9999999999; overflow-x:auto; width:100%; position:fixed;  bottom:2%; right:3%; ">
                   <v-btn class="ml-1" @click="shareChallenge" outlined medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; background:white;font-family:MediumFont;">
                                      <v-icon class="ml-r" style="font-size:18px;" >mdi mdi-share-variant</v-icon> 
                                    </v-btn>
@@ -415,11 +415,11 @@
                                         <span style="color:white;text-transform:capitalize;">Join</span> 
                                    </v-btn>
 
-                          <v-btn  class="mx-1"  @click="showResults('vote')"  medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
+                          <v-btn  class="mx-1"  @click="showResults('vote')" v-if="this.$root.selectedChallenge.voting == null && checkIfCanVote()" medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
                                         <span style="color:white;text-transform:capitalize;">Vote</span> 
                                    </v-btn>
 
-                                     <v-btn  v-if="this.$root.username == this.$root.selectedChallenge.username && checkDuelStatus(this.$root.selectedChallenge) == 'Ended' && this.$root.selectedChallenge.voting == null" medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
+                                     <v-btn  :loading="loadingEndChallenge" @click="endVoting" v-if="this.$root.username == this.$root.selectedChallenge.username && checkDuelStatus(this.$root.selectedChallenge) == 'Ended' && this.$root.selectedChallenge.voting == null" medium rounded color="#3C87CD" style="font-size:13px; font-weight:bolder; color:white;font-family:MediumFont;">
                                         <span style="color:white;text-transform:capitalize;">End voting</span> 
                                    </v-btn>
 
@@ -658,6 +658,7 @@ export default {
             ],
             selectLangValue:[],
             languageData:[],
+            loadingEndChallenge:false
       }
     },
 
@@ -706,6 +707,39 @@ export default {
 
           this.languageData = finalLangArray;
 
+       },
+       checkIfCanVote:function(){
+
+     
+
+      if(this.$root.selectedChallenge.judges == 'everyone'){
+
+               return true;
+
+           }else{
+
+             
+
+             let UserJudge =  this.$root.selectedChallenge.selected_judges.filter((eachJudge)=>{
+
+                 return eachJudge.tempId == this.$root.user_temp_id;
+
+             });
+
+              
+
+              if(UserJudge.length > 0){
+
+                  return true;
+
+              }else{
+                 return false;
+              }
+           }
+
+
+           
+          
        },
        goToPanel:function(){
 
@@ -958,6 +992,40 @@ export default {
           })
 
 
+       },
+       endVoting:function(){
+         
+           this.loadingEndChallenge = true;
+             axios.post( '/end-challenge',{
+                
+                duelId:this.$route.params.challenge_id
+                
+                  })
+          .then(response => {
+            
+           if (response.status == 200) {
+
+             
+
+               this.reloadChallenge();
+              
+              
+                 this.loadingEndChallenge = false;
+
+                  this.showAlert('Nice!',' Voting has ended','success')
+
+            }else{
+             
+            }
+            
+            
+          })
+          .catch(error => {
+               this.loadingEndChallenge = false;
+              this.showAlert('Oops!',' Something went wrong, please try again.','error')
+           
+          })
+         
        },
        reloadChallenge:function(){
        axios.get( '/fetch-challenge-data/' + this.$route.params.challenge_id)
