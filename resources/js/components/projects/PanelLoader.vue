@@ -83,7 +83,7 @@
     methods:{
        showShare:function(){
            this.$root.shareText = 'Check out this project on CitonHub';
-           this.$root.shareLink = 'https://link.citonhub.com/project/' + this.$route.params.project_slug + '/user' ; 
+           this.$root.shareLink = 'https://link.citonhub.com/project/' + this.$route.params.project_slug  ; 
             this.$root.showShare = true;
         },
       showFullPage:function(){

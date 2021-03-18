@@ -150,6 +150,8 @@ export default {
       },
       showSideBarHandler: function(){
 
+         this.$root.checkIfUserIsLoggedIn();
+
          this.$root.componentIsLoading = true;
 
          this.$root.showSideBar = true;

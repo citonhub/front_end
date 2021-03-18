@@ -205,8 +205,14 @@
             <div  class="col-lg-4 py-0 my-lg-0 px-1 d-flex text-center flex-row my-2" style="align-items:center;justify-content:center;">
               <template v-if="owner">
 
-                 <div class="col-12 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
-                      <v-btn @click="showEditProfile" small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
+                  <div class="col-6 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
+                      <v-btn small outlined rounded color="#3C87CD"  @click="copyLink()" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
+                       <span style="text-transform:capitalize;">Profile link</span> 
+                  </v-btn>
+                </div>
+
+                 <div class="col-6 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
+                      <v-btn @click="showEditProfile" small  rounded color="#3C87CD" style="font-size:12px; color:white; font-weight:bolder;font-family:MediumFont;">
                        <span style="text-transform:capitalize;">Edit profile</span> 
                   </v-btn>
                 </div>
@@ -418,7 +424,7 @@
       <!-- project view page -->
       <div class="col-12  py-0 pt-0">
 
-       <project-view    ></project-view>
+       <project-view></project-view>
 
       </div>
         
@@ -453,24 +459,10 @@
 
 
  <!-- ends -->
+ 
 
- <!-- notification alert  -->
-
-
-   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showUserNotification">
-
-   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
-
-     
-      <notify></notify>
-   
-
-   </div>
-
- </div>
-
-
- <!-- ends -->
+ 
+ 
 
  <!-- ends -->
 
@@ -490,10 +482,6 @@ const TopBar = () => import(
 
 const EditProfile = () => import(
    /* webpackChunkName: "EditProfile" */ './EditProfile.vue'
-  );
-
-  const Notify = () => import(
-   /* webpackChunkName: "Notify" */ './Notify.vue'
   );
 
 const ImageCropperBoard = () => import(
@@ -525,8 +513,7 @@ ImageCropperBoard,
 SideBar,
 PostView,
 ProjectView,
-Invitation,
-Notify
+Invitation
 },
   mounted(){
       this.$root.showMobileHub = false;
@@ -643,7 +630,35 @@ Notify
         
 
       },
+        copyLink () { 
+
+          const copyToClipboard = str => {
+  const el = document.createElement('textarea');
+  el.value = str;
+  el.setAttribute('readonly', '');
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+};
+
+      copyToClipboard('https://link.citonhub.com/profile/' + this.$root.username );
+
+        this.showAlert('Copied!','Copied to clipboard','success');
+         
+        
+        },
       chatUser:function(){
+
+       
+
+        if(!this.$root.isLogged){
+
+           this.$root.checkIfUserIsLoggedIn();
+          return;
+        }
 
          this.loadingChat = true;
 
