@@ -45,7 +45,7 @@ class PageController extends Controller
             $imagePath = 'posts/' . $thisPost->image_name .'.' . $thisPost->image_extension;
          }
 
-         $pageLink = '/dashboard#/hub/' . $uniqueId;
+         $pageLink = '/dashboard#/hub/post/' . $uniqueId;
        
         
         }
