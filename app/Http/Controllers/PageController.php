@@ -11,7 +11,7 @@ use App\Project;
 use App\Profile;
 use App\DuelTeam;
 use App\Bot;
-use App\Models\HubPost;
+use App\HubPost;
 use App\Organization;
 
 
