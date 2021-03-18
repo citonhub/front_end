@@ -1,7 +1,7 @@
 @extends('layouts.home')
 @section('title')
 
-    <title>CitonHub:Home</title>
+    <title>CitonHub</title>
 
  @endsection
  @section('meta') 
@@ -39,6 +39,20 @@
   justify-content:center;
   align-items:center;
 
+}
+
+.messagesBadges{
+    
+    color: #ffffff;
+    background: #3C87CD;
+    font-size: 29px;
+    font-family: HeaderFont;
+    font-weight: bolder;
+    align-items: center;
+    justify-content: center;
+    height:60px;
+    width:60px;
+    border-radius:50%;
 }
 
 
@@ -296,6 +310,116 @@
 
 </div>
 
+
+<!--ends-->
+
+<!--collaborate section-->
+
+<div class="d-md-block d-none " style="width:100%;height:400px; margin-top:80px;" >
+    
+<h3 style="font-weight:bold;" class="text-center mb-5 d-md-block d-none" >How it works</h3>
+
+
+   <div class="col-lg-10 offset-lg-1 col-md-12  d-flex flex-row flex-wrap">
+
+     <div class="col-md-4 d-flex flex-column">
+
+       <div class="py-2 px-2 d-flex mb-4 flex-row" style="align-items:center;justify-content:center;">
+          <span class="messagesBadges d-flex">
+            1
+          </span>
+       </div>
+
+       <div class="text-center " style="z-index:1;">
+
+       <h4 style="font-weight:bold;" class="text-center  d-md-block d-none" >Create your channel</h4>
+       <div  style="font-family:BodyFont; font-size:16px;">Set your channel name and add a description.</div>
+      </div>
+     
+     </div>
+     <div class="col-md-4">
+     <div class="py-2 px-2 d-flex mb-4 flex-row" style="align-items:center;justify-content:center;">
+          <span class="messagesBadges d-flex">
+            2
+          </span>
+       </div>
+       <div class="text-center " style="z-index:1;">
+
+<h4 style="font-weight:bold;" class="text-center  d-md-block d-none" >Add payment plan</h4>
+<div  style="font-family:BodyFont; font-size:16px;">Enable support, subscriptions or one-time payment plan.</div>
+</div>
+     </div>
+
+     <div class="col-md-4">
+     <div class="py-2 px-2 d-flex flex-row mb-4" style="align-items:center;justify-content:center;">
+          <span class="messagesBadges d-flex">
+            3
+          </span>
+       </div>
+       <div class="text-center " style="z-index:1;">
+
+<h4 style="font-weight:bold;" class="text-center  d-md-block d-none" >Invite people to your channel</h4>
+<div  style="font-family:BodyFont; font-size:16px;">Share out your channel link and start teaching and mentoring.</div>
+</div>
+     </div>
+   
+   </div>
+   
+
+</div>
+
+
+<div class="d-md-none d-block " style="width:100%;height:650px; " >
+
+<h5 style="font-weight:bold;" class="text-center mb-2 d-md-none d-block px-4" >How it works</h5>
+
+<div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1 d-flex flex-row flex-wrap">
+
+<div class="col-md-4 d-flex flex-column">
+
+  <div class="py-2 px-2 d-flex mb-4 flex-row" style="align-items:center;justify-content:center;">
+     <span class="messagesBadges d-flex">
+       1
+     </span>
+  </div>
+
+  <div class="text-center " style="z-index:1;">
+
+  <h6 style="font-weight:bold;" class="text-center " >Create your channel</h6>
+  <div  style="font-family:BodyFont; font-size:14px;">Set your channel name and add a description.</div>
+ </div>
+
+</div>
+<div class="col-md-4">
+<div class="py-2 px-2 d-flex mb-4 flex-row" style="align-items:center;justify-content:center;">
+     <span class="messagesBadges d-flex">
+       2
+     </span>
+  </div>
+  <div class="text-center " style="z-index:1;">
+
+<h6 style="font-weight:bold;" class="text-center " >Add payment plan</h6>
+<div  style="font-family:BodyFont; font-size:14px;">Enable support, subscriptions or one-time payment plan.</div>
+</div>
+</div>
+
+<div class="col-md-4">
+<div class="py-2 px-2 d-flex flex-row mb-4" style="align-items:center;justify-content:center;">
+     <span class="messagesBadges d-flex">
+       3
+     </span>
+  </div>
+  <div class="text-center " style="z-index:1;">
+
+<h6 style="font-weight:bold;" class="text-center" >Invite people to your channel</h6>
+<div  style="font-family:BodyFont; font-size:14px;">Share out your channel link and start teaching and mentoring.</div>
+</div>
+</div>
+
+</div>
+
+
+</div>
 
 <!--ends-->
 
