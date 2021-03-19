@@ -99,8 +99,8 @@
 
                 </div>
                 <div class="  py-1 col-8 d-flex" :style="selectedTab == 'projects' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:14px;" >My Projects</div>
-                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:13px;" >My Projects</div>
+                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:14px;" >Projects</div>
+                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:13px;" >Projects</div>
                 </div>
                 </div>
           </div>  
