@@ -3,7 +3,7 @@
         <div class="col-lg-10 offset-lg-1 px-md-2 px-1">
 
                <div class="col-12 py-0 d-flex flex-row pr-0" style="align-items:center;background:#F3F8FC;" v-for="(user,index) in this.$root.selectedChallenge.duel_participants"
-                :key="index">
+                :key="index" @click="goToProfile(user)">
                    <div class="mr-2 d-flex" style="align-items:center;justify-content:center;">
               <div   :style="imageStyleUser(40,user)">
             </div> 
@@ -98,6 +98,32 @@ export default {
 
 
          },
+ goToProfile:function(user){
+
+   console.log(user)
+
+       if( this.$root.selectedSpace.type == 'Bot' ) return
+        this.$root.selectedUsername = user.username;
+         this.$router.push({ path:'/profile-view/' + user.username})
+      },
+     checkIfAdmin: function(source){
+
+      let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
+
+             return (members.user_id == source.user_id)  && members.is_admin;
+           });
+
+           if(userMemberData.length != 0){
+
+             return true;
+
+           }else{
+              return false
+           }
+
+
+      }
+         ,
           getUserLevel: function(points){
 let imageUrl = '';
           
