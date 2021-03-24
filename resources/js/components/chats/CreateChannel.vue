@@ -1,5 +1,5 @@
 <template>
-  <div style="background:transparent;overflow-y:auto;">
+
    <div class="col-12 py-1 my-0 ">
     <div class="row">
         
@@ -24,7 +24,7 @@
 
           <!-- create channel form -->
 
-      <div class="col-12 py-1 my-0" style="font-family:BodyFont;">
+      <div class="col-12 py-1 my-0" style="font-family:BodyFont;overflow-y:auto;">
          <v-form class="row  mt-0 py-2 px-2 "  ref="form" v-model="formstate">
               
 
@@ -120,10 +120,10 @@
              </div>
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn @click.prevent="createSpace" type="submit" rounded small color="#3C87CD" style="font-size:12px;text-transform:none; color:white;font-family: MediumFont;" :loading="loading">Create</v-btn>
+                  <v-btn @click.prevent="createSpace" :disabled="payment_option == '' || description == ''" type="submit" rounded small color="#3C87CD" style="font-size:12px;text-transform:none; color:white;font-family: MediumFont;" :loading="loading">Create</v-btn>
              </div>
 
-             <div class="my-5 py-3">
+             <div class="my-5 py-5">
 
              </div>
 
@@ -141,7 +141,7 @@
     </div>
    </div>
 
-  </div>
+
    
 </template>
 <script>

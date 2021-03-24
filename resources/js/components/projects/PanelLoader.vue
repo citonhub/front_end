@@ -140,59 +140,15 @@
 
         }else{
 
-               if(this.$root.projectData.project_panel.panel_language == '39' || this.$root.projectData.project_panel.panel_language == '100' || this.$root.projectData.project_panel.panel_language == '38'){
-                 
+
+             let status =  this.$root.checkCodeForInput(this.$root.projectData.project_files.code_files[0].content,this.$root.projectData.project_panel.panel_language);
+
+                if(status == 'present'){
+                  return;
+                } 
+
+
               
-
-                 let InputRegex = /(input\(')(.*)('\))/g;
-
-                 let InputFound = this.$root.projectData.project_files.code_files[0].content.match(InputRegex);
-
-                  if(InputFound == null){
-
-                   InputRegex = /(input\(")(.*)("\))/g;
-
-                   InputFound = this.$root.projectData.project_files.code_files[0].content.match(InputRegex);
-
-                  }
-
-                 
-
-                     if(InputFound != null){
-
-                         if(InputFound.length > 0){
-             
-                     
-                    this.$root.projectInputData = [];
-
-                    InputFound.forEach((input)=>{
-
-                      
-                       let finalWord = input.split("'");
-
-                          if(finalWord.length == 1){
-
-                              finalWord = input.split('"');
-
-                          }
-
-                      var inputData = {
-                         name: finalWord[1],
-                         value:''
-                      };
-
-                        this.$root.projectInputData.push(inputData);
-                    })
-
-                    this.$root.showProjectInput = true;
-
-                     return
-
-                  }
-
-                     }
-
-               }
 
            this.pageContent = 'sending to sandbox...';
 
@@ -243,7 +199,8 @@
 
               }else{
 
-                 _this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr ;
+                 _this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr + ' \n' + response.data[0].compile_output + 
+                 '\n' + response.data[0].error;
 
                
 
@@ -317,7 +274,8 @@
 
                 
 
-                this.pageContent =  response.data[0][0].stdout + '\n Error: \n' + response.data[0][0].stderr ;
+                this.pageContent =   response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr + ' \n' + response.data[0].compile_output + 
+                 '\n' + response.data[0].error;
 
               }
 

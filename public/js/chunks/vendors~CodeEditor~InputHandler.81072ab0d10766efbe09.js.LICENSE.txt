@@ -1,0 +1,21 @@
+/*!
+ * RegexGen.js - JavaScript Regular Expression Generator v0.3.0
+ * https://github.com/amobiz/regexgen.js
+ *
+ * Supports CommonJS(node.js).
+ *
+ * Released under the MIT license
+ * http://opensource.org/licenses/MIT
+ *
+ * Date: 2014-06-11
+ * Update: 2015-12-19
+ */
+
+/**
+ * @fileOverview RegexGen.js is a JavaScript regular expression generator
+ *  that helps to construct complex regular expressions.
+ * @author Amobiz(amobiz.tw+github@gmail.com)
+ * @version 0.2.0
+ * @license MIT
+ *
+ */

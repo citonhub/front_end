@@ -1,46 +1,122 @@
 <template>
-    <div class="px-1">
-         <v-card @click="startChallenge(source)" class="col-12 py-0 px-md-0 px-0 pr-1 pr-md-2 d-flex mb-3 flex-row " style="border-radius:7px;" >
-                 
-                 <div     class=" d-md-block d-none mr-2"> 
 
-                   <div :style="imageStyle(100,source)">
-                    </div> 
-
-                 </div>
-
-                  <div     class="mr-1 d-block d-md-none"> 
-
-                   <div :style="imageStyle(65,source)">
-                    </div> 
-
-                 </div>
+        <div class="col-lg-4 col-md-6 px-2 mb-2 pt-1 pt-md-2" 
+          >
         
-        <div class="text-left d-flex flex-column py-md-3 py-2" style="overflow-x:hidden; width:100%;">
-          <!-- large screen -->
-          <div style="font-size:14px;font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1 d-md-block d-none">{{source.title}}</div>
-          <div style="font-size:12px;font-family:BodyFont; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1  d-md-block d-none">{{source.summary}}</div>
-          <!-- ends -->
-          <!-- smaller screen -->
-               <div style="font-size:13px;font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1  d-md-none d-block">{{source.title}}</div>
-          <div style="font-size:11px;font-family:BodyFont; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" class="pb-1  d-md-none d-block">{{source.summary}}</div>
-          <!-- ends -->
-          <div class="d-flex flex-row pr-2" style="align-items:center;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
-             <div style="font-size:12px;font-family:BodyFont;">{{appName(source)}} </div> <v-icon class="mx-1" style="font-size:12px;">mdi-record</v-icon> 
-             <div style="font-size:12px;font-family:BodyFont;">{{checkDuelStatus(source)}}</div> <v-icon class="mx-1" style="font-size:12px;">mdi-record</v-icon> 
-             <div style="font-size:12px;font-family:BodyFont;" class="d-md-block d-none">{{source.duel_participants.length}} Participants </div>
-             <div style="font-size:12px;font-family:BodyFont;" class="d-md-none d-block"> <v-icon style="font-size:17px;">las la-user-friends</v-icon> {{source.duel_participants.length}} </div>
-        
-          </div>
+          <v-card class="py-0 px-0 d-flex flex-column"  :ripple="false"  style="border-radius:6px;" @click="startChallenge(source)">
+            
+            <div  :style="imageStyle(120,source)">
 
-        </div>
+           <div class="py-2 px-2 text-right" style=" position:absolute; height:100%; left:0%; width:100%; 
+          background: rgba(0, 0, 0, 0.4);  border:1px solid transparent; border-top-left-radius:6px;  border-top-right-radius:6px;">
+             <div style="position:absolute; top:0%;width:100%; height:auto;" class="py-1 px-2">
+        
+          <template v-if="checkDuelStatus(source) == 'Pending'">
+
+               <v-chip 
+              
+              color="#ffc107"
+              dense
+              class="mx-2"
+              style="font-size:12px; color:white; font-family:BodyFont;"
+              x-small
+            >
+             
+            {{checkDuelStatus(source)}}
+            </v-chip>
+          </template>
+
+            <template v-if="checkDuelStatus(source) == 'Ended'">
+
+               <v-chip 
+              
+              color="#17a2b8"
+              dense
+              class="mx-2"
+              style="font-size:12px; color:white; font-family:BodyFont;"
+              x-small
+            >
+             
+            {{checkDuelStatus(source)}}
+            </v-chip>
+
+
+          </template>
+
+           <template v-if="checkDuelStatus(source) != 'Ended' && checkDuelStatus(source) != 'Pending'">
+
+               <v-chip 
+              
+              color="#28a745"
+              dense
+              class="mx-2"
+              style="font-size:12px; color:white; font-family:BodyFont;"
+              x-small
+            >
+             
+            {{checkDuelStatus(source)}}
+            </v-chip>
+
+
+          </template>
                
-              <div>
+             </div>
+
+                 <div style="position:absolute; bottom:0%;width:100%; height:auto;" class="py-1 px-2">
+                     <span class="mx-1" v-for="(lang,index) in appName(source)" :key="'lang' + index">
+                         <i :class="lang.icon" style="font-size:25px; color:white;"></i>
+                     </span>
+                 </div>
+           
+         </div>
+         </div>
+         <div class="px-2 pb-2" style="margin-top:115px;">
+
+             <div class=" py-0 my-0 text-left mt-2">
+
+                 
+                    <div style="font-size:13px;font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" >{{source.title}}</div>
+                
+            </div>
+
+             <div class=" py-0 my-0 px-0 text-left" style="height:50px;text-overflow: ellipsis; overflow-y:hidden;">
+
+                  <div style="font-size:13px;font-family:BodyFont; color:grey; " >{{source.summary}}</div>
+                 
+                
+            </div>
+
+              <div class=" py-0 my-0 text-center mt-1 mb-1">
+
+                  <v-chip 
+               outlined
+              color="#3C87CD"
+              dense
+              class="mx-2"
+              style="font-size:12px; font-family:BodyFont;"
+              small
+            >
+             
+           {{source.duel_participants.length}} participants
+            </v-chip>
+
+               
+            
+              
+
+            </div>
 
          </div>
+             
 
-              </v-card>
-    </div>
+            
+
+          </v-card>
+
+          
+
+          </div>
+  
 </template>
 <script>
 export default {
@@ -251,26 +327,37 @@ export default {
     methods:{
     appName:function(challenge){
 
+         
+          let languageArray = challenge.duel_language_array.split(',');
+           
+            let finalLanguages = [];
+
+             if(languageArray.length <= 3){
+                  finalLanguages = languageArray;
+             }else{
+                finalLanguages = languageArray.slice(0,3);
+             }
+         
+          let languageIconArray = [];
+
+           finalLanguages.forEach((language)=>{
+
+        let ThisApp = this.languageIcon.filter((app)=>{
+           return language == app.id.toString();
+         });
+
+           languageIconArray.push(ThisApp[0]);
+              
+           });
+          
         
-         
-         let ThisApp = this.languageIcon.filter((app)=>{
-           return challenge.duel_language_array == app.id.toString();
-         })
-         
-
-          if(ThisApp.length > 0){
-
-            return ThisApp[0].name;
-
-          }else{
-            return 'Web';
-          }
+       return  languageIconArray ;
 
       },
-      imageStyle: function(width,data){
+      imageStyle: function(height,data){
 
          if(data.background_color == null){
-        let styleString = "height:100%;width:" + width +"px;background-size:cover;border-top-left-radius:7px;border-bottom-left-radius:7px; background-repeat: no-repeat; ";
+        let styleString = "width:100%;height:" + height +"px;position:absolute; left:0%; top:0%;border-top-left-radius:6px;  border-top-right-radius:6px;  border:1px solid transparent;background-repeat: no-repeat; background-size:cover; ";
          if(data.image_name == null || data.image_name == '0'){
               styleString += 'background-color:whitesmoke; background-image:url(imgs/background1.jpg);';
          }else{
@@ -296,7 +383,7 @@ export default {
          
          return styleString;
        }else{
-        let styleString = "height:100%;width:" + width +"px;background-size:cover;border-top-left-radius:7px;border-bottom-left-radius:7px; background-repeat: no-repeat; ";
+        let styleString = "width:100%;height:" + height +"px;position:absolute; left:0%; top:0%; border:1px solid transparent; border-top-left-radius:6px;  border-top-right-radius:6px;background-repeat: no-repeat; background-size:cover; ";
          let imgLink = data.image_name + '.' + data.image_extension;
         
         styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/challenges/thumbnails/'  + imgLink  +  ');';

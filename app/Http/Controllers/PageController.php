@@ -19,6 +19,11 @@ use App\Organization;
 class PageController extends Controller
 {
 
+
+    public function singlePageApp(){
+      return view('pages.dashboard');  
+    }
+
     public function handelLink($type,$uniqueId){
        
 

@@ -59,6 +59,10 @@ export default {
 
            this.loadingDelete = true;
 
+           if( this.$root.hubComponents){
+             this.$root.hubComponents.loadingPost = true;
+           }
+
           axios.post( '/delete-hub-post',{
                 id: this.post.id
                   })
@@ -69,6 +73,8 @@ export default {
              if (response.status == 200) {
 
                let remainingPost = [];
+
+                this.$root.authProfile.points -= 20;
 
               if(this.fromProfile){
 
@@ -91,6 +97,8 @@ export default {
                  });
 
                  this.$root.postsSearch = remainingPostSearch;
+
+                  this.$root.hubComponents.loadingPost = false;
 
               }
     

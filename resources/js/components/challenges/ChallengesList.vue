@@ -25,7 +25,7 @@
 
     <!-- project list view -->
 
-  <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 px-2  pb-1 pt-0   " v-if="this.$root.TopBarComponentBoard">
+  <div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1 px-2  pb-1 pt-0   " v-if="this.$root.TopBarComponentBoard">
 
 
       <template v-if="this.$root.TopBarComponentBoard.searchContent.length > 0">
@@ -33,47 +33,19 @@
          
 
             <template v-if="!loadingSearchChallenges">
-
-                 <DynamicScroller
-    :items="this.$root.challengeSearchList"
-     :keyField="'duel_id'"
-    :min-item-size="36"
-  
-    :buffer="5000"
-
-     style=""
-   
-    class="col-12 text-center px-0 py-1 pt-md-3"
        
-        >
-
-    <template v-slot="{ item, index, active }">
-      <DynamicScrollerItem
-        :item="item"
-        :active="active"
-        :size-dependencies="[
-         item.description
-        ]"
-        :data-index="index"
-      >
-
-        <challenge :source="item" ></challenge>
-
-          </DynamicScrollerItem>
-             </template>
-    <template #before>
-
-        <!-- spacer -->
+             <!-- spacer -->
          
            <div class="col-12 mt-5 mt-md-0 d-md-none d-block"> 
 
            </div>
      <!-- ends -->
 
-  </template>
 
-    <template #after>
-
+                 <div class="row">
+                 <challenge v-for="(challenge,index) in this.$root.challengeSearchList" :source="challenge" :key="'search' + index" ></challenge>
+                 </div>
+   
         <!-- spacer -->
          
            <div class="col-12 my-5 mt-md-0 "> 
@@ -81,8 +53,6 @@
            </div>
      <!-- ends -->
 
-  </template>
-                </DynamicScroller>
 
        </template>
        
@@ -113,46 +83,18 @@
 
                <template v-if="!loadingChallenges">
 
-                 <DynamicScroller
-    :items="this.$root.challengesList"
-     :keyField="'duel_id'"
-    :min-item-size="36"
-  
-    :buffer="5000"
-
-     style=""
-   
-    class="col-12 text-center px-0 py-1 pt-md-3"
-       
-        >
-
-    <template v-slot="{ item, index, active }">
-      <DynamicScrollerItem
-        :item="item"
-        :active="active"
-        :size-dependencies="[
-         item.description
-        ]"
-        :data-index="index"
-      >
-
-        <challenge :source="item" ></challenge>
-
-          </DynamicScrollerItem>
-             </template>
-    <template #before>
-
-        <!-- spacer -->
+                  <!-- spacer -->
          
            <div class="col-12 mt-5 mt-md-0 d-md-none d-block"> 
 
            </div>
      <!-- ends -->
 
-  </template>
 
-    <template #after>
-
+                 <div class="row">
+                 <challenge v-for="(challenge,index) in this.$root.challengesList" :source="challenge" :key="'mainlist' + index" ></challenge>
+                 </div>
+   
         <!-- spacer -->
          
            <div class="col-12 my-5 mt-md-0 "> 
@@ -160,8 +102,6 @@
            </div>
      <!-- ends -->
 
-  </template>
-                </DynamicScroller>
 
        </template>
        

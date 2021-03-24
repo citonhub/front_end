@@ -5,8 +5,8 @@
 
  @endsection
  @section('meta') 
- <meta name="description" content="CitonHub is a place for developers to teach and earn from their passion across borders" />
-  <meta name="keywords" content="Teach programming,Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
+ <meta name="description" content="CitonHub is a place for developers to mentor and earn from their passion across borders" />
+  <meta name="keywords" content="mentor programming,Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
   <meta name="og:image" content="https://citonhub.com/imgs/logo.png"/>
@@ -19,7 +19,7 @@
     <meta name="msapplication-TileImage" content="images/icons/logo_msapplication-icon-144x144.png">
     <meta name="msapplication-TileColor" content="#3C87CD">
     <meta property="og:description" content="Join other developers helping each other grow on CitonHub" />
-    <meta property='twitter:title' content="CitonHub:A place for developers to teach and earn from their passion across borders"/>
+    <meta property='twitter:title' content="CitonHub:A place for developers to mentor and earn from their passion across borders"/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 
@@ -104,10 +104,10 @@
 <div class="col-lg-6 offset-lg-3 text-center  d-none d-md-block flex-column " style=" align-items:center; justify-content:center; margin-top:140px;margin-bottom:100px;">
    
    <div class="px-2 mt-4 " >
-     <h1 style="font-family:HeaderFont;" class="mb-3 mt-4">Teach, grow your community, and earn.</h1>
+     <h1 style="font-family:HeaderFont;" class="mb-3 mt-4">Mentor, grow your community, and earn.</h1>
 
      <div class="px-3">
-     <p style="font-size:20px;font-family:BodyFont;" class="px-5">CitonHub is a place <br>for developers to teach and earn from their passion across borders.</p>
+     <p style="font-size:20px;font-family:BodyFont;" class="px-5">CitonHub is a place <br>for developers to mentor and earn from their passion across borders.</p>
      </div>   
    
 
@@ -131,9 +131,9 @@
 <div class="d-md-none d-block  " style="width:100%; margin-top:90px; margin-bottom:40px;">
 <div class=" text-center">
 
-<h4 style="font-family:HeaderFont;" class="mb-3 px-3">Teach, grow your community, and earn.</h4>
+<h4 style="font-family:HeaderFont;" class="mb-3 px-3">Mentor, grow your community, and earn.</h4>
    
-   <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is a place for developers to teach and earn from their passion across borders.</p>
+   <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is a place for developers to mentor and earn from their passion across borders.</p>
 
     
       <div class="mt-4">
@@ -234,7 +234,7 @@
 
 <div class="text-center  px-5" style="z-index:1;">
 
-<span  style=" font-family:BodyFont; font-size:18px;">Teach and mentor upcoming developers in your channel.</span>
+<span  style=" font-family:BodyFont; font-size:18px;">Mentor upcoming developers in your channel.</span>
 </div>
     
     </div>
@@ -254,7 +254,7 @@
 
 <div class="text-center  px-5" style="z-index:1;">
 
-<span  style=" font-family:BodyFont; font-size:15px;">Teach and mentor upcoming developers in your channel.</span>
+<span  style=" font-family:BodyFont; font-size:15px;">Mentor upcoming developers in your channel.</span>
 </div>
     
     </div>
@@ -359,7 +359,7 @@
        <div class="text-center " style="z-index:1;">
 
 <h4 style="font-weight:bold;" class="text-center  d-md-block d-none" >Invite people to your channel</h4>
-<div  style="font-family:BodyFont; font-size:16px;">Share out your channel link and start teaching and growing your community.</div>
+<div  style="font-family:BodyFont; font-size:16px;">Share out your channel link and start mentoring and growing your community.</div>
 </div>
      </div>
    
@@ -412,7 +412,7 @@
   <div class="text-center " style="z-index:1;">
 
 <h6 style="font-weight:bold;" class="text-center" >Invite people to your channel</h6>
-<div  style="font-family:BodyFont; font-size:14px;">Share out your channel link and start teaching and growing your community.</div>
+<div  style="font-family:BodyFont; font-size:14px;">Share out your channel link and start mentoring and growing your community.</div>
 </div>
 </div>
 
@@ -427,9 +427,9 @@
 
 <div class="features col-lg-12 px-0 mt-md-4">
 
-<h3 style="font-weight:bold;" class="text-center mb-2 d-md-block d-none" >Features for teaching and mentoring</h3>
+<h3 style="font-weight:bold;" class="text-center mb-2 d-md-block d-none" >Features for mentoring</h3>
 
-<h5 style="font-weight:bold;" class="text-center mb-2 d-md-none d-block px-4" >Features for teaching and mentoring</h5>
+<h5 style="font-weight:bold;" class="text-center mb-2 d-md-none d-block px-4" >Features for mentoring</h5>
 
 <div  class=" mt-5 col-lg-8 offset-lg-2 d-flex flex-row flex-wrap"  style="align-items:center;justify-content:center;">
 
@@ -502,9 +502,9 @@
 <i class="las la-book" style="font-size:55px; color:white;"></i>
 </div>
 
-<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none text-center">Document your teaching process in diaries</p>
+<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none text-center">Document your learing process in diaries</p>
 
-<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block text-center">Document your teaching process in diaries</p>
+<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block text-center">Document your learing process in diaries</p>
 </div>
 
 </div>

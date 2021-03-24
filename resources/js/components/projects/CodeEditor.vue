@@ -151,9 +151,7 @@ methods:{
   generateRegex:function(){
    var _ = require('regexgen.js');
 var regex = _(
-    _.capture('input\(\''),
-     _.capture( _.anything() ),
-      _.capture( '\'\)' )
+    _.capture('cin >> MM;')
 );
 
 var regexString =  _(

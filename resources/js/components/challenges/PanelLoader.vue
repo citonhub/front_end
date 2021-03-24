@@ -293,59 +293,14 @@ methods:{
             }else{
 
               
-               if(this.participantSelected.panel_language == '39' || this.participantSelected.panel_language  == '100' || this.participantSelected.panel_language == '38'){
-                 
-              
-                  let InputRegex = /(input\(')(.*)('\))/g;
+               let status =  this.$root.checkCodeForInput(this.participantSelected.main_file_content,this.participantSelected.panel_language );
 
-                 let InputFound = this.participantSelected.main_file_content.match(InputRegex);
-
-                  if(InputFound == null){
-
-                   InputRegex = /(input\(")(.*)("\))/g;
-
-                 InputFound = this.participantSelected.main_file_content.match(InputRegex);
-
-                  }
+                if(status == 'present'){
+                  return;
+                } 
 
 
-                 if(InputFound != null){
-
-
-                       if(InputFound.length > 0){
-
-                   this.$root.projectInputData = [];
-
-                    InputFound.forEach((input)=>{
-
-                      
-                       let finalWord = input.split("'");
-
-                          if(finalWord.length == 1){
-
-                              finalWord = input.split('"');
-
-                          }
-
-                      var inputData = {
-                         name: finalWord[1],
-                         value:''
-                      };
-
-                        this.$root.projectInputData.push(inputData);
-                    })
-
-                    this.$root.showProjectInput = true;
-
-                     return
-
-                  }
-
-                   
-                 
-                 }
-
-               }
+             
 
            this.pageContent = 'sending to sandbox...';
 
@@ -418,7 +373,8 @@ methods:{
 
               }else{
 
-                 _this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr ;
+                 _this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr + ' \n' + response.data[0].compile_output + 
+                 '\n' + response.data[0].error;
 
                
 
@@ -494,7 +450,8 @@ methods:{
 
                 
 
-                this.pageContent =  response.data[0][0].stdout + '\n Error: \n' + response.data[0][0].stderr ;
+                this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr + ' \n' + response.data[0].compile_output + 
+                 '\n' + response.data[0].error;
 
               }
 

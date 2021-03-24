@@ -25,7 +25,7 @@
             outlined
             placeholder="my portfolio"
             persistent-hint
-             hint="What are you building?"
+             hint="What have you built?"
             
              color="#3C87CD">
              </v-text-field>
@@ -64,7 +64,10 @@
                
                 <div class=" col-12 py-1 my-0 px-2" style="font-family:BodyFont;">
                    <span  style="font-size:13px;font-family:MediumFont;" class="mb-1">Select from project list</span>  
-                <v-select
+
+                   <template v-if="projectArray.length > 0">
+                 
+                          <v-select
                
                  style="font-size:13px;"
                  
@@ -81,6 +84,23 @@
                  placeholder="select..."
                 v-model="post.project_slug">
                 </v-select>
+
+
+                   </template>
+
+                   <template v-else>
+
+                      <div class="mb-1 mt-3 text-center" style="font-size:13px;color:grey;font-family:BodyFont;">
+                   You have no project on CitonHub yet. 
+                    </div>
+
+                     <div class="text-center mb-4">
+                          <v-btn small color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" @click="addProject" class="mx-2 d-inline-block" rounded>Start building</v-btn>
+                     </div>
+
+                  
+                   </template>
+             
                 </div>
 
              <!-- ends -->
@@ -521,6 +541,9 @@ export default {
           this.addprojectlink= !this.addprojectlink
           this.select = !this.select
        },
+       addProject:function(){
+            this.$router.push({ path: '/board/projects/add' });
+       },
        setTagHandler:function(){
 
          let selectedProject = this.projectArray.filter((project)=>{
@@ -545,8 +568,11 @@ export default {
       if (response.status == 200) {
 
         this.loadingProjects = false;
+      
 
        this.projectArray = response.data.projects
+
+      
 
      }
 
@@ -708,6 +734,8 @@ export default {
         postData () {
           if (this.$refs.addPost.validate()) {
 
+              this.$root.hubComponents.loadingPost = true;
+
              this.loading = true;
             let formData = new FormData();
 
@@ -749,22 +777,33 @@ export default {
             })
               .then((response) => {
                 if (response.status == 200) {
-
+                    
+                   
                   this.$root.posts.unshift(response.data.data);
 
                  
                  this.loading = false;
 
-                   this.showAlert('Awesome!','Your project has been shared','success')
-
-                   
-
                  
                     this.goBack();
 
-                    this.$root.authProfile.points += 4;
+                    this.$root.formerPoint = this.$root.authProfile.points;
+
+                     this.$root.addedPoint = 0;
+
+                     if(this.$root.authProfile.points < 100){
+                      this.$root.authProfile.points += 25;
+                       this.$root.addedPoint = 25;
+                     }else{
+                        this.$root.authProfile.points += 10;
+                         this.$root.addedPoint = 10;
+                     }
+
+                   
 
                      this.$root.showRewardBoard = true;
+
+                      this.$root.hubComponents.loadingPost = false;
 
                   
                 }

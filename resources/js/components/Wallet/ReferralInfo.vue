@@ -66,7 +66,7 @@
      </div>
 
      <div style="font-size:13px;font-family:BodyFont;">
-         Invite your friends to teach on CitonHub and get 5% commission of their first 10 earnings.
+         Invite your friends to mentor on CitonHub and get 5% commission of their first 10 earnings.
         </div>
 
         <div class="col-12 px-0">
