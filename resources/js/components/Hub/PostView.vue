@@ -113,7 +113,7 @@ export default {
         let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;cursor:pointer; ";
          let imgLink = data.image_name + '.' + data.image_extension;
          
-            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/'  + imgLink  +  ');';
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/profile/thumbnails/'  + imgLink  +  ');';
          
          
           return styleString;
@@ -125,32 +125,31 @@ export default {
 let imageUrl = '';
           
   if(points >= 0 && points <= 99){
-    imageUrl += '/imgs/newbie.svg'
+    imageUrl += '/imgs/steel.svg'
 
   }
-  else if(points >= 100 && points <= 999 ){
+  else if(points >= 100 && points <= 299 ){
 
-   imageUrl +='/imgs/junior.svg'
+   imageUrl +='/imgs/bronze.svg'
   }
-   else if(points >= 1000 && points <= 4999 ){ 
+   else if(points >= 300 && points <= 599 ){ 
    
-imageUrl += '/imgs/intermediate.svg' 
+imageUrl += '/imgs/silver.svg' 
 }
-    else if(points >= 5000 && points <= 9999 ){ 
+    else if(points >= 600 && points <= 999 ){ 
 
-imageUrl += '/imgs/senior.svg'
+imageUrl += '/imgs/gold.svg'
    }
- else if(points >= 10000 && points <= 14999 ){ 
+ else if(points >= 1000 && points <= 1499 ){ 
    
-imageUrl +='/imgs/expert.svg'
+imageUrl +='/imgs/platinum.svg'
 }
-  else if(points >= 15000 && points <= 100000 ){ 
+  else if(points >= 1500 && points <= 9999 ){ 
       
- imageUrl += '/imgs/super_dev.svg'
+ imageUrl += '/imgs/diamond.svg'
 }
 
   return imageUrl;
-
     },
      showProject (id, postId) {
 

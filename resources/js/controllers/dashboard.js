@@ -9,8 +9,8 @@ window.io = require('socket.io-client');
 Vue.use(Vuex)
 
 //axios.defaults.baseURL = 'http://localhost:8000/api'
-//axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
-axios.defaults.baseURL = 'https://api.citonhub.com/api'
+axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
+//axios.defaults.baseURL = 'https://api.citonhub.com/api'
 
 //axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
 
@@ -94,9 +94,15 @@ const Challenges = () => import(/* webpackChunkName: "Challenges" */ '../compone
 const Wallet = () => import(/* webpackChunkName: "Wallet" */ '../components/dashboard/Wallet.vue');
 const Notifications = () => import(/* webpackChunkName: "Notifications" */ '../components/dashboard/Notifications.vue');
 const Settings = () => import(/* webpackChunkName: "Settings" */ '../components/dashboard/Settings.vue');
+const Mentors = () => import(/* webpackChunkName: "Mentors" */ '../components/dashboard/Mentors.vue');
 
 // settings routes
 const SettingsMain = () => import(/* webpackChunkName: "SettingsMain" */ '../components/settings/main.vue');
+
+
+// mentors routes
+const MentorsList = () => import(/* webpackChunkName: "MentorsList" */ '../components/mentors/list.vue');
+
 
 // wallet routes
 const WalletInfo = () => import(/* webpackChunkName: "WalletInfo" */ '../components/Wallet/Info.vue');
@@ -1735,6 +1741,35 @@ children:[
         ]
       },
       {
+        // mentors
+        path: 'mentors',
+        component: Mentors,
+        redirect:'/board/mentors/list',
+        meta: {
+          twModalView: true
+        },
+        beforeEnter: (to, from, next) => {
+     
+          if(window.thisUserState != undefined){
+            
+            thisUserState.$root.showProfileView = false;
+    
+           
+           }
+         
+         
+          next()
+         },
+        children:[
+           
+          {
+            // list
+            path:'list',
+            component: MentorsList
+          }
+        ]
+      },
+      {
         // notifications
         path: 'notifications',
         component: Notifications,
@@ -2046,6 +2081,13 @@ const app = new Vue({
     projectInputData:[],
     panelLoaderProject:undefined,
     showProjectInput:false,
+    showPointDetailsInfo:false,
+    formerPoint:'',
+    showCreateChannel: false,
+    showMentorInfo:false,
+    addedPoint:0,
+    selectedLanguageId:0,
+    autoOpenChatType:''
      },
      mounted: function () {
       window.thisUserState = this;
@@ -2058,7 +2100,7 @@ const app = new Vue({
 
      
       this.connectToChannel();
-      this.checkPWA();
+      // this.checkPWA();
 
     },
     computed: {
@@ -2419,10 +2461,8 @@ const app = new Vue({
          
           
       },
-    // fetches the logged in user details
-      fetchUserDetails: function(){
-      
-
+      fetchProfileHandler: function(){
+    
         axios.get('/fetch-profile-'+ this.username)
   .then(response => {
   
@@ -2449,16 +2489,19 @@ const app = new Vue({
       'points': userProfile.points,
       'user_onboarded':userProfile.user_onboarded,
       'suggested_diary': userProfile.suggested_diary,
-      
+       'is_mentor': userProfile.is_mentor
       };
         
+      
 
       
     this.$root.authProfile = userDetails;
 
-     if(!this.$root.authProfile.suggested_diary){
-           this.$root.showUserNotification = true;
-       }
+       this.$root.LocalStore('profile_info_new' + this.$root.username,userDetails);
+
+    //  if(!this.$root.authProfile.user_onboarded){
+    //     this.$root.authProfile.unread = 1;
+    //    }
     
    
     
@@ -2472,6 +2515,31 @@ const app = new Vue({
  }) 
 
      
+      },
+    // fetches the logged in user details
+      fetchUserDetails: function(){
+
+        let StoredProfileInfo = this.$root.getLocalStore('profile_info_new' + this.$root.username);
+  
+        StoredProfileInfo.then((result)=>{
+
+          if(result != null){
+
+            let finalResultUnread = JSON.parse(result);
+
+               this.$root.authProfile = finalResultUnread;
+
+               this.fetchProfileHandler();
+
+          }else{
+
+             this.fetchProfileHandler();
+             
+          }
+
+        });
+      
+
   },
   clearUnreadMessageRemote: function(messageId){
 
@@ -2494,6 +2562,109 @@ const app = new Vue({
   }) 
      
    
+   },
+   checkCodeForInput: function(code,languageId){
+
+     this.$root.selectedLanguageId = languageId;
+
+      // for C++
+
+      if(languageId == '11'){
+
+        let InputRegex = /(cin >> )(.*)/g;
+        let InputFound = code.match(InputRegex);
+
+       
+
+         if(InputFound != null){
+
+          if(InputFound.length > 0){
+
+         this.$root.projectInputData = [];
+
+         InputFound.forEach((input)=>{
+
+           
+            let finalWord = input.split(" ");
+
+           
+
+           var inputData = {
+              name: finalWord[2].substring(0, finalWord[2].length - 1),
+              value:''
+           };
+
+             this.$root.projectInputData.push(inputData);
+         })
+
+
+      
+         this.$root.showProjectInput = true;
+
+         return 'present';
+
+          
+       }
+       
+       }
+
+         return 'present'
+      }
+      
+    if(languageId == '39' || languageId == '100' || languageId == '38'){
+                 
+      let InputRegex = /(input\(')(.*)('\))/g;
+
+      let InputFound = code.match(InputRegex);
+
+       if(InputFound == null){
+
+        InputRegex = /(input\(")(.*)("\))/g;
+
+      InputFound = code.match(InputRegex);
+      
+
+       }
+
+
+       if(InputFound != null){
+
+        if(InputFound.length > 0){
+
+       this.$root.projectInputData = [];
+
+       InputFound.forEach((input)=>{
+
+         
+          let finalWord = input.split("'");
+
+             if(finalWord.length == 1){
+
+                 finalWord = input.split('"');
+
+             }
+
+         var inputData = {
+            name: finalWord[1],
+            value:''
+         };
+
+           this.$root.projectInputData.push(inputData);
+       })
+
+       this.$root.showProjectInput = true;
+
+         return 'present';
+     }
+     
+     }
+
+
+       
+
+      }
+
+      return 'not_present';
    },
   // connect user to a global private socket
   connectToChannel: function(){
@@ -2536,6 +2707,14 @@ const app = new Vue({
       if(e.actionType == 'new-message'){
 
            if(!this.$root.checkIfMessageExist(e.data)){
+
+              // let message  = e.data;
+
+              //  if(message.type == 'join'){
+
+
+
+              //  }
             
             let messageData = {
               space_id: e.data.space_id,

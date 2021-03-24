@@ -71,11 +71,12 @@
               <v-text-field
                  style="font-size:13px;"
                 v-model="diaryName"
-            label="Diary name"
+                placeholder="Web sockets"
             counter="60"
             :rules="NameRule"
             persistent-hint
-          
+            dense
+            outlined
              prepend-inner-icon="las la-book"
             
              color="#3C87CD">
@@ -147,7 +148,7 @@
 
       <div class="col-lg-8  py-1 mt-3 px-2 mb-3">
 
-             <div style="font-size:14px;"  class="mb-2">3. Control diary access.</div>
+             <div style="font-size:14px;"  class="mb-2">3. Set diary access.</div>
 
               <v-chip
        :outlined="accessType !='private'"
@@ -184,7 +185,7 @@
                  style="font-size:13px;"
               dense
              
-           
+              outlined
             v-model="selectedChannel"
             placeholder="select channel"
               
@@ -240,7 +241,7 @@
            
             chips
             multiple
-           
+             outlined
              
              item-text="name"
              item-value="name"
@@ -284,6 +285,7 @@
             counter="300"
              :rules="requiredRule"
             outlined
+            
           v-model="description"
              color="#3C87CD">
              </v-textarea>

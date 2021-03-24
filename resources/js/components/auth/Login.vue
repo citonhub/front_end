@@ -109,7 +109,7 @@
                     </div>
 
                      <div class="col-6 py-0">
-                <v-btn @click.prevent="handleGitHub"  medium color="#fffff" style="font-size:13px; font-weight:bolder;text-transform:none; color:black;font-family:BodyFont;"
+                <v-btn @click.prevent="handleGitHub"  :loading="loadingGitHub"  medium color="#fffff" style="font-size:13px; font-weight:bolder;text-transform:none; color:black;font-family:BodyFont;"
                   >
                  Sign In <v-icon class="ml-1">lab la-github</v-icon>
                   </v-btn>
@@ -224,7 +224,7 @@
                     </div>
 
                      <div class="col-6 py-0">
-                <v-btn @click.prevent="handleGitHub"  medium color="#fffff" style="font-size:13px; font-weight:bolder;text-transform:none; color:black;font-family:BodyFont;"
+                <v-btn @click.prevent="handleGitHub" :loading="loadingGitHub" medium color="#fffff" style="font-size:13px; font-weight:bolder;text-transform:none; color:black;font-family:BodyFont;"
                   >
                  Sign In <v-icon class="ml-1">lab la-github</v-icon>
                   </v-btn>
@@ -310,6 +310,7 @@ export default {
         Alert:false,
         alertMsg:'',
         errorState: false,
+        loadingGitHub:false,
         formstate:false,
         passwordRule:[
         v => !!v || 'Oh! you missed this.',
@@ -354,6 +355,7 @@ export default {
        },
 
          handleGitHub:function(){
+            this.loadingGitHub = true;
          this.$root.auth_device_id =  "device_" + Math.random().toString(36).slice(2);
     var strWindowFeatures = "location=yes,height=570,width=520,scrollbars=yes,status=yes";
      let referralUser = null;

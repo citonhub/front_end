@@ -81,6 +81,7 @@ export default {
 
       },
       showSidebarHandler:function(){
+         this.$root.checkIfUserIsLoggedIn();
         this.$root.showSideBar = true
 
           this.$root.componentIsLoading = true;

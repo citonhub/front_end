@@ -1,11 +1,9 @@
 
 <input type="hidden" value="{{ Config::get('app.locale') }}" id="appLocale">
-
-
  
-
-
-
+<script>
+    window._locale = "{{ app()->getLocale() }}";
+</script> 
 
 <script>
 

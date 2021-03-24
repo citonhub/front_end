@@ -59,7 +59,7 @@
    </div>
 
 
-   <v-app style="background:transparent;font-family:BodyFont; " class="col-lg-8 offset-lg-2 py-1 col-md-10 offset-md-1 px-2 ">
+   <v-app style="background:transparent;font-family:BodyFont; " class="col-lg-8 offset-lg-2 py-1 mt-2 col-md-10 offset-md-1 px-2 ">
 
       <v-form class="row" v-model="formstate" ref="create">
 
@@ -72,7 +72,8 @@
             counter="60"
             persistent-hint
             v-model="title"
-           
+            dense
+             outlined
                placeholder="CitonHub weekly challenge"
              prepend-inner-icon="las la-trophy"
             :rules="titleRule"
@@ -87,10 +88,11 @@
 
                           <v-textarea
                  style="font-size:13px;"
-                 filled
+                 
                  height="80px"
                  counter="100"
                  :rules="summaryRules"
+                 outlined
                 label="Summary"
                   placeholder="Build a social currency app"
                  v-model="summary"
@@ -166,6 +168,7 @@
            item-value="id"
      v-model="language"
      multiple
+     outlined
      :rules="requiredRule"
      style="font-size:13px;"
       placeholder="select challenge app type"
@@ -184,7 +187,8 @@
      label=" Challenge Channel"
      placeholder="Select existing channel or enter new channel name"
      v-model="new_channel"
-     style="font-size:0.8rem"
+     style="font-size:13px"
+     outlined
      :items="channelList"
                  item-value="space_id"
             item-text="name"
@@ -254,39 +258,28 @@
 
                     <div class="col-lg-8 px-0" >
 
-                         <v-combobox
+                         <v-select
                  style="font-size:13px;"
               dense
-              label="Add Judges"
+            outlined
+            placeholder="select..."
             counter="20"
             :rules="requiredRule"
-            hint="Type their username to add"
+            hint="You can only add yourself and people you follow"
             persistent-hint
-            chips
+            
+               item-text="username"
+               v-model="SelectedJudges"
+          item-value="user_temp_id"
             multiple
+            :items="Connections"
+            :loading="loadingConnection"
             
              color="#3C87CD"
             >
 
-              <template v-slot:selection="data">
-            <v-chip
-              :key="JSON.stringify(data.item)"
-              v-bind="data.attrs"
-              :input-value="data.selected"
-              color="#3C87CD"
-              dense
-              class="my-1"
-              style="font-size:12px; font-family:BodyFont;"
-              outlined
-              :disabled="data.disabled"
-          
-            >
-             
-              {{ data.item.name }}
-            </v-chip>
-
-              </template>
-             </v-combobox>
+            
+             </v-select>
 
                     </div>
                 
@@ -313,7 +306,7 @@
                 :placeholder="$t('duels.days') + '...'"
             :label="$t('duels.days')"
             :rules="durationRule2"
-            
+            outlined
             type="tel"
              dense
              color="#3C87CD"
@@ -331,7 +324,7 @@
             :label="$t('duels.hours')"
             :disabled="challengeIsActive"
             :rules="durationRule"
-           
+            outlined
             type="tel"
              dense
              color="#3C87CD"
@@ -643,6 +636,8 @@ export default {
         image:'',
         imageDefault:0,
         challengeIsActive:false,
+        Connections:[],
+        SelectedJudges:[],
       };
     },
     mounted(){
@@ -654,6 +649,7 @@ export default {
      this.$root.showTopBar = false;
      this.setEditValues();
      this.fetchChannels()
+     this.fetchConnected();
     },
     components:{
       VPressEditor
@@ -706,6 +702,38 @@ export default {
          
        }
     },
+      fetchConnected: function(){
+
+      this.loadingConnection = true;
+          
+           axios.get( '/fetch-connected' )
+      .then(response => {
+      
+      if (response.status == 200) {
+        
+       this.Connections = response.data.data;
+
+        // add user
+
+        let userData = {
+           username: this.$root.username,
+           user_temp_id: this.$root.user_temp_id
+        }
+
+         this.Connections.unshift(userData);
+
+
+       
+        this.loadingConnection = false;
+     }
+       
+     
+     })
+     .catch(error => {
+       this.loadingConnection = false;
+     }) 
+
+        },
     deleteChallenge:function(){
 
         this.loadingDelete = true;
@@ -822,6 +850,7 @@ var blob = this.b64toBlob(realData, contentType);
       enableEvery(){
 this.judgeType='everyone';
  this.custom=false
+   this.SelectedJudges = [];
       },
 
       disableEvery(){
@@ -965,6 +994,14 @@ this.judgeType='everyone';
              formData.append('challenge_language',this.language);
              formData.append('judges',this.judgeType);
 
+               if(this.SelectedJudges.length > 0){
+
+
+             formData.append('selected_judges',this.SelectedJudges);
+
+               }
+
+              
              formData.append('channel_id',this.new_channel);
 
             if(this.$route.params.type == 'edit'){

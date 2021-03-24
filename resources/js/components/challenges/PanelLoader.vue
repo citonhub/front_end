@@ -71,7 +71,7 @@
 
                   <div class="col-6 py-0 px-0 d-flex flex-row" style="align-items:center; justify-content:center;">
                   
-                   <template  v-if="votes.length != 0">
+                   <template  v-if="votes.length != 0 && checkIfCanVote()">
 
                        <span  v-if="selectedParticipantId == ''"><v-icon color="#ffffff">mdi-star</v-icon><span style="font-size:12px; color:white;" class="px-1">{{ $t('duels.votes') }}</span> </span>
                      
@@ -113,7 +113,7 @@
          <!-- ends -->
 
        
-       <v-btn medium fab color="#3C87CD" v-if="selectedParticipantId != ''"  @click="goTopanel" class="d-inline-block " style="z-index:999999999999999;  position:absolute;  bottom:12%; right:2%; ">
+       <v-btn medium fab color="#3C87CD" v-if="selectedParticipantId != '' && checkIfCanVote()"  @click="goTopanel" class="d-inline-block " style="z-index:999999999999999;  position:absolute;  bottom:12%; right:2%; ">
 
         <v-icon style="font-size:25px; color:white;">las la-laptop-code</v-icon>
          
@@ -229,6 +229,36 @@ methods:{
        
 
     },
+     checkIfCanVote:function(){
+
+           if(this.$root.selectedChallenge.judges){
+
+      if(this.$root.selectedChallenge.judges == 'everyone'){
+
+               return true;
+
+           }else{
+
+             let UserJudge =  this.$root.selectedChallenge.selected_judges.filter((eachJudge)=>{
+
+                 return eachJudge.tempId == this.$root.user_temp_id;
+
+             });
+
+              if(UserJudge.length > 0){
+
+                  return true;
+
+              }else{
+                 return false;
+              }
+           }
+
+           }
+
+           
+          
+       },
   
     goTopanel:function(){
 
@@ -263,45 +293,14 @@ methods:{
             }else{
 
               
-               if(this.participantSelected.panel_language == '39' || this.participantSelected.panel_language  == '100' || this.participantSelected.panel_language == '38'){
-                 
-                 const InputRegex = /(input\(')(.*)('\))/g;
+               let status =  this.$root.checkCodeForInput(this.participantSelected.main_file_content,this.participantSelected.panel_language );
 
-                 const InputFound = this.participantSelected.main_file_content.match(InputRegex);
-
-                 if(InputFound != null){
+                if(status == 'present'){
+                  return;
+                } 
 
 
-                       if(InputFound.length > 0){
-
-                    this.$root.projectInputData = [];
-
-                    InputFound.forEach((input)=>{
-
-                       const regexString = /[^input(')]/g;
-
-                  
-                       let finalWord = input.split("'");
-
-                      var inputData = {
-                         name: finalWord[1],
-                         value:''
-                      };
-
-                        this.$root.projectInputData.push(inputData);
-                    })
-
-                    this.$root.showProjectInput = true;
-
-                     return
-
-                  }
-
-                   
-                 
-                 }
-
-               }
+             
 
            this.pageContent = 'sending to sandbox...';
 
@@ -374,7 +373,8 @@ methods:{
 
               }else{
 
-                 _this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr ;
+                 _this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr + ' \n' + response.data[0].compile_output + 
+                 '\n' + response.data[0].error;
 
                
 
@@ -450,7 +450,8 @@ methods:{
 
                 
 
-                this.pageContent =  response.data[0][0].stdout + '\n Error: \n' + response.data[0][0].stderr ;
+                this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr + ' \n' + response.data[0].compile_output + 
+                 '\n' + response.data[0].error;
 
               }
 
@@ -488,6 +489,8 @@ methods:{
 
  
         this.participants = response.data.participants;
+
+        this.$root.selectedChallenge = response.data.challenge[0];
      
         this.participants.sort(function(a, b){return b.stars - a.stars});
         this.votes = response.data.votes;

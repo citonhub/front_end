@@ -11,12 +11,18 @@ use App\Project;
 use App\Profile;
 use App\DuelTeam;
 use App\Bot;
-use App\Models\HubPost;
+use App\HubPost;
+use App\User;
 use App\Organization;
 
 
 class PageController extends Controller
 {
+
+
+    public function singlePageApp(){
+      return view('pages.dashboard');  
+    }
 
     public function handelLink($type,$uniqueId){
        
@@ -39,13 +45,44 @@ class PageController extends Controller
 
          $pageDescription = 'Check out my project on CitonHub.';
 
-         if( $thisPost->image_name  == null){
+         if( $thisPost->image_extension  == null){
             $imagePath = 'logo.png';
          }else{
             $imagePath = 'posts/' . $thisPost->image_name .'.' . $thisPost->image_extension;
          }
 
-         $pageLink = '/dashboard#/hub/' . $uniqueId;
+         $pageLink = '/dashboard#/hub/post/' . $uniqueId;
+       
+        
+        }
+
+
+        if($type == 'profile'){
+         $thisUser = User::where('username',$uniqueId)->first();
+
+         $thisUser= DB::table('profiles')
+              ->join('users','users.id','profiles.user_id')
+              ->select(
+                  'users.username as username',
+                  'profiles.image_name as image_name',
+                  'profiles.image_extension as image_extension',
+                  'profiles.about as about'
+              )
+              ->where('users.id',$thisUser->id)
+              ->first();
+
+        $pageTitle = $thisUser->username . ' on CitonHub';
+        
+
+         $pageDescription = $thisUser->about;
+
+         if( $thisUser->image_name  == null){
+            $imagePath = 'logo.png';
+         }else{
+            $imagePath = 'profile/thumbnails/' . $thisUser->image_name .'.' . $thisUser->image_extension;
+         }
+
+         $pageLink = '/dashboard#/profile/' . $uniqueId;
        
         
         }

@@ -152,9 +152,9 @@
    <v-slide-x-transition>
    <div class="col-12  py-0 px-0" style="position:absolute; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);" @click="that.$root.showSideBar = false" v-if="that.$root.showSideBar">
 
-   <div style="position:absolute; height:100%; width:70%; left:0;" >
+   <div style="position:absolute; height:100%; width:60%; left:0;" >
 
-     <div class="col-md-6 col-lg-3 pt-2" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
+     <div class="col-md-6 col-lg-3 pt-2 px-0" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
         <side-bar></side-bar>
      </div>
 
@@ -177,7 +177,7 @@
 
       <!-- large and medium screens -->
 
-     <div class="col-lg-4 col-md-6 offset-lg-8 offset-md-6 pt-0 pb-3 scrollerAddProject px-md-2 px-0 " 
+     <div class="col-lg-4 col-md-6 offset-lg-8 offset-md-6 pt-0 pb-3  px-md-2 px-0 " 
      style=" height:100%; top:0%;  position:absolute; background:white;
      border:1px solid white;border-radius:0px;border-radius:0px;  overflow-y:auto;overflow-x:hidden;" @click.stop="that.$root.showAddNewPost = true">
 
@@ -368,6 +368,45 @@
 
 
  <!-- ends -->
+
+  <!-- project input handler  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showProjectInput" >
+
+   <div style="position:absolute; height:90%; top:8%; width:94%; left:3%; "  >
+  
+
+     <input-handler></input-handler>
+
+
+        
+     
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
+
+ <!-- showuserPoint info  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showPointDetailsInfo">
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+
+     
+      <point-info-board :alertComponent="that"></point-info-board>
+   
+
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
+
   
 
      <!-- ends -->
@@ -399,6 +438,10 @@ const Invitation = () => import(
     /* webpackChunkName: "Invitation" */ '../chats/invitation.vue'
   );
 
+   const InputHandler = () => import(
+   /* webpackChunkName: "InputHandler" */ '../projects/InputHandler.vue'
+  );
+
   const SideBar = () => import(
     /* webpackChunkName: "SideBar" */ '../dashboard/sideBar.vue'
   );
@@ -415,6 +458,9 @@ const Invitation = () => import(
     /* webpackChunkName: "Reward" */ '../dashboard/reward.vue'
   );
 
+   const PointInfoBoard = () => import(
+   /* webpackChunkName: "PointInfoBoard" */ '../chats/PointInfoBoard.vue'
+  );
  
 
 export default {
@@ -441,8 +487,10 @@ export default {
       ImageCropperBoard,
       SideBar,
       PostView,
+      InputHandler,
       Invitation,
       ProfileView,
+      PointInfoBoard,
       Reward
     },
     mounted(){
@@ -538,7 +586,7 @@ export default {
        message: message,
        zindex:'9999999999',
        position: 'bottomRight',
-         timeout: 5000,
+         timeout: 2000,
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
        }
@@ -552,7 +600,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-         timeout: 5000,
+         timeout: 2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -567,7 +615,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-         timeout: 5000,
+         timeout: 2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
@@ -582,7 +630,7 @@ export default {
        title: title,
        message: message,
        zindex:'9999999999',
-         timeout: 5000,
+         timeout: 2000,
        position: 'bottomRight',
         transitionInMobile: 'fadeIn',
       transitionOutMobile: 'fadeOut',
