@@ -75,7 +75,7 @@ export default {
 
           if (data.image_name == null || data.image_name == '0') {
            
-            imageUrl = 'imgs/default_1.jpg';
+            imageUrl = 'imgs/imgproj2.jpeg';
           } else {
             
             if (data.image_name == 'default_1') {

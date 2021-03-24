@@ -83,7 +83,7 @@
     methods:{
        showShare:function(){
            this.$root.shareText = 'Check out this project on CitonHub';
-           this.$root.shareLink = 'https://link.citonhub.com/project/' + this.$route.params.project_slug + '/user' ; 
+           this.$root.shareLink = 'https://link.citonhub.com/project/' + this.$route.params.project_slug  ; 
             this.$root.showShare = true;
         },
       showFullPage:function(){
@@ -140,42 +140,15 @@
 
         }else{
 
-               if(this.$root.projectData.project_panel.panel_language == '39' || this.$root.projectData.project_panel.panel_language == '100' || this.$root.projectData.project_panel.panel_language == '38'){
-                 
-                 const InputRegex = /(input\(')(.*)('\))/g;
 
-                 const InputFound = this.$root.projectData.project_files.code_files[0].content.match(InputRegex);
+             let status =  this.$root.checkCodeForInput(this.$root.projectData.project_files.code_files[0].content,this.$root.projectData.project_panel.panel_language);
 
-                     if(InputFound != null){
+                if(status == 'present'){
+                  return;
+                } 
 
-                         if(InputFound.length > 0){
 
-                    this.$root.projectInputData = [];
-
-                    InputFound.forEach((input)=>{
-
-                       const regexString = /[^input(')]/g;
-
-                  
-                       let finalWord = input.split("'");
-
-                      var inputData = {
-                         name: finalWord[1],
-                         value:''
-                      };
-
-                        this.$root.projectInputData.push(inputData);
-                    })
-
-                    this.$root.showProjectInput = true;
-
-                     return
-
-                  }
-
-                     }
-
-               }
+              
 
            this.pageContent = 'sending to sandbox...';
 
@@ -226,7 +199,8 @@
 
               }else{
 
-                 _this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr ;
+                 _this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr + ' \n' + response.data[0].compile_output + 
+                 '\n' + response.data[0].error;
 
                
 
@@ -300,7 +274,8 @@
 
                 
 
-                this.pageContent =  response.data[0][0].stdout + '\n Error: \n' + response.data[0][0].stderr ;
+                this.pageContent =   response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr + ' \n' + response.data[0].compile_output + 
+                 '\n' + response.data[0].error;
 
               }
 

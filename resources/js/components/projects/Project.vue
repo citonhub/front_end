@@ -27,7 +27,7 @@
          </div>
          </div>
 
-          <v-card class="py-2 px-2" style="position:absolute; width:94%; height:auto; left:3%; bottom:0; border-radius:0px; border-bottom-left-radius:20px;
+          <v-card class="py-1 px-2" style="position:absolute; width:94%; height:auto; left:3%; bottom:0; border-radius:0px; border-bottom-left-radius:20px;
           border-bottom-right-radius:20px;">
             
             <div class="col-12 py-0 my-0 text-left">
@@ -36,7 +36,7 @@
                       <div style="font-family:HeaderFont; font-size:13px;" >{{project.title}}</div>
                    </div>
                    <div class="col-2 text-right py-0 my-0">
-                       <i :class="getProjectLanguage(project.panel)" style="font-size:25px;"></i>
+                       <i :class="getProjectLanguage(project.panel)" style="font-size:23px;"></i>
                    </div>
                 </div>
             </div>

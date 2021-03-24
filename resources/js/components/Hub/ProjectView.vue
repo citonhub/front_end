@@ -73,7 +73,7 @@
 
             </template>
 
-           <template v-if="pageContent != '' && this.$root.selectedPost.project.is_web">
+           <template v-if="pageContent != '' && this.$root.selectedPost.project.project.is_web">
 
             <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" 
          :srcdoc="pageContent" 
@@ -81,13 +81,19 @@
 
            </template>
 
-           <template v-if="pageContent != '' && !this.$root.selectedPost.project.is_web">
+           <template v-if="pageContent != '' && !this.$root.selectedPost.project.project.is_web">
 
              <!-- for non-web content -->
-   <textarea :value="pageContent"  readonly class="col-12" style=" font-size:14px; position:absolute; height:100%;  background:white;border:1px solid #c5c5c5; border-radius:7px;"  >
+
+          <div style="width:100%;height:100%;position:absolute;left:0%; background:black;border:1px solid #c5c5c5; border-radius:7px;">
+
+    <textarea :value="pageContent"  readonly  class="col-12" style=" font-size:14px;  top:0; height:350px; left:0;   background:black; color:white;"  >
        
     </textarea>
 
+          </div>
+
+             
      <!-- ends -->
        
            </template>
@@ -161,7 +167,7 @@
             <div class="row">
 
               <div class="col-12 px-0 py-0 text-right">
-        <v-btn  @click="goToProject(that.$root.selectedPost.project)" 
+        <v-btn  @click="goToProject(that.$root.selectedPost.project.project)" 
         color="#3C87CD" outlined rounded  small style="text-transform:none;font-size:12px;font-family:MediumFont;">View source <v-icon class="ml-1">mdi-launch mdi-18px</v-icon></v-btn>
               </div>
 
@@ -375,7 +381,7 @@
              
            <v-card tile class="col-12  py-2 my-0 d-flex  px-2 flex-row" style="align-items:center; justify-content:center;" >
             
-                  <textarea ref="textBottom"  style="font-size:13px;"  placeholder="Type your comment"    v-model="commentValue"></textarea>
+                  <textarea ref="textBottom"  class="textarea" style="font-size:13px;"  placeholder="Type your comment"    v-model="commentValue"></textarea>
 
                   <v-btn icon class="mx-md-1" @click="postComment" @keyup.enter="postComment" :loading="sendingComment" ><v-icon>las la-send</v-icon> </v-btn>
            </v-card>
@@ -406,8 +412,8 @@
              <div class="col-8 py-0 text-center">
              <span style="font-size:14px; font-family:MediumFont;">{{ this.$root.selectedPost.title }}</span>
           </div>
-          <div class="col-2 px-1 text-right py-0" v-if="that.$root.selectedPost.project">
-             <template v-if="that.$root.selectedPost.project.is_web">
+          <div class="col-2 px-1 text-right py-0" v-if="that.$root.selectedPost.project.project">
+             <template v-if="that.$root.selectedPost.project.project.is_web">
                        <v-btn icon  @click="showFullPage" ><v-icon style="font-size:20px;">mdi mdi-launch</v-icon> </v-btn>
                      </template>
           </div>
@@ -444,7 +450,7 @@
 
             </template>
 
-           <template v-if="pageContent != '' && this.$root.selectedPost.project.is_web">
+           <template v-if="pageContent != '' && this.$root.selectedPost.project.project.is_web">
 
             <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" 
          :srcdoc="pageContent" 
@@ -455,13 +461,16 @@
 
            </template>
 
-           <template v-if="pageContent != '' && !this.$root.selectedPost.project.is_web">
+           <template v-if="pageContent != '' && !this.$root.selectedPost.project.project.is_web">
 
              <!-- for non-web content -->
-   <textarea  :value="pageContent"  readonly class="col-12" style=" font-size:14px; height:100%;  background:white;border:1px solid #c5c5c5; "  >
+  <div style="width:100%;height:100%;position:absolute;left:0%; background:black;border:1px solid #c5c5c5; border-radius:7px;">
+
+                            <textarea :value="pageContent"  readonly class="col-12"  style=" font-size:14px;  top:0; height:100%; left:0; position:absolute;  background:black; color:white;"  >
        
     </textarea>
 
+          </div>
      <!-- ends -->
        
            </template>
@@ -522,7 +531,8 @@ export default {
        loadingPostComments:false,
        sendingComment:false,
        replyCommentIsOn: false,
-       repliedComment:[]
+       repliedComment:[],
+       panelData:[]
     }
   },
   components:{
@@ -540,12 +550,12 @@ export default {
   methods:{
      showFullPage:function(){
 
-        if(this.$root.selectedPost.project){
+        if(this.$root.selectedPost.project.project){
 
-           if(this.$root.selectedPost.project.is_web){
+           if(this.$root.selectedPost.project.project.is_web){
 
 
-           window.open('/run-panel/' + this.$root.selectedPost.project.panel_id , '_blank');
+           window.open('/run-panel/' + this.$root.selectedPost.project.project.panel_id , '_blank');
 
         }
 
@@ -890,15 +900,25 @@ export default {
           this.pageContent = '';
           this.loadingCode = true;
          
-          this.selecetedPanelId = this.$root.selectedPost.project.panel_id;
+          this.selecetedPanelId = this.$root.selectedPost.project.project.panel_id;
 
-            if(this.$root.selectedPost.project.is_web){
+            if(this.$root.selectedPost.project.project.is_web){
 
                this.loadPageContent(this.selecetedPanelId);
 
             }else{
 
-                     this.runCodeOnSandbox();
+
+                 let status =  this.$root.checkCodeForInput(this.$root.selectedPost.project.project_files.code_files[0],this.panelData.panel_language);
+
+                if(status == 'present'){
+                  return;
+                } 
+
+
+              this.pageContent = 'sending to sandbox...';
+
+              this.runCodeOnSandbox(null);
             }
 
         },
@@ -1050,8 +1070,8 @@ export default {
 
               }else{
 
-                 _this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr ;
-
+                 _this.pageContent = response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr + ' \n' + response.data[0].compile_output + 
+                 '\n' + response.data[0].error;
                
 
               }
@@ -1087,10 +1107,11 @@ export default {
         
 
       },
-      runCodeOnSandbox: function(){
+      runCodeOnSandbox: function(codeContent){
 
           axios.post( '/run-code-on-sandbox-project',{
                 panel_id: this.selecetedPanelId,
+                code_content: codeContent
                   })
           .then(response => {
              
@@ -1123,7 +1144,8 @@ export default {
 
                 
 
-                this.pageContent =  response.data[0][0].stdout + '\n Error: \n' + response.data[0][0].stderr ;
+                this.pageContent =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr + ' \n' + response.data[0].compile_output + 
+                 '\n' + response.data[0].error;
 
               }
 
@@ -1144,6 +1166,7 @@ export default {
           
       },
     fetchPost:function(){
+                    
 
       let currentPostid = '';
 
@@ -1153,39 +1176,55 @@ export default {
           currentPostid = this.$root.currentPost;
        }
 
+     
 
        this.loadingPost  = true;
 
-             let storedPostData = this.$root.getLocalStore('post_data_' +   currentPostid + this.$root.username);
+             let storedPostData = this.$root.getLocalStore('post_data_new_' +   currentPostid + this.$root.username);
 
             storedPostData.then((result)=>{
                 
                  if(result != null ){
 
                     let finalResult = JSON.parse(result);
+
+                  
                      
                       this.$root.selectedPost = finalResult;
 
-                       if(!this.$root.selectedPost.link){
+                             
+
+                       this.panelData = this.$root.selectedPost.project.project_panel;
+                      
+                        this.fetchComments(this.$root.selectedPost.id)
+
+                      
+                 
+                   this.loadingPost  = false;
+                     
+               this.updatePost();
+
+
+
+                  if(!this.$root.selectedPost.link){
 
                          this.showPage();
 
                        }
 
-                        this.fetchComments(this.$root.selectedPost.id)
-                 
-                   this.loadingPost  = false;
-               this.updatePost();
+                
 
                  }else{
-            
+
+                       
+                 
            
             axios.get( '/fetch-post/' +  currentPostid)
       .then(response => {
       
       if (response.status == 200) {
 
-          this.$root.LocalStore('post_data_' +   currentPostid + this.$root.username,response.data.data);
+          this.$root.LocalStore('post_data_new_' +   currentPostid + this.$root.username,response.data.data);
         
            this.$root.selectedPost = response.data.data;
           
@@ -1194,6 +1233,10 @@ export default {
                          this.showPage();
 
                        }
+
+                       this.panelData = this.$root.selectedPost.project.project_panel;
+
+                    
 
                         this.fetchComments(this.$root.selectedPost.id)
 
@@ -1220,7 +1263,7 @@ export default {
       
       if (response.status == 200) {
 
-          this.$root.LocalStore('post_data_' +  this.$route.params.post_id + this.$root.username,response.data.data);
+          this.$root.LocalStore('post_data_new_' +  this.$route.params.post_id + this.$root.username,response.data.data);
         
            this.$root.selectedPost = response.data.data;
      }
@@ -1237,32 +1280,31 @@ export default {
 let imageUrl = '';
           
   if(points >= 0 && points <= 99){
-    imageUrl += '/imgs/newbie.svg'
+    imageUrl += '/imgs/steel.svg'
 
   }
-  else if(points >= 100 && points <= 999 ){
+  else if(points >= 100 && points <= 299 ){
 
-   imageUrl +='/imgs/junior.svg'
+   imageUrl +='/imgs/bronze.svg'
   }
-   else if(points >= 1000 && points <= 4999 ){ 
+   else if(points >= 300 && points <= 599 ){ 
    
-imageUrl += '/imgs/intermediate.svg' 
+imageUrl += '/imgs/silver.svg' 
 }
-    else if(points >= 5000 && points <= 9999 ){ 
+    else if(points >= 600 && points <= 999 ){ 
 
-imageUrl += '/imgs/senior.svg'
+imageUrl += '/imgs/gold.svg'
    }
- else if(points >= 10000 && points <= 14999 ){ 
+ else if(points >= 1000 && points <= 1499 ){ 
    
-imageUrl +='/imgs/expert.svg'
+imageUrl +='/imgs/platinum.svg'
 }
-  else if(points >= 15000 && points <= 100000 ){ 
+  else if(points >= 1500 && points <= 9999 ){ 
       
- imageUrl += '/imgs/super_dev.svg'
+ imageUrl += '/imgs/diamond.svg'
 }
 
   return imageUrl;
-
     }
    
    
@@ -1271,7 +1313,7 @@ imageUrl +='/imgs/expert.svg'
 </script>
 <style scoped>
 
-textarea {
+.textarea {
     font-size:13px; 
     background:white;
     width:100%; 

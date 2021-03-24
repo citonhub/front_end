@@ -2,14 +2,12 @@
 <div class="fixed-layout">
  
 
-   <div style="width:100%; height:auto; overflow-y:hidden; overflow-x:hidden; ">
+   <div style="width:100%; height:100%; overflow-y:hidden; overflow-x:hidden; ">
  
  <!-- side bar -->
 
  <!-- large and medium screens -->
-  <v-card class="d-none col-lg-2  d-lg-block"  style="z-index:999;border-radius:0px; align-items:center; background:white; justify-content:center; position:fixed; height:100%; top:0%;">
-    
-  
+  <v-card class="d-none  d-lg-block"  style="z-index:999;border-radius:0px; width:15%; align-items:center; background:white; justify-content:center; position:fixed; height:100%; top:0%;">
       
       <template>
         <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
@@ -29,9 +27,9 @@
  <v-slide-x-transition>
    <div class="col-12 d-lg-none d-block py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" @click="that.$root.showSideBar = false" v-if="that.$root.showSideBar">
 
-   <div style="position:absolute; height:100%; width:70%; left:0;" >
+   <div style="position:absolute; height:100%; width:65%; left:0;" >
 
-     <div class="col-md-6 pt-2" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
+     <div class="col-md-6 pt-2 px-0" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
       
       <template >
          <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
@@ -108,7 +106,8 @@
  <!-- ends -->
     
 <!-- Main board -->
-<div class=" col-lg-10  offset-lg-2 "  style="z-index:999999; background:#F5F5FB;  align-items:center; justify-content:center; position:fixed; height:100%; top:0%;">
+<div   :style="!$screen.lg ? 'z-index:999999; background:#F5F5FB;  align-items:center; justify-content:center; position:fixed; width:100%; left:0%; height:100%; top:0%;'
+: 'z-index:999999; background:#F5F5FB;  align-items:center; justify-content:center; position:fixed; width:85%; left:15%; height:100%; top:0%;'">
 
     <!-- top bar component -->
     
@@ -193,7 +192,7 @@
  <!-- project input handler  -->
 
 
-   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showProjectInput" @click="that.$root.showProjectInput = false" >
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showProjectInput" >
 
    <div style="position:absolute; height:90%; top:8%; width:94%; left:3%; "  >
   
@@ -250,7 +249,7 @@ const ImageCropperBoard = () => import(
    /* webpackChunkName: "TransactionInfo" */ '../Wallet/TransactionInfo.vue'
   );
 
-     const PayoutInfo = () => import(
+    const PayoutInfo = () => import(
    /* webpackChunkName: "PayoutInfo" */ '../Wallet/PayoutInfo.vue'
   );
 

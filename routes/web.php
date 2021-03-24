@@ -25,6 +25,7 @@ Route::get('/link/{type}/{uniqueId}','PageController@handelLink');
 Route::get('/beta', 'PageController@showBeta');
 
 
+
 // subsidiary routes
 Route::get('/run-panel/{panelId}','PanelController@runPanel');
 Route::get('/page-loader/{panelId}/{pageName}','PanelController@pageLoader');
@@ -36,3 +37,4 @@ Route::get('/auth/redirect', function () {
 });
 
 Route::get('/auth/callback','Auth\RegisterController@handleGitHubAuth');
+

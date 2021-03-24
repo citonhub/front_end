@@ -205,8 +205,14 @@
             <div  class="col-lg-4 py-0 my-lg-0 px-1 d-flex text-center flex-row my-2" style="align-items:center;justify-content:center;">
               <template v-if="owner">
 
-                 <div class="col-12 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
-                      <v-btn @click="showEditProfile" small outlined rounded color="#3C87CD" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
+                  <div class="col-6 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
+                      <v-btn small outlined rounded color="#3C87CD"  @click="copyLink()" style="font-size:12px; font-weight:bolder;font-family:MediumFont;">
+                       <span style="text-transform:capitalize;">Profile link</span> 
+                  </v-btn>
+                </div>
+
+                 <div class="col-6 py-0 px-1 d-flex flex-row" style="align-items:center;justify-content:center;">
+                      <v-btn @click="showEditProfile" small  rounded color="#3C87CD" style="font-size:12px; color:white; font-weight:bolder;font-family:MediumFont;">
                        <span style="text-transform:capitalize;">Edit profile</span> 
                   </v-btn>
                 </div>
@@ -250,11 +256,55 @@
 
              <div class="col-12 px-1 mt-2">
 
-               <h5 style="border-bottom:1px solid #c5c5c5;" class="py-1">Projects</h5>
+               <template v-if="profileData.is_mentor">
+
+                  <div class="col-12 px-0 d-flex flex-row py-0 mt-2" style="align-items:center; border-bottom:1px solid #c5c5c5; overflow-x:auto; white-space: nowrap;">
+                    
+                   <div class="py-2 px-3 mr-1 sideBar" :style="selectedTab == 'projects' ? ' border-bottom:4px solid #3C87CD;' : ''" @click="handleSelectedTab('projects')" >
+
+                        <div style="font-size:14px;font-family:MediumFont;" class="d-md-block d-none" >Projects</div>  
+                          <div style="font-size:13px;font-family:MediumFont;" class="d-md-none d-block" >Projects</div>  
+
+                   </div>
+
+                    <div class="py-2 px-3 mr-1 sideBar" :style="selectedTab == 'channels' ? ' border-bottom:4px solid #3C87CD;' : ''"   @click="handleSelectedTab('channels')">
+
+                        
+                             <div style="font-size:14px;font-family:MediumFont;" class="d-md-block d-none" >Channels</div>  
+                          <div style="font-size:13px;font-family:MediumFont;" class="d-md-none d-block" >Channels</div>  
+
+                   </div>
+
+                    <div class="py-2 px-3 mr-1 sideBar" :style="selectedTab == 'diaries' ? ' border-bottom:4px solid #3C87CD;' : ''"  @click="handleSelectedTab('diaries')" >
+
+                             <div style="font-size:14px;font-family:MediumFont;" class="d-md-block d-none" >Diaries</div>  
+                          <div style="font-size:13px;font-family:MediumFont;" class="d-md-none d-block" >Diaries</div>  
+
+                   </div>
+
+                    <div class="py-2 px-3 mr-1 sideBar"  :style="selectedTab == 'top_mentees' ? ' border-bottom:4px solid #3C87CD;' : ''"  @click="handleSelectedTab('mentees')">
+
+                             <div style="font-size:14px;font-family:MediumFont;" class="d-md-block d-none" >Top mentees</div>  
+                          <div style="font-size:13px;font-family:MediumFont;" class="d-md-none d-block" >Top mentees</div>  
+
+                   </div>
+
+                  </div>
+
+
+               </template>
+
+               <template v-else>
+                <h5 style="border-bottom:1px solid #c5c5c5;" class="py-1">Projects</h5>
+               </template>
+
+           
+
+                
 
                <div class="row mt-3">
 
-                  <template v-if="loadingUserProjects">
+                      <template v-if="loadingUserProjects">
                  
 
                   <div  class="col-12 mt-4 text-center">
@@ -266,10 +316,185 @@
                   </template>
 
                   <template v-else>
+                  
+
+                  <template v-if="selectedTab == 'channels'">
+
+                     <template v-if="userChannel.length > 0">
+
+               
+                        <div class="col-lg-4 col-md-6 px-2 mb-2 pt-1 pt-md-2" 
+          >
+        
+          <v-card class="py-3 px-2 d-flex flex-column" style="align-items:center; justify-content:center;"  @click="viewChannel(channel)" v-for="(channel,index) in userChannel" :key="index + 'channel'">
+            
+            <div class=" py-0 my-0 text-center">
+
+                  <div :style="channelStyle(90,channel)">
+                    </div> 
+                
+            </div>
+
+              <div class=" py-0 my-0 text-center mt-2">
+
+                 
+                    <div style="font-size:13px;font-family:MediumFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" >{{channel.name}}</div>
+                
+            </div>
+
+             <div class=" py-0 my-0 px-2 text-center" style="height:60px;text-overflow: ellipsis; overflow-y:hidden;">
+
+                  <div style="font-size:13px;font-family:BodyFont; color:grey; " >{{channel.description}}</div>
+                 
+                
+            </div>
+
+              <div class=" py-0 my-0 text-center mt-2">
+               
+                <v-chip 
+               outlined
+              color="#3C87CD"
+              dense
+              class="mx-2"
+              style="font-size:12px; font-family:BodyFont;"
+              small
+            >
+             
+         {{channel.members}} <span v-if="channel.members > 1">&nbsp; members</span> <span v-else >&nbsp; member</span> 
+            </v-chip>
+              
+                 
+            </div>
+
+          </v-card>
+
+          
+
+          </div>
+
+                     </template>
+
+                        <template v-else> 
+
+                   <div  class="col-12 mt-4 text-center">
+
+                    <span style="font-size:13px;color:grey;font-family:BodyFont;" v-if="userData.username != that.$root.username">{{userData.username}} has no channel yet</span>
+
+                     <span style="font-size:13px;color:grey;font-family:BodyFont;" v-else>You have no channel yet. Channel is where you mentor and earn from donation, subscriptions and paid sessions</span>
+                      </div>
+
+                       <div  class="col-12 mt-2 text-center" v-if="userData.username == that.$root.username"> 
+                   
+                    <v-btn small color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" @click="createChannel" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                    
+                      </div>
+
+             </template>
+
+                  </template>
+
+ 
+                  <template v-if="selectedTab == 'diaries'">
+
+                       <template v-if="userDiaries.length > 0">
+
+
+                          <div class="col-lg-4 col-md-6 px-2 mb-1 py-1 pt-0 mt-md-2" v-for="diary in userDiaries" :key="diary.id+ 'diary'">
+          
+       <v-card  class="py-0 px-2 pl-1"  style="border-radius:7px;" >
+            
+            <div class=" py-0 my-0 d-flex flex-row" style="width:100%;align-items:center; height:auto; justify-content:center;">
+                 <div  class=" mr-2 py-3" 
+                     :style="imageStyleDiary(45,diary)"></div> 
+
+                     <div class="px-0 py-3" style="width:85%;">
+
+                     <div class="d-flex flex-row flex-wrap" style="align-items:center;">
+                                   
+                                       <div class="px-0 py-0 my-0 col-12 d-flex flex-row" style="align-items:center;">
+                                               <div  style="font-size:14px; font-family:BodyFont;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">{{diary.name}}</div>
+
+                                               <div class="d-flex flex-row ml-auto" style="align-items:center;">
+                                                
+                                                <span style="font-size:10px;" class="mr-1">
+                                                  {{diary.views}}
+                                                </span>
+                                                   <v-icon style="font-size:19px;">las la-eye</v-icon>
+
+                                                   <span style="font-size:10px;"  class="mx-1">
+                                                   {{diary.followers}}
+                                                </span>
+
+                                                    <v-icon style="font-size:19px;">las la-user-friends</v-icon>
+
+                                               </div>
+                                           
+                                       </div>
+
+                                         <div class=" d-flex flex-row " style="align-items:center;width:100%;">
+                                   
+                                       <div class=" px-0 py-0 my-0 pr-1  " style="width:100%;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;font-size:13px; color:grey; font-family:BodyFont;">
+                                            
+                                               <span>{{ diary.description }}</span>
+                                           
+                                             
+                                       </div>
+                                        <div class=" px-1 py-1  ml-auto " >
+                                          
+                                            <v-btn v-if="diary.following == true" @click="viewDiary(diary)" x-small outlined  color="#3C87CD" rounded style="text-transform:capitalize;font-family:BodyFont;font-size:12px;" class="ml-1 d-inline-block" >following</v-btn>
+
+                                                 <v-btn v-else @click="viewDiary(diary)" x-small outlined  color="#3C87CD" rounded style="text-transform:capitalize;font-family:BodyFont;font-size:12px;" class="ml-1 d-inline-block" >follow</v-btn>
+
+                                          
+                                              
+                                       </div>
+                                    
+                                 </div> 
+                                       
+                                   
+                                 </div>
+
+                     </div>
+
+                
+            </div>
+          </v-card>
+
+          
+          
+
+          </div>
+
+           
+                       </template>
+           
 
                      
+                  <template v-else> 
 
-                         <template v-if="userProjects.length > 0">
+                   <div  class="col-12 mt-4 text-center">
+
+                    <span style="font-size:13px;color:grey;font-family:BodyFont;" v-if="userData.username != that.$root.username">{{userData.username}} has no diary yet</span>
+
+                     <span style="font-size:13px;color:grey;font-family:BodyFont;" v-else>You have no diary yet. Diary is where you share what you know in the way you want.</span>
+                      </div>
+
+                       <div  class="col-12 mt-2 text-center" v-if="userData.username == that.$root.username"> 
+                   
+                    <v-btn small color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" @click="createDiary" class="mx-2 d-inline-block" rounded>Create a diary</v-btn>
+                    
+                      </div>
+
+             </template>
+
+
+
+                  </template>
+
+
+                 <template v-if="selectedTab == 'projects'">
+
+                       <template v-if="userProjects.length > 0">
 
                            
 
@@ -280,11 +505,7 @@
 
                      <template v-else>
 
-                          <div   class="col-12 mt-4 text-center" v-if="profileData.user_id != this.$root.user_temp_id">
-   {{userData.username}} has no project yet
-                          </div>
-
-                        <div v-else class="col-12 mt-4 text-center">
+                        <div  class="col-12 mt-4 text-center">
 
                     <span style="font-size:13px;color:grey;font-family:BodyFont;" v-if="userData.username != that.$root.username">{{userData.username}} has no project yet</span>
 
@@ -299,15 +520,22 @@
 
                      </template>
 
-                    
-                    
-                    
-                  
+ 
+
+                  <template >
+
+                     
+
                       
 
                   </template>
 
-                  
+
+                 </template>
+
+
+
+                  </template>
 
                </div>
 
@@ -422,7 +650,7 @@
       <!-- project view page -->
       <div class="col-12  py-0 pt-0">
 
-       <project-view    ></project-view>
+       <project-view></project-view>
 
       </div>
         
@@ -457,24 +685,10 @@
 
 
  <!-- ends -->
+ 
 
- <!-- notification alert  -->
-
-
-   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showUserNotification">
-
-   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
-
-     
-      <notify></notify>
-   
-
-   </div>
-
- </div>
-
-
- <!-- ends -->
+ 
+ 
 
  <!-- ends -->
 
@@ -494,10 +708,6 @@ const TopBar = () => import(
 
 const EditProfile = () => import(
    /* webpackChunkName: "EditProfile" */ './EditProfile.vue'
-  );
-
-  const Notify = () => import(
-   /* webpackChunkName: "Notify" */ './Notify.vue'
   );
 
 const ImageCropperBoard = () => import(
@@ -529,8 +739,7 @@ ImageCropperBoard,
 SideBar,
 PostView,
 ProjectView,
-Invitation,
-Notify
+Invitation
 },
   mounted(){
       this.$root.showMobileHub = false;
@@ -566,12 +775,36 @@ Notify
        loadingUserProjects: false,
        loadingFollowing:false,
        userProjects:[],
+       userDiaries:[],
+       userChannel:[],
        loadingChat:false,
-       mainUserName:''
+       mainUserName:'',
+       selectedTab:'projects'
         }
     },
     methods:{
+       channelStyle: function(dimension,data){
+
+        
+      if(data.background_color == null){
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5;";
+         
+           styleString += 'background-color:#ffffff; background-image:url(imgs/channel.png);';
+        
+         
+         return styleString;
+      }else{
+        let styleString = "border-radius:50%;height:"+  dimension +"px;width:" + dimension +"px;background-size:contain;border:1px solid #c5c5c5; ";
+         let imgLink = data.image_name + '.' + data.image_extension;
+         
+            styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/thumbnails/'  + imgLink  +  ');';
+         
+         
+          return styleString;
+      }
+      },
        followUser:function(){
+         
               this.$root.checkIfUserIsLoggedIn();
               if(this.$root.checkauthroot == 'auth'){
                  this.loadingFollowing = true;
@@ -598,6 +831,161 @@ Notify
               }
             
          },
+         createChannel:function(){
+
+           this.$root.showProfileView = false;
+
+             this.$root.componentIsLoading = true;
+
+            if(this.$router.currentRoute.path.indexOf('channel') >= 0){
+
+            this.$root.showPointDetailsInfo = false
+                 this.$router.push({ path: '/channels/create' });
+            }else{
+
+                   this.$root.showCreateChannel = true;
+
+
+            this.$root.showPointDetailsInfo = false
+
+                   this.$router.push({ path: '/channels' });
+
+            }
+
+      
+
+         },
+         createDiary:function(){
+             this.$root.showProfileView = false;
+           this.$router.push({ path:'/board/diary/create-diary/new'})
+         },
+         handleSelectedTab: function(tabname){
+
+             this.selectedTab = tabname;
+   
+         if(tabname == 'projects'){
+
+            this.getUserProjects();
+
+
+
+         }
+
+          if(tabname == 'channels'){
+
+            this.getUserChannel();
+
+            
+
+         }
+
+          if(tabname == 'diaries'){
+
+            this.getUserDiaries();
+
+          
+         }
+            
+
+         },
+          getUserChannel:function(){
+
+         this.loadingUserProjects = true;
+
+         axios.get('/fetch-user-channels/'+ this.userData.username)
+    .then(
+  response=>{
+
+    if(response.status == 200){
+     
+       this.userChannel = response.data.channels;
+     
+        this.loadingUserProjects = false;
+    }
+  }
+   )
+   .catch(error => {
+
+          this.showAlert('Oops!','Unable to fetch user channels','error');
+
+     })
+
+         
+
+      },
+      viewChannel:function(channel){
+
+         this.$root.autoOpenChat = true;
+
+                       this.$root.autoOpenChatId = channel.space_id;
+
+                     this.$router.push({ path: '/channels' });
+
+      },
+      getUserDiaries:function(){
+
+         this.loadingUserProjects = true;
+
+         axios.get('/fetch-user-diaries/'+ this.userData.username)
+    .then(
+  response=>{
+
+    if(response.status == 200){
+     
+       this.userDiaries = response.data.diaries;
+     
+        this.loadingUserProjects = false;
+    }
+  }
+   )
+   .catch(error => {
+
+          this.showAlert('Oops!','Unable to fetch user diaries','error');
+
+     })
+
+         
+
+      },
+       imageStyleDiary: function(size,data){
+
+        if(data.background_color == null){
+        let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:3px;background-repeat: no-repeat;border:1px solid #c5c5c5; ";
+         if(data.image_name == null || data.image_name == '0'){
+              styleString += 'background-color:whitesmoke; background-image:url(imgs/background1.jpg);';
+         }else{
+            if(data.image_name == 'default_1'){
+
+               styleString += 'background-color:whitesmoke; background-image:url(/imgs/background3.jpg);';
+
+            }
+
+            if(data.image_name == 'default_2'){
+
+               styleString += 'background-color:whitesmoke; background-image:url(/imgs/background1.jpg);';
+
+            }
+
+              if(data.image_name == 'default_3'){
+
+               styleString += 'background-color:whitesmoke; background-image:url(/imgs/imgproj2.jpeg);';
+
+            }
+          
+         }
+         
+         return styleString;
+       }else{
+         let styleString = "height:" + size + "px;width:" + size +"px;background-size:cover;border-radius:3px;background-repeat: no-repeat; border:1px solid #c5c5c5;";
+         let imgLink = data.image_name + '.' + data.image_extension;
+        
+        styleString += 'background-color:'+ data.background_color + '; background-image:url(/imgs/space/thumbnails/'  + imgLink  +  ');';
+         
+          return styleString;
+
+
+      }
+      },
       getUserProjects:function(){
 
          this.loadingUserProjects = true;
@@ -647,7 +1035,37 @@ Notify
         
 
       },
+        copyLink () { 
+
+          const copyToClipboard = str => {
+  const el = document.createElement('textarea');
+  el.value = str;
+  el.setAttribute('readonly', '');
+  el.style.position = 'absolute';
+  el.style.left = '-9999px';
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+};
+
+      copyToClipboard('https://link.citonhub.com/profile/' + this.$root.username );
+
+        this.showAlert('Copied!','Copied to clipboard','success');
+         
+        
+        },
       chatUser:function(){
+
+       
+
+        if(!this.$root.isLogged){
+
+           this.$root.checkIfUserIsLoggedIn();
+          return;
+        }
+
+           this.$root.showProfileView = false;
 
          this.loadingChat = true;
 
@@ -860,46 +1278,46 @@ calculateLevel(){
 
    
   if(this.xp >= 50 && this.xp <= 99){
-this.level='Newbie';
-this.nextLevel='Junior';
+this.level='Steel';
+this.nextLevel='Bronze';
 this.xpLeft=100-this.xp;
 this.barValue=(this.xp/100)*100;
-this.pic='/imgs/junior.svg'
-this.pic1='/imgs/newbie.svg'
+this.pic='/imgs/bronze.svg'
+this.pic1='/imgs/steel.svg'
   }
-  else if(this.xp >= 100 && this.xp <= 999 ){ this.level='Junior';
-  this.nextLevel='Intermediate';
-  this.xpLeft=1000-this.xp;
-  this.barValue=(this.xp/1000)*100
-  this.pic='/imgs/intermediate.svg'
-this.pic1='/imgs/junior.svg'
+  else if(this.xp >= 100 && this.xp <= 299 ){ this.level='Bronze';
+  this.nextLevel='Silver';
+  this.xpLeft=300-this.xp;
+  this.barValue=(this.xp/300)*100
+  this.pic='/imgs/silver.svg'
+this.pic1='/imgs/bronze.svg'
   }
-   else if(this.xp >= 1000 && this.xp <= 4999 ){ 
-     this.level='Intermediate';
-  this.nextLevel='Senior';
-  this.xpLeft=5000-this.xp;
-  this.barValue=(this.xp/5000)*100;
-   this.pic='/imgs/senior.svg'
-this.pic1='/imgs/intermediate.svg' }
-    else if(this.xp >= 5000 && this.xp <= 9999 ){ this.level='Senior';
-   this.nextLevel='Expert';
-   this.xpLeft=10000-this.xp;
-   this.barValue=(this.xp/10000)*100;
-   this.pic='/imgs/expert.svg'
-this.pic1='/imgs/senior.svg'
+   else if(this.xp >= 300 && this.xp <= 599 ){ 
+     this.level='Silver';
+  this.nextLevel='Gold';
+  this.xpLeft=600-this.xp;
+  this.barValue=(this.xp/600)*100;
+   this.pic='/imgs/gold.svg'
+this.pic1='/imgs/silver.svg' }
+    else if(this.xp >= 600 && this.xp <= 999 ){ this.level='Gold';
+   this.nextLevel='Platinum';
+   this.xpLeft=1000-this.xp;
+   this.barValue=(this.xp/1000)*100;
+   this.pic='/imgs/platinum.svg'
+this.pic1='/imgs/gold.svg'
    }
- else if(this.xp >= 10000 && this.xp <= 14999 ){ this.level='Expert';
- this.nextLevel='Super Dev';
- this.xpLeft=15000-this.xp;
- this.barValue=(this.xp/15000)*100;
- this.pic='/imgs/super_dev.svg'
-this.pic1='/imgs/expert.svg'}
-  else if(this.xp >= 15000 && this.xp <= 100000 ){ this.level='Super Dev';
-  this.nextLevel='Super';
-  this.xpLeft=100000-this.xp;
-  this.barValue=(this.xp/100000)*100;
-  this.pic='';
-  this.pic1='/imgs/super_dev.svg'
+ else if(this.xp >= 1000 && this.xp <= 1499 ){ this.level='Platinum';
+ this.nextLevel='Diamond';
+ this.xpLeft=1500-this.xp;
+ this.barValue=(this.xp/1500)*100;
+ this.pic='/imgs/diamond.svg'
+this.pic1='/imgs/platinum.svg'}
+  else if(this.xp >= 1500 && this.xp <= 9999 ){ this.level='Platinum';
+  this.nextLevel='Diamond';
+  this.xpLeft=10000-this.xp;
+  this.barValue=(this.xp/10000)*100;
+ this.pic='/imgs/diamond.svg'
+this.pic1='/imgs/platinum.svg'
 }
 
 },
@@ -950,6 +1368,12 @@ goBack(){
 
 
 <style scoped>
+.sideBar:hover{
+     
+      border-bottom:4px solid #3C87CD !important;
+      cursor: pointer;
+  }
+
     .scroller::-webkit-scrollbar {
   width: 6px;
   background: transparent;

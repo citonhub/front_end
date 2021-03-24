@@ -93,11 +93,7 @@ export default {
 
           }
 
-          if(this.$root.projectPanelComponent && this.$root.panelFromChallenges){
-
-             this.$root.projectPanelComponent.showAlert('Hey!','Share challenge to get your work voted for','info');
-
-          }
+       
 
         
       
@@ -155,9 +151,7 @@ methods:{
   generateRegex:function(){
    var _ = require('regexgen.js');
 var regex = _(
-    _.capture('input\(\''),
-     _.capture( _.anything() ),
-      _.capture( '\'\)' )
+    _.capture('cin >> MM;')
 );
 
 var regexString =  _(

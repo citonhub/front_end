@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="col-12  py-2 mb-lg-3">
+        <div class="col-12  py-0 ">
     
 
       <div class="row">
@@ -9,7 +9,7 @@
                    <div style="font-family:HeaderFont; font-size:19px;"  class="d-inline-block mt-2" >CitonHub</div>
           </div>
 
-          <div class="col-12 text-center px-0 d-block d-lg-none">
+          <div class="col-12 text-center px-0 d-block d-lg-none pb-1">
                 <img alt="citonhub logo" class="d-inline-block mr-1 mb-2" src="/imgs/logo.png" height="30px">
                    <div style="font-family:HeaderFont; font-size:14px;"  class="d-inline-block mt-2" >CitonHub</div>
           </div>
@@ -18,24 +18,54 @@
   </div>
      
 
-    <div class="col-12  py-2 pt-md-2  pt-0 px-0">
+    <div class="col-lg-12 py-2 pt-0 px-0">
     
-
-      <div class="row px-0">
-     
-
             <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'channels' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('channels')">
                 <div class="row">
                 <div class="col-4 py-1 text-center">
-                  <v-icon class="d-none d-md-inline-block" style="font-size:30px;" :color="selectedTab == 'channels' ? '#3C87CD' : '#A4A4A5'">las la-comments</v-icon>
-                 <v-icon  class="d-md-none d-inline-block" style="font-size:27px;" :color="selectedTab == 'channels' ? '#3C87CD' : '#A4A4A5'">las la-comments</v-icon>
+                  <v-icon class="d-none d-md-inline-block" style="font-size:27px;" :color="selectedTab == 'channels' ? '#3C87CD' : '#A4A4A5'">las la-comments</v-icon>
+                 <v-icon  class="d-md-none d-inline-block" style="font-size:23px;" :color="selectedTab == 'channels' ? '#3C87CD' : '#A4A4A5'">las la-comments</v-icon>
                 </div>
                 <div class="  py-1 col-8 d-flex" :style="selectedTab == 'channels' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:14px;" >Chats</div>
-                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:13px;" >Chats</div>
+                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:13px;" >Chats</div>
+                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Chats</div>
                 </div>
                 </div>
           </div>
+
+
+
+                <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'mentors' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''"  @click.stop="goToPage('mentors')">
+                <div class="row">
+                <div class="col-4 py-1 text-center">
+                
+
+                     <v-icon class="d-none d-md-inline-block" style="font-size:27px;" :color="selectedTab == 'mentors' ? '#3C87CD' : '#A4A4A5'">las la-user-friends</v-icon>
+                 <v-icon  class="d-md-none d-inline-block" style="font-size:23px;" :color="selectedTab == 'mentors' ? '#3C87CD' : '#A4A4A5'">las la-user-friends</v-icon>
+                </div>
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'mentor' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
+                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:13px;" >Mentors</div>
+                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Mentors</div>
+                </div>
+                </div>
+          </div>
+
+         
+         
+            <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar" :style="selectedTab == 'hub' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('hub')">
+                <div class="row">
+                <div class="col-4 py-1 text-center">
+                 
+                    <v-icon class="d-none d-md-inline-block" style="font-size:27px;" :color="selectedTab == 'hub' ? '#3C87CD' : '#A4A4A5'">las la-stream</v-icon>
+                 <v-icon  class="d-md-none d-inline-block" style="font-size:23px;" :color="selectedTab == 'hub' ? '#3C87CD' : '#A4A4A5'">las la-stream</v-icon>
+                </div>
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'hub' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
+                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:13px;" >Showcase</div>
+                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Showcase</div>
+                </div>
+                </div>
+          </div>
+
 
              
           
@@ -43,64 +73,54 @@
                 <div class="row">
                 <div class="col-4 py-1 text-center">
 
-                    <v-icon class="d-none d-md-inline-block" style="font-size:30px;" :color="selectedTab == 'challenges'  ? '#3C87CD' : '#A4A4A5'">las la-trophy</v-icon>
-                 <v-icon  class="d-md-none d-inline-block" style="font-size:27px;" :color="selectedTab == 'challenges'  ? '#3C87CD' : '#A4A4A5'">las la-trophy</v-icon>
+                    <v-icon class="d-none d-md-inline-block" style="font-size:27px;" :color="selectedTab == 'challenges'  ? '#3C87CD' : '#A4A4A5'">las la-trophy</v-icon>
+                 <v-icon  class="d-md-none d-inline-block" style="font-size:23px;" :color="selectedTab == 'challenges'  ? '#3C87CD' : '#A4A4A5'">las la-trophy</v-icon>
 
                  
                 </div>
                 <div class="  py-1 col-8 d-flex" :style="selectedTab == 'challenges'  ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                   <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:14px;" >Challenges</div>
-                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:13px;" >Challenges</div>
+                   <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:13px;" >Challenges</div>
+                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Challenges</div>
                 </div>
                 </div>
           </div>
 
 
 
-            <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar" :style="selectedTab == 'hub' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('hub')">
-                <div class="row">
-                <div class="col-4 py-1 text-center">
-                 
-                    <v-icon class="d-none d-md-inline-block" style="font-size:30px;" :color="selectedTab == 'hub' ? '#3C87CD' : '#A4A4A5'">las la-stream</v-icon>
-                 <v-icon  class="d-md-none d-inline-block" style="font-size:27px;" :color="selectedTab == 'hub' ? '#3C87CD' : '#A4A4A5'">las la-stream</v-icon>
-                </div>
-                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'hub' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:14px;" >Showcase</div>
-                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:13px;" >Showcase</div>
-                </div>
-                </div>
-          </div>
-
+         
+       
 
                <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'diary' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''"  @click.stop="goToPage('diary')">
                 <div class="row">
                 <div class="col-4 py-1 text-center">
                 
 
-                     <v-icon class="d-none d-md-inline-block" style="font-size:30px;" :color="selectedTab == 'diary' ? '#3C87CD' : '#A4A4A5'">las la-book</v-icon>
-                 <v-icon  class="d-md-none d-inline-block" style="font-size:27px;" :color="selectedTab == 'diary' ? '#3C87CD' : '#A4A4A5'">las la-book</v-icon>
+                     <v-icon class="d-none d-md-inline-block" style="font-size:27px;" :color="selectedTab == 'diary' ? '#3C87CD' : '#A4A4A5'">las la-book</v-icon>
+                 <v-icon  class="d-md-none d-inline-block" style="font-size:23px;" :color="selectedTab == 'diary' ? '#3C87CD' : '#A4A4A5'">las la-book</v-icon>
                 </div>
                 <div class="  py-1 col-8 d-flex" :style="selectedTab == 'diary' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:14px;" >Diaries</div>
-                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:13px;" >Diaries</div>
+                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:13px;" >Diaries</div>
+                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Diaries</div>
                 </div>
                 </div>
           </div>
 
-         
+
+
+            
 
 
            <div class="col-12  px-0 py-1 py-md-2 sideBar mt-1 " :style="selectedTab == 'projects' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('projects')">
                 <div class="row">
                 <div class="col-4 py-1 text-center">
                 
-                     <v-icon class="d-none d-md-inline-block" style="font-size:30px;" :color="selectedTab == 'projects' ? '#3C87CD' : '#A4A4A5'">las la-laptop-code</v-icon>
-                 <v-icon  class="d-md-none d-inline-block" style="font-size:27px;" :color="selectedTab == 'projects' ? '#3C87CD' : '#A4A4A5'">las la-laptop-code</v-icon>
+                     <v-icon class="d-none d-md-inline-block" style="font-size:27px;" :color="selectedTab == 'projects' ? '#3C87CD' : '#A4A4A5'">las la-laptop-code</v-icon>
+                 <v-icon  class="d-md-none d-inline-block" style="font-size:23px;" :color="selectedTab == 'projects' ? '#3C87CD' : '#A4A4A5'">las la-laptop-code</v-icon>
 
                 </div>
                 <div class="  py-1 col-8 d-flex" :style="selectedTab == 'projects' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:14px;" >My Projects</div>
-                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:13px;" >My Projects</div>
+                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:13px;" >Projects</div>
+                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Projects</div>
                 </div>
                 </div>
           </div>  
@@ -112,33 +132,17 @@
                 <div class="row">
                 <div class="col-4 py-1 text-center">
                 
-                    <v-icon class="d-none d-md-inline-block" style="font-size:30px;" :color="selectedTab == 'wallet' ? '#3C87CD' : '#A4A4A5'">las la-wallet</v-icon>
-                 <v-icon  class="d-md-none d-inline-block" style="font-size:27px;" :color="selectedTab == 'wallet' ? '#3C87CD' : '#A4A4A5'">las la-wallet</v-icon>
+                    <v-icon class="d-none d-md-inline-block" style="font-size:27px;" :color="selectedTab == 'wallet' ? '#3C87CD' : '#A4A4A5'">las la-wallet</v-icon>
+                 <v-icon  class="d-md-none d-inline-block" style="font-size:23px;" :color="selectedTab == 'wallet' ? '#3C87CD' : '#A4A4A5'">las la-wallet</v-icon>
                 </div>
                 <div class="  py-1 col-8 d-flex" :style="selectedTab == 'wallet' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:14px;" >Wallet</div>
-                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:13px;" >Wallet</div>
+                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:13px;" >Wallet</div>
+                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Wallet</div>
                 </div>
                 </div>
           </div>
 
-          
-            <!-- PWA installer -->
-
-           <div class="col-12 py-md-2 py-2 text-center" v-if="this.$root.ShowappInstaller">
-                <button  @click="installApp()" class="homeButton mx-2 px-3 py-2" style="border-radius:20px;font-family:MediumFont;font-size:13px;">Use Web App</button>
-          </div>
-
-           <!-- ends -->
-
-
-          
-
-          
-
-
-      </div>
-
+ 
   </div>
 
     <div class="col-12 px-0 py-2 mt-2" style="position:absolute; bottom:0%;left:0;">
@@ -147,12 +151,12 @@
                        <div class="row">
                          <div class="col-4 py-1 text-center">
                  
-                   <v-icon class="d-none d-md-inline-block" style="font-size:30px;" :color="selectedTab == 'settings' ? '#3C87CD' : '#A4A4A5'">las la-cog</v-icon>
-                 <v-icon  class="d-md-none d-inline-block" style="font-size:27px;" :color="selectedTab == 'settings' ? '#3C87CD' : '#A4A4A5'">las la-cog</v-icon>
+                   <v-icon class="d-none d-md-inline-block" style="font-size:27px;" :color="selectedTab == 'settings' ? '#3C87CD' : '#A4A4A5'">las la-cog</v-icon>
+                 <v-icon  class="d-md-none d-inline-block" style="font-size:23px;" :color="selectedTab == 'settings' ? '#3C87CD' : '#A4A4A5'">las la-cog</v-icon>
                 </div>
                 <div class="  py-1 col-8 d-flex" :style="selectedTab == 'settings' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:14px;" >Settings</div>
-                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:13px;" >Settings</div>
+                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:13px;" >Settings</div>
+                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Settings</div>
                 </div>
                        </div>
                     </div>
@@ -161,12 +165,12 @@
                          <div class="col-4 py-1 text-center">
                 
 
-                       <v-icon class="d-none d-md-inline-block" style="font-size:30px;" :color="selectedTab == 'feedback' ? '#3C87CD' : '#A4A4A5'">las la-question-circle</v-icon>
-                 <v-icon  class="d-md-none d-inline-block" style="font-size:27px;" :color="selectedTab == 'feedback' ? '#3C87CD' : '#A4A4A5'">las la-question-circle</v-icon>
+                       <v-icon class="d-none d-md-inline-block" style="font-size:27px;" :color="selectedTab == 'feedback' ? '#3C87CD' : '#A4A4A5'">las la-question-circle</v-icon>
+                 <v-icon  class="d-md-none d-inline-block" style="font-size:23px;" :color="selectedTab == 'feedback' ? '#3C87CD' : '#A4A4A5'">las la-question-circle</v-icon>
                 </div>
                 <div class="  py-1 col-8 d-flex" :style="selectedTab == 'feedback' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                   <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:14px;" >Feedbacks</div>
-                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:13px;" >Feedbacks</div>
+                   <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:13px;" >Feedbacks</div>
+                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Feedbacks</div>
                 </div>
                        </div>
                     </div>
@@ -227,6 +231,15 @@ export default {
                this.selectedTab = 'diary';
 
                 this.$root.searchType = 'diary';
+
+              
+            }
+
+            if(this.$router.currentRoute.path.indexOf('mentors') >= 0){
+                
+               this.selectedTab = 'mentors';
+
+                this.$root.searchType = 'mentors';
 
               
             }
@@ -333,12 +346,14 @@ export default {
     font-size: 15px;
   }
   
-  .sideBar{
-      cursor: pointer;
-  }
+ .sideBar {
+    background:transparent;
+    border-right:4px solid transparent;
+}
 
   .sideBar:hover{
       background: #F3F8FC;
       border-right:4px solid #3C87CD !important;
+      cursor: pointer;
   }
 </style>

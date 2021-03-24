@@ -6,7 +6,7 @@
          
       <div class="d-flex flex-row px-1 py-2" style="border-bottom:1px solid #c5c5c5; border-radius:0px; align-items:center;">
 
-             <div style="font-family:HeaderFont;font-size:16px;">Input</div>
+             <div style="font-family:HeaderFont;font-size:14px;">This program needs input</div>
 
                 <v-btn small icon color="#ffffff" @click="closeModal" style="background:#3C87CD;" 
            class="ml-auto "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
@@ -79,6 +79,12 @@ export default {
 
                codeContent =  this.$root.panelLoaderProject.participantSelected.main_file_content;
             }
+               
+
+                 if(this.$router.currentRoute.path.indexOf('hub') >= 0){
+
+               codeContent =  this.$root.selectedPost.project.project_files.code_files[0].content;
+            }
 
             
 
@@ -87,19 +93,58 @@ export default {
               let finalContent = '';
 
              this.$root.projectInputData.forEach((input)=>{
-                    
-                     
-              let inputText = "input\\(\\'" + input.name + "\\'\\)";
+
+               if(this.$root.selectedLanguageId  == '39' || this.$root.selectedLanguageId  == '100' || this.$root.selectedLanguageId  == '38'){
+
+                  let inputText = "input\\(\\'" + input.name + "\\'\\)";
+
+               let inputText2 = 'input\\(\\"' + input.name + '\\"\\)';
+
+
 
               
 
               let inputRegex = new RegExp(inputText,'g');
 
+               let inputRegex2 = new RegExp(inputText2,'g');
+
               
-              finalContent =  codeContent.replace(inputRegex,input.value);  
+
+              
+              finalContent =  codeContent.replace(inputRegex, "\"" + input.value + "\"");  
+
+              finalContent =  finalContent.replace(inputRegex2,"\"" + input.value + "\"");  
+
+              codeContent = finalContent;
+             
+
+               }
+                    
+
+              if(this.$root.selectedLanguageId  == '11' ){
+
+                  var inputText = "cin >> " + input.name + ';';
+
+                 var _ = require('regexgen.js');
+                   var regex = _(
+                  _.capture(inputText)
+                         );
+
+                  
+
+               finalContent =  codeContent.replace(regex,input.name + ' = ' +  input.value + ';');  
+
+               
+
+                 codeContent = finalContent;
+
+              }
+                     
              
 
              })
+
+            
 
          
           if(this.$router.currentRoute.path.indexOf('channel') >= 0){
@@ -119,6 +164,13 @@ export default {
 
              this.$root.panelLoaderProject.runCodeOnSandbox(finalContent)
               this.$root.panelLoaderProject.pageContent = 'sending to sandbox...';
+              
+            }
+
+             if(this.$router.currentRoute.path.indexOf('hub') >= 0){
+
+             this.$root.projectViewComponent.runCodeOnSandbox(finalContent)
+             this.$root.projectViewComponent.pageContent = 'sending to sandbox...';
               
             }
         

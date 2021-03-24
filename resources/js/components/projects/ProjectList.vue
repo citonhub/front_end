@@ -123,7 +123,7 @@
 
 
          <div class="mb-3 px-3" style="font-size:13px;color:black;font-family:BodyFont;">
-                     <span style="font-family:MediumFont;color:black;">Build</span>,<span style="font-family:MediumFont;color:black;">test</span> and <span style="font-family:MediumFont;color:black;">collaborate</span> on projects to improve your skill. 
+                     <span style="font-family:MediumFont;color:black;">Build</span> and <span style="font-family:MediumFont;color:black;">collaborate</span> on projects to improve your skill. 
                     </div>
 
                      <div>

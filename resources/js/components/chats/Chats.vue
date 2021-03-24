@@ -136,16 +136,58 @@
 
                 </DynamicScroller>
 
-                <div v-else class="col-12 px-5 text-center d-flex flex-column chatListScroller" 
+                <div v-else class="col-12 px-4  d-flex flex-column chatListScroller" 
        style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:100px;">
 
-                    <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Channel is where you teach, mentor, and earn.
+              <template v-if="that.$root.authProfile.points < 100"> 
+
+             <div class="mb-3 px-1" style="font-size:13px;color:gray;font-family:BodyFont;">
+
+                    
+                    
+                     Hey <span style="font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, welcome to CitonHub! <br> <br>
+                     
+                    We believe we can improve the way <span style="font-family:MediumFont;">developers mentor and get mentored</span> on the internet. Join us,
+
+
+
+                      <div class="col-12 py-1 px-1 mt-3">
+                         <div class="row">
+
+                             <div class="col-6 py-1 px-1 ">
+                       <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Find a mentor</v-btn>
+                           </div>
+
+                           <div class="col-6 py-1 px-1 ">
+                       <v-btn small  @click="that.$root.showPointDetailsInfo = true" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Become a mentor</v-btn>
+                           </div>
+
+                         </div>
+                        
+                     </div>
+
                     </div>
 
-                     <div>
-                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                     
+
+             
+             
+
+            </template>
+
+            <template v-else>
+                
+                  <div class="mb-3 px-0 text-center" style="font-size:13px;color:gray;font-family:BodyFont;">
+                      Channel is where you mentor and earn from donation, subscriptions or paid sessions.
+                    </div>
+
+                     <div class="text-center">
+                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
                      </div>
+
+            </template>
+                   
+                  
 
                      
 
@@ -823,16 +865,55 @@
 
                 </DynamicScroller>
 
-                <div v-else class="col-12 px-3 text-center d-flex flex-column " 
+                <div v-else class="col-12 px-3  d-flex flex-column " 
           style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto;align-items:center;justify-content:center;" >
 
-                    <div class="mb-3 px-3" style="font-size:13px;color:gray;font-family:BodyFont;">
-                     Channel is where you teach, mentor, and earn.
+                    <template v-if="that.$root.authProfile.points < 100"> 
+
+               <div class="mb-3 px-1" style="font-size:13px;color:gray;font-family:BodyFont;">
+                      
+                      
+                     Hey <span style="font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, welcome to CitonHub! <br> <br>
+                     
+                    We believe we can improve the way <span style="font-family:MediumFont;">developers mentor and get mentored</span> on the internet. Join us,
+
+
+                      <div class="col-12 py-1 px-1 mt-3">
+                         <div class="row">
+
+                             <div class="col-6 py-1 px-1 ">
+                       <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Find a mentor</v-btn>
+                           </div>
+
+                           <div class="col-6 py-1 px-1 ">
+                       <v-btn small  @click="that.$root.showPointDetailsInfo = true" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Become a mentor</v-btn>
+                           </div>
+
+                         </div>
+                        
+                     </div>
+
                     </div>
 
-                     <div>
-                          <v-btn small color="#3C87CD" @click="showCreateChannel" style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                     
+
+             
+
+            </template>
+
+            <template v-else>
+                
+                  <div class="mb-3 px-2 text-center" style="font-size:13px;color:gray;font-family:BodyFont;">
+                      Channel is where you mentor and earn from donation, subscriptions or paid sessions.
+                    </div>
+
+                     <div class="text-center">
+                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
                      </div>
+
+            </template>
+                   
+                
 
                      
 
@@ -910,7 +991,7 @@
 
                      
 
-                            <div  v-if="chatbarContent == 'create_channel'" class="col-12 py-0 px-0" style="background:#ffffff; left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
+                            <div  v-if="chatbarContent == 'create_channel'" class="col-12 py-0 px-0" style="background:#ffffff; overflow-y:auto; left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
                                   <create-channel></create-channel>
                                    <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
 
@@ -1471,7 +1552,7 @@
 
 
 
-     <v-btn  fab color="#3C87CD" @click="showCreateChannel" class="d-lg-none d-inline-block" style="z-index:99999;  position:fixed;  bottom:3%; right:3%; ">
+     <v-btn  fab color="#3C87CD"  v-if="that.$root.ChatList.length > 0" @click="showCreateChannel" class="d-lg-none d-inline-block" style="z-index:99999;  position:fixed;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:24px; color:white;">mdi mdi-chat-plus-outline</v-icon>
 
@@ -1492,9 +1573,9 @@
     
    <div class="col-12  py-0 px-0" style="position:absolute; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);" @click="that.$root.showSideBar = false" v-if="that.$root.showSideBar">
 
-   <div style="position:absolute; height:100%; width:70%; left:0;" >
+   <div style="position:absolute; height:100%; width:60%; left:0;" >
 
-     <div class="col-md-6 col-lg-3 pt-2" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
+     <div class="col-md-6 col-lg-3 px-0 pt-2" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
 
       
       
@@ -1576,7 +1657,7 @@
  <!-- codebox input handler  -->
 
 
-   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showProjectInput" @click="that.$root.showProjectInput = false" >
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showProjectInput" >
 
    <div style="position:absolute; height:90%; top:8%; width:94%; left:3%; "  >
   
@@ -1602,6 +1683,60 @@
 
          <payment-info-board></payment-info-board>
      
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
+
+ <!-- notification alert  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showUserNotification">
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+
+     
+      <notify></notify>
+   
+
+   </div>
+
+ </div>
+
+
+ <!-- ends --> 
+
+ <!-- showuserPoint info  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showPointDetailsInfo">
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+
+     
+      <point-info-board :alertComponent="that"></point-info-board>
+   
+
+   </div>
+
+ </div>
+
+
+ <!-- ends -->
+
+<!-- showmentor info  -->
+
+
+   <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: rgba(27, 27, 30, 0.32);" v-if="that.$root.showMentorInfo">
+
+   <div style="position:absolute; height:90%; top:5%; width:94%; left:3%; align-items:center; justify-content:center;" class="d-flex" >
+
+     
+      <mentor-info></mentor-info>
+   
+
    </div>
 
  </div>
@@ -1748,6 +1883,15 @@ const Interest= () => import(
    /* webpackChunkName: "AddPayment" */ './AddPayment.vue'
   );
 
+   const PointInfoBoard = () => import(
+   /* webpackChunkName: "PointInfoBoard" */ './PointInfoBoard.vue'
+  );
+
+    const MentorInfo = () => import(
+   /* webpackChunkName: "MentorInfo" */ './MentorInfo.vue'
+  );
+
+
 export default {
      data () {
       return {
@@ -1813,7 +1957,9 @@ export default {
        showMoreOptions:false,
        bottomIsVisible:false,
        showMoreOptionsChat:false,
-       selectedSpaceMembers:[]
+       selectedSpaceMembers:[],
+       nextLevel:'',
+        remainingPoints:0,
      
       }
     },
@@ -1824,6 +1970,7 @@ export default {
     
     
      this.controlChatPath();
+
       this.fetchChatList();
 
       
@@ -1860,11 +2007,15 @@ export default {
          Notify,
          PaymentInfoBoard,
          PaymentProcessor,
-         AddPayment
+         AddPayment,
+         PointInfoBoard,
+         MentorInfo
     },
      methods:{
 
-  
+     becomeMentor:function(){
+            this.$root.showPointDetailsInfo = true;
+     },
         showAlert:function(title='',message,type,position = 'bottomRight',timeout = 2000){
        
        if(type == 'info'){
@@ -1928,6 +2079,24 @@ export default {
        }
 
        
+
+    },
+    getUserLevel: function(){
+       let result = this.calculateLevel(this.$root.authProfile);
+       return result[0];
+    },
+    getuserRemainingPoint: function(){
+     let result = this.calculateLevel(this.$root.authProfile);
+       return result[1];
+    },
+  
+    shareProject:function(){
+
+       this.$root.componentIsLoading = true;
+
+         this.$root.autoOpenAddPost = true;
+
+          this.$router.push({ path:'/hub'})
 
     },
     botMessagerChat:function(message){
@@ -2423,6 +2592,8 @@ goToChatList:function(){
            }
        },
        controlChatPath:function(){
+
+         
        
         if(!this.$root.isLogged){
   
@@ -2444,6 +2615,27 @@ goToChatList:function(){
             this.$root.checkIfUserIsLoggedIn();
          return;
         }else{
+
+           if(this.$root.showCreateChannel){
+              
+
+              
+
+                this.$root.showCreateChannel = false;
+
+             this.$root.componentIsLoading = true;
+
+            this.$router.push({ path: '/channels/create' });
+
+          this.chatbarContent = '';
+          this.chatInnerConent = '';
+
+         
+              this.chatbarContent = 'create_channel';
+
+              
+
+           }
           
             if(this.$route.params.spaceId != undefined){
 
@@ -2496,7 +2688,46 @@ goToChatList:function(){
         // when users is coming from a direct message
 
             if(this.$root.autoOpenChat){
-   
+
+               if(this.$root.autoOpenChatType == 'channel'){
+           this.$root.autoOpenChatType = '';
+
+             this.liveSessionIsOpen = false;
+      this.chatShareIsOpen = false;
+      this.imageCropperIsOpen = false;
+
+                let storedMsg = this.$root.getLocalStore('full_space_' + this.$root.autoOpenChatId + this.$root.username);
+
+
+                    storedMsg.then((result)=>{
+
+
+                      
+
+                        if(result != null){
+
+                            this.openChat(this.$root.autoOpenChatId,false)
+
+                        }else{
+
+                          
+                            this.$root.fromSupportDirectlink = false;
+                          
+                           this.$router.push({ path: '/channels/' + this.$root.autoOpenChatId  +'/payment' });
+                             
+
+                         
+                        }
+                    })
+
+
+    
+        
+                   
+                 
+               }else{
+
+
             this.liveSessionIsOpen = false;
       this.chatShareIsOpen = false;
       this.imageCropperIsOpen = false;
@@ -2504,6 +2735,9 @@ goToChatList:function(){
         
          this.openChat(this.$root.autoOpenChatId,true)
         this.messageIsDone = false;
+
+               }           
+    
              
 
             }
@@ -2588,6 +2822,14 @@ goToChatList:function(){
        },
         showCreateChannel: function(){
 
+           if(!this.$root.authProfile.is_mentor){
+
+              this.$root.showPointDetailsInfo = true;
+
+               return;
+
+           }
+
            this.$root.componentIsLoading = true;
 
             this.$router.push({ path: '/channels/create' });
@@ -2645,6 +2887,10 @@ goToChatList:function(){
 
                         this.$root.loadingChatList = false;
 
+                        this.checkUserLevel();
+
+                          
+
                  }else{
             
            
@@ -2670,6 +2916,9 @@ goToChatList:function(){
             this.$root.sortChatList();
 
              this.$root.loadingChatList = false;
+
+            this.checkUserLevel();
+           
 
      }
        
@@ -2724,6 +2973,37 @@ goToChatList:function(){
             })
 
            
+       },
+       checkUserLevel:function(){
+
+           
+            let StoredPointInfo = this.$root.getLocalStore('point_info_' + this.$root.username);
+  
+          StoredPointInfo.then((result)=>{
+
+              
+  
+            if(result != null){
+  
+                
+  
+            }else{
+
+                 let points = this.$root.authProfile.points;
+
+          if(points < 100 && this.$root.ChatList.length > 0){
+
+             this.$root.showMentorInfo = true;
+
+              this.$root.LocalStore('point_info_' + this.$root.username,['shown']);
+
+          }
+               
+            }
+
+          });
+      
+
        },
        generateUnreadMessage: function(){
           if(this.$root.selectedSpace.unread != 0){
@@ -3104,6 +3384,9 @@ goToChatList:function(){
 
            // generate unread msg and the mark as read
          this.generateUnreadMessage();
+
+         // set up notification 
+          this.$root.initialPushMangerReg();
           
 
            // check unreadMessages in subspaces
@@ -3113,6 +3396,9 @@ goToChatList:function(){
            this.handleUnreadUpdate();
 
          }
+
+          this.$root.updateSpaceMessages();
+
 
 
        setTimeout(() => {
@@ -3293,7 +3579,9 @@ goToChatList:function(){
          this.generateUnreadMessage();
           
 
-
+                 // set up notification 
+          this.$root.initialPushMangerReg();
+          
 
       setTimeout(() => {
 

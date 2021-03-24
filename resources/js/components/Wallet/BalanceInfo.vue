@@ -7,14 +7,14 @@
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
 
 
-     <h6 class="text-left">Total available balance: <span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.balance - (that.$root.selectedPaymentCard.platform_fee + that.$root.selectedPaymentCard.payment_processing_fee))}}</h6>
+     <h6 class="text-left">Total balance: <span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.balance - (that.$root.selectedPaymentCard.platform_fee + that.$root.selectedPaymentCard.payment_processing_fee))}}</h6>
         <p style="font-size:13px;font-family:BodyFont;">
-           This is the total available amount you recieved in your channel, excluding payment processing fees and platform fee.
+           Total amount of money you recieved in your channel, excluding fees.
         </p>
 
       <h6 class="text-left">Payable amount: <span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.payable_amount)}}</h6>
         <p style="font-size:13px;font-family:BodyFont;">
-              Payable amount is the part of your available balance available for payout. It is updated every <strong style="font-family:MediumFont;">5 working days</strong>. This is the maximum time it takes Flutterwave(our payment provider) to process the monies you received from your channel.
+             This is the total amount of money available for payout to your bank. It is updated every <strong style="font-family:MediumFont;">five working days</strong>. This is the maximum time it takes Flutterwave(our payment provider) to process the monies you received from your channel.
         </p>
 
    

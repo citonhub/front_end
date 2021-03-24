@@ -899,46 +899,13 @@ methods:{
 
             }else{
 
-               if(this.selectedLangId == '39' || this.selectedLangId == '100' || this.selectedLangId == '38'){
-                 
-                 const InputRegex = /(input\(')(.*)('\))/g;
+               let status =  this.$root.checkCodeForInput(this.code,this.selectedLangId);
 
-                 const InputFound = this.code.match(InputRegex);
+                if(status == 'present'){
+                  return;
+                } 
 
-
-                  if(InputFound != null){
-
-                     if(InputFound.length > 0){
-
-                    this.$root.projectInputData = [];
-
-                    InputFound.forEach((input)=>{
-
-                       const regexString = /[^input(')]/g;
-
-                  
-                       let finalWord = input.split("'");
-
-                      var inputData = {
-                         name: finalWord[1],
-                         value:''
-                      };
-
-                        this.$root.projectInputData.push(inputData);
-                    })
-
-                    this.$root.showProjectInput = true;
-
-                     return
-
-                  }
-                  
-                  }
-
-                 
-
-
-               }
+               
 
        
               this.ResultCode = 'sending to sandbox...';
@@ -1010,7 +977,8 @@ methods:{
 
               }else{
 
-                 _this.ResultCode =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr ;
+                 _this.ResultCode =  response.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr + ' \n' + response.data[0].compile_output + 
+                 '\n' + response.data[0].error;
 
 
 
@@ -1092,7 +1060,8 @@ methods:{
 
 
 
-                this.ResultCode =  response.data[0].stdout + '\n Error: \n' + response.data[0].stderr ;
+                this.ResultCode =  rresponse.data[0].stdout +  '\n Error: \n'  + response.data[0].stderr + ' \n' + response.data[0].compile_output + 
+                 '\n' + response.data[0].error;
 
               }
 
