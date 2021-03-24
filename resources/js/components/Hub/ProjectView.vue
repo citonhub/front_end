@@ -2,7 +2,7 @@
  <div class="row px-0" >
       <!-- top bar -->
 
-      <v-card tile class="col-lg-6 offset-lg-3 py-1 py-md-2 fixed-top d-flex flex-row px-md-2 px-1"
+      <v-card tile class="col-lg-6 offset-lg-3 py-1 py-md-2 fixed-top d-flex flex-row flex-wrap px-md-2 px-1"
        style="position:sticky;background:white;z-index:99999999;top:0%;">
        
         <div class="col-10 py-0 px-0 d-flex flew-row" >
@@ -36,19 +36,11 @@
                     </v-btn>
 
         </div>
-       
-         
-      </v-card>
-
-      
-      <!-- ends -->
-       
-       <div class="px-2 col-12 py-0">
 
 
-      <!-- pages loader -->
+         <!-- pages loader -->
 
-      <div  class="col-lg-6 offset-lg-3 py-2 px-0 pt-1 mt-2" style="height:350px;">
+      <div  class="col-lg-12 py-0 px-0" style="height:200px;">
 
 
 
@@ -117,9 +109,20 @@
       
 
       <!-- ends -->
+       
+         
+      </v-card>
+
+      
+      <!-- ends -->
+       
+       <div class="px-2 col-12 py-0">
+
+
+    
       
 
-     <div class="col-lg-6 offset-lg-3 py-2 px-0 mt-2 d-flex flex-column">
+  <!--  <div class="col-lg-6 offset-lg-3 py-2 px-0 mt-2 d-flex flex-column">
         <div class="d-md-block d-none" style="font-size:16px; font-family:MediumFont;">{{ this.$root.selectedPost.title }}</div>
         <div class="d-md-none d-block" style="font-size:14px; font-family:MediumFont;">{{ this.$root.selectedPost.title }}</div>
 
@@ -156,7 +159,7 @@
 
         </div>
 
-      </div>
+      </div>-->
 
 
       <!-- view source -->
@@ -176,9 +179,49 @@
     
        </div>
 
+
+         <!-- comment textarea -->
+         <div class="col-lg-6 offset-lg-3 py-0 px-0 " style="font-family:BodyFont;background:white;">
+           
+           <template v-if="replyCommentIsOn">
+                
+                <div>
+                   <div class="px-2" >
+
+                  <div class=" py-2 px-2  text-left mb-1"  style="background:#3C87CD; border:1px solid transparent; border-radius:8px;" >
+
+                     <div class="col-12 py-1 px-1  text-right">
+                  <span class="msgTextReplynew text-left d-block" style="color:white; white-space: nowrap; overflow:hidden; text-overflow: ellipsis;" >
+                  {{repliedComment.content}}
+                  </span>
+
+              </div>
+              </div>
+                  <div style="position:absolute; height:auto; width:auto; right:2%; top:-5%;background:rgba(38, 82, 89,0.6);border-radius:50%;padding:0px;z-index:99;">
+                               <v-btn @click="closeComment" icon><v-icon color="#ffffff">mdi-close mdi-18px</v-icon></v-btn>
+                             </div>
+                </div>
+                </div>
+
+
+           </template>
+             
+           <v-card tile class="col-12  py-2 my-0 d-flex  px-2 flex-row" style="align-items:center; justify-content:center;" >
+            
+                  <textarea ref="textBottom"  style="font-size:13px;"  placeholder="Type your comment"    v-model="commentValue"></textarea>
+
+                  <v-btn icon class="mx-md-1" @click="postComment" @keyup.enter="postComment" :loading="sendingComment" ><v-icon>las la-send</v-icon> </v-btn>
+           </v-card>
+            
+          
+        </div>
+
+        
+      <!-- ends  -->
+
        <!-- comment list -->
          <div class="col-lg-6 offset-lg-3 px-0 px-md-3 commentScroller scroller"   style="border-top:1px solid #c5c5c5;background:#ffffff;
-         font-family:BodyFont;height:300px;overflow-y:hidden;overflow-x:hidden;">
+         font-family:BodyFont;height:300px;">
          <div class="row">
            
 
@@ -230,6 +273,8 @@
         :data-index="index"
       >
 
+
+     
         <comment-post :source="item" :username="that.$root.username" ></comment-post>
 
           </DynamicScrollerItem>
@@ -241,6 +286,52 @@
 
                 </div>
 
+
+              </template>
+
+
+              <template #before>
+ <!--code added-->
+<div class="col-lg-12 py-2 px-0 mt-2 d-flex flex-column">
+        <div class="d-md-block d-none" style="font-size:16px; font-family:MediumFont;">{{ that.$root.selectedPost.title }}</div>
+        <div class="d-md-none d-block" style="font-size:14px; font-family:MediumFont;">{{ that.$root.selectedPost.title }}</div>
+
+         <div  style="font-size:13px; font-family:BodyFont;">{{ that.$root.selectedPost.description }}</div>
+      </div>
+
+
+      <div class="col-lg-12 py-1 px-0 mt-2 d-flex flex-row" style="align-items:center; border-top:1px solid #c5c5c5;border-bottom:1px solid #c5c5c5;">
+
+        <div class="d-flex flex-row">
+
+          <div>
+              <span style="font-size:13px;color:black;font-family:MediumFont;">{{ that.$root.selectedPost.likes }}</span> 
+                 <span style="font-size:13px;font-family:BodyFont;" class="mx-1">Likes</span>
+          </div>
+
+           <div class="ml-1">
+              <span style="font-size:13px;color:black;font-family:MediumFont;">{{ that.$root.selectedPost.comments }}</span> 
+                 <span style="font-size:13px;font-family:BodyFont;" class="mx-1">Comments</span>
+          </div>
+
+        </div>
+
+         <div class="d-flex flex-row ml-auto">
+
+          <v-btn icon @click="pinPost">
+                      <v-icon style="font-size:25px;color:#3C87CD;" v-if="that.$root.selectedPost.isPinned == 1">lar la-thumbtack</v-icon>
+                      <v-icon style="font-size:25px;" v-else>las la-thumbtack</v-icon>
+                    </v-btn>
+
+           <v-btn icon @click="likePost" >
+                       <i :class="that.$root.selectedPost.isLiked == 1 ? 'las la-heart' : 'lar la-heart'" :style="that.$root.selectedPost.isLiked ? 'font-size:25px; color: #ff6666;' : 'font-size: 25px;'" ></i>
+                  </v-btn>
+
+        </div>
+
+      </div>
+
+      <!--end of code added-->
 
               </template>
 
@@ -263,7 +354,7 @@
       <!-- ends -->
 
         <!-- comment textarea -->
-         <div class="col-lg-6 offset-lg-3 py-0 px-0 fixed-bottom" style="z-index:999999999999;font-family:BodyFont;background:white;">
+       <!--  <div class="col-lg-6 offset-lg-3 py-0 px-0 fixed-bottom" style="z-index:999999999999;font-family:BodyFont;background:white;">
            
            <template v-if="replyCommentIsOn">
                 
@@ -296,7 +387,7 @@
            </v-card>
             
           
-        </div>
+        </div>-->
 
         
       <!-- ends  -->
@@ -346,6 +437,9 @@
          </template>
 
 
+       
+
+
          <template v-else> 
 
             <template v-if="pageContent == '' && loadingCode">
@@ -361,6 +455,9 @@
             <iframe sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals" 
          :srcdoc="pageContent" 
    class="col-12  px-0 py-0" style=" height:100%;  background:white;border:1px solid #c5c5c5; "  ></iframe>
+
+
+   
 
            </template>
 
@@ -380,15 +477,23 @@
 
          </template>
 
+
+         
+
         </div>
              
     
 
            </div>
 
+
+
       </div>
 
       <!-- ends -->
+
+
+
 
  </div>
 </template>
@@ -521,11 +626,7 @@ export default {
         
         this.loadingPostComments = false;
 
-         setTimeout(() => {
-
-           this.scrollToBottom();
-           
-         }, 1700);
+     
 
         
      }

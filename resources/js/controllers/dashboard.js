@@ -2706,15 +2706,16 @@ const app = new Vue({
 
       if(e.actionType == 'new-message'){
 
+
+
+
            if(!this.$root.checkIfMessageExist(e.data)){
 
-              // let message  = e.data;
+            let message= e.data
 
-              //  if(message.type == 'join'){
-
-
-
-              //  }
+            if(message.type= 'join'){
+              this.fetchSpaceInfo(message.space_id)
+            }
             
             let messageData = {
               space_id: e.data.space_id,
@@ -4272,6 +4273,188 @@ botMessager:function(message){
 
   
 },
+
+
+// fetch space info
+
+fetchSpaceInfo: function(selectedspace){
+
+  axios.get('/fetch-space-info-'+ selectedspace)
+.then(response => {
+
+if (response.status == 200) {
+
+let storedMsg = this.$root.getLocalStore('full_space_' + selectedspace + this.$root.username);
+
+ storedMsg.then((result)=>{
+
+     if(result != null){
+
+         let finalResult = JSON.parse(result);
+
+          finalResult.space = response.data.space;
+
+            
+              if(response.data.space.type == 'SubSpace'){
+
+
+       let generalSpace =  response.data.space.gen_space;
+
+
+          this.$root.selectedGenSpaceType = response.data.space.gen_space.type;
+
+        generalSpace.space_id =   response.data.space.space_id;
+
+      generalSpace.payment_option = response.data.space.payment_option;
+
+        generalSpace.type =  response.data.space.type;
+
+
+          generalSpace.description = response.data.space.description;
+
+        generalSpace.general_spaceId =  response.data.space.general_spaceId;
+
+  
+
+
+
+    let subSpaceData =  response.data.space.sub_space_data;
+
+
+
+
+   this.$root.selectedSubSpaceName =  response.data.space.name;
+
+   this.$root.selectedSubSpaceType = subSpaceData.type;
+
+
+
+     generalSpace.sub_spaces =  response.data.space.sub_spaces;
+
+
+
+     this.$root.selectedSpace = generalSpace;
+
+
+    }else{
+
+        this.$root.selectedSpace = response.data.space;
+
+    }
+
+       
+          
+          
+        
+        finalResult.members = response.data.members;
+
+       
+        
+
+  this.$root.LocalStore('full_space_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
+
+    
+
+
+     }
+
+
+
+    
+ });
+
+
+  // update chatList
+
+   let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
+  
+   storedChat.then((result)=>{
+
+     if(result != null){
+
+         let finalResult = JSON.parse(result);   
+
+       
+       
+           
+      
+
+         if(response.data.space.type == 'Channel' || response.data.space.type == 'Team'){
+              finalResult.channels.map((chat)=>{
+                if(chat.space_id == this.$root.selectedSpace.space_id){
+
+                   chat.name =  response.data.space.name;
+
+                   chat.image_name = response.data.space.image_name;
+
+                   chat.image_extension = response.data.space.image_extension;
+
+                   chat.background_color = response.data.space.background_color;
+
+                }
+              })
+         }
+
+         if(response.data.space.type == 'Direct'){
+
+            finalResult.direct_messages.map((chat)=>{
+                if(chat.space_id == this.$root.selectedSpace.space_id){
+
+                   chat.userInfo =  response.data.space.userInfo;
+
+                
+                }
+              })
+
+         }
+
+         if(response.data.space.type == 'Bot'){
+
+              
+
+            finalResult.pet_spaces.map((chat)=>{
+                if(chat.space_id == this.$root.selectedSpace.space_id){
+                   
+                   chat.bot_data =  response.data.space.bot_data;
+
+               
+                }
+              })
+
+         }
+            
+          let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+
+            this.$root.ChatList = fullList;
+
+           this.$root.sortChatList();
+
+            this.SetUnread();
+
+          
+            this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
+
+    
+
+
+     }
+
+
+
+    
+ });
+}
+
+
+})
+.catch(error => {
+
+})
+
+
+},
+
+//end of spaceinfo fetch
 updateSentMessage:function(postData){
 
   
