@@ -110,6 +110,25 @@
 
           </div>
 
+            <!--content loader-->
+
+
+  <div class="text-center col-lg-12">
+    <v-progress-circular
+      indeterminate
+      color="#3C87CD"
+      style=" margin: 1rem;"
+     
+    ></v-progress-circular> 
+     
+     <div v-observe-visibility="loadNextSet" ></div> 
+
+  
+  </div>
+
+
+                      <!--content loader ends-->
+
            </template>
          
 
@@ -145,11 +164,16 @@
 </template>
 
 <script>
+import VueObserveVisibility from 'vue-observe-visibility'
+
  export default {
     data () {
       return {
          mentors:[],
          loading:false,
+         currentPage:1,
+         newPage:1,
+         newData:''
       }
      
     },
@@ -171,7 +195,7 @@
 
                 this.loading = true;
 
-         axios.get( '/fetch-mentors')
+         axios.get( '/fetch-mentors' +'?page=' + this.currentPage)
       .then(response => {
       
       if (response.status == 200) {
@@ -197,6 +221,51 @@
 
 
          },
+  loadNextSet(shown){
+ 
+
+        
+if(shown){
+
+
+  this.newPage+=1
+
+console.log(this.newPage)
+
+axios.get( '/fetch-mentors' + '?page=' + this.newPage )
+
+.then(
+
+response => {
+      
+      if (response.status == 200) {
+
+
+
+
+       
+        this.newData=response.data.mentors
+
+    
+this.mentors=  this.mentors.concat(this.newData)
+       
+
+
+ 
+       
+     }
+}
+
+)
+
+}
+
+
+
+
+
+       }
+         ,
              getUserLevel: function(points){
 let imageUrl = '';
           
