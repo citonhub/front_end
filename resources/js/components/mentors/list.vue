@@ -351,7 +351,7 @@ imageUrl +='/imgs/platinum.svg'
          
              let firstThree = fullArray.slice(0,3);
 
-              firstThree.push(['...']);
+              firstThree.push('...');
 
 
               return firstThree;

@@ -323,10 +323,10 @@
                      <template v-if="userChannel.length > 0">
 
                
-                        <div class="col-lg-4 col-md-6 px-2 mb-2 pt-1 pt-md-2" 
+                        <div class="col-lg-4 col-md-6 px-2 mb-2 pt-1 pt-md-2" v-for="(channel,index) in userChannel" :key="index + 'channel'"
           >
         
-          <v-card class="py-3 px-2 d-flex flex-column" style="align-items:center; justify-content:center;"  @click="viewChannel(channel)" v-for="(channel,index) in userChannel" :key="index + 'channel'">
+          <v-card class="py-3 px-2 d-flex flex-column" style="align-items:center; justify-content:center;"  @click="viewChannel(channel)" >
             
             <div class=" py-0 my-0 text-center">
 
@@ -399,7 +399,7 @@
                        <template v-if="userDiaries.length > 0">
 
 
-                          <div class="col-lg-4 col-md-6 px-2 mb-1 py-1 pt-0 mt-md-2" v-for="diary in userDiaries" :key="diary.id+ 'diary'">
+                          <div class="col-lg-4 col-md-6 px-2 mb-1 py-2 pt-0 mt-md-2" v-for="diary in userDiaries" :key="diary.id+ 'diary'">
           
        <v-card  class="py-0 px-2 pl-1"  style="border-radius:7px;" >
             
