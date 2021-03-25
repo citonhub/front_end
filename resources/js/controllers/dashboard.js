@@ -2088,6 +2088,8 @@ const app = new Vue({
     selectedLanguageId:0,
     autoOpenChatType:'',
     fromCreateAChannel: false,
+    fromMentorPage:false,
+    MentorPageComponent:undefined
      },
      mounted: function () {
       window.thisUserState = this;

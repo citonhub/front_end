@@ -8,7 +8,7 @@
         </div>
          <div class="col-6  py-0 my-0 text-right">
               
-          <v-btn small  @click="BecomeMentor" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Become a mentor</v-btn>
+          <v-btn small  @click="BecomeMentor" color="#3C87CD"  style="font-family:BodyFont;font-size:11px;color:white;" class="mx-2 d-inline-block" rounded>Become a mentor</v-btn>
                        
         </div>
       </div>
@@ -175,6 +175,9 @@
 
   </div>
 
+
+
+
  <!-- ends -->
 
 </div>
@@ -182,6 +185,11 @@
 </template>
 
 <script>
+
+  const PointInfoBoard = () => import(
+   /* webpackChunkName: "PointInfoBoard" */ '../chats/PointInfoBoard.vue'
+  );
+
 import VueObserveVisibility from 'vue-observe-visibility'
 
  export default {
@@ -191,14 +199,18 @@ import VueObserveVisibility from 'vue-observe-visibility'
          loading:false,
          currentPage:1,
          newPage:1,
-         newData:''
+         newData:'',
+         that:this
       }
      
+    },
+      components:{
+     PointInfoBoard
     },
      mounted(){
      this.$root.showTopBar = true;
 
-   
+      this.$root.MentorPageComponent = this;
      
      this.getMentors();
   
@@ -316,6 +328,9 @@ imageUrl +='/imgs/platinum.svg'
 
     },
       BecomeMentor:function(){
+
+        this.$root.fromMentorPage = true;
+
        
     this.$root.showPointDetailsInfo = true
 

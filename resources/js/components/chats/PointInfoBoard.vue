@@ -220,6 +220,11 @@ export default {
             this.$root.authProfile.is_mentor = true;
 
              this.loadingmakeMentor = false;
+             if( this.$root.fromMentorPage ){
+
+                this.$root.MentorPageComponent.getMentors();
+
+             }
        }
 
       })
