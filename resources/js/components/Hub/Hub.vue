@@ -13,7 +13,7 @@
 
        <!-- hub content -->
        
-        <div class="col-lg-10 pb-0 offset-lg-1 d-none d-md-block col-12 px-0 d-md-block d-none" style="background:#F5F5FB;z-index:99999999999999; position:absolute; height:auto; top:8%; " >
+        <div class="col-lg-10 pb-0 offset-lg-1 d-none d-md-block col-12 px-0 d-md-block d-none" style="background:#F5F5FB;z-index:99999999999999; position:absolute; height:auto; top:11%; " >
 
             <div class="row px-md-4 px-4" style="background:#F5F5FB;z-index:99999999999999;">
               <!-- header -->
@@ -62,7 +62,7 @@
     <!-- post view content -->
     
        
-        <div class=" col-12 px-1" style=" position:absolute; height:92%; left:0%; top:8%; overflow-y:auto; overflow-x:hidden; padding-bottom:60px; padding-top:20px; " >
+        <div class=" col-12 px-1" style=" position:absolute; height:92%; left:0%; top:11%; overflow-y:auto; overflow-x:hidden; padding-bottom:60px; padding-top:20px; " >
 
           
                <div class="col-lg-10 offset-lg-1 col-12 py-0 pt-md-5 mt-md-3  d-flex flex-column"  >
@@ -121,7 +121,24 @@
                     <post-view :fromProfile="false" :source="post" :alertComponent="that" v-for="(post,index) in that.$root.posts" :key="index + 'post'" ></post-view>
                       
 
-                      
+                      <!--content loader-->
+<div v-observe-visibility="loadNextSet" ></div>
+
+  <div class="text-center col-lg-12">
+    <v-progress-circular
+      indeterminate
+     color="#3C87CD"
+      style=" margin: 1rem;"
+     
+    ></v-progress-circular> 
+     
+      
+
+  
+  </div>
+
+
+                      <!--content loader ends-->
 
                       </template>
                        
@@ -418,7 +435,7 @@ import '../../bootstraps/globalPackage'
 
   import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
-
+import VueObserveVisibility from 'vue-observe-visibility'
 
 
  const TopBar = () => import(
@@ -478,6 +495,10 @@ export default {
         project: {},
         loadingPost:false,
         loadingSearchPost:false,
+        currentPage:1,
+        newPage:1,
+        newData:'',
+        dataHasFinished:false
       }
     },
     components: {
@@ -551,7 +572,7 @@ export default {
 
           this.loadingPost = true;
 
-         axios.get( '/fetch-posts')
+         axios.get( '/fetch-posts' + '?page=' + this.currentPage )
       .then(response => {
       
       if (response.status == 200) {
@@ -574,6 +595,54 @@ export default {
          this.showAlert('Oops!','Unable to fetch posts,please try again','error')
     
      }) 
+
+       }
+
+       ,
+
+
+       loadNextSet(shown){
+ 
+
+        
+if(shown){
+
+
+  this.newPage+=1
+
+console.log(this.newPage)
+
+axios.get( '/fetch-posts' + '?page=' + this.newPage )
+
+.then(
+
+response => {
+      
+      if (response.status == 200) {
+
+
+
+
+       
+        this.newData=response.data.data
+
+    
+this.$root.posts=  this.$root.posts.concat(this.newData)
+       
+
+
+ 
+       
+     }
+}
+
+)
+
+}
+
+
+
+
 
        },
          showAlert:function(title='',message,type){
