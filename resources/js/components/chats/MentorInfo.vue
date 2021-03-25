@@ -36,11 +36,11 @@
                       <div class="col-12 py-1 px-2 mt-3">
                          <div class="row">
 
-                             <div class="col-6 py-1 px-1 text-center">
+                             <div class="col-6 py-1 px-1 text-left">
                        <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Share your work</v-btn>
                            </div>
 
-                           <div class="col-6 py-1 px-1 text-center">
+                           <div class="col-6 py-1 px-1 text-right">
                        <v-btn small  @click="viewDiary" color="#3C87CD"  style="font-family:BodyFont; color:white;font-size:11px;" class="mx-2 d-inline-block" rounded>Your diaries</v-btn>
                            </div>
 
@@ -65,11 +65,11 @@
                       <div class="col-12 py-1 px-2 mt-3">
                          <div class="row">
 
-                             <div class="col-6 py-1 px-1 text-center">
+                             <div class="col-6 py-1 px-1 text-left">
                        <v-btn small  @click="findMentor" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Find a mentor</v-btn>
                            </div>
 
-                           <div class="col-6 py-1 px-1 text-center">
+                           <div class="col-6 py-1 px-1 text-right">
                        <v-btn small  @click="BecomeMentor" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Become a mentor</v-btn>
                            </div>
 

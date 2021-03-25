@@ -7,10 +7,28 @@
           <h5>Mentors</h5>
         </div>
          <div class="col-6  py-0 my-0 text-right">
-          
+              
+          <v-btn small  @click="BecomeMentor" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Become a mentor</v-btn>
+                       
         </div>
       </div>
    </div>
+
+
+
+         <!-- floating add button -->
+
+       
+
+     <v-btn @click="BecomeMentor"  fab color="#3C87CD"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:2%; ">
+
+        <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
+         
+     </v-btn>
+
+
+       <!-- ends -->
+
 
 
     <!--notifications list view -->
@@ -295,6 +313,11 @@ imageUrl +='/imgs/platinum.svg'
 }
 
   return imageUrl;
+
+    },
+      BecomeMentor:function(){
+       
+    this.$root.showPointDetailsInfo = true
 
     },
          handleLanguageList:function(fullArray){
