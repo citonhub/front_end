@@ -366,6 +366,10 @@
                  
             </div>
 
+             <div class="col-12 py-1 px-1 text-center">
+                       <v-btn small   @click="viewChannel(channel)"  color="#3C87CD" outlined style="font-family:BodyFont;font-size:12px;text-transform:none;" class="mx-2 d-inline-block" rounded>View channel</v-btn>
+                        </div>
+
           </v-card>
 
           

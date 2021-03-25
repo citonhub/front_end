@@ -80,7 +80,7 @@
        <div class="col-lg-3 col-md-4 px-2 mb-2 pt-1 pt-md-2"  v-for="(mentor,index) in mentors" :key="index"
           >
         
-          <v-card class="py-3 px-2 d-flex flex-column" style="align-items:center; justify-content:center;" @click="showProfile(mentor.username)" >
+          <v-card class="py-3 px-2 d-flex flex-column" style="align-items:center; justify-content:center;">
             
             <div class=" py-0 my-0 text-center">
 
@@ -121,6 +121,10 @@
               
                  
             </div>
+
+                <div class="col-12 py-1 px-1 text-center">
+                       <v-btn small  @click="showProfile(mentor.username)"  color="#3C87CD" outlined style="font-family:BodyFont;font-size:12px;text-transform:none;" class="mx-2 d-inline-block" rounded>View profile</v-btn>
+                           </div>
 
           </v-card>
 
