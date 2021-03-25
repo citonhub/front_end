@@ -251,6 +251,13 @@
 
 
      <!-- ends -->
+    
+
+    <!-- iframe test -->
+         
+     <iframe id="testiframe" v-show="false" @load="setFrameLoaded" :src="projectUrl"></iframe>
+    <!-- ends -->
+
 
 
     </div>
@@ -489,6 +496,7 @@ export default {
             addprojectlink:false,
             postLink: true,
             formState:false,
+            projectUrl:'',
             post: {
               title: '',
               project_slug: '',
@@ -525,6 +533,40 @@ export default {
       }
 
       return  url.protocol === "https:";
+    },
+    handleProject:function(){
+       this.projectIsFit = false
+    
+    
+         this.textProject();
+
+
+    },
+    setFrameLoaded:function(){
+      this.projectIsFit = true;
+
+       console.log('loaded')
+    },
+    textProject:function(){
+   var myframe = document.querySelector("#testiframe")
+   
+myframe.onload = function(event){
+ var that = document.getElementById('testiframe');
+
+ try{
+    (that.contentWindow||that.contentDocument).location.href;
+ }
+ catch(err){
+    //err:SecurityError: Blocked a frame with origin "http://*********" from accessing a cross-origin frame.
+    console.log('err:'+err);
+}
+
+ const isLoaded = event.target.contentWindow.window.length // 0 or 1
+
+     console.log(isLoaded)
+}
+
+    
     },
        displayTab() {
           this.addlink = !this.addlink

@@ -16,9 +16,9 @@
    <v-slide-x-transition>
    <div class="col-12  py-0 px-0" style="position:absolut; width:100%; height:100%; z-index:9999999999999;background: rgba(27, 27, 30, 0.32);" @click="that.$root.showSideBar = false" v-if="that.$root.showSideBar">
 
-   <div style="position:absolute; height:100%; width:70%; left:0;" >
+   <div style="position:absolute; height:100%; width:60%; left:0;" >
 
-     <div class="col-md-6 col-lg-3 pt-2" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
+     <div class="col-md-6 col-lg-3 pt-2 px-0" style="background:white;height:100%;" @click.stop="that.$root.showSideBar = true">
         <side-bar></side-bar>
      </div>
 
@@ -282,12 +282,12 @@
 
                    </div>
 
-                    <div class="py-2 px-3 mr-1 sideBar"  :style="selectedTab == 'top_mentees' ? ' border-bottom:4px solid #3C87CD;' : ''"  @click="handleSelectedTab('mentees')">
+                    <!-- <div class="py-2 px-3 mr-1 sideBar"  :style="selectedTab == 'top_mentees' ? ' border-bottom:4px solid #3C87CD;' : ''"  @click="handleSelectedTab('mentees')">
 
                              <div style="font-size:14px;font-family:MediumFont;" class="d-md-block d-none" >Top mentees</div>  
                           <div style="font-size:13px;font-family:MediumFont;" class="d-md-none d-block" >Top mentees</div>  
 
-                   </div>
+                   </div> -->
 
                   </div>
 
@@ -861,11 +861,11 @@ Invitation
          },
          handleSelectedTab: function(tabname){
 
-             this.selectedTab = tabname;
+           
    
          if(tabname == 'projects'){
 
-            this.getUserProjects();
+            this.getUserProjects(tabname);
 
 
 
@@ -873,7 +873,7 @@ Invitation
 
           if(tabname == 'channels'){
 
-            this.getUserChannel();
+            this.getUserChannel(tabname);
 
             
 
@@ -881,16 +881,16 @@ Invitation
 
           if(tabname == 'diaries'){
 
-            this.getUserDiaries();
+            this.getUserDiaries(tabname);
 
           
          }
             
 
          },
-          getUserChannel:function(){
+          getUserChannel:function(tabname){
 
-         this.loadingUserProjects = true;
+         this.$root.routeIsLoading = true;
 
          axios.get('/fetch-user-channels/'+ this.userData.username)
     .then(
@@ -899,8 +899,9 @@ Invitation
     if(response.status == 200){
      
        this.userChannel = response.data.channels;
+         this.selectedTab = tabname;
      
-        this.loadingUserProjects = false;
+       this.$root.routeIsLoading = false;
     }
   }
    )
@@ -922,9 +923,9 @@ Invitation
                      this.$router.push({ path: '/channels' });
 
       },
-      getUserDiaries:function(){
+      getUserDiaries:function(tabname){
 
-         this.loadingUserProjects = true;
+         this.$root.routeIsLoading = true;
 
          axios.get('/fetch-user-diaries/'+ this.userData.username)
     .then(
@@ -933,8 +934,10 @@ Invitation
     if(response.status == 200){
      
        this.userDiaries = response.data.diaries;
+
+         this.selectedTab = tabname;
      
-        this.loadingUserProjects = false;
+        this.$root.routeIsLoading = false;
     }
   }
    )
@@ -986,7 +989,7 @@ Invitation
 
       }
       },
-      getUserProjects:function(){
+      getUserProjects:function(tabname){
 
          this.loadingUserProjects = true;
 
@@ -998,6 +1001,7 @@ Invitation
      
        this.userProjects = response.data.data;
      
+       this.selectedTab = tabname;
         this.loadingUserProjects = false;
     }
   }
@@ -1261,7 +1265,7 @@ Invitation
 
       this.loadingProfile = false;
 
-      this.getUserProjects();
+      this.getUserProjects('projects');
    
      
     }

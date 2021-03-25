@@ -2822,9 +2822,11 @@ goToChatList:function(){
        },
         showCreateChannel: function(){
 
-           if(!this.$root.authProfile.is_mentor){
+           if(this.$root.authProfile.points < 100){
 
-              this.$root.showPointDetailsInfo = true;
+             this.$root.fromCreateAChannel = true;
+
+              this.$root.showMentorInfo = true;
 
                return;
 

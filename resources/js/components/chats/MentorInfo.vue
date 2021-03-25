@@ -15,8 +15,45 @@
           </div>
         
         <img  src="/imgs/teach_dev_new.svg" height="160" />
-  
-       <div class="mb-3 px-2" style="font-size:13px;font-family:BodyFont;">
+
+         <template v-if="that.$root.fromCreateAChannel">
+
+
+            <div class="mb-3 px-md-3 px-2 " style="font-size:13px;font-family:BodyFont;">
+                      
+                      
+                     Hey <span style="font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, <br> <br>
+                     
+                     To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze developer </span> on CitonHub. You are <span style="font-family:MediumFont;">{{ presentLevel }}</span> and
+                      have <span style="font-family:MediumFont;">{{remainingPoints}} </span> points remaining to become a <span style="font-family:MediumFont;">Bronze developer </span>. Get more points by 
+                      <span style="font-family:MediumFont;">sharing your works</span> with the community and 
+                     by sharing what you know in  <span style="font-family:MediumFont;">your diaries</span>.
+
+
+
+
+
+                      <div class="col-12 py-1 px-2 mt-3">
+                         <div class="row">
+
+                             <div class="col-6 py-1 px-1 text-center">
+                       <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Share your work</v-btn>
+                           </div>
+
+                           <div class="col-6 py-1 px-1 text-center">
+                       <v-btn small  @click="viewDiary" color="#3C87CD"  style="font-family:BodyFont; color:white;font-size:11px;" class="mx-2 d-inline-block" rounded>Your diaries</v-btn>
+                           </div>
+
+                         </div>
+                        
+                     </div>
+
+                    </div>
+
+         </template>
+         <template v-else>
+
+            <div class="mb-3 px-md-3 px-2" style="font-size:13px;font-family:BodyFont;">
                       
                       
                      Hey <span style="font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, welcome to CitonHub! <br> <br>
@@ -25,7 +62,7 @@
 
 
 
-                      <div class="col-12 py-1 px-1 mt-3">
+                      <div class="col-12 py-1 px-2 mt-3">
                          <div class="row">
 
                              <div class="col-6 py-1 px-1 text-center">
@@ -41,6 +78,10 @@
                      </div>
 
                     </div>
+
+         </template>
+  
+      
 
   
 
@@ -66,14 +107,28 @@ export default {
       }
     },
     mounted(){
-      
+       this.calculateLevel(this.$root.authProfile.points);
     },
      methods:{
-       
+         shareProject:function(){
+          
+          this.$root.showMentorInfo = false
+       this.$root.componentIsLoading = true;
+
+         this.$root.autoOpenAddPost = true;
+
+          this.$router.push({ path:'/hub'})
+
+    },
+     
        BecomeMentor:function(){
          this.$root.showMentorInfo = false
     this.$root.showPointDetailsInfo = true
 
+    },
+    viewDiary:function(){
+          this.$root.showMentorInfo = false
+    this.$router.push({ path: '/board/diary/list' });
     },
       findMentor:function(){
 

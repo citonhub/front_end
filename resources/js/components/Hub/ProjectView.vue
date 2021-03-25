@@ -2,8 +2,8 @@
  <div class="row px-0" >
       <!-- top bar -->
 
-      <v-card tile class="col-lg-6 offset-lg-3 py-1 py-md-2 fixed-top d-flex flex-row flex-wrap px-md-2 px-1"
-       style="position:sticky;background:white;z-index:99999999;top:0%;">
+      <v-card tile class="col-lg-6 offset-lg-3 py-1 py-md-2  d-flex flex-row flex-wrap px-md-2 px-1"
+       style="background:white;position:fixed;z-index:99999999;top:0%;">
        
         <div class="col-10 py-0 px-0 d-flex flew-row" >
            <template v-if="this.$root.selectedPost.user">
@@ -40,7 +40,7 @@
 
          <!-- pages loader -->
 
-      <div  class="col-lg-12 py-0 px-0" style="height:200px;">
+      <div  class="col-lg-12 py-1 px-0 mb-1" :style=" !$screen.lg || !$screen.md ? 'height:200px;' : 'height:250px;'">
 
 
 
@@ -87,7 +87,7 @@
 
           <div style="width:100%;height:100%;position:absolute;left:0%; background:black;border:1px solid #c5c5c5; border-radius:7px;">
 
-    <textarea :value="pageContent"  readonly  class="col-12" style=" font-size:14px;  top:0; height:350px; left:0;   background:black; color:white;"  >
+    <textarea :value="pageContent"  readonly  class="col-12" style=" font-size:14px;  top:0; height:100%; left:0;   background:black; color:white;"  >
        
     </textarea>
 
@@ -122,7 +122,7 @@
     
       
 
-  <!--  <div class="col-lg-6 offset-lg-3 py-2 px-0 mt-2 d-flex flex-column">
+   <div class="col-lg-6 offset-lg-3 py-2 px-0 mt-2 d-flex flex-column" :style=" !$screen.lg || !$screen.md ? 'margin-top:250px !important;' : 'margin-top:310px !important;'">
         <div class="d-md-block d-none" style="font-size:16px; font-family:MediumFont;">{{ this.$root.selectedPost.title }}</div>
         <div class="d-md-none d-block" style="font-size:14px; font-family:MediumFont;">{{ this.$root.selectedPost.title }}</div>
 
@@ -148,22 +148,29 @@
 
          <div class="d-flex flex-row ml-auto">
 
-          <v-btn icon @click="pinPost">
+         
+
+             <v-btn icon @click="sharePost" >
+                    
+                      <v-icon style="font-size:25px;">mdi mdi-share-variant</v-icon>
+                    </v-btn>
+
+        <v-btn icon @click="pinPost" v-if="!this.$root.selectedPost.link">
                       <v-icon style="font-size:25px;color:#3C87CD;" v-if="this.$root.selectedPost.isPinned == 1">lar la-thumbtack</v-icon>
                       <v-icon style="font-size:25px;" v-else>las la-thumbtack</v-icon>
                     </v-btn>
-
+                    
            <v-btn icon @click="likePost" >
                        <i :class="this.$root.selectedPost.isLiked == 1 ? 'las la-heart' : 'lar la-heart'" :style="this.$root.selectedPost.isLiked ? 'font-size:25px; color: #ff6666;' : 'font-size: 25px;'" ></i>
                   </v-btn>
 
         </div>
 
-      </div>-->
+      </div>
 
 
       <!-- view source -->
-         <div class="col-lg-6 offset-lg-3 px-2 mt-2 " v-if="this.$root.selectedPost.project">
+         <!-- <div class="col-lg-6 offset-lg-3 px-2 mt-2 " v-if="!this.$root.selectedPost.link">
             <div class="row">
 
               <div class="col-12 px-0 py-0 text-right">
@@ -173,7 +180,7 @@
 
             </div>
        
-      </div>
+      </div> -->
       <!-- ends -->
 
     
@@ -206,12 +213,12 @@
 
            </template>
              
-           <v-card tile class="col-12  py-2 my-0 d-flex  px-2 flex-row" style="align-items:center; justify-content:center;" >
+           <div  class="col-12  py-2 my-0 d-flex  px-2 flex-row" style="align-items:center; justify-content:center;" >
             
-                  <textarea ref="textBottom"  style="font-size:13px;"  placeholder="Type your comment"    v-model="commentValue"></textarea>
+                  <textarea ref="textBottom"  style="font-size:13px;"  placeholder="Type your comment" class="textarea"   v-model="commentValue"></textarea>
 
                   <v-btn icon class="mx-md-1" @click="postComment" @keyup.enter="postComment" :loading="sendingComment" ><v-icon>las la-send</v-icon> </v-btn>
-           </v-card>
+           </div>
             
           
         </div>
@@ -220,13 +227,13 @@
       <!-- ends  -->
 
        <!-- comment list -->
-         <div class="col-lg-6 offset-lg-3 px-0 px-md-3 commentScroller scroller"   style="border-top:1px solid #c5c5c5;background:#ffffff;
-         font-family:BodyFont;height:300px;">
+         <div class="col-lg-6 offset-lg-3 px-0 px-md-3 commentScroller scroller"   style="border-top:1px solid #c5c5c5;background:whitesmoke;
+         font-family:BodyFont;height:auto;">
          <div class="row">
            
 
             <template v-if="loadingPostComments">
-              <div class="d-flex col-12" style="position:absolute; overflow-y:hidden; height:90%;left:0%;align-items:center; justify-content:center;">
+              <div class="d-flex col-12" style="position:absolute; overflow-y:hidden;background:whitesmoke; height:250px;left:0%;align-items:center; justify-content:center;">
 
                   <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
 
@@ -240,9 +247,9 @@
                 <template v-if="comments.length == 0">
 
                    
-                    <div class="d-flex col-12" style="position:absolute; overflow-y:hidden; height:90%;left:0%;align-items:center; justify-content:center;">
+                    <div class="d-flex col-12" style="position:absolute; background:whitesmoke; overflow-y:hidden; height:250px; left:0%;align-items:center; justify-content:center;">
 
-                <span style="font-size:13px;font-family:BodyFont;">No comment yet, be the first to make a comment</span>
+                <span style="font-size:13px;font-family:BodyFont;">No comment yet, be the first to comment</span>
 
               </div>
 
@@ -259,8 +266,8 @@
     ref="commentScrollerPost"
     :buffer="5000"
    id="commentScrollerPost"
-      class="col-12 px-1  scroller" 
-       style="position:absolute; overflow-y:auto; top:0%; height:100%;left:0%;background:white;"
+      class="col-12 px-1  " 
+       style="position:absolute; overflow-y:auto; top:0%; height:auto;left:0%;background:whitesmoke;"
         >
 
     <template v-slot="{ item, index, active }">
@@ -280,60 +287,8 @@
           </DynamicScrollerItem>
              </template>
 
-              <template #after>
-
-                   <div class="my-4 py-3 col-12">
-
-                </div>
-
-
-              </template>
-
-
-              <template #before>
- <!--code added-->
-<div class="col-lg-12 py-2 px-0 mt-2 d-flex flex-column">
-        <div class="d-md-block d-none" style="font-size:16px; font-family:MediumFont;">{{ that.$root.selectedPost.title }}</div>
-        <div class="d-md-none d-block" style="font-size:14px; font-family:MediumFont;">{{ that.$root.selectedPost.title }}</div>
-
-         <div  style="font-size:13px; font-family:BodyFont;">{{ that.$root.selectedPost.description }}</div>
-      </div>
-
-
-      <div class="col-lg-12 py-1 px-0 mt-2 d-flex flex-row" style="align-items:center; border-top:1px solid #c5c5c5;border-bottom:1px solid #c5c5c5;">
-
-        <div class="d-flex flex-row">
-
-          <div>
-              <span style="font-size:13px;color:black;font-family:MediumFont;">{{ that.$root.selectedPost.likes }}</span> 
-                 <span style="font-size:13px;font-family:BodyFont;" class="mx-1">Likes</span>
-          </div>
-
-           <div class="ml-1">
-              <span style="font-size:13px;color:black;font-family:MediumFont;">{{ that.$root.selectedPost.comments }}</span> 
-                 <span style="font-size:13px;font-family:BodyFont;" class="mx-1">Comments</span>
-          </div>
-
-        </div>
-
-         <div class="d-flex flex-row ml-auto">
-
-          <v-btn icon @click="pinPost">
-                      <v-icon style="font-size:25px;color:#3C87CD;" v-if="that.$root.selectedPost.isPinned == 1">lar la-thumbtack</v-icon>
-                      <v-icon style="font-size:25px;" v-else>las la-thumbtack</v-icon>
-                    </v-btn>
-
-           <v-btn icon @click="likePost" >
-                       <i :class="that.$root.selectedPost.isLiked == 1 ? 'las la-heart' : 'lar la-heart'" :style="that.$root.selectedPost.isLiked ? 'font-size:25px; color: #ff6666;' : 'font-size: 25px;'" ></i>
-                  </v-btn>
-
-        </div>
-
-      </div>
-
-      <!--end of code added-->
-
-              </template>
+           
+            
 
                 </DynamicScroller>
 
@@ -403,26 +358,40 @@
         <div style="height:100%;" class="col-12 px-0 py-0">
 
            <div class="col-12 px-1 py-1 pt-0  d-flex flex-row" style="background:white; border-bottom:2px solid #c5c5c5;align-items:center;">
-            <div class=" mr-1 col-2 py-0 px-0">
+            <div class=" mr-1 py-0 px-0">
               <v-btn icon @click="showFullLoader = false">
                       <v-icon>mdi mdi-close</v-icon>
                     </v-btn>
             </div>
+
+
           
-             <div class="col-8 py-0 text-center">
+             <div class=" py-0 text-center " style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
              <span style="font-size:14px; font-family:MediumFont;">{{ this.$root.selectedPost.title }}</span>
           </div>
-          <div class="col-2 px-1 text-right py-0" v-if="that.$root.selectedPost.project.project">
+
+          <div class="ml-auto d-flex flex-row">
+
+            <div class="px-1" v-if="!that.$root.selectedPost.link">
+          
+                       <v-btn icon   @click="goToProject(that.$root.selectedPost.project.project)"  ><v-icon style="font-size:20px;">las la-laptop-code</v-icon> </v-btn>
+                  
+          </div>
+
+            <div class="px-1" v-if="that.$root.selectedPost.project.project">
              <template v-if="that.$root.selectedPost.project.project.is_web">
                        <v-btn icon  @click="showFullPage" ><v-icon style="font-size:20px;">mdi mdi-launch</v-icon> </v-btn>
                      </template>
           </div>
 
-          <div class="col-2 px-1 text-right py-0" v-else>
+          <div class="px-1" v-else>
              <template v-if="that.$root.selectedPost.link">
                        <v-btn icon  @click="showFullPage" ><v-icon style="font-size:20px;">mdi mdi-launch</v-icon> </v-btn>
                      </template>
           </div>
+            
+          </div>
+          
 
 
         </div>
@@ -798,7 +767,7 @@ export default {
                 Newcomment.tagged = false;
 
                 
-                this.comments.push(Newcomment);
+                this.comments.unshift(Newcomment);
 
               
 
@@ -839,6 +808,17 @@ export default {
      likePost(){
 
          if(this.$root.selectedPost.isLiked) return;
+
+           this.$root.selectedPost.likes += 1;
+
+         this.$root.posts.map((post)=>{
+                  if(post.id == this.$root.selectedPost.id){
+    
+                     post.likes += 1;
+    
+                  }
+           });
+
       let formData = new FormData();
       formData.append('post_id', this.$root.selectedPost.id)
 
@@ -856,24 +836,33 @@ export default {
           }
         }
 
-        this.$root.selectedPost.likes += 1;
-
-         this.$root.posts.map((post)=>{
-                  if(post.id == this.$root.selectedPost.id){
-    
-                     post.likes += 1;
-    
-                  }
-           });
+      
 
      
       })
 
 
      },
+     sharePost:function(){
+          
+          this.$root.shareLink =  'https://link.citonhub.com/post/'+ this.$root.selectedPost.post_id;
+
+          this.$root.shareText = 'Check out this project on Citonhub';
+          
+          this.$root.infoText = 'Share this project with others';
+
+          this.$root.alertComponent =  this;
+
+         
+
+          this.$root.showInvitation = true;
+     },
 
      pinPost(){
          if(this.$root.selectedPost.isPinned) return;
+
+          this.$root.selectedPost.pinned += 1;
+
         let formData = new FormData();
         formData.append('post_id', this.$root.selectedPost.id)
 
@@ -891,7 +880,7 @@ export default {
           }
         }
 
-         this.$root.selectedPost.pinned += 1;
+        
       })
 
      },
@@ -907,9 +896,8 @@ export default {
                this.loadPageContent(this.selecetedPanelId);
 
             }else{
-
-
-                 let status =  this.$root.checkCodeForInput(this.$root.selectedPost.project.project_files.code_files[0],this.panelData.panel_language);
+                  
+                 let status =  this.$root.checkCodeForInput(this.$root.selectedPost.project.project_files.code_files[0].content,this.panelData.panel_language);
 
                 if(status == 'present'){
                   return;
@@ -1315,7 +1303,7 @@ imageUrl +='/imgs/platinum.svg'
 
 .textarea {
     font-size:13px; 
-    background:white;
+    background:whitesmoke;
     width:100%; 
     height: 45px;
     max-height: 75px;

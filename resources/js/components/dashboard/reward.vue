@@ -21,7 +21,7 @@
 
          <span style="font-size:13px; font-family:MediumFont;">You are progressing!</span> <span style="font-size:13px; font-family:BodyFont;">Your XP has increased by</span> 
       <span style="font-size:13px; font-family:MediumFont;">{{that.$root.addedPoint}} ,</span> <span style="font-size:13px; font-family:BodyFont;"> You now have</span> <span style="font-size:13px; font-family:MediumFont;">{{ this.$root.authProfile.points }} XP.</span><span style="font-size:13px; font-family:BodyFont;"> Get more by sharing more of your projects. You have 
-          <span style="font-size:13px; font-family:MediumFont;">{{remainingPoints}} XP</span> left 
+          <span style="font-size:13px; font-family:MediumFont;">{{remainingPoints}} XP</span> remaining 
           to become  </span>  <span style="font-size:13px; font-family:MediumFont;">{{nextLevel}} </span>
 
       </template>
@@ -30,7 +30,7 @@
 
           <span style="font-size:13px; font-family:MediumFont;">Congratulation!</span> <span style="font-size:13px; font-family:BodyFont;">You are now </span> 
       <span style="font-size:13px; font-family:MediumFont;">{{ presentLevel }}</span>. <span style="font-size:13px; font-family:BodyFont;"> You have</span> <span style="font-size:13px; font-family:MediumFont;">{{ this.$root.authProfile.points }} XP.</span><span style="font-size:13px; font-family:BodyFont;"> Get more by sharing more of your projects. You have 
-          <span style="font-size:13px; font-family:MediumFont;">{{remainingPoints}} XP</span> left 
+          <span style="font-size:13px; font-family:MediumFont;">{{remainingPoints}} XP</span> remaining 
           to become  </span>  <span style="font-size:13px; font-family:MediumFont;">{{nextLevel}} </span>
 
       </template>
@@ -38,7 +38,7 @@
 
    </div>
 
-     <template v-if="presentLevel == 'Newbie'">
+     <template v-if="presentLevel == 'a Steel developer'">
 
        <div class="text-center mb-2">
                <v-btn small @click="shareProject" color="#3C87CD" style="color:white;text-transform:normal;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" >Share more projects</v-btn>
