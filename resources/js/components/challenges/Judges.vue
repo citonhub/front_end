@@ -71,7 +71,7 @@ export default {
      },
      goToProfile:function(username){
           this.$root.selectedUsername = username;
-         this.$router.push({ path:'/profile-view/' + username})
+         this.$router.push({ path:'/profile/' + username})
      }
     },
 }

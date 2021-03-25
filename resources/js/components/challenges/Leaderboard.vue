@@ -100,11 +100,8 @@ export default {
          },
  goToProfile:function(user){
 
-   console.log(user)
-
-       if( this.$root.selectedSpace.type == 'Bot' ) return
         this.$root.selectedUsername = user.username;
-         this.$router.push({ path:'/profile-view/' + user.username})
+         this.$router.push({ path:'/profile/' + user.username})
       },
      checkIfAdmin: function(source){
 

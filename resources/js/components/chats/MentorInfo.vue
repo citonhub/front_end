@@ -26,7 +26,7 @@
                      
                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze developer </span> on CitonHub. You are <span style="font-family:MediumFont;">{{ presentLevel }}</span> and
                       have <span style="font-family:MediumFont;">{{remainingPoints}} </span> points remaining to become a <span style="font-family:MediumFont;">Bronze developer </span>. Get more points by 
-                      <span style="font-family:MediumFont;">sharing your works</span> with the community and 
+                      <span style="font-family:MediumFont;">sharing your works</span> with the community or 
                      by sharing what you know in  <span style="font-family:MediumFont;">your diaries</span>.
 
 
