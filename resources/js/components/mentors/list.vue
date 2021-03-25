@@ -136,7 +136,7 @@
       indeterminate
       color="#3C87CD"
       style=" margin: 1rem;"
-     
+      v-if="loadingNext"
     ></v-progress-circular> 
      
      <div v-observe-visibility="loadNextSet" ></div> 
@@ -200,7 +200,9 @@ import VueObserveVisibility from 'vue-observe-visibility'
          currentPage:1,
          newPage:1,
          newData:'',
-         that:this
+         that:this,
+           dataHasFinished:false,
+       loadingNext:false
       }
      
     },
@@ -219,7 +221,7 @@ import VueObserveVisibility from 'vue-observe-visibility'
      methods:{
          showProfile:function(username){
              this.$root.selectedUsername = username;
-         this.$router.push({ path:'/profile-view/' + username})
+         this.$router.push({ path:'/profile/' + username})
          },
          getMentors:function(){
 
@@ -253,10 +255,10 @@ import VueObserveVisibility from 'vue-observe-visibility'
          },
   loadNextSet(shown){
  
-
+   if(this.dataHasFinished) return;
         
 if(shown){
-
+    this.loadingNext = true;
 
   this.newPage+=1
 
@@ -276,10 +278,14 @@ response => {
        
         this.newData=response.data.mentors
 
+          if(response.data.mentors.length == 0){
+             this.dataHasFinished = true;
+          }
+
     
 this.mentors=  this.mentors.concat(this.newData)
        
-
+    this.loadingNext = false;
 
  
        
