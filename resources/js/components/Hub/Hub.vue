@@ -124,7 +124,7 @@
                       <!--content loader-->
 <div v-observe-visibility="loadNextSet" ></div>
 
-  <div class="text-center col-lg-12">
+  <div class="text-center col-lg-12" v-if="loadingNext">
     <v-progress-circular
       indeterminate
      color="#3C87CD"
@@ -498,7 +498,8 @@ export default {
         currentPage:1,
         newPage:1,
         newData:'',
-        dataHasFinished:false
+        dataHasFinished:false,
+       loadingNext:false
       }
     },
     components: {
@@ -603,11 +604,13 @@ export default {
 
        loadNextSet(shown){
  
-
+       if( this.dataHasFinished){
+      return;
+       }
         
 if(shown){
 
-
+     this.loadingNext = true;
   this.newPage+=1
 
 console.log(this.newPage)
@@ -626,7 +629,11 @@ response => {
        
         this.newData=response.data.data
 
-    
+         if(this.newData.length == 0){
+           this.dataHasFinished = true;
+         }
+
+      this.loadingNext = false;
 this.$root.posts=  this.$root.posts.concat(this.newData)
        
 
