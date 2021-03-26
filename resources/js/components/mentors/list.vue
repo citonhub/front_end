@@ -110,8 +110,9 @@
               
               color="#3C87CD"
               dense
+              outlined
               class="my-1 mx-1"
-              style="font-size:12px; color:white; font-family:BodyFont;"
+              style="font-size:12px; font-family:BodyFont;"
               small
             >
              
@@ -123,7 +124,7 @@
             </div>
 
                 <div class="col-12 py-0 mt-2 px-1 text-center">
-                       <v-btn small  @click="showProfile(mentor.username)"  color="#3C87CD" outlined style="font-family:BodyFont;font-size:12px;text-transform:none;" class="mx-2 d-inline-block" >View profile</v-btn>
+                       <v-btn small  @click="showProfile(mentor.username)"  color="#3C87CD"  style="font-family:BodyFont;color:white;font-size:12px;text-transform:none;" class="mx-2 d-inline-block" >View profile</v-btn>
                            </div>
 
           </v-card>
