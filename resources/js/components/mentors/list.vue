@@ -123,7 +123,7 @@
                  
             </div>
 
-                <div class="col-12 py-0 mt-2 px-1 text-center">
+                <div class="col-12 py-0 mt-3 px-1 text-center">
                        <v-btn small  @click="showProfile(mentor.username)"  color="#3C87CD"  style="font-family:BodyFont;color:white;font-size:12px;text-transform:none;" class="mx-2 d-inline-block" >View profile</v-btn>
                            </div>
 
