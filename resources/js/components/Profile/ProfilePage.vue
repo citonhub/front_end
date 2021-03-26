@@ -326,7 +326,7 @@
                         <div class="col-lg-4 col-md-6 px-2 mb-2 pt-1 pt-md-2" v-for="(channel,index) in userChannel" :key="index + 'channel'"
           >
         
-          <v-card class="py-3 px-2 d-flex flex-column" style="align-items:center; justify-content:center;"  @click="viewChannel(channel)" >
+          <v-card class="py-3 px-2 d-flex flex-column" style="align-items:center; justify-content:center;">
             
             <div class=" py-0 my-0 text-center">
 
@@ -366,8 +366,8 @@
                  
             </div>
 
-             <div class="col-12 py-0 mt-2 px-1 text-center">
-                       <v-btn small   @click="viewChannel(channel)"  color="#3C87CD"  style="font-family:BodyFont;font-size:12px;color:white;text-transform:none;" class="mx-2 d-inline-block" rounded>View channel</v-btn>
+             <div class="col-12 py-0 mt-3 px-1 text-center">
+                       <v-btn small   @click="viewChannel(channel)"  color="#3C87CD"  style="font-family:BodyFont;font-size:12px;color:white;text-transform:none;" class="mx-2 d-inline-block" >View channel</v-btn>
                         </div>
 
           </v-card>
