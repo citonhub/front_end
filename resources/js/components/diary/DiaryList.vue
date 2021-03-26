@@ -128,7 +128,7 @@
 
 
          <div class="mb-3 px-3" style="font-size:13px;color:black;font-family:BodyFont;">
-                    Document <span style="font-family:MediumFont;">how you teach</span>. You can help others improve, by sharing what you know.
+                    Document <span style="font-family:MediumFont;">what you know</span>. You can help others improve, by sharing them.
                     </div>
 
                      <div>

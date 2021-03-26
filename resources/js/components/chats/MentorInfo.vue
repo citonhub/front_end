@@ -24,8 +24,8 @@
                       
                      Hey <span style="font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, <br> <br>
                      
-                     To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze developer </span> on CitonHub. You are <span style="font-family:MediumFont;">{{ presentLevel }}</span> and
-                      have <span style="font-family:MediumFont;">{{remainingPoints}} </span> points remaining to become a <span style="font-family:MediumFont;">Bronze developer </span>. Get more points by 
+                     To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span> on CitonHub. You are <span style="font-family:MediumFont;">{{ presentLevel }}</span> and
+                      have <span style="font-family:MediumFont;">{{remainingPoints}} </span>experience points remaining to become a <span style="font-family:MediumFont;">Bronze citon </span>. Get more experience points by 
                       <span style="font-family:MediumFont;">sharing your works</span> with the community or 
                      by sharing what you know in  <span style="font-family:MediumFont;">your diaries</span>.
 
@@ -36,12 +36,12 @@
                       <div class="col-12 py-1 px-2 mt-3">
                          <div class="row">
 
-                             <div class="col-6 py-1 px-1 text-left">
+                             <div class="col-6 py-1 px-1 ">
                        <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Share your work</v-btn>
                            </div>
 
-                           <div class="col-6 py-1 px-1 text-right">
-                       <v-btn small  @click="viewDiary" color="#3C87CD"  style="font-family:BodyFont; color:white;font-size:11px;" class="mx-2 d-inline-block" rounded>Your diaries</v-btn>
+                           <div class="col-6 py-1 px-1 ">
+                      <v-btn small  @click="viewDiary" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Start a diary</v-btn>
                            </div>
 
                          </div>
@@ -58,24 +58,33 @@
                       
                      Hey <span style="font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, welcome to CitonHub! <br> <br>
                      
-                     We believe we can improve the way <span style="font-family:MediumFont;">developers mentor and get mentored</span> on the internet. Join us,
+                     Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. <br><br>
+
+                    
+                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span> on CitonHub. You are <span style="font-family:MediumFont;">{{ presentLevel}}</span> and
+                      have <span style="font-family:MediumFont;">{{remainingPoints}} </span>experience points remaining to become a <span style="font-family:MediumFont;">Bronze citon</span>.<br><br> 
+                      
+                      Get more experience points by 
+                      <span style="font-family:MediumFont;">sharing your works</span> with the community or 
+                     by sharing what you know in  <span style="font-family:MediumFont;">your diaries</span>.
 
 
 
-                      <div class="col-12 py-1 px-2 mt-3">
+                      <div class="col-12 py-1 px-1 mt-3">
                          <div class="row">
 
-                             <div class="col-6 py-1 px-1 text-left">
-                       <v-btn small  @click="findMentor" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Find a mentor</v-btn>
+                             <div class="col-6 py-1 px-1 ">
+                       <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Share your works</v-btn>
                            </div>
 
-                           <div class="col-6 py-1 px-1 text-right">
-                       <v-btn small  @click="BecomeMentor" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Become a mentor</v-btn>
+                           <div class="col-6 py-1 px-1 ">
+                       <v-btn small  @click="viewDiary" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Start a diary</v-btn>
                            </div>
 
                          </div>
                         
                      </div>
+
 
                     </div>
 
@@ -140,59 +149,59 @@ export default {
    
   if(point >= 50 && point <= 99){
 
-   this.nextLevel='a Bronze developer';
+   this.nextLevel='a Bronze citon';
    this.remainingPoints =100-point;
-   this.presentLevel = 'a Steel developer';
+   this.presentLevel = 'a Steel citon';
     this.newLevelImage = '/imgs/steel.svg';
 
   }
   else if(point >= 100 && point <= 299 ){
    
-   this.nextLevel='a Silver developer';
+   this.nextLevel='a Silver citon';
 
     this.remainingPoints=300-point;
 
-     this.presentLevel = 'a Bronze developer';
+     this.presentLevel = 'a Bronze citon';
 
        this.newLevelImage = '/imgs/bronze.svg';
  
   }
    else if(point >= 300 && point <= 599 ){ 
   
-  this.nextLevel='a Gold developer';
+  this.nextLevel='a Gold citon';
 
    this.remainingPoints= 600-point;
 
-    this.presentLevel = 'a Silver developer';
+    this.presentLevel = 'a Silver citon';
 
       this.newLevelImage = '/imgs/silver.svg';
 
     }
     else if(point >= 600 && point <= 999 ){ 
 
-   this.nextLevel='a Platinum developer';
+   this.nextLevel='a Platinum citon';
 
      this.remainingPoints=1000-point;
 
-     this.presentLevel = 'a Gold developer';
+     this.presentLevel = 'a Gold citon';
        this.newLevelImage = '/imgs/gold.svg';
 
    }
  else if(point >= 1000 && point <= 1499 ){ 
- this.nextLevel='a Diamond developer';
+ this.nextLevel='a Diamond citon';
 
  this.remainingPoints=1500 - point;
 
-   this.presentLevel = 'a Platinum developer';
+   this.presentLevel = 'a Platinum citon';
      this.newLevelImage = '/imgs/platinum.svg';
   
   }
   else if(point >= 1500  && point <= 9999 ){ 
-  this.nextLevel='a Diamond developer';
+  this.nextLevel='a Diamond citon';
 
   this.remainingPoints= 10000 - point;
 
-   this.presentLevel = 'a Diamond developer';
+   this.presentLevel = 'a Diamond citon';
 
      this.newLevelImage = '/imgs/diamond.svg';
  

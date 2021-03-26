@@ -31,7 +31,7 @@
                               <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis; ">
 
 
-                             <template v-if="!this.$root.typing &&  (this.$root.typingSpace != this.$root.selectedSpace.space_id)">
+                             <template v-if="(this.$root.typingSpace != this.$root.selectedSpace.space_id)">
 
                               
                 <span class="typingText d-block" v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }} , {{generateOnlineUsers()}}  {{ $t('space.Online') }}</span>
@@ -225,7 +225,7 @@
              
 
                            
-                            <template v-if="!this.$root.typing &&  (this.$root.typingSpace != this.$root.selectedSpace.space_id)">
+                            <template v-if="(this.$root.typingSpace != this.$root.selectedSpace.space_id)">
 
                                 <span class="typingTextSm d-block" v-if="this.$root.selectedSpace.type != 'Direct' && this.$root.selectedSpace.type != 'SubSpace' && this.$root.selectedSpaceMembers.length > 1">{{this.$root.selectedSpaceMembers.length}}  {{ $t('space.members') }} , {{generateOnlineUsers()}}  {{ $t('space.Online') }}</span>
 
@@ -551,8 +551,15 @@ export default {
       },
        openLiveSession:function(){
            this.$root.componentIsLoading = true;
-           this.$root.liveSessionIsOpen = true;
-               this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id +'/live_session' });
+           this.$root.chatComponent.chatInnerSideBar = false;
+           this.$root.chatComponent.liveSessionIsOpen = true;
+
+                if(this.$router.currentRoute.path.indexOf('live_session') <= 0){
+                
+                this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id +'/live_session' });
+              
+            }
+              
             
        },
         checkIfOnline: function(user_id){

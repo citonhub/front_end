@@ -147,7 +147,15 @@
                     
                      Hey <span style="font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, welcome to CitonHub! <br> <br>
                      
-                    We believe we can improve the way <span style="font-family:MediumFont;">developers mentor and get mentored</span> on the internet. Join us,
+                     Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. <br><br>
+
+                    
+                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span> on CitonHub. You are <span style="font-family:MediumFont;">{{ getuserPresentLevel() }}</span> and
+                      have <span style="font-family:MediumFont;">{{getuserRemainingPoint()}} </span>experience points remaining to become a <span style="font-family:MediumFont;">Bronze citon</span>.<br><br> 
+                      
+                      Get more experience points by 
+                      <span style="font-family:MediumFont;">sharing your works</span> with the community or 
+                     by sharing what you know in  <span style="font-family:MediumFont;">your diaries</span>.
 
 
 
@@ -155,16 +163,17 @@
                          <div class="row">
 
                              <div class="col-6 py-1 px-1 ">
-                       <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Find a mentor</v-btn>
+                       <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Share your works</v-btn>
                            </div>
 
                            <div class="col-6 py-1 px-1 ">
-                       <v-btn small  @click="that.$root.showPointDetailsInfo = true" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Become a mentor</v-btn>
+                       <v-btn small  @click="goToDiary" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Start a diary</v-btn>
                            </div>
 
                          </div>
                         
                      </div>
+
 
                     </div>
 
@@ -178,7 +187,7 @@
             <template v-else>
                 
                   <div class="mb-3 px-0 text-center" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Channel is where you mentor and earn from donation, subscriptions or paid sessions.
+                      Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>.
                     </div>
 
                      <div class="text-center">
@@ -873,20 +882,30 @@
                <div class="mb-3 px-1" style="font-size:13px;color:gray;font-family:BodyFont;">
                       
                       
+                     
                      Hey <span style="font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, welcome to CitonHub! <br> <br>
                      
-                    We believe we can improve the way <span style="font-family:MediumFont;">developers mentor and get mentored</span> on the internet. Join us,
+                     Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. <br><br>
+
+                    
+                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span> on CitonHub. You are <span style="font-family:MediumFont;">{{ getuserPresentLevel() }}</span> and
+                      have <span style="font-family:MediumFont;">{{getuserRemainingPoint()}} </span>experience points remaining to become a <span style="font-family:MediumFont;">Bronze citon</span>.<br><br> 
+                      
+                      Get more experience points by 
+                      <span style="font-family:MediumFont;">sharing your works</span> with the community or 
+                     by sharing what you know in  <span style="font-family:MediumFont;">your diaries</span>.
+
 
 
                       <div class="col-12 py-1 px-1 mt-3">
                          <div class="row">
 
                              <div class="col-6 py-1 px-1 ">
-                       <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Find a mentor</v-btn>
+                       <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Share your works</v-btn>
                            </div>
 
                            <div class="col-6 py-1 px-1 ">
-                       <v-btn small  @click="that.$root.showPointDetailsInfo = true" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Become a mentor</v-btn>
+                       <v-btn small  @click="goToDiary" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Start a diary</v-btn>
                            </div>
 
                          </div>
@@ -904,7 +923,7 @@
             <template v-else>
                 
                   <div class="mb-3 px-2 text-center" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Channel is where you mentor and earn from donation, subscriptions or paid sessions.
+                      Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. 
                     </div>
 
                      <div class="text-center">
@@ -1472,16 +1491,18 @@
                          
                              <!-- live session -->
 
-                            <div v-if="chatIsOpen && !chatInnerSideBar && liveSessionIsOpen" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.4); left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
+                            <div v-if="chatIsOpen && !chatInnerSideBar && liveSessionIsOpen" class="col-12 py-0 px-0 d-flex flex-row" style=" align-items:center; justify-content:center;background: rgba(27, 27, 30, 0.4); left:0; position:fixed; height:100%; top:0%;z-index:9999999999999;" >
                                     <!-- rtc screen -->
 
-
-             <div   style="position:absolute;top:0%; left:0%; height:70%; width:100%; align-items:center;z-index:9999;" class="d-flex ">
+              
+                 <v-zoomer style="position:absolute;top:10%; left:0%; height:80%; width:100%; align-items:center; justify-content:center; z-index:9999;" >
 
                <div  id="videos-container-sm" ></div>
 
               
-             </div>
+             </v-zoomer>
+             
+            
 
                             <!-- ends -->
 
@@ -1891,6 +1912,10 @@ const Interest= () => import(
    /* webpackChunkName: "MentorInfo" */ './MentorInfo.vue'
   );
 
+import VueZoomer from 'vue-zoomer'
+
+Vue.use(VueZoomer)
+
 
 export default {
      data () {
@@ -1960,6 +1985,7 @@ export default {
        selectedSpaceMembers:[],
        nextLevel:'',
         remainingPoints:0,
+        presentLevel:''
      
       }
     },
@@ -1967,7 +1993,7 @@ export default {
      this.$root.showSideBar = false;
     this.$root.chatComponent = this;
    
-    
+   
     
      this.controlChatPath();
 
@@ -2081,13 +2107,88 @@ export default {
        
 
     },
+  calculateLevel(point){
+   this.nextLevel = '';
+
+     this.remainingPoints = 0;
+   
+  if(point >= 50 && point <= 99){
+
+   this.nextLevel='a Bronze citon';
+   this.remainingPoints =100-point;
+   this.presentLevel = 'a Steel citon';
+    this.newLevelImage = '/imgs/steel.svg';
+
+  }
+  else if(point >= 100 && point <= 299 ){
+   
+   this.nextLevel='a Silver citon';
+
+    this.remainingPoints=300-point;
+
+     this.presentLevel = 'a Bronze citon';
+
+       this.newLevelImage = '/imgs/bronze.svg';
+ 
+  }
+   else if(point >= 300 && point <= 599 ){ 
+  
+  this.nextLevel='a Gold citon';
+
+   this.remainingPoints= 600-point;
+
+    this.presentLevel = 'a Silver citon';
+
+      this.newLevelImage = '/imgs/silver.svg';
+
+    }
+    else if(point >= 600 && point <= 999 ){ 
+
+   this.nextLevel='a Platinum citon';
+
+     this.remainingPoints=1000-point;
+
+     this.presentLevel = 'a Gold citon';
+       this.newLevelImage = '/imgs/gold.svg';
+
+   }
+ else if(point >= 1000 && point <= 1499 ){ 
+ this.nextLevel='a Diamond citon';
+
+ this.remainingPoints=1500 - point;
+
+   this.presentLevel = 'a Platinum citon';
+     this.newLevelImage = '/imgs/platinum.svg';
+  
+  }
+  else if(point >= 1500  && point <= 9999 ){ 
+  this.nextLevel='a Diamond citon';
+
+  this.remainingPoints= 10000 - point;
+
+   this.presentLevel = 'a Diamond citon';
+
+     this.newLevelImage = '/imgs/diamond.svg';
+ 
+}
+
+ return [this.nextLevel,this.remainingPoints,this.presentLevel];
+
+},
+goToDiary:function(){
+    this.$router.push({ path: '/board/diary/list' });
+},
     getUserLevel: function(){
-       let result = this.calculateLevel(this.$root.authProfile);
+       let result = this.calculateLevel(this.$root.authProfile.points);
        return result[0];
     },
     getuserRemainingPoint: function(){
-     let result = this.calculateLevel(this.$root.authProfile);
+     let result = this.calculateLevel(this.$root.authProfile.points);
        return result[1];
+    },
+    getuserPresentLevel: function(){
+     let result = this.calculateLevel(this.$root.authProfile.point);
+       return result[2];
     },
   
     shareProject:function(){
@@ -3779,7 +3880,7 @@ goToChatList:function(){
   
        fetchSpaceInfo: function(){
 
-        this.$root.fetchSpaceInfo(this.root.selectedSpace.space_id)
+        this.$root.fetchSpaceInfo(this.$root.selectedSpace.space_id)
      },
 
       botMessager:function(){

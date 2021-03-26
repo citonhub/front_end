@@ -348,6 +348,7 @@ export default {
             password:'',
             prependIconText:'las la-eye',
            passwordState:'password',
+            loadingGitHub:false,
             email:'',
              emailRule: [
             v => !!v || 'Oh! you missed this.',

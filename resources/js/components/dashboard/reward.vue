@@ -15,13 +15,13 @@
       </template>
  
    
-   <div class="pb-3 pt-2 text-center px-2">
+   <div class="pb-3 pt-2 text-center px-md-3 px-2">
         
       <template v-if="presentLevel == returnFormalLevel()">
 
-         <span style="font-size:13px; font-family:MediumFont;">You are progressing!</span> <span style="font-size:13px; font-family:BodyFont;">Your XP has increased by</span> 
-      <span style="font-size:13px; font-family:MediumFont;">{{that.$root.addedPoint}} ,</span> <span style="font-size:13px; font-family:BodyFont;"> You now have</span> <span style="font-size:13px; font-family:MediumFont;">{{ this.$root.authProfile.points }} XP.</span><span style="font-size:13px; font-family:BodyFont;"> Get more by sharing more of your projects. You have 
-          <span style="font-size:13px; font-family:MediumFont;">{{remainingPoints}} XP</span> remaining 
+         <span style="font-size:13px; font-family:MediumFont;">You are progressing!</span> <span style="font-size:13px; font-family:BodyFont;">Your experience points has increased by</span> 
+      <span style="font-size:13px; font-family:MediumFont;">{{that.$root.addedPoint}} ,</span> <span style="font-size:13px; font-family:BodyFont;"> You now have</span> <span style="font-size:13px; font-family:MediumFont;">{{ this.$root.authProfile.points }} experience points.</span><span style="font-size:13px; font-family:BodyFont;"> Get more by sharing more of your projects. You have 
+          <span style="font-size:13px; font-family:MediumFont;">{{remainingPoints}} experience points</span> remaining 
           to become  </span>  <span style="font-size:13px; font-family:MediumFont;">{{nextLevel}} </span>
 
       </template>
@@ -29,8 +29,8 @@
       <template v-else>
 
           <span style="font-size:13px; font-family:MediumFont;">Congratulation!</span> <span style="font-size:13px; font-family:BodyFont;">You are now </span> 
-      <span style="font-size:13px; font-family:MediumFont;">{{ presentLevel }}</span>. <span style="font-size:13px; font-family:BodyFont;"> You have</span> <span style="font-size:13px; font-family:MediumFont;">{{ this.$root.authProfile.points }} XP.</span><span style="font-size:13px; font-family:BodyFont;"> Get more by sharing more of your projects. You have 
-          <span style="font-size:13px; font-family:MediumFont;">{{remainingPoints}} XP</span> remaining 
+      <span style="font-size:13px; font-family:MediumFont;">{{ presentLevel }}</span>. <span style="font-size:13px; font-family:BodyFont;"> You have</span> <span style="font-size:13px; font-family:MediumFont;">{{ this.$root.authProfile.points }} experience points.</span><span style="font-size:13px; font-family:BodyFont;"> Get more by sharing more of your projects. You have 
+          <span style="font-size:13px; font-family:MediumFont;">{{remainingPoints}} experience points</span> remaining 
           to become  </span>  <span style="font-size:13px; font-family:MediumFont;">{{nextLevel}} </span>
 
       </template>
@@ -38,7 +38,7 @@
 
    </div>
 
-     <template v-if="presentLevel == 'a Steel developer'">
+     <template v-if="presentLevel == 'a Steel citon'">
 
        <div class="text-center mb-2">
                <v-btn small @click="shareProject" color="#3C87CD" style="color:white;text-transform:normal;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" >Share more projects</v-btn>
@@ -50,12 +50,8 @@
 
         <div class="text-center  d-flex flex-row col-12 px-1">
            <div class="col-6 px-0 py-0 text-center">
-             <template v-if="that.$root.authProfile.is_mentor">
+            
              <v-btn small @click="createChannel" color="#3C87CD" style="color:white;text-transform:normal;font-family:BodyFont;font-size:10px;" class="mx-2 d-inline-block" >Create a channel</v-btn>
-             </template>
-           <template v-else>
-               <v-btn small @click="makeMentor" color="#3C87CD" style="color:white;text-transform:normal;font-family:BodyFont;font-size:10px;" class="mx-2 d-inline-block" >Become a mentor</v-btn>
-           </template>
              
            </div>
 
@@ -119,36 +115,36 @@ export default {
          let point = this.$root.formerPoint;
         if(point >= 50 && point <= 99){
 
-     return 'a Steel developer';
+     return 'a Steel citon';
   
   }
   else if(point >= 100 && point <= 299 ){
    
-      return 'a Bronze developer';
+      return 'a Bronze citon';
  
   }
    else if(point >= 300 && point <= 599 ){ 
   
-     return 'a Silver developer';
+     return 'a Silver citon';
 
   
     }
     else if(point >= 600 && point <= 999 ){ 
 
-         return 'a Gold developer';
+         return 'a Gold citon';
 
    
 
    }
  else if(point >= 1000 && point <= 1499 ){ 
 
-      return 'a Platinum developer';
+      return 'a Platinum citon';
 
   
   }
   else if(point >= 1500  && point <= 9999 ){ 
 
-     return 'a Diamond developer';
+     return 'a Diamond citon';
  
 }
          
@@ -171,59 +167,59 @@ export default {
    
   if(point >= 50 && point <= 99){
 
-   this.nextLevel='a Bronze developer';
+   this.nextLevel='a Bronze citon';
    this.remainingPoints =100-point;
-   this.presentLevel = 'a Steel developer';
+   this.presentLevel = 'a Steel citon';
     this.newLevelImage = '/imgs/steel.svg';
 
   }
   else if(point >= 100 && point <= 299 ){
    
-   this.nextLevel='a Silver developer';
+   this.nextLevel='a Silver citon';
 
     this.remainingPoints=300-point;
 
-     this.presentLevel = 'a Bronze developer';
+     this.presentLevel = 'a Bronze citon';
 
        this.newLevelImage = '/imgs/bronze.svg';
  
   }
    else if(point >= 300 && point <= 599 ){ 
   
-  this.nextLevel='a Gold developer';
+  this.nextLevel='a Gold citon';
 
    this.remainingPoints= 600-point;
 
-    this.presentLevel = 'a Silver developer';
+    this.presentLevel = 'a Silver citon';
 
       this.newLevelImage = '/imgs/silver.svg';
 
     }
     else if(point >= 600 && point <= 999 ){ 
 
-   this.nextLevel='a Platinum developer';
+   this.nextLevel='a Platinum citon';
 
      this.remainingPoints=1000-point;
 
-     this.presentLevel = 'a Gold developer';
+     this.presentLevel = 'a Gold citon';
        this.newLevelImage = '/imgs/gold.svg';
 
    }
  else if(point >= 1000 && point <= 1499 ){ 
- this.nextLevel='a Diamond developer';
+ this.nextLevel='a Diamond citon';
 
  this.remainingPoints=1500 - point;
 
-   this.presentLevel = 'a Platinum developer';
+   this.presentLevel = 'a Platinum citon';
      this.newLevelImage = '/imgs/platinum.svg';
   
   }
   else if(point >= 1500  && point <= 9999 ){ 
-  this.nextLevel='a Diamond developer';
+  this.nextLevel='a Diamond citon';
 
   this.remainingPoints= 10000 - point;
 
-   this.presentLevel = 'a Diamond developer';
+   this.presentLevel = 'a Diamond citon';
 
      this.newLevelImage = '/imgs/diamond.svg';
  

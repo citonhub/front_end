@@ -256,6 +256,9 @@
 
 <script>
 
+import VueScreen from 'vue-screen'
+Vue.use(VueScreen, 'bootstrap')
+
 const ImageCropperBoard = () => import(
     /* webpackChunkName: "imageCropperBoard" */ './ImageCropper.vue'
   );

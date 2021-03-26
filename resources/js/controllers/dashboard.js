@@ -3055,7 +3055,7 @@ const app = new Vue({
 
                     this.$root.remoteScreen = true;
 
-                    if(this.$root.liveIsOn &&  this.$root.chatComponent.liveSessionIsOpen){
+                    if(this.$root.chatComponent.liveSessionIsOpen){
 
                       if(this.livesessionComponent){
 
@@ -3064,7 +3064,6 @@ const app = new Vue({
                       }
 
                        
-
                     }
 
                  }
@@ -4885,13 +4884,13 @@ this.$root.dataconnection.iceServers = [];
 
 // second step, set STUN url
 this.$root.dataconnection.iceServers.push({
- urls: 'stun:134.122.10.107:3478'  
+ urls: 'stun:167.99.145.235:3478'  
 });
 
 // last step, set TURN url (recommended)
 
 this.$root.dataconnection.iceServers.push({
-urls: 'turn:134.122.10.107:3478',
+urls: 'turn:167.99.145.235:3478',
 credential: '15Raymond',
 username: 'ILoveCitonHubPort'
 });
@@ -5068,14 +5067,14 @@ OfferToReceiveVideo: false
 
 // second step, set STUN url
 this.$root.connection.iceServers.push({
-urls: 'stun:134.122.10.107:3478'  
+urls: 'stun:167.99.145.235:3478'  
 });
 
 // last step, set TURN url (recommended)
 
     
  this.$root.connection.iceServers.push({
-  urls: 'turn:134.122.10.107:3478',
+  urls: 'turn:167.99.145.235:3478',
   credential: '15Raymond',
   username: 'ILoveCitonHubPort'
  });
@@ -5289,13 +5288,13 @@ this.$root.audioconnection.iceServers = [];
 
 // second step, set STUN url
 this.$root.audioconnection.iceServers.push({
- urls: 'stun:134.122.10.107:3478'  
+ urls: 'stun:167.99.145.235:3478'  
 });
 
 // last step, set TURN url (recommended)
 
 this.$root.audioconnection.iceServers.push({
-urls: 'turn:134.122.10.107:3478',
+urls: 'turn:167.99.145.235:3478',
 credential: '15Raymond',
 username: 'ILoveCitonHubPort'
 });

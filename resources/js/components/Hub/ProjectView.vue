@@ -475,6 +475,9 @@ import 'vue-virtual-scroller/dist/vue-virtual-scroller.css'
 Vue.component('DynamicScroller', DynamicScroller)
 Vue.component('DynamicScrollerItem', DynamicScrollerItem)
 
+import VueScreen from 'vue-screen'
+Vue.use(VueScreen, 'bootstrap')
+
 
  const CommentPost = () => import(
     /* webpackChunkName: "CommentPost" */ './comment.vue'

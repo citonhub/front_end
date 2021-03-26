@@ -23,7 +23,7 @@
                                       <template v-if="this.$root.liveBoardContent == 'action_list'">
                                           
                                           <div class=" col-4 col-lg-2 px-2 my-0 py-2 " style="z-index:9999999;">
-                          <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px; background:white;" @click="selectAction('voice_chat')">
+                          <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px; background:white;" @click.stop="selectAction('voice_chat')">
                               <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                        <v-badge
@@ -44,7 +44,7 @@
                             </div>
 
                                      <div class=" col-4 col-lg-2 px-2 my-0 py-2 " style="z-index:9999999;">
-                          <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px;margin-top:-150px;background:white;" @click="selectAction('live_coding')">
+                          <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px;margin-top:-150px;background:white;" @click.stop="selectAction('live_coding')">
                               <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                       <v-badge
@@ -65,7 +65,7 @@
                             </div>
 
                              <div class=" col-4 col-lg-2 px-2 my-0 py-2 " style="z-index:9999999;">
-                          <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px;background:white;" @click="selectAction('screen_sharing')">
+                          <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px;background:white;" @click.stop="selectAction('screen_sharing')">
                               <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
                                    <div class="text-center">
                                         <v-badge
@@ -321,7 +321,7 @@ export default {
 
               if(this.$root.remoteScreen){
                
-               // this.selectAction('screen_sharing')
+               this.selectAction('screen_sharing')
                 
               }
 
@@ -333,15 +333,20 @@ export default {
 
               if(this.$root.remoteAudio){
            
-           // this.selectAction('voice_chat')
+           this.selectAction('voice_chat')
 
           }
 
       }else{
         this.$root.liveBoardContent = 'action_list'
       }
+
+   
        },
     methods:{
+       setZoomer:function(){
+     
+       },
       muteAudio:function(){
 
       if(this.$root.audioconnection){
@@ -540,8 +545,7 @@ export default {
             if(type == 'screen_sharing'){
                   this.$root.liveBoardContent = 'audio_speaker';
                   this.connectScreen();
-
-                     this.$root.sendLiveSignal('screen');
+                 this.$root.sendLiveSignal('screen');
             }
 
              if(type == 'live_coding'){

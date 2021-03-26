@@ -116,12 +116,7 @@
       <a href="/dashboard#/sign-up" class="homeButton ml-2 py-3 px-4 d-inline-block ">Get Started</a>
       
      <!--a href="/dashboard#/login" class="homeButtonOutline mx-3 px-5 py-3">Login</a>-->
-      
-       
-     
-      
-    
-   
+
      </div>
    </div>
 

@@ -76,8 +76,7 @@ import moment from 'moment'
 
 window.moment = require('moment');
 
-import VueScreen from 'vue-screen'
-Vue.use(VueScreen, 'bootstrap')
+
 
 /**
  *import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller'

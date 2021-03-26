@@ -164,7 +164,7 @@
                 <div class=" col-12 py-1 pt-2 "   >
                      <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
                      <v-progress-linear height="7px" width="100%" rounded color="#3C87CD" :value="barValue"></v-progress-linear>
-                      <span style="font-family:BodyFont;font-size:12px;color:#333333;"><span style="font-family:MediumFont;">{{xpLeft}}</span> XP Points to {{nextLevel}} dev</span>
+                      <span style="font-family:BodyFont;font-size:12px;color:#333333;"><span style="font-family:MediumFont;">{{xpLeft}}</span> XP Points to {{nextLevel}} citon</span>
                 </div>
                 </div>
 
