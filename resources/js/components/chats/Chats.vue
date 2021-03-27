@@ -1495,7 +1495,7 @@
                                     <!-- rtc screen -->
 
               
-                 <v-zoomer style="position:absolute;top:10%; left:0%; height:80%; width:100%; align-items:center; justify-content:center; z-index:9999;" >
+                 <v-zoomer style="top:10%; left:0%; height:500px; width:100%;z-index:9999;" >
 
                <div  id="videos-container-sm" ></div>
 
