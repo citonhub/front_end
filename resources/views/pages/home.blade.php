@@ -120,7 +120,7 @@
      </div>
 
      <div class="col-12 pt-5 mt-5 text-center">
-     <img src="imgs/all_in_one_new.svg" alt="" style="z-index:1; height:100px;"> 
+     <img src="imgs/all_in_one_full.svg" alt="" style="z-index:1; height:100px;"> 
      </div>
    </div>
 
@@ -145,7 +145,7 @@
       </div>
 
       <div class="col-12 pt-2 mt-5 text-center">
-     <img src="imgs/all_in_one_new.svg" alt="" style="z-index:1;width:100%; height:55px;"> 
+     <img src="imgs/all_in_one_full.svg" alt="" style="z-index:1;width:100%; height:55px;"> 
      </div>
 
   </div> 
@@ -507,9 +507,9 @@
 <i class="las la-book" style="font-size:55px; color:white;"></i>
 </div>
 
-<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none text-center">Share your knowlegde with diaries</p>
+<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none text-center">Share your knowledge with diaries</p>
 
-<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block text-center">Share your knowlegde with diaries</p>
+<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block text-center">Share your knowledge with diaries</p>
 </div>
 
 </div>
