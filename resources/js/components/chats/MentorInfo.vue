@@ -24,8 +24,8 @@
                       
                      Hey <span style="font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, <br> <br>
                      
-                     To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span> on CitonHub. You are <span style="font-family:MediumFont;">{{ presentLevel }}</span> and
-                      have <span style="font-family:MediumFont;">{{remainingPoints}} </span>experience points remaining to become a <span style="font-family:MediumFont;">Bronze citon </span>. Get more experience points by 
+                     To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span>. You are <span style="font-family:MediumFont;">{{ presentLevel }}</span> and
+                      have <span style="font-family:MediumFont;">{{remainingPoints}} </span>experience points remaining to become <span style="font-family:MediumFont;">Bronze citon </span>. Get more experience points by 
                       <span style="font-family:MediumFont;">sharing your works</span> with the community or 
                      by sharing what you know in  <span style="font-family:MediumFont;">your diaries</span>.
 

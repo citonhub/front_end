@@ -22,9 +22,10 @@
       <div class="py-3   px-md-3 px-2" style="font-size:13px; font-family:BodyFont;">
 
         <span>Hey <span style="font-size:13px; font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, <br> <br>
-        To become a mentor , you need to be 
-        at least a <span style="font-size:13px; font-family:MediumFont;">Bronze citon</span> On CitonHub. As a mentor, you can <span style="font-size:13px; font-family:MediumFont;">create a channel to mentor and earn</span>.
-         You have <span style="font-size:13px; font-family:MediumFont;">{{remainingPoints}} experience points (XP)</span> remaining to become a <span style="font-size:13px; font-family:MediumFont;">{{nextLevel}}.</span></span> Share your works with
+         At CitonHub, we believe we can help <span style="font-size:13px; font-family:MediumFont;">1 million people</span> get into tech in the <span style="font-size:13px; font-family:MediumFont;">next 5 years</span>. Join us by becoming a mentor. <br><br>
+        To become a mentor , you need to be
+        at least a <span style="font-size:13px; font-family:MediumFont;">Bronze citon</span>.
+         You have <span style="font-size:13px; font-family:MediumFont;">{{remainingPoints}} experience points (XP)</span> remaining to become <span style="font-size:13px; font-family:MediumFont;">{{nextLevel}}.</span></span> Share your works with
         the community to get more experience points. 
 
    </div>

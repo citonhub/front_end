@@ -122,37 +122,9 @@
 
 
  <!-- ends -->
-    
-<!-- Main board -->
-<div   :style="!$screen.lg ? 'z-index:999999; background:#F5F5FB;  align-items:center; justify-content:center; position:fixed; width:100%; left:0%; height:100%; top:0%;'
-: 'z-index:999999; background:#F5F5FB;  align-items:center; justify-content:center; position:fixed; width:85%; left:15%; height:100%; top:0%;'">
-
-    <!-- top bar component -->
-    
-     <top-bar></top-bar>
-
-     <!-- ends -->
-  
-      <div class="col-12 py-0 pb-3 px-0 mt-md-5" style="position:absolute; background:#F5F5FB; left:0%; top:0%;  height:100%;overflow-y:hidden; overflow-x:hidden; ">
-      <!-- entry point for vue router -->
-      <router-view></router-view>
-      <!-- ends -->
-     </div>
-     
-   
-   
-
-  </div>
 
 
-    
-     
-<!-- ends -->
-     
-   </div>
-
-
-    <!-- profile View  -->
+     <!-- profile View  -->
 
 
    <div class="py-0 px-0" style="position:fixed; width:100%; height:100%; z-index:99999999999999999;background: #F5F5FB;" v-if="this.$root.showProfileView">
@@ -249,6 +221,37 @@
 
 
  <!-- ends -->
+    
+<!-- Main board -->
+<div   :style="!$screen.lg ? 'z-index:999999; background:#F5F5FB;  align-items:center; justify-content:center; position:fixed; width:100%; left:0%; height:100%; top:0%;'
+: 'z-index:999999; background:#F5F5FB;  align-items:center; justify-content:center; position:fixed; width:85%; left:15%; height:100%; top:0%;'">
+
+    <!-- top bar component -->
+    
+     <top-bar></top-bar>
+
+     <!-- ends -->
+  
+      <div class="col-12 py-0 pb-3 px-0 mt-md-5" style="position:absolute; background:#F5F5FB; left:0%; top:0%;  height:100%;overflow-y:hidden; overflow-x:hidden; ">
+      <!-- entry point for vue router -->
+      <router-view></router-view>
+      <!-- ends -->
+     </div>
+     
+   
+   
+
+  </div>
+
+
+    
+     
+<!-- ends -->
+     
+   </div>
+
+
+
 
 </div>
   

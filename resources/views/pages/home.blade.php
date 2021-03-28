@@ -5,7 +5,7 @@
 
  @endsection
  @section('meta') 
- <meta name="description" content="CitonHub is a place for developers to mentor and earn from their passion across borders" />
+ <meta name="description" content="CitonHub is an all-in-one platform for developers to mentor, grow their communities, and earn." />
   <meta name="keywords" content="mentor programming,Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
@@ -19,7 +19,7 @@
     <meta name="msapplication-TileImage" content="images/icons/logo_msapplication-icon-144x144.png">
     <meta name="msapplication-TileColor" content="#3C87CD">
     <meta property="og:description" content="Join other developers helping each other grow on CitonHub" />
-    <meta property='twitter:title' content="CitonHub:A place for developers to mentor and earn from their passion across borders"/>
+    <meta property='twitter:title' content="CitonHub:An all-in-one platform for developers to mentor, grow their communities, and earn."/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 
@@ -104,19 +104,23 @@
 <div class="col-lg-6 offset-lg-3 text-center  d-none d-md-block flex-column " style=" align-items:center; justify-content:center; margin-top:140px;margin-bottom:100px;">
    
    <div class="px-2 mt-4 " >
-     <h1 style="font-family:HeaderFont;" class="mb-3 mt-4">Mentor, grow your community, and earn.</h1>
+     <h1 style="font-family:HeaderFont;" class="mb-3 mt-4">Get organized while making the impact you want.</h1>
 
      <div class="px-3">
-     <p style="font-size:20px;font-family:BodyFont;" class="px-5">CitonHub is a place <br>for developers to mentor and earn from their passion across borders.</p>
+     <p style="font-size:20px;font-family:BodyFont;" class="px-0">CitonHub is an all-in-one platform for developers to mentor, grow their communities, and earn.</p>
      </div>   
    
 
      <div class="py-2 px-0 mt-3 col-12 text-center">
   
-      <a href="/dashboard#/sign-up" class="homeButton ml-2 py-3 px-4 d-inline-block ">Get Started</a>
+      <a href="/dashboard#/sign-up" class="homeButton ml-2 py-3 px-4 d-inline-block ">Get started for $0</a>
       
      <!--a href="/dashboard#/login" class="homeButtonOutline mx-3 px-5 py-3">Login</a>-->
 
+     </div>
+
+     <div class="col-12 pt-5 mt-5 text-center">
+     <img src="imgs/all_in_one.svg" alt="" style="z-index:1; height:100px;"> 
      </div>
    </div>
 
@@ -126,17 +130,23 @@
 <div class="d-md-none d-block  " style="width:100%; margin-top:90px; margin-bottom:40px;">
 <div class=" text-center">
 
-<h4 style="font-family:HeaderFont;" class="mb-3 px-3">Mentor, grow your community, and earn.</h4>
+<h4 style="font-family:HeaderFont;" class="mb-3 px-3">Get organized while making the impact you want.</h4>
    
-   <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is a place for developers to mentor and earn from their passion across borders.</p>
+   <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is an all-in-one platform for developers to mentor, grow their communities, and earn.</p>
+    
 
+    
     
       <div class="mt-4">
 
-      <a href="/dashboard#/sign-up" class="homeButton  px-4 py-2 mx-1" style="font-size:14px;">Get Started</a>
+      <a href="/dashboard#/sign-up" class="homeButton  px-4 py-2 mx-1" style="font-size:14px;">Get started for $0</a>
 
        
       </div>
+
+      <div class="col-12 pt-2 mt-5 text-center">
+     <img src="imgs/all_in_one.svg" alt="" style="z-index:1;width:100%; height:55px;"> 
+     </div>
 
   </div> 
 </div>
@@ -157,7 +167,7 @@
     <!-- what you can do -->
 <div class="col-12 text-center pt-5">
 
-<h4 style="font-weight:bold; color:white;" class="text-center mb-0 d-md-block d-none" >CitonHub is an<br> all-in-one platform where you can:</h4>
+<h4 style="font-weight:bold; color:white;" class="text-center mb-0 d-md-block d-none" >What can you do?</h4>
 
 
 </div>
@@ -182,15 +192,15 @@
 
 <div class="d-md-none d-block" style="width:100%;height:690px;left:0%; margin-top:30px;" >
     
-    <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:700px;">
+    <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:680px;">
 
     <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column mt-1"> 
 
       <!-- what you can do -->
-<div class="col-12 text-center pt-5 mt-5">
+<div class="col-12 text-center pt-5 mt-3">
 
 
-<h5 style="font-weight:bold;  color:white;" class="text-center mb-0 d-md-none d-block mt-3 px-4" >CitonHub is an all-in-one platform where you can:</h5>
+<h5 style="font-weight:bold;  color:white;" class="text-center mb-0 d-md-none d-block mt-1 px-4" >What can you do?</h5>
 
 </div>
 
@@ -229,7 +239,7 @@
 
 <div class="text-center  px-5" style="z-index:1;">
 
-<span  style=" font-family:BodyFont; font-size:18px;">Mentor upcoming developers in your channel.</span>
+<span  style=" font-family:BodyFont; font-size:18px;">Mentor developers in your channel.</span>
 </div>
     
     </div>
@@ -249,7 +259,7 @@
 
 <div class="text-center  px-5" style="z-index:1;">
 
-<span  style=" font-family:BodyFont; font-size:15px;">Mentor upcoming developers in your channel.</span>
+<span  style=" font-family:BodyFont; font-size:15px;">Mentor developers in your channel.</span>
 </div>
     
     </div>
@@ -370,7 +380,7 @@
 
 <div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1 d-flex flex-row flex-wrap">
 
-<div class="col-md-4 d-flex flex-column">
+<div class="col-md-4 d-flex flex-column mt-2">
 
   <div class="py-2 px-2 d-flex mb-4 flex-row" style="align-items:center;justify-content:center;">
      <span class="messagesBadges d-flex">
@@ -385,7 +395,7 @@
  </div>
 
 </div>
-<div class="col-md-4">
+<div class="col-md-4 mt-2" >
 <div class="py-2 px-2 d-flex mb-4 flex-row" style="align-items:center;justify-content:center;">
      <span class="messagesBadges d-flex">
        2
@@ -398,7 +408,7 @@
 </div>
 </div>
 
-<div class="col-md-4">
+<div class="col-md-4 mt-2">
 <div class="py-2 px-2 d-flex flex-row mb-4" style="align-items:center;justify-content:center;">
      <span class="messagesBadges d-flex">
        3
@@ -422,9 +432,9 @@
 
 <div class="features col-lg-12 px-0 mt-md-4">
 
-<h3 style="font-weight:bold;" class="text-center mb-2 d-md-block d-none" >Features for mentoring</h3>
+<h3 style="font-weight:bold;" class="text-center mb-2 d-md-block d-none" >Features</h3>
 
-<h5 style="font-weight:bold;" class="text-center mb-2 d-md-none d-block px-4" >Features for mentoring</h5>
+<h5 style="font-weight:bold;" class="text-center mb-2 d-md-none d-block px-4" >Features</h5>
 
 <div  class=" mt-5 col-lg-8 offset-lg-2 d-flex flex-row flex-wrap"  style="align-items:center;justify-content:center;">
 
@@ -497,9 +507,9 @@
 <i class="las la-book" style="font-size:55px; color:white;"></i>
 </div>
 
-<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none text-center">Document your learing process in diaries</p>
+<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none text-center">Share your knowlegde with diaries</p>
 
-<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block text-center">Document your learing process in diaries</p>
+<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block text-center">Share your knowlegde with diaries</p>
 </div>
 
 </div>
@@ -512,9 +522,9 @@
 <!-- get started -->
 <div class="col-12 text-center py-3 pt-5">
 
-<a href="/dashboard#/sign-up" class="homeButton ml-2 py-3 px-4 d-md-inline-block d-none">Get Started</a>
+<a href="/dashboard#/sign-up" class="homeButton ml-2 py-3 px-4 d-md-inline-block d-none">Get started for $0</a>
 
-<a href="/dashboard#/sign-up" class="homeButton  px-4 py-2 mx-1 d-md-none d-inline-block" style="font-size:14px;">Get Started</a>
+<a href="/dashboard#/sign-up" class="homeButton  px-4 py-2 mx-1 d-md-none d-inline-block" style="font-size:14px;">Get started for $0</a>
 
 </div>
 
