@@ -61,7 +61,7 @@
                      Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. <br><br>
 
                     
-                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span> on CitonHub. You are <span style="font-family:MediumFont;">{{ presentLevel}}</span> and
+                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span>. You are <span style="font-family:MediumFont;">{{ presentLevel}}</span> and
                       have <span style="font-family:MediumFont;">{{remainingPoints}} </span>experience points remaining to become a <span style="font-family:MediumFont;">Bronze citon</span>.<br><br> 
                       
                       Get more experience points by 
