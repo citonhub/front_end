@@ -51,7 +51,7 @@
         <div class="text-center  d-flex flex-row col-12 px-1">
            <div class="col-6 px-0 py-0 text-center">
             
-             <v-btn small @click="createChannel" color="#3C87CD" style="color:white;text-transform:normal;font-family:BodyFont;font-size:10px;" class="mx-2 d-inline-block" >Create a channel</v-btn>
+             <v-btn small @click="makeMentor" color="#3C87CD" style="color:white;text-transform:normal;font-family:BodyFont;font-size:10px;" class="mx-2 d-inline-block" >Become a mentor</v-btn>
              
            </div>
 

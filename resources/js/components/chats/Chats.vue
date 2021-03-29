@@ -150,63 +150,12 @@
                      Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. <br><br>
 
                     
-                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span>. <br>
-                     
-                       <!-- position icon -->
-                         <div class="col-12 py-4 my-0 d-flex" style="align-items:center;justify-content:center;">
-
-              <div class="row">
-                
-                <div class="col-4 py-0 d-flex"  style="align-items:center;justify-content:center;">
-                
-                <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
-                      <img :src="pic1" height="35px"> 
-                      <span style="font-family:MediumFont;font-size:12px;">{{level}}</span>
-                </div>
-
-                </div>
-
-                 <div class="col-4 py-0 d-flex"  style="align-items:center;justify-content:center;">
-                      <span class="mx-1" style="font-family:MediumFont;font-size:12px;" >{{this.$root.authProfile.points}} </span><span style="font-size:12px;">XP</span>
-                  </div>
-
-
-                 <div class="col-4  py-0 d-flex "  style="align-items:center;justify-content:center;">
-
-                   <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
-                     <img :src="pic" height="35px"> 
-                      <span style="font-family:MediumFont;font-size:12px;">{{nextLevel}}</span>
-                </div>
-                    
-                </div>
-
-                <div class=" col-12 py-1 pt-2 "   >
-                     <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
-                     <v-progress-linear height="7px" width="100%" rounded color="#3C87CD" :value="barValue"></v-progress-linear>
-                      <span style="font-family:BodyFont;font-size:12px;"><span style="font-family:MediumFont;">{{xpLeft}}</span> XP Points to {{nextLevel}} citon</span>
-                </div>
-                </div>
-
-              </div>
-
-            </div>
-                       <!-- ends -->
-
-                      Get more experience points (XP) by 
-                      <span style="font-family:MediumFont;">sharing your works</span> with the community or 
-                     by sharing what you know in  <span style="font-family:MediumFont;">your diaries</span>.
-
-
 
                       <div class="col-12 py-1 px-1 mt-3">
                          <div class="row">
 
-                             <div class="col-6 py-1 px-1 text-center">
-                       <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Share your works</v-btn>
-                           </div>
-
-                           <div class="col-6 py-1 px-1 text-center">
-                       <v-btn small  @click="goToDiary" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Start a diary</v-btn>
+                            <div class="col-12 py-1 px-1 text-center">
+                        <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
                            </div>
 
                          </div>
@@ -926,68 +875,15 @@
                      
                      Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. <br><br>
 
-                    
-                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span>. <br>
+                  
 
-
-                        
-                       <!-- position icon -->
-                         <div class="col-12  my-0 d-flex py-3" style="align-items:center;justify-content:center;">
-
-              <div class="row">
-                
-                <div class="col-4 py-0 d-flex"  style="align-items:center;justify-content:center;">
-                
-                <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
-                      <img :src="pic1" height="30px"> 
-                      <span style="font-family:MediumFont;font-size:12px;">{{level}}</span>
-                </div>
-
-                </div>
-
-                 <div class="col-4 py-0 d-flex"  style="align-items:center;justify-content:center;">
-                      <span class="mx-1" style="font-family:MediumFont;font-size:12px;" >{{this.$root.authProfile.points}} </span><span style="font-size:12px;">XP</span>
-                  </div>
-
-
-                 <div class="col-4  py-0 d-flex "  style="align-items:center;justify-content:center;">
-
-                   <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
-                     <img :src="pic" height="30px"> 
-                      <span style="font-family:MediumFont;font-size:12px;">{{nextLevel}}</span>
-                </div>
-                    
-                </div>
-
-                <div class=" col-12 py-1 pt-2 "   >
-                     <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
-                     <v-progress-linear height="7px" width="100%" rounded color="#3C87CD" :value="barValue"></v-progress-linear>
-                      <span style="font-family:BodyFont;font-size:12px;"><span style="font-family:MediumFont;">{{xpLeft}}</span> XP Points to {{nextLevel}} citon</span>
-                </div>
-                </div>
-
-              </div>
-
-            </div>
-                       <!-- ends -->
-
-
-                      Get more experience points (XP) by 
-                      <span style="font-family:MediumFont;">sharing your works</span> with the community or 
-                     by sharing what you know in  <span style="font-family:MediumFont;">your diaries</span>.
-
-
-
-                      <div class="col-12 py-1 px-1 mt-3">
+                      <div class="col-12 py-1 px-1 mt-2">
                          <div class="row">
 
-                             <div class="col-6 py-1 px-1 text-center">
-                       <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Share your works</v-btn>
+                             <div class="col-12 py-1 px-1 text-center">
+                        <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
                            </div>
 
-                           <div class="col-6 py-1 px-1 text-center">
-                       <v-btn small  @click="goToDiary" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Start a diary</v-btn>
-                           </div>
 
                          </div>
                         
@@ -2976,16 +2872,7 @@ this.pic1='/imgs/platinum.svg'
        },
         showCreateChannel: function(){
 
-           if(this.$root.authProfile.points < 100){
-
-             this.$root.fromCreateAChannel = true;
-
-              this.$root.showMentorInfo = true;
-
-               return;
-
-           }
-
+        
            this.$root.componentIsLoading = true;
 
             this.$router.push({ path: '/channels/create' });
@@ -3043,7 +2930,7 @@ this.pic1='/imgs/platinum.svg'
 
                         this.$root.loadingChatList = false;
 
-                        this.checkUserLevel();
+                      //  this.checkUserLevel();
 
                           
 
@@ -3073,7 +2960,7 @@ this.pic1='/imgs/platinum.svg'
 
              this.$root.loadingChatList = false;
 
-            this.checkUserLevel();
+           // this.checkUserLevel();
            
 
      }

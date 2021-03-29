@@ -24,8 +24,51 @@
         <span>Hey <span style="font-size:13px; font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, <br> <br>
          At CitonHub, we believe we can help <span style="font-size:13px; font-family:MediumFont;">1 million people</span> get into tech in the <span style="font-size:13px; font-family:MediumFont;">next 5 years</span>. Join us by becoming a mentor. <br><br>
         To become a mentor , you need to be
-        at least a <span style="font-size:13px; font-family:MediumFont;">Bronze citon</span>.
-         You have <span style="font-size:13px; font-family:MediumFont;">{{remainingPoints}} experience points (XP)</span> remaining to become <span style="font-size:13px; font-family:MediumFont;">{{nextLevel}}.</span></span> Share your works with
+        at least a <span style="font-size:13px; font-family:MediumFont;">Bronze citon</span>. <br>
+
+         <!-- position icon -->
+                         <div class="col-12  my-0 d-flex py-3" style="align-items:center;justify-content:center;">
+
+              <div class="row">
+                
+                <div class="col-4 py-0 d-flex"  style="align-items:center;justify-content:center;">
+                
+                <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
+                      <img :src="pic1" height="30px"> 
+                      <span style="font-family:MediumFont;font-size:12px;">{{level}}</span>
+                </div>
+
+                </div>
+
+                 <div class="col-4 py-0 d-flex"  style="align-items:center;justify-content:center;">
+                      <span class="mx-1" style="font-family:MediumFont;font-size:12px;" >{{this.$root.authProfile.points}} </span><span style="font-size:12px;">XP</span>
+                  </div>
+
+
+                 <div class="col-4  py-0 d-flex "  style="align-items:center;justify-content:center;">
+
+                   <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
+                     <img :src="pic" height="30px"> 
+                      <span style="font-family:MediumFont;font-size:12px;">{{nextLevel}}</span>
+                </div>
+                    
+                </div>
+
+                <div class=" col-12 py-1 pt-2 "   >
+                     <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
+                     <v-progress-linear height="7px" width="100%" rounded color="#3C87CD" :value="barValue"></v-progress-linear>
+                      <span style="font-family:BodyFont;font-size:12px;"><span style="font-family:MediumFont;">{{xpLeft}}</span> XP Points to {{nextLevel}} citon</span>
+                </div>
+                </div>
+
+              </div>
+
+            </div>
+                       <!-- ends -->
+
+     
+       
+        Share your works with
         the community to get more experience points. 
 
    </div>
@@ -46,8 +89,6 @@
       <div class="py-3 col-12  px-md-3 px-2" style="font-size:13px; font-family:BodyFont;">
 
          <template v-if="that.$root.authProfile.is_mentor">
-
-
 
         <span> <span style="font-size:13px; font-family:MediumFont; text-transform:capitalize;">Congratulations! </span> <br><br>You are now a mentor on CitonHub.
         Create a channel to start <span style="font-size:13px; font-family:MediumFont;">mentoring and earn from donation, subscription or paid sessions</span>.</span>
@@ -178,13 +219,65 @@ export default {
                'Swift',
                'Scala'
             ],
+              level:'',
+      xpLeft:0,
+      barValue:0,
+      pic:'',
+       pic1:''
         
       }
     },
     mounted(){
        this.calculateLevel(this.$root.authProfile.points)
+
+        this.calculateLevelNew(this.$root.authProfile.points)
     },
      methods:{
+       calculateLevelNew:function(point){
+  if(point >= 50 && point <= 99){
+this.level='Steel';
+this.nextLevel='Bronze';
+this.xpLeft=100-point;
+this.barValue=(point/100)*100;
+this.pic='/imgs/bronze.svg'
+this.pic1='/imgs/steel.svg'
+  }
+  else if(point >= 100 && point <= 299 ){ this.level='Bronze';
+  this.nextLevel='Silver';
+  this.xpLeft=300-point;
+  this.barValue=(point/300)*100
+  this.pic='/imgs/silver.svg'
+this.pic1='/imgs/bronze.svg'
+  }
+   else if(point >= 300 && point <= 599 ){ 
+     this.level='Silver';
+  this.nextLevel='Gold';
+  this.xpLeft=600-point;
+  this.barValue=(point/600)*100;
+   this.pic='/imgs/gold.svg'
+this.pic1='/imgs/silver.svg' }
+    else if(point >= 600 && point <= 999 ){ this.level='Gold';
+   this.nextLevel='Platinum';
+   this.xpLeft=1000-point;
+   this.barValue=(point/1000)*100;
+   this.pic='/imgs/platinum.svg'
+this.pic1='/imgs/gold.svg'
+   }
+ else if(point >= 1000 && point <= 1499 ){ this.level='Platinum';
+ this.nextLevel='Diamond';
+ this.xpLeft=1500-point;
+ this.barValue=(point/1500)*100;
+ this.pic='/imgs/diamond.svg'
+this.pic1='/imgs/platinum.svg'}
+  else if(point >= 1500 && point <= 9999 ){ this.level='Platinum';
+  this.nextLevel='Diamond';
+  this.xpLeft=10000-point;
+  this.barValue=(point/10000)*100;
+ this.pic='/imgs/diamond.svg'
+this.pic1='/imgs/platinum.svg'
+}
+
+},
         createChannel:function(){
           this.$root.componentIsLoading = true;
 
