@@ -150,10 +150,49 @@
                      Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. <br><br>
 
                     
-                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span> on CitonHub. You are <span style="font-family:MediumFont;">{{ presentLevel }}</span> and
-                      have <span style="font-family:MediumFont;">{{remainingPoints}} </span>experience points remaining to become a <span style="font-family:MediumFont;">Bronze citon</span>.<br><br> 
-                      
-                      Get more experience points by 
+                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span>. <br>
+                     
+                       <!-- position icon -->
+                         <div class="col-12 py-4 my-0 d-flex" style="align-items:center;justify-content:center;">
+
+              <div class="row">
+                
+                <div class="col-4 py-0 d-flex"  style="align-items:center;justify-content:center;">
+                
+                <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
+                      <img :src="pic1" height="35px"> 
+                      <span style="font-family:MediumFont;font-size:12px;">{{level}}</span>
+                </div>
+
+                </div>
+
+                 <div class="col-4 py-0 d-flex"  style="align-items:center;justify-content:center;">
+                      <span class="mx-1" style="font-family:MediumFont;font-size:12px;" >{{this.$root.authProfile.points}} </span><span style="font-size:12px;">XP</span>
+                  </div>
+
+
+                 <div class="col-4  py-0 d-flex "  style="align-items:center;justify-content:center;">
+
+                   <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
+                     <img :src="pic" height="35px"> 
+                      <span style="font-family:MediumFont;font-size:12px;">{{nextLevel}}</span>
+                </div>
+                    
+                </div>
+
+                <div class=" col-12 py-1 pt-2 "   >
+                     <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
+                     <v-progress-linear height="7px" width="100%" rounded color="#3C87CD" :value="barValue"></v-progress-linear>
+                      <span style="font-family:BodyFont;font-size:12px;"><span style="font-family:MediumFont;">{{xpLeft}}</span> XP Points to {{nextLevel}} citon</span>
+                </div>
+                </div>
+
+              </div>
+
+            </div>
+                       <!-- ends -->
+
+                      Get more experience points (XP) by 
                       <span style="font-family:MediumFont;">sharing your works</span> with the community or 
                      by sharing what you know in  <span style="font-family:MediumFont;">your diaries</span>.
 
@@ -888,10 +927,52 @@
                      Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. <br><br>
 
                     
-                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span> on CitonHub. You are <span style="font-family:MediumFont;">{{ presentLevel }}</span> and
-                      have <span style="font-family:MediumFont;">{{remainingPoints}} </span>experience points remaining to become a <span style="font-family:MediumFont;">Bronze citon</span>.<br><br> 
-                      
-                      Get more experience points by 
+                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span>. <br>
+
+
+                        
+                       <!-- position icon -->
+                         <div class="col-12  my-0 d-flex py-3" style="align-items:center;justify-content:center;">
+
+              <div class="row">
+                
+                <div class="col-4 py-0 d-flex"  style="align-items:center;justify-content:center;">
+                
+                <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
+                      <img :src="pic1" height="30px"> 
+                      <span style="font-family:MediumFont;font-size:12px;">{{level}}</span>
+                </div>
+
+                </div>
+
+                 <div class="col-4 py-0 d-flex"  style="align-items:center;justify-content:center;">
+                      <span class="mx-1" style="font-family:MediumFont;font-size:12px;" >{{this.$root.authProfile.points}} </span><span style="font-size:12px;">XP</span>
+                  </div>
+
+
+                 <div class="col-4  py-0 d-flex "  style="align-items:center;justify-content:center;">
+
+                   <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
+                     <img :src="pic" height="30px"> 
+                      <span style="font-family:MediumFont;font-size:12px;">{{nextLevel}}</span>
+                </div>
+                    
+                </div>
+
+                <div class=" col-12 py-1 pt-2 "   >
+                     <div class="d-flex flex-column"  style="align-items:center;justify-content:center;">
+                     <v-progress-linear height="7px" width="100%" rounded color="#3C87CD" :value="barValue"></v-progress-linear>
+                      <span style="font-family:BodyFont;font-size:12px;"><span style="font-family:MediumFont;">{{xpLeft}}</span> XP Points to {{nextLevel}} citon</span>
+                </div>
+                </div>
+
+              </div>
+
+            </div>
+                       <!-- ends -->
+
+
+                      Get more experience points (XP) by 
                       <span style="font-family:MediumFont;">sharing your works</span> with the community or 
                      by sharing what you know in  <span style="font-family:MediumFont;">your diaries</span>.
 
@@ -1983,9 +2064,12 @@ export default {
        bottomIsVisible:false,
        showMoreOptionsChat:false,
        selectedSpaceMembers:[],
-       nextLevel:'',
-        remainingPoints:0,
-        presentLevel:''
+        level:'',
+      nextLevel:'',
+      xpLeft:0,
+      barValue:0,
+      pic:'',
+       pic1:''
      
       }
     },
@@ -1997,7 +2081,7 @@ export default {
     
      this.controlChatPath();
 
-     this.calculateLevel(this.$root.authProfile.points)
+  
       this.fetchChatList();
 
       
@@ -2108,90 +2192,12 @@ export default {
        
 
     },
-  calculateLevel(point){
-   this.nextLevel = '';
 
-     this.remainingPoints = 0;
-   
-  if(point >= 50 && point <= 99){
-
-   this.nextLevel='a Bronze citon';
-   this.remainingPoints =100-point;
-   this.presentLevel = 'a Steel citon';
-    this.newLevelImage = '/imgs/steel.svg';
-
-  }
-  else if(point >= 100 && point <= 299 ){
-   
-   this.nextLevel='a Silver citon';
-
-    this.remainingPoints=300-point;
-
-     this.presentLevel = 'a Bronze citon';
-
-       this.newLevelImage = '/imgs/bronze.svg';
- 
-  }
-   else if(point >= 300 && point <= 599 ){ 
-  
-  this.nextLevel='a Gold citon';
-
-   this.remainingPoints= 600-point;
-
-    this.presentLevel = 'a Silver citon';
-
-      this.newLevelImage = '/imgs/silver.svg';
-
-    }
-    else if(point >= 600 && point <= 999 ){ 
-
-   this.nextLevel='a Platinum citon';
-
-     this.remainingPoints=1000-point;
-
-     this.presentLevel = 'a Gold citon';
-       this.newLevelImage = '/imgs/gold.svg';
-
-   }
- else if(point >= 1000 && point <= 1499 ){ 
- this.nextLevel='a Diamond citon';
-
- this.remainingPoints=1500 - point;
-
-   this.presentLevel = 'a Platinum citon';
-     this.newLevelImage = '/imgs/platinum.svg';
-  
-  }
-  else if(point >= 1500  && point <= 9999 ){ 
-  this.nextLevel='a Diamond citon';
-
-  this.remainingPoints= 10000 - point;
-
-   this.presentLevel = 'a Diamond citon';
-
-     this.newLevelImage = '/imgs/diamond.svg';
- 
-}
-
- return [this.nextLevel,this.remainingPoints,this.presentLevel];
-
-},
 goToDiary:function(){
     this.$router.push({ path: '/board/diary/list' });
 },
-    getUserLevel: function(){
-       let result = this.calculateLevel(this.$root.authProfile.points);
-       return result[0];
-    },
-    getuserRemainingPoint: function(){
-     let result = this.calculateLevel(this.$root.authProfile.points);
-       return result[1];
-    },
-    getuserPresentLevel: function(){
-     let result = this.calculateLevel(this.$root.authProfile.point);
-       return result[2];
-    },
-  
+   
+   
     shareProject:function(){
 
        this.$root.componentIsLoading = true;
@@ -2332,6 +2338,52 @@ goToChatList:function(){
      }) 
 
       },
+      calculateLevel:function(point){
+
+  if(point >= 50 && point <= 99){
+this.level='Steel';
+this.nextLevel='Bronze';
+this.xpLeft=100-point;
+this.barValue=(point/100)*100;
+this.pic='/imgs/bronze.svg'
+this.pic1='/imgs/steel.svg'
+  }
+  else if(point >= 100 && point <= 299 ){ this.level='Bronze';
+  this.nextLevel='Silver';
+  this.xpLeft=300-point;
+  this.barValue=(point/300)*100
+  this.pic='/imgs/silver.svg'
+this.pic1='/imgs/bronze.svg'
+  }
+   else if(point >= 300 && point <= 599 ){ 
+     this.level='Silver';
+  this.nextLevel='Gold';
+  this.xpLeft=600-point;
+  this.barValue=(point/600)*100;
+   this.pic='/imgs/gold.svg'
+this.pic1='/imgs/silver.svg' }
+    else if(point >= 600 && point <= 999 ){ this.level='Gold';
+   this.nextLevel='Platinum';
+   this.xpLeft=1000-point;
+   this.barValue=(point/1000)*100;
+   this.pic='/imgs/platinum.svg'
+this.pic1='/imgs/gold.svg'
+   }
+ else if(point >= 1000 && point <= 1499 ){ this.level='Platinum';
+ this.nextLevel='Diamond';
+ this.xpLeft=1500-point;
+ this.barValue=(point/1500)*100;
+ this.pic='/imgs/diamond.svg'
+this.pic1='/imgs/platinum.svg'}
+  else if(point >= 1500 && point <= 9999 ){ this.level='Platinum';
+  this.nextLevel='Diamond';
+  this.xpLeft=10000-point;
+  this.barValue=(point/10000)*100;
+ this.pic='/imgs/diamond.svg'
+this.pic1='/imgs/platinum.svg'
+}
+
+},
        RemoveAdmin:function(){
       this.$root.showAdminOption = false
          axios.post( '/remove-user-admin',{
@@ -3041,6 +3093,8 @@ goToChatList:function(){
      }) 
 
                  }
+
+                    this.calculateLevel(this.$root.authProfile.points)
             })
 
              }else{
