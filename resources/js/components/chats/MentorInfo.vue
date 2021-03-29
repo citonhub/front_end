@@ -36,11 +36,11 @@
                       <div class="col-12 py-1 px-2 mt-3">
                          <div class="row">
 
-                             <div class="col-6 py-1 px-1 ">
+                             <div class="col-6 py-1 px-1 text-center">
                        <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Share your work</v-btn>
                            </div>
 
-                           <div class="col-6 py-1 px-1 ">
+                           <div class="col-6 py-1 px-1 text-center">
                       <v-btn small  @click="viewDiary" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Start a diary</v-btn>
                            </div>
 
@@ -73,11 +73,11 @@
                       <div class="col-12 py-1 px-1 mt-3">
                          <div class="row">
 
-                             <div class="col-6 py-1 px-1 ">
+                             <div class="col-6 py-1 px-1 text-center">
                        <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Share your works</v-btn>
                            </div>
 
-                           <div class="col-6 py-1 px-1 ">
+                           <div class="col-6 py-1 px-1 text-center">
                        <v-btn small  @click="viewDiary" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Start a diary</v-btn>
                            </div>
 

@@ -150,8 +150,8 @@
                      Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. <br><br>
 
                     
-                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span> on CitonHub. You are <span style="font-family:MediumFont;">{{ getuserPresentLevel() }}</span> and
-                      have <span style="font-family:MediumFont;">{{getuserRemainingPoint()}} </span>experience points remaining to become a <span style="font-family:MediumFont;">Bronze citon</span>.<br><br> 
+                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span> on CitonHub. You are <span style="font-family:MediumFont;">{{ presentLevel }}</span> and
+                      have <span style="font-family:MediumFont;">{{remainingPoints}} </span>experience points remaining to become a <span style="font-family:MediumFont;">Bronze citon</span>.<br><br> 
                       
                       Get more experience points by 
                       <span style="font-family:MediumFont;">sharing your works</span> with the community or 
@@ -162,11 +162,11 @@
                       <div class="col-12 py-1 px-1 mt-3">
                          <div class="row">
 
-                             <div class="col-6 py-1 px-1 ">
+                             <div class="col-6 py-1 px-1 text-center">
                        <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Share your works</v-btn>
                            </div>
 
-                           <div class="col-6 py-1 px-1 ">
+                           <div class="col-6 py-1 px-1 text-center">
                        <v-btn small  @click="goToDiary" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Start a diary</v-btn>
                            </div>
 
@@ -888,8 +888,8 @@
                      Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. <br><br>
 
                     
-                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span> on CitonHub. You are <span style="font-family:MediumFont;">{{ getuserPresentLevel() }}</span> and
-                      have <span style="font-family:MediumFont;">{{getuserRemainingPoint()}} </span>experience points remaining to become a <span style="font-family:MediumFont;">Bronze citon</span>.<br><br> 
+                      To create a channel, you have to be at least a <span style="font-family:MediumFont;">Bronze citon </span> on CitonHub. You are <span style="font-family:MediumFont;">{{ presentLevel }}</span> and
+                      have <span style="font-family:MediumFont;">{{remainingPoints}} </span>experience points remaining to become a <span style="font-family:MediumFont;">Bronze citon</span>.<br><br> 
                       
                       Get more experience points by 
                       <span style="font-family:MediumFont;">sharing your works</span> with the community or 
@@ -900,11 +900,11 @@
                       <div class="col-12 py-1 px-1 mt-3">
                          <div class="row">
 
-                             <div class="col-6 py-1 px-1 ">
+                             <div class="col-6 py-1 px-1 text-center">
                        <v-btn small  @click="shareProject" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Share your works</v-btn>
                            </div>
 
-                           <div class="col-6 py-1 px-1 ">
+                           <div class="col-6 py-1 px-1 text-center">
                        <v-btn small  @click="goToDiary" color="#3C87CD" outlined style="font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Start a diary</v-btn>
                            </div>
 
@@ -1997,6 +1997,7 @@ export default {
     
      this.controlChatPath();
 
+     this.calculateLevel(this.$root.authProfile.points)
       this.fetchChatList();
 
       
