@@ -2715,7 +2715,7 @@ const app = new Vue({
 
             let message= e.data
 
-            if(message.type= 'join'){
+            if(message.type == 'join'){
               this.fetchSpaceInfo(message.space_id)
             }
             
