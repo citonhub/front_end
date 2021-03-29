@@ -4300,6 +4300,8 @@ let storedMsg = this.$root.getLocalStore('full_space_' + selectedspace + this.$r
 
           finalResult.space = response.data.space;
 
+          
+
             
               if(response.data.space.type == 'SubSpace'){
 
@@ -4353,6 +4355,8 @@ let storedMsg = this.$root.getLocalStore('full_space_' + selectedspace + this.$r
           
         
         finalResult.members = response.data.members;
+
+         this.selectedSpaceMembers = response.data.members;
 
        
         
@@ -4461,6 +4465,31 @@ let storedMsg = this.$root.getLocalStore('full_space_' + selectedspace + this.$r
 },
 
 //end of spaceinfo fetch
+SetUnread: function(){
+
+  this.$root.ChatList.map((space)=>{
+
+     let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + space.space_id +  this.$root.username);
+
+unreadStoredMsg.then((result)=>{
+
+  if(result != null){
+
+    let finalResultUnread = JSON.parse(result);
+
+
+    space.unread = finalResultUnread.length;
+
+  }else{
+     space.unread = 0;
+  }
+
+});
+
+  })
+
+ 
+},
 updateSentMessage:function(postData){
 
   
