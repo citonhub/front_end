@@ -66,8 +66,8 @@
 
              <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 pt-0 my-0 px-1  mt-n3">
 
-               <div style="font-size:14px;">Select payment plan</div>
-                <div style="font-size:13px; font-family:BodyFont; color:grey;">Select how you will like to earn.</div>
+               <div style="font-size:14px;">Select how you will like to earn</div>
+              
 
                <div class="col-12 px-1 py-1 d-flex flex-row">
 
