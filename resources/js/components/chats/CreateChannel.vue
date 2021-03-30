@@ -67,6 +67,7 @@
              <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 pt-0 my-0 px-1  mt-n3">
 
                <div style="font-size:14px;">Select payment plan</div>
+                <div style="font-size:13px; font-family:BodyFont; color:grey;">Select how you will like to earn.</div>
 
                <div class="col-12 px-1 py-1 d-flex flex-row">
 
@@ -76,7 +77,7 @@
                                    <div class="text-center">
                                       <i style="font-size:30px;" :class="'las la-hands-helping'"></i>
                                       <div>
-                                         <span style="font-size:13px; font-family:BodyFont;">Support</span>
+                                         <span style="font-size:13px; font-family:BodyFont;">Donation</span>
                                       </div>
                                    </div>
                         </div>

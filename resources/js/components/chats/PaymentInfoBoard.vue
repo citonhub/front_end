@@ -13,7 +13,7 @@
            
 
       <template v-if="that.$root.payment_option == 'support'">
-       <h5 >Support</h5>
+       <h5 >Donation</h5>
            <v-alert
       dense
       style="background:#3C87CD;"
