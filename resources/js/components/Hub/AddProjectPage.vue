@@ -231,7 +231,7 @@
 
             <!-- add project button -->
              <div class=" text-center col-12 py-1 mt-4 my-0 px-2">
-                 <v-btn  medium rounded type="submit" color="#3C87CD" :loading="loading" style="font-size:13px; font-family:MediumFont; font-weight:bolder;text-transform:none; color:white;" @click.prevent="postData">
+                 <v-btn  medium rounded type="submit" color="#3C87CD" :loading="loading" style="font-size:13px; font-family:MediumFont; font-weight:bolder;text-transform:none; color:white;" @click.prevent="textProject">
                Send
                </v-btn>
              </div>
@@ -534,38 +534,48 @@ export default {
 
       return  url.protocol === "https:";
     },
-    handleProject:function(){
-       this.projectIsFit = false
-    
-    
-         this.textProject();
-
-
-    },
+   
     setFrameLoaded:function(){
       this.projectIsFit = true;
 
        console.log('loaded')
     },
     textProject:function(){
-   var myframe = document.querySelector("#testiframe")
-   
-myframe.onload = function(event){
- var that = document.getElementById('testiframe');
+       
+          this.loading = true;
+         axios.post( '/check-project-status',
+         {
+           project_url: this.post.project_url,
+           project_slug: this.post.project_slug
+         })
+      .then(response => {
 
- try{
-    (that.contentWindow||that.contentDocument).location.href;
- }
- catch(err){
-    //err:SecurityError: Blocked a frame with origin "http://*********" from accessing a cross-origin frame.
-    console.log('err:'+err);
-}
+      if (response.status == 200) {
 
- const isLoaded = event.target.contentWindow.window.length // 0 or 1
+      
 
-     console.log(isLoaded)
-}
+        if(response.data.status == 'allowed'){
+          
+          this.postData();
+          
+        }else{
 
+             this.showAlert('Oops!','You already shared this project. Please change and try again','error');
+
+                this.loading = false;
+          
+        }
+     }
+
+
+     })
+     .catch(error => {
+
+            this.showAlert('Oops!','Unable to save post,please try again','error')
+
+          this.loading = false;
+
+     })
     
     },
        displayTab() {

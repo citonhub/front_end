@@ -21,7 +21,7 @@
 
       <div class="py-3   px-md-3 px-2" style="font-size:13px; font-family:BodyFont;">
 
-        <span>Hey <span style="font-size:13px; font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, <br> <br>
+      Hey <span style="font-size:13px; font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, <br> <br>
          At CitonHub, we believe we can help <span style="font-size:13px; font-family:MediumFont;">1 million people</span> get into tech in the <span style="font-size:13px; font-family:MediumFont;">next 5 years</span>. Join us by becoming a mentor. <br><br>
         To become a mentor , you need to be
         at least a <span style="font-size:13px; font-family:MediumFont;">Bronze citon</span>. <br>
