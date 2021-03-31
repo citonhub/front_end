@@ -69,7 +69,7 @@
    class="col-12 px-0 py-0" style="position:absolute; height:100%;  background:white;border:1px solid #c5c5c5; border-radius:7px;" id="mainIframe" ></iframe>
 
      <div  class="col-12 d-flex " v-if="!supportedLink" style="position:absolute; height:100%; align-items:center; justify-content:center;  background:whitesmoke;border:1px solid #c5c5c5; border-radius:7px;">
-              <div style="font-size:14px;font-family:BodyText;">Oops!,no iframe support for project link. <a target="_blank" :href="this.$root.selectedPost.project_url">Open link </a></div>
+              <div style="font-size:14px;font-family:BodyText;">Oops! This project cannot be opened in an iframe. <a target="_blank" :href="this.$root.selectedPost.project_url">Click here to view project. </a> </div>
                </div>
 
               </template>
@@ -433,7 +433,7 @@
    class="col-12 px-0 py-0" style="position:absolute; height:100%;  background:white;border:1px solid #c5c5c5;" id="mainIframe" ></iframe>
 
      <div  class="col-12 d-flex " v-if="!supportedLink" style="position:absolute; height:100%; align-items:center; justify-content:center;  background:whitesmoke;border:1px solid #c5c5c5;">
-              <div style="font-size:14px;font-family:BodyText;">Oops!,no iframe support for project link. <a target="_blank" :href="this.$root.selectedPost.project_url">Open link </a></div>
+              <div style="font-size:14px;font-family:BodyText;">Oops! This project cannot be opened in an iframe. <a target="_blank" :href="this.$root.selectedPost.project_url">Click here to view project. </a></div>
                </div>
 
               </template>
