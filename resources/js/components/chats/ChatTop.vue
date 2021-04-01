@@ -132,10 +132,10 @@
                dot
                v-if="that.$root.remoteLiveHappening"
                 color="green">
-              <v-icon>mdi-television-play</v-icon> 
+              <v-icon>las la-phone</v-icon> 
               </v-badge>
 
-              <v-icon v-else>mdi-television-play</v-icon> 
+              <v-icon v-else>las la-phone</v-icon> 
 
                 </v-btn>
             </template>
@@ -291,10 +291,10 @@
                dot
                v-if="that.$root.remoteLiveHappening"
                 color="green">
-              <v-icon>mdi-television-play</v-icon> 
+              <v-icon>las la-phone</v-icon> 
               </v-badge>
 
-              <v-icon v-else>mdi-television-play</v-icon> 
+              <v-icon v-else>las la-phone</v-icon> 
                
                </v-btn>
             </template>
