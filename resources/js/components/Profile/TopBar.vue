@@ -4,7 +4,7 @@
     
      <div class="col-12 d-none d-md-block py-0 px-2" style="position:absolute; top:0; left:0; font-family:BodyFont;">
 
-         <div class="row">
+         <div  class="row">
             <div class="col-lg-5 col-md-1 pb-0  text-left px-lg-4">
                  <v-btn icon @click="that.$root.showSideBar = true" class="mt-2  "><v-icon style="font-size:25px;color:black;" >las la-bars</v-icon></v-btn>
             </div>
@@ -18,11 +18,15 @@
                  placeholder="Search for People"
               filled
               dense
+            
               v-model="profileName"
               @input="fetchSearchResult"
+              @keydown="searchTable=true"
             append-icon="las la-search"
             rounded
              ></v-text-field>
+
+           
 
             
 
@@ -87,7 +91,7 @@
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
        
-             <input style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search for people" class="py-2 px-2" type="search" >       
+             <input @keydown="searchTable=true" style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search for people" class="py-2 px-2" type="search" v-model="profileName" >       
          
             </div>
              <div class="col-2 text-center py-0">
@@ -120,6 +124,41 @@
      </div>
 
      <!-- ends -->
+
+       <!--search display box-->
+
+<div class="box d-lg-block  d-sm-none" v-if="searchTable" style="position:absolute;background:white;height:390px;width:380px;top:66px;left:580px;border-radius:20px 20px 0px 0px;overflow-y:scroll;" >
+<div class="mt-1 ml-4">{{profileName}}</div>
+  <div @click="goToProfile(user)"   v-for="user in fetchedUser"  :key="user.user_temp_id" class="ml-4 mt-1" >
+{{user.username}}
+  </div>
+  
+</div>
+
+<!--medium screens-->
+
+<div class="box d-lg-none d-md-block  d-sm-none" v-if="searchTable" style="position:absolute;background:white;height:340px;width:240px;top:66px;left:150px;border-radius:20px 20px 0px 0px;overflow-y:scroll;" >
+<div class="mt-1 ml-4">{{profileName}}</div>
+  <div @click="goToProfile(user)"   v-for="user in fetchedUser"  :key="user.user_temp_id" class="ml-4 mt-1" >
+{{user.username}}
+  </div>
+  
+</div>
+
+
+
+             <!--ends-->
+
+             <!--small screens-->
+
+<div class="box d-lg-none d-md-none  d-sm-block shadow" v-if="searchTable" style="position:absolute;background:white;height:340px;width:340px;top:64px;left:130px;overflow-y:scroll;" >
+<div class="mt-1 ml-4">{{profileName}}</div>
+  <div @click="goToProfile(user)"   v-for="user in fetchedUser"  :key="user.user_temp_id" class="ml-4 mt-1" >
+{{user.username}}
+  </div>
+  
+</div>
+             <!--ends-->
     </div>
 </template>
 <script>
@@ -129,7 +168,9 @@ export default {
        showSideBar:false,
        searchType:'',
        that:this,
-       profileName:''
+       profileName:'',
+       fetchedUser:'',
+       searchTable:false
       }
     },
     mounted(){
@@ -164,8 +205,26 @@ export default {
       
      },
      fetchSearchResult(){
-        this.$router.push({path:'/profile-view/' + this.profileName})
-      }
+       axios.get(`/profile-search/${this.profileName}`)
+       .then(
+         response=>{
+           if(response.status==200){
+console.log(response.data.profiles[0].username)
+this.fetchedUser=response.data.profiles
+
+           }
+         }
+       )
+      },
+      goToProfile(user){
+
+   
+
+       if( this.$root.selectedSpace.type == 'Bot' ) return
+        this.$root.selectedUsername = user.username;
+         this.$router.push({ path:'/profile-view/' + user.username})
+      },
+    
     }
 }
 </script>
