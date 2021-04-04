@@ -27,7 +27,18 @@
              ></v-text-field>
 
            
+  <template v-if="profileName != '' ">
+         <div>
+           <div class="box d-lg-block text-left " v-if="searchTable" style="position:absolute;top:60%;background:white;height:auto;max-height:350px;width:100%;border-radius:20px 20px 0px 0px;overflow-y:scroll;" >
+<div class="mt-1 ml-4">{{profileName}}</div>
+  <div @click="goToProfile(user)"   v-for="user in fetchedUser"  :key="user.user_temp_id" class="ml-4 mt-1" >
+  <span style="font-family:MediumFont">{{user.name}}</span> <span style="font-family:BodyFont"> @{{user.username}} </span>
+  </div>
+  
+</div>
 
+         </div>
+  </template>
             
 
              
@@ -91,7 +102,7 @@
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
        
-             <input @keydown="searchTable=true" style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search for people" class="py-2 px-2" type="search" v-model="profileName" >       
+             <input @keydown="searchTable=true" @input="fetchSearchResult" style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search for people" class="py-2 px-2" type="search" v-model="profileName" >       
          
             </div>
              <div class="col-2 text-center py-0">
@@ -118,6 +129,17 @@
 
             </div>
                    </div>
+                   <div v-if="profileName != '' ">
+
+<div class="box d-lg-none d-md-none  d-sm-block shadow" v-if="searchTable" style="position:absolute;background:white;height:auto;max-height:340px;width:100%;top:64px;overflow-y:scroll;" >
+<div class="mt-1 ml-4">{{profileName}}</div>
+  <div @click="goToProfile(user)"   v-for="user in fetchedUser"  :key="user.user_temp_id" class="ml-4 mt-1 py-2 "  >
+      <span style="font-family:MediumFont">{{user.name}}</span> <span style="font-family:BodyFont"> @{{user.username}} </span>
+  </div>
+  
+</div>
+
+</div>
              </v-card>
          </div>
 
@@ -127,19 +149,11 @@
 
        <!--search display box-->
 
-       <template v-if="profileName != '' ">
-         <div>
-           <div class="box d-lg-block  d-sm-none" v-if="searchTable" style="position:absolute;background:white;height:390px;width:380px;top:66px;left:580px;border-radius:20px 20px 0px 0px;overflow-y:scroll;" >
-<div class="mt-1 ml-4">{{profileName}}</div>
-  <div @click="goToProfile(user)"   v-for="user in fetchedUser"  :key="user.user_temp_id" class="ml-4 mt-1" >
-{{user.username}}
-  </div>
-  
-</div>
+   
 
-<!--medium screens-->
 
-<div class="box d-lg-none d-md-block  d-sm-none" v-if="searchTable" style="position:absolute;background:white;height:340px;width:240px;top:66px;left:150px;border-radius:20px 20px 0px 0px;overflow-y:scroll;" >
+
+<!--<div class="box d-lg-none d-md-block  d-sm-none" v-if="searchTable" style="position:absolute;background:white;height:340px;width:240px;top:66px;left:150px;border-radius:20px 20px 0px 0px;overflow-y:scroll;" >
 <div class="mt-1 ml-4">{{profileName}}</div>
   <div @click="goToProfile(user)"   v-for="user in fetchedUser"  :key="user.user_temp_id" class="ml-4 mt-1" >
 {{user.username}}
@@ -149,20 +163,14 @@
 
 
 
-             <!--ends-->
+         
 
-             <!--small screens-->
+            
 
-<div class="box d-lg-none d-md-none  d-sm-block shadow" v-if="searchTable" style="position:absolute;background:white;height:340px;width:340px;top:64px;left:130px;overflow-y:scroll;" >
-<div class="mt-1 ml-4">{{profileName}}</div>
-  <div @click="goToProfile(user)"   v-for="user in fetchedUser"  :key="user.user_temp_id" class="ml-4 mt-1" >
-{{user.username}}
-  </div>
-  
-</div>
-             <!--ends-->
+
+            
          </div>
-       </template>
+       </template>-->
 
 
     </div>
