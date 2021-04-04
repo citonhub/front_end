@@ -267,13 +267,7 @@
 
                    </div>
 
-                    <div class="py-2 px-3 mr-1 sideBar" :style="selectedTab == 'channels' ? ' border-bottom:4px solid #3C87CD;' : ''"   @click="handleSelectedTab('channels')">
-
-                        
-                             <div style="font-size:14px;font-family:MediumFont;" class="d-md-block d-none" >Channels</div>  
-                          <div style="font-size:13px;font-family:MediumFont;" class="d-md-none d-block" >Channels</div>  
-
-                   </div>
+                   
 
                     <div class="py-2 px-3 mr-1 sideBar" :style="selectedTab == 'diaries' ? ' border-bottom:4px solid #3C87CD;' : ''"  @click="handleSelectedTab('diaries')" >
 
