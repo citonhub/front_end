@@ -26,8 +26,8 @@
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
 
-             <input style="width:100%;heigth:100%;font-size:12px;"   @keydown="searchChatList"
-                       v-model="searchValue"  placeholder="Search" class="py-2 px-2" type="search" >       
+             <input style="width:100%;heigth:100%;font-size:12px;"   @input="searchChatList"
+                       :value="searchValue"  placeholder="Search" class="py-2 px-2" type="search" >       
          
             </div>
               <div class="col-2 text-center py-0">
@@ -114,9 +114,9 @@ export default {
            this.$router.push({ path:'/profile/' + this.$root.username});
 
       },
-      searchChatList:function(){
+      searchChatList:function(e){
 
-    
+        this.searchValue = e.target.value;
 
        let chatListResult = this.$root.ChatList.filter((chat)=>{
 

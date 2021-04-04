@@ -742,7 +742,7 @@ Invitation
   mounted(){
       this.$root.showMobileHub = false;
   
-       if(this.$route.params.username){
+       if(this.$route.params.username &&  this.mainUserName == ''){
 
          this.mainUserName =  this.$route.params.username ;
        
@@ -1257,7 +1257,7 @@ Invitation
 
            this.$root.initialPushMangerReg();
          
-        }else if(this.mainUserName =! this.$root.username){
+        }else{
           this.owner=false;
         }
 

@@ -14,7 +14,7 @@
                       <textarea-autosize
                  placeholder="Type here..."
                  ref="textBottom"
-                 @input="update" 
+                 @input.native="update" 
                   @keydown.native="handelkeyAct"
                    @focus.native="focusEditor"  
                    @blur.native="blurEditor"
@@ -193,9 +193,9 @@ export default {
         },
         update:function(e){
 
-            this.input = e;
+            this.input = e.target.value;
           
-           this.wordCount =  e.length;
+           this.wordCount =  e.target.value.length;
 
        
            

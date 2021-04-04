@@ -253,7 +253,8 @@ imageUrl +='/imgs/platinum.svg'
       goToProfile(user){
     
     this.profileName = '';
-     this.$root.profilePageComponent.mainUserName=user.username
+    this.$root.selectedUsername = user.username;
+     this.$root.profilePageComponent.mainUserName = user.username
     this.$root.selectedUsername= user.username
         if(this.$router.currentRoute.path.indexOf('profile') >= 0){
 
