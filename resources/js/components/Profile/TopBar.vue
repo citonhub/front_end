@@ -30,7 +30,7 @@
 
                   <template v-if="profileName != '' ">
 
-                 <v-card style="position:absolute; top:58%; width:100%; max-height:400px;z-index:99999999999999; left:0px; height:auto; overflow-y:auto;"  class="d-flex flex-column px-1 py-2">
+                 <v-card style="position:absolute; top:58%;  border-radius:0px;  width:100%; max-height:400px;z-index:99999999999999; left:0px; height:auto; overflow-y:auto;"  class="d-flex flex-column px-1 py-2">
 
                    <v-card  @click="goToProfile(user)" tile flat class="px-1 py-2 d-flex flex-row" style="border-bottom:1px solid #c5c5c5;align-items:center;"   v-for="user in fetchedUser"  :key="user.user_temp_id">
                    
@@ -108,7 +108,7 @@
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
        
-             <input @keydown="searchTable=true" @input="fetchSearchResult" style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search for people" class="py-2 px-2" type="search" v-model="profileName" >       
+             <input @keydown="searchTable=true" @input="fetchSearchResult" style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search for people" class="py-2 px-2" type="search" :value="profileName" >       
          
             </div>
              <div class="col-2 text-center py-0">
@@ -138,7 +138,7 @@
 
 
                    <template v-if="profileName != '' ">
-                       <v-card style="position:absolute; top:110%; width:100%; max-height:400px;z-index:99999999999999; left:0px; height:auto; overflow-y:auto;"  class="d-flex flex-column px-1 py-2">
+                       <v-card style="position:absolute; border-radius:0px; top:110%; width:100%; max-height:400px;z-index:99999999999999; left:0px; height:auto; overflow-y:auto;"  class="d-flex flex-column px-1 py-2">
 
                    <v-card  @click="goToProfile(user)" tile flat class="px-1 py-2 d-flex flex-row" style="border-bottom:1px solid #c5c5c5;align-items:center;"   v-for="user in fetchedUser"  :key="user.user_temp_id">
                    
@@ -204,7 +204,8 @@ export default {
 
       
      },
-     fetchSearchResult(){
+     fetchSearchResult(e){
+       this.profileName = e.target.value
        this.searchTable=true
        if(this.profileName == '') return
        axios.get(`/profile-search/${this.profileName}`)
