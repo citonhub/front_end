@@ -43,7 +43,7 @@
 
       <!-- large and medium screens -->
 
-     <div class="col-lg-3 col-md-6 offset-lg-9 offset-md-6 pt-0 pb-3 scroller  px-0 " 
+     <div class="col-lg-3 col-md-6 offset-lg-9 offset-md-6 pt-0 pb-3   px-0 " 
      style=" height:100%; top:0%;  position:absolute; background:white;
      border:1px solid white;border-radius:0px;border-radius:0px;  overflow-y:auto;overflow-x:hidden;">
 
@@ -97,7 +97,7 @@
 
        <!-- profile container -->
 
-       <div class=" col-12 scroller" style=" position:fixed; height:91%; top:8%; overflow-y:auto; padding-bottom:60px; overflow-x:hidden;" >
+       <div class=" col-12 " style=" position:fixed; height:91%; top:8%; overflow-y:auto; padding-bottom:60px; overflow-x:hidden;" >
 
           <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1 py-0">
 
@@ -606,7 +606,7 @@
 
            <!-- image view -->
 
-       <div class="col-12 py-0 my-0 px-0 d-flex scroller" style="position:absolute;  height:100%; left:0%; width:100%; overflow-y:auto; overflow-x:hidden; align-items:center; justify-content:center;">
+       <div class="col-12 py-0 my-0 px-0 d-flex " style="position:absolute;  height:100%; left:0%; width:100%; overflow-y:auto; overflow-x:hidden; align-items:center; justify-content:center;">
         
             <img :src="that.$root.baseImageLink" style="height:auto; " width="100%">
          

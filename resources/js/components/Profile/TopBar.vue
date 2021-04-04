@@ -4,7 +4,7 @@
     
      <div class="col-12 d-none d-md-block py-0 px-2" style="position:absolute; top:0; left:0; font-family:BodyFont;">
 
-         <div class="row">
+         <div  class="row">
             <div class="col-lg-5 col-md-1 pb-0  text-left px-lg-4">
                  <v-btn icon @click="that.$root.showSideBar = true" class="mt-2  "><v-icon style="font-size:25px;color:black;" >las la-bars</v-icon></v-btn>
             </div>
@@ -18,11 +18,32 @@
                  placeholder="Search for People"
               filled
               dense
+            
               v-model="profileName"
               @input="fetchSearchResult"
+           
             append-icon="las la-search"
             rounded
              ></v-text-field>
+
+               <!-- profile search -->
+
+                  <template v-if="profileName != '' ">
+
+                 <v-card style="position:absolute; top:58%; width:100%; max-height:400px;z-index:99999999999999; left:0px; height:auto; overflow-y:auto;"  class="d-flex flex-column px-1 py-2">
+
+                   <v-card  @click="goToProfile(user)" tile flat class="px-1 py-2 d-flex flex-row" style="border-bottom:1px solid #c5c5c5;align-items:center;"   v-for="user in fetchedUser"  :key="user.user_temp_id">
+                   
+                   <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
+                        <span style="font-size:13px;font-family:MediumFont;" class="mr-1">{{user.name}} <span style="font-family:BodyFont;">@{{ user.username }}</span> </span>  <img :src="getUserLevel(user.points)" class="mx-1" height="22px"> 
+                   </div>
+
+                   </v-card>
+
+                 </v-card>
+                  </template>
+               <!-- ends -->
+           
 
             
 
@@ -87,8 +108,8 @@
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
        
-             <input style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search for people" class="py-2 px-2" type="search" >       
-         
+             <input @input="fetchSearchResult" style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search for people" class="py-2 px-2" type="search" v-model="profileName" >       
+             
             </div>
              <div class="col-2 text-center py-0">
                  <template v-if="this.$root.authProfile.name" >
@@ -114,12 +135,37 @@
 
             </div>
                    </div>
+
+                    <!-- profile search -->
+
+                     <template v-if="profileName != '' ">
+
+                 <v-card style="position:absolute; top:100%; width:120%; max-height:400px;z-index:9999999999999999;overflow-y:auto; left:0px; height:auto;"  class="d-flex flex-column px-1 py-2">
+
+                   <v-card  @click="goToProfile(user)" tile flat class="px-1 py-2 d-flex flex-row" style="border-bottom:1px solid #c5c5c5;align-items:center;"   v-for="user in fetchedUser"  :key="user.user_temp_id">
+                     
+                   <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
+                        <span style="font-size:13px;font-family:MediumFont;" class="mr-1">{{user.name}} <span style="font-family:BodyFont;">@{{ user.username }}</span> </span>  <img :src="getUserLevel(user.points)" class="mx-1" height="22px"> 
+                   </div>
+
+                   </v-card>
+
+                 </v-card>
+                  </template>
+
+               <!-- ends -->
              </v-card>
          </div>
 
      </div>
 
      <!-- ends -->
+
+   
+         </div>
+       </template>
+
+
     </div>
 </template>
 <script>
@@ -129,7 +175,9 @@ export default {
        showSideBar:false,
        searchType:'',
        that:this,
-       profileName:''
+       profileName:'',
+       fetchedUser:'',
+       searchTable:false
       }
     },
     mounted(){
@@ -164,8 +212,69 @@ export default {
       
      },
      fetchSearchResult(){
-        this.$router.push({path:'/profile-view/' + this.profileName})
-      }
+       this.searchTable=true
+       axios.get(`/profile-search/${this.profileName}`)
+       .then(
+         response=>{
+           if(response.status==200){
+
+this.fetchedUser=response.data.profiles
+
+           }
+         }
+       )
+      },
+        getUserLevel: function(points){
+let imageUrl = '';
+          
+  if(points >= 0 && points <= 99){
+    imageUrl += '/imgs/steel.svg'
+
+  }
+  else if(points >= 100 && points <= 299 ){
+
+   imageUrl +='/imgs/bronze.svg'
+  }
+   else if(points >= 300 && points <= 599 ){ 
+   
+imageUrl += '/imgs/silver.svg' 
+}
+    else if(points >= 600 && points <= 999 ){ 
+
+imageUrl += '/imgs/gold.svg'
+   }
+ else if(points >= 1000 && points <= 1499 ){ 
+   
+imageUrl +='/imgs/platinum.svg'
+}
+  else if(points >= 1500 && points <= 9999 ){ 
+      
+ imageUrl += '/imgs/diamond.svg'
+}
+
+  return imageUrl;
+
+    },
+      goToProfile(user){
+    
+    this.profileName = '';
+     this.$root.profilePageComponent.mainUserName=user.username
+    this.$root.selectedUsername= user.username
+        if(this.$router.currentRoute.path.indexOf('profile') >= 0){
+
+ this.$router.push({ path:'/profile-search/' + user.username})
+        }
+
+        else{
+           this.$router.push({ path:'/profile/' + user.username})
+        }
+        this.$root.profilePageComponent.fetchProfileContent()
+  this.searchTable=false
+        
+      },
+
+    
+    
     }
 }
 </script>
