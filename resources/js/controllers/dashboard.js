@@ -178,6 +178,8 @@ const routes = [
      meta: {
       twModalView: true
     },
+   
+
     beforeEnter: (to, from, next) => {
      
       if(window.thisUserState != undefined){
@@ -195,6 +197,36 @@ const routes = [
       next()
      }
   },
+
+  //search profile
+
+  {
+    path:'/profile-search/:username',
+     name:'ProfilePage', 
+     component:ProfilePage,
+     meta: {
+      twModalView: true
+    },
+   
+
+    beforeEnter: (to, from, next) => {
+     
+      if(window.thisUserState != undefined){
+        
+        thisUserState.$root.showFullImage = false;
+
+        thisUserState.$root.showProfileEditModal = false;
+
+         thisUserState.$root.showViewPost = false;
+         
+       
+       }
+     
+     
+      next()
+     }
+  },
+
     // edit profile
 { path: '/profile/edit/:username',
 name: 'EditProfile',

@@ -127,7 +127,9 @@
 
        <!--search display box-->
 
-<div class="box d-lg-block  d-sm-none" v-if="searchTable" style="position:absolute;background:white;height:390px;width:380px;top:66px;left:580px;border-radius:20px 20px 0px 0px;overflow-y:scroll;" >
+       <template v-if="profileName != '' ">
+         <div>
+           <div class="box d-lg-block  d-sm-none" v-if="searchTable" style="position:absolute;background:white;height:390px;width:380px;top:66px;left:580px;border-radius:20px 20px 0px 0px;overflow-y:scroll;" >
 <div class="mt-1 ml-4">{{profileName}}</div>
   <div @click="goToProfile(user)"   v-for="user in fetchedUser"  :key="user.user_temp_id" class="ml-4 mt-1" >
 {{user.username}}
@@ -159,6 +161,10 @@
   
 </div>
              <!--ends-->
+         </div>
+       </template>
+
+
     </div>
 </template>
 <script>
@@ -218,12 +224,22 @@ this.fetchedUser=response.data.profiles
       },
       goToProfile(user){
 
-   
+     this.$root.profilePageComponent.mainUserName=user.username
+    this.$root.selectedUsername= user.username
+        if(this.$router.currentRoute.path.indexOf('profile') >= 0){
 
-       if( this.$root.selectedSpace.type == 'Bot' ) return
-        this.$root.selectedUsername = user.username;
-         this.$router.push({ path:'/profile-view/' + user.username})
+ this.$router.push({ path:'/profile-search/' + user.username})
+        }
+
+        else{
+           this.$router.push({ path:'/profile/' + user.username})
+        }
+        this.$root.profilePageComponent.fetchProfileContent()
+  this.searchTable=false
+        
       },
+
+    
     
     }
 }
