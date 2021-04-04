@@ -20,7 +20,7 @@
               dense
             
               v-model="profileName"
-              @input="fetchSearchResult"
+              @input="fetchSearchResultLg"
            
             append-icon="las la-search"
             rounded
@@ -206,6 +206,21 @@ export default {
      },
      fetchSearchResult(e){
        this.profileName = e.target.value
+       this.searchTable=true
+       if(this.profileName == '') return
+       axios.get(`/profile-search/${this.profileName}`)
+       .then(
+         response=>{
+           if(response.status==200){
+
+this.fetchedUser=response.data.profiles
+
+           }
+         }
+       )
+      },
+        fetchSearchResultLg(){
+      
        this.searchTable=true
        if(this.profileName == '') return
        axios.get(`/profile-search/${this.profileName}`)
