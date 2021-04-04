@@ -35,17 +35,17 @@
                    <v-card  @click="goToProfile(user)" tile flat class="px-1 py-2 d-flex flex-row" style="border-bottom:1px solid #c5c5c5;align-items:center;"   v-for="user in fetchedUser"  :key="user.user_temp_id">
                    
                    <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
-                        <span style="font-size:13px;font-family:MediumFont;" class="mr-1">{{user.name}} <span style="font-family:BodyFont;">@{{ user.username }}</span> </span>  <img :src="getUserLevel(user.points)" class="mx-1" height="22px"> 
+                        <span style="font-size:13px;font-family:MediumFont;" class="mr-1">{{user.name}} <span style="font-family:BodyFont;">@{{ user.username }}</span> </span> 
                    </div>
 
                    </v-card>
 
                  </v-card>
                   </template>
+
                <!-- ends -->
            
-
-            
+  
 
              
                   </div>
@@ -108,8 +108,8 @@
             </div>
              <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
        
-             <input @input="fetchSearchResult" style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search for people" class="py-2 px-2" type="search" v-model="profileName" >       
-             
+             <input @keydown="searchTable=true" @input="fetchSearchResult" style="width:100%;heigth:100%;font-size:12px;"  placeholder="Search for people" class="py-2 px-2" type="search" v-model="profileName" >       
+         
             </div>
              <div class="col-2 text-center py-0">
                  <template v-if="this.$root.authProfile.name" >
@@ -136,34 +136,27 @@
             </div>
                    </div>
 
-                    <!-- profile search -->
 
-                     <template v-if="profileName != '' ">
-
-                 <v-card style="position:absolute; top:100%; width:120%; max-height:400px;z-index:9999999999999999;overflow-y:auto; left:0px; height:auto;"  class="d-flex flex-column px-1 py-2">
+                   <template v-if="profileName != '' ">
+                       <v-card style="position:absolute; top:110%; width:100%; max-height:400px;z-index:99999999999999; left:0px; height:auto; overflow-y:auto;"  class="d-flex flex-column px-1 py-2">
 
                    <v-card  @click="goToProfile(user)" tile flat class="px-1 py-2 d-flex flex-row" style="border-bottom:1px solid #c5c5c5;align-items:center;"   v-for="user in fetchedUser"  :key="user.user_temp_id">
-                     
+                   
                    <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
-                        <span style="font-size:13px;font-family:MediumFont;" class="mr-1">{{user.name}} <span style="font-family:BodyFont;">@{{ user.username }}</span> </span>  <img :src="getUserLevel(user.points)" class="mx-1" height="22px"> 
+                        <span style="font-size:13px;font-family:MediumFont;" class="mr-1">{{user.name}} <span style="font-family:BodyFont;">@{{ user.username }}</span> </span> 
                    </div>
 
                    </v-card>
 
                  </v-card>
-                  </template>
-
-               <!-- ends -->
+                   </template>
+                 
              </v-card>
          </div>
 
      </div>
 
-     <!-- ends -->
-
-   
-         </div>
-       </template>
+              
 
 
     </div>
@@ -213,6 +206,7 @@ export default {
      },
      fetchSearchResult(){
        this.searchTable=true
+       if(this.profileName == '') return
        axios.get(`/profile-search/${this.profileName}`)
        .then(
          response=>{
