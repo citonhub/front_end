@@ -10,7 +10,7 @@ Vue.use(Vuex)
 
 //axios.defaults.baseURL = 'http://localhost:8000/api'
 //axios.defaults.baseURL = 'http://api.citonhubnew.com/api'
-axios.defaults.baseURL = 'https://api.citonhub.com/api'
+//axios.defaults.baseURL = 'https://api.citonhub.com/api'
 //axios.defaults.baseURL = 'https://api.beta.citonhub.com/api'
 
 const store = new Vuex.Store({
@@ -3479,17 +3479,23 @@ const app = new Vue({
       }, 1000),
   checkIfMessageExist(data){
 
-    let messageData = this.$root.Messages.filter((message)=>{
-                 return message.message_id == data.message_id ||  message.temp_id == data.temp_id;
-              });
+        if(this.$root.Messages){
 
-              if(messageData.length == 0){
+          let messageData = this.$root.Messages.filter((message)=>{
+            return message.message_id == data.message_id ||  message.temp_id == data.temp_id;
+         });
 
-                return false
-              }else{
-                return true
-              }
+         if(messageData.length == 0){
 
+           return false
+         }else{
+           return true
+         }
+
+        }else{
+          return false;
+        }
+   
   },
 
   // check user login state
