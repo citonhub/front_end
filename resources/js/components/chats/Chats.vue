@@ -2923,10 +2923,11 @@ this.pic1='/imgs/platinum.svg'
 
                       this.SetUnread();
 
-                   
-                      
 
-                      this.$root.updateSpaceMessages();
+                    
+                setTimeout(() => {
+                   this.$root.updateSpaceMessages();
+                }, 1000);
 
                         this.$root.loadingChatList = false;
 
@@ -2985,7 +2986,11 @@ this.pic1='/imgs/platinum.svg'
             })
 
              }else{
-                 this.$root.updateSpaceMessages();
+
+                setTimeout(() => {
+                   this.$root.updateSpaceMessages();
+                }, 1000);
+                
                  
              }
          
@@ -3442,7 +3447,7 @@ this.pic1='/imgs/platinum.svg'
 
          }
 
-          this.$root.updateSpaceMessages();
+        
 
 
 
@@ -3661,7 +3666,7 @@ this.pic1='/imgs/platinum.svg'
 
         
        
-
+      this.$root.updateSpaceMessages();
 
     if( this.$root.selectedSpace.type == 'Bot'){
 
