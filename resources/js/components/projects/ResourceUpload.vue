@@ -1,5 +1,5 @@
 <template>
-<v-app style="background:transparent; font-family:BodyFont;padding-top:20px;">
+<div style="background:transparent; font-family:BodyFont;padding-top:20px;">
  
    <div class="col-12 mt-5 mt-md-1 ml-lg-4">
     <h6>Upload {{this.$route.params.type}}</h6>
@@ -102,7 +102,7 @@
     	
     </div>
 
-</v-app>
+</div>
   
 </template>
 

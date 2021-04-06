@@ -1,17 +1,18 @@
 <template>
-<v-app style="background:transparent; font-family:BodyFont;padding-top:20px;">
+<div style="background:transparent; font-family:BodyFont;padding-top:20px;">
  
    <div class="col-12 mt-5 mt-md-1">
     <h6>Create Database</h6>
    </div>
 
-    <div class="col-md-8 col-lg-4 offset-lg-4 offset-md-2 text-center py-1">
+    <div class="col-md-8 col-lg-4 offset-lg-4 offset-md-2  py-1">
     	
     		<v-form class="row my-2 py-2 px-2"  ref="form" v-model="formstate">
     			<div class="col-12 py-2 my-0 px-2">
+             <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Table Name</div>
     				<v-text-field style="font-size:13px;" dense placeholder="name..."  :rules="Rule"
                  v-model="TableName"
-                 counter="30" outlined color="#3C87CD" label="Table Name"></v-text-field>
+                 counter="30" outlined color="#3C87CD" ></v-text-field>
     			</div>
     		
     			<div class="col-12 py-1 my-0 px-2 text-center">
@@ -21,7 +22,7 @@
     	
     </div>
 
-</v-app>
+</div>
   
 </template>
 

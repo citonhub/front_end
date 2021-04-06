@@ -1,6 +1,6 @@
 <template>
 
-<v-app style="background:transparent; font-family:BodyFont;padding-top:20px;">
+<div style="background:transparent; font-family:BodyFont;padding-top:20px;">
  
    <div class="col-12 mt-5 mt-md-1 ml-lg-4">
     <h6>Web Route</h6>
@@ -11,22 +11,21 @@
     		<v-form class="row my-2 py-2 px-2" ref="form" v-model="formstate">
               
            <div class="col-12 py-2 my-0 px-2">
-            <span style="font-family:BodyFont;font-size:13px;">
-               Routes
-            </span>
+           
+                <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Routes</div>
               <select  style="font-size:14px !important; font-family:BodyFont; background:transparent;" placeholder="select language"    v-model="RouteType" class="browser-default custom-select">
                  <option v-for="(option,index)  in Routes" :value="option" :key="index">{{ option}}</option>
                      </select>
     		
     			</div>
     			<div class="col-12 py-2 my-0 px-2">
-    				<v-text-field style="font-size:13px;"  dense placeholder="path..." v-model="path"  outlined color="#3C87CD" label="Path"></v-text-field>
+              <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Path</div>
+    				<v-text-field style="font-size:13px;"  dense placeholder="path..." v-model="path"  outlined color="#3C87CD" ></v-text-field>
     			</div>
 
           <div class="col-12 py-2 my-0 px-2">
-            <span style="font-family:BodyFont;font-size:13px;">
-               Controllers
-            </span>
+           
+            <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Controllers</div>
               <select  style="font-size:14px !important; font-family:BodyFont; background:transparent;" placeholder="select language"    v-model="ControllerFile" class="browser-default custom-select">
                  <option v-for="(option,index)  in Controllers" :value="option.file_name" :key="index">{{ option.file_name}}</option>
                      </select>
@@ -35,7 +34,8 @@
 
 
                 <div class="col-12 py-2 my-0 px-2">
-    				<v-text-field style="font-size:13px;" v-model="functionName"   dense placeholder="method..."  outlined color="#3C87CD" label="Method"></v-text-field>
+                <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Method</div>
+    				<v-text-field style="font-size:13px;" v-model="functionName"   dense placeholder="method..."  outlined color="#3C87CD" ></v-text-field>
     			</div>
     			
     			<div class="col-12 py-1 my-0 px-2 text-center">
@@ -45,7 +45,7 @@
     	
     </div>
 
-</v-app>
+</div>
    
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-<v-app style="background:transparent; font-family:BodyFont;padding-top:20px;">
+<div style="background:transparent; font-family:BodyFont;padding-top:20px;">
  
    <div class="col-12 mt-5 mt-md-1 ml-lg-4">
     <h6>Add Code File</h6>
@@ -9,17 +9,17 @@
     	
     		<v-form class="row my-2 py-2 px-2"  ref="form" v-model="formstate">
     			<div class="col-12 py-2 my-0 px-2">
+            <div style="font-size:13px;font-family:MediumFont;" class="mb-2">File Name</div>
     				<v-text-field style="font-size:13px;" :rules="Rule"
                  v-model="FileName"
-                 counter="30" dense placeholder="name..."  outlined color="#3C87CD" label="File Name"></v-text-field>
+                 counter="30" dense placeholder="name..."  outlined color="#3C87CD" ></v-text-field>
     			</div>
     			<div class="col-12 py-2 my-0 px-2">
-            <span style="font-family:BodyFont;font-size:13px;">
-                Select language
-            </span>
+           
+             <div style="font-size:13px;font-family:MediumFont;" class="mb-2"> Select language</div>
               <select  style="font-size:14px !important; font-family:BodyFont; background:transparent;" placeholder="select language"    v-model="programmingLanguage" class="browser-default custom-select">
                  <option v-for="(option,index)  in languageCat" :value="option" :key="index">{{ option}}</option>
-                     </select>
+              </select>
     		
     			</div>
     			<div class="col-12 py-1 my-0 px-2 text-center">
@@ -29,7 +29,7 @@
     	
     </div>
 
-</v-app>
+</div>
   
 </template>
 

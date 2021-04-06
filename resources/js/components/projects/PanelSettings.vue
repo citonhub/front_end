@@ -1,24 +1,25 @@
 <template>
-<v-app style="background:transparent; font-family:BodyFont;padding-top:20px;">
+<div style="background:transparent; font-family:BodyFont;padding-top:20px;">
  
    <div class="col-12 mt-5 mt-md-1 ml-lg-4">
     <h6>Panel Settings</h6>
    </div>
 
-    <div class="col-md-8 col-lg-4 offset-lg-4 offset-md-2 text-center py-1">
+    <div class="col-md-8 col-lg-4 offset-lg-4 offset-md-2  py-1">
     	
     		<v-form class="row my-2 py-2 px-2">
     			<div class="col-12 py-2 my-0 px-2">
+                          <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Project Title</div>
     				<v-text-field style="font-size:13px;"
-                     v-model="title" :rules="Rule"  prepend-inner-icon="las la-laptop-code" dense placeholder="title..."  outlined color="#3C87CD" label="Project Title"></v-text-field>
+                     v-model="title" :rules="Rule"  prepend-inner-icon="las la-laptop-code" dense placeholder="title..."  outlined color="#3C87CD" ></v-text-field>
     			</div>
 
                 <div class="col-12 py-2 my-0 px-2">
-
+               <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Contributors</div>
                     <v-select
                  style="font-size:13px;"
               dense
-              label="Contributors"
+            
             counter="20"
             v-model="contributors"
             placeholder="select..."
@@ -105,7 +106,7 @@
 
      <!-- ends -->
 
-</v-app>
+</div>
 </template>
 
 
