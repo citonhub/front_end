@@ -75,6 +75,8 @@
 <!-- ends -->
 
 <!-- Video player and streaming, third-party scripts -->
+
+
   <script src="{{ asset('js/shaka-player.compiled.js') }}"></script>
 
    <script src="{{ asset('js/shaka-player.ui.js') }}"></script>

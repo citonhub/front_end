@@ -595,7 +595,7 @@
                   </div>
                  </div>
 
-                <video-player v-else :videoUrl="'/videos/' + source.video.video_name + '.mpd'" :backgroundColor="source.video.background_color" style="width:100%;"
+                <video-player v-else :videoUrl="'/videos/' + source.video.video_name + '.' + source.video.video_extension" :backgroundColor="source.video.background_color" style="width:100%;"
                :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.message_id"  :screenType="screenType"> </video-player>
                         
                  <!-- time -->
@@ -650,7 +650,7 @@
                   </div>
 
 
-                   <video-player :screenType="screenType"  :videoUrl="'/videos/' + source.video.video_name + '.mpd'" :backgroundColor="source.video.background_color" style="width:100%;"
+                   <video-player :screenType="screenType"  :videoUrl="'/videos/' + source.video.video_name + '.' + source.video.video_extension" :backgroundColor="source.video.background_color" style="width:100%;"
                :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.message_id" > </video-player>
                         
                           <!-- more option -->
