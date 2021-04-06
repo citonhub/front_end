@@ -44,7 +44,7 @@ const MY_ICONS = {
     prev: 'las la-angle-left',
     next: 'las la-angle-right',
     checkboxOn: 'las la-check-square',
-    checkboxOff: 'las la-minus-square',
+    checkboxOff: 'las la-stop',
     checkboxIndeterminate: 'las la-minus-square',
     delimiter: 'las la-dot-circle', // for carousel
     sort: 'las la-sort',
