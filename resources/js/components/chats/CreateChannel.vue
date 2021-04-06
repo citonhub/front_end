@@ -60,13 +60,15 @@
              </v-textarea>
 
   
-   <!-- pet description field ends-->
+   <!--  description field ends-->
 
              </div>
 
              <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 pt-0 my-0 px-1  mt-n3">
 
-               <div style="font-size:14px;">Select how you will like to earn. <a href="https://blog.citonhub.com/how-developers-make-money-on-citonhub" target="_blank">Read more...</a></div>
+               <div style="font-size:14px;">Select how you will like to earn. <a href="https://blog.citonhub.com/how-developers-make-money-on-citonhub" target="_blank">Read more...</a><br>
+               <span style="color:grey;font-size:13px;">We only earn when you earn.</span>
+               </div>
               
 
                <div class="col-12 px-1 py-1 d-flex flex-row">
