@@ -49,10 +49,25 @@
 
    <template v-else>
 
+       <div class="d-flex flex-row px-0 py-1" style="border-bottom:1px solid #c5c5c5; border-radius:0px; align-items:center;">
+
+             <div style="font-family:HeaderFont;font-size:16px;">Payout to your bank</div>
+
+                <v-btn small icon color="#ffffff" @click="closeModal" style="background:#3C87CD;" 
+           class="ml-auto "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
+
+        </div>
+
+        <div class="px-1">
+
+
       <h6 class="text-left">Payable amount: <span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.payable_amount)}}</h6>
         <p style="font-size:13px;font-family:BodyFont;">
              This is the total amount of money available for payout to your bank. It is updated every <strong style="font-family:MediumFont;">five working days</strong>. This is the maximum time it takes Flutterwave(our payment provider) to process the monies you received from your channel.
         </p>
+
+        </div>
+
 
    </template>
           
