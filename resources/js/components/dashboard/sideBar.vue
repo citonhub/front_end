@@ -35,40 +35,6 @@
 
 
 
-                <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'mentors' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''"  @click.stop="goToPage('mentors')">
-                <div class="row">
-                <div class="col-4 py-1 text-center">
-                
-
-                     <v-icon class="d-none d-md-inline-block" style="font-size:27px;" :color="selectedTab == 'mentors' ? '#3C87CD' : '#A4A4A5'">las la-user-friends</v-icon>
-                 <v-icon  class="d-md-none d-inline-block" style="font-size:23px;" :color="selectedTab == 'mentors' ? '#3C87CD' : '#A4A4A5'">las la-user-friends</v-icon>
-                </div>
-                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'mentor' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:13px;" >Mentors</div>
-                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Mentors</div>
-                </div>
-                </div>
-          </div>
-
-         
-         
-            <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar" :style="selectedTab == 'hub' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('hub')">
-                <div class="row">
-                <div class="col-4 py-1 text-center">
-                 
-                    <v-icon class="d-none d-md-inline-block" style="font-size:27px;" :color="selectedTab == 'hub' ? '#3C87CD' : '#A4A4A5'">las la-stream</v-icon>
-                 <v-icon  class="d-md-none d-inline-block" style="font-size:23px;" :color="selectedTab == 'hub' ? '#3C87CD' : '#A4A4A5'">las la-stream</v-icon>
-                </div>
-                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'hub' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:13px;" >Showcase</div>
-                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Showcase</div>
-                </div>
-                </div>
-          </div>
-
-
-             
-          
            <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'challenges' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('challenges')">
                 <div class="row">
                 <div class="col-4 py-1 text-center">
@@ -87,8 +53,39 @@
 
 
 
+           <div class="col-12  px-0 py-1 py-md-2 sideBar mt-1 " :style="selectedTab == 'projects' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('projects')">
+                <div class="row">
+                <div class="col-4 py-1 text-center">
+                
+                     <v-icon class="d-none d-md-inline-block" style="font-size:27px;" :color="selectedTab == 'projects' ? '#3C87CD' : '#A4A4A5'">las la-laptop-code</v-icon>
+                 <v-icon  class="d-md-none d-inline-block" style="font-size:23px;" :color="selectedTab == 'projects' ? '#3C87CD' : '#A4A4A5'">las la-laptop-code</v-icon>
+
+                </div>
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'projects' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
+                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:13px;" >Projects</div>
+                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Projects</div>
+                </div>
+                </div>
+          </div>  
+
+
          
-       
+         
+            <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar" :style="selectedTab == 'hub' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('hub')">
+                <div class="row">
+                <div class="col-4 py-1 text-center">
+                 
+                    <v-icon class="d-none d-md-inline-block" style="font-size:27px;" :color="selectedTab == 'hub' ? '#3C87CD' : '#A4A4A5'">las la-stream</v-icon>
+                 <v-icon  class="d-md-none d-inline-block" style="font-size:23px;" :color="selectedTab == 'hub' ? '#3C87CD' : '#A4A4A5'">las la-stream</v-icon>
+                </div>
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'hub' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
+                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:13px;" >Showcase</div>
+                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Showcase</div>
+                </div>
+                </div>
+          </div>
+
+
 
                <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'diary' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''"  @click.stop="goToPage('diary')">
                 <div class="row">
@@ -108,22 +105,22 @@
 
 
             
-
-
-           <div class="col-12  px-0 py-1 py-md-2 sideBar mt-1 " :style="selectedTab == 'projects' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''" @click.stop="goToPage('projects')">
+                <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'leaderboard' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''"  @click.stop="goToPage('mentors')">
                 <div class="row">
                 <div class="col-4 py-1 text-center">
                 
-                     <v-icon class="d-none d-md-inline-block" style="font-size:27px;" :color="selectedTab == 'projects' ? '#3C87CD' : '#A4A4A5'">las la-laptop-code</v-icon>
-                 <v-icon  class="d-md-none d-inline-block" style="font-size:23px;" :color="selectedTab == 'projects' ? '#3C87CD' : '#A4A4A5'">las la-laptop-code</v-icon>
 
+                     <v-icon class="d-none d-md-inline-block" style="font-size:27px;" :color="selectedTab == 'leaderboard' ? '#3C87CD' : '#A4A4A5'">las la-user-friends</v-icon>
+                 <v-icon  class="d-md-none d-inline-block" style="font-size:23px;" :color="selectedTab == 'leaderboard' ? '#3C87CD' : '#A4A4A5'">las la-user-friends</v-icon>
                 </div>
-                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'projects' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
-                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:13px;" >Projects</div>
-                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Projects</div>
+                <div class="  py-1 col-8 d-flex" :style="selectedTab == 'mentor' ? 'align-items:center;' : 'align-items:center; color:#A4A4A5;'">
+                  <div class="d-none d-md-inline-block" style="font-family:MediumFont; font-size:13px;" >Leaderboard</div>
+                  <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Leaderboard</div>
                 </div>
                 </div>
-          </div>  
+          </div>
+
+
 
      
         
@@ -235,11 +232,11 @@ export default {
               
             }
 
-            if(this.$router.currentRoute.path.indexOf('mentors') >= 0){
+            if(this.$router.currentRoute.path.indexOf('leaderboard') >= 0){
                 
-               this.selectedTab = 'mentors';
+               this.selectedTab = 'leaderboard';
 
-                this.$root.searchType = 'mentors';
+                this.$root.searchType = 'leaderboard';
 
               
             }

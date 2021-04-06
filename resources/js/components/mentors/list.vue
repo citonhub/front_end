@@ -4,30 +4,15 @@
     <div class="col-lg-10 offset-lg-1 py-1 mb-0  px-2 d-md-block d-none fixed-top" style="position:sticky; background:#F5F5FB; z-index:999999999999; border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0">
-          <h5>Mentors</h5>
+          <h5>:eaderboard</h5>
         </div>
          <div class="col-6  py-0 my-0 text-right">
               
-          <v-btn small  @click="BecomeMentor" color="#3C87CD"  style="font-family:BodyFont;font-size:11px;color:white;" class="mx-2 d-inline-block" rounded>Become a mentor</v-btn>
+         
                        
         </div>
       </div>
    </div>
-
-
-
-         <!-- floating add button -->
-
-       
-
-     <v-btn @click="BecomeMentor"  fab color="#3C87CD"  class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:2%; ">
-
-        <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
-         
-     </v-btn>
-
-
-       <!-- ends -->
 
 
 
@@ -66,7 +51,7 @@
 
           <div class="mb-3 px-3" style="font-size:13px;color:grey;font-family:BodyFont;">
                    
-                    No mentor found
+                    No users found
 
                     </div>
 
@@ -103,25 +88,7 @@
                 
             </div>
 
-              <div class=" py-0 my-0 text-center mt-1">
-               
-                <v-chip v-for="(lang,index) in handleLanguageList(mentor.language_list)"
-                :key="'lang' + index"
-              
-              color="#3C87CD"
-              dense
-              outlined
-              class="my-1 mx-1"
-              style="font-size:12px; font-family:BodyFont;"
-              small
-            >
-             
-            {{lang}}
-            </v-chip>
-
-              
-                 
-            </div>
+            
 
                 <div class="col-12 py-0 mt-3 px-1 text-center">
                        <v-btn small  @click="showProfile(mentor.username)"  color="#3C87CD"  style="font-family:BodyFont;color:white;font-size:12px;text-transform:none;" class="mx-2 d-inline-block" >View profile</v-btn>

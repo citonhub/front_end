@@ -204,7 +204,7 @@
 
 import Flutterwave from 'vue-flutterwave'
 
-Vue.use(Flutterwave, { publicKey: 'FLWPUBK_TEST-88988df0b869189dd63c6cd152830ac2-X' })
+Vue.use(Flutterwave, { publicKey: 'FLWPUBK-ea9a4693d8c3caabf78dafe50beccf96-X' })
 
 export default {
      data(){

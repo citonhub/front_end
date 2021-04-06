@@ -1772,9 +1772,9 @@ children:[
       },
       {
         // mentors
-        path: 'mentors',
+        path: 'leaderboard',
         component: Mentors,
-        redirect:'/board/mentors/list',
+        redirect:'/board/leaderboard/list',
         meta: {
           twModalView: true
         },

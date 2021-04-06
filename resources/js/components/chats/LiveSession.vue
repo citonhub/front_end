@@ -635,9 +635,14 @@ export default {
 
            if(this.checkIfMaster()){
 
-                  this.$root.checkScreenRoomState(true);
-                  
-                 
+              if($screen.lg){
+
+              this.$root.checkScreenRoomState(true);
+
+              }else{
+                this.$root.chatComponent.showAlert('Oops!','Screen sharing not supported on mobile yet','error')
+              }
+  
 
                }else{
                   this.$root.checkScreenRoomState(false);
