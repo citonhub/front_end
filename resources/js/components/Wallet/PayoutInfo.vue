@@ -58,7 +58,7 @@
 
         </div>
 
-        <div class="px-1">
+        <div class="px-1 mt-2">
 
 
       <h6 class="text-left">Payable amount: <span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.payable_amount)}}</h6>
