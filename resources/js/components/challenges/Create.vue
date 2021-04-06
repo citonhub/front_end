@@ -163,6 +163,7 @@
       <v-select
      label="Application type"
      :items="languageIcon"
+    
      item-text="name"
        :disabled="challengeIsActive"
            item-value="id"
