@@ -3,8 +3,10 @@
     <div @click.stop="preventDefault">
     <v-card class="col-lg-4 offset-lg-4 pb-2  py-1 d-flex flex-column col-md-8 offset-md-2 application application--light"  data-app="true" >
 
-         
-   <div class="d-flex flex-row px-0 py-1" style="border-bottom:1px solid #c5c5c5; border-radius:0px; align-items:center;">
+
+   <template v-if="that.$root.selectedPaymentCard.payable_amount > 0">
+
+       <div class="d-flex flex-row px-0 py-1" style="border-bottom:1px solid #c5c5c5; border-radius:0px; align-items:center;">
 
              <div style="font-family:HeaderFont;font-size:16px;">Payout to your bank</div>
 
@@ -42,6 +44,19 @@
          <div class="col-12 text-center pb-2 pt-1">
         <v-btn small @click="PayoutToAccount" :loading="loadingpayout" :disabled="payout_account == 0" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 " >Payout</v-btn>
       </div>
+
+   </template>
+
+   <template v-else>
+
+      <h6 class="text-left">Payable amount: <span v-html="currencyToCharacter(that.$root.selectedPaymentCard.currency)"></span>{{formatMoney(that.$root.selectedPaymentCard.payable_amount)}}</h6>
+        <p style="font-size:13px;font-family:BodyFont;">
+             This is the total amount of money available for payout to your bank. It is updated every <strong style="font-family:MediumFont;">five working days</strong>. This is the maximum time it takes Flutterwave(our payment provider) to process the monies you received from your channel.
+        </p>
+
+   </template>
+          
+ 
    
     
 
