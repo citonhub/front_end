@@ -3200,15 +3200,17 @@ const app = new Vue({
 
    
 
-    this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
+  
 
     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
-
-
 
      this.$root.ChatList = fullList;
 
      this.$root.sortChatList();
+
+     this.SetUnread();
+
+     this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
       }
 
