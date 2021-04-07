@@ -402,7 +402,7 @@ export default {
        
         },
       handleGitHub:function(){
-         this.loadingGitHub = true;
+         
          this.$root.auth_device_id =  "device_" + Math.random().toString(36).slice(2);
     var strWindowFeatures = "location=yes,height=570,width=520,scrollbars=yes,status=yes";
 
