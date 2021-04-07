@@ -2737,321 +2737,331 @@ const app = new Vue({
     })
     .listen('.GlobalChannel',(e) => {
 
-      if(e.actionType == 'new-message'){
+        if(e.userId == this.user_temp_id || e.userId == 0){
+          
+          if(e.actionType == 'new-message'){
 
 
+            setTimeout(() => {
 
-
-           if(!this.$root.checkIfMessageExist(e.data)){
-
-            let message= e.data
-
-            if(message.type == 'join'){
-              this.fetchSpaceInfo(message.space_id)
-            }
+              if(!this.$root.checkIfMessageExist(e.data) && e.data.origin_device != this.$root.userDeviceId){
+ 
+                let message= e.data
+    
+                if(message.type == 'join'){
+                  this.fetchSpaceInfo(message.space_id)
+                }
+                
+                let messageData = {
+                  space_id: e.data.space_id,
+                  new_messages: [e.data]
+                };
+    
+                this.handleSpaceData([messageData])
+                
+    
             
-            let messageData = {
-              space_id: e.data.space_id,
-              new_messages: [e.data]
-            };
+    
+                this.scrollToBottom();
+    
+               
+    
+               }
+              
+            }, 1000);
 
-            this.handleSpaceData([messageData])
-            
-
-        
-
-            this.scrollToBottom();
-
-           
-
-           }
-
-      }
-
-
-      if(e.actionType == 'new_post'){
-
-
-        if(this.$root.hubComponents){
+          
+ 
+       }
+ 
+ 
+       if(e.actionType == 'new_post'){
+ 
+ 
+         if(this.$root.hubComponents){
+          
          
-        
-          this.$root.posts.push(e.data);
-
-        
-
-        }
-
-       
-
+           this.$root.posts.push(e.data);
+ 
+         
+ 
          }
-
-         if(e.actionType == 'post_liked'){
-
+ 
         
-          if(this.$root.hubComponents){
-           
-          
-            this.$root.posts.map((post)=>{
-              if(post.id == e.data.hub_post_id){
-
-                 post.likes += 1;
-
-              }
-            });
-
-             if(this.$root.selectedPost){
-
-               if(this.$root.selectedPost.id == e.data.hub_post_id){
-
-                this.$root.selectedPost.likes += 1;
-
-               }
-
-             
-
-             }
-  
-          
-  
+ 
           }
-  
+ 
+          if(e.actionType == 'post_liked'){
+ 
          
-  
-           }
-
-           if(e.actionType == 'post_pinned'){
-
-
-            if(this.$root.hubComponents){
-             
-                
-  
-               if(this.$root.selectedPost){
-  
+           if(this.$root.hubComponents){
+            
+           
+             this.$root.posts.map((post)=>{
+               if(post.id == e.data.hub_post_id){
+ 
+                  post.likes += 1;
+ 
+               }
+             });
+ 
+              if(this.$root.selectedPost){
+ 
                 if(this.$root.selectedPost.id == e.data.hub_post_id){
-
-                  this.$root.selectedPost.pinned += 1;
-  
-                 }
-  
-               }
-    
-            
-    
-            }
-    
-           
-    
-             }
-
-
-             if(e.actionType == 'post_comment'){
-
-
-              if(this.$root.hubComponents){
-
-
-                this.$root.posts.map((post)=>{
-                  if(post.id == e.data.hub_post_id){
-    
-                     post.comments += 1;
-    
-                  }
-                });
-               
-            
-    
-                 if(this.$root.selectedPost){
-    
-                  if(this.$root.selectedPost.id == e.data.hub_post_id){
-  
-                     this.$root.projectViewComponent.comments.unshift(e.data);
-                     this.$root.projectViewComponent.scrollToTop();
-    
-                   }
-    
-                 }
-      
+ 
+                 this.$root.selectedPost.likes += 1;
+ 
+                }
+ 
               
-      
+ 
               }
-      
-             
-      
-               }
-
-
-               if(e.actionType == 'post_comment_like'){
-
-
-                if(this.$root.hubComponents){
-  
-             
-      
-                   if(this.$root.selectedPost){
-      
-                    if(this.$root.selectedPost.id == e.data.hub_post_id){
-    
-                       this.$root.projectViewComponent.comments.map((comment)=>{
-                         if(comment.id == e.data.id){
-
-                           comment.likes += 1;
-
-                         }
-                       });
-      
-                     }
-      
-                   }
-        
-                
-        
-                }
-        
-               
-        
-                 }
-
-                 if(e.actionType == 'new_direct_space'){
-
-                  let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
-
-                  storedChat.then((result)=>{
-
-                      if(result != null ){
-
-
-                   let finalResult = JSON.parse(result);
-
-                       let userSpace = finalResult.direct_messages.filter((space)=>{
-                         return space.space_id == e.data.space.space_id
-                       })
-
-                       if(userSpace.length > 0){
-
-
-                       }else{
-
-                         finalResult.direct_messages.unshift(e.data.space);
-
-                         this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
-
-                    let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
-
-                    
-                  this.$root.ChatList = fullList;
-
-                    this.$root.sortChatList();
-
-                       }
-                   
-
-                }
-
-                  } )
-
-                 }
-
-                 if(e.actionType == 'space_update'){
-
-                   if(e.data.device_id == this.$root.userDeviceId){
-
-                    let returnData = e.data.data;
-
-                      this.returnedDataArray.push(returnData);
-
-                       if(!this.messageIsProcessing){
-
-                        let firstData = this.returnedDataArray.shift();
-                      
-
-                        this.handleSpaceData(firstData);
-
-                        
-                         
-                       }
-                       
-                     
- 
-
-                   }
-
-                
-                 }
-
-                  if(e.actionType == 'message_delete'){
-
-
-                     this.deleteMessage(e.data)
-
-                 
-                 }
- 
-
-      if(e.actionType == 'challenge_comment'){
-
-        if( this.$root.discussionComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
-         
-        
-          this.$root.discussionComponent.comments.unshift(e.data);
-
-        
-
-        }
-
-   }
-
-   if(e.actionType == 'challenge_comment_like'){
-
-    if( this.$root.discussionComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
-     
-    
-      this.$root.discussionComponent.comments.map((comment)=>{
-          if(comment.id == e.data.id){
-
-            comment.likes += 1;
-
-          }
-      });
-
-    
-
-    }
-
-      }    
-
-
-
-      if(e.actionType == 'new_challenge_participant'){
-
-        if( this.$root.challengePanelComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
-         
-        
-          this.$root.selectedChallenge.current_participant += 1;
-
-          this.$root.selectedChallenge.duel_participants.unshift(e.data);
-    
-        
-    
-        }
-    
-          }  
-
+   
+           
+   
+           }
+   
           
-          if(e.actionType == 'challenge_started'){
-
-            if(this.$root.challengePanelComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
-             
-            
-              
-              this.$root.challengePanelComponent.reloadChallenge();
-            
-        
+   
             }
-        
-              }  
+ 
+            if(e.actionType == 'post_pinned'){
+ 
+ 
+             if(this.$root.hubComponents){
+              
+                 
+   
+                if(this.$root.selectedPost){
+   
+                 if(this.$root.selectedPost.id == e.data.hub_post_id){
+ 
+                   this.$root.selectedPost.pinned += 1;
+   
+                  }
+   
+                }
+     
+             
+     
+             }
+     
+            
+     
+              }
+ 
+ 
+              if(e.actionType == 'post_comment'){
+ 
+ 
+               if(this.$root.hubComponents){
+ 
+ 
+                 this.$root.posts.map((post)=>{
+                   if(post.id == e.data.hub_post_id){
+     
+                      post.comments += 1;
+     
+                   }
+                 });
+                
+             
+     
+                  if(this.$root.selectedPost){
+     
+                   if(this.$root.selectedPost.id == e.data.hub_post_id){
+   
+                      this.$root.projectViewComponent.comments.unshift(e.data);
+                      this.$root.projectViewComponent.scrollToTop();
+     
+                    }
+     
+                  }
+       
+               
+       
+               }
+       
+              
+       
+                }
+ 
+ 
+                if(e.actionType == 'post_comment_like'){
+ 
+ 
+                 if(this.$root.hubComponents){
+   
+              
+       
+                    if(this.$root.selectedPost){
+       
+                     if(this.$root.selectedPost.id == e.data.hub_post_id){
+     
+                        this.$root.projectViewComponent.comments.map((comment)=>{
+                          if(comment.id == e.data.id){
+ 
+                            comment.likes += 1;
+ 
+                          }
+                        });
+       
+                      }
+       
+                    }
+         
+                 
+         
+                 }
+         
+                
+         
+                  }
+ 
+                  if(e.actionType == 'new_direct_space'){
+ 
+                   let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
+ 
+                   storedChat.then((result)=>{
+ 
+                       if(result != null ){
+ 
+ 
+                    let finalResult = JSON.parse(result);
+ 
+                        let userSpace = finalResult.direct_messages.filter((space)=>{
+                          return space.space_id == e.data.space.space_id
+                        })
+ 
+                        if(userSpace.length > 0){
+ 
+ 
+                        }else{
+ 
+                          finalResult.direct_messages.unshift(e.data.space);
+ 
+                          this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
+ 
+                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+ 
+                     
+                   this.$root.ChatList = fullList;
+ 
+                     this.$root.sortChatList();
+ 
+                        }
+                    
+ 
+                 }
+ 
+                   } )
+ 
+                  }
+ 
+                  if(e.actionType == 'space_update'){
+ 
+                    if(e.data.device_id == this.$root.userDeviceId){
+ 
+                     let returnData = e.data.data;
+ 
+                       this.returnedDataArray.push(returnData);
+ 
+                        if(!this.messageIsProcessing){
+ 
+                         let firstData = this.returnedDataArray.shift();
+                       
+ 
+                         this.handleSpaceData(firstData);
+ 
+                         
+                          
+                        }
+                        
+                      
+  
+ 
+                    }
+ 
+                 
+                  }
+ 
+                   if(e.actionType == 'message_delete'){
+ 
+ 
+                      this.deleteMessage(e.data)
+ 
+                  
+                  }
+  
+ 
+       if(e.actionType == 'challenge_comment'){
+ 
+         if( this.$root.discussionComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
+          
+         
+           this.$root.discussionComponent.comments.unshift(e.data);
+ 
+         
+ 
+         }
+ 
+    }
+ 
+    if(e.actionType == 'challenge_comment_like'){
+ 
+     if( this.$root.discussionComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
+      
+     
+       this.$root.discussionComponent.comments.map((comment)=>{
+           if(comment.id == e.data.id){
+ 
+             comment.likes += 1;
+ 
+           }
+       });
+ 
+     
+ 
+     }
+ 
+       }    
+ 
+ 
+ 
+       if(e.actionType == 'new_challenge_participant'){
+ 
+         if( this.$root.challengePanelComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
+          
+         
+           this.$root.selectedChallenge.current_participant += 1;
+ 
+           this.$root.selectedChallenge.duel_participants.unshift(e.data);
+     
+         
+     
+         }
+     
+           }  
+ 
+           
+           if(e.actionType == 'challenge_started'){
+ 
+             if(this.$root.challengePanelComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
+              
+             
+               
+               this.$root.challengePanelComponent.reloadChallenge();
+             
+         
+             }
+         
+               }  
+ 
 
 
+        }
+
+      
       })
       .listenForWhisper('typing', (e) => {
 
@@ -3483,7 +3493,7 @@ const app = new Vue({
         if(this.$root.Messages){
 
           let messageData = this.$root.Messages.filter((message)=>{
-            return message.message_id == data.message_id ||  message.temp_id == data.temp_id;
+            return  message.temp_id == data.temp_id;
          });
 
          if(messageData.length == 0){
