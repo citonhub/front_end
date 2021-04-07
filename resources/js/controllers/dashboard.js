@@ -3807,11 +3807,7 @@ spaceMessageProcessor: function(space,allSpace,count){
 
 
 
-       // check for space in chatlist
     
-
-       this.$root.addSpaceToChatList(space.space_id);
-
  
 
 
@@ -4064,7 +4060,7 @@ handleQueueingMessages:function(){
 
 handleSpaceData: function(spaceData){
 
-  
+       
 
     this.handleMessageSequence(spaceData,0);
 
@@ -4076,8 +4072,12 @@ handleSpaceData: function(spaceData){
  },
  handleMessageSequence:function(allSpace,count){
 
-  
+      // check for space in chatlist
+    
 
+      this.$root.addSpaceToChatList(allSpace[count].space_id);
+
+   
   this.spaceMessageProcessor(allSpace[count],allSpace,count)
   .then(count => {
    
