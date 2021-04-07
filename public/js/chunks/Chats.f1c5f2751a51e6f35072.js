@@ -18,7 +18,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var izitoast_dist_css_iziToast_min_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! izitoast/dist/css/iziToast.min.css */ "./node_modules/izitoast/dist/css/iziToast.min.css");
 /* harmony import */ var izitoast_dist_css_iziToast_min_css__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(izitoast_dist_css_iziToast_min_css__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var v_emoji_picker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! v-emoji-picker */ "./node_modules/v-emoji-picker/lib/v-emoji-picker.esm.js");
-/* harmony import */ var vue_zoomer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-zoomer */ "./node_modules/vue-zoomer/dist/vue-zoomer.esm.js");
+/* harmony import */ var vue_zoomer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-zoomer */ "./node_modules/vue-zoomer/dist/vue-zoomer.esm.js");
 //
 //
 //
@@ -1905,7 +1905,7 @@ var MentorInfo = function MentorInfo() {
 };
 
 
-Vue.use(vue_zoomer__WEBPACK_IMPORTED_MODULE_7__["default"]);
+Vue.use(vue_zoomer__WEBPACK_IMPORTED_MODULE_6__["default"]);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
