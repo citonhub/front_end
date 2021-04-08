@@ -290,6 +290,10 @@
                                      </div>
 </template>
 <script>
+
+import VueScreen from 'vue-screen'
+Vue.use(VueScreen, 'bootstrap')
+
 export default {
    data(){
       
