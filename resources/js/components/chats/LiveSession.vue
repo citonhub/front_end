@@ -291,6 +291,8 @@
 </template>
 <script>
 
+
+
 import VueScreen from 'vue-screen'
 Vue.use(VueScreen, 'bootstrap')
 
@@ -639,12 +641,12 @@ export default {
 
            if(this.checkIfMaster()){
 
-              if($screen.lg){
+              if(this.$screen.lg){
 
               this.$root.checkScreenRoomState(true);
 
               }else{
-                this.$root.chatComponent.showAlert('Oops!','Screen sharing not supported on mobile yet','error')
+                this.$root.chatComponent.showAlert('Oops!','Screen sharing not supported on mobile yet','error',10000)
               }
   
 
