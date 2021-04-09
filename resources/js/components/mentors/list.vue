@@ -4,7 +4,7 @@
     <div class="col-lg-10 offset-lg-1 py-1 mb-0  px-2 d-md-block d-none fixed-top" style="position:sticky; background:#F5F5FB; z-index:999999999999; border-bottom:1px solid #c5c5c5;">
       <div class="row">
         <div class="col-6 py-0 my-0">
-          <h5>:eaderboard</h5>
+          <h5>Leaderboard</h5>
         </div>
          <div class="col-6  py-0 my-0 text-right">
               

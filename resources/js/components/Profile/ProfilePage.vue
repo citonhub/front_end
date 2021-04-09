@@ -256,7 +256,7 @@
 
              <div class="col-12 px-1 mt-2">
 
-               <template v-if="profileData.is_mentor">
+               <template v-if="true">
 
                   <div class="col-12 px-0 d-flex flex-row py-0 mt-2" style="align-items:center; border-bottom:1px solid #c5c5c5; overflow-x:auto; white-space: nowrap;">
                     
@@ -288,9 +288,7 @@
 
                </template>
 
-               <template v-else>
-                <h5 style="border-bottom:1px solid #c5c5c5;" class="py-1">Projects</h5>
-               </template>
+             
 
            
 
