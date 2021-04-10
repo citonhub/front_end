@@ -586,7 +586,8 @@ export default {
 
           this.showAlert('Oops!','Unable to load page content','error');
 
-          this.monitorLink();
+            this.supportedLink = false;
+           this.projectLinkFullContent = 'false';
 
      })
 
