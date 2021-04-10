@@ -4,7 +4,7 @@
     <title>CitonHub</title>
 
  @endsection
- @section('meta') 
+ @section('meta')
  <meta name="description" content="CitonHub is an all-in-one platform for developers to mentor, grow their communities, and earn." />
   <meta name="keywords" content="mentor programming,Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
@@ -26,11 +26,11 @@
 
  @endsection
  @section('css')
- 
+
   <!-- Line awesome icon: -->
   <link rel="stylesheet" type="text/css" href="/css/line-awesome.min.css">
   <!-- ends -->
-  
+
 
  <style>
 .box{
@@ -42,7 +42,7 @@
 }
 
 .messagesBadges{
-    
+
     color: #ffffff;
     background: #3C87CD;
     font-size: 29px;
@@ -57,25 +57,25 @@
 
 
  </style>
-  
+
  @endsection
 
  @section('content')
 
 
 <div id="home" class="py-0 col-12 px-0" style="background:url('/imgs/backgroundHome.png');background-repeat:no-reapeat;overflow-x:hidden;">
-   
+
 <!-- Headers -->
 <div class="col-12 fixed-top py-2 px-md-4 px-3 px-md-2 "  style="background:rgba(255,255,255,1.0);">
 <div class="row">
 
 <!-- Logo -->
  <div class="col-4 text-left ">
- 
+
  <img alt="citonhub logo" class="d-lg-block d-none" src="/imgs/logo.png" height="40px">
 
  <img alt="citonhub logo" class="d-lg-none d-block" src="/imgs/logo.png" height="35px">
- 
+
  </div>
 
  <!-- Sign up, register button -->
@@ -83,16 +83,16 @@
 
 
  <a href="/dashboard#/login"  class="linkStyle mx-3 d-md-inline-block d-none"  style="color:#000000;"> Login</a>
- 
+
  <a href="/dashboard#/sign-up" class="homeButton mx-2 px-3 py-2 d-md-inline-block d-none">Sign Up</a>
 
  <a href="/dashboard#/login"  class="linkStyle mx-3 d-md-none d-inline-block"  style="color:#000000;font-size:14px;"> Login</a>
- 
+
  <a href="/dashboard#/sign-up" class="homeButton mx-2 px-3 py-2 d-md-none d-inline-block" style="font-size:14px;">Sign Up</a>
 
  </div>
 
- 
+
 
 </div>
 
@@ -102,25 +102,25 @@
 <!-- Teach , learn and connect -->
 
 <div class="col-lg-6 offset-lg-3 text-center  d-none d-md-block flex-column " style=" align-items:center; justify-content:center; margin-top:140px;margin-bottom:100px;">
-   
+
    <div class="px-2 mt-4 " >
      <h1 style="font-family:HeaderFont;" class="mb-3 mt-4">Get organized and be efficient</h1>
 
      <div class="px-3">
      <p style="font-size:20px;font-family:BodyFont;" class="px-0">CitonHub is an all-in-one platform for developers to mentor, grow their communities, and earn.</p>
-     </div>   
-   
+     </div>
+
 
      <div class="py-2 px-0 mt-3 col-12 text-center">
-  
+
       <a href="/dashboard#/sign-up" class="homeButton ml-2 py-3 px-4 d-inline-block ">Get started for FREE</a>
-      
+
      <!--a href="/dashboard#/login" class="homeButtonOutline mx-3 px-5 py-3">Login</a>-->
 
      </div>
 
      <div class="col-12 pt-5 mt-5 text-center">
-     <img src="imgs/all_in_one_full.svg" alt="" style="z-index:1; height:100px;"> 
+     <img src="imgs/all_in_one_full.svg" alt="" style="z-index:1; height:100px;">
      </div>
    </div>
 
@@ -137,17 +137,17 @@
 <div class=" text-center">
 
 <h4 style="font-family:HeaderFont;" class="mb-3 px-3">Get organized and be efficient</h4>
-   
-   <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is an all-in-one platform for developers to mentor, grow their communities, and earn.</p>
-    
 
-    
-    
+   <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is an all-in-one platform for developers to mentor, grow their communities, and earn.</p>
+
+
+
+
       <div class="mt-4">
 
       <a href="/dashboard#/sign-up" class="homeButton  px-4 py-2 mx-1" style="font-size:14px;">Get started for FREE</a>
 
-       
+
       </div>
 
       <div class="col-12 pt-3 mt-5 text-center">
@@ -156,10 +156,10 @@
     </div>
 
       <div class="col-12 pt-2 mt-5 text-center">
-     <img src="imgs/all_in_one_full.svg" alt="" style="z-index:1;width:100%; height:55px;"> 
+     <img src="imgs/all_in_one_full.svg" alt="" style="z-index:1;width:100%; height:55px;">
      </div>
 
-  </div> 
+  </div>
 </div>
 
 <!--ends-->
@@ -170,10 +170,10 @@
 <div class="d-md-block d-none" style="width:100%;height:780px;left:0%; margin-top:50px;" >
 
 
-    
+
     <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:860px;">
 
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column"> 
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column">
 
     <!-- what you can do -->
 <div class="col-12 text-center pt-5">
@@ -193,7 +193,7 @@
 <div class="text-center  px-5 mt-2" style="z-index:1;">
 <span  style="color:white; font-family:BodyFont; font-size:18px;">Grow your community <br>and earn from  subscriptions, donations, and paid sessions.</span>
 </div>
-    
+
     </div>
 
 
@@ -202,10 +202,10 @@
 </div>
 
 <div class="d-md-none d-block" style="width:100%;height:690px;left:0%; margin-top:30px;" >
-    
+
     <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:680px;">
 
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column mt-1"> 
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column mt-1">
 
       <!-- what you can do -->
 <div class="col-12 text-center pt-5 mt-3">
@@ -225,7 +225,7 @@
 <div class="text-center  px-5 mt-2" style="z-index:1;">
 <span  style="color:white; font-family:BodyFont; font-size:15px;">Grow your community <br>and earn from  subscriptions, donations, and paid sessions.</span>
 </div>
-    
+
     </div>
 
 
@@ -239,10 +239,10 @@
 <!--collaborate section-->
 
 <div class="d-md-block d-none " style="width:100%;height:500px; margin-top:130px;" >
-    
-    
 
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; margin-top:10px;" class="d-flex flex-column"> 
+
+
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; margin-top:10px;" class="d-flex flex-column">
 
     <div class=" text-center mb-2"  style="height:450px;margin-top:-170px;z-index:;">
 <img src="imgs/teach_dev_new.svg" alt="" style="z-index:1; height:100%;">
@@ -252,17 +252,17 @@
 
 <span  style=" font-family:BodyFont; font-size:18px;">Mentor developers in your channel.</span>
 </div>
-    
+
     </div>
 
 </div>
 
 
 <div class="d-md-none d-block " style="width:100%;height:300px; margin-top:90px;" >
-    
-    
 
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; margin-top:10px;" class="d-flex flex-column"> 
+
+
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; margin-top:10px;" class="d-flex flex-column">
 
     <div class=" text-center mb-2"  style="height:300px;margin-top:-170px;z-index:;">
 <img src="imgs/teach_dev_new.svg" alt="" style="z-index:1; height:100%;">
@@ -272,7 +272,7 @@
 
 <span  style=" font-family:BodyFont; font-size:15px;">Mentor developers in your channel.</span>
 </div>
-    
+
     </div>
 
 
@@ -285,19 +285,19 @@
 <!--teach and mentor section-->
 
 <div class="d-md-block d-none " style="width:100%;height:700px; margin-top:-90px;" >
-    
+
     <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:780px;">
 
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column"> 
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column">
 
     <div class=" text-center mb-2"  style="height:400px;margin-top:30px;z-index:;">
-<img src="imgs/collaboration.png" alt="" style="z-index:1; height:100%;"> 
+<img src="imgs/collaboration.png" alt="" style="z-index:1; height:100%;">
 </div>
 
 <div class="text-center  px-5" style="z-index:1;">
 <span  style="font-family:BodyFont; font-size:18px;color:white;">Collaborate and guide other <br> developers on projects in over 25 programming languages.</span>
 </div>
-    
+
     </div>
 
 
@@ -306,19 +306,19 @@
 </div>
 
 <div class="d-md-none d-block " style="width:100%;height:590px; margin-top:-50px;" >
-    
+
     <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:590px;">
 
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column"> 
+    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column">
 
     <div class=" text-center mb-2"  style="height:300px;margin-top:30px;z-index:;">
-<img src="imgs/collaboration.png" alt="" style="z-index:1; height:100%;"> 
+<img src="imgs/collaboration.png" alt="" style="z-index:1; height:100%;">
 </div>
 
 <div class="text-center  px-5" style="z-index:1;">
 <span  style="font-family:BodyFont; font-size:15px;color:white;">Collaborate and guide other <br> developers on projects in over 25 programming languages.</span>
 </div>
-    
+
     </div>
 
 
@@ -332,7 +332,7 @@
 <!--collaborate section-->
 
 <div class="d-md-block d-none " style="width:100%;height:400px; margin-top:80px;" >
-    
+
 <h3 style="font-weight:bold;" class="text-center mb-5 d-md-block d-none" >How it works</h3>
 
 
@@ -351,7 +351,7 @@
        <h4 style="font-weight:bold;" class="text-center  d-md-block d-none" >Create your channel</h4>
        <div  style="font-family:BodyFont; font-size:16px;">Set your channel name and add a description.</div>
       </div>
-     
+
      </div>
      <div class="col-md-4">
      <div class="py-2 px-2 d-flex mb-4 flex-row" style="align-items:center;justify-content:center;">
@@ -378,9 +378,9 @@
 <div  style="font-family:BodyFont; font-size:16px;">Share out your channel link and start mentoring and growing your community.</div>
 </div>
      </div>
-   
+
    </div>
-   
+
 
 </div>
 
@@ -451,7 +451,7 @@
 
 
 <div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;">
-      
+
 <div class="box d-flex flex-row" style="height:170px;width:170px;align-items:center;justify-content:center;border-radius:7px;" >
       <i class="las la-phone" style="font-size:55px; color:white;"></i>
 </div>
@@ -464,7 +464,7 @@
 
 
 <div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
-      
+
 <div class="box" style="height:170px;width:170px; background:; border-radius:7px;" >
 <i class="las la-laptop-code" style="font-size:55px; color:white;"></i>
 </div>
@@ -477,7 +477,7 @@
 
 
 <div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
-      
+
 <div class="box" style="height:170px;width:170px; background:;border-radius:7px;" >
 <i class="las la-terminal" style="font-size:55px; color:white;"></i>
 </div>
@@ -490,7 +490,7 @@
 
 
 <div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
-      
+
 <div class="box" style="height:170px;width:170px; background:;border-radius:7px;" >
 <i class="las la-user-friends" style="font-size:55px; color:white;"></i>
 </div>
@@ -502,7 +502,7 @@
 </div>
 
 <div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
-      
+
 <div class="box" style="height:170px;width:170px; background:;border-radius:7px;" >
 <i class="las la-trophy" style="font-size:55px; color:white;"></i>
 </div>
@@ -513,7 +513,7 @@
 </div>
 
 <div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
-      
+
 <div class="box" style="height:170px;width:170px; background:;border-radius:7px;" >
 <i class="las la-book" style="font-size:55px; color:white;"></i>
 </div>
@@ -539,6 +539,15 @@
 
 </div>
 
+<!-- ends -->
+
+<!-- google play -->
+  
+<div class="col-12 pb-0 pt-0 mt-2 text-center">
+
+<a href="https://play.google.com/store/apps/details?id=com.citonhub.app" target="_blank"><img src="/imgs/google-play-badge-logo.png" alt="Citonhub - Android app" style="width: 250px; " /></a>
+</div>
+  
 <!-- ends -->
 
 
