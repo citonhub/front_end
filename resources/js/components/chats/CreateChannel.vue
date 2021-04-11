@@ -242,6 +242,7 @@ export default {
               this.payment_option = 'support'
                this.$root.payment_card_name = this.name
                this.$root.payment_currency = 'NGN'
+               this.$root.payment_name = this.name;
 
             }
        
