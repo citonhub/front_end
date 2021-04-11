@@ -238,7 +238,7 @@
                  <div  class="col-12 d-flex " style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;align-items:center; justify-content:center;  ">
                <v-progress-circular color="#3C87CD" indeterminate width="3" size="28" ></v-progress-circular>
 
-                <div style="position:absolute;bottom:1%;align-items:center; justify-content:center; " class="d-flex flex-row">
+                <div style="position:absolute;bottom:1%;align-items:center; justify-content:center; " class="d-flex flex-row" v-if="showReloader">
                    <span style="font-size:13px;color:grey;" >Taking too long? <a href="#" @click="refreshDatabase" style="font-size:13px;color:blue;">Refresh</a></span>
                  </div>
                </div>
@@ -973,7 +973,7 @@
                  <div  class="col-12 d-flex " style="position:absolute; overflow-y:auto;left:0%; height:92%;top:8%;align-items:center; justify-content:center;  ">
                <v-progress-circular color="#3C87CD" indeterminate width="3" size="28" ></v-progress-circular>
 
-                 <div style="position:absolute;bottom:1%;align-items:center; justify-content:center; " class="d-flex flex-row">
+                 <div style="position:absolute;bottom:1%;align-items:center; justify-content:center; " class="d-flex flex-row" v-if="showReloader">
                    <span style="font-size:13px;color:grey;" >Taking too long? <a href="#" @click="refreshDatabase" style="font-size:13px;color:blue;">Refresh</a></span>
                  </div>
                </div>
@@ -1921,6 +1921,7 @@ export default {
         suggestionsContent:'diaries',
         messageIsDone: true,
         popup:false,
+        showReloader: true,
         qouteArray:[
           {
             qoute:'Believe you can and you’re halfway there.',
@@ -2944,7 +2945,7 @@ this.pic1='/imgs/platinum.svg'
                    this.$root.updateSpaceMessages();
                 }, 1000);
 
-                       // this.$root.loadingChatList = false;
+                        this.$root.loadingChatList = false;
 
                       //  this.checkUserLevel();
 
@@ -2952,7 +2953,7 @@ this.pic1='/imgs/platinum.svg'
 
                  }else{
             
-           
+          this.showReloader = false;
            
              axios.get('/fetch-chat-list/' + this.$root.userDeviceId)
       .then(response => {
