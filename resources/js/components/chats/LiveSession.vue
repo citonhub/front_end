@@ -273,7 +273,15 @@
                                     </div>
                                      <div class="col-4 py-0 text-right">
                                   
-                                        <v-btn @click.stop="toggleView" icon style="z-index:999999999999999;" ><v-icon>mdi-apps</v-icon></v-btn>
+                                        <v-btn @click.stop="toggleView" icon style="z-index:999999999999999;" >
+                                        
+                                              <v-badge
+                                          dot
+                                      color="green">
+                                        <v-icon>mdi-apps</v-icon>
+                                          </v-badge>
+
+                                          </v-btn>
                                     </div>
   
                                     

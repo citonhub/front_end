@@ -123,7 +123,7 @@
              </div>
 
              <div class="col-12 py-2 my-0 px-2 text-center">
-                  <v-btn @click.prevent="createSpace" :disabled="payment_option == '' || description == ''" type="submit" rounded small color="#3C87CD" style="font-size:12px;text-transform:none; color:white;font-family: MediumFont;" :loading="loading">Create</v-btn>
+                  <v-btn @click.prevent="createSpace" :disabled="name == '' || description == ''" type="submit" rounded small color="#3C87CD" style="font-size:12px;text-transform:none; color:white;font-family: MediumFont;" :loading="loading">Create</v-btn>
              </div>
 
              <div class="my-5 py-5">
@@ -237,7 +237,13 @@ export default {
             
             }
 
-            
+            if(this.payment_option == ''){
+             finalName = 'Support for ' + this.name;
+              this.payment_option = 'support'
+               this.$root.payment_card_name = this.name
+               this.$root.payment_currency = 'NGN'
+
+            }
        
           this.loading = true;
          axios.post('/create-space',{

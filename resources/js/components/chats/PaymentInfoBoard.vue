@@ -4,7 +4,7 @@
     <div @click.stop="preventDefault">
     <v-card class="col-lg-4 offset-lg-4   py-2 d-flex flex-column col-md-8 offset-md-2 application application--light" style="align-items:center; justify-content:center; " data-app="true" >
   
-     <v-btn small icon color="#ffffff" @click="that.$root.showPaymentOptionBoard = false" style="position:absolute;background:#3C87CD;top:2%; right:2%; z-index:990679797879;" 
+     <v-btn small icon color="#ffffff" @click="saveDataToRoot" style="position:absolute;background:#3C87CD;top:2%; right:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
 
    <div class=" text-left">
