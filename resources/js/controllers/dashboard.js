@@ -3699,10 +3699,13 @@ const app = new Vue({
     
   
   },
-  removeLocalStorage: function(key){
+  removeLocalStorage: function(key,from = ''){
     localforage.removeItem(key).then(()=> {
       // Run this code once the key has been removed.
-    
+     if(from == 'chat'){
+      this.$root.ChatList = [];
+       this.chatComponent.fetchChatList();
+     }
      
      
   }).catch(function(err) {
@@ -3723,6 +3726,7 @@ const app = new Vue({
     if(this.ChatList != undefined){
       
       if(checkUnread){
+        
         this.checkChannelSubSpace();
       }
      

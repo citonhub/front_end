@@ -237,7 +237,13 @@
 
                  <div  class="col-12 d-flex " style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;align-items:center; justify-content:center;  ">
                <v-progress-circular color="#3C87CD" indeterminate width="3" size="28" ></v-progress-circular>
+
+                <div style="position:absolute;bottom:1%;align-items:center; justify-content:center; " class="d-flex flex-row">
+                   <span style="font-size:13px;color:grey;" >Taking too long? <a href="#" @click="refreshDatabase" style="font-size:13px;color:blue;">Refresh</a></span>
+                 </div>
                </div>
+
+              
 
             </template>
 
@@ -966,7 +972,13 @@
 
                  <div  class="col-12 d-flex " style="position:absolute; overflow-y:auto;left:0%; height:92%;top:8%;align-items:center; justify-content:center;  ">
                <v-progress-circular color="#3C87CD" indeterminate width="3" size="28" ></v-progress-circular>
+
+                 <div style="position:absolute;bottom:1%;align-items:center; justify-content:center; " class="d-flex flex-row">
+                   <span style="font-size:13px;color:grey;" >Taking too long? <a href="#" @click="refreshDatabase" style="font-size:13px;color:blue;">Refresh</a></span>
+                 </div>
                </div>
+
+
 
             </template>
 
@@ -2890,6 +2902,9 @@ this.pic1='/imgs/platinum.svg'
             this.$root.codeFromChat = false;
             this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id +'/editor' });
         },
+        refreshDatabase:function(){
+            this.$root.removeLocalStorage('user_chat_list_new_'+ this.$root.username,'chat');
+        },
          fetchChatList: function(){
 
            
@@ -2929,7 +2944,7 @@ this.pic1='/imgs/platinum.svg'
                    this.$root.updateSpaceMessages();
                 }, 1000);
 
-                        this.$root.loadingChatList = false;
+                       // this.$root.loadingChatList = false;
 
                       //  this.checkUserLevel();
 
