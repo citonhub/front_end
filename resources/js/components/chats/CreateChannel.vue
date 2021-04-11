@@ -238,11 +238,17 @@ export default {
             }
 
             if(this.payment_option == ''){
+
              finalName = 'Support for ' + this.name;
               this.payment_option = 'support'
-               this.$root.payment_card_name = this.name
-               this.$root.payment_currency = 'NGN'
-               this.$root.payment_name = this.name;
+                  
+          this.$root.payment_name = this.name;
+          this.$root.payment_card_name = this.name;
+          this.$root.payment_amount = '';
+          this.$root.payment_interval = 'monthly';
+          this.$root.payment_currency = 'USD';
+          this.$root.baseChannelName = this.name;
+            this.$root.payment_option = 'support'
 
             }
        

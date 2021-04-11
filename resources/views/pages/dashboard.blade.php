@@ -87,12 +87,12 @@
 
 <!-- ends -->
 
- <!-- Third-party script for markdown formating -->
+ <!-- Third-party script for markdwn formating -->
   <script src="https://unpkg.com/marked@0.3.6"></script>
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=6.66') }}"></script>
+ <script src="{{ asset('js/dashboard.js?v=6.70') }}"></script>
  <!-- ends -->
      
  @endsection

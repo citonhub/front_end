@@ -3570,6 +3570,8 @@ const app = new Vue({
         this.$root.ChatList = fullList;
 
           this.$root.sortChatList();   
+
+          this.SetUnread();
           
        
        this.$router.push({ path: '/channels' });
