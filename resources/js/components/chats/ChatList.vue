@@ -2,7 +2,7 @@
    
    <!-- chat list view -->
        <div  
-       
+      
         class="col-12 px-1 d-flex flex-row py-0 messageBox"
          :style="spaceSelected(source) ? 'align-items:center; justify-content:center; background:whitesmoke;' : 'align-items:center; justify-content:center;'" 
          @click="openChat(source.space_id)" >
@@ -59,7 +59,10 @@
                                               <span v-if="source.unread > 0" class="messagesBadges d-flex ml-lg-0 ml-md-5 ml-0" >{{source.unread}}</span>
                                        </div>
                                     
-                                 </div>          
+                                 </div>      
+
+
+                               
                      </div> 
 
 
@@ -277,8 +280,12 @@ export default {
       
 
   },
+
+  
+
+  }
     }
-}
+
 </script>
 <style scoped>
 .messagesBadges{

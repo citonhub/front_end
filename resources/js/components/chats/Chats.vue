@@ -2912,8 +2912,13 @@ this.pic1='/imgs/platinum.svg'
                       this.$root.baseChatList = finalResult;
 
                        this.$root.channelChats = finalResult.channels;
+ 
+                      
+let FinalMessages= finalResult.direct_messages.filter(chat=>{
+ return chat.last_message.length > 0
+})
 
-                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+                     let fullList = finalResult.channels.concat(FinalMessages, finalResult.pet_spaces);
 
                      
                    this.$root.ChatList = fullList;
@@ -2948,8 +2953,14 @@ this.pic1='/imgs/platinum.svg'
 
 
           this.$root.baseChatList = response.data;
+         
             this.$root.channelChats = responseList.channels;
-          this.$root.ChatList = responseList.channels.concat(responseList.direct_messages, responseList.pet_spaces);
+
+            let FinalLiveMessages= responseList.direct_messages.filter(chat=>{
+ return chat.last_message.length > 0
+})
+
+          this.$root.ChatList = responseList.channels.concat(FinalLiveMessages, responseList.pet_spaces);
 
 
                 
