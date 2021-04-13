@@ -87,7 +87,7 @@
 
 
 
-               <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'diary' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''"  @click.stop="goToPage('diary')">
+               <!-- <div class="col-12  px-0 py-1 py-md-2 mt-1 sideBar"  :style="selectedTab == 'diary' ? 'background:#F3F8FC; border-right:4px solid #3C87CD;' : ''"  @click.stop="goToPage('diary')">
                 <div class="row">
                 <div class="col-4 py-1 text-center">
                 
@@ -100,7 +100,7 @@
                   <div class="d-md-none d-inline-block" style="font-family:MediumFont; font-size:12px;" >Diaries</div>
                 </div>
                 </div>
-          </div>
+          </div> -->
 
 
 

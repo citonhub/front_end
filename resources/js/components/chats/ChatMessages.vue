@@ -1254,8 +1254,30 @@ export default {
     showMoreOption:function(message){
 
          if( this.$root.selectedSpace.type == 'Bot' ) return
-       this.$root.replyMessage = message;
+
+           
+            this.clicks++ 
+          if(this.clicks === 1) {
+             
+            var self = this
+            this.timer = setTimeout(function() {
+             
+            
+              self.clicks = 0
+            }, this.delay);
+         
+         
+              
+          } else{
+             clearTimeout(this.timer); 
+
+               this.$root.replyMessage = message;
           this.$root.chatComponent.showMoreOptions = true;
+                
+
+             this.clicks = 0;
+          }   
+      
     },
     goToProfile:function(username){
 
