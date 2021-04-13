@@ -205,8 +205,8 @@ import VueObserveVisibility from 'vue-observe-visibility'
       if (response.status == 200) {
 
        
-        
-           this.mentors = response.data.mentors;
+        this.$root.leaderboardMembers=response.data.mentors
+           this.mentors = this.$root.leaderboardMembers
           
         
 
@@ -248,9 +248,9 @@ response => {
 
 
        
-        this.newData=response.data.mentors
+        this.newData=this.$root.leaderboardMembers
 
-          if(response.data.mentors.length == 0){
+          if(this.$root.leaderboardMembers == 0){
              this.dataHasFinished = true;
           }
 

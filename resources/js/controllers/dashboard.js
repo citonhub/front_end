@@ -2120,7 +2120,8 @@ const app = new Vue({
     autoOpenChatType:'',
     fromCreateAChannel: false,
     fromMentorPage:false,
-    MentorPageComponent:undefined
+    MentorPageComponent:undefined,
+    leaderboardMembers:[]
      },
      mounted: function () {
       window.thisUserState = this;

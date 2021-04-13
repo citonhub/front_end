@@ -63,7 +63,11 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
+<<<<<<< HEAD
 exports.push([module.i, "\n.grid-box-picturebox{ \n  width:100%;\n  height: 100%; \n  position: relative;       \n  overflow: hidden;\n  background-size: cover;\n  background-repeat: no-repeat;\n}\n#blend-in {\n  animation: fadein 0.15s;\n  -moz-animation: fadein 0.15s; /* Firefox */\n  -webkit-animation: fadein 0.15s; /* Safari and Chrome */\n  -o-animation: fadein 0.15s; /* Opera */\n}\n\n", ""]);
+=======
+exports.push([module.i, "\n.grid-box-picturebox{ \r\n  width:100%;\r\n  height: 100%; \r\n  position: relative;       \r\n  overflow: hidden;\r\n  background-size: cover;\r\n  background-repeat: no-repeat;\n}\n#blend-in {\r\n  animation: fadein 0.15s;\r\n  -moz-animation: fadein 0.15s; /* Firefox */\r\n  -webkit-animation: fadein 0.15s; /* Safari and Chrome */\r\n  -o-animation: fadein 0.15s; /* Opera */\n}\r\n\r\n", ""]);
+>>>>>>> 65e444cc1702fb68782e0ec843099bc6aa93e568
 
 // exports
 

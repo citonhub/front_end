@@ -182,6 +182,13 @@ export default {
 
          }
 
+          if(this.$root.searchType == 'leaderboard'){
+      
+           
+           this.searchLeaderboard(this.searchContent);
+
+         }
+
       },
       searchProject:function(query){
 
@@ -298,6 +305,46 @@ export default {
      }) 
 
       }, 500),
+
+      searchLeaderboard(query){
+
+if(this.$router.currentRoute.path.indexOf('leaderboard') >= 0){
+
+           //filter
+
+        //   this.$root.leaderboardMembers.filter((member)=>{
+           //  return member.username.indexOf('query') > -1
+        //   })
+
+    this.loading = true;
+
+         axios.get( '/fetch-mentors' +'?page=' + 1 +'&query=' + query)
+      .then(response => {
+      
+      if (response.status == 200) {
+
+       
+        this.$root.leaderboardMembers=response.data.mentors
+           this.mentors = this.$root.leaderboardMembers
+          
+        
+
+         this.loading = false;
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+        this.loading = false;
+         this.showAlert('Oops!','Unable to fetch mentors,please try again','error')
+    
+     }) 
+
+
+          }
+      },
       
       goToNotification: function(){
 
