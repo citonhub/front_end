@@ -2967,16 +2967,7 @@ const app = new Vue({
  
                        this.returnedDataArray.push(returnData);
  
-                        if(!this.messageIsProcessing){
- 
-                         let firstData = this.returnedDataArray.shift();
-                       
- 
-                         this.handleSpaceData(firstData);
- 
-                         
-                          
-                        }
+                       this.checkForLostmessages();
                         
                       
   
@@ -3438,20 +3429,25 @@ const app = new Vue({
   checkForLostmessages: function(){
      
 
-    setTimeout(() => {
+   setInterval(() => {
+
+      
       
        if(this.returnedDataArray.length > 0){
 
-        let firstData = this.returnedDataArray.shift();             
- 
-        this.handleSpaceData(firstData);
+         if( this.messageIsProcessing == false){
+
+          let firstData = this.returnedDataArray.shift();             
+          this.handleSpaceData(firstData);
+
+         }
+
+       
 
        }
 
-     
-      
-      
-    }, 4000);
+       
+    }, 3000);
 
    
 
@@ -3675,7 +3671,7 @@ const app = new Vue({
 
          }else{
 
-          this.checkForLostmessages();
+         
 
           if(fromUnsent){
 
