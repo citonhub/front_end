@@ -2942,8 +2942,12 @@ const app = new Vue({
                           finalResult.direct_messages.unshift(e.data.space);
  
                           this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
+
+                          let FinalMessages = finalResult.direct_messages.filter(chat=>{
+                            return chat.last_message.length > 0
+                          })
  
-                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+                     let fullList = finalResult.channels.concat(FinalMessages, finalResult.pet_spaces);
  
                      
                    this.$root.ChatList = fullList;
@@ -3201,10 +3205,12 @@ const app = new Vue({
     }
 
    
-
+    let FinalMessages= finalResult.direct_messages.filter(chat=>{
+      return chat.last_message.length > 0
+    })
   
 
-    let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+    let fullList = finalResult.channels.concat(FinalMessages,finalResult.pet_spaces);
 
      this.$root.ChatList = fullList;
 
@@ -3408,7 +3414,11 @@ const app = new Vue({
 
                    this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
-              let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+                   let FinalMessages= finalResult.direct_messages.filter(chat=>{
+                    return chat.last_message.length > 0
+                  })
+
+              let fullList = finalResult.channels.concat(FinalMessages, finalResult.pet_spaces);
 
               
             this.$root.ChatList = fullList;
@@ -3587,7 +3597,11 @@ const app = new Vue({
 
       if(actionName == 'leave_space'){
 
-        let fullList = data.channels.concat(data.direct_messages, data.pet_spaces);
+        let FinalMessages= data.direct_messages.filter(chat=>{
+          return chat.last_message.length > 0
+        })
+
+        let fullList = data.channels.concat(FinalMessages, data.pet_spaces);
 
                      
         this.$root.ChatList = fullList;
@@ -3603,7 +3617,11 @@ const app = new Vue({
 
       if(actionName == 'new_channel'){
 
-        let fullList = data.channels.concat(data.direct_messages, data.pet_spaces);
+        let FinalMessages= data.direct_messages.filter(chat=>{
+          return chat.last_message.length > 0
+        })
+
+        let fullList = data.channels.concat(FinalMessages, data.pet_spaces);
 
                      
         this.$root.ChatList = fullList;
@@ -4507,8 +4525,13 @@ let storedMsg = this.$root.getLocalStore('full_space_' + selectedspace + this.$r
               })
 
          }
+
+           let FinalMessages = finalResult.direct_messages.filter(chat=>{
+                return chat.last_message.length > 0
+            })
             
-          let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+          let fullList = finalResult.channels.concat(FinalMessages, finalResult.pet_spaces);
+          
 
             this.$root.ChatList = fullList;
 
