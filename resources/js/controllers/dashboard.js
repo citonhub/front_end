@@ -3431,6 +3431,32 @@ const app = new Vue({
 
 
   },
+  playAudio:function(url){
+    const audioFile = new Audio(url);
+    audioFile.play();
+  },
+  checkForLostmessages: function(){
+     
+
+    setTimeout(() => {
+      
+       if(this.returnedDataArray.length > 0){
+
+        let firstData = this.returnedDataArray.shift();             
+ 
+        this.handleSpaceData(firstData);
+
+       }
+
+     
+      
+      
+    }, 4000);
+
+   
+
+        
+  },
    sendLiveSignal:function(type){
 
         
@@ -3649,6 +3675,8 @@ const app = new Vue({
 
          }else{
 
+          this.checkForLostmessages();
+
           if(fromUnsent){
 
             // update unread messages into local storage
@@ -3680,7 +3708,7 @@ const app = new Vue({
 
          }
 
-          this.messageIsProcessing = true;
+          this.messageIsProcessing = false;
          }
 
       }
@@ -3833,6 +3861,8 @@ spaceMessageProcessor: function(space,allSpace,count){
        if( this.$root.selectedSpace.space_id != space.space_id || this.$root.selectedSpace.length == 0){
    
           // if the space is not currently opened
+
+          this.playAudio('/audio/new_message.mp3');
    
           // show new messages first
    
