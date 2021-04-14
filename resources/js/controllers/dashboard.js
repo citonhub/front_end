@@ -3435,10 +3435,12 @@ const app = new Vue({
       
        if(this.returnedDataArray.length > 0){
 
-   
+         if( this.messageIsProcessing == false){
 
           let firstData = this.returnedDataArray.shift();             
           this.handleSpaceData(firstData);
+
+         }
 
        
 
