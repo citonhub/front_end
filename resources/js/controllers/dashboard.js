@@ -3923,17 +3923,10 @@ spaceMessageProcessor: function(space,allSpace,count){
                       
              MessagesFull.messages.push(message);
    
-        
-           
-             this.$root.clearUnreadMessageRemote(message.message_id);
-            
-          
-              
-   
-          
-   
+
             }
-   
+        
+            this.$root.clearUnreadMessageRemote(message.message_id);
        
    
            
@@ -4047,7 +4040,7 @@ spaceMessageProcessor: function(space,allSpace,count){
                return eachmessage.message_id == messages.message_id 
               });
    
-              if(thismessage == 0){
+              if(thismessage.length == 0){
    
              MessagesFull.messages.push(messages);
    
