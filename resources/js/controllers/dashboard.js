@@ -3679,6 +3679,10 @@ const app = new Vue({
 
             this.handleSpaceData(firstData);
 
+             if(this.returnedDataArray.length == 0){
+              this.messageIsProcessing = false;
+             }
+
            }
 
             
@@ -3720,7 +3724,7 @@ const app = new Vue({
 
          }
 
-          this.messageIsProcessing = false;
+          
          }
 
       }

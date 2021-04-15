@@ -2557,7 +2557,12 @@ this.pic1='/imgs/platinum.svg'
 
                           this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
-                     let fullList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
+                          let FinalMessages= finalResult.direct_messages.filter(chat=>{
+                              return chat.last_message.length > 0
+                            })
+
+
+                     let fullList = finalResult.channels.concat(FinalMessages, finalResult.pet_spaces);
 
                      
                    this.$root.ChatList = fullList;
@@ -2945,10 +2950,9 @@ let FinalMessages= finalResult.direct_messages.filter(chat=>{
                       this.SetUnread();
 
 
-                    
-                setTimeout(() => {
+              
                    this.$root.updateSpaceMessages();
-                }, 1000);
+              
 
                         this.$root.loadingChatList = false;
 
