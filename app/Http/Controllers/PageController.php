@@ -19,6 +19,11 @@ use App\Organization;
 class PageController extends Controller
 {
 
+      public function showBootcampForm(){
+
+         return redirect('https://forms.gle/kyXjno35aX5HjxRr9');
+
+      }
 
     public function singlePageApp(){
       return view('pages.dashboard');  

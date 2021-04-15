@@ -30,6 +30,7 @@ Route::get('/beta', 'PageController@showBeta');
 Route::get('/run-panel/{panelId}','PanelController@runPanel');
 Route::get('/page-loader/{panelId}/{pageName}','PanelController@pageLoader');
 Route::get('/download-file-{messageId}','PanelController@downloadFile');
+Route::get('/bootcamps','PageController@showBootcampForm');
 
 // handle github
 Route::get('/auth/redirect', function () {
