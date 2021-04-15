@@ -3871,45 +3871,8 @@ spaceMessageProcessor: function(space,allSpace,count){
 
        if( this.$root.selectedSpace.space_id != space.space_id || this.$root.selectedSpace.length == 0){
    
-          // if the space is not currently opened
-
-          this.playAudio('/audio/new_message.mp3');
-   
-          // show new messages first
-   
-          let newMessagesFull = space.new_messages;
-   
-          newMessagesFull.forEach((message)=>{
-   
-             // update unread in chatlist
-   
-           this.ChatList.map((chatspace)=>{
-   
-             if(chatspace.space_id == space.space_id){
-               chatspace.unread += 1;
-               chatspace.message_track = new Date();
-               chatspace.last_message = [message];
-             } 
-           });
-           
-            
-
-              this.$root.subSpaces.map((chatspace)=>{
-   
-                if(chatspace.space_id == space.space_id){
-                  chatspace.unread += 1;
-                  chatspace.message_track = new Date();
-                  
-                } 
-    
-              });
-
-   
-            this.$root.updateSpaceTracker(space.space_id,message);
-   
-   
-          })
-   
+         
+       
           
           // save to local database
             let storedMsg = this.$root.getLocalStore('full_space_' + space.space_id  + this.$root.username);
@@ -3927,6 +3890,9 @@ spaceMessageProcessor: function(space,allSpace,count){
           
          for (let index = 0; index < newMessages.length; index++) {
            let message = newMessages[index];
+
+
+           
         
    
            let thismessage = MessagesFull.messages.filter((eachmessage)=>{
@@ -3934,6 +3900,37 @@ spaceMessageProcessor: function(space,allSpace,count){
             });
    
             if(thismessage.length == 0){
+
+                // if the space is not currently opened
+
+          this.playAudio('/audio/new_message.mp3');
+   
+   
+          // update unread in chatlist
+
+        this.ChatList.map((chatspace)=>{
+
+          if(chatspace.space_id == space.space_id){
+            chatspace.unread += 1;
+            chatspace.message_track = new Date();
+            chatspace.last_message = [message];
+          } 
+        });
+        
+         
+
+           this.$root.subSpaces.map((chatspace)=>{
+
+             if(chatspace.space_id == space.space_id){
+               chatspace.unread += 1;
+               chatspace.message_track = new Date();
+               
+             } 
+ 
+           });
+
+
+         this.$root.updateSpaceTracker(space.space_id,message);
    
                       
              MessagesFull.messages.push(message);
@@ -3966,6 +3963,41 @@ spaceMessageProcessor: function(space,allSpace,count){
          }else{
       
            // if this space does not exist the user database yet
+
+
+              // show new messages first
+   
+          let newMessagesFull = space.new_messages;
+   
+          newMessagesFull.forEach((message)=>{
+
+            
+            this.ChatList.map((chatspace)=>{
+
+              if(chatspace.space_id == space.space_id){
+                chatspace.unread += 1;
+                chatspace.message_track = new Date();
+                chatspace.last_message = [message];
+              } 
+            });
+            
+            this.playAudio('/audio/new_message.mp3');
+             
+    
+               this.$root.subSpaces.map((chatspace)=>{
+    
+                 if(chatspace.space_id == space.space_id){
+                   chatspace.unread += 1;
+                   chatspace.message_track = new Date();
+                   
+                 } 
+     
+               });
+           
+            this.$root.clearUnreadMessageRemote(message.message_id);
+   
+          });
+   
         
    
            // save unread in local storage
