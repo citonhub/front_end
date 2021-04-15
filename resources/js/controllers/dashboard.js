@@ -2121,7 +2121,8 @@ const app = new Vue({
     fromCreateAChannel: false,
     fromMentorPage:false,
     MentorPageComponent:undefined,
-    leaderboardMembers:[]
+    leaderboardMembers:[],
+    refreshCount:0,
      },
      mounted: function () {
       window.thisUserState = this;
@@ -3442,7 +3443,6 @@ const app = new Vue({
    setInterval(() => {
 
       
-      
        if(this.returnedDataArray.length > 0){
 
       
@@ -3452,10 +3452,19 @@ const app = new Vue({
 
          }
           
+       }else{
+            
+           this.refreshCount++
+           
+            if(this.refreshCount ==  1){
+              this.$root.updateSpaceMessages();
+            }
+
+        this.messageIsProcessing = false;
        }
 
        
-    }, 3000);
+    }, 2000);
 
    
 
