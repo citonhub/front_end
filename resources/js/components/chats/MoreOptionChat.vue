@@ -38,6 +38,13 @@
                                            <v-icon class="mr-1">las la-link</v-icon>   <span style="font-family:BodyFont;font-size:13px;color:grey;">Copy support link</span>
 
                                          </v-card> 
+
+                                          <v-card tile flat  class="px-2 py-2 d-flex flex-row" style="align-items:center;" @click="controlAction('reset')">
+
+
+                                            <v-icon class="mr-1"> las la-sync-alt</v-icon> <span style="font-family:BodyFont;font-size:13px;color:grey;">Reset chat</span>
+
+                                         </v-card>
                                          
 
                                       </div>
@@ -86,8 +93,19 @@ export default {
 
                }
 
+                 if(type == 'reset'){
+
+                     this.resetChat();
+
+               }
+
           },
-            copyMessage () {
+          resetChat:function(){
+           this.$root.chatComponent.messageIsDone = false;
+            this.$root.removeLocalStorage('full_space_' +  this.$root.selectedSpace.space_id  + this.$root.username,'chat_messages');
+            
+          },
+          copyMessage () {
 
 
             const copyToClipboard = str => {

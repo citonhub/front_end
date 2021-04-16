@@ -3757,6 +3757,13 @@ const app = new Vue({
       this.$root.ChatList = [];
        this.chatComponent.fetchChatList();
      }
+
+     if(from == 'chat_messages'){
+
+      this.$root.chatComponent.fetchMessages(this.$root.selectedSpace.space_id)
+     
+
+     }
      
      
   }).catch(function(err) {
@@ -3921,7 +3928,7 @@ spaceMessageProcessor: function(space,allSpace,count){
 
                 // if the space is not currently opened
 
-          this.playAudio('/audio/new_message.mp3');
+      //    this.playAudio('/audio/new_message.mp3');
    
    
           // update unread in chatlist
@@ -3999,7 +4006,7 @@ spaceMessageProcessor: function(space,allSpace,count){
               } 
             });
             
-            this.playAudio('/audio/new_message.mp3');
+           // this.playAudio('/audio/new_message.mp3');
              
     
                this.$root.subSpaces.map((chatspace)=>{
