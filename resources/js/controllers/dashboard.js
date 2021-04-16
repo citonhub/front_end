@@ -3454,12 +3454,7 @@ const app = new Vue({
           
        }else{
             
-           this.refreshCount++
-           
-            if(this.refreshCount ==  1){
-              this.$root.updateSpaceMessages();
-            }
-
+          
         this.messageIsProcessing = false;
        }
 
@@ -3854,7 +3849,16 @@ updateSpaceMessages: function(showAlert = false){
  if (response.status == 200) {
 
     
+  setTimeout(() => {
 
+    this.refreshCount++
+           
+  if(this.refreshCount == 1){
+    this.$root.updateSpaceMessages();
+  }
+    
+  }, 2000);
+  
 
 
 }
