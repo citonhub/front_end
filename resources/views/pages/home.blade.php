@@ -458,7 +458,7 @@
 
 <p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none text-center">Chat</p>
 
-<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block text-center">Share your knowledge with diaries</p>
+<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block text-center">Chat</p>
 </div>
 
 <div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;">
