@@ -376,7 +376,7 @@
        <div class="text-center " style="z-index:1;">
 
 <h4 style="font-weight:bold;" class="text-center  d-md-block d-none" >Invite people to your channel</h4>
-<div  style="font-family:BodyFont; font-size:16px;">Share out your channel link and start mentoring and growing your community.</div>
+<div  style="font-family:BodyFont; font-size:16px;">Share out your channel link and start growing your community.</div>
 </div>
      </div>
 
@@ -429,7 +429,7 @@
   <div class="text-center " style="z-index:1;">
 
 <h6 style="font-weight:bold;" class="text-center" >Invite people to your channel</h6>
-<div  style="font-family:BodyFont; font-size:14px;">Share out your channel link and start mentoring and growing your community.</div>
+<div  style="font-family:BodyFont; font-size:14px;">Share out your channel link and start engaging your community.</div>
 </div>
 </div>
 
