@@ -5,7 +5,7 @@
 
  @endsection
  @section('meta')
- <meta name="description" content="CitonHub is an all-in-one platform for developers to mentor, grow their communities, and earn." />
+ <meta name="description" content="CitonHub is an all-in-one platform for developers to grow their communities and earn." />
   <meta name="keywords" content="mentor programming,Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
@@ -107,7 +107,7 @@
      <h1 style="font-family:HeaderFont;" class="mb-3 mt-4">Get organized and be efficient</h1>
 
      <div class="px-3">
-     <p style="font-size:20px;font-family:BodyFont;" class="px-0">CitonHub is an all-in-one platform for developers to mentor, grow their communities, and earn.</p>
+     <p style="font-size:20px;font-family:BodyFont;" class="px-0">CitonHub is an all-in-one platform for developers to grow their communities and earn.</p>
      </div>
 
 
@@ -137,7 +137,7 @@
 
 <h4 style="font-family:HeaderFont;" class="mb-3 px-3">Get organized and be efficient</h4>
 
-   <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is an all-in-one platform for developers to mentor, grow their communities, and earn.</p>
+   <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is an all-in-one platform for developers to grow their communities and earn.</p>
 
 
 
