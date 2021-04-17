@@ -450,6 +450,16 @@
 
 <div  class=" mt-5 col-lg-8 offset-lg-2 d-flex flex-row flex-wrap"  style="align-items:center;justify-content:center;">
 
+<div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
+
+<div class="box" style="height:170px;width:170px; background:;border-radius:7px;" >
+<i class="las la-comments" style="font-size:55px; color:white;"></i>
+</div>
+
+<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none text-center">Chat</p>
+
+<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block text-center">Share your knowledge with diaries</p>
+</div>
 
 <div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;">
 
@@ -513,16 +523,7 @@
 <p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block">Organize challenges</p>
 </div>
 
-<div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
 
-<div class="box" style="height:170px;width:170px; background:;border-radius:7px;" >
-<i class="las la-book" style="font-size:55px; color:white;"></i>
-</div>
-
-<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none text-center">Share your knowledge with diaries</p>
-
-<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block text-center">Share your knowledge with diaries</p>
-</div>
 
 </div>
 </div>
@@ -541,11 +542,6 @@
 </div>
 
 <!-- ends -->
-
-<div class="col-12 pt-3 mt-5 text-center">
-
-<a href="https://www.producthunt.com/posts/citonhub?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-citonhub" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=291655&theme=light" alt="Citonhub - All-in-one Slack, Meet, Codepen & Patreon platform for devs | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
-</div>
 
 
 <!-- Footer component -->
