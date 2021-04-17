@@ -7,7 +7,59 @@
      <v-btn small icon color="#ffffff" @click="saveDataToRoot" style="position:absolute;background:#3C87CD;top:2%; right:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
 
-   <div class=" text-left">
+
+   <template v-if="that.$root.payment_option == 'membership'">
+      
+
+     <div class="col-12 text-left py-0 px-md-2 px-1">
+         <h5 class="text-left">Membership</h5>
+
+           <span style="font-size:13px;  font-family:BodyFont;" > Your audience or members will have to pay to join your channel.</span><br><br> 
+
+           <span style="font-size:13px;  font-family:BodyFont;" >Select membership type</span>
+
+           <div class="col-12 d-flex flex-row">
+             
+                  <div class="  col-6  px-1 my-0 py-2 " >
+                     <v-card  @click="selectPaymentOption('subscription')" :color="that.$root.payment_option == 'subscription' ? '#3C87CD' : ''"  class="px-1 py-1 appBox" :style="that.$root.payment_option == 'subscription' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                        <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
+                                   <div class="text-center">
+                                      <i style="font-size:30px;" :class="'las la-credit-card'"></i>
+                                      <div>
+                                         <span style="font-size:13px; font-family:BodyFont;">Subscription</span>
+                                      </div>
+                                   </div>
+                        </div>
+
+                        
+                     </v-card>
+                 </div>
+
+                  <div class="  col-6  px-1 my-0 py-2 " >
+                     <v-card @click="selectPaymentOption('one_time')" :color="that.$root.payment_option == 'one_time' ? '#3C87CD' : ''"  class="px-1 py-1 appBox" :style="that.$root.payment_option == 'one_time' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
+                        <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
+                                   <div class="text-center">
+                                      <i style="font-size:30px;" :class="'las la-money-bill-wave'"></i>
+                                      <div>
+                                         <span style="font-size:13px; font-family:BodyFont;">One-time fee</span>
+                                      </div>
+                                   </div>
+                        </div>
+
+                        
+                     </v-card>
+                 </div>
+
+           </div>
+       <div>
+
+       </div>
+     </div>
+      
+   </template>
+   <template v-else>
+
+     <div class=" text-left">
 
        <div style="">
            
@@ -114,6 +166,9 @@
 
             </div>
  
+
+   </template>
+   
     
 
     </v-card>
@@ -235,7 +290,17 @@ export default {
           this.$root.payment_currency = this.currency;
 
           this.$root.showPaymentOptionBoard = false;
-        }
+        },
+          selectPaymentOption:function(type){
+        
+
+            this.$root.baseChannelName = this.name;
+
+            this.$root.payment_option = type;
+
+           this.$root.showPaymentOptionBoard = true;
+      },
+      
      }
 }
 </script>
