@@ -696,7 +696,8 @@
 
                               <!-- ends -->
                                    
-                                   <div style="position:absolute; height:100%; width:70%; left:30%;" >
+                                  <!-- channel sidebar -->
+                                   <div style="position:absolute; height:100%; width:80%; left:20%;" >
 
                                      
 
@@ -711,11 +712,11 @@
 
                                      
                                         <channel-info v-if="innerSideBarContent == 'channel_info'" ></channel-info>
+
+                                         <resource-search v-if="innerSideBarContent == 'resource_search'" ></resource-search>
                                      
                                     
                                         <channel-edit v-if="innerSideBarContent == 'channel_edit'"></channel-edit>
-
-                                        
                                         
                                         <sub-channels v-if="innerSideBarContent == 'sub_channels'"></sub-channels>
 
@@ -1414,6 +1415,8 @@
                              
                                         
                                         <channel-info v-if="innerSideBarContent == 'channel_info'" ></channel-info>
+
+                                       <resource-search v-if="innerSideBarContent == 'resource_search'" ></resource-search>
                                      
                                     
                                         <channel-edit v-if="innerSideBarContent == 'channel_edit'"></channel-edit>
@@ -1901,6 +1904,10 @@ const Interest= () => import(
    /* webpackChunkName: "MentorInfo" */ './MentorInfo.vue'
   );
 
+   const ResourceSearch = () => import(
+   /* webpackChunkName: "ResourceSearch" */ './ResourceSearch.vue'
+  );
+
 import VueZoomer from 'vue-zoomer'
 
 Vue.use(VueZoomer)
@@ -2029,7 +2036,8 @@ export default {
          PaymentProcessor,
          AddPayment,
          PointInfoBoard,
-         MentorInfo
+         MentorInfo,
+         ResourceSearch,
     },
      methods:{
 
