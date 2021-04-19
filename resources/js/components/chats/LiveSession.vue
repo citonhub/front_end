@@ -22,47 +22,9 @@
                                       
                                       <template v-if="this.$root.liveBoardContent == 'action_list'">
                                           
-                                          <div class=" col-4 col-lg-2 px-2 my-0 py-2 " style="z-index:9999999;">
-                          <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px; background:white;" @click.stop="selectAction('voice_chat')">
-                              <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
-                                   <div class="text-center">
-                                       <v-badge
-               dot
-               v-if="that.$root.remoteAudio  && that.$root.remoteLiveHappening"
-                color="green">
-                <i style="font-size:30px;" class="las la-phone"></i>
-              </v-badge>
+                                         
 
-                <i style="font-size:30px;" v-else class="las la-phone"></i>
                                    
-                                      <div>
-                                         <span style="font-size:13px; font-family:BodyFont;">Voice Chat</span>
-                                      </div>
-                                   </div>
-                             </div>
-                          </v-card>
-                            </div>
-
-                                     <div class=" col-4 col-lg-2 px-2 my-0 py-2 " style="z-index:9999999;">
-                          <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px;margin-top:-150px;background:white;" @click.stop="selectAction('live_coding')">
-                              <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
-                                   <div class="text-center">
-                                      <v-badge
-               dot
-               v-if="that.$root.remoteCode  && that.$root.remoteLiveHappening"
-                color="green">
-                <i style="font-size:30px;" class="las la-terminal"></i>
-              </v-badge>
-
-                <i style="font-size:30px;" v-else class="las la-terminal"></i>
-                                     
-                                      <div>
-                                         <span style="font-size:13px; font-family:BodyFont;">Live Coding</span>
-                                      </div>
-                                   </div>
-                             </div>
-                          </v-card>
-                            </div>
 
                              <div class=" col-4 col-lg-2 px-2 my-0 py-2 " style="z-index:9999999;">
                           <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px;background:white;" @click.stop="selectAction('screen_sharing')">
@@ -79,6 +41,28 @@
                                       
                                       <div>
                                          <span style="font-size:13px; font-family:BodyFont;">Screen Sharing</span>
+                                      </div>
+                                   </div>
+                             </div>
+                          </v-card>
+                            </div>
+
+
+                              <div class=" col-4 col-lg-2 px-2 my-0 py-2 " style="z-index:9999999;">
+                          <v-card class="px-1 py-1 appBox" style="height:100px;border-radius:7px;background:white;" @click.stop="selectAction('live_coding')">
+                              <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
+                                   <div class="text-center">
+                                      <v-badge
+               dot
+               v-if="that.$root.remoteCode  && that.$root.remoteLiveHappening"
+                color="green">
+                <i style="font-size:30px;" class="las la-terminal"></i>
+              </v-badge>
+
+                <i style="font-size:30px;" v-else class="las la-terminal"></i>
+                                     
+                                      <div>
+                                         <span style="font-size:13px; font-family:BodyFont;">Live Coding</span>
                                       </div>
                                    </div>
                              </div>
@@ -278,7 +262,7 @@
                                               <v-badge
                                           dot
                                       color="green">
-                                        <v-icon>mdi-apps</v-icon>
+                                        <v-icon>las la-laptop-code</v-icon>
                                           </v-badge>
 
                                           </v-btn>
@@ -345,16 +329,18 @@ export default {
                 
               }
 
-              if(this.$root.remoteAudio){
-           
-           this.selectAction('voice_chat')
+            
 
-          }
+
+          
 
       }else{
         this.$root.liveBoardContent = 'action_list'
       }
 
+
+      // start call 
+        this.selectAction('voice_chat')
    
        },
     methods:{
@@ -608,13 +594,10 @@ export default {
         this.$root.setAudioConnection();
         this.$root.setDataConnection();
 
-          if(this.checkIfMaster()){
-
+       
                   this.$root.checkAudioRoomState(true);
 
-               }else{
-                  this.$root.checkAudioRoomState(false);
-               }
+              
                
 
          this.$root.sendLiveSignal('audio');
@@ -653,6 +636,8 @@ export default {
 
               this.$root.checkScreenRoomState(true);
 
+              
+
               }else{
 
                 this.$root.chatComponent.showAlert('Oops!','Screen sharing not supported on mobile yet','error','bottomRight',10000)
@@ -663,6 +648,8 @@ export default {
 
                }else{
                   this.$root.checkScreenRoomState(false);
+
+                   this.$root.chatComponent.showAlert('Hey!','Only Admins can share their screens','info','bottomRight',10000)
                    
                }
 
