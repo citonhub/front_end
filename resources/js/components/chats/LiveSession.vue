@@ -6,12 +6,11 @@
 
     <div v-if="!that.$root.showMemberBoard && that.$root.liveIsOn" class="px-2 py-1 appBox" style="background:white; position:absolute;top:0;right:0;z-index:89999999999;">
         <v-btn icon class="mx-1" @click="that.$root.showMemberBoard = true" >
-                         <v-badge
-               dot
-                color="green">
-                <v-icon>las la-user-friends </v-icon>
-              </v-badge>
                      
+                     
+                <v-icon>las la-user-friends </v-icon>
+             
+             
                         </v-btn>
     </div>
 
@@ -34,13 +33,13 @@
                dot
                v-if="that.$root.remoteScreen && that.$root.remoteLiveHappening"
                 color="green">
-                <i style="font-size:30px;"  class="las la-laptop-code"></i>
+                <i style="font-size:30px;"  class="mdi mdi-monitor-share"></i>
               </v-badge>
 
-                <i style="font-size:30px;" v-else  class="las la-laptop-code"></i>
+                <i style="font-size:30px;" v-else  class="mdi mdi-monitor-share"></i>
                                       
                                       <div>
-                                         <span style="font-size:13px; font-family:BodyFont;">Screen Sharing</span>
+                                         <span style="font-size:13px; font-family:BodyFont;">Share Screen</span>
                                       </div>
                                    </div>
                              </div>
@@ -62,7 +61,7 @@
                 <i style="font-size:30px;" v-else class="las la-terminal"></i>
                                      
                                       <div>
-                                         <span style="font-size:13px; font-family:BodyFont;">Live Coding</span>
+                                         <span style="font-size:13px; font-family:BodyFont;">Live Code</span>
                                       </div>
                                    </div>
                              </div>
@@ -259,12 +258,10 @@
                                   
                                         <v-btn @click.stop="toggleView" icon style="z-index:999999999999999;" >
                                         
-                                              <v-badge
-                                          dot
-                                      color="green">
-                                        <v-icon>las la-laptop-code</v-icon>
-                                          </v-badge>
-
+                                           
+                                          
+                                        <v-icon>mdi mdi-monitor-share</v-icon>
+                                         
                                           </v-btn>
                                     </div>
   
