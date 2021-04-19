@@ -726,7 +726,7 @@
 
                                           <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
 
-                                         
+                                          <resourcepage v-if="innerSideBarContent == 'resource_page'" ></resourcepage>
                                    </div>
 
                                      </div>
@@ -1428,6 +1428,8 @@
 
                                         <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
 
+                                        <resourcepage v-if="innerSideBarContent == 'resource_page'" ></resourcepage>
+
                                          
                                     
                                    </div>
@@ -1825,6 +1827,9 @@ const Interest= () => import(
     /* webpackChunkName: "ChannelEdit" */ './ChannelEdit.vue'
   );
 
+const resourcepage= () => import(
+    /* webpackChunkName: "ResourcePage" */ './Resourcesdisplay.vue'
+  );
      const SubChannels = () => import(
     /* webpackChunkName: "SubChannels" */ './SubChannels.vue'
   );
@@ -2008,6 +2013,7 @@ export default {
         ImageViewer,
         ChannelInfo,
         ChannelEdit,
+        resourcepage,
         SubChannels,
         CreateChannel,
         LiveSession,

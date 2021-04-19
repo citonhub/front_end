@@ -131,6 +131,7 @@ const AddGit= () => import(/* webpackChunkName: "AddGit" */ '../components/proje
 // chats routes
 const Chats = () => import(/* webpackChunkName: "Chats" */ '../components/chats/Chats.vue');
 
+
 // Hub routes
 const Hub = () => import(/* webpackChunkName: "Hub" */ '../components/Hub/Hub.vue');
 
@@ -651,6 +652,9 @@ beforeEnter: (to, from, next) => {
   }
 },
 
+
+
+
 // diary settings 
 { path: '/channels/engine/diary/:bot_id',
 name: 'DiarySettings',
@@ -937,6 +941,69 @@ beforeEnter: (to, from, next) => {
     next()
   }
 },
+
+//resource routes
+
+{
+  path:'/channels/:spaceId/resources',
+  name:'resourcestab',
+ 
+  meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+      if( thisUserState.$root.chatComponent){
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+      thisUserState.$root.chatComponent.innerSideBarContent = '';
+      thisUserState.$root.chatComponent.chatInnerConent = '';
+      thisUserState.$root.showProfileView = false;
+      thisUserState.$root.chatComponent.chatInnerSideBar = true;
+      thisUserState.$root.chatComponent.innerSideBarContent = 'resource_page';
+       
+  
+          
+     }
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+  },
 // channel edit
 { path: '/channels/:spaceId/channel_edit',
    name: 'ChannelEdit',
