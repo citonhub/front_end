@@ -1,10 +1,13 @@
 <template>
   <div class="py-1 px-0">
-      <div class="navigate d-flex px-0 py-1 mt-3" style="border-bottom:1px solid #3C87CD" >
+      <div class="navigate px-0 py-1 mt-3" style="border-bottom:1px solid #3C87CD" >
    
-   
-   <v-btn @click="openModal" color="#3C87CD">   <v-icon  class="mt-1" color="#fff">las la-plus</v-icon>
-   <span class="offset-lg-1 mt-1" style="color:white">Add to Playlist</span></v-btn>
+   <h6 class="mt-2">Add new playlist</h6>
+
+  <div class="form-group d-flex mt-2">
+<input type="text" class="form-control">
+<v-btn class="ml-2" color="#3c97cd">Add</v-btn>
+  </div>
 
 </div>
 
@@ -16,7 +19,7 @@
     </div>
 </div>
 
-<div v-if="removeModal" class="playlist-modal" style="position:absolute;background:rgba(0,0,0,0.5);top:0;width:100%;height:600px;">
+<!--<div v-if="removeModal" class="playlist-modal" style="position:absolute;background:rgba(0,0,0,0.5);top:0;width:100%;height:600px;">
     
     <div class="created-lists mt-4 ml-2 col-lg-11" style="background:white;height:380px;" v-if="toggleForm">
 
@@ -46,7 +49,7 @@
     
     </div>
 
-    <!--playlist form-->
+
 
     <div v-else class="playlist-form py-1 mt-4 col-lg-10 offset-1" style="background:white;height:200px;border-radius:5px;" >
      
@@ -65,8 +68,8 @@
 
     </div>
 
-    <!--playlist form ends-->
-</div>
+   
+</div>-->
   </div>
 </template>
 

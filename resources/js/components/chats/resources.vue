@@ -1,10 +1,14 @@
 <template>
   <div class="py-1 px-0">
-      <div class="navigate d-flex px-0 py-1 mt-3" style="border-bottom:1px solid #3C87CD" >
+      <div class="navigate  px-0 py-1 mt-3" style="border-bottom:1px solid #3C87CD" >
    
    
-   <v-btn color="#3C87CD">   <v-icon  class="mt-1" color="#fff">las la-plus</v-icon>
-   <span class="offset-lg-1 mt-1" style="color:white">Add New Resource</span></v-btn>
+  <h6 class="mt-2">Add new Resource</h6>
+
+  <div class="form-group d-flex mt-2">
+<input type="text" class="form-control">
+<v-btn class="ml-2" color="#3c97cd">Add</v-btn>
+  </div>
 
 </div>
 
