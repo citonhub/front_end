@@ -48,6 +48,7 @@
     "v-markdown": "^1.0.2",
     "v-markdown-editor": "^1.2.6",
     "v-tooltip": "^2.0.3",
+    "videojs-youtube": "^2.6.1",
     "vue": "^2.6.11",
     "vue-advanced-cropper": "^0.16.5",
     "vue-codemirror": "^4.0.6",

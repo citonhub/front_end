@@ -21,7 +21,7 @@
 
       
  
-           <resource :show_add_icon="false"></resource>
+           <resource :contents="resources" :show_add_icon="false"></resource>
         </div>
 
        <!-- ends -->
@@ -36,6 +36,12 @@
    /* webpackChunkName: "Resource" */ './Resource.vue'
   );
 export default {
+    data(){
+    return{
+        resources:[]
+    }
+   
+},
     components:{
       Resource
     },
@@ -52,14 +58,16 @@ export default {
        
         },
       fetchResourceContent:function(){
-            axios.get( '/fetch-resource/' + this.$ro   )
+            axios.get( '/fetch-resource-content/' + this.$route.params.resource_id   )
       .then(response => {
       
       if (response.status == 200) {
     
-      console.log(response.data.resources);
+      console.log(response.data.contents);
 
-       if(response.data.resources.length == 0){
+        this.resources = response.data.contents;
+
+       if(response.data.contents.length == 0){
 
          setTimeout(() => {
            this.fetchResourceContent();

@@ -663,9 +663,24 @@
                               <!-- channel sidebar -->
 
 
-                               <div  v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" @click="goBack" style="overflow-x:hidden; background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" style="overflow-x:hidden; background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                    
                                    
+                                   <!-- youtube video player -->
+
+                                       <div @click.stop="preventClose()" style="position:absolute; height:100%; top:0%; width:60%; left:0%; align-items:center; justify-content:center; " class="d-flex flex-row ">
+                                         
+                                         <div class="px-2 py-2" @click.stop="preventClose()" style="background:white; border:1px solid #ffffff; border-radius:8px; left:5%; width:90%;">
+
+                                               <youtube-player :screenType="'large'" :playerHeight="300"></youtube-player>
+                                         </div>
+
+                                         </div>
+
+
+                                   <!-- ends -->
+
+
                                    <!-- admin options -->
 
                           <div style="position:absolute; height:100%; width:70%; left:30%;z-index:99999999999999;" v-if="that.$root.showAdminOption">
@@ -1424,6 +1439,20 @@
               <!-- ends -->
 
 
+                <!-- youtube video player -->
+
+                                       <div style="position:absolute; height:100%; background: rgba(27, 27, 30, 0.32); width:100%; left:0; position:fixed; height:100%; top:0%;z-index:99999999999999999;" class="d-flex flex-row text-center">
+                                         
+                                         <div style=" height:auto; left:0%; width:100%;">
+                                             <youtube-player :screenType="'small'" :playerHeight="240"></youtube-player>
+                                         </div>
+
+                                         </div>
+
+
+                                   <!-- ends -->
+
+
 
                               <!-- channel sidebar -->
 
@@ -1954,6 +1983,11 @@ const resourcepage= () => import(
    /* webpackChunkName: "ResourceContent" */ './ResourceContent.vue'
   );
 
+
+  const YoutubePlayer = () => import(
+   /* webpackChunkName: "YoutubePlayer" */ './YoutubePlayer.vue'
+  );
+
 import VueZoomer from 'vue-zoomer'
 
 Vue.use(VueZoomer)
@@ -2086,6 +2120,7 @@ export default {
          PointInfoBoard,
          MentorInfo,
          ResourceSearch,
+         YoutubePlayer,
     },
      methods:{
 
@@ -2161,7 +2196,9 @@ export default {
 goToDiary:function(){
     this.$router.push({ path: '/board/diary/list' });
 },
+preventClose:function(){
 
+},
 showResources:function(){
      this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resources' });
 },
