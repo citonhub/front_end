@@ -298,6 +298,12 @@
                               <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:absolute; top:0%;z-index:9999999;" >
                                 
                               <chat-top></chat-top>
+
+                               <div style="position:absolute; background:#ffffff; top:100%; right:0px;border:1px solid #c5c5c5; border-right:0px;" class="py-2 px-2">
+                                 <v-btn icon @click="showResources">
+                                    <v-icon >las la-folder</v-icon>
+                                 </v-btn>
+                               </div>
                             </div>
 
                           <div v-if="that.$root.Messages.length != 0" style="position:absolute;width:100%;height:100%; left:0%;background:#E1F0FC;">
@@ -728,6 +734,19 @@
                                           <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
 
                                           <resourcepage v-if="innerSideBarContent == 'resource_page'" ></resourcepage>
+
+                                            <resource-content v-if="innerSideBarContent == 'resource_content'" ></resource-content>
+
+                                          
+                                            <!-- fab screen -->
+
+                                   <v-btn     fab color="#3C87CD"  style="z-index:99999999;  position:absolute;  bottom:3%; right:2%; ">  
+
+                                  <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
+
+                                    </v-btn> 
+
+                                 <!-- ends -->
                                    </div>
 
                                      </div>
@@ -1064,6 +1083,13 @@
                                       
                                     </template>
                               <chat-top v-else></chat-top>
+
+                               <div style="position:absolute; background:#ffffff; top:100%; right:0px;border:1px solid #c5c5c5; border-right:0px;" class="py-2 px-2">
+                                 <v-btn icon small @click="showResources">
+                                    <v-icon style="font-size:22px;" >las la-folder</v-icon>
+                                 </v-btn>
+                               </div>
+
                             </div>
 
 
@@ -1433,7 +1459,18 @@
 
                                         <resourcepage v-if="innerSideBarContent == 'resource_page'" ></resourcepage>
 
-                                         
+                                         <resource-content v-if="innerSideBarContent == 'resource_content'" ></resource-content>
+
+
+                                             <!-- fab screen -->
+
+                                   <v-btn     fab color="#3C87CD"  style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">  
+
+                                  <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
+
+                                    </v-btn> 
+
+                                 <!-- ends -->
                                     
                                    </div>
 
@@ -1913,6 +1950,10 @@ const resourcepage= () => import(
    /* webpackChunkName: "ResourceSearch" */ './ResourceSearch.vue'
   );
 
+  const ResourceContent = () => import(
+   /* webpackChunkName: "ResourceContent" */ './ResourceContent.vue'
+  );
+
 import VueZoomer from 'vue-zoomer'
 
 Vue.use(VueZoomer)
@@ -2041,6 +2082,7 @@ export default {
          PaymentInfoBoard,
          PaymentProcessor,
          AddPayment,
+         ResourceContent,
          PointInfoBoard,
          MentorInfo,
          ResourceSearch,
@@ -2119,8 +2161,11 @@ export default {
 goToDiary:function(){
     this.$router.push({ path: '/board/diary/list' });
 },
-   
-   
+
+showResources:function(){
+     this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resources' });
+},
+ 
     shareProject:function(){
 
        this.$root.componentIsLoading = true;
