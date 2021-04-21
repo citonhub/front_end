@@ -1,6 +1,6 @@
 <template>
-    <div style="background:transparent;">
-   <div class="col-12 py-1 my-0 ">
+    <div style="background:transparent;height:100%:">
+   <div class="col-12 py-1 my-0">
     <div class="row">
         <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky; background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
             <div class=" mr-1 col-2 px-1 py-0">
@@ -24,7 +24,7 @@
        
        <!--navigation-->
 
-<playlist v-if="toggle"></playlist>
+<playlist v-if="toggle" style="height:100%;"></playlist>
 
 <resources v-else ></resources>
 

@@ -15,6 +15,8 @@
 <span class="ml-3" style="font-family:BodyFont;color:black;">{{resource}}</span>
     </div>
 </div>
+
+
   </div>
 </template>
 
