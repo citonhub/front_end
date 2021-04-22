@@ -314,20 +314,6 @@ export default {
 
        
 
-              if(this.$root.remoteScreen){
-               
-               this.selectAction('screen_sharing')
-                
-              }
-
-              if(this.$root.remoteCode){
-               
-                //this.selectAction('live_coding')
-                
-              }
-
-            
-
 
           
 
@@ -646,7 +632,7 @@ export default {
                }else{
                   this.$root.checkScreenRoomState(false);
 
-                   this.$root.chatComponent.showAlert('Hey!','Only Admins can share their screens','info','bottomRight',10000)
+                   this.$root.chatComponent.showAlert('Please wait!','Joining screen sharing session','info','bottomRight',5000)
                    
                }
 

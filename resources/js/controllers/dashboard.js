@@ -3153,7 +3153,7 @@ const app = new Vue({
 
                     this.$root.remoteScreen = true;
 
-                    if(this.$root.chatComponent.liveSessionIsOpen){
+                 
 
                       if(this.livesessionComponent){
 
@@ -3161,8 +3161,7 @@ const app = new Vue({
 
                       }
 
-                       
-                    }
+                   
 
                  }
                  if(e.data == 'code'){
@@ -3528,30 +3527,7 @@ const app = new Vue({
    sendLiveSignal:function(type){
 
         
-
-        this.$root.liveInitiated = true;
-
-         let interval = null;
-
-          let _this = this;
-        
-          interval = setInterval(()=>{
-            if(_this.$root.liveInitiated){
-
-           _this.liveChanges(type,'liveIsOn')
-   
-           
-        }else{
-
-           _this.liveChanges(type,'liveIsOff')
-
-         clearInterval(interval);
-        }
-           
-      
-         },2000);
-
-         
+    this.liveChanges(type,'liveIsOn');
 
      
 
