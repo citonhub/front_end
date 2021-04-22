@@ -1,6 +1,15 @@
 <template>
   <div class="py-1 px-0">
     
+      <div class="navigate px-0 py-1 mt-3" style="border-bottom:1px solid #3C87CD" >
+   
+   <h6 class="mt-2">Add new playlist</h6>
+
+  <div class="form-group d-flex mt-2">
+<input type="text" class="form-control">
+<v-btn class="ml-2" color="#3c97cd">Add</v-btn>
+  </div>
+     </div>
 
    <div class="d-flex flex-row flex-wrap col-12 py-1 px-1 px-md-2">
  
@@ -67,7 +76,7 @@
     
     </div>
 
-    <!--playlist form-->
+
 
     <div v-else class="playlist-form py-1 mt-4 col-lg-10 offset-1" style="background:white;height:200px;border-radius:5px;" >
      
@@ -119,7 +128,8 @@ data(){
         
     ],
     toggleForm:false,
-    removeModal:false
+    removeModal:false,
+    showPlaylist:true,
     }
 },
  methods:{
