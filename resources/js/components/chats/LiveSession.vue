@@ -528,7 +528,7 @@ export default {
             if(type == 'screen_sharing'){
                   this.$root.liveBoardContent = 'audio_speaker';
                   this.connectScreen();
-                 this.$root.sendLiveSignal('screen');
+               
             }
 
              if(type == 'live_coding'){
@@ -655,7 +655,7 @@ export default {
             
              this.$root.showVideoScreen = true;
 
-           this.$root.sendLiveSignal('screen');
+           
 
              this.$root.remoteScreen = true;
                this.$root.liveIsOn = true;
