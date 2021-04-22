@@ -8,7 +8,7 @@
    
         <div class="d-flex flex-row" style="align-items:center;">
               <div  style="font-family:MediumFont;font-size:14px; " >
-                How to work with WebRTC
+               CitonHub Demo
           </div>
 
           <div class="ml-auto" >
@@ -17,14 +17,14 @@
         </div>
 
          <div class="col-12 text-left py-0 px-0" style="font-family:BodyFont;font-size:12px; white-space: nowrap; color:grey; ">
-                3.5M views
+               34 views
            </div>
 
         <div class=" d-flex flex-row" style="align-items:center;" >
         
 
            <div class="col-6 py-0 px-0 text-left" style="font-family:BodyFont;font-size:12px; white-space: nowrap; color:grey; ">
-               Google Developer
+              CitonHub
            </div>
 
            <div class="col-6 py-0 text-right px-0" >
