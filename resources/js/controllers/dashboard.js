@@ -5257,24 +5257,23 @@ OfferToReceiveAudio: false,
 OfferToReceiveVideo: false
         };
 
-      //   this.$root.connection.bandwidth = {
-      //     audio: 128,
-      //     video: 1024,
-      //     screen: 1024
-      // };
+         this.$root.connection.bandwidth = {
+          audio: 128,
+           screen: 1024
+       };
       
-      // var videoConstraints = {
-      //     mandatory: {
-      //         maxWidth: 1920,
-      //         maxHeight: 1080,
-      //         minAspectRatio: 1.77,
-      //         minFrameRate: 3,
-      //         maxFrameRate: 64
-      //     },
-      //     optional: []
-      // };
+       var videoConstraints = {
+           mandatory: {
+              maxWidth: 1920,
+              maxHeight: 1080,
+               minAspectRatio: 1.77,
+               minFrameRate: 3,
+               maxFrameRate: 64
+           },
+           optional: []
+       };
       
-     // this.$root.connection.mediaConstraints.video = videoConstraints;
+      this.$root.connection.mediaConstraints.video = videoConstraints;
 
 
       
@@ -5904,11 +5903,17 @@ this.$root.dataconnection = undefined;
            OfferToReceiveVideo: true
        };
       
-     this.$root.connection.openOrJoin('screen' + this.$root.selectedSpace.space_id, function() {
+     this.$root.connection.openOrJoin('screen' + this.$root.selectedSpace.space_id, () => {
+        
+      this.$root.sendLiveSignal('screen');
       
     });
 
     this.screenIsConnecting = false;
+
+    this.$root.sendLiveSignal('screen');
+
+    
 
       },
       joinScreenRoom: function(){    

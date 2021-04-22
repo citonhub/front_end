@@ -638,7 +638,7 @@ export default {
 
           this.$root.showVideoScreen = true;
 
-           this.$root.sendLiveSignal('screen');
+          
 
           this.$root.screenSharingOn = true;
           
