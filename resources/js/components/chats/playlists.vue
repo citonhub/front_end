@@ -124,7 +124,7 @@ data(){
 },
  methods:{
       showContent:function(){
-           this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_content' });
+           this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_content/sample' });
       },
       handleYouTubeAuth:function(){
           
@@ -134,7 +134,7 @@ data(){
         var win = window.open(URL, "_blank", strWindowFeatures);
 
         setTimeout(() => {
-             
+              this.showContent();
         }, 4000);
       },
         openModal(){

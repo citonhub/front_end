@@ -2311,7 +2311,9 @@ const app = new Vue({
     MentorPageComponent:undefined,
     leaderboardMembers:[],
     refreshCount:0,
-    selectedResource:[]
+    selectedResource:[],
+    playingVideoId:'',
+    showYoutubePlayer: false,
      },
      mounted: function () {
       window.thisUserState = this;

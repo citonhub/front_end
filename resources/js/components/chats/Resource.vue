@@ -1,7 +1,7 @@
 <template>
     <div>
 
-      <div class="col-12 py-0 px-0" v-for="(content,index) in contents" :key="index">
+      <div class="col-12 py-0 px-0 hoverEffect" v-for="(content,index) in contents" :key="index" @click.stop="handleResource(content)">
             <!-- youtube search display -->
         <template v-if="content.type == 'youtube_video'">
 
@@ -167,9 +167,19 @@ export default {
                return content;
              }
         },
+        handleResource:function(content){
+        
+        if(content.type  == 'youtube_video'){
+           this.$root.playingVideoId = content.content.id;
+
+           this.$root.showYoutubePlayer = true;
+        }
+        }
     }
 }
 </script>
 <style scoped>
-
+.hoverEffect:hover{
+   background-color: whitesmoke;
+}
 </style>
