@@ -1,7 +1,7 @@
 <template>
  <div @click.stop="preventClose()" style="background:white;">
      <iframe :id="'YTplayer' + screenType" style="z-index:99999999999999999;" @click.stop="preventClose()" type="text/html" width="100%" :height="playerHeight"
-  :src="'http://www.youtube.com/embed/' + videoId + '?enablejsapi=1&rel=0'"
+  :src="'https://www.youtube.com/embed/' + videoId + '?enablejsapi=1&rel=0'"
   frameborder="0"></iframe>  
 
     <div class="col-12 px-1 py-1 d-flex flex-column" style="background:white;">
