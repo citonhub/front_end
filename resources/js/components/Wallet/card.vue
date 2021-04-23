@@ -145,10 +145,10 @@
                   
                      <div class="mt-5 px-3 pt-5 text-center" style="font-size:13px;color:grey;font-family:BodyFont;">
                        <div class="mb-1  px-3">
-                  You have no history yet. Invite your friends to mentor on CitonHub and get 5% commission on their first 10 earnings. 
+                  No transaction yet.
                        </div>
                        
-                             <v-btn small color="#3C87CD" @click="copyMessage()"  style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mr-3 " >Copy invite link</v-btn>
+                             <!-- <v-btn small color="#3C87CD" @click="copyMessage()"  style="color:white;text-transform:none;font-family:BodyFont;font-size:11px;" class="mr-3 " >Copy invite link</v-btn> -->
                     </div>
 
                     </template>
