@@ -1,7 +1,24 @@
 <template>
-    <v-card class="py-0 px-0 col-lg-12 col-md-8 col-10">
+    <v-card class="py-0 px-0 col-lg-12 col-md-8 col-10" style="min-width:200px;">
 
                                       <div class="col-12 px-0 py-1 d-flex flex-column">
+
+                                          <v-card v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'SubSpace' || this.$root.selectedSpace.type == 'Team'" tile flat class="px-2 py-2 d-flex flex-row" style="align-items:center;" @click="controlAction('playlists')">
+
+                                        
+
+                                          <v-icon class="mr-1">las la-play-circle</v-icon>   <span style="font-family:BodyFont;font-size:13px;color:grey;">Playlists</span>
+
+                                         </v-card>
+
+
+                                           <v-card v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'SubSpace' || this.$root.selectedSpace.type == 'Team'" tile flat class="px-2 py-2 d-flex flex-row" style="align-items:center;" @click="controlAction('resources')">
+
+                                        
+
+                                          <v-icon class="mr-1">las la-folder</v-icon>   <span style="font-family:BodyFont;font-size:13px;color:grey;">Resources</span>
+
+                                         </v-card>
 
                                            <v-card v-if="this.$root.selectedSpace.type == 'Direct'" tile flat class="px-2 py-2 d-flex flex-row" style="align-items:center;" @click="controlAction('profile')">
 
@@ -10,6 +27,8 @@
                                           <v-icon class="mr-1">las la-cog</v-icon>   <span style="font-family:BodyFont;font-size:13px;color:grey;">View profile</span>
 
                                          </v-card>
+
+                                         
                                           <v-card tile flat v-if="this.$root.selectedSpace.type == 'Bot'"  class="px-2 py-2 d-flex flex-row" style="align-items:center;" @click="controlAction('diary')">
 
 
@@ -42,7 +61,7 @@
                                           <v-card tile flat  class="px-2 py-2 d-flex flex-row" style="align-items:center;" @click="controlAction('reset')">
 
 
-                                            <v-icon class="mr-1"> las la-sync-alt</v-icon> <span style="font-family:BodyFont;font-size:13px;color:grey;">Reset chat</span>
+                                            <v-icon class="mr-1"> las la-sync-alt</v-icon> <span style="font-family:BodyFont;font-size:13px;color:grey;">Refresh chat</span>
 
                                          </v-card>
                                          
@@ -76,6 +95,19 @@ export default {
                     this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/channel_info' });
 
                }
+             
+              if(type == 'playlists'){
+
+                     this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/playlists' });
+
+               }
+
+                if(type == 'resources'){
+
+                      this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resources' });
+
+               }
+
 
                if(type == 'support'){
 

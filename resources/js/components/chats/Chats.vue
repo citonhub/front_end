@@ -1,5 +1,5 @@
 <template>
-    <div  style="position:fixed;height:100%;background:#F5F5FB; top:0; left:0; width:100%; z-index:999999999;" >
+    <v-app  style="position:fixed;height:100%;background:#F5F5FB; top:0; left:0; width:100%; z-index:0;" >
 
         <!-- top bar -->
         <div class="col-12 py-0 fixed-top" style="position:sticky;width:100%;height:auto; ">
@@ -49,7 +49,7 @@
 
            <!-- menu session -->
 
-                        <v-btn fab small class="d-none d-lg-inline-block" color="#ffffff" @click="showSideBarHandler()" style="position:absolute;left:12px;top:3%;">
+                        <v-btn fab small class="d-none d-lg-inline-block" color="#ffffff" @click="showSideBarHandler()" style="position:absolute; z-index:99999999999999999;left:12px;top:3%;">
 
                             <v-badge
                    dot
@@ -64,12 +64,12 @@
 
                        <!-- ends -->
 
-        <div class="  py-0 px-0 d-lg-block d-none card " style=" overflow-y:hidden;position:absolute;width:90%; left:5%; height:94%; top:3%; overflow-y:hidden; overflow-x:hidden; background:white;" >
+        <div class="  py-0 px-0 d-lg-block d-none card " style=" overflow-y:hidden;position:absolute;width:90%;  z-index:99999999999999999; left:5%; height:94%; top:3%; overflow-y:hidden; overflow-x:hidden; background:white;" >
 
                      
 
 
-                   <div class="py-0"  style="height:100%; width:28%; left:0%; position:absolute; overflow-y:hidden; overflow-x:hidden; border-right:1px solid #c5c5c5;">
+                   <div class="py-0"  style="height:100%; width:28%; left:0%; position:absolute; background:white; overflow-y:hidden; overflow-x:hidden; border-right:1px solid #c5c5c5;">
 
                          <div class="row  px-2">
 
@@ -78,7 +78,7 @@
                        
                            <template v-if="chatbarContent == 'chat_list'">
 
-                             <div class="col-12 py-2 px-2 pb-0 mb-0 text-center d-flex flex-row fixed-top" style="left:0%;height:58px;position:sticky;background:white;top:-5%;">
+                             <div class="col-12 py-2 px-2 pb-0 mb-0 text-center d-flex flex-row fixed-top" style="  z-index:99999999999999999; left:0%;height:58px;position:sticky;background:white;top:-5%;">
                              <v-btn icon ><v-icon>las la-search</v-icon></v-btn>
                         
                               <v-text-field
@@ -108,7 +108,7 @@
        :buffer="5000"
     id="ChatContainer"
       class="col-12 px-1  chatListScroller" 
-       style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;"
+       style="position:absolute; overflow-y:auto; z-index:999999; top:0%; height:98%;left:0%;padding-top:63px;"
         >
 
     <template v-slot="{ item, index, active }">
@@ -204,7 +204,7 @@
     :buffer="5000"
     id="ChatContainerSearch"
       class="col-12 px-1  chatListScroller" 
-       style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;background:white;"
+       style="position:absolute;  z-index:999999;  overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;background:white;"
         >
 
     <template v-slot="{ item, index, active }">
@@ -299,11 +299,7 @@
                                 
                               <chat-top></chat-top>
 
-                               <div style="position:absolute; background:#ffffff; top:100%; right:0px;border:1px solid #c5c5c5; border-right:0px;" class="py-2 px-2">
-                                 <v-btn icon @click="showResources">
-                                    <v-icon >las la-folder</v-icon>
-                                 </v-btn>
-                               </div>
+                              
                             </div>
 
                           <div v-if="that.$root.Messages.length != 0" style="position:absolute;width:100%;height:100%; left:0%;background:#E1F0FC;">
@@ -874,7 +870,7 @@
     :buffer="5000"
     id="ChatContainersmall"
       class="col-12 px-1 " 
-        style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto;" 
+        style="position:absolute; width:100%;  z-index:999999;  height:92%;top:8%;left:0;overflow-y:auto;" 
         >
 
     <template v-slot="{ item, index, active }">
@@ -971,7 +967,7 @@
     :buffer="5000"
     id="ChatContainersmallSearch"
       class="col-12 px-1 " 
-        style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto; background:white;" 
+        style="position:absolute; width:100%;  z-index:999999;  height:92%;top:8%;left:0;overflow-y:auto; background:white;" 
         >
 
     <template v-slot="{ item, index, active }">
@@ -1099,11 +1095,7 @@
                                     </template>
                               <chat-top v-else></chat-top>
 
-                               <div style="position:absolute; background:#ffffff; top:100%; right:0px;border:1px solid #c5c5c5; border-right:0px;" class="py-2 px-2">
-                                 <v-btn icon small @click="showResources">
-                                    <v-icon style="font-size:22px;" >las la-folder</v-icon>
-                                 </v-btn>
-                               </div>
+                            
 
                             </div>
 
@@ -1633,11 +1625,12 @@
 
 
 
-     <v-btn  fab color="#3C87CD"  v-if="that.$root.ChatList.length > 0" @click="showCreateChannel" class="d-lg-none d-inline-block" style="z-index:99999;  position:fixed;  bottom:3%; right:3%; ">
+     <v-btn  fab color="#3C87CD"  v-if="that.$root.ChatList.length > 0" @click="showCreateChannel" class="d-lg-none d-inline-block" style="z-index:999999999999;  position:fixed;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:24px; color:white;">mdi mdi-chat-plus-outline</v-icon>
 
      </v-btn>
+
 
 
        <!-- ends -->
@@ -1826,7 +1819,7 @@
  <!-- ends -->
 
 
-    </div>
+    </v-app>
 </template>
 <script>
 

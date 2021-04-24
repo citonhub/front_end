@@ -68,7 +68,38 @@ toggle:true,
 selectedTab:'playlists',
   }
 },
+ mounted(){
+    
+    setTimeout(() => {
+        this.checkResourceType();
+    }, 1000);
+   
+ },
 methods:{
+  checkResourceType: function(){
+      if(this.$router.currentRoute.path.indexOf('playlists') >= 0){
+                
+               this.selectedTab = 'playlists';
+
+               this.toggle=true;
+            
+
+            }
+
+         if(this.$router.currentRoute.path.indexOf('resources') >= 0){
+                
+               this.selectedTab = 'resources';
+
+               this.toggle=false;
+            
+
+            }
+  },
+  changeRoute:function(type){
+    
+          this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/'  + type });
+          this.checkResourceType();
+  },
     goBack:function(){
               window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
 
