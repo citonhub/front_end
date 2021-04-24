@@ -3518,7 +3518,7 @@ const app = new Vue({
        }
 
        
-    }, 4000);
+    }, 8000);
 
    
 
@@ -3717,8 +3717,7 @@ const app = new Vue({
 
            }else{
 
-            this.handleSpaceData(firstData);
-
+          
              if(this.returnedDataArray.length == 0){
               this.messageIsProcessing = false;
              }
