@@ -1,17 +1,18 @@
 <template>
   <div class="py-1 px-0">
     
-      <div class="navigate px-0 py-1 mt-3" style="border-bottom:1px solid #3C87CD" >
+      <div class="navigate px-2 py-1 mt-3 mb-3 " style="height:50px;" >
    
-   <h6 class="mt-2">Add new playlist</h6>
 
-  <div class="form-group d-flex mt-2">
-<input type="text" class="form-control">
-<v-btn class="ml-2" color="#3c97cd">Add</v-btn>
-  </div>
+  
+<v-text-field   placeholder="Create a playlist" outlined style="height:70%;"  color="#3C87CD" v-model="playName"
+@keyup.enter="createPlaylists()"
+ ></v-text-field>
+
+  
      </div>
 
-   <div class="d-flex flex-row flex-wrap col-12 py-1 px-1 px-md-2">
+   <div class="d-flex flex-row flex-wrap col-12 py-1 px-1 px-md-2 mt-2">
  
     <template v-if="showPlaylist">
          <v-card flat class="d-flex flex-row px-1  mb-2 col-12" v-for="(video,index) in videos" :key="index" @click="showContent" style="background: rgba(125, 179, 229, 0.4);">
@@ -20,7 +21,7 @@
               </div>
 
               <div>
-              <span  style="font-family:BodyFont;color:black;font-size:13px;">{{video}}</span>
+              <span  style="font-family:BodyFont;color:black;font-size:13px;">{{video.name}}</span>
               </div>
 
               <div class="ml-auto px-2">
@@ -106,15 +107,7 @@
 export default {
 data(){
     return{
-         videos:[
-        'Vue Routes',
-        'Props',
-        'Data Binding',
-        'Components',
-        'Code Along',
-        'Building Databases'
-
-    ],
+         videos:[],
     lists:[
         'React Tutorial',
         'Responsiveness',
@@ -130,8 +123,15 @@ data(){
     toggleForm:false,
     removeModal:false,
     showPlaylist:true,
+    playName:''
     }
 },
+mounted(){
+
+  this.fetchPlaylists();
+}
+
+,
  methods:{
       showContent:function(){
            this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_content/sample' });
@@ -156,7 +156,38 @@ data(){
     },
     openForm(){
      this.toggleForm=false;
+    },
+
+    fetchPlaylists:function(){
+      axios.get(`/fetch-resource/${this.$root.selectedSpace.space_id}/playlist`)
+      .then(
+        response=>{
+          if(response.status==200){
+            console.log(response.data)
+            this.videos=response.data.resources
+          }
+        }
+      )
+    },
+
+     createPlaylists:function(){
+    axios.post('/create-resource',
+    {
+      
+space_id: this.$root.selectedSpace.space_id,
+name: this.playName,
+type:'playlist'
+
+
     }
+    ).then(
+      response=>{
+        if(response.status==201){
+console.log('playlist created!')
+        }
+      }
+    )
+  }
     }
 }
 </script>

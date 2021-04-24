@@ -11,7 +11,7 @@
           
              <div class=" py-0 text-center" style="width:100%;">
                <input style="width:100%;heigth:100%;font-size:13px;background:whitesmoke;border-radius:13px;font-family:BodyFont;"  
-                       placeholder="Search Dev.to" class="py-2 px-3" type="search" > 
+                  @input="searchSite"     :placeholder="placeholder" class="py-2 px-3" type="search" v-model="searchQuery"> 
             </div>
               
               <div class=" py-0 ml-1 text-right">
@@ -48,9 +48,12 @@
    /* webpackChunkName: "Resource" */ './Resource.vue'
   );
 export default {
+  
      data(){
         return{
-         that: this
+         that: this,
+         placeholder:'',
+         searchQuery:''
         }
     },
     components:{
@@ -58,6 +61,7 @@ export default {
     },
     mounted(){
     this.$root.componentIsLoading = false;
+    this.alterSearch();
     },
     methods:{
         goBack:function(){
@@ -68,6 +72,25 @@ export default {
             this.$root.chatComponent.innerSideBarContent = '';
        
         },
+
+        alterSearch(){
+          if(this.$root.resourceSearchType=='youtube'){
+this.placeholder="Search youtube"
+
+
+          }
+          else if (this.$root.resourceSearchType=='udemy'){
+            this.placeholder="Search Udemy"
+          }
+        },
+
+        searchSite: function(){
+if(this.$root.resourceSearchType=='youtube'){
+axios.get(`/search-youtube/${this.searchQuery}`)
+} else if(this.$root.resourceSearchType=='udemy'){
+  axios.get(`/search-udemy/${this.searchQuery}`)
+}
+        }
       
     }
 }

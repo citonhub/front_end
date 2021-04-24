@@ -20,7 +20,9 @@
               </div>
             </div>  
 
-             <div class="col-7 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+               
+
+             <div class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  {{ shortenContent(content.content.snippet.title,50) }}
@@ -31,7 +33,15 @@
                 <div class="" style="font-family:BodyFont;font-size:12px;color:grey; overflow:hidden; text-overflow:ellipsis;  ">
                  {{content.content.statistics.viewCount}} views
                </div>
+           
+            
             </div>  
+
+            <div >
+              <v-icon>las la-ellipsis-v</v-icon>
+            </div>
+
+             
 
          </div>
 

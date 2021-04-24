@@ -755,11 +755,28 @@
                                           
                                             <!-- fab screen -->
 
-                                   <v-btn     fab color="#3C87CD"  style="z-index:99999999;  position:absolute;  bottom:3%; right:2%; ">  
+                                   <v-btn     fab color="#3C87CD"  style="z-index:99999999;  position:absolute;  bottom:3%; right:3%; ">  
 
-                                  <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
+                                  <v-icon style="font-size:24px; color:white;">mdi-close mdi-18px</v-icon>
 
                                     </v-btn> 
+
+                                    <!--new-->
+
+                                     <v-btn small @click=" goToSearch"    fab color="#FF0000"  style="z-index:99999999;  position:absolute;  bottom:15%; right:4%; ">  
+
+                                  <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
+
+                                    </v-btn>
+
+                                    <v-btn @click="searchUdemy" small    fab color="#fff"  style="z-index:99999999;  position:absolute;  bottom:25%; right:4%; ">  
+
+                               <img style="height:20px;width:20px;" src="imgs/udemy_logo.png" alt="">
+
+                                    </v-btn>
+
+
+                                    <!--new-->
 
                                  <!-- ends -->
                                    </div>
@@ -1499,6 +1516,24 @@
 
                                     </v-btn> 
 
+
+                                      <!--new-->
+
+                                     <v-btn small @click=" goToSearch"    fab color="#FF0000"  style="z-index:99999999;  position:absolute;  bottom:15%; right:4%; ">  
+
+                                  <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
+
+                                    </v-btn>
+
+                                    <v-btn @click="searchUdemy" small    fab color="#fff"  style="z-index:99999999;  position:absolute;  bottom:25%; right:4%; ">  
+
+                               <img style="height:20px;width:20px;" src="imgs/udemy_logo.png" alt="">
+
+                                    </v-btn>
+
+
+                                    <!--new-->
+
                                  <!-- ends -->
                                     
                                    </div>
@@ -2123,6 +2158,26 @@ export default {
          YoutubePlayer,
     },
      methods:{
+
+       //new functions begin
+
+  goToSearch: function(){
+ this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_search' });
+ this.$root.resourceSearchType='youtube'
+      },
+
+      searchUdemy:function(){
+this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_search' });
+ this.$root.resourceSearchType='udemy'
+      }, 
+
+      searchDevto(){
+        this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_search' });
+ this.$root.resourceSearchType='devto'
+      },
+
+
+       //new functions end
 
      becomeMentor:function(){
             this.$root.showPointDetailsInfo = true;
