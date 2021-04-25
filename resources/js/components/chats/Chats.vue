@@ -769,7 +769,7 @@
 
                                     </v-btn>
 
-                                    <v-btn v-if="this.$router.currentRoute.path.indexOf('resource_') >= 0 && toggleAddButton== true" @click="searchUdemy" small    fab color="#fff"  style="z-index:99999999;  position:absolute;  bottom:25%; right:4%; ">  
+                                    <v-btn v-if="this.$router.currentRoute.path.indexOf('resource_') >= 0 && toggleAddButton== true" @click="searchUdemy" small    fab color="#fff"  style="z-index:99999999;  position:absolute;  bottom:23.5%; right:4%; ">  
 
                                <img style="height:20px;width:20px;" src="imgs/udemy_logo.png" alt="">
 
@@ -1525,7 +1525,7 @@
 
                                     </v-btn>
 
-                                    <v-btn v-if="this.$router.currentRoute.path.indexOf('resource_') >= 0 && toggleAddButton== true"  @click="searchUdemy" small    fab color="#fff"  style="z-index:99999999;  position:absolute;  bottom:25%; right:4%;outline:none; ">  
+                                    <v-btn v-if="this.$router.currentRoute.path.indexOf('resource_') >= 0 && toggleAddButton== true"  @click="searchUdemy" small    fab color="#fff"  style="z-index:99999999;  position:absolute;  bottom:23%; right:4%;outline:none; ">  
 
                                <img style="height:20px;width:20px;" src="imgs/udemy_logo.png" alt="">
 
