@@ -135,6 +135,7 @@ mounted(){
  methods:{
       showContent:function(){
            this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_content/sample' });
+      this.$root.resourceContentType='videos'
       },
       handleYouTubeAuth:function(){
           
@@ -184,6 +185,7 @@ type:'playlist'
       response=>{
         if(response.status==201){
 console.log('playlist created!')
+this.playName=''
         }
       }
     )

@@ -2314,7 +2314,8 @@ const app = new Vue({
     selectedResource:[],
     playingVideoId:'',
     showYoutubePlayer: false,
-    resourceSearchType:''
+    resourceSearchType:'',
+    resourceContentType:''
      },
      mounted: function () {
       window.thisUserState = this;

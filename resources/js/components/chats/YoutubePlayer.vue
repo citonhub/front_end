@@ -1,6 +1,12 @@
 <template>
  <div @click.stop="preventClose()" style="background:white;">
-     <iframe :id="'YTplayer' + screenType" style="z-index:99999999999999999;" @click.stop="preventClose()" type="text/html" width="100%" :height="playerHeight"
+
+<div class=" py-0  ">
+<v-btn icon  style="position:absolute; top:4%;right:5%;z-index:99999999999999999;" >
+  <v-icon color="#3C87CD" >las la-times</v-icon>
+</v-btn>
+</div>
+     <iframe class="mt-4" :id="'YTplayer' + screenType" style="z-index:99999999999999999;" @click.stop="preventClose()" type="text/html" width="100%" :height="playerHeight"
   :src="'https://www.youtube.com/embed/' + videoId + '?enablejsapi=1&rel=0'"
   frameborder="0"></iframe>  
 

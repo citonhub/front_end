@@ -13,7 +13,7 @@
             
           
              <div class="col-8 py-0 text-center" style="white-space: nowrap; overflow:hidden; text-overflow:ellipsis; ">
-             <span style="font-size:14px; font-family:MediumFont;">My Videos</span>
+             <span style="font-size:14px; font-family:MediumFont;">{{title}}</span>
             </div>
               
              <div class="col-2 py-0 px-1 mx-0 mt-1">
@@ -46,7 +46,8 @@
 export default {
     data(){
     return{
-        resources:[]
+        resources:[],
+        title:''
     }
    
 },
@@ -55,6 +56,7 @@ export default {
     },
     mounted(){
       this.fetchResourceContent();
+      this.setType();
     },
     methods:{
                goBack:function(){
@@ -92,6 +94,13 @@ export default {
       
     
      }) 
+      },
+      setType:function(){
+if(this.$root.resourceContentType=='resources'){
+this.title='My Articles'
+}else if(this.$root.resourceContentType=='videos'){
+this.title='My Videos'
+}
       },
       goToSearch: function(){
  this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_search' });

@@ -75,7 +75,7 @@ methods:{
   
            this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_content/sample' });
 
-     
+     this.$root.resourceContentType='resources'
      
      }
   ,

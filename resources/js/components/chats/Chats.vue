@@ -755,21 +755,21 @@
                                           
                                             <!-- fab screen -->
 
-                                   <v-btn     fab color="#3C87CD"  style="z-index:99999999;  position:absolute;  bottom:3%; right:3%; ">  
+                                   <v-btn @click="toggleButton()" v-if="this.$router.currentRoute.path.indexOf('resource_') >= 0"     fab color="#3C87CD"  style="z-index:99999999;  position:absolute;  bottom:3%; right:3%; ">  
 
-                                  <v-icon style="font-size:24px; color:white;">mdi-close mdi-18px</v-icon>
+                                  <v-icon style="font-size:24px; color:white;">{{this.buttonIcon}}</v-icon>
 
                                     </v-btn> 
 
                                     <!--new-->
 
-                                     <v-btn small @click=" goToSearch"    fab color="#FF0000"  style="z-index:99999999;  position:absolute;  bottom:15%; right:4%; ">  
+                                     <v-btn v-if="this.$router.currentRoute.path.indexOf('resource_') >= 0 && toggleAddButton== true"  small @click=" goToSearch"    fab color="#FF0000"  style="z-index:99999999;  position:absolute;  bottom:15%; right:4%; ">  
 
                                   <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
 
                                     </v-btn>
 
-                                    <v-btn @click="searchUdemy" small    fab color="#fff"  style="z-index:99999999;  position:absolute;  bottom:25%; right:4%; ">  
+                                    <v-btn v-if="this.$router.currentRoute.path.indexOf('resource_') >= 0 && toggleAddButton== true" @click="searchUdemy" small    fab color="#fff"  style="z-index:99999999;  position:absolute;  bottom:25%; right:4%; ">  
 
                                <img style="height:20px;width:20px;" src="imgs/udemy_logo.png" alt="">
 
@@ -1510,22 +1510,22 @@
 
                                              <!-- fab screen -->
 
-                                   <v-btn     fab color="#3C87CD"  style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">  
+                                   <v-btn @click=" toggleButton() " v-if="this.$router.currentRoute.path.indexOf('resource_') >= 0"     fab color="#3C87CD"  style="z-index:99999999;  position:fixed;  bottom:3%; right:3%;outline:none; " >  
 
-                                  <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
+                                  <v-icon style="font-size:24px; color:white;">{{this.buttonIcon}}</v-icon>
 
                                     </v-btn> 
 
 
                                       <!--new-->
 
-                                     <v-btn small @click=" goToSearch"    fab color="#FF0000"  style="z-index:99999999;  position:absolute;  bottom:15%; right:4%; ">  
+                                     <v-btn v-if="this.$router.currentRoute.path.indexOf('resource_') >= 0 && toggleAddButton== true"  small @click=" goToSearch"    fab color="#FF0000"  style="z-index:99999999;  position:absolute;  bottom:15%; right:4%;outline:none; ">  
 
                                   <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
 
                                     </v-btn>
 
-                                    <v-btn @click="searchUdemy" small    fab color="#fff"  style="z-index:99999999;  position:absolute;  bottom:25%; right:4%; ">  
+                                    <v-btn v-if="this.$router.currentRoute.path.indexOf('resource_') >= 0 && toggleAddButton== true"  @click="searchUdemy" small    fab color="#fff"  style="z-index:99999999;  position:absolute;  bottom:25%; right:4%;outline:none; ">  
 
                                <img style="height:20px;width:20px;" src="imgs/udemy_logo.png" alt="">
 
@@ -2100,7 +2100,9 @@ export default {
       xpLeft:0,
       barValue:0,
       pic:'',
-       pic1:''
+       pic1:'',
+        toggleAddButton:false,
+        buttonIcon:'las la-plus'
      
       }
     },
@@ -2156,19 +2158,30 @@ export default {
          MentorInfo,
          ResourceSearch,
          YoutubePlayer,
+        
     },
      methods:{
 
        //new functions begin
 
   goToSearch: function(){
- this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_search' });
+    if(this.$router.currentRoute.path.indexOf('resource_search') >= 0){
+this.$root.resourceSearchType='youtube'
+    }else{
+       this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_search' });
  this.$root.resourceSearchType='youtube'
+    }
+
       },
 
       searchUdemy:function(){
+        if(this.$router.currentRoute.path.indexOf('resource_search') >= 0){
+          this.$root.resourceSearchType='udemy'
+        } else{
 this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_search' });
  this.$root.resourceSearchType='udemy'
+        }
+
       }, 
 
       searchDevto(){
@@ -2176,6 +2189,16 @@ this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/re
  this.$root.resourceSearchType='devto'
       },
 
+toggleButton: function(){
+if(this.toggleAddButton== false){
+  console.log(this.buttonIcon)
+  this.buttonIcon='mdi-close mdi-18px'
+this.toggleAddButton= true
+}else if(this.toggleAddButton==true){
+this.toggleAddButton= false
+ this.buttonIcon='las la-plus'
+}
+},
 
        //new functions end
 
