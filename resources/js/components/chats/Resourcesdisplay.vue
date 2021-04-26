@@ -73,6 +73,8 @@ selectedTab:'playlists',
     setTimeout(() => {
         this.checkResourceType();
     }, 1000);
+
+    this.$root.showAddButton = false;
    
  },
 methods:{

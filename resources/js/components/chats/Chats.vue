@@ -669,7 +669,12 @@
                                          <div class="px-2 py-2" @click.stop="preventClose()" style="background:white; border:1px solid #ffffff; border-radius:8px; left:5%; width:90%;">
 
                                                <youtube-player :screenType="'large'" :playerHeight="300"  :videoId="that.$root.playingVideoId"></youtube-player>
+
+                                                
                                          </div>
+                                     
+                                      
+
 
                                          </div>
 
@@ -750,12 +755,114 @@
 
                                           
                                             <!-- fab screen -->
+                                          
+                                          <template v-if="that.$root.showAddButton">
+                                   
+                                      <v-btn @click="toggleButton()"     fab color="#3C87CD"  style="z-index:99999999;  position:absolute;  bottom:3%; right:2%; ">  
 
-                                   <v-btn     fab color="#3C87CD"  style="z-index:99999999;  position:absolute;  bottom:3%; right:2%; ">  
-
-                                  <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
+                                  <v-icon style="font-size:24px; color:white;">{{this.buttonIcon}}</v-icon>
 
                                     </v-btn> 
+
+                                    <!--new-->
+
+                                    <template v-if="that.$root.selectedResource.type == 'playlist'">
+
+                                      <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:12%; right:3%; ">
+                                  
+                                  <div class="mr-2">
+                                           <span style="font-size:13px;font-family:BodyFont; " >
+                                             Add videos from YouTube
+                                                  </span>
+                                  </div>
+                                  <div>
+                                 <v-btn small @click="goToSearch('youtube')"    fab color="#FF0000" >  
+
+                                  <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
+
+                                    </v-btn>
+                                  </div>
+
+                                      </div>
+
+
+                                      <div v-if="toggleAddButton== true" class=" d-flex flex-row" style="z-index:9999999999999; align-items:center; position:absolute;  heigth:auto; bottom:20%; right:3%; ">
+                                      
+                                        <div class="mr-2">
+                                           <span style="font-size:13px;font-family:BodyFont; " >
+                                             Add videos from Udemy
+                                                  </span>
+                                  </div>
+
+                                      <div>
+
+                                          <v-btn @click="goToSearch('udemy')" small    fab color="#fff" >  
+
+                               <img style="height:20px;width:20px;" src="imgs/udemy_logo.png" alt="">
+
+                                    </v-btn>
+                                    
+                                      </div>
+
+                                      </div>
+
+                                       
+                                   
+
+                                    </template>
+
+                                    <template v-else>
+                                  
+
+                                   <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:12%; right:3%; ">
+                                  
+                                  <div class="mr-2">
+                                           <span style="font-size:13px;font-family:BodyFont; " >
+                                             Add resource URL
+                                                  </span>
+                                  </div>
+                                  <div>
+                                 <v-btn small @click="goToSearch('link')"    fab color="#ffffff" >  
+
+                                  <v-icon style="font-size:20px; ">mdi mdi-link</v-icon>
+
+                                    </v-btn>
+                                  </div>
+
+                                      </div>
+
+
+                                      <div v-if="toggleAddButton== true" class=" d-flex flex-row" style="z-index:9999999999999; align-items:center; position:absolute;  heigth:auto; bottom:20%; right:3%; ">
+                                      
+                                        <div class="mr-2">
+                                           <span style="font-size:13px;font-family:BodyFont; " >
+                                             Add Dev.to articles
+                                                  </span>
+                                  </div>
+
+                                      <div>
+
+                                          <v-btn  @click="goToSearch('devto')" small    fab color="#ffffff" >  
+
+                               <img style="height:20px;width:20px;" src="imgs/devto.png" alt="">
+
+                                    </v-btn>
+                                    
+                                      </div>
+
+                                      </div>
+
+
+                                    </template>
+
+                                  
+
+                                          </template>
+
+                                
+
+
+                                    <!--new-->
 
                                  <!-- ends -->
                                    </div>
@@ -1431,18 +1538,6 @@
               <!-- ends -->
 
 
-                <!-- youtube video player -->
-
-                                       <div v-if="that.$root.showYoutubePlayer" style="position:absolute; height:100%; background: rgba(27, 27, 30, 0.32); width:100%; left:0; position:fixed; height:100%; top:0%;z-index:99999999999999999;" class="d-flex flex-row text-center">
-                                         
-                                         <div style=" height:auto; left:0%; width:100%;">
-                                             <youtube-player :screenType="'small'" :playerHeight="200" :videoId="that.$root.playingVideoId"></youtube-player>
-                                         </div>
-
-                                         </div>
-
-
-                                   <!-- ends -->
 
 
 
@@ -1485,11 +1580,108 @@
 
                                              <!-- fab screen -->
 
-                                   <v-btn     fab color="#3C87CD"  style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">  
+                                  <template v-if="that.$root.showAddButton">
+                                   
+                                      <v-btn @click="toggleButton()"     fab color="#3C87CD"  style="z-index:9999999999;  position:fixed;  bottom:3%; right:2%; ">  
 
-                                  <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
+                                  <v-icon style="font-size:24px; color:white;">{{this.buttonIcon}}</v-icon>
 
                                     </v-btn> 
+
+                                    <!--new-->
+
+                                    <template v-if="that.$root.selectedResource.type == 'playlist'">
+
+                                      <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:fixed; heigth:auto;  bottom:14%; right:4%; ">
+                                  
+                                  <div class="mr-2">
+                                           <span style="font-size:12px;font-family:BodyFont; " >
+                                             Add videos from YouTube
+                                                  </span>
+                                  </div>
+                                  <div>
+                                 <v-btn small @click="goToSearch('youtube')"    fab color="#FF0000" >  
+
+                                  <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
+
+                                    </v-btn>
+                                  </div>
+
+                                      </div>
+
+
+                                      <div v-if="toggleAddButton== true" class=" d-flex flex-row" style="z-index:9999999999999; align-items:center; position:fixed;  heigth:auto; bottom:22%; right:4%; ">
+                                      
+                                        <div class="mr-2">
+                                           <span style="font-size:12px;font-family:BodyFont; " >
+                                             Add videos from Udemy
+                                                  </span>
+                                  </div>
+
+                                      <div>
+
+                                          <v-btn @click="goToSearch('udemy')"  small    fab color="#fff" >  
+
+                               <img style="height:20px;width:20px;" src="imgs/udemy_logo.png" alt="">
+
+                                    </v-btn>
+                                    
+                                      </div>
+
+                                      </div>
+
+                                       
+                                   
+
+                                    </template>
+
+                                    <template v-else>
+
+                                   
+                                   <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:14%; right:4%; ">
+                                  
+                                  <div class="mr-2">
+                                           <span style="font-size:13px;font-family:BodyFont; " >
+                                             Add resource URL
+                                                  </span>
+                                  </div>
+                                  <div>
+                                 <v-btn small @click="goToSearch('link')"    fab color="#ffffff" >  
+
+                                  <v-icon style="font-size:20px; ">mdi mdi-link</v-icon>
+
+                                    </v-btn>
+                                  </div>
+
+                                      </div>
+
+
+                                      <div v-if="toggleAddButton== true" class=" d-flex flex-row" style="z-index:9999999999999; align-items:center; position:absolute;  heigth:auto; bottom:22%; right:4%; ">
+                                      
+                                        <div class="mr-2">
+                                           <span style="font-size:13px;font-family:BodyFont; " >
+                                             Add Dev.to articles
+                                                  </span>
+                                  </div>
+
+                                      <div>
+
+                                          <v-btn  @click="goToSearch('devto')" small    fab color="#ffffff" >  
+
+                               <img style="height:20px;width:20px;" src="imgs/devto.png" alt="">
+
+                                    </v-btn>
+                                    
+                                      </div>
+
+                                      </div>
+
+                                    </template>
+
+
+                                          </template>
+
+                                    <!--new-->
 
                                  <!-- ends -->
                                     
@@ -1540,6 +1732,20 @@
                                <div  id="audios-container-sm" v-show="false"></div>
                               <!-- ends -->
 
+
+            
+                <!-- youtube video player -->
+
+                                       <div v-if="that.$root.showYoutubePlayerSm" style="position:fixed; height:100%; background: rgba(27, 27, 30, 0.32); left:0; position:fixed; height:100%; top:0%;z-index:99999999999999999;" class="d-flex flex-row col-md-6 px-0 py-0 text-center">
+                                         
+                                         <div style=" height:auto; left:0%; " class=" col-12 px-0 py-0">
+                                             <youtube-player :screenType="'small'" :playerHeight="220" :videoId="that.$root.playingVideoId"></youtube-player>
+                                         </div>
+
+                                         </div>
+
+
+                                   <!-- ends -->
                          
                              <!-- live session -->
 
@@ -1625,7 +1831,7 @@
 
 
 
-     <v-btn  fab color="#3C87CD"  v-if="that.$root.ChatList.length > 0" @click="showCreateChannel" class="d-lg-none d-inline-block" style="z-index:999999999999;  position:fixed;  bottom:3%; right:3%; ">
+     <v-btn  fab color="#3C87CD"  v-if="that.$root.ChatList.length > 0" @click="showCreateChannel" class="d-lg-none d-inline-block" style="z-index:999999;  position:fixed;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:24px; color:white;">mdi mdi-chat-plus-outline</v-icon>
 
@@ -2058,7 +2264,9 @@ export default {
       xpLeft:0,
       barValue:0,
       pic:'',
-       pic1:''
+       pic1:'',
+        toggleAddButton:false,
+        buttonIcon:'las la-plus'
      
       }
     },
@@ -2114,8 +2322,35 @@ export default {
          MentorInfo,
          ResourceSearch,
          YoutubePlayer,
+        
     },
      methods:{
+
+       //new functions begin
+
+  goToSearch: function(type){
+    if(this.$router.currentRoute.path.indexOf('resource_search') >= 0){
+this.$root.resourceSearchType= type
+    }else{
+       this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_search' });
+ this.$root.resourceSearchType= type
+    }
+
+      },
+
+
+toggleButton: function(){
+if(this.toggleAddButton== false){
+  console.log(this.buttonIcon)
+  this.buttonIcon='mdi-close mdi-18px'
+this.toggleAddButton= true
+}else if(this.toggleAddButton==true){
+this.toggleAddButton= false
+ this.buttonIcon='las la-plus'
+}
+},
+
+       //new functions end
 
      becomeMentor:function(){
             this.$root.showPointDetailsInfo = true;

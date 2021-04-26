@@ -611,6 +611,8 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.showPaymentProcessingBoard = false;
       thisUserState.$root.showProfileView = false;
       thisUserState.$root.chatComponent.messageIsDone = true;
+      thisUserState.$root.showYoutubePlayer = false;
+      thisUserState.$root.showYoutubePlayerSm = false;
       thisUserState.$root.showDiarySettings = false;
       thisUserState.$root.chatComponent.chatInnerConent = '';
         
@@ -1024,6 +1026,8 @@ beforeEnter: (to, from, next) => {
         thisUserState.$root.chatComponent.innerSideBarContent = '';
         thisUserState.$root.chatComponent.chatInnerConent = '';
         thisUserState.$root.showProfileView = false;
+        thisUserState.$root.showYoutubePlayer = false;
+        thisUserState.$root.showYoutubePlayerSm = false;
         thisUserState.$root.chatComponent.chatInnerSideBar = true;
         thisUserState.$root.chatComponent.innerSideBarContent = 'resource_page';
          
@@ -1086,6 +1090,8 @@ beforeEnter: (to, from, next) => {
         thisUserState.$root.chatComponent.innerSideBarContent = '';
         thisUserState.$root.chatComponent.chatInnerConent = '';
         thisUserState.$root.showProfileView = false;
+        thisUserState.$root.showYoutubePlayer = false;
+        thisUserState.$root.showYoutubePlayerSm = false;
         thisUserState.$root.chatComponent.chatInnerSideBar = true;
         thisUserState.$root.chatComponent.innerSideBarContent = 'resource_page';
          
@@ -2376,6 +2382,19 @@ const app = new Vue({
     selectedResource:[],
     playingVideoId:'',
     showYoutubePlayer: false,
+    resourceSearchType:'',
+    resourceContentType:'',
+    selectedResource:[],
+    showYoutubePlayerSm:false,
+    showAddButton:false,
+    playingYoutubeVideo:[],
+    prevResourceId:0,
+    nextResourceId:0,
+    nextResourceData:[],
+    prevResourceData:[],
+    resourceComponent:undefined,
+    YoutubeComponent:undefined,
+    playingYoutubeVideoId:0,
      },
      mounted: function () {
       window.thisUserState = this;

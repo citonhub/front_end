@@ -1,26 +1,44 @@
 <template>
   <div class="py-1 px-0">
     
-      <div class="navigate px-0 py-1 mt-3" style="border-bottom:1px solid #3C87CD" >
+      <div class="  px-1 px-md-2 py-1 " >
    
-   <h6 class="mt-2">Add new playlist</h6>
 
-  <div class="form-group d-flex mt-2">
-<input type="text" class="form-control">
-<v-btn class="ml-2" color="#3c97cd">Add</v-btn>
-  </div>
+
+  <v-card flat class="d-flex flex-row px-1 py-1 col-12" style="background: rgba(125, 179, 229, 0.4); align-items:center;">
+              <div class="mr-2 ">
+                 <v-icon color="#000000" class="ml-2">las la-play-circle</v-icon>
+              </div>
+
+              <div style="width:100%;">
+               <input  v-model="playName"
+              @keyup.enter="createPlaylists()"
+              style="border:1px solid white; width:100%; border-radius:2px; font-family:BodyFont; font-size:13px; background:white;"  placeholder="Create a playlist" class="py-2 px-2" >
+              </div>
+
+              <div class="ml-auto px-2">
+                <v-btn icon :loading="saving" style="background:white;" small @click="createPlaylists()" >
+                   <v-icon style="font-size:24px;">
+                     las la-arrow-right
+                   </v-icon>
+                </v-btn>
+              </div>
+
+        </v-card>
+
+  
      </div>
 
-   <div class="d-flex flex-row flex-wrap col-12 py-1 px-1 px-md-2">
+   <div class="d-flex flex-row flex-wrap col-12 py-1 px-1 px-md-2 mt-2">
  
     <template v-if="showPlaylist">
-         <v-card flat class="d-flex flex-row px-1  mb-2 col-12" v-for="(video,index) in videos" :key="index" @click="showContent" style="background: rgba(125, 179, 229, 0.4);">
+         <v-card flat class="d-flex flex-row px-1  mb-2 col-12" v-for="(video,index) in videos" :key="index" @click="showContent(video)" style="background: rgba(125, 179, 229, 0.4);">
               <div class="mr-2 ">
                  <v-icon color="#000000" class="ml-2">las la-play-circle</v-icon>
               </div>
 
               <div>
-              <span  style="font-family:BodyFont;color:black;font-size:13px;">{{video}}</span>
+              <span  style="font-family:BodyFont;color:black;font-size:13px;">{{video.name}}</span>
               </div>
 
               <div class="ml-auto px-2">
@@ -33,7 +51,7 @@
 
     <div class="col-12 text-center">
 
-          <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">Import playlist from your YouTube channel</div>
+          <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">Create playlist from your YouTube channel</div>
 
     </div>
      
@@ -106,15 +124,9 @@
 export default {
 data(){
     return{
-         videos:[
-        'Vue Routes',
-        'Props',
-        'Data Binding',
-        'Components',
-        'Code Along',
-        'Building Databases'
-
-    ],
+         videos:[],
+         loading:false,
+         saving:false,
     lists:[
         'React Tutorial',
         'Responsiveness',
@@ -130,11 +142,24 @@ data(){
     toggleForm:false,
     removeModal:false,
     showPlaylist:true,
+    playName:''
     }
 },
+mounted(){
+
+  this.$root.showYoutubePlayer = false;
+        this.$root.showYoutubePlayerSm = false;
+        this.$root.showAddButton = false;
+  this.fetchPlaylists();
+}
+
+,
  methods:{
-      showContent:function(){
-           this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_content/sample' });
+      showContent:function(video){
+          
+          this.$root.selectedResource = video;
+           this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_content/' + video.resource_id });
+            this.$root.resourceContentType='videos'
       },
       handleYouTubeAuth:function(){
           
@@ -156,7 +181,39 @@ data(){
     },
     openForm(){
      this.toggleForm=false;
+    },
+
+    fetchPlaylists:function(){
+      axios.get(`/fetch-resource/${this.$root.selectedSpace.space_id}/playlist`)
+      .then(
+        response=>{
+          if(response.status==200){
+            console.log(response.data)
+            this.videos=response.data.resources
+          }
+        }
+      )
+    },
+
+     createPlaylists:function(){
+    axios.post('/create-resource',
+    {
+      
+space_id: this.$root.selectedSpace.space_id,
+name: this.playName,
+type:'playlist'
+
+
     }
+    ).then(
+      response=>{
+        if(response.status==201){
+console.log('playlist created!')
+this.playName=''
+        }
+      }
+    )
+  }
     }
 }
 </script>

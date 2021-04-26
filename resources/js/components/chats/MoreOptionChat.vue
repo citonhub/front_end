@@ -1,5 +1,5 @@
 <template>
-    <v-card class="py-0 px-0 col-lg-12 col-md-8 col-10" style="min-width:200px;">
+    <v-card class="py-0 px-0 col-lg-12 col-md-8 " style="min-width:200px; max-width:250px;">
 
                                       <div class="col-12 px-0 py-1 d-flex flex-column">
 
