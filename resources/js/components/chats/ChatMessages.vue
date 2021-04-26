@@ -1776,6 +1776,19 @@ export default {
   font-size:12px;
 }
 
+.handleTextSm  ul a{
+  color: #ffffff ;
+  text-decoration: underline;
+  font-size:12px;
+}
+
+.handleTextSm  ol a{
+  color: #ffffff ;
+  text-decoration: underline;
+  font-size:12px;
+}
+
+
 .handleTextSm  p {
   color: #ffffff ;
   font-size:12px;
