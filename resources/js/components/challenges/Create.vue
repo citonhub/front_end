@@ -221,7 +221,7 @@
 
              <div class="col-lg-12 py-1 my-2 px-2 text-left">
 
-              <v-press-editor v-model="rulesContent"  :height="'400px'" :placeholder="'Make sure most of the codes are yours'"></v-press-editor>
+              <v-press-editor  v-model="rulesContent"  :height="'400px'" :placeholder="'Make sure most of the codes are yours'"></v-press-editor>
              
              </div>
              
@@ -1065,6 +1065,12 @@ this.judgeType='everyone';
 
          }
        
+      },
+
+      disableForm:function(){
+        !this.formstate
+        this.rulesContent=''
+        this.description=''
       },
 
         fetchChannels(){

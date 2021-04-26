@@ -21,7 +21,7 @@
     "/js/chunks/ChallengeResult.8ed7a08914b013f91ba5.js": "/js/chunks/ChallengeResult.8ed7a08914b013f91ba5.js",
     "/js/chunks/ChallengeRules.5348b034205ff3ed2df0.js": "/js/chunks/ChallengeRules.5348b034205ff3ed2df0.js",
     "/js/chunks/Challenges.91f751eff30f1971f144.js": "/js/chunks/Challenges.91f751eff30f1971f144.js",
-    "/js/chunks/ChallengesCreate.42722c41c850fb887f3b.js": "/js/chunks/ChallengesCreate.42722c41c850fb887f3b.js",
+    "/js/chunks/ChallengesCreate.16ede0f3f16f3c6965ad.js": "/js/chunks/ChallengesCreate.16ede0f3f16f3c6965ad.js",
     "/js/chunks/ChallengesList.4d67ff724efbec9de01b.js": "/js/chunks/ChallengesList.4d67ff724efbec9de01b.js",
     "/js/chunks/ChannelEdit.ebbe804677e47b3cc8ab.js": "/js/chunks/ChannelEdit.ebbe804677e47b3cc8ab.js",
     "/js/chunks/ChannelInfo.72dac796a7e2637c3b8f.js": "/js/chunks/ChannelInfo.72dac796a7e2637c3b8f.js",
@@ -30,7 +30,7 @@
     "/js/chunks/ChatMessages.b076c13cc2c172bd6f51.js": "/js/chunks/ChatMessages.b076c13cc2c172bd6f51.js",
     "/js/chunks/ChatShare.004983e37da079c0ff55.js": "/js/chunks/ChatShare.004983e37da079c0ff55.js",
     "/js/chunks/ChatTop.036df73b8cb93050e6ec.js": "/js/chunks/ChatTop.036df73b8cb93050e6ec.js",
-    "/js/chunks/Chats.2b627391570deb53b32f.js": "/js/chunks/Chats.2b627391570deb53b32f.js",
+    "/js/chunks/Chats.dfae8344e44d7cbb5813.js": "/js/chunks/Chats.dfae8344e44d7cbb5813.js",
     "/js/chunks/CodeBox.bed3ae7fa2ad390b3d4b.js": "/js/chunks/CodeBox.bed3ae7fa2ad390b3d4b.js",
     "/js/chunks/CodeBox?v=0.53.08cfe8725552adbb6f51.js": "/js/chunks/CodeBox?v=0.53.08cfe8725552adbb6f51.js",
     "/js/chunks/CodeEditor.de3cbced687957b6cf3c.js": "/js/chunks/CodeEditor.de3cbced687957b6cf3c.js",
@@ -133,9 +133,5 @@
     "/js/chunks/vendors~VPressEditor.0a1d9d40e691ea0351dc.js": "/js/chunks/vendors~VPressEditor.0a1d9d40e691ea0351dc.js",
     "/js/chunks/vendors~VideoPlayer.8992c579db9657cf556a.js": "/js/chunks/vendors~VideoPlayer.8992c579db9657cf556a.js",
     "/js/chunks/vendors~WalletCard~manageWallet.d76ca8782c7783ea793c.js": "/js/chunks/vendors~WalletCard~manageWallet.d76ca8782c7783ea793c.js",
-    "/js/chunks/verify.474aeba81e078bff4f9a.js": "/js/chunks/verify.474aeba81e078bff4f9a.js",
-    "/js/chunks/Chats.d072ef40dd8ba6186e65.js": "/js/chunks/Chats.d072ef40dd8ba6186e65.js",
-    "/js/chunks/Chats.5dce9bf1fdb8ad6e30eb.js": "/js/chunks/Chats.5dce9bf1fdb8ad6e30eb.js",
-    "/js/chunks/Chats.6295fd94d962f186d97c.js": "/js/chunks/Chats.6295fd94d962f186d97c.js",
-    "/js/chunks/Chats.dfae8344e44d7cbb5813.js": "/js/chunks/Chats.dfae8344e44d7cbb5813.js"
+    "/js/chunks/verify.474aeba81e078bff4f9a.js": "/js/chunks/verify.474aeba81e078bff4f9a.js"
 }
