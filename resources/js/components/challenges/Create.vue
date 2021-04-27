@@ -14,7 +14,7 @@
         </div>
 
          <div class="col-6 py-0 my-0 text-right">
-             <v-btn :disabled="!formstate" @click="createChallenge" :loading="loading" small rounded  color="#3C87CD" style="font-size:12px; text-transform:none; font-weight:bolder; color:white;font-family:MediumFont;">
+             <v-btn :disabled="!formstate || rulesContent == '' || description == ''" @click="createChallenge" :loading="loading" small rounded  color="#3C87CD" style="font-size:12px; text-transform:none; font-weight:bolder; color:white;font-family:MediumFont;">
                <template v-if="this.$route.params.type == 'new'">
                   Create
              </template>
