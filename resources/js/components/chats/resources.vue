@@ -48,6 +48,21 @@
 
        </div>
 
+        <div class="col-12 text-center">
+
+          <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">Create resource from your DevTo article</div>
+
+    </div>
+     
+
+      <div class="col-12 text-center">
+            <v-btn  rounded medium outlined style="font-family:BodyFont;font-size:13px; text-transform:none;" color="#000000">
+               <img  src="/imgs/devto.png" height="27px" class="px-2" >
+
+               <span>Connect DevTo</span>
+            </v-btn>
+      </div>
+
   
 
   </div>

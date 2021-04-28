@@ -8,10 +8,80 @@
                       <v-icon>las la-arrow-left</v-icon>
                     </v-btn>
             </div>
-          
+            
              <div class=" py-0 text-center" style="width:100%;">
-               <input style="width:100%;heigth:100%;font-size:13px;background:whitesmoke;border-radius:13px;font-family:BodyFont;"  
+               <template v-if="this.$root.resourceSearchType != 'devto'">
+                 <input style="width:100%;heigth:100%;font-size:13px;background:whitesmoke;border-radius:13px;font-family:BodyFont;"  
                   :placeholder="placeholder" class="py-2 px-3" type="search" v-model="searchQuery"> 
+               </template>
+
+               <template v-else>
+               <div class="col-12 px-0 py-0"  style="height:45px;">
+                <v-combobox
+                 style="font-size:13px;"
+              dense
+            class="mb-0"
+            placeholder="Type tags"
+           
+            chips
+            outlined
+             @keydown="searchTags"
+             v-model="searchQuery"
+             color="#3C87CD">
+
+              <template v-slot:selection="data">
+            <v-chip
+              :key="JSON.stringify(data.item)"
+              v-bind="data.attrs"
+              :input-value="data.selected"
+              color="#3C87CD"
+              dense
+              small
+              class="my-1"
+              style="font-size:12px; font-family:BodyFont;"
+              outlined
+              :disabled="data.disabled"
+          
+            >
+
+              <template v-if="data.item.name">
+              {{ data.item.name }}
+              </template>
+
+              <template v-else>
+              {{ data.item }}
+              </template>
+             
+            
+            </v-chip>
+
+              </template>
+             </v-combobox>
+
+               <!-- profile search -->
+
+                  <template v-if="showSuggestion">
+
+                 <v-card style="position:absolute; border-radius:0px; top:95%;  width:100%; max-height:250px;z-index:99999999999999; left:0px; height:auto; overflow-y:auto;"  class="d-flex flex-column px-1 py-2">
+
+                   <v-card @click="selectTag(tag)" tile flat class="px-1 py-2 d-flex flex-row" style="border-bottom:1px solid #c5c5c5;align-items:center;"   v-for="tag in devToTags"  :key="tag.id">
+                   
+                   <div style="white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
+                        <span style="font-size:13px;font-family:BodyFont;" class="mr-1">{{tag.name}}</span> 
+                   </div>
+
+                   </v-card>
+
+                 </v-card>
+                  </template>
+
+               <!-- ends -->
+
+               </div>
+                    
+
+               </template>
+              
             </div>
               
               <div class=" py-0 ml-1 text-right">
@@ -86,7 +156,12 @@ export default {
          searchResult:[],
          loadingSearch:false,
          loadingNext:false,
-         nextPageToken:''
+         devToTags:[],
+         nextPageToken:'',
+         showSuggestion:false,
+         allTagStore:[],
+         queryContent:'',
+         devToPageCount:1,
         }
     },
     components:{
@@ -95,9 +170,65 @@ export default {
     mounted(){
     this.$root.componentIsLoading = false;
     this.alterSearch();
+    this.fetchDevToTags();
     this.$root.showAddButton = false;
     },
     methods:{
+      selectTag:function(tag){
+
+        this.showSuggestion = true;
+           if(this.searchQuery.length == 0){
+
+              this.searchQuery = [];
+
+           }
+        this.searchQuery = tag.name;
+         this.showSuggestion = false;
+      },
+      searchTags:function(e){
+
+
+      if(e.key != 'Backspace'){
+          if(e.keyCode == 13){
+           
+            this.showSuggestion = false;
+            this.queryContent = ''
+            this.devToTags = this.allTagStore;
+             
+
+          }else{
+
+             if(e.key.length == 1){
+                  this.queryContent += e.key;
+                    this.showSuggestion = true;
+             }
+            
+          }
+       
+      }else{
+         
+        this.queryContent = this.queryContent.slice(0, -1)
+      }
+      
+
+           let searchResult = this.allTagStore.filter((tag)=>{
+
+          let nameValue = '';
+
+           nameValue = tag.name.toLowerCase();
+
+         
+      return nameValue.includes(this.queryContent.toLowerCase());
+
+       
+
+                
+       });
+
+      
+
+      this.devToTags = searchResult;
+      },
         goBack:function(){
               window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
 
@@ -112,6 +243,28 @@ export default {
 
           }
 
+        },
+        fetchDevToTags:function(){
+
+
+                axios.get('/devto-tags')
+      .then(response => {
+      
+      if (response.status == 200) {
+      
+        this.devToTags = response.data.tags;
+        this.allTagStore = response.data.tags;
+       
+     }
+       
+     
+     })
+     .catch(error => {
+     
+    
+     }) 
+
+           
         },
         loadNextResult:function(){
 
@@ -157,6 +310,52 @@ export default {
      }) 
 
            }
+
+            if(this.$root.resourceSearchType == 'devto'){
+         
+             let searchString = this.searchQuery.toString();
+
+              this.devToPageCount++
+    
+                axios.get( `/search-devto/${searchString}/${this.devToPageCount}` )
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         let searchResult = response.data.articles;
+
+        
+           let finalResult = [];
+
+             searchResult.forEach((data)=>{
+               let resultWrapper = {
+                 content: data,
+                 type:'devto_article'
+               };
+              
+              finalResult.push(resultWrapper);
+
+             });
+
+         this.searchResult = this.searchResult.concat(finalResult);
+
+          
+       
+       this.loadingNext = false;
+            
+     }
+       
+     
+     })
+     .catch(error => {
+       this.loadingNext = false;
+       
+    
+     }) 
+
+           }
+
+           
         },
         alterSearch(){
 
@@ -165,6 +364,8 @@ export default {
         },
 
         searchSite: function(){
+
+           this.searchResult = [];
            
      this.loadingSearch = true;
            if(this.$root.resourceSearchType == 'youtube'){
@@ -191,6 +392,52 @@ export default {
              });
 
            this.searchResult = finalResult;
+
+          
+       
+       this.loadingSearch = false;
+            
+     }
+       
+     
+     })
+     .catch(error => {
+       this.loadingSearch = false;
+       
+    
+     }) 
+
+           }
+
+
+           if(this.$root.resourceSearchType == 'devto'){
+         
+             let searchString = this.searchQuery.toString();
+    
+                axios.get( `/search-devto/${searchString}` )
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         let searchResult = response.data.articles;
+
+          
+
+           // this.nextPageToken =  response.data.nextPageToken
+
+           let finalResult = [];
+
+             searchResult.forEach((data)=>{
+               let resultWrapper = {
+                 content: data,
+                 type:'devto_article'
+               };
+              
+              finalResult.push(resultWrapper);
+
+             });
+
+          this.searchResult = finalResult;
 
           
        

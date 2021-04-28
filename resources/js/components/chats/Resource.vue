@@ -91,9 +91,9 @@
 
         <template v-if="content.type == 'devto_article'">
 
-            <div class="col-12  pb-0 pt-0 px-0 d-flex flex-row" style=" align-items:center;">
+            <div class="col-12  py-1 px-0 d-flex flex-row" style=" align-items:center;">
             <div class="col-5 py-1 px-1" style="height:92px;">
-              <div style="position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url(imgs/7.jpg);background-repeat: no-repeat; background-size:cover;" >
+              <div :style="'position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url(' + content.content.cover_image +');background-repeat: no-repeat; background-size:cover;'" >
                 <div v-if="show_add_icon" style="background:rgba(0, 0, 0,0.6); cursor:pointer; position:absolute; top:0px; right:0px; border:1px solid black; border-top-right-radius:8px;" class="px-1 py-1">
                       <v-icon style="font-size:18px; color:white;">las la-plus</v-icon>
                 </div>
@@ -107,13 +107,13 @@
              <div class="col-7 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
-                 CSS Variables: What are they & How to use
+                 {{content.content.title}}
                </div>
                 <div class="mb-1" style="font-family:BodyFont;font-size:12px; white-space: nowrap; color:grey; overflow:hidden; text-overflow:ellipsis; ">
-                  Zachary Fetters
+                  {{content.content.user.username}}
                </div>
                 <div class="" style="font-family:BodyFont;font-size:12px;color:grey; overflow:hidden; text-overflow:ellipsis;  ">
-                 5 min read
+                 {{ content.content.reading_time_minutes }} min read
                </div>
             </div>  
 
