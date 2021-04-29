@@ -1,18 +1,14 @@
 <template>
     <div>
 
-      <div class="col-12 py-0 px-0 hoverEffect" v-for="(content,index) in contents" :key="index" @click.stop="handleResource(content,index)">
+      <div class="col-12 py-0 px-0 hoverEffect" v-for="(content,index) in contents" :key="index" >
             <!-- youtube search display -->
         <template v-if="content.type == 'youtube_video'">
 
             <div class="col-12 pb-0 pt-0 px-0 d-flex flex-row" :style="content.content.id == that.$root.playingYoutubeVideoId ? ' align-items:center;background:whitesmoke;' : 'align-items:center;'" >
-            <div class="col-5 py-1 px-1" style="height:92px;">
+            <div class="col-5 py-1 px-1" style="height:92px;" @click="handleResource(content,index)">
               <div :style="'position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url('+ content.content.snippet.thumbnails.default.url +');background-repeat: no-repeat; background-size:100%;'" >
-                <div v-if="show_add_icon" style="background:rgba(0, 0, 0,0.6); cursor:pointer; position:absolute; top:0px; right:0px; border:1px solid black; border-top-right-radius:8px;" class="px-1 py-1">
-                      <v-icon style="font-size:18px; color:white;">las la-plus</v-icon>
-                </div>
-            
-
+             
                 <div style="align-items:center;background:rgba(0, 0, 0,0.1); justify-content:center; cursor:pointer; position:absolute; top:0; left:0; width:100%; height:100%;" class="px-1 py-1 d-flex">
                       <v-icon style="font-size:35px; color:#FF0000;">mdi mdi-youtube</v-icon>
                 </div>
@@ -22,7 +18,7 @@
 
                
 
-             <div class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  {{ shortenContent(content.content.snippet.title,50) }}
@@ -38,7 +34,23 @@
             </div>  
 
             <div >
-              <v-icon>las la-ellipsis-v</v-icon>
+              <template v-if="show_add_icon">
+
+                 <v-checkbox
+            color="#3C87CD"
+            dense
+            @change="addToSelected(content)"
+            small
+          ></v-checkbox>
+
+              </template>
+
+              <template v-else>
+                 <v-icon>las la-ellipsis-v</v-icon>
+              </template>
+               
+
+            
             </div>
 
              
@@ -54,9 +66,9 @@
            
          <template v-if="content.type == 'udemy_video'">
            <div class="col-12 pb-0 pt-0 px-0 d-flex flex-row" style=" align-items:center;">
-            <div class="col-5 py-1 px-1" style="height:92px;">
+            <div  @click="handleResource(content,index)" class="col-5 py-1 px-1" style="height:92px;">
               <div style="position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url(imgs/7.jpg);background-repeat: no-repeat; background-size:cover;" >
-                <div v-if="show_add_icon" style="background:rgba(0, 0, 0,0.6); cursor:pointer; position:absolute; top:0px; right:0px; border:1px solid black; border-top-right-radius:8px;" class="px-1 py-1">
+                <div @click.stop="addToSelected(content)" v-if="show_add_icon" style="background:rgba(0, 0, 0,0.6); cursor:pointer; position:absolute; top:0px; right:0px; border:1px solid black; border-top-right-radius:8px;" class="px-1 py-1">
                       <v-icon style="font-size:18px; color:white;">las la-plus</v-icon>
                 </div>
                    <div style="align-items:center;background:rgba(0, 0, 0,0.1); justify-content:center; cursor:pointer; position:absolute; top:0; left:0; width:100%; height:100%;" class="px-1 py-1 d-flex">
@@ -66,7 +78,7 @@
               </div>
             </div>  
 
-             <div class="col-7 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  Python for Data science and Machine
@@ -78,6 +90,27 @@
                   <span class="mr-2" style="font-family:MediumFont;">$11.99</span> <strike style="color:grey;">$94.99</strike>
                </div>
             </div>  
+
+                <div >
+              <template v-if="show_add_icon">
+
+                 <v-checkbox
+            color="#3C87CD"
+            dense
+            small
+             @change="addToSelected(content)"
+          ></v-checkbox>
+
+              </template>
+
+              <template v-else>
+                 <v-icon>las la-ellipsis-v</v-icon>
+              </template>
+               
+
+            
+            </div>
+
 
          </div>
 
@@ -92,11 +125,9 @@
         <template v-if="content.type == 'devto_article'">
 
             <div class="col-12  py-1 px-0 d-flex flex-row" style=" align-items:center;">
-            <div class="col-5 py-1 px-1" style="height:92px;">
+            <div  @click="handleResource(content,index)" class="col-5 py-1 px-1" style="height:92px;">
               <div :style="'position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url(' + content.content.cover_image +');background-repeat: no-repeat; background-size:cover;'" >
-                <div v-if="show_add_icon" style="background:rgba(0, 0, 0,0.6); cursor:pointer; position:absolute; top:0px; right:0px; border:1px solid black; border-top-right-radius:8px;" class="px-1 py-1">
-                      <v-icon style="font-size:18px; color:white;">las la-plus</v-icon>
-                </div>
+               
 
                  <div style="align-items:center;background:rgba(0, 0, 0,0.1); justify-content:center; cursor:pointer; position:absolute; top:0; left:0; width:100%; height:100%;" class="px-1 py-1 d-flex">
                       <img  src="/imgs/devto.png" height="35px" >
@@ -104,7 +135,7 @@
               </div>
             </div>  
 
-             <div class="col-7 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  {{content.content.title}}
@@ -117,6 +148,26 @@
                </div>
             </div>  
 
+             <div >
+              <template v-if="show_add_icon">
+
+                 <v-checkbox
+            color="#3C87CD"
+            dense
+            small
+             @change="addToSelected(content)"
+          ></v-checkbox>
+
+              </template>
+
+              <template v-else>
+                 <v-icon>las la-ellipsis-v</v-icon>
+              </template>
+               
+
+            
+            </div>
+
          </div>
 
 
@@ -127,33 +178,53 @@
         <!-- resource link display -->
 
         <template v-if="content.type == 'shared_link'"> 
-                <div class="col-12  pb-0 pt-0 px-0 d-flex flex-row" style=" align-items:center;">
-            <div class="col-5 py-1 px-1" style="height:92px;">
-              <div style="position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url(imgs/5.jpg);background-repeat: no-repeat; background-size:cover;" >
-                <div v-if="show_add_icon" style="background:rgba(0, 0, 0,0.6); cursor:pointer; position:absolute; top:0px; right:0px; border:1px solid black; border-top-right-radius:8px;" class="px-1 py-1">
-                      <v-icon style="font-size:18px; color:white;">las la-plus</v-icon>
-                </div>
 
+           <div  class="col-12  pb-0 pt-0 px-0 d-flex flex-row mt-1" style=" align-items:center;">
+            <div @click="handleResource(content,index)" class="col-5 py-1 px-1" style="height:84px;">
+              <div :style="'position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url(' + content.content.image + ');background-repeat: no-repeat; background-size:cover;'" >
+               
                  <div style="align-items:center;background:rgba(0, 0, 0,0.1); justify-content:center; cursor:pointer; position:absolute; top:0; left:0; width:100%; height:100%;" class="px-1 py-1 d-flex">
                         <v-icon style="font-size:35px; color:#ffffff;">las la-link</v-icon>
                 </div>
               </div>
             </div>  
 
-             <div class="col-7 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
 
-               <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
-                 Working with SSH on Ubuntu: Try it out 
+               <div class="pt-3 mb-1" v-html="content.content.title" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
+                
                </div>
-                <div class="mb-1" style="font-family:BodyFont;font-size:12px; white-space: nowrap; color:grey; overflow:hidden; text-overflow:ellipsis; ">
-                 Lorem ipsum dolor sit amet consectetur adipisicing elit...
+                <div class="mb-1"  v-html="content.content.description"  style="font-family:BodyFont;font-size:12px; white-space: nowrap; color:grey; overflow:hidden; text-overflow:ellipsis; ">
+                
                </div>
                 <div class="" style="font-family:BodyFont;font-size:12px;color:grey; overflow:hidden; text-overflow:ellipsis;  ">
-                 medium.com
+                {{processURL(content.content.base)}}
                </div>
-            </div>  
+            </div> 
+
+              <div >
+              <template v-if="show_add_icon">
+
+                 <v-checkbox
+            color="#3C87CD"
+            dense
+             @change="addToSelected(content)"
+            small
+          ></v-checkbox>
+
+              </template>
+
+              <template v-else>
+                 <v-icon>las la-ellipsis-v</v-icon>
+              </template>
+               
+
+            
+            </div> 
 
          </div>
+
+           
 
         </template>
 
@@ -182,6 +253,18 @@ export default {
         this.$root.resourceComponent = this;
     },
     methods:{
+        processURL:function(link){
+
+       
+          let FullString = link
+
+      var  firstProcess = FullString.substring(8);
+
+       var  finalProcess = firstProcess.slice(0, -1);
+
+       return finalProcess;
+
+    },
         shortenContent: function(content,limit){
              
              if(content.length > limit){
@@ -233,6 +316,67 @@ export default {
 
          
         }
+
+          if(content.type  == 'devto_article'){
+          
+
+          let url = content.content.canonical_url;
+
+             window.open(url, '_blank');
+
+         
+        }
+
+
+
+          if(content.type  == 'shared_link'){
+          
+
+          let url = content.content.link;
+
+             window.open(url, '_blank');
+
+         
+        }
+        },
+         checkIfSelected:function(content){
+
+         let thisContent =  this.$root.resourcesSearchComponent.selectedItems.filter((eachContent)=>{
+               
+              
+                return content.content.id == eachContent.id;
+             
+         });
+
+         if(thisContent.length == 0){
+              return false
+         }else{
+           return true
+         }
+       },
+         addToSelected:function(content){
+
+            
+            if(this.checkIfSelected(content)){
+               
+               let remainingContent =  this.$root.resourcesSearchComponent.selectedItems.filter((eachContent)=>{
+               
+              
+                   return content.content.id != eachContent.id;
+             
+               });
+        
+               this.$root.resourcesSearchComponent.selectedItems = remainingContent;
+              
+
+            }else{
+
+               this.$root.resourcesSearchComponent.selectedItems.push(content.content);
+
+            }
+
+          
+          
         },
         convertDigit:function(num, digits){
            var si = [

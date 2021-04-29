@@ -2,8 +2,9 @@
     <div style="background:transparent;">
    <div class="col-12 py-0 my-0 ">
     <div class="row">
-        <div class="col-12 px-1 py-2  fixed-top d-flex flex-row" style="position:sticky; background:white; top:0%; align-items:center;">
-            <div class=" mr-1 py-0">
+        <div class="col-12 px-1 py-2  fixed-top d-flex flex-row flex-wrap" style="position:sticky; background:white; top:0%; align-items:center;">
+            <div class="col-12 py-0 px-0 d-flex flex-row">
+                 <div class=" mr-1 py-0">
               <v-btn icon @click.stop="goBack">
                       <v-icon>las la-arrow-left</v-icon>
                     </v-btn>
@@ -12,7 +13,7 @@
              <div class=" py-0 text-center" style="width:100%;">
                <template v-if="this.$root.resourceSearchType != 'devto'">
                  <input style="width:100%;heigth:100%;font-size:13px;background:whitesmoke;border-radius:13px;font-family:BodyFont;"  
-                  :placeholder="placeholder" class="py-2 px-3" type="search" v-model="searchQuery"> 
+                  :placeholder="placeholder" class="py-2 px-3" type="search" v-model="searchQuery"  @keyup.enter="searchSite()"> 
                </template>
 
                <template v-else>
@@ -89,14 +90,10 @@
                       <v-icon>las la-search</v-icon>
                     </v-btn>
               </div>
-          
-        </div>
+            </div>
+              <div class="col-12  py-1 d-flex flex-row px-0 mt-1" style="align-items:center; justify-content:center;">
 
-
-
-         <!-- edit space form -->
-      <div style="background:transparent;font-family:BodyFont; " class="col-12 py-1 my-0 px-1 px-md-2" >
-           <template v-if="that.$root.selectedResource.type == 'playlist'">
+                   <template v-if="that.$root.selectedResource.type == 'playlist'">
             <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">Add videos to "{{that.$root.selectedResource.name}}" playlist</div>
            </template>
 
@@ -104,7 +101,18 @@
                 <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">Add articles to "{{that.$root.selectedResource.name}}" resource</div>
            </template>
 
+            <v-btn rounded small :loading="loading" :disabled="selectedItems.length == 0" @click="AddItemsToResources()" color="#3C87CD" class="ml-2" style="font-size:11px; text-transform:none; font-weight:bolder; color:white;font-family: BodyFont;" >Add </v-btn>
+
       
+              </div>
+          
+        </div>
+
+
+
+         <!-- edit space form -->
+      <div style="background:transparent;font-family:BodyFont; " class="col-12 py-0 my-0 px-1 px-md-2" >
+          
  
            <resource :show_add_icon="true" :contents="searchResult" ></resource>
 
@@ -159,9 +167,11 @@ export default {
          devToTags:[],
          nextPageToken:'',
          showSuggestion:false,
+         selectedItems:[],
          allTagStore:[],
          queryContent:'',
          devToPageCount:1,
+         loading:false,
         }
     },
     components:{
@@ -172,6 +182,7 @@ export default {
     this.alterSearch();
     this.fetchDevToTags();
     this.$root.showAddButton = false;
+    this.$root.resourcesSearchComponent = this;
     },
     methods:{
       selectTag:function(tag){
@@ -185,6 +196,46 @@ export default {
         this.searchQuery = tag.name;
          this.showSuggestion = false;
       },
+      AddItemsToResources:function(){
+
+          let itemType = ''
+
+           if(this.$root.resourceSearchType == 'devto'){
+
+             itemType = 'devto_article'
+
+           }
+
+           if(this.$root.resourceSearchType == 'youtube'){
+
+             itemType = 'youtube_video'
+
+           }
+
+          this.loading = true;
+         axios.post( '/add-items-to-resource',{
+           resource_id: this.$root.selectedResource.resource_id,
+           type: itemType,
+           items: this.selectedItems
+         } )
+      .then(response => {
+      
+      if (response.status == 200) {
+
+     
+       this.loading = false;
+            
+     }
+       
+     
+     })
+     .catch(error => {
+
+      this.loading = false;
+
+     }) 
+
+      },     
       searchTags:function(e){
 
 

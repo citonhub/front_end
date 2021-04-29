@@ -753,6 +753,8 @@
 
                                             <resource-content v-if="innerSideBarContent == 'resource_content'" ></resource-content>
 
+                                              <resource-url v-if="innerSideBarContent == 'add_resource_url'" ></resource-url>
+
                                           
                                             <!-- fab screen -->
                                           
@@ -786,26 +788,7 @@
                                       </div>
 
 
-                                      <div v-if="toggleAddButton== true" class=" d-flex flex-row" style="z-index:9999999999999; align-items:center; position:absolute;  heigth:auto; bottom:20%; right:3%; ">
-                                      
-                                        <div class="mr-2">
-                                           <span style="font-size:13px;font-family:BodyFont; " >
-                                             Add videos from Udemy
-                                                  </span>
-                                  </div>
-
-                                      <div>
-
-                                          <v-btn @click="goToSearch('udemy')" small    fab color="#fff" >  
-
-                               <img style="height:20px;width:20px;" src="imgs/udemy_logo.png" alt="">
-
-                                    </v-btn>
-                                    
-                                      </div>
-
-                                      </div>
-
+                                  
                                        
                                    
 
@@ -814,7 +797,7 @@
                                     <template v-else>
                                   
 
-                                   <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:12%; right:3%; ">
+                                   <div class=" d-flex flex-row"   v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:12%; right:3%; ">
                                   
                                   <div class="mr-2">
                                            <span style="font-size:13px;font-family:BodyFont; " >
@@ -1577,6 +1560,8 @@
 
                                          <resource-content v-if="innerSideBarContent == 'resource_content'" ></resource-content>
 
+                                                 <resource-url v-if="innerSideBarContent == 'add_resource_url'" ></resource-url>
+
 
                                              <!-- fab screen -->
 
@@ -1610,28 +1595,7 @@
                                       </div>
 
 
-                                      <div v-if="toggleAddButton== true" class=" d-flex flex-row" style="z-index:9999999999999; align-items:center; position:fixed;  heigth:auto; bottom:22%; right:4%; ">
-                                      
-                                        <div class="mr-2">
-                                           <span style="font-size:12px;font-family:BodyFont; " >
-                                             Add videos from Udemy
-                                                  </span>
-                                  </div>
-
-                                      <div>
-
-                                          <v-btn @click="goToSearch('udemy')"  small    fab color="#fff" >  
-
-                               <img style="height:20px;width:20px;" src="imgs/udemy_logo.png" alt="">
-
-                                    </v-btn>
-                                    
-                                      </div>
-
-                                      </div>
-
-                                       
-                                   
+                                 
 
                                     </template>
 
@@ -2182,6 +2146,10 @@ const resourcepage= () => import(
    /* webpackChunkName: "ResourceContent" */ './ResourceContent.vue'
   );
 
+    const ResourceUrl = () => import(
+   /* webpackChunkName: "ResourceUrl" */ './ResourceUrl.vue'
+  );
+
 
   const YoutubePlayer = () => import(
    /* webpackChunkName: "YoutubePlayer" */ './YoutubePlayer.vue'
@@ -2322,6 +2290,7 @@ export default {
          MentorInfo,
          ResourceSearch,
          YoutubePlayer,
+         ResourceUrl,
         
     },
      methods:{
@@ -2329,6 +2298,13 @@ export default {
        //new functions begin
 
   goToSearch: function(type){
+
+     this.$root.showAddButton = false;
+
+      if(type == 'link'){
+          this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/add_resource_url' });
+        return;
+      }
     if(this.$router.currentRoute.path.indexOf('resource_search') >= 0){
 this.$root.resourceSearchType= type
     }else{

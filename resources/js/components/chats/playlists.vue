@@ -121,6 +121,8 @@
 </template>
 
 <script>
+import iziToast from 'izitoast'
+import 'izitoast/dist/css/iziToast.min.css'
 export default {
 data(){
     return{
@@ -188,9 +190,20 @@ mounted(){
       .then(
         response=>{
           if(response.status==200){
-            console.log(response.data)
+        
             this.videos=response.data.resources
+           
           }
+
+          else{
+
+this.showAlert('oops','something went wrong','warning')
+          }
+         
+        }
+      ).catch(
+        error=>{
+          console.log(error)
         }
       )
     },
@@ -207,13 +220,81 @@ type:'playlist'
     }
     ).then(
       response=>{
-        if(response.status==201){
+        if(response.status==200){
 console.log('playlist created!')
+ this.showAlert('sucessful!','the playlist has been created','success')
+ 
 this.playName=''
+this.videos.push(response.data)
         }
       }
     )
-  }
+  },
+showAlert:function(title='',message,type){
+       
+       if(type == 'info'){
+
+          iziToast.info(
+        { 
+       title: title,
+         timeout: 5000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'success'){
+         iziToast.success(
+        { 
+       title: title,
+       message: message,
+         timeout: 5000,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       if(type == 'warning'){
+
+          iziToast.warning(
+        { 
+       title: title,
+         timeout: 5000,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+
+       }
+
+       if(type == 'error'){
+         iziToast.error(
+        { 
+       title: title,
+       message: message,
+       zindex:'9999999999',
+       position: 'bottomRight',
+         timeout: 5000,
+        transitionInMobile: 'fadeIn',
+      transitionOutMobile: 'fadeOut',
+       }
+      )
+       }
+
+       
+
+    }
     }
 }
 </script>

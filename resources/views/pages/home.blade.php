@@ -63,7 +63,7 @@
  @section('content')
 
 
-<div id="home" class="py-0 col-12 px-0" style="background:url('/imgs/backgroundHome.png');background-repeat:no-reapeat;overflow-x:hidden;">
+<div id="home" class="py-0 col-12 px-0" style="overflow-x:hidden;">
 
 <!-- Headers -->
 <div class="col-12 fixed-top py-2 px-md-4 px-3 px-md-2 "  style="background:rgba(255,255,255,1.0);">
@@ -79,7 +79,8 @@
  </div>
 
  <!-- Sign up, register button -->
- <div class="col-8 text-right pt-1 px-1 px-md-2" >
+
+<div class="col-8 text-right pt-1 px-1 px-md-2" >
 
 
  <a href="/dashboard#/login"  class="linkStyle mx-3 d-md-inline-block d-none"  style="color:#000000;"> Login</a>
@@ -99,442 +100,335 @@
 
 </div>
 
-<!-- Teach , learn and connect -->
+<!--intro section-->
 
-<div class="col-lg-6 offset-lg-3 text-center  d-none d-md-block flex-column " style=" align-items:center; justify-content:center; margin-top:140px;margin-bottom:100px;">
+<div class="col-lg-12  d-md-block  d-none" style="margin-top:100px;">
 
-   <div class="px-2 mt-4 " >
-     <h1 style="font-family:HeaderFont;" class="mb-3 mt-4">Get organized and be efficient</h1>
-
-     <div class="px-3">
-     <p style="font-size:20px;font-family:BodyFont;" class="px-0">CitonHub is an all-in-one platform for developers to grow their communities and earn.</p>
-     </div>
-
-
-     <div class="py-2 px-0 mt-3 col-12 text-center">
-
-      <a href="/dashboard#/sign-up" class="homeButton ml-2 py-3 px-4 d-inline-block ">Get started for FREE</a>
-
-     <!--a href="/dashboard#/login" class="homeButtonOutline mx-3 px-5 py-3">Login</a>-->
-
-     </div>
-
-  
-   </div>
-
-  
+<p class="text-center col-lg-12" style="font-family:HeaderFont;font-size:48px;">Everything you need as a developer <br>
+to grow your community and earn.</p>
 
 
 
+<p class="text-center col-lg-12" style="font-family:BodyFont;font-size:30px;" >Merge your content with your community <br>
+and make money.</p>
+</div>
+
+<div class="offset-lg-5">
+<a href="/dashboard#/sign-up" class="homeButton m1-4 px-5 py-2  ">Become a Citon</a>
+</div>
+
+
+<!--small screens-->
+ 
+<div class="col-lg-12  d-block d-md-none" style="margin-top:100px;">
+
+<p class="text-center col-lg-12" style="font-family:HeaderFont;font-size:24px;">Everything you need as a developer <br>
+to grow your community and earn.</p>
+
+
+
+<p class="text-center col-lg-12" style="font-family:BodyFont;font-size:20px;" >Merge your content with your community <br>
+and make money.</p>
+</div>
+
+<div class="offset-4  d-none d-sm-block d-md-none">
+<a href="/dashboard#/sign-up" class="homeButton m1-4 px-5 py-2  ">Become a Citon</a>
+</div>
+
+<div class="offset-2  d-block d-sm-none">
+<a href="/dashboard#/sign-up" class="homeButton m1-4 px-5 py-2  ">Become a Citon</a>
 </div>
 
 
 
-<div class="d-md-none d-block  " style="width:100%; margin-top:90px; margin-bottom:40px;">
-<div class=" text-center">
-
-<h4 style="font-family:HeaderFont;" class="mb-3 px-3">Get organized and be efficient</h4>
-
-   <p style="font-size:15px;font-family:BodyFont;" class="px-4">CitonHub is an all-in-one platform for developers to grow their communities and earn.</p>
+<!--intro section ends-->
 
 
+<!--first features-->
 
-
-      <div class="mt-4">
-
-      <a href="/dashboard#/sign-up" class="homeButton  px-4 py-2 mx-1" style="font-size:14px;">Get started for FREE</a>
-
-
-      </div>
-
-
-     
-     <div class="col-12 pb-0 pt-0 mt-5 text-center">
-
-<a href="https://play.google.com/store/apps/details?id=com.citonhub.app" target="_blank"><img src="/imgs/google_play.png" alt="Citonhub - Android app" style="width: 150px; " /></a>
+<div class="first-features col-lg-12   d-md-flex  d-none" style="margin-top:120px;margin-bottom:80px;border-bottom:3px solid #DFDFDF">
+<div class="feature col-lg-3 offset-lg-1 mb-4">
+<img src="imgs/create-content.svg" alt="">
+<p class="mb-4 mt-2">Create a Channel</p>
 </div>
-
-  </div>
+<div class="feature col-lg-3 offset-lg-1 mb-4">
+<img src="imgs/merge-content.svg" alt="">
+<p class="mt-2">Merge your Content</p>
 </div>
-
-<!--ends-->
-
-
-
-<!-- wallet section-->
-<div class="d-md-block d-none" style="width:100%;height:780px;left:0%; margin-top:10px;" >
-
-
-
-    <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:860px;">
-
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column">
-
-    <!-- what you can do -->
-<div class="col-12 text-center pt-5">
-
-<h4 style="font-weight:bold; color:white;" class="text-center mb-0 d-md-block d-none" >What can you do?</h4>
-
-
+<div class="feature col-lg-3 offset-lg-1 mb-4">
+<img src="imgs/invite-comm.svg" alt="">
+<p class="mt-2">Invite your Community</p></div>
 </div>
+<!--first features end-->
 
-<!-- ends -->
+
+<!--small screens-->
 
 
-    <div class=" text-center mb-5"  style="height:400px;margin-top:-20px;z-index:;">
-<img src="imgs/credit-vector.png" alt="" style="z-index:1; height:100%;">
+<!--first features-->
+
+<div class="first-features col-lg-12   d-none d-sm-block d-md-none" style="margin-top:120px;margin-bottom:80px;border-bottom:3px solid #DFDFDF">
+<div class="feature col-4 offset-4 mb-4">
+<img src="imgs/create-content.svg" alt="">
+<p class="mb-4 mt-2">Create a Channel</p>
 </div>
-
-<div class="text-center  px-5 mt-2" style="z-index:1;">
-<span  style="color:white; font-family:BodyFont; font-size:18px;">Grow your community <br>and earn from  subscriptions, donations, and paid sessions.</span>
+<div class="feature col-4 offset-4 mb-4">
+<img src="imgs/merge-content.svg" alt="">
+<p class="mt-2">Merge your Content</p>
 </div>
-
-    </div>
-
-
-
-
+<div class="feature col-4 offset-4 mb-4">
+<img src="imgs/invite-comm.svg" alt="">
+<p class="mt-2">Invite your Community</p></div>
 </div>
-
-<div class="d-md-none d-block" style="width:100%;height:690px;left:0%; margin-top:30px;" >
-
-    <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:680px;">
-
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column mt-1">
-
-      <!-- what you can do -->
-<div class="col-12 text-center pt-5 mt-3">
+<!--first features end-->
 
 
-<h5 style="font-weight:bold;  color:white;" class="text-center mb-0 d-md-none d-block mt-1 px-4" >What can you do?</h5>
+<!--mobile-->
 
+<div class="first-features col-lg-12   d-block d-sm-none" style="margin-top:120px;margin-bottom:80px;border-bottom:3px solid #DFDFDF">
+<div class="feature col-8 offset-2 mb-4">
+<img src="imgs/create-content.svg" alt="">
+<p class="mb-4 mt-2">Create a Channel</p>
 </div>
-
-<!-- ends -->
-
-
-    <div class=" text-center mb-5"  style="height:220px;margin-top:-20px;z-index:;">
-<img src="imgs/credit-vector.png" alt="" style="z-index:1; height:100%;">
+<div class="feature col-8 offset-2 mb-4">
+<img src="imgs/merge-content.svg" alt="">
+<p class="mt-2">Merge your Content</p>
 </div>
-
-<div class="text-center  px-5 mt-2" style="z-index:1;">
-<span  style="color:white; font-family:BodyFont; font-size:15px;">Grow your community <br>and earn from  subscriptions, donations, and paid sessions.</span>
-</div>
-
-    </div>
-
-
-
-
+<div class="feature col-8 offset-2 mb-4">
+<img src="imgs/invite-comm.svg" alt="">
+<p class="mt-2">Invite your Community</p></div>
 </div>
 
 
-<!--ends-->
-
-<!--collaborate section-->
-
-<div class="d-md-block d-none " style="width:100%;height:500px; margin-top:130px;" >
 
 
+<!--reasons section-->
 
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; margin-top:10px;" class="d-flex flex-column">
+<div class="reasons col-lg-12 d-md-flex d-none"  style="border-bottom:3px solid #DFDFDF;">
 
-    <div class=" text-center mb-2"  style="height:450px;margin-top:-170px;z-index:;">
-<img src="imgs/teach_dev_new.svg" alt="" style="z-index:1; height:100%;">
+<div class="col-lg-5 offset-lg-1">
+<h4 style="font-family:HeaderFont;">What?</h4>
+<p style="font-family:BodyFont;font-size:15px;" class="col-lg-10 px-0">Citonhub is a free developer community platform that lets you create a channel and also allows
+you import your contents from YouTube/Udemy/devto.</p>
 </div>
-
-<div class="text-center  px-5" style="z-index:1;">
-
-<span  style=" font-family:BodyFont; font-size:18px;">Mentor developers in your channel.</span>
-</div>
-
-    </div>
-
-</div>
-
-
-<div class="d-md-none d-block " style="width:100%;height:300px; margin-top:90px;" >
-
-
-
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; margin-top:10px;" class="d-flex flex-column">
-
-    <div class=" text-center mb-2"  style="height:300px;margin-top:-170px;z-index:;">
-<img src="imgs/teach_dev_new.svg" alt="" style="z-index:1; height:100%;">
-</div>
-
-<div class="text-center  px-5" style="z-index:1;">
-
-<span  style=" font-family:BodyFont; font-size:15px;">Mentor developers in your channel.</span>
-</div>
-
-    </div>
-
-
-
-
-</div>
-
-<!--ends-->
-
-<!--teach and mentor section-->
-
-<div class="d-md-block d-none " style="width:100%;height:700px; margin-top:-90px;" >
-
-    <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:780px;">
-
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column">
-
-    <div class=" text-center mb-2"  style="height:400px;margin-top:30px;z-index:;">
-<img src="imgs/collaboration.png" alt="" style="z-index:1; height:100%;">
-</div>
-
-<div class="text-center  px-5" style="z-index:1;">
-<span  style="font-family:BodyFont; font-size:18px;color:white;">Collaborate and guide other <br> developers on projects in over 25 programming languages.</span>
-</div>
-
-    </div>
-
-
-
-
-</div>
-
-<div class="d-md-none d-block " style="width:100%;height:590px; margin-top:-50px;" >
-
-    <img alt="" src="/imgs/topbg.png" style="position:absolute;width:100%;height:590px;">
-
-    <div style="position:absolute;width:100%;left:0px;z-index:12;align-items:center; justify-content:center; " class="d-flex flex-column">
-
-    <div class=" text-center mb-2"  style="height:300px;margin-top:30px;z-index:;">
-<img src="imgs/collaboration.png" alt="" style="z-index:1; height:100%;">
-</div>
-
-<div class="text-center  px-5" style="z-index:1;">
-<span  style="font-family:BodyFont; font-size:15px;color:white;">Collaborate and guide other <br> developers on projects in over 25 programming languages.</span>
-</div>
-
-    </div>
-
-
-
-
-</div>
-
-
-<!--ends-->
-
-<!--collaborate section-->
-
-<div class="d-md-block d-none " style="width:100%;height:400px; margin-top:80px;" >
-
-<h3 style="font-weight:bold;" class="text-center mb-5 d-md-block d-none" >How it works</h3>
-
-
-   <div class="col-lg-10 offset-lg-1 col-md-12  d-flex flex-row flex-wrap">
-
-     <div class="col-md-4 d-flex flex-column">
-
-       <div class="py-2 px-2 d-flex mb-4 flex-row" style="align-items:center;justify-content:center;">
-          <span class="messagesBadges d-flex">
-            1
-          </span>
-       </div>
-
-       <div class="text-center " style="z-index:1;">
-
-       <h4 style="font-weight:bold;" class="text-center  d-md-block d-none" >Create your channel</h4>
-       <div  style="font-family:BodyFont; font-size:16px;">Set your channel name and add a description.</div>
-      </div>
-
-     </div>
-     <div class="col-md-4">
-     <div class="py-2 px-2 d-flex mb-4 flex-row" style="align-items:center;justify-content:center;">
-          <span class="messagesBadges d-flex">
-            2
-          </span>
-       </div>
-       <div class="text-center " style="z-index:1;">
-
-<h4 style="font-weight:bold;" class="text-center  d-md-block d-none" >Add payment plan</h4>
-<div  style="font-family:BodyFont; font-size:16px;">Enable support, subscriptions or one-time payment plan.</div>
-</div>
-     </div>
-
-     <div class="col-md-4">
-     <div class="py-2 px-2 d-flex flex-row mb-4" style="align-items:center;justify-content:center;">
-          <span class="messagesBadges d-flex">
-            3
-          </span>
-       </div>
-       <div class="text-center " style="z-index:1;">
-
-<h4 style="font-weight:bold;" class="text-center  d-md-block d-none" >Invite people to your channel</h4>
-<div  style="font-family:BodyFont; font-size:16px;">Share out your channel link and start growing your community.</div>
-</div>
-     </div>
-
-   </div>
-
-
-</div>
-
-
-<div class="d-md-none d-block " style="width:100%;height:650px; " >
-
-<h5 style="font-weight:bold;" class="text-center mb-2 d-md-none d-block px-4" >How it works</h5>
-
-<div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1 d-flex flex-row flex-wrap">
-
-<div class="col-md-4 d-flex flex-column mt-2">
-
-  <div class="py-2 px-2 d-flex mb-4 flex-row" style="align-items:center;justify-content:center;">
-     <span class="messagesBadges d-flex">
-       1
-     </span>
-  </div>
-
-  <div class="text-center " style="z-index:1;">
-
-  <h6 style="font-weight:bold;" class="text-center " >Create your channel</h6>
-  <div  style="font-family:BodyFont; font-size:14px;">Set your channel name and add a description.</div>
- </div>
-
-</div>
-<div class="col-md-4 mt-2" >
-<div class="py-2 px-2 d-flex mb-4 flex-row" style="align-items:center;justify-content:center;">
-     <span class="messagesBadges d-flex">
-       2
-     </span>
-  </div>
-  <div class="text-center " style="z-index:1;">
-
-<h6 style="font-weight:bold;" class="text-center " >Add payment plan</h6>
-<div  style="font-family:BodyFont; font-size:14px;">Enable support, subscriptions or one-time payment plan.</div>
-</div>
-</div>
-
-<div class="col-md-4 mt-2">
-<div class="py-2 px-2 d-flex flex-row mb-4" style="align-items:center;justify-content:center;">
-     <span class="messagesBadges d-flex">
-       3
-     </span>
-  </div>
-  <div class="text-center " style="z-index:1;">
-
-<h6 style="font-weight:bold;" class="text-center" >Invite people to your channel</h6>
-<div  style="font-family:BodyFont; font-size:14px;">Share out your channel link and start engaging your community.</div>
-</div>
-</div>
-
+<div class="col-lg-5 offset-lg-1 mb-4">
+<h4 style="font-family:HeaderFont;">Why?</h4>
+
+<p style="font-family:BodyFont;font-size:15px;" class="col-lg-10 px-0">This helps you engage your community at the same time boosting your audience retention. You
+can also earn from donations and memberships. If you don't create contents, you can curate a
+playlist of resources that helped you along your coding journey and share with your friends.</p>
 </div>
 
 
 </div>
 
-<!--ends-->
+<!--small screens-->
 
-<!--features section-->
+<div class="reasons col-lg-12 d-md-none d-block"  style="border-bottom:3px solid #DFDFDF;">
 
-<div class="features col-lg-12 px-0 mt-md-4">
-
-<h3 style="font-weight:bold;" class="text-center mb-2 d-md-block d-none" >Features</h3>
-
-<h5 style="font-weight:bold;" class="text-center mb-2 d-md-none d-block px-4" >Features</h5>
-
-<div  class=" mt-5 col-lg-8 offset-lg-2 d-flex flex-row flex-wrap"  style="align-items:center;justify-content:center;">
-
-<div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
-
-<div class="box" style="height:170px;width:170px; background:;border-radius:7px;" >
-<i class="las la-comments" style="font-size:55px; color:white;"></i>
+<div class="col-lg-5 offset-lg-1">
+<h4 style="font-family:HeaderFont;" class="text-center">What?</h4>
+<p style="font-family:BodyFont;font-size:15px;"  class="col-lg-10 px-0 text-center">Citonhub is a free developer community platform that lets you create a channel and also allows
+you import your contents from YouTube/Udemy/devto.</p>
 </div>
+<div class="col-lg-5 offset-lg-1 mb-4">
+<h4 style="font-family:HeaderFont;"  class="text-center">Why?</h4>
 
-<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none text-center">Chat</p>
-
-<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block text-center">Chat</p>
+<p style="font-family:BodyFont;font-size:15px;" class="col-lg-10 px-0 text-center">This helps you engage your community at the same time boosting your audience retention. You
+can also earn from donations and memberships. If you don't create contents, you can curate a
+playlist of resources that helped you along your coding journey and share with your friends.</p>
 </div>
-
-<div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;">
-
-<div class="box d-flex flex-row" style="height:170px;width:170px;align-items:center;justify-content:center;border-radius:7px;" >
-      <i class="las la-phone" style="font-size:55px; color:white;"></i>
-</div>
-
-<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none">Voice Chat</p>
-
-<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block">Voice Chat</p>
 
 </div>
 
+<!--reasons section ends-->
 
-<div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
 
-<div class="box" style="height:170px;width:170px; background:; border-radius:7px;" >
-<i class="las la-laptop-code" style="font-size:55px; color:white;"></i>
+<!--connection section-->
+
+<div class="col-lg-12 d-md-flex d-none" style="border-bottom:3px solid #DFDFDF;">
+
+<div class="col-lg-5 offset-lg-1 mt-4">
+
+<div class="col-lg-10 mt-2" style="border:2px solid black;height:120px;"></div>
+
+<h4 style="font-family:HeaderFont;" class="mt-4">Connect your YouTube
+Channel.</h4>
+
+<p style="font-family:BodyFont;font-size:15px;" class="mt-3 col-lg-10">When you create a channel on Citonhub, you can link your YouTube channel so that when you publish a video on YouTube, you can directly update it on Citonhub and your audience would
+have access to it</p>
 </div>
 
 
-<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none">Screen sharing</p>
+<div class="col-lg-5 offset-lg-1 mt-4">
 
-<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block">Screen sharing</p>
-</div>
+<div class="col-lg-10 mt-2" style="border:2px solid black;height:120px;"></div>
 
+<h4 style="font-family:HeaderFont;" class="mt-4">Earn directly from your
+audience.</h4>
 
-<div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
-
-<div class="box" style="height:170px;width:170px; background:;border-radius:7px;" >
-<i class="las la-terminal" style="font-size:55px; color:white;"></i>
-</div>
-
-<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none">Live coding</p>
-
-<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block">Live coding</p>
-
-</div>
-
-
-<div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
-
-<div class="box" style="height:170px;width:170px; background:;border-radius:7px;" >
-<i class="las la-user-friends" style="font-size:55px; color:white;"></i>
-</div>
-
-<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none">Collaborate on projects</p>
-
-<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block">Collaborate on projects</p>
-
-</div>
-
-<div class="col-md-6 col-lg-4 d-flex flex-column mt-2" style="align-items:center;justify-content:center;border-radius:7px;">
-
-<div class="box" style="height:170px;width:170px; background:;border-radius:7px;" >
-<i class="las la-trophy" style="font-size:55px; color:white;"></i>
-</div>
-
-<p style="font-weight:bold;font-family:BodyFont;" class="mt-2 d-md-block d-none">Organize challenges</p>
-
-<p style="font-weight:bold;font-family:BodyFont;font-size:15px;" class="mt-2 d-md-none d-block">Organize challenges</p>
+<p style="font-family:BodyFont;font-size:15px;" class="mt-3 col-lg-10">We are bridging the wide gap between Content and community on Citonhub. Your audience
+can directly donate or subscribe to your private community where they can access your curated
+contents.</p>
 </div>
 
 
 
 </div>
+
+
+<!--small screens-->
+
+
+<div class="col-lg-12 d-md-none d-block" style="border-bottom:3px solid #DFDFDF;">
+
+<div class="col-lg-5 offset-lg-1 mt-4">
+
+<div class="col-lg-10 mt-2" style="border:2px solid black;height:120px;"></div>
+
+<h4 style="font-family:HeaderFont;" class="mt-4 text-center">Connect your YouTube
+Channel.</h4>
+
+<p style="font-family:BodyFont;font-size:15px;" class="mt-3 col-lg-10 text-center">When you create a channel on Citonhub, you can link your YouTube channel so that when you publish a video on YouTube, you can directly update it on Citonhub and your audience would
+have access to it</p>
 </div>
 
-<!--smaller screens-->
 
-<!--ends-->
+<div class="col-lg-5 offset-lg-1 mt-4">
 
-<!-- get started -->
-<div class="col-12 text-center py-3 pt-5">
+<div class="col-lg-10 mt-2" style="border:2px solid black;height:120px;"></div>
 
-<a href="/dashboard#/sign-up" class="homeButton ml-2 py-3 px-4 d-md-inline-block d-none">Get started for FREE</a>
+<h4 style="font-family:HeaderFont;" class="mt-4 text-center">Earn directly from your
+audience.</h4>
 
-<a href="/dashboard#/sign-up" class="homeButton  px-4 py-2 mx-1 d-md-none d-inline-block" style="font-size:14px;">Get started for FREE</a>
+<p style="font-family:BodyFont;font-size:15px;" class="mt-3 col-lg-10 text-center">We are bridging the wide gap between Content and community on Citonhub. Your audience
+can directly donate or subscribe to your private community where they can access your curated
+contents.</p>
+</div>
+
+
 
 </div>
 
+
+
+
+
+
+
+<!--connection section ends-->
+
+
+<!--extra fearures-->
+
+<div class="col-lg-12 mt-4 d-md-block d-none">
+<h4 class="text-center col-lg-4 offset-lg-4" style="font-family:HeaderFont;" >Features to help you grow your community</h4>
+
+<div class="first-features col-lg-12 d-flex " style="margin-top:120px;">
+<div class="feature col-lg-3 offset-lg-1 mb-4">
+<img src="imgs/voice-call.svg" alt="">
+<p class="mb-4 mt-2 ml-4">Voice Chat</p>
+</div>
+<div class="feature col-lg-3 offset-lg-1 mb-4">
+<img src="imgs/share-screen.svg" alt="">
+<p class="mb-4 mt-2 ml-4">Share Screen</p>
+</div>
+<div class="feature col-lg-3 offset-lg-1 mb-4">
+<img src="imgs/code-live.svg" alt="">
+<p class="mt-2 ml-4">Live Code</p></div>
+</div>
+
+
+
+<div class=" col-lg-12 d-flex " style="margin-bottom:80px;">
+
+<div class="feature col-lg-3 offset-lg-3 mb-4" >
+<img src="imgs/collab2.svg" alt="">
+<p class="mt-2">Collaborate on Projects</p>
+</div>
+<div class="feature col-lg-3 offset-lg-1 mb-4">
+<img src="imgs/challenge.svg" alt="">
+<p class="mt-2">Organize Challenges</p></div>
+</div>
+
+</div>
+
+<!--small screens-->
+
+
+<div class="col-lg-12 mt-4 d-md-none d-sm-block d-none">
+<h4 class="text-center col-lg-4 offset-lg-4" style="font-family:HeaderFont;" >Features to help you grow your community</h4>
+
+<div class="first-features col-lg-12 d-block " style="margin-top:120px;">
+<div class="feature col-4 offset-4 mb-4">
+<img src="imgs/voice-call.svg" alt="">
+<p class="mb-4 mt-2 ml-4">Voice Chat</p>
+</div>
+<div class="feature col-4 offset-4 mb-4">
+<img src="imgs/share-screen.svg" alt="">
+<p class="mb-4 mt-2 ml-4">Share Screen</p>
+</div>
+<div class="feature col-4 offset-4 mb-4">
+<img src="imgs/code-live.svg" alt="">
+<p class="mt-2 ml-4">Live Code</p></div>
+</div>
+
+
+
+<div class=" col-lg-12 d-block " style="margin-bottom:80px;">
+
+<div class="feature col-4 offset-4 mb-4" >
+<img src="imgs/collab2.svg" alt="">
+<p class="mt-2 col-12 ml-3">Collaborate on Projects</p>
+</div>
+<div class="feature col-4 offset-4 mb-4">
+<img src="imgs/challenge.svg" alt="">
+<p class="mt-2 col-12 ml-3">Organize Challenges</p></div>
+</div>
+
+</div>
+
+
+<!--mobile-->
+
+
+<div class="col-lg-12 mt-4 d-sm-none d-block">
+<h4 class="text-center col-lg-4 offset-lg-4" style="font-family:HeaderFont;" >Features to help you grow your community</h4>
+
+<div class="first-features col-lg-12 d-block " style="margin-top:40px;">
+<div class="feature col-8 offset-2 mb-4">
+<img src="imgs/voice-call.svg" alt="">
+<p class="mb-4 mt-2 ml-4">Voice Chat</p>
+</div>
+<div class="feature col-8 offset-2 mb-4">
+<img src="imgs/share-screen.svg" alt="">
+<p class="mb-4 mt-2 ml-4">Share Screen</p>
+</div>
+<div class="feature col-8 offset-2 mb-4">
+<img src="imgs/code-live.svg" alt="">
+<p class="mt-2 ml-4">Live Code</p></div>
+</div>
+
+
+
+<div class=" col-lg-12 d-block " style="margin-bottom:80px;">
+
+<div class="feature col-8 offset-2 mb-4" >
+<img src="imgs/collab2.svg" alt="">
+<p class="mt-2 col-12 ml-3">Collaborate on Projects</p>
+</div>
+<div class="feature col-8 offset-2 mb-4">
+<img src="imgs/challenge.svg" alt="">
+<p class="mt-2 col-12 ml-3">Organize Challenges</p></div>
+</div>
+
+</div>
+
+<!--extra features end-->
+
+
+
+</div>
 <!-- ends -->
 
 

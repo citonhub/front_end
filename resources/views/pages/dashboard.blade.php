@@ -66,33 +66,33 @@
  @section('scripts')
 
  <!-- WebRTC scripts, third party scripts for real time communications -->
- <script src="{{ asset('js/RTCMultiConnection.min.js') }}"></script>
+ <script defer src="{{ asset('js/RTCMultiConnection.min.js') }}"></script>
 
- <script src="{{ asset('js/getHTMLMediaElement.js?v=0.51') }}"></script>
+ <script defer src="{{ asset('js/getHTMLMediaElement.js?v=0.51') }}"></script>
 
- <script src="https://cdn.webrtc-experiment.com/hark.js"></script>
+ <script defer src="https://cdn.webrtc-experiment.com/hark.js"></script>
 
 <!-- ends -->
 
 <!-- Video player and streaming, third-party scripts -->
 
 
-  <script src="{{ asset('js/shaka-player.compiled.js') }}"></script>
+  <script  defer src="{{ asset('js/shaka-player.compiled.js') }}"></script>
 
-   <script src="{{ asset('js/shaka-player.ui.js') }}"></script>
+   <script defer src="{{ asset('js/shaka-player.ui.js') }}"></script>
 
    <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
 
-   <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+   <script defer src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 
 <!-- ends -->
 
  <!-- Third-party script for markdwn formating -->
-  <script src="https://unpkg.com/marked@0.3.6"></script>
+  <script defer src="https://unpkg.com/marked@0.3.6"></script>
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=7.19') }}"></script>
+ <script src="{{ asset('js/dashboard.js?v=7.24') }}"></script>
  <!-- ends -->
      
  @endsection

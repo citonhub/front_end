@@ -1070,7 +1070,71 @@ beforeEnter: (to, from, next) => {
     }
     },
 
-     // channel resource content
+
+     // add resource URL
+  {
+    path:'/channels/:spaceId/add_resource_url',
+    name:'resourcesURL',
+   
+    meta: {
+      twModalView: true
+    },
+     beforeEnter: (to, from, next) => {
+      const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+  
+  
+      if(window.thisUserState != undefined){
+        if( thisUserState.$root.chatComponent){
+        thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+        thisUserState.$root.chatComponent.chatShareIsOpen = false;
+        thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+        thisUserState.$root.chatComponent.innerSideBarContent = '';
+        thisUserState.$root.chatComponent.chatInnerConent = '';
+        thisUserState.$root.showProfileView = false;
+        thisUserState.$root.showYoutubePlayer = false;
+        thisUserState.$root.showYoutubePlayerSm = false;
+        thisUserState.$root.chatComponent.chatInnerSideBar = true;
+        thisUserState.$root.chatComponent.innerSideBarContent = 'add_resource_url';
+         
+    
+            
+       }
+  
+       }
+  
+      if (!twModalView) {
+        //
+        // For direct access
+        //
+        to.matched[0].components = {
+          default: Chats,
+          modal: false
+        }
+      }
+  
+      if (twModalView) {
+        //
+        // For twModalView access
+        //
+        if (from.matched.length > 1) {
+          // copy nested router
+          const childrenView = from.matched.slice(1, from.matched.length)
+          for (let view of childrenView) {
+            to.matched.push(view)
+          }
+        }
+        if (to.matched[0].components) {
+          // Rewrite components for `default`
+          to.matched[0].components.default = from.matched[0].components.default
+          // Rewrite components for `modal`
+          to.matched[0].components.modal = Chats
+        }
+      }
+  
+      next()
+    }
+    },
+
   {
     path:'/channels/:spaceId/resources',
     name:'resourcestab',
@@ -2395,6 +2459,10 @@ const app = new Vue({
     resourceComponent:undefined,
     YoutubeComponent:undefined,
     playingYoutubeVideoId:0,
+    resourcesSearchComponent:undefined,
+    playingVideoSubState:'',
+    playingVideoRating:'',
+    playVideoAuthState:false,
      },
      mounted: function () {
       window.thisUserState = this;
