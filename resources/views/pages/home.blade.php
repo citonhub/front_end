@@ -110,7 +110,7 @@
 
 
 
-    <p class="px-5 mt-4" style="font-family:BodyFont;font-size:17px;" >Merge your content with your community and make money through donation and memberships.</p>
+    <p class="px-5 mt-4" style="font-family:BodyFont;font-size:17px;" >Merge your content with your community and make money through donations and memberships.</p>
    </div>
 
 </div>
@@ -129,7 +129,7 @@
 
    <h5>Everything you need as a developer to grow your community and earn</h5>
 
-    <p class="px-2 mt-2" style="font-family:BodyFont;font-size:14px;" >Merge your content with your community and make money through donation and memberships.</p>
+    <p class="px-2 mt-2" style="font-family:BodyFont;font-size:14px;" >Merge your content with your community and make money through donations and memberships.</p>
    </div>
 
 </div>
