@@ -344,7 +344,7 @@ mounted(){
           
            this.loadingAuthBtn = true
            var strWindowFeatures = "location=yes,height=770,width=720,scrollbars=yes,status=yes";
-        var URL = 'https://api.beta.citonhub.com/initiate-google-auth/' + this.$root.username;
+        var URL = 'https://api.citonhub.com/initiate-google-auth/' + this.$root.username;
 
         var win = window.open(URL, "_blank", strWindowFeatures);
 

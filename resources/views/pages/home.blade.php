@@ -5,7 +5,7 @@
 
  @endsection
  @section('meta')
- <meta name="description" content="CitonHub is an all-in-one platform for developers to grow their communities and earn." />
+ <meta name="description" content="Everything you need as a developer to grow your community and earn" />
   <meta name="keywords" content="mentor programming,Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
@@ -18,8 +18,8 @@
     <!--Metadata for Microsoft-->
     <meta name="msapplication-TileImage" content="images/icons/logo_msapplication-icon-144x144.png">
     <meta name="msapplication-TileColor" content="#3C87CD">
-    <meta property="og:description" content="Join other developers helping each other grow on CitonHub" />
-    <meta property='twitter:title' content="CitonHub:An all-in-one platform for developers to mentor, grow their communities, and earn."/>
+    <meta property="og:description" content="Everything you need as a developer to grow your community and earn" />
+    <meta property='twitter:title' content="CitonHub:Everything you need as a developer to grow <br> your community and earn"/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 
