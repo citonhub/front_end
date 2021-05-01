@@ -19,7 +19,7 @@
     <meta name="msapplication-TileImage" content="images/icons/logo_msapplication-icon-144x144.png">
     <meta name="msapplication-TileColor" content="#3C87CD">
     <meta property="og:description" content="Everything you need as a developer to grow your community and earn" />
-    <meta property='twitter:title' content="CitonHub:Everything you need as a developer to grow <br> your community and earn"/>
+    <meta property='twitter:title' content="CitonHub:Everything you need as a developer to grow your community and earn"/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 
@@ -110,7 +110,7 @@
 
 
 
-    <p class="px-5 mt-4" style="font-family:BodyFont;font-size:17px;" >Merge your content with your community and make money.</p>
+    <p class="px-5 mt-4" style="font-family:BodyFont;font-size:17px;" >Merge your content with your community and make money through donation and memberships.</p>
    </div>
 
 </div>
@@ -129,7 +129,7 @@
 
    <h5>Everything you need as a developer to grow your community and earn</h5>
 
-    <p class="px-2 mt-2" style="font-family:BodyFont;font-size:14px;" >Merge your content with your community and make money.</p>
+    <p class="px-2 mt-2" style="font-family:BodyFont;font-size:14px;" >Merge your content with your community and make money through donation and memberships.</p>
    </div>
 
 </div>
@@ -188,16 +188,22 @@
 
 <div class="reasons col-lg-8 offset-lg-2 flex-row  d-md-flex  d-none" style="margin-top:80px;margin-bottom:90px;">
 
-<div class="col-md-6">
+<div class="col-md-4">
 <h4 style="font-family:HeaderFont;">What?</h4>
 <p style="font-family:BodyFont;font-size:15px;" >Citonhub is a free developer platform that lets you create a community and also allows
 you import your contents from YouTube and DevTo.</p>
 </div>
-<div class="col-md-6">
+<div class="col-md-4">
 <h4 style="font-family:HeaderFont;">Why?</h4>
 
 <p style="font-family:BodyFont;font-size:15px;" >This helps you engage your community at the same time boosting your audience retention. You
-can also earn from donations and memberships. If you don't create contents, you can curate a
+can also earn from donations and memberships. </p>
+</div>
+
+<div class="col-md-4">
+<h4 style="font-family:HeaderFont;">What if you don't create content?</h4>
+
+<p style="font-family:BodyFont;font-size:15px;" >You can curate a
 playlist of resources that helped you along your coding journey and share with your friends.</p>
 </div>
 
@@ -216,11 +222,17 @@ playlist of resources that helped you along your coding journey and share with y
 <p style="font-family:BodyFont;font-size:14px;" >Citonhub is a free developer platform that lets you create a community and also allows
 you import your contents from YouTube and DevTo.</p>
 </div>
-<div class="col-12">
+<div class="col-12 mb-4">
 <h5 style="font-family:HeaderFont;">Why?</h5>
 
 <p style="font-family:BodyFont;font-size:14px;" >This helps you engage your community at the same time boosting your audience retention. You
-can also earn from donations and memberships. If you don't create contents, you can curate a
+can also earn from donations and memberships.</p>
+</div>
+
+<div class="col-12">
+<h5 style="font-family:HeaderFont;">What if you don't create content?</h5>
+
+<p style="font-family:BodyFont;font-size:14px;" >You can curate a
 playlist of resources that helped you along your coding journey and share with your friends.</p>
 </div>
 
