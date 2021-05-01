@@ -94,11 +94,11 @@
 
 <!-- bottom background image -->
 <div style="position:absolute;width:100%; height:80%; bottom:0; left:0; z-index:20;" class="d-lg-block d-none">
-<img src="imgs/bottomLg.png" height="100%" width="100%">
+<img src="imgs/bottom1.png" height="100%" width="100%">
 </div>
 
 <div  style="position:absolute;width:100%; height:60%; bottom:0; left:0; z-index:20;" class="d-lg-none d-block">
-<img src="imgs/bottomSm.png" height="100%" width="100%">
+<img src="imgs/bottom1.png" height="100%" width="100%">
 </div>
 <!-- ends -->
 

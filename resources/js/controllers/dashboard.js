@@ -131,6 +131,7 @@ const AddGit= () => import(/* webpackChunkName: "AddGit" */ '../components/proje
 // chats routes
 const Chats = () => import(/* webpackChunkName: "Chats" */ '../components/chats/Chats.vue');
 
+
 // Hub routes
 const Hub = () => import(/* webpackChunkName: "Hub" */ '../components/Hub/Hub.vue');
 
@@ -610,6 +611,8 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.showPaymentProcessingBoard = false;
       thisUserState.$root.showProfileView = false;
       thisUserState.$root.chatComponent.messageIsDone = true;
+      thisUserState.$root.showYoutubePlayer = false;
+      thisUserState.$root.showYoutubePlayerSm = false;
       thisUserState.$root.showDiarySettings = false;
       thisUserState.$root.chatComponent.chatInnerConent = '';
         
@@ -650,6 +653,9 @@ beforeEnter: (to, from, next) => {
     next()
   }
 },
+
+
+
 
 // diary settings 
 { path: '/channels/engine/diary/:bot_id',
@@ -937,6 +943,260 @@ beforeEnter: (to, from, next) => {
     next()
   }
 },
+
+//resource routes
+
+{
+  path:'/channels/:spaceId/resource_content/:resource_id',
+  name:'resourcesContent',
+ 
+  meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+      if( thisUserState.$root.chatComponent){
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+      thisUserState.$root.chatComponent.innerSideBarContent = '';
+      thisUserState.$root.chatComponent.chatInnerConent = '';
+      thisUserState.$root.showProfileView = false;
+      thisUserState.$root.chatComponent.chatInnerSideBar = true;
+      thisUserState.$root.chatComponent.innerSideBarContent = 'resource_content';
+       
+  
+          
+     }
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+  },
+  // channel plalist content
+  {
+    path:'/channels/:spaceId/playlists',
+    name:'resourcestab',
+   
+    meta: {
+      twModalView: true
+    },
+     beforeEnter: (to, from, next) => {
+      const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+  
+  
+      if(window.thisUserState != undefined){
+        if( thisUserState.$root.chatComponent){
+        thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+        thisUserState.$root.chatComponent.chatShareIsOpen = false;
+        thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+        thisUserState.$root.chatComponent.innerSideBarContent = '';
+        thisUserState.$root.chatComponent.chatInnerConent = '';
+        thisUserState.$root.showProfileView = false;
+        thisUserState.$root.showYoutubePlayer = false;
+        thisUserState.$root.showYoutubePlayerSm = false;
+        thisUserState.$root.chatComponent.chatInnerSideBar = true;
+        thisUserState.$root.chatComponent.innerSideBarContent = 'resource_page';
+         
+    
+            
+       }
+  
+       }
+  
+      if (!twModalView) {
+        //
+        // For direct access
+        //
+        to.matched[0].components = {
+          default: Chats,
+          modal: false
+        }
+      }
+  
+      if (twModalView) {
+        //
+        // For twModalView access
+        //
+        if (from.matched.length > 1) {
+          // copy nested router
+          const childrenView = from.matched.slice(1, from.matched.length)
+          for (let view of childrenView) {
+            to.matched.push(view)
+          }
+        }
+        if (to.matched[0].components) {
+          // Rewrite components for `default`
+          to.matched[0].components.default = from.matched[0].components.default
+          // Rewrite components for `modal`
+          to.matched[0].components.modal = Chats
+        }
+      }
+  
+      next()
+    }
+    },
+
+
+     // add resource URL
+  {
+    path:'/channels/:spaceId/add_resource_url',
+    name:'resourcesURL',
+   
+    meta: {
+      twModalView: true
+    },
+     beforeEnter: (to, from, next) => {
+      const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+  
+  
+      if(window.thisUserState != undefined){
+        if( thisUserState.$root.chatComponent){
+        thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+        thisUserState.$root.chatComponent.chatShareIsOpen = false;
+        thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+        thisUserState.$root.chatComponent.innerSideBarContent = '';
+        thisUserState.$root.chatComponent.chatInnerConent = '';
+        thisUserState.$root.showProfileView = false;
+        thisUserState.$root.showYoutubePlayer = false;
+        thisUserState.$root.showYoutubePlayerSm = false;
+        thisUserState.$root.chatComponent.chatInnerSideBar = true;
+        thisUserState.$root.chatComponent.innerSideBarContent = 'add_resource_url';
+         
+    
+            
+       }
+  
+       }
+  
+      if (!twModalView) {
+        //
+        // For direct access
+        //
+        to.matched[0].components = {
+          default: Chats,
+          modal: false
+        }
+      }
+  
+      if (twModalView) {
+        //
+        // For twModalView access
+        //
+        if (from.matched.length > 1) {
+          // copy nested router
+          const childrenView = from.matched.slice(1, from.matched.length)
+          for (let view of childrenView) {
+            to.matched.push(view)
+          }
+        }
+        if (to.matched[0].components) {
+          // Rewrite components for `default`
+          to.matched[0].components.default = from.matched[0].components.default
+          // Rewrite components for `modal`
+          to.matched[0].components.modal = Chats
+        }
+      }
+  
+      next()
+    }
+    },
+
+  {
+    path:'/channels/:spaceId/resources',
+    name:'resourcestab',
+   
+    meta: {
+      twModalView: true
+    },
+     beforeEnter: (to, from, next) => {
+      const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+  
+  
+      if(window.thisUserState != undefined){
+        if( thisUserState.$root.chatComponent){
+        thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+        thisUserState.$root.chatComponent.chatShareIsOpen = false;
+        thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+        thisUserState.$root.chatComponent.innerSideBarContent = '';
+        thisUserState.$root.chatComponent.chatInnerConent = '';
+        thisUserState.$root.showProfileView = false;
+        thisUserState.$root.showYoutubePlayer = false;
+        thisUserState.$root.showYoutubePlayerSm = false;
+        thisUserState.$root.chatComponent.chatInnerSideBar = true;
+        thisUserState.$root.chatComponent.innerSideBarContent = 'resource_page';
+         
+    
+            
+       }
+  
+       }
+  
+      if (!twModalView) {
+        //
+        // For direct access
+        //
+        to.matched[0].components = {
+          default: Chats,
+          modal: false
+        }
+      }
+  
+      if (twModalView) {
+        //
+        // For twModalView access
+        //
+        if (from.matched.length > 1) {
+          // copy nested router
+          const childrenView = from.matched.slice(1, from.matched.length)
+          for (let view of childrenView) {
+            to.matched.push(view)
+          }
+        }
+        if (to.matched[0].components) {
+          // Rewrite components for `default`
+          to.matched[0].components.default = from.matched[0].components.default
+          // Rewrite components for `modal`
+          to.matched[0].components.modal = Chats
+        }
+      }
+  
+      next()
+    }
+    },
 // channel edit
 { path: '/channels/:spaceId/channel_edit',
    name: 'ChannelEdit',
@@ -1417,6 +1677,56 @@ beforeEnter: (to, from, next) => {
       if( thisUserState.$root.chatComponent){
         thisUserState.$root.chatComponent.chatInnerSideBar = false;
       thisUserState.$root.chatComponent.chatInnerConent = 'image_viewer';
+      }
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
+
+// youtub auth
+{ path: '/channels/:spaceId/youtube_auth',
+   name: 'YoutubeAuth',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+      if( thisUserState.$root.chatComponent){
+        thisUserState.$root.chatComponent.chatInnerSideBar = false;
+      thisUserState.$root.chatComponent.chatInnerConent = 'youtube_auth';
       }
      }
 
@@ -2183,6 +2493,28 @@ const app = new Vue({
     MentorPageComponent:undefined,
     leaderboardMembers:[],
     refreshCount:0,
+    selectedResource:[],
+    playingVideoId:'',
+    showYoutubePlayer: false,
+    resourceSearchType:'',
+    resourceContentType:'',
+    selectedResource:[],
+    showYoutubePlayerSm:false,
+    showAddButton:false,
+    playingYoutubeVideo:[],
+    prevResourceId:0,
+    nextResourceId:0,
+    nextResourceData:[],
+    prevResourceData:[],
+    resourceComponent:undefined,
+    YoutubeComponent:undefined,
+    playingYoutubeVideoId:0,
+    resourcesSearchComponent:undefined,
+    playingVideoSubState:'',
+    playingVideoRating:'',
+    playVideoAuthState:false,
+    forcereloadResource:false,
+    youtube_connected:false,
      },
      mounted: function () {
       window.thisUserState = this;

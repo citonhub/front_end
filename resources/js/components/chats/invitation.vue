@@ -5,15 +5,75 @@
          
                <div class="row">
 
-                 <div class="col-12 py-1 text-center">
+                  <template v-if="infoText == 'custom'">
+
+                    <div class="px-0 mt-2">
+
+                     <div  style="font-family:MediumFont; font-size:14px;" class="px-2">Welcome!</div>
+
+                    <div class="col-12 py-1 pt-0 px-2 text-left">
+                
+                   <span style="font-family:BodyFont; font-size:13px; color:grey;">Here is your brand new channel where you engage your community.</span>
+                    </div>
+
+                      <div  style="font-family:MediumFont; font-size:14px;" class="mt-3 px-2">Set up your channel</div>
+
+                     <div class="col-12 py-1 px-2 text-left">
+                
+                   <span style="font-family:BodyFont; font-size:13px; color:grey;">Create playlists from Youtube and curate the best resources for your channel </span>
+                    </div>
+
+                      <v-card tile flat  @click="handleSetUp('youtube')"  class="py-2 px-2 d-flex flex-row col-12" style="border-bottom:1px solid #c5c5c5;border-top:1px solid #c5c5c5;">
+                     
+                      <div class="mr-2">
+
+                            <v-icon style="color:#FF0000;" >mdi mdi-youtube</v-icon>
+
+                      </div>
+
+                      <div>
+                           <span style="font-family:BodyFont; font-size:13px;">Create playlists from Youtube</span>
+                      </div>
+
+                     </v-card>
+                       <v-card tile flat   @click="handleSetUp('devto')"  class="py-2 px-2 d-flex flex-row col-12" style="border-bottom:1px solid #c5c5c5;">
+                     
+                      <div class="mr-2">
+                        
+                          <img  src="/imgs/devto.png" height="27px"  >
+
+                      </div>
+
+                      <div>
+                           <span style="font-family:BodyFont; font-size:13px;">Create resources from DevTo</span>
+                      </div>
+
+                     </v-card>
+
+                  
+
+                       <div  style="font-family:MediumFont; font-size:14px;" class="mt-5 mb-2 px-2">Invite people</div>
+
+                    </div>
+
+                   
+
+                  </template>
+                  <template v-else>
+
+                         <div class="col-12 py-1 text-center">
 
                    <span style="font-family:MediumFont; font-size:13px;">{{infoText}}</span>
 
                  </div>
 
+                  </template>
+
+            
+
                   <template v-if="!selectedExtraOptions">
 
-                       <div class="col-12 py-1 text-center">
+                       <div class="col-12 py-1 text-center" v-if="infoText != 'custom'">
 
                    <span style="font-family:BodyFont; font-size:13px;color:grey;">{{extraInfo}}</span>
 
@@ -277,6 +337,18 @@ export default {
 
       },
       preventClose:function(){
+
+      },
+      handleSetUp:function(type){
+
+         if(type == 'youtube'){
+              this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/playlists' });
+         }
+
+         if(type == 'devto'){
+           
+             this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resources' });
+         }
 
       },
       sendToConnection: function(){

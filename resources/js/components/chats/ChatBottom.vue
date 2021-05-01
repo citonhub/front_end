@@ -35,7 +35,7 @@
 
                   <!-- ends -->
 
-                     <v-btn icon class="mx-md-1" @click="startrecord" v-else><v-icon>las la-microphone</v-icon> </v-btn>
+                     <v-btn icon class="mx-md-1" color="#3C87CD" @click="startrecord" v-else><v-icon>mdi mdi-microphone</v-icon> </v-btn>
               
             
 

@@ -1,5 +1,5 @@
 <template>
-    <div  style="position:fixed;height:100%;background:#F5F5FB; top:0; left:0; width:100%; z-index:999999999;" >
+    <v-app  style="position:fixed;height:100%;background:#F5F5FB; top:0; left:0; width:100%; z-index:0;" >
 
         <!-- top bar -->
         <div class="col-12 py-0 fixed-top" style="position:sticky;width:100%;height:auto; ">
@@ -49,7 +49,7 @@
 
            <!-- menu session -->
 
-                        <v-btn fab small class="d-none d-lg-inline-block" color="#ffffff" @click="showSideBarHandler()" style="position:absolute;left:12px;top:3%;">
+                        <v-btn fab small class="d-none d-lg-inline-block" color="#ffffff" @click="showSideBarHandler()" style="position:absolute; z-index:99999999999999999;left:12px;top:3%;">
 
                             <v-badge
                    dot
@@ -64,12 +64,12 @@
 
                        <!-- ends -->
 
-        <div class="  py-0 px-0 d-lg-block d-none card " style=" overflow-y:hidden;position:absolute;width:90%; left:5%; height:94%; top:3%; overflow-y:hidden; overflow-x:hidden; background:white;" >
+        <div class="  py-0 px-0 d-lg-block d-none card " style=" overflow-y:hidden;position:absolute;width:90%;  z-index:99999999999999999; left:5%; height:94%; top:3%; overflow-y:hidden; overflow-x:hidden; background:white;" >
 
                      
 
 
-                   <div class="py-0"  style="height:100%; width:28%; left:0%; position:absolute; overflow-y:hidden; overflow-x:hidden; border-right:1px solid #c5c5c5;">
+                   <div class="py-0"  style="height:100%; width:28%; left:0%; position:absolute; background:white; overflow-y:hidden; overflow-x:hidden; border-right:1px solid #c5c5c5;">
 
                          <div class="row  px-2">
 
@@ -78,7 +78,7 @@
                        
                            <template v-if="chatbarContent == 'chat_list'">
 
-                             <div class="col-12 py-2 px-2 pb-0 mb-0 text-center d-flex flex-row fixed-top" style="left:0%;height:58px;position:sticky;background:white;top:-5%;">
+                             <div class="col-12 py-2 px-2 pb-0 mb-0 text-center d-flex flex-row fixed-top" style="  z-index:99999999999999999; left:0%;height:58px;position:sticky;background:white;top:-5%;">
                              <v-btn icon ><v-icon>las la-search</v-icon></v-btn>
                         
                               <v-text-field
@@ -108,7 +108,7 @@
        :buffer="5000"
     id="ChatContainer"
       class="col-12 px-1  chatListScroller" 
-       style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;"
+       style="position:absolute; overflow-y:auto; z-index:999999; top:0%; height:98%;left:0%;padding-top:63px;"
         >
 
     <template v-slot="{ item, index, active }">
@@ -147,7 +147,7 @@
                     
                      Hey <span style="font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, welcome to CitonHub! <br> <br>
                      
-                     Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. <br><br>
+                     Channel is where you engage your community and earn from <span style="font-family:MediumFont;">donations or membership</span>. <br><br>
 
                     
 
@@ -175,7 +175,7 @@
             <template v-else>
                 
                   <div class="mb-3 px-0 text-center" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>.
+                      Channel is where you engage your community and earn from <span style="font-family:MediumFont;">donations or membership</span>.
                     </div>
 
                      <div class="text-center">
@@ -204,7 +204,7 @@
     :buffer="5000"
     id="ChatContainerSearch"
       class="col-12 px-1  chatListScroller" 
-       style="position:absolute; overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;background:white;"
+       style="position:absolute;  z-index:999999;  overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;background:white;"
         >
 
     <template v-slot="{ item, index, active }">
@@ -298,6 +298,8 @@
                               <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:absolute; top:0%;z-index:9999999;" >
                                 
                               <chat-top></chat-top>
+
+                              
                             </div>
 
                           <div v-if="that.$root.Messages.length != 0" style="position:absolute;width:100%;height:100%; left:0%;background:#E1F0FC;">
@@ -432,7 +434,7 @@
 
             <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
 
-               <invitation :infoText="'Teach, mentor and grow your community here.'"
+               <invitation :infoText="'custom'"
                                    :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
 
             </template>
@@ -587,11 +589,21 @@
 
                                <!-- channel invitation -->
 
-                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center " @click="goBack" style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center d-flex flex-row " @click="goBack" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center;  border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                  <invitation :infoText="'Teach, mentor and grow your community here.'"
+                                  <invitation :infoText="'custom'"
                                    :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
+                            </div>
+
+                            <!-- ends -->
+
+                             <!-- youthube auth board -->
+
+                               <div  v-if="chatIsOpen && chatInnerConent == 'youtube_auth'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center;  border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
+                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
+           class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
+                                <youtube-auth-board></youtube-auth-board>
                             </div>
 
                             <!-- ends -->
@@ -657,9 +669,29 @@
                               <!-- channel sidebar -->
 
 
-                               <div  v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" @click="goBack" style="overflow-x:hidden; background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" style="overflow-x:hidden; background: rgba(27, 27, 30, 0.32); border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999999;" >
                                    
                                    
+                                   <!-- youtube video player -->
+
+                                       <div @click.stop="preventClose()" v-if="that.$root.showYoutubePlayer" style="position:absolute; height:100%; z-index:9999999999999999999; top:0%; width:60%; left:0%; align-items:center; justify-content:center; " class="d-flex flex-row ">
+                                         
+                                         <div class="px-2 py-2" @click.stop="preventClose()" style="background:white; border:1px solid #ffffff; border-radius:8px; left:5%; width:90%;">
+
+                                               <youtube-player :screenType="'large'" :playerHeight="300"  :videoId="that.$root.playingVideoId"></youtube-player>
+
+                                                
+                                         </div>
+                                     
+                                      
+
+
+                                         </div>
+
+
+                                   <!-- ends -->
+
+
                                    <!-- admin options -->
 
                           <div style="position:absolute; height:100%; width:70%; left:30%;z-index:99999999999999;" v-if="that.$root.showAdminOption">
@@ -727,7 +759,105 @@
 
                                           <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
 
-                                         
+                                          <resourcepage v-if="innerSideBarContent == 'resource_page'" ></resourcepage>
+
+                                            <resource-content v-if="innerSideBarContent == 'resource_content'" ></resource-content>
+
+                                              <resource-url v-if="innerSideBarContent == 'add_resource_url'" ></resource-url>
+
+                                          
+                                            <!-- fab screen -->
+                                          
+                                          <template v-if="that.$root.showAddButton">
+                                   
+                                      <v-btn @click="toggleButton()"     fab color="#3C87CD"  style="z-index:99999999;  position:absolute;  bottom:3%; right:2%; ">  
+
+                                  <v-icon style="font-size:24px; color:white;">{{this.buttonIcon}}</v-icon>
+
+                                    </v-btn> 
+
+                                    <!--new-->
+
+                                    <template v-if="that.$root.selectedResource.type == 'playlist'">
+
+                                      <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:12%; right:3%; ">
+                                  
+                                  <div class="mr-2">
+                                           <span sstyle="font-size:13px;font-family:BodyFont;  background:#3C87CD; color:white; " class="px-1 py-1 ">
+                                             Add videos from YouTube
+                                                  </span>
+                                  </div>
+                                  <div>
+                                 <v-btn small @click="goToSearch('youtube')"    fab color="#FF0000" >  
+
+                                  <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
+
+                                    </v-btn>
+                                  </div>
+
+                                      </div>
+
+
+                                  
+                                       
+                                   
+
+                                    </template>
+
+                                    <template v-else>
+                                  
+
+                                   <div class=" d-flex flex-row"   v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:12%; right:3%; ">
+                                  
+                                  <div class="mr-2">
+                                           <span style="font-size:13px;font-family:BodyFont;  background:#3C87CD; color:white; " class="px-1 py-1 " >
+                                             Add resource URL
+                                                  </span>
+                                  </div>
+                                  <div>
+                                 <v-btn small @click="goToSearch('link')"    fab color="#ffffff" >  
+
+                                  <v-icon style="font-size:20px; ">mdi mdi-link</v-icon>
+
+                                    </v-btn>
+                                  </div>
+
+                                      </div>
+
+
+                                      <div v-if="toggleAddButton== true" class=" d-flex flex-row" style="z-index:9999999999999; align-items:center; position:absolute;  heigth:auto; bottom:20%; right:3%; ">
+                                      
+                                        <div class="mr-2">
+                                           <span style="font-size:13px;font-family:BodyFont; background:#3C87CD; color:white;" class="px-1 py-1 " >
+                                             Add Dev.to articles
+                                                  </span>
+                                  </div>
+
+                                      <div>
+
+                                          <v-btn  @click="goToSearch('devto')" small    fab color="#ffffff" >  
+
+                               <img style="height:20px;width:20px;" src="imgs/devto.png" alt="">
+
+                                    </v-btn>
+                                    
+                                      </div>
+
+                                      </div>
+
+
+                                    </template>
+
+                                  
+
+                                          </template>
+
+                                
+
+
+                                    <!--new-->
+
+                                 <!-- ends -->
                                    </div>
 
                                      </div>
@@ -840,7 +970,7 @@
     :buffer="5000"
     id="ChatContainersmall"
       class="col-12 px-1 " 
-        style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto;" 
+        style="position:absolute; width:100%;  z-index:999999;  height:92%;top:8%;left:0;overflow-y:auto;" 
         >
 
     <template v-slot="{ item, index, active }">
@@ -880,7 +1010,7 @@
                      
                      Hey <span style="font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, welcome to CitonHub! <br> <br>
                      
-                     Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. <br><br>
+                     Channel is where you engage your community and earn from <span style="font-family:MediumFont;">donations or membership</span>. <br><br>
 
                   
 
@@ -907,7 +1037,7 @@
             <template v-else>
                 
                   <div class="mb-3 px-2 text-center" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. 
+                      Channel is where you engage your community and earn from <span style="font-family:MediumFont;">donations or membership</span>. 
                     </div>
 
                      <div class="text-center">
@@ -937,7 +1067,7 @@
     :buffer="5000"
     id="ChatContainersmallSearch"
       class="col-12 px-1 " 
-        style="position:absolute; width:100%; height:92%;top:8%;left:0;overflow-y:auto; background:white;" 
+        style="position:absolute; width:100%;  z-index:999999;  height:92%;top:8%;left:0;overflow-y:auto; background:white;" 
         >
 
     <template v-slot="{ item, index, active }">
@@ -1064,6 +1194,9 @@
                                       
                                     </template>
                               <chat-top v-else></chat-top>
+
+                            
+
                             </div>
 
 
@@ -1186,14 +1319,14 @@
   </DynamicScroller>
 
      <template v-else>
-        <div  class="col-12 scroller" 
+        <div  class="col-12 " 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
             background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:9999999; top:0%;padding-top:80px; padding-bottom:130px;  overflow-y:auto;">
 
               <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
 
-              <invitation :infoText="'Teach, mentor and grow your community here.'"
+              <invitation :infoText="'custom'"
                                    :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
 
             </template>
@@ -1333,11 +1466,21 @@
 
                              <!-- channel invitation -->
 
-                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center " style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
                                   <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                  <invitation :infoText="'Teach, mentor and grow your community here.'"
+                                  <invitation :infoText="'custom'"
                                    :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
+                            </div>
+
+                            <!-- ends -->
+
+                            <!-- youthube auth board -->
+
+                               <div  v-if="chatIsOpen && chatInnerConent == 'youtube_auth'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
+                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
+           class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
+                                <youtube-auth-board></youtube-auth-board>
                             </div>
 
                             <!-- ends -->
@@ -1399,12 +1542,14 @@
 
 
 
+
+
                               <!-- channel sidebar -->
 
                                <div v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32);  left:0; position:fixed; height:100%; top:0%;z-index:99999999999999999;" >
                                    <div style="position:absolute; height:100%; width:100%; left:0%;" >
 
-                                    <div class="scrollerinfo col-md-6 offset-md-6 px-0 py-0 pb-2" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
+                                    <div class=" col-md-6 offset-md-6 px-0 py-0 pb-2" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
                                      
                                         <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
 
@@ -1431,7 +1576,98 @@
 
                                         <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
 
-                                         
+                                        <resourcepage v-if="innerSideBarContent == 'resource_page'" ></resourcepage>
+
+                                         <resource-content v-if="innerSideBarContent == 'resource_content'" ></resource-content>
+
+                                                 <resource-url v-if="innerSideBarContent == 'add_resource_url'" ></resource-url>
+
+
+                                             <!-- fab screen -->
+
+                                  <template v-if="that.$root.showAddButton">
+                                   
+                                      <v-btn @click="toggleButton()"     fab color="#3C87CD"  style="z-index:9999999999;  position:fixed;  bottom:3%; right:2%; ">  
+
+                                  <v-icon style="font-size:24px; color:white;">{{this.buttonIcon}}</v-icon>
+
+                                    </v-btn> 
+
+                                    <!--new-->
+
+                                    <template v-if="that.$root.selectedResource.type == 'playlist'">
+
+                                      <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:fixed; heigth:auto;  bottom:14%; right:4%; ">
+                                  
+                                  <div class="mr-2">
+                                           <span style="font-size:13px;font-family:BodyFont; background:#3C87CD; color:white; " class="px-1 py-1 " >
+                                             Add videos from YouTube
+                                                  </span>
+                                  </div>
+                                  <div>
+                                 <v-btn small @click="goToSearch('youtube')"    fab color="#FF0000" >  
+
+                                  <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
+
+                                    </v-btn>
+                                  </div>
+
+                                      </div>
+
+
+                                 
+
+                                    </template>
+
+                                    <template v-else>
+
+                                   
+                                   <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:fixed; heigth:auto;  bottom:14%; right:4%; ">
+                                  
+                                  <div class="mr-2">
+                                           <span style="font-size:13px;font-family:BodyFont; background:#3C87CD; color:white; " class="px-1 py-1 ">
+                                             Add resource URL
+                                                  </span>
+                                  </div>
+                                  <div>
+                                 <v-btn small @click="goToSearch('link')"    fab color="#ffffff" >  
+
+                                  <v-icon style="font-size:20px; ">mdi mdi-link</v-icon>
+
+                                    </v-btn>
+                                  </div>
+
+                                      </div>
+
+
+                                      <div v-if="toggleAddButton== true" class=" d-flex flex-row" style="z-index:9999999999999; align-items:center; position:fixed;  heigth:auto; bottom:22%; right:4%; ">
+                                      
+                                        <div class="mr-2">
+                                           <span style="font-size:13px;font-family:BodyFont;  background:#3C87CD; color:white; " class="px-1 py-1 " >
+                                             Add Dev.to articles
+                                                  </span>
+                                  </div>
+
+                                      <div>
+
+                                          <v-btn  @click="goToSearch('devto')" small    fab color="#ffffff" >  
+
+                               <img style="height:20px;width:20px;" src="imgs/devto.png" alt="">
+
+                                    </v-btn>
+                                    
+                                      </div>
+
+                                      </div>
+
+                                    </template>
+
+
+                                          </template>
+
+                                    <!--new-->
+
+                                 <!-- ends -->
                                     
                                    </div>
 
@@ -1480,6 +1716,20 @@
                                <div  id="audios-container-sm" v-show="false"></div>
                               <!-- ends -->
 
+
+            
+                <!-- youtube video player -->
+
+                                       <div v-if="that.$root.showYoutubePlayerSm" style="position:fixed; height:100%; background: rgba(27, 27, 30, 0.32); left:0; position:fixed; height:100%; top:0%;z-index:99999999999999999;" class="d-flex flex-row col-md-6 px-0 py-0 text-center">
+                                         
+                                         <div style=" height:auto; left:0%; " class=" col-12 px-0 py-0">
+                                             <youtube-player :screenType="'small'" :playerHeight="220" :videoId="that.$root.playingVideoId"></youtube-player>
+                                         </div>
+
+                                         </div>
+
+
+                                   <!-- ends -->
                          
                              <!-- live session -->
 
@@ -1565,11 +1815,12 @@
 
 
 
-     <v-btn  fab color="#3C87CD"  v-if="that.$root.ChatList.length > 0" @click="showCreateChannel" class="d-lg-none d-inline-block" style="z-index:99999;  position:fixed;  bottom:3%; right:3%; ">
+     <v-btn  fab color="#3C87CD"  v-if="that.$root.ChatList.length > 0" @click="showCreateChannel" class="d-lg-none d-inline-block" style="z-index:999999;  position:fixed;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:24px; color:white;">mdi mdi-chat-plus-outline</v-icon>
 
      </v-btn>
+
 
 
        <!-- ends -->
@@ -1758,7 +2009,7 @@
  <!-- ends -->
 
 
-    </div>
+    </v-app>
 </template>
 <script>
 
@@ -1828,6 +2079,9 @@ const Interest= () => import(
     /* webpackChunkName: "ChannelEdit" */ './ChannelEdit.vue'
   );
 
+const resourcepage= () => import(
+    /* webpackChunkName: "ResourcePage" */ './Resourcesdisplay.vue'
+  );
      const SubChannels = () => import(
     /* webpackChunkName: "SubChannels" */ './SubChannels.vue'
   );
@@ -1908,6 +2162,22 @@ const Interest= () => import(
    /* webpackChunkName: "ResourceSearch" */ './ResourceSearch.vue'
   );
 
+  const ResourceContent = () => import(
+   /* webpackChunkName: "ResourceContent" */ './ResourceContent.vue'
+  );
+
+    const ResourceUrl = () => import(
+   /* webpackChunkName: "ResourceUrl" */ './ResourceUrl.vue'
+  );
+
+
+  const YoutubePlayer = () => import(
+   /* webpackChunkName: "YoutubePlayer" */ './YoutubePlayer.vue'
+  );
+
+  const YoutubeAuthBoard = () => import(
+   /* webpackChunkName: "YoutubeAuthBoard" */ './YoutubeAuthBoard.vue'
+  );
 import VueZoomer from 'vue-zoomer'
 
 Vue.use(VueZoomer)
@@ -1985,7 +2255,9 @@ export default {
       xpLeft:0,
       barValue:0,
       pic:'',
-       pic1:''
+       pic1:'',
+        toggleAddButton:false,
+        buttonIcon:'las la-plus'
      
       }
     },
@@ -2015,6 +2287,7 @@ export default {
         ImageViewer,
         ChannelInfo,
         ChannelEdit,
+        resourcepage,
         SubChannels,
         CreateChannel,
         LiveSession,
@@ -2035,11 +2308,48 @@ export default {
          PaymentInfoBoard,
          PaymentProcessor,
          AddPayment,
+         ResourceContent,
          PointInfoBoard,
          MentorInfo,
          ResourceSearch,
+         YoutubePlayer,
+         ResourceUrl,
+         YoutubeAuthBoard,
     },
      methods:{
+
+       //new functions begin
+
+  goToSearch: function(type){
+
+     this.$root.showAddButton = false;
+
+      if(type == 'link'){
+          this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/add_resource_url' });
+        return;
+      }
+    if(this.$router.currentRoute.path.indexOf('resource_search') >= 0){
+this.$root.resourceSearchType= type
+    }else{
+       this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_search' });
+ this.$root.resourceSearchType= type
+    }
+
+      },
+
+
+toggleButton: function(){
+if(this.toggleAddButton== false){
+
+  this.buttonIcon='mdi-close mdi-18px'
+this.toggleAddButton= true
+}else if(this.toggleAddButton==true){
+this.toggleAddButton= false
+ this.buttonIcon='las la-plus'
+}
+},
+
+       //new functions end
 
      becomeMentor:function(){
             this.$root.showPointDetailsInfo = true;
@@ -2105,7 +2415,7 @@ export default {
        }
       )
        }
-
+  
        
 
     },
@@ -2113,8 +2423,13 @@ export default {
 goToDiary:function(){
     this.$router.push({ path: '/board/diary/list' });
 },
-   
-   
+preventClose:function(){
+
+},
+showResources:function(){
+     this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resources' });
+},
+ 
     shareProject:function(){
 
        this.$root.componentIsLoading = true;

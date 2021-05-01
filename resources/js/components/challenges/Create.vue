@@ -14,7 +14,7 @@
         </div>
 
          <div class="col-6 py-0 my-0 text-right">
-             <v-btn :disabled="!formstate" @click="createChallenge" :loading="loading" small rounded  color="#3C87CD" style="font-size:12px; text-transform:none; font-weight:bolder; color:white;font-family:MediumFont;">
+             <v-btn :disabled="!formstate || rulesContent == '' || description == ''" @click="createChallenge" :loading="loading" small rounded  color="#3C87CD" style="font-size:12px; text-transform:none; font-weight:bolder; color:white;font-family:MediumFont;">
                <template v-if="this.$route.params.type == 'new'">
                   Create
              </template>
@@ -221,7 +221,7 @@
 
              <div class="col-lg-12 py-1 my-2 px-2 text-left">
 
-              <v-press-editor v-model="rulesContent"  :height="'400px'" :placeholder="'Make sure most of the codes are yours'"></v-press-editor>
+              <v-press-editor  v-model="rulesContent"  :height="'400px'" :placeholder="'Make sure most of the codes are yours'"></v-press-editor>
              
              </div>
              
@@ -1065,6 +1065,12 @@ this.judgeType='everyone';
 
          }
        
+      },
+
+      disableForm:function(){
+        !this.formstate
+        this.rulesContent=''
+        this.description=''
       },
 
         fetchChannels(){
