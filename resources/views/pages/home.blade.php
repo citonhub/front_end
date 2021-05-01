@@ -41,6 +41,10 @@
 
 }
 
+body{
+  background-image:url('/imgs/backgroundHome.png')
+}
+
 .messagesBadges{
 
     color: #ffffff;
