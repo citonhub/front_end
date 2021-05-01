@@ -138,6 +138,8 @@
 <a href="/dashboard#/sign-up" class="homeButton  px-3 py-3  " style="font-size:13px;">Get started for FREE</a>
 </div>
 
+
+
 <!--intro section ends-->
 
 
@@ -416,13 +418,20 @@ can directly donate or subscribe to your private community where they can access
 
 </div>
 
+
 <div class="col-12 text-center mt-5  d-block d-md-none">
 <a href="/dashboard#/sign-up" class="homeButton  px-3 py-3  " style="font-size:13px;">Get started for FREE</a>
 </div>
 
 <div class="col-12 text-center mt-0 d-md-block  d-none">
-<a href="/dashboard#/sign-up" class="homeButton m1-4 px-5 py-3  ">Get started for FREE</a>
+<a href="/dashboard#/sign-up" class="homeButton  px-5 py-3  ">Get started for FREE</a>
 </div>
+
+<div class="col-12 pb-0 pt-0 mt-5  d-block d-md-none text-center">
+
+<a href="https://play.google.com/store/apps/details?id=com.citonhub.app" target="_blank"><img src="/imgs/google_play.png" alt="Citonhub - Android app" style="width: 150px; " /></a>
+</div>
+
 <!-- ends -->
 
 
