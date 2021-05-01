@@ -26,7 +26,7 @@
   :src="'https://www.youtube.com/embed/' + that.$root.playingYoutubeVideo.content.id + '?enablejsapi=1&rel=0'"
   frameborder="0"></iframe>  
 
-    <div class="col-12 px-1 py-1 d-flex flex-column" style="background:white;">
+    <div class="col-12 px-2 py-1 d-flex flex-column" style="background:white;">
    
         <div class="d-flex flex-row" style="align-items:center;">
               <div  style="font-family:MediumFont;font-size:14px; text-align:left;"  >
