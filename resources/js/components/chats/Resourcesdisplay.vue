@@ -1,15 +1,15 @@
 <template>
     <div style="background:transparent;height:100%:">
-   <div class="col-12 py-1 my-0">
+   <div class="col-12 py-0 my-0">
     <div class="row">
-        <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky; background:white; cursor:pointer; top:0%; align-items:center;">
-            <div class=" col-2 px-1 py-0">
+        <div class="col-12 px-2 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky; background:white; cursor:pointer; top:0%; align-items:center;">
+            <div class=" col-2 px-1 py-1">
               <v-btn icon @click.stop="goBack">
                       <v-icon>las la-arrow-left</v-icon>
                     </v-btn>
             </div>
           
-             <div class="col-8 py-0 px-0 d-flex flex-row" style="align-items:center;">
+             <div class="col-8 py-1 px-0 d-flex flex-row" style="align-items:center;">
 
                    <div class="col-6 py-1 d-flex" :style="selectedTab == 'playlists' ? 'align-items:center; justify-content:center;border-bottom:3px solid #3C87CD' : 'align-items:center; justify-content:center;border-bottom:1px solid #c5c5c5'"  @click="showPlaylist">
                      <span  style="font-size:14px; font-family:MediumFont;">Playlists</span>

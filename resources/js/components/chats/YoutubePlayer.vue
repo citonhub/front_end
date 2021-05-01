@@ -9,7 +9,7 @@
 
     <template v-if="loadingVideo">
 
-      <div class="d-flex flex-row" :style="'position:absolute;height:' + playerHeight + 'px; width:100%; background:white; align-items:center;justify-content:center;'">
+      <div class="d-flex flex-row" :style="'height:' + playerHeight + 'px;  background:white; align-items:center;justify-content:center;'">
             
             <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
       </div>
@@ -204,8 +204,10 @@ export default {
      }) 
       },
       subscribeToChannel:function(){
-
-         this.$root.playingVideoSubState = 'subscribed';
+        
+         if(this.$root.youtube_connected){
+ 
+           this.$root.playingVideoSubState = 'subscribed';
 
         axios.post( '/subscribe-toChannel',{
 
@@ -227,11 +229,20 @@ export default {
       this.loadingVideo = false;
 
      }) 
+
+         }else{
+    
+             this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/youtube_auth' });
+
+         }
+        
            
       },
       rateVideo(type){
-           
-           if(this.$root.playingVideoRating == 'like' || this.$root.playingVideoRating == 'dislike'){
+
+          if(this.$root.youtube_connected){
+
+             if(this.$root.playingVideoRating == 'like' || this.$root.playingVideoRating == 'dislike'){
              
              type = 'none';
               
@@ -263,6 +274,12 @@ export default {
 
 
 
+          }else{
+
+             this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/youtube_auth' });
+
+          }
+           
       },
         preventClose:function(){
 
@@ -363,7 +380,7 @@ export default {
          
       },
       onPlayerReady:function(event){
-             console.log('ready')
+          
           this.player.playVideo();
       },
       onPlayerStateChange:function(event){
@@ -372,7 +389,7 @@ export default {
             this.player.playVideo();
          }
         
-        console.log('state change',event)
+     
       }
     }
 }

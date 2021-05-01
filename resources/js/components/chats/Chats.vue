@@ -147,7 +147,7 @@
                     
                      Hey <span style="font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, welcome to CitonHub! <br> <br>
                      
-                     Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. <br><br>
+                     Channel is where you engage your community and earn from <span style="font-family:MediumFont;">donations or membership</span>. <br><br>
 
                     
 
@@ -175,7 +175,7 @@
             <template v-else>
                 
                   <div class="mb-3 px-0 text-center" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>.
+                      Channel is where you engage your community and earn from <span style="font-family:MediumFont;">donations or membership</span>.
                     </div>
 
                      <div class="text-center">
@@ -434,7 +434,7 @@
 
             <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
 
-               <invitation :infoText="'Teach, mentor and grow your community here.'"
+               <invitation :infoText="'custom'"
                                    :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
 
             </template>
@@ -589,11 +589,21 @@
 
                                <!-- channel invitation -->
 
-                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center " @click="goBack" style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center d-flex flex-row " @click="goBack" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center;  border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                  <invitation :infoText="'Teach, mentor and grow your community here.'"
+                                  <invitation :infoText="'custom'"
                                    :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
+                            </div>
+
+                            <!-- ends -->
+
+                             <!-- youthube auth board -->
+
+                               <div  v-if="chatIsOpen && chatInnerConent == 'youtube_auth'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center;  border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
+                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
+           class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
+                                <youtube-auth-board></youtube-auth-board>
                             </div>
 
                             <!-- ends -->
@@ -773,7 +783,7 @@
                                       <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:12%; right:3%; ">
                                   
                                   <div class="mr-2">
-                                           <span style="font-size:13px;font-family:BodyFont; " >
+                                           <span sstyle="font-size:13px;font-family:BodyFont;  background:#3C87CD; color:white; " class="px-1 py-1 ">
                                              Add videos from YouTube
                                                   </span>
                                   </div>
@@ -800,7 +810,7 @@
                                    <div class=" d-flex flex-row"   v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:12%; right:3%; ">
                                   
                                   <div class="mr-2">
-                                           <span style="font-size:13px;font-family:BodyFont; " >
+                                           <span style="font-size:13px;font-family:BodyFont;  background:#3C87CD; color:white; " class="px-1 py-1 " >
                                              Add resource URL
                                                   </span>
                                   </div>
@@ -818,7 +828,7 @@
                                       <div v-if="toggleAddButton== true" class=" d-flex flex-row" style="z-index:9999999999999; align-items:center; position:absolute;  heigth:auto; bottom:20%; right:3%; ">
                                       
                                         <div class="mr-2">
-                                           <span style="font-size:13px;font-family:BodyFont; " >
+                                           <span style="font-size:13px;font-family:BodyFont; background:#3C87CD; color:white;" class="px-1 py-1 " >
                                              Add Dev.to articles
                                                   </span>
                                   </div>
@@ -1000,7 +1010,7 @@
                      
                      Hey <span style="font-family:MediumFont; text-transform:capitalize;">{{that.$root.authProfile.name}}</span>, welcome to CitonHub! <br> <br>
                      
-                     Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. <br><br>
+                     Channel is where you engage your community and earn from <span style="font-family:MediumFont;">donations or membership</span>. <br><br>
 
                   
 
@@ -1027,7 +1037,7 @@
             <template v-else>
                 
                   <div class="mb-3 px-2 text-center" style="font-size:13px;color:gray;font-family:BodyFont;">
-                      Channel is where you mentor, engage your community, and earn from <span style="font-family:MediumFont;">donations, subscriptions or paid sessions</span>. 
+                      Channel is where you engage your community and earn from <span style="font-family:MediumFont;">donations or membership</span>. 
                     </div>
 
                      <div class="text-center">
@@ -1309,14 +1319,14 @@
   </DynamicScroller>
 
      <template v-else>
-        <div  class="col-12 scroller" 
+        <div  class="col-12 " 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
             background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:9999999; top:0%;padding-top:80px; padding-bottom:130px;  overflow-y:auto;">
 
               <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
 
-              <invitation :infoText="'Teach, mentor and grow your community here.'"
+              <invitation :infoText="'custom'"
                                    :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
 
             </template>
@@ -1456,11 +1466,21 @@
 
                              <!-- channel invitation -->
 
-                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center " style="background: rgba(27, 27, 30, 0.32);  border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
                                   <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                  <invitation :infoText="'Teach, mentor and grow your community here.'"
+                                  <invitation :infoText="'custom'"
                                    :extraInfo="'Invite others to your channel'" :fromChat="true" :alertComponent="this"></invitation>
+                            </div>
+
+                            <!-- ends -->
+
+                            <!-- youthube auth board -->
+
+                               <div  v-if="chatIsOpen && chatInnerConent == 'youtube_auth'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
+                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
+           class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
+                                <youtube-auth-board></youtube-auth-board>
                             </div>
 
                             <!-- ends -->
@@ -1529,7 +1549,7 @@
                                <div v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32);  left:0; position:fixed; height:100%; top:0%;z-index:99999999999999999;" >
                                    <div style="position:absolute; height:100%; width:100%; left:0%;" >
 
-                                    <div class="scrollerinfo col-md-6 offset-md-6 px-0 py-0 pb-2" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
+                                    <div class=" col-md-6 offset-md-6 px-0 py-0 pb-2" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
                                      
                                         <div class="d-flex" v-if="that.$root.componentIsLoading" style="position:absolute;height:100%; width:100%; align-items:center; justify-content:center;">
 
@@ -1580,7 +1600,7 @@
                                       <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:fixed; heigth:auto;  bottom:14%; right:4%; ">
                                   
                                   <div class="mr-2">
-                                           <span style="font-size:12px;font-family:BodyFont; " >
+                                           <span style="font-size:13px;font-family:BodyFont; background:#3C87CD; color:white; " class="px-1 py-1 " >
                                              Add videos from YouTube
                                                   </span>
                                   </div>
@@ -1602,10 +1622,10 @@
                                     <template v-else>
 
                                    
-                                   <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:14%; right:4%; ">
+                                   <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:fixed; heigth:auto;  bottom:14%; right:4%; ">
                                   
                                   <div class="mr-2">
-                                           <span style="font-size:13px;font-family:BodyFont; " >
+                                           <span style="font-size:13px;font-family:BodyFont; background:#3C87CD; color:white; " class="px-1 py-1 ">
                                              Add resource URL
                                                   </span>
                                   </div>
@@ -1620,10 +1640,10 @@
                                       </div>
 
 
-                                      <div v-if="toggleAddButton== true" class=" d-flex flex-row" style="z-index:9999999999999; align-items:center; position:absolute;  heigth:auto; bottom:22%; right:4%; ">
+                                      <div v-if="toggleAddButton== true" class=" d-flex flex-row" style="z-index:9999999999999; align-items:center; position:fixed;  heigth:auto; bottom:22%; right:4%; ">
                                       
                                         <div class="mr-2">
-                                           <span style="font-size:13px;font-family:BodyFont; " >
+                                           <span style="font-size:13px;font-family:BodyFont;  background:#3C87CD; color:white; " class="px-1 py-1 " >
                                              Add Dev.to articles
                                                   </span>
                                   </div>
@@ -2155,6 +2175,9 @@ const resourcepage= () => import(
    /* webpackChunkName: "YoutubePlayer" */ './YoutubePlayer.vue'
   );
 
+  const YoutubeAuthBoard = () => import(
+   /* webpackChunkName: "YoutubeAuthBoard" */ './YoutubeAuthBoard.vue'
+  );
 import VueZoomer from 'vue-zoomer'
 
 Vue.use(VueZoomer)
@@ -2291,7 +2314,7 @@ export default {
          ResourceSearch,
          YoutubePlayer,
          ResourceUrl,
-        
+         YoutubeAuthBoard,
     },
      methods:{
 
@@ -2317,7 +2340,7 @@ this.$root.resourceSearchType= type
 
 toggleButton: function(){
 if(this.toggleAddButton== false){
-  console.log(this.buttonIcon)
+
   this.buttonIcon='mdi-close mdi-18px'
 this.toggleAddButton= true
 }else if(this.toggleAddButton==true){
@@ -2392,7 +2415,7 @@ this.toggleAddButton= false
        }
       )
        }
-
+  
        
 
     },

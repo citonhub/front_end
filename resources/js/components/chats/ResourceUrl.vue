@@ -128,6 +128,8 @@ export default {
 
      
        this.loading = false;
+       this.$root.forcereloadResource = true;
+         this.goBack();
             
      }
        

@@ -1,6 +1,14 @@
 <template>
     <div>
 
+       <template v-if="this.$root.forcereloadResource">
+             <div class="col-12  text-center">
+
+               <v-progress-circular color="#3C87CD" indeterminate width="3" size="25" ></v-progress-circular>
+
+             </div>
+       </template>
+
       <div class="col-12 py-0 px-0 hoverEffect" v-for="(content,index) in contents" :key="index" >
             <!-- youtube search display -->
         <template v-if="content.type == 'youtube_video'">

@@ -1712,6 +1712,56 @@ beforeEnter: (to, from, next) => {
     next()
   }
 },
+
+// youtub auth
+{ path: '/channels/:spaceId/youtube_auth',
+   name: 'YoutubeAuth',
+   meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+      if( thisUserState.$root.chatComponent){
+        thisUserState.$root.chatComponent.chatInnerSideBar = false;
+      thisUserState.$root.chatComponent.chatInnerConent = 'youtube_auth';
+      }
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+},
 // Channel invitation
 { path: '/channels/:spaceId/channel_invitation',
    name: 'ChannelInvitation',
@@ -2463,6 +2513,8 @@ const app = new Vue({
     playingVideoSubState:'',
     playingVideoRating:'',
     playVideoAuthState:false,
+    forcereloadResource:false,
+    youtube_connected:false,
      },
      mounted: function () {
       window.thisUserState = this;

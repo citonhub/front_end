@@ -59,7 +59,7 @@
               </template>
              </v-combobox>
 
-               <!-- profile search -->
+               <!-- devto search -->
 
                   <template v-if="showSuggestion">
 
@@ -224,6 +224,9 @@ export default {
 
      
        this.loading = false;
+
+       this.$root.forcereloadResource = true;
+       this.goBack();
             
      }
        
