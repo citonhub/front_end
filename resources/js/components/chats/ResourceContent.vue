@@ -221,7 +221,13 @@ export default {
     },
     mounted(){
       this.fetchResourceContent();
-      this.$root.showAddButton = true;
+      
+      if( this.$root.selectedResource.youtube_playlist_id !== null)
+           { that.$root.showAddButton=false}
+           else{
+this.$root.showAddButton = true;
+           }
+      
       this.setType();
       this.input =   htmlToText( this.$root.selectedResource.info, { });
 

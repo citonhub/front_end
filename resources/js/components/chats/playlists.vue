@@ -266,8 +266,11 @@ mounted(){
        
         },
       showContent:function(video){
+
+       
           
           this.$root.selectedResource = video;
+           
            this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_content/' + video.resource_id });
             this.$root.resourceContentType='videos'
       },

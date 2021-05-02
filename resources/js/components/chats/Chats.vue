@@ -785,7 +785,7 @@
                                       <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:12%; right:3%; ">
                                   
                                   <div class="mr-2">
-                                           <span sstyle="font-size:13px;font-family:BodyFont;  background:#3C87CD; color:white; " class="px-1 py-1 ">
+                                           <span style="font-size:13px;font-family:BodyFont;  background:#3C87CD; color:white; " class="px-1 py-1 ">
                                              Add videos from YouTube
                                                   </span>
                                   </div>
