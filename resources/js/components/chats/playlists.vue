@@ -134,14 +134,16 @@
 
    <template v-if="checkIfisOwner() && !has_youtube_resource">
 
-     <div class="col-12 text-center">
-
-          <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">Create playlist from your YouTube channel</div>
-
-    </div>
+    
      
 
-      <div class="col-12 text-center" >
+      <div class="col-12 py-1 text-center" style="margin-top:70px;">
+
+       <div class="col-12 text-center py-1">
+
+          <div style="font-family:BodyFont;font-size:13px; color:grey;" class=" text-center">Create playlist from your YouTube channel</div>
+
+    </div>
 
           <template v-if="youtube_connected">
 

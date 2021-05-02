@@ -132,13 +132,15 @@
 
     <template v-if="checkIfisOwner() && !has_devto_resource">
 
-       <div class="col-12 text-center">
+       <div class="col-12 py-1 text-center" style="margin-top:70px;">
+
+          <div class="col-12 py-1 text-center">
 
           <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">Create resource from your DevTo articles</div>
 
     </div>
 
-      <div class="col-12 px-1  d-flex flex-row" style="align-items:center;" v-if="showAddArticle">
+      <div class="col-12 px-1 py-1 d-flex flex-row" style="align-items:center;" v-if="showAddArticle">
             <input style="width:100%;heigth:100%;font-size:13px;background:whitesmoke;border-radius:2px;font-family:BodyFont; text-transform:none;"  
                   placeholder="Your devto username" class="py-2 px-3" type="search" v-model="devtoUsername"  @keyup.enter="importDevtoArticle()"> 
 
@@ -148,7 +150,7 @@
       </div>
      
 
-      <div class="col-12 text-center" v-else>
+      <div class="col-12 py-1 text-center" v-else>
             <v-btn  @click="showAddArticle = true" rounded medium outlined style="font-family:BodyFont;font-size:13px; text-transform:none;" color="#000000">
                <img  src="/imgs/devto.png" height="27px" class="px-2" >
 
@@ -156,6 +158,10 @@
             </v-btn>
       </div>
 
+
+       </div>
+
+      
     </template>
 
 
