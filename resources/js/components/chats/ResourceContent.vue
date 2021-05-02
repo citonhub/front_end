@@ -35,7 +35,7 @@
             
             <div class="d-flex flex-row col-12 py-0 px-0" style="align-items:center;">
             <div >
-               <h6 class="d-inline-block">Description</h6> <v-btn x-small icon @click="showEditDesc ? showEditDesc = false : showEditDesc = true"> <v-icon>las la-edit</v-icon> </v-btn>
+               <h6 class="d-inline-block">Description</h6> <v-btn v-if="checkIfisOwner()" x-small icon @click="showEditDesc ? showEditDesc = false : showEditDesc = true"> <v-icon>las la-edit</v-icon> </v-btn>
             </div>
             
             </div>
