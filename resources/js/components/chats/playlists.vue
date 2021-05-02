@@ -1,6 +1,21 @@
 <template>
-  <div class="py-1 px-0">
-    
+  <div class="py-0 px-0">
+        <div class="col-12 px-1 py-0 pt-0 fixed-top d-flex flex-row" style="position:sticky; background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
+            <div class=" mr-1 col-2 pt-1 pb-0 px-1">
+              <v-btn icon @click="goBack">
+                      <v-icon>las la-arrow-left</v-icon>
+                    </v-btn>
+            </div>
+          
+             <div class="col-8 pt-1 pb-0 text-center">
+             <span style="font-size:14px; font-family:MediumFont;">Playlists</span>
+          </div>
+              
+              <div class="col-2 py-0 mr-1 text-right">
+                 
+              </div>
+          
+        </div>
      
    
     <template v-if="loadingPlaylist">
@@ -17,17 +32,28 @@
 
        <template v-if="checkIfisOwner()">
 
-           <div class="  px-1 px-md-2 py-1 " >
+           <div class="  px-2 px-md-2 py-1 " >
 
-        <v-card flat class="d-flex flex-row px-1 py-1 col-12" style="background: rgba(125, 179, 229, 0.4); align-items:center;">
-              <div class="mr-2 ">
-                 <v-icon color="#000000" class="ml-2">las la-play-circle</v-icon>
-              </div>
+        <v-card flat class="d-flex flex-row px-1 py-1 col-12 " style="background: rgba(125, 179, 229, 0.4); align-items:center;">
+        
 
-              <div style="width:100%;">
-               <input  v-model="playName"
+              <div style="width:100%;" class="d-flex flex-column" >
+
+                 <div >
+                     <input  v-model="playName"
+                     @focus="showTextarea = true"
               @keyup.enter="createPlaylists()"
               style="border:1px solid white; width:100%; border-radius:2px; font-family:BodyFont; font-size:13px; background:white;"  placeholder="Create a playlist" class="py-2 px-2" >
+                 </div>
+
+                 <div v-if="showTextarea || newPlaylistDesc != ''" class="mt-2">
+
+                   <textarea  @input="processContent" v-model="newPlaylistDesc" :placeholder="'What is this playlist about? Markdown is supported.'" class="py-2 px-2" style="border:1px solid white; width:100%; border-radius:2px; font-family:BodyFont; height:95px; font-size:13px; background:white;">
+
+                   </textarea>
+
+                 </div>
+             
               </div>
 
               <div class="ml-auto px-2">
@@ -48,7 +74,7 @@
      
 
    <draggable
-    class="d-flex flex-row flex-wrap col-12 py-1 px-1 px-md-2 "
+    class="d-flex flex-row flex-wrap col-12 py-1 px-2 px-md-2 "
      tag="div"
         v-model="playlists"
         handle=".handle"
@@ -166,6 +192,8 @@ data(){
          saving:false,
             drag: false,
          loadingPlaylist:false,
+         showTextarea:false,
+         newPlaylistDesc:'',
          loadingYoutubeConnect:false,
     lists:[
         'React Tutorial',
@@ -185,6 +213,7 @@ data(){
     has_youtube_resource:true,
     youtube_connected:false,
     playName:'',
+    contentInWord:'',
     loadingAuthBtn:false,
     }
 },
@@ -196,7 +225,21 @@ data(){
         disabled: false,
         ghostClass: "ghost"
       };
-    }
+    },
+      compiledMarkdown: function() {
+           
+             var renderer = new marked.Renderer();
+            renderer.link = function(href, title, text) {
+          var link = marked.Renderer.prototype.link.call(this, href, title, text);
+          return link.replace("<a","<a target='_blank' ");
+          };
+        marked.setOptions({
+          renderer: renderer    
+          });
+
+           return  marked(this.newPlaylistDesc, { sanitize: true });
+           
+          }
   },
 mounted(){
 
@@ -208,6 +251,18 @@ mounted(){
 
 ,
  methods:{
+   processContent:function(){
+
+     this.contentInWord = this.compiledMarkdown;
+   },
+    goBack:function(){
+              window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+
+             this.$root.chatComponent.innerSideBarContent = '';
+            
+            this.$root.chatComponent.innerSideBarContent = '';
+       
+        },
       showContent:function(video){
           
           this.$root.selectedResource = video;
@@ -517,15 +572,15 @@ mounted(){
     }, 
    
      createPlaylists:function(){
-       if(this.playName == '') return;
+       if(this.playName == '' || this.contentInWord == '') return;
        this.saving = true;
     axios.post('/create-resource',
     {
       
 space_id: this.$root.selectedSpace.space_id,
 name: this.playName,
-type:'playlist'
-
+type:'playlist',
+info: this.contentInWord
 
     }
     ).then(
@@ -556,10 +611,14 @@ type:'playlist'
 
              })
 
+               this.$root.channelHasResources = true
+
 
           this.playlists.unshift(response.data.resource)
 
            this.saveResourceOrder(false);
+
+           this.showContent(response.data.resource);
 
 
         }

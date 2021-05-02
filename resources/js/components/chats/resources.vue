@@ -1,6 +1,22 @@
 <template>
-  <div class="py-1 px-0">
+  <div class="py-0 px-0">
 
+   <div class="col-12 px-1 py-0 pt-0 fixed-top d-flex flex-row" style="position:sticky; background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
+            <div class=" mr-1 col-2 py-1 px-1">
+              <v-btn icon @click="goBack">
+                      <v-icon>las la-arrow-left</v-icon>
+                    </v-btn>
+            </div>
+          
+             <div class="col-8 py-1 text-center">
+             <span style="font-size:14px; font-family:MediumFont;">Resources</span>
+          </div>
+              
+              <div class="col-2 py-0 mr-1 text-right">
+                 
+              </div>
+          
+    </div>
 
     <template v-if="loadingResources">
         
@@ -15,18 +31,30 @@
 
         <template v-if="checkIfisOwner()">
 
-             <div class=" px-1 px-md-2 py-1  " >
+             <div class=" px-2 px-md-2 py-1  " >
    
       <v-card flat class="d-flex flex-row px-1 py-1 col-12 " style="background: rgba(125, 179, 229, 0.4); align-items:center;">
-              <div class="mr-2 ">
-                 <v-icon color="#000000" class="ml-2">las la-play-circle</v-icon>
+             
+               <div style="width:100%;" class="d-flex flex-column" >
+
+                 <div >
+                     <input   v-model="resourceName"
+                     @focus="showTextarea = true"
+               @keyup.enter="createResources()"
+              style="border:1px solid white; width:100%; border-radius:2px; font-family:BodyFont; font-size:13px; background:white;"  placeholder="Create a resource" class="py-2 px-2" >
+                 </div>
+
+                 <div v-if="showTextarea || newPlaylistDesc != ''" class="mt-2">
+
+                   <textarea  @input="processContent" v-model="newPlaylistDesc" :placeholder="'What is this resource about? Markdown is supported.'" class="py-2 px-2" style="border:1px solid white; width:100%; border-radius:2px; font-family:BodyFont; height:95px; font-size:13px; background:white;">
+
+                   </textarea>
+
+                 </div>
+             
               </div>
 
-              <div style="width:100%;">
-               <input  v-model="resourceName"
-              @keyup.enter="createResources()"
-              style="border:1px solid white; width:100%; border-radius:2px; font-family:BodyFont; font-size:13px; background:white;"  placeholder="Create a resource" class="py-2 px-2" >
-              </div>
+          
 
               <div class="ml-auto px-2">
                 <v-btn :loading="saving" icon style="background:white;" small  @click="createResources()">
@@ -46,7 +74,7 @@
       
 
        <draggable 
-         class="d-flex flex-row flex-wrap col-12 py-1 px-1 px-md-2 "
+         class="d-flex flex-row flex-wrap col-12 py-1 px-2 px-md-2 "
      tag="div"
         v-model="resources"
         handle=".handle"
@@ -139,6 +167,7 @@
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 export default {
 data(){
     return{
@@ -151,6 +180,8 @@ data(){
          drag: false,
          showAddArticle:false,
          devtoUsername:'',
+         showTextarea:false,
+          newPlaylistDesc:'',
          loadingDevtoConnect:false
     }
    
@@ -169,9 +200,35 @@ this.fetchResources();
         disabled: false,
         ghostClass: "ghost"
       };
-    }
+    },
+      compiledMarkdown: function() {
+           
+             var renderer = new marked.Renderer();
+            renderer.link = function(href, title, text) {
+          var link = marked.Renderer.prototype.link.call(this, href, title, text);
+          return link.replace("<a","<a target='_blank' ");
+          };
+        marked.setOptions({
+          renderer: renderer    
+          });
+
+           return  marked(this.newPlaylistDesc, { sanitize: true });
+           
+          }
   },
 methods:{
+   processContent:function(){
+
+     this.contentInWord = this.compiledMarkdown;
+   },
+   goBack:function(){
+              window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+
+             this.$root.chatComponent.innerSideBarContent = '';
+            
+            this.$root.chatComponent.innerSideBarContent = '';
+       
+        },
 
   importDevtoArticle:function(){
 
@@ -425,7 +482,7 @@ methods:{
      }
   ,
   createResources:function(){
-     if(this.resourceName == '') return;
+     if(this.resourceName == '' || this.contentInWord == '') return;
 
       this.saving = true;
     axios.post('/create-resource',
@@ -433,8 +490,8 @@ methods:{
       
 space_id: this.$root.selectedSpace.space_id,
 name: this.resourceName,
-type:'resource'
-
+type:'resource',
+info: this.contentInWord
 
     }
     ).then(
@@ -462,11 +519,13 @@ type:'resource'
                  }
 
              })
-
+         
+           this.$root.channelHasResources = true
 
           this.resources.unshift(response.data.resource)
 
         this.saveResourceOrder(false);
+         this.showContent(response.data.resource);
             this.saving = false;
         }
       }

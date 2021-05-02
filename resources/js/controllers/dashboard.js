@@ -1029,7 +1029,7 @@ beforeEnter: (to, from, next) => {
         thisUserState.$root.showYoutubePlayer = false;
         thisUserState.$root.showYoutubePlayerSm = false;
         thisUserState.$root.chatComponent.chatInnerSideBar = true;
-        thisUserState.$root.chatComponent.innerSideBarContent = 'resource_page';
+        thisUserState.$root.chatComponent.innerSideBarContent = 'playlists';
          
     
             
@@ -1157,7 +1157,7 @@ beforeEnter: (to, from, next) => {
         thisUserState.$root.showYoutubePlayer = false;
         thisUserState.$root.showYoutubePlayerSm = false;
         thisUserState.$root.chatComponent.chatInnerSideBar = true;
-        thisUserState.$root.chatComponent.innerSideBarContent = 'resource_page';
+        thisUserState.$root.chatComponent.innerSideBarContent = 'resources';
          
     
             
@@ -2515,6 +2515,8 @@ const app = new Vue({
     playVideoAuthState:false,
     forcereloadResource:false,
     youtube_connected:false,
+    defaultSearchValue:'',
+    channelHasResources:false,
      },
      mounted: function () {
       window.thisUserState = this;

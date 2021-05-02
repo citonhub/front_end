@@ -13,51 +13,25 @@
              <div class=" py-0 text-center" style="width:100%;">
                <template v-if="this.$root.resourceSearchType != 'devto'">
                  <input style="width:100%;heigth:100%;font-size:13px;background:whitesmoke;border-radius:13px;font-family:BodyFont;"  
-                  :placeholder="placeholder" class="py-2 px-3" type="search" v-model="searchQuery"  @keyup.enter="searchSite()"> 
+                  :placeholder="placeholder" class="py-2 px-3" type="search" v-model="searchQuery" autofocus @keyup.enter="searchSite()"> 
                </template>
 
                <template v-else>
-               <div class="col-12 px-0 py-0"  style="height:45px;">
-                <v-combobox
-                 style="font-size:13px;"
-              dense
-            class="mb-0"
-            placeholder="Type tags"
-           
+               <div class="col-12 px-0 py-0"  style="height:50px;">
+                 <v-text-field
+                  class="mb-0"
+            placeholder="Search DevTo"
             chips
             outlined
-             @keydown="searchTags"
+             style="font-size:13px;"
+              dense
+              @keyup.enter="searchSite()"
+             counter="30"
              v-model="searchQuery"
              color="#3C87CD">
 
-              <template v-slot:selection="data">
-            <v-chip
-              :key="JSON.stringify(data.item)"
-              v-bind="data.attrs"
-              :input-value="data.selected"
-              color="#3C87CD"
-              dense
-              small
-              class="my-1"
-              style="font-size:12px; font-family:BodyFont;"
-              outlined
-              :disabled="data.disabled"
-          
-            >
-
-              <template v-if="data.item.name">
-              {{ data.item.name }}
-              </template>
-
-              <template v-else>
-              {{ data.item }}
-              </template>
-             
-            
-            </v-chip>
-
-              </template>
-             </v-combobox>
+                 </v-text-field>
+           
 
                <!-- devto search -->
 
@@ -179,10 +153,14 @@ export default {
     },
     mounted(){
     this.$root.componentIsLoading = false;
+     
     this.alterSearch();
-    this.fetchDevToTags();
+   // this.fetchDevToTags();
     this.$root.showAddButton = false;
     this.$root.resourcesSearchComponent = this;
+  
+       
+      
     },
     methods:{
       selectTag:function(tag){
@@ -366,12 +344,18 @@ export default {
            }
 
             if(this.$root.resourceSearchType == 'devto'){
+
+               if(this.searchQuery == '') return;
+
+              let lowerCased = this.searchQuery.toLowerCase();
          
-             let searchString = this.searchQuery.toString();
+             let searchStringArray = lowerCased.split(" ");
+
+        
 
               this.devToPageCount++
     
-                axios.get( `/search-devto/${searchString}/${this.devToPageCount}` )
+                axios.get( `/search-devto/${JSON.stringify(searchStringArray)}/${this.devToPageCount}` )
       .then(response => {
       
       if (response.status == 200) {
@@ -414,6 +398,15 @@ export default {
         alterSearch(){
 
              this.placeholder = 'Search ' + this.$root.resourceSearchType
+
+             if(this.$root.resourceSearchType == 'youtube' || this.$root.resourceSearchType == 'devto'){
+                this.searchQuery = this.$root.selectedResource.name;
+
+               this.searchSite();
+
+             }
+
+              
       
         },
 
@@ -465,10 +458,17 @@ export default {
 
 
            if(this.$root.resourceSearchType == 'devto'){
-         
-             let searchString = this.searchQuery.toString();
+
+              if(this.searchQuery == '') return;
+
+
+            let lowerCased = this.searchQuery.toLowerCase();
+
+             let searchStringArray = lowerCased.split(" ");
+
+               this.devToPageCount = 1;
     
-                axios.get( `/search-devto/${searchString}` )
+                axios.get( `/search-devto/${JSON.stringify(searchStringArray)}` )
       .then(response => {
       
       if (response.status == 200) {

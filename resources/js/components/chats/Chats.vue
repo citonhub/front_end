@@ -759,7 +759,9 @@
 
                                           <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
 
-                                          <resourcepage v-if="innerSideBarContent == 'resource_page'" ></resourcepage>
+                                          <playlist v-if="innerSideBarContent == 'playlists'" ></playlist>
+
+                                          <resources v-if="innerSideBarContent == 'resources'" ></resources>
 
                                             <resource-content v-if="innerSideBarContent == 'resource_content'" ></resource-content>
 
@@ -1576,7 +1578,9 @@
 
                                         <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
 
-                                        <resourcepage v-if="innerSideBarContent == 'resource_page'" ></resourcepage>
+                                        <playlist v-if="innerSideBarContent == 'playlists'" ></playlist>
+
+                                          <resources v-if="innerSideBarContent == 'resources'" ></resources>
 
                                          <resource-content v-if="innerSideBarContent == 'resource_content'" ></resource-content>
 
@@ -2178,6 +2182,11 @@ const resourcepage= () => import(
   const YoutubeAuthBoard = () => import(
    /* webpackChunkName: "YoutubeAuthBoard" */ './YoutubeAuthBoard.vue'
   );
+
+  const playlist = () => import(/* webpackChunkName: "playlist" */ './playlists');
+const resources = () => import(/* webpackChunkName: "resource" */ './resources');
+
+
 import VueZoomer from 'vue-zoomer'
 
 Vue.use(VueZoomer)
@@ -2315,6 +2324,8 @@ export default {
          YoutubePlayer,
          ResourceUrl,
          YoutubeAuthBoard,
+         playlist,
+         resources,   
     },
      methods:{
 

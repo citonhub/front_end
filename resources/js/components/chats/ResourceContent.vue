@@ -3,7 +3,7 @@
     <div class="col-12 px-1 py-1 pt-0 fixed-top d-flex flex-row" style="position:sticky; background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
            
            
-            <div class=" mr-1 col-2 px-1 py-0">
+            <div class=" mr-1 col-2 px-1 pt-1 pb-0">
               <v-btn icon @click.stop="goBack">
                       <v-icon>las la-arrow-left</v-icon>
                     </v-btn>
@@ -11,7 +11,7 @@
 
             
           
-             <div class="col-8 py-0 text-center" style="white-space: nowrap; overflow:hidden; text-overflow:ellipsis; ">
+             <div class="col-8 pt-1 pb-0 text-center" style="white-space: nowrap; overflow:hidden; text-overflow:ellipsis; ">
              <span style="font-size:14px; font-family:MediumFont;">{{that.$root.selectedResource.name}}</span>
             </div>
               
@@ -32,13 +32,23 @@
         </template>
         <template v-else>
           <div class="col-12 px-2 px-md-2">
+            
+            <div class="d-flex flex-row col-12 py-0 px-0" style="align-items:center;">
+            <div >
+               <h6 class="d-inline-block">Description</h6> <v-btn x-small icon @click="showEditDesc ? showEditDesc = false : showEditDesc = true"> <v-icon>las la-edit</v-icon> </v-btn>
+            </div>
+            
+            </div>
+          
      
-         <span style="font-size:13px;font-family:BodyFont; " v-html="that.$root.selectedResource.info"  v-if="that.$root.selectedResource.user_id != that.$root.user_temp_id">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis totam praesentium sequi, suscipit officia numquam aut, voluptatibus culpa cumque ducimus ab quasi necessitatibus nulla omnis assumenda, ratione enim! Odit, quod?
+         <span style="font-size:13px;font-family:BodyFont; color:grey;" v-html="that.$root.selectedResource.info"  v-if="that.$root.selectedResource.user_id != that.$root.user_temp_id">
+          
          </span>
 
-         <div  v-else style="width:100%; height:100px;">
-        <v-textarea
+         <div  v-else style="width:100%;">
+           <template v-if="showEditDesc">
+
+             <v-textarea
                 style="font-size:13px;font-family:BodyFont; "
                  
              dense
@@ -52,6 +62,16 @@
              color="#3C87CD"
             
              ></v-textarea>
+
+           </template>
+           <template v-else>
+
+             <span style="font-size:13px;font-family:BodyFont;  color:grey;" v-html="that.$root.selectedResource.info"  >
+          
+         </span>
+
+           </template>
+        
          </div>
 
         
@@ -61,9 +81,17 @@
       </div>
 
     
-        <div style="background:transparent;font-family:BodyFont; " class="col-12 py-1 my-0 px-1 px-md-2 " >
-
+        <div style="background:transparent;font-family:BodyFont; " class="col-12 py-1 my-0 px-2 px-md-2 " >
       
+        <template v-if="that.$root.selectedResource.type == 'playlist'">
+           <h6>Videos</h6>
+        </template>
+
+        <template v-else>
+          <h6>Links and articles</h6>
+        </template>
+      
+
         <template v-if="resources.length > 0">
 
            <resource :contents="resources" :show_add_icon="false"></resource>
@@ -88,7 +116,7 @@
         <template v-else>
 
               <template v-if="that.$root.selectedResource.type == 'playlist'">
-            <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">No video in this playlist yet.</div>
+            <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-4 text-center">No video in this playlist yet.</div>
 
             <div class="col-12 py-1 text-center mt-2" v-if="checkIfisOwner()">
 
@@ -102,7 +130,7 @@
            </template>
 
            <template v-else>
-                <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">No article or resource URL in this resource yet.</div>
+                <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-4 text-center">No article or resource URL in this resource yet.</div>
 
              <div class="col-12 py-1 text-center d-flex flex-row mt-2 flex-wrap" v-if="checkIfisOwner()">
 
@@ -166,6 +194,7 @@ export default {
         loadingInfo:false,
         loadingContent:false,
         input:'',
+        showEditDesc:false,
         loadingNextPage:false,
         nextPageToken:''
     }
@@ -245,6 +274,8 @@ this.$root.resourceSearchType= type
             if(response.status == 200){
              
                this.loadingInfo = false;
+
+               this.$root.selectedResource.info = this.contentInWord;
             }
           }
         )
@@ -279,6 +310,7 @@ this.$root.resourceSearchType= type
     
            let results = response.data.result;
 
+          
            let finalResult = [];
 
              results.forEach((data)=>{
@@ -372,6 +404,13 @@ this.$root.resourceSearchType= type
                  if(result != null ){
 
                     let finalResult = JSON.parse(result);
+
+                      if(finalResult.length == 0){
+              this.$root.showAddButton = false;
+                  }else{
+                      this.$root.showAddButton = true;
+                  }
+
                 
                        this.resources = finalResult
 
@@ -392,6 +431,12 @@ this.$root.resourceSearchType= type
           this.$root.LocalStore('channel_resource_content_' + this.$root.selectedResource.resource_id  + this.$root.username,response.data.contents);
 
         this.resources = response.data.contents;
+
+         if( this.resources.length == 0){
+              this.$root.showAddButton = false;
+                  }else{
+                      this.$root.showAddButton = true;
+                  }
 
      this.loadingContent = false;
      
@@ -426,6 +471,13 @@ this.$root.resourceSearchType= type
           this.$root.LocalStore('channel_resource_content_' + this.$root.selectedResource.resource_id  + this.$root.username,response.data.contents);
 
         this.resources = response.data.contents;
+
+        if( this.resources.length == 0){
+              this.$root.showAddButton = false;
+                  }else{
+                      this.$root.showAddButton = true;
+                  }
+
     
          this.$root.forcereloadResource = false;
   

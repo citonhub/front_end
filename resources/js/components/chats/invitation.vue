@@ -16,7 +16,9 @@
                    <span style="font-family:BodyFont; font-size:13px; color:grey;">Here is your brand new channel where you engage your community.</span>
                     </div>
 
-                      <div  style="font-family:MediumFont; font-size:14px;" class="mt-3 px-2">Set up your channel</div>
+                     <template v-if="!that.$root.channelHasResources">
+
+                        <div  style="font-family:MediumFont; font-size:14px;" class="mt-3 px-2">Set up your channel</div>
 
                      <div class="col-12 py-1 px-2 text-left">
                 
@@ -36,7 +38,7 @@
                       </div>
 
                      </v-card>
-                       <v-card tile flat   @click="handleSetUp('devto')"  class="py-2 px-2 d-flex flex-row col-12" style="border-bottom:1px solid #c5c5c5;">
+                       <v-card tile flat   @click="handleSetUp('devto')"  class="py-2 px-2 d-flex flex-row col-12" >
                      
                       <div class="mr-2">
                         
@@ -50,9 +52,13 @@
 
                      </v-card>
 
+                     </template>
+
+                     
+
                   
 
-                       <div  style="font-family:MediumFont; font-size:14px;" class="mt-5 mb-2 px-2">Invite people</div>
+                       <div  v-if="that.$root.channelHasResources" style="font-family:MediumFont; font-size:14px;" class="mt-5 mb-2 px-2">Invite people</div>
 
                     </div>
 
@@ -83,7 +89,9 @@
 
                    <div class="row">
 
-                  <v-card tile flat class="py-2 px-2 d-flex flex-row col-12" @click="copyLink" style="border-bottom:1px solid #c5c5c5;border-top:1px solid #c5c5c5;">
+                     <template  v-if="infoText != 'custom' || that.$root.channelHasResources">
+
+                        <v-card tile flat class="py-2 px-2 d-flex flex-row col-12" @click="copyLink" style="border-bottom:1px solid #c5c5c5;border-top:1px solid #c5c5c5;">
                      
                       <div class="mr-2">
 
@@ -155,6 +163,10 @@
                       </div>
 
                      </v-card>
+
+                     </template>
+
+                 
 
                    </div>
 
@@ -317,10 +329,50 @@ export default {
    
   },
    mounted(){
-     
+      this.channelHasResources();
     },
     methods:{
-     
+
+    channelHasResources:function(){
+
+       let storedPlaylist = this.$root.getLocalStore('channel_playlist_' + this.$root.selectedSpace.space_id  + this.$root.username);
+ 
+             storedPlaylist.then((result)=>{
+
+            
+                 if(result != null ){
+
+                   this.$root.channelHasResources = true
+          
+
+                 }else{
+              
+                   this.$root.channelHasResources = false
+
+                 }
+
+             })
+
+       let storedResouces = this.$root.getLocalStore('channel_resource_' + this.$root.selectedSpace.space_id  + this.$root.username);
+ 
+             storedResouces.then((result)=>{
+
+
+                 if(result != null ){
+
+                  this.$root.channelHasResources = true
+          
+
+                 }else{
+          
+                 this.$root.channelHasResources = false
+
+
+                 }
+
+             })
+
+    },
       sendToConnections:function(){
         this.selectedExtraOptions = true;
 
