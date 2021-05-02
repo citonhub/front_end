@@ -199,13 +199,13 @@ export default {
       .then(response => {
       
       if (response.status == 200) {
-
+  this.loading = false;
      if(this.$root.selectedResource.type== 'playlist'){
  this.$root.chatComponent.showAlert('Added!','video added to playlist','success');
        } else{
          this.$root.chatComponent.showAlert('Added!','the resource has been added','success');
        }
-       this.loading = false;
+     
 
        this.$root.forcereloadResource = true;
        this.goBack();
