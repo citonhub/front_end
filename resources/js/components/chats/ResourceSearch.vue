@@ -199,15 +199,18 @@ export default {
       .then(response => {
       
       if (response.status == 200) {
-  this.loading = false;
-     if(this.$root.selectedResource.type== 'playlist'){
- this.$root.chatComponent.showAlert('Added!','video added to playlist','success');
-       } else{
-         this.$root.chatComponent.showAlert('Added!','the resource has been added','success');
-       }
+
      
+       this.loading = false;
 
        this.$root.forcereloadResource = true;
+
+         if(this.$root.selectedResource.type== 'playlist'){
+ this.$root.chatComponent.showAlert('Added!','video added to playlist','success','bottomRight',3000);
+       } else{
+         this.$root.chatComponent.showAlert('Added!','resource has been added','success','bottomRight',3000);
+       }
+
        this.goBack();
             
      }
@@ -526,15 +529,14 @@ export default {
             this.loadingSearch = false;
 
             
-     }
+       }
        
-     
-     })
-     .catch(error => {
+         })
+       .catch(error => {
 
          this.loadingSearch = false;
     
-     }) 
+        }) 
 
            }
 

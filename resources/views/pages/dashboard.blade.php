@@ -76,7 +76,6 @@
 
 <!-- Video player and streaming, third-party scripts -->
 
-
   <script  defer src="{{ asset('js/shaka-player.compiled.js') }}"></script>
 
    <script defer src="{{ asset('js/shaka-player.ui.js') }}"></script>
@@ -92,7 +91,7 @@
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=7.34') }}"></script>
+ <script src="{{ asset('js/dashboard.js?v=7.35') }}"></script>
  <!-- ends -->
      
  @endsection
