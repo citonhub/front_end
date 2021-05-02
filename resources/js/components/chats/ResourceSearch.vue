@@ -200,7 +200,11 @@ export default {
       
       if (response.status == 200) {
 
-     
+     if(this.$root.selectedResource.type== 'playlist'){
+ this.$root.chatComponent.showAlert('Added!','video added to playlist','success');
+       } else{
+         this.$root.chatComponent.showAlert('Added!','the resource has been added','success');
+       }
        this.loading = false;
 
        this.$root.forcereloadResource = true;
