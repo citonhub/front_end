@@ -353,6 +353,8 @@ export default {
 
              })
 
+   if(!this.$root.channelHasResources){
+
        let storedResouces = this.$root.getLocalStore('channel_resource_' + this.$root.selectedSpace.space_id  + this.$root.username);
  
              storedResouces.then((result)=>{
@@ -360,10 +362,14 @@ export default {
 
                  if(result != null ){
 
+                   
+
                   this.$root.channelHasResources = true
           
 
                  }else{
+
+                  
           
                  this.$root.channelHasResources = false
 
@@ -372,6 +378,9 @@ export default {
 
              })
 
+
+   }
+     
     },
       sendToConnections:function(){
         this.selectedExtraOptions = true;
