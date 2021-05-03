@@ -487,20 +487,7 @@
 
                                    </div>
 
-                                       <!-- show code button -->
-
-                                   <div class="  ml-auto" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'"  >
-
-                                        <v-btn  @click="showCodeEditor" class="mb-2"   fab color="#ffffff"  style="z-index:9999999;">
-
-                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
-
-                              </v-btn>
-
-                                   </div>
-                              
-
-                              <!-- ends -->
+                                     
                               
 
                                </div>
@@ -1407,20 +1394,7 @@
 
                               <!-- ends -->
 
-                                       <!-- show code button -->
-
-                                   <div class="  ml-auto" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'"  >
-
-                                        <v-btn  @click="showCodeEditor" class="mb-2"   fab color="#ffffff"  style="z-index:9999999;">
-
-                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
-
-                              </v-btn>
-
-                                   </div>
-                              
-
-                              <!-- ends -->
+                                   
                               
 
                                </div>

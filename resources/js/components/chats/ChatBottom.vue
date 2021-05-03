@@ -30,6 +30,9 @@
                        <v-btn icon class="mx-md-1" v-if="showAttachment && this.$root.selectedSpace.type != 'Bot'" @click="showShareBoard"> 
            <v-icon>las la-paperclip</v-icon> </v-btn>
 
+                <v-btn icon class="mx-md-1" v-if="showAttachment && this.$root.selectedSpace.type != 'Bot'" @click="showCodeEditor"> 
+              <v-icon>las la-code</v-icon> </v-btn>
+
                           <!-- send  -->
                   <v-btn icon class="mx-md-1" @click="sendMessage" v-if="showSend"><v-icon>las la-send</v-icon> </v-btn>
 
@@ -147,6 +150,11 @@ export default {
           this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id +'/share' });
  
       },
+         showCodeEditor:function(){
+           this.$root.componentIsLoading = true;
+            this.$root.codeFromChat = false;
+            this.$router.push({ path: '/channels/' + this.$root.selectedSpace.space_id +'/editor' });
+        },
       reFocusEditor:function(){
       this.$refs.textBottom.$el.focus();
       },

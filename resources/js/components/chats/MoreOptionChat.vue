@@ -8,7 +8,7 @@
 
                                         
 
-                                          <v-icon class="mr-1">las la-folder</v-icon>   <span style="font-family:BodyFont;font-size:13px;color:grey;">Resources</span>
+                                          <v-icon class="mr-1">las la-play-circle</v-icon>   <span style="font-family:BodyFont;font-size:13px;color:grey;">Resources</span>
 
                                          </v-card>
 
