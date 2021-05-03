@@ -471,7 +471,7 @@
 
                                    <template v-if="that.$root.Messages.length >  0">
 
-                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"  class="mb-n5"  fab x-small color="#ffffff"  style="z-index:9999999;  ">
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"  class="mb-n2"  fab x-small color="#ffffff"  style="z-index:9999999;  ">
 
                                <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
 
@@ -1362,7 +1362,7 @@
 
                                    <template v-if="that.$root.Messages.length >  0">
 
-                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"  class="mb-n4"  fab x-small color="#ffffff"  style="z-index:9999999;  ">
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"    fab x-small color="#ffffff"  style="z-index:9999999;  ">
 
                                <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
 
@@ -1379,22 +1379,7 @@
                                    </div>
 
 
-                              <!-- share diary -->
-                          
-                           <div  class="ml-auto" v-if="that.$root.selectedSpace.type ==  'Bot'">
-
-                                       <v-btn @click="shareDiary()" v-if="chatIsOpen" class="mb-2"   fab x-small color="#ffffff"  style="z-index:9999999; ">
-
-                               <v-icon style="font-size:20px; color:#3C87CD;">mdi mdi-share-variant</v-icon>
-
-                              </v-btn>
-
-                                   </div>
-
-
-                              <!-- ends -->
-
-                                   
+                            
                               
 
                                </div>
