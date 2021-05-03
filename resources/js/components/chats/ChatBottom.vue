@@ -16,8 +16,6 @@
                  ref="textBottom"
                  @input.native="update" 
                   @keydown.native="handelkeyAct"
-                   @focus.native="focusEditor"  
-                   @blur.native="blurEditor"
                  :value="input"
                   :important="true"
                  :class="screenType == 'large' ? 'textareaLg' : 'textareaSm' "
@@ -209,7 +207,12 @@ export default {
            
              if(this.wordCount > 0){
           
-                  this.showSend = true;
+                    this.showAttachment = false;
+         
+          this.$root.showEmojiBox = false
+
+             this.showSend = true;
+
           
              this.isTyping();
 
@@ -220,6 +223,8 @@ export default {
          }else{
 
                this.showSend = false;
+
+                this.showAttachment = true;
 
            this.textHeight = 35;
          }

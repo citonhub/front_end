@@ -459,11 +459,11 @@
 
                                   
                                
-                               <div class="d-flex flex-row col-12 py-0" v-if="!this.$root.showRootReply && !that.$root.showEmojiBox">
+                               <div class="d-flex flex-row col-12 py-2" v-if="!this.$root.showRootReply && !that.$root.showEmojiBox">
 
                                   <!-- scroll to buttom -->
 
-                                   <div class="mr-auto py-0  " v-if="that.$root.Messages && !this.$root.showRootReply" >
+                                   <div class="ml-auto py-0  " v-if="that.$root.Messages && !this.$root.showRootReply" >
 
                                          <!-- scroll to bottom  -->
 
@@ -471,7 +471,7 @@
 
                                    <template v-if="that.$root.Messages.length >  0">
 
-                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"  class="mb-n2"  fab x-small color="#ffffff"  style="z-index:9999999;  ">
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"  class="mb-n5"  fab x-small color="#ffffff"  style="z-index:9999999;  ">
 
                                <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
 
@@ -1354,7 +1354,7 @@
 
                                   <!-- scroll to buttom -->
 
-                                   <div class="mr-auto py-0  " v-if="that.$root.Messages && !this.$root.showRootReply" >
+                                   <div class="ml-auto py-2  " v-if="that.$root.Messages && !this.$root.showRootReply" >
 
                                          <!-- scroll to bottom  -->
 
@@ -1362,7 +1362,7 @@
 
                                    <template v-if="that.$root.Messages.length >  0">
 
-                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"    fab x-small color="#ffffff"  style="z-index:9999999;  ">
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"  class="mb-n4"  fab x-small color="#ffffff"  style="z-index:9999999;  ">
 
                                <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
 
