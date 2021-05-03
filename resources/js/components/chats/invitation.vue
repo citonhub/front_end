@@ -403,7 +403,7 @@ export default {
       handleSetUp:function(type){
 
          if(type == 'youtube'){
-              this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/playlists' });
+              this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resources' });
          }
 
          if(type == 'devto'){

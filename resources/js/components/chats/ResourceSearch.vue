@@ -10,14 +10,14 @@
                     </v-btn>
             </div>
             
-             <div class=" py-0 text-center" style="width:100%;">
+             <div class=" py-0 text-center d-flex flex-row" style="width:100%; align-items:center;">
                <template v-if="this.$root.resourceSearchType != 'devto'">
                  <input style="width:100%;heigth:100%;font-size:13px;background:whitesmoke;border-radius:13px;font-family:BodyFont;"  
                   :placeholder="placeholder" class="py-2 px-3" type="search" v-model="searchQuery" autofocus @keyup.enter="searchSite()"> 
                </template>
 
                <template v-else>
-               <div class="col-12 px-0 py-0"  style="height:50px;">
+               <div class=" px-0 py-0"  style="height:43px;width:100%;">
                  <v-text-field
                   class="mb-0"
             placeholder="Search DevTo"
@@ -26,7 +26,6 @@
              style="font-size:13px;"
               dense
               @keyup.enter="searchSite()"
-             counter="30"
              v-model="searchQuery"
              color="#3C87CD">
 
@@ -52,6 +51,12 @@
 
                <!-- ends -->
 
+               </div>
+
+               <div class="col-3 px-0 py-0 ml-1">
+                       <select   style="border:1px solid grey; width:100%; border-radius:2px; font-family:BodyFont; font-size:13px; background:white;"  v-model="searchType" class="py-2 px-2" >
+                    <option v-for="(option,index)  in searchFilter" :value="option.value" :key="index + 'type'">{{ option.name}}</option>
+                     </select> 
                </div>
                     
 
@@ -146,6 +151,17 @@ export default {
          queryContent:'',
          devToPageCount:1,
          loading:false,
+         searchType:'tags',
+         searchFilter:[
+           {
+             name:'by tags',
+             value:'tags'
+           },
+           {
+             name:'by username',
+             value:'username'
+           }
+         ]
         }
     },
     components:{
@@ -362,7 +378,7 @@ export default {
 
               this.devToPageCount++
     
-                axios.get( `/search-devto/${JSON.stringify(searchStringArray)}/${this.devToPageCount}` )
+                axios.get( `/search-devto/${JSON.stringify(searchStringArray)}/${this.devToPageCount}/${this.devToPageCount}` )
       .then(response => {
       
       if (response.status == 200) {
@@ -475,7 +491,7 @@ export default {
 
                this.devToPageCount = 1;
     
-                axios.get( `/search-devto/${JSON.stringify(searchStringArray)}` )
+                axios.get( `/search-devto/${JSON.stringify(searchStringArray)}/1/${this.searchType}` )
       .then(response => {
       
       if (response.status == 200) {

@@ -302,6 +302,14 @@
                               
                             </div>
 
+                            <!-- floating resource button -->
+
+                            <div style="position:absolute; z-index:99999999; right:-20px;top:11%;">
+                              <v-btn @click="showResources" small color="#ffffff" rounded >   <v-icon  class="mr-4" color="#404040" >las la-folder</v-icon></v-btn>
+                            </div>
+
+                            <!-- ends -->
+
                           <div v-if="that.$root.Messages.length != 0" style="position:absolute;width:100%;height:100%; left:0%;background:#E1F0FC;">
 
                               <DynamicScroller
@@ -759,8 +767,6 @@
 
                                           <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
 
-                                          <playlist v-if="innerSideBarContent == 'playlists'" ></playlist>
-
                                           <resources v-if="innerSideBarContent == 'resources'" ></resources>
 
                                             <resource-content v-if="innerSideBarContent == 'resource_content'" ></resource-content>
@@ -1201,6 +1207,15 @@
 
                             </div>
 
+                        
+                            <!-- floating resource button -->
+
+                            <div style="position:fixed; z-index:9999999999; right:-22px;top:9%;">
+                              <v-btn @click="showResources" small color="#ffffff" rounded >   <v-icon  class="mr-4" color="#404040">las la-folder</v-icon></v-btn>
+                            </div>
+
+                            <!-- ends -->
+
 
   <DynamicScroller
     :items="that.$root.Messages"
@@ -1479,8 +1494,8 @@
 
                             <!-- youthube auth board -->
 
-                               <div  v-if="chatIsOpen && chatInnerConent == 'youtube_auth'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
-                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
+                               <div  v-if="chatIsOpen && chatInnerConent == 'youtube_auth'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999999999;" >
+                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:99999999999;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
                                 <youtube-auth-board></youtube-auth-board>
                             </div>
@@ -1578,7 +1593,6 @@
 
                                         <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
 
-                                        <playlist v-if="innerSideBarContent == 'playlists'" ></playlist>
 
                                           <resources v-if="innerSideBarContent == 'resources'" ></resources>
 
@@ -1724,7 +1738,7 @@
             
                 <!-- youtube video player -->
 
-                                       <div v-if="that.$root.showYoutubePlayerSm" style="position:fixed; height:100%; background: rgba(27, 27, 30, 0.32); left:0; position:fixed; height:100%; top:0%;z-index:99999999999999999;" class="d-flex flex-row col-md-6 px-0 py-0 text-center">
+                                       <div v-if="that.$root.showYoutubePlayerSm" style="position:fixed; height:100%; background: rgba(27, 27, 30, 0.32); left:0; position:fixed; height:100%; top:0%;z-index:99999999999999;" class="d-flex flex-row col-md-6 px-0 py-0 text-center">
                                          
                                          <div style=" height:auto; left:0%; " class=" col-12 px-0 py-0">
                                              <youtube-player :screenType="'small'" :playerHeight="220" :videoId="that.$root.playingVideoId"></youtube-player>
@@ -2183,7 +2197,7 @@ const resourcepage= () => import(
    /* webpackChunkName: "YoutubeAuthBoard" */ './YoutubeAuthBoard.vue'
   );
 
-  const playlist = () => import(/* webpackChunkName: "playlist" */ './playlists');
+
 const resources = () => import(/* webpackChunkName: "resource" */ './resources');
 
 
@@ -2324,7 +2338,6 @@ export default {
          YoutubePlayer,
          ResourceUrl,
          YoutubeAuthBoard,
-         playlist,
          resources,   
     },
      methods:{

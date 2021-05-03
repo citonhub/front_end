@@ -9,7 +9,7 @@
              </div>
        </template>
 
-      <div class="col-12 py-0 px-0 hoverEffect" v-for="(content,index) in contents" :key="index" >
+      <div class="col-12 py-1 px-0 hoverEffect" v-for="(content,index) in contents" :key="index" >
             <!-- youtube search display -->
         <template v-if="content.type == 'youtube_video'">
 
@@ -263,14 +263,30 @@ export default {
     methods:{
         processURL:function(link){
 
-       
-          let FullString = link
+    let psl = require('psl');
+     let FullString = link
 
-      var  firstProcess = FullString.substring(8);
+     function extractHostname(url) {
+    var hostname;
+    //find & remove protocol (http, ftp, etc.) and get hostname
 
-       var  finalProcess = firstProcess.slice(0, -1);
+    if (url.indexOf("//") > -1) {
+        hostname = url.split('/')[2];
+    }
+    else {
+        hostname = url.split('/')[0];
+    }
 
-       return finalProcess;
+    //find & remove port number
+    hostname = hostname.split(':')[0];
+    //find & remove "?"
+    hostname = hostname.split('?')[0];
+
+    return hostname;
+      }
+
+       return psl.get(extractHostname(FullString));
+
 
     },
         shortenContent: function(content,limit){
