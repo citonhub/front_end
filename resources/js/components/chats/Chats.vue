@@ -1210,7 +1210,7 @@
                         
                             <!-- floating resource button -->
 
-                            <div style="position:fixed; z-index:9999999999; right:-22px;top:9%;">
+                            <div style="position:fixed; z-index:9999999999; right:-22px;top:14%;">
                               <v-btn @click="showResources" small color="#ffffff" rounded >   <v-icon  class="mr-4" color="#404040">las la-folder</v-icon></v-btn>
                             </div>
 

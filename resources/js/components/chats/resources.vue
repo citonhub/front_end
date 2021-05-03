@@ -80,12 +80,15 @@
 
         </template>
 
+     
+
       
 
        <draggable 
          class="d-flex flex-row flex-wrap col-12 py-1 px-2 px-md-2 "
      tag="div"
         v-model="resources"
+        v-if="resources.length != 0"
         handle=".handle"
         v-bind="dragOptions"
         @start="drag = true"
@@ -138,6 +141,18 @@
         </v-card>     
 
        </draggable>
+
+          <template v-else>
+
+              <div class="col-12 mt-2 text-center">
+
+                 <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">No resource added yet</div>
+
+
+             </div>
+
+          
+        </template>
 
 
  <template v-if="checkIfisOwner() && !has_youtube_resource">
