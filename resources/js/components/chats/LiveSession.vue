@@ -560,6 +560,10 @@ export default {
 
        },
        checkIfMaster: function(){
+
+          if(this.$root.selectedSpace.type == 'Direct'){
+                 return true
+             }
      
       let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
    
@@ -568,9 +572,7 @@ export default {
 
            if(userMemberData.length != 0){
 
-             if(this.$root.selectedSpace.type == 'Direct'){
-                 return userMemberData[0].master_user
-             }
+            
 
              return userMemberData[0].is_admin;
 
@@ -601,13 +603,13 @@ export default {
                }
                
 
-        //  this.$root.sendLiveSignal('audio');
+         this.$root.sendLiveSignal('audio');
 
            
           
         }else{
 
-      //    this.$root.sendLiveSignal('audio');
+         this.$root.sendLiveSignal('audio');
 
       //  this.$root.screenSharingOn = true; 
 
@@ -644,7 +646,7 @@ export default {
 
           this.$root.showVideoScreen = true;
 
-           //this.$root.sendLiveSignal('screen');
+           this.$root.sendLiveSignal('screen');
 
           this.$root.screenSharingOn = true;
           
@@ -661,7 +663,7 @@ export default {
             
              this.$root.showVideoScreen = true;
 
-          // this.$root.sendLiveSignal('screen');
+           this.$root.sendLiveSignal('screen');
 
              this.$root.remoteScreen = true;
                this.$root.liveIsOn = true;
