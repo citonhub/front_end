@@ -305,7 +305,7 @@
                             <!-- floating resource button -->
 
                             <div style="position:absolute; z-index:99999999; right:-20px;top:11%;">
-                              <v-btn @click="showResources" small color="#ffffff" rounded >   <v-icon  class="mr-4" color="#404040" >las la-folder</v-icon></v-btn>
+                              <v-btn @click="showResources" small color="#ffffff" rounded >   <v-icon  class="mr-4" color="#404040" >las la-play-circle</v-icon></v-btn>
                             </div>
 
                             <!-- ends -->
@@ -1210,8 +1210,8 @@
                         
                             <!-- floating resource button -->
 
-                            <div style="position:fixed; z-index:9999999999; right:-22px;top:14%;">
-                              <v-btn @click="showResources" small color="#ffffff" rounded >   <v-icon  class="mr-4" color="#404040">las la-folder</v-icon></v-btn>
+                            <div style="position:fixed; z-index:9999999999; right:-22px;top:70px;"   v-if="that.$root.Messages.length != 0">
+                              <v-btn @click="showResources" small color="#ffffff" rounded >   <v-icon  class="mr-4" color="#404040">las la-play-circle</v-icon></v-btn>
                             </div>
 
                             <!-- ends -->
