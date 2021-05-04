@@ -120,7 +120,7 @@ body{
 </div>
 
 <div class="col-12 text-center mt-5 d-md-block  d-none">
-<a href="/dashboard#/sign-up" class="homeButton  px-5 py-3  ">Get started for FREE</a>
+<a href="/dashboard#/channels/create" class="homeButton  px-5 py-3  ">Get started for FREE</a>
 </div>
 
 
@@ -139,7 +139,7 @@ body{
 </div>
 
 <div class="col-12 text-center mt-5  d-block d-md-none">
-<a href="/dashboard#/sign-up" class="homeButton  px-3 py-3  " style="font-size:13px;">Get started for FREE</a>
+<a href="/dashboard#/channels/create" class="homeButton  px-3 py-3  " style="font-size:13px;">Get started for FREE</a>
 </div>
 
 
@@ -436,11 +436,11 @@ can directly donate or subscribe to your private community where they can access
 
 
 <div class="col-12 text-center mt-5  d-block d-md-none">
-<a href="/dashboard#/sign-up" class="homeButton  px-3 py-3  " style="font-size:13px;">Get started for FREE</a>
+<a href="/dashboard#/channels/create" class="homeButton  px-3 py-3  " style="font-size:13px;">Get started for FREE</a>
 </div>
 
 <div class="col-12 text-center mt-0 d-md-block  d-none">
-<a href="/dashboard#/sign-up" class="homeButton  px-5 py-3  ">Get started for FREE</a>
+<a href="/dashboard#/channels/create" class="homeButton  px-5 py-3  ">Get started for FREE</a>
 </div>
 
 <div class="col-12 pb-0 pt-0 mt-5  d-block d-md-none text-center">

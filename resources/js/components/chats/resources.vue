@@ -166,7 +166,7 @@
 
        <div class="col-12 text-center py-1">
 
-          <div style="font-family:BodyFont;font-size:13px; color:grey;" class=" text-center">Import vidoes from your YouTube channel</div>
+          <div style="font-family:BodyFont;font-size:13px; color:grey;" class=" text-center">If you have a YouTube channel, import your videos </div>
 
     </div>
 

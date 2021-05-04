@@ -3015,6 +3015,24 @@ this.pic1='/imgs/platinum.svg'
               
 
            }
+
+       
+            if(this.$router.currentRoute.path.indexOf('create') >= 0){
+                    
+                      this.$root.showCreateChannel = false;
+
+             this.$root.componentIsLoading = true;
+
+    
+
+          this.chatbarContent = '';
+          this.chatInnerConent = '';
+
+         
+              this.chatbarContent = 'create_channel';
+
+                 }
+
           
             if(this.$route.params.spaceId != undefined){
 
