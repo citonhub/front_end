@@ -2453,6 +2453,7 @@ const app = new Vue({
     youtube_connected:false,
     defaultSearchValue:'',
     channelHasResources:false,
+    autoOpenResourcePage:false
      },
      mounted: function () {
       window.thisUserState = this;

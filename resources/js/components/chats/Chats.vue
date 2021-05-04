@@ -304,7 +304,8 @@
 
                             <!-- floating resource button -->
 
-                            <div style="position:absolute; z-index:99999999; right:-20px;top:11%;">
+                            <div style="position:absolute; z-index:99999999; right:-20px;top:11%;" 
+                              v-if="(that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'SubSpace' || that.$root.selectedSpace.type == 'Team') && that.$root.Messages.length != 0">
                               <v-btn @click="showResources" small color="#ffffff" rounded >   <v-icon  class="mr-4" color="#404040" >las la-play-circle</v-icon></v-btn>
                             </div>
 
@@ -1197,7 +1198,8 @@
                         
                             <!-- floating resource button -->
 
-                            <div style="position:fixed; z-index:9999999999; right:-22px;top:70px;"   v-if="that.$root.Messages.length != 0">
+                            <div style="position:fixed; z-index:9999999999; right:-22px;top:70px;"   v-if="" 
+                            v-if="(that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'SubSpace' || that.$root.selectedSpace.type == 'Team') && that.$root.Messages.length != 0">
                               <v-btn @click="showResources" small color="#ffffff" rounded >   <v-icon  class="mr-4" color="#404040">las la-play-circle</v-icon></v-btn>
                             </div>
 
@@ -1451,15 +1453,7 @@
 
                             <!-- ends -->
 
-                            <!-- youthube auth board -->
-
-                               <div  v-if="chatIsOpen && chatInnerConent == 'youtube_auth'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999999999;" >
-                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:99999999999;" 
-           class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                <youtube-auth-board></youtube-auth-board>
-                            </div>
-
-                            <!-- ends -->
+                          
 
 
                              <!-- message options -->
@@ -1694,10 +1688,21 @@
                               <!-- ends -->
 
 
+                                <!-- youthube auth board -->
+
+                               <div  v-if="chatIsOpen && chatInnerConent == 'youtube_auth'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:99999999999999;" >
+                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:99999999999999999;" 
+           class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
+                                <youtube-auth-board></youtube-auth-board>
+                            </div>
+
+                            <!-- ends -->
+
+
             
                 <!-- youtube video player -->
 
-                                       <div v-if="that.$root.showYoutubePlayerSm" style="position:fixed; height:100%; background: rgba(27, 27, 30, 0.32); left:0; position:fixed; height:100%; top:0%;z-index:99999999999999;" class="d-flex flex-row col-md-6 px-0 py-0 text-center">
+                                       <div v-if="that.$root.showYoutubePlayerSm" style="position:fixed; height:100%; background: rgba(27, 27, 30, 0.32); left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" class="d-flex flex-row col-md-6 px-0 py-0 text-center">
                                          
                                          <div style=" height:auto; left:0%; " class=" col-12 px-0 py-0">
                                              <youtube-player :screenType="'small'" :playerHeight="220" :videoId="that.$root.playingVideoId"></youtube-player>
@@ -3019,6 +3024,12 @@ this.pic1='/imgs/platinum.svg'
 
                }else{
 
+                 if(this.$router.currentRoute.path.indexOf('resources') >= 0){
+                    
+                   this.$root.autoOpenResourcePage = true;
+
+                 }
+
                   this.liveSessionIsOpen = false;
       this.chatShareIsOpen = false;
       this.imageCropperIsOpen = false;
@@ -4011,6 +4022,12 @@ let FinalMessages= finalResult.direct_messages.filter(chat=>{
      
             this.botMessager();
      
+      }
+
+      if(this.$root.autoOpenResourcePage){
+
+        this.showResources();
+
       }
 
 

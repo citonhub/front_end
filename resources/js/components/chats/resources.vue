@@ -13,7 +13,9 @@
           </div>
               
               <div class="col-2 py-0 mr-1 text-right">
-                 
+                  <v-btn icon @click="shareResource">
+                      <v-icon>mdi mdi-share-variant</v-icon>
+                    </v-btn>
               </div>
           
     </div>
@@ -274,6 +276,17 @@ this.fetchResources();
           }
   },
 methods:{
+  shareResource:function(){
+      this.$root.shareLink =  'https://link.citonhub.com/resources/'+ this.$root.selectedSpace.space_id;
+
+          this.$root.shareText = 'Check out ' + this.$root.selectedSpace.name + ' on CitonHub';
+          
+          this.$root.infoText = 'Share resources with others';
+
+          this.$root.alertComponent =   this.$root.chatComponent;
+
+          this.$root.showInvitation = true;
+  },
    processContent:function(){
 
      this.contentInWord = this.compiledMarkdown;

@@ -121,7 +121,7 @@ class PageController extends Controller
            
    
            $pageTitle = $thisSpace->name;
-           $pageDescription = 'Join ' . $thisSpace->name . ' ' . $thisSpace->type  .' on Citonhub.';
+           $pageDescription = 'Join ' . $thisSpace->name  .' on Citonhub.';
    
              if($thisSpace->image_name == null){
                 $imagePath = 'logo.png';
@@ -131,6 +131,25 @@ class PageController extends Controller
           
             
                $pageLink = '/dashboard#/channels/' . $uniqueId .'/content';
+              
+           
+           }
+
+           if($type == 'resources'){
+            $thisSpace = Space::where('space_id',$uniqueId)->first();
+           
+   
+           $pageTitle = $thisSpace->name;
+           $pageDescription = 'Resources for ' . $thisSpace->name  .' on Citonhub.';
+   
+             if($thisSpace->image_name == null){
+                $imagePath = 'logo.png';
+             }else{
+                $imagePath = 'space/' . $thisSpace->image_name .'.' . $thisSpace->image_extension;
+             }
+          
+            
+               $pageLink = '/dashboard#/channels/' . $uniqueId .'/resources';
               
            
            }
