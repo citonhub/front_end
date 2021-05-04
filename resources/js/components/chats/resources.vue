@@ -303,11 +303,8 @@ methods:{
 
       },
    goBack:function(){
-              window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
-
-             this.$root.chatComponent.innerSideBarContent = '';
             
-            this.$root.chatComponent.innerSideBarContent = '';
+             this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/content' });
        
         },
 

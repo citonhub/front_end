@@ -1198,7 +1198,7 @@
                         
                             <!-- floating resource button -->
 
-                            <div style="position:fixed; z-index:9999999999; right:-22px;top:70px;"   v-if="" 
+                            <div style="position:fixed; z-index:9999999999; right:-22px;top:70px;"  
                             v-if="(that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'SubSpace' || that.$root.selectedSpace.type == 'Team') && that.$root.Messages.length != 0">
                               <v-btn @click="showResources" small color="#ffffff" rounded >   <v-icon  class="mr-4" color="#404040">las la-play-circle</v-icon></v-btn>
                             </div>
@@ -4026,7 +4026,8 @@ let FinalMessages= finalResult.direct_messages.filter(chat=>{
 
       if(this.$root.autoOpenResourcePage){
 
-        this.showResources();
+         this.$root.chatComponent.chatInnerSideBar = true;
+        this.$root.chatComponent.innerSideBarContent = 'resources';
 
       }
 

@@ -231,6 +231,9 @@ export default {
      }) 
 
          }else{
+
+           this.$root.showYoutubePlayer = false
+            this.$root.showYoutubePlayerSm = false
     
              this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/youtube_auth' });
 
@@ -275,6 +278,9 @@ export default {
 
 
           }else{
+
+              this.$root.showYoutubePlayer = false
+            this.$root.showYoutubePlayerSm = false
 
              this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/youtube_auth' });
 
