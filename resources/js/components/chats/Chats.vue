@@ -764,7 +764,7 @@
                                           
                                             <!-- fab screen -->
                                           
-                                          <template v-if="that.$root.showAddButton">
+                                          <template v-if="that.$root.showAddButton && checkIfisOwner()">
                                    
                                       <v-btn @click="toggleButton()"     fab color="#3C87CD"  style="z-index:99999999;  position:absolute;  bottom:3%; right:2%; ">  
 
@@ -1556,7 +1556,7 @@
 
                                              <!-- fab screen -->
 
-                                  <template v-if="that.$root.showAddButton">
+                                  <template v-if="that.$root.showAddButton && checkIfisOwner()">
                                    
                                       <v-btn @click="toggleButton()"     fab color="#3C87CD"  style="z-index:9999999999;  position:fixed;  bottom:3%; right:2%; ">  
 
