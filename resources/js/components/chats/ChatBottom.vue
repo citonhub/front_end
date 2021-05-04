@@ -504,6 +504,7 @@ export default {
           if( this.input.length == 0) return;
             this.input = '';
              this.showSend = false;
+               this.showAttachment = true;
 
             this.$root.showRootReply = false;
        
