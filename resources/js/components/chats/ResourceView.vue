@@ -190,7 +190,7 @@
      
 
 
-       <div class="col-12 py-3 text-center fixed-button" style="position:absolute; bottom:0%; left:0%; background:white;">
+       <div class="col-12 py-3 text-center fixed-bottom" style="position:absolute; bottom:0%; background:white;">
 
             <v-btn @click="goToChannel()" medium color="#3C87CD" style="color:white;text-transform:none;font-family:MediumFont;font-size:13px;" class="mx-2 d-inline-block" >
                      Join Channel
