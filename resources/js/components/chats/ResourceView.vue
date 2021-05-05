@@ -182,10 +182,15 @@
         
         
       </template>
+
+
+     <div class="col-12 py-4 my-4">
+
+      </div>
      
 
 
-       <div class="col-12 py-3 text-center" style="position:absolute; bottom:0%; left:0%; background:white;">
+       <div class="col-12 py-3 text-center fixed-button" style="position:absolute; bottom:0%; left:0%; background:white;">
 
             <v-btn @click="goToChannel()" medium color="#3C87CD" style="color:white;text-transform:none;font-family:MediumFont;font-size:13px;" class="mx-2 d-inline-block" >
                      Join Channel
@@ -211,9 +216,7 @@
       </template>
 
 
-      <div class="col-12 py-4 my-4">
-
-      </div>
+   
 
       
 
