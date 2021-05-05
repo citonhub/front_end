@@ -1,6 +1,6 @@
 <template>
 
-  <v-card tile :class="$screen.lg || $screen.md  ? 'col-8 offset-md-2  col-lg-4 offset-lg-4 px-0 py-0   ' : ' col-12 py-0 px-0  '"  :style="$screen.lg || $screen.md ? 'height:86%; position:absolute; top:7%; ' : 'height:100%;position:absolute;  left:0%;'"> 
+  <v-card tile :class="$screen.lg || $screen.md  ? 'col-8 offset-md-2  col-lg-4 offset-lg-4 px-0 py-0   ' : ' col-12 py-0 px-0  '"  :style="$screen.lg || $screen.md ? 'height:86%; position:absolute; top:7%;overflow-y:auto; ' : 'height:100%;position:absolute; overflow-y:auto; left:0%;'"> 
 
       
       <template v-if="loadingContent">
@@ -209,6 +209,11 @@
    
 
       </template>
+
+
+      <div class="col-12 py-4 my-4">
+
+      </div>
 
       
 
