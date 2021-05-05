@@ -107,7 +107,7 @@
                <h6 >Description</h6>
             
            <div>
-               <span style="font-size:13px;font-family:BodyFont; color:grey;" v-html="that.$root.selectedResource.info">
+               <span style="font-size:13px;font-family:BodyFont; color:grey;" v-html="selectedResource.info">
           
               </span>
            </div>
