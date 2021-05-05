@@ -14,7 +14,7 @@
         <template v-if="content.type == 'youtube_video'">
 
             <div class="col-12 pb-0 pt-0 px-0 d-flex flex-row" :style="content.content.id == that.$root.playingYoutubeVideoId ? ' align-items:center;background:whitesmoke;' : 'align-items:center;'" >
-            <div class="col-5 py-1 px-1" style="height:92px;" @click="handleResource(content,index)">
+            <div class="col-5 py-1 px-1" style="height:110px;" @click="handleResource(content,index)">
               <div :style="'position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url('+ content.content.snippet.thumbnails.default.url +');background-repeat: no-repeat; background-size:100%;'" >
              
                 <div style="align-items:center;background:rgba(0, 0, 0,0.1); justify-content:center; cursor:pointer; position:absolute; top:0; left:0; width:100%; height:100%;" class="px-1 py-1 d-flex">
@@ -133,7 +133,7 @@
         <template v-if="content.type == 'devto_article'">
 
             <div class="col-12  py-1 px-0 d-flex flex-row" style=" align-items:center;">
-            <div  @click="handleResource(content,index)" class="col-5 py-1 px-1" style="height:92px;">
+            <div  @click="handleResource(content,index)" class="col-5 py-1 px-1" style="height:110px;">
               <div :style="'position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url(' + content.content.cover_image +');background-repeat: no-repeat; background-size:cover;'" >
                
 
@@ -188,7 +188,7 @@
         <template v-if="content.type == 'shared_link'"> 
 
            <div  class="col-12  pb-0 pt-0 px-0 d-flex flex-row mt-1" style=" align-items:center;">
-            <div @click="handleResource(content,index)" class="col-5 py-1 px-1" style="height:84px;">
+            <div @click="handleResource(content,index)" class="col-5 py-1 px-1" style="height:110px;">
               <div :style="'position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url(' + content.content.image + ');background-repeat: no-repeat; background-size:cover;'" >
                
                  <div style="align-items:center;background:rgba(0, 0, 0,0.1); justify-content:center; cursor:pointer; position:absolute; top:0; left:0; width:100%; height:100%;" class="px-1 py-1 d-flex">
@@ -256,7 +256,7 @@ export default {
         
       }
     },
-    props:['show_add_icon','contents'],
+    props:['show_add_icon','contents','fromStandalone'],
     mounted(){
         this.$root.resourceComponent = this;
     },
@@ -323,7 +323,14 @@ export default {
 
             
              this.$root.playingYoutubeVideoId = content.content.id
-              if(this.$screen.lg){
+
+              if(this.fromStandalone){
+
+                this.$root.showYoutubePlayerTemp = true;
+
+              }else{
+
+                 if(this.$screen.lg){
 
               this.$root.showYoutubePlayer = true;
 
@@ -332,10 +339,10 @@ export default {
                  this.$root.showYoutubePlayerSm = true;
               }
 
-          if( this.$root.showYoutubePlayer ||  this.$root.showYoutubePlayerSm){
+              }
              
-              
-          }
+
+       
   
 
          

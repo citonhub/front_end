@@ -248,6 +248,7 @@ data(){
 mounted(){
 this.fetchResources();
   this.$root.showYoutubePlayer = false;
+  this.$root.autoOpenResourcePage = false;
         this.$root.showYoutubePlayerSm = false;
         this.$root.showAddButton = false;
 },

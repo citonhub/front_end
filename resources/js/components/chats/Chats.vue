@@ -1878,6 +1878,18 @@
 
  <!-- ends -->
 
+   <!-- resources view -->
+
+
+   <div class="py-0 px-0 d-flex flex-column" style="position:fixed;  width:100%; height:100%; z-index:99999999999999999;background: #F5F5FB;" v-if="that.$root.showResourceView || that.$root.showResourceViewContent">
+    
+    <resource-view></resource-view>
+       
+ </div>
+
+
+ <!-- ends -->
+
    <!-- share  -->
 
 
@@ -2164,6 +2176,7 @@ const resourcepage= () => import(
 
 const resources = () => import(/* webpackChunkName: "resource" */ './resources');
 
+const ResourceView = () => import(/* webpackChunkName: "ResourceView" */ './ResourceView');
 
 import VueZoomer from 'vue-zoomer'
 
@@ -2303,6 +2316,7 @@ export default {
          ResourceUrl,
          YoutubeAuthBoard,
          resources,   
+        ResourceView
     },
      methods:{
 
@@ -2986,12 +3000,24 @@ this.pic1='/imgs/platinum.svg'
                    return;
 
                }
+           
+              if(this.$router.currentRoute.path.indexOf('resources') >= 0){
+                    
+                    this.$router.push({ path: '/channels/e_resources/view/'+ this.$route.params.spaceId });
 
+                     return;
+
+                 }
+ 
+
+         }else{
+                 
+               
          }
 
 
-
-            this.$root.checkIfUserIsLoggedIn();
+         this.$root.checkIfUserIsLoggedIn();
+           
          return;
         }else{
 
@@ -3039,14 +3065,17 @@ this.pic1='/imgs/platinum.svg'
                if(this.$router.currentRoute.path.indexOf('payment') >= 0){
 
                this.$root.showPaymentProcessingBoard = true;
+               
 
                }else{
 
-                 if(this.$router.currentRoute.path.indexOf('resources') >= 0){
+                  if(this.$router.currentRoute.path.indexOf('resources') >= 0){
                     
                    this.$root.autoOpenResourcePage = true;
 
                  }
+
+                 
 
                   this.liveSessionIsOpen = false;
       this.chatShareIsOpen = false;
@@ -3082,6 +3111,8 @@ this.pic1='/imgs/platinum.svg'
        
 
                }
+
+              
 
             
      

@@ -525,6 +525,8 @@ beforeEnter: (to, from, next) => {
           thisUserState.$root.showProfileView = false;
           thisUserState.$root.showDiarySettings = false;
           thisUserState.selectedSpace = [];
+          thisUserState.$root.showResourceView  = false;
+          thisUserState.$root.showResourceViewContent = false;
           thisUserState.$root.chatComponent.chatbarContent = 'chat_list';
          }
 
@@ -615,6 +617,8 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.showYoutubePlayerSm = false;
       thisUserState.$root.showDiarySettings = false;
       thisUserState.$root.chatComponent.chatInnerConent = '';
+      thisUserState.$root.showResourceView  = false;
+      thisUserState.$root.showResourceViewContent = false;
         
       }
      
@@ -653,9 +657,115 @@ beforeEnter: (to, from, next) => {
     next()
   }
 },
+// show resources
+{ path: '/channels/e_resources/view/:spaceId',
+name: 'ResourcesView',
+meta: {
+ twModalView: true
+},
+beforeEnter: (to, from, next) => {
+ const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
 
 
+ if(window.thisUserState != undefined){
 
+   if( thisUserState.$root.chatComponent){
+
+   thisUserState.$root.showResourceView = true;
+   thisUserState.$root.showResourceViewContent = false;
+
+   }
+
+
+  }
+
+ if (!twModalView) {
+   //
+   // For direct access
+   //
+   to.matched[0].components = {
+     default: Chats,
+     modal: false
+   }
+ }
+
+ if (twModalView) {
+   //
+   // For twModalView access
+   //
+   if (from.matched.length > 1) {
+     // copy nested router
+     const childrenView = from.matched.slice(1, from.matched.length)
+     for (let view of childrenView) {
+       to.matched.push(view)
+     }
+   }
+   if (to.matched[0].components) {
+     // Rewrite components for `default`
+     to.matched[0].components.default = from.matched[0].components.default
+     // Rewrite components for `modal`
+     to.matched[0].components.modal = Chats
+   }
+ }
+
+ next()
+}
+},
+
+// show resources content
+{ path: '/channels/e_resources/content/:spaceId',
+name: 'ResourcesView',
+meta: {
+ twModalView: true
+},
+beforeEnter: (to, from, next) => {
+ const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+ if(window.thisUserState != undefined){
+
+   if( thisUserState.$root.chatComponent){
+     
+   thisUserState.$root.showResourceView = false;
+   thisUserState.$root.showResourceViewContent = true;
+
+   }
+
+
+  }
+
+ if (!twModalView) {
+   //
+   // For direct access
+   //
+   to.matched[0].components = {
+     default: Chats,
+     modal: false
+   }
+ }
+
+ if (twModalView) {
+   //
+   // For twModalView access
+   //
+   if (from.matched.length > 1) {
+     // copy nested router
+     const childrenView = from.matched.slice(1, from.matched.length)
+     for (let view of childrenView) {
+       to.matched.push(view)
+     }
+   }
+   if (to.matched[0].components) {
+     // Rewrite components for `default`
+     to.matched[0].components.default = from.matched[0].components.default
+     // Rewrite components for `modal`
+     to.matched[0].components.modal = Chats
+   }
+ }
+
+ next()
+}
+},
 
 // diary settings 
 { path: '/channels/engine/diary/:bot_id',
@@ -2453,7 +2563,10 @@ const app = new Vue({
     youtube_connected:false,
     defaultSearchValue:'',
     channelHasResources:false,
-    autoOpenResourcePage:false
+    autoOpenResourcePage:false,
+    showResourceView:false,
+    showResourceViewContent:false,
+    showYoutubePlayerTemp:false
      },
      mounted: function () {
       window.thisUserState = this;
