@@ -469,7 +469,7 @@ export default {
            this.loadingContent = false;
 
             this.$root.showResourceView = true;
-            this.mainContent = this.spaceData.name +  ' Channel Resources';
+            this.mainContent = this.spaceData.name +  ' Resources';
 
 
 
