@@ -1,0 +1,176 @@
+<template>
+
+<div style="background:transparent; font-family:BodyFont;padding-top:20px;">
+ 
+   <div class="col-12 mt-5 mt-md-1 ml-lg-4">
+    <h6>Web Route</h6>
+   </div>
+
+    <div class="col-md-8 col-lg-4 offset-lg-4 offset-md-2 py-1">
+    	
+    		<v-form class="row my-2 py-2 px-2" ref="form" v-model="formstate">
+              
+           <div class="col-12 py-2 my-0 px-2">
+           
+                <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Routes</div>
+              <select  style="font-size:14px !important; font-family:BodyFont; background:transparent;" placeholder="select language"    v-model="RouteType" class="browser-default custom-select">
+                 <option v-for="(option,index)  in Routes" :value="option" :key="index">{{ option}}</option>
+                     </select>
+    		
+    			</div>
+    			<div class="col-12 py-2 my-0 px-2">
+              <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Path</div>
+    				<v-text-field style="font-size:13px;"  dense placeholder="path..." v-model="path"  outlined color="#3C87CD" ></v-text-field>
+    			</div>
+
+          <div class="col-12 py-2 my-0 px-2">
+           
+            <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Controllers</div>
+              <select  style="font-size:14px !important; font-family:BodyFont; background:transparent;" placeholder="select language"    v-model="ControllerFile" class="browser-default custom-select">
+                 <option v-for="(option,index)  in Controllers" :value="option.file_name" :key="index">{{ option.file_name}}</option>
+                     </select>
+    		
+    			</div>
+
+
+                <div class="col-12 py-2 my-0 px-2">
+                <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Method</div>
+    				<v-text-field style="font-size:13px;" v-model="functionName"   dense placeholder="method..."  outlined color="#3C87CD" ></v-text-field>
+    			</div>
+    			
+    			<div class="col-12 py-1 my-0 px-2 text-center">
+    				<v-btn @click.prevent="saveRoute()" type="submit" small color="#3C87CD" style="font-size:12px; font-weight:bolder; color:white;font-family:HeaderFont;">Add</v-btn>
+             </div>
+    		</v-form>
+    	
+    </div>
+
+</div>
+   
+</template>
+
+<script>
+export default {
+    data(){
+        return{
+         shelveName:'',
+          Alert:false,
+          FileName:'',
+        alertMsg:'',
+        functionName:'',
+        languageCat:[],
+        RouteType:'',
+        Controllers:[],
+        ControllerFile:'',
+        path:'',
+        Routes:[
+            'get','post'
+        ],
+        front_languages:[
+         'HTML', 'CSS', 'JAVASCRIPT'
+        ],
+        back_languages:[
+           'PHP','PYTHON' 
+        ],
+        programmingLanguage:'',
+         Rule:[
+             v => !!v || 'Oh! you missed this.',
+           v => v.length < 30 || 'File Name must be less than 30 characters',
+             v => (v.split(' ').length <= 1) || 'no one space allowed',
+              v => /^\//.test(v) || 'Must start with \'/\''
+           
+         ],
+          requiredRule: [
+         v => !!v || 'Oh! you missed this.',
+          v => (v.split(' ').length <= 1) || 'no one space allowed',
+           v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
+         
+        ],
+         loading:false,
+         formstate:false,
+         disableForm: false,
+        }
+    },
+    components: {
+   
+  },
+   mounted(){
+      
+       this.Controllers =  this.$root.editorSideComponent.controllers;
+       this.setState();
+    },
+    methods:{
+   setState:function(){
+       if(this.$root.is_route_edit == 'true'){
+           this.path = this.$root.selectedRoute.path;
+           this.functionName = this.$root.selectedRoute.function_name;
+           this.ControllerFile = this.$root.selectedRoute;
+           this.RouteType = this.$root.selectedRoute.route_type;
+           this.disableForm = true;
+       }else{
+         
+         this.path = '';
+           this.functionName = '';
+           this.ControllerFile = '';
+           this.RouteType = '';
+           this.disableForm = false;
+
+       }
+   },
+   
+   goBack() {
+          
+        window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+        },
+    saveRoute:function(){
+        var checkFile =  this.$root.projectData.project_files.routes.filter((route)=>{
+           return route.path == this.path;
+       }); 
+
+      
+       if(checkFile.length > 0 && checkFile[0].route_type == this.RouteType){
+        this.$root.projectPanelComponent.showAlert('Oops!','Route exists,please try again','error');
+         return;
+       }
+      
+     if( this.$refs.form.validate()){
+          this.loading = true;
+         axios.post('/save-route-project',{
+                project_slug: this.$route.params.project_slug,
+                path: this.path,
+                route_type: this.RouteType,
+                function_name: this.functionName,
+                file_name: this.ControllerFile
+                  })
+          .then(response => {
+             
+            
+            
+             if (response.status == 200) {
+               
+
+              this.$root.projectData.project_files.routes.unshift(response.data.route_file)
+
+               this.$root.LocalStore('user_projects_data_' +  this.$route.params.project_slug + this.$root.username,this.$root.projectData);
+
+               
+                this.$root.projectPanelComponent.showAlert('Happy coding!','web route added','success');
+
+                 this.loading = false;
+            }
+              
+            
+           
+            
+          })
+          .catch(error => {
+               this.$root.projectPanelComponent.showAlert('Oops!','Unable to add web route,please try again','error');
+              this.loading = false;
+          })
+      }
+
+    }
+   
+    },
+}
+</script>

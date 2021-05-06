@@ -1,0 +1,157 @@
+<template>
+   
+
+   <div @click.stop="workingOne">
+     <div  class="d-flex alignContent col-12 py-0 "  v-if="!playVideoValue"
+   :style="'border:1px solid transparent;width:100%;height:190px; background-size:cover;  background-repeat:no-repeat; background-color:'+ backgroundColor+ ';background-image:url('+ backgroundImg+ '); border-radius: 10px;'" :id="'playerContainer'+playerId+screenType">
+         
+       <div>
+         <span style="color:#c9e4e8; background:#3C87CD; border:1px solid #3C87CD;
+          border-radius:50%; height:40px; width:40px; align-items:center; justify-content:center;" class="d-flex"   @click.stop="playVideo" ><v-icon color="#ffffff">mdi-play</v-icon></span>
+     </div>
+     </div>
+       <div data-shaka-player-container style="max-width:40em" v-show="playVideoValue"
+         data-shaka-player-cast-receiver-id="7B25EC44" :id="'videocontainner' + playerId + screenType">
+      <!-- The manifest url in the src attribute will be automatically loaded -->
+      <video  data-shaka-player   :id="'video'+playerId + screenType"
+       :poster="backgroundImg" 
+        style="width:100%;height:100%; border-radius:10px; border:1px solid transparent;"
+       :src="videoUrl"></video>
+      </div>
+    </div>
+    
+
+</template>
+<script>
+
+export default {
+     props:['videoUrl','backgroundColor','backgroundImg','playerId','screenType'],
+    data () {
+      return {
+         manifestUri:'',
+         playVideoValue: false,
+      }
+    },
+    mounted(){
+
+        
+     
+     
+    },
+    computed: {
+	
+	},
+  methods:{
+    workingOne:function(){
+
+    },
+    playVideo:function(){
+
+       this.manifestUri = this.videoUrl;
+
+      this.initApp();
+
+      this.playVideoValue = true;
+
+    },
+    initApp:function() {
+  // Install built-in polyfills to patch browser incompatibilities.
+  shaka.polyfill.installAll();
+
+  // Check to see if the browser supports the basic APIs Shaka needs.
+  if (shaka.Player.isBrowserSupported()) {
+    // Everything looks good!
+
+    // Listen to the custom shaka-ui-loaded event, to wait until the UI is loaded.
+document.addEventListener('shaka-ui-loaded',  this.initPlayer());
+// Listen to the custom shaka-ui-load-failed event, in case Shaka Player fails
+// to load (e.g. due to lack of browser support).
+document.addEventListener('shaka-ui-load-failed', this.initFailed);
+   
+     
+  } else {
+    // This browser does not have the minimum set of APIs we need.
+    console.error('Browser not supported!');
+  }
+
+   
+},
+ initPlayer:function() {
+     
+    let _this  = this;
+   
+ async function initPlayerInner() {
+
+
+     // When using the UI, the player is made automatically by the UI object.
+  const video = document.getElementById('video' + _this.playerId + _this.screenType);
+  const player = new shaka.Player(video);
+
+  const videoContainer = document.getElementById('videocontainner' + _this.playerId + _this.screenType);
+
+    const ui = new shaka.ui.Overlay(player, videoContainer, video);
+    
+  const controls = ui.getControls();
+  const config = {
+  'overflowMenuButtons' : ['cast','picture_in_picture','loop','quality','playback_rate'],
+  'seekBarColors': {
+   base: 'rgba(60, 135, 205, 0.3)',
+   buffered: 'rgba(60, 135, 205, 0.54)',
+   played: 'rgb(60, 135, 205)',
+ }
+  };
+  ui.configure(config);
+ 
+
+  // Attach player and ui to the window to make it easy to access in the JS console.
+  window.player = player;
+  window.ui = ui;
+
+  // Listen for error events.
+  player.addEventListener('error', _this.onPlayerErrorEvent);
+  controls.addEventListener('error', _this.onUIErrorEvent);
+
+  // Try to load a manifest.
+  // This is an asynchronous process.
+  try {
+    await player.load(_this.manifestUri);
+    // This runs if the asynchronous load is successful.
+   
+  } catch (error) {
+    _this.onPlayerError(error);
+  }
+
+}
+
+ initPlayerInner();
+},
+
+ onPlayerErrorEvent(errorEvent) {
+  // Extract the shaka.util.Error object from the event.
+  onPlayerError(event.detail);
+},
+
+ onPlayerError(error) {
+  // Handle player error
+  console.error('Error code', error.code, 'object', error);
+},
+
+ onUIErrorEvent(errorEvent) {
+  // Extract the shaka.util.Error object from the event.
+  onPlayerError(event.detail);
+},
+
+ initFailed(errorEvent) {
+  // Handle the failure to load; errorEvent.detail.reasonCode has a
+  // shaka.ui.FailReasonCode describing why.
+  console.error('Unable to load the UI library!');
+}
+    }
+}
+</script>
+<style scoped>
+.alignContent{
+  align-items: center;
+  justify-content: center;
+}
+</style>

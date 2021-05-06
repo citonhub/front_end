@@ -113,11 +113,15 @@ const {NetworkOnly} = workbox.strategies;
                
         
         if(notificationCount == undefined){
-          notificationOptions.title = notificationOptions.data.name + ' connected to you';
+          notificationOptions.title = notificationOptions.data.name + ' is now following you';
+
+          notificationOptions.body =  'New follower';
          
         }else{
 
-          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' others connected to you';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' are now following you';
+
+          notificationOptions.body =  'New followers';
         }
       
        }
@@ -128,79 +132,26 @@ const {NetworkOnly} = workbox.strategies;
         
         if(notificationCount == undefined){
 
-          notificationOptions.title = 'Invitation to a new space';
+          notificationOptions.title = 'Invitation to a new channel';
          
         }else{
 
-          notificationOptions.title = 'Invitation to a new space';
+          notificationOptions.title = 'Invitation to a new channel';
         }
       
        }
 
-
-       if(notificationOptions.data.type == 'new_project'){
-
-        if(notificationCount == undefined){
-          notificationOptions.title = notificationOptions.data.name + ' created a new project';
-
-          notificationOptions.body =  'Title: ' + notificationOptions.data.project.title +  '\n' + ' stars: ' + notificationOptions.data.project.stars ;
-         
-        }else{
-
-          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' others created a new project';
-
-
-          notificationOptions.body =  'Title: ' + notificationOptions.data.project.title + '\n' + ' stars: ' + notificationOptions.data.project.stars ;
-        }
-
-       }
-
-
-       if(notificationOptions.data.type == 'new_project_comment'){
-               
-        
-        if(notificationCount == undefined){
-          notificationOptions.title = notificationOptions.data.name + ' commented on your project';
-
-          notificationOptions.body =  'Title: ' + notificationOptions.data.project.title +  '\n' + ' stars: ' + notificationOptions.data.project.stars ;
-         
-        }else{
-
-          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' others commented on your project';
-
-
-          notificationOptions.body =  'Title: ' + notificationOptions.data.project.title + '\n' + ' stars: ' + notificationOptions.data.project.stars ;
-        }
-      
-       }
-
-       if(notificationOptions.data.type == 'post_replied'){
-               
-        
-        if(notificationCount == undefined){
-          notificationOptions.title = notificationOptions.data.name + ' replied your post';
-         
-        }else{
-          
-          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others replied your post';
-
-
-        
-          
-        }
-      
-       }
 
 
        if(notificationOptions.data.type == 'post_comment'){
                
         
         if(notificationCount == undefined){
-          notificationOptions.title = notificationOptions.data.name + ' commented on your post';
+          notificationOptions.title = notificationOptions.data.name + ' commented on your project ' + notificationOptions.data.post.title;
          
         }else{
           
-          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others commented on your post';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  + ' commented on your project '  + notificationOptions.data.post.title;
 
 
         
@@ -209,53 +160,17 @@ const {NetworkOnly} = workbox.strategies;
       
        }
 
-
-
-       if(notificationOptions.data.type == 'post_comment_like'){
-               
-        
-        if(notificationCount == undefined){
-          notificationOptions.title = notificationOptions.data.name + ' liked your comment';
-         
-        }else{
-          
-          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others liked your comment';
-
-
-        
-          
-        }
-      
-       }
-
-
-       if(notificationOptions.data.type == 'post_reply_like'){
-               
-        
-        if(notificationCount == undefined){
-          notificationOptions.title = notificationOptions.data.name + ' liked your reply';
-         
-        }else{
-          
-          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others liked your reply';
-
-
-        
-          
-        }
-      
-       }
 
 
        if(notificationOptions.data.type == 'post_like'){
                
         
         if(notificationCount == undefined){
-          notificationOptions.title = notificationOptions.data.name + ' liked your post';
+          notificationOptions.title = notificationOptions.data.name + ' liked your project ' + notificationOptions.data.post.title;
          
         }else{
           
-          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others liked your post';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others liked your project ' + notificationOptions.data.post.title;
 
           
         }
@@ -263,127 +178,40 @@ const {NetworkOnly} = workbox.strategies;
        }
 
 
-       if(notificationOptions.data.type == 'post_comment_pulled'){
+       if(notificationOptions.data.type == 'post_pinned'){
                
         
         if(notificationCount == undefined){
-          notificationOptions.title = notificationOptions.data.name + ' pulled your comment';
+          notificationOptions.title = notificationOptions.data.name + ' pinned your project' + notificationOptions.data.post.title;
          
         }else{
           
-          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others pulled your comment';
+          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others pinned your project' + notificationOptions.data.post.title;
 
           
         }
       
        }
 
-       if(notificationOptions.data.type == 'post_reply_pulled'){
-               
+     
+
+       
+
+       if(notificationOptions.data.type == 'diary_changes'){
+
         
         if(notificationCount == undefined){
-          notificationOptions.title = notificationOptions.data.name + ' pulled your reply';
+
+          notificationOptions.title = 'New updates from ' + notificationOptions.data.diary.name;
          
         }else{
           
-          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others pulled your reply';
+          notificationOptions.title =  'New updates from ' + notificationOptions.data.diary.name;
 
           
         }
       
        }
-
-       if(notificationOptions.data.type == 'post_pulled'){
-               
-        
-        if(notificationCount == undefined){
-          notificationOptions.title = notificationOptions.data.name + ' pulled your post';
-         
-        }else{
-          
-          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others pulled your post';
-
-          
-        }
-      
-       }
-
-
-       if(notificationOptions.data.type == 'new_duel'){
-               
-        
-        if(notificationCount == undefined){
-          notificationOptions.title = notificationOptions.data.name + ' created a duel';
-
-          notificationOptions.body =   notificationOptions.data.duel.title ;
-         
-        }else{
-
-          
-        }
-      
-       }
-
-
-       if(notificationOptions.data.type == 'duel_comment'){
-               
-        
-        if(notificationCount == undefined){
-          notificationOptions.title = notificationOptions.data.name + ' commented on your duel';
-
-          notificationOptions.body =   notificationOptions.data.duel.title ;
-         
-        }else{
-          
-          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others commented on your duel';
-
-
-          notificationOptions.body =   notificationOptions.data.duel.title ;
-          
-        }
-      
-       }
-
-
-       if(notificationOptions.data.type == 'duel_like'){
-               
-        
-        if(notificationCount == undefined){
-          notificationOptions.title = notificationOptions.data.name + ' liked your duel';
-
-          notificationOptions.body =   notificationOptions.data.duel.title ;
-         
-        }else{
-          
-          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1) +' others liked your duel';
-
-
-          notificationOptions.body =   notificationOptions.data.duel.title ;
-          
-        }
-      
-       }
-
-
-       if(notificationOptions.data.type == 'duel_join'){
-               
-        
-        if(notificationCount == undefined){
-          notificationOptions.title = notificationOptions.data.name + ' joined your duel';
-
-          notificationOptions.body =   notificationOptions.data.duel.title +  '\n' + 'participants:' + notificationOptions.data.duel.current_participant;
-         
-        }else{
-          
-          notificationOptions.title = notificationOptions.data.name + ' and ' + (notificationCount - 1)  +' others joined your duel';
-
-
-          notificationOptions.body =   notificationOptions.data.duel.title +  '\n' + 'participants:' + notificationOptions.data.duel.current_participant;
-          
-        }
-      
-       }
-
        
 
          if(notificationOptions.data.type == 'new_message'){

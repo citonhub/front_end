@@ -1,311 +1,469 @@
-@extends('layouts.main')
+@extends('layouts.home')
 @section('title')
 
-    <title>CitonHub:Hub</title>
+    <title>CitonHub</title>
 
  @endsection
- @section('meta') 
- <meta name="description" content="A teaching platform for developers" />
-  <meta name="keywords" content="Programming Duels,Developer Community,Citonhub Channels,Programming Teams" />
+ @section('meta')
+ <meta name="description" content="Everything you need as a developer to grow your community and earn" />
+  <meta name="keywords" content="mentor programming,Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
-  <meta name="og:image" content="https://citonhub.com/imgs/CitonHub.png"/>
-  <meta property="og:description" content="Citonhub is a teaching platform for developers. Automate how you teach code" />
-  <meta property='twitter:title' content="Citonhub:Hub."/>
-<meta property='twitter:image' content="https://citonhub.com/imgs/CitonHub.png"/>
+  <meta name="og:image" content="https://citonhub.com/imgs/logo.png"/>
+  <!--Metadata for Apple-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="apple-mobile-web-app-title" content="CitonHub">
+    <link rel="apple-touch-icon" href="images/icons/logo_msapplication-icon-144x144.png">
+    <!--Metadata for Microsoft-->
+    <meta name="msapplication-TileImage" content="images/icons/logo_msapplication-icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#3C87CD">
+    <meta property="og:description" content="Everything you need as a developer to grow your community and earn" />
+    <meta property='twitter:title' content="CitonHub:Everything you need as a developer to grow your community and earn"/>
+<meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
+
+
  @endsection
  @section('css')
-  
-  
- <link rel="stylesheet" type="text/css" href="/css/controls.css">
 
-<style>
- .body{
-  background:whitesmoke;
-  }
-  html,
-body {
-    overscroll-behavior-y: contain;
-    overflow-y:auto;
+  <!-- Line awesome icon: -->
+  <link rel="stylesheet" type="text/css" href="/css/line-awesome.min.css">
+  <!-- ends -->
+
+
+ <style>
+.box{
+  background: #3C87CD;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
 }
+
+body{
+  background-image:url('/imgs/backgroundHome.png')
+}
+
+.messagesBadges{
+
+    color: #ffffff;
+    background: #3C87CD;
+    font-size: 29px;
+    font-family: HeaderFont;
+    font-weight: bolder;
+    align-items: center;
+    justify-content: center;
+    height:60px;
+    width:60px;
+    border-radius:50%;
+}
+
+
  </style>
-  
+
  @endsection
 
  @section('content')
-<div id="home" style="height:100%; width:100%;position:fixed;">
-
-<div style="position:absolute;height:100%; width:100%; align-items:center; top:0; left:0; justify-content:center;z-index:100000;background:white;"  class=" d-flex " v-if="pageloader"> 
-      <img src="/imgs/CitonHub.png" height="40" width="40" class="sliderfull">
-</div>
-
-<div  style="z-index:1000000; position:fixed; width:100%; height:auto; top:0;" v-if="pageloader">
-  <div class="line"></div>
-  <div class="subline inc"></div>
-  <div class="subline dec"></div>
-</div>
 
 
+<div id="home" class="py-0 col-12 px-0" style="overflow-x:hidden;">
 
-<div class="col-lg-10  col-12 offset-lg-1 py-0" style=" border-right:1px solid #e6e6e6;  border-left:1px solid #e6e6e6; display:fixed; top:0%;height:auto; background:white;  " v-show="showHeader">
-    <div class="row">
-    <div class="col-4 d-flex  py-1" style="border-bottom:1px solid #e6e6e6;  align-items:center; ">
-    <div>
-    <div  v-if="authProfile != undefined" :style="imageStyle(46,authProfile)"  
-                class="pl-3 d-none d-md-block addBorder">
+<!-- Headers -->
+<div class="col-12 fixed-top py-2 px-md-4 px-3 px-md-2 "  style="background:rgba(255,255,255,1.0);border-bottom:1px solid #c5c5c5;">
+<div class="row">
 
-                  </div>
+<!-- Logo -->
+ <div class="col-4 text-left d-flex flex-row" style="align-items:center;">
 
-                 
+ <img alt="citonhub logo" class="d-lg-block d-none" src="/imgs/logo.png" height="40px">
 
-                  <div  v-if="authProfile != undefined" :style="imageStyle(35,authProfile)"   @click="showNavigator"
-                class="pl-3 d-block d-md-none   addBorder">
+ <img alt="citonhub logo" class="d-lg-none d-block" src="/imgs/logo.png" height="35px">
 
-                  </div>
-    </div>
-      </div>
-        <div style="text-align:center; border-bottom:1px solid #e6e6e6; align-items:center; justify-content:center;" class=" col-4 d-flex py-1" >
-            <a href="/" class="d-none d-md-block"><img src="{{asset('imgs/CitonHub.png')}}" height="40" width="auto"/></a>
-            <a href="/"  class="d-block d-md-none"><img src="{{asset('imgs/CitonHub.png')}}" height="25" width="auto"/></a>
-        </div>
-        
-        <div style="text-align:right; border-bottom:1px solid #e6e6e6; " class="col-4 pr-2 py-0 text-right">
-           
-           <v-btn icon color="#3E8893"  class="mt-2"  small ><v-icon>mdi-earth </v-icon></v-btn>
-       </div>
-        
-        
-    </div>
-</div>
-
-
-
-<home></home>
-
-<div class=" d-none d-md-none d-lg-block mx-2  py-2 " v-if="!itIsHomePage"
- style="border-radius:7px; height:80%; position:fixed; width:15%;top:10%; right:8.30%; background:transparent; border:1px solid transparent;" >
-
-  
-      
-         <div  color="#ffffff"  class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px;cursor:pointer; "  @click="showNavLink('library')">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon >mdi-inbox-full-outline</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:14px;  font-weight: bold; color:#595959;">My Library</span>
-            </div>
-           </div>
-         </div>
-         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card"  style="border:1px solid transparent; border-radius:30px;cursor:pointer;"  @click="showNavLink('account_settings')">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon >mdi-account-cog-outline</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:14px;  font-weight: bold; color:#595959;">@{{ $t('general.Account_Setting') }}</span>
-            </div>
-           </div>
-         </div>
-         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px;cursor:pointer;"  @click="showNavLink('privacy')">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon>mdi-account-tie-outline</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:14px; font-weight: bold; color:#595959;">@{{ $t('general.Privacy') }}</span>
-            </div>
-           </div>
-         </div>
-         <div  color="#ffffff" class="col-12 px-2 py-2 mb-2 card" style="border:1px solid transparent; border-radius:30px;cursor:pointer;"  @click="showNavLink('help')">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon>mdi-comment-question-outline</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:14px; font-weight: bold; color:#595959;">@{{ $t('general.Help') }}</span>
-            </div>
-           </div>
-         </div>
-         
-      
-
-      
-
-        
-      <div  color="#ffffff" v-if="isLogged"  @click="logout"  class="col-12 px-2 py-2 card" style="border:1px solid transparent;cursor:pointer; border-radius:30px; position:absolute;bottom:0%;">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon >mdi-logout-variant</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:14px;  font-weight: bold; color:#595959;">@{{ $t('general.logout') }}</span>
-            </div>
-           </div>
-      </div>
-  
-    <div  v-else color="#ffffff"  @click="checkIfUserIsLoggedIn('space')"  class="col-12 px-2 py-2 card" style="border:1px solid transparent;cursor:pointer; border-radius:30px; position:absolute;bottom:0%;">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon >mdi-login-variant</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:14px; font-weight: bold; color:#595959;">@{{ $t('general.login') }}</span>
-            </div>
-           </div>
-      </div>
-  
-
-</div>
-
-
-<v-app class="col-12 px-0 py-0 d-lg-none d-block" style="background:transparent; z-index:10999; font-family:BodyText; position:absolute;" v-if="drawer">
-<v-navigation-drawer
-      v-model="drawer"
-      fixed
-      temporary
-    >
-      <div class="col-12 py-2 px-2" style="border-bottom:1px solid #c5c5c5;">
-           <div class="row py-0 my-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-            <div>
-    <div  v-if="authProfile != undefined" :style="imageStyle(46,authProfile)"  
-                class="pl-3 d-none d-md-block">
-
-                  </div>
-
-                  <div  v-if="authProfile != undefined" :style="imageStyle(35,authProfile)"  
-                  class="pl-3 d-block d-md-none">
-
-                  </div>
-    </div>
-            </div>
-
-          <div class="col-9 py-0 d-flex px-1" style="align-items:center;" >
-          
-          <div class="row py-0" @click="showNavLink('profile')" v-if="isLogged">
-           <div class="col-12 py-0 my-0">
-           <div style="font-size:13px; font-family:HeaderText;" >@{{ authProfile.name }}</div>
-           <div style="font-size:11px; color:#4d4d4d;" >@{{  '@' + authProfile.username }}</div>
-           </div>
-          </div>
-         
-          <div class="row py-0"  v-else>
-           <div class="col-12 py-0 my-0">
-           <div style="font-size:13px; font-family:HeaderText;" >Name</div>
-           <div style="font-size:11px; color:#4d4d4d;" >@username</div>
-           </div>
-          </div>
-           
-          </div>
-          
-           </div>   
-      </div>
-
-      <div class="col-12 py-3 px-0">
-       <div class="row py-0 my-0" >
-         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;" @click="showNavLink('library')">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-inbox-full-outline</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">My Library</span>
-            </div>
-           </div>
-         </v-card>
-        
-         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;" @click="showNavLink('account_settings')">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-account-cog-outline</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Account Settings</span>
-            </div>
-           </div>
-         </v-card>
-         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;" @click="showNavLink('privacy')">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-account-tie-outline</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Privacy</span>
-            </div>
-           </div>
-         </v-card>
-         <v-card tile flat  class="col-12 px-2 py-2" style="border-bottom:1px solid #d9d9d9;"  @click="showNavLink('help')">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-comment-question-outline</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">Help</span>
-            </div>
-           </div>
-         </v-card>
-         
-       </div>
-
-      </div>
-
-      <v-card tile flat v-if="isLogged" class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; position:absolute;bottom:0%;" @click="logout">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-logout-variant</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">@{{ $t('general.logout') }}</span>
-            </div>
-           </div>
-      </v-card>
-   
-    <v-card  v-else tile flat  class="col-12 px-2 py-2" style="border-top:1px solid #d9d9d9; position:absolute;bottom:0%;" @click="checkIfUserIsLoggedIn('space')">
-           <div class="row py-0">
-            <div class="col-3 py-0 d-flex" style="align-items:center; justify-content:center;">
-                <v-icon color="#3E8893">mdi-login-variant</v-icon>
-            </div>
-            <div class="col-9 py-0 d-flex" style="align-items:center;">
-               <span style="font-size:12px; color:#333333;">@{{ $t('general.login') }}</span>
-            </div>
-           </div>
-      </v-card>
-
-     
-
-      <v-list dense>
-
-       
-      </v-list>
-    </v-navigation-drawer>
-</v-app>
-
-<form id="logout-form" action="/logout" method="POST" style="display: none;">
-@csrf
-                                              </form>
-<div v-if="!drawer">
- @include('shared.tabs')
  </div>
+
+ <!-- Sign up, register button -->
+
+<div class="col-8 text-right pt-1 px-1 px-md-2" >
+
+
+ <a href="/dashboard#/login"  class="linkStyle mx-3 d-md-inline-block d-none"  style="color:#000000;"> Login</a>
+
+ <a href="/dashboard#/sign-up" class="homeButton mx-2 px-3 py-2 d-md-inline-block d-none">Sign Up</a>
+
+ <a href="/dashboard#/login"  class="linkStyle mx-3 d-md-none d-inline-block"  style="color:#000000;font-size:14px;"> Login</a>
+
+ <a href="/dashboard#/sign-up" class="homeButton mx-2 px-3 py-2 d-md-none d-inline-block" style="font-size:14px;">Sign Up</a>
+
+ </div>
+
+
+
+</div>
+
+
+</div>
+
+<!--intro section-->
+
+<div class="col-lg-8 offset-lg-2  text-center d-md-block  d-none" style="margin-top:120px;">
+
+   <div class="text-center col-8 offset-2">
+
+   <h2>Everything you need as a developer to grow <br> your community and earn</h2>
+
+
+
+    <p class="px-5 mt-4" style="font-family:BodyFont;font-size:17px;" >Merge your content with your community and make money through donations and memberships.</p>
+   </div>
+
+</div>
+
+<div class="col-12 text-center mt-5 d-md-block  d-none">
+<a href="/dashboard#/channels/create" class="homeButton  px-5 py-3  ">Get started for FREE</a>
+</div>
+
+
+<!--small screens-->
+
+
+<div class="col-12  text-center d-block d-md-none  " style="margin-top:100px;">
+
+   <div class="text-center ">
+
+   <h5>Everything you need as a developer to grow your community and earn</h5>
+
+    <p class="px-2 mt-2" style="font-family:BodyFont;font-size:14px;" >Merge your content with your community and make money through donations and memberships.</p>
+   </div>
+
+</div>
+
+<div class="col-12 text-center mt-5  d-block d-md-none">
+<a href="/dashboard#/channels/create" class="homeButton  px-3 py-3  " style="font-size:13px;">Get started for FREE</a>
+</div>
+
+
+
+<!--intro section ends-->
+
+
+
+<!--first features-->
+
+<div class="first-features col-lg-10 offset-lg-1 flex-row  d-md-flex  d-none" style="margin-top:120px;margin-bottom:80px;align-items:center;">
+<div class="feature col-md-4 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
+<img src="imgs/create-content.svg" alt="" height="120px">
+  <p class=" mt-2" style="font-family:BodyFont;font-size:16px;">Create a Channel</p>
+</div>
+<div class="feature col-md-4 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
+<img src="imgs/merge-content.svg" alt="" height="120px">
+<p class="mt-2" style="font-family:BodyFont;font-size:16px;">Merge your Content</p>
+</div>
+<div class="feature col-md-4 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
+<img src="imgs/invite-comm.svg" alt="" height="120px">
+<p class="mt-2" style="font-family:BodyFont;font-size:16px;">Invite your Community</p></div>
+</div>
+<!--first features end-->
+
+
+<!--small screens-->
+
+<div class="first-features col-12 flex-row flex-wrap d-flex  d-md-none" style="margin-top:60px;margin-bottom:20px;align-items:center;">
+<div class="feature col-12 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
+<img src="imgs/create-content.svg" alt="" height="90px">
+  <p class=" mt-2" style="font-family:BodyFont;font-size:14px;">Create a Channel</p>
+</div>
+<div class="feature col-12 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
+<img src="imgs/merge-content.svg" alt="" height="90px">
+<p class="mt-2" style="font-family:BodyFont;font-size:14px;">Merge your Content</p>
+</div>
+<div class="feature col-12 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
+<img src="imgs/invite-comm.svg" alt="" height="90px">
+<p class="mt-2" style="font-family:BodyFont;font-size:14px;">Invite your Community</p></div>
+</div>
+
+
+<div class="col-12" style="border-bottom:2px solid #c5c5c5">
+
+</div>
+
+
+<!--reasons section-->
+
+<div class="reasons col-lg-8 offset-lg-2 flex-row  d-md-flex  d-none" style="margin-top:80px;margin-bottom:90px;">
+
+<div class="col-md-4">
+<h4 style="font-family:HeaderFont;">What?</h4>
+<p style="font-family:BodyFont;font-size:15px;" >Citonhub is a free developer platform that lets you create a community and also allows
+you import your contents from YouTube and DevTo.</p>
+</div>
+<div class="col-md-4">
+<h4 style="font-family:HeaderFont;">Why?</h4>
+
+<p style="font-family:BodyFont;font-size:15px;" >This helps you engage your community at the same time boosting your audience retention. You
+can also earn from donations and memberships. </p>
+</div>
+
+<div class="col-md-4">
+<h4 style="font-family:HeaderFont;">What if you don't create content?</h4>
+
+<p style="font-family:BodyFont;font-size:15px;" >You can curate a
+playlist of resources that helped you along your coding journey and share with your friends.</p>
+</div>
+
+
+</div>
+
+
+
+
+<!--small screens-->
+
+<div class="reasons col-12 flex-row  d-md-none d-flex flex-wrap" style="margin-top:30px;margin-bottom:20px;">
+
+<div class="col-12 mb-4">
+<h5 style="font-family:HeaderFont;">What?</h5>
+<p style="font-family:BodyFont;font-size:14px;" >Citonhub is a free developer platform that lets you create a community and also allows
+you import your contents from YouTube and DevTo.</p>
+</div>
+<div class="col-12 mb-4">
+<h5 style="font-family:HeaderFont;">Why?</h5>
+
+<p style="font-family:BodyFont;font-size:14px;" >This helps you engage your community at the same time boosting your audience retention. You
+can also earn from donations and memberships.</p>
+</div>
+
+<div class="col-12">
+<h5 style="font-family:HeaderFont;">What if you don't create content?</h5>
+
+<p style="font-family:BodyFont;font-size:14px;" >You can curate a
+playlist of resources that helped you along your coding journey and share with your friends.</p>
+</div>
+
+
+</div>
+
+<div class="col-12" style="border-bottom:2px solid #c5c5c5">
+
+</div>
+
+<!--reasons section ends-->
+
+
+<!--connection section-->
+
+<div class="col-lg-8 offset-lg-2 flex-row  d-md-flex  d-none" style="margin-top:80px;margin-bottom:90px;" >
+
+<div class="col-md-6 mt-4 d-flex flex-column" style="justify-content:center;">
+
+
+
+<img class="mt-2" src="/imgs/youtube_clip2.png" height="360px" width="90%"/>
+
+<h4 style="font-family:HeaderFont;" class="mt-4">Connect your YouTube
+Channel</h4>
+
+<p style="font-family:BodyFont;font-size:15px;" class="mt-3 ">When you create a channel on Citonhub, you can link your YouTube channel so that when you publish a video on YouTube, it is automatically updated on Citonhub and your audience would
+have access to it. Your audience can like and subscribe to your channel directly on CitonHub.</p>
+</div>
+
+
+<div class="col-md-6 mt-4">
+
+<img class="mt-2" src="/imgs/credit-vector.png" height="360px" width="100%"/>
+
+<h4 style="font-family:HeaderFont;" class="mt-4">Earn directly from your
+audience</h4>
+
+<p style="font-family:BodyFont;font-size:15px;" class="mt-3 ">We are bridging the wide gap between content and community on Citonhub. Your audience
+can directly donate or subscribe to your private community where they can access your curated contents.</p>
+</div>
+
+</div>
+
+
+
+<!--small screens-->
+<div class="col-12 flex-row  d-md-none  d-flex flex-wrap" style="margin-top:30px;margin-bottom:30px;" >
+
+<div class="col-12 mt-4 d-flex flex-column" style="justify-content:center;">
+
+
+
+<img class="mt-2" src="/imgs/youtube_clip2.png" height="280px" width="100%"/>
+
+<h5 style="font-family:HeaderFont;" class="mt-4">Connect your YouTube
+Channel</h5>
+
+<p style="font-family:BodyFont;font-size:14px;" class="mt-3 ">When you create a channel on Citonhub, you can link your YouTube channel so that when you publish a video on YouTube, it is automatically updated on Citonhub and your audience would
+have access to it. Your audience can like and subscribe to your channel directly on CitonHub.</p>
+</div>
+
+
+<div class="col-12 mt-4">
+
+<img class="mt-2" src="/imgs/credit-vector.png" height="280px" width="100%"/>
+
+<h5 style="font-family:HeaderFont;" class="mt-4">Earn directly from your
+audience</h5>
+
+<p style="font-family:BodyFont;font-size:14px;" class="mt-3 ">We are bridging the wide gap between content and community on Citonhub. Your audience
+can directly donate or subscribe to your private community where they can access your curated contents.</p>
+</div>
+
+</div>
+
+
+
+
+<div class="col-12" style="border-bottom:2px solid #c5c5c5">
+
+</div>
+
+
+
+<!--connection section ends-->
+
+
+<!--extra fearures-->
+
+<div class="col-lg-8 offset-lg-2 flex-row  d-md-flex flex-wrap  d-none" style="margin-top:80px;margin-bottom:50px;"  >
+
+  <div class="col-12 text-center px-5">
+  <h4 class="text-center " style="font-family:HeaderFont;" >Features to help you grow your <br> developer community</h4>
+  </div>
+   
+   <div class="col-12 py-3">
+   
+   </div>
+
+  <div class="first-features col-md-4 d-flex flex-column mb-4" style="align-items:center; justify-content:center;" >
+<img src="imgs/messaging.png" alt=""  height="120px">
+<p class=" mt-2" style="font-family:BodyFont;font-size:16px;">Messaging</p>
+</div>
+
+<div class="first-features col-md-4 d-flex flex-column mb-4" style="align-items:center; justify-content:center;" >
+<img src="imgs/voice-call.svg" alt=""  height="120px">
+<p class=" mt-2" style="font-family:BodyFont;font-size:16px;">Voice chat</p>
+</div>
+
+
+<div class="first-features col-md-4 d-flex flex-column mb-4" style="align-items:center; justify-content:center;" >
+<img src="imgs/share-screen.svg" alt=""  height="120px">
+<p class=" mt-2" style="font-family:BodyFont;font-size:16px;">Share share</p>
+</div>
+
+<div class="col-md-2">
+
+</div>
+
+<div class="first-features col-md-4 d-flex flex-column mb-4" style="align-items:center; justify-content:center;" >
+<img src="imgs/code-live.svg" alt=""  height="120px">
+<p class=" mt-2" style="font-family:BodyFont;font-size:16px;">Live code</p>
+</div>
+
+
+<div class="first-features col-md-4 d-flex flex-column mb-4" style="align-items:center; justify-content:center;" >
+<img src="imgs/collab2.svg" alt=""  height="120px">
+<p class=" mt-2" style="font-family:BodyFont;font-size:16px;">Build and collaborate on projects</p>
+</div>
+
+
+<div class="col-md-2">
+
+</div>
+
+<div class="first-features col-md-12 d-flex flex-column mb-4" style="align-items:center; justify-content:center;" >
+<img src="imgs/challenge.svg" alt=""  height="120px">
+<p class=" mt-2" style="font-family:BodyFont;font-size:16px;">Organize coding challenges</p>
+</div>
+
+</div>
+
+<!--small screens-->
+<div class="col-lg-8 offset-lg-2 flex-row  d-md-none flex-wrap  d-flex" style="margin-top:30px;margin-bottom:30px;"  >
+
+  <div class="col-12 text-center px-3">
+  <h5 class="text-center " style="font-family:HeaderFont;" >Features to help you grow your <br> developer community</h5>
+  </div>
+   
+   <div class="col-12 py-3">
+   
+   </div>
+
+  <div class="first-features col-12 d-flex flex-column mb-3" style="align-items:center; justify-content:center;" >
+<img src="imgs/messaging.png" alt=""  height="90px">
+<p class=" mt-2" style="font-family:BodyFont;font-size:14px;">Messaging</p>
+</div>
+
+<div class="first-features col-12 d-flex flex-column mb-3" style="align-items:center; justify-content:center;" >
+<img src="imgs/voice-call.svg" alt=""  height="90px">
+<p class=" mt-2" style="font-family:BodyFont;font-size:14px;">Voice chat</p>
+</div>
+
+
+<div class="first-features col-12 d-flex flex-column mb-3" style="align-items:center; justify-content:center;" >
+<img src="imgs/share-screen.svg" alt=""  height="90px">
+<p class=" mt-2" style="font-family:BodyFont;font-size:14px;">Share share</p>
+</div>
+
+
+<div class="first-features col-12 d-flex flex-column mb-3" style="align-items:center; justify-content:center;" >
+<img src="imgs/code-live.svg" alt=""  height="90px">
+<p class=" mt-2" style="font-family:BodyFont;font-size:14px;">Live code</p>
+</div>
+
+
+<div class="first-features col-12 d-flex flex-column mb-3" style="align-items:center; justify-content:center;" >
+<img src="imgs/collab2.svg" alt=""  height="90px">
+<p class=" mt-2" style="font-family:BodyFont;font-size:14px;">Build and collaborate on projects</p>
+</div>
+
+
+<div class="first-features col-12 d-flex flex-column mb-3" style="align-items:center; justify-content:center;" >
+<img src="imgs/challenge.svg" alt=""  height="90px">
+<p class=" mt-2" style="font-family:BodyFont;font-size:14px;">Organize coding challenges</p>
+</div>
+
+</div>
+
+
+<!--extra features end-->
+
+
+
+</div>
+
+
+<div class="col-12 text-center mt-5  d-block d-md-none">
+<a href="/dashboard#/channels/create" class="homeButton  px-3 py-3  " style="font-size:13px;">Get started for FREE</a>
+</div>
+
+<div class="col-12 text-center mt-0 d-md-block  d-none">
+<a href="/dashboard#/channels/create" class="homeButton  px-5 py-3  ">Get started for FREE</a>
+</div>
+
+<div class="col-12 pb-0 pt-0 mt-5  d-block d-md-none text-center">
+
+<a href="https://play.google.com/store/apps/details?id=com.citonhub.app" target="_blank"><img src="/imgs/google_play.png" alt="Citonhub - Android app" style="width: 150px; " /></a>
+</div>
+
+<!-- ends -->
+
+
+<!-- Footer component -->
+@include('shared.footer')
+<!-- ends -->
+
+
+
+
 </div>
  @endsection
 
  @section('scripts')
 
-
- <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-  
-  <script src="{{ asset('js/shaka-player.compiled.js') }}"></script>
-
-   <!-- Shaka Player ui compiled library: -->
-   <script src="{{ asset('js/shaka-player.ui.js') }}"></script>
-
-   <!-- Chromecast SDK  -->
-   <script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js"></script>
-
-   <script src="https://unpkg.com/marked@0.3.6"></script>
-
- <script src="{{ asset('js/home.js?v=1.08') }}"></script>
-     
+<!-- The main compiled script for this page  -->
+<script src="{{ asset('js/app.js?v=0.11') }}"></script>
+ <!-- ends -->
  @endsection

@@ -1,11 +1,9 @@
 
 <input type="hidden" value="{{ Config::get('app.locale') }}" id="appLocale">
-
-
  
-
-
-
+<script>
+    window._locale = "{{ app()->getLocale() }}";
+</script> 
 
 <script>
 
@@ -17,7 +15,5 @@
         });
       }
 
-document.addEventListener('touchstart', touchstartHandler, {passive: false});
-document.addEventListener('touchmove', touchmoveHandler, {passive: false});
 
 </script>
