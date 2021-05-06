@@ -2572,6 +2572,7 @@ const app = new Vue({
       window.thisUserState = this;
       window.routerData = this.$router;
 
+    
       this.pageLoaderView = false;
       if(this.isLogged){
         this.fetchUserDetails();

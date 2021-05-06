@@ -166,9 +166,7 @@
         </template>
           
 
-           <div class="col-12 my-5 py-5">
-
-           </div>
+         
         </div>
 
 
@@ -184,13 +182,9 @@
       </template>
 
 
-     <div class="col-12 py-4 my-4">
-
-      </div>
-     
 
 
-       <div class="col-12 py-3 text-center fixed-bottom" style="position:absolute; bottom:0%; background:white;">
+       <div class="col-12 py-3 text-center ">
 
             <v-btn @click="goToChannel()" medium color="#3C87CD" style="color:white;text-transform:none;font-family:MediumFont;font-size:13px;" class="mx-2 d-inline-block" >
                      Join Channel
@@ -199,6 +193,12 @@
 
         </div>
 
+
+  
+     <div class="col-12 py-4 my-4">
+
+      </div>
+     
 
 
         <div v-if="that.$root.showYoutubePlayerTemp" style="  background: rgba(27, 27, 30, 0.32); left:0; position:absolute; height:100%; top:0%;z-index:999999999999;" class="d-flex flex-row col-12 px-0 py-0 text-center">

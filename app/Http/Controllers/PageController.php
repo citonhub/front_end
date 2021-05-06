@@ -249,8 +249,15 @@ class PageController extends Controller
            
            }
 
+          
+           return  redirect($pageLink)->with( [ 
+              'pageTitle' => $pageTitle,
+               'pageDescription'=> $pageDescription,
+               'imagePath'=> $imagePath,
+               'pageLink'=> $pageLink
+              ] );;
 
-        return view('pages.link',compact('pageTitle','pageDescription','imagePath','pageLink','referral'));
+   
 
     }
 
@@ -270,7 +277,17 @@ class PageController extends Controller
 
     public function dashboard(){
 
-        return view('pages.dashboard');
+      $pageTitle = session()->get( 'pageTitle', 'CitonHub Dashboard');
+
+     $pageDescription =  session()->get( 'pageDescription', 'Everything you need as a developer to grow your community and earn');
+
+     $imagePath =  session()->get( 'imagePath', 'logo.png');
+     
+     $pageLink =  session()->get( 'pageLink', null);
+   
+
+        return view('pages.dashboard',compact('pageTitle','pageDescription','imagePath','pageLink'));
+      
     }
 
 
