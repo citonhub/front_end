@@ -305,7 +305,11 @@ methods:{
       },
    goBack:function(){
             
-             this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/content' });
+             window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+
+             this.$root.chatComponent.innerSideBarContent = '';
+            
+            this.$root.chatComponent.innerSideBarContent = '';
        
         },
 

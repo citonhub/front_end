@@ -52,13 +52,6 @@
 
  @section('scripts')
 
- <script type="text/javascript">
-        function redirectPage() {
-           window.location =  '{{$pageLink}}';
-        }
-        window.onload = redirectPage;
-    </script>
-
  
      
  @endsection

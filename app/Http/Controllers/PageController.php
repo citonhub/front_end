@@ -249,14 +249,30 @@ class PageController extends Controller
            
            }
 
-          
-           return  redirect($pageLink)->with( [ 
-              'pageTitle' => $pageTitle,
-               'pageDescription'=> $pageDescription,
-               'imagePath'=> $imagePath,
-               'pageLink'=> $pageLink
-              ] );;
+           // set a session
+            session(['fromLink' => true]);
 
+
+
+           $fromLink =  session()->get('fromLink', false);
+
+            if($fromLink == false){
+
+               return view('pages.link',compact('pageTitle','pageDescription','imagePath','pageLink'));
+
+            }else{
+
+               return  redirect($pageLink)->with( [ 
+                  'pageTitle' => $pageTitle,
+                   'pageDescription'=> $pageDescription,
+                   'imagePath'=> $imagePath,
+                   'pageLink'=> $pageLink
+                  ] );;
+    
+
+            }
+          
+         
    
 
     }
@@ -284,8 +300,10 @@ class PageController extends Controller
      $imagePath =  session()->get( 'imagePath', 'logo.png');
      
      $pageLink =  session()->get( 'pageLink', null);
-   
 
+   
+   
+   
         return view('pages.dashboard',compact('pageTitle','pageDescription','imagePath','pageLink'));
       
     }
