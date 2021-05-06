@@ -70,11 +70,7 @@
  @section('scripts')
 
 
- <script type="text/javascript">
-
-   window.defaultPageRoute =  {{$pageLink}};
-      
-    </script>
+ 
 
  <!-- WebRTC scripts, third party scripts for real time communications -->
  <script defer src="{{ asset('js/RTCMultiConnection.min.js') }}"></script>
@@ -102,7 +98,7 @@
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=7.85') }}"></script>
+ <script src="{{ asset('js/dashboard.js?v=7.86') }}"></script>
  <!-- ends -->
      
  @endsection
