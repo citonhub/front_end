@@ -250,7 +250,13 @@ class PageController extends Controller
            
            }
 
-           if (!Browser::isBot() || Browser::isChrome() || Browser::isFirefox() || Browser::isOpera() || Browser::isSafari() || Browser::isIE() || Browser::isIEVersion() || Browser::isEdge()) {
+           if (Browser::isBot() ) {
+
+               return view('pages.link',compact('pageTitle','pageDescription','imagePath','pageLink'));
+           
+
+           }else{
+
 
             return  redirect($pageLink)->with([ 
                'pageTitle' => $pageTitle,
@@ -260,10 +266,6 @@ class PageController extends Controller
                ] );
               
            
-
-           }else{
-
-            return view('pages.link',compact('pageTitle','pageDescription','imagePath','pageLink'));
             
            }
            
