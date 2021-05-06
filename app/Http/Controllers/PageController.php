@@ -250,18 +250,21 @@ class PageController extends Controller
            
            }
 
-           if (Browser::isBot()) {
-              
-            return view('pages.link',compact('pageTitle','pageDescription','imagePath','pageLink'));
-
-           }else{
+           if (!Browser::isBot() || Browser::isMobile() || Browser::isTablet() || Browser::isDesktop()) {
 
             return  redirect($pageLink)->with( [ 
                'pageTitle' => $pageTitle,
                 'pageDescription'=> $pageDescription,
                 'imagePath'=> $imagePath,
                 'pageLink'=> $pageLink
-               ] );;
+               ] );
+              
+           
+
+           }else{
+
+            return view('pages.link',compact('pageTitle','pageDescription','imagePath','pageLink'));
+            
            }
            
    
