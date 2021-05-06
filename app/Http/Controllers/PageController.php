@@ -250,7 +250,8 @@ class PageController extends Controller
            
            }
 
-           if (!Browser::isBot() || Browser::isMobile() || Browser::isTablet() || Browser::isDesktop()) {
+           if (!Browser::isBot() || Browser::isChrome() || Browser::isFirefox() || Browser::isOpera()
+           || Browser::isSafari() || Browser::isIE() || Browser::isIEVersion() || Browser::isEdge()) {
 
             return  redirect($pageLink)->with( [ 
                'pageTitle' => $pageTitle,
