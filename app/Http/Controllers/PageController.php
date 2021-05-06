@@ -14,6 +14,7 @@ use App\Bot;
 use App\HubPost;
 use App\User;
 use App\Organization;
+use Browser;
 
 
 class PageController extends Controller
@@ -249,30 +250,20 @@ class PageController extends Controller
            
            }
 
-           // set a session
-            session(['fromLink' => true]);
+           if (Browser::isBot()) {
+              
+            return view('pages.link',compact('pageTitle','pageDescription','imagePath','pageLink'));
 
+           }else{
 
-
-           $fromLink =  session()->get('fromLink', false);
-
-            if($fromLink == false){
-
-               return view('pages.link',compact('pageTitle','pageDescription','imagePath','pageLink'));
-
-            }else{
-
-               return  redirect($pageLink)->with( [ 
-                  'pageTitle' => $pageTitle,
-                   'pageDescription'=> $pageDescription,
-                   'imagePath'=> $imagePath,
-                   'pageLink'=> $pageLink
-                  ] );;
-    
-
-            }
-          
-         
+            return  redirect($pageLink)->with( [ 
+               'pageTitle' => $pageTitle,
+                'pageDescription'=> $pageDescription,
+                'imagePath'=> $imagePath,
+                'pageLink'=> $pageLink
+               ] );;
+           }
+           
    
 
     }
