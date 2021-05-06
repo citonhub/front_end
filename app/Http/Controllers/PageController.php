@@ -14,7 +14,7 @@ use App\Bot;
 use App\HubPost;
 use App\User;
 use App\Organization;
-use Browser;
+use Jenssegers\Agent\Agent;
 
 
 class PageController extends Controller
@@ -250,7 +250,9 @@ class PageController extends Controller
            
            }
 
-           if (Browser::isBot() ) {
+           $agent = new Agent();
+
+           if ($agent->isRobot()) {
 
                return view('pages.link',compact('pageTitle','pageDescription','imagePath','pageLink'));
            
