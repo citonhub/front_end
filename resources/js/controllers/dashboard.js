@@ -3890,10 +3890,17 @@ const app = new Vue({
        if(this.returnedDataArray.length > 0){
 
       
-        
-          let firstData = this.returnedDataArray.shift();             
-          this.handleSpaceData(firstData);
+          if(this.messageIsProcessing == false){
+           
+            this.messageIsProcessing = true;
 
+            let firstData = this.returnedDataArray.shift();             
+            this.handleSpaceData(firstData);
+
+  
+            
+          }
+         
       
           
        }else{
@@ -4072,6 +4079,8 @@ const app = new Vue({
            if(fromUnsent){
 
               // update unread messages into local storage
+
+             
    
        let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + extraData.space_id + this.$root.username);
    
@@ -4086,7 +4095,20 @@ const app = new Vue({
    
        localforage.setItem('unread_messages_' + extraData.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
          
+        this.sortChatList(false);
+
         this.handleSpaceData(firstData);
+
+        
+         this.$root.clearUnreadMessageRemote(extraData.message.message_id);
+      
+        if(this.returnedDataArray.length == 0){
+          this.messageIsProcessing = false;
+         }else{
+          this.messageIsProcessing = true;
+         }
+
+     
         }).then( (value) => {
          
 
@@ -4102,10 +4124,17 @@ const app = new Vue({
 
            }else{
 
-          
-             if(this.returnedDataArray.length == 0){
-              this.messageIsProcessing = false;
-             }
+           
+            this.handleSpaceData(firstData);
+
+            
+            this.$root.clearUnreadMessageRemote(extraData.message.message_id);
+         
+           if(this.returnedDataArray.length == 0){
+             this.messageIsProcessing = false;
+            }else{
+             this.messageIsProcessing = true;
+            }
 
            }
 
@@ -4113,42 +4142,6 @@ const app = new Vue({
 
         
 
-         }else{
-
-         
-
-          if(fromUnsent){
-
-            // update unread messages into local storage
- 
-     let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + extraData.space_id + this.$root.username);
- 
-     unreadStoredMsg.then((result)=>{
- 
-    let finalResultUnread = JSON.parse(result);
- 
-     finalResultUnread.push(extraData.message)
-
-    
-     localforage.setItem('unread_messages_' + extraData.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
-       
-   
-      }).then( (value) => {
-       
-
-       
-      
- 
-      }).catch(function (err) {
-     console.log(err)
-     // we got an error   
-      });
- 
-     });
-
-         }
-
-          
          }
 
       }
@@ -4317,7 +4310,7 @@ spaceMessageProcessor: function(space,allSpace,count){
        if( this.$root.selectedSpace.space_id != space.space_id || this.$root.selectedSpace.length == 0){
    
          
-       
+           
           
           // save to local database
             let storedMsg = this.$root.getLocalStore('full_space_' + space.space_id  + this.$root.username);
@@ -4332,6 +4325,8 @@ spaceMessageProcessor: function(space,allSpace,count){
           let MessagesFull = parsedResult;
    
           let newMessages = space.new_messages;
+
+        
           
          for (let index = 0; index < newMessages.length; index++) {
            let message = newMessages[index];
@@ -4343,8 +4338,15 @@ spaceMessageProcessor: function(space,allSpace,count){
            let thismessage = MessagesFull.messages.filter((eachmessage)=>{
              return eachmessage.message_id == message.message_id
             });
+
+           
    
             if(thismessage.length == 0){
+
+              this.$root.updateSpaceTracker(space.space_id,message);
+   
+                       
+              MessagesFull.messages.push(message);
 
                 // if the space is not currently opened
 
@@ -4375,31 +4377,45 @@ spaceMessageProcessor: function(space,allSpace,count){
            });
 
 
-         this.$root.updateSpaceTracker(space.space_id,message);
+          
+
+           // update into local storage
+           let messageTrackData = {
+            count: count,
+            space_id: space.space_id,
+            message: message
+            };
+
+
+       
+
+      this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,true,'messager',messageTrackData);
    
-                      
-             MessagesFull.messages.push(message);
-   
+
+            }else{
+
+
+
+                // update into local storage
+           let messageTrackData = {
+            count: count,
+            space_id: space.space_id,
+            message: newMessages[0]
+            };
+
+             
+
+              this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,false,'messager',messageTrackData);
 
             }
         
-            this.$root.clearUnreadMessageRemote(message.message_id);
-       
+           
+         
    
            
          }
            
-              // update into local storage
-                 let messageTrackData = {
-                   count: count,
-                   space_id: space.space_id,
-                   message: newMessages[0]
-                 };
-
-
               
-
-             this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,true,'messager',messageTrackData);
    
             
    
@@ -4439,11 +4455,11 @@ spaceMessageProcessor: function(space,allSpace,count){
      
                });
            
-            this.$root.clearUnreadMessageRemote(message.message_id);
+        
    
           });
    
-        
+          this.sortChatList(false);
    
            // save unread in local storage
           localforage.setItem('unread_messages_' + space.space_id + this.$root.username,JSON.stringify(allSpace)).then( ()=> {
@@ -4477,33 +4493,7 @@ spaceMessageProcessor: function(space,allSpace,count){
    
         
    
-                // update unread in chatlist
-   
-         this.ChatList.map((chatspace)=>{
-   
-           if(chatspace.space_id == space.space_id){
-           
-             chatspace.message_track = new Date();
-             chatspace.last_message = [messages];
-           } 
-         });
-   
-   
-        
-             messages.initialSize = 200
-             messages.id = messages.message_id
-             messages.index_count = this.$root.returnLastIndex() + 1;
-
-               if(!this.$root.checkIfMessageExist(messages)){
-
-                this.$root.Messages.push(messages);
-
-               }
-   
-    
-                this.$root.updateSpaceTracker(space.space_id,messages);
-   
-   
+               
     
    
    
@@ -4527,6 +4517,34 @@ spaceMessageProcessor: function(space,allSpace,count){
           let newMessages = space.new_messages;
                
            newMessages.forEach((messages)=>{
+
+              // update unread in chatlist
+   
+         this.ChatList.map((chatspace)=>{
+   
+          if(chatspace.space_id == space.space_id){
+          
+            chatspace.message_track = new Date();
+            chatspace.last_message = [messages];
+          } 
+        });
+  
+  
+       
+            messages.initialSize = 200
+            messages.id = messages.message_id
+            messages.index_count = this.$root.returnLastIndex() + 1;
+
+              if(!this.$root.checkIfMessageExist(messages)){
+
+               this.$root.Messages.push(messages);
+
+              }
+  
+   
+               this.$root.updateSpaceTracker(space.space_id,messages);
+  
+  
    
              let thismessage = MessagesFull.messages.filter((eachmessage)=>{
                return eachmessage.message_id == messages.message_id 
@@ -4542,19 +4560,20 @@ spaceMessageProcessor: function(space,allSpace,count){
    
               }
    
-            
+             // update into local storage
+             let messageTrackData = {
+              count: count,
+              allSpace: allSpace,
+              message: messages
+            };
+
+        this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,false,'messager',messageTrackData);
    
               
    
            });
 
-             // update into local storage
-             let messageTrackData = {
-              count: count,
-              allSpace: allSpace
-            };
-
-        this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,false,'messager',messageTrackData);
+             
    
             
          }
@@ -4565,7 +4584,7 @@ spaceMessageProcessor: function(space,allSpace,count){
    
        }
    
-       this.sortChatList(false);
+      
    
     
   });
@@ -4593,11 +4612,7 @@ handleSpaceData: function(spaceData){
        
 
     this.handleMessageSequence(spaceData,0);
-
     
-    this.messageIsProcessing = true;
- 
-
 
  },
  handleMessageSequence:function(allSpace,count){

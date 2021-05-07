@@ -118,11 +118,13 @@
 
 
         
-             <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Set amount</div>
+             <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Set amount*</div>
               <v-text-field
                 style="font-size:13px;"
                  placeholder="amount"
                v-model="amount"
+               hint="This is required"
+               persistent-hint
              dense
              :rules="AmountRule"
              type="tel"
@@ -282,14 +284,23 @@ export default {
 
        },
         saveDataToRoot: function(){
+         
+         if(this.card_name == '' || this.amount == ''){
 
-            
-          this.$root.payment_name = this.name;
+           this.$root.payment_option = ''
+     
+         }else{
+
+             this.$root.payment_name = this.name;
           this.$root.payment_card_name = this.card_name;
           this.$root.payment_amount = this.amount;
           this.$root.payment_interval = this.interval;
           this.$root.payment_currency = this.currency;
 
+
+         }
+            
+        
           this.$root.showPaymentOptionBoard = false;
         },
           selectPaymentOption:function(type){
