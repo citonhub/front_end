@@ -14,6 +14,7 @@ use App\Bot;
 use App\HubPost;
 use App\User;
 use App\Organization;
+use Jenssegers\Agent\Agent;
 
 
 class PageController extends Controller
@@ -121,7 +122,7 @@ class PageController extends Controller
            
    
            $pageTitle = $thisSpace->name;
-           $pageDescription = 'Join ' . $thisSpace->name . ' ' . $thisSpace->type  .' on Citonhub.';
+           $pageDescription = 'Join ' . $thisSpace->name  .' on Citonhub.';
    
              if($thisSpace->image_name == null){
                 $imagePath = 'logo.png';
@@ -131,6 +132,25 @@ class PageController extends Controller
           
             
                $pageLink = '/dashboard#/channels/' . $uniqueId .'/content';
+              
+           
+           }
+
+           if($type == 'resources'){
+            $thisSpace = Space::where('space_id',$uniqueId)->first();
+           
+   
+           $pageTitle = $thisSpace->name;
+           $pageDescription = 'Resources for ' . $thisSpace->name  .' on Citonhub.';
+   
+             if($thisSpace->image_name == null){
+                $imagePath = 'logo.png';
+             }else{
+                $imagePath = 'space/' . $thisSpace->image_name .'.' . $thisSpace->image_extension;
+             }
+          
+            
+               $pageLink = '/dashboard#/channels/' . $uniqueId .'/resources';
               
            
            }
@@ -230,8 +250,28 @@ class PageController extends Controller
            
            }
 
+           $agent = new Agent();
 
-        return view('pages.link',compact('pageTitle','pageDescription','imagePath','pageLink','referral'));
+           if ($agent->isRobot()) {
+
+               return view('pages.link',compact('pageTitle','pageDescription','imagePath','pageLink'));
+           
+
+           }else{
+
+
+            return  redirect($pageLink)->with([ 
+               'pageTitle' => $pageTitle,
+                'pageDescription'=> $pageDescription,
+                'imagePath'=> $imagePath,
+                'pageLink'=> $pageLink
+               ] );
+              
+           
+            
+           }
+           
+   
 
     }
 
@@ -251,7 +291,19 @@ class PageController extends Controller
 
     public function dashboard(){
 
-        return view('pages.dashboard');
+      $pageTitle = session()->get( 'pageTitle', 'CitonHub Dashboard');
+
+     $pageDescription =  session()->get( 'pageDescription', 'Everything you need as a developer to grow your community and earn');
+
+     $imagePath =  session()->get( 'imagePath', 'logo.png');
+     
+     $pageLink =  session()->get( 'pageLink', null);
+
+   
+   
+   
+        return view('pages.dashboard',compact('pageTitle','pageDescription','imagePath','pageLink'));
+      
     }
 
 

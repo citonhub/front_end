@@ -1,10 +1,10 @@
 <template>
  <div @click.stop="preventClose()" style="background:white;">
-    <v-btn class="d-lg-inline-flex d-none" icon color="#ffffff" @click="that.$root.showYoutubePlayer = false" style="position:absolute;background:#3C87CD; margin-top:-24px; left:2%; z-index:999999999999;" 
+    <v-btn class="d-lg-inline-flex d-none" icon color="#ffffff" @click="that.$root.showYoutubePlayer = false; that.$root.showYoutubePlayerTemp = false;" style="position:absolute;background:#3C87CD; margin-top:-24px; left:2%; z-index:999999999999;" 
                                             ><v-icon>mdi-close mdi-18px</v-icon></v-btn>
 
       
-       <v-btn class="d-block-flex d-lg-none" icon color="#ffffff"  @click="that.$root.showYoutubePlayerSm = false" style="position:absolute;background:#3C87CD; margin-top:4px; left:4px; z-index:999999999999;" 
+       <v-btn class="d-block-flex d-lg-none" icon color="#ffffff"  @click="that.$root.showYoutubePlayerSm = false; that.$root.showYoutubePlayerTemp = false;" style="position:absolute;background:#3C87CD; margin-top:4px; left:4px; z-index:999999999999;" 
                                             ><v-icon>mdi-close mdi-18px</v-icon></v-btn>
 
     <template v-if="loadingVideo">
@@ -204,6 +204,8 @@ export default {
      }) 
       },
       subscribeToChannel:function(){
+
+         this.$root.checkIfUserIsLoggedIn();
         
          if(this.$root.youtube_connected){
  
@@ -231,6 +233,9 @@ export default {
      }) 
 
          }else{
+
+           this.$root.showYoutubePlayer = false
+            this.$root.showYoutubePlayerSm = false
     
              this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/youtube_auth' });
 
@@ -239,6 +244,8 @@ export default {
            
       },
       rateVideo(type){
+
+         this.$root.checkIfUserIsLoggedIn();
 
           if(this.$root.youtube_connected){
 
@@ -275,6 +282,9 @@ export default {
 
 
           }else{
+
+              this.$root.showYoutubePlayer = false
+            this.$root.showYoutubePlayerSm = false
 
              this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/youtube_auth' });
 

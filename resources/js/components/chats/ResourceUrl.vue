@@ -129,6 +129,7 @@ export default {
      
        this.loading = false;
        this.$root.forcereloadResource = true;
+        this.$root.chatComponent.showAlert('Added!','Resource URL has been added','success','bottomRight',3000);
          this.goBack();
             
      }
@@ -145,13 +146,31 @@ export default {
     processURL:function(link){
 
        
-          let FullString = link
+       
 
-      var  firstProcess = FullString.substring(8);
+    let psl = require('psl');
+     let FullString = link
 
-       var  finalProcess = firstProcess.slice(0, -1);
+     function extractHostname(url) {
+    var hostname;
+    //find & remove protocol (http, ftp, etc.) and get hostname
 
-       return finalProcess;
+    if (url.indexOf("//") > -1) {
+        hostname = url.split('/')[2];
+    }
+    else {
+        hostname = url.split('/')[0];
+    }
+
+    //find & remove port number
+    hostname = hostname.split(':')[0];
+    //find & remove "?"
+    hostname = hostname.split('?')[0];
+
+    return hostname;
+      }
+
+       return psl.get(extractHostname(FullString));
 
     },
     getLinkInfo:function(e){
@@ -174,7 +193,7 @@ export default {
         if(response.status==200){
         
          this.linkInfo = response.data;
-
+            
            this.loadingLink = false
         }
       }

@@ -324,6 +324,7 @@ export default {
      mounted(){
 
        this.checkIfLogin();
+         this.$root.auth_device_id =  "device_" + Math.random().toString(36).slice(2);
 
        if(this.$root.fromVerifyPage){
           this.showAlert('Hey!','Please login with your email and password','info')
@@ -356,7 +357,7 @@ export default {
 
          handleGitHub:function(){
            
-         this.$root.auth_device_id =  "device_" + Math.random().toString(36).slice(2);
+       
     var strWindowFeatures = "location=yes,height=570,width=520,scrollbars=yes,status=yes";
      let referralUser = null;
 
@@ -371,6 +372,8 @@ export default {
          }
  
         var win = window.open(URL, "_blank", strWindowFeatures);
+
+        this.$root.checkGitHubLoginState();
       },
   showAlert:function(title='',message,type){
        

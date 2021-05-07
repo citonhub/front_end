@@ -1,28 +1,32 @@
 @extends('layouts.dashboard')
 @section('title')
 
-    <title>CitonHub</title>
+<title>{{$pageTitle}}</title>
 
  @endsection
  @section('meta') 
- <meta name="description" content="CitonHub dashboard" />
-  <meta name="keywords" content="Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
+
+ <meta name="description" content="{!! $pageDescription !!}" />
+  <meta name="keywords" content="Teach programming,Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
-  <meta name="og:image" content="https://citonhub.com/imgs/logo.png"/>
-  <!--Metadata for Apple-->
-  <meta name="apple-mobile-web-app-capable" content="yes">
+
+   <!--Metadata for Apple-->
+   <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="white">
     <meta name="apple-mobile-web-app-title" content="CitonHub">
-    <link rel="apple-touch-icon" href="images/icons/logo_msapplication-icon-144x144.png">
+    <link rel="apple-touch-icon" href="images/icons/msapplication_icon_144x144.png">
     <!--Metadata for Microsoft-->
-    <meta name="msapplication-TileImage" content="images/icons/logo_msapplication-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="images/icons/msapplication_icon_144x144.png">
     <meta name="msapplication-TileColor" content="#3C87CD">
-    <meta property="og:description" content="CitonHub dashboard" />
-    <meta property='twitter:title' content="CitonHub dashboard"/>
-<meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
-<meta name="twitter:card" content="summary_large_image"/>
 
+    <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="og:image" content="https://www.citonhub.com/imgs/{{$imagePath}}"/>
+  <meta property="og:description" content="{!! $pageDescription !!}" />
+
+
+    <meta property='twitter:title' content="{!! $pageTitle !!}"/>
+<meta property='twitter:image' content="https://www.citonhub.com/imgs/{{$imagePath}}"/>
 
  @endsection
  @section('css')
@@ -65,6 +69,9 @@
 
  @section('scripts')
 
+
+ 
+
  <!-- WebRTC scripts, third party scripts for real time communications -->
  <script defer src="{{ asset('js/RTCMultiConnection.min.js') }}"></script>
 
@@ -75,7 +82,6 @@
 <!-- ends -->
 
 <!-- Video player and streaming, third-party scripts -->
-
 
   <script  defer src="{{ asset('js/shaka-player.compiled.js') }}"></script>
 
@@ -92,7 +98,7 @@
 <!-- ends -->
 
 <!-- The main compiled script for this page  -->
- <script src="{{ asset('js/dashboard.js?v=7.34') }}"></script>
+ <script src="{{ asset('js/dashboard.js?v=7.98') }}"></script>
  <!-- ends -->
      
  @endsection

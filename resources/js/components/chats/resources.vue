@@ -13,7 +13,9 @@
           </div>
               
               <div class="col-2 py-0 mr-1 text-right">
-                 
+                  <v-btn icon @click="shareResource">
+                      <v-icon>mdi mdi-share-variant</v-icon>
+                    </v-btn>
               </div>
           
     </div>
@@ -46,6 +48,15 @@
 
                  <div v-if="showTextarea || newPlaylistDesc != ''" class="mt-2">
 
+                     <select   style="border:1px solid white; width:100%; border-radius:2px; font-family:BodyFont; font-size:13px; background:white;"  v-model="selectedType" class="py-2 px-2" >
+                        <option value="" >Select type</option>
+                    <option v-for="(option,index)  in resourceType" :value="option.value" :key="index + 'type'">{{ option.name}}</option>
+                     </select>
+
+                 </div>
+
+                 <div v-if="showTextarea || newPlaylistDesc != ''" class="mt-2">
+
                    <textarea  @input="processContent" v-model="newPlaylistDesc" :placeholder="'What is this resource about? Markdown is supported.'" class="py-2 px-2" style="border:1px solid white; width:100%; border-radius:2px; font-family:BodyFont; height:95px; font-size:13px; background:white;">
 
                    </textarea>
@@ -71,12 +82,15 @@
 
         </template>
 
+     
+
       
 
        <draggable 
          class="d-flex flex-row flex-wrap col-12 py-1 px-2 px-md-2 "
      tag="div"
         v-model="resources"
+        v-if="resources.length != 0"
         handle=".handle"
         v-bind="dragOptions"
         @start="drag = true"
@@ -85,7 +99,8 @@
 
        <v-card :ripple="false" flat class="d-flex flex-row px-1  mb-2 col-12 " v-for="(resource,index) in resources" :key="index" style="background: rgba(125, 179, 229, 0.4);cursor:pointer;">
               <div  @click="showContent(resource)" class="mr-2 ">
-                 <v-icon color="#000000" class="ml-2">las la-folder</v-icon>
+                 <v-icon color="#000000" class="ml-2"  v-if="resource.type == 'resource'" >las la-folder</v-icon>
+                   <v-icon color="#000000" class="ml-2"  v-if="resource.type == 'playlist'" >las la-play-circle</v-icon>
               </div>
 
               <div  @click="showContent(resource)" style=" white-space: nowrap; overflow:hidden; text-overflow:ellipsis; width:100%;">
@@ -129,40 +144,59 @@
 
        </draggable>
 
+          <template v-else>
 
-    <template v-if="checkIfisOwner() && !has_devto_resource">
+              <div class="col-12 mt-2 text-center">
 
-       <div class="col-12 py-1 text-center" style="margin-top:70px;">
+                 <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">No resource added yet</div>
 
-          <div class="col-12 py-1 text-center">
 
-          <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">Create resource from your DevTo articles</div>
+             </div>
+
+          
+        </template>
+
+
+ <template v-if="checkIfisOwner() && !has_youtube_resource">
+
+    
+     
+
+      <div class="col-12 py-1 text-center" style="margin-top:50px;">
+
+       <div class="col-12 text-center py-1">
+
+          <div style="font-family:BodyFont;font-size:13px; color:grey;" class=" text-center">If you have a YouTube channel, import your videos </div>
 
     </div>
 
-      <div class="col-12 px-1 py-1 d-flex flex-row" style="align-items:center;" v-if="showAddArticle">
-            <input style="width:100%;heigth:100%;font-size:13px;background:whitesmoke;border-radius:2px;font-family:BodyFont; text-transform:none;"  
-                  placeholder="Your devto username" class="py-2 px-3" type="search" v-model="devtoUsername"  @keyup.enter="importDevtoArticle()"> 
+          <template v-if="youtube_connected">
 
-                  <div class="ml-1">
-                        <v-btn @click="importDevtoArticle()" :loading="loadingDevtoConnect" small color="#3C87CD" style="font-size:10px; color:white;font-family:BodyFont;">Import articles</v-btn>
-                  </div>
-      </div>
-     
 
-      <div class="col-12 py-1 text-center" v-else>
-            <v-btn  @click="showAddArticle = true" rounded medium outlined style="font-family:BodyFont;font-size:13px; text-transform:none;" color="#000000">
-               <img  src="/imgs/devto.png" height="27px" class="px-2" >
+             <v-btn @click="connectYoutube" :loading="loadingYoutubeConnect" rounded medium outlined style="color:#FF0000; font-family:BodyFont;font-size:13px; text-transform:none;" color="#FF0000">
+               <v-icon class="px-2" style="font-size:35px; color:#FF0000;">mdi mdi-youtube</v-icon> 
 
-               <span>Import articles</span>
+               <span>Import videos</span>
             </v-btn>
+
+
+          </template>
+
+          <template v-else>
+
+             <v-btn @click="handleYouTubeAuth" :loading="loadingAuthBtn" rounded medium outlined style="color:#FF0000; font-family:BodyFont;font-size:13px; text-transform:none;" color="#FF0000">
+               <v-icon class="px-2" style="font-size:35px; color:#FF0000;">mdi mdi-youtube</v-icon> 
+
+               <span>Sign In</span>
+            </v-btn>
+
+          </template>
+           
       </div>
-
-
-       </div>
 
       
-    </template>
+
+   </template>
 
 
     </template>
@@ -188,13 +222,33 @@ data(){
          devtoUsername:'',
          showTextarea:false,
           newPlaylistDesc:'',
-         loadingDevtoConnect:false
+          has_youtube_resource:'',
+          loadingYoutubeConnect:false,
+         loadingDevtoConnect:false,
+          showPlaylist:true,
+    youtube_connected:false,
+    playName:'',
+    contentInWord:'',
+    selectedType:'',
+    resourceType:[
+      {
+        name:"Videos from YouTube",
+        value:"playlist"
+      },
+      {
+        name:"Articles and resource URL",
+        value:"resource"
+      },
+
+    ],
+    loadingAuthBtn:false,
     }
    
 },
 mounted(){
 this.fetchResources();
   this.$root.showYoutubePlayer = false;
+  this.$root.autoOpenResourcePage = false;
         this.$root.showYoutubePlayerSm = false;
         this.$root.showAddButton = false;
 },
@@ -223,18 +277,153 @@ this.fetchResources();
           }
   },
 methods:{
+  shareResource:function(){
+      this.$root.shareLink =  'https://link.citonhub.com/resources/'+ this.$root.selectedSpace.space_id;
+
+          this.$root.shareText = 'Check out ' + this.$root.selectedSpace.name + ' on CitonHub';
+          
+          this.$root.infoText = 'Share resources with others';
+
+          this.$root.alertComponent =   this.$root.chatComponent;
+
+          this.$root.showInvitation = true;
+  },
    processContent:function(){
 
      this.contentInWord = this.compiledMarkdown;
    },
+      handleYouTubeAuth:function(){
+          
+           this.loadingAuthBtn = true
+           var strWindowFeatures = "location=yes,height=770,width=720,scrollbars=yes,status=yes";
+        var URL = 'https://api.citonhub.com/initiate-google-auth/' + this.$root.username;
+
+        var win = window.open(URL, "_blank", strWindowFeatures);
+
+        this.checkYoutubeStatus();
+
+      },
    goBack:function(){
-              window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+            
+             window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
 
              this.$root.chatComponent.innerSideBarContent = '';
-            
-            this.$root.chatComponent.innerSideBarContent = '';
+
+             this.$root.chatInnerSideBar = false;
+           
        
         },
+
+         connectYoutube:function(){
+
+          this.loadingYoutubeConnect = true;
+
+             axios.get( '/connect-youtube/' +  this.$root.selectedSpace.space_id)
+      .then(response => {
+      
+      if (response.status == 200) {
+
+      
+         let newResource = response.data.resource;
+
+          this.playlists.unshift(newResource);
+             
+          this.has_youtube_resource = true;
+
+          this.loadingYoutubeConnect = false;
+
+          this.$root.LocalStore('channel_playlist_' + this.$root.selectedSpace.space_id  + this.$root.username,this.playlists);
+
+          this.saveResourceOrder(false);
+
+             this.$root.chatComponent.showAlert('Created!','Playlist has been created','success');
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+     this.$root.chatComponent.showAlert('Oops!','Unable to create playlist,please try again','error');
+          this.loadingYoutubeConnect = false;
+    
+     }) 
+
+      },
+      deleteResource:function(resource){
+
+         let remainingPlaylist = this.playlists.filter((eachresource)=>{
+           return eachresource.resource_id != resource.resource_id
+         })
+
+         this.playlists = remainingPlaylist;
+
+           axios.post( '/delete-resources',{
+        resource_id: resource.resource_id
+      })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+      
+
+               this.$root.chatComponent.showAlert('Deleted!','Playlist has been deleted','success');
+
+
+          this.$root.LocalStore('channel_playlist_' + this.$root.selectedSpace.space_id  + this.$root.username,this.playlists);
+
+          this.saveResourceOrder(false);
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+     this.$root.chatComponent.showAlert('Oops!','Unable to delete playlist,please try again','error');
+       
+    
+     }) 
+
+
+
+            
+      },
+       checkYoutubeStatus:function(){
+            axios.get('/get-youtube-status')
+      .then(response => {
+      
+      if (response.status == 200) {
+
+         
+        let status = response.data.youtube_connected;
+
+        if(status){
+          
+            this.$root.youtube_connected = true;
+            this.youtube_connected = true
+
+            this.connectYoutube();
+        }else{
+            setTimeout(() => {
+                 this.checkYoutubeStatus();
+            }, 3000);
+        }
+            
+     }
+       
+     
+     })
+     .catch(error => {
+       
+        setTimeout(() => {
+                 this.checkYoutubeStatus();
+            }, 2000);
+       
+    
+     }) 
+
+      },
 
   importDevtoArticle:function(){
 
@@ -360,7 +549,7 @@ methods:{
                     let finalResult = JSON.parse(result);
                 
                        this.resources = finalResult
-
+                
                    
                   this.loadingResources = false;
 
@@ -380,6 +569,7 @@ methods:{
                    let finalResult = response.data.resources;
 
                     this.has_devto_resource = response.data.has_devto_resource;
+                    this.has_youtube_resource =  response.data.has_youtube_resource;
 
                      this.resources = finalResult
 
@@ -460,6 +650,8 @@ methods:{
                      this.resources = finalResult
 
                        this.has_devto_resource = response.data.has_devto_resource;
+                       this.has_youtube_resource =  response.data.has_youtube_resource;
+
 
                    this.$root.forcereloadResource = false;
      
@@ -488,7 +680,7 @@ methods:{
      }
   ,
   createResources:function(){
-     if(this.resourceName == '' || this.contentInWord == '') return;
+     if(this.resourceName == '' || this.contentInWord == '' || this.selectedType == '') return;
 
       this.saving = true;
     axios.post('/create-resource',
@@ -496,7 +688,7 @@ methods:{
       
 space_id: this.$root.selectedSpace.space_id,
 name: this.resourceName,
-type:'resource',
+type:this.selectedType,
 info: this.contentInWord
 
     }

@@ -302,6 +302,15 @@
                               
                             </div>
 
+                            <!-- floating resource button -->
+
+                            <div style="position:absolute; z-index:99999999; right:-20px;top:11%;" 
+                              v-if="(that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'SubSpace' || that.$root.selectedSpace.type == 'Team') && that.$root.Messages.length != 0">
+                              <v-btn @click="showResources" small color="#ffffff" rounded >   <v-icon  class="mr-4" color="#404040" >las la-play-circle</v-icon></v-btn>
+                            </div>
+
+                            <!-- ends -->
+
                           <div v-if="that.$root.Messages.length != 0" style="position:absolute;width:100%;height:100%; left:0%;background:#E1F0FC;">
 
                               <DynamicScroller
@@ -451,11 +460,11 @@
 
                                   
                                
-                               <div class="d-flex flex-row col-12 py-0" v-if="!this.$root.showRootReply && !that.$root.showEmojiBox">
+                               <div class="d-flex flex-row col-12 py-2" v-if="!this.$root.showRootReply && !that.$root.showEmojiBox">
 
                                   <!-- scroll to buttom -->
 
-                                   <div class="mr-auto py-0  " v-if="that.$root.Messages && !this.$root.showRootReply" >
+                                   <div class="ml-auto py-0  " v-if="that.$root.Messages && !this.$root.showRootReply" >
 
                                          <!-- scroll to bottom  -->
 
@@ -463,7 +472,7 @@
 
                                    <template v-if="that.$root.Messages.length >  0">
 
-                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"  class="mb-n5"  fab x-small color="#ffffff"  style="z-index:9999999;  ">
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"  class="mb-4"  fab x-small color="#ffffff"  style="z-index:9999999;  ">
 
                                <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
 
@@ -479,20 +488,7 @@
 
                                    </div>
 
-                                       <!-- show code button -->
-
-                                   <div class="  ml-auto" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'"  >
-
-                                        <v-btn  @click="showCodeEditor" class="mb-2"   fab color="#ffffff"  style="z-index:9999999;">
-
-                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
-
-                              </v-btn>
-
-                                   </div>
-                              
-
-                              <!-- ends -->
+                                     
                               
 
                                </div>
@@ -759,8 +755,6 @@
 
                                           <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
 
-                                          <playlist v-if="innerSideBarContent == 'playlists'" ></playlist>
-
                                           <resources v-if="innerSideBarContent == 'resources'" ></resources>
 
                                             <resource-content v-if="innerSideBarContent == 'resource_content'" ></resource-content>
@@ -770,7 +764,7 @@
                                           
                                             <!-- fab screen -->
                                           
-                                          <template v-if="that.$root.showAddButton">
+                                          <template v-if="that.$root.showAddButton && checkIfisOwner()">
                                    
                                       <v-btn @click="toggleButton()"     fab color="#3C87CD"  style="z-index:99999999;  position:absolute;  bottom:3%; right:2%; ">  
 
@@ -1201,6 +1195,16 @@
 
                             </div>
 
+                        
+                            <!-- floating resource button -->
+
+                            <div style="position:fixed; z-index:9999999999; right:-22px;top:70px;"  
+                            v-if="(that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'SubSpace' || that.$root.selectedSpace.type == 'Team') && that.$root.Messages.length != 0">
+                              <v-btn @click="showResources" small color="#ffffff" rounded >   <v-icon  class="mr-4" color="#404040">las la-play-circle</v-icon></v-btn>
+                            </div>
+
+                            <!-- ends -->
+
 
   <DynamicScroller
     :items="that.$root.Messages"
@@ -1352,7 +1356,7 @@
 
                                   <!-- scroll to buttom -->
 
-                                   <div class="mr-auto py-0  " v-if="that.$root.Messages && !this.$root.showRootReply" >
+                                   <div class="ml-auto py-2  " v-if="that.$root.Messages && !this.$root.showRootReply" >
 
                                          <!-- scroll to bottom  -->
 
@@ -1360,7 +1364,7 @@
 
                                    <template v-if="that.$root.Messages.length >  0">
 
-                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"  class="mb-n4"  fab x-small color="#ffffff"  style="z-index:9999999;  ">
+                                       <v-btn @click="scrollToBottom()" v-if="chatIsOpen && !bottomIsVisible"  class="mb-4"  fab x-small color="#ffffff"  style="z-index:9999999;  ">
 
                                <v-icon style="font-size:20px; color:#3C87CD;">las la-angle-double-down</v-icon>
 
@@ -1377,35 +1381,7 @@
                                    </div>
 
 
-                              <!-- share diary -->
-                          
-                           <div  class="ml-auto" v-if="that.$root.selectedSpace.type ==  'Bot'">
-
-                                       <v-btn @click="shareDiary()" v-if="chatIsOpen" class="mb-2"   fab x-small color="#ffffff"  style="z-index:9999999; ">
-
-                               <v-icon style="font-size:20px; color:#3C87CD;">mdi mdi-share-variant</v-icon>
-
-                              </v-btn>
-
-                                   </div>
-
-
-                              <!-- ends -->
-
-                                       <!-- show code button -->
-
-                                   <div class="  ml-auto" v-if="chatIsOpen && !this.$root.showRootReply && this.$root.selectedSpace.type != 'Bot'"  >
-
-                                        <v-btn  @click="showCodeEditor" class="mb-2"   fab color="#ffffff"  style="z-index:9999999;">
-
-                               <v-icon style="font-size:24px; color:#3C87CD;">las la-code</v-icon>
-
-                              </v-btn>
-
-                                   </div>
-                              
-
-                              <!-- ends -->
+                            
                               
 
                                </div>
@@ -1477,15 +1453,7 @@
 
                             <!-- ends -->
 
-                            <!-- youthube auth board -->
-
-                               <div  v-if="chatIsOpen && chatInnerConent == 'youtube_auth'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
-                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
-           class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
-                                <youtube-auth-board></youtube-auth-board>
-                            </div>
-
-                            <!-- ends -->
+                          
 
 
                              <!-- message options -->
@@ -1578,7 +1546,6 @@
 
                                         <diary-notes v-if="innerSideBarContent == 'diary_notes'"></diary-notes>
 
-                                        <playlist v-if="innerSideBarContent == 'playlists'" ></playlist>
 
                                           <resources v-if="innerSideBarContent == 'resources'" ></resources>
 
@@ -1589,7 +1556,7 @@
 
                                              <!-- fab screen -->
 
-                                  <template v-if="that.$root.showAddButton">
+                                  <template v-if="that.$root.showAddButton && checkIfisOwner()">
                                    
                                       <v-btn @click="toggleButton()"     fab color="#3C87CD"  style="z-index:9999999999;  position:fixed;  bottom:3%; right:2%; ">  
 
@@ -1721,10 +1688,21 @@
                               <!-- ends -->
 
 
+                                <!-- youthube auth board -->
+
+                               <div  v-if="chatIsOpen && chatInnerConent == 'youtube_auth'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:99999999999999;" >
+                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:99999999999999999;" 
+           class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
+                                <youtube-auth-board></youtube-auth-board>
+                            </div>
+
+                            <!-- ends -->
+
+
             
                 <!-- youtube video player -->
 
-                                       <div v-if="that.$root.showYoutubePlayerSm" style="position:fixed; height:100%; background: rgba(27, 27, 30, 0.32); left:0; position:fixed; height:100%; top:0%;z-index:99999999999999999;" class="d-flex flex-row col-md-6 px-0 py-0 text-center">
+                                       <div v-if="that.$root.showYoutubePlayerSm" style="position:fixed; height:100%; background: rgba(27, 27, 30, 0.32); left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" class="d-flex flex-row col-md-6 px-0 py-0 text-center">
                                          
                                          <div style=" height:auto; left:0%; " class=" col-12 px-0 py-0">
                                              <youtube-player :screenType="'small'" :playerHeight="220" :videoId="that.$root.playingVideoId"></youtube-player>
@@ -1895,6 +1873,18 @@
              Checking for diary ...
         </div>
 
+ </div>
+
+
+ <!-- ends -->
+
+   <!-- resources view -->
+
+
+   <div class="py-0 px-0 d-flex flex-column" style="position:fixed;  width:100%; height:100%; z-index:99999999999999999;background: #F5F5FB;" v-if="that.$root.showResourceView || that.$root.showResourceViewContent">
+    
+    <resource-view></resource-view>
+       
  </div>
 
 
@@ -2183,9 +2173,10 @@ const resourcepage= () => import(
    /* webpackChunkName: "YoutubeAuthBoard" */ './YoutubeAuthBoard.vue'
   );
 
-  const playlist = () => import(/* webpackChunkName: "playlist" */ './playlists');
+
 const resources = () => import(/* webpackChunkName: "resource" */ './resources');
 
+const ResourceView = () => import(/* webpackChunkName: "ResourceView" */ './ResourceView');
 
 import VueZoomer from 'vue-zoomer'
 
@@ -2324,8 +2315,8 @@ export default {
          YoutubePlayer,
          ResourceUrl,
          YoutubeAuthBoard,
-         playlist,
          resources,   
+        ResourceView
     },
      methods:{
 
@@ -3009,12 +3000,24 @@ this.pic1='/imgs/platinum.svg'
                    return;
 
                }
+           
+              if(this.$router.currentRoute.path.indexOf('resources') >= 0){
+                    
+                    this.$router.push({ path: '/channels/e_resources/view/'+ this.$route.params.spaceId });
 
+                     return;
+
+                 }
+ 
+
+         }else{
+                 
+               
          }
 
 
-
-            this.$root.checkIfUserIsLoggedIn();
+         this.$root.checkIfUserIsLoggedIn();
+           
          return;
         }else{
 
@@ -3038,14 +3041,41 @@ this.pic1='/imgs/platinum.svg'
               
 
            }
+
+       
+            if(this.$router.currentRoute.path.indexOf('create') >= 0){
+                    
+                      this.$root.showCreateChannel = false;
+
+             this.$root.componentIsLoading = true;
+
+    
+
+          this.chatbarContent = '';
+          this.chatInnerConent = '';
+
+         
+              this.chatbarContent = 'create_channel';
+
+                 }
+
           
             if(this.$route.params.spaceId != undefined){
 
                if(this.$router.currentRoute.path.indexOf('payment') >= 0){
 
                this.$root.showPaymentProcessingBoard = true;
+               
 
                }else{
+
+                  if(this.$router.currentRoute.path.indexOf('resources') >= 0){
+                    
+                   this.$root.autoOpenResourcePage = true;
+
+                 }
+
+                 
 
                   this.liveSessionIsOpen = false;
       this.chatShareIsOpen = false;
@@ -3081,6 +3111,8 @@ this.pic1='/imgs/platinum.svg'
        
 
                }
+
+              
 
             
      
@@ -4039,6 +4071,13 @@ let FinalMessages= finalResult.direct_messages.filter(chat=>{
      
             this.botMessager();
      
+      }
+
+      if(this.$root.autoOpenResourcePage){
+
+         this.$root.chatComponent.chatInnerSideBar = true;
+        this.$root.chatComponent.innerSideBarContent = 'resources';
+
       }
 
 

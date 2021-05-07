@@ -371,6 +371,7 @@ export default {
      mounted(){
     
       // this.checkIfLogin();
+        this.$root.auth_device_id =  "device_" + Math.random().toString(36).slice(2);
     },
     methods:{
        switchTxtView:function(){
@@ -420,6 +421,8 @@ export default {
          }
  
         var win = window.open(URL, "_blank", strWindowFeatures);
+
+        this.$root.checkGitHubLoginState();
       },
        checkIfLogin:function(){
 

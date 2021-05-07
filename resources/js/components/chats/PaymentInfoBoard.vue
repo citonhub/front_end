@@ -14,7 +14,8 @@
      <div class="col-12 text-left py-0 px-md-2 px-1">
          <h5 class="text-left">Membership</h5>
 
-           <span style="font-size:13px;  font-family:BodyFont;" > Your audience or members will have to pay to join your channel.</span><br><br> 
+           <span style="font-size:13px;  font-family:BodyFont;" > Your audience or members will have to pay before they access your channel and the contents in it. <span style="font-family:MediumFont;">Subscription</span> means they will pay a certain amount of money
+             recurrently. <span style="font-family:MediumFont;">One-time fee</span> means they will pay once to access your channel and it's contents forever.</span><br><br> 
 
            <span style="font-size:13px;  font-family:BodyFont;" >Select membership type</span>
 
@@ -117,11 +118,13 @@
 
 
         
-             <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Set amount</div>
+             <div style="font-size:13px;font-family:MediumFont;" class="mb-2">Set amount*</div>
               <v-text-field
                 style="font-size:13px;"
                  placeholder="amount"
                v-model="amount"
+               hint="This is required"
+               persistent-hint
              dense
              :rules="AmountRule"
              type="tel"
@@ -281,14 +284,23 @@ export default {
 
        },
         saveDataToRoot: function(){
+         
+         if(this.card_name == '' || this.amount == ''){
 
-            
-          this.$root.payment_name = this.name;
+           this.$root.payment_option = ''
+     
+         }else{
+
+             this.$root.payment_name = this.name;
           this.$root.payment_card_name = this.card_name;
           this.$root.payment_amount = this.amount;
           this.$root.payment_interval = this.interval;
           this.$root.payment_currency = this.currency;
 
+
+         }
+            
+        
           this.$root.showPaymentOptionBoard = false;
         },
           selectPaymentOption:function(type){

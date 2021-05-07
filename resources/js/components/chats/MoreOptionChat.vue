@@ -3,20 +3,12 @@
 
                                       <div class="col-12 px-0 py-1 d-flex flex-column">
 
-                                          <v-card v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'SubSpace' || this.$root.selectedSpace.type == 'Team'" tile flat class="px-2 py-2 d-flex flex-row" style="align-items:center;" @click="controlAction('playlists')">
-
-                                        
-
-                                          <v-icon class="mr-1">las la-play-circle</v-icon>   <span style="font-family:BodyFont;font-size:13px;color:grey;">Playlists</span>
-
-                                         </v-card>
-
-
+                                       
                                            <v-card v-if="this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'SubSpace' || this.$root.selectedSpace.type == 'Team'" tile flat class="px-2 py-2 d-flex flex-row" style="align-items:center;" @click="controlAction('resources')">
 
                                         
 
-                                          <v-icon class="mr-1">las la-folder</v-icon>   <span style="font-family:BodyFont;font-size:13px;color:grey;">Resources</span>
+                                          <v-icon class="mr-1">las la-play-circle</v-icon>   <span style="font-family:BodyFont;font-size:13px;color:grey;">Resources</span>
 
                                          </v-card>
 

@@ -118,7 +118,7 @@
               <template v-if="that.$root.selectedResource.type == 'playlist'">
             <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-4 text-center">No video in this playlist yet.</div>
 
-            <div class="col-12 py-1 text-center mt-2" v-if="checkIfisOwner()">
+            <div class="col-12 py-1 text-center mt-2" v-if="checkIfisOwner() && that.$root.selectedResource.youtube_playlist_id == null">
 
                <v-btn @click="goToSearch('youtube')" medium  rounded outlined style="color:#FF0000; font-family:BodyFont;font-size:13px; text-transform:none;" color="#FF0000">
                <v-icon class="px-2" style="font-size:35px; color:#FF0000;">mdi mdi-youtube</v-icon> 
@@ -132,7 +132,7 @@
            <template v-else>
                 <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-4 text-center">No article or resource URL in this resource yet.</div>
 
-             <div class="col-12 py-1 text-center d-flex flex-row mt-2 flex-wrap" v-if="checkIfisOwner()">
+             <div class="col-12 py-1 text-center d-flex flex-row mt-2 flex-wrap" v-if="checkIfisOwner() && that.$root.selectedResource.devto_username == null">
 
                 <div class="col-12 py-1 text-center">
 
@@ -222,12 +222,6 @@ export default {
     mounted(){
       this.fetchResourceContent();
       
-      if( this.$root.selectedResource.youtube_playlist_id !== null)
-           { that.$root.showAddButton=false}
-           else{
-this.$root.showAddButton = true;
-           }
-      
       this.setType();
       this.input =   htmlToText( this.$root.selectedResource.info, { });
 
@@ -306,6 +300,8 @@ this.$root.resourceSearchType= type
 
       if(this.$root.selectedResource.youtube_playlist_id){
 
+        this.$root.showAddButton = false;
+
          this.loadingContent = true;
 
              
@@ -356,7 +352,8 @@ this.$root.resourceSearchType= type
 
          this.loadingContent = true;
 
-             
+                 this.$root.showAddButton = false;
+
             axios.get( '/fetch-resource-content/' + this.$root.selectedResource.resource_id   )
       .then(response => {
       

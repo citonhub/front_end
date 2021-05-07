@@ -9,11 +9,11 @@
 
                     <div class="px-0 mt-2">
 
-                     <div  style="font-family:MediumFont; font-size:14px;" class="px-2">Welcome!</div>
+                     <div  style="font-family:MediumFont; font-size:14px;" class="px-2">Welcome to your channel:</div>
 
                     <div class="col-12 py-1 pt-0 px-2 text-left">
                 
-                   <span style="font-family:BodyFont; font-size:13px; color:grey;">Here is your brand new channel where you engage your community.</span>
+                   <span style="font-family:BodyFont; font-size:13px; color:grey;">Your home for connecting with other developers.</span>
                     </div>
 
                      <template v-if="!that.$root.channelHasResources">
@@ -22,7 +22,7 @@
 
                      <div class="col-12 py-1 px-2 text-left">
                 
-                   <span style="font-family:BodyFont; font-size:13px; color:grey;">Create playlists from Youtube and curate the best resources for your channel </span>
+                   <span style="font-family:BodyFont; font-size:13px; color:grey;">Curate the best resources form YouTube and DevTo.</span>
                     </div>
 
                       <v-card tile flat  @click="handleSetUp('youtube')"  class="py-2 px-2 d-flex flex-row col-12" style="border-bottom:1px solid #c5c5c5;border-top:1px solid #c5c5c5;">
@@ -403,7 +403,7 @@ export default {
       handleSetUp:function(type){
 
          if(type == 'youtube'){
-              this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/playlists' });
+              this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resources' });
          }
 
          if(type == 'devto'){

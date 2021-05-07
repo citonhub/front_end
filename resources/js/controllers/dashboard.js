@@ -525,6 +525,8 @@ beforeEnter: (to, from, next) => {
           thisUserState.$root.showProfileView = false;
           thisUserState.$root.showDiarySettings = false;
           thisUserState.selectedSpace = [];
+          thisUserState.$root.showResourceView  = false;
+          thisUserState.$root.showResourceViewContent = false;
           thisUserState.$root.chatComponent.chatbarContent = 'chat_list';
          }
 
@@ -615,6 +617,8 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.showYoutubePlayerSm = false;
       thisUserState.$root.showDiarySettings = false;
       thisUserState.$root.chatComponent.chatInnerConent = '';
+      thisUserState.$root.showResourceView  = false;
+      thisUserState.$root.showResourceViewContent = false;
         
       }
      
@@ -653,9 +657,115 @@ beforeEnter: (to, from, next) => {
     next()
   }
 },
+// show resources
+{ path: '/channels/e_resources/view/:spaceId',
+name: 'ResourcesView',
+meta: {
+ twModalView: true
+},
+beforeEnter: (to, from, next) => {
+ const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
 
 
+ if(window.thisUserState != undefined){
 
+   if( thisUserState.$root.chatComponent){
+
+   thisUserState.$root.showResourceView = true;
+   thisUserState.$root.showResourceViewContent = false;
+
+   }
+
+
+  }
+
+ if (!twModalView) {
+   //
+   // For direct access
+   //
+   to.matched[0].components = {
+     default: Chats,
+     modal: false
+   }
+ }
+
+ if (twModalView) {
+   //
+   // For twModalView access
+   //
+   if (from.matched.length > 1) {
+     // copy nested router
+     const childrenView = from.matched.slice(1, from.matched.length)
+     for (let view of childrenView) {
+       to.matched.push(view)
+     }
+   }
+   if (to.matched[0].components) {
+     // Rewrite components for `default`
+     to.matched[0].components.default = from.matched[0].components.default
+     // Rewrite components for `modal`
+     to.matched[0].components.modal = Chats
+   }
+ }
+
+ next()
+}
+},
+
+// show resources content
+{ path: '/channels/e_resources/content/:spaceId',
+name: 'ResourcesView',
+meta: {
+ twModalView: true
+},
+beforeEnter: (to, from, next) => {
+ const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+ if(window.thisUserState != undefined){
+
+   if( thisUserState.$root.chatComponent){
+     
+   thisUserState.$root.showResourceView = false;
+   thisUserState.$root.showResourceViewContent = true;
+
+   }
+
+
+  }
+
+ if (!twModalView) {
+   //
+   // For direct access
+   //
+   to.matched[0].components = {
+     default: Chats,
+     modal: false
+   }
+ }
+
+ if (twModalView) {
+   //
+   // For twModalView access
+   //
+   if (from.matched.length > 1) {
+     // copy nested router
+     const childrenView = from.matched.slice(1, from.matched.length)
+     for (let view of childrenView) {
+       to.matched.push(view)
+     }
+   }
+   if (to.matched[0].components) {
+     // Rewrite components for `default`
+     to.matched[0].components.default = from.matched[0].components.default
+     // Rewrite components for `modal`
+     to.matched[0].components.modal = Chats
+   }
+ }
+
+ next()
+}
+},
 
 // diary settings 
 { path: '/channels/engine/diary/:bot_id',
@@ -1006,71 +1116,7 @@ beforeEnter: (to, from, next) => {
     next()
   }
   },
-  // channel plalist content
-  {
-    path:'/channels/:spaceId/playlists',
-    name:'resourcestab',
-   
-    meta: {
-      twModalView: true
-    },
-     beforeEnter: (to, from, next) => {
-      const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
   
-  
-      if(window.thisUserState != undefined){
-        if( thisUserState.$root.chatComponent){
-        thisUserState.$root.chatComponent.liveSessionIsOpen = false;
-        thisUserState.$root.chatComponent.chatShareIsOpen = false;
-        thisUserState.$root.chatComponent.imageCropperIsOpen = false;
-        thisUserState.$root.chatComponent.innerSideBarContent = '';
-        thisUserState.$root.chatComponent.chatInnerConent = '';
-        thisUserState.$root.showProfileView = false;
-        thisUserState.$root.showYoutubePlayer = false;
-        thisUserState.$root.showYoutubePlayerSm = false;
-        thisUserState.$root.chatComponent.chatInnerSideBar = true;
-        thisUserState.$root.chatComponent.innerSideBarContent = 'playlists';
-         
-    
-            
-       }
-  
-       }
-  
-      if (!twModalView) {
-        //
-        // For direct access
-        //
-        to.matched[0].components = {
-          default: Chats,
-          modal: false
-        }
-      }
-  
-      if (twModalView) {
-        //
-        // For twModalView access
-        //
-        if (from.matched.length > 1) {
-          // copy nested router
-          const childrenView = from.matched.slice(1, from.matched.length)
-          for (let view of childrenView) {
-            to.matched.push(view)
-          }
-        }
-        if (to.matched[0].components) {
-          // Rewrite components for `default`
-          to.matched[0].components.default = from.matched[0].components.default
-          // Rewrite components for `modal`
-          to.matched[0].components.modal = Chats
-        }
-      }
-  
-      next()
-    }
-    },
-
-
      // add resource URL
   {
     path:'/channels/:spaceId/add_resource_url',
@@ -2494,6 +2540,7 @@ const app = new Vue({
     leaderboardMembers:[],
     refreshCount:0,
     selectedResource:[],
+    version_no:0,
     playingVideoId:'',
     showYoutubePlayer: false,
     resourceSearchType:'',
@@ -2517,11 +2564,19 @@ const app = new Vue({
     youtube_connected:false,
     defaultSearchValue:'',
     channelHasResources:false,
+    autoOpenResourcePage:false,
+    showResourceView:false,
+    showResourceViewContent:false,
+    showYoutubePlayerTemp:false
      },
      mounted: function () {
+
+      // check script version
+       this.checkScriptVersion();
       window.thisUserState = this;
       window.routerData = this.$router;
 
+    
       this.pageLoaderView = false;
       if(this.isLogged){
         this.fetchUserDetails();
@@ -2724,7 +2779,68 @@ const app = new Vue({
 
   },
     methods:{
+      checkScriptVersion:function(){
 
+
+
+        let storedVersion = this.$root.getLocalStore('script_version');
+
+        storedVersion.then((result)=>{
+            
+             if(result != null ){
+            
+              let finalResult = JSON.parse(result);
+               this.version_no = finalResult[0];
+
+              axios.get( '/check-script-version' )
+              .then(response => {
+              
+              if (response.status == 200) {
+            
+                  this.$root.LocalStore('script_version',[response.data.version],false,'reload_page');
+
+                 
+            
+             
+                    
+             }
+               
+             
+             })
+             .catch(error => {
+            
+              
+            
+             }) 
+
+
+             }else{
+        
+       
+        axios.get( '/check-script-version' )
+  .then(response => {
+  
+  if (response.status == 200) {
+
+      this.$root.LocalStore('script_version',[response.data.version]);
+     
+
+ 
+        
+ }
+   
+ 
+ })
+ .catch(error => {
+
+  
+
+ }) 
+
+             }
+        })
+
+      },
       
       checkPWA: function(){
           
@@ -3522,56 +3638,85 @@ const app = new Vue({
       window.Echo.channel('authuser')
       .listen('.AuthUser',(e) => {
 
-         if(this.auth_device_id == e.deviceId){
-  
-
-          
-          this.$store.commit('setUserData',e.user);
-
-          const userInfo = localStorage.getItem('user_new')
-          if (userInfo) {
-            const userData = JSON.parse(userInfo)
-      
-              this.$root.username = userData.user.username;
-              this.$root.user_temp_id = userData.user.id;
-              this.$root.returnedToken = userData.token;
-      
-          }
-      
-            this.$root.checkUserDevice();
-      
-            this.$root.checkauthroot = 'auth';
-      
-           
-            this.$root.fetchUserDetails();
-             this.$root.setEcho();
-      
-      
-            let storedTracker = this.$root.getLocalStore('route_tracker_new');
-      
-            storedTracker.then((result)=>{
-              this.$root.connectToChannel();
-              if(result != null ){
-                  let finalResult = JSON.parse(result);
-             this.$router.push({ path: finalResult[0] });
-             
-      
-              }else{
-                
-                this.checkIfLogin()
-      
-                
-      
-              }
-      
-      
-            })
-
-         }
+        
 
       })
     }
        
+  },
+  checkGitHubLoginState:function(){
+
+    axios.get( '/check-github-auth/' + this.$root.auth_device_id)
+    .then(response => {
+    
+    if (response.status == 200) {
+  
+           let authData = response.data;
+
+           if(authData){
+
+            this.$store.commit('setUserData',authData);
+
+            const userInfo = localStorage.getItem('user_new')
+            if (userInfo) {
+              const userData = JSON.parse(userInfo)
+        
+                this.$root.username = userData.user.username;
+                this.$root.user_temp_id = userData.user.id;
+                this.$root.returnedToken = userData.token;
+        
+            }
+        
+              this.$root.checkUserDevice();
+        
+              this.$root.checkauthroot = 'auth';
+        
+             
+              this.$root.fetchUserDetails();
+               this.$root.setEcho();
+        
+        
+              let storedTracker = this.$root.getLocalStore('route_tracker_new');
+        
+              storedTracker.then((result)=>{
+                this.$root.connectToChannel();
+                if(result != null ){
+                    let finalResult = JSON.parse(result);
+               this.$router.push({ path: finalResult[0] });
+               
+        
+                }else{
+                  
+                  this.checkIfLogin()
+        
+                  
+        
+                }
+        
+        
+              })
+      
+           }else{
+             setTimeout(() => {
+              this.checkGitHubLoginState() 
+             }, 2000);
+           
+           }
+          
+     }
+     
+   
+   })
+   .catch(error => {
+  
+    setTimeout(() => {
+      this.checkGitHubLoginState() 
+     }, 2000);
+   
+  
+   }) 
+
+ 
   },
   fetchSpaceDetails:function(space_id,finalResult){
 
@@ -3838,10 +3983,17 @@ const app = new Vue({
        if(this.returnedDataArray.length > 0){
 
       
-        
-          let firstData = this.returnedDataArray.shift();             
-          this.handleSpaceData(firstData);
+          if(this.messageIsProcessing == false){
+           
+            this.messageIsProcessing = true;
 
+            let firstData = this.returnedDataArray.shift();             
+            this.handleSpaceData(firstData);
+             
+          
+            
+          }
+         
       
           
        }else{
@@ -3966,6 +4118,21 @@ const app = new Vue({
 
       }
 
+      if(actionName == 'reload_page'){
+        if(data[0] ==  this.version_no){
+
+          // do nothing 
+          // script is up to data
+
+         }else{
+              
+          location.reload();
+        
+
+         }
+       
+      }
+
       if(actionName == 'leave_space'){
 
         let FinalMessages= data.direct_messages.filter(chat=>{
@@ -4020,6 +4187,8 @@ const app = new Vue({
            if(fromUnsent){
 
               // update unread messages into local storage
+
+             
    
        let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + extraData.space_id + this.$root.username);
    
@@ -4034,7 +4203,20 @@ const app = new Vue({
    
        localforage.setItem('unread_messages_' + extraData.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
          
+        this.sortChatList(false);
+
         this.handleSpaceData(firstData);
+
+        
+         this.$root.clearUnreadMessageRemote(extraData.message.message_id);
+      
+        if(this.returnedDataArray.length == 0){
+          this.messageIsProcessing = false;
+         }else{
+          this.messageIsProcessing = true;
+         }
+
+     
         }).then( (value) => {
          
 
@@ -4050,10 +4232,17 @@ const app = new Vue({
 
            }else{
 
-          
-             if(this.returnedDataArray.length == 0){
-              this.messageIsProcessing = false;
-             }
+           
+            this.handleSpaceData(firstData);
+
+            
+            this.$root.clearUnreadMessageRemote(extraData.message.message_id);
+         
+           if(this.returnedDataArray.length == 0){
+             this.messageIsProcessing = false;
+            }else{
+             this.messageIsProcessing = true;
+            }
 
            }
 
@@ -4061,42 +4250,6 @@ const app = new Vue({
 
         
 
-         }else{
-
-         
-
-          if(fromUnsent){
-
-            // update unread messages into local storage
- 
-     let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + extraData.space_id + this.$root.username);
- 
-     unreadStoredMsg.then((result)=>{
- 
-    let finalResultUnread = JSON.parse(result);
- 
-     finalResultUnread.push(extraData.message)
-
-    
-     localforage.setItem('unread_messages_' + extraData.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
-       
-   
-      }).then( (value) => {
-       
-
-       
-      
- 
-      }).catch(function (err) {
-     console.log(err)
-     // we got an error   
-      });
- 
-     });
-
-         }
-
-          
          }
 
       }
@@ -4265,14 +4418,18 @@ spaceMessageProcessor: function(space,allSpace,count){
        if( this.$root.selectedSpace.space_id != space.space_id || this.$root.selectedSpace.length == 0){
    
          
-       
-          
+           
+      
+
           // save to local database
             let storedMsg = this.$root.getLocalStore('full_space_' + space.space_id  + this.$root.username);
       
        storedMsg.then((result)=>{
      
          if(result != null){
+
+         
+  
    
             // update space messages
           let parsedResult = JSON.parse(result);
@@ -4280,6 +4437,8 @@ spaceMessageProcessor: function(space,allSpace,count){
           let MessagesFull = parsedResult;
    
           let newMessages = space.new_messages;
+
+        
           
          for (let index = 0; index < newMessages.length; index++) {
            let message = newMessages[index];
@@ -4291,8 +4450,15 @@ spaceMessageProcessor: function(space,allSpace,count){
            let thismessage = MessagesFull.messages.filter((eachmessage)=>{
              return eachmessage.message_id == message.message_id
             });
+
+           
    
             if(thismessage.length == 0){
+
+              this.$root.updateSpaceTracker(space.space_id,message);
+   
+                       
+              MessagesFull.messages.push(message);
 
                 // if the space is not currently opened
 
@@ -4323,31 +4489,45 @@ spaceMessageProcessor: function(space,allSpace,count){
            });
 
 
-         this.$root.updateSpaceTracker(space.space_id,message);
+          
+
+           // update into local storage
+           let messageTrackData = {
+            count: count,
+            space_id: space.space_id,
+            message: message
+            };
+
+
+       
+
+      this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,true,'messager',messageTrackData);
    
-                      
-             MessagesFull.messages.push(message);
-   
+
+            }else{
+
+
+
+                // update into local storage
+           let messageTrackData = {
+            count: count,
+            space_id: space.space_id,
+            message: newMessages[0]
+            };
+
+             
+
+              this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,false,'messager',messageTrackData);
 
             }
         
-            this.$root.clearUnreadMessageRemote(message.message_id);
-       
+           
+         
    
            
          }
            
-              // update into local storage
-                 let messageTrackData = {
-                   count: count,
-                   space_id: space.space_id,
-                   message: newMessages[0]
-                 };
-
-
               
-
-             this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,true,'messager',messageTrackData);
    
             
    
@@ -4387,7 +4567,7 @@ spaceMessageProcessor: function(space,allSpace,count){
      
                });
            
-            this.$root.clearUnreadMessageRemote(message.message_id);
+        
    
           });
    
@@ -4395,7 +4575,26 @@ spaceMessageProcessor: function(space,allSpace,count){
    
            // save unread in local storage
           localforage.setItem('unread_messages_' + space.space_id + this.$root.username,JSON.stringify(allSpace)).then( ()=> {
-   
+              
+            if(this.returnedDataArray.length > 0){
+
+              let firstData = this.returnedDataArray.shift();
+
+            this.sortChatList(false);
+
+            this.handleSpaceData(firstData);
+    
+            
+             this.$root.clearUnreadMessageRemote(newMessagesFull[0].message_id);
+          
+            if(this.returnedDataArray.length == 0){
+              this.messageIsProcessing = false;
+             }else{
+              this.messageIsProcessing = true;
+             }
+
+            }
+            
    
           }).then(function (value) {
          // we got our value
@@ -4425,33 +4624,7 @@ spaceMessageProcessor: function(space,allSpace,count){
    
         
    
-                // update unread in chatlist
-   
-         this.ChatList.map((chatspace)=>{
-   
-           if(chatspace.space_id == space.space_id){
-           
-             chatspace.message_track = new Date();
-             chatspace.last_message = [messages];
-           } 
-         });
-   
-   
-        
-             messages.initialSize = 200
-             messages.id = messages.message_id
-             messages.index_count = this.$root.returnLastIndex() + 1;
-
-               if(!this.$root.checkIfMessageExist(messages)){
-
-                this.$root.Messages.push(messages);
-
-               }
-   
-    
-                this.$root.updateSpaceTracker(space.space_id,messages);
-   
-   
+               
     
    
    
@@ -4475,6 +4648,34 @@ spaceMessageProcessor: function(space,allSpace,count){
           let newMessages = space.new_messages;
                
            newMessages.forEach((messages)=>{
+
+              // update unread in chatlist
+   
+         this.ChatList.map((chatspace)=>{
+   
+          if(chatspace.space_id == space.space_id){
+          
+            chatspace.message_track = new Date();
+            chatspace.last_message = [messages];
+          } 
+        });
+  
+  
+       
+            messages.initialSize = 200
+            messages.id = messages.message_id
+            messages.index_count = this.$root.returnLastIndex() + 1;
+
+              if(!this.$root.checkIfMessageExist(messages)){
+
+               this.$root.Messages.push(messages);
+
+              }
+  
+   
+               this.$root.updateSpaceTracker(space.space_id,messages);
+  
+  
    
              let thismessage = MessagesFull.messages.filter((eachmessage)=>{
                return eachmessage.message_id == messages.message_id 
@@ -4490,19 +4691,20 @@ spaceMessageProcessor: function(space,allSpace,count){
    
               }
    
-            
+             // update into local storage
+             let messageTrackData = {
+              count: count,
+              allSpace: allSpace,
+              message: messages
+            };
+
+        this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,false,'messager',messageTrackData);
    
               
    
            });
 
-             // update into local storage
-             let messageTrackData = {
-              count: count,
-              allSpace: allSpace
-            };
-
-        this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,false,'messager',messageTrackData);
+             
    
             
          }
@@ -4513,7 +4715,7 @@ spaceMessageProcessor: function(space,allSpace,count){
    
        }
    
-       this.sortChatList(false);
+      
    
     
   });
@@ -4541,11 +4743,7 @@ handleSpaceData: function(spaceData){
        
 
     this.handleMessageSequence(spaceData,0);
-
     
-    this.messageIsProcessing = true;
- 
-
 
  },
  handleMessageSequence:function(allSpace,count){
