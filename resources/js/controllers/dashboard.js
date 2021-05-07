@@ -3639,56 +3639,85 @@ const app = new Vue({
       window.Echo.channel('authuser')
       .listen('.AuthUser',(e) => {
 
-         if(this.auth_device_id == e.deviceId){
-  
-
-          
-          this.$store.commit('setUserData',e.user);
-
-          const userInfo = localStorage.getItem('user_new')
-          if (userInfo) {
-            const userData = JSON.parse(userInfo)
-      
-              this.$root.username = userData.user.username;
-              this.$root.user_temp_id = userData.user.id;
-              this.$root.returnedToken = userData.token;
-      
-          }
-      
-            this.$root.checkUserDevice();
-      
-            this.$root.checkauthroot = 'auth';
-      
-           
-            this.$root.fetchUserDetails();
-             this.$root.setEcho();
-      
-      
-            let storedTracker = this.$root.getLocalStore('route_tracker_new');
-      
-            storedTracker.then((result)=>{
-              this.$root.connectToChannel();
-              if(result != null ){
-                  let finalResult = JSON.parse(result);
-             this.$router.push({ path: finalResult[0] });
-             
-      
-              }else{
-                
-                this.checkIfLogin()
-      
-                
-      
-              }
-      
-      
-            })
-
-         }
+        
 
       })
     }
        
+  },
+  checkGitHubLoginState:function(){
+
+    axios.get( '/check-github-auth/' + this.$root.auth_device_id)
+    .then(response => {
+    
+    if (response.status == 200) {
+  
+           let authData = response.data;
+
+           if(authData){
+
+            this.$store.commit('setUserData',authData);
+
+            const userInfo = localStorage.getItem('user_new')
+            if (userInfo) {
+              const userData = JSON.parse(userInfo)
+        
+                this.$root.username = userData.user.username;
+                this.$root.user_temp_id = userData.user.id;
+                this.$root.returnedToken = userData.token;
+        
+            }
+        
+              this.$root.checkUserDevice();
+        
+              this.$root.checkauthroot = 'auth';
+        
+             
+              this.$root.fetchUserDetails();
+               this.$root.setEcho();
+        
+        
+              let storedTracker = this.$root.getLocalStore('route_tracker_new');
+        
+              storedTracker.then((result)=>{
+                this.$root.connectToChannel();
+                if(result != null ){
+                    let finalResult = JSON.parse(result);
+               this.$router.push({ path: finalResult[0] });
+               
+        
+                }else{
+                  
+                  this.checkIfLogin()
+        
+                  
+        
+                }
+        
+        
+              })
+      
+           }else{
+             setTimeout(() => {
+              this.checkGitHubLoginState() 
+             }, 2000);
+           
+           }
+          
+     }
+     
+   
+   })
+   .catch(error => {
+  
+    setTimeout(() => {
+      this.checkGitHubLoginState() 
+     }, 2000);
+   
+  
+   }) 
+
+ 
   },
   fetchSpaceDetails:function(space_id,finalResult){
 
