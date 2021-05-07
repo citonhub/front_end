@@ -61,7 +61,7 @@
 
            <div class="col-4 px-0 py-0">
 
-               <v-btn small color="#3C87CD"  v-if="checkIfisOwner() && that.$root.selectedSpace.type != 'Bot'" @click.stop="showInvitation" style="color:white;text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" >Invite</v-btn>
+               <v-btn small color="#3C87CD"  v-if=" that.$root.selectedSpace.type != 'Bot'" @click.stop="showInvitation" style="color:white;text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" >Invite</v-btn>
 
            </div>
 
