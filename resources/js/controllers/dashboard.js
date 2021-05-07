@@ -2540,6 +2540,7 @@ const app = new Vue({
     leaderboardMembers:[],
     refreshCount:0,
     selectedResource:[],
+    version_no:0,
     playingVideoId:'',
     showYoutubePlayer: false,
     resourceSearchType:'',
@@ -2569,6 +2570,9 @@ const app = new Vue({
     showYoutubePlayerTemp:false
      },
      mounted: function () {
+
+      // check script version
+       this.checkScriptVersion();
       window.thisUserState = this;
       window.routerData = this.$router;
 
@@ -2775,7 +2779,68 @@ const app = new Vue({
 
   },
     methods:{
+      checkScriptVersion:function(){
 
+
+
+        let storedVersion = this.$root.getLocalStore('script_version');
+
+        storedVersion.then((result)=>{
+            
+             if(result != null ){
+            
+              let finalResult = JSON.parse(result);
+               this.version_no = finalResult[0];
+
+              axios.get( '/check-script-version' )
+              .then(response => {
+              
+              if (response.status == 200) {
+            
+                  this.$root.LocalStore('script_version',[response.data.version],false,'reload_page');
+
+                 
+            
+             
+                    
+             }
+               
+             
+             })
+             .catch(error => {
+            
+              
+            
+             }) 
+
+
+             }else{
+        
+       
+        axios.get( '/check-script-version' )
+  .then(response => {
+  
+  if (response.status == 200) {
+
+      this.$root.LocalStore('script_version',[response.data.version]);
+     
+
+ 
+        
+ }
+   
+ 
+ })
+ .catch(error => {
+
+  
+
+ }) 
+
+             }
+        })
+
+      },
       
       checkPWA: function(){
           
@@ -4023,6 +4088,21 @@ const app = new Vue({
           this.chatComponent.resendMessages();
          }
 
+      }
+
+      if(actionName == 'reload_page'){
+        if(data[0] ==  this.version_no){
+
+          // do nothing 
+          // script is up to data
+
+         }else{
+              
+          location.reload();
+        
+
+         }
+       
       }
 
       if(actionName == 'leave_space'){
