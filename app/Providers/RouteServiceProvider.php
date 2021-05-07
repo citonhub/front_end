@@ -60,7 +60,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::middleware('web')
             ->namespace($this->namespace)
-            ->middleware('cache.headers:public;max_age=60;stale-while-revalidate=3600')
+            ->middleware('cache.headers:public;max_age=60')
             ->group(base_path('routes/web.php'));
     }
 
