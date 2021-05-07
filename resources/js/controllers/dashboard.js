@@ -3896,8 +3896,8 @@ const app = new Vue({
 
             let firstData = this.returnedDataArray.shift();             
             this.handleSpaceData(firstData);
-
-  
+             
+          
             
           }
          
@@ -4311,13 +4311,17 @@ spaceMessageProcessor: function(space,allSpace,count){
    
          
            
-          
+      
+
           // save to local database
             let storedMsg = this.$root.getLocalStore('full_space_' + space.space_id  + this.$root.username);
       
        storedMsg.then((result)=>{
      
          if(result != null){
+
+         
+  
    
             // update space messages
           let parsedResult = JSON.parse(result);
@@ -4459,11 +4463,30 @@ spaceMessageProcessor: function(space,allSpace,count){
    
           });
    
-          this.sortChatList(false);
+        
    
            // save unread in local storage
           localforage.setItem('unread_messages_' + space.space_id + this.$root.username,JSON.stringify(allSpace)).then( ()=> {
-   
+              
+            if(this.returnedDataArray.length > 0){
+
+              let firstData = this.returnedDataArray.shift();
+
+            this.sortChatList(false);
+
+            this.handleSpaceData(firstData);
+    
+            
+             this.$root.clearUnreadMessageRemote(newMessagesFull[0].message_id);
+          
+            if(this.returnedDataArray.length == 0){
+              this.messageIsProcessing = false;
+             }else{
+              this.messageIsProcessing = true;
+             }
+
+            }
+            
    
           }).then(function (value) {
          // we got our value
