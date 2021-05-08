@@ -174,7 +174,7 @@ export default {
    // this.fetchDevToTags();
     this.$root.showAddButton = false;
     this.$root.resourcesSearchComponent = this;
-  
+    this.$root.selectedItem =[];
        
       
     },
