@@ -372,7 +372,7 @@ export default {
         },
          checkIfSelected:function(content){
 
-         let thisContent =  this.$root.resourcesSearchComponent.selectedItems.filter((eachContent)=>{
+         let thisContent =  this.$root.selectedItems.filter((eachContent)=>{
                
               
                 return content.content.id == eachContent.id;
@@ -390,19 +390,19 @@ export default {
             
             if(this.checkIfSelected(content)){
                
-               let remainingContent =  this.$root.resourcesSearchComponent.selectedItems.filter((eachContent)=>{
+               let remainingContent =  this.$root.selectedItems.filter((eachContent)=>{
                
               
                    return content.content.id != eachContent.id;
              
                });
         
-               this.$root.resourcesSearchComponent.selectedItems = remainingContent;
+               this.$root.selectedItems = remainingContent;
               
 
             }else{
 
-               this.$root.resourcesSearchComponent.selectedItems.push(content.content);
+               this.$root.selectedItems.push(content.content);
 
             }
 
