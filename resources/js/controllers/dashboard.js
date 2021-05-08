@@ -2567,7 +2567,8 @@ const app = new Vue({
     autoOpenResourcePage:false,
     showResourceView:false,
     showResourceViewContent:false,
-    showYoutubePlayerTemp:false
+    showYoutubePlayerTemp:false,
+    selectedItems:[],
      },
      mounted: function () {
 

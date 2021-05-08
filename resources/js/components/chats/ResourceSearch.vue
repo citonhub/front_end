@@ -210,7 +210,7 @@ export default {
          axios.post( '/add-items-to-resource',{
            resource_id: this.$root.selectedResource.resource_id,
            type: itemType,
-           items: this.selectedItems
+           items: this.$root.selectedItems
          } )
       .then(response => {
       
