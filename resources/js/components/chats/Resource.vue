@@ -13,7 +13,65 @@
             <!-- youtube search display -->
         <template v-if="content.type == 'youtube_video'">
 
-            <div class="col-12 pb-0 pt-0 px-0 d-flex flex-row" :style="content.content.id == that.$root.playingYoutubeVideoId ? ' align-items:center;background:whitesmoke;' : 'align-items:center;'" >
+             <template v-if="typeof content.content.id === 'object'">
+
+
+               <div class="col-12 pb-0 pt-0 px-0 d-flex flex-row" :style="content.content.id.playlistId == that.$root.playingYoutubeVideoId ? ' align-items:center;background:whitesmoke;' : 'align-items:center;'" >
+            <div class="col-5 py-1 px-1" style="height:110px;" @click="handleResource(content,index)">
+              <div :style="'position:absolute;width:100%;border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url('+ content.content.snippet.thumbnails.default.url +');background-repeat: no-repeat; background-size:100%;'" >
+             
+                <div style="align-items:center;background:rgba(0, 0, 0,0.5);width:40%; left:60%; border-radius:0px; border-top-right-radius:8px;  border-bottom-right-radius:8px; justify-content:center; cursor:pointer; position:absolute; top:0; height:100%;" class="px-1 py-1 d-flex">
+                      <v-icon style="font-size:35px; color:#ffffff;">mdi-playlist-play</v-icon>
+                </div>
+
+              </div>
+            </div>  
+
+               
+
+             <div @click="handleResource(content,index)" class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+
+               <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
+                 {{ shortenContent(content.content.snippet.title,50) }}
+               </div>
+                <div class="mb-1" style="font-family:BodyFont;font-size:12px; white-space: nowrap; color:grey; overflow:hidden; text-overflow:ellipsis; ">
+                  {{ content.content.snippet.channelTitle }}
+               </div>
+               
+           
+            
+            </div>  
+
+            <div >
+              <template v-if="show_add_icon">
+
+                 <v-checkbox
+            color="#3C87CD"
+            dense
+            @change="addToSelected(content)"
+            small
+          ></v-checkbox>
+
+              </template>
+
+              <template v-else>
+                 <v-icon>las la-ellipsis-v</v-icon>
+              </template>
+               
+
+            
+            </div>
+
+             
+
+         </div>
+
+             </template>
+
+             <template v-else>
+
+
+               <div class="col-12 pb-0 pt-0 px-0 d-flex flex-row" :style="content.content.id == that.$root.playingYoutubeVideoId ? ' align-items:center;background:whitesmoke;' : 'align-items:center;'" >
             <div class="col-5 py-1 px-1" style="height:110px;" @click="handleResource(content,index)">
               <div :style="'position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url('+ content.content.snippet.thumbnails.default.url +');background-repeat: no-repeat; background-size:100%;'" >
              
@@ -64,6 +122,10 @@
              
 
          </div>
+
+             </template>
+
+            
 
         
 
@@ -299,6 +361,10 @@ export default {
                return content;
              }
         },
+         makeUUID:function(){
+      var id = "id" + Math.random().toString(16).slice(2);
+      return id;
+       },
         handleResource:function(content,index){
           
            this.$root.nextResourceId = index + 1;
@@ -318,8 +384,30 @@ export default {
              this.$root.prevResourceData = this.contents[this.$root.prevResourceId];
           }
          
-        if(content.type  == 'youtube_video'){
-           this.$root.playingYoutubeVideo = content;
+        if(content.type  == 'youtube_video'){   
+
+
+            if(typeof content.content.id === 'object'){
+
+              this.$root.formerselectedResource =  this.$root.selectedResource;
+
+              let resourceTemplate = {
+                info:"<p>"  +  content.content.snippet.title +  " videos</p>",
+                name:content.content.snippet.title,
+                type:'playlist_template',
+                resource_id: this.makeUUID(),
+                youtube_playlist_id:content.content.id.playlistId
+              };
+
+               this.$root.fromTemplateView = true;
+
+            this.$root.selectedResource = resourceTemplate;
+          
+           this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_content/template'});
+
+            }else{
+
+                this.$root.playingYoutubeVideo = content;
 
             
              this.$root.playingYoutubeVideoId = content.content.id
@@ -342,6 +430,9 @@ export default {
               }
              
 
+
+            }
+         
        
   
 

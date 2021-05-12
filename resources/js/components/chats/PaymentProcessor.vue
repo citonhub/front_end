@@ -503,6 +503,15 @@ export default {
 
         this.spaceData = response.data.space;
 
+
+         if(this.spaceData.type != 'Channel' && this.spaceData.type != 'Team' && this.spaceData.type != 'SubSpace'){
+
+            this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
+
+            return;
+
+          }
+
            if(this.spaceData.payment_option == 'support' && this.$root.isLogged){
    
            
@@ -523,13 +532,7 @@ export default {
                
             }
 
-          if(this.spaceData.type != 'Channel' && this.spaceData.type != 'Team' && this.spaceData.type != 'SubSpace'){
-
-            this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
-
-            return;
-
-          }
+         
 
           if(this.spaceData.is_member){
 

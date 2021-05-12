@@ -388,7 +388,7 @@
       absolute
       :activator="'#messageWrap' + source.message_id"
        style="z-index:99999999999999999999;"
-      
+       class="d-none d-lg-block"
       left
       offset-y
       
@@ -467,7 +467,7 @@
       absolute
       :activator="'#messageWrap' + source.message_id"
        style="z-index:99999999999999999999;"
-      
+      class="d-none d-lg-block"
       left
       offset-y
       
@@ -528,7 +528,7 @@
       absolute
       :activator="'#messageWrap' + source.message_id"
        style="z-index:99999999999999999999;"
-      
+      class="d-none d-lg-block"
       left
       offset-y
       
@@ -616,7 +616,7 @@
       absolute
       :activator="'#messageWrap' + source.message_id"
        style="z-index:99999999999999999999;"
-      
+      class="d-none d-lg-block"
       left
       offset-y
       
@@ -659,7 +659,7 @@
       absolute
       :activator="'#messageWrap' + source.message_id"
        style="z-index:99999999999999999999;"
-      
+      class="d-none d-lg-block"
       left
       offset-y
       
@@ -746,7 +746,7 @@
       absolute
       :activator="'#messageWrap' + source.message_id"
        style="z-index:99999999999999999999;"
-      
+      class="d-none d-lg-block"
       left
       offset-y
       
@@ -786,7 +786,7 @@
       absolute
       :activator="'#messageWrap' + source.message_id"
        style="z-index:99999999999999999999;"
-      
+      class="d-none d-lg-block"
       left
       offset-y
       
@@ -872,6 +872,7 @@
        style="z-index:99999999999999999999;"
       
       left
+      class="d-none d-lg-block"
       offset-y
       
     >
@@ -910,7 +911,7 @@
       absolute
       :activator="'#messageWrap' + source.message_id"
        style="z-index:99999999999999999999;"
-      
+      class="d-none d-lg-block"
       left
       offset-y
       
@@ -969,7 +970,7 @@
       absolute
       :activator="'#messageWrap' + source.message_id"
        style="z-index:99999999999999999999;"
-      
+      class="d-none d-lg-block"
       left
       offset-y
       
@@ -1019,7 +1020,7 @@
       absolute
       :activator="'#messageWrap' + source.message_id"
        style="z-index:99999999999999999999;"
-      
+      class="d-none d-lg-block"
       left
       offset-y
       
@@ -1114,7 +1115,7 @@
       absolute
       :activator="'#messageWrap' + source.message_id"
        style="z-index:99999999999999999999;"
-      
+      class="d-none d-lg-block"
       left
       offset-y
       
@@ -1165,7 +1166,7 @@
       absolute
       :activator="'#messageWrap' + source.message_id"
        style="z-index:99999999999999999999;"
-      
+      class="d-none d-lg-block"
       left
       offset-y
       
@@ -1256,28 +1257,9 @@ export default {
          if( this.$root.selectedSpace.type == 'Bot' ) return
 
            
-            this.clicks++ 
-          if(this.clicks === 1) {
-             
-            var self = this
-            this.timer = setTimeout(function() {
-             
-            
-              self.clicks = 0
-            }, this.delay);
-         
-         
-              
-          } else{
-             clearTimeout(this.timer); 
-
-               this.$root.replyMessage = message;
+            this.$root.replyMessage = message;
           this.$root.chatComponent.showMoreOptions = true;
-                
-
-             this.clicks = 0;
-          }   
-      
+          
     },
     goToProfile:function(username){
 
@@ -1541,61 +1523,7 @@ export default {
       },
       
   
-      showMoreHandler(message){
-
-       
-        
-            
-            this.clicks++ 
-          if(this.clicks === 1) {
-             
-            var self = this
-            this.timer = setTimeout(function() {
-              if(message.tagged == false){
-                 if(message.showReply){
-                
-              message.showReply = false;
-              }else{
-              self.$root.Messages.map((message)=>{
-               
-                 message.showReply = false;
-                 
-              });
-               
-             message.showReply = true;
-           }
-              }
-             message.tagged = false;
-             
-               
-              self.clicks = 0
-            }, this.delay);
-         
-         this.$root.showMsgDelete = false;
-              
-          } else{
-             clearTimeout(this.timer); 
-
-             if(this.checkOwner(message.user_id)){
-
-                message.showReply = false;
-
-              message.tagged = true;
-             
-             this.$root.messageIdToDelete = message.message_id;
-          
-            this.$root.showMsgDelete = true;
-
-             } 
-
-            
-           
-            
-             this.clicks = 0;
-          }   
-
-          
-        },
+     
       replyMsg: function(message){
           this.$root.replyMessage = message;
            this.$root.is_reply = true;

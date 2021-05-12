@@ -774,33 +774,11 @@
 
                                     <!--new-->
 
-                                    <template v-if="that.$root.selectedResource.type == 'playlist'">
-
-                                      <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:12%; right:3%; ">
-                                  
-                                  <div class="mr-2">
-                                           <span style="font-size:13px;font-family:BodyFont;  background:#3C87CD; color:white; " class="px-1 py-1 ">
-                                             Add videos from YouTube
-                                                  </span>
-                                  </div>
-                                  <div>
-                                 <v-btn small @click="goToSearch('youtube')"    fab color="#FF0000" >  
-
-                                  <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
-
-                                    </v-btn>
-                                  </div>
-
-                                      </div>
+                                 
+                                    <template>
 
 
                                   
-                                       
-                                   
-
-                                    </template>
-
-                                    <template v-else>
                                   
 
                                    <div class=" d-flex flex-row"   v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:12%; right:3%; ">
@@ -838,6 +816,23 @@
                                     </v-btn>
                                     
                                       </div>
+
+                                      </div>
+
+                                           <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:28%; right:3%; ">
+                                  
+                                  <div class="mr-2">
+                                           <span style="font-size:13px;font-family:BodyFont;  background:#3C87CD; color:white; " class="px-1 py-1 ">
+                                             Add videos from YouTube
+                                                  </span>
+                                  </div>
+                                  <div>
+                                 <v-btn small @click="goToSearch('youtube')"    fab color="#FF0000" >  
+
+                                  <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
+
+                                    </v-btn>
+                                  </div>
 
                                       </div>
 
@@ -1566,31 +1561,8 @@
 
                                     <!--new-->
 
-                                    <template v-if="that.$root.selectedResource.type == 'playlist'">
-
-                                      <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:fixed; heigth:auto;  bottom:14%; right:4%; ">
-                                  
-                                  <div class="mr-2">
-                                           <span style="font-size:13px;font-family:BodyFont; background:#3C87CD; color:white; " class="px-1 py-1 " >
-                                             Add videos from YouTube
-                                                  </span>
-                                  </div>
-                                  <div>
-                                 <v-btn small @click="goToSearch('youtube')"    fab color="#FF0000" >  
-
-                                  <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
-
-                                    </v-btn>
-                                  </div>
-
-                                      </div>
-
-
                                  
-
-                                    </template>
-
-                                    <template v-else>
+                                    <template>
 
                                    
                                    <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:fixed; heigth:auto;  bottom:14%; right:4%; ">
@@ -1628,6 +1600,23 @@
                                     </v-btn>
                                     
                                       </div>
+
+                                      </div>
+
+                                       <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:fixed; heigth:auto;  bottom:30%; right:4%; ">
+                                  
+                                  <div class="mr-2">
+                                           <span style="font-size:13px;font-family:BodyFont; background:#3C87CD; color:white; " class="px-1 py-1 " >
+                                             Add videos from YouTube
+                                                  </span>
+                                  </div>
+                                  <div>
+                                 <v-btn small @click="goToSearch('youtube')"    fab color="#FF0000" >  
+
+                                  <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
+
+                                    </v-btn>
+                                  </div>
 
                                       </div>
 

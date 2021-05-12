@@ -2505,7 +2505,7 @@ const app = new Vue({
      payment_name:'',
      payment_currency:'',
      showPaymentProcessingBoard: false,
-    showProcessorFromChat: true,
+    showProcessorFromChat: false,
     fromSupportDirectlink: false,
     selectedPaymentCard:[],
     showWalletinfo:false,
@@ -2569,6 +2569,12 @@ const app = new Vue({
     showResourceViewContent:false,
     showYoutubePlayerTemp:false,
     selectedItems:[],
+    formerselectedResource:[],
+    fromTemplateView:false,
+    loadingSearch:false,
+    searchResult:[],
+    loadingResourcesContent:false,
+    resourcesData:[],
      },
      mounted: function () {
 
@@ -5184,6 +5190,7 @@ let storedMsg = this.$root.getLocalStore('full_space_' + selectedspace + this.$r
 
 },
 
+
 //end of spaceinfo fetch
 SetUnread: function(){
 
@@ -5293,6 +5300,7 @@ storeUnsentMessages:function(postData){
  
 
 },
+
 sendTextMessage: function(postData){
   this.sendingMessage = true;
 axios.post('/send-message',postData)

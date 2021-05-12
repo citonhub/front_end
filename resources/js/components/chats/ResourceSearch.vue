@@ -65,7 +65,7 @@
             </div>
               
               <div class=" py-0 ml-1 text-right">
-                  <v-btn icon  @click="searchSite" :loading="loadingSearch">
+                  <v-btn icon  @click="searchSite" :loading="that.$root.loadingSearch">
                       <v-icon>las la-search</v-icon>
                     </v-btn>
               </div>
@@ -93,7 +93,7 @@
       <div style="background:transparent;font-family:BodyFont; " class="col-12 py-0 my-0 px-1 px-md-2" >
           
  
-           <resource :show_add_icon="true" :contents="searchResult" ></resource>
+           <resource :show_add_icon="true" :contents="that.$root.searchResult" ></resource>
 
 
                <!--content loader-->
@@ -168,8 +168,13 @@ export default {
      Resource
     },
     mounted(){
+
+       if(this.$root.fromTemplateView){
+        this.$root.selectedResource = this.$root.formerselectedResource;
+       }
+
     this.$root.componentIsLoading = false;
-     
+     this.$root.searchResourceComponent = this;
     this.alterSearch();
    // this.fetchDevToTags();
     this.$root.showAddButton = false;
@@ -179,6 +184,20 @@ export default {
       
     },
     methods:{
+      alterSearch(){
+
+  this.placeholder = 'Search ' + this.$root.resourceSearchType
+
+  if(this.$root.resourceSearchType == 'youtube' || this.$root.resourceSearchType == 'devto'){
+     this.searchQuery = this.$root.selectedResource.name;
+
+    this.searchSite();
+
+  }
+
+   
+
+},
       selectTag:function(tag){
 
         this.showSuggestion = true;
@@ -292,7 +311,7 @@ export default {
         },
         loadNextSet:function(shown){
 
-          if(shown && this.searchResult.length > 0){
+          if(shown && this.$root.searchResult.length > 0){
 
             this.loadNextResult()
 
@@ -348,7 +367,7 @@ export default {
 
              });
 
-           this.searchResult = this.searchResult.concat(finalResult);
+           this.$root.searchResult = this.$root.searchResult.concat(finalResult);
 
           
        
@@ -398,7 +417,7 @@ export default {
 
              });
 
-         this.searchResult = this.searchResult.concat(finalResult);
+         this.$root.searchResult = this.$root.searchResult.concat(finalResult);
 
           
        
@@ -418,26 +437,16 @@ export default {
 
            
         },
-        alterSearch(){
-
-             this.placeholder = 'Search ' + this.$root.resourceSearchType
-
-             if(this.$root.resourceSearchType == 'youtube' || this.$root.resourceSearchType == 'devto'){
-                this.searchQuery = this.$root.selectedResource.name;
-
-               this.searchSite();
-
-             }
-
-              
       
-        },
 
         searchSite: function(){
 
-           this.searchResult = [];
+          if(this.$root.loadingSearch) return
+
+           this.$root.searchResult = [];
            
-     this.loadingSearch = true;
+           
+     this.$root.loadingSearch = true;
            if(this.$root.resourceSearchType == 'youtube'){
 
     
@@ -461,18 +470,18 @@ export default {
 
              });
 
-           this.searchResult = finalResult;
+           this.$root.searchResult = finalResult;
 
           
        
-       this.loadingSearch = false;
+       this.$root.loadingSearch = false;
             
      }
        
      
      })
      .catch(error => {
-       this.loadingSearch = false;
+       this.$root.loadingSearch = false;
        
     
      }) 
@@ -514,18 +523,18 @@ export default {
 
              });
 
-          this.searchResult = finalResult;
+          this.$root.searchResult = finalResult;
 
           
        
-       this.loadingSearch = false;
+       this.$root.loadingSearch = false;
             
      }
        
      
      })
      .catch(error => {
-       this.loadingSearch = false;
+       this.$root.loadingSearch = false;
        
     
      }) 
@@ -542,7 +551,7 @@ export default {
       if (response.status == 200) {
 
           console.log(response.data)
-            this.loadingSearch = false;
+           this.$root.loadingSearch = false;
 
             
        }
@@ -550,7 +559,7 @@ export default {
          })
        .catch(error => {
 
-         this.loadingSearch = false;
+         this.$root.loadingSearch = false;
     
         }) 
 

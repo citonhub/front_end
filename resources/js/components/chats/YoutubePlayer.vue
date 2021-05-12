@@ -7,6 +7,10 @@
        <v-btn class="d-block-flex d-lg-none" icon color="#ffffff"  @click="that.$root.showYoutubePlayerSm = false; that.$root.showYoutubePlayerTemp = false;" style="position:absolute;background:#3C87CD; margin-top:4px; left:4px; z-index:999999999999;" 
                                             ><v-icon>mdi-close mdi-18px</v-icon></v-btn>
 
+
+              <template v-if="showYTPlayer">
+
+
     <template v-if="loadingVideo">
 
       <div class="d-flex flex-row" :style="'height:' + playerHeight + 'px;  background:white; align-items:center;justify-content:center;'">
@@ -122,12 +126,51 @@
 
     </template>
 
+              </template>
+          <template v-else>
+
+             <div class="col-12 " style="border-bottom:1px solid #c5c5c5;" >
+                <resource :show_add_icon="false" :contents="[that.$root.playingYoutubeVideo]" ></resource>
+             </div> 
+
+              <div class="d-flex flex-row" style="align-items:center;">
+          
+
+           <div class="col-6 py-1 d-flex flex-column" style="font-family:BodyFont;font-size:11px; align-items:center; justify-content:center;">
+                <div>
+                 <v-btn icon @click.stop="playerAction('prev')" :disabled="this.$root.prevResourceId < 0" > <v-icon style="font-size:23px;">las la-arrow-left</v-icon> </v-btn>
+             </div>
+
+             <div>
+               Prev
+             </div>
+           </div>
+
+
+           <div class="col-6 py-1 d-flex flex-column" style="font-family:BodyFont;font-size:12px; align-items:center; justify-content:center;">
+                <div>
+                 <v-btn @click.stop="playerAction('next')" icon :disabled="this.$root.nextResourceId ==  null"> <v-icon style="font-size:23px;">las la-arrow-right</v-icon> </v-btn>
+             </div>
+
+             <div>
+               Next
+             </div>
+           </div>
+        </div>
+
+
+
+          </template>
+
+
      
 </div>    
 </template>
 <script>
 
-
+  const Resource = () => import(
+   /* webpackChunkName: "Resource" */ './Resource.vue'
+  );
 
 export default {
     props:['screenType','playerHeight','video'],
@@ -138,7 +181,11 @@ export default {
         that:this,
         showDescription:false,
         loadingVideo:false,
+        showYTPlayer:true,
       }
+    },
+    components:{
+     Resource
     },
     mounted(){
    
@@ -361,6 +408,8 @@ export default {
 
           if(data.type == 'youtube_video'){
 
+             this.showYTPlayer = true;
+
              if(this.player == undefined){
 
                this.player = new YT.Player('YTplayer' + this.screenType, {
@@ -377,14 +426,20 @@ export default {
                   this.loadVideoData(false,data.content.id);
                
           }
-     
 
-          }
-
-          // set new next and prev data
+          
+          
+           // set new next and prev data
 
           this.$root.resourceComponent.handleResource(data,playingIndex);
 
+
+          }else{
+
+              this.showYTPlayer = false;
+          }
+
+         
          
         
          
