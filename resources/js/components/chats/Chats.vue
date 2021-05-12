@@ -1214,7 +1214,7 @@
   class="col-12 px-0" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:9999999; top:0%; overflow-y:auto;"
+            background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:999999999999999; top:0%; overflow-y:auto;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -1790,7 +1790,7 @@
 
 
 
-     <v-btn  fab color="#3C87CD"  v-if="that.$root.ChatList.length > 0" @click="showCreateChannel" class="d-lg-none d-inline-block" style="z-index:999999;  position:fixed;  bottom:3%; right:3%; ">
+     <v-btn  fab color="#3C87CD"  v-if="that.$root.ChatList.length > 0" @click="showCreateChannel" class="d-lg-none d-inline-block" style="z-index:9999999999999;  position:fixed;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:24px; color:white;">mdi mdi-chat-plus-outline</v-icon>
 
