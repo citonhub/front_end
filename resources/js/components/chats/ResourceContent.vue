@@ -355,7 +355,7 @@ this.$root.resourceSearchType= type
 
         this.$root.resourcesData = finalResult;
 
-         this.nextPageToken = response.data.nextPageToken;
+         this.$root.nextPageToken = response.data.nextPageToken;
 
      this.$root.loadingResourcesContent = false;
      
@@ -403,7 +403,7 @@ this.$root.resourceSearchType= type
 
         this.$root.resourcesData = finalResult;
 
-         this.nextPageToken = 1;
+        this.$root.nextPageToken = 1;
 
      this.$root.loadingResourcesContent = false;
      
@@ -530,11 +530,11 @@ this.$root.resourceSearchType= type
 
            let playlistID = this.$root.selectedResource.youtube_playlist_id;
 
-         if(this.nextPageToken && shown){
+         if(this.$root.nextPageToken && shown){
 
             this.loadingNextPage = true;
 
-            axios.get( '/fetch-resource-content/' + this.$root.selectedResource.resource_id + '/' + playlistID + '/' + this.nextPageToken    )
+            axios.get( '/fetch-resource-content/' + this.$root.selectedResource.resource_id + '/' + playlistID + '/' + this.$root.nextPageToken    )
       .then(response => {
       
       if (response.status == 200) {
@@ -545,7 +545,7 @@ this.$root.resourceSearchType= type
     
         if(this.$root.selectedResource.devto_username){
             
-                this.nextPageToken++
+                this.$root.nextPageToken++
 
               results = response.data.articles;
 
@@ -565,7 +565,7 @@ this.$root.resourceSearchType= type
          this.$root.resourcesData = finalResult;
 
           }else{
-             this.nextPageToken = response.data.nextPageToken;
+            this.$root.nextPageToken = response.data.nextPageToken;
 
             results = response.data.result
 

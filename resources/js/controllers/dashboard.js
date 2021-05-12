@@ -2564,6 +2564,7 @@ const app = new Vue({
     youtube_connected:false,
     defaultSearchValue:'',
     channelHasResources:false,
+    nextPageToken:'',
     autoOpenResourcePage:false,
     showResourceView:false,
     showResourceViewContent:false,

@@ -350,16 +350,16 @@ export default {
 
            if(this.loadingNext) return
           this.loadingNext = true;
+
            if(this.$root.resourceSearchType == 'youtube'){
 
-    
-                axios.get( `/search-youtube/${this.searchQuery}/${this.nextPageToken}` )
+                axios.get( `/search-youtube/${this.searchQuery}/${ this.$root.nextPageToken}` )
       .then(response => {
       
       if (response.status == 200) {
 
          let searchResult = response.data.result;
-           this.nextPageToken =  response.data.nextPageToken
+           this.$root.nextPageToken =  response.data.nextPageToken
 
            let finalResult = [];
 
@@ -462,7 +462,9 @@ export default {
       if (response.status == 200) {
 
          let searchResult = response.data.result;
-            this.nextPageToken =  response.data.nextPageToken
+
+
+         this.$root.nextPageToken =  response.data.nextPageToken;
 
            let finalResult = [];
 
