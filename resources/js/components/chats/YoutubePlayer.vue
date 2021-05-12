@@ -408,6 +408,14 @@ export default {
 
           if(data.type == 'youtube_video'){
 
+               if(typeof data.content.id === 'object'){
+
+                  this.showYTPlayer = false;
+
+                  return;
+
+               }
+
              this.showYTPlayer = true;
 
              if(this.player == undefined){

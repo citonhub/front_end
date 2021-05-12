@@ -540,6 +540,8 @@ export default {
                this.$root.fromTemplateView = true;
 
             this.$root.selectedResource = resourceTemplate;
+            this.$root.showYoutubePlayer = false;
+            this.$root.showYoutubePlayerSm = false;
           
            this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_content_new/template'});
 
