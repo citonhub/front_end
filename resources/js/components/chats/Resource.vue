@@ -369,12 +369,7 @@ export default {
       this.contentData = this.contents;
         this.$root.resourceComponent = this;
      
-     if(!this.show_add_icon && this.checkIfisOwner() &&  this.resourceType != 'playlist_template'){
-
-     
-             this.saveResourceContentOrder(false);
-         
-     }
+    
         
     },
     computed: {
@@ -546,7 +541,7 @@ export default {
 
             this.$root.selectedResource = resourceTemplate;
           
-           this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_content/template'});
+           this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_content_new/template'});
 
             }else{
 

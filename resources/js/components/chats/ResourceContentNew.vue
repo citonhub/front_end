@@ -238,16 +238,7 @@ export default {
     mounted(){
       this.$root.loadingSearch = false;
 
-     
-
-      this.$root.selectedResource = this.$root.formerselectedResource;
-
-
-       this.fetchResourceContent();
-
-       if(this.$root.selectedResource.type != 'playlist_template'){
-       this.$root.searchResult = [];
-       }
+      this.fetchResourceContent();
 
 
        this.resourceTitle = this.$root.selectedResource.name;

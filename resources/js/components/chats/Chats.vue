@@ -759,6 +759,8 @@
 
                                             <resource-content v-if="innerSideBarContent == 'resource_content'" ></resource-content>
 
+                                              <resource-content-new v-if="innerSideBarContent == 'resource_content_new'" ></resource-content-new>
+
                                               <resource-url v-if="innerSideBarContent == 'add_resource_url'" ></resource-url>
 
                                           
@@ -1546,6 +1548,8 @@
 
                                          <resource-content v-if="innerSideBarContent == 'resource_content'" ></resource-content>
 
+                                          <resource-content-new v-if="innerSideBarContent == 'resource_content_new'" ></resource-content-new>
+
                                                  <resource-url v-if="innerSideBarContent == 'add_resource_url'" ></resource-url>
 
 
@@ -2149,6 +2153,10 @@ const resourcepage= () => import(
    /* webpackChunkName: "ResourceContent" */ './ResourceContent.vue'
   );
 
+    const ResourceContentNew = () => import(
+   /* webpackChunkName: "ResourceContentNew" */ './ResourceContentNew.vue'
+  );
+
     const ResourceUrl = () => import(
    /* webpackChunkName: "ResourceUrl" */ './ResourceUrl.vue'
   );
@@ -2305,7 +2313,8 @@ export default {
          ResourceUrl,
          YoutubeAuthBoard,
          resources,   
-        ResourceView
+        ResourceView,
+        ResourceContentNew
     },
      methods:{
 

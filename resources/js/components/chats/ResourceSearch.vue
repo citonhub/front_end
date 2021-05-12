@@ -191,8 +191,12 @@ export default {
   if(this.$root.resourceSearchType == 'youtube' || this.$root.resourceSearchType == 'devto'){
      this.searchQuery = this.$root.selectedResource.name;
 
+
+   if(this.$root.searchResult.length == 0){
     this.searchSite();
 
+   }
+    
   }
 
    
@@ -250,7 +254,7 @@ export default {
  
        this.$root.resourcesData = responseContent.concat(this.$root.resourcesData)
 
-        
+       this.saveOrder();
 
        this.goBack();
             
@@ -264,7 +268,46 @@ export default {
 
      }) 
 
-      },     
+      }, 
+      saveOrder:function(){
+
+         let ResourcesArray = [];
+
+       this.$root.resourcesData.forEach((content)=>{
+
+         ResourcesArray.push(content.id)
+   
+        });
+
+   
+
+         axios.post( '/save-resources-content-order',{
+        resource_id: this.$root.selectedResource.resource_id,
+        content: ResourcesArray
+      })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+        this.$root.LocalStore('channel_resource_content_' + this.$root.selectedResource.resource_id  + this.$root.username, this.$root.resourcesData);
+
+          this.$root.loadingResourceContent = false;
+
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+     this.$root.chatComponent.showAlert('Oops!','Unable to save changes,please try again','error');
+      this.$root.loadingResourceContent = false;
+       
+    
+     }) 
+        
+
+      },   
       searchTags:function(e){
 
 
