@@ -1,5 +1,5 @@
 <template>
-    <div class="row application application--light" data-app="true">
+    <div class="row application application--light" data-app="true" style="z-index:999999999999999;">
 
 
        <!-- large and medium screens -->

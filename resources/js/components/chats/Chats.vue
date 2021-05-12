@@ -1176,7 +1176,7 @@
                    <template v-if="chatIsOpen && that.$root.Messages != null">
 
               <div  class="row py-0" :id="'smallView'" >
-                            <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:fixed; top:0%;z-index:9999999999999;" >
+                            <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:fixed; top:0%;z-index:99999999999999;" >
                               <template v-if="!that.$root.chatTopLoaded">
 
                                        <v-skeleton-loader
@@ -1195,7 +1195,7 @@
                         
                             <!-- floating resource button -->
 
-                            <div style="position:fixed; z-index:9999999999; right:-22px;top:70px;"  
+                            <div style="position:fixed; z-index:999999999999999; right:-22px;top:70px;"  
                             v-if="(that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'SubSpace' || that.$root.selectedSpace.type == 'Team') && that.$root.Messages.length != 0">
                               <v-btn @click="showResources" small color="#ffffff" rounded >   <v-icon  class="mr-4" color="#404040">las la-play-circle</v-icon></v-btn>
                             </div>
@@ -1214,7 +1214,7 @@
   class="col-12 px-0" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:999999999999; top:0%; overflow-y:auto;"
+            background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:999999999; top:0%; overflow-y:auto;"
   >
 
     <template v-slot="{ item, index, active }">
