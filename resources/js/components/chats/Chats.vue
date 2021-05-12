@@ -963,7 +963,7 @@
     :buffer="5000"
     id="ChatContainersmall"
       class="col-12 px-1 " 
-        style="position:absolute; width:100%;  z-index:999;  height:92%;top:8%;left:0;overflow-y:auto;" 
+        style="position:absolute; width:100%;  z-index:9999999;  height:92%;top:8%;left:0;overflow-y:auto;" 
         >
 
     <template v-slot="{ item, index, active }">
@@ -1060,7 +1060,7 @@
     :buffer="5000"
     id="ChatContainersmallSearch"
       class="col-12 px-1 " 
-        style="position:absolute; width:100%;  z-index:9999;  height:92%;top:8%;left:0;overflow-y:auto; background:white;" 
+        style="position:absolute; width:100%;  z-index:999999;  height:92%;top:8%;left:0;overflow-y:auto; background:white;" 
         >
 
     <template v-slot="{ item, index, active }">
@@ -1176,7 +1176,7 @@
                    <template v-if="chatIsOpen && that.$root.Messages != null">
 
               <div  class="row py-0" :id="'smallView'" >
-                            <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:fixed; top:0%;z-index:999999999;" >
+                            <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:fixed; top:0%;z-index:9999999999999;" >
                               <template v-if="!that.$root.chatTopLoaded">
 
                                        <v-skeleton-loader
@@ -1214,7 +1214,7 @@
   class="col-12 px-0" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:99999; top:0%; overflow-y:auto;"
+            background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:999999999999; top:0%; overflow-y:auto;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -1343,7 +1343,7 @@
                              
 
                              
-                             <div class="col-12 py-0 px-0" style=" left:0; position:fixed; bottom:0%;z-index:999999999;" >
+                             <div class="col-12 py-0 px-0" style=" left:0; position:fixed; bottom:0%;z-index:9999999999999;" >
                                 <div class="col-12  py-1"  v-if="that.$root.showEmojiBox">
                             <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
                                  </div>
@@ -1513,7 +1513,7 @@
 
                               <!-- channel sidebar -->
 
-                               <div v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32);  left:0; position:fixed; height:100%; top:0%;z-index:99999999999999999;" >
+                               <div v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32);  left:0; position:fixed; height:100%; top:0%;z-index:999999999999999999;" >
                                    <div style="position:absolute; height:100%; width:100%; left:0%;" >
 
                                     <div class=" col-md-6 offset-md-6 px-0 py-0 pb-2" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
@@ -1790,7 +1790,7 @@
 
 
 
-     <v-btn  fab color="#3C87CD"  v-if="that.$root.ChatList.length > 0" @click="showCreateChannel" class="d-lg-none d-inline-block" style="z-index:99999;  position:fixed;  bottom:3%; right:3%; ">
+     <v-btn  fab color="#3C87CD"  v-if="that.$root.ChatList.length > 0" @click="showCreateChannel" class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
 
         <v-icon style="font-size:24px; color:white;">mdi mdi-chat-plus-outline</v-icon>
 
