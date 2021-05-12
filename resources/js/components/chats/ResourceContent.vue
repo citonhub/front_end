@@ -110,7 +110,7 @@
 
         <template v-if="that.$root.resourcesData.length > 0">
 
-           <resource :contents="that.$root.resourcesData" :show_add_icon="false"></resource>
+           <resource :contents="that.$root.resourcesData" :show_add_icon="false" :resourceType='that.$root.selectedResource.type'></resource>
         
 
           <div class="text-center col-lg-12">
@@ -510,6 +510,8 @@ this.$root.resourceSearchType= type
 
     
          this.$root.forcereloadResource = false;
+
+        
   
        
      }

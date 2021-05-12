@@ -9,7 +9,19 @@
              </div>
        </template>
 
-      <div class="col-12 py-1 px-0 hoverEffect" v-for="(content,index) in contents" :key="index" >
+         <draggable 
+       class="col-12 py-0 px-0 "
+     tag="div"
+        v-model="contents"
+        handle=".handle"
+        v-bind="dragOptions"
+        @start="drag = true"
+        @end="handleOnDrop">
+
+
+         <div class="col-12 py-1 px-0 hoverEffect" v-for="(content,index) in contents" :key="index" >
+
+         
             <!-- youtube search display -->
         <template v-if="content.type == 'youtube_video'">
 
@@ -17,6 +29,13 @@
 
 
                <div class="col-12 pb-0 pt-0 px-0 d-flex flex-row" :style="content.content.id.playlistId == that.$root.playingYoutubeVideoId ? ' align-items:center;background:whitesmoke;' : 'align-items:center;'" >
+            <div class="handle">
+
+              <template v-if="!show_add_icon && checkIfisOwner() && resourceType != 'playlist_template'">
+                 <v-btn icon small> <v-icon >las la-braille</v-icon> </v-btn>
+              </template>
+
+            </div>
             <div class="col-5 py-1 px-1" style="height:110px;" @click="handleResource(content,index)">
               <div :style="'position:absolute;width:100%;border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url('+ content.content.snippet.thumbnails.default.url +');background-repeat: no-repeat; background-size:100%;'" >
              
@@ -54,10 +73,7 @@
 
               </template>
 
-              <template v-else>
-                 <v-icon>las la-ellipsis-v</v-icon>
-              </template>
-               
+             
 
             
             </div>
@@ -72,6 +88,15 @@
 
 
                <div class="col-12 pb-0 pt-0 px-0 d-flex flex-row" :style="content.content.id == that.$root.playingYoutubeVideoId ? ' align-items:center;background:whitesmoke;' : 'align-items:center;'" >
+            
+             <div class="handle">
+              
+              <template v-if="!show_add_icon && checkIfisOwner() &&  resourceType != 'playlist_template'">
+                 <v-btn icon small> <v-icon >las la-braille</v-icon> </v-btn>
+              </template>
+
+            </div>
+           
             <div class="col-5 py-1 px-1" style="height:110px;" @click="handleResource(content,index)">
               <div :style="'position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url('+ content.content.snippet.thumbnails.default.url +');background-repeat: no-repeat; background-size:100%;'" >
              
@@ -111,10 +136,7 @@
 
               </template>
 
-              <template v-else>
-                 <v-icon>las la-ellipsis-v</v-icon>
-              </template>
-               
+             
 
             
             </div>
@@ -136,6 +158,15 @@
            
          <template v-if="content.type == 'udemy_video'">
            <div class="col-12 pb-0 pt-0 px-0 d-flex flex-row" style=" align-items:center;">
+             
+              <div class="handle">
+              
+              <template v-if="!show_add_icon && checkIfisOwner() &&  resourceType != 'playlist_template'">
+                 <v-btn icon small> <v-icon >las la-braille</v-icon> </v-btn>
+              </template>
+
+            </div>
+
             <div  @click="handleResource(content,index)" class="col-5 py-1 px-1" style="height:92px;">
               <div style="position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url(imgs/7.jpg);background-repeat: no-repeat; background-size:cover;" >
                 <div @click.stop="addToSelected(content)" v-if="show_add_icon" style="background:rgba(0, 0, 0,0.6); cursor:pointer; position:absolute; top:0px; right:0px; border:1px solid black; border-top-right-radius:8px;" class="px-1 py-1">
@@ -173,10 +204,7 @@
 
               </template>
 
-              <template v-else>
-                 <v-icon>las la-ellipsis-v</v-icon>
-              </template>
-               
+             
 
             
             </div>
@@ -195,6 +223,14 @@
         <template v-if="content.type == 'devto_article'">
 
             <div class="col-12  py-1 px-0 d-flex flex-row" style=" align-items:center;">
+            <div class="handle">
+              
+              <template v-if="!show_add_icon && checkIfisOwner() &&  resourceType != 'playlist_template'">
+                 <v-btn icon small> <v-icon >las la-braille</v-icon> </v-btn>
+              </template>
+
+            </div>
+          
             <div  @click="handleResource(content,index)" class="col-5 py-1 px-1" style="height:110px;">
               <div :style="'position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url(' + content.content.cover_image +');background-repeat: no-repeat; background-size:cover;'" >
                
@@ -230,10 +266,7 @@
 
               </template>
 
-              <template v-else>
-                 <v-icon>las la-ellipsis-v</v-icon>
-              </template>
-               
+             
 
             
             </div>
@@ -250,6 +283,15 @@
         <template v-if="content.type == 'shared_link'"> 
 
            <div  class="col-12  pb-0 pt-0 px-0 d-flex flex-row mt-1" style=" align-items:center;">
+            
+             <div class="handle">
+              
+              <template v-if="!show_add_icon && checkIfisOwner() &&  resourceType != 'playlist_template'">
+                 <v-btn icon small> <v-icon >las la-braille</v-icon> </v-btn>
+              </template>
+
+            </div>
+          
             <div @click="handleResource(content,index)" class="col-5 py-1 px-1" style="height:110px;">
               <div :style="'position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url(' + content.content.image + ');background-repeat: no-repeat; background-size:cover;'" >
                
@@ -284,10 +326,7 @@
 
               </template>
 
-              <template v-else>
-                 <v-icon>las la-ellipsis-v</v-icon>
-              </template>
-               
+             
 
             
             </div> 
@@ -300,6 +339,10 @@
 
         <!-- ends -->
       </div>
+
+           </draggable>
+
+     
        
 
     </div>
@@ -315,13 +358,35 @@ export default {
       return {
       
         that:this,
+          drag: false,
+          contentData:[],
+          loadingContent:false,
         
       }
     },
-    props:['show_add_icon','contents','fromStandalone'],
+    props:['show_add_icon','contents','fromStandalone','resourceType'],
     mounted(){
+      this.contentData = this.contents;
         this.$root.resourceComponent = this;
+     
+     if(!this.show_add_icon && this.checkIfisOwner() &&  this.resourceType != 'playlist_template'){
+
+     
+             this.saveResourceContentOrder(false);
+         
+     }
+        
     },
+    computed: {
+    dragOptions() {
+      return {
+        animation: 200,
+        group: "playlist",
+        disabled: false,
+        ghostClass: "ghost"
+      };
+    }
+  },
     methods:{
         processURL:function(link){
 
@@ -351,6 +416,73 @@ export default {
 
 
     },
+     handleOnDrop:function(){
+        this.drag = false;
+       this.saveResourceContentOrder();
+    },
+    saveResourceContentOrder:function(showAlert = true){
+
+       if(this.$root.loadingResourceContent) return
+
+       this.$root.loadingResourceContent = true;
+
+      let ResourcesArray = [];
+
+        this.contents.forEach((content)=>{
+
+         ResourcesArray.push(content.id)
+   
+        });
+
+         axios.post( '/save-resources-content-order',{
+        resource_id: this.$root.selectedResource.resource_id,
+        content: ResourcesArray
+      })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+        this.$root.LocalStore('channel_resource_content_' + this.$root.selectedResource.resource_id  + this.$root.username, this.contents);
+
+         if(showAlert){
+
+               this.$root.chatComponent.showAlert('Saved!','Your changes have been saved','success');
+
+         }
+
+          this.$root.loadingResourceContent = false;
+
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+     this.$root.chatComponent.showAlert('Oops!','Unable to save changes,please try again','error');
+      this.$root.loadingResourceContent = false;
+       
+    
+     }) 
+
+    },
+     checkIfisOwner: function(){
+
+           let userMemberData = this.$root.selectedSpaceMembers.filter((members)=>{
+
+             return members.user_id == this.$root.user_temp_id;
+           });
+
+           if(userMemberData.length != 0){
+
+             return userMemberData[0].is_admin;
+
+           }else{
+
+              return false
+           }
+
+       },
         shortenContent: function(content,limit){
              
              if(content.length > limit){
@@ -388,6 +520,17 @@ export default {
 
 
             if(typeof content.content.id === 'object'){
+
+            
+                  if(!this.$root.isLogged){
+
+                       this.$root.checkIfUserIsLoggedIn();
+
+                       this.$root.showResourceView = false;
+
+                       return;
+
+                  }
 
               this.$root.formerselectedResource =  this.$root.selectedResource;
 
@@ -526,5 +669,14 @@ export default {
 .hoverEffect:hover{
    background-color: whitesmoke;
    cursor: pointer;
+}
+.handle{
+  cursor: move; 
+   
+}
+.ghost {
+  opacity: 0.5;
+  background: white;
+
 }
 </style>

@@ -2575,6 +2575,7 @@ const app = new Vue({
     searchResult:[],
     loadingResourcesContent:false,
     resourcesData:[],
+    loadingResourceContent:false,
      },
      mounted: function () {
 

@@ -179,7 +179,7 @@ export default {
    // this.fetchDevToTags();
     this.$root.showAddButton = false;
     this.$root.resourcesSearchComponent = this;
-    this.$root.selectedItem =[];
+    this.$root.selectedItems = [];
        
       
     },
@@ -245,6 +245,12 @@ export default {
        } else{
          this.$root.chatComponent.showAlert('Added!','resource has been added','success','bottomRight',3000);
        }
+
+       let responseContent = response.data.content;
+ 
+       this.$root.resourcesData = responseContent.concat(this.$root.resourcesData)
+
+        
 
        this.goBack();
             
@@ -397,7 +403,7 @@ export default {
 
               this.devToPageCount++
     
-                axios.get( `/search-devto/${JSON.stringify(searchStringArray)}/${this.devToPageCount}/${this.devToPageCount}` )
+                axios.get( `/search-devto/${JSON.stringify(searchStringArray)}/${this.devToPageCount}/${this.searchType}` )
       .then(response => {
       
       if (response.status == 200) {

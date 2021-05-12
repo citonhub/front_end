@@ -166,8 +166,7 @@ export default {
         formstate:false,
         Rule:[
              v => !!v || 'Oh! you missed this.',
-           v => v.length < 80 || 'Name must be less than 50 characters',
-             v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
+           v => v.length < 80 || 'Name must be less than 50 characters'
          ],
          limit:'10000',
           limitRule:[

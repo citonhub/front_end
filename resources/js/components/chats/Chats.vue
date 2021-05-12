@@ -108,7 +108,7 @@
        :buffer="5000"
     id="ChatContainer"
       class="col-12 px-1  chatListScroller" 
-       style="position:absolute; overflow-y:auto; z-index:999999; top:0%; height:98%;left:0%;padding-top:63px;"
+       style="position:absolute; overflow-y:auto; z-index:999999999; top:0%; height:98%;left:0%;padding-top:63px;"
         >
 
     <template v-slot="{ item, index, active }">
@@ -155,7 +155,7 @@
                          <div class="row">
 
                             <div class="col-12 py-1 px-1 text-center">
-                        <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                        <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;z-index:99999999999999999;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
                            </div>
 
                          </div>
@@ -179,7 +179,7 @@
                     </div>
 
                      <div class="text-center">
-                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;z-index:99999999999999999;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
                      </div>
 
             </template>
@@ -204,7 +204,7 @@
     :buffer="5000"
     id="ChatContainerSearch"
       class="col-12 px-1  chatListScroller" 
-       style="position:absolute;  z-index:999999;  overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;background:white;"
+       style="position:absolute;  z-index:9999999999;  overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;background:white;"
         >
 
     <template v-slot="{ item, index, active }">
@@ -961,7 +961,7 @@
     :buffer="5000"
     id="ChatContainersmall"
       class="col-12 px-1 " 
-        style="position:absolute; width:100%;  z-index:999999;  height:92%;top:8%;left:0;overflow-y:auto;" 
+        style="position:absolute; width:100%;  z-index:9999999999;  height:92%;top:8%;left:0;overflow-y:auto;" 
         >
 
     <template v-slot="{ item, index, active }">
@@ -1009,7 +1009,7 @@
                          <div class="row">
 
                              <div class="col-12 py-1 px-1 text-center">
-                        <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                        <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;z-index:99999999999999999;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
                            </div>
 
 
@@ -1032,7 +1032,7 @@
                     </div>
 
                      <div class="text-center">
-                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;z-index:99999999999999999;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
                      </div>
 
             </template>
@@ -1058,7 +1058,7 @@
     :buffer="5000"
     id="ChatContainersmallSearch"
       class="col-12 px-1 " 
-        style="position:absolute; width:100%;  z-index:999999;  height:92%;top:8%;left:0;overflow-y:auto; background:white;" 
+        style="position:absolute; width:100%;  z-index:999999999;  height:92%;top:8%;left:0;overflow-y:auto; background:white;" 
         >
 
     <template v-slot="{ item, index, active }">
