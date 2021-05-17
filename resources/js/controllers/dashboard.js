@@ -2854,6 +2854,26 @@ const app = new Vue({
   },
     methods:{
       closeNotification:function(space_id){
+
+
+        if ('Notification' in window && navigator.serviceWorker) {
+        
+          navigator.serviceWorker.ready.then(function(registration) {
+
+            var notificationFilter = {
+              tag: space_id
+            };
+
+            registration.getNotifications(notificationFilter).then(function(notifications) {
+
+              if(notifications && notifications.length > 0){
+                notifications[0].close();
+              } 
+             
+            })
+          });
+
+        }
         
 
       },

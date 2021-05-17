@@ -2,7 +2,7 @@
     <v-app  style="position:fixed;height:100%;background:#F5F5FB; top:0; left:0; width:100%; z-index:0;" >
 
         <!-- top bar -->
-        <div class="col-12 py-0 fixed-top" style="position:sticky;width:100%;height:auto; ">
+        <div class="col-12 py-0 fixed-top" style="position:fixed;width:100%;height:100px; z-index:99999999; ">
          <top-bar></top-bar>
         </div>
 
@@ -946,7 +946,7 @@
         <!-- ends -->
 
         <!-- smaller and medium screens -->
-             <div class=" col-12 py-0  d-lg-none" style=" position:absolute; height:100%; top:0%; left:0; overflow-y:auto; overflow-x:hidden; background:white;" >
+             <div class=" col-12 py-0  d-lg-none d-block" style=" position:absolute; height:100%; top:0%; left:0; overflow-y:auto; overflow-x:hidden; background:white;" >
 
              <template v-if="!chatIsOpen">
 
@@ -1060,7 +1060,7 @@
     :buffer="5000"
     id="ChatContainersmallSearch"
       class="col-12 px-1 " 
-        style="position:absolute; width:100%;  z-index:999999;  height:92%;top:8%;left:0;overflow-y:auto; background:white;" 
+        style="position:absolute; width:100%;  z-index:99999999999;  height:98%;top:63px;left:0;overflow-y:auto; background:white;" 
         >
 
     <template v-slot="{ item, index, active }">
@@ -1080,7 +1080,7 @@
 
                 </DynamicScroller>
 
-              <div v-else  class="col-12 px-1 text-center chatListScroller pt-2"  style="position:absolute; width:100%; height:90%;top:10%;left:0;overflow-y:auto; background:white;" >
+              <div v-else  class="col-12 px-1 text-center chatListScroller pt-2"  style="position:absolute; z-index:99999999999; width:100%; height:98%;top:63px;left:0;overflow-y:auto; background:white;" >
 
               <span style="font-size:13px;color:grey;">No result found</span>
 

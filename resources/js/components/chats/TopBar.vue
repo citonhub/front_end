@@ -24,13 +24,15 @@
                     <v-icon v-else style="font-size:23px;color:#263238;" >las la-bars</v-icon>
                    </v-btn>
             </div>
-             <div class="col-6 d-flex py-0 px-1" style="justify-content:center;align-items:center;">
+             <div class="col-7 d-flex flex-row py-0 px-1" style="justify-content:center;align-items:center;">
 
              <input style="width:100%;heigth:100%;font-size:12px;"   @input="searchChatList"
-                       :value="searchValue"  placeholder="Search" class="py-2 px-2" type="search" >       
+                       :value="searchValue"  placeholder="Search" class="py-2 px-2" type="search" >   
+
+                <v-btn icon x-small style="background:whitesmoke;" class="ml-1" @click="searchValue = ''" v-if="searchValue.length > 1"><v-icon style="font-size:17px;">las la-close</v-icon> </v-btn>    
          
             </div>
-              <div class="col-2 text-center py-0">
+              <div class="col-1 px-0 text-center py-0">
                  <template v-if="this.$root.authProfile.name" >
 
                       <v-btn icon  @click="goToNotification"> 
