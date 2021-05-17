@@ -2639,6 +2639,8 @@ const app = new Vue({
     loadingResourcesContent:false,
     resourcesData:[],
     loadingResourceContent:false,
+    resourceToAddStore:[],
+    resourcesDataStore:[],
      },
      mounted: function () {
 
@@ -2702,6 +2704,7 @@ const app = new Vue({
             }
          
       },
+   
       InternetConnected:function(newValue, oldValue){
 
           if(newValue){
@@ -2850,6 +2853,10 @@ const app = new Vue({
 
   },
     methods:{
+      closeNotification:function(space_id){
+        
+
+      },
       checkScriptVersion:function(){
 
 
@@ -6508,6 +6515,8 @@ this.$root.dataconnection = undefined;
        };
       
      this.$root.connection.openOrJoin('screen' + this.$root.selectedSpace.space_id, () => {
+
+        console.log('connected')
         
       this.$root.sendLiveSignal('screen');
       
@@ -6515,8 +6524,7 @@ this.$root.dataconnection = undefined;
 
     this.screenIsConnecting = false;
 
-    this.$root.sendLiveSignal('screen');
-
+ 
     
 
       },

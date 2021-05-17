@@ -169,7 +169,7 @@
 
             <div  @click="handleResource(content,index)" class="col-5 py-1 px-1" style="height:92px;">
               <div style="position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url(imgs/7.jpg);background-repeat: no-repeat; background-size:cover;" >
-                <div @click.stop="addToSelected(content)" v-if="show_add_icon" style="background:rgba(0, 0, 0,0.6); cursor:pointer; position:absolute; top:0px; right:0px; border:1px solid black; border-top-right-radius:8px;" class="px-1 py-1">
+                <div style="background:rgba(0, 0, 0,0.6); cursor:pointer; position:absolute; top:0px; right:0px; border:1px solid black; border-top-right-radius:8px;" class="px-1 py-1">
                       <v-icon style="font-size:18px; color:white;">las la-plus</v-icon>
                 </div>
                    <div style="align-items:center;background:rgba(0, 0, 0,0.1); justify-content:center; cursor:pointer; position:absolute; top:0; left:0; width:100%; height:100%;" class="px-1 py-1 d-flex">
@@ -636,6 +636,8 @@ export default {
                this.$root.selectedItems.push(content.content);
 
             }
+
+            this.$root.resourceToAddStore =  this.$root.selectedItems;
 
           
           

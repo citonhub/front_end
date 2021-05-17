@@ -346,7 +346,7 @@
                 
                 <!-- more options -->
 
-                   <v-btn small icon @click="showMoreOptions()" ><v-icon >las la-ellipsis-v</v-icon></v-btn>
+                   <v-btn small icon @click="showMoreOptions()"  ><v-icon >las la-ellipsis-v</v-icon></v-btn>
 
                 <!-- ends -->
                   </div>

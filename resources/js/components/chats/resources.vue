@@ -43,7 +43,7 @@
                      <input   v-model="resourceName"
                      @focus="showTextarea = true"
                @keyup.enter="createResources()"
-              style="border:1px solid white; width:100%; border-radius:2px; font-family:BodyFont; font-size:13px; background:white;"  placeholder="Resource title e.g PHP arrays" class="py-2 px-2" >
+              style="border:1px solid white; width:100%; border-radius:2px; font-family:BodyFont; font-size:13px; background:white;"  placeholder="Type resource title e.g PHP arrays" class="py-2 px-2" >
                  </div>
 
               
@@ -55,21 +55,24 @@
                    </textarea>
 
                  </div>
+
+                   <div class="col-12 text-center"  v-if="showTextarea || newPlaylistDesc != ''">
+
+                    <v-btn @click="createResources()"  :loading="saving" small color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:12px;" class="mx-2 d-inline-block" >
+                     Create Resource
+                   </v-btn>
+
+                 </div>
+
+
+              
              
               </div>
 
-          
-
-              <div class="ml-auto px-2">
-                <v-btn :loading="saving" icon style="background:white;" small  @click="createResources()">
-                   <v-icon style="font-size:24px;">
-                     las la-arrow-right
-                   </v-icon>
-                </v-btn>
-              </div>
 
         </v-card>
 
+         
   
      </div>
 
@@ -158,7 +161,7 @@
 
        <div class="col-12 text-center py-1">
 
-          <div style="font-family:BodyFont;font-size:13px; color:grey;" class=" text-center">Do you have a YouTube channel? Import your videos.</div>
+          <div style="font-family:BodyFont;font-size:13px; " class=" text-center">Do you have a YouTube channel? Import your videos.</div>
 
     </div>
 

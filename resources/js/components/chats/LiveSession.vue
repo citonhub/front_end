@@ -622,8 +622,13 @@ export default {
               
 
               }else{
+                
 
-                this.$root.chatComponent.showAlert('Oops!','Screen sharing not supported on mobile yet','error','bottomRight',10000)
+                  if(this.$root.selectedSpace.type != 'Direct'){
+                 this.$root.chatComponent.showAlert('Oops!','Screen sharing not supported on mobile yet','error','bottomRight',10000)
+                  }
+
+               
 
                  this.$root.checkScreenRoomState(false);
               }

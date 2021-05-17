@@ -1792,7 +1792,7 @@
 
      <v-btn  fab color="#3C87CD"  v-if="that.$root.ChatList.length > 0" @click="showCreateChannel" class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
 
-        <v-icon style="font-size:24px; color:white;">mdi mdi-chat-plus-outline</v-icon>
+        <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
 
      </v-btn>
 

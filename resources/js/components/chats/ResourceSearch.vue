@@ -12,8 +12,15 @@
             
              <div class=" py-0 text-center d-flex flex-row" style="width:100%; align-items:center;">
                <template v-if="this.$root.resourceSearchType != 'devto'">
-                 <input style="width:100%;heigth:100%;font-size:13px;background:whitesmoke;border-radius:13px;font-family:BodyFont;"  
+                 <input style="width:100%;heigth:100%;font-size:13px;border:1px solid grey;border-radius:3px;font-family:BodyFont;"  
                   :placeholder="placeholder" class="py-2 px-3" type="search" v-model="searchQuery" autofocus @keyup.enter="searchSite()"> 
+
+                   <div class="col-3 px-0 py-0 ml-1">
+                       <select   style="border:1px solid grey; width:100%; border-radius:2px; font-family:BodyFont; font-size:13px; background:white;"  v-model="searchTypeYT" class="py-2 px-2" >
+                    <option v-for="(option,index)  in searchFilterYT" :value="option.value" :key="index + 'typeYT'">{{ option.name}}</option>
+                     </select> 
+               </div>
+
                </template>
 
                <template v-else>
@@ -72,13 +79,9 @@
             </div>
               <div class="col-12  py-1 d-flex flex-row px-0 mt-1" style="align-items:center; justify-content:center;">
 
-                   <template v-if="that.$root.selectedResource.type == 'playlist'">
-            <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">Add videos to "{{that.$root.selectedResource.name}}" playlist</div>
-           </template>
-
-           <template v-else>
-                <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">Add articles to "{{that.$root.selectedResource.name}}" resource</div>
-           </template>
+              
+            <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">Add to "{{that.$root.selectedResource.name}}" </div>
+         
 
             <v-btn rounded small :loading="loading" :disabled="that.$root.selectedItems.length == 0" @click="AddItemsToResources()" color="#3C87CD" class="ml-2" style="font-size:11px; text-transform:none; font-weight:bolder; color:white;font-family: BodyFont;" >Add </v-btn>
 
@@ -150,6 +153,7 @@ export default {
          allTagStore:[],
          queryContent:'',
          devToPageCount:1,
+         searchTypeYT:'video,playlist',
          loading:false,
          searchType:'tags',
          searchFilter:[
@@ -160,6 +164,20 @@ export default {
            {
              name:'by username',
              value:'username'
+           }
+         ],
+         searchFilterYT:[
+           {
+             name:'videos and playlists',
+             value:'video,playlist'
+           },
+           {
+             name:'videos only',
+             value:'videos'
+           },
+           {
+             name:'playlist only',
+             value:'playlist'
            }
          ]
         }
@@ -172,6 +190,8 @@ export default {
        if(this.$root.fromTemplateView){
         this.$root.selectedResource = this.$root.formerselectedResource;
        }
+
+       this.$root.resourcesData = this.$root.resourcesDataStore;
 
     this.$root.componentIsLoading = false;
      this.$root.searchResourceComponent = this;
@@ -396,7 +416,7 @@ export default {
 
            if(this.$root.resourceSearchType == 'youtube'){
 
-                axios.get( `/search-youtube/${this.searchQuery}/${ this.$root.nextPageToken}` )
+                axios.get( `/search-youtube/${this.searchQuery}/${ this.$root.nextPageToken}/${this.searchTypeYT}` )
       .then(response => {
       
       if (response.status == 200) {
@@ -498,8 +518,9 @@ export default {
      this.$root.loadingSearch = true;
            if(this.$root.resourceSearchType == 'youtube'){
 
+             this.$root.nextPageToken = 'null';
     
-                axios.get( `/search-youtube/${this.searchQuery}` )
+                axios.get( `/search-youtube/${this.searchQuery}/${ this.$root.nextPageToken}/${this.searchTypeYT}` )
       .then(response => {
       
       if (response.status == 200) {

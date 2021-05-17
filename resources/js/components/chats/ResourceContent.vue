@@ -241,7 +241,8 @@ export default {
      
 
       this.$root.selectedResource = this.$root.formerselectedResource;
-
+       
+       this.$root.chatComponent.toggleAddButton = false;
 
        this.fetchResourceContent();
 
@@ -454,6 +455,10 @@ this.$root.resourceSearchType= type
                 
                         this.$root.resourcesData = finalResult
 
+                        
+        this.$root.resourcesDataStore = this.$root.resourcesData;
+       
+
                    
                   this.$root.loadingResourcesContent = false;
 
@@ -515,6 +520,8 @@ this.$root.resourceSearchType= type
           this.$root.LocalStore('channel_resource_content_' + this.$root.selectedResource.resource_id  + this.$root.username,response.data.contents);
 
          this.$root.resourcesData = response.data.contents;
+
+          this.$root.resourcesDataStore = this.$root.resourcesData;
 
         if(  this.$root.resourcesData.length == 0){
               this.$root.showAddButton = false;
