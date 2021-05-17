@@ -90,7 +90,7 @@
             :placeholder="$t('general.description') + '...'"
              :rules="DescriptionRule"
              v-model="contentInWord"
-             counter="300"
+             counter="400"
              color="#3C87CD"
             
              ></v-textarea>
@@ -142,7 +142,7 @@ export default {
          ],
          DescriptionRule:[
               v => !!v || 'Description is required',
-           v => v.length < 300 || 'Description must be less than 300 characters'
+           v => v.length < 400 || 'Description must be less than 400 characters'
          ],
          wordCount:0,
          mycontent:'',
