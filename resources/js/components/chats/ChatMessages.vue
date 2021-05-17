@@ -28,7 +28,7 @@
          </div>
 
          <!-- text message -->
-        <div elevation-1 class="col-12 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''"  v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1' || source.type == 'action' || source.type == null && source.replied_message_id == null) && checkOwner(source.user_id)">
+        <div elevation-1 class="col-12 py-0 " :style="source.tagged ? 'background: rgba(60, 135, 205, 0.32);' : ''"  v-if="(source.type == null  && source.is_reply != '1' || source.type == 'text'  && source.is_reply != '1' || source.type == 'action' ) && checkOwner(source.user_id)">
            <div class="row">
              <div class="col-lg-7 col-md-8 px-0 px-md-2 offset-lg-5 offset-md-4 d-flex flex-row-reverse"  >
                  
