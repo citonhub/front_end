@@ -5102,179 +5102,185 @@ fetchSpaceInfo: function(selectedspace){
 
 if (response.status == 200) {
 
+  if((this.$root.selectedSpace.space_id == response.data.space.space_id) && this.$root.chatComponent.chatIsOpen){
+     
+
 let storedMsg = this.$root.getLocalStore('full_space_' + selectedspace + this.$root.username);
 
- storedMsg.then((result)=>{
+storedMsg.then((result)=>{
 
-     if(result != null){
+    if(result != null){
 
-         let finalResult = JSON.parse(result);
+        let finalResult = JSON.parse(result);
 
-          finalResult.space = response.data.space;
-
-          
-
-            
-              if(response.data.space.type == 'SubSpace'){
-
-
-       let generalSpace =  response.data.space.gen_space;
-
-
-          this.$root.selectedGenSpaceType = response.data.space.gen_space.type;
-
-        generalSpace.space_id =   response.data.space.space_id;
-
-      generalSpace.payment_option = response.data.space.payment_option;
-
-        generalSpace.type =  response.data.space.type;
-
-
-          generalSpace.description = response.data.space.description;
-
-        generalSpace.general_spaceId =  response.data.space.general_spaceId;
-
-  
-
-
-
-    let subSpaceData =  response.data.space.sub_space_data;
-
-
-
-
-   this.$root.selectedSubSpaceName =  response.data.space.name;
-
-   this.$root.selectedSubSpaceType = subSpaceData.type;
-
-
-
-     generalSpace.sub_spaces =  response.data.space.sub_spaces;
-
-
-
-     this.$root.selectedSpace = generalSpace;
-
-
-    }else{
-
-            if( selectedspace == response.data.space.space_id){
-              this.$root.selectedSpace = response.data.space;
-            }
-       
-
-    }
-
-    if( selectedspace == response.data.space.space_id){
-      finalResult.members = response.data.members;
-
-         this.selectedSpaceMembers = response.data.members;
-
-       
-        
-
-  this.$root.LocalStore('full_space_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
-
-    
-    }
-          
-          
-        
-        
-
-
-     }
-
-
-
-    
- });
-
-
-  // update chatList
-
-   let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
-  
-   storedChat.then((result)=>{
-
-     if(result != null){
-
-         let finalResult = JSON.parse(result);   
-
-       
-       
-           
       
+         
 
-         if(response.data.space.type == 'Channel' || response.data.space.type == 'Team'){
-              finalResult.channels.map((chat)=>{
-                if(chat.space_id == this.$root.selectedSpace.space_id){
+         finalResult.space = response.data.space;
 
-                   chat.name =  response.data.space.name;
+         
 
-                   chat.image_name = response.data.space.image_name;
+           
+             if(response.data.space.type == 'SubSpace'){
 
-                   chat.image_extension = response.data.space.image_extension;
 
-                   chat.background_color = response.data.space.background_color;
+      let generalSpace =  response.data.space.gen_space;
 
-                }
-              })
-         }
 
-         if(response.data.space.type == 'Direct'){
+         this.$root.selectedGenSpaceType = response.data.space.gen_space.type;
 
-            finalResult.direct_messages.map((chat)=>{
-                if(chat.space_id == this.$root.selectedSpace.space_id){
+       generalSpace.space_id =   response.data.space.space_id;
 
-                   chat.userInfo =  response.data.space.userInfo;
+     generalSpace.payment_option = response.data.space.payment_option;
 
-                
-                }
-              })
+       generalSpace.type =  response.data.space.type;
 
-         }
 
-         if(response.data.space.type == 'Bot'){
+         generalSpace.description = response.data.space.description;
 
-              
+       generalSpace.general_spaceId =  response.data.space.general_spaceId;
 
-            finalResult.pet_spaces.map((chat)=>{
-                if(chat.space_id == this.$root.selectedSpace.space_id){
-                   
-                   chat.bot_data =  response.data.space.bot_data;
+ 
+
+
+
+   let subSpaceData =  response.data.space.sub_space_data;
+
+
+
+
+  this.$root.selectedSubSpaceName =  response.data.space.name;
+
+  this.$root.selectedSubSpaceType = subSpaceData.type;
+
+
+
+    generalSpace.sub_spaces =  response.data.space.sub_spaces;
+
+
+
+    this.$root.selectedSpace = generalSpace;
+
+
+   }else{
+
+          
+             this.$root.selectedSpace = response.data.space;
+       
+
+   }
+
+ 
+     finalResult.members = response.data.members;
+
+        this.selectedSpaceMembers = response.data.members;
+
+      
+       
+
+ this.$root.LocalStore('full_space_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
+
+   
+         
+       
+       
+
+
+    }
+
+
+
+   
+});
+
+
+ // update chatList
+
+  let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
+ 
+  storedChat.then((result)=>{
+
+    if(result != null){
+
+        let finalResult = JSON.parse(result);   
+
+      
+      
+          
+     
+
+        if(response.data.space.type == 'Channel' || response.data.space.type == 'Team'){
+             finalResult.channels.map((chat)=>{
+               if(chat.space_id == this.$root.selectedSpace.space_id){
+
+                  chat.name =  response.data.space.name;
+
+                  chat.image_name = response.data.space.image_name;
+
+                  chat.image_extension = response.data.space.image_extension;
+
+                  chat.background_color = response.data.space.background_color;
+
+               }
+             })
+        }
+
+        if(response.data.space.type == 'Direct'){
+
+           finalResult.direct_messages.map((chat)=>{
+               if(chat.space_id == this.$root.selectedSpace.space_id){
+
+                  chat.userInfo =  response.data.space.userInfo;
 
                
-                }
-              })
+               }
+             })
 
-         }
+        }
 
-           let FinalMessages = finalResult.direct_messages.filter(chat=>{
-                return chat.last_message.length > 0
-            })
-            
-          let fullList = finalResult.channels.concat(FinalMessages, finalResult.pet_spaces);
-          
+        if(response.data.space.type == 'Bot'){
 
-            this.$root.ChatList = fullList;
+             
 
-           this.$root.sortChatList();
+           finalResult.pet_spaces.map((chat)=>{
+               if(chat.space_id == this.$root.selectedSpace.space_id){
+                  
+                  chat.bot_data =  response.data.space.bot_data;
 
-            this.SetUnread();
+              
+               }
+             })
 
-          
-            this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
+        }
 
-    
+          let FinalMessages = finalResult.direct_messages.filter(chat=>{
+               return chat.last_message.length > 0
+           })
+           
+         let fullList = finalResult.channels.concat(FinalMessages, finalResult.pet_spaces);
+         
+
+           this.$root.ChatList = fullList;
+
+          this.$root.sortChatList();
+
+           this.SetUnread();
+
+         
+           this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
+
+   
 
 
-     }
+    }
 
 
 
-    
- });
+   
+});
+
+  }
+
 }
 
 
