@@ -23,7 +23,7 @@
     "/js/chunks/Challenges.91f751eff30f1971f144.js": "/js/chunks/Challenges.91f751eff30f1971f144.js",
     "/js/chunks/ChallengesCreate.5d10599de1fcbb4e72b6.js": "/js/chunks/ChallengesCreate.5d10599de1fcbb4e72b6.js",
     "/js/chunks/ChallengesList.4d67ff724efbec9de01b.js": "/js/chunks/ChallengesList.4d67ff724efbec9de01b.js",
-    "/js/chunks/ChannelEdit.ea4d8af7ee998770d0a4.js": "/js/chunks/ChannelEdit.ea4d8af7ee998770d0a4.js",
+    "/js/chunks/ChannelEdit.fc82024a5236a4b5422f.js": "/js/chunks/ChannelEdit.fc82024a5236a4b5422f.js",
     "/js/chunks/ChannelInfo.c280b00e8d5959c28b95.js": "/js/chunks/ChannelInfo.c280b00e8d5959c28b95.js",
     "/js/chunks/ChatBottom.1cc625ab400adc454557.js": "/js/chunks/ChatBottom.1cc625ab400adc454557.js",
     "/js/chunks/ChatList.0a41ac05e4dcc3a388a1.js": "/js/chunks/ChatList.0a41ac05e4dcc3a388a1.js",
@@ -138,5 +138,12 @@
     "/js/chunks/vendors~VideoPlayer.8992c579db9657cf556a.js": "/js/chunks/vendors~VideoPlayer.8992c579db9657cf556a.js",
     "/js/chunks/vendors~WalletCard~manageWallet.d76ca8782c7783ea793c.js": "/js/chunks/vendors~WalletCard~manageWallet.d76ca8782c7783ea793c.js",
     "/js/chunks/verify.474aeba81e078bff4f9a.js": "/js/chunks/verify.474aeba81e078bff4f9a.js",
-    "/js/chunks/ChannelEdit.fc82024a5236a4b5422f.js": "/js/chunks/ChannelEdit.fc82024a5236a4b5422f.js"
+    "/js/chunks/MentorsList.8158dc02463c0f26c262.js": "/js/chunks/MentorsList.8158dc02463c0f26c262.js",
+    "/js/chunks/MentorsList.87f0450dfbec6b27e2b9.js": "/js/chunks/MentorsList.87f0450dfbec6b27e2b9.js",
+    "/js/chunks/MentorsList.9d2a03cd3a6a034c519b.js": "/js/chunks/MentorsList.9d2a03cd3a6a034c519b.js",
+    "/js/chunks/MentorsList.9ef3b2819ed3174d0bd5.js": "/js/chunks/MentorsList.9ef3b2819ed3174d0bd5.js",
+    "/js/chunks/MentorsList.2d167abe5385324169ad.js": "/js/chunks/MentorsList.2d167abe5385324169ad.js",
+    "/js/chunks/MentorsList.1b6e4233ca9e320132d1.js": "/js/chunks/MentorsList.1b6e4233ca9e320132d1.js",
+    "/js/chunks/MentorsList.258f37eab1ecfcb99abe.js": "/js/chunks/MentorsList.258f37eab1ecfcb99abe.js",
+    "/js/chunks/MentorsList.5dca9fd4dce241f58893.js": "/js/chunks/MentorsList.5dca9fd4dce241f58893.js"
 }

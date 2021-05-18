@@ -248,9 +248,11 @@ response => {
 
 
        
-        this.newData=this.$root.leaderboardMembers
+        
+         this.$root.leaderboardMembers=response.data.mentors
+           this.newData = this.$root.leaderboardMembers
 
-          if(this.$root.leaderboardMembers == 0){
+          if(this.$root.leaderboardMembers.length == 0){
              this.dataHasFinished = true;
           }
 
