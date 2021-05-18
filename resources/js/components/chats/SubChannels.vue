@@ -236,18 +236,18 @@ export default {
         
      
                    let finalResult = response.data.sub_channels;
-        if(this.checkIfisOwner()){
+      //  if(this.checkIfisOwner()){
 
                this.$root.subSpaces =  finalResult;
 
-           }else{
+         // }else{
             
-             this.$root.subSpaces = finalResult.filter((space)=>{
+           //  this.$root.subSpaces = finalResult.filter((space)=>{
 
-               return space.type == 'Public' || (space.type == 'Private' && space.is_member == true);
+          //  return space.type == 'Public' || (space.type == 'Private' && space.is_member == true);
 
-             });
-           }
+        //    });
+         //  }
 
              this.sortList();
      

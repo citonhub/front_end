@@ -1,7 +1,7 @@
 <template>
  <div class="px-2 py-2 "  @click.stop="preventClose">
 
-     <v-card class="col-lg-4 offset-lg-4 py-1  col-md-8 offset-md-2">
+     <v-card style="min-width:60%;" class="col-lg-4 offset-lg-4 py-1  col-md-8 offset-md-2">
          
                <div class="row">
 
@@ -18,7 +18,7 @@
 
                      <template v-if="!that.$root.channelHasResources">
 
-                        <div  style="font-family:MediumFont; font-size:14px;" class="mt-3 px-2">Set up your channel</div>
+                        <div  style="font-family:MediumFont; font-size:14px;" class="mt-3 px-2 ">Set up your channel</div>
 
                      <div class="col-12 py-1 px-2 text-left">
                 
@@ -54,6 +54,8 @@
 
                   </template>
                   <template v-else>
+
+                
 
                          <div class="col-12 py-1 text-center">
 

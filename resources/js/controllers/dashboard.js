@@ -3113,7 +3113,6 @@ const app = new Vue({
        
        let userProfile = response.data.profile;
        let user = response.data.user_data;
-
        
        
        
