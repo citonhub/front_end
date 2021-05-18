@@ -5158,15 +5158,15 @@ let storedMsg = this.$root.getLocalStore('full_space_' + selectedspace + this.$r
 
     }else{
 
-        this.$root.selectedSpace = response.data.space;
+            if( selectedspace == response.data.space.space_id){
+              this.$root.selectedSpace = response.data.space;
+            }
+       
 
     }
 
-       
-          
-          
-        
-        finalResult.members = response.data.members;
+    if( selectedspace == response.data.space.space_id){
+      finalResult.members = response.data.members;
 
          this.selectedSpaceMembers = response.data.members;
 
@@ -5176,6 +5176,11 @@ let storedMsg = this.$root.getLocalStore('full_space_' + selectedspace + this.$r
   this.$root.LocalStore('full_space_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
 
     
+    }
+          
+          
+        
+        
 
 
      }
