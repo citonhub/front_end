@@ -3576,8 +3576,14 @@ const app = new Vue({
                     if(e.data.device_id == this.$root.userDeviceId){
  
                      let returnData = e.data.data;
+
+                       if(returnData[0].new_messages.length > 0){
+
+                        this.returnedDataArray.push(returnData);
+
+                       }
  
-                       this.returnedDataArray.push(returnData);
+                      
  
                        this.checkForLostmessages();
                         
