@@ -161,7 +161,7 @@
 
        <div class="col-12 text-center py-1">
 
-          <div style="font-family:BodyFont;font-size:13px; " class=" text-center">Do you have a YouTube channel? Import your videos.</div>
+          <div style="font-family:BodyFont;font-size:13px; " >If you have a YouTube channel, you can import your videos.</div>
 
     </div>
 
@@ -182,7 +182,7 @@
              <v-btn @click="handleYouTubeAuth" :loading="loadingAuthBtn" rounded medium outlined style="color:#FF0000; font-family:BodyFont;font-size:13px; text-transform:none;" color="#FF0000">
                <v-icon class="px-2" style="font-size:35px; color:#FF0000;">mdi mdi-youtube</v-icon> 
 
-               <span>Sign In</span>
+               <span>Import videos</span>
             </v-btn>
 
           </template>
