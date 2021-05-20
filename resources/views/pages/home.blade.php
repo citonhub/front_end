@@ -120,7 +120,7 @@ body{
 </div>
 
 <div class="col-12 text-center mt-5 d-md-block  d-none">
-<a href="/dashboard#/channels/create" class="homeButton  px-5 py-3  ">Get started for FREE</a>
+<a href="/dashboard#/channels/create" class="homeButton  px-5 py-3  ">Join us for FREE</a>
 </div>
 
 
@@ -139,7 +139,7 @@ body{
 </div>
 
 <div class="col-12 text-center mt-5  d-block d-md-none">
-<a href="/dashboard#/channels/create" class="homeButton  px-3 py-3  " style="font-size:13px;">Get started for FREE</a>
+<a href="/dashboard#/channels/create" class="homeButton  px-3 py-3  " style="font-size:13px;">Join us for FREE</a>
 </div>
 
 
@@ -247,7 +247,7 @@ to people just starting out and community gives support.</p>
 
 
 
-<img class="mt-2" src="/imgs/youtube_clip2.png" height="360px" width="90%"/>
+<img class="mt-2" src="/imgs/youtube_image.svg" height="320px" width="90%"/>
 
 <h4 style="font-family:HeaderFont;" class="mt-4">Connect your YouTube
 Channel</h4>
@@ -259,7 +259,7 @@ have access to it. Your audience can like and subscribe to your channel directly
 
 <div class="col-md-6 mt-4">
 
-<img class="mt-2" src="/imgs/credit-vector.png" height="360px" width="100%"/>
+<img class="mt-2 mb-5" src="/imgs/earn_online.svg" height="280px" width="100%" />
 
 <h4 style="font-family:HeaderFont;" class="mt-4">Earn directly from your
 audience</h4>
@@ -279,7 +279,7 @@ can directly donate or subscribe to your private community where they can access
 
 
 
-<img class="mt-2" src="/imgs/youtube_clip2.png" height="280px" width="100%"/>
+<img class="mt-2" src="/imgs/youtube_image.svg" height="250px" width="100%"/>
 
 <h5 style="font-family:HeaderFont;" class="mt-4">Connect your YouTube
 Channel</h5>
@@ -291,7 +291,7 @@ have access to it. Your audience can like and subscribe to your channel directly
 
 <div class="col-12 mt-4">
 
-<img class="mt-2" src="/imgs/credit-vector.png" height="280px" width="100%"/>
+<img class="mt-2" src="/imgs/earn_online.svg" height="200px" width="100%"/>
 
 <h5 style="font-family:HeaderFont;" class="mt-4">Earn directly from your
 audience</h5>
@@ -425,11 +425,11 @@ can directly donate or subscribe to your private community where they can access
 
 
 <div class="col-12 text-center mt-5  d-block d-md-none">
-<a href="/dashboard#/channels/create" class="homeButton  px-3 py-3  " style="font-size:13px;">Get started for FREE</a>
+<a href="/dashboard#/channels/create" class="homeButton  px-3 py-3  " style="font-size:13px;">Join us for FREE</a>
 </div>
 
 <div class="col-12 text-center mt-0 d-md-block  d-none">
-<a href="/dashboard#/channels/create" class="homeButton  px-5 py-3  ">Get started for FREE</a>
+<a href="/dashboard#/channels/create" class="homeButton  px-5 py-3  ">Join us for FREE</a>
 </div>
 
 <div class="col-12 pb-0 pt-0 mt-5  d-block d-md-none text-center">
