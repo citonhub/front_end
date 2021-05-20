@@ -585,7 +585,7 @@
 
                                <!-- channel invitation -->
 
-                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center d-flex flex-row " @click="goBack" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center;  border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 d-flex flex-row " @click="goBack" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center;  border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
                                   <invitation :infoText="'custom'"
@@ -1441,7 +1441,7 @@
 
                              <!-- channel invitation -->
 
-                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" @click="goBack" class="col-12 py-0 pt-5 px-0 d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
                                   <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
                                   <invitation :infoText="'custom'"

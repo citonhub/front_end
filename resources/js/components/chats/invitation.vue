@@ -1,7 +1,7 @@
 <template>
  <div class="px-2 py-2 "  @click.stop="preventClose">
 
-     <v-card style="min-width:250px;" class="col-lg-4 offset-lg-4 py-1  col-md-8 offset-md-2">
+     <v-card style="min-width:280px;" class="col-lg-4 offset-lg-4 py-1  col-md-6 offset-md-3">
          
                <div class="row">
 
