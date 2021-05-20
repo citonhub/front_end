@@ -544,6 +544,11 @@ methods:{
                     let finalResult = JSON.parse(result);
                 
                        this.resources = finalResult
+
+                       if(this.resources.length == 0){
+                         
+                         this.showTextarea = true;
+                       }
                 
                    
                   this.loadingResources = false;
@@ -567,6 +572,11 @@ methods:{
                     this.has_youtube_resource =  response.data.has_youtube_resource;
 
                      this.resources = finalResult
+
+                     if(this.resources.length == 0){
+                         
+                         this.showTextarea = true;
+                       }
 
                 
      
@@ -643,6 +653,11 @@ methods:{
                    let finalResult = response.data.resources;
 
                      this.resources = finalResult
+
+                     if(this.resources.length == 0){
+                         
+                         this.showTextarea = true;
+                       }
 
                        this.has_devto_resource = response.data.has_devto_resource;
                        this.has_youtube_resource =  response.data.has_youtube_resource;
