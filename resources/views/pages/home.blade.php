@@ -247,7 +247,7 @@ to people just starting out and community gives support.</p>
 
 
 
-<img class="mt-2" src="/imgs/youtube_image.svg" height="320px" width="90%"/>
+<img class="mt-2" src="/imgs/youtube_image2.svg" height="320px" width="90%"/>
 
 <h4 style="font-family:HeaderFont;" class="mt-4">Connect your YouTube
 Channel</h4>
@@ -279,7 +279,7 @@ can directly donate or subscribe to your private community where they can access
 
 
 
-<img class="mt-2" src="/imgs/youtube_image.svg" height="250px" width="100%"/>
+<img class="mt-2" src="/imgs/youtube_image2.svg" height="250px" width="100%"/>
 
 <h5 style="font-family:HeaderFont;" class="mt-4">Connect your YouTube
 Channel</h5>
