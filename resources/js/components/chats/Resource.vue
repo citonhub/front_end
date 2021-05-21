@@ -53,8 +53,15 @@
 
               </template>
 
-              <template v-else>
-                 <v-icon>las la-ellipsis-v</v-icon>
+              <template v-else>  
+                 <v-icon
+                
+                 @click="showOptions(content)"
+                 >las la-trash-alt</v-icon>
+<!-- 
+                 <v-card v-if="selected_id === content.id" style="background:white;">
+                   <span>delete</span>
+                 </v-card> -->
               </template>
                
 
@@ -253,12 +260,15 @@ export default {
       return {
       
         that:this,
+        options:false,
+        selected_id:''
         
       }
     },
     props:['show_add_icon','contents','fromStandalone'],
     mounted(){
         this.$root.resourceComponent = this;
+        console.table(this.contents)
     },
     methods:{
         processURL:function(link){
@@ -298,6 +308,35 @@ export default {
              }else{
                return content;
              }
+        },
+
+        showOptions(content){
+         this.selected_id=content.id
+
+         if(this.selected_id == content.id){
+           axios.post('/delete-resource-content' , {
+           "content_id" : content.id
+           }).then(
+             response=>{
+               if(response.status== 200){
+                 const newContents = this.contents.filter(content =>  content.id !== this.selected_id );
+                 this.contents= newContents
+               }
+             }
+           ).catch( error=>{
+
+             this.selected_id=''
+
+             this.$root.chatComponent.showAlert('Oops!','Something went wrong,please try again','error');
+           }
+
+
+             
+           )
+         }
+
+         console.log(content.id)
+
         },
         handleResource:function(content,index){
           
