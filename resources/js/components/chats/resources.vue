@@ -43,17 +43,10 @@
                      <input   v-model="resourceName"
                      @focus="showTextarea = true"
                @keyup.enter="createResources()"
-              style="border:1px solid white; width:100%; border-radius:2px; font-family:BodyFont; font-size:13px; background:white;"  placeholder="Create a resource" class="py-2 px-2" >
+              style="border:1px solid white; width:100%; border-radius:2px; font-family:BodyFont; font-size:13px; background:white;"  placeholder="Type resource title e.g PHP arrays" class="py-2 px-2" >
                  </div>
 
-                 <div v-if="showTextarea || newPlaylistDesc != ''" class="mt-2">
-
-                     <select   style="border:1px solid white; width:100%; border-radius:2px; font-family:BodyFont; font-size:13px; background:white;"  v-model="selectedType" class="py-2 px-2" >
-                        <option value="" >Select type</option>
-                    <option v-for="(option,index)  in resourceType" :value="option.value" :key="index + 'type'">{{ option.name}}</option>
-                     </select>
-
-                 </div>
+              
 
                  <div v-if="showTextarea || newPlaylistDesc != ''" class="mt-2">
 
@@ -62,21 +55,24 @@
                    </textarea>
 
                  </div>
+
+                   <div class="col-12 text-center"  v-if="showTextarea || newPlaylistDesc != ''">
+
+                    <v-btn @click="createResources()"  :loading="saving" small color="#3C87CD" style="color:white;text-transform:none;font-family:BodyFont;font-size:12px;" class="mx-2 d-inline-block" >
+                     Create Resource
+                   </v-btn>
+
+                 </div>
+
+
+              
              
               </div>
 
-          
-
-              <div class="ml-auto px-2">
-                <v-btn :loading="saving" icon style="background:white;" small  @click="createResources()">
-                   <v-icon style="font-size:24px;">
-                     las la-arrow-right
-                   </v-icon>
-                </v-btn>
-              </div>
 
         </v-card>
 
+         
   
      </div>
 
@@ -99,8 +95,7 @@
 
        <v-card :ripple="false" flat class="d-flex flex-row px-1  mb-2 col-12 " v-for="(resource,index) in resources" :key="index" style="background: rgba(125, 179, 229, 0.4);cursor:pointer;">
               <div  @click="showContent(resource)" class="mr-2 ">
-                 <v-icon color="#000000" class="ml-2"  v-if="resource.type == 'resource'" >las la-folder</v-icon>
-                   <v-icon color="#000000" class="ml-2"  v-if="resource.type == 'playlist'" >las la-play-circle</v-icon>
+                   <v-icon color="#000000" class="ml-2"   >las la-play-circle</v-icon>
               </div>
 
               <div  @click="showContent(resource)" style=" white-space: nowrap; overflow:hidden; text-overflow:ellipsis; width:100%;">
@@ -166,7 +161,7 @@
 
        <div class="col-12 text-center py-1">
 
-          <div style="font-family:BodyFont;font-size:13px; color:grey;" class=" text-center">If you have a YouTube channel, import your videos </div>
+          <div style="font-family:BodyFont;font-size:13px; " class=" text-center">Do you have a YouTube channel? Import your videos.</div>
 
     </div>
 
@@ -229,7 +224,7 @@ data(){
     youtube_connected:false,
     playName:'',
     contentInWord:'',
-    selectedType:'',
+    selectedType:'resource',
     resourceType:[
       {
         name:"Videos from YouTube",
@@ -672,6 +667,7 @@ methods:{
  showContent:function(resource){
      
      this.$root.selectedResource = resource;
+     this.$root.formerselectedResource =  resource;
           
            this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resource_content/' + resource.resource_id });
 

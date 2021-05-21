@@ -67,7 +67,7 @@
 
             <div class="col-4 px-0 py-0 text-center">
 
-               <v-btn small color="#3C87CD"  v-if="checkIfisOwner() && that.$root.selectedSpace.payment_option == null && (that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team' || that.$root.selectedSpace.type == 'SubSpace')  " outlined @click.stop="showPaymentOptions" style="text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" >Add payment</v-btn>
+               <v-btn small color="#3C87CD"  v-if="checkIfisOwner() && that.$root.selectedSpace.payment_option == null && (that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team' || that.$root.selectedSpace.type == 'SubSpace')  " outlined @click.stop="showPaymentOptions" style="text-transform:capitalize;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" >Enable payment</v-btn>
 
            </div>
 

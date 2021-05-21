@@ -64,57 +64,7 @@
 
              </div>
 
-             <div class="col-lg-12 col-md-6 offset-md-3 offset-lg-0 py-2 pt-0 my-0 px-1  mt-n3">
-
-               <div style="font-size:14px;">Select how you will like to earn. <a href="https://blog.citonhub.com/how-developers-make-money-on-citonhub" target="_blank">Read more...</a><br>
-               <span style="color:grey;font-size:13px;">We only earn when you earn.</span>
-               </div>
-              
-
-               <div class="col-12 px-1 py-1 d-flex flex-row">
-
-                   <div class="col-2">
-
-                  </div>
-
-                  <div class="  col-4  px-1 my-0 py-2 " >
-                     <v-card  @click="selectPaymentOption('support')" :color="that.$root.payment_option == 'support' ? '#3C87CD' : ''"  class="px-1 py-1 appBox" :style="that.$root.payment_option == 'support' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
-                        <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
-                                   <div class="text-center">
-                                      <i :style="that.$root.payment_option == 'support' ? 'font-size:30px;color:white;' : 'font-size:30px;'" :class="'las la-hands-helping'"></i>
-                                      <div>
-                                         <span  :style="that.$root.payment_option == 'support' ? 'font-size:13px; font-family:BodyFont;color:white;' : 'font-size:13px; font-family:BodyFont;'" >Donation</span>
-                                      </div>
-                                   </div>
-                        </div>
-
-                          
-                     </v-card>
-                 </div>
-
-                  <div class="  col-4  px-1 my-0 py-2 " >
-                     <v-card  @click="selectPaymentOption('membership')" :color="that.$root.payment_option == 'subscription' || that.$root.payment_option == 'one_time' ? '#3C87CD' : ''"  class="px-1 py-1 appBox" :style="that.$root.payment_option == 'subscription' || that.$root.payment_option == 'one_time' ? 'height:100px; border:1px solid #3C87CD; border-radius:7px;color:white;' : 'height:100px; border:1px solid #c5c5c5; border-radius:7px;'">
-                        <div class="d-flex" style=" height:100%; align-items:center; justify-content:center;  width:100%;">
-                                   <div class="text-center">
-                                      <i :style="that.$root.payment_option == 'subscription' || that.$root.payment_option == 'one_time' ? 'font-size:30px;color:white;' : 'font-size:30px;'" :class="'las la-user-friends'"></i>
-                                      <div>
-                                         <span :style="that.$root.payment_option == 'subscription' || that.$root.payment_option == 'one_time' ? 'font-size:13px; font-family:BodyFont;color:white;' : 'font-size:13px; font-family:BodyFont;'">Membership</span>
-                                      </div>
-                                   </div>
-                        </div>
-
-                        
-                     </v-card>
-                 </div>
-
-                  <div class="col-2">
-
-                  </div>
-
-                
-               </div>
-
-             </div>
+          
 
              <div class="col-12 py-2 my-0 px-2 text-center">
                   <v-btn @click.prevent="createSpace" :disabled="name == '' || description == ''" type="submit" rounded small color="#3C87CD" style="font-size:12px;text-transform:none; color:white;font-family: MediumFont;" :loading="loading">Create</v-btn>
@@ -166,8 +116,7 @@ export default {
         formstate:false,
         Rule:[
              v => !!v || 'Oh! you missed this.',
-           v => v.length < 80 || 'Name must be less than 50 characters',
-             v => /^[A-Za-z0-9 ]+$/.test(v) || 'Cannot contain special character'
+           v => v.length < 80 || 'Name must be less than 50 characters'
          ],
          limit:'10000',
           limitRule:[
@@ -250,7 +199,7 @@ export default {
                 channel_name: this.name,
                 limit: this.limit,
                 type: this.selectedType,
-                payment_option: this.$root.payment_option,
+               // payment_option: this.$root.payment_option,
                 name: finalName,
                 currency: this.$root.payment_currency,
                 amount: this.$root.payment_amount,

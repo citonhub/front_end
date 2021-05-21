@@ -25,29 +25,17 @@
                    <span style="font-family:BodyFont; font-size:13px; color:grey;">Curate the best resources form YouTube and DevTo.</span>
                     </div>
 
-                      <v-card tile flat  @click="handleSetUp('youtube')"  class="py-2 px-2 d-flex flex-row col-12" style="border-bottom:1px solid #c5c5c5;border-top:1px solid #c5c5c5;">
                      
-                      <div class="mr-2">
-
-                            <v-icon style="color:#FF0000;" >mdi mdi-youtube</v-icon>
-
-                      </div>
-
-                      <div>
-                           <span style="font-family:BodyFont; font-size:13px;">Create playlists from Youtube</span>
-                      </div>
-
-                     </v-card>
-                       <v-card tile flat   @click="handleSetUp('devto')"  class="py-2 px-2 d-flex flex-row col-12" >
+                       <v-card tile flat   @click="handleSetUp('resources')"  class="py-2 px-2 d-flex flex-row col-12" >
                      
                       <div class="mr-2">
                         
-                          <img  src="/imgs/devto.png" height="27px"  >
+                           <v-icon color="#3C87CD" class="mx-1">las la-play-circle</v-icon> 
 
                       </div>
 
                       <div>
-                           <span style="font-family:BodyFont; font-size:13px;">Create resources from DevTo</span>
+                           <span style="font-family:BodyFont; font-size:13px;">Create resources from YouTube and DevTo</span>
                       </div>
 
                      </v-card>
@@ -404,14 +392,9 @@ export default {
       },
       handleSetUp:function(type){
 
-         if(type == 'youtube'){
+        
               this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resources' });
-         }
-
-         if(type == 'devto'){
-           
-             this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resources' });
-         }
+       
 
       },
       sendToConnection: function(){

@@ -11,8 +11,26 @@
 
             
           
-             <div class="col-8 pt-1 pb-0 text-center" style="white-space: nowrap; overflow:hidden; text-overflow:ellipsis; ">
-             <span style="font-size:14px; font-family:MediumFont;">{{that.$root.selectedResource.name}}</span>
+             <div class="col-8 pt-1 pb-0  d-flex flex-row" style="white-space: nowrap; overflow:hidden; text-overflow:ellipsis; align-items:center; justify-content:center;">
+          
+             <template v-if="showEditTitle">
+
+                  <input v-model="resourceTitle"  @input="saveResourceInfo()"
+                 
+              style="border:1px solid #c5c5c5; width:100%; border-radius:2px; font-family:BodyFont; font-size:13px; background:white;"   class="py-1 px-1" >
+
+               <v-btn  x-small icon @click="showEditTitle ? showEditTitle = false : showEditTitle = true"> <v-icon>las la-close</v-icon> </v-btn>
+
+             </template>
+             <template v-else>
+                <span style="font-size:14px; font-family:MediumFont;">{{that.$root.selectedResource.name}}</span> 
+
+                  <v-btn v-if="checkIfisOwner() && that.$root.selectedResource.type != 'playlist_template'" x-small icon @click="showEditTitle ? showEditTitle = false : showEditTitle = true"> <v-icon>las la-edit</v-icon> </v-btn>
+             </template>
+
+            
+
+           
             </div>
               
             
@@ -21,7 +39,7 @@
         </div>
 
 
-        <template v-if="loadingContent">
+        <template v-if="that.$root.loadingResourcesContent">
             
              <div class="col-12 mt-4 text-center">
 
@@ -35,7 +53,7 @@
             
             <div class="d-flex flex-row col-12 py-0 px-0" style="align-items:center;">
             <div >
-               <h6 class="d-inline-block">Description</h6> <v-btn v-if="checkIfisOwner()" x-small icon @click="showEditDesc ? showEditDesc = false : showEditDesc = true"> <v-icon>las la-edit</v-icon> </v-btn>
+               <h6 class="d-inline-block">Description</h6> <v-btn v-if="checkIfisOwner() && that.$root.selectedResource.type != 'playlist_template'" x-small icon @click="showEditDesc ? showEditDesc = false : showEditDesc = true"> <v-icon>las la-edit</v-icon> </v-btn>
             </div>
             
             </div>
@@ -52,7 +70,7 @@
                 style="font-size:13px;font-family:BodyFont; "
                  
              dense
-               @input="saveResourceInfo"
+               @input="saveResourceInfo()"
             :placeholder="'What is this ' +  that.$root.selectedResource.type + ' about? Markdown is supported.'"
               filled
               height="100"
@@ -83,18 +101,16 @@
     
         <div style="background:transparent;font-family:BodyFont; " class="col-12 py-1 my-0 px-2 px-md-2 " >
       
-        <template v-if="that.$root.selectedResource.type == 'playlist'">
-           <h6>Videos</h6>
+        <template>
+           <h6>Content</h6>
         </template>
 
-        <template v-else>
-          <h6>Links and articles</h6>
-        </template>
+        
       
 
-        <template v-if="resources.length > 0">
+        <template v-if="that.$root.resourcesData.length > 0">
 
-           <resource :contents="resources" :show_add_icon="false"></resource>
+           <resource :contents="that.$root.resourcesData" :show_add_icon="false" :resourceType='that.$root.selectedResource.type'></resource>
         
 
           <div class="text-center col-lg-12">
@@ -115,29 +131,25 @@
 
         <template v-else>
 
-              <template v-if="that.$root.selectedResource.type == 'playlist'">
-            <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-4 text-center">No video in this playlist yet.</div>
+              <template >
+            <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-5 text-center">No content in this resource yet.</div>
 
             <div class="col-12 py-1 text-center mt-2" v-if="checkIfisOwner() && that.$root.selectedResource.youtube_playlist_id == null">
 
                <v-btn @click="goToSearch('youtube')" medium  rounded outlined style="color:#FF0000; font-family:BodyFont;font-size:13px; text-transform:none;" color="#FF0000">
-               <v-icon class="px-2" style="font-size:35px; color:#FF0000;">mdi mdi-youtube</v-icon> 
+               <v-icon class="px-1" style="font-size:35px; color:#FF0000;">mdi mdi-youtube</v-icon> 
 
                <span>Add videos from YouTube</span>
             </v-btn>
 
             </div>
-           </template>
 
-           <template v-else>
-                <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-4 text-center">No article or resource URL in this resource yet.</div>
-
-             <div class="col-12 py-1 text-center d-flex flex-row mt-2 flex-wrap" v-if="checkIfisOwner() && that.$root.selectedResource.devto_username == null">
+              <div class="col-12 py-1 text-center d-flex flex-row  flex-wrap" v-if="checkIfisOwner() && that.$root.selectedResource.devto_username == null">
 
                 <div class="col-12 py-1 text-center">
 
               <v-btn @click="goToSearch('devto')" medium outlined  rounded style="font-family:BodyFont;font-size:13px; text-transform:none;" color="#000000">
-               <img  src="/imgs/devto.png" height="27px" class="px-2" >
+               <img  src="/imgs/devto.png" height="27px" class="px-1" >
 
                <span>Add articles from DevTo</span>
             </v-btn>
@@ -148,7 +160,7 @@
 
               <v-btn outlined @click="goToSearch('link')"  medium rounded style="font-family:BodyFont;font-size:13px; text-transform:none; " color="#3C87CD">
                
-                 <v-icon class="px-2">las la-link  </v-icon>
+                 <v-icon class="px-1">las la-link  </v-icon>
                <span>Add resource URL</span>
             </v-btn>
 
@@ -158,6 +170,8 @@
 
             </div>
            </template>
+
+          
 
         </template>
           
@@ -191,12 +205,14 @@ export default {
         that:this,
         contentInWord:'',
         title:'',
+        showEditTitle:false,
         loadingInfo:false,
         loadingContent:false,
         input:'',
         showEditDesc:false,
         loadingNextPage:false,
-        nextPageToken:''
+        nextPageToken:'',
+        resourceTitle:'',
     }
    
 },
@@ -220,7 +236,22 @@ export default {
       Resource
     },
     mounted(){
-      this.fetchResourceContent();
+      this.$root.loadingSearch = false;
+
+     
+
+      this.$root.selectedResource = this.$root.formerselectedResource;
+       
+       this.$root.chatComponent.toggleAddButton = false;
+
+       this.fetchResourceContent();
+
+       if(this.$root.selectedResource.type != 'playlist_template'){
+       this.$root.searchResult = [];
+       }
+
+
+       this.resourceTitle = this.$root.selectedResource.name;
       
       this.setType();
       this.input =   htmlToText( this.$root.selectedResource.info, { });
@@ -263,10 +294,13 @@ this.$root.resourceSearchType= type
           this.contentInWord = this.compiledMarkdown;
 
            this.loadingInfo = true;
+
+           
   
          axios.post('/save-resource-info',{
            resource_id: this.$root.selectedResource.resource_id,
-           info:this.contentInWord
+           info:this.contentInWord,
+           title:this.resourceTitle
          })
 
         .then(
@@ -274,6 +308,8 @@ this.$root.resourceSearchType= type
             if(response.status == 200){
              
                this.loadingInfo = false;
+
+               this.$root.selectedResource.name = this.resourceTitle;
 
                this.$root.selectedResource.info = this.contentInWord;
             }
@@ -302,10 +338,12 @@ this.$root.resourceSearchType= type
 
         this.$root.showAddButton = false;
 
-         this.loadingContent = true;
+        if(this.$root.loadingResourcesContent) return
+
+         this.$root.loadingResourcesContent = true;
 
              
-            axios.get( '/fetch-resource-content/' + this.$root.selectedResource.resource_id   )
+            axios.get( '/fetch-resource-content/' + this.$root.selectedResource.resource_id  + '/' + this.$root.selectedResource.youtube_playlist_id  )
       .then(response => {
       
       if (response.status == 200) {
@@ -326,11 +364,11 @@ this.$root.resourceSearchType= type
              });
 
 
-        this.resources = finalResult;
+        this.$root.resourcesData = finalResult;
 
-         this.nextPageToken = response.data.nextPageToken;
+         this.$root.nextPageToken = response.data.nextPageToken;
 
-     this.loadingContent = false;
+     this.$root.loadingResourcesContent = false;
      
        
      }
@@ -339,7 +377,7 @@ this.$root.resourceSearchType= type
      })
      .catch(error => {
 
-        this.loadingContent = false;
+        this.$root.loadingResourcesContent = false;
 
          this.$root.chatComponent.showAlert('Oops!','Something went wrong,please try again','error');
     
@@ -350,7 +388,7 @@ this.$root.resourceSearchType= type
 
        if(this.$root.selectedResource.devto_username){
 
-         this.loadingContent = true;
+         this.$root.loadingResourcesContent = true;
 
                  this.$root.showAddButton = false;
 
@@ -374,11 +412,11 @@ this.$root.resourceSearchType= type
              });
 
 
-        this.resources = finalResult;
+        this.$root.resourcesData = finalResult;
 
-         this.nextPageToken = 1;
+        this.$root.nextPageToken = 1;
 
-     this.loadingContent = false;
+     this.$root.loadingResourcesContent = false;
      
        
      }
@@ -387,7 +425,7 @@ this.$root.resourceSearchType= type
      })
      .catch(error => {
 
-        this.loadingContent = false;
+        this.$root.loadingResourcesContent = false;
 
          this.$root.chatComponent.showAlert('Oops!','Something went wrong,please try again','error');
     
@@ -398,7 +436,7 @@ this.$root.resourceSearchType= type
       
       if(this.$root.selectedResource.youtube_playlist_id == null && this.$root.selectedResource.devto_username == null){
          
-           this.loadingContent = true;
+           this.$root.loadingResourcesContent = true;
        
           let storedResourceContent = this.$root.getLocalStore('channel_resource_content_' + this.$root.selectedResource.resource_id  + this.$root.username);
 
@@ -415,10 +453,14 @@ this.$root.resourceSearchType= type
                   }
 
                 
-                       this.resources = finalResult
+                        this.$root.resourcesData = finalResult
+
+                        
+        this.$root.resourcesDataStore = this.$root.resourcesData;
+       
 
                    
-                  this.loadingContent = false;
+                  this.$root.loadingResourcesContent = false;
 
               this.checkForNewResourceContent();
 
@@ -433,15 +475,15 @@ this.$root.resourceSearchType= type
     
           this.$root.LocalStore('channel_resource_content_' + this.$root.selectedResource.resource_id  + this.$root.username,response.data.contents);
 
-        this.resources = response.data.contents;
+         this.$root.resourcesData = response.data.contents;
 
-         if( this.resources.length == 0){
+         if( this.$root.resourcesData.length == 0){
               this.$root.showAddButton = false;
                   }else{
                       this.$root.showAddButton = true;
                   }
 
-     this.loadingContent = false;
+    this.$root.loadingResourcesContent = false;
      
        
      }
@@ -450,7 +492,7 @@ this.$root.resourceSearchType= type
      })
      .catch(error => {
 
-        this.loadingContent = false;
+        this.$root.loadingResourcesContent = false;
 
          this.$root.chatComponent.showAlert('Oops!','Something went wrong,please try again','error');
     
@@ -465,6 +507,10 @@ this.$root.resourceSearchType= type
       },
       checkForNewResourceContent:function(){
 
+        
+            
+         
+       
          
             axios.get( '/fetch-resource-content/' + this.$root.selectedResource.resource_id   )
       .then(response => {
@@ -473,9 +519,11 @@ this.$root.resourceSearchType= type
     
           this.$root.LocalStore('channel_resource_content_' + this.$root.selectedResource.resource_id  + this.$root.username,response.data.contents);
 
-        this.resources = response.data.contents;
+         this.$root.resourcesData = response.data.contents;
 
-        if( this.resources.length == 0){
+          this.$root.resourcesDataStore = this.$root.resourcesData;
+
+        if(  this.$root.resourcesData.length == 0){
               this.$root.showAddButton = false;
                   }else{
                       this.$root.showAddButton = true;
@@ -483,6 +531,9 @@ this.$root.resourceSearchType= type
 
     
          this.$root.forcereloadResource = false;
+
+         
+        
   
        
      }
@@ -491,7 +542,7 @@ this.$root.resourceSearchType= type
      })
      .catch(error => {
 
-        this.loadingContent = false;
+        this.$root.loadingResourcesContent = false;
 
     
      }) 
@@ -499,11 +550,13 @@ this.$root.resourceSearchType= type
       },
       nextPagehandler: function(shown){
 
-         if(this.nextPageToken && shown){
+           let playlistID = this.$root.selectedResource.youtube_playlist_id;
+
+         if(this.$root.nextPageToken && shown && playlistID){
 
             this.loadingNextPage = true;
 
-            axios.get( '/fetch-resource-content/' + this.$root.selectedResource.resource_id + '/' + this.nextPageToken   )
+            axios.get( '/fetch-resource-content/' + this.$root.selectedResource.resource_id + '/' + playlistID + '/' + this.$root.nextPageToken    )
       .then(response => {
       
       if (response.status == 200) {
@@ -514,7 +567,7 @@ this.$root.resourceSearchType= type
     
         if(this.$root.selectedResource.devto_username){
             
-                this.nextPageToken++
+                this.$root.nextPageToken++
 
               results = response.data.articles;
 
@@ -526,15 +579,15 @@ this.$root.resourceSearchType= type
                  type:'devto_article'
                };
               
-              finalResult.push(resultWrapper);
+              this.$root.resourcesData =  this.$root.resourcesData.concat(finalResult);
 
              });
 
 
-        this.resources = finalResult;
+         this.$root.resourcesData = finalResult;
 
           }else{
-             this.nextPageToken = response.data.nextPageToken;
+            this.$root.nextPageToken = response.data.nextPageToken;
 
             results = response.data.result
 
@@ -546,12 +599,12 @@ this.$root.resourceSearchType= type
                  type:'youtube_video'
                };
               
-              finalResult.push(resultWrapper);
+              finalResult.push(resultWrapper); 
 
              });
 
 
-        this.resources = finalResult;
+        this.$root.resourcesData =  this.$root.resourcesData.concat(finalResult);
           }
 
          

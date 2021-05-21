@@ -1,5 +1,5 @@
 <template>
-    <div class="row application application--light" data-app="true">
+    <div class="row application application--light" data-app="true" style="z-index:999999999999999;">
 
 
        <!-- large and medium screens -->
@@ -346,7 +346,7 @@
                 
                 <!-- more options -->
 
-                   <v-btn small icon @click="showMoreOptions()" ><v-icon >las la-ellipsis-v</v-icon></v-btn>
+                   <v-btn small icon @click="showMoreOptions()"  ><v-icon >las la-ellipsis-v</v-icon></v-btn>
 
                 <!-- ends -->
                   </div>

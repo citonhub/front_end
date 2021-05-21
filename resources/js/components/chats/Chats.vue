@@ -2,7 +2,7 @@
     <v-app  style="position:fixed;height:100%;background:#F5F5FB; top:0; left:0; width:100%; z-index:0;" >
 
         <!-- top bar -->
-        <div class="col-12 py-0 fixed-top" style="position:sticky;width:100%;height:auto; ">
+        <div class="col-12 py-0 fixed-top" style="position:fixed;width:100%;height:100px; z-index:99999999; ">
          <top-bar></top-bar>
         </div>
 
@@ -108,7 +108,7 @@
        :buffer="5000"
     id="ChatContainer"
       class="col-12 px-1  chatListScroller" 
-       style="position:absolute; overflow-y:auto; z-index:999999; top:0%; height:98%;left:0%;padding-top:63px;"
+       style="position:absolute; overflow-y:auto; z-index:999999999; top:0%; height:98%;left:0%;padding-top:63px;"
         >
 
     <template v-slot="{ item, index, active }">
@@ -155,7 +155,7 @@
                          <div class="row">
 
                             <div class="col-12 py-1 px-1 text-center">
-                        <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                        <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;z-index:99999999999999999;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
                            </div>
 
                          </div>
@@ -179,7 +179,7 @@
                     </div>
 
                      <div class="text-center">
-                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;z-index:99999999999999999;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
                      </div>
 
             </template>
@@ -204,7 +204,7 @@
     :buffer="5000"
     id="ChatContainerSearch"
       class="col-12 px-1  chatListScroller" 
-       style="position:absolute;  z-index:999999;  overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;background:white;"
+       style="position:absolute;  z-index:9999999999;  overflow-y:auto; top:0%; height:98%;left:0%;padding-top:63px;background:white;"
         >
 
     <template v-slot="{ item, index, active }">
@@ -759,6 +759,8 @@
 
                                             <resource-content v-if="innerSideBarContent == 'resource_content'" ></resource-content>
 
+                                              <resource-content-new v-if="innerSideBarContent == 'resource_content_new'" ></resource-content-new>
+
                                               <resource-url v-if="innerSideBarContent == 'add_resource_url'" ></resource-url>
 
                                           
@@ -774,33 +776,11 @@
 
                                     <!--new-->
 
-                                    <template v-if="that.$root.selectedResource.type == 'playlist'">
-
-                                      <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:12%; right:3%; ">
-                                  
-                                  <div class="mr-2">
-                                           <span style="font-size:13px;font-family:BodyFont;  background:#3C87CD; color:white; " class="px-1 py-1 ">
-                                             Add videos from YouTube
-                                                  </span>
-                                  </div>
-                                  <div>
-                                 <v-btn small @click="goToSearch('youtube')"    fab color="#FF0000" >  
-
-                                  <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
-
-                                    </v-btn>
-                                  </div>
-
-                                      </div>
+                                 
+                                    <template>
 
 
                                   
-                                       
-                                   
-
-                                    </template>
-
-                                    <template v-else>
                                   
 
                                    <div class=" d-flex flex-row"   v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:12%; right:3%; ">
@@ -838,6 +818,23 @@
                                     </v-btn>
                                     
                                       </div>
+
+                                      </div>
+
+                                           <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:absolute; heigth:auto;  bottom:28%; right:3%; ">
+                                  
+                                  <div class="mr-2">
+                                           <span style="font-size:13px;font-family:BodyFont;  background:#3C87CD; color:white; " class="px-1 py-1 ">
+                                             Add videos from YouTube
+                                                  </span>
+                                  </div>
+                                  <div>
+                                 <v-btn small @click="goToSearch('youtube')"    fab color="#FF0000" >  
+
+                                  <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
+
+                                    </v-btn>
+                                  </div>
 
                                       </div>
 
@@ -949,7 +946,7 @@
         <!-- ends -->
 
         <!-- smaller and medium screens -->
-             <div class=" col-12 py-0  d-lg-none" style=" position:absolute; height:100%; top:0%; left:0; overflow-y:auto; overflow-x:hidden; background:white;" >
+             <div class=" col-12 py-0  d-lg-none d-block" style=" position:absolute; height:100%; top:0%; left:0; overflow-y:auto; overflow-x:hidden; background:white;" >
 
              <template v-if="!chatIsOpen">
 
@@ -966,7 +963,7 @@
     :buffer="5000"
     id="ChatContainersmall"
       class="col-12 px-1 " 
-        style="position:absolute; width:100%;  z-index:999999;  height:92%;top:8%;left:0;overflow-y:auto;" 
+        style="position:absolute; width:100%;  z-index:9999999;  height:92%;top:8%;left:0;overflow-y:auto;" 
         >
 
     <template v-slot="{ item, index, active }">
@@ -1014,7 +1011,7 @@
                          <div class="row">
 
                              <div class="col-12 py-1 px-1 text-center">
-                        <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                        <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;z-index:99999999999999999;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
                            </div>
 
 
@@ -1037,7 +1034,7 @@
                     </div>
 
                      <div class="text-center">
-                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
+                          <v-btn small  @click="showCreateChannel" color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;z-index:99999999999999999;" class="mx-2 d-inline-block" rounded>Create a Channel</v-btn>
                      </div>
 
             </template>
@@ -1063,7 +1060,7 @@
     :buffer="5000"
     id="ChatContainersmallSearch"
       class="col-12 px-1 " 
-        style="position:absolute; width:100%;  z-index:999999;  height:92%;top:8%;left:0;overflow-y:auto; background:white;" 
+        style="position:absolute; width:100%;  z-index:99999999999;  height:98%;top:63px;left:0;overflow-y:auto; background:white;" 
         >
 
     <template v-slot="{ item, index, active }">
@@ -1083,7 +1080,7 @@
 
                 </DynamicScroller>
 
-              <div v-else  class="col-12 px-1 text-center chatListScroller pt-2"  style="position:absolute; width:100%; height:90%;top:10%;left:0;overflow-y:auto; background:white;" >
+              <div v-else  class="col-12 px-1 text-center chatListScroller pt-2"  style="position:absolute; z-index:99999999999; width:100%; height:98%;top:63px;left:0;overflow-y:auto; background:white;" >
 
               <span style="font-size:13px;color:grey;">No result found</span>
 
@@ -1179,7 +1176,7 @@
                    <template v-if="chatIsOpen && that.$root.Messages != null">
 
               <div  class="row py-0" :id="'smallView'" >
-                            <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:fixed; top:0%;z-index:999999999;" >
+                            <div class="col-12 py-1" style=" background:#ffffff; border-bottom:1px solid #c5c5c5; left:0; position:fixed; top:0%;z-index:99999999999999;" >
                               <template v-if="!that.$root.chatTopLoaded">
 
                                        <v-skeleton-loader
@@ -1198,7 +1195,7 @@
                         
                             <!-- floating resource button -->
 
-                            <div style="position:fixed; z-index:9999999999; right:-22px;top:70px;"  
+                            <div style="position:fixed; z-index:999999999999999; right:-22px;top:70px;"  
                             v-if="(that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'SubSpace' || that.$root.selectedSpace.type == 'Team') && that.$root.Messages.length != 0">
                               <v-btn @click="showResources" small color="#ffffff" rounded >   <v-icon  class="mr-4" color="#404040">las la-play-circle</v-icon></v-btn>
                             </div>
@@ -1217,7 +1214,7 @@
   class="col-12 px-0" 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:9999999; top:0%; overflow-y:auto;"
+            background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:999999999; top:0%; overflow-y:auto;"
   >
 
     <template v-slot="{ item, index, active }">
@@ -1328,7 +1325,7 @@
         <div  class="col-12 " 
 
         style="background:#E1F0FC; background-image:url(/imgs/chat_background.png);background-size: cover;
-            background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:9999999; top:0%;padding-top:80px; padding-bottom:130px;  overflow-y:auto;">
+            background-repeat: no-repeat; height:100%; left:0; position:fixed; z-index:999999999; top:0%;padding-top:80px; padding-bottom:130px;  overflow-y:auto;">
 
               <template v-if="that.$root.selectedSpace.type == 'Channel' || that.$root.selectedSpace.type == 'Team'">
 
@@ -1346,7 +1343,7 @@
                              
 
                              
-                             <div class="col-12 py-0 px-0" style=" left:0; position:fixed; bottom:0%;z-index:999999999;" >
+                             <div class="col-12 py-0 px-0" style=" left:0; position:fixed; bottom:0%;z-index:9999999999999;" >
                                 <div class="col-12  py-1"  v-if="that.$root.showEmojiBox">
                             <VEmojiPicker @select="selectEmoji" :showSearch="false" :emojiWithBorder="false" />
                                  </div>
@@ -1516,7 +1513,7 @@
 
                               <!-- channel sidebar -->
 
-                               <div v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32);  left:0; position:fixed; height:100%; top:0%;z-index:99999999999999999;" >
+                               <div v-if="chatIsOpen && chatInnerSideBar" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32);  left:0; position:fixed; height:100%; top:0%;z-index:999999999999999999;" >
                                    <div style="position:absolute; height:100%; width:100%; left:0%;" >
 
                                     <div class=" col-md-6 offset-md-6 px-0 py-0 pb-2" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
@@ -1551,6 +1548,8 @@
 
                                          <resource-content v-if="innerSideBarContent == 'resource_content'" ></resource-content>
 
+                                          <resource-content-new v-if="innerSideBarContent == 'resource_content_new'" ></resource-content-new>
+
                                                  <resource-url v-if="innerSideBarContent == 'add_resource_url'" ></resource-url>
 
 
@@ -1566,31 +1565,8 @@
 
                                     <!--new-->
 
-                                    <template v-if="that.$root.selectedResource.type == 'playlist'">
-
-                                      <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:fixed; heigth:auto;  bottom:14%; right:4%; ">
-                                  
-                                  <div class="mr-2">
-                                           <span style="font-size:13px;font-family:BodyFont; background:#3C87CD; color:white; " class="px-1 py-1 " >
-                                             Add videos from YouTube
-                                                  </span>
-                                  </div>
-                                  <div>
-                                 <v-btn small @click="goToSearch('youtube')"    fab color="#FF0000" >  
-
-                                  <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
-
-                                    </v-btn>
-                                  </div>
-
-                                      </div>
-
-
                                  
-
-                                    </template>
-
-                                    <template v-else>
+                                    <template>
 
                                    
                                    <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:fixed; heigth:auto;  bottom:14%; right:4%; ">
@@ -1628,6 +1604,23 @@
                                     </v-btn>
                                     
                                       </div>
+
+                                      </div>
+
+                                       <div class=" d-flex flex-row"  v-if="toggleAddButton == true"   style="z-index:999999999999; align-items:center; position:fixed; heigth:auto;  bottom:30%; right:4%; ">
+                                  
+                                  <div class="mr-2">
+                                           <span style="font-size:13px;font-family:BodyFont; background:#3C87CD; color:white; " class="px-1 py-1 " >
+                                             Add videos from YouTube
+                                                  </span>
+                                  </div>
+                                  <div>
+                                 <v-btn small @click="goToSearch('youtube')"    fab color="#FF0000" >  
+
+                                  <v-icon style="font-size:20px; color:white;">mdi mdi-youtube</v-icon>
+
+                                    </v-btn>
+                                  </div>
 
                                       </div>
 
@@ -1797,9 +1790,9 @@
 
 
 
-     <v-btn  fab color="#3C87CD"  v-if="that.$root.ChatList.length > 0" @click="showCreateChannel" class="d-lg-none d-inline-block" style="z-index:999999;  position:fixed;  bottom:3%; right:3%; ">
+     <v-btn  fab color="#3C87CD"  v-if="that.$root.ChatList.length > 0" @click="showCreateChannel" class="d-lg-none d-inline-block" style="z-index:99999999;  position:fixed;  bottom:3%; right:3%; ">
 
-        <v-icon style="font-size:24px; color:white;">mdi mdi-chat-plus-outline</v-icon>
+        <v-icon style="font-size:24px; color:white;">las la-plus</v-icon>
 
      </v-btn>
 
@@ -2160,6 +2153,10 @@ const resourcepage= () => import(
    /* webpackChunkName: "ResourceContent" */ './ResourceContent.vue'
   );
 
+    const ResourceContentNew = () => import(
+   /* webpackChunkName: "ResourceContentNew" */ './ResourceContentNew.vue'
+  );
+
     const ResourceUrl = () => import(
    /* webpackChunkName: "ResourceUrl" */ './ResourceUrl.vue'
   );
@@ -2316,7 +2313,8 @@ export default {
          ResourceUrl,
          YoutubeAuthBoard,
          resources,   
-        ResourceView
+        ResourceView,
+        ResourceContentNew
     },
      methods:{
 

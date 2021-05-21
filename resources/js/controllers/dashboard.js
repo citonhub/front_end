@@ -1116,6 +1116,68 @@ beforeEnter: (to, from, next) => {
     next()
   }
   },
+  //resource new routes
+
+{
+  path:'/channels/:spaceId/resource_content_new/:resource_id',
+  name:'resourcesContentNew',
+ 
+  meta: {
+    twModalView: true
+  },
+   beforeEnter: (to, from, next) => {
+    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
+
+
+    if(window.thisUserState != undefined){
+      if( thisUserState.$root.chatComponent){
+      thisUserState.$root.chatComponent.liveSessionIsOpen = false;
+      thisUserState.$root.chatComponent.chatShareIsOpen = false;
+      thisUserState.$root.chatComponent.imageCropperIsOpen = false;
+      thisUserState.$root.chatComponent.innerSideBarContent = '';
+      thisUserState.$root.chatComponent.chatInnerConent = '';
+      thisUserState.$root.showProfileView = false;
+      thisUserState.$root.chatComponent.chatInnerSideBar = true;
+      thisUserState.$root.chatComponent.innerSideBarContent = 'resource_content_new';
+       
+  
+          
+     }
+
+     }
+
+    if (!twModalView) {
+      //
+      // For direct access
+      //
+      to.matched[0].components = {
+        default: Chats,
+        modal: false
+      }
+    }
+
+    if (twModalView) {
+      //
+      // For twModalView access
+      //
+      if (from.matched.length > 1) {
+        // copy nested router
+        const childrenView = from.matched.slice(1, from.matched.length)
+        for (let view of childrenView) {
+          to.matched.push(view)
+        }
+      }
+      if (to.matched[0].components) {
+        // Rewrite components for `default`
+        to.matched[0].components.default = from.matched[0].components.default
+        // Rewrite components for `modal`
+        to.matched[0].components.modal = Chats
+      }
+    }
+
+    next()
+  }
+  },
   
      // add resource URL
   {
@@ -2505,7 +2567,7 @@ const app = new Vue({
      payment_name:'',
      payment_currency:'',
      showPaymentProcessingBoard: false,
-    showProcessorFromChat: true,
+    showProcessorFromChat: false,
     fromSupportDirectlink: false,
     selectedPaymentCard:[],
     showWalletinfo:false,
@@ -2564,10 +2626,21 @@ const app = new Vue({
     youtube_connected:false,
     defaultSearchValue:'',
     channelHasResources:false,
+    nextPageToken:'',
     autoOpenResourcePage:false,
     showResourceView:false,
     showResourceViewContent:false,
-    showYoutubePlayerTemp:false
+    showYoutubePlayerTemp:false,
+    selectedItems:[],
+    formerselectedResource:[],
+    fromTemplateView:false,
+    loadingSearch:false,
+    searchResult:[],
+    loadingResourcesContent:false,
+    resourcesData:[],
+    loadingResourceContent:false,
+    resourceToAddStore:[],
+    resourcesDataStore:[],
      },
      mounted: function () {
 
@@ -2631,6 +2704,7 @@ const app = new Vue({
             }
          
       },
+   
       InternetConnected:function(newValue, oldValue){
 
           if(newValue){
@@ -2779,6 +2853,30 @@ const app = new Vue({
 
   },
     methods:{
+      closeNotification:function(space_id){
+
+
+        if ('Notification' in window && navigator.serviceWorker) {
+        
+          navigator.serviceWorker.ready.then(function(registration) {
+
+            var notificationFilter = {
+              tag: space_id
+            };
+
+            registration.getNotifications(notificationFilter).then(function(notifications) {
+
+              if(notifications && notifications.length > 0){
+                notifications[0].close();
+              } 
+             
+            })
+          });
+
+        }
+        
+
+      },
       checkScriptVersion:function(){
 
 
@@ -5182,6 +5280,7 @@ let storedMsg = this.$root.getLocalStore('full_space_' + selectedspace + this.$r
 
 },
 
+
 //end of spaceinfo fetch
 SetUnread: function(){
 
@@ -5291,6 +5390,7 @@ storeUnsentMessages:function(postData){
  
 
 },
+
 sendTextMessage: function(postData){
   this.sendingMessage = true;
 axios.post('/send-message',postData)
@@ -6434,6 +6534,8 @@ this.$root.dataconnection = undefined;
        };
       
      this.$root.connection.openOrJoin('screen' + this.$root.selectedSpace.space_id, () => {
+
+        console.log('connected')
         
       this.$root.sendLiveSignal('screen');
       
@@ -6441,8 +6543,7 @@ this.$root.dataconnection = undefined;
 
     this.screenIsConnecting = false;
 
-    this.$root.sendLiveSignal('screen');
-
+ 
     
 
       },

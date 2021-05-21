@@ -98,7 +98,7 @@
  <!-- ends -->
 
  <!-- form for smaller screens -->
-  <div class="d-lg-none col-md-8 offset-md-2 px-2  "  style="z-index:99999999;overflow-y:auto; left:0; position:fixed; height:100%; top:0%; ">
+  <div class="d-lg-none col-md-8 offset-md-2 px-2 d-block "  style="z-index:99999999;overflow-y:auto; left:0; position:fixed; height:100%; top:0%; ">
     
  
         <div class="col-12 py-1 px-1">

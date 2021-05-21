@@ -64,7 +64,7 @@
 
              <v-card :ripple="false" flat class="d-flex flex-row px-1  mb-2 col-12 " v-for="(resource,index) in resources" :key="index" style="background: rgba(125, 179, 229, 0.4);cursor:pointer;">
               <div  @click="showContent(resource)" class="mr-2 ">
-                 <v-icon color="#000000" class="ml-2"  v-if="resource.type == 'resource'" >las la-folder</v-icon>
+                 
                    <v-icon color="#000000" class="ml-2"  v-if="resource.type == 'playlist'" >las la-play-circle</v-icon>
               </div>
 
@@ -334,6 +334,8 @@ export default {
          this.titleContent = content.name;
          this.selectedResource = content;
 
+           this.$root.formerselectedResource =  content;
+
           this.fetchResourceContent();
 
 
@@ -352,7 +354,7 @@ export default {
          this.loadingResourceContent = true;
 
              
-            axios.get( '/fetch-resource-content/' + this.selectedResource.resource_id   )
+            axios.get( '/fetch-resource-content/' + this.selectedResource.resource_id  + '/' + this.selectedResource.youtube_playlist_id  )
       .then(response => {
       
       if (response.status == 200) {
@@ -512,11 +514,13 @@ export default {
           },
             nextPagehandler: function(shown){
 
+               let playlistID = this.selectedResource.youtube_playlist_id;
+
          if(this.nextPageToken && shown){
 
             this.loadingNextPage = true;
 
-            axios.get( '/fetch-resource-content/' + this.selectedResource.resource_id + '/' + this.nextPageToken   )
+            axios.get( '/fetch-resource-content/' + this.selectedResource.resource_id + '/' + playlistID + '/' + this.nextPageToken   )
       .then(response => {
       
       if (response.status == 200) {

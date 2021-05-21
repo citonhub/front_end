@@ -12,8 +12,15 @@
             
              <div class=" py-0 text-center d-flex flex-row" style="width:100%; align-items:center;">
                <template v-if="this.$root.resourceSearchType != 'devto'">
-                 <input style="width:100%;heigth:100%;font-size:13px;background:whitesmoke;border-radius:13px;font-family:BodyFont;"  
+                 <input style="width:100%;heigth:100%;font-size:13px;border:1px solid grey;border-radius:3px;font-family:BodyFont;"  
                   :placeholder="placeholder" class="py-2 px-3" type="search" v-model="searchQuery" autofocus @keyup.enter="searchSite()"> 
+
+                   <div class="col-3 px-0 py-0 ml-1">
+                       <select   style="border:1px solid grey; width:100%; border-radius:2px; font-family:BodyFont; font-size:13px; background:white;"  v-model="searchTypeYT" class="py-2 px-2" >
+                    <option v-for="(option,index)  in searchFilterYT" :value="option.value" :key="index + 'typeYT'">{{ option.name}}</option>
+                     </select> 
+               </div>
+
                </template>
 
                <template v-else>
@@ -65,22 +72,18 @@
             </div>
               
               <div class=" py-0 ml-1 text-right">
-                  <v-btn icon  @click="searchSite" :loading="loadingSearch">
+                  <v-btn icon  @click="searchSite" :loading="that.$root.loadingSearch">
                       <v-icon>las la-search</v-icon>
                     </v-btn>
               </div>
             </div>
               <div class="col-12  py-1 d-flex flex-row px-0 mt-1" style="align-items:center; justify-content:center;">
 
-                   <template v-if="that.$root.selectedResource.type == 'playlist'">
-            <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">Add videos to "{{that.$root.selectedResource.name}}" playlist</div>
-           </template>
+              
+            <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">Add to "{{that.$root.selectedResource.name}}" </div>
+         
 
-           <template v-else>
-                <div style="font-family:BodyFont;font-size:13px; color:grey;" class="mt-1 text-center">Add articles to "{{that.$root.selectedResource.name}}" resource</div>
-           </template>
-
-            <v-btn rounded small :loading="loading" :disabled="selectedItems.length == 0" @click="AddItemsToResources()" color="#3C87CD" class="ml-2" style="font-size:11px; text-transform:none; font-weight:bolder; color:white;font-family: BodyFont;" >Add </v-btn>
+            <v-btn rounded small :loading="loading" :disabled="that.$root.selectedItems.length == 0" @click="AddItemsToResources()" color="#3C87CD" class="ml-2" style="font-size:11px; text-transform:none; font-weight:bolder; color:white;font-family: BodyFont;" >Add </v-btn>
 
       
               </div>
@@ -93,7 +96,7 @@
       <div style="background:transparent;font-family:BodyFont; " class="col-12 py-0 my-0 px-1 px-md-2" >
           
  
-           <resource :show_add_icon="true" :contents="searchResult" ></resource>
+           <resource :show_add_icon="true" :contents="that.$root.searchResult" ></resource>
 
 
                <!--content loader-->
@@ -150,6 +153,7 @@ export default {
          allTagStore:[],
          queryContent:'',
          devToPageCount:1,
+         searchTypeYT:'video,playlist',
          loading:false,
          searchType:'tags',
          searchFilter:[
@@ -161,6 +165,20 @@ export default {
              name:'by username',
              value:'username'
            }
+         ],
+         searchFilterYT:[
+           {
+             name:'videos and playlists',
+             value:'video,playlist'
+           },
+           {
+             name:'videos only',
+             value:'videos'
+           },
+           {
+             name:'playlist only',
+             value:'playlist'
+           }
          ]
         }
     },
@@ -168,17 +186,42 @@ export default {
      Resource
     },
     mounted(){
+
+       if(this.$root.fromTemplateView){
+        this.$root.selectedResource = this.$root.formerselectedResource;
+       }
+
+       this.$root.resourcesData = this.$root.resourcesDataStore;
+
     this.$root.componentIsLoading = false;
-     
+     this.$root.searchResourceComponent = this;
     this.alterSearch();
    // this.fetchDevToTags();
     this.$root.showAddButton = false;
     this.$root.resourcesSearchComponent = this;
-  
+    this.$root.selectedItems = [];
        
       
     },
     methods:{
+      alterSearch(){
+
+  this.placeholder = 'Search ' + this.$root.resourceSearchType
+
+  if(this.$root.resourceSearchType == 'youtube' || this.$root.resourceSearchType == 'devto'){
+     this.searchQuery = this.$root.selectedResource.name;
+
+
+   if(this.$root.searchResult.length == 0){
+    this.searchSite();
+
+   }
+    
+  }
+
+   
+
+},
       selectTag:function(tag){
 
         this.showSuggestion = true;
@@ -210,7 +253,7 @@ export default {
          axios.post( '/add-items-to-resource',{
            resource_id: this.$root.selectedResource.resource_id,
            type: itemType,
-           items: this.selectedItems
+           items: this.$root.selectedItems
          } )
       .then(response => {
       
@@ -227,6 +270,12 @@ export default {
          this.$root.chatComponent.showAlert('Added!','resource has been added','success','bottomRight',3000);
        }
 
+       let responseContent = response.data.content;
+ 
+       this.$root.resourcesData = responseContent.concat(this.$root.resourcesData)
+
+       this.saveOrder();
+
        this.goBack();
             
      }
@@ -239,7 +288,46 @@ export default {
 
      }) 
 
-      },     
+      }, 
+      saveOrder:function(){
+
+         let ResourcesArray = [];
+
+       this.$root.resourcesData.forEach((content)=>{
+
+         ResourcesArray.push(content.id)
+   
+        });
+
+   
+
+         axios.post( '/save-resources-content-order',{
+        resource_id: this.$root.selectedResource.resource_id,
+        content: ResourcesArray
+      })
+      .then(response => {
+      
+      if (response.status == 200) {
+
+        this.$root.LocalStore('channel_resource_content_' + this.$root.selectedResource.resource_id  + this.$root.username, this.$root.resourcesData);
+
+          this.$root.loadingResourceContent = false;
+
+       
+     }
+       
+     
+     })
+     .catch(error => {
+
+     this.$root.chatComponent.showAlert('Oops!','Unable to save changes,please try again','error');
+      this.$root.loadingResourceContent = false;
+       
+    
+     }) 
+        
+
+      },   
       searchTags:function(e){
 
 
@@ -292,7 +380,7 @@ export default {
         },
         loadNextSet:function(shown){
 
-          if(shown && this.searchResult.length > 0){
+          if(shown && this.$root.searchResult.length > 0){
 
             this.loadNextResult()
 
@@ -325,16 +413,16 @@ export default {
 
            if(this.loadingNext) return
           this.loadingNext = true;
+
            if(this.$root.resourceSearchType == 'youtube'){
 
-    
-                axios.get( `/search-youtube/${this.searchQuery}/${this.nextPageToken}` )
+                axios.get( `/search-youtube/${this.searchQuery}/${ this.$root.nextPageToken}/${this.searchTypeYT}` )
       .then(response => {
       
       if (response.status == 200) {
 
          let searchResult = response.data.result;
-           this.nextPageToken =  response.data.nextPageToken
+           this.$root.nextPageToken =  response.data.nextPageToken
 
            let finalResult = [];
 
@@ -348,7 +436,7 @@ export default {
 
              });
 
-           this.searchResult = this.searchResult.concat(finalResult);
+           this.$root.searchResult = this.$root.searchResult.concat(finalResult);
 
           
        
@@ -378,7 +466,7 @@ export default {
 
               this.devToPageCount++
     
-                axios.get( `/search-devto/${JSON.stringify(searchStringArray)}/${this.devToPageCount}/${this.devToPageCount}` )
+                axios.get( `/search-devto/${JSON.stringify(searchStringArray)}/${this.devToPageCount}/${this.searchType}` )
       .then(response => {
       
       if (response.status == 200) {
@@ -398,7 +486,7 @@ export default {
 
              });
 
-         this.searchResult = this.searchResult.concat(finalResult);
+         this.$root.searchResult = this.$root.searchResult.concat(finalResult);
 
           
        
@@ -418,36 +506,29 @@ export default {
 
            
         },
-        alterSearch(){
-
-             this.placeholder = 'Search ' + this.$root.resourceSearchType
-
-             if(this.$root.resourceSearchType == 'youtube' || this.$root.resourceSearchType == 'devto'){
-                this.searchQuery = this.$root.selectedResource.name;
-
-               this.searchSite();
-
-             }
-
-              
       
-        },
 
         searchSite: function(){
 
-           this.searchResult = [];
+          if(this.$root.loadingSearch) return
+
+           this.$root.searchResult = [];
            
-     this.loadingSearch = true;
+           
+     this.$root.loadingSearch = true;
            if(this.$root.resourceSearchType == 'youtube'){
 
+             this.$root.nextPageToken = 'null';
     
-                axios.get( `/search-youtube/${this.searchQuery}` )
+                axios.get( `/search-youtube/${this.searchQuery}/${ this.$root.nextPageToken}/${this.searchTypeYT}` )
       .then(response => {
       
       if (response.status == 200) {
 
          let searchResult = response.data.result;
-            this.nextPageToken =  response.data.nextPageToken
+
+
+         this.$root.nextPageToken =  response.data.nextPageToken;
 
            let finalResult = [];
 
@@ -461,18 +542,18 @@ export default {
 
              });
 
-           this.searchResult = finalResult;
+           this.$root.searchResult = finalResult;
 
           
        
-       this.loadingSearch = false;
+       this.$root.loadingSearch = false;
             
      }
        
      
      })
      .catch(error => {
-       this.loadingSearch = false;
+       this.$root.loadingSearch = false;
        
     
      }) 
@@ -514,18 +595,18 @@ export default {
 
              });
 
-          this.searchResult = finalResult;
+          this.$root.searchResult = finalResult;
 
           
        
-       this.loadingSearch = false;
+       this.$root.loadingSearch = false;
             
      }
        
      
      })
      .catch(error => {
-       this.loadingSearch = false;
+       this.$root.loadingSearch = false;
        
     
      }) 
@@ -542,7 +623,7 @@ export default {
       if (response.status == 200) {
 
           console.log(response.data)
-            this.loadingSearch = false;
+           this.$root.loadingSearch = false;
 
             
        }
@@ -550,7 +631,7 @@ export default {
          })
        .catch(error => {
 
-         this.loadingSearch = false;
+         this.$root.loadingSearch = false;
     
         }) 
 

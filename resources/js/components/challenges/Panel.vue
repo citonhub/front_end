@@ -829,6 +829,14 @@ export default {
         this.$router.push({path:'/board/challenges/create/edit'})
       },
        showResults:function(type){
+            if(!this.$root.isLogged){
+
+                       this.$root.checkIfUserIsLoggedIn();
+
+                      
+                       return;
+
+                  }
 
             this.$router.push({ path: '/board/challenges/panel/' + this.$route.params.challenge_id + '/results/' + type  });
 

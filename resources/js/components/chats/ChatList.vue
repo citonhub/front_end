@@ -103,6 +103,8 @@ export default {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
       }
+    
+    
 
         this.$root.chatComponent.selectedQuoteId =  getRandomInt(0,9); 
 
@@ -111,11 +113,15 @@ export default {
 
           if(this.$root.selectedSpace.general_spaceId != space_id ){
 
+              
+
              if(this.$root.TrackLastSubSpace.length != 0 && space_id == this.$root.TrackLastSubSpace[0]){
 
                      this.$router.push({ path: '/channels/' + this.$root.TrackLastSubSpace[1]  +'/content' });
               
               this.$root.chatComponent.fetchMessages(this.$root.TrackLastSubSpace[1] );
+
+               this.$root.closeNotification(this.$root.TrackLastSubSpace[1]);
               this.$root.chatComponent.messageIsDone = false;
            this.$root.chatComponent.chatIsOpen = true;
 
@@ -130,6 +136,7 @@ export default {
                 this.$router.push({ path: '/channels/' + space_id +'/content' });
               
               this.$root.chatComponent.fetchMessages(space_id);
+               this.$root.closeNotification(space_id);
               this.$root.chatComponent.messageIsDone = false;
            this.$root.chatComponent.chatIsOpen = true;
            
