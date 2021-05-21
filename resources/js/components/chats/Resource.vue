@@ -48,7 +48,7 @@
 
                
 
-             <div @click="handleResource(content,index)" class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" class="col-5 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  {{ shortenContent(content.content.snippet.title,50) }}
@@ -71,6 +71,16 @@
             small
           ></v-checkbox>
 
+              </template>
+
+               <template v-if="checkIfisOwner() && !show_add_icon">  
+                <v-btn icon   @click="showOptions(content)">
+                     <v-icon
+                   style="font-size:20px;"
+               
+                 >las la-trash-alt</v-icon>
+
+                </v-btn>
               </template>
 
              
@@ -109,7 +119,7 @@
 
                
 
-             <div @click="handleResource(content,index)" class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" class="col-5 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  {{ shortenContent(content.content.snippet.title,50) }}
@@ -136,7 +146,16 @@
 
               </template>
 
-             
+             <template v-if="checkIfisOwner() && !show_add_icon">  
+                <v-btn icon   @click="showOptions(content)">
+                     <v-icon
+                   style="font-size:20px;"
+               
+                 >las la-trash-alt</v-icon>
+
+                </v-btn>
+              </template>
+               
 
             
             </div>
@@ -179,7 +198,7 @@
               </div>
             </div>  
 
-             <div @click="handleResource(content,index)" class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" class="col-5 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  Python for Data science and Machine
@@ -204,7 +223,15 @@
 
               </template>
 
-             
+              <template v-if="checkIfisOwner() && !show_add_icon">  
+                <v-btn icon   @click="showOptions(content)">
+                     <v-icon
+                   style="font-size:20px;"
+               
+                 >las la-trash-alt</v-icon>
+
+                </v-btn>
+              </template>
 
             
             </div>
@@ -241,7 +268,7 @@
               </div>
             </div>  
 
-             <div @click="handleResource(content,index)" class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" class="col-5 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  {{content.content.title}}
@@ -264,6 +291,16 @@
              @change="addToSelected(content)"
           ></v-checkbox>
 
+              </template>
+
+               <template v-if="checkIfisOwner() && !show_add_icon">  
+                <v-btn icon   @click="showOptions(content)">
+                     <v-icon
+                   style="font-size:20px;"
+               
+                 >las la-trash-alt</v-icon>
+
+                </v-btn>
               </template>
 
              
@@ -301,7 +338,7 @@
               </div>
             </div>  
 
-             <div @click="handleResource(content,index)" class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" class="col-5 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" v-html="content.content.title" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                 
@@ -326,7 +363,15 @@
 
               </template>
 
-             
+               <template v-if="checkIfisOwner() && !show_add_icon">  
+                <v-btn icon   @click="showOptions(content)">
+                     <v-icon
+                   style="font-size:20px;"
+               
+                 >las la-trash-alt</v-icon>
+
+                </v-btn>
+              </template>
 
             
             </div> 
@@ -358,6 +403,8 @@ export default {
       return {
       
         that:this,
+  
+        selected_id:'',
           drag: false,
           contentData:[],
           loadingContent:false,
@@ -368,9 +415,7 @@ export default {
     mounted(){
       this.contentData = this.contents;
         this.$root.resourceComponent = this;
-     
-    
-        
+      
     },
     computed: {
     dragOptions() {
@@ -487,6 +532,36 @@ export default {
              }else{
                return content;
              }
+        },
+
+        showOptions(content){
+         this.selected_id=content.id
+
+         if(this.selected_id == content.id){
+           axios.post('/delete-resource-content' , {
+           "content_id" : content.id
+           }).then(
+             response=>{
+               if(response.status== 200){
+                 const newContents = this.contents.filter(content =>  content.id !== this.selected_id );
+                 this.contents= newContents
+
+                  this.$root.LocalStore('channel_resource_content_' + this.$root.selectedResource.resource_id  + this.$root.username, this.contents);
+               }
+             }
+           ).catch( error=>{
+
+             this.selected_id=''
+
+             this.$root.chatComponent.showAlert('Oops!','Something went wrong,please try again','error');
+           }
+
+
+             
+           )
+         }
+
+      
         },
          makeUUID:function(){
       var id = "id" + Math.random().toString(16).slice(2);
