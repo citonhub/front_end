@@ -5,7 +5,7 @@
 
  @endsection
  @section('meta')
- <meta name="description" content="Let's organize the internet for developers" />
+ <meta name="description" content="Everything you need to grow a developer community and earn" />
   <meta name="keywords" content="mentor programming,Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
@@ -18,8 +18,8 @@
     <!--Metadata for Microsoft-->
     <meta name="msapplication-TileImage" content="images/icons/logo_msapplication-icon-144x144.png">
     <meta name="msapplication-TileColor" content="#3C87CD">
-    <meta property="og:description" content="Let's organize the internet for developers" />
-    <meta property='twitter:title' content="CitonHub:Let's organize the internet for developers"/>
+    <meta property="og:description" content="Everything you need to grow a developer community and earn" />
+    <meta property='twitter:title' content="CitonHub:Everything you need to grow a developer community and earn"/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 
@@ -110,7 +110,7 @@ body{
 
    <div class="text-center col-8 offset-2">
 
-   <h2>Let's organize the internet for developers</h2>
+   <h2>Everything you need to grow a developer community and earn</h2>
 
 
 
@@ -120,7 +120,7 @@ body{
 </div>
 
 <div class="col-12 text-center mt-5 d-md-block  d-none">
-<a href="/dashboard#/channels/create" class="homeButton  px-5 py-3  ">Join us for FREE</a>
+<a href="/dashboard#/channels/create" class="homeButton  px-5 py-3  ">Get started for FREE</a>
 </div>
 
 
@@ -131,7 +131,7 @@ body{
 
    <div class="text-center ">
 
-   <h5>Let's organize the internet for developers</h5>
+   <h5>Everything you need to grow a developer community and earn</h5>
 
     <p class="px-2 mt-2" style="font-family:BodyFont;font-size:14px;" >Merge your content with your community and make money through donations and memberships.</p>
    </div>
@@ -139,7 +139,7 @@ body{
 </div>
 
 <div class="col-12 text-center mt-5  d-block d-md-none">
-<a href="/dashboard#/channels/create" class="homeButton  px-3 py-3  " style="font-size:13px;">Join us for FREE</a>
+<a href="/dashboard#/channels/create" class="homeButton  px-3 py-3  " style="font-size:13px;">Get started for FREE</a>
 </div>
 
 
@@ -425,11 +425,11 @@ can directly donate or subscribe to your private community where they can access
 
 
 <div class="col-12 text-center mt-5  d-block d-md-none">
-<a href="/dashboard#/channels/create" class="homeButton  px-3 py-3  " style="font-size:13px;">Join us for FREE</a>
+<a href="/dashboard#/channels/create" class="homeButton  px-3 py-3  " style="font-size:13px;">Get started for FREE</a>
 </div>
 
 <div class="col-12 text-center mt-0 d-md-block  d-none">
-<a href="/dashboard#/channels/create" class="homeButton  px-5 py-3  ">Join us for FREE</a>
+<a href="/dashboard#/channels/create" class="homeButton  px-5 py-3  ">Get started for FREE</a>
 </div>
 
 <div class="col-12 pb-0 pt-0 mt-5  d-block d-md-none text-center">
