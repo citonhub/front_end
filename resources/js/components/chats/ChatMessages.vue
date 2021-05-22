@@ -593,9 +593,24 @@
                   </div>
                  </div>
 
-                <video-player v-else :videoUrl="'/videos/' + source.video.video_name + '.' + source.video.video_extension" :backgroundColor="source.video.background_color" style="width:100%;"
+                  <template  v-if="!source.loading || source.video != null">
+
+                     <video-player :videoUrl="'/videos/' + source.video.video_name + '.' + source.video.video_extension" :backgroundColor="source.video.background_color" style="width:100%;"
                :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.message_id"  :screenType="screenType"> </video-player>
-                        
+                         
+                           <template v-if="that.$root.videoIsLoading">
+                        <v-skeleton-loader
+                                       type="image"
+                                       height="200px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                  
+                      </template>
+
+                  </template>
+
+               
                  <!-- time -->
                   <div class="text-right">
                          <span style="color:white;font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
@@ -651,6 +666,16 @@
                    <video-player :screenType="screenType"  :videoUrl="'/videos/' + source.video.video_name + '.' + source.video.video_extension" :backgroundColor="source.video.background_color" style="width:100%;"
                :backgroundImg="'/videos/previewImage/'+ source.video.preview_image_url" :playerId="'small' + source.message_id" > </video-player>
                         
+                        <template v-if="that.$root.videoIsLoading">
+                        <v-skeleton-loader
+                                       type="image"
+                                       height="200px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                  
+                      </template>
+
                           <!-- more option -->
 
                    <v-menu
@@ -724,8 +749,24 @@
                   </div>
                  </div>
 
-                  <audio-player class="mt-n1" v-else :file="'/audio/' + source.audio.audio_name + '.' + source.audio.audio_extension" :playerId="source.message_id"  :colorBase="'#ffffff'"></audio-player>
-                        
+                 <template  v-if="!source.loading &&  source.audio != null" >
+
+                    <audio-player class="mt-n1"  :file="'/audio/' + source.audio.audio_name + '.' + source.audio.audio_extension" :playerId="source.message_id"  :colorBase="'#ffffff'"></audio-player>
+                         
+                         <template v-if="that.$root.audioIsLoading">
+                        <v-skeleton-loader
+                                       type="image"
+                                       height="55px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                  
+                      </template>
+
+                 </template>
+
+                 
+
                     <!-- time -->
                   <div class="text-right">
                          <span style="color:white;font-size:11px; ">{{checkDatereal(source.created_at)}}</span> 
@@ -777,7 +818,17 @@
 
                   </div>
                    <audio-player class="mt-n1"  :file="'/audio/' + source.audio.audio_name + '.' + source.audio.audio_extension" :playerId="source.message_id"  :colorBase="'#333333'"></audio-player>
-                 
+                  
+                   <template v-if="that.$root.audioIsLoading">
+                        <v-skeleton-loader
+                                       type="image"
+                                       height="55px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                  
+                      </template>
+
                  <!-- more option -->
 
                    <v-menu
@@ -848,7 +899,23 @@
             
                   </div>
                  </div>
-                  <images  :imageArray="source.image" v-else></images>
+                 <template v-if="!source.loading">
+
+                     <images  :imageArray="source.image" ></images>
+
+                   <template v-if="that.$root.imageIsLoading">
+                        <v-skeleton-loader
+                                       type="image"
+                                       height="200px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                  
+                      </template>
+
+                 </template>
+                
+                  
                         
                    <!-- time -->
                   <div class="text-right">
@@ -902,7 +969,16 @@
 
                   </div>
                      <images :imageArray="source.image" ></images>
-              
+                     
+                  <template v-if="that.$root.imageIsLoading">
+                        <v-skeleton-loader
+                                       type="image"
+                                       height="200px">
+                                         
+                                       </v-skeleton-loader>
+                                      
+                                  
+                      </template>
                    <!-- more option -->
 
                    <v-menu

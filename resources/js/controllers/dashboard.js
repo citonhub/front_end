@@ -2641,6 +2641,9 @@ const app = new Vue({
     loadingResourceContent:false,
     resourceToAddStore:[],
     resourcesDataStore:[],
+    videoIsLoading:true,
+    audioIsLoading:true,
+    imageIsLoading:true,
      },
      mounted: function () {
 

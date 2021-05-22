@@ -75,6 +75,9 @@ export default {
     components:{
     ImageLoader
     },
+    mounted(){
+     this.$root.imageIsLoading = false;
+    },
     methods:{
         
         showImageGallery:function(index){
