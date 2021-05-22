@@ -319,7 +319,7 @@ can directly donate or subscribe to your private community where they can access
 <div class="col-lg-8 offset-lg-2 flex-row  d-md-flex flex-wrap  d-none" style="margin-top:80px;margin-bottom:50px;"  >
 
   <div class="col-12 text-center px-5">
-  <h4 class="text-center " style="font-family:HeaderFont;" >Features to help you grow your <br> developer community</h4>
+  <h4 class="text-center " style="font-family:HeaderFont;" >Features to help you grow a thriving community</h4>
   </div>
    
    <div class="col-12 py-3">
@@ -373,7 +373,7 @@ can directly donate or subscribe to your private community where they can access
 <div class="col-lg-8 offset-lg-2 flex-row  d-md-none flex-wrap  d-flex" style="margin-top:30px;margin-bottom:30px;"  >
 
   <div class="col-12 text-center px-3">
-  <h5 class="text-center " style="font-family:HeaderFont;" >Features to help you grow your <br> developer community</h5>
+  <h5 class="text-center " style="font-family:HeaderFont;" >Features to help you grow a thriving community</h5>
   </div>
    
    <div class="col-12 py-3">
