@@ -3382,10 +3382,9 @@ let FinalMessages= finalResult.direct_messages.filter(chat=>{
 
              }else{
 
-                setTimeout(() => {
+               
                    this.$root.updateSpaceMessages();
-                }, 1000);
-                
+              
                  
              }
          

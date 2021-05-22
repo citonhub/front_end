@@ -4727,16 +4727,7 @@ spaceMessageProcessor: function(space,allSpace,count){
    
           let newMessagesFull = space.new_messages;
    
-          newMessagesFull.forEach((messages)=>{
-   
         
-   
-               
-    
-   
-   
-          })
-   
           // save to local database
           let storedMsg = this.$root.getLocalStore('full_space_' + space.space_id  + this.$root.username);
       
@@ -4773,12 +4764,7 @@ spaceMessageProcessor: function(space,allSpace,count){
             messages.id = messages.message_id
             messages.index_count = this.$root.returnLastIndex() + 1;
 
-              if(!this.$root.checkIfMessageExist(messages)){
-
-               this.$root.Messages.push(messages);
-
-              }
-  
+           
    
                this.$root.updateSpaceTracker(space.space_id,messages);
   
@@ -4793,7 +4779,10 @@ spaceMessageProcessor: function(space,allSpace,count){
              MessagesFull.messages.push(messages);
    
              
-   
+             this.$root.Messages.push(messages);
+
+             this.scrollToBottom();
+
                this.$root.clearUnreadMessageRemote(messages.message_id);
    
               }
