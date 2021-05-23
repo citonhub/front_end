@@ -304,6 +304,8 @@ var regexString =  _(
         this.selectedFileId = codeBox.id;
 
          this.$root.SelectedCodeBox = codeBox;
+
+          
         
           if(this.$root.SelectedCodeBox.type == 'front_end'){
               
@@ -321,7 +323,7 @@ var regexString =  _(
              this.code = codeData.content;
           }
           
-          if(this.$root.SelectedCodeBox.type == 'back-end'){
+          if(this.$root.SelectedCodeBox.type == 'back_end'){
 
             this.$root.selectedFileCatType = 'back-end';
 
