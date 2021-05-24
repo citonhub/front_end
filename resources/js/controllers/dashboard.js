@@ -126,6 +126,7 @@ const PanelSettings = () => import(/* webpackChunkName: "PanelSettings" */ '../c
 const AddWebroute= () => import(/* webpackChunkName: "AddWebroute" */ '../components/projects/AddWebroute.vue');
 const ProjectGuide = () => import(/* webpackChunkName: "ProjectGuide" */ '../components/projects/ProjectGuide.vue')
 const AddGit= () => import(/* webpackChunkName: "AddGit" */ '../components/projects/AddGit.vue')
+const CodeTerminal = () => import(/* webpackChunkName: "CodeTerminal" */ '../components/projects/CodeTerminal.vue')
 
 
 // chats routes
@@ -163,6 +164,7 @@ const FeedForm= () => import(/* webpackChunkName: "FeedForm" */ '../components/F
 const routes = [
   { path: '/login', name: 'login', component: Login },
   { path: '/sign-up', name: 'register', component: Register },
+  { path: '/code-terminal', name: 'code_terminal', component: CodeTerminal },
   { path: '/login/:referral', name: 'loginReferral', component: Login },
   { path: '/sign-up/:referral', name: 'registerReferral', component: Register },
   { path: '/verify', name: 'verify', component: Verify },

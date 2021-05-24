@@ -114,7 +114,7 @@ body{
 
 
 
-    <p class="px-5 mt-4" style="font-family:BodyFont;font-size:17px;" >Merge your content with your community and make money through donations and memberships.</p>
+    <p class="px-5 mt-4" style="font-family:BodyFont;font-size:17px;" >Curate content for your community and make money through donations and memberships.</p>
    </div>
 
 </div>
@@ -133,7 +133,7 @@ body{
 
    <h5>Everything you need to grow a developer community and earn</h5>
 
-    <p class="px-2 mt-2" style="font-family:BodyFont;font-size:14px;" >Merge your content with your community and make money through donations and memberships.</p>
+    <p class="px-2 mt-2" style="font-family:BodyFont;font-size:14px;" >Curate content for your community and make money through donations and memberships.</p>
    </div>
 
 </div>
@@ -153,15 +153,15 @@ body{
 <div class="first-features col-lg-10 offset-lg-1 flex-row  d-md-flex  d-none" style="margin-top:120px;margin-bottom:80px;align-items:center;">
 <div class="feature col-md-4 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
 <img src="imgs/create-content.svg" alt="" height="120px">
-  <p class=" mt-2" style="font-family:BodyFont;font-size:16px;">Create a Channel</p>
+  <p class=" mt-2" style="font-family:BodyFont;font-size:16px;">Create a channel</p>
 </div>
 <div class="feature col-md-4 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
 <img src="imgs/merge-content.svg" alt="" height="120px">
-<p class="mt-2" style="font-family:BodyFont;font-size:16px;">Merge your Content</p>
+<p class="mt-2" style="font-family:BodyFont;font-size:16px;">Curate your content</p>
 </div>
 <div class="feature col-md-4 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
 <img src="imgs/invite-comm.svg" alt="" height="120px">
-<p class="mt-2" style="font-family:BodyFont;font-size:16px;">Invite your Community</p></div>
+<p class="mt-2" style="font-family:BodyFont;font-size:16px;">Invite your community</p></div>
 </div>
 <!--first features end-->
 
@@ -171,15 +171,15 @@ body{
 <div class="first-features col-12 flex-row flex-wrap d-flex  d-md-none" style="margin-top:60px;margin-bottom:20px;align-items:center;">
 <div class="feature col-12 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
 <img src="imgs/create-content.svg" alt="" height="90px">
-  <p class=" mt-2" style="font-family:BodyFont;font-size:14px;">Create a Channel</p>
+  <p class=" mt-2" style="font-family:BodyFont;font-size:14px;">Create a channel</p>
 </div>
 <div class="feature col-12 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
 <img src="imgs/merge-content.svg" alt="" height="90px">
-<p class="mt-2" style="font-family:BodyFont;font-size:14px;">Merge your Content</p>
+<p class="mt-2" style="font-family:BodyFont;font-size:14px;">Curate your content</p>
 </div>
 <div class="feature col-12 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
 <img src="imgs/invite-comm.svg" alt="" height="90px">
-<p class="mt-2" style="font-family:BodyFont;font-size:14px;">Invite your Community</p></div>
+<p class="mt-2" style="font-family:BodyFont;font-size:14px;">Invite your community</p></div>
 </div>
 
 
