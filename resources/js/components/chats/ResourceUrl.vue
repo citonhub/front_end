@@ -30,7 +30,16 @@
            
            <template  v-if="linkInfo">
 
-                <div class="col-12  pb-0 pt-0 px-0 d-flex flex-row mt-1" style=" align-items:center;">
+             <template v-if="isYoutube">
+               <div class="col-12  pb-0 pt-0 px-2 d-flex flex-row mt-1" style=" align-items:center;">
+             <resource :show_add_icon="true" :contents="linkInfo" :hideAdd="true" :isFree="true" ></resource>
+               </div>
+              
+             </template>
+
+             <template v-else>
+
+                   <div class="col-12  pb-0 pt-0 px-0 d-flex flex-row mt-1" style=" align-items:center;">
             <div class="col-5 py-1 px-1" style="height:84px;">
               <div :style="'position:absolute;width:100%; border:1px solid white; border-radius:8px; height:100%; background-color:#c5c5c5;background-image:url(' + linkInfo.image + ');background-repeat: no-repeat; background-size:cover;'" >
                
@@ -55,6 +64,10 @@
 
          </div>
 
+             </template>
+
+            
+
           <div class="col-12 text-center">
            <v-btn rounded small :loading="loading" @click="addToResource" :disabled="!linkInfo || loadingLink" color="#3C87CD" style="font-size:11px; text-transform:none; font-weight:bolder; color:white;font-family: BodyFont;" >Add to {{ that.$root.selectedResource.name }}</v-btn>
          </div>
@@ -71,6 +84,10 @@
     </div>
 </template>
 <script>
+  const Resource = () => import(
+   /* webpackChunkName: "Resource" */ './Resource.vue'
+  );
+
 export default {
      data(){
         return{
@@ -82,12 +99,13 @@ export default {
          linkInfo:false,
          loading:false,
          loadingLink:false,
+         isYoutube:false,
          that:this,
-        
+         videoData:[],
         }
     },
     components:{
-     
+     Resource
     },
     mounted(){
        this.$root.showAddButton = false;
@@ -115,12 +133,23 @@ export default {
       return  url.protocol === "https:";
     },
     addToResource:function(){
+       
+       let itemType ='shared_link';
 
+      let  dataToSend = [this.linkInfo]
+
+        if(this.isYoutube){
+        itemType ='youtube_video';
+
+        dataToSend = this.videoData
+        }
+
+        
        this.loading = true;
          axios.post( '/add-items-to-resource',{
            resource_id: this.$root.selectedResource.resource_id,
-           type: 'shared_link',
-           items: [this.linkInfo]
+           type: itemType,
+           items: dataToSend
          } )
       .then(response => {
       
@@ -188,7 +217,50 @@ export default {
      }) 
         
 
-      },  
+      },
+      getVideoData:function(videoId){
+      
+       axios.post( '/get-video-data',{
+           videoId: videoId
+         } )
+      .then(response => {
+      
+      if (response.status == 200) {
+
+
+         let videoData = [response.data.video_data];
+
+          this.videoData = [response.data.video_data]
+
+          this.isYoutube = true;
+
+          let finalResult = [];
+
+             videoData.forEach((data)=>{
+               let resultWrapper = {
+                 content: data,
+                 type:'youtube_video'
+               };
+              
+              finalResult.push(resultWrapper);
+
+             });
+
+           this.linkInfo = finalResult;
+
+      
+            
+     }
+       
+     
+     })
+     .catch(error => {
+
+        return 'error';
+
+     }) 
+
+      }, 
     processURL:function(link){
 
        
@@ -223,8 +295,23 @@ export default {
    
      this.searchQuery = e.target.value;
 
+     this.isYoutube = false;
+
           
      if(this.isURL(this.searchQuery)){
+
+        let urlDomain = this.processURL(this.searchQuery);
+
+         if(urlDomain == 'youtu.be'){
+
+          
+          let videoId = this.searchQuery.substring(17) 
+
+          this.getVideoData(videoId);
+
+          
+            return;
+         }
      
       this.loadingLink = true
     

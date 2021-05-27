@@ -140,7 +140,7 @@
 
         <template v-if="resourcesContent.length > 0">
 
-           <resource :contents="resourcesContent" :show_add_icon="false" :fromStandalone="true"></resource>
+           <resource :contents="resourcesContent" :show_add_icon="false" :fromStandalone="true" :isFree="true"></resource>
         
 
           <div class="text-center col-lg-12">

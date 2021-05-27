@@ -48,7 +48,7 @@
 
                
 
-             <div @click="handleResource(content,index)" class="col-5 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" :class="isFree ?  'col-7 d-flex flex-column pt-1 my-auto' :'col-5 d-flex flex-column pt-1 my-auto'" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  {{ shortenContent(content.content.snippet.title,50) }}
@@ -66,6 +66,7 @@
 
                  <v-checkbox
             color="#3C87CD"
+              v-if="!hideAdd"
             dense
             @change="addToSelected(content)"
             small
@@ -119,7 +120,7 @@
 
                
 
-             <div @click="handleResource(content,index)" class="col-5 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" :class="isFree ?  'col-7 d-flex flex-column pt-1 my-auto' :'col-5 d-flex flex-column pt-1 my-auto'" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  {{ shortenContent(content.content.snippet.title,50) }}
@@ -140,6 +141,7 @@
                  <v-checkbox
             color="#3C87CD"
             dense
+              v-if="!hideAdd"
             @change="addToSelected(content)"
             small
           ></v-checkbox>
@@ -198,7 +200,7 @@
               </div>
             </div>  
 
-             <div @click="handleResource(content,index)" class="col-5 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" :class="isFree ?  'col-7 d-flex flex-column pt-1 my-auto' :'col-5 d-flex flex-column pt-1 my-auto'" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  Python for Data science and Machine
@@ -217,6 +219,7 @@
                  <v-checkbox
             color="#3C87CD"
             dense
+              v-if="!hideAdd"
             small
              @change="addToSelected(content)"
           ></v-checkbox>
@@ -268,7 +271,7 @@
               </div>
             </div>  
 
-             <div @click="handleResource(content,index)" class="col-5 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" :class="isFree ?  'col-7 d-flex flex-column pt-1 my-auto' :'col-5 d-flex flex-column pt-1 my-auto'" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  {{content.content.title}}
@@ -287,6 +290,7 @@
                  <v-checkbox
             color="#3C87CD"
             dense
+              v-if="!hideAdd"
             small
              @change="addToSelected(content)"
           ></v-checkbox>
@@ -338,7 +342,7 @@
               </div>
             </div>  
 
-             <div @click="handleResource(content,index)" class="col-5 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" :class="isFree ?  'col-7 d-flex flex-column pt-1 my-auto' :'col-5 d-flex flex-column pt-1 my-auto'" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" v-html="content.content.title" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                 
@@ -356,6 +360,7 @@
 
                  <v-checkbox
             color="#3C87CD"
+            v-if="!hideAdd"
             dense
              @change="addToSelected(content)"
             small
@@ -411,7 +416,7 @@ export default {
         
       }
     },
-    props:['show_add_icon','contents','fromStandalone','resourceType'],
+    props:['show_add_icon','contents','fromStandalone','resourceType','hideAdd','isFree'],
     mounted(){
       this.contentData = this.contents;
         this.$root.resourceComponent = this;

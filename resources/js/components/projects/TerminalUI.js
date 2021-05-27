@@ -5,9 +5,9 @@ export class TerminalUI {
   constructor(socket) {
     this.terminal = new Terminal({ 
         rendererType: "canvas", //Rendering type
-        rows: 35, //Rows 
+        rows: 100, //Rows 
         convertEol: true, //When enabled, the cursor will be set to the beginning of the next line
-        scrollback: 10, //The amount of rollback in the terminal
+        scrollback: 20, //The amount of rollback in the terminal
         disableStdin: false, //Whether input should be disabled
         cursorStyle: "underline", //Cursor style
         cursorBlink: true, //Cursor blinks

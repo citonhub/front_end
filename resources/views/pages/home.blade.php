@@ -133,7 +133,7 @@ body{
 
    <h5>Everything you need to grow a developer community and earn</h5>
 
-    <p class="px-2 mt-2" style="font-family:BodyFont;font-size:14px;" >Curate content for your community and make money through donations and memberships.</p>
+    <p class="px-2 mt-3" style="font-family:BodyFont;font-size:14px;" >Curate content for your community and make money through donations and memberships.</p>
    </div>
 
 </div>
