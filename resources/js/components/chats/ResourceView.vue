@@ -63,12 +63,12 @@
         <div class="col-12">
 
              <v-card :ripple="false" flat class="d-flex flex-row px-1  mb-2 col-12 " v-for="(resource,index) in resources" :key="index" style="background: rgba(125, 179, 229, 0.4);cursor:pointer;">
-              <div  @click="showContent(resource)" class="mr-2 ">
+              <div  @click="goToChannel(resource)" class="mr-2 ">
                  
                    <v-icon color="#000000" class="ml-2"  v-if="resource.type == 'playlist'" >las la-play-circle</v-icon>
               </div>
 
-              <div  @click="showContent(resource)" style=" white-space: nowrap; overflow:hidden; text-overflow:ellipsis; width:100%;">
+              <div  @click="goToChannel(resource)" style=" white-space: nowrap; overflow:hidden; text-overflow:ellipsis; width:100%;">
               <span  style="font-family:BodyFont;color:black;font-size:13px;">{{resource.name}}</span>
               </div>
 
@@ -272,44 +272,12 @@ export default {
     },
      mounted(){
 
-        if(this.$root.isLogged){
-
-            
-            this.$root.showResourceView  = false;
-            this.$root.showResourceViewContent = false;
-
-               let storedMsg = this.$root.getLocalStore('full_space_' + this.$route.params.spaceId + this.$root.username);
-
-
-                    storedMsg.then((result)=>{
-
-
-                        this.$root.autoOpenResourcePage = false;
-
-                        if(result != null){
-
-
-
-                            this.$root.chatComponent.openChat(this.$route.params.spaceId,true)
-
-                        }else{
-
-                          
-                            this.$root.fromSupportDirectlink = false;
-                          
-                           this.$router.push({ path: '/channels/' + this.$route.params.spaceId  +'/payment' });
-                             
-
-                         
-                        }
-                    })
-
-        }else{
+     
          this.fetchSpaceInfo();
-        }
-    
+      
      },
      methods:{
+       
        shareResource:function(){
             this.$root.shareLink =  'https://link.citonhub.com/resources/'+ this.$route.params.spaceId;
 
@@ -322,21 +290,47 @@ export default {
           this.$root.showInvitation = true;
        },
        goToChannel(){
+              
+              this.$root.visitedResources = true;
+
+               this.$root.showResourceView = false;
+
+             this.$root.showResourceViewContent = false;
             
-              this.$root.checkIfUserIsLoggedIn();
+          if(!this.$root.isLogged){
+
+                       this.$root.checkIfUserIsLoggedIn();
+
+                       this.$root.showResourceView = false;
+
+                       return;
+
+               }
+
+               if( this.$root.isLogged){
+
+                 this.$root.autoOpenResourcePage = true;
+
+
+                 this.$root.chatComponent.openChat(this.$route.params.spaceId,true,true)
+
+                 return;
+                 
+               }
+
        },
        showContent:function(content){
 
-
+         
           
-            this.$router.push({ path: '/channels/e_resources/content/'+ this.$route.params.spaceId });
+        //     this.$router.push({ path: '/channels/e_resources/content/'+ this.$route.params.spaceId });
 
-         this.titleContent = content.name;
-         this.selectedResource = content;
+        //  this.titleContent = content.name;
+        //  this.selectedResource = content;
 
-           this.$root.formerselectedResource =  content;
+        //    this.$root.formerselectedResource =  content;
 
-          this.fetchResourceContent();
+        //   this.fetchResourceContent();
 
 
 
@@ -480,6 +474,12 @@ export default {
          
       },
        fetchSpaceInfo: function(){
+          if(this.$root.visitedResources){
+          
+          this.$root.showResourceView = false;
+             return;
+
+          }
                  this.loadingContent = true;
            axios.get('/fetch-space-info-'+ this.$route.params.spaceId)
    .then(response => {

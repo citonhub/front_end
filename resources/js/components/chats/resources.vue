@@ -3,7 +3,7 @@
 
    <div class="col-12 px-1 py-0 pt-0 fixed-top d-flex flex-row" style="position:sticky; background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
             <div class=" mr-1 col-2 py-1 px-1">
-              <v-btn icon @click="goBack">
+              <v-btn icon @click.stop="goBack">
                       <v-icon>las la-arrow-left</v-icon>
                     </v-btn>
             </div>
@@ -300,11 +300,8 @@ methods:{
       },
    goBack:function(){
             
-             window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
-
-             this.$root.chatComponent.innerSideBarContent = '';
-
-             this.$root.chatInnerSideBar = false;
+          
+            this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/content'});
            
        
         },

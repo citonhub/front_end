@@ -13,7 +13,7 @@ export default {
         return{
           
            that:this,
-           serverAddress:'https://app.citonhub.com:8080',
+           serverAddress:'http://app.citonhub.com:8080',
            terminal:null,
            container:undefined,
          

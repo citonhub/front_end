@@ -397,6 +397,8 @@ export default {
         callback: (data) => {
 
            if(data.status == 'successful'){
+
+               this.closeModal();
              
               this.loadingBtn = true;
                 axios.post('/save-transaction',{
@@ -416,6 +418,8 @@ export default {
            
 
             this.deleteTransactionCopy(reference);
+             
+           
           
            this.$root.chatComponent.openChat(this.$route.params.spaceId,true);
 
@@ -450,6 +454,14 @@ export default {
           logo: SpaceImage
         }
       })
+    },
+    closeModal:function(){
+
+ document.getElementsByName('checkout')[0].setAttribute('style',
+  'position:fixed;top:0;left:0;z-index:-1;border:none;opacity:0;pointer-events:none;width:100%;height:100%;');
+ document.body.style.overflow = '';
+
+     
     },
     deleteTransactionCopy:function(ref){
        axios.post('/delete-transaction-copy',{

@@ -573,6 +573,8 @@ export default {
       return id;
        },
         handleResource:function(content,index){
+
+         
           
            this.$root.nextResourceId = index + 1;
           this.$root.prevResourceId = index - 1;

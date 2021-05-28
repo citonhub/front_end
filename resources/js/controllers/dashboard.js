@@ -2646,6 +2646,7 @@ const app = new Vue({
     videoIsLoading:true,
     audioIsLoading:true,
     imageIsLoading:true,
+    visitedResources:false,
      },
      mounted: function () {
 
