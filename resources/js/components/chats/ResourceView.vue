@@ -63,12 +63,12 @@
         <div class="col-12">
 
              <v-card :ripple="false" flat class="d-flex flex-row px-1  mb-2 col-12 " v-for="(resource,index) in resources" :key="index" style="background: rgba(125, 179, 229, 0.4);cursor:pointer;">
-              <div  @click="goToChannel(resource)" class="mr-2 ">
+              <div  @click="showContent(resource)" class="mr-2 ">
                  
                    <v-icon color="#000000" class="ml-2"  v-if="resource.type == 'playlist'" >las la-play-circle</v-icon>
               </div>
 
-              <div  @click="goToChannel(resource)" style=" white-space: nowrap; overflow:hidden; text-overflow:ellipsis; width:100%;">
+              <div  @click="showContent(resource)" style=" white-space: nowrap; overflow:hidden; text-overflow:ellipsis; width:100%;">
               <span  style="font-family:BodyFont;color:black;font-size:13px;">{{resource.name}}</span>
               </div>
 
@@ -79,7 +79,7 @@
 
      <div class="col-12 py-3 text-center ">
 
-            <v-btn @click="goToChannel()" medium color="#3C87CD" style="color:white;text-transform:none;font-family:MediumFont;font-size:13px;" class="mx-2 d-inline-block" >
+            <v-btn @click="showContent()" medium color="#3C87CD" style="color:white;text-transform:none;font-family:MediumFont;font-size:13px;" class="mx-2 d-inline-block" >
                      Join Channel
                    </v-btn>
 
@@ -323,14 +323,14 @@ export default {
 
          
           
-        //     this.$router.push({ path: '/channels/e_resources/content/'+ this.$route.params.spaceId });
+            this.$router.push({ path: '/channels/e_resources/content/'+ this.$route.params.spaceId });
 
-        //  this.titleContent = content.name;
-        //  this.selectedResource = content;
+          this.titleContent = content.name;
+         this.selectedResource = content;
 
-        //    this.$root.formerselectedResource =  content;
+         this.$root.formerselectedResource =  content;
 
-        //   this.fetchResourceContent();
+          this.fetchResourceContent();
 
 
 
