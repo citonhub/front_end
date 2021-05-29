@@ -224,6 +224,22 @@
    </div>
 
   <!-- ends -->
+
+<!-- git -->
+
+
+                               <div v-if="showGit" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32);  left:0; position:fixed; height:100%; top:0%;z-index:999999999999999999;" >
+                                   <div style="position:absolute; height:100%; width:100%; right:0%;" >
+
+                                    <div class=" col-md-4 offset-md-8 px-0 py-0 pb-2" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
+
+                                    <openGit @myEvent="closeGit"></openGit>
+                                    </div>
+
+                                   </div>
+                               </div>
+
+
 </div>
   
 </template>
@@ -238,6 +254,12 @@
   );
 
 
+  const openGit = () => import(
+    /* webpackChunkName: "MoreOptionsPanel" */ './AddGit'
+  );
+
+
+
 import iziToast from 'izitoast'
 import 'izitoast/dist/css/iziToast.min.css'
 
@@ -249,11 +271,13 @@ import 'izitoast/dist/css/iziToast.min.css'
         loadingProject:false,
         filesAreReady: false,
         showMoreOptions:false,
+        showGit:false
       }
     },
     components: {
         panelSide,
-        MoreOptions
+        MoreOptions,
+        openGit
     },
     mounted(){
        
@@ -274,6 +298,15 @@ import 'izitoast/dist/css/iziToast.min.css'
 
            this.$root.codeEditorComponent.removeCode(codeBox);
       },
+
+
+      // new functions
+
+closeGit(){
+
+  this.showGit=false
+},
+
       languageExtensions:function(language){
            
               if(language == 'HTML'){
@@ -660,8 +693,8 @@ import 'izitoast/dist/css/iziToast.min.css'
 
        openGit(){
         //    this.$root.projectPanelComponent.showSideBar = false
-         this.$router.push({path: '/board/projects/panel/' + this.$root.projectData.project.project_slug + '/add-git'})
-         console.log(this.$root.projectData.project.project_slug )
+       //  this.$router.push({path: '/board/projects/panel/' + this.$root.projectData.project.project_slug + '/add-git'})
+       this.showGit=true
       }
     }
   }
