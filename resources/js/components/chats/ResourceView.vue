@@ -23,7 +23,7 @@
                     </v-btn>
               </div>
 
-            <div class="ml-1"  v-if="!that.$root.showResourceViewContent">
+            <div class="mx-1"  v-if="!that.$root.showResourceViewContent">
                 <div   :style="imageStyleSpace(40,spaceData,'channel')"  >
                </div>
             </div>
@@ -37,7 +37,7 @@
           </div>
 
               
-              <div class="  ml-auto">
+              <div class=" pl-1 ml-auto">
                   <v-btn icon @click="shareResource">
                       <v-icon>mdi mdi-share-variant</v-icon>
                     </v-btn>
@@ -79,7 +79,7 @@
 
      <div class="col-12 py-3 text-center ">
 
-            <v-btn @click="showContent()" medium color="#3C87CD" style="color:white;text-transform:none;font-family:MediumFont;font-size:13px;" class="mx-2 d-inline-block" >
+            <v-btn @click="goToChannel()" medium color="#3C87CD" style="color:white;text-transform:none;font-family:MediumFont;font-size:13px;" class="mx-2 d-inline-block" >
                      Join Channel
                    </v-btn>
 
