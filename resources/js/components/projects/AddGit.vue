@@ -68,7 +68,7 @@
        <div class="col-12 px-2 px-md-2 mt-1 d-flex justify-content-between">
 
             
-               <h6 style="text-decoration:underline;">Adenikym/phonetracker</h6>
+               <h6 style="text-decoration:underline;">Adenikym/{{this.$root.projectData.project.title}}</h6>
 
                <v-icon @click="listBranch=true" class="ml-4" >las la-code-branch</v-icon>
             
@@ -399,6 +399,10 @@ export default {
             newBranch:''
         }
     },
+    mounted(){
+        console.log(this.$root.projectData )
+    },
+
     methods:{
         goBack(){
             this.$emit("myEvent")
