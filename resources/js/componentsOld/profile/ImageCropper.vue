@@ -11,6 +11,7 @@
     </div>
 </template>
 <script>
+// image cropper importer from vue-cropper library
 import {  Cropper } from 'vue-advanced-cropper';
 export default {
     props:['stencilProps','img','componentType'],
