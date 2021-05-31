@@ -253,7 +253,7 @@ export default {
         },
     },
     mounted: function() {
-     
+       this.$root.audioIsLoading = false;
     }
 };
 

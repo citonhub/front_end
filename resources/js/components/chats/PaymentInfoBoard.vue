@@ -14,8 +14,10 @@
      <div class="col-12 text-left py-0 px-md-2 px-1">
          <h5 class="text-left">Membership</h5>
 
-           <span style="font-size:13px;  font-family:BodyFont;" > Your audience or members will have to pay before they access your channel and the contents in it. <span style="font-family:MediumFont;">Subscription</span> means they will pay a certain amount of money
-             recurrently. <span style="font-family:MediumFont;">One-time fee</span> means they will pay once to access your channel and it's contents forever.</span><br><br> 
+           <span style="font-size:13px;  font-family:BodyFont;" > Your audience or members will have to pay before they access your channel and the contents in it. <br><br>
+           <span style="font-family:MediumFont;">Subscription</span> means they will pay a certain amount of money
+             recurrently. <br><br>
+             <span style="font-family:MediumFont;">One-time fee</span> means they will pay once to access your channel and it's contents forever.</span><br><br> 
 
            <span style="font-size:13px;  font-family:BodyFont;" >Select membership type</span>
 

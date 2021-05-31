@@ -58,7 +58,7 @@
                     <i class="las la-folder" style="font-size:24px;"></i>
                   </div>
                   <div class="col-8 d-flex py-0 my-0" style="align-items:center;">
-                   <span style="font-size:13px;font-family:MediumFont;">Views</span>
+                   <span style="font-size:13px;font-family:MediumFont;">views</span>
                   </div>
                   <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
                        <v-btn icon small @click.stop="addNewFile('front_end')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
@@ -94,7 +94,7 @@
                     <i class="las la-folder" style="font-size:24px;"></i>
                   </div>
                   <div class="col-8 d-flex py-0 my-0" style="align-items:center;">
-                   <span style="font-size:13px;font-family:MediumFont;">Styles</span>
+                   <span style="font-size:13px;font-family:MediumFont;">styles</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
                        <v-btn icon small  @click.stop="addNewFile('front_end')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
@@ -127,7 +127,7 @@
                     <i class="las la-folder" style="font-size:24px;"></i>
                   </div>
                   <div class="col-8 d-flex py-0 my-0" style="align-items:center;">
-                   <span style="font-size:13px;font-family:MediumFont;">Scripts</span>
+                   <span style="font-size:13px;font-family:MediumFont;">scripts</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
                        <v-btn icon small  @click.stop="addNewFile('front_end')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
@@ -155,43 +155,7 @@
 
               </template>
               
-              <div  class="col-12 py-1 " style="cursor:pointer;" @click.stop="toggleFrameworks ? toggleFrameworks = false : toggleFrameworks = true">
-               <div class="row py-0 my-0">
-                  <div class="col-2 text-left py-0 my-0">
-                    <i class="las la-folder" style="font-size:24px;"></i>
-                  </div>
-                  <div class="col-8 d-flex py-0 my-0" style="align-items:center;">
-                   <span style="font-size:13px;font-family:MediumFont;">Framework</span>
-                  </div>
-                   <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
-                       <v-btn icon small @click.stop="uploadResources('Framework')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
-                  </div>
-               </div>
-              </div>
-
-               <template v-if="toggleFrameworks">
-
-                 <div v-for="(file,index) in that.$root.projectData.project_files.resources" :key="'framework' + index">
-
-                  <v-card tile flat  class="col-12 py-1 codeFile"  v-if="file.type == 'Framework'">
-               <div class="row py-0 my-0">
-                  <div class="col-2 text-left py-0 my-0 d-flex" style="align-items:center;">
-                    <i class="las la-file-code" style="font-size:20px; color:#3C87CD;"></i>
-                  </div>
-                  <div class="col-9 d-flex py-0 my-0" style="align-items:center;white-space: nowrap; overflow:hidden; text-overflow: ellipsis;">
-                   <span style="font-size:12px;">{{file.file_full_name}}</span>
-                  </div>
-                  <div class="col-1  py-0 my-0">
-
-                  </div>
-               </div>
-              </v-card>
-
-               </div>
-                 
-               </template>
-               
-               
+            
               
 
                <div  class="col-12 py-1 " style="cursor:pointer;" @click.stop="toggleImages ? toggleImages = false : toggleImages = true">
@@ -200,7 +164,7 @@
                     <i class="las la-folder" style="font-size:24px;"></i>
                   </div>
                   <div class="col-8 d-flex py-0 my-0" style="align-items:center;">
-                   <span style="font-size:13px;font-family:MediumFont;">Images</span>
+                   <span style="font-size:13px;font-family:MediumFont;">images</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
                        <v-btn icon small @click.stop="uploadResources('Images')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
@@ -210,7 +174,7 @@
 
                <template v-if="toggleImages">
 
-                   <div v-for="(file,index) in that.$root.projectData.project_files.resources" :key="'image' + index">
+                   <div v-for="(file,index) in that.$root.projectData.project_files.resources" :key="'image' + index" class="col-12 px-0 py-0">
 
                   <v-card tile flat  class="col-12 py-1 codeFile" v-if="file.type == 'Images'">
                <div class="row py-0 my-0">
@@ -237,7 +201,7 @@
                     <i class="las la-folder" style="font-size:24px;"></i>
                   </div>
                   <div class="col-8 d-flex py-0 my-0" style="align-items:center;">
-                   <span style="font-size:13px;font-family:MediumFont;">Audios</span>
+                   <span style="font-size:13px;font-family:MediumFont;">audios</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
                        <v-btn icon small @click.stop="uploadResources('Audios')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
@@ -247,7 +211,7 @@
                
                <template v-if="toggleAudios">
 
-                  <div v-for="(file,index) in that.$root.projectData.project_files.resources" :key="'audio' + index">
+                  <div v-for="(file,index) in that.$root.projectData.project_files.resources" :key="'audio' + index" class="col-12 px-0 py-0">
 
                   <v-card tile flat  class="col-12 py-1 codeFile" v-if="file.type == 'Audios'">
                <div class="row py-0 my-0">
@@ -275,7 +239,7 @@
                     <i class="las la-folder" style="font-size:24px;"></i>
                   </div>
                   <div class="col-8 d-flex py-0 my-0" style="align-items:center;">
-                   <span style="font-size:13px;font-family:MediumFont;">Videos</span>
+                   <span style="font-size:13px;font-family:MediumFont;">videos</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
                        <v-btn icon small @click.stop="uploadResources('Videos')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
@@ -285,7 +249,7 @@
                    
                    <template v-if="toggleVideos">
 
-                          <div v-for="(file,index) in that.$root.projectData.project_files.resources" :key="'video' + index">
+                          <div v-for="(file,index) in that.$root.projectData.project_files.resources" :key="'video' + index" class="col-12 px-0 py-0">
 
                   <v-card tile flat  class="col-12 py-1 codeFile" v-if="file.type == 'Videos'">
                <div class="row py-0 my-0">
@@ -314,7 +278,7 @@
                     <i class="las la-folder" style="font-size:24px;"></i>
                   </div>
                   <div class="col-8 d-flex py-0 my-0" style="align-items:center;">
-                   <span style="font-size:13px;font-family:MediumFont;">Files</span>
+                   <span style="font-size:13px;font-family:MediumFont;">files</span>
                   </div>
                    <div class="col-2 d-flex  py-0 my-0" style="align-items:center;justify-content:center;">
                        <v-btn icon small @click.stop="uploadResources('Files')"><v-icon style="font-size:20px;">las la-plus-circle</v-icon> </v-btn>
@@ -324,7 +288,7 @@
 
               <template v-if="toggleFiles">
 
-                <div v-for="(file,index) in that.$root.projectData.project_files.resources" :key="'files' + index">
+                <div v-for="(file,index) in that.$root.projectData.project_files.resources" :key="'files' + index" class="col-12 px-0 py-0">
 
                   <v-card tile flat  class="col-12 py-1 codeFile" v-if="file.type == 'Files'">
                <div class="row py-0 my-0">

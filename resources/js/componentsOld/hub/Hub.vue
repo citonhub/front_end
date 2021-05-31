@@ -1,3 +1,5 @@
+<!-- main hub file containing where all components used are btought in-->
+
 <template>
 <div class="fixed-layout">
  
@@ -7,7 +9,9 @@
      
        <div style="z-index:9999938859;"  v-if="this.$root.showCodeEditor"  >
 
+<!-- code editor component brought into hub-->
             <code-editor></code-editor>
+
 
         </div>
      
@@ -18,6 +22,7 @@
 
         
         <div style="z-index:9999938859;"  v-if="this.$root.fullImageViewer"  >
+          <!-- image viewer component brought into hub-->
 
            <full-image-viewer ></full-image-viewer>
 

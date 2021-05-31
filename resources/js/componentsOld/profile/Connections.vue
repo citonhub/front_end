@@ -1,3 +1,4 @@
+
 <template>
        <div style="position:absolute; height:100%;  overflow-y:auto;left:0;top:0%;" class=" scrollerStyle   col-lg-6 offset-lg-3 py-0 px-0 my-0"> 
 
@@ -6,7 +7,8 @@
          <div class="col-1 py-0 my-0 text-left px-1" >
            <v-btn icon color="#3E8893" @click="goBack"><v-icon>mdi-close mdi-18px</v-icon></v-btn>
          </div>
-         
+         <!-- Link to page showing list of connections
+              page displayed is user specific-->
          <router-link :to="'/profile/connections/' + this.$route.params.username"  class="col-5 py-0 my-0 d-flex" style="border-bottom:2px solid #3E8893; align-items:center;justify-content:center;">
           <span  style="font-size:12px; color:#3E8893; font-weight:bolder;font-family:HeaderText;">Connections</span>
          </router-link>
@@ -41,9 +43,10 @@
                          
                           </div>
                           <div class="col-4 d-flex" style="align-items:center; justify-content:center;">
+                            <!-- button with value connected which displays only if the user has connected to the user being viewed-->
                 <v-btn x-small v-if="user.user_connected" 
                    rounded color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;">Connected</v-btn> 
-
+<!-- button with value connect for connecting to a follow user-->
                 <v-btn x-small v-else :loading="loading"
                    rounded color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;" @click.stop="connectToUser(user)">Connect</v-btn> 
                           </div>

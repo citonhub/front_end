@@ -48,7 +48,7 @@
 
                
 
-             <div @click="handleResource(content,index)" class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" :class="isFree ?  'col-7 d-flex flex-column pt-1 my-auto' :'col-5 d-flex flex-column pt-1 my-auto'" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  {{ shortenContent(content.content.snippet.title,50) }}
@@ -66,11 +66,22 @@
 
                  <v-checkbox
             color="#3C87CD"
+              v-if="!hideAdd"
             dense
             @change="addToSelected(content)"
             small
           ></v-checkbox>
 
+              </template>
+
+               <template v-if="checkIfisOwner() && !show_add_icon">  
+                <v-btn icon   @click="showOptions(content)">
+                     <v-icon
+                   style="font-size:20px;"
+               
+                 >las la-trash-alt</v-icon>
+
+                </v-btn>
               </template>
 
              
@@ -109,7 +120,7 @@
 
                
 
-             <div @click="handleResource(content,index)" class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" :class="isFree ?  'col-7 d-flex flex-column pt-1 my-auto' :'col-5 d-flex flex-column pt-1 my-auto'" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  {{ shortenContent(content.content.snippet.title,50) }}
@@ -130,18 +141,21 @@
                  <v-checkbox
             color="#3C87CD"
             dense
+              v-if="!hideAdd"
             @change="addToSelected(content)"
             small
           ></v-checkbox>
 
               </template>
 
-              <template v-else>  
-                 <v-icon
-                
-                 @click="showOptions(content)"
+             <template v-if="checkIfisOwner() && !show_add_icon">  
+                <v-btn icon   @click="showOptions(content)">
+                     <v-icon
+                   style="font-size:20px;"
+               
                  >las la-trash-alt</v-icon>
 
+                </v-btn>
               </template>
                
 
@@ -186,7 +200,7 @@
               </div>
             </div>  
 
-             <div @click="handleResource(content,index)" class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" :class="isFree ?  'col-7 d-flex flex-column pt-1 my-auto' :'col-5 d-flex flex-column pt-1 my-auto'" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  Python for Data science and Machine
@@ -205,13 +219,22 @@
                  <v-checkbox
             color="#3C87CD"
             dense
+              v-if="!hideAdd"
             small
              @change="addToSelected(content)"
           ></v-checkbox>
 
               </template>
 
-             
+              <template v-if="checkIfisOwner() && !show_add_icon">  
+                <v-btn icon   @click="showOptions(content)">
+                     <v-icon
+                   style="font-size:20px;"
+               
+                 >las la-trash-alt</v-icon>
+
+                </v-btn>
+              </template>
 
             
             </div>
@@ -248,7 +271,7 @@
               </div>
             </div>  
 
-             <div @click="handleResource(content,index)" class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" :class="isFree ?  'col-7 d-flex flex-column pt-1 my-auto' :'col-5 d-flex flex-column pt-1 my-auto'" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                  {{content.content.title}}
@@ -267,10 +290,21 @@
                  <v-checkbox
             color="#3C87CD"
             dense
+              v-if="!hideAdd"
             small
              @change="addToSelected(content)"
           ></v-checkbox>
 
+              </template>
+
+               <template v-if="checkIfisOwner() && !show_add_icon">  
+                <v-btn icon   @click="showOptions(content)">
+                     <v-icon
+                   style="font-size:20px;"
+               
+                 >las la-trash-alt</v-icon>
+
+                </v-btn>
               </template>
 
              
@@ -308,7 +342,7 @@
               </div>
             </div>  
 
-             <div @click="handleResource(content,index)" class="col-6 d-flex flex-column pt-1 my-auto" style="justify-content:center;width:100%;">
+             <div @click="handleResource(content,index)" :class="isFree ?  'col-7 d-flex flex-column pt-1 my-auto' :'col-5 d-flex flex-column pt-1 my-auto'" style="justify-content:center;width:100%;">
 
                <div class="pt-3 mb-1" v-html="content.content.title" style="font-family:MediumFont;font-size:13px; overflow:hidden; width:100%; text-overflow:ellipsis;  ">
                 
@@ -326,6 +360,7 @@
 
                  <v-checkbox
             color="#3C87CD"
+            v-if="!hideAdd"
             dense
              @change="addToSelected(content)"
             small
@@ -333,7 +368,15 @@
 
               </template>
 
-             
+               <template v-if="checkIfisOwner() && !show_add_icon">  
+                <v-btn icon   @click="showOptions(content)">
+                     <v-icon
+                   style="font-size:20px;"
+               
+                 >las la-trash-alt</v-icon>
+
+                </v-btn>
+              </template>
 
             
             </div> 
@@ -373,11 +416,11 @@ export default {
         
       }
     },
-    props:['show_add_icon','contents','fromStandalone','resourceType'],
+    props:['show_add_icon','contents','fromStandalone','resourceType','hideAdd','isFree'],
     mounted(){
       this.contentData = this.contents;
         this.$root.resourceComponent = this;
-        console.table(this.contents)
+      
     },
     computed: {
     dragOptions() {
@@ -507,6 +550,8 @@ export default {
                if(response.status== 200){
                  const newContents = this.contents.filter(content =>  content.id !== this.selected_id );
                  this.contents= newContents
+
+                  this.$root.LocalStore('channel_resource_content_' + this.$root.selectedResource.resource_id  + this.$root.username, this.contents);
                }
              }
            ).catch( error=>{
@@ -521,14 +566,15 @@ export default {
            )
          }
 
-         console.log(content.id)
-
+      
         },
          makeUUID:function(){
       var id = "id" + Math.random().toString(16).slice(2);
       return id;
        },
         handleResource:function(content,index){
+
+         
           
            this.$root.nextResourceId = index + 1;
           this.$root.prevResourceId = index - 1;

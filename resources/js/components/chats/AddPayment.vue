@@ -120,7 +120,7 @@ export default {
 
             this.$root.baseChannelName = this.$root.selectedSpace.name;
 
-           
+            this.$root.payment_option = type;
 
            this.$root.showPaymentOptionBoard = true;
       },

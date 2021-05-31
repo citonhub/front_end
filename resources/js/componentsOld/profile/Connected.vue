@@ -41,6 +41,7 @@
                          
                           </div>
                           <div class="col-4 d-flex" style="align-items:center; justify-content:center;">
+                            <!-- button to disconnect from user-->
                              <v-btn x-small  
                    rounded color="#3E8893" style="font-size:10px;color:white;text-transform:capitalize;">Disconnect</v-btn> 
                           </div>

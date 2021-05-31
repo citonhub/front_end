@@ -5,7 +5,7 @@
 
  @endsection
  @section('meta')
- <meta name="description" content="Everything you need as a developer to grow your community and earn" />
+ <meta name="description" content="Everything you need to grow a developer community and earn" />
   <meta name="keywords" content="mentor programming,Share codes, build projects,Programming Duels,Developer Community,Citonhub Channels,Citonhub Space,Programming Teams" />
   <meta name="MobileOptimized" content="width" />
   <meta name="HandheldFriendly" content="true" />
@@ -18,8 +18,8 @@
     <!--Metadata for Microsoft-->
     <meta name="msapplication-TileImage" content="images/icons/logo_msapplication-icon-144x144.png">
     <meta name="msapplication-TileColor" content="#3C87CD">
-    <meta property="og:description" content="Everything you need as a developer to grow your community and earn" />
-    <meta property='twitter:title' content="CitonHub:Everything you need as a developer to grow your community and earn"/>
+    <meta property="og:description" content="Everything you need to grow a developer community and earn" />
+    <meta property='twitter:title' content="CitonHub:Everything you need to grow a developer community and earn"/>
 <meta property='twitter:image' content="https://citonhub.com/imgs/logo.png"/>
 <meta name="twitter:card" content="summary_large_image"/>
 
@@ -110,11 +110,11 @@ body{
 
    <div class="text-center col-8 offset-2">
 
-   <h2>Everything you need as a developer to grow <br> your community and earn</h2>
+   <h2>Everything you need to grow a developer community and earn</h2>
 
 
 
-    <p class="px-5 mt-4" style="font-family:BodyFont;font-size:17px;" >Merge your content with your community and make money through donations and memberships.</p>
+    <p class="px-5 mt-4" style="font-family:BodyFont;font-size:17px;" >Curate content for your community and make money through donations and memberships.</p>
    </div>
 
 </div>
@@ -131,9 +131,9 @@ body{
 
    <div class="text-center ">
 
-   <h5>Everything you need as a developer to grow your community and earn</h5>
+   <h5>Everything you need to grow a developer community and earn</h5>
 
-    <p class="px-2 mt-2" style="font-family:BodyFont;font-size:14px;" >Merge your content with your community and make money through donations and memberships.</p>
+    <p class="px-2 mt-3" style="font-family:BodyFont;font-size:14px;" >Curate content for your community and make money through donations and memberships.</p>
    </div>
 
 </div>
@@ -153,15 +153,15 @@ body{
 <div class="first-features col-lg-10 offset-lg-1 flex-row  d-md-flex  d-none" style="margin-top:120px;margin-bottom:80px;align-items:center;">
 <div class="feature col-md-4 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
 <img src="imgs/create-content.svg" alt="" height="120px">
-  <p class=" mt-2" style="font-family:BodyFont;font-size:16px;">Create a Channel</p>
+  <p class=" mt-2" style="font-family:BodyFont;font-size:16px;">Create a channel</p>
 </div>
 <div class="feature col-md-4 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
 <img src="imgs/merge-content.svg" alt="" height="120px">
-<p class="mt-2" style="font-family:BodyFont;font-size:16px;">Merge your Content</p>
+<p class="mt-2" style="font-family:BodyFont;font-size:16px;">Curate your content</p>
 </div>
 <div class="feature col-md-4 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
 <img src="imgs/invite-comm.svg" alt="" height="120px">
-<p class="mt-2" style="font-family:BodyFont;font-size:16px;">Invite your Community</p></div>
+<p class="mt-2" style="font-family:BodyFont;font-size:16px;">Invite your community</p></div>
 </div>
 <!--first features end-->
 
@@ -171,15 +171,15 @@ body{
 <div class="first-features col-12 flex-row flex-wrap d-flex  d-md-none" style="margin-top:60px;margin-bottom:20px;align-items:center;">
 <div class="feature col-12 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
 <img src="imgs/create-content.svg" alt="" height="90px">
-  <p class=" mt-2" style="font-family:BodyFont;font-size:14px;">Create a Channel</p>
+  <p class=" mt-2" style="font-family:BodyFont;font-size:14px;">Create a channel</p>
 </div>
 <div class="feature col-12 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
 <img src="imgs/merge-content.svg" alt="" height="90px">
-<p class="mt-2" style="font-family:BodyFont;font-size:14px;">Merge your Content</p>
+<p class="mt-2" style="font-family:BodyFont;font-size:14px;">Curate your content</p>
 </div>
 <div class="feature col-12 mb-4 d-flex flex-column" style="align-items:center;justify-content:center;">
 <img src="imgs/invite-comm.svg" alt="" height="90px">
-<p class="mt-2" style="font-family:BodyFont;font-size:14px;">Invite your Community</p></div>
+<p class="mt-2" style="font-family:BodyFont;font-size:14px;">Invite your community</p></div>
 </div>
 
 
@@ -192,24 +192,18 @@ body{
 
 <div class="reasons col-lg-8 offset-lg-2 flex-row  d-md-flex  d-none" style="margin-top:80px;margin-bottom:90px;">
 
-<div class="col-md-4">
+<div class="col-md-6">
 <h4 style="font-family:HeaderFont;">What?</h4>
-<p style="font-family:BodyFont;font-size:15px;" >Citonhub is a free developer platform that lets you create a community and also allows
-you import your contents from YouTube and DevTo.</p>
+<p style="font-family:BodyFont;font-size:15px;" >Citonhub is a free platform for developers to curate resources from YouTube and DevTo and merge with their communities.</p>
 </div>
-<div class="col-md-4">
+<div class="col-md-6">
 <h4 style="font-family:HeaderFont;">Why?</h4>
 
-<p style="font-family:BodyFont;font-size:15px;" >This helps you engage your community at the same time boosting your audience retention. You
-can also earn from donations and memberships. </p>
+<p style="font-family:BodyFont;font-size:15px;" >There is an overwhelming amount of content on the internet but little direction especially for developers just starting out 
+in a specific stack. We are solving this by helping developers easily curate resources that helped their learning and merge them with their communities. Curated resources give direction
+to people just starting out and community gives support. </p>
 </div>
 
-<div class="col-md-4">
-<h4 style="font-family:HeaderFont;">What if you don't create content?</h4>
-
-<p style="font-family:BodyFont;font-size:15px;" >You can curate a
-playlist of resources that helped you along your coding journey and share with your friends.</p>
-</div>
 
 
 </div>
@@ -223,22 +217,17 @@ playlist of resources that helped you along your coding journey and share with y
 
 <div class="col-12 mb-4">
 <h5 style="font-family:HeaderFont;">What?</h5>
-<p style="font-family:BodyFont;font-size:14px;" >Citonhub is a free developer platform that lets you create a community and also allows
-you import your contents from YouTube and DevTo.</p>
+<p style="font-family:BodyFont;font-size:14px;" >Citonhub is a free platform for developers to curate resources from YouTube and DevTo and merge with their communities.</p>
 </div>
 <div class="col-12 mb-4">
 <h5 style="font-family:HeaderFont;">Why?</h5>
 
-<p style="font-family:BodyFont;font-size:14px;" >This helps you engage your community at the same time boosting your audience retention. You
-can also earn from donations and memberships.</p>
+<p style="font-family:BodyFont;font-size:14px;" >There is an overwhelming amount of content on the internet but little direction especially for developers just starting out 
+in a specific stack. We are solving this by helping developers easily curate resources that helped their learning and merge them with their communities. Curated resources give direction
+to people just starting out and community gives support.</p>
 </div>
 
-<div class="col-12">
-<h5 style="font-family:HeaderFont;">What if you don't create content?</h5>
 
-<p style="font-family:BodyFont;font-size:14px;" >You can curate a
-playlist of resources that helped you along your coding journey and share with your friends.</p>
-</div>
 
 
 </div>
@@ -258,7 +247,7 @@ playlist of resources that helped you along your coding journey and share with y
 
 
 
-<img class="mt-2" src="/imgs/youtube_clip2.png" height="360px" width="90%"/>
+<img class="mt-2" src="/imgs/youtube_image2.svg" height="320px" width="90%"/>
 
 <h4 style="font-family:HeaderFont;" class="mt-4">Connect your YouTube
 Channel</h4>
@@ -270,7 +259,7 @@ have access to it. Your audience can like and subscribe to your channel directly
 
 <div class="col-md-6 mt-4">
 
-<img class="mt-2" src="/imgs/credit-vector.png" height="360px" width="100%"/>
+<img class="mt-2 mb-5" src="/imgs/earn_online.svg" height="280px" width="100%" />
 
 <h4 style="font-family:HeaderFont;" class="mt-4">Earn directly from your
 audience</h4>
@@ -290,7 +279,7 @@ can directly donate or subscribe to your private community where they can access
 
 
 
-<img class="mt-2" src="/imgs/youtube_clip2.png" height="280px" width="100%"/>
+<img class="mt-2" src="/imgs/youtube_image2.svg" height="250px" width="100%"/>
 
 <h5 style="font-family:HeaderFont;" class="mt-4">Connect your YouTube
 Channel</h5>
@@ -302,7 +291,7 @@ have access to it. Your audience can like and subscribe to your channel directly
 
 <div class="col-12 mt-4">
 
-<img class="mt-2" src="/imgs/credit-vector.png" height="280px" width="100%"/>
+<img class="mt-2" src="/imgs/earn_online.svg" height="200px" width="100%"/>
 
 <h5 style="font-family:HeaderFont;" class="mt-4">Earn directly from your
 audience</h5>
@@ -330,7 +319,7 @@ can directly donate or subscribe to your private community where they can access
 <div class="col-lg-8 offset-lg-2 flex-row  d-md-flex flex-wrap  d-none" style="margin-top:80px;margin-bottom:50px;"  >
 
   <div class="col-12 text-center px-5">
-  <h4 class="text-center " style="font-family:HeaderFont;" >Features to help you grow your <br> developer community</h4>
+  <h4 class="text-center " style="font-family:HeaderFont;" >Features to help you grow a thriving community</h4>
   </div>
    
    <div class="col-12 py-3">
@@ -384,7 +373,7 @@ can directly donate or subscribe to your private community where they can access
 <div class="col-lg-8 offset-lg-2 flex-row  d-md-none flex-wrap  d-flex" style="margin-top:30px;margin-bottom:30px;"  >
 
   <div class="col-12 text-center px-3">
-  <h5 class="text-center " style="font-family:HeaderFont;" >Features to help you grow your <br> developer community</h5>
+  <h5 class="text-center " style="font-family:HeaderFont;" >Features to help you grow a thriving community</h5>
   </div>
    
    <div class="col-12 py-3">

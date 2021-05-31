@@ -1,13 +1,17 @@
+<!-- component for viewing a post in detail-->
+
 <template>
      <div style="overflow-y:hidden;">
 
          <div v-if="this.$root.showCodeEditor" style="z-index:999938859;">
+            <!-- code editor component imported from CodeEditor.vue-->
             <code-editor></code-editor>
       </div>
 
      
 
       <div v-if="this.$root.fullImageViewer">
+        <!-- full image viewer component imported from FullImageViewer.vue-->
             <full-image-viewer></full-image-viewer>
       </div>
 
@@ -20,6 +24,7 @@
         <div class="col-12 py-0 my-0 fixed-top" style="position:sticky; background:white;z-index:999938859;">
        <div class="row py-1 my-0 px-1" >
          <div class="col-4 py-0 my-0 text-left" style="border-bottom:2px solid #4495a2;" >
+           <!-- arrow back to hub-->
             <v-btn icon color="#4495a2" @click="showHome"><v-icon>mdi-arrow-left</v-icon></v-btn>
          </div>
          <div class="col-4 py-0 my-0 d-flex"  style="border-bottom:2px solid #4495a2; align-items:center; justify-content:center;" >
@@ -98,10 +103,13 @@
                    <div class="row">
                     <div class="col-3 my-0 py-0 text-center">
                       <v-btn class="d-inline-block" icon  @click.stop="likePost(post)">
+                        <!-- tapped like button-->
                         <v-icon color="#3E8893" v-if="post.post_liked">mdi-heart</v-icon>
+                        <!--like button-->
                         <v-icon color="#3E8893" v-else>mdi-heart-outline</v-icon>
                         
                         </v-btn>
+                        <!-- span for amount of likes-->
                          <span style="font-size:10px; color:#a6a6a6;">{{post.likes}}</span>
                       
                     </div>
@@ -111,18 +119,23 @@
                         <v-icon color="#a6a6a6">mdi-comment-text-outline</v-icon>
                         
                         </v-btn>
+                        <!--number of comments-->
                          <span style="font-size:10px; color:#a6a6a6;">{{post.comments}}</span>
                     </div>
                      <div class="col-3 my-0 py-0 text-center">
                     <v-btn class="d-inline-block" icon @click.stop="library(post)">
+                      <!--tapped save button-->
                         <v-icon  color="#3E8893" v-if="post.post_pulled">mdi-source-pull </v-icon>
+                        <!-- button to save post to library-->
                         <v-icon color="#a6a6a6" v-else>mdi-source-pull </v-icon>
                         
                         </v-btn>
+                        <!-- amount of saves on a post-->
                          <span style="font-size:10px; color:#a6a6a6;">{{post.pulls}}</span>
                     </div>
                      <div class="col-3 my-0 py-0 text-center">
                       <v-btn class="d-inline-block" icon @click="share(post)">
+                        <!--share button-->
                         <v-icon color="#a6a6a6">mdi-share-variant</v-icon>
                         </v-btn>
                     </div>
@@ -145,7 +158,7 @@
      </div>
          </div>
      </div>
-
+<!-- post comment component from PostComments.vue-->
         <post-comments :CommentArray="postComments"></post-comments>
 
          <div class="col-12 py-5 my-5" style="padding-top:100px !important;">

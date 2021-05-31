@@ -23,7 +23,7 @@
                     </v-btn>
               </div>
 
-            <div class="ml-1"  v-if="!that.$root.showResourceViewContent">
+            <div class="mx-1"  v-if="!that.$root.showResourceViewContent">
                 <div   :style="imageStyleSpace(40,spaceData,'channel')"  >
                </div>
             </div>
@@ -37,7 +37,7 @@
           </div>
 
               
-              <div class="  ml-auto">
+              <div class=" pl-1 ml-auto">
                   <v-btn icon @click="shareResource">
                       <v-icon>mdi mdi-share-variant</v-icon>
                     </v-btn>
@@ -140,7 +140,7 @@
 
         <template v-if="resourcesContent.length > 0">
 
-           <resource :contents="resourcesContent" :show_add_icon="false" :fromStandalone="true"></resource>
+           <resource :contents="resourcesContent" :show_add_icon="false" :fromStandalone="true" :isFree="true"></resource>
         
 
           <div class="text-center col-lg-12">
@@ -272,44 +272,12 @@ export default {
     },
      mounted(){
 
-        if(this.$root.isLogged){
-
-            
-            this.$root.showResourceView  = false;
-            this.$root.showResourceViewContent = false;
-
-               let storedMsg = this.$root.getLocalStore('full_space_' + this.$route.params.spaceId + this.$root.username);
-
-
-                    storedMsg.then((result)=>{
-
-
-                        this.$root.autoOpenResourcePage = false;
-
-                        if(result != null){
-
-
-
-                            this.$root.chatComponent.openChat(this.$route.params.spaceId,true)
-
-                        }else{
-
-                          
-                            this.$root.fromSupportDirectlink = false;
-                          
-                           this.$router.push({ path: '/channels/' + this.$route.params.spaceId  +'/payment' });
-                             
-
-                         
-                        }
-                    })
-
-        }else{
+     
          this.fetchSpaceInfo();
-        }
-    
+      
      },
      methods:{
+       
        shareResource:function(){
             this.$root.shareLink =  'https://link.citonhub.com/resources/'+ this.$route.params.spaceId;
 
@@ -322,19 +290,45 @@ export default {
           this.$root.showInvitation = true;
        },
        goToChannel(){
+              
+              this.$root.visitedResources = true;
+
+               this.$root.showResourceView = false;
+
+             this.$root.showResourceViewContent = false;
             
-              this.$root.checkIfUserIsLoggedIn();
+          if(!this.$root.isLogged){
+
+                       this.$root.checkIfUserIsLoggedIn();
+
+                       this.$root.showResourceView = false;
+
+                       return;
+
+               }
+
+               if( this.$root.isLogged){
+
+                 this.$root.autoOpenResourcePage = true;
+
+
+                 this.$root.chatComponent.openChat(this.$route.params.spaceId,true,true)
+
+                 return;
+                 
+               }
+
        },
        showContent:function(content){
 
-
+         
           
             this.$router.push({ path: '/channels/e_resources/content/'+ this.$route.params.spaceId });
 
-         this.titleContent = content.name;
+          this.titleContent = content.name;
          this.selectedResource = content;
 
-           this.$root.formerselectedResource =  content;
+         this.$root.formerselectedResource =  content;
 
           this.fetchResourceContent();
 
@@ -480,6 +474,12 @@ export default {
          
       },
        fetchSpaceInfo: function(){
+          if(this.$root.visitedResources){
+          
+          this.$root.showResourceView = false;
+             return;
+
+          }
                  this.loadingContent = true;
            axios.get('/fetch-space-info-'+ this.$route.params.spaceId)
    .then(response => {

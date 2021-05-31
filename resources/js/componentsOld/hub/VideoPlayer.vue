@@ -17,11 +17,13 @@
 
   <div class="player-controls">
 
+    <!-- progress bar from playing video starts-->
+
     <div class="progress">
       <v-progress-linear height="8" rounded v-model="percentComplete" color="#3E8893"></v-progress-linear>
     </div>
 
-       
+         <!-- progress bar from playing video ends-->
 
     <div class="col-12 py-0 my-0">
        <div class="row py-0 my-0">

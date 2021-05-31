@@ -1,5 +1,7 @@
+
 import Vuex from 'vuex'
 import { mapGetters } from 'vuex'
+// code and logic defining the user interface
 
 window.Echo = require('laravel-echo');
 import Echo from 'laravel-echo';
@@ -45,16 +47,16 @@ const store = new Vuex.Store({
         .post('/login', credentials)
         .then(response =>{
 
-          
-           
+
+
            if(response.status == 200){
-            
+
             routerData.push({ path: '/verify' });
 
              return;
 
            }
-           
+
 
           commit('setUserData', response.data)
         })
@@ -126,6 +128,7 @@ const PanelSettings = () => import(/* webpackChunkName: "PanelSettings" */ '../c
 const AddWebroute= () => import(/* webpackChunkName: "AddWebroute" */ '../components/projects/AddWebroute.vue');
 const ProjectGuide = () => import(/* webpackChunkName: "ProjectGuide" */ '../components/projects/ProjectGuide.vue')
 const AddGit= () => import(/* webpackChunkName: "AddGit" */ '../components/projects/AddGit.vue')
+const CodeTerminal = () => import(/* webpackChunkName: "CodeTerminal" */ '../components/projects/CodeTerminal.vue')
 
 
 // chats routes
@@ -163,36 +166,37 @@ const FeedForm= () => import(/* webpackChunkName: "FeedForm" */ '../components/F
 const routes = [
   { path: '/login', name: 'login', component: Login },
   { path: '/sign-up', name: 'register', component: Register },
+  { path: '/code-terminal', name: 'code_terminal', component: CodeTerminal },
   { path: '/login/:referral', name: 'loginReferral', component: Login },
   { path: '/sign-up/:referral', name: 'registerReferral', component: Register },
   { path: '/verify', name: 'verify', component: Verify },
   { path: '/forgot-password', name: 'ForgotPassword', component: ForgotPassword},
   { path: '/reset-password', name: 'ResetPassword', component: ResetPassword},
   { path: '/set-username', name: 'SetUsername', component: SetUsername},
- 
+
   {
     path:'/profile/:username',
-     name:'ProfilePage', 
+     name:'ProfilePage',
      component:ProfilePage,
      meta: {
       twModalView: true
     },
-   
+
 
     beforeEnter: (to, from, next) => {
-     
+
       if(window.thisUserState != undefined){
-        
+
         thisUserState.$root.showFullImage = false;
 
         thisUserState.$root.showProfileEditModal = false;
 
          thisUserState.$root.showViewPost = false;
-         
-       
+
+
        }
-     
-     
+
+
       next()
      }
   },
@@ -201,27 +205,27 @@ const routes = [
 
   {
     path:'/profile-search/:username',
-     name:'ProfilePage', 
+     name:'ProfilePage',
      component:ProfilePage,
      meta: {
       twModalView: true
     },
-   
+
 
     beforeEnter: (to, from, next) => {
-     
+
       if(window.thisUserState != undefined){
-        
+
         thisUserState.$root.showFullImage = false;
 
         thisUserState.$root.showProfileEditModal = false;
 
          thisUserState.$root.showViewPost = false;
-         
-       
+
+
        }
-     
-     
+
+
       next()
      }
   },
@@ -235,11 +239,11 @@ meta: {
 beforeEnter: (to, from, next) => {
  const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
 
-  
+
  if(window.thisUserState != undefined){
-   
+
    thisUserState.$root.showProfileEditModal = true;
-  
+
   }
 
  if (!twModalView) {
@@ -282,15 +286,15 @@ beforeEnter: (to, from, next) => {
   },
   beforeEnter: (to, from, next) => {
    const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
-  
-    
+
+
    if(window.thisUserState != undefined){
     thisUserState.$root.showViewPost = false;
-     
+
      thisUserState.$root.showProfileView = true;
-    
+
     }
-  
+
    if (!twModalView) {
      //
      // For direct access
@@ -300,10 +304,10 @@ beforeEnter: (to, from, next) => {
        modal: false
      }
    }
-  
+
    if (twModalView) {
 
-       
+
      //
      // For twModalView access
      //
@@ -321,7 +325,7 @@ beforeEnter: (to, from, next) => {
        to.matched[0].components.modal = ProfilePage
      }
    }
-  
+
    next()
   }
   },
@@ -333,14 +337,14 @@ beforeEnter: (to, from, next) => {
    },
    beforeEnter: (to, from, next) => {
     const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
-   
-     
+
+
     if(window.thisUserState != undefined){
-      
+
       thisUserState.$root.showFullImage = true;
-     
+
      }
-   
+
     if (!twModalView) {
       //
       // For direct access
@@ -350,7 +354,7 @@ beforeEnter: (to, from, next) => {
         modal: false
       }
     }
-   
+
     if (twModalView) {
       //
       // For twModalView access
@@ -369,7 +373,7 @@ beforeEnter: (to, from, next) => {
         to.matched[0].components.modal = Hub
       }
     }
-   
+
     next()
    }
    },
@@ -386,17 +390,17 @@ beforeEnter: (to, from, next) => {
     },
     beforeEnter: (to, from, next) => {
 
-     
-      
+
+
       if(window.thisUserState != undefined){
-        
+
         thisUserState.$root.showAddNewPost = false;
         thisUserState.$root.showViewPost = false;
         thisUserState.$root.showProfileView = false;
-       
+
        }
-     
-     
+
+
       next()
      }
   },
@@ -410,11 +414,11 @@ meta: {
 beforeEnter: (to, from, next) => {
  const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
 
- 
+
  if(window.thisUserState != undefined){
-   
+
    thisUserState.$root.showAddNewPost = true;
-  
+
   }
 
  if (!twModalView) {
@@ -479,20 +483,20 @@ beforeEnter: (to, from, next) => {
    // For twModalView access
    //
     if (from.matched.length > 1) {
-      
+
       // copy nested router
       const childrenView = from.matched.slice(1, from.matched.length)
-      
+
       for (let view of childrenView) {
         to.matched.push(view)
       }
     }
-   
+
     if (to.matched[0].components) {
-      
+
       // Rewrite components for `default`
       to.matched[0].components.default = from.matched[0].components.default
-      
+
       // Rewrite components for `modal`
       to.matched[0].components.modal = Hub
     }
@@ -502,7 +506,7 @@ beforeEnter: (to, from, next) => {
 }
 
 },
-  
+
   {
     // channels
     path: '/channels',
@@ -530,25 +534,25 @@ beforeEnter: (to, from, next) => {
           thisUserState.$root.chatComponent.chatbarContent = 'chat_list';
          }
 
-        
-  
-       
-            
-       
+
+
+
+
+
 
        }
-   
+
       to.matched[0].components = {
         default: Chats,
         modal: false
       }
 
-      
-       
+
+
     next()
   }
   },
-  
+
 
 
   {
@@ -578,20 +582,20 @@ beforeEnter: (to, from, next) => {
 
 
        }
-   
+
       to.matched[0].components = {
         default: Chats,
         modal: false
       }
 
-      
-       
+
+
     next()
   }
   },
-  
 
-  // channel content 
+
+  // channel content
   { path: '/channels/:spaceId/content',
    name: 'Content',
    meta: {
@@ -602,7 +606,7 @@ beforeEnter: (to, from, next) => {
 
 
     if(window.thisUserState != undefined){
-  
+
       if( thisUserState.$root.chatComponent){
 
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
@@ -619,9 +623,9 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.chatInnerConent = '';
       thisUserState.$root.showResourceView  = false;
       thisUserState.$root.showResourceViewContent = false;
-        
+
       }
-     
+
 
      }
 
@@ -725,7 +729,7 @@ beforeEnter: (to, from, next) => {
  if(window.thisUserState != undefined){
 
    if( thisUserState.$root.chatComponent){
-     
+
    thisUserState.$root.showResourceView = false;
    thisUserState.$root.showResourceViewContent = true;
 
@@ -767,7 +771,7 @@ beforeEnter: (to, from, next) => {
 }
 },
 
-// diary settings 
+// diary settings
 { path: '/channels/engine/diary/:bot_id',
 name: 'DiarySettings',
 meta: {
@@ -782,8 +786,8 @@ beforeEnter: (to, from, next) => {
    if( thisUserState.$root.chatComponent){
    thisUserState.$root.showDiarySettings = true;
 
-  
-     
+
+
    }
 
 
@@ -832,14 +836,14 @@ beforeEnter: (to, from, next) => {
 
 
     if(window.thisUserState != undefined){
-      
+
       if( thisUserState.$root.chatComponent){
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
       thisUserState.$root.chatComponent.chatShareIsOpen = false;
       thisUserState.$root.chatComponent.chatbarContent = 'create_channel';
       }
-     
+
 
      }
 
@@ -888,17 +892,17 @@ beforeEnter: (to, from, next) => {
     if(window.thisUserState != undefined){
 
       if( thisUserState.$root.chatComponent){
-  
+
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.chatShareIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
-    
+
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'sub_channels';
-    
+
      }
-     
+
 
      }
 
@@ -947,17 +951,17 @@ beforeEnter: (to, from, next) => {
     if(window.thisUserState != undefined){
 
       if( thisUserState.$root.chatComponent){
-  
+
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.chatShareIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
-    
+
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'diary_notes';
-    
+
      }
-     
+
 
      }
 
@@ -1014,9 +1018,9 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.showProfileView = false;
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'channel_info';
-       
-  
-          
+
+
+
      }
 
      }
@@ -1059,7 +1063,7 @@ beforeEnter: (to, from, next) => {
 {
   path:'/channels/:spaceId/resource_content/:resource_id',
   name:'resourcesContent',
- 
+
   meta: {
     twModalView: true
   },
@@ -1077,9 +1081,9 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.showProfileView = false;
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'resource_content';
-       
-  
-          
+
+
+
      }
 
      }
@@ -1121,7 +1125,7 @@ beforeEnter: (to, from, next) => {
 {
   path:'/channels/:spaceId/resource_content_new/:resource_id',
   name:'resourcesContentNew',
- 
+
   meta: {
     twModalView: true
   },
@@ -1139,9 +1143,9 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.showProfileView = false;
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'resource_content_new';
-       
-  
-          
+
+
+
      }
 
      }
@@ -1178,19 +1182,19 @@ beforeEnter: (to, from, next) => {
     next()
   }
   },
-  
+
      // add resource URL
   {
     path:'/channels/:spaceId/add_resource_url',
     name:'resourcesURL',
-   
+
     meta: {
       twModalView: true
     },
      beforeEnter: (to, from, next) => {
       const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
-  
-  
+
+
       if(window.thisUserState != undefined){
         if( thisUserState.$root.chatComponent){
         thisUserState.$root.chatComponent.liveSessionIsOpen = false;
@@ -1203,13 +1207,13 @@ beforeEnter: (to, from, next) => {
         thisUserState.$root.showYoutubePlayerSm = false;
         thisUserState.$root.chatComponent.chatInnerSideBar = true;
         thisUserState.$root.chatComponent.innerSideBarContent = 'add_resource_url';
-         
-    
-            
+
+
+
        }
-  
+
        }
-  
+
       if (!twModalView) {
         //
         // For direct access
@@ -1219,7 +1223,7 @@ beforeEnter: (to, from, next) => {
           modal: false
         }
       }
-  
+
       if (twModalView) {
         //
         // For twModalView access
@@ -1238,7 +1242,7 @@ beforeEnter: (to, from, next) => {
           to.matched[0].components.modal = Chats
         }
       }
-  
+
       next()
     }
     },
@@ -1246,14 +1250,14 @@ beforeEnter: (to, from, next) => {
   {
     path:'/channels/:spaceId/resources',
     name:'resourcestab',
-   
+
     meta: {
       twModalView: true
     },
      beforeEnter: (to, from, next) => {
       const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
-  
-  
+
+
       if(window.thisUserState != undefined){
         if( thisUserState.$root.chatComponent){
         thisUserState.$root.chatComponent.liveSessionIsOpen = false;
@@ -1266,13 +1270,13 @@ beforeEnter: (to, from, next) => {
         thisUserState.$root.showYoutubePlayerSm = false;
         thisUserState.$root.chatComponent.chatInnerSideBar = true;
         thisUserState.$root.chatComponent.innerSideBarContent = 'resources';
-         
-    
-            
+
+
+
        }
-  
+
        }
-  
+
       if (!twModalView) {
         //
         // For direct access
@@ -1282,7 +1286,7 @@ beforeEnter: (to, from, next) => {
           modal: false
         }
       }
-  
+
       if (twModalView) {
         //
         // For twModalView access
@@ -1301,7 +1305,7 @@ beforeEnter: (to, from, next) => {
           to.matched[0].components.modal = Chats
         }
       }
-  
+
       next()
     }
     },
@@ -1322,14 +1326,14 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.chatShareIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
-    
+
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'channel_edit';
-       
-  
-          
+
+
+
       }
-     
+
 
      }
 
@@ -1379,16 +1383,16 @@ beforeEnter: (to, from, next) => {
     if(window.thisUserState != undefined){
 
       if( thisUserState.$root.chatComponent){
-  
+
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
-   
+
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'add_sub_channel';
-       
- 
-          
+
+
+
       }
 
      }
@@ -1439,16 +1443,16 @@ beforeEnter: (to, from, next) => {
     if(window.thisUserState != undefined){
 
       if( thisUserState.$root.chatComponent){
-  
+
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
-   
+
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'resource_search';
-       
- 
-          
+
+
+
       }
 
      }
@@ -1499,16 +1503,16 @@ beforeEnter: (to, from, next) => {
     if(window.thisUserState != undefined){
 
       if( thisUserState.$root.chatComponent){
-  
+
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.innerSideBarContent = '';
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
-   
+
       thisUserState.$root.chatComponent.chatInnerSideBar = true;
       thisUserState.$root.chatComponent.innerSideBarContent = 'add_payment';
-       
- 
-          
+
+
+
       }
 
      }
@@ -1557,7 +1561,7 @@ beforeEnter: (to, from, next) => {
 
 
     if(window.thisUserState != undefined){
-  
+
       if( thisUserState.$root.chatComponent){
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.chatShareIsOpen = false;
@@ -1565,10 +1569,10 @@ beforeEnter: (to, from, next) => {
       thisUserState.$root.chatComponent.chatInnerConent = false;
       thisUserState.$root.chatComponent.chatInnerSideBar = false;
 
-    
+
         thisUserState.$root.chatComponent.liveSessionIsOpen = true;
-      
-  
+
+
        }
 
      }
@@ -1616,17 +1620,17 @@ beforeEnter: (to, from, next) => {
 
 
     if(window.thisUserState != undefined){
-  
+
       if( thisUserState.$root.chatComponent){
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.imageCropperIsOpen = false;
       thisUserState.$root.chatComponent.chatInnerConent = false;
       thisUserState.$root.chatComponent.chatInnerSideBar = false;
 
-     
+
         thisUserState.$root.chatComponent.chatShareIsOpen = true;
-     
-  
+
+
        }
 
      }
@@ -1675,17 +1679,17 @@ beforeEnter: (to, from, next) => {
 
 
     if(window.thisUserState != undefined){
-  
+
       if( thisUserState.$root.chatComponent){
       thisUserState.$root.chatComponent.liveSessionIsOpen = false;
       thisUserState.$root.chatComponent.chatShareIsOpen = false;
       thisUserState.$root.chatComponent.chatInnerConent = false;
       thisUserState.$root.chatComponent.chatInnerSideBar = false;
 
-    
+
         thisUserState.$root.chatComponent.imageCropperIsOpen = true;
-      
-  
+
+
        }
 
      }
@@ -1734,7 +1738,7 @@ beforeEnter: (to, from, next) => {
 
     if(window.thisUserState != undefined){
       if( thisUserState.$root.chatComponent){
-  
+
       thisUserState.$root.chatComponent.chatInnerConent = 'code_editor';
       }
      }
@@ -1928,11 +1932,11 @@ beforeEnter: (to, from, next) => {
    beforeEnter: (to, from, next) => {
     const twModalView = from.matched.some(view => view.meta && view.meta.twModalView)
 
-    
+
     if(window.thisUserState != undefined){
-      
+
       thisUserState.$root.showImageCropper = true;
-     
+
      }
 
     if (!twModalView) {
@@ -1968,7 +1972,7 @@ beforeEnter: (to, from, next) => {
   }
 },
   { path: '/board',
-     name: 'Board', 
+     name: 'Board',
      component: Board,
      redirect: '/board/projects',
     children: [
@@ -2054,7 +2058,7 @@ children:[
                     path:'add-git',
                     component: AddGit
                   }
-                 
+
                ]
     },
     {
@@ -2062,10 +2066,10 @@ children:[
       path: 'create',
       component: AddProject
     },
-  
+
     ]
       },
-    
+
       {
         // content bots
         path: 'diary',
@@ -2075,7 +2079,7 @@ children:[
         },
         redirect:'/board/diary/list',
         children:[
-          { 
+          {
             path:'bank',
             component:DiaryBank,
             meta: {
@@ -2115,7 +2119,7 @@ children:[
                   twModalView: true
                  },
               },
-            
+
 
             ]
           }
@@ -2128,7 +2132,7 @@ children:[
         ]
       },
 
-   
+
 
       {
         // challenges
@@ -2139,15 +2143,15 @@ children:[
           twModalView: true
         },
         beforeEnter: (to, from, next) => {
-     
+
           if(window.thisUserState != undefined){
-            
+
             thisUserState.$root.showProfileView = false;
-    
-           
+
+
            }
-         
-         
+
+
           next()
          },
         children:[
@@ -2240,7 +2244,7 @@ children:[
           twModalView: true
         },
         children:[
-           
+
           {
             // main
             path:'main',
@@ -2257,19 +2261,19 @@ children:[
           twModalView: true
         },
         beforeEnter: (to, from, next) => {
-     
+
           if(window.thisUserState != undefined){
-            
+
             thisUserState.$root.showProfileView = false;
-    
-           
+
+
            }
-         
-         
+
+
           next()
          },
         children:[
-           
+
           {
             // list
             path:'list',
@@ -2286,7 +2290,7 @@ children:[
           twModalView: true
         },
         children:[
-            
+
           { // list
             path: 'list',
             component: NotificationsList
@@ -2304,12 +2308,12 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   // If this isn't an initial page load.
-  
+
       // Start the route progress bar.
       if(window.thisUserState){
         thisUserState.routeIsLoading = true;
       }
-  
+
   next()
 })
 
@@ -2641,7 +2645,11 @@ const app = new Vue({
     loadingResourceContent:false,
     resourceToAddStore:[],
     resourcesDataStore:[],
-    showGit:false
+    showGit:false,
+    videoIsLoading:true,
+    audioIsLoading:true,
+    imageIsLoading:true,
+    visitedResources:false,
      },
      mounted: function () {
 
@@ -2650,13 +2658,13 @@ const app = new Vue({
       window.thisUserState = this;
       window.routerData = this.$router;
 
-    
+
       this.pageLoaderView = false;
       if(this.isLogged){
         this.fetchUserDetails();
        }
 
-     
+
       this.connectToChannel();
       // this.checkPWA();
 
@@ -2703,23 +2711,23 @@ const app = new Vue({
 
 
             }
-         
+
       },
-   
+
       InternetConnected:function(newValue, oldValue){
 
           if(newValue){
             if( this.$root.chatComponent){
-              
-              
+
+
               window.iziToast.destroy();
-              
+
               this.$root.chatComponent.showAlert('Nice!','You are back online','success','bottomRight',3000);
 
 
-          
 
-             
+
+
             }
             console.log('you are connected')
           }else{
@@ -2727,7 +2735,7 @@ const app = new Vue({
             if( this.$root.chatComponent){
               this.$root.chatComponent.showAlert('Opps!','You are offline','error','bottomRight',false);
 
-              
+
             }
 
             console.log('Internet connection was lost')
@@ -2740,30 +2748,30 @@ const app = new Vue({
 
         if(!newValue && !this.InternetConnected){
 
-       
+
 
          this.connectingToSocket = 'disconnected';
-        
+
           if(!this.manuallyClosed){
 
          this.rejoinAudio(this.isMaster);
 
           }
-         
+
 
 
        }else{
 
          this.connectingToSocket = false;
        }
-   
+
       },
       // whenever isConnectedScreen changes, this function will run
       isConnectedScreen: function (newValue, oldValue) {
 
         if(!newValue && !this.InternetConnected){
 
-        
+
           if(!this.screenIsConnecting){
 
              if(!this.manuallyClosed){
@@ -2772,23 +2780,23 @@ const app = new Vue({
 
              }
 
-            
+
 
           }
 
-         
+
 
         }
 
-       
+
     },
       // whenever isConnectedData changes, this function will run
       isConnectedData: function (newValue, oldValue) {
 
         if(!newValue && !this.InternetConnected){
 
-        
-       
+
+
              if(!this.manuallyClosed){
 
               this.rejoinData(this.isMaster);
@@ -2797,11 +2805,11 @@ const app = new Vue({
 
 
         }
-          
+
       }
     },
     created(){
-   
+
 
        // set internet connection listerner
        window.addEventListener('offline', () => {
@@ -2826,12 +2834,12 @@ const app = new Vue({
         this.returnedToken = userData.token;
         this.$store.commit('setUserData', userData)
 
-       
-     
+
+
     }
 
-      
-      
+
+
 
     axios.interceptors.response.use(
       response => response,
@@ -2842,7 +2850,7 @@ const app = new Vue({
         return Promise.reject(error)
       }
     );
-    
+
     // set user login state
     if(this.isLogged){
        this.checkauthroot = 'auth';
@@ -2858,7 +2866,7 @@ const app = new Vue({
 
 
         if ('Notification' in window && navigator.serviceWorker) {
-        
+
           navigator.serviceWorker.ready.then(function(registration) {
 
             var notificationFilter = {
@@ -2869,13 +2877,13 @@ const app = new Vue({
 
               if(notifications && notifications.length > 0){
                 notifications[0].close();
-              } 
-             
+              }
+
             })
           });
 
         }
-        
+
 
       },
       checkScriptVersion:function(){
@@ -2885,65 +2893,65 @@ const app = new Vue({
         let storedVersion = this.$root.getLocalStore('script_version');
 
         storedVersion.then((result)=>{
-            
+
              if(result != null ){
-            
+
               let finalResult = JSON.parse(result);
                this.version_no = finalResult[0];
 
               axios.get( '/check-script-version' )
               .then(response => {
-              
+
               if (response.status == 200) {
-            
+
                   this.$root.LocalStore('script_version',[response.data.version],false,'reload_page');
 
-                 
-            
-             
-                    
+
+
+
+
              }
-               
-             
+
+
              })
              .catch(error => {
-            
-              
-            
-             }) 
+
+
+
+             })
 
 
              }else{
-        
-       
+
+
         axios.get( '/check-script-version' )
   .then(response => {
-  
+
   if (response.status == 200) {
 
       this.$root.LocalStore('script_version',[response.data.version]);
-     
 
- 
-        
+
+
+
  }
-   
- 
+
+
  })
  .catch(error => {
 
-  
 
- }) 
+
+ })
 
              }
         })
 
       },
-      
+
       checkPWA: function(){
-          
-         
+
+
 
         window.addEventListener('beforeinstallprompt', (e) => {
           // Prevent the mini-infobar from appearing on mobile
@@ -2953,143 +2961,143 @@ const app = new Vue({
           // Update UI notify the user they can install the PWA
           this.showInstallPromotion();
         });
-                   
+
               },
-              
+
               showInstallPromotion:function(){
                 this.ShowappInstaller = true;
              },
       // user device tracker
       checkUserDevice: function(){
-         
+
 
         let storedInfo = this.$root.getLocalStore('user_device_id_' + this.$root.username);
-  
+
          storedInfo.then((result)=>{
            if(result != null){
-           
-  
+
+
             let finalResult = JSON.parse(result);
-  
+
             this.userDeviceId = finalResult[0];
-  
+
             this.saveDeviceInfo(this.userDeviceId);
-  
-  
+
+
            }else{
-  
+
             var deviceId = "device_" + Math.random().toString(36).slice(2);
-  
+
             this.userDeviceId = deviceId;
-  
+
             this.$root.LocalStore('user_device_id_' + this.$root.username,[deviceId]);
-  
+
             this.saveDeviceInfo(deviceId);
-  
-  
+
+
            }
-  
-          
+
+
          })
-  
-  
+
+
         },
         saveDeviceInfo:function(deviceId){
-  
+
           axios.post('/save-user-device',{
             deviceId: deviceId,
             device_name: navigator.appName,
             device_platform: navigator.platform
               })
       .then(response => {
-        
+
        if (response.status == 200) {
-          
-    
-        
+
+
+
         }else{
           console.log(response.status);
         }
-        
-        
+
+
       })
       .catch(error => {
         console.log(error);
       })
-  
+
         },
         markSpaceRead:function(spaceId){
 
           if(this.ChatList.length != 0){
-           
+
             this.ChatList.map((space)=>{
-                 
+
               if(space.space_id == spaceId){
-    
-                
+
+
                 space.unread = 0;
               }
-      
+
             });
 
             let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
             storedChat.then((result)=>{
-        
+
                 if(result != null ){
-        
+
              let finalResult = JSON.parse(result);
-               
-                 
-        
-        
+
+
+
+
                    finalResult.channels.map((space)=>{
-                 
+
                     if(space.space_id == spaceId){
                       space.unread = 0;
                     }
-              
+
                   });
-              
+
                   finalResult.direct_messages.map((space)=>{
-                       
+
                     if(space.space_id == spaceId){
                       space.unread = 0;
                     }
-              
+
                   });
-              
+
                   finalResult.pet_spaces.map((space)=>{
-                       
+
                     if(space.space_id == spaceId){
                       space.unread = 0;
                     }
-                
-             
+
+
                      });
-        
+
             this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
-         
-        
+
+
           }
-        
+
         })
 
 
-           
-            
-          
+
+
+
           }
-    
-    
+
+
           this.$root.LocalStore('unread_messages_' + spaceId  + this.$root.username,[]);
-          
+
         },
       // sets up laravel echo for live sockets
       setEcho:function(){
         if (typeof io !== 'undefined') {
           window.Echo = new Echo({
-              broadcaster: 'socket.io', 
+              broadcaster: 'socket.io',
              host: window.customLocation + ':6001',
              transports: ['websocket', 'polling', 'flashsocket'] ,// Fix CORS error!
              auth:
@@ -3102,21 +3110,21 @@ const app = new Vue({
           });}
 
           this.socketEcho = window.Echo;
-         
-          
+
+
       },
       fetchProfileHandler: function(){
-    
+
         axios.get('/fetch-profile-'+ this.username)
   .then(response => {
-  
+
   if (response.status == 200) {
-       
+
        let userProfile = response.data.profile;
        let user = response.data.user_data;
-       
-       
-       
+
+
+
       let userDetails = {
       'username':user.username,
       'name': user.name,
@@ -3134,10 +3142,10 @@ const app = new Vue({
       'suggested_diary': userProfile.suggested_diary,
        'is_mentor': userProfile.is_mentor
       };
-        
-      
 
-      
+
+
+
     this.$root.authProfile = userDetails;
 
        this.$root.LocalStore('profile_info_new' + this.$root.username,userDetails);
@@ -3145,25 +3153,22 @@ const app = new Vue({
     //  if(!this.$root.authProfile.user_onboarded){
     //     this.$root.authProfile.unread = 1;
     //    }
-    
-   
-    
-    
+
  }
-   
- 
+
+
  })
  .catch(error => {
 
- }) 
+ })
 
-     
+
       },
     // fetches the logged in user details
       fetchUserDetails: function(){
 
         let StoredProfileInfo = this.$root.getLocalStore('profile_info_new' + this.$root.username);
-  
+
         StoredProfileInfo.then((result)=>{
 
           if(result != null){
@@ -3177,11 +3182,11 @@ const app = new Vue({
           }else{
 
              this.fetchProfileHandler();
-             
+
           }
 
         });
-      
+
 
   },
   clearUnreadMessageRemote: function(messageId){
@@ -3192,19 +3197,19 @@ const app = new Vue({
       device_id: this.$root.userDeviceId
    })
   .then(response => {
-  
+
   if (response.status == 200) {
-   
-  
+
+
   }
-  
-  
+
+
   })
-  .catch(error => {  
-    
-  }) 
-     
-   
+  .catch(error => {
+
+  })
+
+
    },
    checkCodeForInput: function(code,languageId){
 
@@ -3217,7 +3222,7 @@ const app = new Vue({
         let InputRegex = /(cin >> )(.*)/g;
         let InputFound = code.match(InputRegex);
 
-       
+
 
          if(InputFound != null){
 
@@ -3227,10 +3232,10 @@ const app = new Vue({
 
          InputFound.forEach((input)=>{
 
-           
+
             let finalWord = input.split(" ");
 
-           
+
 
            var inputData = {
               name: finalWord[2].substring(0, finalWord[2].length - 1),
@@ -3241,21 +3246,21 @@ const app = new Vue({
          })
 
 
-      
+
          this.$root.showProjectInput = true;
 
          return 'present';
 
-          
+
        }
-       
+
        }
 
          return 'present'
       }
-      
+
     if(languageId == '39' || languageId == '100' || languageId == '38'){
-                 
+
       let InputRegex = /(input\(')(.*)('\))/g;
 
       let InputFound = code.match(InputRegex);
@@ -3265,7 +3270,7 @@ const app = new Vue({
         InputRegex = /(input\(")(.*)("\))/g;
 
       InputFound = code.match(InputRegex);
-      
+
 
        }
 
@@ -3278,7 +3283,7 @@ const app = new Vue({
 
        InputFound.forEach((input)=>{
 
-         
+
           let finalWord = input.split("'");
 
              if(finalWord.length == 1){
@@ -3299,11 +3304,11 @@ const app = new Vue({
 
          return 'present';
      }
-     
+
      }
 
 
-       
+
 
       }
 
@@ -3316,26 +3321,26 @@ const app = new Vue({
       this.setEcho();
 
     if(this.checkauthroot == 'auth'){
-     
+
       window.Echo.join('global')
       .here((users) => {
- 
-         
-        
+
+
+
       this.$root.globalUsers = users;
- 
-       
- 
+
+
+
     })
     .joining((user) => {
- 
-       
-    
-     
+
+
+
+
     this.$root.globalUsers.push(user);
- 
-   
-    
+
+
+
     })
     .leaving((user) => {
        let newList = this.$root.globalUsers.filter((eachuser)=>{
@@ -3343,334 +3348,340 @@ const app = new Vue({
        });
 
      this.$root.globalUsers = newList;
- 
+
     })
     .listen('.GlobalChannel',(e) => {
 
         if(e.userId == this.user_temp_id || e.userId == 0){
-          
+
           if(e.actionType == 'new-message'){
 
 
             setTimeout(() => {
 
               if(!this.$root.checkIfMessageExist(e.data) && e.data.origin_device != this.$root.userDeviceId){
- 
+
                 let message= e.data
-    
+
                 if(message.type == 'join'){
                   this.fetchSpaceInfo(message.space_id)
                 }
-                
+
                 let messageData = {
                   space_id: e.data.space_id,
                   new_messages: [e.data]
                 };
-    
+
                 this.handleSpaceData([messageData])
-                
-    
-            
-    
+
+
+
+
                 this.scrollToBottom();
-    
-               
-    
+
+
+
                }
-              
+
             }, 1000);
 
-          
- 
+
+
        }
- 
- 
+
+
        if(e.actionType == 'new_post'){
- 
- 
+
+
          if(this.$root.hubComponents){
-          
-         
+
+
            this.$root.posts.push(e.data);
- 
-         
- 
+
+
+
          }
- 
-        
- 
+
+
+
           }
- 
+
           if(e.actionType == 'post_liked'){
- 
-         
+
+
            if(this.$root.hubComponents){
-            
-           
+
+
              this.$root.posts.map((post)=>{
                if(post.id == e.data.hub_post_id){
- 
+
                   post.likes += 1;
- 
+
                }
              });
- 
+
               if(this.$root.selectedPost){
- 
+
                 if(this.$root.selectedPost.id == e.data.hub_post_id){
- 
+
                  this.$root.selectedPost.likes += 1;
- 
+
                 }
- 
-              
- 
+
+
+
               }
-   
-           
-   
+
+
+
            }
-   
-          
-   
+
+
+
             }
- 
+
             if(e.actionType == 'post_pinned'){
- 
- 
+
+
              if(this.$root.hubComponents){
-              
-                 
-   
+
+
+
                 if(this.$root.selectedPost){
-   
+
                  if(this.$root.selectedPost.id == e.data.hub_post_id){
- 
+
                    this.$root.selectedPost.pinned += 1;
-   
+
                   }
-   
+
                 }
-     
-             
-     
+
+
+
              }
-     
-            
-     
+
+
+
               }
- 
- 
+
+
               if(e.actionType == 'post_comment'){
- 
- 
+
+
                if(this.$root.hubComponents){
- 
- 
+
+
                  this.$root.posts.map((post)=>{
                    if(post.id == e.data.hub_post_id){
-     
+
                       post.comments += 1;
-     
+
                    }
                  });
-                
-             
-     
+
+
+
                   if(this.$root.selectedPost){
-     
+
                    if(this.$root.selectedPost.id == e.data.hub_post_id){
-   
+
                       this.$root.projectViewComponent.comments.unshift(e.data);
                       this.$root.projectViewComponent.scrollToTop();
-     
+
                     }
-     
+
                   }
-       
-               
-       
+
+
+
                }
-       
-              
-       
+
+
+
                 }
- 
- 
+
+
                 if(e.actionType == 'post_comment_like'){
- 
- 
+
+
                  if(this.$root.hubComponents){
-   
-              
-       
+
+
+
                     if(this.$root.selectedPost){
-       
+
                      if(this.$root.selectedPost.id == e.data.hub_post_id){
-     
+
                         this.$root.projectViewComponent.comments.map((comment)=>{
                           if(comment.id == e.data.id){
- 
+
                             comment.likes += 1;
- 
+
                           }
                         });
-       
+
                       }
-       
+
                     }
-         
-                 
-         
+
+
+
                  }
-         
-                
-         
+
+
+
                   }
- 
+
                   if(e.actionType == 'new_direct_space'){
- 
+
                    let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
- 
+
                    storedChat.then((result)=>{
- 
+
                        if(result != null ){
- 
- 
+
+
                     let finalResult = JSON.parse(result);
- 
+
                         let userSpace = finalResult.direct_messages.filter((space)=>{
                           return space.space_id == e.data.space.space_id
                         })
- 
+
                         if(userSpace.length > 0){
- 
- 
+
+
                         }else{
- 
+
                           finalResult.direct_messages.unshift(e.data.space);
- 
+
                           this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
                           let FinalMessages = finalResult.direct_messages.filter(chat=>{
                             return chat.last_message.length > 0
                           })
- 
+
                      let fullList = finalResult.channels.concat(FinalMessages, finalResult.pet_spaces);
- 
-                     
+
+
                    this.$root.ChatList = fullList;
- 
+
                      this.$root.sortChatList();
- 
+
                         }
-                    
- 
+
+
                  }
- 
+
                    } )
- 
+
                   }
- 
+
                   if(e.actionType == 'space_update'){
- 
+
                     if(e.data.device_id == this.$root.userDeviceId){
- 
+
                      let returnData = e.data.data;
- 
-                       this.returnedDataArray.push(returnData);
- 
+
+                       if(returnData[0].new_messages.length > 0){
+
+                        this.returnedDataArray.push(returnData);
+
+                       }
+
+
+
                        this.checkForLostmessages();
-                        
-                      
-  
- 
+
+
+
+
                     }
- 
-                 
+
+
                   }
- 
+
                    if(e.actionType == 'message_delete'){
- 
- 
+
+
                       this.deleteMessage(e.data)
- 
-                  
+
+
                   }
-  
- 
+
+
        if(e.actionType == 'challenge_comment'){
- 
+
          if( this.$root.discussionComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
-          
-         
+
+
            this.$root.discussionComponent.comments.unshift(e.data);
- 
-         
- 
+
+
+
          }
- 
+
     }
- 
+
     if(e.actionType == 'challenge_comment_like'){
- 
+
      if( this.$root.discussionComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
-      
-     
+
+
        this.$root.discussionComponent.comments.map((comment)=>{
            if(comment.id == e.data.id){
- 
+
              comment.likes += 1;
- 
+
            }
        });
- 
-     
- 
+
+
+
      }
- 
-       }    
- 
- 
- 
+
+       }
+
+
+
        if(e.actionType == 'new_challenge_participant'){
- 
+
          if( this.$root.challengePanelComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
-          
-         
+
+
            this.$root.selectedChallenge.current_participant += 1;
- 
+
            this.$root.selectedChallenge.duel_participants.unshift(e.data);
-     
-         
-     
+
+
+
          }
-     
-           }  
- 
-           
+
+           }
+
+
            if(e.actionType == 'challenge_started'){
- 
+
              if(this.$root.challengePanelComponent && (e.data.duel_id == this.$root.selectedChallenge.duel_id)){
-              
-             
-               
+
+
+
                this.$root.challengePanelComponent.reloadChallenge();
-             
-         
+
+
              }
-         
-               }  
- 
+
+               }
+
 
 
         }
 
-      
+
       })
       .listenForWhisper('typing', (e) => {
 
-            
+
         this.$root.typinguser = e.user;
          this.$root.typing = e.typing;
          this.$root.typingSpace = e.spaceId;
@@ -3701,7 +3712,7 @@ const app = new Vue({
 
                     this.$root.remoteScreen = true;
 
-                 
+
 
                       if(this.livesessionComponent){
 
@@ -3709,7 +3720,7 @@ const app = new Vue({
 
                       }
 
-                   
+
 
                  }
                  if(e.data == 'code'){
@@ -3737,19 +3748,19 @@ const app = new Vue({
       window.Echo.channel('authuser')
       .listen('.AuthUser',(e) => {
 
-        
+
 
       })
     }
-       
+
   },
   checkGitHubLoginState:function(){
 
     axios.get( '/check-github-auth/' + this.$root.auth_device_id)
     .then(response => {
-    
+
     if (response.status == 200) {
-  
+
            let authData = response.data;
 
            if(authData){
@@ -3759,76 +3770,76 @@ const app = new Vue({
             const userInfo = localStorage.getItem('user_new')
             if (userInfo) {
               const userData = JSON.parse(userInfo)
-        
+
                 this.$root.username = userData.user.username;
                 this.$root.user_temp_id = userData.user.id;
                 this.$root.returnedToken = userData.token;
-        
+
             }
-        
+
               this.$root.checkUserDevice();
-        
+
               this.$root.checkauthroot = 'auth';
-        
-             
+
+
               this.$root.fetchUserDetails();
                this.$root.setEcho();
-        
-        
+
+
               let storedTracker = this.$root.getLocalStore('route_tracker_new');
-        
+
               storedTracker.then((result)=>{
                 this.$root.connectToChannel();
                 if(result != null ){
                     let finalResult = JSON.parse(result);
                this.$router.push({ path: finalResult[0] });
-               
-        
+
+
                 }else{
-                  
+
                   this.checkIfLogin()
-        
-                  
-        
+
+
+
                 }
-        
-        
+
+
               })
-      
+
            }else{
              setTimeout(() => {
-              this.checkGitHubLoginState() 
+              this.checkGitHubLoginState()
              }, 2000);
-           
+
            }
-          
+
      }
-     
-   
+
+
    })
    .catch(error => {
-  
-    setTimeout(() => {
-      this.checkGitHubLoginState() 
-     }, 2000);
-   
-  
-   }) 
 
- 
+    setTimeout(() => {
+      this.checkGitHubLoginState()
+     }, 2000);
+
+
+   })
+
+
   },
   fetchSpaceDetails:function(space_id,finalResult){
 
     axios.get('/fetch-user-spaces-'  + this.$root.userDeviceId  +  '/' + space_id)
   .then(response => {
-  
+
   if (response.status == 200) {
 
 
       if(response.data.type != 'SubSpace'){
 
         response.data.space.message_track = new Date();
-  
+
     if(response.data.type == 'Direct'){
 
       finalResult.direct_messages.unshift(response.data.space);
@@ -3841,11 +3852,11 @@ const app = new Vue({
 
     }
 
-   
+
     let FinalMessages= finalResult.direct_messages.filter(chat=>{
       return chat.last_message.length > 0
     })
-  
+
 
     let fullList = finalResult.channels.concat(FinalMessages,finalResult.pet_spaces);
 
@@ -3859,20 +3870,20 @@ const app = new Vue({
 
       }
 
-     
 
 
-  
+
+
   }
-  
-  
-  })
-  .catch(error => {  
 
-   
-    
-  }) 
-    
+
+  })
+  .catch(error => {
+
+
+
+  })
+
   },
   addSpaceToChatList:function(space_id){
     let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
@@ -3886,7 +3897,7 @@ const app = new Vue({
 
        let allChatList = finalResult.channels.concat(finalResult.direct_messages, finalResult.pet_spaces);
 
-         
+
 
          let userSpace = allChatList.filter((space)=>{
            return space.space_id == space_id
@@ -3901,12 +3912,12 @@ const app = new Vue({
              this.fetchSpaceDetails(space_id,finalResult);
 
 
-          
+
          }
         }
-        
+
       })
-   
+
   },
   handleResults(messageArray){
 
@@ -3923,7 +3934,7 @@ const app = new Vue({
 
      });
 
- 
+
 
 
 
@@ -3934,7 +3945,7 @@ const app = new Vue({
 
      // remove from database
 
-    
+
      let ProcessedMessages = [];
 
      let storedMsg = this.$root.getLocalStore('full_space_' + message.space_id + this.$root.username);
@@ -3959,13 +3970,13 @@ const app = new Vue({
 
               this.$root.Messages = this.$root.handleResults(remainingMessages);
 
-        
+
 
             }
 
-           
 
-          
+
+
              this.$root.LocalStore('full_space_' +  message.space_id   + this.$root.username,finalResult);
 
         }
@@ -3975,7 +3986,7 @@ const app = new Vue({
      // update chatlist, check if message deleted is a last message
 
 
-      
+
 
    let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
@@ -3986,7 +3997,7 @@ const app = new Vue({
 
             let messageData = ProcessedMessages.filter((EachMessage)=>{
               return EachMessage.message_id == message.message_id;
-              
+
                 })
 
             messageData = messageData[0];
@@ -3994,24 +4005,24 @@ const app = new Vue({
 
 
              let finalResult = JSON.parse(result);
-               
+
 
                    finalResult.channels.map((space)=>{
-  
+
            if(space.space_id == messageData.space_id){
 
-            
-               
+
+
                 if(space.last_message[0].index_count == messageData.index_count ){
 
-                  
+
 
                     space.last_message[0].deleted = true
 
-                   
+
                 }
-          
-           
+
+
                  }
 
                     });
@@ -4019,32 +4030,32 @@ const app = new Vue({
               finalResult.direct_messages.map((space)=>{
                       if(space.space_id == messageData.space_id){
 
-                       
-               
+
+
                 if(space.last_message[0].index_count == messageData.index_count ){
 
                    space.last_message[0].deleted = true
 
                 }
-          
-           
+
+
                  }
 
                 });
 
                finalResult.pet_spaces.map((space)=>{
-   
+
              if(space.space_id == messageData.space_id){
 
-                 
-               
+
+
                 if(space.last_message[0].index_count == messageData.index_count ){
 
                     space.last_message[0].deleted = true
 
                 }
-          
-           
+
+
                  }
 
                   });
@@ -4057,7 +4068,7 @@ const app = new Vue({
 
               let fullList = finalResult.channels.concat(FinalMessages, finalResult.pet_spaces);
 
-              
+
             this.$root.ChatList = fullList;
 
                this.$root.sortChatList(false);
@@ -4074,54 +4085,54 @@ const app = new Vue({
     audioFile.play();
   },
   checkForLostmessages: function(){
-     
+
 
    setInterval(() => {
 
-      
+
        if(this.returnedDataArray.length > 0){
 
-      
+
           if(this.messageIsProcessing == false){
-           
+
             this.messageIsProcessing = true;
 
-            let firstData = this.returnedDataArray.shift();             
+            let firstData = this.returnedDataArray.shift();
             this.handleSpaceData(firstData);
-             
-          
-            
+
+
+
           }
-         
-      
-          
+
+
+
        }else{
-            
-          
+
+
         this.messageIsProcessing = false;
        }
 
-       
+
     }, 4000);
 
-   
 
-        
+
+
   },
    sendLiveSignal:function(type){
 
-        
+
     this.liveChanges(type,'liveIsOn');
 
-     
+
 
      },
      liveChanges:function(data,action) {
 
-   
+
    let channel =  window.Echo.join('global');
 
-  
+
 
       channel.whisper('liveAction', {
        data:data,
@@ -4130,11 +4141,11 @@ const app = new Vue({
      });
 
 
-    
 
-      
-  
-       
+
+
+
+
      },
      stopTying:_.debounce( function () {
 
@@ -4161,7 +4172,7 @@ const app = new Vue({
         }else{
           return false;
         }
-   
+
   },
 
   // check user login state
@@ -4169,7 +4180,7 @@ const app = new Vue({
     if(this.checkauthroot == 'noauth'){
 
       if(this.$router.currentRoute.path.indexOf('settings') >= 0){
-                    
+
         this.LocalStore('route_tracker_new',['/channels']);
 
 
@@ -4178,11 +4189,11 @@ const app = new Vue({
         this.LocalStore('route_tracker_new',[this.$router.currentRoute.path]);
 
       }
-     
-     
+
+
        this.$router.push({ path: '/login' });
       return;
-    } 
+    }
  },
  // save space data to local storage
  pushDataToLocal:function(data){
@@ -4190,21 +4201,21 @@ const app = new Vue({
   localforage.getItem('full_space_' + data.space_id + this.$root.username).then((result)=> {
 
    if(result != null){
-    
-    
+
+
     let finalResult = JSON.parse(result);
         finalResult[0].push(data);
-      
+
         this.LocalStore('full_space_' + data.space_id  + this.$root.username,finalResult);
-      
+
    }
 
   });
-   
+
  },
  // local storage
- LocalStore:function(key,data,fromUnsent = false,actionName = 'null',extraData = null){ 
-     
+ LocalStore:function(key,data,fromUnsent = false,actionName = 'null',extraData = null){
+
   localforage.setItem(key,JSON.stringify(data)).then(function () {
     return localforage.getItem(key);
   }).then( () => {
@@ -4220,16 +4231,16 @@ const app = new Vue({
       if(actionName == 'reload_page'){
         if(data[0] ==  this.version_no){
 
-          // do nothing 
+          // do nothing
           // script is up to data
 
          }else{
-              
+
           location.reload();
-        
+
 
          }
-       
+
       }
 
       if(actionName == 'leave_space'){
@@ -4240,14 +4251,14 @@ const app = new Vue({
 
         let fullList = data.channels.concat(FinalMessages, data.pet_spaces);
 
-                     
+
         this.$root.ChatList = fullList;
 
-          this.$root.sortChatList();   
+          this.$root.sortChatList();
 
           this.SetUnread();
-          
-       
+
+
        this.$router.push({ path: '/channels' });
 
       }
@@ -4260,7 +4271,7 @@ const app = new Vue({
 
         let fullList = data.channels.concat(FinalMessages, data.pet_spaces);
 
-                     
+
         this.$root.ChatList = fullList;
 
           this.$root.sortChatList();
@@ -4287,56 +4298,56 @@ const app = new Vue({
 
               // update unread messages into local storage
 
-             
-   
+
+
        let unreadStoredMsg = this.$root.getLocalStore('unread_messages_' + extraData.space_id + this.$root.username);
-   
+
        unreadStoredMsg.then((result)=>{
-   
+
       let finalResultUnread = JSON.parse(result);
-   
+
        finalResultUnread.push(extraData.message)
 
-     
-   
-   
+
+
+
        localforage.setItem('unread_messages_' + extraData.space_id + this.$root.username,JSON.stringify(finalResultUnread)).then( ()=> {
-         
+
         this.sortChatList(false);
 
         this.handleSpaceData(firstData);
 
-        
+
          this.$root.clearUnreadMessageRemote(extraData.message.message_id);
-      
+
         if(this.returnedDataArray.length == 0){
           this.messageIsProcessing = false;
          }else{
           this.messageIsProcessing = true;
          }
 
-     
-        }).then( (value) => {
-         
 
-         
-        
-   
+        }).then( (value) => {
+
+
+
+
+
         }).catch(function (err) {
        console.log(err)
-       // we got an error   
+       // we got an error
         });
-   
+
        });
 
            }else{
 
-           
+
             this.handleSpaceData(firstData);
 
-            
+
             this.$root.clearUnreadMessageRemote(extraData.message.message_id);
-         
+
            if(this.returnedDataArray.length == 0){
              this.messageIsProcessing = false;
             }else{
@@ -4345,18 +4356,18 @@ const app = new Vue({
 
            }
 
-            
 
-        
+
+
 
          }
 
       }
-      
 
-     
-   
-   
+
+
+
+
   }).catch(function (err) {
     console.log(err)
     // we got an error
@@ -4365,10 +4376,10 @@ const app = new Vue({
   },
   getLocalStore:function(key){
     let result = localforage.getItem(key);
-      
+
     return result;
-    
-  
+
+
   },
   removeLocalStorage: function(key,from = ''){
     localforage.removeItem(key).then(()=> {
@@ -4381,11 +4392,11 @@ const app = new Vue({
      if(from == 'chat_messages'){
 
       this.$root.chatComponent.fetchMessages(this.$root.selectedSpace.space_id)
-     
+
 
      }
-     
-     
+
+
   }).catch(function(err) {
       // This code runs if there were any errors
       console.log(err);
@@ -4393,25 +4404,25 @@ const app = new Vue({
   },
   // sort chat list
   sortArray: function(arrayValue){
-    arrayValue.sort(function(a, b){ 
-    
-      return new Date(b.message_track) - new Date(a.message_track); 
-  }); 
+    arrayValue.sort(function(a, b){
+
+      return new Date(b.message_track) - new Date(a.message_track);
+  });
 
   },
-  
+
   sortChatList: function(checkUnread = true){
     if(this.ChatList != undefined){
-      
+
       if(checkUnread){
-        
+
         this.checkChannelSubSpace();
       }
-     
+
       this.sortArray(this.ChatList);
 
     }
-   
+
 },
 checkChannelSubSpace:function(){
 
@@ -4423,13 +4434,13 @@ checkChannelSubSpace:function(){
 
  if(result != null){
 
-      
+
 
    let finalResult = JSON.parse(result);
 
      let subspaces = finalResult.sub_channels;
 
-     
+
 
 
   subspaces.forEach((subspace)=>{
@@ -4442,14 +4453,14 @@ unreadStoredMsg.then((result)=>{
 
    let finalResultUnread = JSON.parse(result);
 
-  
+
 
    space.subspace_messages += finalResultUnread.length;
 
-   
+
  }
 
-    
+
 
 });
 
@@ -4468,24 +4479,24 @@ unreadStoredMsg.then((result)=>{
 },
 updateSpaceMessages: function(showAlert = false){
 
-  
+
 
   axios.get( '/check-for-new-space-messages/' + this.$root.userDeviceId)
  .then(response => {
- 
+
  if (response.status == 200) {
 
-    
+
   setTimeout(() => {
 
     this.refreshCount++
-           
+
   if(this.refreshCount == 1){
     this.$root.updateSpaceMessages();
   }
-    
+
   }, 2000);
-  
+
 
 
 }
@@ -4497,9 +4508,9 @@ updateSpaceMessages: function(showAlert = false){
     setTimeout(() => {
       this.updateSpaceMessages();
     }, 1000);
-  
- 
- 
+
+
+
 })
 
 },
@@ -4510,60 +4521,60 @@ spaceMessageProcessor: function(space,allSpace,count){
 
 
 
-    
- 
+
+
 
 
        if( this.$root.selectedSpace.space_id != space.space_id || this.$root.selectedSpace.length == 0){
-   
-         
-           
-      
+
+
+
+
 
           // save to local database
             let storedMsg = this.$root.getLocalStore('full_space_' + space.space_id  + this.$root.username);
-      
+
        storedMsg.then((result)=>{
-     
+
          if(result != null){
 
-         
-  
-   
+
+
+
             // update space messages
           let parsedResult = JSON.parse(result);
-   
+
           let MessagesFull = parsedResult;
-   
+
           let newMessages = space.new_messages;
 
-        
-          
+
+
          for (let index = 0; index < newMessages.length; index++) {
            let message = newMessages[index];
 
 
-           
-        
-   
+
+
+
            let thismessage = MessagesFull.messages.filter((eachmessage)=>{
              return eachmessage.message_id == message.message_id
             });
 
-           
-   
+
+
             if(thismessage.length == 0){
 
               this.$root.updateSpaceTracker(space.space_id,message);
-   
-                       
+
+
               MessagesFull.messages.push(message);
 
                 // if the space is not currently opened
 
       //    this.playAudio('/audio/new_message.mp3');
-   
-   
+
+
           // update unread in chatlist
 
         this.ChatList.map((chatspace)=>{
@@ -4572,23 +4583,23 @@ spaceMessageProcessor: function(space,allSpace,count){
             chatspace.unread += 1;
             chatspace.message_track = new Date();
             chatspace.last_message = [message];
-          } 
+          }
         });
-        
-         
+
+
 
            this.$root.subSpaces.map((chatspace)=>{
 
              if(chatspace.space_id == space.space_id){
                chatspace.unread += 1;
                chatspace.message_track = new Date();
-               
-             } 
- 
+
+             }
+
            });
 
 
-          
+
 
            // update into local storage
            let messageTrackData = {
@@ -4598,10 +4609,10 @@ spaceMessageProcessor: function(space,allSpace,count){
             };
 
 
-       
+
 
       this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,true,'messager',messageTrackData);
-   
+
 
             }else{
 
@@ -4614,67 +4625,67 @@ spaceMessageProcessor: function(space,allSpace,count){
             message: newMessages[0]
             };
 
-             
+
 
               this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,false,'messager',messageTrackData);
 
             }
-        
-           
-         
-   
-           
+
+
+
+
+
          }
-           
-              
-   
-            
-   
-   
-            
+
+
+
+
+
+
+
          }else{
-      
+
            // if this space does not exist the user database yet
 
 
               // show new messages first
-   
+
           let newMessagesFull = space.new_messages;
-   
+
           newMessagesFull.forEach((message)=>{
 
-            
+
             this.ChatList.map((chatspace)=>{
 
               if(chatspace.space_id == space.space_id){
                 chatspace.unread += 1;
                 chatspace.message_track = new Date();
                 chatspace.last_message = [message];
-              } 
+              }
             });
-            
+
            // this.playAudio('/audio/new_message.mp3');
-             
-    
+
+
                this.$root.subSpaces.map((chatspace)=>{
-    
+
                  if(chatspace.space_id == space.space_id){
                    chatspace.unread += 1;
                    chatspace.message_track = new Date();
-                   
-                 } 
-     
+
+                 }
+
                });
-           
-        
-   
+
+
+
           });
-   
-        
-   
+
+
+
            // save unread in local storage
           localforage.setItem('unread_messages_' + space.space_id + this.$root.username,JSON.stringify(allSpace)).then( ()=> {
-              
+
             if(this.returnedDataArray.length > 0){
 
               let firstData = this.returnedDataArray.shift();
@@ -4682,10 +4693,10 @@ spaceMessageProcessor: function(space,allSpace,count){
             this.sortChatList(false);
 
             this.handleSpaceData(firstData);
-    
-            
+
+
              this.$root.clearUnreadMessageRemote(newMessagesFull[0].message_id);
-          
+
             if(this.returnedDataArray.length == 0){
               this.messageIsProcessing = false;
              }else{
@@ -4693,103 +4704,92 @@ spaceMessageProcessor: function(space,allSpace,count){
              }
 
             }
-            
-   
+
+
           }).then(function (value) {
          // we got our value
-   
+
         }).catch(function (err) {
         console.log(err)
          // we got an error
          });
-   
-       
+
+
          }
-      
-   
-         
-   
+
+
+
+
        });
-   
+
        }else{
-   
+
          // if the space is opened
-   
+
           // show new messages first
-   
+
           let newMessagesFull = space.new_messages;
-   
-          newMessagesFull.forEach((messages)=>{
-   
-        
-   
-               
-    
-   
-   
-          })
-   
+
+
           // save to local database
           let storedMsg = this.$root.getLocalStore('full_space_' + space.space_id  + this.$root.username);
-      
+
        storedMsg.then((result)=>{
-   
-        
-             
+
+
+
          if(result != null){
-   
+
            // update space local storage and show message to user
-          
+
           let parsedResult = JSON.parse(result);
-   
+
           let MessagesFull = parsedResult;
-   
+
           let newMessages = space.new_messages;
-               
+
            newMessages.forEach((messages)=>{
 
               // update unread in chatlist
-   
+
          this.ChatList.map((chatspace)=>{
-   
+
           if(chatspace.space_id == space.space_id){
-          
+
             chatspace.message_track = new Date();
             chatspace.last_message = [messages];
-          } 
+          }
         });
-  
-  
-       
+
+
+
             messages.initialSize = 200
             messages.id = messages.message_id
             messages.index_count = this.$root.returnLastIndex() + 1;
 
-              if(!this.$root.checkIfMessageExist(messages)){
 
-               this.$root.Messages.push(messages);
 
-              }
-  
-   
                this.$root.updateSpaceTracker(space.space_id,messages);
-  
-  
-   
+
+
+
              let thismessage = MessagesFull.messages.filter((eachmessage)=>{
-               return eachmessage.message_id == messages.message_id 
+               return eachmessage.message_id == messages.message_id
               });
-   
+
               if(thismessage.length == 0){
-   
+
              MessagesFull.messages.push(messages);
-   
-             
-   
+
+
+             this.$root.Messages.push(messages);
+
+             this.scrollToBottom();
+
                this.$root.clearUnreadMessageRemote(messages.message_id);
-   
+
               }
-   
+
              // update into local storage
              let messageTrackData = {
               count: count,
@@ -4798,25 +4798,25 @@ spaceMessageProcessor: function(space,allSpace,count){
             };
 
         this.$root.LocalStore('full_space_' + space.space_id  + this.$root.username,MessagesFull,false,'messager',messageTrackData);
-   
-              
-   
+
+
+
            });
 
-             
-   
-            
+
+
+
          }
-   
-   
+
+
        });
-         
-   
+
+
        }
-   
-      
-   
-    
+
+
+
+
   });
 
 },
@@ -4824,38 +4824,38 @@ handleQueueingMessages:function(){
 
    for (const space of this.messageQueues) {
 
-    
+
      this.handleSpaceData(space);
 
      let newMessageQueue = this.messageQueues.filter((queue)=>{
     return queue != space;
      })
-     
+
      this.messageQueues = newMessageQueue;
-     
+
    }
 
 },
 
 handleSpaceData: function(spaceData){
 
-       
+
 
     this.handleMessageSequence(spaceData,0);
-    
+
 
  },
  handleMessageSequence:function(allSpace,count){
 
       // check for space in chatlist
-    
+
 
       this.$root.addSpaceToChatList(allSpace[count].space_id);
 
-   
+
   this.spaceMessageProcessor(allSpace[count],allSpace,count)
   .then(count => {
-   
+
    console.log('next')
   })
 
@@ -4869,7 +4869,7 @@ handleSpaceData: function(spaceData){
  returnLastIndex:function(){
 
   let msgIndex = 0;
-   
+
    if(this.$root.Messages.length == 0){
 
       msgIndex = 0;
@@ -4881,60 +4881,60 @@ handleSpaceData: function(spaceData){
    msgIndex = lastMsg.index_count;
 
    }
- 
-  
 
-      
+
+
+
   return msgIndex;
 },
 
  updateSpaceTracker: function(spaceId,message){
-   
-     
+
+
   let storedMsg = this.$root.getLocalStore('full_space_' + spaceId + this.$root.username);
 
   storedMsg.then((result)=>{
-    
+
     if(result != null ){
 
       let finalResult = JSON.parse(result);
-      
+
       let spaceData = finalResult.space;
 
-      
+
 
       if(spaceData.type == 'SubSpace' && (this.$root.selectedSpace.space_id == spaceData.general_spaceId)){
 
         this.$root.selectedSpaceSubMessages += 1
-    
+
       }
 
 
       if(this.ChatList.length > 0 && spaceData.type == 'SubSpace'){
-      
 
-      
+
+
 
         this.ChatList.forEach((space)=>{
-   
-  
+
+
           // update channel for SubChannels new messages
          if(space.space_id == spaceData.general_spaceId){
 
-             
+
            space.subspace_messages = space.subspace_messages + 1;
            space.message_track = new Date();
 
            console.log(space.subspace_messages)
-          
-         } 
-   
+
+         }
+
        });
 
 
       }
 
-     
+
 
     }else{
 
@@ -4942,21 +4942,21 @@ handleSpaceData: function(spaceData){
     }
 
   })
-   
-     
+
+
   if(this.ChatList.length > 0){
-   
+
     this.ChatList.map((space)=>{
-         
+
       if(space.space_id == spaceId){
         space.message_track = new Date();
         space.last_message = [message];
       }
-  
-     
+
+
     });
 
-  
+
     this.$root.sortChatList(false);
 
     // save into local storage
@@ -4968,44 +4968,44 @@ handleSpaceData: function(spaceData){
         if(result != null ){
 
      let finalResult = JSON.parse(result);
-       
-         
-  
+
+
+
 
            finalResult.channels.map((space)=>{
-         
+
             if(space.space_id == spaceId){
               space.message_track = new Date();
               space.last_message = [message];
             }
-      
+
           });
-          
-      
+
+
           finalResult.direct_messages.map((space)=>{
-               
+
             if(space.space_id == spaceId){
               space.message_track = new Date();
               space.last_message = [message];
             }
-      
+
           });
-      
+
           finalResult.pet_spaces.map((space)=>{
-               
+
             if(space.space_id == spaceId){
               space.message_track = new Date();
               space.last_message = [message];
             }
-        
-     
+
+
              });
 
     this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
 
      this.$root.sortChatList(false);
-    
-    
+
+
 
   }
 
@@ -5022,32 +5022,32 @@ scrollToBottom: function(){
       if(this.$root.msgScrollComponent.messageContainer){
 
         setTimeout(() => {
-           
+
           this.$root.msgScrollComponent.messageContainer.scrollToBottom();
-         
+
        },200)
-    
+
       }
-    
+
       if(this.$root.msgScrollComponent.messageContainersmall){
-    
+
         setTimeout(() => {
           this.$root.msgScrollComponent.messageContainersmall.scrollToBottom();
         }, 200);
       }
-      
-    
+
+
 
     }
 
- 
+
 
 },
 
 botMessager:function(message){
-  
 
-          
+
+
   this.botIsLoading = true;
     axios.post('initiate-bot-chat',{
       bot_id: this.$root.selectedSpace.bot_id,
@@ -5056,40 +5056,40 @@ botMessager:function(message){
       space_id: this.$root.selectedSpace.space_id
     })
  .then(response => {
-    
+
    this.botIsLoading = false;
    if(response.status == 200){
 
 
-    
+
     let fullMessages = response.data[0];
 
     let messageData = {
       space_id: this.$root.selectedSpace.space_id,
       new_messages: fullMessages
     };
-    
+
     this.handleSpaceData([messageData]);
-   
-    
+
+
     this.botSuggestionArray = response.data[1];
 
     this.$root.LocalStore('bot_latest_suggestions' + this.$root.selectedSpace.space_id  + this.$root.username,response.data[1]);
-    
+
 
    }
 
  })
  .catch(error => {
 
-  
-     
+
+
      this.botIsLoading = false;
-   
+
  })
 
 
-  
+
 },
 
 
@@ -5102,174 +5102,185 @@ fetchSpaceInfo: function(selectedspace){
 
 if (response.status == 200) {
 
+  if((this.$root.selectedSpace.space_id == response.data.space.space_id) && this.$root.chatComponent.chatIsOpen){
+
+
 let storedMsg = this.$root.getLocalStore('full_space_' + selectedspace + this.$root.username);
 
- storedMsg.then((result)=>{
+storedMsg.then((result)=>{
 
-     if(result != null){
+    if(result != null){
 
-         let finalResult = JSON.parse(result);
-
-          finalResult.space = response.data.space;
-
-          
-
-            
-              if(response.data.space.type == 'SubSpace'){
-
-
-       let generalSpace =  response.data.space.gen_space;
-
-
-          this.$root.selectedGenSpaceType = response.data.space.gen_space.type;
-
-        generalSpace.space_id =   response.data.space.space_id;
-
-      generalSpace.payment_option = response.data.space.payment_option;
-
-        generalSpace.type =  response.data.space.type;
-
-
-          generalSpace.description = response.data.space.description;
-
-        generalSpace.general_spaceId =  response.data.space.general_spaceId;
-
-  
-
-
-
-    let subSpaceData =  response.data.space.sub_space_data;
+        let finalResult = JSON.parse(result);
 
 
 
 
-   this.$root.selectedSubSpaceName =  response.data.space.name;
-
-   this.$root.selectedSubSpaceType = subSpaceData.type;
+         finalResult.space = response.data.space;
 
 
 
-     generalSpace.sub_spaces =  response.data.space.sub_spaces;
+
+             if(response.data.space.type == 'SubSpace'){
+
+
+      let generalSpace =  response.data.space.gen_space;
+
+
+         this.$root.selectedGenSpaceType = response.data.space.gen_space.type;
+
+       generalSpace.space_id =   response.data.space.space_id;
+
+     generalSpace.payment_option = response.data.space.payment_option;
+
+       generalSpace.type =  response.data.space.type;
+
+
+         generalSpace.description = response.data.space.description;
+
+       generalSpace.general_spaceId =  response.data.space.general_spaceId;
 
 
 
-     this.$root.selectedSpace = generalSpace;
 
 
-    }else{
+   let subSpaceData =  response.data.space.sub_space_data;
 
-        this.$root.selectedSpace = response.data.space;
+
+
+
+  this.$root.selectedSubSpaceName =  response.data.space.name;
+
+  this.$root.selectedSubSpaceType = subSpaceData.type;
+
+
+
+    generalSpace.sub_spaces =  response.data.space.sub_spaces;
+
+
+
+    this.$root.selectedSpace = generalSpace;
+
+
+   }else{
+
+
+             this.$root.selectedSpace = response.data.space;
+
+
+   }
+
+
+     finalResult.members = response.data.members;
+
+        this.selectedSpaceMembers = response.data.members;
+
+
+
+
+ this.$root.LocalStore('full_space_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
+
+
+
+
+
+
 
     }
 
-       
-          
-          
-        
-        finalResult.members = response.data.members;
-
-         this.selectedSpaceMembers = response.data.members;
-
-       
-        
-
-  this.$root.LocalStore('full_space_' +  this.$root.selectedSpace.space_id  + this.$root.username,finalResult);
-
-    
-
-
-     }
 
 
 
-    
- });
+});
 
 
-  // update chatList
+ // update chatList
 
-   let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
-  
-   storedChat.then((result)=>{
+  let storedChat = this.$root.getLocalStore('user_chat_list_new_'+ this.$root.username);
 
-     if(result != null){
+  storedChat.then((result)=>{
 
-         let finalResult = JSON.parse(result);   
+    if(result != null){
 
-       
-       
-           
-      
-
-         if(response.data.space.type == 'Channel' || response.data.space.type == 'Team'){
-              finalResult.channels.map((chat)=>{
-                if(chat.space_id == this.$root.selectedSpace.space_id){
-
-                   chat.name =  response.data.space.name;
-
-                   chat.image_name = response.data.space.image_name;
-
-                   chat.image_extension = response.data.space.image_extension;
-
-                   chat.background_color = response.data.space.background_color;
-
-                }
-              })
-         }
-
-         if(response.data.space.type == 'Direct'){
-
-            finalResult.direct_messages.map((chat)=>{
-                if(chat.space_id == this.$root.selectedSpace.space_id){
-
-                   chat.userInfo =  response.data.space.userInfo;
-
-                
-                }
-              })
-
-         }
-
-         if(response.data.space.type == 'Bot'){
-
-              
-
-            finalResult.pet_spaces.map((chat)=>{
-                if(chat.space_id == this.$root.selectedSpace.space_id){
-                   
-                   chat.bot_data =  response.data.space.bot_data;
-
-               
-                }
-              })
-
-         }
-
-           let FinalMessages = finalResult.direct_messages.filter(chat=>{
-                return chat.last_message.length > 0
-            })
-            
-          let fullList = finalResult.channels.concat(FinalMessages, finalResult.pet_spaces);
-          
-
-            this.$root.ChatList = fullList;
-
-           this.$root.sortChatList();
-
-            this.SetUnread();
-
-          
-            this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
-
-    
-
-
-     }
+        let finalResult = JSON.parse(result);
 
 
 
-    
- });
+
+
+
+        if(response.data.space.type == 'Channel' || response.data.space.type == 'Team'){
+             finalResult.channels.map((chat)=>{
+               if(chat.space_id == this.$root.selectedSpace.space_id){
+
+                  chat.name =  response.data.space.name;
+
+                  chat.image_name = response.data.space.image_name;
+
+                  chat.image_extension = response.data.space.image_extension;
+
+                  chat.background_color = response.data.space.background_color;
+
+               }
+             })
+        }
+
+        if(response.data.space.type == 'Direct'){
+
+           finalResult.direct_messages.map((chat)=>{
+               if(chat.space_id == this.$root.selectedSpace.space_id){
+
+                  chat.userInfo =  response.data.space.userInfo;
+
+
+               }
+             })
+
+        }
+
+        if(response.data.space.type == 'Bot'){
+
+
+
+           finalResult.pet_spaces.map((chat)=>{
+               if(chat.space_id == this.$root.selectedSpace.space_id){
+
+                  chat.bot_data =  response.data.space.bot_data;
+
+
+               }
+             })
+
+        }
+
+          let FinalMessages = finalResult.direct_messages.filter(chat=>{
+               return chat.last_message.length > 0
+           })
+
+         let fullList = finalResult.channels.concat(FinalMessages, finalResult.pet_spaces);
+
+
+           this.$root.ChatList = fullList;
+
+          this.$root.sortChatList();
+
+           this.SetUnread();
+
+
+           this.$root.LocalStore('user_chat_list_new_' + this.$root.username,finalResult);
+
+
+
+
+    }
+
+
+
+
+});
+
+  }
+
 }
 
 
@@ -5306,12 +5317,12 @@ unreadStoredMsg.then((result)=>{
 
   })
 
- 
+
 },
 updateSentMessage:function(postData){
 
-  
-      
+
+
   let unsentMsg = this.$root.getLocalStore('unsent_messages_' + postData.space_id  + this.$root.username);
 
   unsentMsg.then((result)=>{
@@ -5319,8 +5330,8 @@ updateSentMessage:function(postData){
     if(result != null){
 
      let finalResult = JSON.parse(result);
-       
-       
+
+
 
      let remainingMsg = finalResult.filter((message)=>{
        return message.temp_id != postData.temp_id;
@@ -5329,17 +5340,17 @@ updateSentMessage:function(postData){
 
     this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,remainingMsg);
 
-        
+
     this.sendingMessage = false;
 
     }else{
       this.sendingMessage = false;
     }
 
-    
 
-   
- 
+
+
+
   });
 
 
@@ -5353,15 +5364,15 @@ storeUnsentMessages:function(postData){
      if(result != null){
 
       let finalResult = JSON.parse(result);
-        
-        
+
+
 
       let messageData = finalResult.filter((message)=>{
         return message.temp_id == postData.temp_id;
      });
 
 
-          
+
          if(messageData.length == 0){
 
           finalResult.push(postData);
@@ -5369,26 +5380,26 @@ storeUnsentMessages:function(postData){
 
          }
 
-         
-         
+
+
 
      }else{
 
-      
+
         this.LocalStore('unsent_messages_' + postData.space_id  + this.$root.username,[postData],true);
 
      }
 
-    
 
 
-    
 
-    
-  
+
+
+
+
    });
-  
- 
+
+
 
 },
 
@@ -5405,14 +5416,14 @@ let messageId = response.data[0].temp_id;
   this.Messages.map((message)=>{
      if(messageId == message.message_id){
         message.loading = false;
-        message.message_id = response.data[0].message_id; 
-        message.id = response.data[0].message_id; 
+        message.message_id = response.data[0].message_id;
+        message.id = response.data[0].message_id;
 
      }
   });
 
   if(this.selectedSpace.type == 'Bot'){
-    
+
    this.chatComponent.botMessagerChat(response.data[0].content);
   }
 
@@ -5441,15 +5452,15 @@ this.sendingMessage = false;
 
 this.storeUnsentMessages(postData);
 
-}) 
+})
 },
 initialPushMangerReg: function(){
   if('serviceWorker' in navigator){
    navigator.serviceWorker.ready.then(registration => {
      if("PushManager" in window){
-        
+
        registration.pushManager.getSubscription().then(sub => {
-            
+
          if(sub == null || sub == undefined){
           this.showUserNotification = true;
          }else{
@@ -5461,29 +5472,29 @@ initialPushMangerReg: function(){
             auth_token: subObj.keys.auth
               })
       .then(response => {
-        
+
        if (response.status == 200) {
-          
-    
-        
+
+
+
         }else{
           console.log(response.status);
         }
-        
-        
+
+
       })
       .catch(error => {
         console.log(error);
       })
-      
+
         }
        })
-      
+
      }
    })
   }
  },
- 
+
 askPermission: function() {
 return new Promise(function(resolve, reject) {
   const permissionResult = Notification.requestPermission(function(result) {
@@ -5498,16 +5509,16 @@ return new Promise(function(resolve, reject) {
           const base64 = (base64String + padding)
             .replace(/\-/g, '+')
             .replace(/_/g, '/');
-    
+
           const rawData = window.atob(base64);
           const outputArray = new Uint8Array(rawData.length);
-    
+
           for (let i = 0; i < rawData.length; ++i) {
             outputArray[i] = rawData.charCodeAt(i);
           }
           return outputArray;
         }
-        
+
         reg.pushManager.subscribe({
           userVisibleOnly: true,
           applicationServerKey: urlB64ToUint8Array('BA5RO17EugggZ7VQBGMf6_dQat4fLr5qwmS1Q8FUl8Wg0Pm7vOtX_Thws0OdafoWg1tdF-A0mDK-JcZJ09VoEq8')
@@ -5520,16 +5531,16 @@ return new Promise(function(resolve, reject) {
             auth_token: subObj.keys.auth
               })
       .then(response => {
-        
+
        if (response.status == 200) {
-          
-    
-        
+
+
+
         }else{
           console.log(response.status);
         }
-        
-        
+
+
       })
       .catch(error => {
         console.log(error);
@@ -5552,7 +5563,7 @@ return new Promise(function(resolve, reject) {
   }
 });
 },
- 
+
 sendCodeMessage: function(postData){
 this.sendingMessage = true;
 axios.post('/send-message',postData)
@@ -5567,10 +5578,10 @@ let messageId = response.data[0].temp_id;
 this.Messages.map((message)=>{
    if(messageId == message.message_id){
       message.loading = false;
-      message.message_id = response.data[0].message_id; 
-      message.id = response.data[0].message_id; 
+      message.message_id = response.data[0].message_id;
+      message.id = response.data[0].message_id;
        message.code = response.data[0].code;
-       
+
    }
 });
 
@@ -5594,7 +5605,7 @@ this.sendingMessage = false;
 
 this.storeUnsentMessages(postData);
 
-}) 
+})
 
 },
 sendShareMessage: function(formData){
@@ -5615,24 +5626,24 @@ axios.post('/send-message',formData,
              ))
            }
         });
-      
+
     }
     })
    .then(response => {
 
-      
-     
+
+
     if (response.status == 200) {
-        
-    
+
+
          let messageId = response.data[0].temp_id;
          let messageType = this.NewMsg.type;
         this.Messages.map((message)=>{
            if(messageId == message.message_id){
               message.loading = false;
               message.message_id = response.data[0].message_id;
-              message.id = response.data[0].message_id; 
-             
+              message.id = response.data[0].message_id;
+
               if(messageType == 'image'){
                 message.image = response.data[0].image;
               }
@@ -5659,22 +5670,22 @@ axios.post('/send-message',formData,
 
         this.updateSentMessage(postData);
         this.scrollToBottom();
-   
 
-        
+
+
      }else{
-       
+
      }
-  
-    
-  
-      
-     
+
+
+
+
+
    })
    .catch(error => {
-    
+
      this.sendingMessage = false;
-    
+
    })
 },
 
@@ -5692,10 +5703,10 @@ this.$root.dataconnection.socketURL = 'https://rtc.citonhub.com:9001/';
 
 // set user as default speaker
 let userSpeakerData =  this.authProfile;
-     userSpeakerData.speaking = false;    
-     userSpeakerData.muted = false;    
+     userSpeakerData.speaking = false;
+     userSpeakerData.muted = false;
 
-this.speakingUser = userSpeakerData; 
+this.speakingUser = userSpeakerData;
 
 this.$root.dataconnection.socketMessageEvent = 'data-channel';
 
@@ -5732,7 +5743,7 @@ this.$root.dataconnection.iceServers = [];
 
 // second step, set STUN url
 this.$root.dataconnection.iceServers.push({
- urls: 'stun:167.99.145.235:3478'  
+ urls: 'stun:167.99.145.235:3478'
 });
 
 // last step, set TURN url (recommended)
@@ -5757,7 +5768,7 @@ if(event.data.action == 'typing' && this.$root.selectedSpace.space_id == event.d
 this.$root.FullcodeContent = event.data.data;
 
  this.codeboxComponent.setCodeContent();
- 
+
 }
 
 if(event.data.action == 'codeChange' && this.$root.selectedSpace.space_id == event.data.space_id){
@@ -5765,7 +5776,7 @@ if(event.data.action == 'codeChange' && this.$root.selectedSpace.space_id == eve
 this.$root.fullCodeLanguage = event.data.data;
 
 this.codeboxComponent.setCodeContent();
- 
+
 }
 
 if(event.data.action == 'codeRun' && this.$root.selectedSpace.space_id == event.data.space_id){
@@ -5774,7 +5785,7 @@ if(event.data.action == 'codeRun' && this.$root.selectedSpace.space_id == event.
 
                this.$root.CodeResult = event.data.data;
                this.codeboxComponent.setCodeContent();
- 
+
 }
 
 if(event.data.action == 'returnToCode' && this.$root.selectedSpace.space_id == event.data.space_id){
@@ -5782,7 +5793,7 @@ if(event.data.action == 'returnToCode' && this.$root.selectedSpace.space_id == e
 this.$root.liveShowCode = true;
 
 this.codeboxComponent.setCodeContent();
- 
+
 }
 
  if(event.data.action == 'mute_state'){
@@ -5798,7 +5809,7 @@ this.codeboxComponent.setCodeContent();
         user[0].profile.muted = false
        }
 
-      
+
 
     }
   })
@@ -5809,18 +5820,18 @@ if(event.data.action == 'neutral' ){
 
 
 if(this.$root.allAudioParticipant.length != 0){
-    
+
   this.speakingUser = event.data.data.userProfile;
-  
+
  }
- 
+
 }
 
 if(event.data.action == 'new_master' && this.$root.selectedSpace.space_id == event.data.space_id){
 
 this.$root.newMasterId = event.data.data;
 
-              
+
 
 this.$root.adminMembers.forEach((member)=>{
 
@@ -5856,9 +5867,9 @@ this.codeboxComponent.setCodeContent();
 
 },
 
-// screen sharing 
+// screen sharing
 setSreenShareConnection:function(){
-          
+
 
   let _this = this;
 
@@ -5882,7 +5893,7 @@ setSreenShareConnection:function(){
       oneway: true
        };
 
-   
+
    this.$root.connection.sdpConstraints.mandatory = {
 OfferToReceiveAudio: false,
 OfferToReceiveVideo: false
@@ -5892,7 +5903,7 @@ OfferToReceiveVideo: false
           audio: 128,
            screen: 1024
        };
-      
+
        var videoConstraints = {
            mandatory: {
               maxWidth: 1920,
@@ -5903,23 +5914,23 @@ OfferToReceiveVideo: false
            },
            optional: []
        };
-      
+
       this.$root.connection.mediaConstraints.video = videoConstraints;
 
 
-      
+
 
   // first step, ignore default STUN+TURN servers
   this.$root.connection.iceServers = [];
 
 // second step, set STUN url
 this.$root.connection.iceServers.push({
-urls: 'stun:167.99.145.235:3478'  
+urls: 'stun:167.99.145.235:3478'
 });
 
 // last step, set TURN url (recommended)
 
-    
+
  this.$root.connection.iceServers.push({
   urls: 'turn:167.99.145.235:3478',
   credential: '15Raymond',
@@ -5978,7 +5989,7 @@ var mediaElement = getHTMLMediaElement(video, {
    title: event.userid,
    buttons: [],
    showOnMouseEnter: false,
- 
+
 });
 
 _this.$root.connection.videosContainer.appendChild(mediaElement);
@@ -6016,7 +6027,7 @@ var mediaElementSm = getHTMLMediaElement(videoSm, {
    title: event.userid + 'small',
    buttons: [],
    showOnMouseEnter: false,
- 
+
 });
 
 document.querySelector('#videos-container-sm').appendChild(mediaElementSm);
@@ -6033,7 +6044,7 @@ mediaElementSm.id = event.streamid + 'small';
 
 
 
- 
+
 
 };
 
@@ -6086,7 +6097,7 @@ if (e.message === 'Concurrent mic process limit.') {
    // audio connection
 
    setAudioConnection(){
-        
+
     let _this = this;
 
     this.$root.audioconnection = new RTCMultiConnection();
@@ -6099,10 +6110,10 @@ this.$root.audioconnection.socketURL = 'https://rtc.citonhub.com:9001/';
 
 this.$root.audioconnection.socketMessageEvent = 'audio-conference';
 
-// set user 
+// set user
 let userMainData =  this.authProfile;
-userMainData.speaking = false;    
-userMainData.muted = false; 
+userMainData.speaking = false;
+userMainData.muted = false;
 
 this.$root.audioconnection.extra = {
    profile: userMainData,
@@ -6135,7 +6146,7 @@ this.$root.audioconnection.iceServers = [];
 
 // second step, set STUN url
 this.$root.audioconnection.iceServers.push({
- urls: 'stun:167.99.145.235:3478'  
+ urls: 'stun:167.99.145.235:3478'
 });
 
 // last step, set TURN url (recommended)
@@ -6200,7 +6211,7 @@ mediaElementSm.id = event.streamid + 'small';
 
    _this.setUserSpeaker();
 
-   
+
 
 
 };
@@ -6258,14 +6269,14 @@ this.$root.audioconnection.multiPeersHandler.onPeerStateChanged = (state)=> {
 
 let connection = this.$root.audioconnection;
 if (state.iceConnectionState.search(/disconnected|closed|failed/gi) === -1) {
-  
-  
+
+
 
   var peer = connection.peers[state.userid].peer;
 
-  
 
-   
+
+
 
    let userState = state.iceConnectionState;
 
@@ -6286,7 +6297,7 @@ if (state.iceConnectionState.search(/disconnected|closed|failed/gi) === -1) {
 
 
 
- 
+
   return;
 }else{
 
@@ -6297,8 +6308,8 @@ if (state.iceConnectionState.search(/disconnected|closed|failed/gi) === -1) {
 
      });
 
-     
-      
+
+
      this.$root.allAudioParticipant = newusers;
 
 }
@@ -6319,50 +6330,50 @@ if (mediaElement) {
   // manage audio connection
 
   checkAudioRoomState: function(master){
-      
-      
+
+
     if(this.$root.audioconnection != undefined){
 
        this.isMaster = master;
-         
+
       this.$root.connectingToSocket = true;
 
       this.$root.audioconnection.DetectRTC.load(()=> {
 
-     
+
         if (this.$root.audioconnection.DetectRTC.hasMicrophone === true) {
             // enable microphone
             this.$root.audioconnection.mediaConstraints.audio = true;
             this.$root.audioconnection.session.audio = true;
-           
+
 
         }
-      
+
         if (this.$root.audioconnection.DetectRTC.hasMicrophone === false ) {
-      
+
           alert('Please attach a microphone device.');
-      
-          
+
+
         }
-      
+
         if (this.$root.audioconnection.DetectRTC.hasSpeakers === false) { // checking for "false"
             alert('Please attach a speaker device. You will be unable to hear incoming audios.');
 
         }
-      
-      
+
+
         let _this = this;
 
           this.$root.audioconnection.checkPresence('audio' + this.$root.selectedSpace.space_id, function(isRoomExist, roomid) {
-          
 
-                 
+
+
             if (isRoomExist === true) {
              _this.joinAudioRoom();
              _this.dataconnection.join('data' + _this.$root.selectedSpace.space_id)
           } else {
 
-              
+
             if(master){
               _this.openAudioRoom();
               _this.dataconnection.openOrJoin('data' + _this.$root.selectedSpace.space_id)
@@ -6372,30 +6383,30 @@ if (mediaElement) {
 
               _this.roomCheckingInitaited = true;
 
-              
+
                 _this.rejoinAudio(master);
 
               return;
             }
 
-            
+
           }
 
 
    //  _this.checkIfUserIsReconnecting(master)
 
      _this.audioSocket = _this.$root.audioconnection.socket;
-   
+
     _this.$root.localAudioMuted = false;
     _this.$root.connectingToSocket = false;
     _this.userIsReconnecting = false;
     });
 
       });
-   
-    }       
-    
-   
+
+    }
+
+
    },
 
    rejoinAudio: function(master){
@@ -6460,23 +6471,23 @@ this.$root.dataconnection = undefined;
         }
 
 },
-   openAudioRoom: function(){  
-    
+   openAudioRoom: function(){
+
     let _this = this;
-  
+
     this.$root.audioconnection.openOrJoin('audio' + this.$root.selectedSpace.space_id, () =>{
 
-        
+
       _this.$root.connectingToSocket = false;
       _this.userIsReconnecting = false;
 });
 
   },
-  joinAudioRoom: function(){    
-     
-       
+  joinAudioRoom: function(){
+
+
     let _this = this;
-    
+
      this.$root.audioconnection.join('audio' + this.$root.selectedSpace.space_id);
 
      _this.$root.connectingToSocket = false;
@@ -6486,7 +6497,7 @@ this.$root.dataconnection = undefined;
 
   // manage screen connection
   checkScreenRoomState: function(master){
-      
+
     let _this = this;
 
     this.isMaster = master;
@@ -6495,9 +6506,9 @@ this.$root.dataconnection = undefined;
        this.screenIsConnecting = true;
 
        this.$root.connection.checkPresence('screen' + this.$root.selectedSpace.space_id, function(isRoomExist, roomid) {
-     
+
          _this.$root.screenSharingOn = true;
-   
+
          _this.$root.showVideoScreen = true;
 
 
@@ -6506,7 +6517,7 @@ this.$root.dataconnection = undefined;
            _this.screenIsConnecting = false;
         } else {
 
-            
+
           if(master){
             _this.openScreenRoom();
             _this.screenIsConnecting = false;
@@ -6515,44 +6526,44 @@ this.$root.dataconnection = undefined;
             return;
           }
 
-          
+
         }
 
          _this.screenSocket = _this.$root.connection.socket;
- 
+
    });
- 
+
 
    },
 
-     openScreenRoom: function(){    
+     openScreenRoom: function(){
 
         let _this = this;
-      
+
         this.$root.connection.sdpConstraints.mandatory = {
            OfferToReceiveAudio: false,
            OfferToReceiveVideo: true
        };
-      
+
      this.$root.connection.openOrJoin('screen' + this.$root.selectedSpace.space_id, () => {
 
         console.log('connected')
-        
+
       this.$root.sendLiveSignal('screen');
-      
+
     });
 
     this.screenIsConnecting = false;
 
- 
-    
+
+
 
       },
-      joinScreenRoom: function(){    
-         
-           
+      joinScreenRoom: function(){
+
+
         let _this = this;
-      
+
      this.$root.connection.sdpConstraints.mandatory = {
         OfferToReceiveAudio: false,
         OfferToReceiveVideo: true
@@ -6561,7 +6572,7 @@ this.$root.dataconnection = undefined;
     this.screenIsConnecting = false;
 
     this.$root.connection.join('screen' + this.$root.selectedSpace.space_id);
-   
+
       },
       rejoinScreen:function(master){
 
@@ -6583,13 +6594,13 @@ this.$root.dataconnection = undefined;
 
    // close socket.io connection
   this.$root.connection.closeSocket();
-   
+
         }
 
      this.$root.connection = undefined;
 
      this.$root.screenSharingOn = false;
-      
+
        this.$root.showVideoScreen = false;
 
        this.$root.connection = undefined;
@@ -6604,22 +6615,22 @@ this.$root.dataconnection = undefined;
                  this.$root.checkScreenRoomState(false);
               }
 
-       }, 
+       },
        sendMuteDetails:function(status){
 
         if(this.$root.dataconnection != undefined){
-             
+
           let data = {
             userid: this.$root.audioconnection.userid,
             status:  status,
         };
-  
+
         this.$root.dataconnection.send({
           action:'mute_state',
           data: data,
           space_id: this.$root.selectedSpace.space_id
         });
-         
+
         }
 
        },
@@ -6630,11 +6641,11 @@ this.$root.dataconnection = undefined;
         let _this = this;
 
         if(this.$root.audioconnection == undefined){
-            
-         
+
+
         }else{
-        
-            
+
+
          if(this.$root.allAudioParticipant.length > 0){
             // work on local streams
          var localStream = this.$root.audioconnection.attachStreams[0];
@@ -6647,13 +6658,13 @@ this.$root.dataconnection = undefined;
 
       if(_this.$root.audioconnection != undefined && _this.$root.selectedSpace.space_id != undefined){
 
-         
-       
+
+
 
          let userSpeakerData =  _this.authProfile;
-     userSpeakerData.speaking = true;    
+     userSpeakerData.speaking = true;
 
-      
+
         let data = {
           userid: _this.$root.audioconnection.userid,
           userProfile: userSpeakerData,
@@ -6664,46 +6675,46 @@ this.$root.dataconnection = undefined;
         data: data,
         space_id: _this.$root.selectedSpace.space_id
       });
-  
+
       }
-       
-        
+
+
     });
 
     speechEvents.on('stopped_speaking', function() {
-    
+
         if(_this.$root.audioconnection != undefined && _this.$root.selectedSpace.space_id != undefined){
 
           let userSpeakerData =  _this.authProfile;
-     userSpeakerData.speaking = false;    
+     userSpeakerData.speaking = false;
 
 
-        
+
           let data = {
             userid: _this.$root.audioconnection.userid,
             userProfile: userSpeakerData,
-           
+
         };
-    
+
         _this.$root.dataconnection.send({
           action:'neutral',
           data: data,
           space_id: _this.$root.selectedSpace.space_id
         });
-    
-    
-    
+
+
+
         }
     });
-  
+
          }
 
         }
 
     },
 
-   
+
     },
-    
-  
+
+
 });

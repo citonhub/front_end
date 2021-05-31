@@ -585,7 +585,7 @@
 
                                <!-- channel invitation -->
 
-                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 text-center d-flex flex-row " @click="goBack" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center;  border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" class="col-12 py-2 pt-4 px-0 d-flex flex-row " @click="goBack" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center;  border-top:1px solid #c5c5c5; left:0; position:absolute; height:100%; top:0%;z-index:9999999999999;" >
                                  <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:2%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
                                   <invitation :infoText="'custom'"
@@ -1441,7 +1441,7 @@
 
                              <!-- channel invitation -->
 
-                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" @click="goBack" class="col-12 py-0 pt-5 px-0 text-center d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
+                               <div  v-if="chatIsOpen && chatInnerConent == 'channel_invitation'" @click="goBack" class="col-12 py-0 pt-5 px-0 d-flex flex-row" style="background: rgba(27, 27, 30, 0.32); align-items:center; justify-content:center; border-top:1px solid #c5c5c5; left:0; position:fixed; height:100%; top:0%;z-index:999999999999;" >
                                   <v-btn icon color="#ffffff" @click.stop="goBack" style="position:absolute;background:#3C87CD;top:1%; left:2%; z-index:990679797879;" 
            class="d-inline-block  "><v-icon>mdi-close mdi-18px</v-icon></v-btn>
                                   <invitation :infoText="'custom'"
@@ -3019,6 +3019,14 @@ this.pic1='/imgs/platinum.svg'
          return;
         }else{
 
+               if(this.$route.params.spaceId != undefined && this.$router.currentRoute.path.indexOf('resources') >= 0 && this.$root.visitedResources == false){
+                    
+                    this.$router.push({ path: '/channels/e_resources/view/'+ this.$route.params.spaceId });
+
+                     return;
+
+                 }
+
            if(this.$root.showCreateChannel){
               
 
@@ -3062,6 +3070,7 @@ this.pic1='/imgs/platinum.svg'
 
                if(this.$router.currentRoute.path.indexOf('payment') >= 0){
 
+
                this.$root.showPaymentProcessingBoard = true;
                
 
@@ -3070,6 +3079,7 @@ this.pic1='/imgs/platinum.svg'
                   if(this.$router.currentRoute.path.indexOf('resources') >= 0){
                     
                    this.$root.autoOpenResourcePage = true;
+                     this.$root.visitedResources = false;
 
                  }
 
@@ -3144,6 +3154,10 @@ this.pic1='/imgs/platinum.svg'
 
                           
                             this.$root.fromSupportDirectlink = false;
+
+                             this.$root.showResourceView = false;
+
+                            this.$root.showResourceViewContent = false;
                           
                            this.$router.push({ path: '/channels/' + this.$root.autoOpenChatId  +'/payment' });
                              
@@ -3193,7 +3207,44 @@ this.pic1='/imgs/platinum.svg'
 
          
        },
-        openChat:function(space_id,redirect){
+        openChat:function(space_id,redirect,checkPaywall = false){
+
+
+                     this.$root.showResourceView = false;
+
+                     this.$root.showResourceViewContent = false;
+
+           
+           if(checkPaywall){
+
+             
+           let storedMsg = this.$root.getLocalStore('full_space_' + this.$route.params.spaceId + this.$root.username);
+
+
+                    storedMsg.then((result)=>{
+
+
+                      
+
+                        if(result != null){
+
+                            this.openChat(this.$route.params.spaceId,true)
+
+                        }else{
+
+                          
+                            this.$root.fromSupportDirectlink = false;
+
+                          
+                           this.$router.push({ path: '/channels/' + this.$route.params.spaceId  +'/payment' });
+                             
+
+                         
+                        }
+                    })
+
+              return;
+           }
 
            // handle random qoutes
 
@@ -3382,10 +3433,9 @@ let FinalMessages= finalResult.direct_messages.filter(chat=>{
 
              }else{
 
-                setTimeout(() => {
+               
                    this.$root.updateSpaceMessages();
-                }, 1000);
-                
+              
                  
              }
          
@@ -4075,6 +4125,11 @@ let FinalMessages= finalResult.direct_messages.filter(chat=>{
 
          this.$root.chatComponent.chatInnerSideBar = true;
         this.$root.chatComponent.innerSideBarContent = 'resources';
+        if(this.$router.currentRoute.path.indexOf('resources') <= 0){
+
+            this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/resources'});
+
+        }
 
       }
 

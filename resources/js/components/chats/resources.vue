@@ -3,7 +3,7 @@
 
    <div class="col-12 px-1 py-0 pt-0 fixed-top d-flex flex-row" style="position:sticky; background:white; top:0%; border-bottom:2px solid #c5c5c5;align-items:center;">
             <div class=" mr-1 col-2 py-1 px-1">
-              <v-btn icon @click="goBack">
+              <v-btn icon @click.stop="goBack">
                       <v-icon>las la-arrow-left</v-icon>
                     </v-btn>
             </div>
@@ -161,7 +161,7 @@
 
        <div class="col-12 text-center py-1">
 
-          <div style="font-family:BodyFont;font-size:13px; " class=" text-center">Do you have a YouTube channel? Import your videos.</div>
+          <div style="font-family:BodyFont;font-size:13px; " >If you have a YouTube channel, you can import your videos.</div>
 
     </div>
 
@@ -182,7 +182,7 @@
              <v-btn @click="handleYouTubeAuth" :loading="loadingAuthBtn" rounded medium outlined style="color:#FF0000; font-family:BodyFont;font-size:13px; text-transform:none;" color="#FF0000">
                <v-icon class="px-2" style="font-size:35px; color:#FF0000;">mdi mdi-youtube</v-icon> 
 
-               <span>Sign In</span>
+               <span>Import videos</span>
             </v-btn>
 
           </template>
@@ -300,11 +300,8 @@ methods:{
       },
    goBack:function(){
             
-             window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
-
-             this.$root.chatComponent.innerSideBarContent = '';
-
-             this.$root.chatInnerSideBar = false;
+          
+            this.$router.push({ path: '/channels/'+ this.$root.selectedSpace.space_id + '/content'});
            
        
         },
@@ -544,6 +541,11 @@ methods:{
                     let finalResult = JSON.parse(result);
                 
                        this.resources = finalResult
+
+                       if(this.resources.length == 0){
+                         
+                         this.showTextarea = true;
+                       }
                 
                    
                   this.loadingResources = false;
@@ -567,6 +569,11 @@ methods:{
                     this.has_youtube_resource =  response.data.has_youtube_resource;
 
                      this.resources = finalResult
+
+                     if(this.resources.length == 0){
+                         
+                         this.showTextarea = true;
+                       }
 
                 
      
@@ -643,6 +650,11 @@ methods:{
                    let finalResult = response.data.resources;
 
                      this.resources = finalResult
+
+                     if(this.resources.length == 0){
+                         
+                         this.showTextarea = true;
+                       }
 
                        this.has_devto_resource = response.data.has_devto_resource;
                        this.has_youtube_resource =  response.data.has_youtube_resource;

@@ -1,11 +1,15 @@
+<!-- component for viewing a post that is a direct reply to another post-->
+
 <template>
      <div style="overflow-y:hidden;">
 
          <div v-if="this.$root.showCodeEditor">
+            <!-- code editor component imported from CodeEditor.vue-->
             <code-editor></code-editor>
       </div>
 
       <div v-if="this.$root.fullImageViewer">
+         <!-- full image viewer component imported from FullImageViewer.vue-->
             <full-image-viewer></full-image-viewer>
       </div>
 
@@ -91,6 +95,7 @@
              <div class="py-0 px-2 col-12 my-0">
                    <div class="row">
                     <div class="col-3 my-0 py-0 text-center">
+                       <!-- like button on posts-->
                       <v-btn class="d-inline-block" icon >
                         <v-icon color="#3E8893">mdi-heart-outline</v-icon>
                         
@@ -99,7 +104,7 @@
                       
                     </div>
                      <div class="col-3 my-0 py-0 text-center">
-
+<!-- comment button on posts-->
                      <v-btn class="d-inline-block" icon >
                         <v-icon color="#a6a6a6">mdi-comment-text-outline</v-icon>
                         
@@ -107,6 +112,9 @@
                          <span style="font-size:9px; color:#a6a6a6;">56</span>
                     </div>
                      <div class="col-3 my-0 py-0 text-center">
+
+                        <!-- button for saving post to user library-->
+
                      <v-btn class="d-inline-block" icon @click="library">
                         <v-icon color="#a6a6a6">mdi-source-pull </v-icon>
                         
@@ -114,6 +122,7 @@
                          <span style="font-size:9px; color:#a6a6a6;">231</span>
                     </div>
                      <div class="col-3 my-0 py-0 text-center">
+                        <!-- share button-->
                       <v-btn class="d-inline-block" icon @click.stop="share(post)">
                         <v-icon color="#a6a6a6">mdi-share-variant</v-icon>
                         </v-btn>
@@ -122,7 +131,7 @@
                 </div>
         </div>
      </div>
-
+<!-- postComment component imported from PostComments.vue-->
         <post-comments :CommentArray="postComments"></post-comments>
 
          <div class="col-12 py-5 my-5" style="padding-top:100px !important;">

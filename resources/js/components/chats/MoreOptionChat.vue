@@ -34,10 +34,12 @@
 
                                          </v-card>
 
-                                          <v-card tile flat v-if="(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'SubSpace' || this.$root.selectedSpace.type == 'Team') && this.$root.selectedSpace.payment_option == null" class="px-2 py-2 d-flex flex-row" style="align-items:center;" @click="controlAction('payment')">
+                                          <v-card tile flat v-if="(this.$root.selectedSpace.type == 'Channel' || this.$root.selectedSpace.type == 'SubSpace' || this.$root.selectedSpace.type == 'Team') " class="px-2 py-2 d-flex flex-row" style="align-items:center;" @click="controlAction('payment')">
 
 
-                                            <v-icon class="mr-1">las la-credit-card</v-icon> <span style="font-family:BodyFont;font-size:13px;color:grey;">Enable payment</span>
+                                            <v-icon class="mr-1">las la-credit-card</v-icon> 
+                                            <span style="font-family:BodyFont;font-size:13px;color:grey;" v-if=" this.$root.selectedSpace.payment_option == null">Enable payment</span>
+                                             <span style="font-family:BodyFont;font-size:13px;color:grey;" v-else>Payment settings</span>
 
                                          </v-card>
 
