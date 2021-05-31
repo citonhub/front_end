@@ -37,6 +37,8 @@
 
                </template>
 
+               <v-btn @click="openMembers">show</v-btn>
+
                <v-btn @click="openGit()" icon>
                  <v-icon style="font-size:25px;">lab la-github</v-icon>
                </v-btn>
@@ -240,6 +242,18 @@
                                </div>
 
 
+                                  <div v-if="showMember" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32);  left:0; position:fixed; height:100%; top:0%;z-index:999999999999999999;" >
+                                   <div style="position:absolute; height:100%; width:100%; right:0%;" >
+
+                                    <div class=" col-md-3 offset-md-9 px-0 py-0 pb-2" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
+
+                                    <showContributor></showContributor>
+                                    </div>
+
+                                   </div>
+                               </div>
+
+
 </div>
   
 </template>
@@ -258,6 +272,10 @@
     /* webpackChunkName: "MoreOptionsPanel" */ './AddGit'
   );
 
+  const showContributor= () => import(
+      /* webpackChunkName: "showContributor" */ './contributors'
+  )
+
 
 
 import iziToast from 'izitoast'
@@ -271,13 +289,15 @@ import 'izitoast/dist/css/iziToast.min.css'
         loadingProject:false,
         filesAreReady: false,
         showMoreOptions:false,
-        showGit:false
+        showGit:false,
+        showMember:false
       }
     },
     components: {
         panelSide,
         MoreOptions,
-        openGit
+        openGit,
+        showContributor
     },
     mounted(){
        
@@ -695,6 +715,9 @@ closeGit(){
         //    this.$root.projectPanelComponent.showSideBar = false
        //  this.$router.push({path: '/board/projects/panel/' + this.$root.projectData.project.project_slug + '/add-git'})
        this.showGit=true
+      },
+      openMembers(){
+        this.showMember=true
       }
     }
   }

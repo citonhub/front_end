@@ -2641,6 +2641,7 @@ const app = new Vue({
     loadingResourceContent:false,
     resourceToAddStore:[],
     resourcesDataStore:[],
+    showGit:false
      },
      mounted: function () {
 
