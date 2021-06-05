@@ -128,6 +128,8 @@ const PanelSettings = () => import(/* webpackChunkName: "PanelSettings" */ '../c
 const AddWebroute= () => import(/* webpackChunkName: "AddWebroute" */ '../components/projects/AddWebroute.vue');
 const ProjectGuide = () => import(/* webpackChunkName: "ProjectGuide" */ '../components/projects/ProjectGuide.vue')
 const AddGit= () => import(/* webpackChunkName: "AddGit" */ '../components/projects/AddGit.vue')
+const Contributors= () => import(/* webpackChunkName: "contribute" */ '../components/projects/contributors.vue')
+const ProjectDisplay= () => import(/* webpackChunkName: "contribute" */ '../components/projects/projectDisplay.vue')
 const CodeTerminal = () => import(/* webpackChunkName: "CodeTerminal" */ '../components/projects/CodeTerminal.vue')
 
 
@@ -2057,7 +2059,15 @@ children:[
                   {
                     path:'add-git',
                     component: AddGit
-                  }
+                  },
+                  {
+                    path:'contributors',
+                    component: Contributors
+                  },
+                  {
+                    path:'project-display',
+                    component:ProjectDisplay
+                  },
 
                ]
     },

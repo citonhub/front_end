@@ -217,9 +217,17 @@ export default {
       },
       goToPanel:function(project){
 
-          this.$router.push({ path: '/board/projects/panel/' + project.project_slug });
+         this.$router.push({ path: '/board/projects/panel/' + project.project_slug });
+ //this.$router.push({ path: '/board/projects/panel/'+ project.project_slug + '/panel-loader'});
+
+  //this.$root.projectPanelComponent.showSideBar = false
+       // this.$router.push({path: '/board/projects/panel/' + project.project_slug + '/project-display'})
 
       },
+
+      loadPage:function(){
+       this.$router.push({ path: '/board/projects/panel/'+ this.$route.params.project_slug + '/panel-loader'});
+   },
       shareProject:function(project){
           
           this.$root.shareLink =  'https://link.citonhub.com/project/'+ project.project_slug;

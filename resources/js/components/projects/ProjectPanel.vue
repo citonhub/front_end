@@ -21,7 +21,7 @@
            </div>
             <div class="col-4 py-0 my-0 d-flex" style="align-items:center;justify-content:center;">
 
-            <v-btn small rounded color="#4BB543" outlined>
+            <v-btn @click="openLoader" small rounded color="#4BB543" outlined>
 
                <div class="mx-1">
                     <v-icon>
@@ -50,9 +50,11 @@
 
                </template>
 
-               <v-btn @click="openMembers">show</v-btn>
+               <v-btn icon @click="openMembers">
+                 <v-icon style="font-size:25px;">las la-users</v-icon>
+               </v-btn>
 
-               <v-btn @click="openGit()" icon>
+               <v-btn  v-if="this.$root.projectData.project.is_web !== 1" @click="openGit()" icon>
                  <v-icon style="font-size:25px;">lab la-github</v-icon>
                </v-btn>
            <v-btn icon @click="openSettings()"><v-icon style="font-size:25px;">las la-cog</v-icon> </v-btn>
@@ -112,8 +114,8 @@
 
          </div>
 
-          <div class="dymanicComp d-flex flex-row">
-
+          <div class="dymanicComp ">
+<router-view></router-view>
             <div
               class="mr-auto"
                style="background-color: #cccccc;
@@ -137,28 +139,10 @@
 <!-- git -->
 
 
-                               <div v-if="showGit" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32);  left:0; position:fixed; height:100%; top:0%;z-index:999999999999999999;" >
-                                   <div style="position:absolute; height:100%; width:100%; right:0%;" >
-
-                                    <div class=" col-md-4 offset-md-8 px-0 py-0 pb-2" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
-
-                                    <openGit @myEvent="closeGit"></openGit>
-                                    </div>
-
-                                   </div>
-                               </div>
+                            
 
 
-                                  <div v-if="showMember" class="col-12 py-0 px-0" style="background: rgba(27, 27, 30, 0.32);  left:0; position:fixed; height:100%; top:0%;z-index:999999999999999999;" >
-                                   <div style="position:absolute; height:100%; width:100%; right:0%;" >
-
-                                    <div class=" col-md-3 offset-md-9 px-0 py-0 pb-2" style="background:white;height:100%; overflow-y:auto; overflow-x:hidden;" >
-
-                                    <showContributor></showContributor>
-                                    </div>
-
-                                   </div>
-                               </div>
+                                
 
 
 </div>
@@ -219,6 +203,7 @@ import 'izitoast/dist/css/iziToast.min.css'
       this.$root.codeEditorContent = '';
      this.fetchProjectData();
       this.$root.projectPanelComponent = this;
+      this.openLoader()
 
     },
     methods:{
@@ -534,13 +519,13 @@ document.addEventListener("mouseup", function(){
 
             this.filesAreReady = true;
 
-          if(this.$root.projectData.project.is_web){
+          // if(this.$root.projectData.project.is_web){
 
-                      this.showEditor(this.$root.projectData.project_files.code_files[0],'front-end');
+          //             this.showEditor(this.$root.projectData.project_files.code_files[0],'front-end');
 
-                   }else{
-                       this.showEditor(this.$root.projectData.project_files.code_files[0],'code-file');
-                   }
+          //          }else{
+          //              this.showEditor(this.$root.projectData.project_files.code_files[0],'code-file');
+          //          }
 
 
          this.loadingProject = false;
@@ -657,12 +642,19 @@ document.addEventListener("mouseup", function(){
       },
 
        openGit(){
-        //    this.$root.projectPanelComponent.showSideBar = false
-       //  this.$router.push({path: '/board/projects/panel/' + this.$root.projectData.project.project_slug + '/add-git'})
-       this.showGit=true
+           this.$root.projectPanelComponent.showSideBar = false
+        this.$router.push({path: '/board/projects/panel/' + this.$root.projectData.project.project_slug + '/add-git'})
+     //  this.showGit=true
       },
+openLoader(){
+  this.$root.projectPanelComponent.showSideBar = false
+        this.$router.push({path: '/board/projects/panel/' + this.$root.projectData.project.project_slug + '/project-display'})
+},
+      
       openMembers(){
-        this.showMember=true
+       // this.showMember=true
+         this.$root.projectPanelComponent.showSideBar = false
+        this.$router.push({path: '/board/projects/panel/' + this.$root.projectData.project.project_slug + '/contributors'})
       }
     }
   }

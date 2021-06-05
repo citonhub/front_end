@@ -50,10 +50,12 @@
 
  <template v-if="newGitRepo" >
 
-     <div class="mb-1 mt-3 text-center col-10 offset-1">
-         <p >Create a github repository for your project to access version control features.</p>
+     <div class="mb-1 mt-5 col-12 ml-3">
+         <p >Create a github repository for your project
+           <br>
+            to access version control features.</p>
 
-          <div class="text-center mb-4">
+          <div class=" mb-4">
                           <v-btn @click=" newGitRepo=false" small color="#3C87CD" style="color:white;font-family:BodyFont;font-size:11px;" class="mx-2 d-inline-block" rounded>Create Repo</v-btn>
                      </div>
      </div>

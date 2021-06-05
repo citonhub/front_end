@@ -1,5 +1,5 @@
 <template>
-<div style="background:transparent; font-family:BodyFont;">
+<div  style="background:transparent; font-family:BodyFont;">
 
      <!-- shows when page content is loading -->
 
