@@ -26,5 +26,4 @@ php artisan serve
 
 ## Live website
 
-https://www.citonhub.com - automatic!
-[CitonHub](http://citonhub.com)
+https://www.citonhub.com
